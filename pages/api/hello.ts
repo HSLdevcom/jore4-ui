@@ -2,6 +2,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+// eslint-disable-next-line import/no-default-export
 export default (req: NextApiRequest, res: NextApiResponse) => {
   res.status(200).json({ name: 'John Doe' });
 };
