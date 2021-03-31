@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  frontend-qa:
+    name: Run QA related things for frontend
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies && check that lockfile is up-to-date
+        run: yarn --frozen-lockfile
+
+      - name: Check ts syntax
+        run: yarn ts:check
+
+      - name: Check that code matches prettier's settings
+        run: yarn prettier:check
+
+      - name: Check that code matches linter's config
+        run: yarn lint:all
