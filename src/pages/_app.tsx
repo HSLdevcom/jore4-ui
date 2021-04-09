@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
+import { Router } from '../components/Router';
 import '../styles/globals.css';
-import { Router } from './components/Router';
 
 function SafeHydrate({ children }: { children: JSX.Element }) {
   return (
