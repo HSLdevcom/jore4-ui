@@ -8,8 +8,7 @@
     "ts:check": "yarn tsc --noEmit",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
-    "lint": "eslint --max-warnings=0",
-    "lint:all": "yarn lint './src/**/*.{ts,tsx}'",
+    "lint": "eslint './src/**/*.{ts,tsx}' --max-warnings=0",
     "start": "next start"
   },
   "dependencies": {

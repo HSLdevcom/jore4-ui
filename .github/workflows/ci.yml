@@ -25,4 +25,4 @@ jobs:
         run: yarn prettier:check
 
       - name: Check that code matches linter's config
-        run: yarn lint:all
+        run: yarn lint
