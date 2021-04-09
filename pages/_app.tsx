@@ -12,6 +12,7 @@ function SafeHydrate({ children }: { children: JSX.Element }) {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SafeHydrate>
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Component {...pageProps} />
     </SafeHydrate>
   );
