@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
-import { Main } from '../Main';
+import { Main } from './Main';
 
 function ExampleRoute() {
   return <h2>Example route</h2>;

@@ -9,7 +9,7 @@
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "lint": "eslint --max-warnings=0",
-    "lint:all": "yarn lint './pages/**/*.{ts,tsx}'",
+    "lint:all": "yarn lint './src/**/*.{ts,tsx}'",
     "start": "next start"
   },
   "dependencies": {

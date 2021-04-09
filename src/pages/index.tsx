@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import '../i18n';
 import styles from '../styles/Home.module.css';
 
 // eslint-disable-next-line import/no-default-export
