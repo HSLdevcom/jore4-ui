@@ -1,0 +1,9 @@
+{
+  "example": "Jore4 käyttöliittymä",
+  "chooseLanguage": "Sovelluksen kieli",
+  "languages": {
+    "fi-FI": "Suomi",
+    "en-US": "Englanti"
+  },
+  "version": "Versio: {{ version }}"
+}
