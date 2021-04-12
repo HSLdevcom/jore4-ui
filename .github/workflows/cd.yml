@@ -1,0 +1,56 @@
+name: Docker Build & Push
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  push_to_registry:
+    name: Build & Push docker image to dockerhub
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Extract branch name to env variable # https://github.community/t/run-step-on-if-branch-tag-is/16965/5
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
+
+      - name: Set environment variables
+        run: |
+          echo "IMAGE_NAME=hsldevcom/jore4-ui" >> $GITHUB_ENV
+          echo "COMMIT_ID=$BRANCH_NAME-$GITHUB_SHA" >> $GITHUB_ENV
+
+      - name: Pull previous image to support caching
+        run: docker pull $IMAGE_NAME:builder || echo "Previous builder image not found"
+
+      - name: Build dependencies & source code into builder image to support caching
+        run: docker build --cache-from=$IMAGE_NAME:builder --target build -t $IMAGE_NAME:builder --build-arg NEXT_PUBLIC_GIT_HASH=$GITHUB_SHA .
+
+      - name: Build docker image for distribution
+        run: docker build --cache-from=$IMAGE_NAME:builder --cache-from=$IMAGE_NAME:latest -t $IMAGE_NAME:dev --build-arg NEXT_PUBLIC_GIT_HASH=$GITHUB_SHA .
+
+      - name: Tag docker image as 'latest'
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: docker tag $IMAGE_NAME:dev $IMAGE_NAME:latest
+
+      - name: Tag docker image as '<branch_name>-<git_commit_sha>'
+        run: docker tag $IMAGE_NAME:dev $IMAGE_NAME:$COMMIT_ID
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.JORE4_DOCKERHUB_USER }}
+          password: ${{ secrets.JORE4_DOCKERHUB_TOKEN }}
+
+      - name: Push image tagged with git commit details to Docker Hub
+        run: docker push $IMAGE_NAME:$COMMIT_ID
+
+      - name: Push rest of the tags to Docker Hub
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          docker push $IMAGE_NAME:builder
+          docker push $IMAGE_NAME:latest
