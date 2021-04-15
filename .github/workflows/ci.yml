@@ -26,3 +26,6 @@ jobs:
 
       - name: Check that code matches linter's config
         run: yarn lint
+
+      - name: Run tests
+        run: yarn test
