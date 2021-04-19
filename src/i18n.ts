@@ -2,7 +2,7 @@ import i18next, { Resource } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 export type SupportedLocale = 'fi-FI' | 'en-US';
-export const defaultLocale: SupportedLocale = 'en-US';
+export const defaultLocale: SupportedLocale = 'fi-FI';
 
 const modules = ['common'];
 const locales = ['fi-FI', 'en-US'];
