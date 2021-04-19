@@ -1,6 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { i18n } from '../i18n';
 
+export const testIds = {
+  changeLanguageButton: 'simpleLanguageChooser:changeLanguage',
+};
+
 export const SimpleLanguageChooser = (): JSX.Element => {
   const { t } = useTranslation();
   const currentLanguage = i18n.language;
@@ -14,6 +18,7 @@ export const SimpleLanguageChooser = (): JSX.Element => {
       <button
         type="button"
         onClick={() => i18n.changeLanguage(anotherLanguage)}
+        data-testid={testIds.changeLanguageButton}
       >
         {changeLanguageText}
       </button>
