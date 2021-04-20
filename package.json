@@ -10,6 +10,7 @@
     "prettier:check": "prettier --check .",
     "lint": "eslint './src/**/*.{ts,tsx}' --max-warnings=0",
     "test": "jest --ci",
+    "qa": "yarn --frozen-lockfile && yarn ts:check && yarn prettier:check && yarn lint && yarn test",
     "start": "next start"
   },
   "dependencies": {
