@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Main } from './Main';
+import { Navbar } from './Navbar';
 
 function ExampleRoute() {
   return <h2>Example route</h2>;
@@ -9,17 +10,7 @@ function ExampleRoute() {
 export const Router: FunctionComponent = () => {
   return (
     <BrowserRouter>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/example-route">Example route</Link>
-          </li>
-        </ul>
-      </nav>
-
+      <Navbar />
       <Switch>
         <Route path="/" exact>
           <Main />
