@@ -13,7 +13,7 @@ export const SimpleLanguageChooser = (): JSX.Element => {
   const changeLanguageText =
     currentLanguage === 'fi-FI' ? t('languages.en-US') : t('languages.fi-FI');
   return (
-    <div>
+    <div className="mt-2">
       <p>{t('chooseLanguage')}</p>
       <button
         type="button"
