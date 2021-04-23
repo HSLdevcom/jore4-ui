@@ -29,6 +29,7 @@ export const Navbar: FunctionComponent = () => {
           <NavLink
             to={path}
             className="py-5 mx-5 text-white border-b-4 border-transparent hover:border-white"
+            activeClassName="!border-white"
             exact
           >
             {title}
