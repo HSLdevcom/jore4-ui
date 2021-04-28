@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink } from 'react-router-dom';
-import { routes } from '../routes';
+import { routes } from '../../routes';
+import { LanguageDropdown } from './LanguageDropdown';
 
 export const Navbar: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -30,6 +31,10 @@ export const Navbar: FunctionComponent = () => {
             </NavLink>
           </div>
         ))}
+      <LanguageDropdown
+        className="ml-auto border-black border-opacity-20 "
+        style={{ borderLeftWidth: '1px' }}
+      />
     </nav>
   );
 };
