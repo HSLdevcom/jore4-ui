@@ -1,13 +1,11 @@
 {
-  "example": "Jore4 käyttöliittymä",
-  "chooseLanguage": "Sovelluksen kieli",
   "languages": {
     "fi-FI": "Suomi",
     "en-US": "Englanti"
   },
   "routes": {
     "root": "Etusivu",
-    "example": "Esimerkki"
+    "example": "Esimerkkisivu"
   },
   "version": "Versio: {{ version }}"
 }
