@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { LanguageDropdown } from './LanguageDropdown';
 import { NavLinks } from './NavLinks';
 
 export const Navbar: FunctionComponent = () => {
@@ -16,6 +17,7 @@ export const Navbar: FunctionComponent = () => {
         />
       </Link>
       <NavLinks />
+      <LanguageDropdown className="ml-auto" />
     </nav>
   );
 };
