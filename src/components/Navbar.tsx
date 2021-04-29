@@ -1,17 +1,18 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink } from 'react-router-dom';
+import { routes as routeDefinitions } from '../routes';
 
 export const Navbar: FunctionComponent = () => {
   const { t } = useTranslation();
   const routes = [
     {
       title: t('routes.root'),
-      path: '/',
+      path: routeDefinitions['/'].getLink(),
     },
     {
       title: 'Example route',
-      path: '/example-route',
+      path: routeDefinitions['/example'].getLink(),
     },
   ];
   return (
