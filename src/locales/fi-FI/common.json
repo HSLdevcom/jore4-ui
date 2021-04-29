@@ -6,7 +6,8 @@
     "en-US": "Englanti"
   },
   "routes": {
-    "root": "Etusivu"
+    "root": "Etusivu",
+    "example": "Esimerkki"
   },
   "version": "Versio: {{ version }}"
 }
