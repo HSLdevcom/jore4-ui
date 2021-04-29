@@ -5,5 +5,9 @@
     "fi-FI": "Finnish",
     "en-US": "English"
   },
+  "routes": {
+    "root": "Main page",
+    "example": "Example page"
+  },
   "version": "Version: {{ version }}"
 }
