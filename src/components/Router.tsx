@@ -2,7 +2,7 @@
 import React, { FunctionComponent } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { routes } from 'routes';
-import { Navbar } from './Navbar';
+import { Navbar } from './navbar';
 
 export const Router: FunctionComponent = () => {
   return (

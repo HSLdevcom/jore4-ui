@@ -1,20 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, NavLink } from 'react-router-dom';
-import { routes } from '../routes';
+import { NavLink } from 'react-router-dom';
+import { routes } from '../../routes';
 
-export const Navbar: FunctionComponent = () => {
+export const NavLinks: FunctionComponent = () => {
   const { t } = useTranslation();
   return (
-    <nav className="flex flex-row bg-brand items-center">
-      <Link to="/" aria-label={t('routes.root')}>
-        <img
-          src="/nav-logo.svg"
-          style={{ height: 40, marginLeft: 29 }}
-          alt=""
-          className="pr-5"
-        />
-      </Link>
+    <>
       {Object.values(routes)
         .filter((item) => item.includeInNav)
         .map(({ translationKey, getLink }) => (
@@ -30,6 +22,6 @@ export const Navbar: FunctionComponent = () => {
             </NavLink>
           </div>
         ))}
-    </nav>
+    </>
   );
 };
