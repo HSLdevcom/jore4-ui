@@ -26,7 +26,7 @@ export const LanguageDropdown: FunctionComponent<Props> = ({ className }) => {
         {({ open }) => (
           <>
             <Menu.Button
-              className="h-full border-b-4 border-transparent hover:border-white mx-4 px-3 focus:outline-none"
+              className="mx-4 px-3 h-full border-b-4 border-transparent hover:border-white focus:outline-none"
               data-testid={testIds.openDropdown}
             >
               {currentLanguageText}
@@ -43,9 +43,9 @@ export const LanguageDropdown: FunctionComponent<Props> = ({ className }) => {
             >
               <Menu.Items
                 static
-                className="absolute right-0 w-full origin-top-right bg-brand rounded-b-md shadow-md border-black border-t border-opacity-20 focus:outline-none"
+                className="absolute right-0 w-full bg-brand border-t border-black border-opacity-20 rounded-b-md focus:outline-none shadow-md origin-top-right"
               >
-                <div className="my-4 ">
+                <div className="my-4">
                   <Menu.Item>
                     {({ active }) => (
                       <button

@@ -12,7 +12,7 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <footer className="flex mt-6 justify-center">
+      <footer className="flex justify-center mt-6">
         <p>{t('version', { version: process.env.NEXT_PUBLIC_GIT_HASH })}</p>
       </footer>
     </div>
