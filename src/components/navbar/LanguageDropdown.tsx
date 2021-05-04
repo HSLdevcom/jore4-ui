@@ -43,7 +43,7 @@ export const LanguageDropdown: FunctionComponent<Props> = ({ className }) => {
             >
               <Menu.Items
                 static
-                className="absolute right-0 w-full origin-top-right bg-brand rounded-b-md shadow-md border-green-500 border-t border-opacity-20 focus:outline-none"
+                className="absolute right-0 w-full origin-top-right bg-brand rounded-b-md shadow-md border-black border-t border-opacity-20 focus:outline-none"
               >
                 <div className="my-4 ">
                   <Menu.Item>
