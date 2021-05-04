@@ -5,10 +5,10 @@ import { NavLinks } from './NavLinks';
 
 export const Navbar: FunctionComponent = () => {
   return (
-    <nav className="flex flex-row bg-brand items-center">
+    <nav className="flex flex-row items-center bg-brand">
       <BrandLogo className="pr-5" style={{ marginLeft: 29 }} />
       <NavLinks />
-      <LanguageDropdown className="ml-auto border-black border-l border-opacity-20" />
+      <LanguageDropdown className="ml-auto border-l border-black border-opacity-20" />
     </nav>
   );
 };
