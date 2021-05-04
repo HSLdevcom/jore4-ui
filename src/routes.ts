@@ -2,7 +2,7 @@ import { Main } from 'components/Main';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router-dom';
 
-enum Path {
+export enum Path {
   root = '/',
   example = '/example',
   exampleResource = '/example/:id',
