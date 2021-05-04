@@ -16,6 +16,7 @@ module.exports = {
   variants: {
     extend: {
       borderColor: ['important'],
+      borderRadius: ['important'],
     },
   },
   plugins: [

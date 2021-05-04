@@ -50,8 +50,8 @@ export const LanguageDropdown: FunctionComponent<Props> = ({ className }) => {
                     {({ active }) => (
                       <button
                         className={`${
-                          active ? 'bg-brand-darker' : ''
-                        } group rounded-md items-center text-center w-full px-4 py-2 focus:outline-none`}
+                          active ? 'bg-brand-darker !rounded-none' : ''
+                        } group rounded-md items-center text-center w-full px-4 py-2  focus:outline-none`}
                         type="button"
                         onClick={() => i18n.changeLanguage(anotherLanguage)}
                       >
