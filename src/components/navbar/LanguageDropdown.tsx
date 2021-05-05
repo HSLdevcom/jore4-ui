@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import React, { Fragment, FunctionComponent } from 'react';
-import { i18n } from '../../i18n';
+import { useTranslation } from 'react-i18next';
 
 export const testIds = {
   openDropdown: 'languageDropdown:openDropdown',
@@ -11,6 +11,7 @@ interface Props {
 }
 
 export const LanguageDropdown: FunctionComponent<Props> = ({ className }) => {
+  const { i18n } = useTranslation();
   const currentLanguage = i18n.language;
   // TODO: this is is naive implementation and won't work if we have more than 2 supported languages at some point
   const anotherLanguage = currentLanguage === 'fi-FI' ? 'en-US' : 'fi-FI';
