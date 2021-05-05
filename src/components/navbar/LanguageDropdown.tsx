@@ -27,10 +27,17 @@ export const LanguageDropdown: FunctionComponent<Props> = ({ className }) => {
         {({ open }) => (
           <>
             <Menu.Button
-              className="mx-4 px-3 h-full border-b-4 border-transparent hover:border-white focus:outline-none"
+              className="flex items-center mx-4 px-3 h-full border-b-4 border-transparent hover:border-white focus:outline-none"
               data-testid={testIds.openDropdown}
             >
               {currentLanguageText}
+              <img
+                src="/icons/chevron-down.png"
+                className={`ml-2 h-1.5 transform transition duration-150 ease-in-out ${
+                  open ? '-rotate-180' : 'rotate-0'
+                }`}
+                alt=""
+              />
             </Menu.Button>
             <Transition
               show={open}
