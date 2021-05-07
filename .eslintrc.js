@@ -60,6 +60,25 @@ module.exports = {
       // allow importing dev dependencies in test files
       { devDependencies: ['**/*.spec.ts', '**/*.spec.tsx'] },
     ],
+    'import/order': [
+      // require imports to be sorted like vscode automatically does with its "organize imports" feature.
+      // https://code.visualstudio.com/docs/languages/typescript#_organize-imports
+      'error',
+      {
+        alphabetize: {
+          order: 'asc',
+        },
+        'newlines-between': 'never',
+        groups: [
+          ['external', 'builtin'],
+          'internal',
+          'parent',
+          'sibling',
+          'index',
+          'object',
+        ],
+      },
+    ],
     'react/react-in-jsx-scope': 'off', // not needed with next.js: https://stackoverflow.com/a/61160875
     'react-hooks/rules-of-hooks': 'error', // enforce best practices with react hoooks
     'react-hooks/exhaustive-deps': 'error', // enforce best practices with react hoooks: https://github.com/facebook/create-react-app/issues/6880#issuecomment-485912528
