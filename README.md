@@ -31,6 +31,8 @@ If you want to run prettier manually for some reason you can run `yarn prettier`
 
 We have enabled `eslint` with opionated rulesets for keeping code style clean & consistent and for avoiding certain mistakes. Eslint can be run with `yarn lint`. It is highly recommended for developers to use eslint extension with their editors so that they can see linting errors instantly when writing code.
 
+Eslint can fix certain linting errors automatically when ran with `--fix` flag, e.g. `yarn lint --fix`.
+
 ### Local tests
 
 For tests we use `jest`, `ts-jest` and `@testing-library/react`.
