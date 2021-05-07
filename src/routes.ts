@@ -1,6 +1,6 @@
-import { Main } from 'components/Main';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router-dom';
+import { Main } from './components/Main';
 
 export enum Path {
   root = '/',

@@ -50,6 +50,8 @@ If you use VSCode, following plugins are recommended:
 - [dbaeumer.vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) for showing linting errors within the code
 - [bradlc.vscode-tailwindcss](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) for adding Tailwind suggestions to IntelliSense
 
+It is also recommended to enable [organize imports](https://code.visualstudio.com/docs/languages/typescript#_organize-imports) feature so that imports will we ordered as linter wants automatically.
+
 ## Docker image
 
 Docker image can be tested locally like this:
