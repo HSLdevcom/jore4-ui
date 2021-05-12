@@ -1,4 +1,4 @@
-# jore4-frontend
+# jore4-ui
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 Server-side rendering of Next.js is disabled as in this project it does not offer benefits wich could justify added complexity.
