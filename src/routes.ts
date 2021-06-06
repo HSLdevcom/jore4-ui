@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router-dom';
-import { Main } from './components/Main';
+import { Welcome } from './components/Welcome';
 
 export enum Path {
   root = '/',
@@ -41,7 +41,7 @@ export const routes: Record<Path, Route> = {
     _exact: true,
     translationKey: 'routes.root',
     getLink: () => Path.root,
-    component: Main,
+    component: Welcome,
     includeInNav: true,
   },
   [Path.example]: {
