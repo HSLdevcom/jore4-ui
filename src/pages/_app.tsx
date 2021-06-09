@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import { Router } from '../components/Router';
 import '../styles/globals.css';
+import { UserContextProvider } from '../context/UserContextProvider';
 
 function SafeHydrate({ children }: { children: JSX.Element }) {
   return (
@@ -13,11 +14,11 @@ function SafeHydrate({ children }: { children: JSX.Element }) {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SafeHydrate>
-      <div>
+      <UserContextProvider>
         <Router />
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <Component {...pageProps} />
-      </div>
+      </UserContextProvider>
     </SafeHydrate>
   );
 }
