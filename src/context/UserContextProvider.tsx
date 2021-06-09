@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useReducer } from 'react';
+import { FC, useCallback, useEffect, useReducer } from 'react';
 import { Api } from '../api';
 import { UserContext } from './UserContext';
 import {
@@ -8,11 +8,7 @@ import {
   userReducer,
 } from './UserReducer';
 
-interface Props {
-  children: ReactNode;
-}
-
-export const UserContextProvider = ({ children }: Props): JSX.Element => {
+export const UserContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, initialUserState);
 
   const getUserInfo = useCallback(async () => {

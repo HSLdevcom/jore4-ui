@@ -7,5 +7,9 @@
     "root": "Etusivu",
     "example": "Esimerkkisivu"
   },
+  "navigation": {
+    "logout": "Kirjaudu ulos",
+    "user": "Käyttäjä"
+  },
   "version": "Versio: {{ version }}"
 }
