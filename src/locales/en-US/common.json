@@ -7,5 +7,8 @@
     "root": "Main page",
     "example": "Example page"
   },
+  "navigation": {
+    "logout": "Log out"
+  },
   "version": "Version: {{ version }}"
 }
