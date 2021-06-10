@@ -1,7 +1,9 @@
+import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import { Router } from '../components/Router';
-import '../styles/globals.css';
 import { UserContextProvider } from '../context/UserContextProvider';
+import { GQLClient } from '../graphql';
+import '../styles/globals.css';
 
 function SafeHydrate({ children }: { children: JSX.Element }) {
   return (
@@ -14,11 +16,13 @@ function SafeHydrate({ children }: { children: JSX.Element }) {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SafeHydrate>
-      <UserContextProvider>
-        <Router />
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <Component {...pageProps} />
-      </UserContextProvider>
+      <ApolloProvider client={GQLClient}>
+        <UserContextProvider>
+          <Router />
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Component {...pageProps} />
+        </UserContextProvider>
+      </ApolloProvider>
     </SafeHydrate>
   );
 }

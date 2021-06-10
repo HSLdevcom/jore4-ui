@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router-dom';
 import { Main } from './components/Main';
+import { ExampleMarkers } from './components/map';
 
 export enum Path {
   root = '/',
@@ -17,10 +18,6 @@ interface Route {
   includeInNav?: boolean;
   component: React.ComponentType;
 }
-
-const ExampleRoute: FunctionComponent = () => {
-  return React.createElement('h2', null, 'Example route');
-};
 
 const ExampleResourceRoute: FunctionComponent = () => {
   const { id } = useParams<{ id: string }>();
@@ -49,7 +46,7 @@ export const routes: Record<Path, Route> = {
     _exact: true,
     translationKey: 'routes.example',
     getLink: () => Path.example,
-    component: ExampleRoute,
+    component: ExampleMarkers,
     includeInNav: true,
   },
   [Path.exampleResource]: {
