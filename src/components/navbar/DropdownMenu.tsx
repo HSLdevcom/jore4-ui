@@ -4,7 +4,6 @@ import React, { Fragment, ReactElement, ReactNode } from 'react';
 interface Props {
   buttonContent: ReactNode;
   children: ReactNode;
-  // eslint-disable-next-line react/require-default-props
   testId?: string;
 }
 
