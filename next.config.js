@@ -14,4 +14,8 @@ module.exports = {
       },
     ];
   },
+  future: {
+    // webpack5 support seems to be needed in order to get leaflet running with next
+    webpack5: true,
+  },
 };

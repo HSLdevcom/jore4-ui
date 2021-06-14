@@ -393,6 +393,19 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
+export type InsertPointMutationVariables = Exact<{
+  geojson: Scalars['geography'];
+}>;
+
+
+export type InsertPointMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_playground_points_one?: Maybe<(
+    { __typename?: 'playground_points' }
+    & Pick<Playground_Points, 'point_id' | 'point_geog'>
+  )> }
+);
+
 export type SubscribeAllPointsSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -405,6 +418,40 @@ export type SubscribeAllPointsSubscription = (
 );
 
 
+export const InsertPointDocument = gql`
+    mutation InsertPoint($geojson: geography!) {
+  insert_playground_points_one(object: {point_geog: $geojson}) {
+    point_id
+    point_geog
+  }
+}
+    `;
+export type InsertPointMutationFn = Apollo.MutationFunction<InsertPointMutation, InsertPointMutationVariables>;
+
+/**
+ * __useInsertPointMutation__
+ *
+ * To run a mutation, you first call `useInsertPointMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertPointMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertPointMutation, { data, loading, error }] = useInsertPointMutation({
+ *   variables: {
+ *      geojson: // value for 'geojson'
+ *   },
+ * });
+ */
+export function useInsertPointMutation(baseOptions?: Apollo.MutationHookOptions<InsertPointMutation, InsertPointMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertPointMutation, InsertPointMutationVariables>(InsertPointDocument, options);
+      }
+export type InsertPointMutationHookResult = ReturnType<typeof useInsertPointMutation>;
+export type InsertPointMutationResult = Apollo.MutationResult<InsertPointMutation>;
+export type InsertPointMutationOptions = Apollo.BaseMutationOptions<InsertPointMutation, InsertPointMutationVariables>;
 export const SubscribeAllPointsDocument = gql`
     subscription SubscribeAllPoints {
   playground_points {
