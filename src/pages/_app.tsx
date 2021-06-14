@@ -1,4 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
+import 'leaflet/dist/leaflet.css';
 import type { AppProps } from 'next/app';
 import { Router } from '../components/Router';
 import { UserContextProvider } from '../context/UserContextProvider';
