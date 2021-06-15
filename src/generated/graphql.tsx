@@ -393,11 +393,11 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
-export type PlaygroundPointsQueryQueryVariables = Exact<{ [key: string]: never; }>;
+export type SubscribeAllPointsSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlaygroundPointsQueryQuery = (
-  { __typename?: 'query_root' }
+export type SubscribeAllPointsSubscription = (
+  { __typename?: 'subscription_root' }
   & { playground_points: Array<(
     { __typename?: 'playground_points' }
     & Pick<Playground_Points, 'point_geog' | 'point_id'>
@@ -405,8 +405,8 @@ export type PlaygroundPointsQueryQuery = (
 );
 
 
-export const PlaygroundPointsQueryDocument = gql`
-    query PlaygroundPointsQuery {
+export const SubscribeAllPointsDocument = gql`
+    subscription SubscribeAllPoints {
   playground_points {
     point_geog
     point_id
@@ -415,28 +415,23 @@ export const PlaygroundPointsQueryDocument = gql`
     `;
 
 /**
- * __usePlaygroundPointsQueryQuery__
+ * __useSubscribeAllPointsSubscription__
  *
- * To run a query within a React component, call `usePlaygroundPointsQueryQuery` and pass it any options that fit your needs.
- * When your component renders, `usePlaygroundPointsQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useSubscribeAllPointsSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useSubscribeAllPointsSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = usePlaygroundPointsQueryQuery({
+ * const { data, loading, error } = useSubscribeAllPointsSubscription({
  *   variables: {
  *   },
  * });
  */
-export function usePlaygroundPointsQueryQuery(baseOptions?: Apollo.QueryHookOptions<PlaygroundPointsQueryQuery, PlaygroundPointsQueryQueryVariables>) {
+export function useSubscribeAllPointsSubscription(baseOptions?: Apollo.SubscriptionHookOptions<SubscribeAllPointsSubscription, SubscribeAllPointsSubscriptionVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PlaygroundPointsQueryQuery, PlaygroundPointsQueryQueryVariables>(PlaygroundPointsQueryDocument, options);
+        return Apollo.useSubscription<SubscribeAllPointsSubscription, SubscribeAllPointsSubscriptionVariables>(SubscribeAllPointsDocument, options);
       }
-export function usePlaygroundPointsQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PlaygroundPointsQueryQuery, PlaygroundPointsQueryQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PlaygroundPointsQueryQuery, PlaygroundPointsQueryQueryVariables>(PlaygroundPointsQueryDocument, options);
-        }
-export type PlaygroundPointsQueryQueryHookResult = ReturnType<typeof usePlaygroundPointsQueryQuery>;
-export type PlaygroundPointsQueryLazyQueryHookResult = ReturnType<typeof usePlaygroundPointsQueryLazyQuery>;
-export type PlaygroundPointsQueryQueryResult = Apollo.QueryResult<PlaygroundPointsQueryQuery, PlaygroundPointsQueryQueryVariables>;
+export type SubscribeAllPointsSubscriptionHookResult = ReturnType<typeof useSubscribeAllPointsSubscription>;
+export type SubscribeAllPointsSubscriptionResult = Apollo.SubscriptionResult<SubscribeAllPointsSubscription>;

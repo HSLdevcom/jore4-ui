@@ -1,15 +1,10 @@
-import { useQuery } from '@apollo/client';
 import React, { FunctionComponent } from 'react';
-import {
-  PlaygroundPointsQueryDocument,
-  PlaygroundPointsQueryQuery,
-} from '../../generated/graphql';
+import { useSubscribeAllPointsSubscription } from '../../generated/graphql';
 import { Spinner } from '../Spinner';
 
 export const ExampleMarkers: FunctionComponent = () => {
-  const { loading, error, data } = useQuery<PlaygroundPointsQueryQuery>(
-    PlaygroundPointsQueryDocument,
-  );
+  const { loading, error, data } = useSubscribeAllPointsSubscription();
+
   if (error) {
     return <p>Cannot fetch content. Is hasura running in port 8080?</p>;
   }
