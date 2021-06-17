@@ -1,10 +1,10 @@
 import { ApolloProvider } from '@apollo/client';
-import 'leaflet/dist/leaflet.css';
 import type { AppProps } from 'next/app';
 import { Router } from '../components/Router';
 import { UserContextProvider } from '../context/UserContextProvider';
 import { GQLClient } from '../graphql';
 import '../styles/globals.css';
+import '../leaflet-config';
 
 function SafeHydrate({ children }: { children: JSX.Element }) {
   return (

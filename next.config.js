@@ -1,4 +1,11 @@
-module.exports = {
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable import/no-extraneous-dependencies */
+
+// `next-images` is needed in order to be able to import image files to our
+// src files.
+const withImages = require('next-images');
+
+module.exports = withImages({
   target: 'serverless',
   async rewrites() {
     return [
@@ -14,8 +21,16 @@ module.exports = {
       },
     ];
   },
+  webpack: (config) => {
+    // eslint-disable-next-line no-param-reassign
+    config.experiments = {
+      ...config.experiments,
+      topLevelAwait: true,
+    };
+    return config;
+  },
   future: {
     // webpack5 support seems to be needed in order to get leaflet running with next
     webpack5: true,
   },
-};
+});
