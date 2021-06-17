@@ -1,5 +1,5 @@
 import React from 'react';
-import { CircleMarker } from 'react-leaflet';
+import { Marker } from 'react-leaflet';
 import { useSubscribeAllPointsSubscription } from '../../generated/graphql';
 
 export const CircleLayer: React.FC = () => {
@@ -11,7 +11,7 @@ export const CircleLayer: React.FC = () => {
         // eslint-disable-next-line camelcase
         ({ point_id, point_geog: { coordinates } }) => (
           // eslint-disable-next-line camelcase
-          <CircleMarker key={point_id} center={coordinates} radius={20} />
+          <Marker key={point_id} position={coordinates} />
         ),
       )}
     </>
