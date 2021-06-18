@@ -406,6 +406,33 @@ export type InsertPointMutation = (
   )> }
 );
 
+export type DeletePointMutationVariables = Exact<{
+  point_id: Scalars['uuid'];
+}>;
+
+
+export type DeletePointMutation = (
+  { __typename?: 'mutation_root' }
+  & { delete_playground_points_by_pk?: Maybe<(
+    { __typename?: 'playground_points' }
+    & Pick<Playground_Points, 'point_id'>
+  )> }
+);
+
+export type UpdatePointMutationVariables = Exact<{
+  point_id: Scalars['uuid'];
+  geojson: Scalars['geography'];
+}>;
+
+
+export type UpdatePointMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_playground_points_by_pk?: Maybe<(
+    { __typename?: 'playground_points' }
+    & Pick<Playground_Points, 'point_id' | 'point_geog'>
+  )> }
+);
+
 export type SubscribeAllPointsSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -452,6 +479,77 @@ export function useInsertPointMutation(baseOptions?: Apollo.MutationHookOptions<
 export type InsertPointMutationHookResult = ReturnType<typeof useInsertPointMutation>;
 export type InsertPointMutationResult = Apollo.MutationResult<InsertPointMutation>;
 export type InsertPointMutationOptions = Apollo.BaseMutationOptions<InsertPointMutation, InsertPointMutationVariables>;
+export const DeletePointDocument = gql`
+    mutation DeletePoint($point_id: uuid!) {
+  delete_playground_points_by_pk(point_id: $point_id) {
+    point_id
+  }
+}
+    `;
+export type DeletePointMutationFn = Apollo.MutationFunction<DeletePointMutation, DeletePointMutationVariables>;
+
+/**
+ * __useDeletePointMutation__
+ *
+ * To run a mutation, you first call `useDeletePointMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePointMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePointMutation, { data, loading, error }] = useDeletePointMutation({
+ *   variables: {
+ *      point_id: // value for 'point_id'
+ *   },
+ * });
+ */
+export function useDeletePointMutation(baseOptions?: Apollo.MutationHookOptions<DeletePointMutation, DeletePointMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeletePointMutation, DeletePointMutationVariables>(DeletePointDocument, options);
+      }
+export type DeletePointMutationHookResult = ReturnType<typeof useDeletePointMutation>;
+export type DeletePointMutationResult = Apollo.MutationResult<DeletePointMutation>;
+export type DeletePointMutationOptions = Apollo.BaseMutationOptions<DeletePointMutation, DeletePointMutationVariables>;
+export const UpdatePointDocument = gql`
+    mutation UpdatePoint($point_id: uuid!, $geojson: geography!) {
+  update_playground_points_by_pk(
+    pk_columns: {point_id: $point_id}
+    _set: {point_geog: $geojson}
+  ) {
+    point_id
+    point_geog
+  }
+}
+    `;
+export type UpdatePointMutationFn = Apollo.MutationFunction<UpdatePointMutation, UpdatePointMutationVariables>;
+
+/**
+ * __useUpdatePointMutation__
+ *
+ * To run a mutation, you first call `useUpdatePointMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePointMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePointMutation, { data, loading, error }] = useUpdatePointMutation({
+ *   variables: {
+ *      point_id: // value for 'point_id'
+ *      geojson: // value for 'geojson'
+ *   },
+ * });
+ */
+export function useUpdatePointMutation(baseOptions?: Apollo.MutationHookOptions<UpdatePointMutation, UpdatePointMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdatePointMutation, UpdatePointMutationVariables>(UpdatePointDocument, options);
+      }
+export type UpdatePointMutationHookResult = ReturnType<typeof useUpdatePointMutation>;
+export type UpdatePointMutationResult = Apollo.MutationResult<UpdatePointMutation>;
+export type UpdatePointMutationOptions = Apollo.BaseMutationOptions<UpdatePointMutation, UpdatePointMutationVariables>;
 export const SubscribeAllPointsDocument = gql`
     subscription SubscribeAllPoints {
   playground_points {

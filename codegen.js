@@ -6,7 +6,7 @@ module.exports = {
       'http://localhost:8080/v1/graphql': {},
     },
   ],
-  documents: ['./src/**/*.tsx', './src/**/*.ts'],
+  documents: ['./src/graphql/**/*.tsx', './src/graphql/**/*.ts'],
   overwrite: true,
   generates: {
     './src/generated/graphql.tsx': {
