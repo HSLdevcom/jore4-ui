@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Path, routes } from 'routes';
+import { Path, routes } from '../../routes';
 
 interface Props {
   className?: string;
