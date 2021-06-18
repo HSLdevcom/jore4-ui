@@ -4,7 +4,8 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 COPY ./src ./src
 COPY ./public ./public
-COPY tsconfig.json  ./
+COPY tsconfig.json tailwind.config.js postcss.config.js ./
+
 ARG NEXT_PUBLIC_GIT_HASH=unknown
 RUN yarn build
 
