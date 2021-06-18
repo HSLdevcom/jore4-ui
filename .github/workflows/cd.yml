@@ -63,3 +63,33 @@ jobs:
         run: |
           docker push $IMAGE_NAME:builder
           docker push $IMAGE_NAME:latest
+
+  run_e2e_tests:
+    needs: push_to_registry
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Extract branch name to env variable # https://github.community/t/run-step-on-if-branch-tag-is/16965/5
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
+
+      - name: Set tag for docker image as env variable
+        run: echo "COMMIT_ID=$BRANCH_NAME-$GITHUB_SHA" >> $GITHUB_ENV
+
+      - name: make folder for reports
+        run: mkdir reports
+
+      - name: run e2e smoke tests
+        id: tests
+        uses: HSLdevcom/jore4-robot/.github/action@main
+        with:
+          frontend_version: hsldevcom/jore-ui:$COMMIT_ID
+
+      - name: Retrieve test results from docker container
+        if: always()
+        run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
+
+      - name: Expose test results as an artifact
+        if: always()
+        uses: actions/upload-artifact@v1
+        with:
+          name: reports
+          path: ${{ github.workspace }}/reports
