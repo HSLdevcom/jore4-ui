@@ -1,7 +1,7 @@
 import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
-import { render } from 'test-utils';
 import { i18n } from '../../i18n';
+import { render } from '../../utils/test-utils';
 import { LanguageDropdown, testIds } from './LanguageDropdown';
 
 describe('<LanguageDropdown />', () => {
