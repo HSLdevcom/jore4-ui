@@ -33,7 +33,17 @@ const link = process.browser
     )
   : httpLink;
 
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  typePolicies: {
+    Subscription: {
+      fields: {
+        playground_points: {
+          merge: false,
+        },
+      },
+    },
+  },
+});
 
 const client = new ApolloClient({
   link,
