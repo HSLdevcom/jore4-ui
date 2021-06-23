@@ -21,14 +21,6 @@ module.exports = withImages({
       },
     ];
   },
-  webpack: (config) => {
-    // eslint-disable-next-line no-param-reassign
-    config.experiments = {
-      ...config.experiments,
-      topLevelAwait: true,
-    };
-    return config;
-  },
   future: {
     // webpack5 support seems to be needed in order to get leaflet running with next
     webpack5: true,
