@@ -93,3 +93,33 @@ Icon font can be updated by following these steps:
 
 (**If you rename or remove existing icons**, do global search with old name to make sure that you don't break anything!
 Intellisense doesn't notice if nonexisting icons are used in the project.)
+
+## Experiementing with digiroad network
+
+**This experiment is done mainly for being able to draw stops/routes on map before we have real data available. Thus worflow is quite clumsy and not intended to be used for very long.**
+
+To import digiroad data to local db in order to be able to draw vector tiles on the map:
+
+- Start local db by running`docker-compose up -d postgis`.
+- Import digiroad network by following readme in [`jore4-digiroad-import-experiment`](https://github.com/HSLdevcom/jore4-digiroad-import-experiment/tree/pgrouting) repository's `k_pgrouting` branch. Import network to the previously started db, or then edit `docker-compose.yml` to make `martin` use db of your choice. _Please note that `k_pgrouting` branch is still more or less WIP and thus theres no guarantees that it is going to stay compatible with these steps in the future._
+- Transform digiroad network's geometry to martin-friendly geometry by running following sql statements to your local db. (psql console can be started by running `psql -U postgres -h localhost -d db -p 25432`. If you use db different than the one started in docker-compose, edit connection parameters accordingly.)
+
+```sql
+SELECT AddGeometryColumn('digiroad', 'dr_linkki_k', 'geom_new', 4326, 'LINESTRING', 3);
+UPDATE digiroad.dr_linkki_k SET geom_new = ST_Transform(geom, 4326);
+ALTER TABLE digiroad.dr_linkki_k ALTER COLUMN geom_new SET NOT NULL;
+-- ALTER TABLE digiroad.dr_linkki_k RENAME COLUMN geom TO geom_3067;
+ALTER TABLE digiroad.dr_linkki_k DROP COLUMN geom;
+ALTER TABLE digiroad.dr_linkki_k RENAME COLUMN geom_new TO geom;
+```
+
+```sql
+SELECT AddGeometryColumn('digiroad', 'dr_pysakki', 'geom_new', 4326, 'POINT', 2);
+UPDATE digiroad.dr_pysakki SET geom_new = ST_Transform(geom, 4326);
+ALTER TABLE digiroad.dr_pysakki ALTER COLUMN geom_new SET NOT NULL;
+ALTER TABLE digiroad.dr_pysakki DROP COLUMN geom;
+ALTER TABLE digiroad.dr_pysakki RENAME COLUMN geom_new TO geom;
+```
+
+- Start `martin` to start serving vector tiles locally by running `docker-compose up -d martin`
+- (If road network won't show up in UI, make a small change e.g. to `src/components/map/VectorGridLayer.tsx` file. Usually networks appears on UI after next.js makes hot reload. 🤯)
