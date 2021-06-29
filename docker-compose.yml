@@ -1,0 +1,35 @@
+---
+version: '3.8'
+services:
+  martin:
+    image: urbica/martin
+    restart: unless-stopped
+    ports:
+      - 3100:3000
+    environment:
+      - WATCH_MODE=true
+      - DATABASE_URL=postgres://postgres:password@postgis/db
+    depends_on:
+      - postgis
+    networks:
+      - jore4
+
+  postgis:
+    # Try to match postgis used in Azure to avoid compatability
+    # issues. See which version azure currently supports from documentation:
+    # https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-extensions
+    image: 'postgis/postgis:12-3.0-alpine'
+    restart: 'unless-stopped'
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+    ports:
+      - 25432:5432
+    networks:
+      - jore4
+
+networks:
+  jore4:
