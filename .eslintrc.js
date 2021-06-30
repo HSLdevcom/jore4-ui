@@ -40,6 +40,7 @@ module.exports = {
     'import/no-default-export': 'error', // default exports are bad, prefer named exports
     '@typescript-eslint/explicit-module-boundary-types': 'off', // don't require explicit return values for functions as usually TS can infer those
     'no-shadow': 'off', // this might report false positives with TS: https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-shadow.md#how-to-use
+    'no-unused-expressions': ['error', { allowTernary: true }], // allow expressions like `booleanValue ? doSomething() : doSomethingElse()`
     '@typescript-eslint/no-shadow': ['error'],
     'react/require-default-props': 'off', // default props are going to be deprecated in function components (https://github.com/reactjs/rfcs/pull/107) so it doesn't make sense to enforce them. Use e.g. default values instead.
     'react/prop-types': 'off', // not needed with TypeScript as it checks type compatability already on compile time based

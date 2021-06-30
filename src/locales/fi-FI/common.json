@@ -11,5 +11,9 @@
     "logout": "Kirjaudu ulos",
     "user": "Käyttäjä"
   },
+  "map": {
+    "showRoutes": "Näytä reitit",
+    "showStops": "Näytä pysäkit"
+  },
   "version": "Versio: {{ version }}"
 }

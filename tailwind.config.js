@@ -10,6 +10,8 @@ module.exports = {
       colors: {
         brand: '#007AC9',
         'brand-darker': '#0068ab',
+        'tweaked-brand': '#0074bf',
+        background: '#F2F5F7',
       },
     },
   },
@@ -17,6 +19,7 @@ module.exports = {
     extend: {
       borderColor: ['important'],
       borderRadius: ['important'],
+      borderWidth: ['important'],
     },
   },
   plugins: [
