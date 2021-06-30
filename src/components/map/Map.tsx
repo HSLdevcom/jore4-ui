@@ -2,7 +2,7 @@ import React from 'react';
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import { CircleLayer } from './CircleLayer';
 import { EditLayer } from './EditLayer';
-import { VectorGridLayer } from './VectorGridLayer';
+import { Filters } from './Filters';
 
 export interface Props {
   center?: [number, number];
@@ -23,7 +23,7 @@ export const Map: React.FC<Props> = ({ center = [60.2, 24.94] }) => {
       />
       <CircleLayer />
       <EditLayer />
-      <VectorGridLayer />
+      <Filters position="topleft" />
     </MapContainer>
   );
 };

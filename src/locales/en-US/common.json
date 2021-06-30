@@ -11,5 +11,9 @@
     "logout": "Log out",
     "user": "User"
   },
+  "map": {
+    "showRoutes": "Show routes",
+    "showStops": "Show stops"
+  },
   "version": "Version: {{ version }}"
 }
