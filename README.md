@@ -105,4 +105,3 @@ ALTER TABLE digiroad.dr_pysakki RENAME COLUMN geom_new TO geom;
 ```
 
 - Start `martin` to start serving vector tiles locally by running `docker-compose up -d martin`
-- (If road network won't show up in UI, make a small change e.g. to `src/components/map/VectorGridLayer.tsx` file. Usually networks appears on UI after next.js makes hot reload. 🤯)
