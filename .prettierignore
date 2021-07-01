@@ -5,3 +5,4 @@ out
 # generated graphql schema
 graphql.schema.json
 src/generated/graphql.tsx
+src/fontello/*
