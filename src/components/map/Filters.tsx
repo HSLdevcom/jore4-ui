@@ -1,8 +1,9 @@
 import L from 'leaflet';
 import 'leaflet.vectorgrid';
 import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMap } from 'react-leaflet';
-import { SimpleButton } from '../../uiComponents';
+import { Card, IconToggle } from '../../uiComponents';
 import { Controls, Position } from './Controls';
 
 interface Props {
@@ -50,6 +51,8 @@ export const Filters = ({ position }: Props): JSX.Element => {
     [],
   );
 
+  const { t } = useTranslation();
+
   const onToggleRoutes = () => {
     setShowRoutes(!showRoutes);
     showRoutes
@@ -64,10 +67,25 @@ export const Filters = ({ position }: Props): JSX.Element => {
       : map.removeLayer(vectorGridStops);
   };
 
+  const headingClassName = 'text-base font-bold';
   return (
     <Controls position={position}>
-      <SimpleButton onClick={onToggleRoutes}>Toggle routes</SimpleButton>
-      <SimpleButton onClick={onToggleStops}>Toggle stops</SimpleButton>
+      <Card className="rounded-b-none">
+        <h3 className={headingClassName}>{t('map.showRoutes')}</h3>
+        <IconToggle
+          iconClassName="icon-bus"
+          enabled={showRoutes}
+          onToggle={onToggleRoutes}
+        />
+      </Card>
+      <Card className="!border-t-0 rounded-t-none">
+        <h3 className={headingClassName}>{t('map.showStops')}</h3>
+        <IconToggle
+          iconClassName="icon-bus"
+          enabled={showStops}
+          onToggle={onToggleStops}
+        />
+      </Card>
     </Controls>
   );
 };
