@@ -3,12 +3,10 @@ import 'leaflet.vectorgrid';
 import React, { useMemo, useState } from 'react';
 import { useMap } from 'react-leaflet';
 import { SimpleButton } from '../../uiComponents';
-import { Controls, Position as ControlPosition } from './Controls';
-
-export const Position = ControlPosition;
+import { Controls, Position } from './Controls';
 
 interface Props {
-  position?: ControlPosition;
+  position?: Position;
 }
 
 export const Filters = ({ position }: Props): JSX.Element => {
