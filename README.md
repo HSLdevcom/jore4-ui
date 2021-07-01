@@ -105,3 +105,20 @@ ALTER TABLE digiroad.dr_pysakki RENAME COLUMN geom_new TO geom;
 ```
 
 - Start `martin` to start serving vector tiles locally by running `docker-compose up -d martin`
+
+## Icons
+
+In this project we have saved our svg icons as icon font which is easy to use across the ui.
+
+Current icon font can be previewed by openint (`src/fontello/demo.html`)
+
+Icon font can be updated by following these steps:
+
+- Export desired svg icons from [JORE4 figma](https://www.figma.com/file/ImSTkCqQn0nhVUtMcUm41P/JORE-4.0-UX?node-id=1503%3A53530).
+- Import exsisting icon font to [fontello](https://fontello.com/)
+- Upload new icons to fontello's page. Please check that names of the icons make sense.
+- Export new font from fontello. Replace contents of `src/fontello` with the package that fontello provided.
+- Use new icons where needed. 😎
+
+(**If you rename or remove existing icons**, do global search with old name to make sure that you don't break anything!
+Intellisense doesn't notice if nonexisting icons are used in the project.)
