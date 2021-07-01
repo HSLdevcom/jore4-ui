@@ -33,12 +33,11 @@ export const DropdownMenu = ({
             data-testid={testId}
           >
             {buttonContent}
-            <img
-              src="/icons/chevron-down.png"
-              className={`ml-2 h-1.5 transform transition duration-150 ease-in-out ${
+            <i
+              className={`icon-arrow ml-2 transform transition duration-150 ease-in-out ${
                 open ? '-rotate-180' : 'rotate-0'
               }`}
-              alt=""
+              style={{ fontSize: 10 }}
             />
           </Menu.Button>
           <Transition
