@@ -1,6 +1,6 @@
 import L from 'leaflet';
 import 'leaflet.vectorgrid';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMap } from 'react-leaflet';
 import { Card, IconToggle } from '../../uiComponents';
@@ -51,21 +51,19 @@ export const Filters = ({ position }: Props): JSX.Element => {
     [],
   );
 
-  const { t } = useTranslation();
-
-  const onToggleRoutes = () => {
-    setShowRoutes(!showRoutes);
+  useEffect(() => {
     showRoutes
       ? map.addLayer(vectorGridRoutes)
       : map.removeLayer(vectorGridRoutes);
-  };
+  }, [showRoutes, map, vectorGridRoutes]);
 
-  const onToggleStops = () => {
-    setShowStops(!showStops);
+  useEffect(() => {
     showStops
       ? map.addLayer(vectorGridStops)
       : map.removeLayer(vectorGridStops);
-  };
+  }, [showStops, map, vectorGridStops]);
+
+  const { t } = useTranslation();
 
   const headingClassName = 'text-base font-bold';
   return (
@@ -75,7 +73,7 @@ export const Filters = ({ position }: Props): JSX.Element => {
         <IconToggle
           iconClassName="icon-bus"
           enabled={showRoutes}
-          onToggle={onToggleRoutes}
+          onToggle={setShowRoutes}
         />
       </Card>
       <Card className="!border-t-0 rounded-t-none">
@@ -83,7 +81,7 @@ export const Filters = ({ position }: Props): JSX.Element => {
         <IconToggle
           iconClassName="icon-bus"
           enabled={showStops}
-          onToggle={onToggleStops}
+          onToggle={setShowStops}
         />
       </Card>
     </Controls>
