@@ -3,7 +3,7 @@ import { UserInfo } from '../types/UserInfo';
 
 export interface UserContextData {
   loggedIn: boolean;
-  userInfo: UserInfo | null;
+  userInfo?: UserInfo;
 }
 
 export const UserContext: Context<UserContextData | undefined> = createContext<
