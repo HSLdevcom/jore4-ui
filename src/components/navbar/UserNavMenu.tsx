@@ -36,7 +36,7 @@ export const UserNavMenu: FunctionComponent<Props> = ({ className }) => {
           buttonContent={
             <>
               {userImgElement}
-              {userContext.userInfo.given_name}
+              {userContext.userInfo?.givenName}
             </>
           }
         >
