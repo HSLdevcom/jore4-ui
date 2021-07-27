@@ -1,10 +1,19 @@
-import { ApolloClient, HttpLink, InMemoryCache, split } from '@apollo/client';
+import {
+  ApolloClient,
+  concat,
+  HttpLink,
+  InMemoryCache,
+  split,
+} from '@apollo/client';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
+import { authRoleMiddleware } from './auth';
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:8080/v1/graphql',
+  uri: 'http://localhost:3000/api/hasura/v1/graphql',
 });
+
+const apolloLink = concat(authRoleMiddleware, httpLink);
 
 // because next.js might run this on server-side and websockets aren't
 // supported there, we have to check if we are on browser before
@@ -29,9 +38,9 @@ const link = process.browser
       },
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       wsLink!,
-      httpLink,
+      apolloLink,
     )
-  : httpLink;
+  : apolloLink;
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -51,3 +60,5 @@ const client = new ApolloClient({
 });
 
 export const GQLClient = client;
+
+export * from './auth';
