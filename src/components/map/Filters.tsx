@@ -3,8 +3,11 @@ import 'leaflet.vectorgrid';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMap } from 'react-leaflet';
+import { theme } from '../../generated/theme';
 import { Card, IconToggle } from '../../uiComponents';
 import { Controls, Position } from './Controls';
+
+const { colors } = theme;
 
 interface Props {
   position?: Position;
@@ -23,9 +26,10 @@ export const Filters = ({ position }: Props): JSX.Element => {
         {
           vectorTileLayerStyles: {
             'digiroad.dr_linkki_k': {
-              color: 'blue',
-              fill: true,
-              weight: 2,
+              color: colors.tweakedBrand,
+              fill: false,
+              opacity: 0.6,
+              weight: 5,
             },
           },
         },
@@ -41,9 +45,11 @@ export const Filters = ({ position }: Props): JSX.Element => {
         {
           vectorTileLayerStyles: {
             'digiroad.dr_pysakki': {
-              color: 'red',
-              fill: false,
-              radius: 1,
+              color: colors.stop,
+              fill: true,
+              fillColor: 'white',
+              fillOpacity: 1,
+              radius: 5,
             },
           },
         },
