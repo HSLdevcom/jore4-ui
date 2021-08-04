@@ -7,8 +7,8 @@ on:
   pull_request:
 
 jobs:
-  frontend-qa:
-    name: Run QA related things for frontend
+  qa:
+    name: Run QA related things
     runs-on: ubuntu-20.04
 
     steps:
