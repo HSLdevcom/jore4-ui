@@ -27,5 +27,8 @@ jobs:
       - name: Check that code matches linter's config
         run: yarn lint
 
+      - name: Check that generated style file is up-to-date
+        run: cp src/generated/theme.ts src/generated/existing-theme-file.ts && rm src/generated/theme.ts && yarn generate-theme && cmp src/generated/theme.ts src/generated/existing-theme-file.ts
+
       - name: Run tests
         run: yarn test
