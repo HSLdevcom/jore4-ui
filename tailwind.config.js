@@ -1,6 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const plugin = require('tailwindcss/plugin');
+const theme = require('./theme.js');
+
+const { colors } = theme;
 
 module.exports = {
   purge: ['./src/**/*.{js,ts,jsx,tsx}'], // Tailwind can tree-shake unused styles in production in files defined in these directories
@@ -8,10 +11,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: '#007AC9',
-        'brand-darker': '#0068ab',
-        'tweaked-brand': '#0074bf',
-        background: '#F2F5F7',
+        brand: colors.brand,
+        'brand-darker': colors.brandDarker,
+        'tweaked-brand': colors.tweakedBrand,
+        stop: colors.stop,
+        background: colors.background,
       },
     },
   },
