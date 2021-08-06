@@ -2,6 +2,7 @@ import React, { FunctionComponent, useRef, useState } from 'react';
 import MapGL, { HTMLOverlay, MapEvent, NavigationControl } from 'react-map-gl';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { DRLayer } from './DRLayer';
+import { ExampleRoute } from './ExampleRoute';
 import { MarkerLayer } from './MarkerLayer';
 import { PreRenderedRouteLayer } from './PreRenderedRouteLayer';
 import { StopLayer } from './StopLayer';
@@ -21,6 +22,7 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
 
   const [showRoutes, setShowRoutes] = useState(true);
   const [showPreRenderedRoutes, setShowPreRenderedRoutes] = useState(true);
+  const [showExampleRoute, setShowExampleRoute] = useState(true);
   const [showStops, setShowStops] = useState(true);
 
   // TODO: avoid any type
@@ -55,7 +57,7 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
       <HTMLOverlay
         redraw={() => (
           <FilterPanel
-            className="ml-8 mt-8 w-32"
+            className="ml-8 mt-8 w-48"
             routes={[
               {
                 iconClassName: 'icon-bus',
@@ -66,6 +68,11 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
                 iconClassName: 'icon-route',
                 enabled: showPreRenderedRoutes,
                 onToggle: setShowPreRenderedRoutes,
+              },
+              {
+                iconClassName: 'icon-route',
+                enabled: showExampleRoute,
+                onToggle: setShowExampleRoute,
               },
             ]}
             stops={[
@@ -82,6 +89,7 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
       {showStops && <StopLayer />}
       {/* PreRenderedRouteLayer is used when serving pre-rendered route from mbtiles... */}
       {showPreRenderedRoutes && <PreRenderedRouteLayer />}
+      {showExampleRoute && <ExampleRoute />}
       <NavigationControl style={navStyle} showCompass={false} />
     </MapGL>
   );
