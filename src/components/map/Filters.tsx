@@ -5,6 +5,7 @@ import { useMap } from 'react-leaflet';
 import { theme } from '../../generated/theme';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { Controls, Position } from './Controls';
+import { ExampleRoute } from './ExampleRoute';
 
 const { colors } = theme;
 
@@ -22,6 +23,7 @@ export const Filters = ({ position }: Props): JSX.Element => {
   const map = useMap();
   const [showRoutes, setShowRoutes] = useState(true);
   const [showPreRenderedRoutes, setShowPreRenderedRoutes] = useState(true);
+  const [showExampleRoute, setShowExampleRoute] = useState(true);
   const [showStops, setShowStops] = useState(true);
 
   const vectorGridRoutes = useMemo(
@@ -100,6 +102,11 @@ export const Filters = ({ position }: Props): JSX.Element => {
             enabled: showPreRenderedRoutes,
             onToggle: setShowPreRenderedRoutes,
           },
+          {
+            iconClassName: 'icon-route',
+            enabled: showExampleRoute,
+            onToggle: setShowExampleRoute,
+          },
         ]}
         stops={[
           {
@@ -109,6 +116,7 @@ export const Filters = ({ position }: Props): JSX.Element => {
           },
         ]}
       />
+      {showExampleRoute && <ExampleRoute />}
     </Controls>
   );
 };
