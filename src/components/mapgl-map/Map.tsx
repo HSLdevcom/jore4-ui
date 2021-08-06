@@ -2,6 +2,7 @@ import React, { FunctionComponent, useRef, useState } from 'react';
 import MapGL, { HTMLOverlay, MapEvent, NavigationControl } from 'react-map-gl';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
+import { ExampleRoute } from './ExampleRoute';
 import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
 import { MarkerLayer } from './MarkerLayer';
 import { StopVectorLayer } from './StopVectorLayer';
@@ -21,6 +22,7 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
 
   const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(true);
   const [showInfraLinks, setShowInfraLinks] = useState(true);
+  const [showExampleRoute, setShowExampleRoute] = useState(true);
   const [showStops, setShowStops] = useState(true);
 
   // TODO: avoid any type
@@ -55,7 +57,7 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
       <HTMLOverlay
         redraw={() => (
           <FilterPanel
-            className="ml-8 mt-8 w-32"
+            className="ml-8 mt-8 w-48"
             routes={[
               {
                 iconClassName: 'icon-bus',
@@ -66,6 +68,11 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
                 iconClassName: 'icon-route',
                 enabled: showInfraLinks,
                 onToggle: setShowInfraLinks,
+              },
+              {
+                iconClassName: 'icon-route',
+                enabled: showExampleRoute,
+                onToggle: setShowExampleRoute,
               },
             ]}
             stops={[
@@ -81,6 +88,7 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
       {showDynamicInfraLinks && <DynamicInfraLinksVectorLayer />}
       {showStops && <StopVectorLayer />}
       {showInfraLinks && <InfraLinksVectorLayer />}
+      {showExampleRoute && <ExampleRoute />}
       <NavigationControl style={navStyle} showCompass={false} />
     </MapGL>
   );
