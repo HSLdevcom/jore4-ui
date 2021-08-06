@@ -5,6 +5,7 @@ import { useMap } from 'react-leaflet';
 import { theme } from '../../generated/theme';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { Controls, Position } from './Controls';
+import { ExampleRoute } from './ExampleRoute';
 
 const { colors } = theme;
 
@@ -22,6 +23,7 @@ export const Filters = ({ position }: Props): JSX.Element => {
   const map = useMap();
   const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(true);
   const [showInfraLinks, setShowInfraLinks] = useState(true);
+  const [showExampleRoute, setShowExampleRoute] = useState(true);
   const [showStops, setShowStops] = useState(true);
 
   const dynamicLinksLayer = useMemo(
@@ -98,6 +100,11 @@ export const Filters = ({ position }: Props): JSX.Element => {
             enabled: showInfraLinks,
             onToggle: setShowInfraLinks,
           },
+          {
+            iconClassName: 'icon-route',
+            enabled: showExampleRoute,
+            onToggle: setShowExampleRoute,
+          },
         ]}
         stops={[
           {
@@ -107,6 +114,7 @@ export const Filters = ({ position }: Props): JSX.Element => {
           },
         ]}
       />
+      {showExampleRoute && <ExampleRoute />}
     </Controls>
   );
 };
