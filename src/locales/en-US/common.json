@@ -4,8 +4,7 @@
     "en-US": "English"
   },
   "routes": {
-    "root": "Main page",
-    "example": "Example page"
+    "root": "Main page"
   },
   "navigation": {
     "logout": "Log out",
