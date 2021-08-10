@@ -2,10 +2,12 @@ import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router-dom';
 import { Main } from './components/Main';
 import { ExampleMarkers } from './components/map';
+import { Map } from './components/mapgl-map';
 
 export enum Path {
   root = '/',
-  example = '/example',
+  leaflet = '/leaflet',
+  mapgl = '/mapgl',
   exampleResource = '/example/:id',
   fallback = '*',
 }
@@ -41,12 +43,20 @@ export const routes: Record<Path, Route> = {
     component: Main,
     includeInNav: true,
   },
-  [Path.example]: {
-    _routerRoute: Path.example,
+  [Path.leaflet]: {
+    _routerRoute: Path.leaflet,
     _exact: true,
-    translationKey: 'routes.example',
-    getLink: () => Path.example,
+    translationKey: 'Leaflet experiment',
+    getLink: () => Path.leaflet,
     component: ExampleMarkers,
+    includeInNav: true,
+  },
+  [Path.mapgl]: {
+    _routerRoute: Path.mapgl,
+    _exact: true,
+    translationKey: 'MapGL experiment',
+    getLink: () => Path.mapgl,
+    component: Map,
     includeInNav: true,
   },
   [Path.exampleResource]: {
