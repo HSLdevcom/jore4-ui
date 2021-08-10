@@ -4,8 +4,7 @@
     "en-US": "Englanti"
   },
   "routes": {
-    "root": "Etusivu",
-    "example": "Esimerkkisivu"
+    "root": "Etusivu"
   },
   "navigation": {
     "logout": "Kirjaudu ulos",
