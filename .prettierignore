@@ -6,4 +6,3 @@ out
 graphql.schema.json
 
 src/generated/*
-src/fontello/*
