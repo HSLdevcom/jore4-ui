@@ -2,7 +2,7 @@ import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import { Router } from '../components/Router';
 import { UserContextProvider } from '../context/UserContextProvider';
-import '../fontello/css/hsl-icons.css';
+import '../generated/fontello/css/hsl-icons.css';
 import { GQLClient } from '../graphql';
 import '../leaflet-config';
 import '../styles/globals.css';
