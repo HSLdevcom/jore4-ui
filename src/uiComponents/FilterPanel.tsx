@@ -5,7 +5,7 @@ import { Card } from './Card';
 import { IconToggle } from './IconToggle';
 
 interface Toggle {
-  // eslint gives errors for "react/no-unused-prop-types" even though these are actually used..?
+  // eslint gives errors for "react/no-unused-prop-types" even though these are actually used (and these aren't `PropTypes` anyway, we are not using those with TypeScript!). Seems like this linter rule gets confused because these aren't inlined in props interface definition? (And we don't want to do that as these are used in more than one place.)
   enabled: boolean; // eslint-disable-line react/no-unused-prop-types
   onToggle: (enabled: boolean) => void; // eslint-disable-line react/no-unused-prop-types
   iconClassName: string; // eslint-disable-line react/no-unused-prop-types

@@ -1,29 +1,16 @@
 import L from 'leaflet';
 import React, { useEffect, useRef } from 'react';
 
-// Classes used by Leaflet to position controls
-enum PositionClass {
-  TopLeft = 'leaflet-top leaflet-left',
-  TopRight = 'leaflet-top leaflet-right',
-  BottomLeft = 'leaflet-bottom leaflet-left',
-  BottomRight = 'leaflet-bottom leaflet-right',
-}
-
 export type Position = 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
 
-const mapPositionToPositionClass = (position: Position): PositionClass => {
-  switch (position) {
-    case 'topleft':
-      return PositionClass.TopLeft;
-    case 'topright':
-      return PositionClass.TopRight;
-    case 'bottomleft':
-      return PositionClass.BottomLeft;
-    case 'bottomright':
-      return PositionClass.BottomRight;
-    default:
-      throw new Error(`Unknown position "${position}"`);
-  }
+const mapPositionToPositionClass = (position: Position) => {
+  const positionClasses: Record<Position, string> = {
+    topleft: 'leaflet-top leaflet-left',
+    topright: 'leaflet-top leaflet-right',
+    bottomleft: 'leaflet-bottom leaflet-left',
+    bottomright: 'leaflet-bottom leaflet-right',
+  };
+  return positionClasses[position];
 };
 
 interface Props {
