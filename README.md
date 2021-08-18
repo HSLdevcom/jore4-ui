@@ -123,3 +123,26 @@ ALTER TABLE digiroad.dr_pysakki RENAME COLUMN geom_new TO geom;
 
 - Start `martin` to start serving vector tiles locally by running `docker-compose up -d martin`
 - (If road network won't show up in UI, make a small change e.g. to `src/components/map/VectorGridLayer.tsx` file. Usually networks appears on UI after next.js makes hot reload. 🤯)
+
+### Experiementing with pre-calculated tiles
+
+For comparison we have also created possibility to experiement with pre-calculated vector tiles.
+To get those showing up in UI, you have to:
+
+- `mkdir mbtiles`
+- download `dr_linkki.mbtiles` file from [here](https://jore4storage.blob.core.windows.net/jore4-ui/dr_linkki.mbtiles) and store it inside `mbtiles` directory
+- start mbtileserver: `docker run --rm -p 3200:8000 -v $(pwd)/mbtiles/:/tilesets consbio/mbtileserver`
+- (verify that server is up & running by going to http://localhost:3200/services/ That should return something like `[{"imageType":"pbf","url":"http://localhost:3200/services/dr_linkki","name":"/tmp/dr_linkki.mbtiles"}]`)
+
+### Showing routes in UI
+
+![][logo]
+
+[logo]: https://jore4storage.blob.core.windows.net/jore4-ui/ui-toggles.png
+
+Maps in UI have four toggles:
+
+1. show/hide infrastructure links served from martin
+2. show/hide infrastructure links served from mbtileserver
+3. show/hide example route (1004x)
+4. show/hide stops served from martin
