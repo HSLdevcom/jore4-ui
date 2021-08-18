@@ -2,6 +2,7 @@ import React, { FunctionComponent, useRef, useState } from 'react';
 import MapGL, { HTMLOverlay, MapEvent, NavigationControl } from 'react-map-gl';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
+import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
 import { MarkerLayer } from './MarkerLayer';
 import { StopVectorLayer } from './StopVectorLayer';
 
@@ -19,6 +20,7 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
   });
 
   const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(true);
+  const [showInfraLinks, setShowInfraLinks] = useState(true);
   const [showStops, setShowStops] = useState(true);
 
   // TODO: avoid any type
@@ -60,6 +62,11 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
                 enabled: showDynamicInfraLinks,
                 onToggle: setShowDynamicInfraLinks,
               },
+              {
+                iconClassName: 'icon-route',
+                enabled: showInfraLinks,
+                onToggle: setShowInfraLinks,
+              },
             ]}
             stops={[
               {
@@ -73,6 +80,7 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
       />
       {showDynamicInfraLinks && <DynamicInfraLinksVectorLayer />}
       {showStops && <StopVectorLayer />}
+      {showInfraLinks && <InfraLinksVectorLayer />}
       <NavigationControl style={navStyle} showCompass={false} />
     </MapGL>
   );
