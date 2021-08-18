@@ -12,61 +12,77 @@ interface Props {
   position?: Position;
 }
 
+const drLinksUrl =
+  'http://localhost:3200/services/dr_linkki/tiles/{z}/{x}/{y}.pbf';
+const drDynamicInfraLinksUrl =
+  'http://localhost:3100/digiroad.dr_linkki_k/{z}/{x}/{y}.pbf';
+const drStopsUrl = 'http://localhost:3100/digiroad.dr_pysakki/{z}/{x}/{y}.pbf';
+
 export const Filters = ({ position }: Props): JSX.Element => {
   const map = useMap();
-  const [showRoutes, setShowRoutes] = useState(true);
+  const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(true);
+  const [showInfraLinks, setShowInfraLinks] = useState(true);
   const [showStops, setShowStops] = useState(true);
 
-  const vectorGridRoutes = useMemo(
+  const dynamicLinksLayer = useMemo(
     () =>
       // @ts-expect-error Leaflet's TS typings won't recognize leaflet.vectorgrid plugin
-      L.vectorGrid.protobuf(
-        'http://localhost:3100/digiroad.dr_linkki_k/{z}/{x}/{y}.pbf',
-        {
-          vectorTileLayerStyles: {
-            'digiroad.dr_linkki_k': {
-              color: colors.tweakedBrand,
-              fill: false,
-              opacity: 0.6,
-              weight: 5,
-            },
+      L.vectorGrid.protobuf(drDynamicInfraLinksUrl, {
+        vectorTileLayerStyles: {
+          'digiroad.dr_linkki_k': {
+            color: colors.tweakedBrand,
+            fill: false,
+            opacity: 0.6,
+            weight: 5,
           },
         },
-      ),
+      }),
     [],
   );
 
-  const vectorGridStops = useMemo(
+  const infraLinksLayer = useMemo(
     () =>
       // @ts-expect-error Leaflet's TS typings won't recognize leaflet.vectorgrid plugin
-      L.vectorGrid.protobuf(
-        'http://localhost:3100/digiroad.dr_pysakki/{z}/{x}/{y}.pbf',
-        {
-          vectorTileLayerStyles: {
-            'digiroad.dr_pysakki': {
-              color: colors.stop,
-              fill: true,
-              fillColor: 'white',
-              fillOpacity: 1,
-              radius: 5,
-            },
+      L.vectorGrid.protobuf(drLinksUrl, {
+        vectorTileLayerStyles: {
+          'digiroad.dr_linkki_k': {},
+        },
+      }),
+    [],
+  );
+
+  const stopsLayer = useMemo(
+    () =>
+      // @ts-expect-error Leaflet's TS typings won't recognize leaflet.vectorgrid plugin
+      L.vectorGrid.protobuf(drStopsUrl, {
+        vectorTileLayerStyles: {
+          'digiroad.dr_pysakki': {
+            color: colors.stop,
+            fill: true,
+            fillColor: 'white',
+            fillOpacity: 1,
+            radius: 5,
           },
         },
-      ),
+      }),
     [],
   );
 
   useEffect(() => {
-    showRoutes
-      ? map.addLayer(vectorGridRoutes)
-      : map.removeLayer(vectorGridRoutes);
-  }, [showRoutes, map, vectorGridRoutes]);
+    showDynamicInfraLinks
+      ? map.addLayer(dynamicLinksLayer)
+      : map.removeLayer(dynamicLinksLayer);
+  }, [showDynamicInfraLinks, map, dynamicLinksLayer]);
 
   useEffect(() => {
-    showStops
-      ? map.addLayer(vectorGridStops)
-      : map.removeLayer(vectorGridStops);
-  }, [showStops, map, vectorGridStops]);
+    showInfraLinks
+      ? map.addLayer(infraLinksLayer)
+      : map.removeLayer(infraLinksLayer);
+  }, [showInfraLinks, map, infraLinksLayer]);
+
+  useEffect(() => {
+    showStops ? map.addLayer(stopsLayer) : map.removeLayer(stopsLayer);
+  }, [showStops, map, stopsLayer]);
 
   return (
     <Controls position={position}>
@@ -74,8 +90,13 @@ export const Filters = ({ position }: Props): JSX.Element => {
         routes={[
           {
             iconClassName: 'icon-bus',
-            enabled: showRoutes,
-            onToggle: setShowRoutes,
+            enabled: showDynamicInfraLinks,
+            onToggle: setShowDynamicInfraLinks,
+          },
+          {
+            iconClassName: 'icon-route',
+            enabled: showInfraLinks,
+            onToggle: setShowInfraLinks,
           },
         ]}
         stops={[
