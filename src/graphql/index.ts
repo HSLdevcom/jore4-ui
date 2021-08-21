@@ -9,8 +9,10 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { authRoleMiddleware } from './auth';
 
+const relGraphqlPath = '/api/graphql/v1/graphql';
+
 const httpLink = new HttpLink({
-  uri: 'http://localhost:3000/api/hasura/v1/graphql',
+  uri: relGraphqlPath,
 });
 
 const apolloLink = concat(authRoleMiddleware, httpLink);
@@ -20,7 +22,7 @@ const apolloLink = concat(authRoleMiddleware, httpLink);
 // initializing WebSocket link
 const wsLink = process.browser
   ? new WebSocketLink({
-      uri: 'ws://localhost:8080/v1/graphql',
+      uri: `${process.env.GRAPHQL_WEBSOCKET_SCHEME}://${process.env.GRAPHQL_WEBSOCKET_HOST}${relGraphqlPath}`,
       options: {
         reconnect: true,
       },
