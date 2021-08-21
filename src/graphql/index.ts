@@ -22,7 +22,9 @@ const apolloLink = concat(authRoleMiddleware, httpLink);
 // initializing WebSocket link
 const wsLink = process.browser
   ? new WebSocketLink({
-      uri: `${process.env.GRAPHQL_WEBSOCKET_SCHEME}://${process.env.GRAPHQL_WEBSOCKET_HOST}${relGraphqlPath}`,
+      uri: `${process.env.NEXT_PUBLIC_GRAPHQL_WEBSOCKET_SCHEME || 'wss'}://${
+        process.env.NEXT_PUBLIC_GRAPHQL_WEBSOCKET_HOST || window.location.host
+      }${relGraphqlPath}`,
       options: {
         reconnect: true,
       },
