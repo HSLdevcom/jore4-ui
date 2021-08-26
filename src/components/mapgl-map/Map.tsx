@@ -11,11 +11,12 @@ interface Props {
   className?: string;
 }
 
+const helsinkiCityCenterCoordinates = { latitude: 60.1716, longitude: 24.9409 };
+
 export const Map: FunctionComponent<Props> = ({ className }) => {
   const [viewport, setViewport] = useState({
-    latitude: 60.1716,
-    longitude: 24.9409,
-    zoom: 14,
+    ...helsinkiCityCenterCoordinates,
+    zoom: 13,
     bearing: 0,
     pitch: 0,
   });
