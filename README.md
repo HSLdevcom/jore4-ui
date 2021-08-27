@@ -94,9 +94,9 @@ Icon font can be updated by following these steps:
 (**If you rename or remove existing icons**, do global search with old name to make sure that you don't break anything!
 Intellisense doesn't notice if nonexisting icons are used in the project.)
 
-## Experiementing with digiroad network
+## Experiementing with digiroad network and dynamic vector tiles
 
-**This experiment is done mainly for being able to draw stops/routes on map before we have real data available. Thus worflow is quite clumsy and not intended to be used for very long.**
+**This experiment is done mainly for being able to draw links/stops on map before we have real data available. Thus worflow is quite clumsy and not intended to be used for very long.**
 
 To import digiroad data to local db in order to be able to draw vector tiles on the map:
 
@@ -124,17 +124,15 @@ ALTER TABLE digiroad.dr_pysakki RENAME COLUMN geom_new TO geom;
 - Start `martin` to start serving vector tiles locally by running `docker-compose up -d martin`
 - (If road network won't show up in UI, make a small change e.g. to `src/components/map/VectorGridLayer.tsx` file. Usually networks appears on UI after next.js makes hot reload. 🤯)
 
-### Experiementing with pre-calculated tiles
+### Experiementing with pre-calculated vector tiles
 
 For comparison we have also created possibility to experiement with pre-calculated vector tiles.
 To get those showing up in UI, you have to:
 
-- `mkdir mbtiles`
-- download `dr_linkki.mbtiles` file from [here](https://jore4storage.blob.core.windows.net/jore4-ui/dr_linkki.mbtiles) and store it inside `mbtiles` directory
-- start mbtileserver: `docker run --rm -p 3200:8000 -v $(pwd)/mbtiles/:/tilesets consbio/mbtileserver`
-- (verify that server is up & running by going to http://localhost:3200/services/ That should return something like `[{"imageType":"pbf","url":"http://localhost:3200/services/dr_linkki","name":"/tmp/dr_linkki.mbtiles"}]`)
+- Start [jore4-mbtiles-server](https://github.com/HSLdevcom/jore4-mbtiles-server) by running `docker run --rm -p 3200:8000 hsldevcom/jore4-mbtiles-server`
+- (verify that server is up & running by going to http://localhost:3200/services/ and ensure it returns 200 OK and JSON response)
 
-### Showing routes in UI
+### Showing infrastructure links, stops and example route in UI
 
 ![][logo]
 
@@ -143,6 +141,6 @@ To get those showing up in UI, you have to:
 Maps in UI have four toggles:
 
 1. show/hide infrastructure links served from martin
-2. show/hide infrastructure links served from mbtileserver
+2. show/hide infrastructure links served from jore4-mbtiles-server
 3. show/hide example route (1004x)
 4. show/hide stops served from martin
