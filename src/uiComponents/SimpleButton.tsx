@@ -1,22 +1,48 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-interface Props {
+interface CommonButtonProps {
   className?: string;
-  onClick: () => void;
+  children?: ReactNode;
 }
 
-export const SimpleButton: React.FC<Props> = ({
-  className,
-  onClick,
-  children,
-}) => {
-  return (
-    <button
-      className={`px-4 py-2 text-white font-bold bg-blue-500 hover:bg-blue-700 rounded-full ${className}`}
-      type="button"
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
+interface ButtonProps {
+  onClick: () => void;
+  href?: never;
+}
+interface LinkButtonProps {
+  onClick?: never;
+  href: string;
+}
+
+type Props = CommonButtonProps & (ButtonProps | LinkButtonProps);
+
+export const SimpleButton: React.FC<Props> = (props) => {
+  const { className, children } = props;
+  const commonClassNames =
+    'px-4 py-2 text-white font-bold bg-blue-500 hover:bg-blue-700 rounded-full';
+  if ((props as ButtonProps).onClick) {
+    return (
+      <button
+        className={`${commonClassNames} ${className}`}
+        type="button"
+        onClick={(props as ButtonProps).onClick}
+      >
+        {children}
+      </button>
+    );
+  }
+  if ((props as LinkButtonProps).href) {
+    return (
+      <a
+        className={`${commonClassNames} flex items-center ${className}`}
+        type="button"
+        href={(props as LinkButtonProps).href}
+      >
+        {children}
+      </a>
+    );
+  }
+  // eslint-disable-next-line no-console
+  console.error('"onClick" or "href" prop is required');
+  return null;
 };

@@ -3,9 +3,12 @@ import { useParams } from 'react-router-dom';
 import { Main } from './components/Main';
 import { ExampleMarkers } from './components/map';
 import { Map } from './components/mapgl-map';
+// eslint-disable-next-line import/order
+import { RoutesAndLinesPage } from './components/RoutesAndLinesPage'; // eslint-disable-line import/no-cycle
 
 export enum Path {
   root = '/',
+  routes = '/routes',
   leaflet = '/leaflet',
   mapgl = '/mapgl',
   exampleResource = '/example/:id',
@@ -41,6 +44,14 @@ export const routes: Record<Path, Route> = {
     translationKey: 'routes.root',
     getLink: () => Path.root,
     component: Main,
+    includeInNav: true,
+  },
+  [Path.routes]: {
+    _routerRoute: Path.routes,
+    _exact: true,
+    translationKey: 'routes.routes',
+    getLink: () => Path.routes,
+    component: RoutesAndLinesPage,
     includeInNav: true,
   },
   [Path.leaflet]: {
