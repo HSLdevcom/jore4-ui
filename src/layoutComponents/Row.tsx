@@ -5,5 +5,5 @@ interface Props {
 }
 
 export const Row: React.FC<Props> = ({ className, children }) => {
-  return <div className={` flex flex-row ${className}`}>{children}</div>;
+  return <div className={`flex flex-row ${className}`}>{children}</div>;
 };
