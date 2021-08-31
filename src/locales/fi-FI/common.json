@@ -4,13 +4,15 @@
     "en-US": "Englanti"
   },
   "routes": {
-    "root": "Etusivu"
+    "root": "Etusivu",
+    "routes": "Reitit ja linjat"
   },
   "navigation": {
     "logout": "Kirjaudu ulos",
     "user": "Käyttäjä"
   },
   "map": {
+    "open": "Avaa kartta",
     "showRoutes": "Näytä reitit",
     "showStops": "Näytä pysäkit"
   },

@@ -4,13 +4,15 @@
     "en-US": "English"
   },
   "routes": {
-    "root": "Main page"
+    "root": "Main page",
+    "routes": "Routes and lines"
   },
   "navigation": {
     "logout": "Log out",
     "user": "User"
   },
   "map": {
+    "open": "Open map",
     "showRoutes": "Show routes",
     "showStops": "Show stops"
   },
