@@ -11,6 +11,7 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
+    'plugin:eslint-comments/recommended',
     'plugin:jest/recommended',
     'prettier',
   ],
@@ -85,6 +86,14 @@ module.exports = {
           'index',
           'object',
         ],
+      },
+    ],
+    'eslint-comments/no-unused-disable': 'error', // ban unused eslint-disable comments
+    'eslint-comments/disable-enable-pair': [
+      'error',
+      {
+        // if eslint rules are disabled in the beginning of file, it usually means that it is done for a reason and it doesn't make sense to enable those again at the end of the file
+        allowWholeFile: true,
       },
     ],
     'react/react-in-jsx-scope': 'off', // not needed with next.js: https://stackoverflow.com/a/61160875

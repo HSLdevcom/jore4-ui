@@ -11,7 +11,6 @@ const pinStyle = {
 
 interface Props {
   size: number;
-  // eslint-disable-next-line react/require-default-props
   onClick?: () => void;
 }
 
