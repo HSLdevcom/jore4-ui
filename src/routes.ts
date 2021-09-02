@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { Main } from './components/Main';
 import { ExampleMarkers } from './components/map';
 import { Map } from './components/mapgl-map';
-// eslint-disable-next-line import/order
 import { RoutesAndLinesPage } from './components/RoutesAndLinesPage'; // eslint-disable-line import/no-cycle
 
 export enum Path {
