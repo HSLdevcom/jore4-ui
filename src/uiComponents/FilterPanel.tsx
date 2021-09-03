@@ -49,7 +49,7 @@ export const FilterPanel = ({
   const { t } = useTranslation();
   const headingClassName = 'text-base font-bold';
   return (
-    <div className={className}>
+    <div className={`inline-block ${className}`}>
       <Card className="flex-col rounded-b-none">
         <h3 className={headingClassName}>{t('map.showRoutes')}</h3>
         <ToggleRow toggles={routes} />
