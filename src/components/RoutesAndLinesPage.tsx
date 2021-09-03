@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { SimpleButton } from '../uiComponents';
+import { RoutesTable } from './RoutesTable'; // eslint-disable-line import/no-cycle
 
 export const RoutesAndLinesPage = (): JSX.Element => {
   const { t } = useTranslation();
@@ -15,6 +16,8 @@ export const RoutesAndLinesPage = (): JSX.Element => {
           {t('map.open')}
         </SimpleButton>
       </Row>
+      <h2 className="text-bold mb-14 mt-12 text-4xl">Esimerkkireitit</h2>
+      <RoutesTable />
     </Container>
   );
 };

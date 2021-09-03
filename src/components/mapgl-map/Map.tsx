@@ -1,10 +1,11 @@
 import React, { FunctionComponent, useRef, useState } from 'react';
 import MapGL, { HTMLOverlay, MapEvent, NavigationControl } from 'react-map-gl';
+import { useQuery } from '../../hooks';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
-import { ExampleRoute } from './ExampleRoute';
 import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
 import { MarkerLayer } from './MarkerLayer';
+import { RouteLayer } from './RouteLayer';
 import { StopVectorLayer } from './StopVectorLayer';
 
 interface Props {
@@ -21,10 +22,15 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
     pitch: 0,
   });
 
-  const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(true);
-  const [showInfraLinks, setShowInfraLinks] = useState(true);
-  const [showExampleRoute, setShowExampleRoute] = useState(true);
-  const [showStops, setShowStops] = useState(true);
+  const { routeId } = useQuery();
+  const routeSelected = !!routeId;
+
+  const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(
+    !routeSelected,
+  );
+  const [showInfraLinks, setShowInfraLinks] = useState(!routeSelected);
+  const [showRoute, setShowRoute] = useState(routeSelected);
+  const [showStops, setShowStops] = useState(!routeSelected);
 
   // TODO: avoid any type
   const markerLayerRef = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -70,11 +76,15 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
                 enabled: showInfraLinks,
                 onToggle: setShowInfraLinks,
               },
-              {
-                iconClassName: 'icon-route',
-                enabled: showExampleRoute,
-                onToggle: setShowExampleRoute,
-              },
+              ...(routeSelected
+                ? [
+                    {
+                      iconClassName: 'icon-route',
+                      enabled: showRoute,
+                      onToggle: setShowRoute,
+                    },
+                  ]
+                : []),
             ]}
             stops={[
               {
@@ -89,7 +99,7 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
       {showDynamicInfraLinks && <DynamicInfraLinksVectorLayer />}
       {showStops && <StopVectorLayer />}
       {showInfraLinks && <InfraLinksVectorLayer />}
-      {showExampleRoute && <ExampleRoute />}
+      {showRoute && routeSelected && <RouteLayer routeId={routeId as string} />}
       <NavigationControl style={navStyle} showCompass={false} />
     </MapGL>
   );
