@@ -64,7 +64,7 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
       <HTMLOverlay
         redraw={() => (
           <FilterPanel
-            className="ml-8 mt-8 w-48"
+            className="ml-8 mt-8"
             routes={[
               {
                 iconClassName: 'icon-bus',
