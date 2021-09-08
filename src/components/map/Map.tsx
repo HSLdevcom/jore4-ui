@@ -18,6 +18,7 @@ export const Map: React.FC<Props> = ({ center = helsinkiCityCenter }) => {
       zoom={15}
       style={{ minHeight: '75vh' }}
       zoomControl={false}
+      className="z-0"
     >
       <ZoomControl position="bottomright" />
       <TileLayer
