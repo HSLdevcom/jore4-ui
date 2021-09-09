@@ -17,14 +17,29 @@ const drLinksUrl =
   'http://localhost:3200/services/dr_linkki/tiles/{z}/{x}/{y}.pbf';
 const drDynamicInfraLinksUrl =
   'http://localhost:3100/digiroad.dr_linkki_k/{z}/{x}/{y}.pbf';
-const drStopsUrl = 'http://localhost:3100/digiroad.dr_pysakki/{z}/{x}/{y}.pbf';
+const drStopsUrl =
+  'http://localhost:3200/services/dr_pysakki/tiles/{z}/{x}/{y}.pbf';
+const drDynamicStopsUrl =
+  'http://localhost:3100/digiroad.dr_pysakki/{z}/{x}/{y}.pbf';
 
 export const Filters = ({ position }: Props): JSX.Element => {
   const map = useMap();
-  const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(true);
   const [showInfraLinks, setShowInfraLinks] = useState(true);
-  const [showExampleRoute, setShowExampleRoute] = useState(true);
+  const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(false);
+  const [showExampleRoute, setShowExampleRoute] = useState(false);
   const [showStops, setShowStops] = useState(true);
+  const [showDynamicStops, setShowDynamicStops] = useState(false);
+
+  const infraLinksLayer = useMemo(
+    () =>
+      // @ts-expect-error Leaflet's TS typings won't recognize leaflet.vectorgrid plugin
+      L.vectorGrid.protobuf(drLinksUrl, {
+        vectorTileLayerStyles: {
+          'digiroad.dr_linkki_k': {},
+        },
+      }),
+    [],
+  );
 
   const dynamicLinksLayer = useMemo(
     () =>
@@ -42,21 +57,27 @@ export const Filters = ({ position }: Props): JSX.Element => {
     [],
   );
 
-  const infraLinksLayer = useMemo(
+  const stopsLayer = useMemo(
     () =>
       // @ts-expect-error Leaflet's TS typings won't recognize leaflet.vectorgrid plugin
-      L.vectorGrid.protobuf(drLinksUrl, {
+      L.vectorGrid.protobuf(drStopsUrl, {
         vectorTileLayerStyles: {
-          'digiroad.dr_linkki_k': {},
+          dr_pysakki: {
+            color: colors.stop,
+            fill: true,
+            fillColor: 'white',
+            fillOpacity: 1,
+            radius: 5,
+          },
         },
       }),
     [],
   );
 
-  const stopsLayer = useMemo(
+  const dynamicStopsLayer = useMemo(
     () =>
       // @ts-expect-error Leaflet's TS typings won't recognize leaflet.vectorgrid plugin
-      L.vectorGrid.protobuf(drStopsUrl, {
+      L.vectorGrid.protobuf(drDynamicStopsUrl, {
         vectorTileLayerStyles: {
           'digiroad.dr_pysakki': {
             color: colors.stop,
@@ -71,20 +92,26 @@ export const Filters = ({ position }: Props): JSX.Element => {
   );
 
   useEffect(() => {
-    showDynamicInfraLinks
-      ? map.addLayer(dynamicLinksLayer)
-      : map.removeLayer(dynamicLinksLayer);
-  }, [showDynamicInfraLinks, map, dynamicLinksLayer]);
-
-  useEffect(() => {
     showInfraLinks
       ? map.addLayer(infraLinksLayer)
       : map.removeLayer(infraLinksLayer);
   }, [showInfraLinks, map, infraLinksLayer]);
 
   useEffect(() => {
+    showDynamicInfraLinks
+      ? map.addLayer(dynamicLinksLayer)
+      : map.removeLayer(dynamicLinksLayer);
+  }, [showDynamicInfraLinks, map, dynamicLinksLayer]);
+
+  useEffect(() => {
     showStops ? map.addLayer(stopsLayer) : map.removeLayer(stopsLayer);
   }, [showStops, map, stopsLayer]);
+
+  useEffect(() => {
+    showDynamicStops
+      ? map.addLayer(dynamicStopsLayer)
+      : map.removeLayer(dynamicStopsLayer);
+  }, [showDynamicStops, map, dynamicStopsLayer]);
 
   return (
     <Controls position={position}>
@@ -92,13 +119,13 @@ export const Filters = ({ position }: Props): JSX.Element => {
         routes={[
           {
             iconClassName: 'icon-bus',
-            enabled: showDynamicInfraLinks,
-            onToggle: setShowDynamicInfraLinks,
+            enabled: showInfraLinks,
+            onToggle: setShowInfraLinks,
           },
           {
             iconClassName: 'icon-route',
-            enabled: showInfraLinks,
-            onToggle: setShowInfraLinks,
+            enabled: showDynamicInfraLinks,
+            onToggle: setShowDynamicInfraLinks,
           },
           {
             iconClassName: 'icon-route',
@@ -111,6 +138,11 @@ export const Filters = ({ position }: Props): JSX.Element => {
             iconClassName: 'icon-bus',
             enabled: showStops,
             onToggle: setShowStops,
+          },
+          {
+            iconClassName: 'icon-bus',
+            enabled: showDynamicStops,
+            onToggle: setShowDynamicStops,
           },
         ]}
       />

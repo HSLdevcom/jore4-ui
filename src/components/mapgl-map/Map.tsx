@@ -3,6 +3,7 @@ import MapGL, { HTMLOverlay, MapEvent, NavigationControl } from 'react-map-gl';
 import { useQuery } from '../../hooks';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
+import { DynamicStopVectorLayer } from './DynamicStopVectorLayer';
 import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
 import { MarkerLayer } from './MarkerLayer';
 import { RouteLayer } from './RouteLayer';
@@ -25,12 +26,11 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
   const { routeId } = useQuery();
   const routeSelected = !!routeId;
 
-  const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(
-    !routeSelected,
-  );
   const [showInfraLinks, setShowInfraLinks] = useState(!routeSelected);
+  const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(false);
   const [showRoute, setShowRoute] = useState(routeSelected);
   const [showStops, setShowStops] = useState(!routeSelected);
+  const [showDynamicStops, setShowDynamicStops] = useState(false);
 
   // TODO: avoid any type
   const markerLayerRef = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -68,13 +68,13 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
             routes={[
               {
                 iconClassName: 'icon-bus',
-                enabled: showDynamicInfraLinks,
-                onToggle: setShowDynamicInfraLinks,
+                enabled: showInfraLinks,
+                onToggle: setShowInfraLinks,
               },
               {
                 iconClassName: 'icon-route',
-                enabled: showInfraLinks,
-                onToggle: setShowInfraLinks,
+                enabled: showDynamicInfraLinks,
+                onToggle: setShowDynamicInfraLinks,
               },
               ...(routeSelected
                 ? [
@@ -92,13 +92,19 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
                 enabled: showStops,
                 onToggle: setShowStops,
               },
+              {
+                iconClassName: 'icon-bus',
+                enabled: showDynamicStops,
+                onToggle: setShowDynamicStops,
+              },
             ]}
           />
         )}
       />
-      {showDynamicInfraLinks && <DynamicInfraLinksVectorLayer />}
-      {showStops && <StopVectorLayer />}
       {showInfraLinks && <InfraLinksVectorLayer />}
+      {showStops && <StopVectorLayer />}
+      {showDynamicStops && <DynamicStopVectorLayer />}
+      {showDynamicInfraLinks && <DynamicInfraLinksVectorLayer />}
       {showRoute && routeSelected && <RouteLayer routeId={routeId as string} />}
       <NavigationControl style={navStyle} showCompass={false} />
     </MapGL>

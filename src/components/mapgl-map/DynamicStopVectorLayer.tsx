@@ -4,20 +4,18 @@ import { theme } from '../../generated/theme';
 
 const { colors } = theme;
 
-export const StopVectorLayer: React.FC = () => {
+export const DynamicStopVectorLayer: React.FC = () => {
   return (
     <Source
       type="vector"
-      tiles={[
-        'http://localhost:3200/services/dr_pysakki/tiles/{z}/{x}/{y}.pbf',
-      ]}
+      tiles={['http://localhost:3100/digiroad.dr_pysakki/{z}/{x}/{y}.pbf']}
     >
       <Layer
         {...{
-          id: 'digiroad_r_pysakki',
+          id: 'digiroad.dr_pysakki',
           type: 'circle',
           source: 'dr_pysakki',
-          'source-layer': 'dr_pysakki',
+          'source-layer': 'digiroad.dr_pysakki',
           paint: {
             'circle-color': 'white',
             'circle-stroke-color': colors.stop,
