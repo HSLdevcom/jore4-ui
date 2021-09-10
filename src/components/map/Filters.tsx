@@ -16,7 +16,7 @@ interface Props {
 const drLinksUrl =
   'http://localhost:3200/services/dr_linkki/tiles/{z}/{x}/{y}.pbf';
 const drDynamicInfraLinksUrl =
-  'http://localhost:3100/digiroad.dr_linkki_k/{z}/{x}/{y}.pbf';
+  'http://localhost:3100/digiroad.dr_linkki/{z}/{x}/{y}.pbf';
 const drStopsUrl =
   'http://localhost:3200/services/dr_pysakki/tiles/{z}/{x}/{y}.pbf';
 const drDynamicStopsUrl =
@@ -35,7 +35,7 @@ export const Filters = ({ position }: Props): JSX.Element => {
       // @ts-expect-error Leaflet's TS typings won't recognize leaflet.vectorgrid plugin
       L.vectorGrid.protobuf(drLinksUrl, {
         vectorTileLayerStyles: {
-          'digiroad.dr_linkki_k': {},
+          'digiroad.dr_linkki': {},
         },
       }),
     [],
@@ -46,7 +46,7 @@ export const Filters = ({ position }: Props): JSX.Element => {
       // @ts-expect-error Leaflet's TS typings won't recognize leaflet.vectorgrid plugin
       L.vectorGrid.protobuf(drDynamicInfraLinksUrl, {
         vectorTileLayerStyles: {
-          'digiroad.dr_linkki_k': {
+          'digiroad.dr_linkki': {
             color: colors.tweakedBrand,
             fill: false,
             opacity: 0.6,
