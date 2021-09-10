@@ -8,14 +8,14 @@ export const DynamicInfraLinksVectorLayer: React.FC = () => {
   return (
     <Source
       type="vector"
-      tiles={['http://localhost:3100/digiroad.dr_linkki_k/{z}/{x}/{y}.pbf']}
+      tiles={['http://localhost:3100/digiroad.dr_linkki/{z}/{x}/{y}.pbf']}
     >
       <Layer
         {...{
-          id: 'digiroad.dr_linkki_k',
+          id: 'digiroad.dr_linkki',
           type: 'line',
-          source: 'dr_linkki_k',
-          'source-layer': 'digiroad.dr_linkki_k',
+          source: 'dr_linkki',
+          'source-layer': 'digiroad.dr_linkki',
           layout: {
             'line-join': 'round',
             'line-cap': 'round',

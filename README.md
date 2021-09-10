@@ -112,16 +112,18 @@ Anyway, using dynamic vector tiles might be useful when quickly experimenting wi
 To import digiroad data to local db in order to be able to draw vector tiles on the map:
 
 - Start local db by running`docker-compose up -d postgis`.
-- Import digiroad network by following readme in [`jore4-digiroad-import-experiment`](https://github.com/HSLdevcom/jore4-digiroad-import-experiment/tree/pgrouting) repository's `k_pgrouting` branch. Import network to the previously started db, or then edit `docker-compose.yml` to make `martin` use db of your choice. _Please note that `k_pgrouting` branch is still more or less WIP and thus theres no guarantees that it is going to stay compatible with these steps in the future._
+- Import digiroad network by following readme in [`jore4-digiroad-import-experiment`](https://github.com/HSLdevcom/jore4-digiroad-import-experiment) repository's `r_material` branch.
+  Import network to the previously started db, or then edit `docker-compose.yml` to make `martin` use db of your choice.
+  _Please note that `r_material` branch is still more or less WIP and thus theres no guarantees that it is going to stay compatible with these steps in the future._
 - Transform digiroad network's geometry to martin-friendly geometry by running following sql statements to your local db. (psql console can be started by running `psql -U postgres -h localhost -d db -p 25432`. If you use db different than the one started in docker-compose, edit connection parameters accordingly.)
 
 ```sql
-SELECT AddGeometryColumn('digiroad', 'dr_linkki_k', 'geom_new', 4326, 'LINESTRING', 3);
-UPDATE digiroad.dr_linkki_k SET geom_new = ST_Transform(geom, 4326);
-ALTER TABLE digiroad.dr_linkki_k ALTER COLUMN geom_new SET NOT NULL;
--- ALTER TABLE digiroad.dr_linkki_k RENAME COLUMN geom TO geom_3067;
-ALTER TABLE digiroad.dr_linkki_k DROP COLUMN geom;
-ALTER TABLE digiroad.dr_linkki_k RENAME COLUMN geom_new TO geom;
+SELECT AddGeometryColumn('digiroad', 'dr_linkki', 'geom_new', 4326, 'LINESTRING', 3);
+UPDATE digiroad.dr_linkki SET geom_new = ST_Transform(geom, 4326);
+ALTER TABLE digiroad.dr_linkki ALTER COLUMN geom_new SET NOT NULL;
+-- ALTER TABLE digiroad.dr_linkki RENAME COLUMN geom TO geom_3067;
+ALTER TABLE digiroad.dr_linkki DROP COLUMN geom;
+ALTER TABLE digiroad.dr_linkki RENAME COLUMN geom_new TO geom;
 ```
 
 ```sql
