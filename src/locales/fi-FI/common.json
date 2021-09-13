@@ -14,7 +14,9 @@
   "map": {
     "open": "Avaa kartta",
     "showRoutes": "Näytä reitit",
-    "showStops": "Näytä pysäkit"
+    "showStops": "Näytä pysäkit",
+    "joreMap": "Jore 4.0 kartta"
   },
+  "close": "Sulje",
   "version": "Versio: {{ version }}"
 }
