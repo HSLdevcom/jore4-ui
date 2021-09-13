@@ -14,7 +14,9 @@
   "map": {
     "open": "Open map",
     "showRoutes": "Show routes",
-    "showStops": "Show stops"
+    "showStops": "Show stops",
+    "joreMap": "Jore 4.0 map"
   },
+  "close": "Close",
   "version": "Version: {{ version }}"
 }

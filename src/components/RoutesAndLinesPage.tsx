@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { SimpleButton } from '../uiComponents';
+import { MapModal } from './mapgl-map/MapModal';
 import { RoutesTable } from './RoutesTable'; // eslint-disable-line import/no-cycle
 
 export const RoutesAndLinesPage = (): JSX.Element => {
   const { t } = useTranslation();
   const openMapRoute = routes[Path.mapgl];
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <Container>
       <Row>
@@ -16,8 +18,14 @@ export const RoutesAndLinesPage = (): JSX.Element => {
           {t('map.open')}
         </SimpleButton>
       </Row>
+      <Row className="mt-2">
+        <SimpleButton className="ml-auto" onClick={() => setIsOpen(true)}>
+          Avaa modaalissa
+        </SimpleButton>
+      </Row>
       <h2 className="text-bold mb-14 mt-12 text-4xl">Esimerkkireitit</h2>
       <RoutesTable />
+      <MapModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </Container>
   );
 };
