@@ -1,3 +1,4 @@
+import 'mapbox-gl/dist/mapbox-gl.css'; // eslint-disable-line import/no-extraneous-dependencies
 import React, { FunctionComponent, useRef, useState } from 'react';
 import MapGL, { HTMLOverlay, MapEvent, NavigationControl } from 'react-map-gl';
 import { useQuery } from '../../hooks';
