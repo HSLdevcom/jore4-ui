@@ -1,4 +1,3 @@
-import 'mapbox-gl/dist/mapbox-gl.css'; // eslint-disable-line import/no-extraneous-dependencies
 import React, { FunctionComponent, useRef, useState } from 'react';
 import MapGL, { HTMLOverlay, MapEvent, NavigationControl } from 'react-map-gl';
 import { useQuery } from '../../hooks';
@@ -64,8 +63,6 @@ export const Map: FunctionComponent<Props> = ({
       width={width}
       height={height}
       mapStyle="https://raw.githubusercontent.com/HSLdevcom/hsl-map-style/master/simple-style.json"
-      mapboxApiAccessToken=""
-      mapboxApiUrl=""
       onViewportChange={setViewport}
       onClick={onCreateMarker}
       className={className}

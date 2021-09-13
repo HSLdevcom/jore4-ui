@@ -29,4 +29,12 @@ module.exports = {
       },
     ];
   },
+  webpack: (config) => {
+    // eslint-disable-next-line no-param-reassign
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'mapbox-gl': 'maplibre-gl',
+    };
+    return config;
+  },
 };
