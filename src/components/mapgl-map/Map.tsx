@@ -12,11 +12,20 @@ import { StopVectorLayer } from './StopVectorLayer';
 
 interface Props {
   className?: string;
+  // width and height are passed as params to `react-map-gl`.
+  // It seems to support certain css features, e.g. "100vh" or "100px",
+  // but in other hand "100%" doesn't seem to work...
+  width?: string;
+  height?: string;
 }
 
 const helsinkiCityCenterCoordinates = { latitude: 60.1716, longitude: 24.9409 };
 
-export const Map: FunctionComponent<Props> = ({ className }) => {
+export const Map: FunctionComponent<Props> = ({
+  className,
+  width = '100vw',
+  height = '100vh',
+}) => {
   const [viewport, setViewport] = useState({
     ...helsinkiCityCenterCoordinates,
     zoom: 13,
@@ -52,8 +61,8 @@ export const Map: FunctionComponent<Props> = ({ className }) => {
     <MapGL
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...viewport}
-      width="100vw"
-      height="100vh"
+      width={width}
+      height={height}
       mapStyle="https://raw.githubusercontent.com/HSLdevcom/hsl-map-style/master/simple-style.json"
       mapboxApiAccessToken=""
       mapboxApiUrl=""
