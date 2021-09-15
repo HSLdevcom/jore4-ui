@@ -10,7 +10,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { authRoleMiddleware } from './auth';
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:3000/api/hasura/v1/graphql',
+  uri: '/api/hasura/v1/graphql',
 });
 
 const apolloLink = concat(authRoleMiddleware, httpLink);

@@ -69,6 +69,19 @@ export const Map: FunctionComponent<Props> = ({
       onViewportChange={setViewport}
       onClick={onCreateMarker}
       className={className}
+      transformRequest={(url: string) => {
+        if (url.startsWith('/')) {
+          // mapbox gl js doesn't handle relative url's. As a workaround
+          // we can make those url's non-relative by prepending those with
+          // window.location.origin
+          // https://github.com/mapbox/mapbox-gl-js/issues/10407
+          const newUrl = window.location.origin + url;
+          return {
+            url: newUrl,
+          };
+        }
+        return undefined;
+      }}
     >
       <MarkerLayer ref={markerLayerRef} />
       <HTMLOverlay

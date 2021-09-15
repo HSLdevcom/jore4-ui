@@ -8,9 +8,7 @@ export const StopVectorLayer: React.FC = () => {
   return (
     <Source
       type="vector"
-      tiles={[
-        'http://localhost:3200/services/dr_pysakki/tiles/{z}/{x}/{y}.pbf',
-      ]}
+      tiles={['/api/mbtiles/services/dr_pysakki/tiles/{z}/{x}/{y}.pbf']}
     >
       <Layer
         {...{

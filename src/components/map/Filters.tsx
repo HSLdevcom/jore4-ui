@@ -13,14 +13,10 @@ interface Props {
   position?: Position;
 }
 
-const drLinksUrl =
-  'http://localhost:3200/services/dr_linkki/tiles/{z}/{x}/{y}.pbf';
-const drDynamicInfraLinksUrl =
-  'http://localhost:3100/digiroad.dr_linkki/{z}/{x}/{y}.pbf';
-const drStopsUrl =
-  'http://localhost:3200/services/dr_pysakki/tiles/{z}/{x}/{y}.pbf';
-const drDynamicStopsUrl =
-  'http://localhost:3100/digiroad.dr_pysakki/{z}/{x}/{y}.pbf';
+const drLinksUrl = '/api/mbtiles/services/dr_linkki/tiles/{z}/{x}/{y}.pbf';
+const drDynamicInfraLinksUrl = '/api/martin/digiroad.dr_linkki/{z}/{x}/{y}.pbf';
+const drStopsUrl = '/api/mbtiles/services/dr_pysakki/tiles/{z}/{x}/{y}.pbf';
+const drDynamicStopsUrl = '/api/martin/digiroad.dr_pysakki/{z}/{x}/{y}.pbf';
 
 export const Filters = ({ position }: Props): JSX.Element => {
   const map = useMap();
