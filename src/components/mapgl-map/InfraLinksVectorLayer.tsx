@@ -8,7 +8,7 @@ export const InfraLinksVectorLayer: React.FC = () => {
   return (
     <Source
       type="vector"
-      tiles={['http://localhost:3200/services/dr_linkki/tiles/{z}/{x}/{y}.pbf']}
+      tiles={['/api/mbtiles/services/dr_linkki/tiles/{z}/{x}/{y}.pbf']}
     >
       <Layer
         {...{
