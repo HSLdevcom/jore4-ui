@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "predev": "yarn generate-theme",
-    "dev": "next dev",
+    "dev": "node server.js",
     "prebuild": "yarn generate-theme",
     "build": "next build && next export",
     "ts:check": "yarn tsc --noEmit",
@@ -67,6 +67,8 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^2.0.1",
     "jest": "^26.6.3",
     "postcss": "^8.3.6",
     "prettier": "2.2.1",
