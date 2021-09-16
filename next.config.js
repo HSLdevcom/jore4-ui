@@ -9,7 +9,7 @@ module.exports = {
       },
       {
         // Proxy graphql requests to hasura
-        source: '/api/hasura/:path*',
+        source: '/api/graphql/:path*',
         destination: 'http://localhost:8080/:path*',
       },
       {
