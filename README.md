@@ -56,7 +56,12 @@ It is also recommended to enable the [organize imports](https://code.visualstudi
 Non-VSCode users can sort imports e.g. by running `yarn lint --fix` on command line.
 (Probably there are also ways to configure other IDE's to order imports automatically or a way to make them run the linter with `--fix` flag automatically when code file is saved.)
 
-## Docker image
+## Docker reference
+
+**Docker image doesn't expect any environment variables from outside.**
+The Docker image expects that the backend calls are routed under the same baseurl as it references them via a relative path.
+
+### Testing locally
 
 Docker image can be tested locally like this:
 
