@@ -7,10 +7,13 @@ import {
 } from '@apollo/client';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
+import { mapHttpToWs } from '../utils';
 import { authRoleMiddleware } from './auth';
 
+const graphqlServerUrl = '/api/graphql/v1/graphql';
+
 const httpLink = new HttpLink({
-  uri: '/api/hasura/v1/graphql',
+  uri: graphqlServerUrl,
 });
 
 const apolloLink = concat(authRoleMiddleware, httpLink);
@@ -20,7 +23,9 @@ const apolloLink = concat(authRoleMiddleware, httpLink);
 // initializing WebSocket link
 const wsLink = process.browser
   ? new WebSocketLink({
-      uri: 'ws://localhost:8080/v1/graphql',
+      // WebSocketLink doesn't work with relative url's, so we have to
+      // turn relative url into absolute.
+      uri: `${mapHttpToWs(window.location.origin)}${graphqlServerUrl}`,
       options: {
         reconnect: true,
       },
