@@ -12,8 +12,8 @@ if (process.browser) {
 
     // Tell leaflet where to find image assets
     const DefaultIcon = L.icon({
-      iconUrl: icon,
-      shadowUrl: iconShadow,
+      iconUrl: icon.src,
+      shadowUrl: iconShadow.src,
     });
 
     L.Marker.prototype.options.icon = DefaultIcon;
