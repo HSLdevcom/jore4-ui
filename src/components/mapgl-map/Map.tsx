@@ -1,6 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css'; // eslint-disable-line import/no-extraneous-dependencies
 import React, { FunctionComponent, useRef, useState } from 'react';
 import MapGL, { HTMLOverlay, MapEvent, NavigationControl } from 'react-map-gl';
+import { isDev } from '../../config';
 import { useQuery } from '../../hooks';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
@@ -94,11 +95,15 @@ export const Map: FunctionComponent<Props> = ({
                 enabled: showInfraLinks,
                 onToggle: setShowInfraLinks,
               },
-              {
-                iconClassName: 'icon-route',
-                enabled: showDynamicInfraLinks,
-                onToggle: setShowDynamicInfraLinks,
-              },
+              ...(isDev
+                ? [
+                    {
+                      iconClassName: 'icon-route',
+                      enabled: showDynamicInfraLinks,
+                      onToggle: setShowDynamicInfraLinks,
+                    },
+                  ]
+                : []),
               ...(routeSelected
                 ? [
                     {
@@ -115,11 +120,15 @@ export const Map: FunctionComponent<Props> = ({
                 enabled: showStops,
                 onToggle: setShowStops,
               },
-              {
-                iconClassName: 'icon-bus',
-                enabled: showDynamicStops,
-                onToggle: setShowDynamicStops,
-              },
+              ...(isDev
+                ? [
+                    {
+                      iconClassName: 'icon-bus',
+                      enabled: showDynamicStops,
+                      onToggle: setShowDynamicStops,
+                    },
+                  ]
+                : []),
             ]}
           />
         )}

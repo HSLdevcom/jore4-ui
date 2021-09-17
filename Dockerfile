@@ -7,6 +7,7 @@ COPY ./public ./public
 COPY tsconfig.json next.config.js next-env.d.ts tailwind.config.js postcss.config.js convert-theme-to-ts theme.js ./
 
 ARG NEXT_PUBLIC_GIT_HASH=unknown
+ARG NEXT_PUBLIC_NODE_ENV=production
 RUN yarn build
 
 FROM nginx:1.19.6-alpine

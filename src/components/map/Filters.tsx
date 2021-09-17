@@ -2,6 +2,7 @@ import L from 'leaflet';
 import 'leaflet.vectorgrid';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useMap } from 'react-leaflet';
+import { isDev } from '../../config';
 import { theme } from '../../generated/theme';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { Controls, Position } from './Controls';
@@ -118,16 +119,20 @@ export const Filters = ({ position }: Props): JSX.Element => {
             enabled: showInfraLinks,
             onToggle: setShowInfraLinks,
           },
-          {
-            iconClassName: 'icon-route',
-            enabled: showDynamicInfraLinks,
-            onToggle: setShowDynamicInfraLinks,
-          },
-          {
-            iconClassName: 'icon-route',
-            enabled: showExampleRoute,
-            onToggle: setShowExampleRoute,
-          },
+          ...(isDev
+            ? [
+                {
+                  iconClassName: 'icon-route',
+                  enabled: showDynamicInfraLinks,
+                  onToggle: setShowDynamicInfraLinks,
+                },
+                {
+                  iconClassName: 'icon-route',
+                  enabled: showExampleRoute,
+                  onToggle: setShowExampleRoute,
+                },
+              ]
+            : []),
         ]}
         stops={[
           {
@@ -135,11 +140,15 @@ export const Filters = ({ position }: Props): JSX.Element => {
             enabled: showStops,
             onToggle: setShowStops,
           },
-          {
-            iconClassName: 'icon-bus',
-            enabled: showDynamicStops,
-            onToggle: setShowDynamicStops,
-          },
+          ...(isDev
+            ? [
+                {
+                  iconClassName: 'icon-bus',
+                  enabled: showDynamicStops,
+                  onToggle: setShowDynamicStops,
+                },
+              ]
+            : []),
         ]}
       />
       {showExampleRoute && <ExampleRoute />}
