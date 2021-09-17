@@ -33,13 +33,6 @@ const devProxy = {
     },
     target: 'http://localhost:3203',
   },
-  '/api/martin': {
-    // Proxy martin requests to martin
-    pathRewrite: {
-      '^/api/martin': '', // remove path.
-    },
-    target: 'http://localhost:3100',
-  },
   '/api/mapmatching': {
     // Proxy map routing requests to routing service
     pathRewrite: {

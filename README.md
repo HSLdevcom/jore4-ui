@@ -139,58 +139,6 @@ Intellisense doesn't notice if nonexisting icons are used in the project.)
 If the imported SVG in Fontello does not look like the icon from Figma (e.g. outline circle is missing), follow these steps:
 https://medium.com/mabiloft/we-designed-an-icon-font-with-figma-and-fontello-and-it-has-not-been-a-piece-of-cake-b2948973738e
 
-## Experimenting with digiroad network and pre-calculated vector tiles
-
-Primary way of presenting vector tiles in UI will be using pre-calculated vector tiles.
-They offer much better performance compared to dynamically calculating those on-demand.
-By default they are served from `jore4-mbtiles-server` which is started by `start-dependencies.sh` script.
-
-## Experimenting with dynamic vector tiles
-
-**This experiment was done mainly for being able to draw links/stops on map before we had real data available. Thus workflow is quite clumsy and not intended to be used in normal development workflow.**
-Anyway, using dynamic vector tiles might be useful when quickly experimenting with something and thus instructions are left here for future reference.
-
-To import digiroad data to local db in order to be able to draw vector tiles on the map:
-
-- Start local db by running `docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml -d up postgis`.
-- Import digiroad network by following readme in [`jore4-digiroad-import-experiment`](https://github.com/HSLdevcom/jore4-digiroad-import-experiment) repository's `r_material` branch.
-  Import network to the previously started db, or then edit `/docker/docker-compose.custom.yml` to make `martin` use db of your choice.
-  _Please note that `r_material` branch is still more or less WIP and thus theres no guarantees that it is going to stay compatible with these steps in the future._
-- Transform digiroad network's geometry to martin-friendly geometry by running following sql statements to your local db. (psql console can be started by running `psql -U postgres -h localhost -d db -p 25432`. If you use db different than the one started in docker-compose, edit connection parameters accordingly.)
-
-```sql
-SELECT AddGeometryColumn('digiroad', 'dr_linkki', 'geom_new', 4326, 'LINESTRING', 3);
-UPDATE digiroad.dr_linkki SET geom_new = ST_Transform(geom, 4326);
-ALTER TABLE digiroad.dr_linkki ALTER COLUMN geom_new SET NOT NULL;
--- ALTER TABLE digiroad.dr_linkki RENAME COLUMN geom TO geom_3067;
-ALTER TABLE digiroad.dr_linkki DROP COLUMN geom;
-ALTER TABLE digiroad.dr_linkki RENAME COLUMN geom_new TO geom;
-```
-
-```sql
-SELECT AddGeometryColumn('digiroad', 'dr_pysakki', 'geom_new', 4326, 'POINT', 2);
-UPDATE digiroad.dr_pysakki SET geom_new = ST_Transform(geom, 4326);
-ALTER TABLE digiroad.dr_pysakki ALTER COLUMN geom_new SET NOT NULL;
-ALTER TABLE digiroad.dr_pysakki DROP COLUMN geom;
-ALTER TABLE digiroad.dr_pysakki RENAME COLUMN geom_new TO geom;
-```
-
-- Start `martin` to start serving vector tiles locally by running `docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml up -d martin`
-
-### Showing infrastructure links, stops and example route in UI
-
-![][logo]
-
-[logo]: https://jore4storage.blob.core.windows.net/jore4-ui/ui-toggles-v2.png
-
-Maps in UI has four to five toggles depending on situation:
-
-- **1. a** show/hide infrastructure links served from jore4-mbtiles-server
-- **1. b** show/hide infrastructure links served from martin
-- **1. c** show/hide route (Not available if no route is selected)
-- **2. a** show/hide stops served from jore4-mbtiles-server
-- **2. b** show/hide stops served from martin
-
 ## Coding style
 
 ### Inline components
