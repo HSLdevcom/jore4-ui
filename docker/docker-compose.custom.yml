@@ -15,33 +15,3 @@ services:
   jore4-mapmatching:
     # pinning map-maching API to compatible version
     image: "hsldevcom/jore4-map-matching:main--20220324-8e5179e719ed37725259ee32d54af248549553c6"
-
-  martin:
-    image: urbica/martin
-    restart: unless-stopped
-    ports:
-      - 3100:3000
-    environment:
-      - WATCH_MODE=true
-      - DATABASE_URL=postgres://postgres:password@postgis/db
-    depends_on:
-      - postgis
-    networks:
-      - jore4
-
-  postgis:
-    # Try to match postgis used in Azure to avoid compatability
-    # issues. See which version azure currently supports from documentation:
-    # https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-extensions
-    image: 'postgis/postgis:12-3.0-alpine'
-    restart: 'unless-stopped'
-    environment:
-      - POSTGRES_DB=db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-    volumes:
-      - ./pg_data:/var/lib/postgresql/data
-    ports:
-      - 25432:5432
-    networks:
-      - jore4

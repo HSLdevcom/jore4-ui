@@ -16,7 +16,7 @@ import {
 } from '../../redux';
 import { FilterPanel } from '../../uiComponents';
 import { Maplibre } from './Maplibre';
-import { DynamicInfraLinksVectorLayer, InfraLinksVectorLayer } from './network';
+import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
 import {
   DrawRouteLayer,
@@ -57,10 +57,8 @@ export const MapComponent = (
   const routeDisplayed = !!initiallyDisplayedRouteIds?.length;
 
   const [showInfraLinks, setShowInfraLinks] = useState(!routeDisplayed);
-  const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(false);
   const [showRoute, setShowRoute] = useState(routeDisplayed);
   const [showStops, setShowStops] = useState(true);
-  const [showDynamicStops, setShowDynamicStops] = useState(false);
 
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
 
@@ -144,11 +142,6 @@ export const MapComponent = (
                     enabled: showInfraLinks,
                     onToggle: setShowInfraLinks,
                   },
-                  {
-                    iconClassName: 'icon-route',
-                    enabled: showDynamicInfraLinks,
-                    onToggle: setShowDynamicInfraLinks,
-                  },
                   ...(routeDisplayed
                     ? [
                         {
@@ -164,11 +157,6 @@ export const MapComponent = (
                     iconClassName: 'icon-bus',
                     enabled: showStops,
                     onToggle: setShowStops,
-                  },
-                  {
-                    iconClassName: 'icon-bus',
-                    enabled: showDynamicStops,
-                    onToggle: setShowDynamicStops,
                   },
                 ]}
               />
@@ -210,7 +198,6 @@ export const MapComponent = (
       <EditRouteMetadataLayer />
       {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
       {showInfraLinks && <InfraLinksVectorLayer />}
-      {showDynamicInfraLinks && <DynamicInfraLinksVectorLayer />}
       {showRoute &&
         routeDisplayed &&
         displayedRouteIds?.map((item) => (
