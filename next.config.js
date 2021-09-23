@@ -15,12 +15,17 @@ module.exports = {
       {
         // Proxy mbtiles requests to mbtiles server
         source: '/api/mbtiles/:path*',
-        destination: 'http://localhost:3200/:path*',
+        destination: 'http://localhost:3300/:path*',
       },
       {
         // Proxy martin requests to martin
         source: '/api/martin/:path*',
         destination: 'http://localhost:3100/:path*',
+      },
+      {
+        // Proxy map routing requests to routing service
+        source: '/api/route/v1/:path*',
+        destination: 'http://localhost:3200/api/route/v1/:path*',
       },
       {
         // Rewrite everything else to `pages/index`
