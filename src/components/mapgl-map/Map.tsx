@@ -1,7 +1,10 @@
 import React, { FunctionComponent, useRef, useState } from 'react';
 import MapGL, { HTMLOverlay, MapEvent, NavigationControl } from 'react-map-gl';
 import { useQuery } from '../../hooks';
+import { Column } from '../../layoutComponents';
+import { SimpleButton } from '../../uiComponents';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
+import { DrawRouteLayer, Mode } from './DrawRouteLayer';
 import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
 import { DynamicStopVectorLayer } from './DynamicStopVectorLayer';
 import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
@@ -35,6 +38,7 @@ export const Map: FunctionComponent<Props> = ({
   const { routeId } = useQuery();
   const routeSelected = !!routeId;
 
+  const [drawingMode, setDrawingMode] = useState<Mode | undefined>(undefined);
   const [showInfraLinks, setShowInfraLinks] = useState(!routeSelected);
   const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(false);
   const [showRoute, setShowRoute] = useState(routeSelected);
@@ -42,6 +46,7 @@ export const Map: FunctionComponent<Props> = ({
   const [showDynamicStops, setShowDynamicStops] = useState(false);
 
   // TODO: avoid any type
+  const editorLayerRef = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const markerLayerRef = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
 
   const navStyle = {
@@ -51,9 +56,36 @@ export const Map: FunctionComponent<Props> = ({
   };
 
   const onCreateMarker = (e: MapEvent) => {
-    if (markerLayerRef.current) {
+    if (markerLayerRef.current && drawingMode === undefined) {
       markerLayerRef.current.onCreateMarker(e);
     }
+  };
+
+  const onToggleDrawingMode = () =>
+    setDrawingMode(drawingMode !== Mode.Draw ? Mode.Draw : undefined);
+
+  const onToggleEditMode = () =>
+    setDrawingMode(drawingMode !== Mode.Edit ? Mode.Edit : undefined);
+
+  const onDeleteDrawnRoute = () => {
+    if (editorLayerRef.current) {
+      editorLayerRef.current.onDeleteSelectedRoute();
+    }
+  };
+
+  const getCursor = ({
+    isHovering,
+    isDragging,
+  }: {
+    isLoaded: boolean;
+    isDragging: boolean;
+    isHovering: boolean;
+  }) => {
+    if (isDragging) {
+      return 'grabbing';
+    }
+    // TODO: seems like we never actually receive isHovering as true
+    return isHovering ? 'pointer' : 'default';
   };
 
   return (
@@ -66,6 +98,7 @@ export const Map: FunctionComponent<Props> = ({
       onViewportChange={setViewport}
       onClick={onCreateMarker}
       className={className}
+      getCursor={getCursor}
       transformRequest={(url: string) => {
         if (url.startsWith('/')) {
           // mapbox gl js doesn't handle relative url's. As a workaround
@@ -79,46 +112,75 @@ export const Map: FunctionComponent<Props> = ({
         }
         return undefined;
       }}
+      doubleClickZoom={false}
     >
+      <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />
       <MarkerLayer ref={markerLayerRef} />
       <HTMLOverlay
+        style={{
+          width: 'auto',
+          height: 'auto',
+        }}
         redraw={() => (
-          <FilterPanel
-            className="ml-8 mt-8"
-            routes={[
-              {
-                iconClassName: 'icon-bus',
-                enabled: showInfraLinks,
-                onToggle: setShowInfraLinks,
-              },
-              {
-                iconClassName: 'icon-route',
-                enabled: showDynamicInfraLinks,
-                onToggle: setShowDynamicInfraLinks,
-              },
-              ...(routeSelected
-                ? [
-                    {
-                      iconClassName: 'icon-route',
-                      enabled: showRoute,
-                      onToggle: setShowRoute,
-                    },
-                  ]
-                : []),
-            ]}
-            stops={[
-              {
-                iconClassName: 'icon-bus',
-                enabled: showStops,
-                onToggle: setShowStops,
-              },
-              {
-                iconClassName: 'icon-bus',
-                enabled: showDynamicStops,
-                onToggle: setShowDynamicStops,
-              },
-            ]}
-          />
+          <Column>
+            <FilterPanel
+              className="ml-8 mt-8"
+              routes={[
+                {
+                  iconClassName: 'icon-bus',
+                  enabled: showInfraLinks,
+                  onToggle: setShowInfraLinks,
+                },
+                {
+                  iconClassName: 'icon-route',
+                  enabled: showDynamicInfraLinks,
+                  onToggle: setShowDynamicInfraLinks,
+                },
+                ...(routeSelected
+                  ? [
+                      {
+                        iconClassName: 'icon-route',
+                        enabled: showRoute,
+                        onToggle: setShowRoute,
+                      },
+                    ]
+                  : []),
+              ]}
+              stops={[
+                {
+                  iconClassName: 'icon-bus',
+                  enabled: showStops,
+                  onToggle: setShowStops,
+                },
+                {
+                  iconClassName: 'icon-bus',
+                  enabled: showDynamicStops,
+                  onToggle: setShowDynamicStops,
+                },
+              ]}
+            />
+            <SimpleButton
+              className="ml-8 mt-2"
+              onClick={onToggleDrawingMode}
+              inverted={drawingMode !== Mode.Draw}
+            >
+              Draw route
+            </SimpleButton>
+            <SimpleButton
+              className="ml-8 mt-2"
+              onClick={onToggleEditMode}
+              inverted={drawingMode !== Mode.Edit}
+            >
+              Edit route
+            </SimpleButton>
+            <SimpleButton
+              className="ml-8 mt-2"
+              onClick={onDeleteDrawnRoute}
+              inverted
+            >
+              Delete selected route
+            </SimpleButton>
+          </Column>
         )}
       />
       {showInfraLinks && <InfraLinksVectorLayer />}

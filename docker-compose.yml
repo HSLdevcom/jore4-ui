@@ -5,7 +5,7 @@ services:
     image: hsldevcom/jore4-mbtiles-server:stops--7bd7d1ad101cfc7db8f67639e28e3edbf1ca6379
     restart: unless-stopped
     ports:
-      - 3200:8000
+      - 3300:8000
     networks:
       - jore4
 

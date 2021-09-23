@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 
 interface CommonButtonProps {
   className?: string;
+  inverted?: boolean;
   children?: ReactNode;
 }
 
@@ -17,9 +18,11 @@ interface LinkButtonProps {
 type Props = CommonButtonProps & (ButtonProps | LinkButtonProps);
 
 export const SimpleButton: React.FC<Props> = (props) => {
-  const { className, children } = props;
-  const commonClassNames =
-    'px-4 py-2 text-white font-bold bg-blue-500 hover:bg-blue-700 rounded-full';
+  const { className, inverted, children } = props;
+  const colorClassNames = inverted
+    ? 'text-blue-500 hover:bg-gray-100 bg-white'
+    : 'text-white  bg-blue-500 hover:bg-blue-700';
+  const commonClassNames = `px-4 py-2 font-bold rounded-full ${colorClassNames}`;
   if ((props as ButtonProps).onClick) {
     return (
       <button
