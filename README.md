@@ -107,7 +107,7 @@ They offer much better performance compared to dynamically calculating those on-
 To get digiroad network & stops showing in UI, you have to:
 
 - Start [jore4-mbtiles-server](https://github.com/HSLdevcom/jore4-mbtiles-server) by running `docker-compose up -d mbtiles`
-- (verify that server is up & running by going to http://localhost:3200/services/ and ensure it returns 200 OK and JSON response)
+- (verify that server is up & running by going to http://localhost:3300/services/ and ensure it returns 200 OK and JSON response)
 
 ## Experimenting with dynamic vector tiles
 
