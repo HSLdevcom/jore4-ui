@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useRef, useState } from 'react';
-import MapGL, { HTMLOverlay, MapEvent, NavigationControl } from 'react-map-gl';
+import { HTMLOverlay, MapEvent } from 'react-map-gl';
 import { useQuery } from '../../hooks';
 import { Column } from '../../layoutComponents';
 import { SimpleButton } from '../../uiComponents';
@@ -8,33 +8,22 @@ import { DrawRouteLayer, Mode } from './DrawRouteLayer';
 import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
 import { DynamicStopVectorLayer } from './DynamicStopVectorLayer';
 import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
+import { Maplibre } from './Maplibre';
 import { MarkerLayer } from './MarkerLayer';
 import { RouteLayer } from './RouteLayer';
 import { StopVectorLayer } from './StopVectorLayer';
 
 interface Props {
   className?: string;
-  // width and height are passed as params to `react-map-gl`.
-  // It seems to support certain css features, e.g. "100vh" or "100px",
-  // but in other hand "100%" doesn't seem to work...
   width?: string;
   height?: string;
 }
-
-const helsinkiCityCenterCoordinates = { latitude: 60.1716, longitude: 24.9409 };
 
 export const Map: FunctionComponent<Props> = ({
   className,
   width = '100vw',
   height = '100vh',
 }) => {
-  const [viewport, setViewport] = useState({
-    ...helsinkiCityCenterCoordinates,
-    zoom: 13,
-    bearing: 0,
-    pitch: 0,
-  });
-
   const { routeId } = useQuery();
   const routeSelected = !!routeId;
 
@@ -48,12 +37,6 @@ export const Map: FunctionComponent<Props> = ({
   // TODO: avoid any type
   const editorLayerRef = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const markerLayerRef = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
-
-  const navStyle = {
-    bottom: 72,
-    right: 0,
-    padding: '10px',
-  };
 
   const onCreateMarker = (e: MapEvent) => {
     if (markerLayerRef.current && drawingMode === undefined) {
@@ -73,46 +56,12 @@ export const Map: FunctionComponent<Props> = ({
     }
   };
 
-  const getCursor = ({
-    isHovering,
-    isDragging,
-  }: {
-    isLoaded: boolean;
-    isDragging: boolean;
-    isHovering: boolean;
-  }) => {
-    if (isDragging) {
-      return 'grabbing';
-    }
-    // TODO: seems like we never actually receive isHovering as true
-    return isHovering ? 'pointer' : 'default';
-  };
-
   return (
-    <MapGL
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...viewport}
+    <Maplibre
       width={width}
       height={height}
-      mapStyle="https://raw.githubusercontent.com/HSLdevcom/hsl-map-style/master/simple-style.json"
-      onViewportChange={setViewport}
       onClick={onCreateMarker}
       className={className}
-      getCursor={getCursor}
-      transformRequest={(url: string) => {
-        if (url.startsWith('/')) {
-          // mapbox gl js doesn't handle relative url's. As a workaround
-          // we can make those url's non-relative by prepending those with
-          // window.location.origin
-          // https://github.com/mapbox/mapbox-gl-js/issues/10407
-          const newUrl = window.location.origin + url;
-          return {
-            url: newUrl,
-          };
-        }
-        return undefined;
-      }}
-      doubleClickZoom={false}
     >
       <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />
       <MarkerLayer ref={markerLayerRef} />
@@ -188,7 +137,6 @@ export const Map: FunctionComponent<Props> = ({
       {showDynamicStops && <DynamicStopVectorLayer />}
       {showDynamicInfraLinks && <DynamicInfraLinksVectorLayer />}
       {showRoute && routeSelected && <RouteLayer routeId={routeId as string} />}
-      <NavigationControl style={navStyle} showCompass={false} />
-    </MapGL>
+    </Maplibre>
   );
 };
