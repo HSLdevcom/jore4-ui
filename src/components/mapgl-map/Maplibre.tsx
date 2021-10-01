@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import MapGL, { MapEvent, NavigationControl } from 'react-map-gl';
+import mapStyle from './mapStyle.json';
 
 interface Props {
   className?: string;
@@ -68,10 +69,10 @@ export const Maplibre: FunctionComponent<Props> = ({
       {...viewport}
       width={width}
       height={height}
-      mapStyle="https://raw.githubusercontent.com/HSLdevcom/hsl-map-style/master/simple-style.json"
       onViewportChange={setViewport}
       onClick={onClick}
       className={className}
+      mapStyle={mapStyle}
       getCursor={getCursor}
       transformRequest={transformRequest}
       doubleClickZoom={false}

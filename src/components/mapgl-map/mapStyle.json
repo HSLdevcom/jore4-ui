@@ -1,0 +1,41 @@
+{
+  "version": 8,
+  "name": "HSL Jore4 v1.0",
+  "metadata": {
+    "mapbox:groups": {
+      "1457010660461.3042": {
+        "name": "Routes",
+        "collapsed": true
+      }
+    },
+    "mapbox-groups": {}
+  },
+  "center": [24.780522192591405, 60.178648250675934],
+  "zoom": 14,
+  "bearing": 0,
+  "pitch": 0,
+  "sources": {
+    "digitransit": {
+      "type": "raster",
+      "tiles": ["https://cdn.digitransit.fi/map/v1/hsl-map/{z}/{x}/{y}@2x.png"],
+      "tileSize": 512,
+      "attribution": "Map tiles &copy; by <a target=\"_top\" rel=\"noopener\" href=\"https://digitransit.fi/\">Helsinki Region Transport 2021</a>, under <a target=\"_top\" rel=\"noopener\" href=\"http://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>."
+    }
+  },
+  "sprite": "https://raw.githubusercontent.com/HSLdevcom/hsl-map-style/master/sprite",
+  "glyphs": "https://static.hsldev.com/mapfonts/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "simple-tiles",
+      "type": "raster",
+      "source": "digitransit",
+      "minzoom": 0,
+      "maxzoom": 22
+    }
+  ],
+  "created": "2016-05-12T07:20:14.210Z",
+  "id": "cio3ytjzp005dbzm1uaowh9s3",
+  "modified": "2016-05-18T13:09:30.929Z",
+  "owner": "jore4",
+  "draft": false
+}
