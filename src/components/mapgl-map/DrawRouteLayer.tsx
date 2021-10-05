@@ -77,8 +77,10 @@ const DrawRouteLayerComponent = (
     const routeId = String(addedFeatureIndex);
     const { coordinates } = e.data[addedFeatureIndex].geometry;
     const res = await getRoute(coordinates);
-    setHasRoute(true);
-    addRoute(map, routeId, res.routes[0].geometry);
+    if (res?.routes?.[0]?.geometry) {
+      setHasRoute(true);
+      addRoute(map, routeId, res.routes[0].geometry);
+    }
   };
 
   const onSelect = (e: EditorCallback) => {
