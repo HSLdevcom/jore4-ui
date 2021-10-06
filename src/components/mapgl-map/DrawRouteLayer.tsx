@@ -67,7 +67,7 @@ const DrawRouteLayerComponent = (
     },
   }));
 
-  const createModeHandler = () => {
+  const modeHandler = useMemo(() => {
     if (hasRoute && mode === Mode.Draw) {
       // allow user to draw only one draft route at once.
       return undefined;
@@ -75,9 +75,7 @@ const DrawRouteLayerComponent = (
     const modeDetails = modes.find((item) => item.type === mode);
     // eslint-disable-next-line new-cap
     return modeDetails ? new modeDetails.handler() : undefined;
-  };
-
-  const modeHandler = createModeHandler();
+  }, [hasRoute, mode]);
 
   const onAddRoute = useCallback(
     async (e: EditorCallback) => {
