@@ -52,7 +52,7 @@ export const Map: FunctionComponent<Props> = ({
 
   const onDeleteDrawnRoute = () => {
     if (editorLayerRef.current) {
-      editorLayerRef.current.onDeleteSelectedRoute();
+      editorLayerRef.current.onDeleteRoute();
     }
   };
 
@@ -127,7 +127,7 @@ export const Map: FunctionComponent<Props> = ({
               onClick={onDeleteDrawnRoute}
               inverted
             >
-              Delete selected route
+              Delete route
             </SimpleButton>
           </Column>
         )}
