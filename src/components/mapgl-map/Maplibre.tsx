@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import MapGL, { MapEvent, NavigationControl } from 'react-map-gl';
-import mapStyle from './mapStyle.json';
+import rasterMapStyle from './rasterMapStyle.json';
 
 interface Props {
   className?: string;
@@ -10,6 +10,7 @@ interface Props {
   width?: string;
   height?: string;
   onClick?: (e: MapEvent) => void;
+  useVectorTilesAsBaseMap?: boolean;
 }
 
 const helsinkiCityCenterCoordinates = { latitude: 60.1716, longitude: 24.9409 };
@@ -19,6 +20,7 @@ export const Maplibre: FunctionComponent<Props> = ({
   onClick,
   width = '100vw',
   height = '100vh',
+  useVectorTilesAsBaseMap = true,
   children,
 }) => {
   const [viewport, setViewport] = useState({
@@ -62,6 +64,10 @@ export const Maplibre: FunctionComponent<Props> = ({
     }
     return undefined;
   };
+
+  const mapStyle = useVectorTilesAsBaseMap
+    ? 'https://raw.githubusercontent.com/HSLdevcom/hsl-map-style/master/simple-style.json'
+    : rasterMapStyle;
 
   return (
     <MapGL
