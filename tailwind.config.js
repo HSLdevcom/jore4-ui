@@ -15,6 +15,7 @@ module.exports = {
         'brand-darker': colors.brandDarker,
         'tweaked-brand': colors.tweakedBrand,
         stop: colors.stop,
+        grey: colors.grey,
         background: colors.background,
       },
     },
@@ -24,6 +25,7 @@ module.exports = {
       borderColor: ['important'],
       borderRadius: ['important'],
       borderWidth: ['important'],
+      padding: ['important'],
     },
   },
   plugins: [
