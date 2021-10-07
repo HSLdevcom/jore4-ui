@@ -37,6 +37,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.8.12",
+    "react-icons": "^4.3.1",
     "react-leaflet": "^3.2.0",
     "react-map-gl": "^6.1.16",
     "react-map-gl-draw": "0.21.1",
