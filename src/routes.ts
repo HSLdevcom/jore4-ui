@@ -66,6 +66,7 @@ export const routes: Record<Path, Route> = {
     _exact: true,
     translationKey: 'MapGL experiment',
     getLink: () => Path.mapgl,
+    // @ts-expect-error Something wrong due to forwardRef used in Map component?
     component: Map,
     includeInNav: true,
   },

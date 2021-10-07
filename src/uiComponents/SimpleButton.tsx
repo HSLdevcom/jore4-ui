@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react';
 interface CommonButtonProps {
   className?: string;
   inverted?: boolean;
+  disabled?: boolean;
   children?: ReactNode;
 }
 
@@ -18,28 +19,35 @@ interface LinkButtonProps {
 type Props = CommonButtonProps & (ButtonProps | LinkButtonProps);
 
 export const SimpleButton: React.FC<Props> = (props) => {
-  const { className, inverted, children } = props;
+  const { className, inverted, disabled, children } = props;
   const colorClassNames = inverted
-    ? 'text-blue-500 hover:bg-gray-100 bg-white'
-    : 'text-white  bg-blue-500 hover:bg-blue-700';
-  const commonClassNames = `px-4 py-2 font-bold rounded-full ${colorClassNames}`;
+    ? 'text-blue-500 hover:bg-gray-100 bg-white border border-grey'
+    : 'text-white bg-blue-500 hover:bg-blue-700';
+  const disabledClassNames = disabled ? 'pointer-events-none opacity-70' : '';
+  const commonClassNames = `px-4 py-2 font-bold rounded-full ${colorClassNames} ${disabledClassNames}`;
   if ((props as ButtonProps).onClick) {
     return (
       <button
         className={`${commonClassNames} ${className}`}
         type="button"
         onClick={(props as ButtonProps).onClick}
+        disabled={disabled}
       >
         {children}
       </button>
     );
   }
   if ((props as LinkButtonProps).href) {
+    // Try to take accessibility of disabled link buttons into account as stated
+    // in Bootstrap's documentation:
+    // https://getbootstrap.com/docs/5.1/components/buttons/#link-functionality-caveat
     return (
       <a
         className={`${commonClassNames} flex items-center ${className}`}
         type="button"
-        href={(props as LinkButtonProps).href}
+        href={disabled ? (props as LinkButtonProps).href : undefined}
+        aria-disabled={disabled}
+        tabIndex={disabled ? -1 : undefined}
       >
         {children}
       </a>

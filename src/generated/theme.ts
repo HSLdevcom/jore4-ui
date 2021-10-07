@@ -5,5 +5,6 @@ export const theme = {
     tweakedBrand: "#0074bf",
     stop: "#004B7B",
     background: "#F2F5F7",
+    grey: "#888888",
   },
 };
