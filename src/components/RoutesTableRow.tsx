@@ -1,5 +1,6 @@
 import qs from 'qs';
 import React from 'react';
+import { MdPinDrop } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { Column } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
@@ -33,9 +34,9 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
           </p>
         </Column>
       </td>
-      <td className="text-center border">
-        <Link to={openInMapUrl} className="p-2">
-          <i className="icon-location text-tweaked-brand text-4xl" />
+      <td className="border">
+        <Link to={openInMapUrl} className="flex justify-center py-3">
+          <MdPinDrop className="text-center text-tweaked-brand text-5xl" />
         </Link>
       </td>
     </tr>
