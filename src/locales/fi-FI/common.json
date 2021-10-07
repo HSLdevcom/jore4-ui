@@ -15,7 +15,10 @@
     "open": "Avaa kartta",
     "showRoutes": "Näytä reitit",
     "showStops": "Näytä pysäkit",
-    "joreMap": "Jore 4.0 kartta"
+    "joreMap": "Jore 4.0 kartta",
+    "drawRoute": "Vedä reitti",
+    "editRoute": "Muokkaa reittiä",
+    "deleteRoute": "Poista reitti"
   },
   "close": "Sulje",
   "version": "Versio: {{ version }}"

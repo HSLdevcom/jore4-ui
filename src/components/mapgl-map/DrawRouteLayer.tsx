@@ -6,11 +6,11 @@ import React, {
   useImperativeHandle,
   useMemo,
   useRef,
-  useState,
 } from 'react';
 import { MapContext } from 'react-map-gl';
 import { DrawLineStringMode, EditingMode, Editor } from 'react-map-gl-draw';
 import { getRoute } from '../../api/routing';
+import { MapEditorContext } from '../../context/MapEditorContext';
 import { addRoute, removeRoute } from './mapUtils';
 
 interface Props {
@@ -46,7 +46,7 @@ const DrawRouteLayerComponent = (
 ): JSX.Element => {
   const { map } = useContext(MapContext);
   const editorRef = useRef<ExplicitAny>(null);
-  const [hasRoute, setHasRoute] = useState(false);
+  const { hasRoute, setHasRoute } = useContext(MapEditorContext);
 
   const onDelete = useCallback(
     (routeId: string) => {
@@ -54,7 +54,7 @@ const DrawRouteLayerComponent = (
       removeRoute(map, routeId);
       setHasRoute(false);
     },
-    [map],
+    [map, setHasRoute],
   );
 
   useImperativeHandle(externalRef, () => ({

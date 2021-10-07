@@ -15,7 +15,10 @@
     "open": "Open map",
     "showRoutes": "Show routes",
     "showStops": "Show stops",
-    "joreMap": "Jore 4.0 map"
+    "joreMap": "Jore 4.0 map",
+    "drawRoute": "Draw route",
+    "editRoute": "Edit route",
+    "deleteRoute": "Remove route"
   },
   "close": "Close",
   "version": "Version: {{ version }}"
