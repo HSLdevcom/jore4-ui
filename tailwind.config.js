@@ -22,7 +22,8 @@ module.exports = {
   },
   variants: {
     extend: {
-      borderColor: ['important'],
+      backgroundOpacity: ['active'],
+      borderColor: ['active', 'important'],
       borderRadius: ['important'],
       borderWidth: ['important'],
       padding: ['important'],

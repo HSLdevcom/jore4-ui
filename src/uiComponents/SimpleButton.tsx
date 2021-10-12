@@ -21,8 +21,8 @@ type Props = CommonButtonProps & (ButtonProps | LinkButtonProps);
 export const SimpleButton: React.FC<Props> = (props) => {
   const { className, inverted, disabled, children } = props;
   const colorClassNames = inverted
-    ? 'text-blue-500 hover:bg-gray-100 bg-white border border-grey'
-    : 'text-white bg-blue-500 hover:bg-blue-700';
+    ? 'text-brand bg-white border border-grey hover:border-brand active:border-brand'
+    : 'text-white bg-brand border border-brand hover:bg-opacity-50 active:bg-opacity-50';
   const disabledClassNames = disabled ? 'pointer-events-none opacity-70' : '';
   const commonClassNames = `px-4 py-2 font-bold rounded-full ${colorClassNames} ${disabledClassNames}`;
   if ((props as ButtonProps).onClick) {
