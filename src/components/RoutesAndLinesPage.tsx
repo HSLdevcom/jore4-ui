@@ -20,7 +20,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
       </Row>
       <Row className="mt-2">
         <SimpleButton className="ml-auto" onClick={() => setIsOpen(true)}>
-          Avaa modaalissa
+          Piirrä reitti
         </SimpleButton>
       </Row>
       <h2 className="text-bold mb-14 mt-12 text-4xl">Esimerkkireitit</h2>
