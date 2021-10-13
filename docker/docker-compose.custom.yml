@@ -1,13 +1,14 @@
----
-version: '3.8'
 services:
-  mbtiles:
-    image: hsldevcom/jore4-mbtiles-server:stops--7bd7d1ad101cfc7db8f67639e28e3edbf1ca6379
-    restart: unless-stopped
-    ports:
-      - 3300:8000
-    networks:
-      - jore4
+  jore4-hasura:
+    # Temporarily overwrite the hasura version of the flux docker-compose bundle
+    # because it did not contain the necessary migrations as of 14.10.2021.
+    # However this section should be deleted after we have hasura updated in the bundle
+    image: 'hsldevcom/jore4-hasura:main--e04e05996bf41fe7b3e75942f865b1f321e411b9'
+    secrets:
+      - source: db-jore3importer-username
+        target: /mnt/secrets-store/db-jore3importer-username
+    environment:
+      HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
 
   martin:
     image: urbica/martin
@@ -39,5 +40,6 @@ services:
     networks:
       - jore4
 
-networks:
-  jore4:
+secrets:
+  db-jore3importer-username:
+    file: ./secret-testdb-db-jore3importer-username

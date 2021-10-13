@@ -12,9 +12,43 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  float8: any;
   geography: any;
   geometry: any;
   uuid: any;
+};
+
+/** expression to compare columns of type String. All fields are combined with logical 'AND'. */
+export type String_Comparison_Exp = {
+  _eq?: Maybe<Scalars['String']>;
+  _gt?: Maybe<Scalars['String']>;
+  _gte?: Maybe<Scalars['String']>;
+  _ilike?: Maybe<Scalars['String']>;
+  _in?: Maybe<Array<Scalars['String']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _like?: Maybe<Scalars['String']>;
+  _lt?: Maybe<Scalars['String']>;
+  _lte?: Maybe<Scalars['String']>;
+  _neq?: Maybe<Scalars['String']>;
+  _nilike?: Maybe<Scalars['String']>;
+  _nin?: Maybe<Array<Scalars['String']>>;
+  _nlike?: Maybe<Scalars['String']>;
+  _nsimilar?: Maybe<Scalars['String']>;
+  _similar?: Maybe<Scalars['String']>;
+};
+
+
+/** expression to compare columns of type float8. All fields are combined with logical 'AND'. */
+export type Float8_Comparison_Exp = {
+  _eq?: Maybe<Scalars['float8']>;
+  _gt?: Maybe<Scalars['float8']>;
+  _gte?: Maybe<Scalars['float8']>;
+  _in?: Maybe<Array<Scalars['float8']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _lt?: Maybe<Scalars['float8']>;
+  _lte?: Maybe<Scalars['float8']>;
+  _neq?: Maybe<Scalars['float8']>;
+  _nin?: Maybe<Array<Scalars['float8']>>;
 };
 
 
@@ -77,61 +111,959 @@ export type Geometry_Comparison_Exp = {
   _st_within?: Maybe<Scalars['geometry']>;
 };
 
+/**
+ * The direction in which an e.g. infrastructure link can be traversed
+ *
+ *
+ * columns and relationships of "infrastructure_network.direction"
+ */
+export type Infrastructure_Network_Direction = {
+  __typename?: 'infrastructure_network_direction';
+  value: Scalars['String'];
+};
+
+/** aggregated selection of "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Aggregate = {
+  __typename?: 'infrastructure_network_direction_aggregate';
+  aggregate?: Maybe<Infrastructure_Network_Direction_Aggregate_Fields>;
+  nodes: Array<Infrastructure_Network_Direction>;
+};
+
+/** aggregate fields of "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Aggregate_Fields = {
+  __typename?: 'infrastructure_network_direction_aggregate_fields';
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Infrastructure_Network_Direction_Max_Fields>;
+  min?: Maybe<Infrastructure_Network_Direction_Min_Fields>;
+};
+
+
+/** aggregate fields of "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Infrastructure_Network_Direction_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Aggregate_Order_By = {
+  count?: Maybe<Order_By>;
+  max?: Maybe<Infrastructure_Network_Direction_Max_Order_By>;
+  min?: Maybe<Infrastructure_Network_Direction_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Arr_Rel_Insert_Input = {
+  data: Array<Infrastructure_Network_Direction_Insert_Input>;
+  on_conflict?: Maybe<Infrastructure_Network_Direction_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "infrastructure_network.direction". All fields are combined with a logical 'AND'. */
+export type Infrastructure_Network_Direction_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Infrastructure_Network_Direction_Bool_Exp>>>;
+  _not?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
+  _or?: Maybe<Array<Maybe<Infrastructure_Network_Direction_Bool_Exp>>>;
+  value?: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "infrastructure_network.direction" */
+export enum Infrastructure_Network_Direction_Constraint {
+  /** unique or primary key constraint */
+  DirectionPkey = 'direction_pkey'
+}
+
+/** input type for inserting data into table "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Insert_Input = {
+  value?: Maybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Infrastructure_Network_Direction_Max_Fields = {
+  __typename?: 'infrastructure_network_direction_max_fields';
+  value?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Max_Order_By = {
+  value?: Maybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Infrastructure_Network_Direction_Min_Fields = {
+  __typename?: 'infrastructure_network_direction_min_fields';
+  value?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Min_Order_By = {
+  value?: Maybe<Order_By>;
+};
+
+/** response of any mutation on the table "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Mutation_Response = {
+  __typename?: 'infrastructure_network_direction_mutation_response';
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  returning: Array<Infrastructure_Network_Direction>;
+};
+
+/** input type for inserting object relation for remote table "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Obj_Rel_Insert_Input = {
+  data: Infrastructure_Network_Direction_Insert_Input;
+  on_conflict?: Maybe<Infrastructure_Network_Direction_On_Conflict>;
+};
+
+/** on conflict condition type for table "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_On_Conflict = {
+  constraint: Infrastructure_Network_Direction_Constraint;
+  update_columns: Array<Infrastructure_Network_Direction_Update_Column>;
+  where?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
+};
+
+/** ordering options when selecting data from "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Order_By = {
+  value?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Pk_Columns_Input = {
+  value: Scalars['String'];
+};
+
+/** select columns of table "infrastructure_network.direction" */
+export enum Infrastructure_Network_Direction_Select_Column {
+  /** column name */
+  Value = 'value'
+}
+
+/** input type for updating data in table "infrastructure_network.direction" */
+export type Infrastructure_Network_Direction_Set_Input = {
+  value?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "infrastructure_network.direction" */
+export enum Infrastructure_Network_Direction_Update_Column {
+  /** column name */
+  Value = 'value'
+}
+
+/**
+ * An external source from which infrastructure network parts are imported
+ *
+ *
+ * columns and relationships of "infrastructure_network.external_source"
+ */
+export type Infrastructure_Network_External_Source = {
+  __typename?: 'infrastructure_network_external_source';
+  value: Scalars['String'];
+};
+
+/** aggregated selection of "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Aggregate = {
+  __typename?: 'infrastructure_network_external_source_aggregate';
+  aggregate?: Maybe<Infrastructure_Network_External_Source_Aggregate_Fields>;
+  nodes: Array<Infrastructure_Network_External_Source>;
+};
+
+/** aggregate fields of "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Aggregate_Fields = {
+  __typename?: 'infrastructure_network_external_source_aggregate_fields';
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Infrastructure_Network_External_Source_Max_Fields>;
+  min?: Maybe<Infrastructure_Network_External_Source_Min_Fields>;
+};
+
+
+/** aggregate fields of "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Infrastructure_Network_External_Source_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Aggregate_Order_By = {
+  count?: Maybe<Order_By>;
+  max?: Maybe<Infrastructure_Network_External_Source_Max_Order_By>;
+  min?: Maybe<Infrastructure_Network_External_Source_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Arr_Rel_Insert_Input = {
+  data: Array<Infrastructure_Network_External_Source_Insert_Input>;
+  on_conflict?: Maybe<Infrastructure_Network_External_Source_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "infrastructure_network.external_source". All fields are combined with a logical 'AND'. */
+export type Infrastructure_Network_External_Source_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Infrastructure_Network_External_Source_Bool_Exp>>>;
+  _not?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
+  _or?: Maybe<Array<Maybe<Infrastructure_Network_External_Source_Bool_Exp>>>;
+  value?: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "infrastructure_network.external_source" */
+export enum Infrastructure_Network_External_Source_Constraint {
+  /** unique or primary key constraint */
+  ExternalSourcePkey = 'external_source_pkey'
+}
+
+/** input type for inserting data into table "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Insert_Input = {
+  value?: Maybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Infrastructure_Network_External_Source_Max_Fields = {
+  __typename?: 'infrastructure_network_external_source_max_fields';
+  value?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Max_Order_By = {
+  value?: Maybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Infrastructure_Network_External_Source_Min_Fields = {
+  __typename?: 'infrastructure_network_external_source_min_fields';
+  value?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Min_Order_By = {
+  value?: Maybe<Order_By>;
+};
+
+/** response of any mutation on the table "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Mutation_Response = {
+  __typename?: 'infrastructure_network_external_source_mutation_response';
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  returning: Array<Infrastructure_Network_External_Source>;
+};
+
+/** input type for inserting object relation for remote table "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Obj_Rel_Insert_Input = {
+  data: Infrastructure_Network_External_Source_Insert_Input;
+  on_conflict?: Maybe<Infrastructure_Network_External_Source_On_Conflict>;
+};
+
+/** on conflict condition type for table "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_On_Conflict = {
+  constraint: Infrastructure_Network_External_Source_Constraint;
+  update_columns: Array<Infrastructure_Network_External_Source_Update_Column>;
+  where?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
+};
+
+/** ordering options when selecting data from "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Order_By = {
+  value?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Pk_Columns_Input = {
+  value: Scalars['String'];
+};
+
+/** select columns of table "infrastructure_network.external_source" */
+export enum Infrastructure_Network_External_Source_Select_Column {
+  /** column name */
+  Value = 'value'
+}
+
+/** input type for updating data in table "infrastructure_network.external_source" */
+export type Infrastructure_Network_External_Source_Set_Input = {
+  value?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "infrastructure_network.external_source" */
+export enum Infrastructure_Network_External_Source_Update_Column {
+  /** column name */
+  Value = 'value'
+}
+
+/**
+ * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
+ *
+ *
+ * columns and relationships of "infrastructure_network.infrastructure_link"
+ */
+export type Infrastructure_Network_Infrastructure_Link = {
+  __typename?: 'infrastructure_network_infrastructure_link';
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
+  direction: Scalars['String'];
+  /** The estimated length of the infrastructure link in metres. */
+  estimated_length_in_metres?: Maybe<Scalars['float8']>;
+  external_link_id: Scalars['String'];
+  external_link_source: Scalars['String'];
+  /** The ID of the infrastructure link. */
+  infrastructure_link_id: Scalars['uuid'];
+  /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
+  shape: Scalars['geography'];
+};
+
+/** aggregated selection of "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Aggregate = {
+  __typename?: 'infrastructure_network_infrastructure_link_aggregate';
+  aggregate?: Maybe<Infrastructure_Network_Infrastructure_Link_Aggregate_Fields>;
+  nodes: Array<Infrastructure_Network_Infrastructure_Link>;
+};
+
+/** aggregate fields of "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Aggregate_Fields = {
+  __typename?: 'infrastructure_network_infrastructure_link_aggregate_fields';
+  avg?: Maybe<Infrastructure_Network_Infrastructure_Link_Avg_Fields>;
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Infrastructure_Network_Infrastructure_Link_Max_Fields>;
+  min?: Maybe<Infrastructure_Network_Infrastructure_Link_Min_Fields>;
+  stddev?: Maybe<Infrastructure_Network_Infrastructure_Link_Stddev_Fields>;
+  stddev_pop?: Maybe<Infrastructure_Network_Infrastructure_Link_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Infrastructure_Network_Infrastructure_Link_Stddev_Samp_Fields>;
+  sum?: Maybe<Infrastructure_Network_Infrastructure_Link_Sum_Fields>;
+  var_pop?: Maybe<Infrastructure_Network_Infrastructure_Link_Var_Pop_Fields>;
+  var_samp?: Maybe<Infrastructure_Network_Infrastructure_Link_Var_Samp_Fields>;
+  variance?: Maybe<Infrastructure_Network_Infrastructure_Link_Variance_Fields>;
+};
+
+
+/** aggregate fields of "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Aggregate_Order_By = {
+  avg?: Maybe<Infrastructure_Network_Infrastructure_Link_Avg_Order_By>;
+  count?: Maybe<Order_By>;
+  max?: Maybe<Infrastructure_Network_Infrastructure_Link_Max_Order_By>;
+  min?: Maybe<Infrastructure_Network_Infrastructure_Link_Min_Order_By>;
+  stddev?: Maybe<Infrastructure_Network_Infrastructure_Link_Stddev_Order_By>;
+  stddev_pop?: Maybe<Infrastructure_Network_Infrastructure_Link_Stddev_Pop_Order_By>;
+  stddev_samp?: Maybe<Infrastructure_Network_Infrastructure_Link_Stddev_Samp_Order_By>;
+  sum?: Maybe<Infrastructure_Network_Infrastructure_Link_Sum_Order_By>;
+  var_pop?: Maybe<Infrastructure_Network_Infrastructure_Link_Var_Pop_Order_By>;
+  var_samp?: Maybe<Infrastructure_Network_Infrastructure_Link_Var_Samp_Order_By>;
+  variance?: Maybe<Infrastructure_Network_Infrastructure_Link_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Arr_Rel_Insert_Input = {
+  data: Array<Infrastructure_Network_Infrastructure_Link_Insert_Input>;
+  on_conflict?: Maybe<Infrastructure_Network_Infrastructure_Link_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Infrastructure_Network_Infrastructure_Link_Avg_Fields = {
+  __typename?: 'infrastructure_network_infrastructure_link_avg_fields';
+  estimated_length_in_metres?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Avg_Order_By = {
+  estimated_length_in_metres?: Maybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "infrastructure_network.infrastructure_link". All fields are combined with a logical 'AND'. */
+export type Infrastructure_Network_Infrastructure_Link_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>>>;
+  _not?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  _or?: Maybe<Array<Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>>>;
+  direction?: Maybe<String_Comparison_Exp>;
+  estimated_length_in_metres?: Maybe<Float8_Comparison_Exp>;
+  external_link_id?: Maybe<String_Comparison_Exp>;
+  external_link_source?: Maybe<String_Comparison_Exp>;
+  infrastructure_link_id?: Maybe<Uuid_Comparison_Exp>;
+  shape?: Maybe<Geography_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "infrastructure_network.infrastructure_link" */
+export enum Infrastructure_Network_Infrastructure_Link_Constraint {
+  /** unique or primary key constraint */
+  InfrastructureLinkExternalLinkIdExternalLinkSourceIdx = 'infrastructure_link_external_link_id_external_link_source_idx',
+  /** unique or primary key constraint */
+  InfrastructureLinkPkey = 'infrastructure_link_pkey'
+}
+
+/** input type for incrementing integer column in table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Inc_Input = {
+  estimated_length_in_metres?: Maybe<Scalars['float8']>;
+};
+
+/** input type for inserting data into table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Insert_Input = {
+  direction?: Maybe<Scalars['String']>;
+  estimated_length_in_metres?: Maybe<Scalars['float8']>;
+  external_link_id?: Maybe<Scalars['String']>;
+  external_link_source?: Maybe<Scalars['String']>;
+  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  shape?: Maybe<Scalars['geography']>;
+};
+
+/** aggregate max on columns */
+export type Infrastructure_Network_Infrastructure_Link_Max_Fields = {
+  __typename?: 'infrastructure_network_infrastructure_link_max_fields';
+  direction?: Maybe<Scalars['String']>;
+  estimated_length_in_metres?: Maybe<Scalars['float8']>;
+  external_link_id?: Maybe<Scalars['String']>;
+  external_link_source?: Maybe<Scalars['String']>;
+  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by max() on columns of table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Max_Order_By = {
+  direction?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<Order_By>;
+  external_link_id?: Maybe<Order_By>;
+  external_link_source?: Maybe<Order_By>;
+  infrastructure_link_id?: Maybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Infrastructure_Network_Infrastructure_Link_Min_Fields = {
+  __typename?: 'infrastructure_network_infrastructure_link_min_fields';
+  direction?: Maybe<Scalars['String']>;
+  estimated_length_in_metres?: Maybe<Scalars['float8']>;
+  external_link_id?: Maybe<Scalars['String']>;
+  external_link_source?: Maybe<Scalars['String']>;
+  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by min() on columns of table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Min_Order_By = {
+  direction?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<Order_By>;
+  external_link_id?: Maybe<Order_By>;
+  external_link_source?: Maybe<Order_By>;
+  infrastructure_link_id?: Maybe<Order_By>;
+};
+
+/** response of any mutation on the table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Mutation_Response = {
+  __typename?: 'infrastructure_network_infrastructure_link_mutation_response';
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  returning: Array<Infrastructure_Network_Infrastructure_Link>;
+};
+
+/** input type for inserting object relation for remote table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Obj_Rel_Insert_Input = {
+  data: Infrastructure_Network_Infrastructure_Link_Insert_Input;
+  on_conflict?: Maybe<Infrastructure_Network_Infrastructure_Link_On_Conflict>;
+};
+
+/** on conflict condition type for table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_On_Conflict = {
+  constraint: Infrastructure_Network_Infrastructure_Link_Constraint;
+  update_columns: Array<Infrastructure_Network_Infrastructure_Link_Update_Column>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+};
+
+/** ordering options when selecting data from "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Order_By = {
+  direction?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<Order_By>;
+  external_link_id?: Maybe<Order_By>;
+  external_link_source?: Maybe<Order_By>;
+  infrastructure_link_id?: Maybe<Order_By>;
+  shape?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Pk_Columns_Input = {
+  /** The ID of the infrastructure link. */
+  infrastructure_link_id: Scalars['uuid'];
+};
+
+/** select columns of table "infrastructure_network.infrastructure_link" */
+export enum Infrastructure_Network_Infrastructure_Link_Select_Column {
+  /** column name */
+  Direction = 'direction',
+  /** column name */
+  EstimatedLengthInMetres = 'estimated_length_in_metres',
+  /** column name */
+  ExternalLinkId = 'external_link_id',
+  /** column name */
+  ExternalLinkSource = 'external_link_source',
+  /** column name */
+  InfrastructureLinkId = 'infrastructure_link_id',
+  /** column name */
+  Shape = 'shape'
+}
+
+/** input type for updating data in table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Set_Input = {
+  direction?: Maybe<Scalars['String']>;
+  estimated_length_in_metres?: Maybe<Scalars['float8']>;
+  external_link_id?: Maybe<Scalars['String']>;
+  external_link_source?: Maybe<Scalars['String']>;
+  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  shape?: Maybe<Scalars['geography']>;
+};
+
+/** aggregate stddev on columns */
+export type Infrastructure_Network_Infrastructure_Link_Stddev_Fields = {
+  __typename?: 'infrastructure_network_infrastructure_link_stddev_fields';
+  estimated_length_in_metres?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Stddev_Order_By = {
+  estimated_length_in_metres?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Infrastructure_Network_Infrastructure_Link_Stddev_Pop_Fields = {
+  __typename?: 'infrastructure_network_infrastructure_link_stddev_pop_fields';
+  estimated_length_in_metres?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Stddev_Pop_Order_By = {
+  estimated_length_in_metres?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Infrastructure_Network_Infrastructure_Link_Stddev_Samp_Fields = {
+  __typename?: 'infrastructure_network_infrastructure_link_stddev_samp_fields';
+  estimated_length_in_metres?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Stddev_Samp_Order_By = {
+  estimated_length_in_metres?: Maybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Infrastructure_Network_Infrastructure_Link_Sum_Fields = {
+  __typename?: 'infrastructure_network_infrastructure_link_sum_fields';
+  estimated_length_in_metres?: Maybe<Scalars['float8']>;
+};
+
+/** order by sum() on columns of table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Sum_Order_By = {
+  estimated_length_in_metres?: Maybe<Order_By>;
+};
+
+/** update columns of table "infrastructure_network.infrastructure_link" */
+export enum Infrastructure_Network_Infrastructure_Link_Update_Column {
+  /** column name */
+  Direction = 'direction',
+  /** column name */
+  EstimatedLengthInMetres = 'estimated_length_in_metres',
+  /** column name */
+  ExternalLinkId = 'external_link_id',
+  /** column name */
+  ExternalLinkSource = 'external_link_source',
+  /** column name */
+  InfrastructureLinkId = 'infrastructure_link_id',
+  /** column name */
+  Shape = 'shape'
+}
+
+/** aggregate var_pop on columns */
+export type Infrastructure_Network_Infrastructure_Link_Var_Pop_Fields = {
+  __typename?: 'infrastructure_network_infrastructure_link_var_pop_fields';
+  estimated_length_in_metres?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Var_Pop_Order_By = {
+  estimated_length_in_metres?: Maybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Infrastructure_Network_Infrastructure_Link_Var_Samp_Fields = {
+  __typename?: 'infrastructure_network_infrastructure_link_var_samp_fields';
+  estimated_length_in_metres?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Var_Samp_Order_By = {
+  estimated_length_in_metres?: Maybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Infrastructure_Network_Infrastructure_Link_Variance_Fields = {
+  __typename?: 'infrastructure_network_infrastructure_link_variance_fields';
+  estimated_length_in_metres?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "infrastructure_network.infrastructure_link" */
+export type Infrastructure_Network_Infrastructure_Link_Variance_Order_By = {
+  estimated_length_in_metres?: Maybe<Order_By>;
+};
+
+/**
+ * Which infrastructure links are safely traversed by which vehicle submodes?
+ *
+ *
+ * columns and relationships of "infrastructure_network.vehicle_submode_on_infrastructure_link"
+ */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link = {
+  __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link';
+  /** The infrastructure link that can be safely traversed by the vehicle submode. */
+  infrastructure_link_id: Scalars['uuid'];
+  /** The vehicle submode that can safely traverse the infrastructure link. */
+  vehicle_submode: Scalars['String'];
+};
+
+/** aggregated selection of "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate = {
+  __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate';
+  aggregate?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate_Fields>;
+  nodes: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+};
+
+/** aggregate fields of "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate_Fields = {
+  __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate_fields';
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Max_Fields>;
+  min?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Min_Fields>;
+};
+
+
+/** aggregate fields of "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate_Order_By = {
+  count?: Maybe<Order_By>;
+  max?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Max_Order_By>;
+  min?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Arr_Rel_Insert_Input = {
+  data: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Insert_Input>;
+  on_conflict?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "infrastructure_network.vehicle_submode_on_infrastructure_link". All fields are combined with a logical 'AND'. */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>>>;
+  _not?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+  _or?: Maybe<Array<Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>>>;
+  infrastructure_link_id?: Maybe<Uuid_Comparison_Exp>;
+  vehicle_submode?: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export enum Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Constraint {
+  /** unique or primary key constraint */
+  VehicleSubmodeOnInfrastructureLinkPkey = 'vehicle_submode_on_infrastructure_link_pkey'
+}
+
+/** input type for inserting data into table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Insert_Input = {
+  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  vehicle_submode?: Maybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Max_Fields = {
+  __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_max_fields';
+  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  vehicle_submode?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Max_Order_By = {
+  infrastructure_link_id?: Maybe<Order_By>;
+  vehicle_submode?: Maybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Min_Fields = {
+  __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_min_fields';
+  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  vehicle_submode?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Min_Order_By = {
+  infrastructure_link_id?: Maybe<Order_By>;
+  vehicle_submode?: Maybe<Order_By>;
+};
+
+/** response of any mutation on the table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Mutation_Response = {
+  __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_mutation_response';
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  returning: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+};
+
+/** input type for inserting object relation for remote table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Obj_Rel_Insert_Input = {
+  data: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Insert_Input;
+  on_conflict?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_On_Conflict>;
+};
+
+/** on conflict condition type for table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_On_Conflict = {
+  constraint: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Constraint;
+  update_columns: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Update_Column>;
+  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+};
+
+/** ordering options when selecting data from "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By = {
+  infrastructure_link_id?: Maybe<Order_By>;
+  vehicle_submode?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Pk_Columns_Input = {
+  /** The infrastructure link that can be safely traversed by the vehicle submode. */
+  infrastructure_link_id: Scalars['uuid'];
+  /** The vehicle submode that can safely traverse the infrastructure link. */
+  vehicle_submode: Scalars['String'];
+};
+
+/** select columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export enum Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column {
+  /** column name */
+  InfrastructureLinkId = 'infrastructure_link_id',
+  /** column name */
+  VehicleSubmode = 'vehicle_submode'
+}
+
+/** input type for updating data in table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Set_Input = {
+  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  vehicle_submode?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+export enum Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Update_Column {
+  /** column name */
+  InfrastructureLinkId = 'infrastructure_link_id',
+  /** column name */
+  VehicleSubmode = 'vehicle_submode'
+}
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
-  /** delete data from the table: "playground.points" */
-  delete_playground_points?: Maybe<Playground_Points_Mutation_Response>;
-  /** delete single row from the table: "playground.points" */
-  delete_playground_points_by_pk?: Maybe<Playground_Points>;
-  /** insert data into the table: "playground.points" */
-  insert_playground_points?: Maybe<Playground_Points_Mutation_Response>;
-  /** insert a single row into the table: "playground.points" */
-  insert_playground_points_one?: Maybe<Playground_Points>;
-  /** update data of the table: "playground.points" */
-  update_playground_points?: Maybe<Playground_Points_Mutation_Response>;
-  /** update single row of the table: "playground.points" */
-  update_playground_points_by_pk?: Maybe<Playground_Points>;
+  /** delete data from the table: "infrastructure_network.direction" */
+  delete_infrastructure_network_direction?: Maybe<Infrastructure_Network_Direction_Mutation_Response>;
+  /** delete single row from the table: "infrastructure_network.direction" */
+  delete_infrastructure_network_direction_by_pk?: Maybe<Infrastructure_Network_Direction>;
+  /** delete data from the table: "infrastructure_network.external_source" */
+  delete_infrastructure_network_external_source?: Maybe<Infrastructure_Network_External_Source_Mutation_Response>;
+  /** delete single row from the table: "infrastructure_network.external_source" */
+  delete_infrastructure_network_external_source_by_pk?: Maybe<Infrastructure_Network_External_Source>;
+  /** delete data from the table: "infrastructure_network.infrastructure_link" */
+  delete_infrastructure_network_infrastructure_link?: Maybe<Infrastructure_Network_Infrastructure_Link_Mutation_Response>;
+  /** delete single row from the table: "infrastructure_network.infrastructure_link" */
+  delete_infrastructure_network_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  /** delete data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+  delete_infrastructure_network_vehicle_submode_on_infrastructure_link?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Mutation_Response>;
+  /** delete single row from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+  delete_infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  /** insert data into the table: "infrastructure_network.direction" */
+  insert_infrastructure_network_direction?: Maybe<Infrastructure_Network_Direction_Mutation_Response>;
+  /** insert a single row into the table: "infrastructure_network.direction" */
+  insert_infrastructure_network_direction_one?: Maybe<Infrastructure_Network_Direction>;
+  /** insert data into the table: "infrastructure_network.external_source" */
+  insert_infrastructure_network_external_source?: Maybe<Infrastructure_Network_External_Source_Mutation_Response>;
+  /** insert a single row into the table: "infrastructure_network.external_source" */
+  insert_infrastructure_network_external_source_one?: Maybe<Infrastructure_Network_External_Source>;
+  /** insert data into the table: "infrastructure_network.infrastructure_link" */
+  insert_infrastructure_network_infrastructure_link?: Maybe<Infrastructure_Network_Infrastructure_Link_Mutation_Response>;
+  /** insert a single row into the table: "infrastructure_network.infrastructure_link" */
+  insert_infrastructure_network_infrastructure_link_one?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  /** insert data into the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+  insert_infrastructure_network_vehicle_submode_on_infrastructure_link?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Mutation_Response>;
+  /** insert a single row into the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+  insert_infrastructure_network_vehicle_submode_on_infrastructure_link_one?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  /** update data of the table: "infrastructure_network.direction" */
+  update_infrastructure_network_direction?: Maybe<Infrastructure_Network_Direction_Mutation_Response>;
+  /** update single row of the table: "infrastructure_network.direction" */
+  update_infrastructure_network_direction_by_pk?: Maybe<Infrastructure_Network_Direction>;
+  /** update data of the table: "infrastructure_network.external_source" */
+  update_infrastructure_network_external_source?: Maybe<Infrastructure_Network_External_Source_Mutation_Response>;
+  /** update single row of the table: "infrastructure_network.external_source" */
+  update_infrastructure_network_external_source_by_pk?: Maybe<Infrastructure_Network_External_Source>;
+  /** update data of the table: "infrastructure_network.infrastructure_link" */
+  update_infrastructure_network_infrastructure_link?: Maybe<Infrastructure_Network_Infrastructure_Link_Mutation_Response>;
+  /** update single row of the table: "infrastructure_network.infrastructure_link" */
+  update_infrastructure_network_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  /** update data of the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+  update_infrastructure_network_vehicle_submode_on_infrastructure_link?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Mutation_Response>;
+  /** update single row of the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+  update_infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Playground_PointsArgs = {
-  where: Playground_Points_Bool_Exp;
+export type Mutation_RootDelete_Infrastructure_Network_DirectionArgs = {
+  where: Infrastructure_Network_Direction_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Playground_Points_By_PkArgs = {
-  point_id: Scalars['uuid'];
+export type Mutation_RootDelete_Infrastructure_Network_Direction_By_PkArgs = {
+  value: Scalars['String'];
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Playground_PointsArgs = {
-  objects: Array<Playground_Points_Insert_Input>;
-  on_conflict?: Maybe<Playground_Points_On_Conflict>;
+export type Mutation_RootDelete_Infrastructure_Network_External_SourceArgs = {
+  where: Infrastructure_Network_External_Source_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Playground_Points_OneArgs = {
-  object: Playground_Points_Insert_Input;
-  on_conflict?: Maybe<Playground_Points_On_Conflict>;
+export type Mutation_RootDelete_Infrastructure_Network_External_Source_By_PkArgs = {
+  value: Scalars['String'];
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Playground_PointsArgs = {
-  _set?: Maybe<Playground_Points_Set_Input>;
-  where: Playground_Points_Bool_Exp;
+export type Mutation_RootDelete_Infrastructure_Network_Infrastructure_LinkArgs = {
+  where: Infrastructure_Network_Infrastructure_Link_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Playground_Points_By_PkArgs = {
-  _set?: Maybe<Playground_Points_Set_Input>;
-  pk_columns: Playground_Points_Pk_Columns_Input;
+export type Mutation_RootDelete_Infrastructure_Network_Infrastructure_Link_By_PkArgs = {
+  infrastructure_link_id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Infrastructure_Network_Vehicle_Submode_On_Infrastructure_LinkArgs = {
+  where: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_By_PkArgs = {
+  infrastructure_link_id: Scalars['uuid'];
+  vehicle_submode: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Infrastructure_Network_DirectionArgs = {
+  objects: Array<Infrastructure_Network_Direction_Insert_Input>;
+  on_conflict?: Maybe<Infrastructure_Network_Direction_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Infrastructure_Network_Direction_OneArgs = {
+  object: Infrastructure_Network_Direction_Insert_Input;
+  on_conflict?: Maybe<Infrastructure_Network_Direction_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Infrastructure_Network_External_SourceArgs = {
+  objects: Array<Infrastructure_Network_External_Source_Insert_Input>;
+  on_conflict?: Maybe<Infrastructure_Network_External_Source_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Infrastructure_Network_External_Source_OneArgs = {
+  object: Infrastructure_Network_External_Source_Insert_Input;
+  on_conflict?: Maybe<Infrastructure_Network_External_Source_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Infrastructure_Network_Infrastructure_LinkArgs = {
+  objects: Array<Infrastructure_Network_Infrastructure_Link_Insert_Input>;
+  on_conflict?: Maybe<Infrastructure_Network_Infrastructure_Link_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Infrastructure_Network_Infrastructure_Link_OneArgs = {
+  object: Infrastructure_Network_Infrastructure_Link_Insert_Input;
+  on_conflict?: Maybe<Infrastructure_Network_Infrastructure_Link_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Infrastructure_Network_Vehicle_Submode_On_Infrastructure_LinkArgs = {
+  objects: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Insert_Input>;
+  on_conflict?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_OneArgs = {
+  object: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Insert_Input;
+  on_conflict?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Infrastructure_Network_DirectionArgs = {
+  _set?: Maybe<Infrastructure_Network_Direction_Set_Input>;
+  where: Infrastructure_Network_Direction_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Infrastructure_Network_Direction_By_PkArgs = {
+  _set?: Maybe<Infrastructure_Network_Direction_Set_Input>;
+  pk_columns: Infrastructure_Network_Direction_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Infrastructure_Network_External_SourceArgs = {
+  _set?: Maybe<Infrastructure_Network_External_Source_Set_Input>;
+  where: Infrastructure_Network_External_Source_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Infrastructure_Network_External_Source_By_PkArgs = {
+  _set?: Maybe<Infrastructure_Network_External_Source_Set_Input>;
+  pk_columns: Infrastructure_Network_External_Source_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Infrastructure_Network_Infrastructure_LinkArgs = {
+  _inc?: Maybe<Infrastructure_Network_Infrastructure_Link_Inc_Input>;
+  _set?: Maybe<Infrastructure_Network_Infrastructure_Link_Set_Input>;
+  where: Infrastructure_Network_Infrastructure_Link_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Infrastructure_Network_Infrastructure_Link_By_PkArgs = {
+  _inc?: Maybe<Infrastructure_Network_Infrastructure_Link_Inc_Input>;
+  _set?: Maybe<Infrastructure_Network_Infrastructure_Link_Set_Input>;
+  pk_columns: Infrastructure_Network_Infrastructure_Link_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Infrastructure_Network_Vehicle_Submode_On_Infrastructure_LinkArgs = {
+  _set?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Set_Input>;
+  where: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_By_PkArgs = {
+  _set?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Set_Input>;
+  pk_columns: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Pk_Columns_Input;
 };
 
 /** column ordering options */
@@ -150,185 +1082,138 @@ export enum Order_By {
   DescNullsLast = 'desc_nulls_last'
 }
 
-/**
- * Geographic points for fun
- *
- *
- * columns and relationships of "playground.points"
- */
-export type Playground_Points = {
-  __typename?: 'playground_points';
-  /** The geography of the point */
-  point_geog: Scalars['geography'];
-  /** The ID of the point */
-  point_id: Scalars['uuid'];
-};
-
-/** aggregated selection of "playground.points" */
-export type Playground_Points_Aggregate = {
-  __typename?: 'playground_points_aggregate';
-  aggregate?: Maybe<Playground_Points_Aggregate_Fields>;
-  nodes: Array<Playground_Points>;
-};
-
-/** aggregate fields of "playground.points" */
-export type Playground_Points_Aggregate_Fields = {
-  __typename?: 'playground_points_aggregate_fields';
-  count?: Maybe<Scalars['Int']>;
-  max?: Maybe<Playground_Points_Max_Fields>;
-  min?: Maybe<Playground_Points_Min_Fields>;
-};
-
-
-/** aggregate fields of "playground.points" */
-export type Playground_Points_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Playground_Points_Select_Column>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
-
-/** order by aggregate values of table "playground.points" */
-export type Playground_Points_Aggregate_Order_By = {
-  count?: Maybe<Order_By>;
-  max?: Maybe<Playground_Points_Max_Order_By>;
-  min?: Maybe<Playground_Points_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "playground.points" */
-export type Playground_Points_Arr_Rel_Insert_Input = {
-  data: Array<Playground_Points_Insert_Input>;
-  on_conflict?: Maybe<Playground_Points_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "playground.points". All fields are combined with a logical 'AND'. */
-export type Playground_Points_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Playground_Points_Bool_Exp>>>;
-  _not?: Maybe<Playground_Points_Bool_Exp>;
-  _or?: Maybe<Array<Maybe<Playground_Points_Bool_Exp>>>;
-  point_geog?: Maybe<Geography_Comparison_Exp>;
-  point_id?: Maybe<Uuid_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "playground.points" */
-export enum Playground_Points_Constraint {
-  /** unique or primary key constraint */
-  PointsPkey = 'points_pkey'
-}
-
-/** input type for inserting data into table "playground.points" */
-export type Playground_Points_Insert_Input = {
-  point_geog?: Maybe<Scalars['geography']>;
-};
-
-/** aggregate max on columns */
-export type Playground_Points_Max_Fields = {
-  __typename?: 'playground_points_max_fields';
-  point_id?: Maybe<Scalars['uuid']>;
-};
-
-/** order by max() on columns of table "playground.points" */
-export type Playground_Points_Max_Order_By = {
-  point_id?: Maybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Playground_Points_Min_Fields = {
-  __typename?: 'playground_points_min_fields';
-  point_id?: Maybe<Scalars['uuid']>;
-};
-
-/** order by min() on columns of table "playground.points" */
-export type Playground_Points_Min_Order_By = {
-  point_id?: Maybe<Order_By>;
-};
-
-/** response of any mutation on the table "playground.points" */
-export type Playground_Points_Mutation_Response = {
-  __typename?: 'playground_points_mutation_response';
-  /** number of affected rows by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data of the affected rows by the mutation */
-  returning: Array<Playground_Points>;
-};
-
-/** input type for inserting object relation for remote table "playground.points" */
-export type Playground_Points_Obj_Rel_Insert_Input = {
-  data: Playground_Points_Insert_Input;
-  on_conflict?: Maybe<Playground_Points_On_Conflict>;
-};
-
-/** on conflict condition type for table "playground.points" */
-export type Playground_Points_On_Conflict = {
-  constraint: Playground_Points_Constraint;
-  update_columns: Array<Playground_Points_Update_Column>;
-  where?: Maybe<Playground_Points_Bool_Exp>;
-};
-
-/** ordering options when selecting data from "playground.points" */
-export type Playground_Points_Order_By = {
-  point_geog?: Maybe<Order_By>;
-  point_id?: Maybe<Order_By>;
-};
-
-/** primary key columns input for table: "playground.points" */
-export type Playground_Points_Pk_Columns_Input = {
-  /** The ID of the point */
-  point_id: Scalars['uuid'];
-};
-
-/** select columns of table "playground.points" */
-export enum Playground_Points_Select_Column {
-  /** column name */
-  PointGeog = 'point_geog',
-  /** column name */
-  PointId = 'point_id'
-}
-
-/** input type for updating data in table "playground.points" */
-export type Playground_Points_Set_Input = {
-  point_geog?: Maybe<Scalars['geography']>;
-};
-
-/** update columns of table "playground.points" */
-export enum Playground_Points_Update_Column {
-  /** column name */
-  PointGeog = 'point_geog'
-}
-
 /** query root */
 export type Query_Root = {
   __typename?: 'query_root';
-  /** fetch data from the table: "playground.points" */
-  playground_points: Array<Playground_Points>;
-  /** fetch aggregated fields from the table: "playground.points" */
-  playground_points_aggregate: Playground_Points_Aggregate;
-  /** fetch data from the table: "playground.points" using primary key columns */
-  playground_points_by_pk?: Maybe<Playground_Points>;
+  /** fetch data from the table: "infrastructure_network.direction" */
+  infrastructure_network_direction: Array<Infrastructure_Network_Direction>;
+  /** fetch aggregated fields from the table: "infrastructure_network.direction" */
+  infrastructure_network_direction_aggregate: Infrastructure_Network_Direction_Aggregate;
+  /** fetch data from the table: "infrastructure_network.direction" using primary key columns */
+  infrastructure_network_direction_by_pk?: Maybe<Infrastructure_Network_Direction>;
+  /** fetch data from the table: "infrastructure_network.external_source" */
+  infrastructure_network_external_source: Array<Infrastructure_Network_External_Source>;
+  /** fetch aggregated fields from the table: "infrastructure_network.external_source" */
+  infrastructure_network_external_source_aggregate: Infrastructure_Network_External_Source_Aggregate;
+  /** fetch data from the table: "infrastructure_network.external_source" using primary key columns */
+  infrastructure_network_external_source_by_pk?: Maybe<Infrastructure_Network_External_Source>;
+  /** fetch data from the table: "infrastructure_network.infrastructure_link" */
+  infrastructure_network_infrastructure_link: Array<Infrastructure_Network_Infrastructure_Link>;
+  /** fetch aggregated fields from the table: "infrastructure_network.infrastructure_link" */
+  infrastructure_network_infrastructure_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
+  /** fetch data from the table: "infrastructure_network.infrastructure_link" using primary key columns */
+  infrastructure_network_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+  infrastructure_network_vehicle_submode_on_infrastructure_link: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  /** fetch aggregated fields from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+  infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate;
+  /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" using primary key columns */
+  infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
 };
 
 
 /** query root */
-export type Query_RootPlayground_PointsArgs = {
-  distinct_on?: Maybe<Array<Playground_Points_Select_Column>>;
+export type Query_RootInfrastructure_Network_DirectionArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_Direction_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Playground_Points_Order_By>>;
-  where?: Maybe<Playground_Points_Bool_Exp>;
+  order_by?: Maybe<Array<Infrastructure_Network_Direction_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
 };
 
 
 /** query root */
-export type Query_RootPlayground_Points_AggregateArgs = {
-  distinct_on?: Maybe<Array<Playground_Points_Select_Column>>;
+export type Query_RootInfrastructure_Network_Direction_AggregateArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_Direction_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Playground_Points_Order_By>>;
-  where?: Maybe<Playground_Points_Bool_Exp>;
+  order_by?: Maybe<Array<Infrastructure_Network_Direction_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
 };
 
 
 /** query root */
-export type Query_RootPlayground_Points_By_PkArgs = {
-  point_id: Scalars['uuid'];
+export type Query_RootInfrastructure_Network_Direction_By_PkArgs = {
+  value: Scalars['String'];
+};
+
+
+/** query root */
+export type Query_RootInfrastructure_Network_External_SourceArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_External_Source_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_External_Source_Order_By>>;
+  where?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
+};
+
+
+/** query root */
+export type Query_RootInfrastructure_Network_External_Source_AggregateArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_External_Source_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_External_Source_Order_By>>;
+  where?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
+};
+
+
+/** query root */
+export type Query_RootInfrastructure_Network_External_Source_By_PkArgs = {
+  value: Scalars['String'];
+};
+
+
+/** query root */
+export type Query_RootInfrastructure_Network_Infrastructure_LinkArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+};
+
+
+/** query root */
+export type Query_RootInfrastructure_Network_Infrastructure_Link_AggregateArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+};
+
+
+/** query root */
+export type Query_RootInfrastructure_Network_Infrastructure_Link_By_PkArgs = {
+  infrastructure_link_id: Scalars['uuid'];
+};
+
+
+/** query root */
+export type Query_RootInfrastructure_Network_Vehicle_Submode_On_Infrastructure_LinkArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+};
+
+
+/** query root */
+export type Query_RootInfrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_AggregateArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+};
+
+
+/** query root */
+export type Query_RootInfrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_By_PkArgs = {
+  infrastructure_link_id: Scalars['uuid'];
+  vehicle_submode: Scalars['String'];
 };
 
 export type St_D_Within_Geography_Input = {
@@ -345,38 +1230,135 @@ export type St_D_Within_Input = {
 /** subscription root */
 export type Subscription_Root = {
   __typename?: 'subscription_root';
-  /** fetch data from the table: "playground.points" */
-  playground_points: Array<Playground_Points>;
-  /** fetch aggregated fields from the table: "playground.points" */
-  playground_points_aggregate: Playground_Points_Aggregate;
-  /** fetch data from the table: "playground.points" using primary key columns */
-  playground_points_by_pk?: Maybe<Playground_Points>;
+  /** fetch data from the table: "infrastructure_network.direction" */
+  infrastructure_network_direction: Array<Infrastructure_Network_Direction>;
+  /** fetch aggregated fields from the table: "infrastructure_network.direction" */
+  infrastructure_network_direction_aggregate: Infrastructure_Network_Direction_Aggregate;
+  /** fetch data from the table: "infrastructure_network.direction" using primary key columns */
+  infrastructure_network_direction_by_pk?: Maybe<Infrastructure_Network_Direction>;
+  /** fetch data from the table: "infrastructure_network.external_source" */
+  infrastructure_network_external_source: Array<Infrastructure_Network_External_Source>;
+  /** fetch aggregated fields from the table: "infrastructure_network.external_source" */
+  infrastructure_network_external_source_aggregate: Infrastructure_Network_External_Source_Aggregate;
+  /** fetch data from the table: "infrastructure_network.external_source" using primary key columns */
+  infrastructure_network_external_source_by_pk?: Maybe<Infrastructure_Network_External_Source>;
+  /** fetch data from the table: "infrastructure_network.infrastructure_link" */
+  infrastructure_network_infrastructure_link: Array<Infrastructure_Network_Infrastructure_Link>;
+  /** fetch aggregated fields from the table: "infrastructure_network.infrastructure_link" */
+  infrastructure_network_infrastructure_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
+  /** fetch data from the table: "infrastructure_network.infrastructure_link" using primary key columns */
+  infrastructure_network_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+  infrastructure_network_vehicle_submode_on_infrastructure_link: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  /** fetch aggregated fields from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
+  infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate;
+  /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" using primary key columns */
+  infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
 };
 
 
 /** subscription root */
-export type Subscription_RootPlayground_PointsArgs = {
-  distinct_on?: Maybe<Array<Playground_Points_Select_Column>>;
+export type Subscription_RootInfrastructure_Network_DirectionArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_Direction_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Playground_Points_Order_By>>;
-  where?: Maybe<Playground_Points_Bool_Exp>;
+  order_by?: Maybe<Array<Infrastructure_Network_Direction_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
 };
 
 
 /** subscription root */
-export type Subscription_RootPlayground_Points_AggregateArgs = {
-  distinct_on?: Maybe<Array<Playground_Points_Select_Column>>;
+export type Subscription_RootInfrastructure_Network_Direction_AggregateArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_Direction_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Playground_Points_Order_By>>;
-  where?: Maybe<Playground_Points_Bool_Exp>;
+  order_by?: Maybe<Array<Infrastructure_Network_Direction_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
 };
 
 
 /** subscription root */
-export type Subscription_RootPlayground_Points_By_PkArgs = {
-  point_id: Scalars['uuid'];
+export type Subscription_RootInfrastructure_Network_Direction_By_PkArgs = {
+  value: Scalars['String'];
+};
+
+
+/** subscription root */
+export type Subscription_RootInfrastructure_Network_External_SourceArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_External_Source_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_External_Source_Order_By>>;
+  where?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
+};
+
+
+/** subscription root */
+export type Subscription_RootInfrastructure_Network_External_Source_AggregateArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_External_Source_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_External_Source_Order_By>>;
+  where?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
+};
+
+
+/** subscription root */
+export type Subscription_RootInfrastructure_Network_External_Source_By_PkArgs = {
+  value: Scalars['String'];
+};
+
+
+/** subscription root */
+export type Subscription_RootInfrastructure_Network_Infrastructure_LinkArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+};
+
+
+/** subscription root */
+export type Subscription_RootInfrastructure_Network_Infrastructure_Link_AggregateArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+};
+
+
+/** subscription root */
+export type Subscription_RootInfrastructure_Network_Infrastructure_Link_By_PkArgs = {
+  infrastructure_link_id: Scalars['uuid'];
+};
+
+
+/** subscription root */
+export type Subscription_RootInfrastructure_Network_Vehicle_Submode_On_Infrastructure_LinkArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+};
+
+
+/** subscription root */
+export type Subscription_RootInfrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_AggregateArgs = {
+  distinct_on?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+};
+
+
+/** subscription root */
+export type Subscription_RootInfrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_By_PkArgs = {
+  infrastructure_link_id: Scalars['uuid'];
+  vehicle_submode: Scalars['String'];
 };
 
 
@@ -393,190 +1375,49 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
-export type InsertPointMutationVariables = Exact<{
-  geojson: Scalars['geography'];
-}>;
+export type MyQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type InsertPointMutation = (
-  { __typename?: 'mutation_root' }
-  & { insert_playground_points_one?: Maybe<(
-    { __typename?: 'playground_points' }
-    & Pick<Playground_Points, 'point_id' | 'point_geog'>
-  )> }
-);
-
-export type DeletePointMutationVariables = Exact<{
-  point_id: Scalars['uuid'];
-}>;
-
-
-export type DeletePointMutation = (
-  { __typename?: 'mutation_root' }
-  & { delete_playground_points_by_pk?: Maybe<(
-    { __typename?: 'playground_points' }
-    & Pick<Playground_Points, 'point_id'>
-  )> }
-);
-
-export type UpdatePointMutationVariables = Exact<{
-  point_id: Scalars['uuid'];
-  geojson: Scalars['geography'];
-}>;
-
-
-export type UpdatePointMutation = (
-  { __typename?: 'mutation_root' }
-  & { update_playground_points_by_pk?: Maybe<(
-    { __typename?: 'playground_points' }
-    & Pick<Playground_Points, 'point_id' | 'point_geog'>
-  )> }
-);
-
-export type SubscribeAllPointsSubscriptionVariables = Exact<{ [key: string]: never; }>;
-
-
-export type SubscribeAllPointsSubscription = (
-  { __typename?: 'subscription_root' }
-  & { playground_points: Array<(
-    { __typename?: 'playground_points' }
-    & Pick<Playground_Points, 'point_geog' | 'point_id'>
+export type MyQueryQuery = (
+  { __typename?: 'query_root' }
+  & { infrastructure_network_direction: Array<(
+    { __typename?: 'infrastructure_network_direction' }
+    & Pick<Infrastructure_Network_Direction, 'value'>
   )> }
 );
 
 
-export const InsertPointDocument = gql`
-    mutation InsertPoint($geojson: geography!) {
-  insert_playground_points_one(object: {point_geog: $geojson}) {
-    point_id
-    point_geog
-  }
-}
-    `;
-export type InsertPointMutationFn = Apollo.MutationFunction<InsertPointMutation, InsertPointMutationVariables>;
-
-/**
- * __useInsertPointMutation__
- *
- * To run a mutation, you first call `useInsertPointMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useInsertPointMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [insertPointMutation, { data, loading, error }] = useInsertPointMutation({
- *   variables: {
- *      geojson: // value for 'geojson'
- *   },
- * });
- */
-export function useInsertPointMutation(baseOptions?: Apollo.MutationHookOptions<InsertPointMutation, InsertPointMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertPointMutation, InsertPointMutationVariables>(InsertPointDocument, options);
-      }
-export type InsertPointMutationHookResult = ReturnType<typeof useInsertPointMutation>;
-export type InsertPointMutationResult = Apollo.MutationResult<InsertPointMutation>;
-export type InsertPointMutationOptions = Apollo.BaseMutationOptions<InsertPointMutation, InsertPointMutationVariables>;
-export const DeletePointDocument = gql`
-    mutation DeletePoint($point_id: uuid!) {
-  delete_playground_points_by_pk(point_id: $point_id) {
-    point_id
-  }
-}
-    `;
-export type DeletePointMutationFn = Apollo.MutationFunction<DeletePointMutation, DeletePointMutationVariables>;
-
-/**
- * __useDeletePointMutation__
- *
- * To run a mutation, you first call `useDeletePointMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeletePointMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deletePointMutation, { data, loading, error }] = useDeletePointMutation({
- *   variables: {
- *      point_id: // value for 'point_id'
- *   },
- * });
- */
-export function useDeletePointMutation(baseOptions?: Apollo.MutationHookOptions<DeletePointMutation, DeletePointMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeletePointMutation, DeletePointMutationVariables>(DeletePointDocument, options);
-      }
-export type DeletePointMutationHookResult = ReturnType<typeof useDeletePointMutation>;
-export type DeletePointMutationResult = Apollo.MutationResult<DeletePointMutation>;
-export type DeletePointMutationOptions = Apollo.BaseMutationOptions<DeletePointMutation, DeletePointMutationVariables>;
-export const UpdatePointDocument = gql`
-    mutation UpdatePoint($point_id: uuid!, $geojson: geography!) {
-  update_playground_points_by_pk(
-    pk_columns: {point_id: $point_id}
-    _set: {point_geog: $geojson}
-  ) {
-    point_id
-    point_geog
-  }
-}
-    `;
-export type UpdatePointMutationFn = Apollo.MutationFunction<UpdatePointMutation, UpdatePointMutationVariables>;
-
-/**
- * __useUpdatePointMutation__
- *
- * To run a mutation, you first call `useUpdatePointMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdatePointMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updatePointMutation, { data, loading, error }] = useUpdatePointMutation({
- *   variables: {
- *      point_id: // value for 'point_id'
- *      geojson: // value for 'geojson'
- *   },
- * });
- */
-export function useUpdatePointMutation(baseOptions?: Apollo.MutationHookOptions<UpdatePointMutation, UpdatePointMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdatePointMutation, UpdatePointMutationVariables>(UpdatePointDocument, options);
-      }
-export type UpdatePointMutationHookResult = ReturnType<typeof useUpdatePointMutation>;
-export type UpdatePointMutationResult = Apollo.MutationResult<UpdatePointMutation>;
-export type UpdatePointMutationOptions = Apollo.BaseMutationOptions<UpdatePointMutation, UpdatePointMutationVariables>;
-export const SubscribeAllPointsDocument = gql`
-    subscription SubscribeAllPoints {
-  playground_points {
-    point_geog
-    point_id
+export const MyQueryDocument = gql`
+    query MyQuery {
+  infrastructure_network_direction {
+    value
   }
 }
     `;
 
 /**
- * __useSubscribeAllPointsSubscription__
+ * __useMyQueryQuery__
  *
- * To run a query within a React component, call `useSubscribeAllPointsSubscription` and pass it any options that fit your needs.
- * When your component renders, `useSubscribeAllPointsSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useMyQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMyQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useSubscribeAllPointsSubscription({
+ * const { data, loading, error } = useMyQueryQuery({
  *   variables: {
  *   },
  * });
  */
-export function useSubscribeAllPointsSubscription(baseOptions?: Apollo.SubscriptionHookOptions<SubscribeAllPointsSubscription, SubscribeAllPointsSubscriptionVariables>) {
+export function useMyQueryQuery(baseOptions?: Apollo.QueryHookOptions<MyQueryQuery, MyQueryQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useSubscription<SubscribeAllPointsSubscription, SubscribeAllPointsSubscriptionVariables>(SubscribeAllPointsDocument, options);
+        return Apollo.useQuery<MyQueryQuery, MyQueryQueryVariables>(MyQueryDocument, options);
       }
-export type SubscribeAllPointsSubscriptionHookResult = ReturnType<typeof useSubscribeAllPointsSubscription>;
-export type SubscribeAllPointsSubscriptionResult = Apollo.SubscriptionResult<SubscribeAllPointsSubscription>;
+export function useMyQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyQueryQuery, MyQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MyQueryQuery, MyQueryQueryVariables>(MyQueryDocument, options);
+        }
+export type MyQueryQueryHookResult = ReturnType<typeof useMyQueryQuery>;
+export type MyQueryLazyQueryHookResult = ReturnType<typeof useMyQueryLazyQuery>;
+export type MyQueryQueryResult = Apollo.QueryResult<MyQueryQuery, MyQueryQueryVariables>;

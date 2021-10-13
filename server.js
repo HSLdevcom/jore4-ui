@@ -16,13 +16,13 @@ const devProxy = {
     pathRewrite: {
       '^/api/graphql': '', // remove path.
     },
-    target: 'http://localhost:8080',
+    target: 'http://localhost:3201',
     changeOrigin: true,
     ws: true,
   },
 };
 
-const port = parseInt(process.env.PORT, 10) || 3000;
+const port = parseInt(process.env.PORT, 10) || 3300;
 const app = next({
   dir: '.', // base directory where everything is, could move to src later
   dev: true,

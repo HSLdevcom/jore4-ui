@@ -5,17 +5,12 @@ module.exports = {
       {
         // Proxy auth api requests to auth backend
         source: '/api/auth/:path*',
-        destination: 'http://localhost:3001/api/:path*',
-      },
-      {
-        // Proxy graphql requests to hasura
-        source: '/api/graphql/:path*',
-        destination: 'http://localhost:8080/:path*',
+        destination: 'http://localhost:3200/:path*',
       },
       {
         // Proxy mbtiles requests to mbtiles server
         source: '/api/mbtiles/:path*',
-        destination: 'http://localhost:3300/:path*',
+        destination: 'http://localhost:3203/:path*',
       },
       {
         // Proxy martin requests to martin
