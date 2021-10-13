@@ -16,7 +16,7 @@ export const UserNavMenu = ({ className }: Props): JSX.Element => {
 
   return (
     <div
-      className={`text-white self-stretch hover:bg-brand-darker ${className}`}
+      className={`text-white self-stretch z-10 hover:bg-brand-darker ${className}`}
     >
       {!userContext.loggedIn ? (
         <a
