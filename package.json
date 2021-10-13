@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "predev": "yarn generate-theme",
-    "dev": "node server.js",
+    "dev": "PORT=3300 node server.js",
     "prebuild": "yarn generate-theme",
     "build": "next build && next export",
     "ts:check": "yarn tsc --noEmit",

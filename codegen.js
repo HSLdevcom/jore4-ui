@@ -3,7 +3,11 @@
 module.exports = {
   schema: [
     {
-      'http://localhost:8080/v1/graphql': {},
+      'http://localhost:3201/v1/graphql': {
+        headers: {
+          'x-hasura-admin-secret': 'hasura',
+        },
+      },
     },
   ],
   documents: ['./src/graphql/**/*.tsx', './src/graphql/**/*.ts'],

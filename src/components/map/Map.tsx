@@ -1,9 +1,8 @@
 import { LatLngExpression } from 'leaflet';
 import React from 'react';
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
-import { CircleLayer } from './CircleLayer';
-import { EditLayer } from './EditLayer';
 import { Filters } from './Filters';
+import { GraphqlQueryExample } from './GraphqlQueryExample';
 
 export interface Props {
   center?: LatLngExpression;
@@ -25,8 +24,7 @@ export const Map: React.FC<Props> = ({ center = helsinkiCityCenter }) => {
         attribution='&copy; <a href="//www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
         url="https://cdn.digitransit.fi/map/v1/hsl-map/{z}/{x}/{y}{r}.png"
       />
-      <CircleLayer />
-      <EditLayer />
+      <GraphqlQueryExample />
       <Filters position="topleft" />
     </MapContainer>
   );

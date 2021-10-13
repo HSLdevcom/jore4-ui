@@ -16,7 +16,7 @@ const devProxy = {
     pathRewrite: {
       '^/api/graphql': '', // remove path.
     },
-    target: 'http://localhost:8080',
+    target: 'http://localhost:3201',
     changeOrigin: true,
     ws: true,
   },
