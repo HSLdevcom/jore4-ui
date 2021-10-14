@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import '../i18n';
 
 // eslint-disable-next-line import/no-default-export
 export default function Index() {
