@@ -11,7 +11,6 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const next = require('next');
 
 const devProxy = {
-  // http traffic is proxied through native `next.js` tooling in `next.config.js`
   '/api/graphql': {
     pathRewrite: {
       '^/api/graphql': '', // remove path.
@@ -19,6 +18,33 @@ const devProxy = {
     target: 'http://localhost:3201',
     changeOrigin: true,
     ws: true,
+  },
+  '/api/auth': {
+    // Proxy auth api requests to auth backend
+    pathRewrite: {
+      '^/api/auth': '', // remove path.
+    },
+    target: 'http://localhost:3200',
+  },
+  '/api/mbtiles': {
+    // Proxy mbtiles requests to mbtiles server
+    pathRewrite: {
+      '^/api/mbtiles': '', // remove path.
+    },
+    target: 'http://localhost:3203',
+  },
+  '/api/martin': {
+    // Proxy martin requests to martin
+    pathRewrite: {
+      '^/api/martin': '', // remove path.
+    },
+    target: 'http://localhost:3100',
+  },
+  '/api/route/v1': {
+    // Proxy map routing requests to routing service
+    // NOTE: routing service is still missing from jore4 docker-compose bundle so
+    // its port might change in the future
+    target: 'http://localhost:3400',
   },
 };
 
