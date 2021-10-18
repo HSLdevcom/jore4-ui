@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 interface CommonButtonProps {
   className?: string;
@@ -41,16 +42,20 @@ export const SimpleButton: React.FC<Props> = (props) => {
     // Try to take accessibility of disabled link buttons into account as stated
     // in Bootstrap's documentation:
     // https://getbootstrap.com/docs/5.1/components/buttons/#link-functionality-caveat
+    // "Disabled buttons using <a> should not include the href attribute."
     return (
-      <a
+      // disabled button shouldn't have href
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
+      <Link
         className={`${commonClassNames} flex items-center ${className}`}
         type="button"
-        href={disabled ? (props as LinkButtonProps).href : undefined}
+        // @ts-expect-error we want to pass undefined as href for disabled buttons
+        to={disabled ? undefined : (props as LinkButtonProps).href}
         aria-disabled={disabled}
         tabIndex={disabled ? -1 : undefined}
       >
         {children}
-      </a>
+      </Link>
     );
   }
   // eslint-disable-next-line no-console
