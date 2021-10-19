@@ -20,6 +20,7 @@
     "editRoute": "Edit route",
     "deleteRoute": "Remove route"
   },
+  "edit": "Edit",
   "close": "Close",
   "version": "Version: {{ version }}"
 }

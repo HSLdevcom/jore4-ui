@@ -20,6 +20,7 @@
     "editRoute": "Muokkaa reittiä",
     "deleteRoute": "Poista reitti"
   },
+  "edit": "Muokkaa",
   "close": "Sulje",
   "version": "Versio: {{ version }}"
 }
