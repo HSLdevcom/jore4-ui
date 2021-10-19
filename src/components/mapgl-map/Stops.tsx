@@ -19,49 +19,62 @@ const mapLngLatToPoint = (lngLat: number[]): Point => {
 };
 
 // eslint-disable-next-line react/display-name
-export const MarkerLayer = React.forwardRef((props, ref) => {
+export const Stops = React.forwardRef((props, ref) => {
   const [popupInfo, setPopupInfo] = useState<PopupInfo | null>(null);
+  const [selectedLayerIndex, setSelectedLayerIndex] = useState<number | null>(
+    null,
+  );
+
   const onOpenPopup = (point: Point, index: number) => {
     setPopupInfo({ ...point, index });
+    setSelectedLayerIndex(index);
+  };
+  const onClosePopup = () => {
+    setPopupInfo(null);
+    setSelectedLayerIndex(null);
   };
 
-  const [markers, setMarkers] = useState<Point[]>([
+  const [stops, setStops] = useState<Point[]>([
     { latitude: 60.1716, longitude: 24.9409 },
   ]);
 
   useImperativeHandle(ref, () => ({
-    onCreateMarker: (e: MapEvent) => {
-      setMarkers([...markers, mapLngLatToPoint(e.lngLat)]);
+    onCreateStop: (e: MapEvent) => {
+      const newItem = mapLngLatToPoint(e.lngLat);
+      setStops([...stops, newItem]);
+      onOpenPopup(newItem, stops.length);
     },
   }));
 
-  const onDeleteMarker = (index: number) => {
-    const updatedMarkers = produce(markers, (draft) => {
+  const onRemoveStop = (index: number) => {
+    const updatedStops = produce(stops, (draft) => {
       draft.splice(index, 1);
     });
-    setMarkers(updatedMarkers);
+    setStops(updatedStops);
+    onClosePopup();
   };
 
-  const onMarkerDragEnd = useCallback(
+  const onStopDragEnd = useCallback(
     (event, index) => {
-      const updatedMarkers = produce(markers, (draft) => {
+      const updatedStops = produce(stops, (draft) => {
         draft[index] = mapLngLatToPoint(event.lngLat);
       });
-      setMarkers(updatedMarkers);
+      setStops(updatedStops);
     },
-    [markers],
+    [stops],
   );
 
   return (
     <>
-      {markers.map((item, index) => (
+      {stops.map((item, index) => (
         <Stop
           // eslint-disable-next-line react/no-array-index-key
           key={index}
+          selected={index === selectedLayerIndex}
           longitude={item.longitude}
           latitude={item.latitude}
           onClick={() => onOpenPopup(item, index)}
-          onDragEnd={(e) => onMarkerDragEnd(e, index)}
+          onDragEnd={(e) => onStopDragEnd(e, index)}
           draggable
         />
       ))}
@@ -70,9 +83,9 @@ export const MarkerLayer = React.forwardRef((props, ref) => {
           longitude={popupInfo.longitude}
           latitude={popupInfo.latitude}
           onDelete={() => {
-            onDeleteMarker(popupInfo.index);
+            onRemoveStop(popupInfo.index);
           }}
-          onClose={() => setPopupInfo(null)}
+          onClose={onClosePopup}
         />
       )}
     </>
