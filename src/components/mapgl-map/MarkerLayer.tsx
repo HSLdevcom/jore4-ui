@@ -1,12 +1,9 @@
 import produce from 'immer';
 import React, { useCallback, useImperativeHandle, useState } from 'react';
-import { MapEvent, Marker, Popup } from 'react-map-gl';
-import { Pin } from './Pin';
-
-interface Point {
-  latitude: number;
-  longitude: number;
-}
+import { MapEvent } from 'react-map-gl';
+import { Point } from '../../types';
+import { Stop } from './Stop';
+import { StopPopup } from './StopPopup';
 
 interface PopupInfo extends Point {
   index: number;
@@ -58,37 +55,25 @@ export const MarkerLayer = React.forwardRef((props, ref) => {
   return (
     <>
       {markers.map((item, index) => (
-        <Marker
+        <Stop
           // eslint-disable-next-line react/no-array-index-key
           key={index}
           longitude={item.longitude}
           latitude={item.latitude}
-          offsetTop={-20}
-          offsetLeft={-10}
-          draggable
+          onClick={() => onOpenPopup(item, index)}
           onDragEnd={(e) => onMarkerDragEnd(e, index)}
-        >
-          <Pin size={20} onClick={() => onOpenPopup(item, index)} />
-        </Marker>
+          draggable
+        />
       ))}
       {popupInfo && (
-        <Popup
-          tipSize={5}
-          anchor="top"
+        <StopPopup
           longitude={popupInfo.longitude}
           latitude={popupInfo.latitude}
-          closeOnClick={false}
+          onDelete={() => {
+            onDeleteMarker(popupInfo.index);
+          }}
           onClose={() => setPopupInfo(null)}
-        >
-          <button
-            type="button"
-            onClick={() => {
-              onDeleteMarker(popupInfo.index);
-            }}
-          >
-            Delete
-          </button>
-        </Popup>
+        />
       )}
     </>
   );
