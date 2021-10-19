@@ -18,6 +18,7 @@
     "joreMap": "Jore 4.0 map",
     "drawRoute": "Draw route",
     "editRoute": "Edit route",
+    "addStop": "Add stop",
     "deleteRoute": "Remove route"
   },
   "edit": "Edit",
