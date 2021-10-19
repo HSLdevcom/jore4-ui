@@ -22,6 +22,7 @@ export const MapModal: React.FC<Props> = ({ isOpen, onClose, className }) => {
   const mapRef = useRef<ExplicitAny>(null);
   const [drawingMode, setDrawingMode] = useState<Mode | undefined>(undefined);
   const [hasRoute, setHasRoute] = useState(false);
+  const [canAddStops, setCanAddStops] = useState(false);
 
   const onDrawRoute = () => {
     setDrawingMode(drawingMode !== Mode.Draw ? Mode.Draw : undefined);
@@ -32,6 +33,10 @@ export const MapModal: React.FC<Props> = ({ isOpen, onClose, className }) => {
   const onDeleteRoute = () => {
     setDrawingMode(undefined);
     mapRef?.current?.onDeleteDrawnRoute();
+  };
+  const onAddStop = () => {
+    setDrawingMode(undefined);
+    setCanAddStops(!canAddStops);
   };
 
   return (
@@ -48,14 +53,17 @@ export const MapModal: React.FC<Props> = ({ isOpen, onClose, className }) => {
         <Map
           height={`calc(100vh - ${mapHeaderHeight + mapFooterHeight}px)`}
           drawingMode={drawingMode}
+          canAddStops={canAddStops}
           drawable
           ref={mapRef}
         />
         <MapFooter
+          drawingMode={drawingMode}
           onDrawRoute={onDrawRoute}
           onEditRoute={onEditRoute}
           onDeleteRoute={onDeleteRoute}
-          drawingMode={drawingMode}
+          canAddStops={canAddStops}
+          onAddStop={onAddStop}
         />
       </Modal>
     </MapEditorContext.Provider>

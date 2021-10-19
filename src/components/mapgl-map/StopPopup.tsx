@@ -2,9 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl';
-import { Row } from '../../layoutComponents';
+import { Column, Row } from '../../layoutComponents';
 import { Point } from '../../types';
-import { Button } from '../../uiComponents';
+import { SimpleButton } from '../../uiComponents';
 
 interface Props extends Point {
   onClose: () => void;
@@ -22,17 +22,36 @@ export const StopPopup = ({
     <Popup
       className="w-60"
       tipSize={10}
+      offsetLeft={5}
+      offsetTop={25}
       anchor="top"
       longitude={longitude}
       latitude={latitude}
       closeOnClick={false}
-      onClose={onClose}
+      closeButton={false}
     >
-      <Row>
-        <Button className="!px-2" onClick={onDelete} inverted>
-          <MdDelete aria-label={t('map.deleteRoute')} className="text-xl" />
-        </Button>
-      </Row>
+      <div className="p-2">
+        <Row>
+          <Column className="w-full">
+            <Row>
+              <h3 className="text-xl font-bold">Esimerkki</h3>
+              <button className="ml-auto" type="button" onClick={onClose}>
+                <i className="icon-close-large ml-4 text-lg" />
+              </button>
+            </Row>
+            <p className="text-sm">Esimerkkiteksti</p>
+          </Column>
+        </Row>
+        <Row className="mt-16">
+          <SimpleButton className="!px-3" onClick={onDelete} inverted>
+            <MdDelete aria-label={t('map.deleteRoute')} className="text-lg" />
+          </SimpleButton>
+          {/* eslint-disable-next-line no-console */}
+          <SimpleButton className="ml-auto" onClick={() => console.log('TODO')}>
+            {t('edit')}
+          </SimpleButton>
+        </Row>
+      </div>
     </Popup>
   );
 };

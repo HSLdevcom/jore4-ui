@@ -8,12 +8,13 @@ import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
 import { DynamicStopVectorLayer } from './DynamicStopVectorLayer';
 import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
 import { Maplibre } from './Maplibre';
-import { MarkerLayer } from './MarkerLayer';
 import { RouteLayer } from './RouteLayer';
+import { Stops } from './Stops';
 import { StopVectorLayer } from './StopVectorLayer';
 
 interface Props {
   drawable?: boolean;
+  canAddStops?: boolean;
   drawingMode?: Mode;
   className?: string;
   width?: string;
@@ -22,7 +23,8 @@ interface Props {
 
 export const MapComponent = (
   {
-    drawable,
+    drawable = false,
+    canAddStops = false,
     drawingMode,
     className,
     width = '100vw',
@@ -41,7 +43,7 @@ export const MapComponent = (
 
   // TODO: avoid any type
   const editorLayerRef = useRef<ExplicitAny>(null);
-  const markerLayerRef = useRef<ExplicitAny>(null);
+  const stopsRef = useRef<ExplicitAny>(null);
 
   useImperativeHandle(externalRef, () => ({
     onDeleteDrawnRoute: () => {
@@ -51,9 +53,9 @@ export const MapComponent = (
     },
   }));
 
-  const onCreateMarker = (e: MapEvent) => {
-    if (markerLayerRef.current && drawingMode === undefined) {
-      markerLayerRef.current.onCreateMarker(e);
+  const onCreateStop = (e: MapEvent) => {
+    if (stopsRef.current && drawingMode === undefined) {
+      stopsRef.current.onCreateStop(e);
     }
   };
 
@@ -61,11 +63,9 @@ export const MapComponent = (
     <Maplibre
       width={width}
       height={height}
-      onClick={onCreateMarker}
+      onClick={canAddStops ? onCreateStop : undefined}
       className={className}
     >
-      {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
-      <MarkerLayer ref={markerLayerRef} />
       <HTMLOverlay
         style={{
           width: 'auto',
@@ -112,6 +112,8 @@ export const MapComponent = (
           </Column>
         )}
       />
+      <Stops ref={stopsRef} />
+      {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
       {showInfraLinks && <InfraLinksVectorLayer />}
       {showStops && <StopVectorLayer />}
       {showDynamicStops && <DynamicStopVectorLayer />}

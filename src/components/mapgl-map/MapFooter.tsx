@@ -11,6 +11,8 @@ interface Props {
   onDrawRoute: () => void;
   onEditRoute: () => void;
   onDeleteRoute: () => void;
+  canAddStops: boolean;
+  onAddStop: () => void;
 }
 
 export const MapFooter: React.FC<Props> = ({
@@ -18,6 +20,8 @@ export const MapFooter: React.FC<Props> = ({
   onDrawRoute,
   onEditRoute,
   onDeleteRoute,
+  canAddStops,
+  onAddStop,
 }) => {
   const { t } = useTranslation();
   const { hasRoute } = useContext(MapEditorContext);
@@ -36,6 +40,13 @@ export const MapFooter: React.FC<Props> = ({
         inverted={drawingMode !== Mode.Edit}
       >
         {t('map.editRoute')}
+      </SimpleButton>
+      <SimpleButton
+        onClick={onAddStop}
+        disabled={drawingMode !== undefined}
+        inverted={!canAddStops}
+      >
+        {t('map.addStop')}
       </SimpleButton>
       <SimpleButton
         className="!px-3"
