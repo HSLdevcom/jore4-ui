@@ -18,7 +18,7 @@ interface Props {
 const mapHeaderHeight = 104;
 const mapFooterHeight = 128;
 
-export const MapModal: React.FC<Props> = ({ isOpen, onClose, className }) => {
+export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
   const mapRef = useRef<ExplicitAny>(null);
   const [drawingMode, setDrawingMode] = useState<Mode | undefined>(undefined);
   const [hasRoute, setHasRoute] = useState(false);
