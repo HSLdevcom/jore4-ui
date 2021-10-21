@@ -7,6 +7,7 @@ import { Point } from '../../types';
 import { SimpleButton } from '../../uiComponents';
 
 interface Props extends Point {
+  onEdit: () => void;
   onClose: () => void;
   onDelete: () => void;
 }
@@ -14,6 +15,7 @@ interface Props extends Point {
 export const StopPopup = ({
   latitude,
   longitude,
+  onEdit,
   onClose,
   onDelete,
 }: Props): JSX.Element => {
@@ -46,8 +48,7 @@ export const StopPopup = ({
           <SimpleButton className="!px-3" onClick={onDelete} inverted>
             <MdDelete aria-label={t('map.deleteRoute')} className="text-lg" />
           </SimpleButton>
-          {/* eslint-disable-next-line no-console */}
-          <SimpleButton className="ml-auto" onClick={() => console.log('TODO')}>
+          <SimpleButton className="ml-auto" onClick={onEdit}>
             {t('edit')}
           </SimpleButton>
         </Row>

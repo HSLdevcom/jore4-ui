@@ -7,6 +7,12 @@
     "root": "Main page",
     "routes": "Routes and lines"
   },
+  "stops": {
+    "stop": "Stop",
+    "stopById": "Stop {{ id }}",
+    "nameAddress": "Name and address",
+    "finnishName": "Name (Finnish)"
+  },
   "navigation": {
     "logout": "Log out",
     "user": "User"
@@ -19,9 +25,14 @@
     "drawRoute": "Draw route",
     "editRoute": "Edit route",
     "addStop": "Add stop",
-    "deleteRoute": "Remove route"
+    "deleteRoute": "Remove route",
+    "location": "Location",
+    "latitude": "Latitude",
+    "longitude": "Longitude"
   },
+  "save": "Save",
   "edit": "Edit",
+  "cancel": "Cancel",
   "close": "Close",
   "version": "Version: {{ version }}"
 }

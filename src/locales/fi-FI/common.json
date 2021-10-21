@@ -7,6 +7,12 @@
     "root": "Etusivu",
     "routes": "Reitit ja linjat"
   },
+  "stops": {
+    "stop": "Pysäkki",
+    "stopById": "Pysäkki {{ id }}",
+    "nameAddress": "Nimi ja osoite",
+    "finnishName": "Nimi (Suomi)"
+  },
   "navigation": {
     "logout": "Kirjaudu ulos",
     "user": "Käyttäjä"
@@ -19,9 +25,14 @@
     "drawRoute": "Vedä reitti",
     "editRoute": "Muokkaa reittiä",
     "addStop": "Lisää pysäkki",
-    "deleteRoute": "Poista reitti"
+    "deleteRoute": "Poista reitti",
+    "location": "Sijainti",
+    "latitude": "Latitude",
+    "longitude": "Longitude"
   },
+  "save": "Tallenna",
   "edit": "Muokkaa",
+  "cancel": "Peruuta",
   "close": "Sulje",
   "version": "Versio: {{ version }}"
 }

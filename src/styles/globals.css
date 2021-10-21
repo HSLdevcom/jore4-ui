@@ -5,3 +5,16 @@
 button:focus {
   outline: none;
 }
+
+input {
+  height: 24px;
+  padding: 12px 10px 12px 10px;
+  border: 1px solid #888888;
+  border-radius: 5px;
+}
+
+label {
+  font-weight: 700;
+  size: 14px;
+  margin-bottom: 4px;
+}

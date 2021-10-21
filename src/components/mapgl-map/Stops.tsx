@@ -2,6 +2,7 @@ import produce from 'immer';
 import React, { useCallback, useImperativeHandle, useState } from 'react';
 import { MapEvent } from 'react-map-gl';
 import { Point } from '../../types';
+import { EditStopModal } from './EditStopModal';
 import { Stop } from './Stop';
 import { StopPopup } from './StopPopup';
 
@@ -37,6 +38,7 @@ export const Stops = React.forwardRef((props, ref) => {
   const [stops, setStops] = useState<Point[]>([
     { latitude: 60.1716, longitude: 24.9409 },
   ]);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   useImperativeHandle(ref, () => ({
     onCreateStop: (e: MapEvent) => {
@@ -82,10 +84,19 @@ export const Stops = React.forwardRef((props, ref) => {
         <StopPopup
           longitude={popupInfo.longitude}
           latitude={popupInfo.latitude}
+          onEdit={() => {
+            setShowEditForm(true);
+          }}
           onDelete={() => {
             onRemoveStop(popupInfo.index);
           }}
           onClose={onClosePopup}
+        />
+      )}
+      {showEditForm && (
+        <EditStopModal
+          onCancel={() => setShowEditForm(false)}
+          onClose={() => setShowEditForm(false)}
         />
       )}
     </>

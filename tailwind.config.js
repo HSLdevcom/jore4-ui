@@ -16,6 +16,7 @@ module.exports = {
         'tweaked-brand': colors.tweakedBrand,
         stop: colors.stop,
         grey: colors.grey,
+        'light-grey': colors.lightGrey,
         background: colors.background,
       },
     },

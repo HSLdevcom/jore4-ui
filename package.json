@@ -25,6 +25,7 @@
     "@seznam/compose-react-refs": "^1.0.6",
     "@turf/area": "^6.5.0",
     "axios": "0.21.1",
+    "formik": "^2.2.9",
     "graphql": "^15.5.3",
     "i18next": "^20.2.1",
     "immer": "^9.0.5",
@@ -42,7 +43,8 @@
     "react-map-gl": "^6.1.16",
     "react-map-gl-draw": "0.21.1",
     "react-router-dom": "^5.2.0",
-    "react-spinners": "^0.11.0"
+    "react-spinners": "^0.11.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.21.5",
