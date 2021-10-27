@@ -111,6 +111,10 @@ export const MapComponent = (
             />
           </Column>
         )}
+        captureClick
+        captureDoubleClick
+        captureDrag
+        captureScroll
       />
       <Stops ref={stopsRef} />
       {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
