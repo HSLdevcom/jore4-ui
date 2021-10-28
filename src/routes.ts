@@ -7,7 +7,7 @@ import { RoutesAndLinesPage } from './components/RoutesAndLinesPage'; // eslint-
 export enum Path {
   root = '/',
   routes = '/routes',
-  mapgl = '/mapgl',
+  map = '/map',
   exampleResource = '/example/:id',
   fallback = '*',
 }
@@ -51,11 +51,11 @@ export const routes: Record<Path, Route> = {
     component: RoutesAndLinesPage,
     includeInNav: true,
   },
-  [Path.mapgl]: {
-    _routerRoute: Path.mapgl,
+  [Path.map]: {
+    _routerRoute: Path.map,
     _exact: true,
-    translationKey: 'MapGL experiment',
-    getLink: () => Path.mapgl,
+    translationKey: 'map.map',
+    getLink: () => Path.map,
     // @ts-expect-error Something wrong due to forwardRef used in Map component?
     component: Map,
     includeInNav: true,

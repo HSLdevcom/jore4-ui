@@ -18,6 +18,7 @@
     "user": "Käyttäjä"
   },
   "map": {
+    "map": "Kartta",
     "open": "Avaa kartta",
     "showRoutes": "Näytä reitit",
     "showStops": "Näytä pysäkit",

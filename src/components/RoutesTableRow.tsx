@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
-  const mapUrl = routes[Path.mapgl].getLink();
+  const mapUrl = routes[Path.map].getLink();
   const openInMapUrl = `${mapUrl}?${qs.stringify({
     routeId: route.id,
   })}`;

@@ -9,7 +9,7 @@ import { RoutesTable } from './RoutesTable'; // eslint-disable-line import/no-cy
 
 export const RoutesAndLinesPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const openMapRoute = routes[Path.mapgl];
+  const openMapRoute = routes[Path.map];
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Container>
