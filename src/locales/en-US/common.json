@@ -18,6 +18,7 @@
     "user": "User"
   },
   "map": {
+    "map": "Map",
     "open": "Open map",
     "showRoutes": "Show routes",
     "showStops": "Show stops",
