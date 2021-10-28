@@ -1,14 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router-dom';
 import { Main } from './components/Main';
-import { ExampleMarkers } from './components/map';
 import { Map } from './components/mapgl-map';
 import { RoutesAndLinesPage } from './components/RoutesAndLinesPage'; // eslint-disable-line import/no-cycle
 
 export enum Path {
   root = '/',
   routes = '/routes',
-  leaflet = '/leaflet',
   mapgl = '/mapgl',
   exampleResource = '/example/:id',
   fallback = '*',
@@ -51,14 +49,6 @@ export const routes: Record<Path, Route> = {
     translationKey: 'routes.routes',
     getLink: () => Path.routes,
     component: RoutesAndLinesPage,
-    includeInNav: true,
-  },
-  [Path.leaflet]: {
-    _routerRoute: Path.leaflet,
-    _exact: true,
-    translationKey: 'Leaflet experiment',
-    getLink: () => Path.leaflet,
-    component: ExampleMarkers,
     includeInNav: true,
   },
   [Path.mapgl]: {
