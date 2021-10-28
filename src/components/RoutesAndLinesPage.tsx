@@ -4,7 +4,7 @@ import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { SimpleButton } from '../uiComponents';
 import { GraphqlQueryExample } from './map/GraphqlQueryExample';
-import { ModalMap } from './mapgl-map/ModalMap';
+import { ModalMap } from './map/ModalMap';
 import { RoutesTable } from './RoutesTable'; // eslint-disable-line import/no-cycle
 
 export const RoutesAndLinesPage = (): JSX.Element => {
