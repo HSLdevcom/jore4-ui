@@ -6,7 +6,6 @@ import { UserContextProvider } from '../context/UserContextProvider';
 import '../generated/fontello/css/hsl-icons.css';
 import { GQLClient } from '../graphql';
 import '../i18n';
-import '../leaflet-config';
 import '../styles/globals.css';
 
 function SafeHydrate({ children }: { children: JSX.Element }) {

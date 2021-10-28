@@ -161,6 +161,6 @@ Maps in UI has four to five toggles depending on situation:
 
 - **1. a** show/hide infrastructure links served from jore4-mbtiles-server
 - **1. b** show/hide infrastructure links served from martin
-- **1. c** show/hide route (1004x in Leaflet experiment, selected route on MapGL experiment. Not available if route is not selected.)
+- **1. c** show/hide route (Not available if no route is selected)
 - **2. a** show/hide stops served from jore4-mbtiles-server
 - **2. b** show/hide stops served from martin
