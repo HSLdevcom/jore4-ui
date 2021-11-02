@@ -10,14 +10,19 @@ const FormSchema = yup.object().shape({
   lng: yup.number().min(-180).max(180).required(),
 });
 
-const initialValues = { finnishName: '', lat: '', lng: '' };
+export type FormState = yup.InferType<typeof FormSchema>;
 
 interface Props {
   className?: string;
-  onChange: (values: typeof initialValues) => void;
+  initialValues: FormState;
+  onChange: (values: FormState) => void;
 }
 
-export const StopForm = ({ className, onChange }: Props): JSX.Element => {
+export const StopForm = ({
+  className,
+  initialValues,
+  onChange,
+}: Props): JSX.Element => {
   const { t } = useTranslation();
   return (
     <Formik

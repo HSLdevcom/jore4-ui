@@ -93,8 +93,14 @@ export const Stops = React.forwardRef((props, ref) => {
           onClose={onClosePopup}
         />
       )}
-      {showEditForm && (
+      {showEditForm && popupInfo && (
         <EditStopModal
+          // @ts-expect-error types of yup seem to be somehow off
+          initialValues={{
+            finnishName: '',
+            lat: popupInfo.latitude,
+            lng: popupInfo.longitude,
+          }}
           onCancel={() => setShowEditForm(false)}
           onClose={() => setShowEditForm(false)}
         />
