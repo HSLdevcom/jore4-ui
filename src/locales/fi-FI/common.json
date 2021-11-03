@@ -31,6 +31,9 @@
     "latitude": "Latitude",
     "longitude": "Longitude"
   },
+  "formValidation": {
+    "required": "Kenttä vaaditaan"
+  },
   "save": "Tallenna",
   "edit": "Muokkaa",
   "cancel": "Peruuta",

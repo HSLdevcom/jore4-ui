@@ -1,68 +1,90 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import * as yup from 'yup';
+import { z } from 'zod';
 import { Column, Row } from '../../layoutComponents';
 
-const FormSchema = yup.object().shape({
-  finnishName: yup.string().required('Required'),
-  lat: yup.number().min(-90).max(90).required(),
-  lng: yup.number().min(-180).max(180).required(),
+const schema = z.object({
+  finnishName: z.string().min(1),
+  lat: z.number().min(-90).max(90),
+  lng: z.number().min(-180).max(180),
 });
 
-export type FormState = yup.InferType<typeof FormSchema>;
+export type FormState = z.infer<typeof schema>;
 
 interface Props {
   className?: string;
-  initialValues: FormState;
-  onChange: (values: FormState) => void;
+  defaultValues: Partial<FormState>;
 }
 
-export const StopForm = ({
-  className,
-  initialValues,
-  onChange,
-}: Props): JSX.Element => {
+const StopFormComponent = (
+  { className, defaultValues }: Props,
+  ref: ExplicitAny,
+): JSX.Element => {
   const { t } = useTranslation();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormState>({
+    defaultValues,
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = (data: FormState) =>
+    // eslint-disable-next-line no-console
+    console.log('TODO: submit form, data:', data);
+
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={FormSchema}
-      onSubmit={() => undefined}
+    <form
+      className={className || ''}
+      onSubmit={handleSubmit(onSubmit)}
+      ref={ref}
     >
-      {({ values }) => {
-        onChange(values);
-        return (
-          <Form className={className || ''}>
-            <h2 className="pb-6 text-xl font-bold">{t('stops.stop')}</h2>
-            <Row className="space-x-10">
-              <Column className="space-y-2">
-                <h3 className="text-lg font-bold">{t('stops.nameAddress')}</h3>
-                <Column>
-                  <label htmlFor="finnishName">{t('stops.finnishName')}</label>
-                  <Field type="text" name="finnishName" />
-                  <ErrorMessage name="finnishName" component="div" />
-                </Column>
-              </Column>
-              <Column className="space-y-2">
-                <h3 className="text-lg font-bold">{t('map.location')}</h3>
-                <Row className="space-x-5">
-                  <Column>
-                    <label htmlFor="lat">{t('map.latitude')}</label>
-                    <Field type="number" name="lat" />
-                    <ErrorMessage name="lat" component="div" />
-                  </Column>
-                  <Column>
-                    <label htmlFor="lng">{t('map.longitude')}</label>
-                    <Field type="number" name="lng" />
-                    <ErrorMessage name="lng" component="div" />
-                  </Column>
-                </Row>
-              </Column>
-            </Row>
-          </Form>
-        );
-      }}
-    </Formik>
+      <h2 className="pb-6 text-xl font-bold">{t('stops.stop')}</h2>
+      <Row className="space-x-10">
+        <Column className="space-y-2">
+          <h3 className="text-lg font-bold">{t('stops.nameAddress')}</h3>
+          <Column>
+            <label htmlFor="finnishName">{t('stops.finnishName')}</label>
+            <input type="text" {...register('finnishName', {})} />
+            <p>
+              {errors.finnishName?.type === 'too_small' &&
+                t('formValidation.required')}
+            </p>
+          </Column>
+        </Column>
+        <Column className="space-y-2">
+          <h3 className="text-lg font-bold">{t('map.location')}</h3>
+          <Row className="space-x-5">
+            <Column>
+              <label htmlFor="lat">{t('map.latitude')}</label>
+              <input
+                type="number"
+                {...register('lat', {
+                  valueAsNumber: true,
+                })}
+                step="any"
+              />
+              <p>{errors.lat?.message}</p>
+            </Column>
+            <Column>
+              <label htmlFor="lng">{t('map.longitude')}</label>
+              <input
+                type="number"
+                {...register('lng', {
+                  valueAsNumber: true,
+                })}
+                step="any"
+              />
+              <p>{errors.lng?.message}</p>
+            </Column>
+          </Row>
+        </Column>
+      </Row>
+    </form>
   );
 };
+
+export const StopForm = React.forwardRef(StopFormComponent);

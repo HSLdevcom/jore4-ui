@@ -31,6 +31,9 @@
     "latitude": "Latitude",
     "longitude": "Longitude"
   },
+  "formValidation": {
+    "required": "Field is required"
+  },
   "save": "Save",
   "edit": "Edit",
   "cancel": "Cancel",

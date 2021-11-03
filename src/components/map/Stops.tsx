@@ -95,9 +95,7 @@ export const Stops = React.forwardRef((props, ref) => {
       )}
       {showEditForm && popupInfo && (
         <EditStopModal
-          // @ts-expect-error types of yup seem to be somehow off
-          initialValues={{
-            finnishName: '',
+          defaultValues={{
             lat: popupInfo.latitude,
             lng: popupInfo.longitude,
           }}

@@ -55,6 +55,15 @@ module.exports = {
       'error',
       { extensions: ['.tsx', '.ts'] },
     ],
+    'react/jsx-props-no-spreading': [
+      'error',
+      // allow spreading props in...
+      // - form-related fields as it seems to be convention
+      //   with `react-hook-form`'s `register` method: https://react-hook-form.com/get-started
+      // - in certain `react-map-gl` related components as it seems to be
+      //   convention also with those: https://visgl.github.io/react-map-gl/docs/api-reference/layer
+      { exceptions: ['input', 'Layer'] },
+    ],
     'import/extensions': [
       'error',
       'ignorePackages',

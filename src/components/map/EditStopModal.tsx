@@ -1,33 +1,31 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { HTMLOverlay } from 'react-map-gl';
+import { submitFormByRef } from '../../utils';
 import { FormState, StopForm } from '../forms/StopForm';
 import { Modal } from './Modal';
 
 interface Props {
-  initialValues: FormState;
+  defaultValues: Partial<FormState>;
   onCancel: () => void;
   onClose: () => void;
 }
 
 export const EditStopModal = ({
-  initialValues,
+  defaultValues,
   onCancel,
   onClose,
 }: Props): JSX.Element => {
-  const [formValues, setFormValues] = useState<FormState>();
-  const onSave = () => {
-    // eslint-disable-next-line no-console
-    console.log('TODO: submit form, values: ', formValues);
-  };
+  const formRef = useRef<ExplicitAny>(null);
+  const onSave = () => submitFormByRef(formRef);
   return (
     <HTMLOverlay
       redraw={() => (
         <div className="flex ml-5 mt-5">
           <Modal onSave={onSave} onCancel={onCancel} onClose={onClose}>
             <StopForm
-              initialValues={initialValues}
               className="p-12"
-              onChange={setFormValues}
+              defaultValues={defaultValues}
+              ref={formRef}
             />
           </Modal>
         </div>

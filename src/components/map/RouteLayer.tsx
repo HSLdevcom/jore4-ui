@@ -16,7 +16,6 @@ export const RouteLayer = ({ routeId }: Props): JSX.Element => {
   };
   return (
     <Source id="my-data" type="geojson" data={data}>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Layer {...layerStyle} />
     </Source>
   );
