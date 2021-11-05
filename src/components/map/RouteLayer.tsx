@@ -15,7 +15,7 @@ export const RouteLayer = ({ routeId }: Props): JSX.Element => {
     paint: {},
   };
   return (
-    <Source id="my-data" type="geojson" data={data}>
+    <Source type="geojson" data={data}>
       <Layer {...layerStyle} />
     </Source>
   );
