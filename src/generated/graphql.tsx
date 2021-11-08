@@ -909,6 +909,10 @@ export type Infrastructure_Network_Infrastructure_Link_Variance_Order_By = {
   estimated_length_in_metres?: Maybe<Order_By>;
 };
 
+export type Infrastructure_Network_Resolve_Point_To_Closest_Link_Args = {
+  geog?: Maybe<Scalars['geography']>;
+};
+
 /**
  * Which infrastructure links are safely traversed by which vehicle submodes?
  *
@@ -2323,6 +2327,10 @@ export type Query_Root = {
   infrastructure_network_infrastructure_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
   /** fetch data from the table: "infrastructure_network.infrastructure_link" using primary key columns */
   infrastructure_network_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  /** execute function "infrastructure_network.resolve_point_to_closest_link" which returns "infrastructure_network.infrastructure_link" */
+  infrastructure_network_resolve_point_to_closest_link: Array<Infrastructure_Network_Infrastructure_Link>;
+  /** execute function "infrastructure_network.resolve_point_to_closest_link" and query aggregates on result of table type "infrastructure_network.infrastructure_link" */
+  infrastructure_network_resolve_point_to_closest_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
   /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
   infrastructure_network_vehicle_submode_on_infrastructure_link: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
   /** fetch aggregated fields from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
@@ -2454,6 +2462,26 @@ export type Query_RootInfrastructure_Network_Infrastructure_Link_AggregateArgs =
 
 export type Query_RootInfrastructure_Network_Infrastructure_Link_By_PkArgs = {
   infrastructure_link_id: Scalars['uuid'];
+};
+
+
+export type Query_RootInfrastructure_Network_Resolve_Point_To_Closest_LinkArgs = {
+  args: Infrastructure_Network_Resolve_Point_To_Closest_Link_Args;
+  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+};
+
+
+export type Query_RootInfrastructure_Network_Resolve_Point_To_Closest_Link_AggregateArgs = {
+  args: Infrastructure_Network_Resolve_Point_To_Closest_Link_Args;
+  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
 };
 
 
@@ -4440,6 +4468,10 @@ export type Subscription_Root = {
   infrastructure_network_infrastructure_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
   /** fetch data from the table: "infrastructure_network.infrastructure_link" using primary key columns */
   infrastructure_network_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  /** execute function "infrastructure_network.resolve_point_to_closest_link" which returns "infrastructure_network.infrastructure_link" */
+  infrastructure_network_resolve_point_to_closest_link: Array<Infrastructure_Network_Infrastructure_Link>;
+  /** execute function "infrastructure_network.resolve_point_to_closest_link" and query aggregates on result of table type "infrastructure_network.infrastructure_link" */
+  infrastructure_network_resolve_point_to_closest_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
   /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
   infrastructure_network_vehicle_submode_on_infrastructure_link: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
   /** fetch aggregated fields from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
@@ -4571,6 +4603,26 @@ export type Subscription_RootInfrastructure_Network_Infrastructure_Link_Aggregat
 
 export type Subscription_RootInfrastructure_Network_Infrastructure_Link_By_PkArgs = {
   infrastructure_link_id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootInfrastructure_Network_Resolve_Point_To_Closest_LinkArgs = {
+  args: Infrastructure_Network_Resolve_Point_To_Closest_Link_Args;
+  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+};
+
+
+export type Subscription_RootInfrastructure_Network_Resolve_Point_To_Closest_Link_AggregateArgs = {
+  args: Infrastructure_Network_Resolve_Point_To_Closest_Link_Args;
+  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
 };
 
 
@@ -4834,49 +4886,102 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
-export type MyQueryQueryVariables = Exact<{ [key: string]: never; }>;
+export type InsertStopMutationVariables = Exact<{
+  object: Service_Pattern_Scheduled_Stop_Point_Insert_Input;
+}>;
 
 
-export type MyQueryQuery = (
+export type InsertStopMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_service_pattern_scheduled_stop_point_one?: Maybe<(
+    { __typename?: 'service_pattern_scheduled_stop_point' }
+    & Pick<Service_Pattern_Scheduled_Stop_Point, 'scheduled_stop_point_id' | 'located_on_infrastructure_link_id' | 'direction' | 'measured_location' | 'label'>
+  )> }
+);
+
+export type QueryClosestLinkQueryVariables = Exact<{
+  point?: Maybe<Scalars['geography']>;
+}>;
+
+
+export type QueryClosestLinkQuery = (
   { __typename?: 'query_root' }
-  & { infrastructure_network_direction: Array<(
-    { __typename?: 'infrastructure_network_direction' }
-    & Pick<Infrastructure_Network_Direction, 'value'>
+  & { infrastructure_network_resolve_point_to_closest_link: Array<(
+    { __typename?: 'infrastructure_network_infrastructure_link' }
+    & Pick<Infrastructure_Network_Infrastructure_Link, 'infrastructure_link_id'>
   )> }
 );
 
 
-export const MyQueryDocument = gql`
-    query MyQuery {
-  infrastructure_network_direction {
-    value
+export const InsertStopDocument = gql`
+    mutation InsertStop($object: service_pattern_scheduled_stop_point_insert_input!) {
+  insert_service_pattern_scheduled_stop_point_one(object: $object) {
+    scheduled_stop_point_id
+    located_on_infrastructure_link_id
+    direction
+    measured_location
+    label
+  }
+}
+    `;
+export type InsertStopMutationFn = Apollo.MutationFunction<InsertStopMutation, InsertStopMutationVariables>;
+
+/**
+ * __useInsertStopMutation__
+ *
+ * To run a mutation, you first call `useInsertStopMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertStopMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertStopMutation, { data, loading, error }] = useInsertStopMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useInsertStopMutation(baseOptions?: Apollo.MutationHookOptions<InsertStopMutation, InsertStopMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertStopMutation, InsertStopMutationVariables>(InsertStopDocument, options);
+      }
+export type InsertStopMutationHookResult = ReturnType<typeof useInsertStopMutation>;
+export type InsertStopMutationResult = Apollo.MutationResult<InsertStopMutation>;
+export type InsertStopMutationOptions = Apollo.BaseMutationOptions<InsertStopMutation, InsertStopMutationVariables>;
+export const QueryClosestLinkDocument = gql`
+    query QueryClosestLink($point: geography) {
+  infrastructure_network_resolve_point_to_closest_link(args: {geog: $point}) {
+    infrastructure_link_id
   }
 }
     `;
 
 /**
- * __useMyQueryQuery__
+ * __useQueryClosestLinkQuery__
  *
- * To run a query within a React component, call `useMyQueryQuery` and pass it any options that fit your needs.
- * When your component renders, `useMyQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useQueryClosestLinkQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryClosestLinkQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useMyQueryQuery({
+ * const { data, loading, error } = useQueryClosestLinkQuery({
  *   variables: {
+ *      point: // value for 'point'
  *   },
  * });
  */
-export function useMyQueryQuery(baseOptions?: Apollo.QueryHookOptions<MyQueryQuery, MyQueryQueryVariables>) {
+export function useQueryClosestLinkQuery(baseOptions?: Apollo.QueryHookOptions<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MyQueryQuery, MyQueryQueryVariables>(MyQueryDocument, options);
+        return Apollo.useQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(QueryClosestLinkDocument, options);
       }
-export function useMyQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyQueryQuery, MyQueryQueryVariables>) {
+export function useQueryClosestLinkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MyQueryQuery, MyQueryQueryVariables>(MyQueryDocument, options);
+          return Apollo.useLazyQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(QueryClosestLinkDocument, options);
         }
-export type MyQueryQueryHookResult = ReturnType<typeof useMyQueryQuery>;
-export type MyQueryLazyQueryHookResult = ReturnType<typeof useMyQueryLazyQuery>;
-export type MyQueryQueryResult = Apollo.QueryResult<MyQueryQuery, MyQueryQueryVariables>;
+export type QueryClosestLinkQueryHookResult = ReturnType<typeof useQueryClosestLinkQuery>;
+export type QueryClosestLinkLazyQueryHookResult = ReturnType<typeof useQueryClosestLinkLazyQuery>;
+export type QueryClosestLinkQueryResult = Apollo.QueryResult<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>;

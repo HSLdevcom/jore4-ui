@@ -67,11 +67,6 @@ Docker containers can be stopped gracefully by running `./stop-dependencies.sh`
 If docker setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
 
 **NOTE:** Currently (14.10.2021) authentication backend has a bug which causes it to boot up non-working state when started with this docker-compose. As a workaround you should run `docker restart auth` after all services are succesfully up & running.
-**NOTE2:** Currently (14.10.2021) hasura's schema is not yet finished. In order to get example query working:
-
-1. Login to [hasura console](http://localhost:3201/console)
-1. Go to "data" tab, select "infrastructure_network" schema
-1. Click "Track All" button next to "Untracked tables or views"
 
 ## Docker reference
 
