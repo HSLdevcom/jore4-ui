@@ -1,8 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
+import { useSubmitCreateStopForm } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
 
 const schema = z.object({
@@ -16,10 +17,11 @@ export type FormState = z.infer<typeof schema>;
 interface Props {
   className?: string;
   defaultValues: Partial<FormState>;
+  onSubmitSuccess: () => void;
 }
 
 const StopFormComponent = (
-  { className, defaultValues }: Props,
+  { className, defaultValues, onSubmitSuccess }: Props,
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();
@@ -31,10 +33,17 @@ const StopFormComponent = (
     defaultValues,
     resolver: zodResolver(schema),
   });
+  const [submitFn, submitResult] = useSubmitCreateStopForm();
 
-  const onSubmit = (data: FormState) =>
-    // eslint-disable-next-line no-console
-    console.log('TODO: submit form, data:', data);
+  const onSubmit = async (state: FormState) => {
+    await submitFn(state);
+  };
+
+  useEffect(() => {
+    if (submitResult?.called && submitResult?.data) {
+      onSubmitSuccess();
+    }
+  }, [submitResult, onSubmitSuccess]);
 
   return (
     <form

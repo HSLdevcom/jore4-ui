@@ -25,6 +25,7 @@ export const EditStopModal = ({
             <StopForm
               className="p-12"
               defaultValues={defaultValues}
+              onSubmitSuccess={onClose}
               ref={formRef}
             />
           </Modal>
