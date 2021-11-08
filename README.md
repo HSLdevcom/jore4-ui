@@ -64,6 +64,7 @@ Edit `start-dependencies.sh` script if you want to start only certain subset of 
 For overriding settings defined in base docker-compose file just edit
 `docker/docker-compose.custom.yml` and run `./start-dependencies.sh` again.
 Docker containers can be stopped gracefully by running `./stop-dependencies.sh`
+If docker setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
 
 **NOTE:** Currently (14.10.2021) authentication backend has a bug which causes it to boot up non-working state when started with this docker-compose. As a workaround you should run `docker restart auth` after all services are succesfully up & running.
 **NOTE2:** Currently (14.10.2021) hasura's schema is not yet finished. In order to get example query working:
