@@ -20,4 +20,4 @@ else
 fi
 
 # start up only services that are needed in local ui development
-docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml up -d jore4-auth jore4-testdb jore4-hasura jore4-mbtiles
+docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml up -d jore4-auth jore4-testdb jore4-hasura jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching

@@ -42,9 +42,7 @@ const devProxy = {
   },
   '/api/route/v1': {
     // Proxy map routing requests to routing service
-    // NOTE: routing service is still missing from jore4 docker-compose bundle so
-    // its port might change in the future
-    target: 'http://localhost:3400',
+    target: 'http://localhost:3005',
   },
 };
 
