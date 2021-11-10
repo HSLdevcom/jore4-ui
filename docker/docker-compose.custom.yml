@@ -4,6 +4,8 @@ services:
     image: 'hsldevcom/jore4-hasura:main--e4f5c5ad2dd1530207300c2d487de70fccb70431'
     environment:
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
+    volumes:
+      - './2524600800000_seed-data:/hasura-migrations/default/2524600800000_seed-data'
 
   martin:
     image: urbica/martin
