@@ -37,6 +37,7 @@ yarn-error.log*
 .vscode
 docker/*
 !docker/docker-compose.custom.yml
+!docker/2524600800000_seed-data
 
 pg_data
 mbtiles
