@@ -909,6 +909,10 @@ export type Infrastructure_Network_Infrastructure_Link_Variance_Order_By = {
   estimated_length_in_metres?: Maybe<Order_By>;
 };
 
+export type Infrastructure_Network_Resolve_Point_To_Closest_Link_Args = {
+  geog?: Maybe<Scalars['geography']>;
+};
+
 /**
  * Which infrastructure links are safely traversed by which vehicle submodes?
  *
@@ -2323,6 +2327,10 @@ export type Query_Root = {
   infrastructure_network_infrastructure_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
   /** fetch data from the table: "infrastructure_network.infrastructure_link" using primary key columns */
   infrastructure_network_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  /** execute function "infrastructure_network.resolve_point_to_closest_link" which returns "infrastructure_network.infrastructure_link" */
+  infrastructure_network_resolve_point_to_closest_link: Array<Infrastructure_Network_Infrastructure_Link>;
+  /** execute function "infrastructure_network.resolve_point_to_closest_link" and query aggregates on result of table type "infrastructure_network.infrastructure_link" */
+  infrastructure_network_resolve_point_to_closest_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
   /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
   infrastructure_network_vehicle_submode_on_infrastructure_link: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
   /** fetch aggregated fields from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
@@ -2454,6 +2462,26 @@ export type Query_RootInfrastructure_Network_Infrastructure_Link_AggregateArgs =
 
 export type Query_RootInfrastructure_Network_Infrastructure_Link_By_PkArgs = {
   infrastructure_link_id: Scalars['uuid'];
+};
+
+
+export type Query_RootInfrastructure_Network_Resolve_Point_To_Closest_LinkArgs = {
+  args: Infrastructure_Network_Resolve_Point_To_Closest_Link_Args;
+  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+};
+
+
+export type Query_RootInfrastructure_Network_Resolve_Point_To_Closest_Link_AggregateArgs = {
+  args: Infrastructure_Network_Resolve_Point_To_Closest_Link_Args;
+  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
 };
 
 
@@ -4440,6 +4468,10 @@ export type Subscription_Root = {
   infrastructure_network_infrastructure_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
   /** fetch data from the table: "infrastructure_network.infrastructure_link" using primary key columns */
   infrastructure_network_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  /** execute function "infrastructure_network.resolve_point_to_closest_link" which returns "infrastructure_network.infrastructure_link" */
+  infrastructure_network_resolve_point_to_closest_link: Array<Infrastructure_Network_Infrastructure_Link>;
+  /** execute function "infrastructure_network.resolve_point_to_closest_link" and query aggregates on result of table type "infrastructure_network.infrastructure_link" */
+  infrastructure_network_resolve_point_to_closest_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
   /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
   infrastructure_network_vehicle_submode_on_infrastructure_link: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
   /** fetch aggregated fields from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
@@ -4571,6 +4603,26 @@ export type Subscription_RootInfrastructure_Network_Infrastructure_Link_Aggregat
 
 export type Subscription_RootInfrastructure_Network_Infrastructure_Link_By_PkArgs = {
   infrastructure_link_id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootInfrastructure_Network_Resolve_Point_To_Closest_LinkArgs = {
+  args: Infrastructure_Network_Resolve_Point_To_Closest_Link_Args;
+  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+};
+
+
+export type Subscription_RootInfrastructure_Network_Resolve_Point_To_Closest_Link_AggregateArgs = {
+  args: Infrastructure_Network_Resolve_Point_To_Closest_Link_Args;
+  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
+  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
 };
 
 
