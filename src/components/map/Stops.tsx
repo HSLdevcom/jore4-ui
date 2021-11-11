@@ -96,8 +96,8 @@ export const Stops = React.forwardRef((props, ref) => {
       {showEditForm && popupInfo && (
         <EditStopModal
           defaultValues={{
-            lat: popupInfo.latitude,
-            lng: popupInfo.longitude,
+            latitude: popupInfo.latitude,
+            longitude: popupInfo.longitude,
           }}
           onCancel={() => setShowEditForm(false)}
           onClose={() => setShowEditForm(false)}
