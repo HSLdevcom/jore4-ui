@@ -1,15 +1,16 @@
+import { useApolloClient } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { useSubmitCreateStopForm } from '../../hooks';
+import { submitStopForm } from '../../api/stops'; // eslint-disable-line import/no-cycle
 import { Column, Row } from '../../layoutComponents';
 
 const schema = z.object({
   finnishName: z.string().min(1),
-  lat: z.number().min(-90).max(90),
-  lng: z.number().min(-180).max(180),
+  latitude: z.number().min(-90).max(90),
+  longitude: z.number().min(-180).max(180),
 });
 
 export type FormState = z.infer<typeof schema>;
@@ -25,6 +26,7 @@ const StopFormComponent = (
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();
+  const client = useApolloClient();
   const {
     register,
     handleSubmit,
@@ -33,17 +35,15 @@ const StopFormComponent = (
     defaultValues,
     resolver: zodResolver(schema),
   });
-  const [submitFn, submitResult] = useSubmitCreateStopForm();
 
   const onSubmit = async (state: FormState) => {
-    await submitFn(state);
-  };
-
-  useEffect(() => {
-    if (submitResult?.called && submitResult?.data) {
+    try {
+      await submitStopForm(client, state);
       onSubmitSuccess();
+    } catch (err) {
+      console.log(`Err, ${err}, TODO: show error message}`);
     }
-  }, [submitResult, onSubmitSuccess]);
+  };
 
   return (
     <form
@@ -68,26 +68,26 @@ const StopFormComponent = (
           <h3 className="text-lg font-bold">{t('map.location')}</h3>
           <Row className="space-x-5">
             <Column>
-              <label htmlFor="lat">{t('map.latitude')}</label>
+              <label htmlFor="latitude">{t('map.latitude')}</label>
               <input
                 type="number"
-                {...register('lat', {
+                {...register('latitude', {
                   valueAsNumber: true,
                 })}
                 step="any"
               />
-              <p>{errors.lat?.message}</p>
+              <p>{errors.latitude?.message}</p>
             </Column>
             <Column>
-              <label htmlFor="lng">{t('map.longitude')}</label>
+              <label htmlFor="longitude">{t('map.longitude')}</label>
               <input
                 type="number"
-                {...register('lng', {
+                {...register('longitude', {
                   valueAsNumber: true,
                 })}
                 step="any"
               />
-              <p>{errors.lng?.message}</p>
+              <p>{errors.longitude?.message}</p>
             </Column>
           </Row>
         </Column>

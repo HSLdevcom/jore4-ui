@@ -1,3 +1,6 @@
+import { Scalars } from '../generated/graphql';
+import { Point } from '../types';
+
 // Submits form implemented with `react-hook-form` by ref
 // useful in cases where ui designs prevent us from defining
 // submit button inside the form
@@ -8,14 +11,11 @@ export const submitFormByRef = (formRef: ExplicitAny) => {
   );
 };
 
-export const mapCoordinatesToPoint = ({
-  lat,
-  lng,
-}: {
-  lat: number;
-  lng: number;
-}) => {
+export const mapPointToPointGeography = ({
+  latitude,
+  longitude,
+}: Point): Scalars['geography'] => {
   // TODO: where should we get z-coordinate? Api schema requires it.
   // Use 0 as z-coordinate for now.
-  return { type: 'Point', coordinates: [lng, lat, 0] };
+  return { type: 'Point', coordinates: [longitude, latitude, 0] };
 };
