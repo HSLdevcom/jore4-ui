@@ -1,0 +1,39 @@
+name: Check generated resources
+
+on:
+  pull_request:
+
+jobs:
+  check_generated_graphql_schema:
+    name: Check if the generated graphql schema is up to date
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup caching for node_modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Set up docker dependencies (in the background)
+        run: ./start-dependencies.sh &
+
+      - name: Install node_modules
+        # making sure that we do have the proper set of node_modules installed regardless of what's cached
+        run: yarn install --frozen-lockfile
+
+      - name: Wait for Hasura to be available
+        uses: HSLdevcom/jore4-tools/github-actions/healthcheck@healthcheck-v1
+        with:
+          command: 'curl --fail http://localhost:3201/healthz --output /dev/null --silent'
+          # hasura takes time to start up as it depends on the database
+          retries: 50
+
+      - name: Regenerate schemas
+        run: yarn gql:generate-types
+
+      - name: Verify that generate command made no changes, so schema is up to date
+        run: '[ -z "$(git status --porcelain)" ]'
