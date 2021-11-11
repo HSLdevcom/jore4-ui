@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { gql } from '@apollo/client';
 
 /*
  * Define graphql mutations here and then `@graphql-codegen` can generate TypeScript code for those.
  */
 
-const INSERT_STOP = gql`
+export const INSERT_STOP = gql`
   mutation InsertStop(
     $object: service_pattern_scheduled_stop_point_insert_input!
   ) {
