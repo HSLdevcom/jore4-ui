@@ -15,8 +15,8 @@ interface Props {
 // magic values that can be seen with browsers devtools.
 // probably won't work in all corner cases, but e.g. zooming
 // broswer in/out doesn't seem to break anything.
-const mapHeaderHeight = 104;
-const mapFooterHeight = 128;
+const mapHeaderHeight = 64;
+const mapFooterHeight = 82;
 
 export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
   const mapRef = useRef<ExplicitAny>(null);
