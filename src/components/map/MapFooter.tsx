@@ -26,7 +26,7 @@ export const MapFooter: React.FC<Props> = ({
   const { t } = useTranslation();
   const { hasRoute } = useContext(MapEditorContext);
   return (
-    <Row className="px-10 py-11 bg-white space-x-4">
+    <Row className="px-10 py-5 bg-white space-x-4">
       <SimpleButton
         onClick={onDrawRoute}
         disabled={hasRoute}
