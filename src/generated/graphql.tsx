@@ -18,9 +18,8 @@ export type Scalars = {
   uuid: any;
 };
 
-
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
-export type Boolean_Comparison_Exp = {
+export type BooleanComparisonExp = {
   _eq?: Maybe<Scalars['Boolean']>;
   _gt?: Maybe<Scalars['Boolean']>;
   _gte?: Maybe<Scalars['Boolean']>;
@@ -33,7 +32,7 @@ export type Boolean_Comparison_Exp = {
 };
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
-export type Int_Comparison_Exp = {
+export type IntComparisonExp = {
   _eq?: Maybe<Scalars['Int']>;
   _gt?: Maybe<Scalars['Int']>;
   _gte?: Maybe<Scalars['Int']>;
@@ -46,7 +45,7 @@ export type Int_Comparison_Exp = {
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
-export type String_Comparison_Exp = {
+export type StringComparisonExp = {
   _eq?: Maybe<Scalars['String']>;
   _gt?: Maybe<Scalars['String']>;
   _gte?: Maybe<Scalars['String']>;
@@ -78,9 +77,8 @@ export type String_Comparison_Exp = {
   _similar?: Maybe<Scalars['String']>;
 };
 
-
 /** Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'. */
-export type Float8_Comparison_Exp = {
+export type Float8ComparisonExp = {
   _eq?: Maybe<Scalars['float8']>;
   _gt?: Maybe<Scalars['float8']>;
   _gte?: Maybe<Scalars['float8']>;
@@ -92,14 +90,13 @@ export type Float8_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['float8']>>;
 };
 
-
-export type Geography_Cast_Exp = {
-  geometry?: Maybe<Geometry_Comparison_Exp>;
+export type GeographyCastExp = {
+  geometry?: Maybe<GeometryComparisonExp>;
 };
 
 /** Boolean expression to compare columns of type "geography". All fields are combined with logical 'AND'. */
-export type Geography_Comparison_Exp = {
-  _cast?: Maybe<Geography_Cast_Exp>;
+export type GeographyComparisonExp = {
+  _cast?: Maybe<GeographyCastExp>;
   _eq?: Maybe<Scalars['geography']>;
   _gt?: Maybe<Scalars['geography']>;
   _gte?: Maybe<Scalars['geography']>;
@@ -110,19 +107,18 @@ export type Geography_Comparison_Exp = {
   _neq?: Maybe<Scalars['geography']>;
   _nin?: Maybe<Array<Scalars['geography']>>;
   /** is the column within a given distance from the given geography value */
-  _st_d_within?: Maybe<St_D_Within_Geography_Input>;
+  _st_d_within?: Maybe<StDWithinGeographyInput>;
   /** does the column spatially intersect the given geography value */
   _st_intersects?: Maybe<Scalars['geography']>;
 };
 
-
-export type Geometry_Cast_Exp = {
-  geography?: Maybe<Geography_Comparison_Exp>;
+export type GeometryCastExp = {
+  geography?: Maybe<GeographyComparisonExp>;
 };
 
 /** Boolean expression to compare columns of type "geometry". All fields are combined with logical 'AND'. */
-export type Geometry_Comparison_Exp = {
-  _cast?: Maybe<Geometry_Cast_Exp>;
+export type GeometryComparisonExp = {
+  _cast?: Maybe<GeometryCastExp>;
   _eq?: Maybe<Scalars['geometry']>;
   _gt?: Maybe<Scalars['geometry']>;
   _gte?: Maybe<Scalars['geometry']>;
@@ -133,7 +129,7 @@ export type Geometry_Comparison_Exp = {
   _neq?: Maybe<Scalars['geometry']>;
   _nin?: Maybe<Array<Scalars['geometry']>>;
   /** is the column within a given 3D distance from the given geometry value */
-  _st_3d_d_within?: Maybe<St_D_Within_Input>;
+  _st_3d_d_within?: Maybe<StDWithinInput>;
   /** does the column spatially intersect the given geometry value in 3D */
   _st_3d_intersects?: Maybe<Scalars['geometry']>;
   /** does the column contain the given geometry value */
@@ -141,7 +137,7 @@ export type Geometry_Comparison_Exp = {
   /** does the column cross the given geometry value */
   _st_crosses?: Maybe<Scalars['geometry']>;
   /** is the column within a given distance from the given geometry value */
-  _st_d_within?: Maybe<St_D_Within_Input>;
+  _st_d_within?: Maybe<StDWithinInput>;
   /** is the column equal to given geometry value (directionality is ignored) */
   _st_equals?: Maybe<Scalars['geometry']>;
   /** does the column spatially intersect the given geometry value */
@@ -159,13 +155,14 @@ export type Geometry_Comparison_Exp = {
  *
  *
  * columns and relationships of "infrastructure_network.direction"
+ *
  */
-export type Infrastructure_Network_Direction = {
+export type InfrastructureNetworkDirection = {
   __typename?: 'infrastructure_network_direction';
   /** An array relationship */
-  infrastructure_links: Array<Infrastructure_Network_Infrastructure_Link>;
+  infrastructure_links: Array<InfrastructureNetworkInfrastructureLink>;
   /** An aggregate relationship */
-  infrastructure_links_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
+  infrastructure_links_aggregate: InfrastructureNetworkInfrastructureLinkAggregate;
   value: Scalars['String'];
 };
 
@@ -175,13 +172,14 @@ export type Infrastructure_Network_Direction = {
  *
  *
  * columns and relationships of "infrastructure_network.direction"
+ *
  */
-export type Infrastructure_Network_DirectionInfrastructure_LinksArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type InfrastructureNetworkDirectionInfrastructureLinksArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 
@@ -190,132 +188,133 @@ export type Infrastructure_Network_DirectionInfrastructure_LinksArgs = {
  *
  *
  * columns and relationships of "infrastructure_network.direction"
+ *
  */
-export type Infrastructure_Network_DirectionInfrastructure_Links_AggregateArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type InfrastructureNetworkDirectionInfrastructureLinksAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 /** aggregated selection of "infrastructure_network.direction" */
-export type Infrastructure_Network_Direction_Aggregate = {
+export type InfrastructureNetworkDirectionAggregate = {
   __typename?: 'infrastructure_network_direction_aggregate';
-  aggregate?: Maybe<Infrastructure_Network_Direction_Aggregate_Fields>;
-  nodes: Array<Infrastructure_Network_Direction>;
+  aggregate?: Maybe<InfrastructureNetworkDirectionAggregateFields>;
+  nodes: Array<InfrastructureNetworkDirection>;
 };
 
 /** aggregate fields of "infrastructure_network.direction" */
-export type Infrastructure_Network_Direction_Aggregate_Fields = {
+export type InfrastructureNetworkDirectionAggregateFields = {
   __typename?: 'infrastructure_network_direction_aggregate_fields';
   count: Scalars['Int'];
-  max?: Maybe<Infrastructure_Network_Direction_Max_Fields>;
-  min?: Maybe<Infrastructure_Network_Direction_Min_Fields>;
+  max?: Maybe<InfrastructureNetworkDirectionMaxFields>;
+  min?: Maybe<InfrastructureNetworkDirectionMinFields>;
 };
 
 
 /** aggregate fields of "infrastructure_network.direction" */
-export type Infrastructure_Network_Direction_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Infrastructure_Network_Direction_Select_Column>>;
+export type InfrastructureNetworkDirectionAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "infrastructure_network.direction". All fields are combined with a logical 'AND'. */
-export type Infrastructure_Network_Direction_Bool_Exp = {
-  _and?: Maybe<Array<Infrastructure_Network_Direction_Bool_Exp>>;
-  _not?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
-  _or?: Maybe<Array<Infrastructure_Network_Direction_Bool_Exp>>;
-  infrastructure_links?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
-  value?: Maybe<String_Comparison_Exp>;
+export type InfrastructureNetworkDirectionBoolExp = {
+  _and?: Maybe<Array<InfrastructureNetworkDirectionBoolExp>>;
+  _not?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+  _or?: Maybe<Array<InfrastructureNetworkDirectionBoolExp>>;
+  infrastructure_links?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  value?: Maybe<StringComparisonExp>;
 };
 
 /** unique or primary key constraints on table "infrastructure_network.direction" */
-export enum Infrastructure_Network_Direction_Constraint {
+export enum InfrastructureNetworkDirectionConstraint {
   /** unique or primary key constraint */
   DirectionPkey = 'direction_pkey'
 }
 
-export enum Infrastructure_Network_Direction_Enum {
+export enum InfrastructureNetworkDirectionEnum {
   Backward = 'backward',
   Bidirectional = 'bidirectional',
   Forward = 'forward'
 }
 
 /** Boolean expression to compare columns of type "infrastructure_network_direction_enum". All fields are combined with logical 'AND'. */
-export type Infrastructure_Network_Direction_Enum_Comparison_Exp = {
-  _eq?: Maybe<Infrastructure_Network_Direction_Enum>;
-  _in?: Maybe<Array<Infrastructure_Network_Direction_Enum>>;
+export type InfrastructureNetworkDirectionEnumComparisonExp = {
+  _eq?: Maybe<InfrastructureNetworkDirectionEnum>;
+  _in?: Maybe<Array<InfrastructureNetworkDirectionEnum>>;
   _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<Infrastructure_Network_Direction_Enum>;
-  _nin?: Maybe<Array<Infrastructure_Network_Direction_Enum>>;
+  _neq?: Maybe<InfrastructureNetworkDirectionEnum>;
+  _nin?: Maybe<Array<InfrastructureNetworkDirectionEnum>>;
 };
 
 /** input type for inserting data into table "infrastructure_network.direction" */
-export type Infrastructure_Network_Direction_Insert_Input = {
-  infrastructure_links?: Maybe<Infrastructure_Network_Infrastructure_Link_Arr_Rel_Insert_Input>;
+export type InfrastructureNetworkDirectionInsertInput = {
+  infrastructure_links?: Maybe<InfrastructureNetworkInfrastructureLinkArrRelInsertInput>;
   value?: Maybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
-export type Infrastructure_Network_Direction_Max_Fields = {
+export type InfrastructureNetworkDirectionMaxFields = {
   __typename?: 'infrastructure_network_direction_max_fields';
   value?: Maybe<Scalars['String']>;
 };
 
 /** aggregate min on columns */
-export type Infrastructure_Network_Direction_Min_Fields = {
+export type InfrastructureNetworkDirectionMinFields = {
   __typename?: 'infrastructure_network_direction_min_fields';
   value?: Maybe<Scalars['String']>;
 };
 
 /** response of any mutation on the table "infrastructure_network.direction" */
-export type Infrastructure_Network_Direction_Mutation_Response = {
+export type InfrastructureNetworkDirectionMutationResponse = {
   __typename?: 'infrastructure_network_direction_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Infrastructure_Network_Direction>;
+  returning: Array<InfrastructureNetworkDirection>;
 };
 
 /** input type for inserting object relation for remote table "infrastructure_network.direction" */
-export type Infrastructure_Network_Direction_Obj_Rel_Insert_Input = {
-  data: Infrastructure_Network_Direction_Insert_Input;
+export type InfrastructureNetworkDirectionObjRelInsertInput = {
+  data: InfrastructureNetworkDirectionInsertInput;
   /** on conflict condition */
-  on_conflict?: Maybe<Infrastructure_Network_Direction_On_Conflict>;
+  on_conflict?: Maybe<InfrastructureNetworkDirectionOnConflict>;
 };
 
 /** on conflict condition type for table "infrastructure_network.direction" */
-export type Infrastructure_Network_Direction_On_Conflict = {
-  constraint: Infrastructure_Network_Direction_Constraint;
-  update_columns?: Array<Infrastructure_Network_Direction_Update_Column>;
-  where?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
+export type InfrastructureNetworkDirectionOnConflict = {
+  constraint: InfrastructureNetworkDirectionConstraint;
+  update_columns?: Array<InfrastructureNetworkDirectionUpdateColumn>;
+  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
 /** Ordering options when selecting data from "infrastructure_network.direction". */
-export type Infrastructure_Network_Direction_Order_By = {
-  infrastructure_links_aggregate?: Maybe<Infrastructure_Network_Infrastructure_Link_Aggregate_Order_By>;
-  value?: Maybe<Order_By>;
+export type InfrastructureNetworkDirectionOrderBy = {
+  infrastructure_links_aggregate?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateOrderBy>;
+  value?: Maybe<OrderBy>;
 };
 
 /** primary key columns input for table: infrastructure_network_direction */
-export type Infrastructure_Network_Direction_Pk_Columns_Input = {
+export type InfrastructureNetworkDirectionPkColumnsInput = {
   value: Scalars['String'];
 };
 
 /** select columns of table "infrastructure_network.direction" */
-export enum Infrastructure_Network_Direction_Select_Column {
+export enum InfrastructureNetworkDirectionSelectColumn {
   /** column name */
   Value = 'value'
 }
 
 /** input type for updating data in table "infrastructure_network.direction" */
-export type Infrastructure_Network_Direction_Set_Input = {
+export type InfrastructureNetworkDirectionSetInput = {
   value?: Maybe<Scalars['String']>;
 };
 
 /** update columns of table "infrastructure_network.direction" */
-export enum Infrastructure_Network_Direction_Update_Column {
+export enum InfrastructureNetworkDirectionUpdateColumn {
   /** column name */
   Value = 'value'
 }
@@ -325,13 +324,14 @@ export enum Infrastructure_Network_Direction_Update_Column {
  *
  *
  * columns and relationships of "infrastructure_network.external_source"
+ *
  */
-export type Infrastructure_Network_External_Source = {
+export type InfrastructureNetworkExternalSource = {
   __typename?: 'infrastructure_network_external_source';
   /** An array relationship */
-  infrastructure_links: Array<Infrastructure_Network_Infrastructure_Link>;
+  infrastructure_links: Array<InfrastructureNetworkInfrastructureLink>;
   /** An aggregate relationship */
-  infrastructure_links_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
+  infrastructure_links_aggregate: InfrastructureNetworkInfrastructureLinkAggregate;
   value: Scalars['String'];
 };
 
@@ -341,13 +341,14 @@ export type Infrastructure_Network_External_Source = {
  *
  *
  * columns and relationships of "infrastructure_network.external_source"
+ *
  */
-export type Infrastructure_Network_External_SourceInfrastructure_LinksArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type InfrastructureNetworkExternalSourceInfrastructureLinksArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 
@@ -356,131 +357,132 @@ export type Infrastructure_Network_External_SourceInfrastructure_LinksArgs = {
  *
  *
  * columns and relationships of "infrastructure_network.external_source"
+ *
  */
-export type Infrastructure_Network_External_SourceInfrastructure_Links_AggregateArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type InfrastructureNetworkExternalSourceInfrastructureLinksAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 /** aggregated selection of "infrastructure_network.external_source" */
-export type Infrastructure_Network_External_Source_Aggregate = {
+export type InfrastructureNetworkExternalSourceAggregate = {
   __typename?: 'infrastructure_network_external_source_aggregate';
-  aggregate?: Maybe<Infrastructure_Network_External_Source_Aggregate_Fields>;
-  nodes: Array<Infrastructure_Network_External_Source>;
+  aggregate?: Maybe<InfrastructureNetworkExternalSourceAggregateFields>;
+  nodes: Array<InfrastructureNetworkExternalSource>;
 };
 
 /** aggregate fields of "infrastructure_network.external_source" */
-export type Infrastructure_Network_External_Source_Aggregate_Fields = {
+export type InfrastructureNetworkExternalSourceAggregateFields = {
   __typename?: 'infrastructure_network_external_source_aggregate_fields';
   count: Scalars['Int'];
-  max?: Maybe<Infrastructure_Network_External_Source_Max_Fields>;
-  min?: Maybe<Infrastructure_Network_External_Source_Min_Fields>;
+  max?: Maybe<InfrastructureNetworkExternalSourceMaxFields>;
+  min?: Maybe<InfrastructureNetworkExternalSourceMinFields>;
 };
 
 
 /** aggregate fields of "infrastructure_network.external_source" */
-export type Infrastructure_Network_External_Source_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Infrastructure_Network_External_Source_Select_Column>>;
+export type InfrastructureNetworkExternalSourceAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "infrastructure_network.external_source". All fields are combined with a logical 'AND'. */
-export type Infrastructure_Network_External_Source_Bool_Exp = {
-  _and?: Maybe<Array<Infrastructure_Network_External_Source_Bool_Exp>>;
-  _not?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
-  _or?: Maybe<Array<Infrastructure_Network_External_Source_Bool_Exp>>;
-  infrastructure_links?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
-  value?: Maybe<String_Comparison_Exp>;
+export type InfrastructureNetworkExternalSourceBoolExp = {
+  _and?: Maybe<Array<InfrastructureNetworkExternalSourceBoolExp>>;
+  _not?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
+  _or?: Maybe<Array<InfrastructureNetworkExternalSourceBoolExp>>;
+  infrastructure_links?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  value?: Maybe<StringComparisonExp>;
 };
 
 /** unique or primary key constraints on table "infrastructure_network.external_source" */
-export enum Infrastructure_Network_External_Source_Constraint {
+export enum InfrastructureNetworkExternalSourceConstraint {
   /** unique or primary key constraint */
   ExternalSourcePkey = 'external_source_pkey'
 }
 
-export enum Infrastructure_Network_External_Source_Enum {
+export enum InfrastructureNetworkExternalSourceEnum {
   DigiroadR = 'digiroad_r',
   Fixup = 'fixup'
 }
 
 /** Boolean expression to compare columns of type "infrastructure_network_external_source_enum". All fields are combined with logical 'AND'. */
-export type Infrastructure_Network_External_Source_Enum_Comparison_Exp = {
-  _eq?: Maybe<Infrastructure_Network_External_Source_Enum>;
-  _in?: Maybe<Array<Infrastructure_Network_External_Source_Enum>>;
+export type InfrastructureNetworkExternalSourceEnumComparisonExp = {
+  _eq?: Maybe<InfrastructureNetworkExternalSourceEnum>;
+  _in?: Maybe<Array<InfrastructureNetworkExternalSourceEnum>>;
   _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<Infrastructure_Network_External_Source_Enum>;
-  _nin?: Maybe<Array<Infrastructure_Network_External_Source_Enum>>;
+  _neq?: Maybe<InfrastructureNetworkExternalSourceEnum>;
+  _nin?: Maybe<Array<InfrastructureNetworkExternalSourceEnum>>;
 };
 
 /** input type for inserting data into table "infrastructure_network.external_source" */
-export type Infrastructure_Network_External_Source_Insert_Input = {
-  infrastructure_links?: Maybe<Infrastructure_Network_Infrastructure_Link_Arr_Rel_Insert_Input>;
+export type InfrastructureNetworkExternalSourceInsertInput = {
+  infrastructure_links?: Maybe<InfrastructureNetworkInfrastructureLinkArrRelInsertInput>;
   value?: Maybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
-export type Infrastructure_Network_External_Source_Max_Fields = {
+export type InfrastructureNetworkExternalSourceMaxFields = {
   __typename?: 'infrastructure_network_external_source_max_fields';
   value?: Maybe<Scalars['String']>;
 };
 
 /** aggregate min on columns */
-export type Infrastructure_Network_External_Source_Min_Fields = {
+export type InfrastructureNetworkExternalSourceMinFields = {
   __typename?: 'infrastructure_network_external_source_min_fields';
   value?: Maybe<Scalars['String']>;
 };
 
 /** response of any mutation on the table "infrastructure_network.external_source" */
-export type Infrastructure_Network_External_Source_Mutation_Response = {
+export type InfrastructureNetworkExternalSourceMutationResponse = {
   __typename?: 'infrastructure_network_external_source_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Infrastructure_Network_External_Source>;
+  returning: Array<InfrastructureNetworkExternalSource>;
 };
 
 /** input type for inserting object relation for remote table "infrastructure_network.external_source" */
-export type Infrastructure_Network_External_Source_Obj_Rel_Insert_Input = {
-  data: Infrastructure_Network_External_Source_Insert_Input;
+export type InfrastructureNetworkExternalSourceObjRelInsertInput = {
+  data: InfrastructureNetworkExternalSourceInsertInput;
   /** on conflict condition */
-  on_conflict?: Maybe<Infrastructure_Network_External_Source_On_Conflict>;
+  on_conflict?: Maybe<InfrastructureNetworkExternalSourceOnConflict>;
 };
 
 /** on conflict condition type for table "infrastructure_network.external_source" */
-export type Infrastructure_Network_External_Source_On_Conflict = {
-  constraint: Infrastructure_Network_External_Source_Constraint;
-  update_columns?: Array<Infrastructure_Network_External_Source_Update_Column>;
-  where?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
+export type InfrastructureNetworkExternalSourceOnConflict = {
+  constraint: InfrastructureNetworkExternalSourceConstraint;
+  update_columns?: Array<InfrastructureNetworkExternalSourceUpdateColumn>;
+  where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
 /** Ordering options when selecting data from "infrastructure_network.external_source". */
-export type Infrastructure_Network_External_Source_Order_By = {
-  infrastructure_links_aggregate?: Maybe<Infrastructure_Network_Infrastructure_Link_Aggregate_Order_By>;
-  value?: Maybe<Order_By>;
+export type InfrastructureNetworkExternalSourceOrderBy = {
+  infrastructure_links_aggregate?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateOrderBy>;
+  value?: Maybe<OrderBy>;
 };
 
 /** primary key columns input for table: infrastructure_network_external_source */
-export type Infrastructure_Network_External_Source_Pk_Columns_Input = {
+export type InfrastructureNetworkExternalSourcePkColumnsInput = {
   value: Scalars['String'];
 };
 
 /** select columns of table "infrastructure_network.external_source" */
-export enum Infrastructure_Network_External_Source_Select_Column {
+export enum InfrastructureNetworkExternalSourceSelectColumn {
   /** column name */
   Value = 'value'
 }
 
 /** input type for updating data in table "infrastructure_network.external_source" */
-export type Infrastructure_Network_External_Source_Set_Input = {
+export type InfrastructureNetworkExternalSourceSetInput = {
   value?: Maybe<Scalars['String']>;
 };
 
 /** update columns of table "infrastructure_network.external_source" */
-export enum Infrastructure_Network_External_Source_Update_Column {
+export enum InfrastructureNetworkExternalSourceUpdateColumn {
   /** column name */
   Value = 'value'
 }
@@ -490,31 +492,32 @@ export enum Infrastructure_Network_External_Source_Update_Column {
  *
  *
  * columns and relationships of "infrastructure_network.infrastructure_link"
+ *
  */
-export type Infrastructure_Network_Infrastructure_Link = {
+export type InfrastructureNetworkInfrastructureLink = {
   __typename?: 'infrastructure_network_infrastructure_link';
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction: Infrastructure_Network_Direction_Enum;
+  direction: InfrastructureNetworkDirectionEnum;
   /** An object relationship */
-  directionByDirection: Infrastructure_Network_Direction;
+  directionByDirection: InfrastructureNetworkDirection;
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['float8']>;
   external_link_id: Scalars['String'];
-  external_link_source: Infrastructure_Network_External_Source_Enum;
+  external_link_source: InfrastructureNetworkExternalSourceEnum;
   /** An object relationship */
-  external_source: Infrastructure_Network_External_Source;
+  external_source: InfrastructureNetworkExternalSource;
   /** An array relationship */
-  infrastructure_link_along_routes: Array<Route_Infrastructure_Link_Along_Route>;
+  infrastructure_link_along_routes: Array<RouteInfrastructureLinkAlongRoute>;
   /** An aggregate relationship */
-  infrastructure_link_along_routes_aggregate: Route_Infrastructure_Link_Along_Route_Aggregate;
+  infrastructure_link_along_routes_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
   /** The ID of the infrastructure link. */
   infrastructure_link_id: Scalars['uuid'];
   /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
   shape: Scalars['geography'];
   /** An array relationship */
-  vehicle_submode_on_infrastructure_links: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  vehicle_submode_on_infrastructure_links: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
   /** An aggregate relationship */
-  vehicle_submode_on_infrastructure_links_aggregate: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate;
+  vehicle_submode_on_infrastructure_links_aggregate: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate;
 };
 
 
@@ -523,13 +526,14 @@ export type Infrastructure_Network_Infrastructure_Link = {
  *
  *
  * columns and relationships of "infrastructure_network.infrastructure_link"
+ *
  */
-export type Infrastructure_Network_Infrastructure_LinkInfrastructure_Link_Along_RoutesArgs = {
-  distinct_on?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Select_Column>>;
+export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutesArgs = {
+  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Order_By>>;
-  where?: Maybe<Route_Infrastructure_Link_Along_Route_Bool_Exp>;
+  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 
@@ -538,13 +542,14 @@ export type Infrastructure_Network_Infrastructure_LinkInfrastructure_Link_Along_
  *
  *
  * columns and relationships of "infrastructure_network.infrastructure_link"
+ *
  */
-export type Infrastructure_Network_Infrastructure_LinkInfrastructure_Link_Along_Routes_AggregateArgs = {
-  distinct_on?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Select_Column>>;
+export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutesAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Order_By>>;
-  where?: Maybe<Route_Infrastructure_Link_Along_Route_Bool_Exp>;
+  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 
@@ -553,13 +558,14 @@ export type Infrastructure_Network_Infrastructure_LinkInfrastructure_Link_Along_
  *
  *
  * columns and relationships of "infrastructure_network.infrastructure_link"
+ *
  */
-export type Infrastructure_Network_Infrastructure_LinkVehicle_Submode_On_Infrastructure_LinksArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinksArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
 
@@ -568,99 +574,100 @@ export type Infrastructure_Network_Infrastructure_LinkVehicle_Submode_On_Infrast
  *
  *
  * columns and relationships of "infrastructure_network.infrastructure_link"
+ *
  */
-export type Infrastructure_Network_Infrastructure_LinkVehicle_Submode_On_Infrastructure_Links_AggregateArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinksAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
 /** aggregated selection of "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Aggregate = {
+export type InfrastructureNetworkInfrastructureLinkAggregate = {
   __typename?: 'infrastructure_network_infrastructure_link_aggregate';
-  aggregate?: Maybe<Infrastructure_Network_Infrastructure_Link_Aggregate_Fields>;
-  nodes: Array<Infrastructure_Network_Infrastructure_Link>;
+  aggregate?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateFields>;
+  nodes: Array<InfrastructureNetworkInfrastructureLink>;
 };
 
 /** aggregate fields of "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Aggregate_Fields = {
+export type InfrastructureNetworkInfrastructureLinkAggregateFields = {
   __typename?: 'infrastructure_network_infrastructure_link_aggregate_fields';
-  avg?: Maybe<Infrastructure_Network_Infrastructure_Link_Avg_Fields>;
+  avg?: Maybe<InfrastructureNetworkInfrastructureLinkAvgFields>;
   count: Scalars['Int'];
-  max?: Maybe<Infrastructure_Network_Infrastructure_Link_Max_Fields>;
-  min?: Maybe<Infrastructure_Network_Infrastructure_Link_Min_Fields>;
-  stddev?: Maybe<Infrastructure_Network_Infrastructure_Link_Stddev_Fields>;
-  stddev_pop?: Maybe<Infrastructure_Network_Infrastructure_Link_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Infrastructure_Network_Infrastructure_Link_Stddev_Samp_Fields>;
-  sum?: Maybe<Infrastructure_Network_Infrastructure_Link_Sum_Fields>;
-  var_pop?: Maybe<Infrastructure_Network_Infrastructure_Link_Var_Pop_Fields>;
-  var_samp?: Maybe<Infrastructure_Network_Infrastructure_Link_Var_Samp_Fields>;
-  variance?: Maybe<Infrastructure_Network_Infrastructure_Link_Variance_Fields>;
+  max?: Maybe<InfrastructureNetworkInfrastructureLinkMaxFields>;
+  min?: Maybe<InfrastructureNetworkInfrastructureLinkMinFields>;
+  stddev?: Maybe<InfrastructureNetworkInfrastructureLinkStddevFields>;
+  stddev_pop?: Maybe<InfrastructureNetworkInfrastructureLinkStddevPopFields>;
+  stddev_samp?: Maybe<InfrastructureNetworkInfrastructureLinkStddevSampFields>;
+  sum?: Maybe<InfrastructureNetworkInfrastructureLinkSumFields>;
+  var_pop?: Maybe<InfrastructureNetworkInfrastructureLinkVarPopFields>;
+  var_samp?: Maybe<InfrastructureNetworkInfrastructureLinkVarSampFields>;
+  variance?: Maybe<InfrastructureNetworkInfrastructureLinkVarianceFields>;
 };
 
 
 /** aggregate fields of "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type InfrastructureNetworkInfrastructureLinkAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Aggregate_Order_By = {
-  avg?: Maybe<Infrastructure_Network_Infrastructure_Link_Avg_Order_By>;
-  count?: Maybe<Order_By>;
-  max?: Maybe<Infrastructure_Network_Infrastructure_Link_Max_Order_By>;
-  min?: Maybe<Infrastructure_Network_Infrastructure_Link_Min_Order_By>;
-  stddev?: Maybe<Infrastructure_Network_Infrastructure_Link_Stddev_Order_By>;
-  stddev_pop?: Maybe<Infrastructure_Network_Infrastructure_Link_Stddev_Pop_Order_By>;
-  stddev_samp?: Maybe<Infrastructure_Network_Infrastructure_Link_Stddev_Samp_Order_By>;
-  sum?: Maybe<Infrastructure_Network_Infrastructure_Link_Sum_Order_By>;
-  var_pop?: Maybe<Infrastructure_Network_Infrastructure_Link_Var_Pop_Order_By>;
-  var_samp?: Maybe<Infrastructure_Network_Infrastructure_Link_Var_Samp_Order_By>;
-  variance?: Maybe<Infrastructure_Network_Infrastructure_Link_Variance_Order_By>;
+export type InfrastructureNetworkInfrastructureLinkAggregateOrderBy = {
+  avg?: Maybe<InfrastructureNetworkInfrastructureLinkAvgOrderBy>;
+  count?: Maybe<OrderBy>;
+  max?: Maybe<InfrastructureNetworkInfrastructureLinkMaxOrderBy>;
+  min?: Maybe<InfrastructureNetworkInfrastructureLinkMinOrderBy>;
+  stddev?: Maybe<InfrastructureNetworkInfrastructureLinkStddevOrderBy>;
+  stddev_pop?: Maybe<InfrastructureNetworkInfrastructureLinkStddevPopOrderBy>;
+  stddev_samp?: Maybe<InfrastructureNetworkInfrastructureLinkStddevSampOrderBy>;
+  sum?: Maybe<InfrastructureNetworkInfrastructureLinkSumOrderBy>;
+  var_pop?: Maybe<InfrastructureNetworkInfrastructureLinkVarPopOrderBy>;
+  var_samp?: Maybe<InfrastructureNetworkInfrastructureLinkVarSampOrderBy>;
+  variance?: Maybe<InfrastructureNetworkInfrastructureLinkVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Arr_Rel_Insert_Input = {
-  data: Array<Infrastructure_Network_Infrastructure_Link_Insert_Input>;
+export type InfrastructureNetworkInfrastructureLinkArrRelInsertInput = {
+  data: Array<InfrastructureNetworkInfrastructureLinkInsertInput>;
   /** on conflict condition */
-  on_conflict?: Maybe<Infrastructure_Network_Infrastructure_Link_On_Conflict>;
+  on_conflict?: Maybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
 };
 
 /** aggregate avg on columns */
-export type Infrastructure_Network_Infrastructure_Link_Avg_Fields = {
+export type InfrastructureNetworkInfrastructureLinkAvgFields = {
   __typename?: 'infrastructure_network_infrastructure_link_avg_fields';
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['Float']>;
 };
 
 /** order by avg() on columns of table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Avg_Order_By = {
+export type InfrastructureNetworkInfrastructureLinkAvgOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "infrastructure_network.infrastructure_link". All fields are combined with a logical 'AND'. */
-export type Infrastructure_Network_Infrastructure_Link_Bool_Exp = {
-  _and?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Bool_Exp>>;
-  _not?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
-  _or?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Bool_Exp>>;
-  direction?: Maybe<Infrastructure_Network_Direction_Enum_Comparison_Exp>;
-  directionByDirection?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
-  estimated_length_in_metres?: Maybe<Float8_Comparison_Exp>;
-  external_link_id?: Maybe<String_Comparison_Exp>;
-  external_link_source?: Maybe<Infrastructure_Network_External_Source_Enum_Comparison_Exp>;
-  external_source?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
-  infrastructure_link_along_routes?: Maybe<Route_Infrastructure_Link_Along_Route_Bool_Exp>;
-  infrastructure_link_id?: Maybe<Uuid_Comparison_Exp>;
-  shape?: Maybe<Geography_Comparison_Exp>;
-  vehicle_submode_on_infrastructure_links?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+export type InfrastructureNetworkInfrastructureLinkBoolExp = {
+  _and?: Maybe<Array<InfrastructureNetworkInfrastructureLinkBoolExp>>;
+  _not?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  _or?: Maybe<Array<InfrastructureNetworkInfrastructureLinkBoolExp>>;
+  direction?: Maybe<InfrastructureNetworkDirectionEnumComparisonExp>;
+  directionByDirection?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+  estimated_length_in_metres?: Maybe<Float8ComparisonExp>;
+  external_link_id?: Maybe<StringComparisonExp>;
+  external_link_source?: Maybe<InfrastructureNetworkExternalSourceEnumComparisonExp>;
+  external_source?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
+  infrastructure_link_along_routes?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  infrastructure_link_id?: Maybe<UuidComparisonExp>;
+  shape?: Maybe<GeographyComparisonExp>;
+  vehicle_submode_on_infrastructure_links?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
 /** unique or primary key constraints on table "infrastructure_network.infrastructure_link" */
-export enum Infrastructure_Network_Infrastructure_Link_Constraint {
+export enum InfrastructureNetworkInfrastructureLinkConstraint {
   /** unique or primary key constraint */
   InfrastructureLinkExternalLinkIdExternalLinkSourceIdx = 'infrastructure_link_external_link_id_external_link_source_idx',
   /** unique or primary key constraint */
@@ -668,31 +675,31 @@ export enum Infrastructure_Network_Infrastructure_Link_Constraint {
 }
 
 /** input type for incrementing numeric columns in table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Inc_Input = {
+export type InfrastructureNetworkInfrastructureLinkIncInput = {
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['float8']>;
 };
 
 /** input type for inserting data into table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Insert_Input = {
+export type InfrastructureNetworkInfrastructureLinkInsertInput = {
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction?: Maybe<Infrastructure_Network_Direction_Enum>;
-  directionByDirection?: Maybe<Infrastructure_Network_Direction_Obj_Rel_Insert_Input>;
+  direction?: Maybe<InfrastructureNetworkDirectionEnum>;
+  directionByDirection?: Maybe<InfrastructureNetworkDirectionObjRelInsertInput>;
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['float8']>;
   external_link_id?: Maybe<Scalars['String']>;
-  external_link_source?: Maybe<Infrastructure_Network_External_Source_Enum>;
-  external_source?: Maybe<Infrastructure_Network_External_Source_Obj_Rel_Insert_Input>;
-  infrastructure_link_along_routes?: Maybe<Route_Infrastructure_Link_Along_Route_Arr_Rel_Insert_Input>;
+  external_link_source?: Maybe<InfrastructureNetworkExternalSourceEnum>;
+  external_source?: Maybe<InfrastructureNetworkExternalSourceObjRelInsertInput>;
+  infrastructure_link_along_routes?: Maybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
   /** The ID of the infrastructure link. */
   infrastructure_link_id?: Maybe<Scalars['uuid']>;
   /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
   shape?: Maybe<Scalars['geography']>;
-  vehicle_submode_on_infrastructure_links?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Arr_Rel_Insert_Input>;
+  vehicle_submode_on_infrastructure_links?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
-export type Infrastructure_Network_Infrastructure_Link_Max_Fields = {
+export type InfrastructureNetworkInfrastructureLinkMaxFields = {
   __typename?: 'infrastructure_network_infrastructure_link_max_fields';
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['float8']>;
@@ -702,16 +709,16 @@ export type Infrastructure_Network_Infrastructure_Link_Max_Fields = {
 };
 
 /** order by max() on columns of table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Max_Order_By = {
+export type InfrastructureNetworkInfrastructureLinkMaxOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Order_By>;
-  external_link_id?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<OrderBy>;
+  external_link_id?: Maybe<OrderBy>;
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<Order_By>;
+  infrastructure_link_id?: Maybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type Infrastructure_Network_Infrastructure_Link_Min_Fields = {
+export type InfrastructureNetworkInfrastructureLinkMinFields = {
   __typename?: 'infrastructure_network_infrastructure_link_min_fields';
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['float8']>;
@@ -721,59 +728,59 @@ export type Infrastructure_Network_Infrastructure_Link_Min_Fields = {
 };
 
 /** order by min() on columns of table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Min_Order_By = {
+export type InfrastructureNetworkInfrastructureLinkMinOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Order_By>;
-  external_link_id?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<OrderBy>;
+  external_link_id?: Maybe<OrderBy>;
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<Order_By>;
+  infrastructure_link_id?: Maybe<OrderBy>;
 };
 
 /** response of any mutation on the table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Mutation_Response = {
+export type InfrastructureNetworkInfrastructureLinkMutationResponse = {
   __typename?: 'infrastructure_network_infrastructure_link_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Infrastructure_Network_Infrastructure_Link>;
+  returning: Array<InfrastructureNetworkInfrastructureLink>;
 };
 
 /** input type for inserting object relation for remote table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Obj_Rel_Insert_Input = {
-  data: Infrastructure_Network_Infrastructure_Link_Insert_Input;
+export type InfrastructureNetworkInfrastructureLinkObjRelInsertInput = {
+  data: InfrastructureNetworkInfrastructureLinkInsertInput;
   /** on conflict condition */
-  on_conflict?: Maybe<Infrastructure_Network_Infrastructure_Link_On_Conflict>;
+  on_conflict?: Maybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
 };
 
 /** on conflict condition type for table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_On_Conflict = {
-  constraint: Infrastructure_Network_Infrastructure_Link_Constraint;
-  update_columns?: Array<Infrastructure_Network_Infrastructure_Link_Update_Column>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+export type InfrastructureNetworkInfrastructureLinkOnConflict = {
+  constraint: InfrastructureNetworkInfrastructureLinkConstraint;
+  update_columns?: Array<InfrastructureNetworkInfrastructureLinkUpdateColumn>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 /** Ordering options when selecting data from "infrastructure_network.infrastructure_link". */
-export type Infrastructure_Network_Infrastructure_Link_Order_By = {
-  direction?: Maybe<Order_By>;
-  directionByDirection?: Maybe<Infrastructure_Network_Direction_Order_By>;
-  estimated_length_in_metres?: Maybe<Order_By>;
-  external_link_id?: Maybe<Order_By>;
-  external_link_source?: Maybe<Order_By>;
-  external_source?: Maybe<Infrastructure_Network_External_Source_Order_By>;
-  infrastructure_link_along_routes_aggregate?: Maybe<Route_Infrastructure_Link_Along_Route_Aggregate_Order_By>;
-  infrastructure_link_id?: Maybe<Order_By>;
-  shape?: Maybe<Order_By>;
-  vehicle_submode_on_infrastructure_links_aggregate?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate_Order_By>;
+export type InfrastructureNetworkInfrastructureLinkOrderBy = {
+  direction?: Maybe<OrderBy>;
+  directionByDirection?: Maybe<InfrastructureNetworkDirectionOrderBy>;
+  estimated_length_in_metres?: Maybe<OrderBy>;
+  external_link_id?: Maybe<OrderBy>;
+  external_link_source?: Maybe<OrderBy>;
+  external_source?: Maybe<InfrastructureNetworkExternalSourceOrderBy>;
+  infrastructure_link_along_routes_aggregate?: Maybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
+  infrastructure_link_id?: Maybe<OrderBy>;
+  shape?: Maybe<OrderBy>;
+  vehicle_submode_on_infrastructure_links_aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy>;
 };
 
 /** primary key columns input for table: infrastructure_network_infrastructure_link */
-export type Infrastructure_Network_Infrastructure_Link_Pk_Columns_Input = {
+export type InfrastructureNetworkInfrastructureLinkPkColumnsInput = {
   /** The ID of the infrastructure link. */
   infrastructure_link_id: Scalars['uuid'];
 };
 
 /** select columns of table "infrastructure_network.infrastructure_link" */
-export enum Infrastructure_Network_Infrastructure_Link_Select_Column {
+export enum InfrastructureNetworkInfrastructureLinkSelectColumn {
   /** column name */
   Direction = 'direction',
   /** column name */
@@ -789,13 +796,13 @@ export enum Infrastructure_Network_Infrastructure_Link_Select_Column {
 }
 
 /** input type for updating data in table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Set_Input = {
+export type InfrastructureNetworkInfrastructureLinkSetInput = {
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction?: Maybe<Infrastructure_Network_Direction_Enum>;
+  direction?: Maybe<InfrastructureNetworkDirectionEnum>;
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['float8']>;
   external_link_id?: Maybe<Scalars['String']>;
-  external_link_source?: Maybe<Infrastructure_Network_External_Source_Enum>;
+  external_link_source?: Maybe<InfrastructureNetworkExternalSourceEnum>;
   /** The ID of the infrastructure link. */
   infrastructure_link_id?: Maybe<Scalars['uuid']>;
   /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
@@ -803,59 +810,59 @@ export type Infrastructure_Network_Infrastructure_Link_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type Infrastructure_Network_Infrastructure_Link_Stddev_Fields = {
+export type InfrastructureNetworkInfrastructureLinkStddevFields = {
   __typename?: 'infrastructure_network_infrastructure_link_stddev_fields';
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev() on columns of table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Stddev_Order_By = {
+export type InfrastructureNetworkInfrastructureLinkStddevOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Infrastructure_Network_Infrastructure_Link_Stddev_Pop_Fields = {
+export type InfrastructureNetworkInfrastructureLinkStddevPopFields = {
   __typename?: 'infrastructure_network_infrastructure_link_stddev_pop_fields';
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_pop() on columns of table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Stddev_Pop_Order_By = {
+export type InfrastructureNetworkInfrastructureLinkStddevPopOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Infrastructure_Network_Infrastructure_Link_Stddev_Samp_Fields = {
+export type InfrastructureNetworkInfrastructureLinkStddevSampFields = {
   __typename?: 'infrastructure_network_infrastructure_link_stddev_samp_fields';
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_samp() on columns of table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Stddev_Samp_Order_By = {
+export type InfrastructureNetworkInfrastructureLinkStddevSampOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<OrderBy>;
 };
 
 /** aggregate sum on columns */
-export type Infrastructure_Network_Infrastructure_Link_Sum_Fields = {
+export type InfrastructureNetworkInfrastructureLinkSumFields = {
   __typename?: 'infrastructure_network_infrastructure_link_sum_fields';
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['float8']>;
 };
 
 /** order by sum() on columns of table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Sum_Order_By = {
+export type InfrastructureNetworkInfrastructureLinkSumOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<OrderBy>;
 };
 
 /** update columns of table "infrastructure_network.infrastructure_link" */
-export enum Infrastructure_Network_Infrastructure_Link_Update_Column {
+export enum InfrastructureNetworkInfrastructureLinkUpdateColumn {
   /** column name */
   Direction = 'direction',
   /** column name */
@@ -871,45 +878,45 @@ export enum Infrastructure_Network_Infrastructure_Link_Update_Column {
 }
 
 /** aggregate var_pop on columns */
-export type Infrastructure_Network_Infrastructure_Link_Var_Pop_Fields = {
+export type InfrastructureNetworkInfrastructureLinkVarPopFields = {
   __typename?: 'infrastructure_network_infrastructure_link_var_pop_fields';
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_pop() on columns of table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Var_Pop_Order_By = {
+export type InfrastructureNetworkInfrastructureLinkVarPopOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
-export type Infrastructure_Network_Infrastructure_Link_Var_Samp_Fields = {
+export type InfrastructureNetworkInfrastructureLinkVarSampFields = {
   __typename?: 'infrastructure_network_infrastructure_link_var_samp_fields';
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_samp() on columns of table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Var_Samp_Order_By = {
+export type InfrastructureNetworkInfrastructureLinkVarSampOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
-export type Infrastructure_Network_Infrastructure_Link_Variance_Fields = {
+export type InfrastructureNetworkInfrastructureLinkVarianceFields = {
   __typename?: 'infrastructure_network_infrastructure_link_variance_fields';
   /** The estimated length of the infrastructure link in metres. */
   estimated_length_in_metres?: Maybe<Scalars['Float']>;
 };
 
 /** order by variance() on columns of table "infrastructure_network.infrastructure_link" */
-export type Infrastructure_Network_Infrastructure_Link_Variance_Order_By = {
+export type InfrastructureNetworkInfrastructureLinkVarianceOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Order_By>;
+  estimated_length_in_metres?: Maybe<OrderBy>;
 };
 
-export type Infrastructure_Network_Resolve_Point_To_Closest_Link_Args = {
+export type InfrastructureNetworkResolvePointToClosestLinkArgs = {
   geog?: Maybe<Scalars['geography']>;
 };
 
@@ -918,142 +925,143 @@ export type Infrastructure_Network_Resolve_Point_To_Closest_Link_Args = {
  *
  *
  * columns and relationships of "infrastructure_network.vehicle_submode_on_infrastructure_link"
+ *
  */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link = {
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLink = {
   __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link';
   /** An object relationship */
-  infrastructure_link: Infrastructure_Network_Infrastructure_Link;
+  infrastructure_link: InfrastructureNetworkInfrastructureLink;
   /** The infrastructure link that can be safely traversed by the vehicle submode. */
   infrastructure_link_id: Scalars['uuid'];
   /** An object relationship */
-  vehicleSubmodeByVehicleSubmode: Reusable_Components_Vehicle_Submode;
+  vehicleSubmodeByVehicleSubmode: ReusableComponentsVehicleSubmode;
   /** The vehicle submode that can safely traverse the infrastructure link. */
-  vehicle_submode: Reusable_Components_Vehicle_Submode_Enum;
+  vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
 };
 
 /** aggregated selection of "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate = {
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate = {
   __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate';
-  aggregate?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate_Fields>;
-  nodes: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateFields>;
+  nodes: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
 };
 
 /** aggregate fields of "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate_Fields = {
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateFields = {
   __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate_fields';
   count: Scalars['Int'];
-  max?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Max_Fields>;
-  min?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Min_Fields>;
+  max?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxFields>;
+  min?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinFields>;
 };
 
 
 /** aggregate fields of "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate_Order_By = {
-  count?: Maybe<Order_By>;
-  max?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Max_Order_By>;
-  min?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Min_Order_By>;
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy = {
+  count?: Maybe<OrderBy>;
+  max?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxOrderBy>;
+  min?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Arr_Rel_Insert_Input = {
-  data: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Insert_Input>;
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput = {
+  data: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput>;
   /** on conflict condition */
-  on_conflict?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_On_Conflict>;
+  on_conflict?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "infrastructure_network.vehicle_submode_on_infrastructure_link". All fields are combined with a logical 'AND'. */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp = {
-  _and?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>>;
-  _not?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
-  _or?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>>;
-  infrastructure_link?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
-  infrastructure_link_id?: Maybe<Uuid_Comparison_Exp>;
-  vehicleSubmodeByVehicleSubmode?: Maybe<Reusable_Components_Vehicle_Submode_Bool_Exp>;
-  vehicle_submode?: Maybe<Reusable_Components_Vehicle_Submode_Enum_Comparison_Exp>;
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp = {
+  _and?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>>;
+  _not?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  _or?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>>;
+  infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  infrastructure_link_id?: Maybe<UuidComparisonExp>;
+  vehicleSubmodeByVehicleSubmode?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  vehicle_submode?: Maybe<ReusableComponentsVehicleSubmodeEnumComparisonExp>;
 };
 
 /** unique or primary key constraints on table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export enum Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Constraint {
+export enum InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkConstraint {
   /** unique or primary key constraint */
   VehicleSubmodeOnInfrastructureLinkPkey = 'vehicle_submode_on_infrastructure_link_pkey'
 }
 
 /** input type for inserting data into table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Insert_Input = {
-  infrastructure_link?: Maybe<Infrastructure_Network_Infrastructure_Link_Obj_Rel_Insert_Input>;
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput = {
+  infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
   /** The infrastructure link that can be safely traversed by the vehicle submode. */
   infrastructure_link_id?: Maybe<Scalars['uuid']>;
-  vehicleSubmodeByVehicleSubmode?: Maybe<Reusable_Components_Vehicle_Submode_Obj_Rel_Insert_Input>;
+  vehicleSubmodeByVehicleSubmode?: Maybe<ReusableComponentsVehicleSubmodeObjRelInsertInput>;
   /** The vehicle submode that can safely traverse the infrastructure link. */
-  vehicle_submode?: Maybe<Reusable_Components_Vehicle_Submode_Enum>;
+  vehicle_submode?: Maybe<ReusableComponentsVehicleSubmodeEnum>;
 };
 
 /** aggregate max on columns */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Max_Fields = {
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxFields = {
   __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_max_fields';
   /** The infrastructure link that can be safely traversed by the vehicle submode. */
   infrastructure_link_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by max() on columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Max_Order_By = {
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxOrderBy = {
   /** The infrastructure link that can be safely traversed by the vehicle submode. */
-  infrastructure_link_id?: Maybe<Order_By>;
+  infrastructure_link_id?: Maybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Min_Fields = {
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinFields = {
   __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_min_fields';
   /** The infrastructure link that can be safely traversed by the vehicle submode. */
   infrastructure_link_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by min() on columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Min_Order_By = {
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinOrderBy = {
   /** The infrastructure link that can be safely traversed by the vehicle submode. */
-  infrastructure_link_id?: Maybe<Order_By>;
+  infrastructure_link_id?: Maybe<OrderBy>;
 };
 
 /** response of any mutation on the table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Mutation_Response = {
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMutationResponse = {
   __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  returning: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
 };
 
 /** on conflict condition type for table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_On_Conflict = {
-  constraint: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Constraint;
-  update_columns?: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Update_Column>;
-  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict = {
+  constraint: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkConstraint;
+  update_columns?: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkUpdateColumn>;
+  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
 /** Ordering options when selecting data from "infrastructure_network.vehicle_submode_on_infrastructure_link". */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By = {
-  infrastructure_link?: Maybe<Infrastructure_Network_Infrastructure_Link_Order_By>;
-  infrastructure_link_id?: Maybe<Order_By>;
-  vehicleSubmodeByVehicleSubmode?: Maybe<Reusable_Components_Vehicle_Submode_Order_By>;
-  vehicle_submode?: Maybe<Order_By>;
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy = {
+  infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkOrderBy>;
+  infrastructure_link_id?: Maybe<OrderBy>;
+  vehicleSubmodeByVehicleSubmode?: Maybe<ReusableComponentsVehicleSubmodeOrderBy>;
+  vehicle_submode?: Maybe<OrderBy>;
 };
 
 /** primary key columns input for table: infrastructure_network_vehicle_submode_on_infrastructure_link */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Pk_Columns_Input = {
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkPkColumnsInput = {
   /** The infrastructure link that can be safely traversed by the vehicle submode. */
   infrastructure_link_id: Scalars['uuid'];
   /** The vehicle submode that can safely traverse the infrastructure link. */
-  vehicle_submode: Reusable_Components_Vehicle_Submode_Enum;
+  vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
 };
 
 /** select columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export enum Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column {
+export enum InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn {
   /** column name */
   InfrastructureLinkId = 'infrastructure_link_id',
   /** column name */
@@ -1061,15 +1069,15 @@ export enum Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select
 }
 
 /** input type for updating data in table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Set_Input = {
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput = {
   /** The infrastructure link that can be safely traversed by the vehicle submode. */
   infrastructure_link_id?: Maybe<Scalars['uuid']>;
   /** The vehicle submode that can safely traverse the infrastructure link. */
-  vehicle_submode?: Maybe<Reusable_Components_Vehicle_Submode_Enum>;
+  vehicle_submode?: Maybe<ReusableComponentsVehicleSubmodeEnum>;
 };
 
 /** update columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export enum Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Update_Column {
+export enum InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkUpdateColumn {
   /** column name */
   InfrastructureLinkId = 'infrastructure_link_id',
   /** column name */
@@ -1081,17 +1089,18 @@ export enum Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Update
  *
  *
  * columns and relationships of "journey_pattern.journey_pattern"
+ *
  */
-export type Journey_Pattern_Journey_Pattern = {
+export type JourneyPatternJourneyPattern = {
   __typename?: 'journey_pattern_journey_pattern';
   /** The ID of the journey pattern. */
   journey_pattern_id: Scalars['uuid'];
   /** The ID of the route the journey pattern is on. */
   on_route_id: Scalars['uuid'];
   /** An array relationship */
-  scheduled_stop_point_in_journey_patterns: Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern>;
+  scheduled_stop_point_in_journey_patterns: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** An aggregate relationship */
-  scheduled_stop_point_in_journey_patterns_aggregate: Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Aggregate;
+  scheduled_stop_point_in_journey_patterns_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
 };
 
 
@@ -1100,13 +1109,14 @@ export type Journey_Pattern_Journey_Pattern = {
  *
  *
  * columns and relationships of "journey_pattern.journey_pattern"
+ *
  */
-export type Journey_Pattern_Journey_PatternScheduled_Stop_Point_In_Journey_PatternsArgs = {
-  distinct_on?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Select_Column>>;
+export type JourneyPatternJourneyPatternScheduledStopPointInJourneyPatternsArgs = {
+  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Order_By>>;
-  where?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp>;
+  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
 };
 
 
@@ -1115,64 +1125,65 @@ export type Journey_Pattern_Journey_PatternScheduled_Stop_Point_In_Journey_Patte
  *
  *
  * columns and relationships of "journey_pattern.journey_pattern"
+ *
  */
-export type Journey_Pattern_Journey_PatternScheduled_Stop_Point_In_Journey_Patterns_AggregateArgs = {
-  distinct_on?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Select_Column>>;
+export type JourneyPatternJourneyPatternScheduledStopPointInJourneyPatternsAggregateArgs = {
+  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Order_By>>;
-  where?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp>;
+  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
 };
 
 /** aggregated selection of "journey_pattern.journey_pattern" */
-export type Journey_Pattern_Journey_Pattern_Aggregate = {
+export type JourneyPatternJourneyPatternAggregate = {
   __typename?: 'journey_pattern_journey_pattern_aggregate';
-  aggregate?: Maybe<Journey_Pattern_Journey_Pattern_Aggregate_Fields>;
-  nodes: Array<Journey_Pattern_Journey_Pattern>;
+  aggregate?: Maybe<JourneyPatternJourneyPatternAggregateFields>;
+  nodes: Array<JourneyPatternJourneyPattern>;
 };
 
 /** aggregate fields of "journey_pattern.journey_pattern" */
-export type Journey_Pattern_Journey_Pattern_Aggregate_Fields = {
+export type JourneyPatternJourneyPatternAggregateFields = {
   __typename?: 'journey_pattern_journey_pattern_aggregate_fields';
   count: Scalars['Int'];
-  max?: Maybe<Journey_Pattern_Journey_Pattern_Max_Fields>;
-  min?: Maybe<Journey_Pattern_Journey_Pattern_Min_Fields>;
+  max?: Maybe<JourneyPatternJourneyPatternMaxFields>;
+  min?: Maybe<JourneyPatternJourneyPatternMinFields>;
 };
 
 
 /** aggregate fields of "journey_pattern.journey_pattern" */
-export type Journey_Pattern_Journey_Pattern_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Journey_Pattern_Journey_Pattern_Select_Column>>;
+export type JourneyPatternJourneyPatternAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "journey_pattern.journey_pattern". All fields are combined with a logical 'AND'. */
-export type Journey_Pattern_Journey_Pattern_Bool_Exp = {
-  _and?: Maybe<Array<Journey_Pattern_Journey_Pattern_Bool_Exp>>;
-  _not?: Maybe<Journey_Pattern_Journey_Pattern_Bool_Exp>;
-  _or?: Maybe<Array<Journey_Pattern_Journey_Pattern_Bool_Exp>>;
-  journey_pattern_id?: Maybe<Uuid_Comparison_Exp>;
-  on_route_id?: Maybe<Uuid_Comparison_Exp>;
-  scheduled_stop_point_in_journey_patterns?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp>;
+export type JourneyPatternJourneyPatternBoolExp = {
+  _and?: Maybe<Array<JourneyPatternJourneyPatternBoolExp>>;
+  _not?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  _or?: Maybe<Array<JourneyPatternJourneyPatternBoolExp>>;
+  journey_pattern_id?: Maybe<UuidComparisonExp>;
+  on_route_id?: Maybe<UuidComparisonExp>;
+  scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
 };
 
 /** unique or primary key constraints on table "journey_pattern.journey_pattern" */
-export enum Journey_Pattern_Journey_Pattern_Constraint {
+export enum JourneyPatternJourneyPatternConstraint {
   /** unique or primary key constraint */
   JourneyPatternPkey = 'journey_pattern_pkey'
 }
 
 /** input type for inserting data into table "journey_pattern.journey_pattern" */
-export type Journey_Pattern_Journey_Pattern_Insert_Input = {
+export type JourneyPatternJourneyPatternInsertInput = {
   /** The ID of the journey pattern. */
   journey_pattern_id?: Maybe<Scalars['uuid']>;
   /** The ID of the route the journey pattern is on. */
   on_route_id?: Maybe<Scalars['uuid']>;
-  scheduled_stop_point_in_journey_patterns?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Arr_Rel_Insert_Input>;
+  scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
-export type Journey_Pattern_Journey_Pattern_Max_Fields = {
+export type JourneyPatternJourneyPatternMaxFields = {
   __typename?: 'journey_pattern_journey_pattern_max_fields';
   /** The ID of the journey pattern. */
   journey_pattern_id?: Maybe<Scalars['uuid']>;
@@ -1181,7 +1192,7 @@ export type Journey_Pattern_Journey_Pattern_Max_Fields = {
 };
 
 /** aggregate min on columns */
-export type Journey_Pattern_Journey_Pattern_Min_Fields = {
+export type JourneyPatternJourneyPatternMinFields = {
   __typename?: 'journey_pattern_journey_pattern_min_fields';
   /** The ID of the journey pattern. */
   journey_pattern_id?: Maybe<Scalars['uuid']>;
@@ -1190,43 +1201,43 @@ export type Journey_Pattern_Journey_Pattern_Min_Fields = {
 };
 
 /** response of any mutation on the table "journey_pattern.journey_pattern" */
-export type Journey_Pattern_Journey_Pattern_Mutation_Response = {
+export type JourneyPatternJourneyPatternMutationResponse = {
   __typename?: 'journey_pattern_journey_pattern_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Journey_Pattern_Journey_Pattern>;
+  returning: Array<JourneyPatternJourneyPattern>;
 };
 
 /** input type for inserting object relation for remote table "journey_pattern.journey_pattern" */
-export type Journey_Pattern_Journey_Pattern_Obj_Rel_Insert_Input = {
-  data: Journey_Pattern_Journey_Pattern_Insert_Input;
+export type JourneyPatternJourneyPatternObjRelInsertInput = {
+  data: JourneyPatternJourneyPatternInsertInput;
   /** on conflict condition */
-  on_conflict?: Maybe<Journey_Pattern_Journey_Pattern_On_Conflict>;
+  on_conflict?: Maybe<JourneyPatternJourneyPatternOnConflict>;
 };
 
 /** on conflict condition type for table "journey_pattern.journey_pattern" */
-export type Journey_Pattern_Journey_Pattern_On_Conflict = {
-  constraint: Journey_Pattern_Journey_Pattern_Constraint;
-  update_columns?: Array<Journey_Pattern_Journey_Pattern_Update_Column>;
-  where?: Maybe<Journey_Pattern_Journey_Pattern_Bool_Exp>;
+export type JourneyPatternJourneyPatternOnConflict = {
+  constraint: JourneyPatternJourneyPatternConstraint;
+  update_columns?: Array<JourneyPatternJourneyPatternUpdateColumn>;
+  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 /** Ordering options when selecting data from "journey_pattern.journey_pattern". */
-export type Journey_Pattern_Journey_Pattern_Order_By = {
-  journey_pattern_id?: Maybe<Order_By>;
-  on_route_id?: Maybe<Order_By>;
-  scheduled_stop_point_in_journey_patterns_aggregate?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Aggregate_Order_By>;
+export type JourneyPatternJourneyPatternOrderBy = {
+  journey_pattern_id?: Maybe<OrderBy>;
+  on_route_id?: Maybe<OrderBy>;
+  scheduled_stop_point_in_journey_patterns_aggregate?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy>;
 };
 
 /** primary key columns input for table: journey_pattern_journey_pattern */
-export type Journey_Pattern_Journey_Pattern_Pk_Columns_Input = {
+export type JourneyPatternJourneyPatternPkColumnsInput = {
   /** The ID of the journey pattern. */
   journey_pattern_id: Scalars['uuid'];
 };
 
 /** select columns of table "journey_pattern.journey_pattern" */
-export enum Journey_Pattern_Journey_Pattern_Select_Column {
+export enum JourneyPatternJourneyPatternSelectColumn {
   /** column name */
   JourneyPatternId = 'journey_pattern_id',
   /** column name */
@@ -1234,7 +1245,7 @@ export enum Journey_Pattern_Journey_Pattern_Select_Column {
 }
 
 /** input type for updating data in table "journey_pattern.journey_pattern" */
-export type Journey_Pattern_Journey_Pattern_Set_Input = {
+export type JourneyPatternJourneyPatternSetInput = {
   /** The ID of the journey pattern. */
   journey_pattern_id?: Maybe<Scalars['uuid']>;
   /** The ID of the route the journey pattern is on. */
@@ -1242,7 +1253,7 @@ export type Journey_Pattern_Journey_Pattern_Set_Input = {
 };
 
 /** update columns of table "journey_pattern.journey_pattern" */
-export enum Journey_Pattern_Journey_Pattern_Update_Column {
+export enum JourneyPatternJourneyPatternUpdateColumn {
   /** column name */
   JourneyPatternId = 'journey_pattern_id',
   /** column name */
@@ -1254,15 +1265,16 @@ export enum Journey_Pattern_Journey_Pattern_Update_Column {
  *
  *
  * columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern"
+ *
  */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern = {
+export type JourneyPatternScheduledStopPointInJourneyPattern = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
   /** Is this scheduled stop point a timing point? */
   is_timing_point: Scalars['Boolean'];
   /** Is this scheduled stop point a via point? */
   is_via_point: Scalars['Boolean'];
   /** An object relationship */
-  journey_pattern: Journey_Pattern_Journey_Pattern;
+  journey_pattern: JourneyPatternJourneyPattern;
   /** The ID of the journey pattern. */
   journey_pattern_id: Scalars['uuid'];
   /** The ID of the scheduled stop point. */
@@ -1272,102 +1284,102 @@ export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern = {
 };
 
 /** aggregated selection of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Aggregate = {
+export type JourneyPatternScheduledStopPointInJourneyPatternAggregate = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate';
-  aggregate?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Aggregate_Fields>;
-  nodes: Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern>;
+  aggregate?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateFields>;
+  nodes: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
 };
 
 /** aggregate fields of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Aggregate_Fields = {
+export type JourneyPatternScheduledStopPointInJourneyPatternAggregateFields = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate_fields';
-  avg?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Avg_Fields>;
+  avg?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAvgFields>;
   count: Scalars['Int'];
-  max?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Max_Fields>;
-  min?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Min_Fields>;
-  stddev?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Stddev_Fields>;
-  stddev_pop?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Stddev_Samp_Fields>;
-  sum?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Sum_Fields>;
-  var_pop?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Var_Pop_Fields>;
-  var_samp?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Var_Samp_Fields>;
-  variance?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Variance_Fields>;
+  max?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMaxFields>;
+  min?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMinFields>;
+  stddev?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternStddevFields>;
+  stddev_pop?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternStddevPopFields>;
+  stddev_samp?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternStddevSampFields>;
+  sum?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSumFields>;
+  var_pop?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarPopFields>;
+  var_samp?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarSampFields>;
+  variance?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarianceFields>;
 };
 
 
 /** aggregate fields of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Select_Column>>;
+export type JourneyPatternScheduledStopPointInJourneyPatternAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Aggregate_Order_By = {
-  avg?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Avg_Order_By>;
-  count?: Maybe<Order_By>;
-  max?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Max_Order_By>;
-  min?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Min_Order_By>;
-  stddev?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Stddev_Order_By>;
-  stddev_pop?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Stddev_Pop_Order_By>;
-  stddev_samp?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Stddev_Samp_Order_By>;
-  sum?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Sum_Order_By>;
-  var_pop?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Var_Pop_Order_By>;
-  var_samp?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Var_Samp_Order_By>;
-  variance?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Variance_Order_By>;
+export type JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy = {
+  avg?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAvgOrderBy>;
+  count?: Maybe<OrderBy>;
+  max?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMaxOrderBy>;
+  min?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMinOrderBy>;
+  stddev?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternStddevOrderBy>;
+  stddev_pop?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternStddevPopOrderBy>;
+  stddev_samp?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternStddevSampOrderBy>;
+  sum?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSumOrderBy>;
+  var_pop?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarPopOrderBy>;
+  var_samp?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarSampOrderBy>;
+  variance?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Arr_Rel_Insert_Input = {
-  data: Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Insert_Input>;
+export type JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput = {
+  data: Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
   /** on conflict condition */
-  on_conflict?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_On_Conflict>;
+  on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
 };
 
 /** aggregate avg on columns */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Avg_Fields = {
+export type JourneyPatternScheduledStopPointInJourneyPatternAvgFields = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_avg_fields';
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by avg() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Avg_Order_By = {
+export type JourneyPatternScheduledStopPointInJourneyPatternAvgOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Order_By>;
+  scheduled_stop_point_sequence?: Maybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "journey_pattern.scheduled_stop_point_in_journey_pattern". All fields are combined with a logical 'AND'. */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp = {
-  _and?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp>>;
-  _not?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp>;
-  _or?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp>>;
-  is_timing_point?: Maybe<Boolean_Comparison_Exp>;
-  is_via_point?: Maybe<Boolean_Comparison_Exp>;
-  journey_pattern?: Maybe<Journey_Pattern_Journey_Pattern_Bool_Exp>;
-  journey_pattern_id?: Maybe<Uuid_Comparison_Exp>;
-  scheduled_stop_point_id?: Maybe<Uuid_Comparison_Exp>;
-  scheduled_stop_point_sequence?: Maybe<Int_Comparison_Exp>;
+export type JourneyPatternScheduledStopPointInJourneyPatternBoolExp = {
+  _and?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>>;
+  _not?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  _or?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>>;
+  is_timing_point?: Maybe<BooleanComparisonExp>;
+  is_via_point?: Maybe<BooleanComparisonExp>;
+  journey_pattern?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  journey_pattern_id?: Maybe<UuidComparisonExp>;
+  scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
+  scheduled_stop_point_sequence?: Maybe<IntComparisonExp>;
 };
 
 /** unique or primary key constraints on table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export enum Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Constraint {
+export enum JourneyPatternScheduledStopPointInJourneyPatternConstraint {
   /** unique or primary key constraint */
   ScheduledStopPointInJourneyPatternPkey = 'scheduled_stop_point_in_journey_pattern_pkey'
 }
 
 /** input type for incrementing numeric columns in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Inc_Input = {
+export type JourneyPatternScheduledStopPointInJourneyPatternIncInput = {
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Insert_Input = {
+export type JourneyPatternScheduledStopPointInJourneyPatternInsertInput = {
   /** Is this scheduled stop point a timing point? */
   is_timing_point?: Maybe<Scalars['Boolean']>;
   /** Is this scheduled stop point a via point? */
   is_via_point?: Maybe<Scalars['Boolean']>;
-  journey_pattern?: Maybe<Journey_Pattern_Journey_Pattern_Obj_Rel_Insert_Input>;
+  journey_pattern?: Maybe<JourneyPatternJourneyPatternObjRelInsertInput>;
   /** The ID of the journey pattern. */
   journey_pattern_id?: Maybe<Scalars['uuid']>;
   /** The ID of the scheduled stop point. */
@@ -1377,7 +1389,7 @@ export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Insert_Input
 };
 
 /** aggregate max on columns */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Max_Fields = {
+export type JourneyPatternScheduledStopPointInJourneyPatternMaxFields = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_max_fields';
   /** The ID of the journey pattern. */
   journey_pattern_id?: Maybe<Scalars['uuid']>;
@@ -1388,17 +1400,17 @@ export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Max_Fields =
 };
 
 /** order by max() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Max_Order_By = {
+export type JourneyPatternScheduledStopPointInJourneyPatternMaxOrderBy = {
   /** The ID of the journey pattern. */
-  journey_pattern_id?: Maybe<Order_By>;
+  journey_pattern_id?: Maybe<OrderBy>;
   /** The ID of the scheduled stop point. */
-  scheduled_stop_point_id?: Maybe<Order_By>;
+  scheduled_stop_point_id?: Maybe<OrderBy>;
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Order_By>;
+  scheduled_stop_point_sequence?: Maybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Min_Fields = {
+export type JourneyPatternScheduledStopPointInJourneyPatternMinFields = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_min_fields';
   /** The ID of the journey pattern. */
   journey_pattern_id?: Maybe<Scalars['uuid']>;
@@ -1409,43 +1421,43 @@ export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Min_Fields =
 };
 
 /** order by min() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Min_Order_By = {
+export type JourneyPatternScheduledStopPointInJourneyPatternMinOrderBy = {
   /** The ID of the journey pattern. */
-  journey_pattern_id?: Maybe<Order_By>;
+  journey_pattern_id?: Maybe<OrderBy>;
   /** The ID of the scheduled stop point. */
-  scheduled_stop_point_id?: Maybe<Order_By>;
+  scheduled_stop_point_id?: Maybe<OrderBy>;
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Order_By>;
+  scheduled_stop_point_sequence?: Maybe<OrderBy>;
 };
 
 /** response of any mutation on the table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Mutation_Response = {
+export type JourneyPatternScheduledStopPointInJourneyPatternMutationResponse = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern>;
+  returning: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
 };
 
 /** on conflict condition type for table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_On_Conflict = {
-  constraint: Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Constraint;
-  update_columns?: Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Update_Column>;
-  where?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp>;
+export type JourneyPatternScheduledStopPointInJourneyPatternOnConflict = {
+  constraint: JourneyPatternScheduledStopPointInJourneyPatternConstraint;
+  update_columns?: Array<JourneyPatternScheduledStopPointInJourneyPatternUpdateColumn>;
+  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
 };
 
 /** Ordering options when selecting data from "journey_pattern.scheduled_stop_point_in_journey_pattern". */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Order_By = {
-  is_timing_point?: Maybe<Order_By>;
-  is_via_point?: Maybe<Order_By>;
-  journey_pattern?: Maybe<Journey_Pattern_Journey_Pattern_Order_By>;
-  journey_pattern_id?: Maybe<Order_By>;
-  scheduled_stop_point_id?: Maybe<Order_By>;
-  scheduled_stop_point_sequence?: Maybe<Order_By>;
+export type JourneyPatternScheduledStopPointInJourneyPatternOrderBy = {
+  is_timing_point?: Maybe<OrderBy>;
+  is_via_point?: Maybe<OrderBy>;
+  journey_pattern?: Maybe<JourneyPatternJourneyPatternOrderBy>;
+  journey_pattern_id?: Maybe<OrderBy>;
+  scheduled_stop_point_id?: Maybe<OrderBy>;
+  scheduled_stop_point_sequence?: Maybe<OrderBy>;
 };
 
 /** primary key columns input for table: journey_pattern_scheduled_stop_point_in_journey_pattern */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Pk_Columns_Input = {
+export type JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput = {
   /** The ID of the journey pattern. */
   journey_pattern_id: Scalars['uuid'];
   /** The order of the scheduled stop point within the journey pattern. */
@@ -1453,7 +1465,7 @@ export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Pk_Columns_I
 };
 
 /** select columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export enum Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Select_Column {
+export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumn {
   /** column name */
   IsTimingPoint = 'is_timing_point',
   /** column name */
@@ -1467,7 +1479,7 @@ export enum Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Select_Colum
 }
 
 /** input type for updating data in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Set_Input = {
+export type JourneyPatternScheduledStopPointInJourneyPatternSetInput = {
   /** Is this scheduled stop point a timing point? */
   is_timing_point?: Maybe<Scalars['Boolean']>;
   /** Is this scheduled stop point a via point? */
@@ -1481,59 +1493,59 @@ export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Set_Input = 
 };
 
 /** aggregate stddev on columns */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Stddev_Fields = {
+export type JourneyPatternScheduledStopPointInJourneyPatternStddevFields = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_stddev_fields';
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Stddev_Order_By = {
+export type JourneyPatternScheduledStopPointInJourneyPatternStddevOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Order_By>;
+  scheduled_stop_point_sequence?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Stddev_Pop_Fields = {
+export type JourneyPatternScheduledStopPointInJourneyPatternStddevPopFields = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_stddev_pop_fields';
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_pop() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Stddev_Pop_Order_By = {
+export type JourneyPatternScheduledStopPointInJourneyPatternStddevPopOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Order_By>;
+  scheduled_stop_point_sequence?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Stddev_Samp_Fields = {
+export type JourneyPatternScheduledStopPointInJourneyPatternStddevSampFields = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_stddev_samp_fields';
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_samp() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Stddev_Samp_Order_By = {
+export type JourneyPatternScheduledStopPointInJourneyPatternStddevSampOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Order_By>;
+  scheduled_stop_point_sequence?: Maybe<OrderBy>;
 };
 
 /** aggregate sum on columns */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Sum_Fields = {
+export type JourneyPatternScheduledStopPointInJourneyPatternSumFields = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_sum_fields';
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
 };
 
 /** order by sum() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Sum_Order_By = {
+export type JourneyPatternScheduledStopPointInJourneyPatternSumOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Order_By>;
+  scheduled_stop_point_sequence?: Maybe<OrderBy>;
 };
 
 /** update columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export enum Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Update_Column {
+export enum JourneyPatternScheduledStopPointInJourneyPatternUpdateColumn {
   /** column name */
   IsTimingPoint = 'is_timing_point',
   /** column name */
@@ -1547,752 +1559,752 @@ export enum Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Update_Colum
 }
 
 /** aggregate var_pop on columns */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Var_Pop_Fields = {
+export type JourneyPatternScheduledStopPointInJourneyPatternVarPopFields = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_var_pop_fields';
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_pop() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Var_Pop_Order_By = {
+export type JourneyPatternScheduledStopPointInJourneyPatternVarPopOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Order_By>;
+  scheduled_stop_point_sequence?: Maybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Var_Samp_Fields = {
+export type JourneyPatternScheduledStopPointInJourneyPatternVarSampFields = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_var_samp_fields';
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_samp() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Var_Samp_Order_By = {
+export type JourneyPatternScheduledStopPointInJourneyPatternVarSampOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Order_By>;
+  scheduled_stop_point_sequence?: Maybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Variance_Fields = {
+export type JourneyPatternScheduledStopPointInJourneyPatternVarianceFields = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_variance_fields';
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by variance() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Variance_Order_By = {
+export type JourneyPatternScheduledStopPointInJourneyPatternVarianceOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Order_By>;
+  scheduled_stop_point_sequence?: Maybe<OrderBy>;
 };
 
 /** mutation root */
-export type Mutation_Root = {
+export type MutationRoot = {
   __typename?: 'mutation_root';
   /** delete data from the table: "infrastructure_network.direction" */
-  delete_infrastructure_network_direction?: Maybe<Infrastructure_Network_Direction_Mutation_Response>;
+  delete_infrastructure_network_direction?: Maybe<InfrastructureNetworkDirectionMutationResponse>;
   /** delete single row from the table: "infrastructure_network.direction" */
-  delete_infrastructure_network_direction_by_pk?: Maybe<Infrastructure_Network_Direction>;
+  delete_infrastructure_network_direction_by_pk?: Maybe<InfrastructureNetworkDirection>;
   /** delete data from the table: "infrastructure_network.external_source" */
-  delete_infrastructure_network_external_source?: Maybe<Infrastructure_Network_External_Source_Mutation_Response>;
+  delete_infrastructure_network_external_source?: Maybe<InfrastructureNetworkExternalSourceMutationResponse>;
   /** delete single row from the table: "infrastructure_network.external_source" */
-  delete_infrastructure_network_external_source_by_pk?: Maybe<Infrastructure_Network_External_Source>;
+  delete_infrastructure_network_external_source_by_pk?: Maybe<InfrastructureNetworkExternalSource>;
   /** delete data from the table: "infrastructure_network.infrastructure_link" */
-  delete_infrastructure_network_infrastructure_link?: Maybe<Infrastructure_Network_Infrastructure_Link_Mutation_Response>;
+  delete_infrastructure_network_infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkMutationResponse>;
   /** delete single row from the table: "infrastructure_network.infrastructure_link" */
-  delete_infrastructure_network_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  delete_infrastructure_network_infrastructure_link_by_pk?: Maybe<InfrastructureNetworkInfrastructureLink>;
   /** delete data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-  delete_infrastructure_network_vehicle_submode_on_infrastructure_link?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Mutation_Response>;
+  delete_infrastructure_network_vehicle_submode_on_infrastructure_link?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMutationResponse>;
   /** delete single row from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-  delete_infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  delete_infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
   /** delete data from the table: "journey_pattern.journey_pattern" */
-  delete_journey_pattern_journey_pattern?: Maybe<Journey_Pattern_Journey_Pattern_Mutation_Response>;
+  delete_journey_pattern_journey_pattern?: Maybe<JourneyPatternJourneyPatternMutationResponse>;
   /** delete single row from the table: "journey_pattern.journey_pattern" */
-  delete_journey_pattern_journey_pattern_by_pk?: Maybe<Journey_Pattern_Journey_Pattern>;
+  delete_journey_pattern_journey_pattern_by_pk?: Maybe<JourneyPatternJourneyPattern>;
   /** delete data from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Mutation_Response>;
+  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMutationResponse>;
   /** delete single row from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-  delete_journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern>;
+  delete_journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** delete data from the table: "reusable_components.vehicle_mode" */
-  delete_reusable_components_vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Mutation_Response>;
+  delete_reusable_components_vehicle_mode?: Maybe<ReusableComponentsVehicleModeMutationResponse>;
   /** delete single row from the table: "reusable_components.vehicle_mode" */
-  delete_reusable_components_vehicle_mode_by_pk?: Maybe<Reusable_Components_Vehicle_Mode>;
+  delete_reusable_components_vehicle_mode_by_pk?: Maybe<ReusableComponentsVehicleMode>;
   /** delete data from the table: "reusable_components.vehicle_submode" */
-  delete_reusable_components_vehicle_submode?: Maybe<Reusable_Components_Vehicle_Submode_Mutation_Response>;
+  delete_reusable_components_vehicle_submode?: Maybe<ReusableComponentsVehicleSubmodeMutationResponse>;
   /** delete single row from the table: "reusable_components.vehicle_submode" */
-  delete_reusable_components_vehicle_submode_by_pk?: Maybe<Reusable_Components_Vehicle_Submode>;
+  delete_reusable_components_vehicle_submode_by_pk?: Maybe<ReusableComponentsVehicleSubmode>;
   /** delete data from the table: "route.direction" */
-  delete_route_direction?: Maybe<Route_Direction_Mutation_Response>;
+  delete_route_direction?: Maybe<RouteDirectionMutationResponse>;
   /** delete single row from the table: "route.direction" */
-  delete_route_direction_by_pk?: Maybe<Route_Direction>;
+  delete_route_direction_by_pk?: Maybe<RouteDirection>;
   /** delete data from the table: "route.infrastructure_link_along_route" */
-  delete_route_infrastructure_link_along_route?: Maybe<Route_Infrastructure_Link_Along_Route_Mutation_Response>;
+  delete_route_infrastructure_link_along_route?: Maybe<RouteInfrastructureLinkAlongRouteMutationResponse>;
   /** delete single row from the table: "route.infrastructure_link_along_route" */
-  delete_route_infrastructure_link_along_route_by_pk?: Maybe<Route_Infrastructure_Link_Along_Route>;
+  delete_route_infrastructure_link_along_route_by_pk?: Maybe<RouteInfrastructureLinkAlongRoute>;
   /** delete data from the table: "route.line" */
-  delete_route_line?: Maybe<Route_Line_Mutation_Response>;
+  delete_route_line?: Maybe<RouteLineMutationResponse>;
   /** delete single row from the table: "route.line" */
-  delete_route_line_by_pk?: Maybe<Route_Line>;
+  delete_route_line_by_pk?: Maybe<RouteLine>;
   /** delete data from the table: "route.route" */
-  delete_route_route?: Maybe<Route_Route_Mutation_Response>;
+  delete_route_route?: Maybe<RouteRouteMutationResponse>;
   /** delete data from the table: "service_pattern.scheduled_stop_point" */
-  delete_service_pattern_scheduled_stop_point?: Maybe<Service_Pattern_Scheduled_Stop_Point_Mutation_Response>;
+  delete_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** delete data from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  delete_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Mutation_Response>;
+  delete_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMutationResponse>;
   /** delete single row from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  delete_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode>;
+  delete_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk?: Maybe<ServicePatternScheduledStopPointServicedByVehicleMode>;
   /** insert data into the table: "infrastructure_network.direction" */
-  insert_infrastructure_network_direction?: Maybe<Infrastructure_Network_Direction_Mutation_Response>;
+  insert_infrastructure_network_direction?: Maybe<InfrastructureNetworkDirectionMutationResponse>;
   /** insert a single row into the table: "infrastructure_network.direction" */
-  insert_infrastructure_network_direction_one?: Maybe<Infrastructure_Network_Direction>;
+  insert_infrastructure_network_direction_one?: Maybe<InfrastructureNetworkDirection>;
   /** insert data into the table: "infrastructure_network.external_source" */
-  insert_infrastructure_network_external_source?: Maybe<Infrastructure_Network_External_Source_Mutation_Response>;
+  insert_infrastructure_network_external_source?: Maybe<InfrastructureNetworkExternalSourceMutationResponse>;
   /** insert a single row into the table: "infrastructure_network.external_source" */
-  insert_infrastructure_network_external_source_one?: Maybe<Infrastructure_Network_External_Source>;
+  insert_infrastructure_network_external_source_one?: Maybe<InfrastructureNetworkExternalSource>;
   /** insert data into the table: "infrastructure_network.infrastructure_link" */
-  insert_infrastructure_network_infrastructure_link?: Maybe<Infrastructure_Network_Infrastructure_Link_Mutation_Response>;
+  insert_infrastructure_network_infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkMutationResponse>;
   /** insert a single row into the table: "infrastructure_network.infrastructure_link" */
-  insert_infrastructure_network_infrastructure_link_one?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  insert_infrastructure_network_infrastructure_link_one?: Maybe<InfrastructureNetworkInfrastructureLink>;
   /** insert data into the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-  insert_infrastructure_network_vehicle_submode_on_infrastructure_link?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Mutation_Response>;
+  insert_infrastructure_network_vehicle_submode_on_infrastructure_link?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMutationResponse>;
   /** insert a single row into the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-  insert_infrastructure_network_vehicle_submode_on_infrastructure_link_one?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  insert_infrastructure_network_vehicle_submode_on_infrastructure_link_one?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
   /** insert data into the table: "journey_pattern.journey_pattern" */
-  insert_journey_pattern_journey_pattern?: Maybe<Journey_Pattern_Journey_Pattern_Mutation_Response>;
+  insert_journey_pattern_journey_pattern?: Maybe<JourneyPatternJourneyPatternMutationResponse>;
   /** insert a single row into the table: "journey_pattern.journey_pattern" */
-  insert_journey_pattern_journey_pattern_one?: Maybe<Journey_Pattern_Journey_Pattern>;
+  insert_journey_pattern_journey_pattern_one?: Maybe<JourneyPatternJourneyPattern>;
   /** insert data into the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-  insert_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Mutation_Response>;
+  insert_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMutationResponse>;
   /** insert a single row into the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-  insert_journey_pattern_scheduled_stop_point_in_journey_pattern_one?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern>;
+  insert_journey_pattern_scheduled_stop_point_in_journey_pattern_one?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** insert data into the table: "reusable_components.vehicle_mode" */
-  insert_reusable_components_vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Mutation_Response>;
+  insert_reusable_components_vehicle_mode?: Maybe<ReusableComponentsVehicleModeMutationResponse>;
   /** insert a single row into the table: "reusable_components.vehicle_mode" */
-  insert_reusable_components_vehicle_mode_one?: Maybe<Reusable_Components_Vehicle_Mode>;
+  insert_reusable_components_vehicle_mode_one?: Maybe<ReusableComponentsVehicleMode>;
   /** insert data into the table: "reusable_components.vehicle_submode" */
-  insert_reusable_components_vehicle_submode?: Maybe<Reusable_Components_Vehicle_Submode_Mutation_Response>;
+  insert_reusable_components_vehicle_submode?: Maybe<ReusableComponentsVehicleSubmodeMutationResponse>;
   /** insert a single row into the table: "reusable_components.vehicle_submode" */
-  insert_reusable_components_vehicle_submode_one?: Maybe<Reusable_Components_Vehicle_Submode>;
+  insert_reusable_components_vehicle_submode_one?: Maybe<ReusableComponentsVehicleSubmode>;
   /** insert data into the table: "route.direction" */
-  insert_route_direction?: Maybe<Route_Direction_Mutation_Response>;
+  insert_route_direction?: Maybe<RouteDirectionMutationResponse>;
   /** insert a single row into the table: "route.direction" */
-  insert_route_direction_one?: Maybe<Route_Direction>;
+  insert_route_direction_one?: Maybe<RouteDirection>;
   /** insert data into the table: "route.infrastructure_link_along_route" */
-  insert_route_infrastructure_link_along_route?: Maybe<Route_Infrastructure_Link_Along_Route_Mutation_Response>;
+  insert_route_infrastructure_link_along_route?: Maybe<RouteInfrastructureLinkAlongRouteMutationResponse>;
   /** insert a single row into the table: "route.infrastructure_link_along_route" */
-  insert_route_infrastructure_link_along_route_one?: Maybe<Route_Infrastructure_Link_Along_Route>;
+  insert_route_infrastructure_link_along_route_one?: Maybe<RouteInfrastructureLinkAlongRoute>;
   /** insert data into the table: "route.line" */
-  insert_route_line?: Maybe<Route_Line_Mutation_Response>;
+  insert_route_line?: Maybe<RouteLineMutationResponse>;
   /** insert a single row into the table: "route.line" */
-  insert_route_line_one?: Maybe<Route_Line>;
+  insert_route_line_one?: Maybe<RouteLine>;
   /** insert data into the table: "route.route" */
-  insert_route_route?: Maybe<Route_Route_Mutation_Response>;
+  insert_route_route?: Maybe<RouteRouteMutationResponse>;
   /** insert a single row into the table: "route.route" */
-  insert_route_route_one?: Maybe<Route_Route>;
+  insert_route_route_one?: Maybe<RouteRoute>;
   /** insert data into the table: "service_pattern.scheduled_stop_point" */
-  insert_service_pattern_scheduled_stop_point?: Maybe<Service_Pattern_Scheduled_Stop_Point_Mutation_Response>;
+  insert_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** insert a single row into the table: "service_pattern.scheduled_stop_point" */
-  insert_service_pattern_scheduled_stop_point_one?: Maybe<Service_Pattern_Scheduled_Stop_Point>;
+  insert_service_pattern_scheduled_stop_point_one?: Maybe<ServicePatternScheduledStopPoint>;
   /** insert data into the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  insert_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Mutation_Response>;
+  insert_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMutationResponse>;
   /** insert a single row into the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  insert_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_one?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode>;
+  insert_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_one?: Maybe<ServicePatternScheduledStopPointServicedByVehicleMode>;
   /** update data of the table: "infrastructure_network.direction" */
-  update_infrastructure_network_direction?: Maybe<Infrastructure_Network_Direction_Mutation_Response>;
+  update_infrastructure_network_direction?: Maybe<InfrastructureNetworkDirectionMutationResponse>;
   /** update single row of the table: "infrastructure_network.direction" */
-  update_infrastructure_network_direction_by_pk?: Maybe<Infrastructure_Network_Direction>;
+  update_infrastructure_network_direction_by_pk?: Maybe<InfrastructureNetworkDirection>;
   /** update data of the table: "infrastructure_network.external_source" */
-  update_infrastructure_network_external_source?: Maybe<Infrastructure_Network_External_Source_Mutation_Response>;
+  update_infrastructure_network_external_source?: Maybe<InfrastructureNetworkExternalSourceMutationResponse>;
   /** update single row of the table: "infrastructure_network.external_source" */
-  update_infrastructure_network_external_source_by_pk?: Maybe<Infrastructure_Network_External_Source>;
+  update_infrastructure_network_external_source_by_pk?: Maybe<InfrastructureNetworkExternalSource>;
   /** update data of the table: "infrastructure_network.infrastructure_link" */
-  update_infrastructure_network_infrastructure_link?: Maybe<Infrastructure_Network_Infrastructure_Link_Mutation_Response>;
+  update_infrastructure_network_infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkMutationResponse>;
   /** update single row of the table: "infrastructure_network.infrastructure_link" */
-  update_infrastructure_network_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  update_infrastructure_network_infrastructure_link_by_pk?: Maybe<InfrastructureNetworkInfrastructureLink>;
   /** update data of the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-  update_infrastructure_network_vehicle_submode_on_infrastructure_link?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Mutation_Response>;
+  update_infrastructure_network_vehicle_submode_on_infrastructure_link?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMutationResponse>;
   /** update single row of the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-  update_infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  update_infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
   /** update data of the table: "journey_pattern.journey_pattern" */
-  update_journey_pattern_journey_pattern?: Maybe<Journey_Pattern_Journey_Pattern_Mutation_Response>;
+  update_journey_pattern_journey_pattern?: Maybe<JourneyPatternJourneyPatternMutationResponse>;
   /** update single row of the table: "journey_pattern.journey_pattern" */
-  update_journey_pattern_journey_pattern_by_pk?: Maybe<Journey_Pattern_Journey_Pattern>;
+  update_journey_pattern_journey_pattern_by_pk?: Maybe<JourneyPatternJourneyPattern>;
   /** update data of the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-  update_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Mutation_Response>;
+  update_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMutationResponse>;
   /** update single row of the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-  update_journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern>;
+  update_journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** update data of the table: "reusable_components.vehicle_mode" */
-  update_reusable_components_vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Mutation_Response>;
+  update_reusable_components_vehicle_mode?: Maybe<ReusableComponentsVehicleModeMutationResponse>;
   /** update single row of the table: "reusable_components.vehicle_mode" */
-  update_reusable_components_vehicle_mode_by_pk?: Maybe<Reusable_Components_Vehicle_Mode>;
+  update_reusable_components_vehicle_mode_by_pk?: Maybe<ReusableComponentsVehicleMode>;
   /** update data of the table: "reusable_components.vehicle_submode" */
-  update_reusable_components_vehicle_submode?: Maybe<Reusable_Components_Vehicle_Submode_Mutation_Response>;
+  update_reusable_components_vehicle_submode?: Maybe<ReusableComponentsVehicleSubmodeMutationResponse>;
   /** update single row of the table: "reusable_components.vehicle_submode" */
-  update_reusable_components_vehicle_submode_by_pk?: Maybe<Reusable_Components_Vehicle_Submode>;
+  update_reusable_components_vehicle_submode_by_pk?: Maybe<ReusableComponentsVehicleSubmode>;
   /** update data of the table: "route.direction" */
-  update_route_direction?: Maybe<Route_Direction_Mutation_Response>;
+  update_route_direction?: Maybe<RouteDirectionMutationResponse>;
   /** update single row of the table: "route.direction" */
-  update_route_direction_by_pk?: Maybe<Route_Direction>;
+  update_route_direction_by_pk?: Maybe<RouteDirection>;
   /** update data of the table: "route.infrastructure_link_along_route" */
-  update_route_infrastructure_link_along_route?: Maybe<Route_Infrastructure_Link_Along_Route_Mutation_Response>;
+  update_route_infrastructure_link_along_route?: Maybe<RouteInfrastructureLinkAlongRouteMutationResponse>;
   /** update single row of the table: "route.infrastructure_link_along_route" */
-  update_route_infrastructure_link_along_route_by_pk?: Maybe<Route_Infrastructure_Link_Along_Route>;
+  update_route_infrastructure_link_along_route_by_pk?: Maybe<RouteInfrastructureLinkAlongRoute>;
   /** update data of the table: "route.line" */
-  update_route_line?: Maybe<Route_Line_Mutation_Response>;
+  update_route_line?: Maybe<RouteLineMutationResponse>;
   /** update single row of the table: "route.line" */
-  update_route_line_by_pk?: Maybe<Route_Line>;
+  update_route_line_by_pk?: Maybe<RouteLine>;
   /** update data of the table: "route.route" */
-  update_route_route?: Maybe<Route_Route_Mutation_Response>;
+  update_route_route?: Maybe<RouteRouteMutationResponse>;
   /** update data of the table: "service_pattern.scheduled_stop_point" */
-  update_service_pattern_scheduled_stop_point?: Maybe<Service_Pattern_Scheduled_Stop_Point_Mutation_Response>;
+  update_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** update data of the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  update_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Mutation_Response>;
+  update_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMutationResponse>;
   /** update single row of the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  update_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode>;
+  update_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk?: Maybe<ServicePatternScheduledStopPointServicedByVehicleMode>;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Infrastructure_Network_DirectionArgs = {
-  where: Infrastructure_Network_Direction_Bool_Exp;
+export type MutationRootDeleteInfrastructureNetworkDirectionArgs = {
+  where: InfrastructureNetworkDirectionBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Infrastructure_Network_Direction_By_PkArgs = {
+export type MutationRootDeleteInfrastructureNetworkDirectionByPkArgs = {
   value: Scalars['String'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Infrastructure_Network_External_SourceArgs = {
-  where: Infrastructure_Network_External_Source_Bool_Exp;
+export type MutationRootDeleteInfrastructureNetworkExternalSourceArgs = {
+  where: InfrastructureNetworkExternalSourceBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Infrastructure_Network_External_Source_By_PkArgs = {
+export type MutationRootDeleteInfrastructureNetworkExternalSourceByPkArgs = {
   value: Scalars['String'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Infrastructure_Network_Infrastructure_LinkArgs = {
-  where: Infrastructure_Network_Infrastructure_Link_Bool_Exp;
+export type MutationRootDeleteInfrastructureNetworkInfrastructureLinkArgs = {
+  where: InfrastructureNetworkInfrastructureLinkBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Infrastructure_Network_Infrastructure_Link_By_PkArgs = {
+export type MutationRootDeleteInfrastructureNetworkInfrastructureLinkByPkArgs = {
   infrastructure_link_id: Scalars['uuid'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Infrastructure_Network_Vehicle_Submode_On_Infrastructure_LinkArgs = {
-  where: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp;
+export type MutationRootDeleteInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs = {
+  where: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_By_PkArgs = {
+export type MutationRootDeleteInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs = {
   infrastructure_link_id: Scalars['uuid'];
-  vehicle_submode: Reusable_Components_Vehicle_Submode_Enum;
+  vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Journey_Pattern_Journey_PatternArgs = {
-  where: Journey_Pattern_Journey_Pattern_Bool_Exp;
+export type MutationRootDeleteJourneyPatternJourneyPatternArgs = {
+  where: JourneyPatternJourneyPatternBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Journey_Pattern_Journey_Pattern_By_PkArgs = {
+export type MutationRootDeleteJourneyPatternJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Journey_Pattern_Scheduled_Stop_Point_In_Journey_PatternArgs = {
-  where: Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp;
+export type MutationRootDeleteJourneyPatternScheduledStopPointInJourneyPatternArgs = {
+  where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_By_PkArgs = {
+export type MutationRootDeleteJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid'];
   scheduled_stop_point_sequence: Scalars['Int'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Reusable_Components_Vehicle_ModeArgs = {
-  where: Reusable_Components_Vehicle_Mode_Bool_Exp;
+export type MutationRootDeleteReusableComponentsVehicleModeArgs = {
+  where: ReusableComponentsVehicleModeBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Reusable_Components_Vehicle_Mode_By_PkArgs = {
+export type MutationRootDeleteReusableComponentsVehicleModeByPkArgs = {
   vehicle_mode: Scalars['String'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Reusable_Components_Vehicle_SubmodeArgs = {
-  where: Reusable_Components_Vehicle_Submode_Bool_Exp;
+export type MutationRootDeleteReusableComponentsVehicleSubmodeArgs = {
+  where: ReusableComponentsVehicleSubmodeBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Reusable_Components_Vehicle_Submode_By_PkArgs = {
+export type MutationRootDeleteReusableComponentsVehicleSubmodeByPkArgs = {
   vehicle_submode: Scalars['String'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Route_DirectionArgs = {
-  where: Route_Direction_Bool_Exp;
+export type MutationRootDeleteRouteDirectionArgs = {
+  where: RouteDirectionBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Route_Direction_By_PkArgs = {
+export type MutationRootDeleteRouteDirectionByPkArgs = {
   direction: Scalars['String'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Route_Infrastructure_Link_Along_RouteArgs = {
-  where: Route_Infrastructure_Link_Along_Route_Bool_Exp;
+export type MutationRootDeleteRouteInfrastructureLinkAlongRouteArgs = {
+  where: RouteInfrastructureLinkAlongRouteBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Route_Infrastructure_Link_Along_Route_By_PkArgs = {
+export type MutationRootDeleteRouteInfrastructureLinkAlongRouteByPkArgs = {
   infrastructure_link_sequence: Scalars['Int'];
   route_id: Scalars['uuid'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Route_LineArgs = {
-  where: Route_Line_Bool_Exp;
+export type MutationRootDeleteRouteLineArgs = {
+  where: RouteLineBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Route_Line_By_PkArgs = {
+export type MutationRootDeleteRouteLineByPkArgs = {
   line_id: Scalars['uuid'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Route_RouteArgs = {
-  where: Route_Route_Bool_Exp;
+export type MutationRootDeleteRouteRouteArgs = {
+  where: RouteRouteBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Service_Pattern_Scheduled_Stop_PointArgs = {
-  where: Service_Pattern_Scheduled_Stop_Point_Bool_Exp;
+export type MutationRootDeleteServicePatternScheduledStopPointArgs = {
+  where: ServicePatternScheduledStopPointBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_ModeArgs = {
-  where: Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp;
+export type MutationRootDeleteServicePatternScheduledStopPointServicedByVehicleModeArgs = {
+  where: ServicePatternScheduledStopPointServicedByVehicleModeBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_By_PkArgs = {
+export type MutationRootDeleteServicePatternScheduledStopPointServicedByVehicleModeByPkArgs = {
   scheduled_stop_point_id: Scalars['uuid'];
-  vehicle_mode: Reusable_Components_Vehicle_Mode_Enum;
+  vehicle_mode: ReusableComponentsVehicleModeEnum;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Infrastructure_Network_DirectionArgs = {
-  objects: Array<Infrastructure_Network_Direction_Insert_Input>;
-  on_conflict?: Maybe<Infrastructure_Network_Direction_On_Conflict>;
+export type MutationRootInsertInfrastructureNetworkDirectionArgs = {
+  objects: Array<InfrastructureNetworkDirectionInsertInput>;
+  on_conflict?: Maybe<InfrastructureNetworkDirectionOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Infrastructure_Network_Direction_OneArgs = {
-  object: Infrastructure_Network_Direction_Insert_Input;
-  on_conflict?: Maybe<Infrastructure_Network_Direction_On_Conflict>;
+export type MutationRootInsertInfrastructureNetworkDirectionOneArgs = {
+  object: InfrastructureNetworkDirectionInsertInput;
+  on_conflict?: Maybe<InfrastructureNetworkDirectionOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Infrastructure_Network_External_SourceArgs = {
-  objects: Array<Infrastructure_Network_External_Source_Insert_Input>;
-  on_conflict?: Maybe<Infrastructure_Network_External_Source_On_Conflict>;
+export type MutationRootInsertInfrastructureNetworkExternalSourceArgs = {
+  objects: Array<InfrastructureNetworkExternalSourceInsertInput>;
+  on_conflict?: Maybe<InfrastructureNetworkExternalSourceOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Infrastructure_Network_External_Source_OneArgs = {
-  object: Infrastructure_Network_External_Source_Insert_Input;
-  on_conflict?: Maybe<Infrastructure_Network_External_Source_On_Conflict>;
+export type MutationRootInsertInfrastructureNetworkExternalSourceOneArgs = {
+  object: InfrastructureNetworkExternalSourceInsertInput;
+  on_conflict?: Maybe<InfrastructureNetworkExternalSourceOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Infrastructure_Network_Infrastructure_LinkArgs = {
-  objects: Array<Infrastructure_Network_Infrastructure_Link_Insert_Input>;
-  on_conflict?: Maybe<Infrastructure_Network_Infrastructure_Link_On_Conflict>;
+export type MutationRootInsertInfrastructureNetworkInfrastructureLinkArgs = {
+  objects: Array<InfrastructureNetworkInfrastructureLinkInsertInput>;
+  on_conflict?: Maybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Infrastructure_Network_Infrastructure_Link_OneArgs = {
-  object: Infrastructure_Network_Infrastructure_Link_Insert_Input;
-  on_conflict?: Maybe<Infrastructure_Network_Infrastructure_Link_On_Conflict>;
+export type MutationRootInsertInfrastructureNetworkInfrastructureLinkOneArgs = {
+  object: InfrastructureNetworkInfrastructureLinkInsertInput;
+  on_conflict?: Maybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Infrastructure_Network_Vehicle_Submode_On_Infrastructure_LinkArgs = {
-  objects: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Insert_Input>;
-  on_conflict?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_On_Conflict>;
+export type MutationRootInsertInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs = {
+  objects: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput>;
+  on_conflict?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_OneArgs = {
-  object: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Insert_Input;
-  on_conflict?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_On_Conflict>;
+export type MutationRootInsertInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOneArgs = {
+  object: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput;
+  on_conflict?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Journey_Pattern_Journey_PatternArgs = {
-  objects: Array<Journey_Pattern_Journey_Pattern_Insert_Input>;
-  on_conflict?: Maybe<Journey_Pattern_Journey_Pattern_On_Conflict>;
+export type MutationRootInsertJourneyPatternJourneyPatternArgs = {
+  objects: Array<JourneyPatternJourneyPatternInsertInput>;
+  on_conflict?: Maybe<JourneyPatternJourneyPatternOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Journey_Pattern_Journey_Pattern_OneArgs = {
-  object: Journey_Pattern_Journey_Pattern_Insert_Input;
-  on_conflict?: Maybe<Journey_Pattern_Journey_Pattern_On_Conflict>;
+export type MutationRootInsertJourneyPatternJourneyPatternOneArgs = {
+  object: JourneyPatternJourneyPatternInsertInput;
+  on_conflict?: Maybe<JourneyPatternJourneyPatternOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Journey_Pattern_Scheduled_Stop_Point_In_Journey_PatternArgs = {
-  objects: Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Insert_Input>;
-  on_conflict?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_On_Conflict>;
+export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternArgs = {
+  objects: Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
+  on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_OneArgs = {
-  object: Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Insert_Input;
-  on_conflict?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_On_Conflict>;
+export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternOneArgs = {
+  object: JourneyPatternScheduledStopPointInJourneyPatternInsertInput;
+  on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Reusable_Components_Vehicle_ModeArgs = {
-  objects: Array<Reusable_Components_Vehicle_Mode_Insert_Input>;
-  on_conflict?: Maybe<Reusable_Components_Vehicle_Mode_On_Conflict>;
+export type MutationRootInsertReusableComponentsVehicleModeArgs = {
+  objects: Array<ReusableComponentsVehicleModeInsertInput>;
+  on_conflict?: Maybe<ReusableComponentsVehicleModeOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Reusable_Components_Vehicle_Mode_OneArgs = {
-  object: Reusable_Components_Vehicle_Mode_Insert_Input;
-  on_conflict?: Maybe<Reusable_Components_Vehicle_Mode_On_Conflict>;
+export type MutationRootInsertReusableComponentsVehicleModeOneArgs = {
+  object: ReusableComponentsVehicleModeInsertInput;
+  on_conflict?: Maybe<ReusableComponentsVehicleModeOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Reusable_Components_Vehicle_SubmodeArgs = {
-  objects: Array<Reusable_Components_Vehicle_Submode_Insert_Input>;
-  on_conflict?: Maybe<Reusable_Components_Vehicle_Submode_On_Conflict>;
+export type MutationRootInsertReusableComponentsVehicleSubmodeArgs = {
+  objects: Array<ReusableComponentsVehicleSubmodeInsertInput>;
+  on_conflict?: Maybe<ReusableComponentsVehicleSubmodeOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Reusable_Components_Vehicle_Submode_OneArgs = {
-  object: Reusable_Components_Vehicle_Submode_Insert_Input;
-  on_conflict?: Maybe<Reusable_Components_Vehicle_Submode_On_Conflict>;
+export type MutationRootInsertReusableComponentsVehicleSubmodeOneArgs = {
+  object: ReusableComponentsVehicleSubmodeInsertInput;
+  on_conflict?: Maybe<ReusableComponentsVehicleSubmodeOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Route_DirectionArgs = {
-  objects: Array<Route_Direction_Insert_Input>;
-  on_conflict?: Maybe<Route_Direction_On_Conflict>;
+export type MutationRootInsertRouteDirectionArgs = {
+  objects: Array<RouteDirectionInsertInput>;
+  on_conflict?: Maybe<RouteDirectionOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Route_Direction_OneArgs = {
-  object: Route_Direction_Insert_Input;
-  on_conflict?: Maybe<Route_Direction_On_Conflict>;
+export type MutationRootInsertRouteDirectionOneArgs = {
+  object: RouteDirectionInsertInput;
+  on_conflict?: Maybe<RouteDirectionOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Route_Infrastructure_Link_Along_RouteArgs = {
-  objects: Array<Route_Infrastructure_Link_Along_Route_Insert_Input>;
-  on_conflict?: Maybe<Route_Infrastructure_Link_Along_Route_On_Conflict>;
+export type MutationRootInsertRouteInfrastructureLinkAlongRouteArgs = {
+  objects: Array<RouteInfrastructureLinkAlongRouteInsertInput>;
+  on_conflict?: Maybe<RouteInfrastructureLinkAlongRouteOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Route_Infrastructure_Link_Along_Route_OneArgs = {
-  object: Route_Infrastructure_Link_Along_Route_Insert_Input;
-  on_conflict?: Maybe<Route_Infrastructure_Link_Along_Route_On_Conflict>;
+export type MutationRootInsertRouteInfrastructureLinkAlongRouteOneArgs = {
+  object: RouteInfrastructureLinkAlongRouteInsertInput;
+  on_conflict?: Maybe<RouteInfrastructureLinkAlongRouteOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Route_LineArgs = {
-  objects: Array<Route_Line_Insert_Input>;
-  on_conflict?: Maybe<Route_Line_On_Conflict>;
+export type MutationRootInsertRouteLineArgs = {
+  objects: Array<RouteLineInsertInput>;
+  on_conflict?: Maybe<RouteLineOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Route_Line_OneArgs = {
-  object: Route_Line_Insert_Input;
-  on_conflict?: Maybe<Route_Line_On_Conflict>;
+export type MutationRootInsertRouteLineOneArgs = {
+  object: RouteLineInsertInput;
+  on_conflict?: Maybe<RouteLineOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Route_RouteArgs = {
-  objects: Array<Route_Route_Insert_Input>;
+export type MutationRootInsertRouteRouteArgs = {
+  objects: Array<RouteRouteInsertInput>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Route_Route_OneArgs = {
-  object: Route_Route_Insert_Input;
+export type MutationRootInsertRouteRouteOneArgs = {
+  object: RouteRouteInsertInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Service_Pattern_Scheduled_Stop_PointArgs = {
-  objects: Array<Service_Pattern_Scheduled_Stop_Point_Insert_Input>;
+export type MutationRootInsertServicePatternScheduledStopPointArgs = {
+  objects: Array<ServicePatternScheduledStopPointInsertInput>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Service_Pattern_Scheduled_Stop_Point_OneArgs = {
-  object: Service_Pattern_Scheduled_Stop_Point_Insert_Input;
+export type MutationRootInsertServicePatternScheduledStopPointOneArgs = {
+  object: ServicePatternScheduledStopPointInsertInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_ModeArgs = {
-  objects: Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Insert_Input>;
-  on_conflict?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_On_Conflict>;
+export type MutationRootInsertServicePatternScheduledStopPointServicedByVehicleModeArgs = {
+  objects: Array<ServicePatternScheduledStopPointServicedByVehicleModeInsertInput>;
+  on_conflict?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_OneArgs = {
-  object: Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Insert_Input;
-  on_conflict?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_On_Conflict>;
+export type MutationRootInsertServicePatternScheduledStopPointServicedByVehicleModeOneArgs = {
+  object: ServicePatternScheduledStopPointServicedByVehicleModeInsertInput;
+  on_conflict?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Infrastructure_Network_DirectionArgs = {
-  _set?: Maybe<Infrastructure_Network_Direction_Set_Input>;
-  where: Infrastructure_Network_Direction_Bool_Exp;
+export type MutationRootUpdateInfrastructureNetworkDirectionArgs = {
+  _set?: Maybe<InfrastructureNetworkDirectionSetInput>;
+  where: InfrastructureNetworkDirectionBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Infrastructure_Network_Direction_By_PkArgs = {
-  _set?: Maybe<Infrastructure_Network_Direction_Set_Input>;
-  pk_columns: Infrastructure_Network_Direction_Pk_Columns_Input;
+export type MutationRootUpdateInfrastructureNetworkDirectionByPkArgs = {
+  _set?: Maybe<InfrastructureNetworkDirectionSetInput>;
+  pk_columns: InfrastructureNetworkDirectionPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Infrastructure_Network_External_SourceArgs = {
-  _set?: Maybe<Infrastructure_Network_External_Source_Set_Input>;
-  where: Infrastructure_Network_External_Source_Bool_Exp;
+export type MutationRootUpdateInfrastructureNetworkExternalSourceArgs = {
+  _set?: Maybe<InfrastructureNetworkExternalSourceSetInput>;
+  where: InfrastructureNetworkExternalSourceBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Infrastructure_Network_External_Source_By_PkArgs = {
-  _set?: Maybe<Infrastructure_Network_External_Source_Set_Input>;
-  pk_columns: Infrastructure_Network_External_Source_Pk_Columns_Input;
+export type MutationRootUpdateInfrastructureNetworkExternalSourceByPkArgs = {
+  _set?: Maybe<InfrastructureNetworkExternalSourceSetInput>;
+  pk_columns: InfrastructureNetworkExternalSourcePkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Infrastructure_Network_Infrastructure_LinkArgs = {
-  _inc?: Maybe<Infrastructure_Network_Infrastructure_Link_Inc_Input>;
-  _set?: Maybe<Infrastructure_Network_Infrastructure_Link_Set_Input>;
-  where: Infrastructure_Network_Infrastructure_Link_Bool_Exp;
+export type MutationRootUpdateInfrastructureNetworkInfrastructureLinkArgs = {
+  _inc?: Maybe<InfrastructureNetworkInfrastructureLinkIncInput>;
+  _set?: Maybe<InfrastructureNetworkInfrastructureLinkSetInput>;
+  where: InfrastructureNetworkInfrastructureLinkBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Infrastructure_Network_Infrastructure_Link_By_PkArgs = {
-  _inc?: Maybe<Infrastructure_Network_Infrastructure_Link_Inc_Input>;
-  _set?: Maybe<Infrastructure_Network_Infrastructure_Link_Set_Input>;
-  pk_columns: Infrastructure_Network_Infrastructure_Link_Pk_Columns_Input;
+export type MutationRootUpdateInfrastructureNetworkInfrastructureLinkByPkArgs = {
+  _inc?: Maybe<InfrastructureNetworkInfrastructureLinkIncInput>;
+  _set?: Maybe<InfrastructureNetworkInfrastructureLinkSetInput>;
+  pk_columns: InfrastructureNetworkInfrastructureLinkPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Infrastructure_Network_Vehicle_Submode_On_Infrastructure_LinkArgs = {
-  _set?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Set_Input>;
-  where: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp;
+export type MutationRootUpdateInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs = {
+  _set?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput>;
+  where: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_By_PkArgs = {
-  _set?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Set_Input>;
-  pk_columns: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Pk_Columns_Input;
+export type MutationRootUpdateInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs = {
+  _set?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput>;
+  pk_columns: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Journey_Pattern_Journey_PatternArgs = {
-  _set?: Maybe<Journey_Pattern_Journey_Pattern_Set_Input>;
-  where: Journey_Pattern_Journey_Pattern_Bool_Exp;
+export type MutationRootUpdateJourneyPatternJourneyPatternArgs = {
+  _set?: Maybe<JourneyPatternJourneyPatternSetInput>;
+  where: JourneyPatternJourneyPatternBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Journey_Pattern_Journey_Pattern_By_PkArgs = {
-  _set?: Maybe<Journey_Pattern_Journey_Pattern_Set_Input>;
-  pk_columns: Journey_Pattern_Journey_Pattern_Pk_Columns_Input;
+export type MutationRootUpdateJourneyPatternJourneyPatternByPkArgs = {
+  _set?: Maybe<JourneyPatternJourneyPatternSetInput>;
+  pk_columns: JourneyPatternJourneyPatternPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Journey_Pattern_Scheduled_Stop_Point_In_Journey_PatternArgs = {
-  _inc?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Inc_Input>;
-  _set?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Set_Input>;
-  where: Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp;
+export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternArgs = {
+  _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+  _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
+  where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_By_PkArgs = {
-  _inc?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Inc_Input>;
-  _set?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Set_Input>;
-  pk_columns: Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Pk_Columns_Input;
+export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
+  _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+  _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
+  pk_columns: JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Reusable_Components_Vehicle_ModeArgs = {
-  _set?: Maybe<Reusable_Components_Vehicle_Mode_Set_Input>;
-  where: Reusable_Components_Vehicle_Mode_Bool_Exp;
+export type MutationRootUpdateReusableComponentsVehicleModeArgs = {
+  _set?: Maybe<ReusableComponentsVehicleModeSetInput>;
+  where: ReusableComponentsVehicleModeBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Reusable_Components_Vehicle_Mode_By_PkArgs = {
-  _set?: Maybe<Reusable_Components_Vehicle_Mode_Set_Input>;
-  pk_columns: Reusable_Components_Vehicle_Mode_Pk_Columns_Input;
+export type MutationRootUpdateReusableComponentsVehicleModeByPkArgs = {
+  _set?: Maybe<ReusableComponentsVehicleModeSetInput>;
+  pk_columns: ReusableComponentsVehicleModePkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Reusable_Components_Vehicle_SubmodeArgs = {
-  _set?: Maybe<Reusable_Components_Vehicle_Submode_Set_Input>;
-  where: Reusable_Components_Vehicle_Submode_Bool_Exp;
+export type MutationRootUpdateReusableComponentsVehicleSubmodeArgs = {
+  _set?: Maybe<ReusableComponentsVehicleSubmodeSetInput>;
+  where: ReusableComponentsVehicleSubmodeBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Reusable_Components_Vehicle_Submode_By_PkArgs = {
-  _set?: Maybe<Reusable_Components_Vehicle_Submode_Set_Input>;
-  pk_columns: Reusable_Components_Vehicle_Submode_Pk_Columns_Input;
+export type MutationRootUpdateReusableComponentsVehicleSubmodeByPkArgs = {
+  _set?: Maybe<ReusableComponentsVehicleSubmodeSetInput>;
+  pk_columns: ReusableComponentsVehicleSubmodePkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Route_DirectionArgs = {
-  _set?: Maybe<Route_Direction_Set_Input>;
-  where: Route_Direction_Bool_Exp;
+export type MutationRootUpdateRouteDirectionArgs = {
+  _set?: Maybe<RouteDirectionSetInput>;
+  where: RouteDirectionBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Route_Direction_By_PkArgs = {
-  _set?: Maybe<Route_Direction_Set_Input>;
-  pk_columns: Route_Direction_Pk_Columns_Input;
+export type MutationRootUpdateRouteDirectionByPkArgs = {
+  _set?: Maybe<RouteDirectionSetInput>;
+  pk_columns: RouteDirectionPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Route_Infrastructure_Link_Along_RouteArgs = {
-  _inc?: Maybe<Route_Infrastructure_Link_Along_Route_Inc_Input>;
-  _set?: Maybe<Route_Infrastructure_Link_Along_Route_Set_Input>;
-  where: Route_Infrastructure_Link_Along_Route_Bool_Exp;
+export type MutationRootUpdateRouteInfrastructureLinkAlongRouteArgs = {
+  _inc?: Maybe<RouteInfrastructureLinkAlongRouteIncInput>;
+  _set?: Maybe<RouteInfrastructureLinkAlongRouteSetInput>;
+  where: RouteInfrastructureLinkAlongRouteBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Route_Infrastructure_Link_Along_Route_By_PkArgs = {
-  _inc?: Maybe<Route_Infrastructure_Link_Along_Route_Inc_Input>;
-  _set?: Maybe<Route_Infrastructure_Link_Along_Route_Set_Input>;
-  pk_columns: Route_Infrastructure_Link_Along_Route_Pk_Columns_Input;
+export type MutationRootUpdateRouteInfrastructureLinkAlongRouteByPkArgs = {
+  _inc?: Maybe<RouteInfrastructureLinkAlongRouteIncInput>;
+  _set?: Maybe<RouteInfrastructureLinkAlongRouteSetInput>;
+  pk_columns: RouteInfrastructureLinkAlongRoutePkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Route_LineArgs = {
-  _set?: Maybe<Route_Line_Set_Input>;
-  where: Route_Line_Bool_Exp;
+export type MutationRootUpdateRouteLineArgs = {
+  _set?: Maybe<RouteLineSetInput>;
+  where: RouteLineBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Route_Line_By_PkArgs = {
-  _set?: Maybe<Route_Line_Set_Input>;
-  pk_columns: Route_Line_Pk_Columns_Input;
+export type MutationRootUpdateRouteLineByPkArgs = {
+  _set?: Maybe<RouteLineSetInput>;
+  pk_columns: RouteLinePkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Route_RouteArgs = {
-  _set?: Maybe<Route_Route_Set_Input>;
-  where: Route_Route_Bool_Exp;
+export type MutationRootUpdateRouteRouteArgs = {
+  _set?: Maybe<RouteRouteSetInput>;
+  where: RouteRouteBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Service_Pattern_Scheduled_Stop_PointArgs = {
-  _inc?: Maybe<Service_Pattern_Scheduled_Stop_Point_Inc_Input>;
-  _set?: Maybe<Service_Pattern_Scheduled_Stop_Point_Set_Input>;
-  where: Service_Pattern_Scheduled_Stop_Point_Bool_Exp;
+export type MutationRootUpdateServicePatternScheduledStopPointArgs = {
+  _inc?: Maybe<ServicePatternScheduledStopPointIncInput>;
+  _set?: Maybe<ServicePatternScheduledStopPointSetInput>;
+  where: ServicePatternScheduledStopPointBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_ModeArgs = {
-  _set?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Set_Input>;
-  where: Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp;
+export type MutationRootUpdateServicePatternScheduledStopPointServicedByVehicleModeArgs = {
+  _set?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeSetInput>;
+  where: ServicePatternScheduledStopPointServicedByVehicleModeBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_By_PkArgs = {
-  _set?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Set_Input>;
-  pk_columns: Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Pk_Columns_Input;
+export type MutationRootUpdateServicePatternScheduledStopPointServicedByVehicleModeByPkArgs = {
+  _set?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeSetInput>;
+  pk_columns: ServicePatternScheduledStopPointServicedByVehicleModePkColumnsInput;
 };
 
 /** column ordering options */
-export enum Order_By {
+export enum OrderBy {
   /** in ascending order, nulls last */
   Asc = 'asc',
   /** in ascending order, nulls first */
@@ -2307,428 +2319,428 @@ export enum Order_By {
   DescNullsLast = 'desc_nulls_last'
 }
 
-export type Query_Root = {
+export type QueryRoot = {
   __typename?: 'query_root';
   /** fetch data from the table: "infrastructure_network.direction" */
-  infrastructure_network_direction: Array<Infrastructure_Network_Direction>;
+  infrastructure_network_direction: Array<InfrastructureNetworkDirection>;
   /** fetch aggregated fields from the table: "infrastructure_network.direction" */
-  infrastructure_network_direction_aggregate: Infrastructure_Network_Direction_Aggregate;
+  infrastructure_network_direction_aggregate: InfrastructureNetworkDirectionAggregate;
   /** fetch data from the table: "infrastructure_network.direction" using primary key columns */
-  infrastructure_network_direction_by_pk?: Maybe<Infrastructure_Network_Direction>;
+  infrastructure_network_direction_by_pk?: Maybe<InfrastructureNetworkDirection>;
   /** fetch data from the table: "infrastructure_network.external_source" */
-  infrastructure_network_external_source: Array<Infrastructure_Network_External_Source>;
+  infrastructure_network_external_source: Array<InfrastructureNetworkExternalSource>;
   /** fetch aggregated fields from the table: "infrastructure_network.external_source" */
-  infrastructure_network_external_source_aggregate: Infrastructure_Network_External_Source_Aggregate;
+  infrastructure_network_external_source_aggregate: InfrastructureNetworkExternalSourceAggregate;
   /** fetch data from the table: "infrastructure_network.external_source" using primary key columns */
-  infrastructure_network_external_source_by_pk?: Maybe<Infrastructure_Network_External_Source>;
+  infrastructure_network_external_source_by_pk?: Maybe<InfrastructureNetworkExternalSource>;
   /** fetch data from the table: "infrastructure_network.infrastructure_link" */
-  infrastructure_network_infrastructure_link: Array<Infrastructure_Network_Infrastructure_Link>;
+  infrastructure_network_infrastructure_link: Array<InfrastructureNetworkInfrastructureLink>;
   /** fetch aggregated fields from the table: "infrastructure_network.infrastructure_link" */
-  infrastructure_network_infrastructure_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
+  infrastructure_network_infrastructure_link_aggregate: InfrastructureNetworkInfrastructureLinkAggregate;
   /** fetch data from the table: "infrastructure_network.infrastructure_link" using primary key columns */
-  infrastructure_network_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  infrastructure_network_infrastructure_link_by_pk?: Maybe<InfrastructureNetworkInfrastructureLink>;
   /** execute function "infrastructure_network.resolve_point_to_closest_link" which returns "infrastructure_network.infrastructure_link" */
-  infrastructure_network_resolve_point_to_closest_link: Array<Infrastructure_Network_Infrastructure_Link>;
+  infrastructure_network_resolve_point_to_closest_link: Array<InfrastructureNetworkInfrastructureLink>;
   /** execute function "infrastructure_network.resolve_point_to_closest_link" and query aggregates on result of table type "infrastructure_network.infrastructure_link" */
-  infrastructure_network_resolve_point_to_closest_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
+  infrastructure_network_resolve_point_to_closest_link_aggregate: InfrastructureNetworkInfrastructureLinkAggregate;
   /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-  infrastructure_network_vehicle_submode_on_infrastructure_link: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  infrastructure_network_vehicle_submode_on_infrastructure_link: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
   /** fetch aggregated fields from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-  infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate;
+  infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate;
   /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" using primary key columns */
-  infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
   /** fetch data from the table: "journey_pattern.journey_pattern" */
-  journey_pattern_journey_pattern: Array<Journey_Pattern_Journey_Pattern>;
+  journey_pattern_journey_pattern: Array<JourneyPatternJourneyPattern>;
   /** fetch aggregated fields from the table: "journey_pattern.journey_pattern" */
-  journey_pattern_journey_pattern_aggregate: Journey_Pattern_Journey_Pattern_Aggregate;
+  journey_pattern_journey_pattern_aggregate: JourneyPatternJourneyPatternAggregate;
   /** fetch data from the table: "journey_pattern.journey_pattern" using primary key columns */
-  journey_pattern_journey_pattern_by_pk?: Maybe<Journey_Pattern_Journey_Pattern>;
+  journey_pattern_journey_pattern_by_pk?: Maybe<JourneyPatternJourneyPattern>;
   /** fetch data from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-  journey_pattern_scheduled_stop_point_in_journey_pattern: Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern>;
+  journey_pattern_scheduled_stop_point_in_journey_pattern: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** fetch aggregated fields from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-  journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate: Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Aggregate;
+  journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
   /** fetch data from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" using primary key columns */
-  journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern>;
+  journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** fetch data from the table: "reusable_components.vehicle_mode" */
-  reusable_components_vehicle_mode: Array<Reusable_Components_Vehicle_Mode>;
+  reusable_components_vehicle_mode: Array<ReusableComponentsVehicleMode>;
   /** fetch aggregated fields from the table: "reusable_components.vehicle_mode" */
-  reusable_components_vehicle_mode_aggregate: Reusable_Components_Vehicle_Mode_Aggregate;
+  reusable_components_vehicle_mode_aggregate: ReusableComponentsVehicleModeAggregate;
   /** fetch data from the table: "reusable_components.vehicle_mode" using primary key columns */
-  reusable_components_vehicle_mode_by_pk?: Maybe<Reusable_Components_Vehicle_Mode>;
+  reusable_components_vehicle_mode_by_pk?: Maybe<ReusableComponentsVehicleMode>;
   /** fetch data from the table: "reusable_components.vehicle_submode" */
-  reusable_components_vehicle_submode: Array<Reusable_Components_Vehicle_Submode>;
+  reusable_components_vehicle_submode: Array<ReusableComponentsVehicleSubmode>;
   /** fetch aggregated fields from the table: "reusable_components.vehicle_submode" */
-  reusable_components_vehicle_submode_aggregate: Reusable_Components_Vehicle_Submode_Aggregate;
+  reusable_components_vehicle_submode_aggregate: ReusableComponentsVehicleSubmodeAggregate;
   /** fetch data from the table: "reusable_components.vehicle_submode" using primary key columns */
-  reusable_components_vehicle_submode_by_pk?: Maybe<Reusable_Components_Vehicle_Submode>;
+  reusable_components_vehicle_submode_by_pk?: Maybe<ReusableComponentsVehicleSubmode>;
   /** fetch data from the table: "route.direction" */
-  route_direction: Array<Route_Direction>;
+  route_direction: Array<RouteDirection>;
   /** fetch aggregated fields from the table: "route.direction" */
-  route_direction_aggregate: Route_Direction_Aggregate;
+  route_direction_aggregate: RouteDirectionAggregate;
   /** fetch data from the table: "route.direction" using primary key columns */
-  route_direction_by_pk?: Maybe<Route_Direction>;
+  route_direction_by_pk?: Maybe<RouteDirection>;
   /** fetch data from the table: "route.infrastructure_link_along_route" */
-  route_infrastructure_link_along_route: Array<Route_Infrastructure_Link_Along_Route>;
+  route_infrastructure_link_along_route: Array<RouteInfrastructureLinkAlongRoute>;
   /** fetch aggregated fields from the table: "route.infrastructure_link_along_route" */
-  route_infrastructure_link_along_route_aggregate: Route_Infrastructure_Link_Along_Route_Aggregate;
+  route_infrastructure_link_along_route_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
   /** fetch data from the table: "route.infrastructure_link_along_route" using primary key columns */
-  route_infrastructure_link_along_route_by_pk?: Maybe<Route_Infrastructure_Link_Along_Route>;
+  route_infrastructure_link_along_route_by_pk?: Maybe<RouteInfrastructureLinkAlongRoute>;
   /** fetch data from the table: "route.line" */
-  route_line: Array<Route_Line>;
+  route_line: Array<RouteLine>;
   /** fetch aggregated fields from the table: "route.line" */
-  route_line_aggregate: Route_Line_Aggregate;
+  route_line_aggregate: RouteLineAggregate;
   /** fetch data from the table: "route.line" using primary key columns */
-  route_line_by_pk?: Maybe<Route_Line>;
+  route_line_by_pk?: Maybe<RouteLine>;
   /** fetch data from the table: "route.route" */
-  route_route: Array<Route_Route>;
+  route_route: Array<RouteRoute>;
   /** fetch aggregated fields from the table: "route.route" */
-  route_route_aggregate: Route_Route_Aggregate;
+  route_route_aggregate: RouteRouteAggregate;
   /** fetch data from the table: "service_pattern.scheduled_stop_point" */
-  service_pattern_scheduled_stop_point: Array<Service_Pattern_Scheduled_Stop_Point>;
+  service_pattern_scheduled_stop_point: Array<ServicePatternScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point" */
-  service_pattern_scheduled_stop_point_aggregate: Service_Pattern_Scheduled_Stop_Point_Aggregate;
+  service_pattern_scheduled_stop_point_aggregate: ServicePatternScheduledStopPointAggregate;
   /** fetch data from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode: Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode>;
+  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode: Array<ServicePatternScheduledStopPointServicedByVehicleMode>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate: Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Aggregate;
+  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate: ServicePatternScheduledStopPointServicedByVehicleModeAggregate;
   /** fetch data from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" using primary key columns */
-  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode>;
+  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk?: Maybe<ServicePatternScheduledStopPointServicedByVehicleMode>;
 };
 
 
-export type Query_RootInfrastructure_Network_DirectionArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Direction_Select_Column>>;
+export type QueryRootInfrastructureNetworkDirectionArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Direction_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
 
-export type Query_RootInfrastructure_Network_Direction_AggregateArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Direction_Select_Column>>;
+export type QueryRootInfrastructureNetworkDirectionAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Direction_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
 
-export type Query_RootInfrastructure_Network_Direction_By_PkArgs = {
+export type QueryRootInfrastructureNetworkDirectionByPkArgs = {
   value: Scalars['String'];
 };
 
 
-export type Query_RootInfrastructure_Network_External_SourceArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_External_Source_Select_Column>>;
+export type QueryRootInfrastructureNetworkExternalSourceArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_External_Source_Order_By>>;
-  where?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkExternalSourceOrderBy>>;
+  where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
 
-export type Query_RootInfrastructure_Network_External_Source_AggregateArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_External_Source_Select_Column>>;
+export type QueryRootInfrastructureNetworkExternalSourceAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_External_Source_Order_By>>;
-  where?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkExternalSourceOrderBy>>;
+  where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
 
-export type Query_RootInfrastructure_Network_External_Source_By_PkArgs = {
+export type QueryRootInfrastructureNetworkExternalSourceByPkArgs = {
   value: Scalars['String'];
 };
 
 
-export type Query_RootInfrastructure_Network_Infrastructure_LinkArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type QueryRootInfrastructureNetworkInfrastructureLinkArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 
-export type Query_RootInfrastructure_Network_Infrastructure_Link_AggregateArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type QueryRootInfrastructureNetworkInfrastructureLinkAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 
-export type Query_RootInfrastructure_Network_Infrastructure_Link_By_PkArgs = {
+export type QueryRootInfrastructureNetworkInfrastructureLinkByPkArgs = {
   infrastructure_link_id: Scalars['uuid'];
 };
 
 
-export type Query_RootInfrastructure_Network_Resolve_Point_To_Closest_LinkArgs = {
-  args: Infrastructure_Network_Resolve_Point_To_Closest_Link_Args;
-  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type QueryRootInfrastructureNetworkResolvePointToClosestLinkArgs = {
+  args: InfrastructureNetworkResolvePointToClosestLinkArgs;
+  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 
-export type Query_RootInfrastructure_Network_Resolve_Point_To_Closest_Link_AggregateArgs = {
-  args: Infrastructure_Network_Resolve_Point_To_Closest_Link_Args;
-  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type QueryRootInfrastructureNetworkResolvePointToClosestLinkAggregateArgs = {
+  args: InfrastructureNetworkResolvePointToClosestLinkArgs;
+  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 
-export type Query_RootInfrastructure_Network_Vehicle_Submode_On_Infrastructure_LinkArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
 
-export type Query_RootInfrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_AggregateArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
 
-export type Query_RootInfrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_By_PkArgs = {
+export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs = {
   infrastructure_link_id: Scalars['uuid'];
-  vehicle_submode: Reusable_Components_Vehicle_Submode_Enum;
+  vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
 };
 
 
-export type Query_RootJourney_Pattern_Journey_PatternArgs = {
-  distinct_on?: Maybe<Array<Journey_Pattern_Journey_Pattern_Select_Column>>;
+export type QueryRootJourneyPatternJourneyPatternArgs = {
+  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Journey_Pattern_Journey_Pattern_Order_By>>;
-  where?: Maybe<Journey_Pattern_Journey_Pattern_Bool_Exp>;
+  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 
-export type Query_RootJourney_Pattern_Journey_Pattern_AggregateArgs = {
-  distinct_on?: Maybe<Array<Journey_Pattern_Journey_Pattern_Select_Column>>;
+export type QueryRootJourneyPatternJourneyPatternAggregateArgs = {
+  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Journey_Pattern_Journey_Pattern_Order_By>>;
-  where?: Maybe<Journey_Pattern_Journey_Pattern_Bool_Exp>;
+  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 
-export type Query_RootJourney_Pattern_Journey_Pattern_By_PkArgs = {
+export type QueryRootJourneyPatternJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid'];
 };
 
 
-export type Query_RootJourney_Pattern_Scheduled_Stop_Point_In_Journey_PatternArgs = {
-  distinct_on?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Select_Column>>;
+export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternArgs = {
+  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Order_By>>;
-  where?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp>;
+  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
 };
 
 
-export type Query_RootJourney_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_AggregateArgs = {
-  distinct_on?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Select_Column>>;
+export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternAggregateArgs = {
+  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Order_By>>;
-  where?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp>;
+  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
 };
 
 
-export type Query_RootJourney_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_By_PkArgs = {
+export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid'];
   scheduled_stop_point_sequence: Scalars['Int'];
 };
 
 
-export type Query_RootReusable_Components_Vehicle_ModeArgs = {
-  distinct_on?: Maybe<Array<Reusable_Components_Vehicle_Mode_Select_Column>>;
+export type QueryRootReusableComponentsVehicleModeArgs = {
+  distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Reusable_Components_Vehicle_Mode_Order_By>>;
-  where?: Maybe<Reusable_Components_Vehicle_Mode_Bool_Exp>;
+  order_by?: Maybe<Array<ReusableComponentsVehicleModeOrderBy>>;
+  where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 
-export type Query_RootReusable_Components_Vehicle_Mode_AggregateArgs = {
-  distinct_on?: Maybe<Array<Reusable_Components_Vehicle_Mode_Select_Column>>;
+export type QueryRootReusableComponentsVehicleModeAggregateArgs = {
+  distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Reusable_Components_Vehicle_Mode_Order_By>>;
-  where?: Maybe<Reusable_Components_Vehicle_Mode_Bool_Exp>;
+  order_by?: Maybe<Array<ReusableComponentsVehicleModeOrderBy>>;
+  where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 
-export type Query_RootReusable_Components_Vehicle_Mode_By_PkArgs = {
+export type QueryRootReusableComponentsVehicleModeByPkArgs = {
   vehicle_mode: Scalars['String'];
 };
 
 
-export type Query_RootReusable_Components_Vehicle_SubmodeArgs = {
-  distinct_on?: Maybe<Array<Reusable_Components_Vehicle_Submode_Select_Column>>;
+export type QueryRootReusableComponentsVehicleSubmodeArgs = {
+  distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Reusable_Components_Vehicle_Submode_Order_By>>;
-  where?: Maybe<Reusable_Components_Vehicle_Submode_Bool_Exp>;
+  order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
+  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 
-export type Query_RootReusable_Components_Vehicle_Submode_AggregateArgs = {
-  distinct_on?: Maybe<Array<Reusable_Components_Vehicle_Submode_Select_Column>>;
+export type QueryRootReusableComponentsVehicleSubmodeAggregateArgs = {
+  distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Reusable_Components_Vehicle_Submode_Order_By>>;
-  where?: Maybe<Reusable_Components_Vehicle_Submode_Bool_Exp>;
+  order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
+  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 
-export type Query_RootReusable_Components_Vehicle_Submode_By_PkArgs = {
+export type QueryRootReusableComponentsVehicleSubmodeByPkArgs = {
   vehicle_submode: Scalars['String'];
 };
 
 
-export type Query_RootRoute_DirectionArgs = {
-  distinct_on?: Maybe<Array<Route_Direction_Select_Column>>;
+export type QueryRootRouteDirectionArgs = {
+  distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Direction_Order_By>>;
-  where?: Maybe<Route_Direction_Bool_Exp>;
+  order_by?: Maybe<Array<RouteDirectionOrderBy>>;
+  where?: Maybe<RouteDirectionBoolExp>;
 };
 
 
-export type Query_RootRoute_Direction_AggregateArgs = {
-  distinct_on?: Maybe<Array<Route_Direction_Select_Column>>;
+export type QueryRootRouteDirectionAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Direction_Order_By>>;
-  where?: Maybe<Route_Direction_Bool_Exp>;
+  order_by?: Maybe<Array<RouteDirectionOrderBy>>;
+  where?: Maybe<RouteDirectionBoolExp>;
 };
 
 
-export type Query_RootRoute_Direction_By_PkArgs = {
+export type QueryRootRouteDirectionByPkArgs = {
   direction: Scalars['String'];
 };
 
 
-export type Query_RootRoute_Infrastructure_Link_Along_RouteArgs = {
-  distinct_on?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Select_Column>>;
+export type QueryRootRouteInfrastructureLinkAlongRouteArgs = {
+  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Order_By>>;
-  where?: Maybe<Route_Infrastructure_Link_Along_Route_Bool_Exp>;
+  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 
-export type Query_RootRoute_Infrastructure_Link_Along_Route_AggregateArgs = {
-  distinct_on?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Select_Column>>;
+export type QueryRootRouteInfrastructureLinkAlongRouteAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Order_By>>;
-  where?: Maybe<Route_Infrastructure_Link_Along_Route_Bool_Exp>;
+  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 
-export type Query_RootRoute_Infrastructure_Link_Along_Route_By_PkArgs = {
+export type QueryRootRouteInfrastructureLinkAlongRouteByPkArgs = {
   infrastructure_link_sequence: Scalars['Int'];
   route_id: Scalars['uuid'];
 };
 
 
-export type Query_RootRoute_LineArgs = {
-  distinct_on?: Maybe<Array<Route_Line_Select_Column>>;
+export type QueryRootRouteLineArgs = {
+  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Line_Order_By>>;
-  where?: Maybe<Route_Line_Bool_Exp>;
+  order_by?: Maybe<Array<RouteLineOrderBy>>;
+  where?: Maybe<RouteLineBoolExp>;
 };
 
 
-export type Query_RootRoute_Line_AggregateArgs = {
-  distinct_on?: Maybe<Array<Route_Line_Select_Column>>;
+export type QueryRootRouteLineAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Line_Order_By>>;
-  where?: Maybe<Route_Line_Bool_Exp>;
+  order_by?: Maybe<Array<RouteLineOrderBy>>;
+  where?: Maybe<RouteLineBoolExp>;
 };
 
 
-export type Query_RootRoute_Line_By_PkArgs = {
+export type QueryRootRouteLineByPkArgs = {
   line_id: Scalars['uuid'];
 };
 
 
-export type Query_RootRoute_RouteArgs = {
-  distinct_on?: Maybe<Array<Route_Route_Select_Column>>;
+export type QueryRootRouteRouteArgs = {
+  distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Route_Order_By>>;
-  where?: Maybe<Route_Route_Bool_Exp>;
+  order_by?: Maybe<Array<RouteRouteOrderBy>>;
+  where?: Maybe<RouteRouteBoolExp>;
 };
 
 
-export type Query_RootRoute_Route_AggregateArgs = {
-  distinct_on?: Maybe<Array<Route_Route_Select_Column>>;
+export type QueryRootRouteRouteAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Route_Order_By>>;
-  where?: Maybe<Route_Route_Bool_Exp>;
+  order_by?: Maybe<Array<RouteRouteOrderBy>>;
+  where?: Maybe<RouteRouteBoolExp>;
 };
 
 
-export type Query_RootService_Pattern_Scheduled_Stop_PointArgs = {
-  distinct_on?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Select_Column>>;
+export type QueryRootServicePatternScheduledStopPointArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Order_By>>;
-  where?: Maybe<Service_Pattern_Scheduled_Stop_Point_Bool_Exp>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 
-export type Query_RootService_Pattern_Scheduled_Stop_Point_AggregateArgs = {
-  distinct_on?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Select_Column>>;
+export type QueryRootServicePatternScheduledStopPointAggregateArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Order_By>>;
-  where?: Maybe<Service_Pattern_Scheduled_Stop_Point_Bool_Exp>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 
-export type Query_RootService_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_ModeArgs = {
-  distinct_on?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Select_Column>>;
+export type QueryRootServicePatternScheduledStopPointServicedByVehicleModeArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Order_By>>;
-  where?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
 };
 
 
-export type Query_RootService_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_AggregateArgs = {
-  distinct_on?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Select_Column>>;
+export type QueryRootServicePatternScheduledStopPointServicedByVehicleModeAggregateArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Order_By>>;
-  where?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
 };
 
 
-export type Query_RootService_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_By_PkArgs = {
+export type QueryRootServicePatternScheduledStopPointServicedByVehicleModeByPkArgs = {
   scheduled_stop_point_id: Scalars['uuid'];
-  vehicle_mode: Reusable_Components_Vehicle_Mode_Enum;
+  vehicle_mode: ReusableComponentsVehicleModeEnum;
 };
 
 /**
@@ -2736,19 +2748,20 @@ export type Query_RootService_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_M
  *
  *
  * columns and relationships of "reusable_components.vehicle_mode"
+ *
  */
-export type Reusable_Components_Vehicle_Mode = {
+export type ReusableComponentsVehicleMode = {
   __typename?: 'reusable_components_vehicle_mode';
   /** An array relationship */
-  scheduled_stop_point_serviced_by_vehicle_modes: Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode>;
+  scheduled_stop_point_serviced_by_vehicle_modes: Array<ServicePatternScheduledStopPointServicedByVehicleMode>;
   /** An aggregate relationship */
-  scheduled_stop_point_serviced_by_vehicle_modes_aggregate: Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Aggregate;
+  scheduled_stop_point_serviced_by_vehicle_modes_aggregate: ServicePatternScheduledStopPointServicedByVehicleModeAggregate;
   /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   vehicle_mode: Scalars['String'];
   /** An array relationship */
-  vehicle_submodes: Array<Reusable_Components_Vehicle_Submode>;
+  vehicle_submodes: Array<ReusableComponentsVehicleSubmode>;
   /** An aggregate relationship */
-  vehicle_submodes_aggregate: Reusable_Components_Vehicle_Submode_Aggregate;
+  vehicle_submodes_aggregate: ReusableComponentsVehicleSubmodeAggregate;
 };
 
 
@@ -2757,13 +2770,14 @@ export type Reusable_Components_Vehicle_Mode = {
  *
  *
  * columns and relationships of "reusable_components.vehicle_mode"
+ *
  */
-export type Reusable_Components_Vehicle_ModeScheduled_Stop_Point_Serviced_By_Vehicle_ModesArgs = {
-  distinct_on?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Select_Column>>;
+export type ReusableComponentsVehicleModeScheduledStopPointServicedByVehicleModesArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Order_By>>;
-  where?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
 };
 
 
@@ -2772,13 +2786,14 @@ export type Reusable_Components_Vehicle_ModeScheduled_Stop_Point_Serviced_By_Veh
  *
  *
  * columns and relationships of "reusable_components.vehicle_mode"
+ *
  */
-export type Reusable_Components_Vehicle_ModeScheduled_Stop_Point_Serviced_By_Vehicle_Modes_AggregateArgs = {
-  distinct_on?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Select_Column>>;
+export type ReusableComponentsVehicleModeScheduledStopPointServicedByVehicleModesAggregateArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Order_By>>;
-  where?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
 };
 
 
@@ -2787,13 +2802,14 @@ export type Reusable_Components_Vehicle_ModeScheduled_Stop_Point_Serviced_By_Veh
  *
  *
  * columns and relationships of "reusable_components.vehicle_mode"
+ *
  */
-export type Reusable_Components_Vehicle_ModeVehicle_SubmodesArgs = {
-  distinct_on?: Maybe<Array<Reusable_Components_Vehicle_Submode_Select_Column>>;
+export type ReusableComponentsVehicleModeVehicleSubmodesArgs = {
+  distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Reusable_Components_Vehicle_Submode_Order_By>>;
-  where?: Maybe<Reusable_Components_Vehicle_Submode_Bool_Exp>;
+  order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
+  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 
@@ -2802,54 +2818,55 @@ export type Reusable_Components_Vehicle_ModeVehicle_SubmodesArgs = {
  *
  *
  * columns and relationships of "reusable_components.vehicle_mode"
+ *
  */
-export type Reusable_Components_Vehicle_ModeVehicle_Submodes_AggregateArgs = {
-  distinct_on?: Maybe<Array<Reusable_Components_Vehicle_Submode_Select_Column>>;
+export type ReusableComponentsVehicleModeVehicleSubmodesAggregateArgs = {
+  distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Reusable_Components_Vehicle_Submode_Order_By>>;
-  where?: Maybe<Reusable_Components_Vehicle_Submode_Bool_Exp>;
+  order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
+  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 /** aggregated selection of "reusable_components.vehicle_mode" */
-export type Reusable_Components_Vehicle_Mode_Aggregate = {
+export type ReusableComponentsVehicleModeAggregate = {
   __typename?: 'reusable_components_vehicle_mode_aggregate';
-  aggregate?: Maybe<Reusable_Components_Vehicle_Mode_Aggregate_Fields>;
-  nodes: Array<Reusable_Components_Vehicle_Mode>;
+  aggregate?: Maybe<ReusableComponentsVehicleModeAggregateFields>;
+  nodes: Array<ReusableComponentsVehicleMode>;
 };
 
 /** aggregate fields of "reusable_components.vehicle_mode" */
-export type Reusable_Components_Vehicle_Mode_Aggregate_Fields = {
+export type ReusableComponentsVehicleModeAggregateFields = {
   __typename?: 'reusable_components_vehicle_mode_aggregate_fields';
   count: Scalars['Int'];
-  max?: Maybe<Reusable_Components_Vehicle_Mode_Max_Fields>;
-  min?: Maybe<Reusable_Components_Vehicle_Mode_Min_Fields>;
+  max?: Maybe<ReusableComponentsVehicleModeMaxFields>;
+  min?: Maybe<ReusableComponentsVehicleModeMinFields>;
 };
 
 
 /** aggregate fields of "reusable_components.vehicle_mode" */
-export type Reusable_Components_Vehicle_Mode_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Reusable_Components_Vehicle_Mode_Select_Column>>;
+export type ReusableComponentsVehicleModeAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "reusable_components.vehicle_mode". All fields are combined with a logical 'AND'. */
-export type Reusable_Components_Vehicle_Mode_Bool_Exp = {
-  _and?: Maybe<Array<Reusable_Components_Vehicle_Mode_Bool_Exp>>;
-  _not?: Maybe<Reusable_Components_Vehicle_Mode_Bool_Exp>;
-  _or?: Maybe<Array<Reusable_Components_Vehicle_Mode_Bool_Exp>>;
-  scheduled_stop_point_serviced_by_vehicle_modes?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp>;
-  vehicle_mode?: Maybe<String_Comparison_Exp>;
-  vehicle_submodes?: Maybe<Reusable_Components_Vehicle_Submode_Bool_Exp>;
+export type ReusableComponentsVehicleModeBoolExp = {
+  _and?: Maybe<Array<ReusableComponentsVehicleModeBoolExp>>;
+  _not?: Maybe<ReusableComponentsVehicleModeBoolExp>;
+  _or?: Maybe<Array<ReusableComponentsVehicleModeBoolExp>>;
+  scheduled_stop_point_serviced_by_vehicle_modes?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
+  vehicle_mode?: Maybe<StringComparisonExp>;
+  vehicle_submodes?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 /** unique or primary key constraints on table "reusable_components.vehicle_mode" */
-export enum Reusable_Components_Vehicle_Mode_Constraint {
+export enum ReusableComponentsVehicleModeConstraint {
   /** unique or primary key constraint */
   VehicleModePkey = 'vehicle_mode_pkey'
 }
 
-export enum Reusable_Components_Vehicle_Mode_Enum {
+export enum ReusableComponentsVehicleModeEnum {
   Bus = 'bus',
   Ferry = 'ferry',
   Metro = 'metro',
@@ -2858,86 +2875,86 @@ export enum Reusable_Components_Vehicle_Mode_Enum {
 }
 
 /** Boolean expression to compare columns of type "reusable_components_vehicle_mode_enum". All fields are combined with logical 'AND'. */
-export type Reusable_Components_Vehicle_Mode_Enum_Comparison_Exp = {
-  _eq?: Maybe<Reusable_Components_Vehicle_Mode_Enum>;
-  _in?: Maybe<Array<Reusable_Components_Vehicle_Mode_Enum>>;
+export type ReusableComponentsVehicleModeEnumComparisonExp = {
+  _eq?: Maybe<ReusableComponentsVehicleModeEnum>;
+  _in?: Maybe<Array<ReusableComponentsVehicleModeEnum>>;
   _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<Reusable_Components_Vehicle_Mode_Enum>;
-  _nin?: Maybe<Array<Reusable_Components_Vehicle_Mode_Enum>>;
+  _neq?: Maybe<ReusableComponentsVehicleModeEnum>;
+  _nin?: Maybe<Array<ReusableComponentsVehicleModeEnum>>;
 };
 
 /** input type for inserting data into table "reusable_components.vehicle_mode" */
-export type Reusable_Components_Vehicle_Mode_Insert_Input = {
-  scheduled_stop_point_serviced_by_vehicle_modes?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Arr_Rel_Insert_Input>;
+export type ReusableComponentsVehicleModeInsertInput = {
+  scheduled_stop_point_serviced_by_vehicle_modes?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeArrRelInsertInput>;
   /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   vehicle_mode?: Maybe<Scalars['String']>;
-  vehicle_submodes?: Maybe<Reusable_Components_Vehicle_Submode_Arr_Rel_Insert_Input>;
+  vehicle_submodes?: Maybe<ReusableComponentsVehicleSubmodeArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
-export type Reusable_Components_Vehicle_Mode_Max_Fields = {
+export type ReusableComponentsVehicleModeMaxFields = {
   __typename?: 'reusable_components_vehicle_mode_max_fields';
   /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   vehicle_mode?: Maybe<Scalars['String']>;
 };
 
 /** aggregate min on columns */
-export type Reusable_Components_Vehicle_Mode_Min_Fields = {
+export type ReusableComponentsVehicleModeMinFields = {
   __typename?: 'reusable_components_vehicle_mode_min_fields';
   /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   vehicle_mode?: Maybe<Scalars['String']>;
 };
 
 /** response of any mutation on the table "reusable_components.vehicle_mode" */
-export type Reusable_Components_Vehicle_Mode_Mutation_Response = {
+export type ReusableComponentsVehicleModeMutationResponse = {
   __typename?: 'reusable_components_vehicle_mode_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Reusable_Components_Vehicle_Mode>;
+  returning: Array<ReusableComponentsVehicleMode>;
 };
 
 /** input type for inserting object relation for remote table "reusable_components.vehicle_mode" */
-export type Reusable_Components_Vehicle_Mode_Obj_Rel_Insert_Input = {
-  data: Reusable_Components_Vehicle_Mode_Insert_Input;
+export type ReusableComponentsVehicleModeObjRelInsertInput = {
+  data: ReusableComponentsVehicleModeInsertInput;
   /** on conflict condition */
-  on_conflict?: Maybe<Reusable_Components_Vehicle_Mode_On_Conflict>;
+  on_conflict?: Maybe<ReusableComponentsVehicleModeOnConflict>;
 };
 
 /** on conflict condition type for table "reusable_components.vehicle_mode" */
-export type Reusable_Components_Vehicle_Mode_On_Conflict = {
-  constraint: Reusable_Components_Vehicle_Mode_Constraint;
-  update_columns?: Array<Reusable_Components_Vehicle_Mode_Update_Column>;
-  where?: Maybe<Reusable_Components_Vehicle_Mode_Bool_Exp>;
+export type ReusableComponentsVehicleModeOnConflict = {
+  constraint: ReusableComponentsVehicleModeConstraint;
+  update_columns?: Array<ReusableComponentsVehicleModeUpdateColumn>;
+  where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 /** Ordering options when selecting data from "reusable_components.vehicle_mode". */
-export type Reusable_Components_Vehicle_Mode_Order_By = {
-  scheduled_stop_point_serviced_by_vehicle_modes_aggregate?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Aggregate_Order_By>;
-  vehicle_mode?: Maybe<Order_By>;
-  vehicle_submodes_aggregate?: Maybe<Reusable_Components_Vehicle_Submode_Aggregate_Order_By>;
+export type ReusableComponentsVehicleModeOrderBy = {
+  scheduled_stop_point_serviced_by_vehicle_modes_aggregate?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeAggregateOrderBy>;
+  vehicle_mode?: Maybe<OrderBy>;
+  vehicle_submodes_aggregate?: Maybe<ReusableComponentsVehicleSubmodeAggregateOrderBy>;
 };
 
 /** primary key columns input for table: reusable_components_vehicle_mode */
-export type Reusable_Components_Vehicle_Mode_Pk_Columns_Input = {
+export type ReusableComponentsVehicleModePkColumnsInput = {
   /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   vehicle_mode: Scalars['String'];
 };
 
 /** select columns of table "reusable_components.vehicle_mode" */
-export enum Reusable_Components_Vehicle_Mode_Select_Column {
+export enum ReusableComponentsVehicleModeSelectColumn {
   /** column name */
   VehicleMode = 'vehicle_mode'
 }
 
 /** input type for updating data in table "reusable_components.vehicle_mode" */
-export type Reusable_Components_Vehicle_Mode_Set_Input = {
+export type ReusableComponentsVehicleModeSetInput = {
   /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   vehicle_mode?: Maybe<Scalars['String']>;
 };
 
 /** update columns of table "reusable_components.vehicle_mode" */
-export enum Reusable_Components_Vehicle_Mode_Update_Column {
+export enum ReusableComponentsVehicleModeUpdateColumn {
   /** column name */
   VehicleMode = 'vehicle_mode'
 }
@@ -2947,19 +2964,20 @@ export enum Reusable_Components_Vehicle_Mode_Update_Column {
  *
  *
  * columns and relationships of "reusable_components.vehicle_submode"
+ *
  */
-export type Reusable_Components_Vehicle_Submode = {
+export type ReusableComponentsVehicleSubmode = {
   __typename?: 'reusable_components_vehicle_submode';
   /** The vehicle mode the vehicle submode belongs to: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
-  belonging_to_vehicle_mode: Reusable_Components_Vehicle_Mode_Enum;
+  belonging_to_vehicle_mode: ReusableComponentsVehicleModeEnum;
   /** An object relationship */
-  vehicle_mode: Reusable_Components_Vehicle_Mode;
+  vehicle_mode: ReusableComponentsVehicleMode;
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   vehicle_submode: Scalars['String'];
   /** An array relationship */
-  vehicle_submode_on_infrastructure_links: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  vehicle_submode_on_infrastructure_links: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
   /** An aggregate relationship */
-  vehicle_submode_on_infrastructure_links_aggregate: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate;
+  vehicle_submode_on_infrastructure_links_aggregate: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate;
 };
 
 
@@ -2968,13 +2986,14 @@ export type Reusable_Components_Vehicle_Submode = {
  *
  *
  * columns and relationships of "reusable_components.vehicle_submode"
+ *
  */
-export type Reusable_Components_Vehicle_SubmodeVehicle_Submode_On_Infrastructure_LinksArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+export type ReusableComponentsVehicleSubmodeVehicleSubmodeOnInfrastructureLinksArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
 
@@ -2983,69 +3002,70 @@ export type Reusable_Components_Vehicle_SubmodeVehicle_Submode_On_Infrastructure
  *
  *
  * columns and relationships of "reusable_components.vehicle_submode"
+ *
  */
-export type Reusable_Components_Vehicle_SubmodeVehicle_Submode_On_Infrastructure_Links_AggregateArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+export type ReusableComponentsVehicleSubmodeVehicleSubmodeOnInfrastructureLinksAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
 /** aggregated selection of "reusable_components.vehicle_submode" */
-export type Reusable_Components_Vehicle_Submode_Aggregate = {
+export type ReusableComponentsVehicleSubmodeAggregate = {
   __typename?: 'reusable_components_vehicle_submode_aggregate';
-  aggregate?: Maybe<Reusable_Components_Vehicle_Submode_Aggregate_Fields>;
-  nodes: Array<Reusable_Components_Vehicle_Submode>;
+  aggregate?: Maybe<ReusableComponentsVehicleSubmodeAggregateFields>;
+  nodes: Array<ReusableComponentsVehicleSubmode>;
 };
 
 /** aggregate fields of "reusable_components.vehicle_submode" */
-export type Reusable_Components_Vehicle_Submode_Aggregate_Fields = {
+export type ReusableComponentsVehicleSubmodeAggregateFields = {
   __typename?: 'reusable_components_vehicle_submode_aggregate_fields';
   count: Scalars['Int'];
-  max?: Maybe<Reusable_Components_Vehicle_Submode_Max_Fields>;
-  min?: Maybe<Reusable_Components_Vehicle_Submode_Min_Fields>;
+  max?: Maybe<ReusableComponentsVehicleSubmodeMaxFields>;
+  min?: Maybe<ReusableComponentsVehicleSubmodeMinFields>;
 };
 
 
 /** aggregate fields of "reusable_components.vehicle_submode" */
-export type Reusable_Components_Vehicle_Submode_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Reusable_Components_Vehicle_Submode_Select_Column>>;
+export type ReusableComponentsVehicleSubmodeAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "reusable_components.vehicle_submode" */
-export type Reusable_Components_Vehicle_Submode_Aggregate_Order_By = {
-  count?: Maybe<Order_By>;
-  max?: Maybe<Reusable_Components_Vehicle_Submode_Max_Order_By>;
-  min?: Maybe<Reusable_Components_Vehicle_Submode_Min_Order_By>;
+export type ReusableComponentsVehicleSubmodeAggregateOrderBy = {
+  count?: Maybe<OrderBy>;
+  max?: Maybe<ReusableComponentsVehicleSubmodeMaxOrderBy>;
+  min?: Maybe<ReusableComponentsVehicleSubmodeMinOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "reusable_components.vehicle_submode" */
-export type Reusable_Components_Vehicle_Submode_Arr_Rel_Insert_Input = {
-  data: Array<Reusable_Components_Vehicle_Submode_Insert_Input>;
+export type ReusableComponentsVehicleSubmodeArrRelInsertInput = {
+  data: Array<ReusableComponentsVehicleSubmodeInsertInput>;
   /** on conflict condition */
-  on_conflict?: Maybe<Reusable_Components_Vehicle_Submode_On_Conflict>;
+  on_conflict?: Maybe<ReusableComponentsVehicleSubmodeOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "reusable_components.vehicle_submode". All fields are combined with a logical 'AND'. */
-export type Reusable_Components_Vehicle_Submode_Bool_Exp = {
-  _and?: Maybe<Array<Reusable_Components_Vehicle_Submode_Bool_Exp>>;
-  _not?: Maybe<Reusable_Components_Vehicle_Submode_Bool_Exp>;
-  _or?: Maybe<Array<Reusable_Components_Vehicle_Submode_Bool_Exp>>;
-  belonging_to_vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Enum_Comparison_Exp>;
-  vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Bool_Exp>;
-  vehicle_submode?: Maybe<String_Comparison_Exp>;
-  vehicle_submode_on_infrastructure_links?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+export type ReusableComponentsVehicleSubmodeBoolExp = {
+  _and?: Maybe<Array<ReusableComponentsVehicleSubmodeBoolExp>>;
+  _not?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  _or?: Maybe<Array<ReusableComponentsVehicleSubmodeBoolExp>>;
+  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeBoolExp>;
+  vehicle_submode?: Maybe<StringComparisonExp>;
+  vehicle_submode_on_infrastructure_links?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
 /** unique or primary key constraints on table "reusable_components.vehicle_submode" */
-export enum Reusable_Components_Vehicle_Submode_Constraint {
+export enum ReusableComponentsVehicleSubmodeConstraint {
   /** unique or primary key constraint */
   VehicleSubmodePkey = 'vehicle_submode_pkey'
 }
 
-export enum Reusable_Components_Vehicle_Submode_Enum {
+export enum ReusableComponentsVehicleSubmodeEnum {
   /** bus */
   GenericBus = 'generic_bus',
   /** ferry */
@@ -3061,89 +3081,89 @@ export enum Reusable_Components_Vehicle_Submode_Enum {
 }
 
 /** Boolean expression to compare columns of type "reusable_components_vehicle_submode_enum". All fields are combined with logical 'AND'. */
-export type Reusable_Components_Vehicle_Submode_Enum_Comparison_Exp = {
-  _eq?: Maybe<Reusable_Components_Vehicle_Submode_Enum>;
-  _in?: Maybe<Array<Reusable_Components_Vehicle_Submode_Enum>>;
+export type ReusableComponentsVehicleSubmodeEnumComparisonExp = {
+  _eq?: Maybe<ReusableComponentsVehicleSubmodeEnum>;
+  _in?: Maybe<Array<ReusableComponentsVehicleSubmodeEnum>>;
   _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<Reusable_Components_Vehicle_Submode_Enum>;
-  _nin?: Maybe<Array<Reusable_Components_Vehicle_Submode_Enum>>;
+  _neq?: Maybe<ReusableComponentsVehicleSubmodeEnum>;
+  _nin?: Maybe<Array<ReusableComponentsVehicleSubmodeEnum>>;
 };
 
 /** input type for inserting data into table "reusable_components.vehicle_submode" */
-export type Reusable_Components_Vehicle_Submode_Insert_Input = {
+export type ReusableComponentsVehicleSubmodeInsertInput = {
   /** The vehicle mode the vehicle submode belongs to: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
-  belonging_to_vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Enum>;
-  vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Obj_Rel_Insert_Input>;
+  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeObjRelInsertInput>;
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   vehicle_submode?: Maybe<Scalars['String']>;
-  vehicle_submode_on_infrastructure_links?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Arr_Rel_Insert_Input>;
+  vehicle_submode_on_infrastructure_links?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
-export type Reusable_Components_Vehicle_Submode_Max_Fields = {
+export type ReusableComponentsVehicleSubmodeMaxFields = {
   __typename?: 'reusable_components_vehicle_submode_max_fields';
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   vehicle_submode?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "reusable_components.vehicle_submode" */
-export type Reusable_Components_Vehicle_Submode_Max_Order_By = {
+export type ReusableComponentsVehicleSubmodeMaxOrderBy = {
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
-  vehicle_submode?: Maybe<Order_By>;
+  vehicle_submode?: Maybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type Reusable_Components_Vehicle_Submode_Min_Fields = {
+export type ReusableComponentsVehicleSubmodeMinFields = {
   __typename?: 'reusable_components_vehicle_submode_min_fields';
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   vehicle_submode?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "reusable_components.vehicle_submode" */
-export type Reusable_Components_Vehicle_Submode_Min_Order_By = {
+export type ReusableComponentsVehicleSubmodeMinOrderBy = {
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
-  vehicle_submode?: Maybe<Order_By>;
+  vehicle_submode?: Maybe<OrderBy>;
 };
 
 /** response of any mutation on the table "reusable_components.vehicle_submode" */
-export type Reusable_Components_Vehicle_Submode_Mutation_Response = {
+export type ReusableComponentsVehicleSubmodeMutationResponse = {
   __typename?: 'reusable_components_vehicle_submode_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Reusable_Components_Vehicle_Submode>;
+  returning: Array<ReusableComponentsVehicleSubmode>;
 };
 
 /** input type for inserting object relation for remote table "reusable_components.vehicle_submode" */
-export type Reusable_Components_Vehicle_Submode_Obj_Rel_Insert_Input = {
-  data: Reusable_Components_Vehicle_Submode_Insert_Input;
+export type ReusableComponentsVehicleSubmodeObjRelInsertInput = {
+  data: ReusableComponentsVehicleSubmodeInsertInput;
   /** on conflict condition */
-  on_conflict?: Maybe<Reusable_Components_Vehicle_Submode_On_Conflict>;
+  on_conflict?: Maybe<ReusableComponentsVehicleSubmodeOnConflict>;
 };
 
 /** on conflict condition type for table "reusable_components.vehicle_submode" */
-export type Reusable_Components_Vehicle_Submode_On_Conflict = {
-  constraint: Reusable_Components_Vehicle_Submode_Constraint;
-  update_columns?: Array<Reusable_Components_Vehicle_Submode_Update_Column>;
-  where?: Maybe<Reusable_Components_Vehicle_Submode_Bool_Exp>;
+export type ReusableComponentsVehicleSubmodeOnConflict = {
+  constraint: ReusableComponentsVehicleSubmodeConstraint;
+  update_columns?: Array<ReusableComponentsVehicleSubmodeUpdateColumn>;
+  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 /** Ordering options when selecting data from "reusable_components.vehicle_submode". */
-export type Reusable_Components_Vehicle_Submode_Order_By = {
-  belonging_to_vehicle_mode?: Maybe<Order_By>;
-  vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Order_By>;
-  vehicle_submode?: Maybe<Order_By>;
-  vehicle_submode_on_infrastructure_links_aggregate?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate_Order_By>;
+export type ReusableComponentsVehicleSubmodeOrderBy = {
+  belonging_to_vehicle_mode?: Maybe<OrderBy>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeOrderBy>;
+  vehicle_submode?: Maybe<OrderBy>;
+  vehicle_submode_on_infrastructure_links_aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy>;
 };
 
 /** primary key columns input for table: reusable_components_vehicle_submode */
-export type Reusable_Components_Vehicle_Submode_Pk_Columns_Input = {
+export type ReusableComponentsVehicleSubmodePkColumnsInput = {
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   vehicle_submode: Scalars['String'];
 };
 
 /** select columns of table "reusable_components.vehicle_submode" */
-export enum Reusable_Components_Vehicle_Submode_Select_Column {
+export enum ReusableComponentsVehicleSubmodeSelectColumn {
   /** column name */
   BelongingToVehicleMode = 'belonging_to_vehicle_mode',
   /** column name */
@@ -3151,15 +3171,15 @@ export enum Reusable_Components_Vehicle_Submode_Select_Column {
 }
 
 /** input type for updating data in table "reusable_components.vehicle_submode" */
-export type Reusable_Components_Vehicle_Submode_Set_Input = {
+export type ReusableComponentsVehicleSubmodeSetInput = {
   /** The vehicle mode the vehicle submode belongs to: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
-  belonging_to_vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Enum>;
+  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   vehicle_submode?: Maybe<Scalars['String']>;
 };
 
 /** update columns of table "reusable_components.vehicle_submode" */
-export enum Reusable_Components_Vehicle_Submode_Update_Column {
+export enum ReusableComponentsVehicleSubmodeUpdateColumn {
   /** column name */
   BelongingToVehicleMode = 'belonging_to_vehicle_mode',
   /** column name */
@@ -3171,19 +3191,20 @@ export enum Reusable_Components_Vehicle_Submode_Update_Column {
  *
  *
  * columns and relationships of "route.direction"
+ *
  */
-export type Route_Direction = {
+export type RouteDirection = {
   __typename?: 'route_direction';
   /** The name of the route direction. */
   direction: Scalars['String'];
   /** An object relationship */
-  directionByTheOppositeOfDirection?: Maybe<Route_Direction>;
+  directionByTheOppositeOfDirection?: Maybe<RouteDirection>;
   /** An array relationship */
-  directions: Array<Route_Direction>;
+  directions: Array<RouteDirection>;
   /** An aggregate relationship */
-  directions_aggregate: Route_Direction_Aggregate;
+  directions_aggregate: RouteDirectionAggregate;
   /** The opposite direction. */
-  the_opposite_of_direction?: Maybe<Route_Direction_Enum>;
+  the_opposite_of_direction?: Maybe<RouteDirectionEnum>;
 };
 
 
@@ -3192,13 +3213,14 @@ export type Route_Direction = {
  *
  *
  * columns and relationships of "route.direction"
+ *
  */
-export type Route_DirectionDirectionsArgs = {
-  distinct_on?: Maybe<Array<Route_Direction_Select_Column>>;
+export type RouteDirectionDirectionsArgs = {
+  distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Direction_Order_By>>;
-  where?: Maybe<Route_Direction_Bool_Exp>;
+  order_by?: Maybe<Array<RouteDirectionOrderBy>>;
+  where?: Maybe<RouteDirectionBoolExp>;
 };
 
 
@@ -3207,69 +3229,70 @@ export type Route_DirectionDirectionsArgs = {
  *
  *
  * columns and relationships of "route.direction"
+ *
  */
-export type Route_DirectionDirections_AggregateArgs = {
-  distinct_on?: Maybe<Array<Route_Direction_Select_Column>>;
+export type RouteDirectionDirectionsAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Direction_Order_By>>;
-  where?: Maybe<Route_Direction_Bool_Exp>;
+  order_by?: Maybe<Array<RouteDirectionOrderBy>>;
+  where?: Maybe<RouteDirectionBoolExp>;
 };
 
 /** aggregated selection of "route.direction" */
-export type Route_Direction_Aggregate = {
+export type RouteDirectionAggregate = {
   __typename?: 'route_direction_aggregate';
-  aggregate?: Maybe<Route_Direction_Aggregate_Fields>;
-  nodes: Array<Route_Direction>;
+  aggregate?: Maybe<RouteDirectionAggregateFields>;
+  nodes: Array<RouteDirection>;
 };
 
 /** aggregate fields of "route.direction" */
-export type Route_Direction_Aggregate_Fields = {
+export type RouteDirectionAggregateFields = {
   __typename?: 'route_direction_aggregate_fields';
   count: Scalars['Int'];
-  max?: Maybe<Route_Direction_Max_Fields>;
-  min?: Maybe<Route_Direction_Min_Fields>;
+  max?: Maybe<RouteDirectionMaxFields>;
+  min?: Maybe<RouteDirectionMinFields>;
 };
 
 
 /** aggregate fields of "route.direction" */
-export type Route_Direction_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Route_Direction_Select_Column>>;
+export type RouteDirectionAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<RouteDirectionSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "route.direction" */
-export type Route_Direction_Aggregate_Order_By = {
-  count?: Maybe<Order_By>;
-  max?: Maybe<Route_Direction_Max_Order_By>;
-  min?: Maybe<Route_Direction_Min_Order_By>;
+export type RouteDirectionAggregateOrderBy = {
+  count?: Maybe<OrderBy>;
+  max?: Maybe<RouteDirectionMaxOrderBy>;
+  min?: Maybe<RouteDirectionMinOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "route.direction" */
-export type Route_Direction_Arr_Rel_Insert_Input = {
-  data: Array<Route_Direction_Insert_Input>;
+export type RouteDirectionArrRelInsertInput = {
+  data: Array<RouteDirectionInsertInput>;
   /** on conflict condition */
-  on_conflict?: Maybe<Route_Direction_On_Conflict>;
+  on_conflict?: Maybe<RouteDirectionOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "route.direction". All fields are combined with a logical 'AND'. */
-export type Route_Direction_Bool_Exp = {
-  _and?: Maybe<Array<Route_Direction_Bool_Exp>>;
-  _not?: Maybe<Route_Direction_Bool_Exp>;
-  _or?: Maybe<Array<Route_Direction_Bool_Exp>>;
-  direction?: Maybe<String_Comparison_Exp>;
-  directionByTheOppositeOfDirection?: Maybe<Route_Direction_Bool_Exp>;
-  directions?: Maybe<Route_Direction_Bool_Exp>;
-  the_opposite_of_direction?: Maybe<Route_Direction_Enum_Comparison_Exp>;
+export type RouteDirectionBoolExp = {
+  _and?: Maybe<Array<RouteDirectionBoolExp>>;
+  _not?: Maybe<RouteDirectionBoolExp>;
+  _or?: Maybe<Array<RouteDirectionBoolExp>>;
+  direction?: Maybe<StringComparisonExp>;
+  directionByTheOppositeOfDirection?: Maybe<RouteDirectionBoolExp>;
+  directions?: Maybe<RouteDirectionBoolExp>;
+  the_opposite_of_direction?: Maybe<RouteDirectionEnumComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.direction" */
-export enum Route_Direction_Constraint {
+export enum RouteDirectionConstraint {
   /** unique or primary key constraint */
   DirectionPkey = 'direction_pkey'
 }
 
-export enum Route_Direction_Enum {
+export enum RouteDirectionEnum {
   /** clockwise */
   Anticlockwise = 'anticlockwise',
   /** anticlockwise */
@@ -3289,89 +3312,89 @@ export enum Route_Direction_Enum {
 }
 
 /** Boolean expression to compare columns of type "route_direction_enum". All fields are combined with logical 'AND'. */
-export type Route_Direction_Enum_Comparison_Exp = {
-  _eq?: Maybe<Route_Direction_Enum>;
-  _in?: Maybe<Array<Route_Direction_Enum>>;
+export type RouteDirectionEnumComparisonExp = {
+  _eq?: Maybe<RouteDirectionEnum>;
+  _in?: Maybe<Array<RouteDirectionEnum>>;
   _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<Route_Direction_Enum>;
-  _nin?: Maybe<Array<Route_Direction_Enum>>;
+  _neq?: Maybe<RouteDirectionEnum>;
+  _nin?: Maybe<Array<RouteDirectionEnum>>;
 };
 
 /** input type for inserting data into table "route.direction" */
-export type Route_Direction_Insert_Input = {
+export type RouteDirectionInsertInput = {
   /** The name of the route direction. */
   direction?: Maybe<Scalars['String']>;
-  directionByTheOppositeOfDirection?: Maybe<Route_Direction_Obj_Rel_Insert_Input>;
-  directions?: Maybe<Route_Direction_Arr_Rel_Insert_Input>;
+  directionByTheOppositeOfDirection?: Maybe<RouteDirectionObjRelInsertInput>;
+  directions?: Maybe<RouteDirectionArrRelInsertInput>;
   /** The opposite direction. */
-  the_opposite_of_direction?: Maybe<Route_Direction_Enum>;
+  the_opposite_of_direction?: Maybe<RouteDirectionEnum>;
 };
 
 /** aggregate max on columns */
-export type Route_Direction_Max_Fields = {
+export type RouteDirectionMaxFields = {
   __typename?: 'route_direction_max_fields';
   /** The name of the route direction. */
   direction?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "route.direction" */
-export type Route_Direction_Max_Order_By = {
+export type RouteDirectionMaxOrderBy = {
   /** The name of the route direction. */
-  direction?: Maybe<Order_By>;
+  direction?: Maybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type Route_Direction_Min_Fields = {
+export type RouteDirectionMinFields = {
   __typename?: 'route_direction_min_fields';
   /** The name of the route direction. */
   direction?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "route.direction" */
-export type Route_Direction_Min_Order_By = {
+export type RouteDirectionMinOrderBy = {
   /** The name of the route direction. */
-  direction?: Maybe<Order_By>;
+  direction?: Maybe<OrderBy>;
 };
 
 /** response of any mutation on the table "route.direction" */
-export type Route_Direction_Mutation_Response = {
+export type RouteDirectionMutationResponse = {
   __typename?: 'route_direction_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Route_Direction>;
+  returning: Array<RouteDirection>;
 };
 
 /** input type for inserting object relation for remote table "route.direction" */
-export type Route_Direction_Obj_Rel_Insert_Input = {
-  data: Route_Direction_Insert_Input;
+export type RouteDirectionObjRelInsertInput = {
+  data: RouteDirectionInsertInput;
   /** on conflict condition */
-  on_conflict?: Maybe<Route_Direction_On_Conflict>;
+  on_conflict?: Maybe<RouteDirectionOnConflict>;
 };
 
 /** on conflict condition type for table "route.direction" */
-export type Route_Direction_On_Conflict = {
-  constraint: Route_Direction_Constraint;
-  update_columns?: Array<Route_Direction_Update_Column>;
-  where?: Maybe<Route_Direction_Bool_Exp>;
+export type RouteDirectionOnConflict = {
+  constraint: RouteDirectionConstraint;
+  update_columns?: Array<RouteDirectionUpdateColumn>;
+  where?: Maybe<RouteDirectionBoolExp>;
 };
 
 /** Ordering options when selecting data from "route.direction". */
-export type Route_Direction_Order_By = {
-  direction?: Maybe<Order_By>;
-  directionByTheOppositeOfDirection?: Maybe<Route_Direction_Order_By>;
-  directions_aggregate?: Maybe<Route_Direction_Aggregate_Order_By>;
-  the_opposite_of_direction?: Maybe<Order_By>;
+export type RouteDirectionOrderBy = {
+  direction?: Maybe<OrderBy>;
+  directionByTheOppositeOfDirection?: Maybe<RouteDirectionOrderBy>;
+  directions_aggregate?: Maybe<RouteDirectionAggregateOrderBy>;
+  the_opposite_of_direction?: Maybe<OrderBy>;
 };
 
 /** primary key columns input for table: route_direction */
-export type Route_Direction_Pk_Columns_Input = {
+export type RouteDirectionPkColumnsInput = {
   /** The name of the route direction. */
   direction: Scalars['String'];
 };
 
 /** select columns of table "route.direction" */
-export enum Route_Direction_Select_Column {
+export enum RouteDirectionSelectColumn {
   /** column name */
   Direction = 'direction',
   /** column name */
@@ -3379,15 +3402,15 @@ export enum Route_Direction_Select_Column {
 }
 
 /** input type for updating data in table "route.direction" */
-export type Route_Direction_Set_Input = {
+export type RouteDirectionSetInput = {
   /** The name of the route direction. */
   direction?: Maybe<Scalars['String']>;
   /** The opposite direction. */
-  the_opposite_of_direction?: Maybe<Route_Direction_Enum>;
+  the_opposite_of_direction?: Maybe<RouteDirectionEnum>;
 };
 
 /** update columns of table "route.direction" */
-export enum Route_Direction_Update_Column {
+export enum RouteDirectionUpdateColumn {
   /** column name */
   Direction = 'direction',
   /** column name */
@@ -3399,11 +3422,12 @@ export enum Route_Direction_Update_Column {
  *
  *
  * columns and relationships of "route.infrastructure_link_along_route"
+ *
  */
-export type Route_Infrastructure_Link_Along_Route = {
+export type RouteInfrastructureLinkAlongRoute = {
   __typename?: 'route_infrastructure_link_along_route';
   /** An object relationship */
-  infrastructure_link: Infrastructure_Network_Infrastructure_Link;
+  infrastructure_link: InfrastructureNetworkInfrastructureLink;
   /** The ID of the infrastructure link. */
   infrastructure_link_id: Scalars['uuid'];
   /** The order of the infrastructure link within the journey pattern. */
@@ -3415,97 +3439,97 @@ export type Route_Infrastructure_Link_Along_Route = {
 };
 
 /** aggregated selection of "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Aggregate = {
+export type RouteInfrastructureLinkAlongRouteAggregate = {
   __typename?: 'route_infrastructure_link_along_route_aggregate';
-  aggregate?: Maybe<Route_Infrastructure_Link_Along_Route_Aggregate_Fields>;
-  nodes: Array<Route_Infrastructure_Link_Along_Route>;
+  aggregate?: Maybe<RouteInfrastructureLinkAlongRouteAggregateFields>;
+  nodes: Array<RouteInfrastructureLinkAlongRoute>;
 };
 
 /** aggregate fields of "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Aggregate_Fields = {
+export type RouteInfrastructureLinkAlongRouteAggregateFields = {
   __typename?: 'route_infrastructure_link_along_route_aggregate_fields';
-  avg?: Maybe<Route_Infrastructure_Link_Along_Route_Avg_Fields>;
+  avg?: Maybe<RouteInfrastructureLinkAlongRouteAvgFields>;
   count: Scalars['Int'];
-  max?: Maybe<Route_Infrastructure_Link_Along_Route_Max_Fields>;
-  min?: Maybe<Route_Infrastructure_Link_Along_Route_Min_Fields>;
-  stddev?: Maybe<Route_Infrastructure_Link_Along_Route_Stddev_Fields>;
-  stddev_pop?: Maybe<Route_Infrastructure_Link_Along_Route_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Route_Infrastructure_Link_Along_Route_Stddev_Samp_Fields>;
-  sum?: Maybe<Route_Infrastructure_Link_Along_Route_Sum_Fields>;
-  var_pop?: Maybe<Route_Infrastructure_Link_Along_Route_Var_Pop_Fields>;
-  var_samp?: Maybe<Route_Infrastructure_Link_Along_Route_Var_Samp_Fields>;
-  variance?: Maybe<Route_Infrastructure_Link_Along_Route_Variance_Fields>;
+  max?: Maybe<RouteInfrastructureLinkAlongRouteMaxFields>;
+  min?: Maybe<RouteInfrastructureLinkAlongRouteMinFields>;
+  stddev?: Maybe<RouteInfrastructureLinkAlongRouteStddevFields>;
+  stddev_pop?: Maybe<RouteInfrastructureLinkAlongRouteStddevPopFields>;
+  stddev_samp?: Maybe<RouteInfrastructureLinkAlongRouteStddevSampFields>;
+  sum?: Maybe<RouteInfrastructureLinkAlongRouteSumFields>;
+  var_pop?: Maybe<RouteInfrastructureLinkAlongRouteVarPopFields>;
+  var_samp?: Maybe<RouteInfrastructureLinkAlongRouteVarSampFields>;
+  variance?: Maybe<RouteInfrastructureLinkAlongRouteVarianceFields>;
 };
 
 
 /** aggregate fields of "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Select_Column>>;
+export type RouteInfrastructureLinkAlongRouteAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Aggregate_Order_By = {
-  avg?: Maybe<Route_Infrastructure_Link_Along_Route_Avg_Order_By>;
-  count?: Maybe<Order_By>;
-  max?: Maybe<Route_Infrastructure_Link_Along_Route_Max_Order_By>;
-  min?: Maybe<Route_Infrastructure_Link_Along_Route_Min_Order_By>;
-  stddev?: Maybe<Route_Infrastructure_Link_Along_Route_Stddev_Order_By>;
-  stddev_pop?: Maybe<Route_Infrastructure_Link_Along_Route_Stddev_Pop_Order_By>;
-  stddev_samp?: Maybe<Route_Infrastructure_Link_Along_Route_Stddev_Samp_Order_By>;
-  sum?: Maybe<Route_Infrastructure_Link_Along_Route_Sum_Order_By>;
-  var_pop?: Maybe<Route_Infrastructure_Link_Along_Route_Var_Pop_Order_By>;
-  var_samp?: Maybe<Route_Infrastructure_Link_Along_Route_Var_Samp_Order_By>;
-  variance?: Maybe<Route_Infrastructure_Link_Along_Route_Variance_Order_By>;
+export type RouteInfrastructureLinkAlongRouteAggregateOrderBy = {
+  avg?: Maybe<RouteInfrastructureLinkAlongRouteAvgOrderBy>;
+  count?: Maybe<OrderBy>;
+  max?: Maybe<RouteInfrastructureLinkAlongRouteMaxOrderBy>;
+  min?: Maybe<RouteInfrastructureLinkAlongRouteMinOrderBy>;
+  stddev?: Maybe<RouteInfrastructureLinkAlongRouteStddevOrderBy>;
+  stddev_pop?: Maybe<RouteInfrastructureLinkAlongRouteStddevPopOrderBy>;
+  stddev_samp?: Maybe<RouteInfrastructureLinkAlongRouteStddevSampOrderBy>;
+  sum?: Maybe<RouteInfrastructureLinkAlongRouteSumOrderBy>;
+  var_pop?: Maybe<RouteInfrastructureLinkAlongRouteVarPopOrderBy>;
+  var_samp?: Maybe<RouteInfrastructureLinkAlongRouteVarSampOrderBy>;
+  variance?: Maybe<RouteInfrastructureLinkAlongRouteVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Arr_Rel_Insert_Input = {
-  data: Array<Route_Infrastructure_Link_Along_Route_Insert_Input>;
+export type RouteInfrastructureLinkAlongRouteArrRelInsertInput = {
+  data: Array<RouteInfrastructureLinkAlongRouteInsertInput>;
   /** on conflict condition */
-  on_conflict?: Maybe<Route_Infrastructure_Link_Along_Route_On_Conflict>;
+  on_conflict?: Maybe<RouteInfrastructureLinkAlongRouteOnConflict>;
 };
 
 /** aggregate avg on columns */
-export type Route_Infrastructure_Link_Along_Route_Avg_Fields = {
+export type RouteInfrastructureLinkAlongRouteAvgFields = {
   __typename?: 'route_infrastructure_link_along_route_avg_fields';
   /** The order of the infrastructure link within the journey pattern. */
   infrastructure_link_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by avg() on columns of table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Avg_Order_By = {
+export type RouteInfrastructureLinkAlongRouteAvgOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Order_By>;
+  infrastructure_link_sequence?: Maybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "route.infrastructure_link_along_route". All fields are combined with a logical 'AND'. */
-export type Route_Infrastructure_Link_Along_Route_Bool_Exp = {
-  _and?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Bool_Exp>>;
-  _not?: Maybe<Route_Infrastructure_Link_Along_Route_Bool_Exp>;
-  _or?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Bool_Exp>>;
-  infrastructure_link?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
-  infrastructure_link_id?: Maybe<Uuid_Comparison_Exp>;
-  infrastructure_link_sequence?: Maybe<Int_Comparison_Exp>;
-  is_traversal_forwards?: Maybe<Boolean_Comparison_Exp>;
-  route_id?: Maybe<Uuid_Comparison_Exp>;
+export type RouteInfrastructureLinkAlongRouteBoolExp = {
+  _and?: Maybe<Array<RouteInfrastructureLinkAlongRouteBoolExp>>;
+  _not?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  _or?: Maybe<Array<RouteInfrastructureLinkAlongRouteBoolExp>>;
+  infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  infrastructure_link_id?: Maybe<UuidComparisonExp>;
+  infrastructure_link_sequence?: Maybe<IntComparisonExp>;
+  is_traversal_forwards?: Maybe<BooleanComparisonExp>;
+  route_id?: Maybe<UuidComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.infrastructure_link_along_route" */
-export enum Route_Infrastructure_Link_Along_Route_Constraint {
+export enum RouteInfrastructureLinkAlongRouteConstraint {
   /** unique or primary key constraint */
   InfrastructureLinkAlongRoutePkey = 'infrastructure_link_along_route_pkey'
 }
 
 /** input type for incrementing numeric columns in table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Inc_Input = {
+export type RouteInfrastructureLinkAlongRouteIncInput = {
   /** The order of the infrastructure link within the journey pattern. */
   infrastructure_link_sequence?: Maybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Insert_Input = {
-  infrastructure_link?: Maybe<Infrastructure_Network_Infrastructure_Link_Obj_Rel_Insert_Input>;
+export type RouteInfrastructureLinkAlongRouteInsertInput = {
+  infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
   /** The ID of the infrastructure link. */
   infrastructure_link_id?: Maybe<Scalars['uuid']>;
   /** The order of the infrastructure link within the journey pattern. */
@@ -3517,7 +3541,7 @@ export type Route_Infrastructure_Link_Along_Route_Insert_Input = {
 };
 
 /** aggregate max on columns */
-export type Route_Infrastructure_Link_Along_Route_Max_Fields = {
+export type RouteInfrastructureLinkAlongRouteMaxFields = {
   __typename?: 'route_infrastructure_link_along_route_max_fields';
   /** The ID of the infrastructure link. */
   infrastructure_link_id?: Maybe<Scalars['uuid']>;
@@ -3528,17 +3552,17 @@ export type Route_Infrastructure_Link_Along_Route_Max_Fields = {
 };
 
 /** order by max() on columns of table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Max_Order_By = {
+export type RouteInfrastructureLinkAlongRouteMaxOrderBy = {
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<Order_By>;
+  infrastructure_link_id?: Maybe<OrderBy>;
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Order_By>;
+  infrastructure_link_sequence?: Maybe<OrderBy>;
   /** The ID of the route. */
-  route_id?: Maybe<Order_By>;
+  route_id?: Maybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type Route_Infrastructure_Link_Along_Route_Min_Fields = {
+export type RouteInfrastructureLinkAlongRouteMinFields = {
   __typename?: 'route_infrastructure_link_along_route_min_fields';
   /** The ID of the infrastructure link. */
   infrastructure_link_id?: Maybe<Scalars['uuid']>;
@@ -3549,42 +3573,42 @@ export type Route_Infrastructure_Link_Along_Route_Min_Fields = {
 };
 
 /** order by min() on columns of table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Min_Order_By = {
+export type RouteInfrastructureLinkAlongRouteMinOrderBy = {
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<Order_By>;
+  infrastructure_link_id?: Maybe<OrderBy>;
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Order_By>;
+  infrastructure_link_sequence?: Maybe<OrderBy>;
   /** The ID of the route. */
-  route_id?: Maybe<Order_By>;
+  route_id?: Maybe<OrderBy>;
 };
 
 /** response of any mutation on the table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Mutation_Response = {
+export type RouteInfrastructureLinkAlongRouteMutationResponse = {
   __typename?: 'route_infrastructure_link_along_route_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Route_Infrastructure_Link_Along_Route>;
+  returning: Array<RouteInfrastructureLinkAlongRoute>;
 };
 
 /** on conflict condition type for table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_On_Conflict = {
-  constraint: Route_Infrastructure_Link_Along_Route_Constraint;
-  update_columns?: Array<Route_Infrastructure_Link_Along_Route_Update_Column>;
-  where?: Maybe<Route_Infrastructure_Link_Along_Route_Bool_Exp>;
+export type RouteInfrastructureLinkAlongRouteOnConflict = {
+  constraint: RouteInfrastructureLinkAlongRouteConstraint;
+  update_columns?: Array<RouteInfrastructureLinkAlongRouteUpdateColumn>;
+  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 /** Ordering options when selecting data from "route.infrastructure_link_along_route". */
-export type Route_Infrastructure_Link_Along_Route_Order_By = {
-  infrastructure_link?: Maybe<Infrastructure_Network_Infrastructure_Link_Order_By>;
-  infrastructure_link_id?: Maybe<Order_By>;
-  infrastructure_link_sequence?: Maybe<Order_By>;
-  is_traversal_forwards?: Maybe<Order_By>;
-  route_id?: Maybe<Order_By>;
+export type RouteInfrastructureLinkAlongRouteOrderBy = {
+  infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkOrderBy>;
+  infrastructure_link_id?: Maybe<OrderBy>;
+  infrastructure_link_sequence?: Maybe<OrderBy>;
+  is_traversal_forwards?: Maybe<OrderBy>;
+  route_id?: Maybe<OrderBy>;
 };
 
 /** primary key columns input for table: route_infrastructure_link_along_route */
-export type Route_Infrastructure_Link_Along_Route_Pk_Columns_Input = {
+export type RouteInfrastructureLinkAlongRoutePkColumnsInput = {
   /** The order of the infrastructure link within the journey pattern. */
   infrastructure_link_sequence: Scalars['Int'];
   /** The ID of the route. */
@@ -3592,7 +3616,7 @@ export type Route_Infrastructure_Link_Along_Route_Pk_Columns_Input = {
 };
 
 /** select columns of table "route.infrastructure_link_along_route" */
-export enum Route_Infrastructure_Link_Along_Route_Select_Column {
+export enum RouteInfrastructureLinkAlongRouteSelectColumn {
   /** column name */
   InfrastructureLinkId = 'infrastructure_link_id',
   /** column name */
@@ -3604,7 +3628,7 @@ export enum Route_Infrastructure_Link_Along_Route_Select_Column {
 }
 
 /** input type for updating data in table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Set_Input = {
+export type RouteInfrastructureLinkAlongRouteSetInput = {
   /** The ID of the infrastructure link. */
   infrastructure_link_id?: Maybe<Scalars['uuid']>;
   /** The order of the infrastructure link within the journey pattern. */
@@ -3616,59 +3640,59 @@ export type Route_Infrastructure_Link_Along_Route_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type Route_Infrastructure_Link_Along_Route_Stddev_Fields = {
+export type RouteInfrastructureLinkAlongRouteStddevFields = {
   __typename?: 'route_infrastructure_link_along_route_stddev_fields';
   /** The order of the infrastructure link within the journey pattern. */
   infrastructure_link_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev() on columns of table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Stddev_Order_By = {
+export type RouteInfrastructureLinkAlongRouteStddevOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Order_By>;
+  infrastructure_link_sequence?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Route_Infrastructure_Link_Along_Route_Stddev_Pop_Fields = {
+export type RouteInfrastructureLinkAlongRouteStddevPopFields = {
   __typename?: 'route_infrastructure_link_along_route_stddev_pop_fields';
   /** The order of the infrastructure link within the journey pattern. */
   infrastructure_link_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_pop() on columns of table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Stddev_Pop_Order_By = {
+export type RouteInfrastructureLinkAlongRouteStddevPopOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Order_By>;
+  infrastructure_link_sequence?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Route_Infrastructure_Link_Along_Route_Stddev_Samp_Fields = {
+export type RouteInfrastructureLinkAlongRouteStddevSampFields = {
   __typename?: 'route_infrastructure_link_along_route_stddev_samp_fields';
   /** The order of the infrastructure link within the journey pattern. */
   infrastructure_link_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_samp() on columns of table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Stddev_Samp_Order_By = {
+export type RouteInfrastructureLinkAlongRouteStddevSampOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Order_By>;
+  infrastructure_link_sequence?: Maybe<OrderBy>;
 };
 
 /** aggregate sum on columns */
-export type Route_Infrastructure_Link_Along_Route_Sum_Fields = {
+export type RouteInfrastructureLinkAlongRouteSumFields = {
   __typename?: 'route_infrastructure_link_along_route_sum_fields';
   /** The order of the infrastructure link within the journey pattern. */
   infrastructure_link_sequence?: Maybe<Scalars['Int']>;
 };
 
 /** order by sum() on columns of table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Sum_Order_By = {
+export type RouteInfrastructureLinkAlongRouteSumOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Order_By>;
+  infrastructure_link_sequence?: Maybe<OrderBy>;
 };
 
 /** update columns of table "route.infrastructure_link_along_route" */
-export enum Route_Infrastructure_Link_Along_Route_Update_Column {
+export enum RouteInfrastructureLinkAlongRouteUpdateColumn {
   /** column name */
   InfrastructureLinkId = 'infrastructure_link_id',
   /** column name */
@@ -3680,42 +3704,42 @@ export enum Route_Infrastructure_Link_Along_Route_Update_Column {
 }
 
 /** aggregate var_pop on columns */
-export type Route_Infrastructure_Link_Along_Route_Var_Pop_Fields = {
+export type RouteInfrastructureLinkAlongRouteVarPopFields = {
   __typename?: 'route_infrastructure_link_along_route_var_pop_fields';
   /** The order of the infrastructure link within the journey pattern. */
   infrastructure_link_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_pop() on columns of table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Var_Pop_Order_By = {
+export type RouteInfrastructureLinkAlongRouteVarPopOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Order_By>;
+  infrastructure_link_sequence?: Maybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
-export type Route_Infrastructure_Link_Along_Route_Var_Samp_Fields = {
+export type RouteInfrastructureLinkAlongRouteVarSampFields = {
   __typename?: 'route_infrastructure_link_along_route_var_samp_fields';
   /** The order of the infrastructure link within the journey pattern. */
   infrastructure_link_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_samp() on columns of table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Var_Samp_Order_By = {
+export type RouteInfrastructureLinkAlongRouteVarSampOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Order_By>;
+  infrastructure_link_sequence?: Maybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
-export type Route_Infrastructure_Link_Along_Route_Variance_Fields = {
+export type RouteInfrastructureLinkAlongRouteVarianceFields = {
   __typename?: 'route_infrastructure_link_along_route_variance_fields';
   /** The order of the infrastructure link within the journey pattern. */
   infrastructure_link_sequence?: Maybe<Scalars['Float']>;
 };
 
 /** order by variance() on columns of table "route.infrastructure_link_along_route" */
-export type Route_Infrastructure_Link_Along_Route_Variance_Order_By = {
+export type RouteInfrastructureLinkAlongRouteVarianceOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Order_By>;
+  infrastructure_link_sequence?: Maybe<OrderBy>;
 };
 
 /**
@@ -3723,8 +3747,9 @@ export type Route_Infrastructure_Link_Along_Route_Variance_Order_By = {
  *
  *
  * columns and relationships of "route.line"
+ *
  */
-export type Route_Line = {
+export type RouteLine = {
   __typename?: 'route_line';
   /** The description of the line. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
@@ -3733,53 +3758,53 @@ export type Route_Line = {
   /** The name of the line. Placeholder for multilingual strings. */
   name_i18n: Scalars['String'];
   /** The mode of the vehicles used as primary on the line. */
-  primary_vehicle_mode: Reusable_Components_Vehicle_Mode_Enum;
+  primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
 };
 
 /** aggregated selection of "route.line" */
-export type Route_Line_Aggregate = {
+export type RouteLineAggregate = {
   __typename?: 'route_line_aggregate';
-  aggregate?: Maybe<Route_Line_Aggregate_Fields>;
-  nodes: Array<Route_Line>;
+  aggregate?: Maybe<RouteLineAggregateFields>;
+  nodes: Array<RouteLine>;
 };
 
 /** aggregate fields of "route.line" */
-export type Route_Line_Aggregate_Fields = {
+export type RouteLineAggregateFields = {
   __typename?: 'route_line_aggregate_fields';
   count: Scalars['Int'];
-  max?: Maybe<Route_Line_Max_Fields>;
-  min?: Maybe<Route_Line_Min_Fields>;
+  max?: Maybe<RouteLineMaxFields>;
+  min?: Maybe<RouteLineMinFields>;
 };
 
 
 /** aggregate fields of "route.line" */
-export type Route_Line_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Route_Line_Select_Column>>;
+export type RouteLineAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<RouteLineSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "route.line". All fields are combined with a logical 'AND'. */
-export type Route_Line_Bool_Exp = {
-  _and?: Maybe<Array<Route_Line_Bool_Exp>>;
-  _not?: Maybe<Route_Line_Bool_Exp>;
-  _or?: Maybe<Array<Route_Line_Bool_Exp>>;
-  description_i18n?: Maybe<String_Comparison_Exp>;
-  line_id?: Maybe<Uuid_Comparison_Exp>;
-  name_i18n?: Maybe<String_Comparison_Exp>;
-  primary_vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Enum_Comparison_Exp>;
-  short_name_i18n?: Maybe<String_Comparison_Exp>;
+export type RouteLineBoolExp = {
+  _and?: Maybe<Array<RouteLineBoolExp>>;
+  _not?: Maybe<RouteLineBoolExp>;
+  _or?: Maybe<Array<RouteLineBoolExp>>;
+  description_i18n?: Maybe<StringComparisonExp>;
+  line_id?: Maybe<UuidComparisonExp>;
+  name_i18n?: Maybe<StringComparisonExp>;
+  primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
+  short_name_i18n?: Maybe<StringComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.line" */
-export enum Route_Line_Constraint {
+export enum RouteLineConstraint {
   /** unique or primary key constraint */
   LinePkey = 'line_pkey'
 }
 
 /** input type for inserting data into table "route.line" */
-export type Route_Line_Insert_Input = {
+export type RouteLineInsertInput = {
   /** The description of the line. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
   /** The ID of the line. */
@@ -3787,13 +3812,13 @@ export type Route_Line_Insert_Input = {
   /** The name of the line. Placeholder for multilingual strings. */
   name_i18n?: Maybe<Scalars['String']>;
   /** The mode of the vehicles used as primary on the line. */
-  primary_vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Enum>;
+  primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
-export type Route_Line_Max_Fields = {
+export type RouteLineMaxFields = {
   __typename?: 'route_line_max_fields';
   /** The description of the line. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
@@ -3806,7 +3831,7 @@ export type Route_Line_Max_Fields = {
 };
 
 /** aggregate min on columns */
-export type Route_Line_Min_Fields = {
+export type RouteLineMinFields = {
   __typename?: 'route_line_min_fields';
   /** The description of the line. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
@@ -3819,38 +3844,38 @@ export type Route_Line_Min_Fields = {
 };
 
 /** response of any mutation on the table "route.line" */
-export type Route_Line_Mutation_Response = {
+export type RouteLineMutationResponse = {
   __typename?: 'route_line_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Route_Line>;
+  returning: Array<RouteLine>;
 };
 
 /** on conflict condition type for table "route.line" */
-export type Route_Line_On_Conflict = {
-  constraint: Route_Line_Constraint;
-  update_columns?: Array<Route_Line_Update_Column>;
-  where?: Maybe<Route_Line_Bool_Exp>;
+export type RouteLineOnConflict = {
+  constraint: RouteLineConstraint;
+  update_columns?: Array<RouteLineUpdateColumn>;
+  where?: Maybe<RouteLineBoolExp>;
 };
 
 /** Ordering options when selecting data from "route.line". */
-export type Route_Line_Order_By = {
-  description_i18n?: Maybe<Order_By>;
-  line_id?: Maybe<Order_By>;
-  name_i18n?: Maybe<Order_By>;
-  primary_vehicle_mode?: Maybe<Order_By>;
-  short_name_i18n?: Maybe<Order_By>;
+export type RouteLineOrderBy = {
+  description_i18n?: Maybe<OrderBy>;
+  line_id?: Maybe<OrderBy>;
+  name_i18n?: Maybe<OrderBy>;
+  primary_vehicle_mode?: Maybe<OrderBy>;
+  short_name_i18n?: Maybe<OrderBy>;
 };
 
 /** primary key columns input for table: route_line */
-export type Route_Line_Pk_Columns_Input = {
+export type RouteLinePkColumnsInput = {
   /** The ID of the line. */
   line_id: Scalars['uuid'];
 };
 
 /** select columns of table "route.line" */
-export enum Route_Line_Select_Column {
+export enum RouteLineSelectColumn {
   /** column name */
   DescriptionI18n = 'description_i18n',
   /** column name */
@@ -3864,7 +3889,7 @@ export enum Route_Line_Select_Column {
 }
 
 /** input type for updating data in table "route.line" */
-export type Route_Line_Set_Input = {
+export type RouteLineSetInput = {
   /** The description of the line. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
   /** The ID of the line. */
@@ -3872,13 +3897,13 @@ export type Route_Line_Set_Input = {
   /** The name of the line. Placeholder for multilingual strings. */
   name_i18n?: Maybe<Scalars['String']>;
   /** The mode of the vehicles used as primary on the line. */
-  primary_vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Enum>;
+  primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
 };
 
 /** update columns of table "route.line" */
-export enum Route_Line_Update_Column {
+export enum RouteLineUpdateColumn {
   /** column name */
   DescriptionI18n = 'description_i18n',
   /** column name */
@@ -3896,8 +3921,9 @@ export enum Route_Line_Update_Column {
  *
  *
  * columns and relationships of "route.route"
+ *
  */
-export type Route_Route = {
+export type RouteRoute = {
   __typename?: 'route_route';
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
@@ -3914,42 +3940,42 @@ export type Route_Route = {
 };
 
 /** aggregated selection of "route.route" */
-export type Route_Route_Aggregate = {
+export type RouteRouteAggregate = {
   __typename?: 'route_route_aggregate';
-  aggregate?: Maybe<Route_Route_Aggregate_Fields>;
-  nodes: Array<Route_Route>;
+  aggregate?: Maybe<RouteRouteAggregateFields>;
+  nodes: Array<RouteRoute>;
 };
 
 /** aggregate fields of "route.route" */
-export type Route_Route_Aggregate_Fields = {
+export type RouteRouteAggregateFields = {
   __typename?: 'route_route_aggregate_fields';
   count: Scalars['Int'];
-  max?: Maybe<Route_Route_Max_Fields>;
-  min?: Maybe<Route_Route_Min_Fields>;
+  max?: Maybe<RouteRouteMaxFields>;
+  min?: Maybe<RouteRouteMinFields>;
 };
 
 
 /** aggregate fields of "route.route" */
-export type Route_Route_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Route_Route_Select_Column>>;
+export type RouteRouteAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<RouteRouteSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "route.route". All fields are combined with a logical 'AND'. */
-export type Route_Route_Bool_Exp = {
-  _and?: Maybe<Array<Route_Route_Bool_Exp>>;
-  _not?: Maybe<Route_Route_Bool_Exp>;
-  _or?: Maybe<Array<Route_Route_Bool_Exp>>;
-  description_i18n?: Maybe<String_Comparison_Exp>;
-  ends_at_scheduled_stop_point_id?: Maybe<Uuid_Comparison_Exp>;
-  on_line_id?: Maybe<Uuid_Comparison_Exp>;
-  route_id?: Maybe<Uuid_Comparison_Exp>;
-  route_shape?: Maybe<Geography_Comparison_Exp>;
-  starts_from_scheduled_stop_point_id?: Maybe<Uuid_Comparison_Exp>;
+export type RouteRouteBoolExp = {
+  _and?: Maybe<Array<RouteRouteBoolExp>>;
+  _not?: Maybe<RouteRouteBoolExp>;
+  _or?: Maybe<Array<RouteRouteBoolExp>>;
+  description_i18n?: Maybe<StringComparisonExp>;
+  ends_at_scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
+  on_line_id?: Maybe<UuidComparisonExp>;
+  route_id?: Maybe<UuidComparisonExp>;
+  route_shape?: Maybe<GeographyComparisonExp>;
+  starts_from_scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
 };
 
 /** input type for inserting data into table "route.route" */
-export type Route_Route_Insert_Input = {
+export type RouteRouteInsertInput = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
   /** The scheduled stop point where the route ends at. */
@@ -3965,7 +3991,7 @@ export type Route_Route_Insert_Input = {
 };
 
 /** aggregate max on columns */
-export type Route_Route_Max_Fields = {
+export type RouteRouteMaxFields = {
   __typename?: 'route_route_max_fields';
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
@@ -3980,7 +4006,7 @@ export type Route_Route_Max_Fields = {
 };
 
 /** aggregate min on columns */
-export type Route_Route_Min_Fields = {
+export type RouteRouteMinFields = {
   __typename?: 'route_route_min_fields';
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
@@ -3995,26 +4021,26 @@ export type Route_Route_Min_Fields = {
 };
 
 /** response of any mutation on the table "route.route" */
-export type Route_Route_Mutation_Response = {
+export type RouteRouteMutationResponse = {
   __typename?: 'route_route_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Route_Route>;
+  returning: Array<RouteRoute>;
 };
 
 /** Ordering options when selecting data from "route.route". */
-export type Route_Route_Order_By = {
-  description_i18n?: Maybe<Order_By>;
-  ends_at_scheduled_stop_point_id?: Maybe<Order_By>;
-  on_line_id?: Maybe<Order_By>;
-  route_id?: Maybe<Order_By>;
-  route_shape?: Maybe<Order_By>;
-  starts_from_scheduled_stop_point_id?: Maybe<Order_By>;
+export type RouteRouteOrderBy = {
+  description_i18n?: Maybe<OrderBy>;
+  ends_at_scheduled_stop_point_id?: Maybe<OrderBy>;
+  on_line_id?: Maybe<OrderBy>;
+  route_id?: Maybe<OrderBy>;
+  route_shape?: Maybe<OrderBy>;
+  starts_from_scheduled_stop_point_id?: Maybe<OrderBy>;
 };
 
 /** select columns of table "route.route" */
-export enum Route_Route_Select_Column {
+export enum RouteRouteSelectColumn {
   /** column name */
   DescriptionI18n = 'description_i18n',
   /** column name */
@@ -4030,7 +4056,7 @@ export enum Route_Route_Select_Column {
 }
 
 /** input type for updating data in table "route.route" */
-export type Route_Route_Set_Input = {
+export type RouteRouteSetInput = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
   /** The scheduled stop point where the route ends at. */
@@ -4050,8 +4076,9 @@ export type Route_Route_Set_Input = {
  *
  *
  * columns and relationships of "service_pattern.scheduled_stop_point"
+ *
  */
-export type Service_Pattern_Scheduled_Stop_Point = {
+export type ServicePatternScheduledStopPoint = {
   __typename?: 'service_pattern_scheduled_stop_point';
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
@@ -4070,64 +4097,64 @@ export type Service_Pattern_Scheduled_Stop_Point = {
 };
 
 /** aggregated selection of "service_pattern.scheduled_stop_point" */
-export type Service_Pattern_Scheduled_Stop_Point_Aggregate = {
+export type ServicePatternScheduledStopPointAggregate = {
   __typename?: 'service_pattern_scheduled_stop_point_aggregate';
-  aggregate?: Maybe<Service_Pattern_Scheduled_Stop_Point_Aggregate_Fields>;
-  nodes: Array<Service_Pattern_Scheduled_Stop_Point>;
+  aggregate?: Maybe<ServicePatternScheduledStopPointAggregateFields>;
+  nodes: Array<ServicePatternScheduledStopPoint>;
 };
 
 /** aggregate fields of "service_pattern.scheduled_stop_point" */
-export type Service_Pattern_Scheduled_Stop_Point_Aggregate_Fields = {
+export type ServicePatternScheduledStopPointAggregateFields = {
   __typename?: 'service_pattern_scheduled_stop_point_aggregate_fields';
-  avg?: Maybe<Service_Pattern_Scheduled_Stop_Point_Avg_Fields>;
+  avg?: Maybe<ServicePatternScheduledStopPointAvgFields>;
   count: Scalars['Int'];
-  max?: Maybe<Service_Pattern_Scheduled_Stop_Point_Max_Fields>;
-  min?: Maybe<Service_Pattern_Scheduled_Stop_Point_Min_Fields>;
-  stddev?: Maybe<Service_Pattern_Scheduled_Stop_Point_Stddev_Fields>;
-  stddev_pop?: Maybe<Service_Pattern_Scheduled_Stop_Point_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Service_Pattern_Scheduled_Stop_Point_Stddev_Samp_Fields>;
-  sum?: Maybe<Service_Pattern_Scheduled_Stop_Point_Sum_Fields>;
-  var_pop?: Maybe<Service_Pattern_Scheduled_Stop_Point_Var_Pop_Fields>;
-  var_samp?: Maybe<Service_Pattern_Scheduled_Stop_Point_Var_Samp_Fields>;
-  variance?: Maybe<Service_Pattern_Scheduled_Stop_Point_Variance_Fields>;
+  max?: Maybe<ServicePatternScheduledStopPointMaxFields>;
+  min?: Maybe<ServicePatternScheduledStopPointMinFields>;
+  stddev?: Maybe<ServicePatternScheduledStopPointStddevFields>;
+  stddev_pop?: Maybe<ServicePatternScheduledStopPointStddevPopFields>;
+  stddev_samp?: Maybe<ServicePatternScheduledStopPointStddevSampFields>;
+  sum?: Maybe<ServicePatternScheduledStopPointSumFields>;
+  var_pop?: Maybe<ServicePatternScheduledStopPointVarPopFields>;
+  var_samp?: Maybe<ServicePatternScheduledStopPointVarSampFields>;
+  variance?: Maybe<ServicePatternScheduledStopPointVarianceFields>;
 };
 
 
 /** aggregate fields of "service_pattern.scheduled_stop_point" */
-export type Service_Pattern_Scheduled_Stop_Point_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Select_Column>>;
+export type ServicePatternScheduledStopPointAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** aggregate avg on columns */
-export type Service_Pattern_Scheduled_Stop_Point_Avg_Fields = {
+export type ServicePatternScheduledStopPointAvgFields = {
   __typename?: 'service_pattern_scheduled_stop_point_avg_fields';
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** Boolean expression to filter rows from the table "service_pattern.scheduled_stop_point". All fields are combined with a logical 'AND'. */
-export type Service_Pattern_Scheduled_Stop_Point_Bool_Exp = {
-  _and?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Bool_Exp>>;
-  _not?: Maybe<Service_Pattern_Scheduled_Stop_Point_Bool_Exp>;
-  _or?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Bool_Exp>>;
-  closest_point_on_infrastructure_link?: Maybe<Geography_Comparison_Exp>;
-  direction?: Maybe<String_Comparison_Exp>;
-  label?: Maybe<String_Comparison_Exp>;
-  located_on_infrastructure_link_id?: Maybe<Uuid_Comparison_Exp>;
-  measured_location?: Maybe<Geography_Comparison_Exp>;
-  relative_distance_from_infrastructure_link_start?: Maybe<Float8_Comparison_Exp>;
-  scheduled_stop_point_id?: Maybe<Uuid_Comparison_Exp>;
+export type ServicePatternScheduledStopPointBoolExp = {
+  _and?: Maybe<Array<ServicePatternScheduledStopPointBoolExp>>;
+  _not?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  _or?: Maybe<Array<ServicePatternScheduledStopPointBoolExp>>;
+  closest_point_on_infrastructure_link?: Maybe<GeographyComparisonExp>;
+  direction?: Maybe<StringComparisonExp>;
+  label?: Maybe<StringComparisonExp>;
+  located_on_infrastructure_link_id?: Maybe<UuidComparisonExp>;
+  measured_location?: Maybe<GeographyComparisonExp>;
+  relative_distance_from_infrastructure_link_start?: Maybe<Float8ComparisonExp>;
+  scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
 };
 
 /** input type for incrementing numeric columns in table "service_pattern.scheduled_stop_point" */
-export type Service_Pattern_Scheduled_Stop_Point_Inc_Input = {
+export type ServicePatternScheduledStopPointIncInput = {
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
 };
 
 /** input type for inserting data into table "service_pattern.scheduled_stop_point" */
-export type Service_Pattern_Scheduled_Stop_Point_Insert_Input = {
+export type ServicePatternScheduledStopPointInsertInput = {
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
@@ -4145,7 +4172,7 @@ export type Service_Pattern_Scheduled_Stop_Point_Insert_Input = {
 };
 
 /** aggregate max on columns */
-export type Service_Pattern_Scheduled_Stop_Point_Max_Fields = {
+export type ServicePatternScheduledStopPointMaxFields = {
   __typename?: 'service_pattern_scheduled_stop_point_max_fields';
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   direction?: Maybe<Scalars['String']>;
@@ -4160,7 +4187,7 @@ export type Service_Pattern_Scheduled_Stop_Point_Max_Fields = {
 };
 
 /** aggregate min on columns */
-export type Service_Pattern_Scheduled_Stop_Point_Min_Fields = {
+export type ServicePatternScheduledStopPointMinFields = {
   __typename?: 'service_pattern_scheduled_stop_point_min_fields';
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   direction?: Maybe<Scalars['String']>;
@@ -4175,27 +4202,27 @@ export type Service_Pattern_Scheduled_Stop_Point_Min_Fields = {
 };
 
 /** response of any mutation on the table "service_pattern.scheduled_stop_point" */
-export type Service_Pattern_Scheduled_Stop_Point_Mutation_Response = {
+export type ServicePatternScheduledStopPointMutationResponse = {
   __typename?: 'service_pattern_scheduled_stop_point_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Service_Pattern_Scheduled_Stop_Point>;
+  returning: Array<ServicePatternScheduledStopPoint>;
 };
 
 /** Ordering options when selecting data from "service_pattern.scheduled_stop_point". */
-export type Service_Pattern_Scheduled_Stop_Point_Order_By = {
-  closest_point_on_infrastructure_link?: Maybe<Order_By>;
-  direction?: Maybe<Order_By>;
-  label?: Maybe<Order_By>;
-  located_on_infrastructure_link_id?: Maybe<Order_By>;
-  measured_location?: Maybe<Order_By>;
-  relative_distance_from_infrastructure_link_start?: Maybe<Order_By>;
-  scheduled_stop_point_id?: Maybe<Order_By>;
+export type ServicePatternScheduledStopPointOrderBy = {
+  closest_point_on_infrastructure_link?: Maybe<OrderBy>;
+  direction?: Maybe<OrderBy>;
+  label?: Maybe<OrderBy>;
+  located_on_infrastructure_link_id?: Maybe<OrderBy>;
+  measured_location?: Maybe<OrderBy>;
+  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
+  scheduled_stop_point_id?: Maybe<OrderBy>;
 };
 
 /** select columns of table "service_pattern.scheduled_stop_point" */
-export enum Service_Pattern_Scheduled_Stop_Point_Select_Column {
+export enum ServicePatternScheduledStopPointSelectColumn {
   /** column name */
   ClosestPointOnInfrastructureLink = 'closest_point_on_infrastructure_link',
   /** column name */
@@ -4217,137 +4244,138 @@ export enum Service_Pattern_Scheduled_Stop_Point_Select_Column {
  *
  *
  * columns and relationships of "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode"
+ *
  */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode = {
+export type ServicePatternScheduledStopPointServicedByVehicleMode = {
   __typename?: 'service_pattern_scheduled_stop_point_serviced_by_vehicle_mode';
   /** The scheduled stop point that is serviced by the vehicle mode. */
   scheduled_stop_point_id: Scalars['uuid'];
   /** An object relationship */
-  vehicleModeByVehicleMode: Reusable_Components_Vehicle_Mode;
+  vehicleModeByVehicleMode: ReusableComponentsVehicleMode;
   /** The vehicle mode servicing the scheduled stop point. */
-  vehicle_mode: Reusable_Components_Vehicle_Mode_Enum;
+  vehicle_mode: ReusableComponentsVehicleModeEnum;
 };
 
 /** aggregated selection of "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Aggregate = {
+export type ServicePatternScheduledStopPointServicedByVehicleModeAggregate = {
   __typename?: 'service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate';
-  aggregate?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Aggregate_Fields>;
-  nodes: Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode>;
+  aggregate?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeAggregateFields>;
+  nodes: Array<ServicePatternScheduledStopPointServicedByVehicleMode>;
 };
 
 /** aggregate fields of "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Aggregate_Fields = {
+export type ServicePatternScheduledStopPointServicedByVehicleModeAggregateFields = {
   __typename?: 'service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate_fields';
   count: Scalars['Int'];
-  max?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Max_Fields>;
-  min?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Min_Fields>;
+  max?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMaxFields>;
+  min?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMinFields>;
 };
 
 
 /** aggregate fields of "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Select_Column>>;
+export type ServicePatternScheduledStopPointServicedByVehicleModeAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Aggregate_Order_By = {
-  count?: Maybe<Order_By>;
-  max?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Max_Order_By>;
-  min?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Min_Order_By>;
+export type ServicePatternScheduledStopPointServicedByVehicleModeAggregateOrderBy = {
+  count?: Maybe<OrderBy>;
+  max?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMaxOrderBy>;
+  min?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMinOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Arr_Rel_Insert_Input = {
-  data: Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Insert_Input>;
+export type ServicePatternScheduledStopPointServicedByVehicleModeArrRelInsertInput = {
+  data: Array<ServicePatternScheduledStopPointServicedByVehicleModeInsertInput>;
   /** on conflict condition */
-  on_conflict?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_On_Conflict>;
+  on_conflict?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode". All fields are combined with a logical 'AND'. */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp = {
-  _and?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp>>;
-  _not?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp>;
-  _or?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp>>;
-  scheduled_stop_point_id?: Maybe<Uuid_Comparison_Exp>;
-  vehicleModeByVehicleMode?: Maybe<Reusable_Components_Vehicle_Mode_Bool_Exp>;
-  vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Enum_Comparison_Exp>;
+export type ServicePatternScheduledStopPointServicedByVehicleModeBoolExp = {
+  _and?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>>;
+  _not?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
+  _or?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>>;
+  scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
+  vehicleModeByVehicleMode?: Maybe<ReusableComponentsVehicleModeBoolExp>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
 };
 
 /** unique or primary key constraints on table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export enum Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Constraint {
+export enum ServicePatternScheduledStopPointServicedByVehicleModeConstraint {
   /** unique or primary key constraint */
   ScheduledStopPointServicedByVehicleModePkey = 'scheduled_stop_point_serviced_by_vehicle_mode_pkey'
 }
 
 /** input type for inserting data into table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Insert_Input = {
+export type ServicePatternScheduledStopPointServicedByVehicleModeInsertInput = {
   /** The scheduled stop point that is serviced by the vehicle mode. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  vehicleModeByVehicleMode?: Maybe<Reusable_Components_Vehicle_Mode_Obj_Rel_Insert_Input>;
+  vehicleModeByVehicleMode?: Maybe<ReusableComponentsVehicleModeObjRelInsertInput>;
   /** The vehicle mode servicing the scheduled stop point. */
-  vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Enum>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
 };
 
 /** aggregate max on columns */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Max_Fields = {
+export type ServicePatternScheduledStopPointServicedByVehicleModeMaxFields = {
   __typename?: 'service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_max_fields';
   /** The scheduled stop point that is serviced by the vehicle mode. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by max() on columns of table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Max_Order_By = {
+export type ServicePatternScheduledStopPointServicedByVehicleModeMaxOrderBy = {
   /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id?: Maybe<Order_By>;
+  scheduled_stop_point_id?: Maybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Min_Fields = {
+export type ServicePatternScheduledStopPointServicedByVehicleModeMinFields = {
   __typename?: 'service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_min_fields';
   /** The scheduled stop point that is serviced by the vehicle mode. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by min() on columns of table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Min_Order_By = {
+export type ServicePatternScheduledStopPointServicedByVehicleModeMinOrderBy = {
   /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id?: Maybe<Order_By>;
+  scheduled_stop_point_id?: Maybe<OrderBy>;
 };
 
 /** response of any mutation on the table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Mutation_Response = {
+export type ServicePatternScheduledStopPointServicedByVehicleModeMutationResponse = {
   __typename?: 'service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode>;
+  returning: Array<ServicePatternScheduledStopPointServicedByVehicleMode>;
 };
 
 /** on conflict condition type for table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_On_Conflict = {
-  constraint: Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Constraint;
-  update_columns?: Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Update_Column>;
-  where?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp>;
+export type ServicePatternScheduledStopPointServicedByVehicleModeOnConflict = {
+  constraint: ServicePatternScheduledStopPointServicedByVehicleModeConstraint;
+  update_columns?: Array<ServicePatternScheduledStopPointServicedByVehicleModeUpdateColumn>;
+  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
 };
 
 /** Ordering options when selecting data from "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode". */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Order_By = {
-  scheduled_stop_point_id?: Maybe<Order_By>;
-  vehicleModeByVehicleMode?: Maybe<Reusable_Components_Vehicle_Mode_Order_By>;
-  vehicle_mode?: Maybe<Order_By>;
+export type ServicePatternScheduledStopPointServicedByVehicleModeOrderBy = {
+  scheduled_stop_point_id?: Maybe<OrderBy>;
+  vehicleModeByVehicleMode?: Maybe<ReusableComponentsVehicleModeOrderBy>;
+  vehicle_mode?: Maybe<OrderBy>;
 };
 
 /** primary key columns input for table: service_pattern_scheduled_stop_point_serviced_by_vehicle_mode */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Pk_Columns_Input = {
+export type ServicePatternScheduledStopPointServicedByVehicleModePkColumnsInput = {
   /** The scheduled stop point that is serviced by the vehicle mode. */
   scheduled_stop_point_id: Scalars['uuid'];
   /** The vehicle mode servicing the scheduled stop point. */
-  vehicle_mode: Reusable_Components_Vehicle_Mode_Enum;
+  vehicle_mode: ReusableComponentsVehicleModeEnum;
 };
 
 /** select columns of table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export enum Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Select_Column {
+export enum ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn {
   /** column name */
   ScheduledStopPointId = 'scheduled_stop_point_id',
   /** column name */
@@ -4355,15 +4383,15 @@ export enum Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Select
 }
 
 /** input type for updating data in table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Set_Input = {
+export type ServicePatternScheduledStopPointServicedByVehicleModeSetInput = {
   /** The scheduled stop point that is serviced by the vehicle mode. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The vehicle mode servicing the scheduled stop point. */
-  vehicle_mode?: Maybe<Reusable_Components_Vehicle_Mode_Enum>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
 };
 
 /** update columns of table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export enum Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Update_Column {
+export enum ServicePatternScheduledStopPointServicedByVehicleModeUpdateColumn {
   /** column name */
   ScheduledStopPointId = 'scheduled_stop_point_id',
   /** column name */
@@ -4371,7 +4399,7 @@ export enum Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Update
 }
 
 /** input type for updating data in table "service_pattern.scheduled_stop_point" */
-export type Service_Pattern_Scheduled_Stop_Point_Set_Input = {
+export type ServicePatternScheduledStopPointSetInput = {
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
@@ -4389,492 +4417,491 @@ export type Service_Pattern_Scheduled_Stop_Point_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type Service_Pattern_Scheduled_Stop_Point_Stddev_Fields = {
+export type ServicePatternScheduledStopPointStddevFields = {
   __typename?: 'service_pattern_scheduled_stop_point_stddev_fields';
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Service_Pattern_Scheduled_Stop_Point_Stddev_Pop_Fields = {
+export type ServicePatternScheduledStopPointStddevPopFields = {
   __typename?: 'service_pattern_scheduled_stop_point_stddev_pop_fields';
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Service_Pattern_Scheduled_Stop_Point_Stddev_Samp_Fields = {
+export type ServicePatternScheduledStopPointStddevSampFields = {
   __typename?: 'service_pattern_scheduled_stop_point_stddev_samp_fields';
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate sum on columns */
-export type Service_Pattern_Scheduled_Stop_Point_Sum_Fields = {
+export type ServicePatternScheduledStopPointSumFields = {
   __typename?: 'service_pattern_scheduled_stop_point_sum_fields';
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
 };
 
 /** aggregate var_pop on columns */
-export type Service_Pattern_Scheduled_Stop_Point_Var_Pop_Fields = {
+export type ServicePatternScheduledStopPointVarPopFields = {
   __typename?: 'service_pattern_scheduled_stop_point_var_pop_fields';
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate var_samp on columns */
-export type Service_Pattern_Scheduled_Stop_Point_Var_Samp_Fields = {
+export type ServicePatternScheduledStopPointVarSampFields = {
   __typename?: 'service_pattern_scheduled_stop_point_var_samp_fields';
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate variance on columns */
-export type Service_Pattern_Scheduled_Stop_Point_Variance_Fields = {
+export type ServicePatternScheduledStopPointVarianceFields = {
   __typename?: 'service_pattern_scheduled_stop_point_variance_fields';
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
-export type St_D_Within_Geography_Input = {
+export type StDWithinGeographyInput = {
   distance: Scalars['Float'];
   from: Scalars['geography'];
   use_spheroid?: Maybe<Scalars['Boolean']>;
 };
 
-export type St_D_Within_Input = {
+export type StDWithinInput = {
   distance: Scalars['Float'];
   from: Scalars['geometry'];
 };
 
-export type Subscription_Root = {
+export type SubscriptionRoot = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "infrastructure_network.direction" */
-  infrastructure_network_direction: Array<Infrastructure_Network_Direction>;
+  infrastructure_network_direction: Array<InfrastructureNetworkDirection>;
   /** fetch aggregated fields from the table: "infrastructure_network.direction" */
-  infrastructure_network_direction_aggregate: Infrastructure_Network_Direction_Aggregate;
+  infrastructure_network_direction_aggregate: InfrastructureNetworkDirectionAggregate;
   /** fetch data from the table: "infrastructure_network.direction" using primary key columns */
-  infrastructure_network_direction_by_pk?: Maybe<Infrastructure_Network_Direction>;
+  infrastructure_network_direction_by_pk?: Maybe<InfrastructureNetworkDirection>;
   /** fetch data from the table: "infrastructure_network.external_source" */
-  infrastructure_network_external_source: Array<Infrastructure_Network_External_Source>;
+  infrastructure_network_external_source: Array<InfrastructureNetworkExternalSource>;
   /** fetch aggregated fields from the table: "infrastructure_network.external_source" */
-  infrastructure_network_external_source_aggregate: Infrastructure_Network_External_Source_Aggregate;
+  infrastructure_network_external_source_aggregate: InfrastructureNetworkExternalSourceAggregate;
   /** fetch data from the table: "infrastructure_network.external_source" using primary key columns */
-  infrastructure_network_external_source_by_pk?: Maybe<Infrastructure_Network_External_Source>;
+  infrastructure_network_external_source_by_pk?: Maybe<InfrastructureNetworkExternalSource>;
   /** fetch data from the table: "infrastructure_network.infrastructure_link" */
-  infrastructure_network_infrastructure_link: Array<Infrastructure_Network_Infrastructure_Link>;
+  infrastructure_network_infrastructure_link: Array<InfrastructureNetworkInfrastructureLink>;
   /** fetch aggregated fields from the table: "infrastructure_network.infrastructure_link" */
-  infrastructure_network_infrastructure_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
+  infrastructure_network_infrastructure_link_aggregate: InfrastructureNetworkInfrastructureLinkAggregate;
   /** fetch data from the table: "infrastructure_network.infrastructure_link" using primary key columns */
-  infrastructure_network_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Infrastructure_Link>;
+  infrastructure_network_infrastructure_link_by_pk?: Maybe<InfrastructureNetworkInfrastructureLink>;
   /** execute function "infrastructure_network.resolve_point_to_closest_link" which returns "infrastructure_network.infrastructure_link" */
-  infrastructure_network_resolve_point_to_closest_link: Array<Infrastructure_Network_Infrastructure_Link>;
+  infrastructure_network_resolve_point_to_closest_link: Array<InfrastructureNetworkInfrastructureLink>;
   /** execute function "infrastructure_network.resolve_point_to_closest_link" and query aggregates on result of table type "infrastructure_network.infrastructure_link" */
-  infrastructure_network_resolve_point_to_closest_link_aggregate: Infrastructure_Network_Infrastructure_Link_Aggregate;
+  infrastructure_network_resolve_point_to_closest_link_aggregate: InfrastructureNetworkInfrastructureLinkAggregate;
   /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-  infrastructure_network_vehicle_submode_on_infrastructure_link: Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  infrastructure_network_vehicle_submode_on_infrastructure_link: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
   /** fetch aggregated fields from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-  infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate: Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Aggregate;
+  infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate;
   /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" using primary key columns */
-  infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link>;
+  infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
   /** fetch data from the table: "journey_pattern.journey_pattern" */
-  journey_pattern_journey_pattern: Array<Journey_Pattern_Journey_Pattern>;
+  journey_pattern_journey_pattern: Array<JourneyPatternJourneyPattern>;
   /** fetch aggregated fields from the table: "journey_pattern.journey_pattern" */
-  journey_pattern_journey_pattern_aggregate: Journey_Pattern_Journey_Pattern_Aggregate;
+  journey_pattern_journey_pattern_aggregate: JourneyPatternJourneyPatternAggregate;
   /** fetch data from the table: "journey_pattern.journey_pattern" using primary key columns */
-  journey_pattern_journey_pattern_by_pk?: Maybe<Journey_Pattern_Journey_Pattern>;
+  journey_pattern_journey_pattern_by_pk?: Maybe<JourneyPatternJourneyPattern>;
   /** fetch data from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-  journey_pattern_scheduled_stop_point_in_journey_pattern: Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern>;
+  journey_pattern_scheduled_stop_point_in_journey_pattern: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** fetch aggregated fields from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-  journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate: Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Aggregate;
+  journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
   /** fetch data from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" using primary key columns */
-  journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern>;
+  journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** fetch data from the table: "reusable_components.vehicle_mode" */
-  reusable_components_vehicle_mode: Array<Reusable_Components_Vehicle_Mode>;
+  reusable_components_vehicle_mode: Array<ReusableComponentsVehicleMode>;
   /** fetch aggregated fields from the table: "reusable_components.vehicle_mode" */
-  reusable_components_vehicle_mode_aggregate: Reusable_Components_Vehicle_Mode_Aggregate;
+  reusable_components_vehicle_mode_aggregate: ReusableComponentsVehicleModeAggregate;
   /** fetch data from the table: "reusable_components.vehicle_mode" using primary key columns */
-  reusable_components_vehicle_mode_by_pk?: Maybe<Reusable_Components_Vehicle_Mode>;
+  reusable_components_vehicle_mode_by_pk?: Maybe<ReusableComponentsVehicleMode>;
   /** fetch data from the table: "reusable_components.vehicle_submode" */
-  reusable_components_vehicle_submode: Array<Reusable_Components_Vehicle_Submode>;
+  reusable_components_vehicle_submode: Array<ReusableComponentsVehicleSubmode>;
   /** fetch aggregated fields from the table: "reusable_components.vehicle_submode" */
-  reusable_components_vehicle_submode_aggregate: Reusable_Components_Vehicle_Submode_Aggregate;
+  reusable_components_vehicle_submode_aggregate: ReusableComponentsVehicleSubmodeAggregate;
   /** fetch data from the table: "reusable_components.vehicle_submode" using primary key columns */
-  reusable_components_vehicle_submode_by_pk?: Maybe<Reusable_Components_Vehicle_Submode>;
+  reusable_components_vehicle_submode_by_pk?: Maybe<ReusableComponentsVehicleSubmode>;
   /** fetch data from the table: "route.direction" */
-  route_direction: Array<Route_Direction>;
+  route_direction: Array<RouteDirection>;
   /** fetch aggregated fields from the table: "route.direction" */
-  route_direction_aggregate: Route_Direction_Aggregate;
+  route_direction_aggregate: RouteDirectionAggregate;
   /** fetch data from the table: "route.direction" using primary key columns */
-  route_direction_by_pk?: Maybe<Route_Direction>;
+  route_direction_by_pk?: Maybe<RouteDirection>;
   /** fetch data from the table: "route.infrastructure_link_along_route" */
-  route_infrastructure_link_along_route: Array<Route_Infrastructure_Link_Along_Route>;
+  route_infrastructure_link_along_route: Array<RouteInfrastructureLinkAlongRoute>;
   /** fetch aggregated fields from the table: "route.infrastructure_link_along_route" */
-  route_infrastructure_link_along_route_aggregate: Route_Infrastructure_Link_Along_Route_Aggregate;
+  route_infrastructure_link_along_route_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
   /** fetch data from the table: "route.infrastructure_link_along_route" using primary key columns */
-  route_infrastructure_link_along_route_by_pk?: Maybe<Route_Infrastructure_Link_Along_Route>;
+  route_infrastructure_link_along_route_by_pk?: Maybe<RouteInfrastructureLinkAlongRoute>;
   /** fetch data from the table: "route.line" */
-  route_line: Array<Route_Line>;
+  route_line: Array<RouteLine>;
   /** fetch aggregated fields from the table: "route.line" */
-  route_line_aggregate: Route_Line_Aggregate;
+  route_line_aggregate: RouteLineAggregate;
   /** fetch data from the table: "route.line" using primary key columns */
-  route_line_by_pk?: Maybe<Route_Line>;
+  route_line_by_pk?: Maybe<RouteLine>;
   /** fetch data from the table: "route.route" */
-  route_route: Array<Route_Route>;
+  route_route: Array<RouteRoute>;
   /** fetch aggregated fields from the table: "route.route" */
-  route_route_aggregate: Route_Route_Aggregate;
+  route_route_aggregate: RouteRouteAggregate;
   /** fetch data from the table: "service_pattern.scheduled_stop_point" */
-  service_pattern_scheduled_stop_point: Array<Service_Pattern_Scheduled_Stop_Point>;
+  service_pattern_scheduled_stop_point: Array<ServicePatternScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point" */
-  service_pattern_scheduled_stop_point_aggregate: Service_Pattern_Scheduled_Stop_Point_Aggregate;
+  service_pattern_scheduled_stop_point_aggregate: ServicePatternScheduledStopPointAggregate;
   /** fetch data from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode: Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode>;
+  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode: Array<ServicePatternScheduledStopPointServicedByVehicleMode>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate: Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Aggregate;
+  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate: ServicePatternScheduledStopPointServicedByVehicleModeAggregate;
   /** fetch data from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" using primary key columns */
-  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode>;
+  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk?: Maybe<ServicePatternScheduledStopPointServicedByVehicleMode>;
 };
 
 
-export type Subscription_RootInfrastructure_Network_DirectionArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Direction_Select_Column>>;
+export type SubscriptionRootInfrastructureNetworkDirectionArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Direction_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
 
-export type Subscription_RootInfrastructure_Network_Direction_AggregateArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Direction_Select_Column>>;
+export type SubscriptionRootInfrastructureNetworkDirectionAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Direction_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Direction_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
 
-export type Subscription_RootInfrastructure_Network_Direction_By_PkArgs = {
+export type SubscriptionRootInfrastructureNetworkDirectionByPkArgs = {
   value: Scalars['String'];
 };
 
 
-export type Subscription_RootInfrastructure_Network_External_SourceArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_External_Source_Select_Column>>;
+export type SubscriptionRootInfrastructureNetworkExternalSourceArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_External_Source_Order_By>>;
-  where?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkExternalSourceOrderBy>>;
+  where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
 
-export type Subscription_RootInfrastructure_Network_External_Source_AggregateArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_External_Source_Select_Column>>;
+export type SubscriptionRootInfrastructureNetworkExternalSourceAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_External_Source_Order_By>>;
-  where?: Maybe<Infrastructure_Network_External_Source_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkExternalSourceOrderBy>>;
+  where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
 
-export type Subscription_RootInfrastructure_Network_External_Source_By_PkArgs = {
+export type SubscriptionRootInfrastructureNetworkExternalSourceByPkArgs = {
   value: Scalars['String'];
 };
 
 
-export type Subscription_RootInfrastructure_Network_Infrastructure_LinkArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type SubscriptionRootInfrastructureNetworkInfrastructureLinkArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 
-export type Subscription_RootInfrastructure_Network_Infrastructure_Link_AggregateArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type SubscriptionRootInfrastructureNetworkInfrastructureLinkAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 
-export type Subscription_RootInfrastructure_Network_Infrastructure_Link_By_PkArgs = {
+export type SubscriptionRootInfrastructureNetworkInfrastructureLinkByPkArgs = {
   infrastructure_link_id: Scalars['uuid'];
 };
 
 
-export type Subscription_RootInfrastructure_Network_Resolve_Point_To_Closest_LinkArgs = {
-  args: Infrastructure_Network_Resolve_Point_To_Closest_Link_Args;
-  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type SubscriptionRootInfrastructureNetworkResolvePointToClosestLinkArgs = {
+  args: InfrastructureNetworkResolvePointToClosestLinkArgs;
+  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 
-export type Subscription_RootInfrastructure_Network_Resolve_Point_To_Closest_Link_AggregateArgs = {
-  args: Infrastructure_Network_Resolve_Point_To_Closest_Link_Args;
-  distinct_on?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Select_Column>>;
+export type SubscriptionRootInfrastructureNetworkResolvePointToClosestLinkAggregateArgs = {
+  args: InfrastructureNetworkResolvePointToClosestLinkArgs;
+  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 
-export type Subscription_RootInfrastructure_Network_Vehicle_Submode_On_Infrastructure_LinkArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
 
-export type Subscription_RootInfrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_AggregateArgs = {
-  distinct_on?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Select_Column>>;
+export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Order_By>>;
-  where?: Maybe<Infrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_Bool_Exp>;
+  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
 
-export type Subscription_RootInfrastructure_Network_Vehicle_Submode_On_Infrastructure_Link_By_PkArgs = {
+export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs = {
   infrastructure_link_id: Scalars['uuid'];
-  vehicle_submode: Reusable_Components_Vehicle_Submode_Enum;
+  vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
 };
 
 
-export type Subscription_RootJourney_Pattern_Journey_PatternArgs = {
-  distinct_on?: Maybe<Array<Journey_Pattern_Journey_Pattern_Select_Column>>;
+export type SubscriptionRootJourneyPatternJourneyPatternArgs = {
+  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Journey_Pattern_Journey_Pattern_Order_By>>;
-  where?: Maybe<Journey_Pattern_Journey_Pattern_Bool_Exp>;
+  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 
-export type Subscription_RootJourney_Pattern_Journey_Pattern_AggregateArgs = {
-  distinct_on?: Maybe<Array<Journey_Pattern_Journey_Pattern_Select_Column>>;
+export type SubscriptionRootJourneyPatternJourneyPatternAggregateArgs = {
+  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Journey_Pattern_Journey_Pattern_Order_By>>;
-  where?: Maybe<Journey_Pattern_Journey_Pattern_Bool_Exp>;
+  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 
-export type Subscription_RootJourney_Pattern_Journey_Pattern_By_PkArgs = {
+export type SubscriptionRootJourneyPatternJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid'];
 };
 
 
-export type Subscription_RootJourney_Pattern_Scheduled_Stop_Point_In_Journey_PatternArgs = {
-  distinct_on?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Select_Column>>;
+export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternArgs = {
+  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Order_By>>;
-  where?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp>;
+  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
 };
 
 
-export type Subscription_RootJourney_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_AggregateArgs = {
-  distinct_on?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Select_Column>>;
+export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternAggregateArgs = {
+  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Order_By>>;
-  where?: Maybe<Journey_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_Bool_Exp>;
+  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
 };
 
 
-export type Subscription_RootJourney_Pattern_Scheduled_Stop_Point_In_Journey_Pattern_By_PkArgs = {
+export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid'];
   scheduled_stop_point_sequence: Scalars['Int'];
 };
 
 
-export type Subscription_RootReusable_Components_Vehicle_ModeArgs = {
-  distinct_on?: Maybe<Array<Reusable_Components_Vehicle_Mode_Select_Column>>;
+export type SubscriptionRootReusableComponentsVehicleModeArgs = {
+  distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Reusable_Components_Vehicle_Mode_Order_By>>;
-  where?: Maybe<Reusable_Components_Vehicle_Mode_Bool_Exp>;
+  order_by?: Maybe<Array<ReusableComponentsVehicleModeOrderBy>>;
+  where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 
-export type Subscription_RootReusable_Components_Vehicle_Mode_AggregateArgs = {
-  distinct_on?: Maybe<Array<Reusable_Components_Vehicle_Mode_Select_Column>>;
+export type SubscriptionRootReusableComponentsVehicleModeAggregateArgs = {
+  distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Reusable_Components_Vehicle_Mode_Order_By>>;
-  where?: Maybe<Reusable_Components_Vehicle_Mode_Bool_Exp>;
+  order_by?: Maybe<Array<ReusableComponentsVehicleModeOrderBy>>;
+  where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 
-export type Subscription_RootReusable_Components_Vehicle_Mode_By_PkArgs = {
+export type SubscriptionRootReusableComponentsVehicleModeByPkArgs = {
   vehicle_mode: Scalars['String'];
 };
 
 
-export type Subscription_RootReusable_Components_Vehicle_SubmodeArgs = {
-  distinct_on?: Maybe<Array<Reusable_Components_Vehicle_Submode_Select_Column>>;
+export type SubscriptionRootReusableComponentsVehicleSubmodeArgs = {
+  distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Reusable_Components_Vehicle_Submode_Order_By>>;
-  where?: Maybe<Reusable_Components_Vehicle_Submode_Bool_Exp>;
+  order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
+  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 
-export type Subscription_RootReusable_Components_Vehicle_Submode_AggregateArgs = {
-  distinct_on?: Maybe<Array<Reusable_Components_Vehicle_Submode_Select_Column>>;
+export type SubscriptionRootReusableComponentsVehicleSubmodeAggregateArgs = {
+  distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Reusable_Components_Vehicle_Submode_Order_By>>;
-  where?: Maybe<Reusable_Components_Vehicle_Submode_Bool_Exp>;
+  order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
+  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 
-export type Subscription_RootReusable_Components_Vehicle_Submode_By_PkArgs = {
+export type SubscriptionRootReusableComponentsVehicleSubmodeByPkArgs = {
   vehicle_submode: Scalars['String'];
 };
 
 
-export type Subscription_RootRoute_DirectionArgs = {
-  distinct_on?: Maybe<Array<Route_Direction_Select_Column>>;
+export type SubscriptionRootRouteDirectionArgs = {
+  distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Direction_Order_By>>;
-  where?: Maybe<Route_Direction_Bool_Exp>;
+  order_by?: Maybe<Array<RouteDirectionOrderBy>>;
+  where?: Maybe<RouteDirectionBoolExp>;
 };
 
 
-export type Subscription_RootRoute_Direction_AggregateArgs = {
-  distinct_on?: Maybe<Array<Route_Direction_Select_Column>>;
+export type SubscriptionRootRouteDirectionAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Direction_Order_By>>;
-  where?: Maybe<Route_Direction_Bool_Exp>;
+  order_by?: Maybe<Array<RouteDirectionOrderBy>>;
+  where?: Maybe<RouteDirectionBoolExp>;
 };
 
 
-export type Subscription_RootRoute_Direction_By_PkArgs = {
+export type SubscriptionRootRouteDirectionByPkArgs = {
   direction: Scalars['String'];
 };
 
 
-export type Subscription_RootRoute_Infrastructure_Link_Along_RouteArgs = {
-  distinct_on?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Select_Column>>;
+export type SubscriptionRootRouteInfrastructureLinkAlongRouteArgs = {
+  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Order_By>>;
-  where?: Maybe<Route_Infrastructure_Link_Along_Route_Bool_Exp>;
+  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 
-export type Subscription_RootRoute_Infrastructure_Link_Along_Route_AggregateArgs = {
-  distinct_on?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Select_Column>>;
+export type SubscriptionRootRouteInfrastructureLinkAlongRouteAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Infrastructure_Link_Along_Route_Order_By>>;
-  where?: Maybe<Route_Infrastructure_Link_Along_Route_Bool_Exp>;
+  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 
-export type Subscription_RootRoute_Infrastructure_Link_Along_Route_By_PkArgs = {
+export type SubscriptionRootRouteInfrastructureLinkAlongRouteByPkArgs = {
   infrastructure_link_sequence: Scalars['Int'];
   route_id: Scalars['uuid'];
 };
 
 
-export type Subscription_RootRoute_LineArgs = {
-  distinct_on?: Maybe<Array<Route_Line_Select_Column>>;
+export type SubscriptionRootRouteLineArgs = {
+  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Line_Order_By>>;
-  where?: Maybe<Route_Line_Bool_Exp>;
+  order_by?: Maybe<Array<RouteLineOrderBy>>;
+  where?: Maybe<RouteLineBoolExp>;
 };
 
 
-export type Subscription_RootRoute_Line_AggregateArgs = {
-  distinct_on?: Maybe<Array<Route_Line_Select_Column>>;
+export type SubscriptionRootRouteLineAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Line_Order_By>>;
-  where?: Maybe<Route_Line_Bool_Exp>;
+  order_by?: Maybe<Array<RouteLineOrderBy>>;
+  where?: Maybe<RouteLineBoolExp>;
 };
 
 
-export type Subscription_RootRoute_Line_By_PkArgs = {
+export type SubscriptionRootRouteLineByPkArgs = {
   line_id: Scalars['uuid'];
 };
 
 
-export type Subscription_RootRoute_RouteArgs = {
-  distinct_on?: Maybe<Array<Route_Route_Select_Column>>;
+export type SubscriptionRootRouteRouteArgs = {
+  distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Route_Order_By>>;
-  where?: Maybe<Route_Route_Bool_Exp>;
+  order_by?: Maybe<Array<RouteRouteOrderBy>>;
+  where?: Maybe<RouteRouteBoolExp>;
 };
 
 
-export type Subscription_RootRoute_Route_AggregateArgs = {
-  distinct_on?: Maybe<Array<Route_Route_Select_Column>>;
+export type SubscriptionRootRouteRouteAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Route_Route_Order_By>>;
-  where?: Maybe<Route_Route_Bool_Exp>;
+  order_by?: Maybe<Array<RouteRouteOrderBy>>;
+  where?: Maybe<RouteRouteBoolExp>;
 };
 
 
-export type Subscription_RootService_Pattern_Scheduled_Stop_PointArgs = {
-  distinct_on?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Select_Column>>;
+export type SubscriptionRootServicePatternScheduledStopPointArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Order_By>>;
-  where?: Maybe<Service_Pattern_Scheduled_Stop_Point_Bool_Exp>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 
-export type Subscription_RootService_Pattern_Scheduled_Stop_Point_AggregateArgs = {
-  distinct_on?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Select_Column>>;
+export type SubscriptionRootServicePatternScheduledStopPointAggregateArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Order_By>>;
-  where?: Maybe<Service_Pattern_Scheduled_Stop_Point_Bool_Exp>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 
-export type Subscription_RootService_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_ModeArgs = {
-  distinct_on?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Select_Column>>;
+export type SubscriptionRootServicePatternScheduledStopPointServicedByVehicleModeArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Order_By>>;
-  where?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
 };
 
 
-export type Subscription_RootService_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_AggregateArgs = {
-  distinct_on?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Select_Column>>;
+export type SubscriptionRootServicePatternScheduledStopPointServicedByVehicleModeAggregateArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Order_By>>;
-  where?: Maybe<Service_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_Bool_Exp>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
 };
 
 
-export type Subscription_RootService_Pattern_Scheduled_Stop_Point_Serviced_By_Vehicle_Mode_By_PkArgs = {
+export type SubscriptionRootServicePatternScheduledStopPointServicedByVehicleModeByPkArgs = {
   scheduled_stop_point_id: Scalars['uuid'];
-  vehicle_mode: Reusable_Components_Vehicle_Mode_Enum;
+  vehicle_mode: ReusableComponentsVehicleModeEnum;
 };
-
 
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
-export type Uuid_Comparison_Exp = {
+export type UuidComparisonExp = {
   _eq?: Maybe<Scalars['uuid']>;
   _gt?: Maybe<Scalars['uuid']>;
   _gte?: Maybe<Scalars['uuid']>;
@@ -4887,30 +4914,18 @@ export type Uuid_Comparison_Exp = {
 };
 
 export type InsertStopMutationVariables = Exact<{
-  object: Service_Pattern_Scheduled_Stop_Point_Insert_Input;
+  object: ServicePatternScheduledStopPointInsertInput;
 }>;
 
 
-export type InsertStopMutation = (
-  { __typename?: 'mutation_root' }
-  & { insert_service_pattern_scheduled_stop_point_one?: Maybe<(
-    { __typename?: 'service_pattern_scheduled_stop_point' }
-    & Pick<Service_Pattern_Scheduled_Stop_Point, 'scheduled_stop_point_id' | 'located_on_infrastructure_link_id' | 'direction' | 'measured_location' | 'label'>
-  )> }
-);
+export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_pattern_scheduled_stop_point_one?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, located_on_infrastructure_link_id?: any | null | undefined, direction?: string | null | undefined, measured_location?: any | null | undefined, label?: string | null | undefined } | null | undefined };
 
 export type QueryClosestLinkQueryVariables = Exact<{
   point?: Maybe<Scalars['geography']>;
 }>;
 
 
-export type QueryClosestLinkQuery = (
-  { __typename?: 'query_root' }
-  & { infrastructure_network_resolve_point_to_closest_link: Array<(
-    { __typename?: 'infrastructure_network_infrastructure_link' }
-    & Pick<Infrastructure_Network_Infrastructure_Link, 'infrastructure_link_id'>
-  )> }
-);
+export type QueryClosestLinkQuery = { __typename?: 'query_root', infrastructure_network_resolve_point_to_closest_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: any }> };
 
 
 export const InsertStopDocument = gql`
