@@ -1,6 +1,6 @@
 import React, { Ref, useImperativeHandle, useRef, useState } from 'react';
 import { HTMLOverlay, MapEvent } from 'react-map-gl';
-import { useQuery } from '../../hooks';
+import { useUrlQuery } from '../../hooks';
 import { Column } from '../../layoutComponents';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { DrawRouteLayer, Mode } from './DrawRouteLayer';
@@ -32,7 +32,7 @@ export const MapComponent = (
   }: Props,
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
-  const { routeId } = useQuery();
+  const { routeId } = useUrlQuery();
   const routeSelected = !!routeId;
 
   const [showInfraLinks, setShowInfraLinks] = useState(!routeSelected);
