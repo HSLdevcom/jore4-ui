@@ -1,5 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import React, { Fragment, ReactNode } from 'react';
+import { dropdownTransition } from '../../uiComponents';
 import { addClassName } from '../../utils';
 
 interface Props {
@@ -29,16 +30,8 @@ export const DropdownMenu = ({
               style={{ fontSize: 10 }}
             />
           </Menu.Button>
-          <Transition
-            show={open}
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Transition show={open} as={Fragment} {...dropdownTransition}>
             <Menu.Items
               static
               className="absolute right-0 w-full bg-brand border-t border-black border-opacity-20 rounded-b-md focus:outline-none shadow-md origin-top-right"
