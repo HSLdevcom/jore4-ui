@@ -51,24 +51,22 @@ const ModalFooter = ({ onCancel, onSave }: FooterProps): JSX.Element => {
 };
 
 interface Props {
+  heading: string;
   onClose: () => void;
   onCancel: () => void;
   onSave: () => void;
 }
 
 export const Modal: FunctionComponent<Props> = ({
+  heading,
   onClose,
   onCancel,
   onSave,
   children,
 }) => {
-  const { t } = useTranslation();
   return (
     <div className="bg-white">
-      <ModalHeader
-        onClose={onClose}
-        heading={t('stops.stopById', { id: 'xxxxx' })}
-      />
+      <ModalHeader onClose={onClose} heading={heading} />
       {children}
       <ModalFooter onCancel={onCancel} onSave={onSave} />
     </div>
