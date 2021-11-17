@@ -1,9 +1,16 @@
-import React, { Ref, useImperativeHandle, useRef, useState } from 'react';
+import React, {
+  Ref,
+  useContext,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import { HTMLOverlay, MapEvent } from 'react-map-gl';
+import { MapEditorContext } from '../../context/MapEditorContext';
 import { useUrlQuery } from '../../hooks';
 import { Column } from '../../layoutComponents';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
-import { DrawRouteLayer, Mode } from './DrawRouteLayer';
+import { DrawRouteLayer } from './DrawRouteLayer';
 import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
 import { DynamicStopVectorLayer } from './DynamicStopVectorLayer';
 import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
@@ -15,7 +22,6 @@ import { StopVectorLayer } from './StopVectorLayer';
 interface Props {
   drawable?: boolean;
   canAddStops?: boolean;
-  drawingMode?: Mode;
   className?: string;
   width?: string;
   height?: string;
@@ -25,7 +31,6 @@ export const MapComponent = (
   {
     drawable = false,
     canAddStops = false,
-    drawingMode,
     className,
     width = '100vw',
     height = '100vh',
@@ -40,6 +45,7 @@ export const MapComponent = (
   const [showRoute, setShowRoute] = useState(routeSelected);
   const [showStops, setShowStops] = useState(!routeSelected);
   const [showDynamicStops, setShowDynamicStops] = useState(false);
+  const { drawingMode } = useContext(MapEditorContext);
 
   // TODO: avoid any type
   const editorLayerRef = useRef<ExplicitAny>(null);
