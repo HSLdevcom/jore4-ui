@@ -5,7 +5,8 @@
   },
   "routes": {
     "root": "Etusivu",
-    "routes": "Reitit ja linjat"
+    "routes": "Reitit ja linjat",
+    "chooseLine": "Valitse linja"
   },
   "stops": {
     "stop": "Pysäkki",

@@ -5,7 +5,8 @@
   },
   "routes": {
     "root": "Main page",
-    "routes": "Routes and lines"
+    "routes": "Routes and lines",
+    "chooseLine": "Choose line"
   },
   "stops": {
     "stop": "Stop",

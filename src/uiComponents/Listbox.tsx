@@ -32,15 +32,15 @@ export const dropdownTransition: TransitionClasses = {
   leaveTo: 'transform opacity-0 scale-95',
 };
 
-export interface InputProps {
+export interface FormInputProps {
   value?: string;
   onChange: ValueFn;
   onBlur: Noop;
 }
 
-interface Props extends InputProps {
+interface Props extends FormInputProps {
   buttonContent: ReactNode;
-  testId?: string;
+  testId: string;
   options: ListboxOptionRenderer[];
 }
 
