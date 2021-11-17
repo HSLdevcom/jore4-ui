@@ -5,7 +5,11 @@
   },
   "routes": {
     "root": "Main page",
-    "routes": "Routes and lines"
+    "routes": "Routes and lines",
+    "enterRouteData": "Enter route data",
+    "name": "Name of the route",
+    "addToLine": "Add to line",
+    "chooseLine": "Choose line"
   },
   "stops": {
     "stop": "Stop",
