@@ -4927,6 +4927,11 @@ export type QueryClosestLinkQueryVariables = Exact<{
 
 export type QueryClosestLinkQuery = { __typename?: 'query_root', infrastructure_network_resolve_point_to_closest_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: any }> };
 
+export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum }> };
+
 
 export const InsertStopDocument = gql`
     mutation InsertStop($object: service_pattern_scheduled_stop_point_insert_input!) {
@@ -5000,3 +5005,41 @@ export function useQueryClosestLinkLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type QueryClosestLinkQueryHookResult = ReturnType<typeof useQueryClosestLinkQuery>;
 export type QueryClosestLinkLazyQueryHookResult = ReturnType<typeof useQueryClosestLinkLazyQuery>;
 export type QueryClosestLinkQueryResult = Apollo.QueryResult<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>;
+export const ListAllLinesDocument = gql`
+    query ListAllLines {
+  route_line {
+    line_id
+    name_i18n
+    short_name_i18n
+    description_i18n
+    primary_vehicle_mode
+  }
+}
+    `;
+
+/**
+ * __useListAllLinesQuery__
+ *
+ * To run a query within a React component, call `useListAllLinesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListAllLinesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListAllLinesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListAllLinesQuery(baseOptions?: Apollo.QueryHookOptions<ListAllLinesQuery, ListAllLinesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument, options);
+      }
+export function useListAllLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListAllLinesQuery, ListAllLinesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument, options);
+        }
+export type ListAllLinesQueryHookResult = ReturnType<typeof useListAllLinesQuery>;
+export type ListAllLinesLazyQueryHookResult = ReturnType<typeof useListAllLinesLazyQuery>;
+export type ListAllLinesQueryResult = Apollo.QueryResult<ListAllLinesQuery, ListAllLinesQueryVariables>;
