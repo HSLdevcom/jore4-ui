@@ -6,3 +6,8 @@ out
 graphql.schema.json
 
 src/generated/*
+
+# external docker dependencies
+docker
+!docker/docker-compose.custom.yml
+!docker/2524600800000_seed-data
