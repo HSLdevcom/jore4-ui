@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { HTMLOverlay } from 'react-map-gl';
 import { submitFormByRef } from '../../utils';
 import { FormState, StopForm } from '../forms/StopForm';
@@ -15,13 +16,19 @@ export const EditStopModal = ({
   onCancel,
   onClose,
 }: Props): JSX.Element => {
+  const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
   const onSave = () => submitFormByRef(formRef);
   return (
     <HTMLOverlay
       redraw={() => (
         <div className="flex ml-5 mt-5">
-          <Modal onSave={onSave} onCancel={onCancel} onClose={onClose}>
+          <Modal
+            onSave={onSave}
+            onCancel={onCancel}
+            onClose={onClose}
+            heading={t('stops.stopById', { id: 'xxxxx' })}
+          >
             <StopForm
               className="p-12"
               defaultValues={defaultValues}
