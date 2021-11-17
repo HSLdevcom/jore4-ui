@@ -6,3 +6,6 @@ out
 graphql.schema.json
 
 src/generated/*
+
+# external docker dependencies
+docker
