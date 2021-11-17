@@ -5,7 +5,11 @@
   },
   "routes": {
     "root": "Etusivu",
-    "routes": "Reitit ja linjat"
+    "routes": "Reitit ja linjat",
+    "enterRouteData": "Anna reitin tiedot",
+    "name": "Reitin nimi",
+    "addToLine": "Yhdistä linjaan",
+    "chooseLine": "Valitse linja"
   },
   "stops": {
     "stop": "Pysäkki",
