@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 1`] = `
+<DocumentFragment>
+  <div
+    class="relative h-full"
+  >
+    <button
+      aria-haspopup="true"
+      class="flex items-center w-full h-full text-left border border-grey rounded focus:outline-none"
+      data-testid="chooseLineDropdown1"
+      id="headlessui-listbox-button-1"
+      type="button"
+    >
+      <div
+        class="w-full"
+      >
+        routes.chooseLine
+      </div>
+      <i
+        class="icon-arrow ml-2 transform transition duration-150 ease-in-out rotate-0"
+        style="font-size: 10px;"
+      />
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 2`] = `
+<DocumentFragment>
+  <div
+    class="relative h-full"
+  >
+    <button
+      aria-haspopup="true"
+      class="flex items-center w-full h-full text-left border border-grey rounded focus:outline-none"
+      data-testid="chooseLineDropdown1"
+      id="headlessui-listbox-button-1"
+      type="button"
+    >
+      <div
+        class="w-full"
+      >
+        Line1 name (Line1 description)
+      </div>
+      <i
+        class="icon-arrow ml-2 transform transition duration-150 ease-in-out rotate-0"
+        style="font-size: 10px;"
+      />
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 3`] = `
+<DocumentFragment>
+  <div
+    class="relative h-full"
+  >
+    <button
+      aria-controls="headlessui-listbox-options-3"
+      aria-expanded="true"
+      aria-haspopup="true"
+      class="flex items-center w-full h-full text-left border border-grey rounded focus:outline-none"
+      data-testid="chooseLineDropdown1"
+      id="headlessui-listbox-button-1"
+      type="button"
+    >
+      <div
+        class="w-full"
+      >
+        Line1 name (Line1 description)
+      </div>
+      <i
+        class="icon-arrow ml-2 transform transition duration-150 ease-in-out -rotate-180"
+        style="font-size: 10px;"
+      />
+    </button>
+    <ul
+      aria-activedescendant="headlessui-listbox-option-4"
+      aria-labelledby="headlessui-listbox-button-1"
+      class="absolute right-0 bg-white border border-black border-opacity-20 rounded-b-md focus:outline-none shadow-md origin-top-right transition ease-out duration-100 transform opacity-0 scale-95"
+      id="headlessui-listbox-options-3"
+      role="listbox"
+      tabindex="0"
+    >
+      <div
+        class="my-4"
+      >
+        <li
+          aria-selected="true"
+          id="headlessui-listbox-option-4"
+          role="option"
+          tabindex="-1"
+        >
+          <span
+            class="bg-background flex group text-left px-2 py-2 focus:outline-none"
+          >
+            Line1 name (Line1 description)
+          </span>
+        </li>
+        <li
+          id="headlessui-listbox-option-5"
+          role="option"
+          tabindex="-1"
+        >
+          <span
+            class=" flex group text-left px-2 py-2 focus:outline-none"
+          >
+            Line2 name (Line2 description)
+          </span>
+        </li>
+      </div>
+    </ul>
+  </div>
+</DocumentFragment>
+`;

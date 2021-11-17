@@ -16,6 +16,7 @@ import { DynamicStopVectorLayer } from './DynamicStopVectorLayer';
 import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
 import { Maplibre } from './Maplibre';
 import { RouteLayer } from './RouteLayer';
+import { Routes } from './Routes';
 import { Stops } from './Stops';
 import { StopVectorLayer } from './StopVectorLayer';
 
@@ -123,6 +124,7 @@ export const MapComponent = (
         captureScroll
       />
       <Stops ref={stopsRef} />
+      <Routes />
       {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
       {showInfraLinks && <InfraLinksVectorLayer />}
       {showStops && <StopVectorLayer />}

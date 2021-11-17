@@ -18,3 +18,6 @@ const customRender = (
 export * from '@testing-library/react';
 // override render method
 export { customRender as render };
+
+export const sleep = (timeout: number) =>
+  new Promise((resolve) => setTimeout(resolve, timeout));

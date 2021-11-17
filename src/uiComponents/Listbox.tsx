@@ -32,13 +32,13 @@ export const dropdownTransition: TransitionClasses = {
   leaveTo: 'transform opacity-0 scale-95',
 };
 
-export interface InputProps {
+export interface FormInputProps {
   value?: string;
   onChange: ValueFn;
   onBlur: Noop;
 }
 
-interface Props extends InputProps {
+interface Props extends FormInputProps {
   buttonContent: ReactNode;
   testId?: string;
   options: ListboxOptionRenderer[];
@@ -68,7 +68,7 @@ export const Listbox = ({
       {({ open }) => (
         <>
           <HUIListbox.Button
-            className="flex items-center w-full h-full border border-grey rounded focus:outline-none"
+            className="flex items-center w-full h-full text-left border border-grey rounded focus:outline-none"
             data-testid={testId}
           >
             {buttonContent}
@@ -83,7 +83,7 @@ export const Listbox = ({
           <Transition show={open} as={Fragment} {...dropdownTransition}>
             <HUIListbox.Options
               static
-              className="absolute right-0 w-full bg-white border border-black border-opacity-20 rounded-b-md focus:outline-none shadow-md origin-top-right"
+              className="absolute right-0 bg-white border border-black border-opacity-20 rounded-b-md focus:outline-none shadow-md origin-top-right"
             >
               <div className="my-4">
                 {options?.map((item) => (
@@ -94,8 +94,8 @@ export const Listbox = ({
                         ? addClassName(
                             child,
                             `${
-                              optionProps.active ? 'bg-brand !rounded-none' : ''
-                            } group rounded-md items-center text-center w-full px-4 py-2 focus:outline-none`,
+                              optionProps.active ? 'bg-background' : ''
+                            } flex group text-left px-2 py-2 focus:outline-none`,
                           )
                         : child;
                     }}
