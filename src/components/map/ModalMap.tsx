@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { MapEditorContext } from '../../context/MapEditorContext';
+import { MapEditorContext, Mode } from '../../context/MapEditorContext';
 import { Modal } from '../../uiComponents';
-import { Mode } from './DrawRouteLayer';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
@@ -23,6 +22,7 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
   const [drawingMode, setDrawingMode] = useState<Mode | undefined>(undefined);
   const [hasRoute, setHasRoute] = useState(false);
   const [canAddStops, setCanAddStops] = useState(false);
+  const [lineId, setLineId] = useState<string>();
 
   const onDrawRoute = () => {
     setDrawingMode(drawingMode !== Mode.Draw ? Mode.Draw : undefined);
@@ -39,8 +39,17 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
     setCanAddStops(!canAddStops);
   };
 
+  const contextValue = {
+    hasRoute,
+    setHasRoute,
+    lineId,
+    setLineId,
+    drawingMode,
+    setDrawingMode,
+  };
+
   return (
-    <MapEditorContext.Provider value={{ hasRoute, setHasRoute }}>
+    <MapEditorContext.Provider value={contextValue}>
       <Modal isOpen={isOpen} onClose={onClose} className={className}>
         <MapHeader onClose={onClose} />
         {/* Setting height of map component dynamically seems to be tricky as
@@ -52,13 +61,11 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
         */}
         <Map
           height={`calc(100vh - ${mapHeaderHeight + mapFooterHeight}px)`}
-          drawingMode={drawingMode}
           canAddStops={canAddStops}
           drawable
           ref={mapRef}
         />
         <MapFooter
-          drawingMode={drawingMode}
           onDrawRoute={onDrawRoute}
           onEditRoute={onEditRoute}
           onDeleteRoute={onDeleteRoute}

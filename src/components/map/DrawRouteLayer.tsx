@@ -10,16 +10,11 @@ import React, {
 import { MapContext } from 'react-map-gl';
 import { DrawLineStringMode, EditingMode, Editor } from 'react-map-gl-draw';
 import { getRoute } from '../../api/routing';
-import { MapEditorContext } from '../../context/MapEditorContext';
+import { MapEditorContext, Mode } from '../../context/MapEditorContext';
 import { addRoute, removeRoute } from './mapUtils';
 
 interface Props {
   mode?: Mode;
-}
-
-export enum Mode {
-  Draw,
-  Edit,
 }
 
 const modes = [

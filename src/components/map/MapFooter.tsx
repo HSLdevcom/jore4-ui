@@ -1,13 +1,11 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
-import { MapEditorContext } from '../../context/MapEditorContext';
+import { MapEditorContext, Mode } from '../../context/MapEditorContext';
 import { Row } from '../../layoutComponents';
 import { SimpleButton } from '../../uiComponents';
-import { Mode } from './DrawRouteLayer';
 
 interface Props {
-  drawingMode?: Mode;
   onDrawRoute: () => void;
   onEditRoute: () => void;
   onDeleteRoute: () => void;
@@ -16,7 +14,6 @@ interface Props {
 }
 
 export const MapFooter: React.FC<Props> = ({
-  drawingMode,
   onDrawRoute,
   onEditRoute,
   onDeleteRoute,
@@ -24,7 +21,7 @@ export const MapFooter: React.FC<Props> = ({
   onAddStop,
 }) => {
   const { t } = useTranslation();
-  const { hasRoute } = useContext(MapEditorContext);
+  const { hasRoute, drawingMode } = useContext(MapEditorContext);
   return (
     <Row className="px-10 py-5 bg-white space-x-4">
       <SimpleButton
