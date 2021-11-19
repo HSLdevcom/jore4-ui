@@ -1,5 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
-import React, { Fragment, ReactElement, ReactNode } from 'react';
+import React, { Fragment, ReactNode } from 'react';
+import { addClassName } from '../../utils';
 
 interface Props {
   buttonContent: ReactNode;
@@ -12,18 +13,6 @@ export const DropdownMenu = ({
   children,
   testId,
 }: Props): JSX.Element => {
-  const addClassName = (child: ReactElement, newClassName: string) => {
-    const className = child.props.className
-      ? `${child.props.className} ${newClassName}`
-      : newClassName;
-
-    const childProps = {
-      className,
-    };
-
-    return React.cloneElement(child, childProps);
-  };
-
   return (
     <Menu as="div" className="relative h-full">
       {({ open }) => (
