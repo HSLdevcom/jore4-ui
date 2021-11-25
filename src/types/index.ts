@@ -6,5 +6,4 @@ export interface Point {
 export enum Direction {
   Forward = 'forward',
   Backward = 'backward',
-  BiDirectional = 'bidirectional',
 }

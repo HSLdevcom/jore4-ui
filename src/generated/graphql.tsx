@@ -5524,6 +5524,15 @@ export type QueryClosestLinkQueryVariables = Exact<{
 
 export type QueryClosestLinkQuery = { __typename?: 'query_root', infrastructure_network_resolve_point_to_closest_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: any }> };
 
+export type QueryPointDirectionOnLinkQueryVariables = Exact<{
+  point_of_interest?: Maybe<Scalars['geography']>;
+  infrastructure_link_uuid?: Maybe<Scalars['uuid']>;
+  point_max_distance_in_meters?: Maybe<Scalars['float8']>;
+}>;
+
+
+export type QueryPointDirectionOnLinkQuery = { __typename?: 'query_root', infrastructure_network_find_point_direction_on_link: Array<{ __typename?: 'infrastructure_network_direction', value: string }> };
+
 
 export const InsertStopDocument = gql`
     mutation InsertStop($object: service_pattern_scheduled_stop_point_insert_input!) {
@@ -5597,3 +5606,42 @@ export function useQueryClosestLinkLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type QueryClosestLinkQueryHookResult = ReturnType<typeof useQueryClosestLinkQuery>;
 export type QueryClosestLinkLazyQueryHookResult = ReturnType<typeof useQueryClosestLinkLazyQuery>;
 export type QueryClosestLinkQueryResult = Apollo.QueryResult<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>;
+export const QueryPointDirectionOnLinkDocument = gql`
+    query QueryPointDirectionOnLink($point_of_interest: geography, $infrastructure_link_uuid: uuid, $point_max_distance_in_meters: float8) {
+  infrastructure_network_find_point_direction_on_link(
+    args: {point_of_interest: $point_of_interest, infrastructure_link_uuid: $infrastructure_link_uuid, point_max_distance_in_meters: $point_max_distance_in_meters}
+  ) {
+    value
+  }
+}
+    `;
+
+/**
+ * __useQueryPointDirectionOnLinkQuery__
+ *
+ * To run a query within a React component, call `useQueryPointDirectionOnLinkQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryPointDirectionOnLinkQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueryPointDirectionOnLinkQuery({
+ *   variables: {
+ *      point_of_interest: // value for 'point_of_interest'
+ *      infrastructure_link_uuid: // value for 'infrastructure_link_uuid'
+ *      point_max_distance_in_meters: // value for 'point_max_distance_in_meters'
+ *   },
+ * });
+ */
+export function useQueryPointDirectionOnLinkQuery(baseOptions?: Apollo.QueryHookOptions<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>(QueryPointDirectionOnLinkDocument, options);
+      }
+export function useQueryPointDirectionOnLinkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>(QueryPointDirectionOnLinkDocument, options);
+        }
+export type QueryPointDirectionOnLinkQueryHookResult = ReturnType<typeof useQueryPointDirectionOnLinkQuery>;
+export type QueryPointDirectionOnLinkLazyQueryHookResult = ReturnType<typeof useQueryPointDirectionOnLinkLazyQuery>;
+export type QueryPointDirectionOnLinkQueryResult = Apollo.QueryResult<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>;
