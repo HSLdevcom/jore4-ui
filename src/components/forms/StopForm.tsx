@@ -9,6 +9,9 @@ import {
   QueryClosestLinkDocument,
   QueryClosestLinkQueryResult,
   QueryClosestLinkQueryVariables,
+  QueryPointDirectionOnLinkDocument,
+  QueryPointDirectionOnLinkQueryResult,
+  QueryPointDirectionOnLinkQueryVariables,
   useInsertStopMutation,
 } from '../../generated/graphql';
 import { useAsyncQuery } from '../../hooks';
@@ -28,6 +31,14 @@ const parseInfraLinkId = (
     response.data?.infrastructure_network_resolve_point_to_closest_link?.[0]
       ?.infrastructure_link_id
   );
+};
+
+const parseStopDirection = (
+  response: ApolloQueryResult<QueryPointDirectionOnLinkQueryResult>,
+) => {
+  // @ts-expect-error types seems to be off
+  return response.data?.infrastructure_network_find_point_direction_on_link?.[0]
+    ?.value;
 };
 
 const schema = z.object({
@@ -63,6 +74,10 @@ const StopFormComponent = (
     QueryClosestLinkQueryResult,
     QueryClosestLinkQueryVariables
   >(QueryClosestLinkDocument);
+  const [fetchStopDirection] = useAsyncQuery<
+    QueryPointDirectionOnLinkQueryResult,
+    QueryPointDirectionOnLinkQueryVariables
+  >(QueryPointDirectionOnLinkDocument);
   const [mutateFunction] = useInsertStopMutation();
 
   const onSubmit = async (state: FormState) => {
@@ -71,23 +86,38 @@ const StopFormComponent = (
       longitude: state.longitude,
     });
     const closestLinkResponse = await fetchClosestLink({ point });
+    const closestLinkId = parseInfraLinkId(closestLinkResponse);
+    const stopDirectionResponse = await fetchStopDirection({
+      point_of_interest: point,
+      infrastructure_link_uuid: closestLinkId,
+      point_max_distance_in_meters: 50,
+    });
+    const direction = parseStopDirection(stopDirectionResponse);
+
+    if (!direction) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `Could not resolve stop direction. TODO: implement ui for entering it manually. Fallbacking to "${Direction.Forward}" for now.`,
+      );
+    }
 
     const variables: InsertStopMutationVariables = mapToObject({
-      located_on_infrastructure_link_id: parseInfraLinkId(closestLinkResponse),
-      // TODO: we need hasura function for calculating direction similarly as we do
-      // calcutate `located_on_infrastructure_link_id` and then we have to fetch
-      // it here similarly. Use hardcoded value until that function is available.
-      direction: Direction.BiDirectional,
+      located_on_infrastructure_link_id: closestLinkId,
+      // TODO: Getting link direction is not always possible. In those cases we should let user input direction manually. Use hardcoded value for now.
+      direction: direction || Direction.Forward,
       measured_location: point,
       // TODO: how we should calculate label? Use finnishName as label for now as
       // have been done in jore3 importer, but it won't be correct solution in the long
       // term.
       label: state.finnishName,
+      priority: 10,
     });
 
     try {
       await mutateFunction(mapToVariables(variables));
       onSubmitSuccess();
+      // eslint-disable-next-line no-console
+      console.log('Stop created succesfully. TODO: inform user about it');
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(`Err, ${err}, TODO: show error message}`);

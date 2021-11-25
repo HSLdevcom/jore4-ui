@@ -14,3 +14,21 @@ const QUERY_CLOSEST_LINK = gql`
     }
   }
 `;
+
+const QUERY_POINT_DIRECTION = gql`
+  query QueryPointDirectionOnLink(
+    $point_of_interest: geography
+    $infrastructure_link_uuid: uuid
+    $point_max_distance_in_meters: float8
+  ) {
+    infrastructure_network_find_point_direction_on_link(
+      args: {
+        point_of_interest: $point_of_interest
+        infrastructure_link_uuid: $infrastructure_link_uuid
+        point_max_distance_in_meters: $point_max_distance_in_meters
+      }
+    ) {
+      value
+    }
+  }
+`;
