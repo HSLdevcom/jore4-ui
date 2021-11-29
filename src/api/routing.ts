@@ -4,11 +4,10 @@ const apiClient = axios.create({
   baseURL: '/api/route/v1',
 });
 
-const getDriving = (coordinates: string) =>
-  apiClient.get(`/driving/${coordinates}`);
+const getBus = (coordinates: string) => apiClient.get(`/bus/${coordinates}`);
 
 type LngLat = [string, string];
-export const getRoute = async (coordinates: LngLat[]) => {
-  const response = await getDriving(coordinates.join(';'));
+export const getBusRoute = async (coordinates: LngLat[]) => {
+  const response = await getBus(coordinates.join('~'));
   return response.data;
 };
