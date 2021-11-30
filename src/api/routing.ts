@@ -11,7 +11,7 @@ interface Geometry {
   coordinates: LngLat[];
 }
 
-interface BusRouteResponse {
+export interface BusRouteResponse {
   code: 'Ok';
   routes: {
     geometry: Geometry;

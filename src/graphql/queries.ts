@@ -44,3 +44,33 @@ const LIST_ALL_LINES = gql`
     }
   }
 `;
+
+const QUERY_MAP_EXTERNAL_LINK_IDS_TO_INFRA_LINK_IDS = gql`
+  query MapExternalLinkIdsToInfraLinkIds($externalLinkIds: [String!]) {
+    infrastructure_network_infrastructure_link(
+      where: { external_link_id: { _in: $externalLinkIds } }
+    ) {
+      infrastructure_link_id
+      external_link_id
+    }
+  }
+`;
+
+const QUERY_GET_STOPS = gql`
+  query GetStopsByInfraLinkIds($infraLinkIds: [uuid!]) {
+    service_pattern_scheduled_stop_point(
+      where: { located_on_infrastructure_link_id: { _in: $infraLinkIds } }
+    ) {
+      closest_point_on_infrastructure_link
+      direction
+      label
+      located_on_infrastructure_link_id
+      measured_location
+      priority
+      relative_distance_from_infrastructure_link_start
+      scheduled_stop_point_id
+      validity_end
+      validity_start
+    }
+  }
+`;
