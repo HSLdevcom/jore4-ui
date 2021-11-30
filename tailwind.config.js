@@ -27,6 +27,7 @@ module.exports = {
       borderColor: ['active', 'important'],
       borderRadius: ['important'],
       borderWidth: ['important'],
+      margin: ['important'],
       padding: ['important'],
     },
   },

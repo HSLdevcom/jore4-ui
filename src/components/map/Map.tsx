@@ -46,7 +46,9 @@ export const MapComponent = (
   const [showRoute, setShowRoute] = useState(routeSelected);
   const [showStops, setShowStops] = useState(!routeSelected);
   const [showDynamicStops, setShowDynamicStops] = useState(false);
-  const { drawingMode } = useContext(MapEditorContext);
+  const {
+    state: { drawingMode },
+  } = useContext(MapEditorContext);
 
   // TODO: avoid any type
   const editorLayerRef = useRef<ExplicitAny>(null);

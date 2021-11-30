@@ -11,6 +11,15 @@ import { MapContext } from 'react-map-gl';
 import { DrawLineStringMode, EditingMode, Editor } from 'react-map-gl-draw';
 import { getBusRoute } from '../../api/routing';
 import { MapEditorContext, Mode } from '../../context/MapEditorContext';
+import {
+  GetStopsByInfraLinkIdsDocument,
+  GetStopsByInfraLinkIdsQueryResult,
+  GetStopsByInfraLinkIdsQueryVariables,
+  MapExternalLinkIdsToInfraLinkIdsDocument,
+  MapExternalLinkIdsToInfraLinkIdsQueryResult,
+  MapExternalLinkIdsToInfraLinkIdsQueryVariables,
+} from '../../generated/graphql';
+import { useAsyncQuery } from '../../hooks';
 import { addRoute, removeRoute } from './mapUtils';
 
 interface Props {
@@ -41,15 +50,18 @@ const DrawRouteLayerComponent = (
 ): JSX.Element => {
   const { map } = useContext(MapContext);
   const editorRef = useRef<ExplicitAny>(null);
-  const { hasRoute, setHasRoute } = useContext(MapEditorContext);
+  const {
+    state: { hasRoute },
+    dispatch,
+  } = useContext(MapEditorContext);
 
   const onDelete = useCallback(
     (routeId: string) => {
       editorRef.current.deleteFeatures(routeId);
       removeRoute(map, routeId);
-      setHasRoute(false);
+      dispatch({ type: 'setState', payload: { hasRoute: false } });
     },
-    [map, setHasRoute],
+    [map, dispatch],
   );
 
   useImperativeHandle(externalRef, () => ({
@@ -72,15 +84,56 @@ const DrawRouteLayerComponent = (
     return modeDetails ? new modeDetails.handler() : undefined;
   }, [hasRoute, mode]);
 
+  const [fetchInfraLinkIdsByExternalIds] = useAsyncQuery<
+    MapExternalLinkIdsToInfraLinkIdsQueryResult,
+    MapExternalLinkIdsToInfraLinkIdsQueryVariables
+  >(MapExternalLinkIdsToInfraLinkIdsDocument);
+  const [fetchStopsByInfraLinkIds] = useAsyncQuery<
+    GetStopsByInfraLinkIdsQueryResult,
+    GetStopsByInfraLinkIdsQueryVariables
+  >(GetStopsByInfraLinkIdsDocument);
+
   const onAddRoute = useCallback(
     async (e: EditorCallback) => {
       const addedFeatureIndex = e.data.length - 1;
       const routeId = String(addedFeatureIndex);
       const { coordinates } = e.data[addedFeatureIndex].geometry;
 
-      const res = await getBusRoute(coordinates);
-      if (res?.routes?.[0]?.geometry) {
-        addRoute(map, routeId, res.routes[0].geometry);
+      const routeResponse = await getBusRoute(coordinates);
+      dispatch({ type: 'setState', payload: { busRoute: routeResponse } });
+
+      const externalLinkIds = routeResponse.routes[0]?.paths?.map(
+        (item) => item.externalLinkRef.externalLinkId,
+      );
+      const infraLinksResponse = await fetchInfraLinkIdsByExternalIds({
+        externalLinkIds,
+      });
+      // @ts-expect-error problem with generated types?
+      const infraLinkIds = infraLinksResponse.data.infrastructure_network_infrastructure_link.map(
+        // TODO: can correct type be imported from generated graphql typings?
+        (item: ExplicitAny) => item.infrastructure_link_id,
+      );
+
+      const stopsResponse = await fetchStopsByInfraLinkIds({ infraLinkIds });
+      const stopsWithinRoute =
+        // @ts-expect-error problem with generated types?
+        stopsResponse.data.service_pattern_scheduled_stop_point;
+      dispatch({ type: 'setState', payload: { stopsWithinRoute } });
+
+      if (stopsWithinRoute.length >= 2) {
+        // eslint-disable-next-line no-console
+        console.log(
+          'Route goes along 2 or more stops and thus can be saved. TODO: show user UI to select which stops to use.',
+        );
+      } else {
+        // eslint-disable-next-line no-console
+        console.log(
+          'There were less than 2 stops within route. Route needs at least starting stop and final stop. TODO: inform user about this.',
+        );
+      }
+
+      if (routeResponse?.routes?.[0]?.geometry) {
+        addRoute(map, routeId, routeResponse.routes[0].geometry);
       } else {
         // map matching backend didn't returned valid route. -> remove
         // also drawn route. Maybe we should show notification to the user
@@ -88,7 +141,13 @@ const DrawRouteLayerComponent = (
         onDelete(routeId);
       }
     },
-    [map, onDelete],
+    [
+      map,
+      onDelete,
+      dispatch,
+      fetchInfraLinkIdsByExternalIds,
+      fetchStopsByInfraLinkIds,
+    ],
   );
 
   const debouncedOnAddRoute = useMemo(() => debounce(onAddRoute, 500), [
@@ -98,7 +157,7 @@ const DrawRouteLayerComponent = (
   const onUpdate = (e: EditorCallback) => {
     if (e.editType === 'addFeature' || e.editType === 'movePosition') {
       // user added new route or edited existing one
-      setHasRoute(true);
+      dispatch({ type: 'setState', payload: { hasRoute: true } });
       // Editor calls onUpdate callback million times when route is being edited. That's why we want to debounce onAddRoute event.
       debouncedOnAddRoute(e);
     }

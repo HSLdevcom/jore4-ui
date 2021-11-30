@@ -5517,6 +5517,13 @@ export type InsertStopMutationVariables = Exact<{
 
 export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_pattern_scheduled_stop_point_one?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, located_on_infrastructure_link_id?: any | null | undefined, direction?: string | null | undefined, measured_location?: any | null | undefined, label?: string | null | undefined } | null | undefined };
 
+export type InsertRouteOneMutationVariables = Exact<{
+  object: RouteRouteInsertInput;
+}>;
+
+
+export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id?: any | null | undefined, ends_at_scheduled_stop_point_id?: any | null | undefined, route_shape?: any | null | undefined, on_line_id?: any | null | undefined, priority?: number | null | undefined } | null | undefined };
+
 export type QueryClosestLinkQueryVariables = Exact<{
   point?: Maybe<Scalars['geography']>;
 }>;
@@ -5537,6 +5544,20 @@ export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum }> };
+
+export type MapExternalLinkIdsToInfraLinkIdsQueryVariables = Exact<{
+  externalLinkIds?: Maybe<Array<Scalars['String']> | Scalars['String']>;
+}>;
+
+
+export type MapExternalLinkIdsToInfraLinkIdsQuery = { __typename?: 'query_root', infrastructure_network_infrastructure_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: any, external_link_id: string }> };
+
+export type GetStopsByInfraLinkIdsQueryVariables = Exact<{
+  infraLinkIds?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
+}>;
+
+
+export type GetStopsByInfraLinkIdsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', closest_point_on_infrastructure_link?: any | null | undefined, direction?: string | null | undefined, label?: string | null | undefined, located_on_infrastructure_link_id?: any | null | undefined, measured_location?: any | null | undefined, priority?: number | null | undefined, relative_distance_from_infrastructure_link_start?: any | null | undefined, scheduled_stop_point_id?: any | null | undefined, validity_end?: any | null | undefined, validity_start?: any | null | undefined }> };
 
 
 export const InsertStopDocument = gql`
@@ -5576,6 +5597,44 @@ export function useInsertStopMutation(baseOptions?: Apollo.MutationHookOptions<I
 export type InsertStopMutationHookResult = ReturnType<typeof useInsertStopMutation>;
 export type InsertStopMutationResult = Apollo.MutationResult<InsertStopMutation>;
 export type InsertStopMutationOptions = Apollo.BaseMutationOptions<InsertStopMutation, InsertStopMutationVariables>;
+export const InsertRouteOneDocument = gql`
+    mutation InsertRouteOne($object: route_route_insert_input!) {
+  insert_route_route_one(object: $object) {
+    description_i18n
+    starts_from_scheduled_stop_point_id
+    ends_at_scheduled_stop_point_id
+    route_shape
+    on_line_id
+    priority
+  }
+}
+    `;
+export type InsertRouteOneMutationFn = Apollo.MutationFunction<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
+
+/**
+ * __useInsertRouteOneMutation__
+ *
+ * To run a mutation, you first call `useInsertRouteOneMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertRouteOneMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertRouteOneMutation, { data, loading, error }] = useInsertRouteOneMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useInsertRouteOneMutation(baseOptions?: Apollo.MutationHookOptions<InsertRouteOneMutation, InsertRouteOneMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertRouteOneMutation, InsertRouteOneMutationVariables>(InsertRouteOneDocument, options);
+      }
+export type InsertRouteOneMutationHookResult = ReturnType<typeof useInsertRouteOneMutation>;
+export type InsertRouteOneMutationResult = Apollo.MutationResult<InsertRouteOneMutation>;
+export type InsertRouteOneMutationOptions = Apollo.BaseMutationOptions<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
 export const QueryClosestLinkDocument = gql`
     query QueryClosestLink($point: geography) {
   infrastructure_network_resolve_point_to_closest_link(args: {geog: $point}) {
@@ -5688,3 +5747,87 @@ export function useListAllLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type ListAllLinesQueryHookResult = ReturnType<typeof useListAllLinesQuery>;
 export type ListAllLinesLazyQueryHookResult = ReturnType<typeof useListAllLinesLazyQuery>;
 export type ListAllLinesQueryResult = Apollo.QueryResult<ListAllLinesQuery, ListAllLinesQueryVariables>;
+export const MapExternalLinkIdsToInfraLinkIdsDocument = gql`
+    query MapExternalLinkIdsToInfraLinkIds($externalLinkIds: [String!]) {
+  infrastructure_network_infrastructure_link(
+    where: {external_link_id: {_in: $externalLinkIds}}
+  ) {
+    infrastructure_link_id
+    external_link_id
+  }
+}
+    `;
+
+/**
+ * __useMapExternalLinkIdsToInfraLinkIdsQuery__
+ *
+ * To run a query within a React component, call `useMapExternalLinkIdsToInfraLinkIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMapExternalLinkIdsToInfraLinkIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMapExternalLinkIdsToInfraLinkIdsQuery({
+ *   variables: {
+ *      externalLinkIds: // value for 'externalLinkIds'
+ *   },
+ * });
+ */
+export function useMapExternalLinkIdsToInfraLinkIdsQuery(baseOptions?: Apollo.QueryHookOptions<MapExternalLinkIdsToInfraLinkIdsQuery, MapExternalLinkIdsToInfraLinkIdsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MapExternalLinkIdsToInfraLinkIdsQuery, MapExternalLinkIdsToInfraLinkIdsQueryVariables>(MapExternalLinkIdsToInfraLinkIdsDocument, options);
+      }
+export function useMapExternalLinkIdsToInfraLinkIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MapExternalLinkIdsToInfraLinkIdsQuery, MapExternalLinkIdsToInfraLinkIdsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MapExternalLinkIdsToInfraLinkIdsQuery, MapExternalLinkIdsToInfraLinkIdsQueryVariables>(MapExternalLinkIdsToInfraLinkIdsDocument, options);
+        }
+export type MapExternalLinkIdsToInfraLinkIdsQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinkIdsQuery>;
+export type MapExternalLinkIdsToInfraLinkIdsLazyQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinkIdsLazyQuery>;
+export type MapExternalLinkIdsToInfraLinkIdsQueryResult = Apollo.QueryResult<MapExternalLinkIdsToInfraLinkIdsQuery, MapExternalLinkIdsToInfraLinkIdsQueryVariables>;
+export const GetStopsByInfraLinkIdsDocument = gql`
+    query GetStopsByInfraLinkIds($infraLinkIds: [uuid!]) {
+  service_pattern_scheduled_stop_point(
+    where: {located_on_infrastructure_link_id: {_in: $infraLinkIds}}
+  ) {
+    closest_point_on_infrastructure_link
+    direction
+    label
+    located_on_infrastructure_link_id
+    measured_location
+    priority
+    relative_distance_from_infrastructure_link_start
+    scheduled_stop_point_id
+    validity_end
+    validity_start
+  }
+}
+    `;
+
+/**
+ * __useGetStopsByInfraLinkIdsQuery__
+ *
+ * To run a query within a React component, call `useGetStopsByInfraLinkIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopsByInfraLinkIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopsByInfraLinkIdsQuery({
+ *   variables: {
+ *      infraLinkIds: // value for 'infraLinkIds'
+ *   },
+ * });
+ */
+export function useGetStopsByInfraLinkIdsQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsByInfraLinkIdsQuery, GetStopsByInfraLinkIdsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopsByInfraLinkIdsQuery, GetStopsByInfraLinkIdsQueryVariables>(GetStopsByInfraLinkIdsDocument, options);
+      }
+export function useGetStopsByInfraLinkIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsByInfraLinkIdsQuery, GetStopsByInfraLinkIdsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopsByInfraLinkIdsQuery, GetStopsByInfraLinkIdsQueryVariables>(GetStopsByInfraLinkIdsDocument, options);
+        }
+export type GetStopsByInfraLinkIdsQueryHookResult = ReturnType<typeof useGetStopsByInfraLinkIdsQuery>;
+export type GetStopsByInfraLinkIdsLazyQueryHookResult = ReturnType<typeof useGetStopsByInfraLinkIdsLazyQuery>;
+export type GetStopsByInfraLinkIdsQueryResult = Apollo.QueryResult<GetStopsByInfraLinkIdsQuery, GetStopsByInfraLinkIdsQueryVariables>;

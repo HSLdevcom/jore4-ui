@@ -6,6 +6,7 @@
   "routes": {
     "root": "Etusivu",
     "routes": "Reitit ja linjat",
+    "save": "Tallenna reitti",
     "enterRouteData": "Anna reitin tiedot",
     "name": "Reitin nimi",
     "addToLine": "Yhdistä linjaan",
