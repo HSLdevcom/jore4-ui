@@ -6,8 +6,37 @@ const apiClient = axios.create({
 
 const getBus = (coordinates: string) => apiClient.get(`/bus/${coordinates}`);
 
+interface Geometry {
+  type: 'LineString';
+  coordinates: LngLat[];
+}
+
+interface BusRouteResponse {
+  code: 'Ok';
+  routes: {
+    geometry: Geometry;
+    weight: number;
+    distance: number;
+    paths: {
+      infrastructureLinkId: number;
+      externalLinkRef: {
+        infrastructureSource: 'digiroad_r';
+        externalLinkId: string;
+      };
+      geometry: Geometry;
+      weight: number;
+      distance: number;
+      infrastructureLinkName: {
+        fi: string;
+        sv: string;
+      };
+      traversalForwards: boolean;
+    }[];
+  }[];
+}
+
 type LngLat = [string, string];
 export const getBusRoute = async (coordinates: LngLat[]) => {
   const response = await getBus(coordinates.join('~'));
-  return response.data;
+  return response.data as BusRouteResponse;
 };
