@@ -18,3 +18,16 @@ const INSERT_STOP = gql`
     }
   }
 `;
+
+const INSERT_ROUTE = gql`
+  mutation InsertRouteOne($object: route_route_insert_input!) {
+    insert_route_route_one(object: $object) {
+      description_i18n
+      starts_from_scheduled_stop_point_id
+      ends_at_scheduled_stop_point_id
+      route_shape
+      on_line_id
+      priority
+    }
+  }
+`;
