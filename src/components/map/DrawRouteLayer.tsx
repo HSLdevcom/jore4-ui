@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import { MapContext } from 'react-map-gl';
 import { DrawLineStringMode, EditingMode, Editor } from 'react-map-gl-draw';
-import { getRoute } from '../../api/routing';
+import { getBusRoute } from '../../api/routing';
 import { MapEditorContext, Mode } from '../../context/MapEditorContext';
 import { addRoute, removeRoute } from './mapUtils';
 
@@ -78,7 +78,7 @@ const DrawRouteLayerComponent = (
       const routeId = String(addedFeatureIndex);
       const { coordinates } = e.data[addedFeatureIndex].geometry;
 
-      const res = await getRoute(coordinates);
+      const res = await getBusRoute(coordinates);
       if (res?.routes?.[0]?.geometry) {
         addRoute(map, routeId, res.routes[0].geometry);
       } else {
