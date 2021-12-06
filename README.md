@@ -101,7 +101,7 @@ Current icon font can be previewed by opening (`src/generated/fontello/demo.html
 Icon font can be updated by following these steps:
 
 - Export desired svg icons from [JORE4 figma](https://www.figma.com/file/ImSTkCqQn0nhVUtMcUm41P/JORE-4.0-UX?node-id=1503%3A53530).
-- Import exsisting icon font to [fontello](https://fontello.com/)
+- Import exsisting icon font's `config.json` (from directory `src/generated/fontello`) to [fontello](https://fontello.com/)
 - Upload new icons to fontello's page. Please check that names of the icons make sense.
 - Export new font from fontello. Replace contents of `src/generated/fontello` with the package that fontello provided.
 - Use new icons where needed. 😎
