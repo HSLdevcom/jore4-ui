@@ -1,12 +1,7 @@
 import { FC, useCallback, useEffect, useReducer } from 'react';
 import { Api } from '../api';
 import { UserContext } from './UserContext';
-import {
-  GET_USER_INFO_FAILURE,
-  GET_USER_INFO_SUCCESS,
-  initialUserState,
-  userReducer,
-} from './UserReducer';
+import { initialUserState, userReducer } from './UserReducer';
 
 export const UserContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, initialUserState);
@@ -14,9 +9,9 @@ export const UserContextProvider: FC = ({ children }) => {
   const getUserInfo = useCallback(async () => {
     try {
       const response = await Api.user.getUserInfo();
-      dispatch({ type: GET_USER_INFO_SUCCESS, payload: response.data });
+      dispatch({ type: 'login_success', payload: response.data });
     } catch (error) {
-      dispatch({ type: GET_USER_INFO_FAILURE });
+      dispatch({ type: 'reset' });
     }
   }, []);
 
