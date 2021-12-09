@@ -45,6 +45,7 @@
 .icon-check:before { content: '\e82b'; } /* '' */
 .icon-check-circle:before { content: '\e82c'; } /* '' */
 .icon-info:before { content: '\e82d'; } /* '' */
+.icon-bus-alt:before { content: '\e82e'; } /* '' */
 .icon-hsl-card-angle-1:before { content: '\e82f'; } /* '' */
 .icon-hsl-card-angle:before { content: '\e830'; } /* '' */
 .icon-arrow-2:before { content: '\e831'; } /* '' */
@@ -56,6 +57,5 @@
 .icon-bus:before { content: '\e837'; } /* '' */
 .icon-ferry:before { content: '\e839'; } /* '' */
 .icon-train:before { content: '\e83b'; } /* '' */
-.icon-bus-alt:before { content: '\e83c'; } /* '' */
 .icon-tram:before { content: '\e83d'; } /* '' */
 .icon-metro:before { content: '\e83f'; } /* '' */
