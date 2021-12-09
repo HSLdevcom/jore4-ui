@@ -1,4 +1,4 @@
-import { Context, createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import { UserInfo } from '../types/UserInfo';
 
 export interface UserContextData {
@@ -6,9 +6,9 @@ export interface UserContextData {
   userInfo?: UserInfo;
 }
 
-export const UserContext: Context<UserContextData | undefined> = createContext<
-  UserContextData | undefined
->(undefined);
+export const UserContext = createContext<UserContextData | undefined>(
+  undefined,
+);
 
 export const useUserContext = () => {
   const context = useContext(UserContext);
