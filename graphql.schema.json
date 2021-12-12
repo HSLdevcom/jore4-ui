@@ -22283,6 +22283,22 @@
             "deprecationReason": null
           },
           {
+            "name": "label",
+            "description": "The label of the line definition. The label is unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "line_id",
             "description": "The ID of the line.",
             "args": [],
@@ -22558,7 +22574,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -22570,7 +22586,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -22903,6 +22919,18 @@
             "deprecationReason": null
           },
           {
+            "name": "label",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "line_id",
             "description": null,
             "type": {
@@ -22979,7 +23007,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamp_comparison_exp",
+              "name": "timestamptz_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -22991,7 +23019,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamp_comparison_exp",
+              "name": "timestamptz_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -23052,6 +23080,18 @@
           {
             "name": "description_i18n",
             "description": "The description of the line. Placeholder for multilingual strings.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "The label of the line definition. The label is unique for a certain priority and validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -23138,7 +23178,7 @@
             "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -23150,7 +23190,7 @@
             "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -23180,6 +23220,18 @@
             "deprecationReason": null
           },
           {
+            "name": "label",
+            "description": "The label of the line definition. The label is unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "line_id",
             "description": "The ID of the line.",
             "args": [],
@@ -23233,7 +23285,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -23245,7 +23297,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -23275,6 +23327,18 @@
             "deprecationReason": null
           },
           {
+            "name": "label",
+            "description": "The label of the line definition. The label is unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "line_id",
             "description": "The ID of the line.",
             "args": [],
@@ -23328,7 +23392,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -23340,7 +23404,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -23474,6 +23538,18 @@
         "inputFields": [
           {
             "name": "description_i18n",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -23627,6 +23703,12 @@
             "deprecationReason": null
           },
           {
+            "name": "label",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "line_id",
             "description": "column name",
             "isDeprecated": false,
@@ -23680,6 +23762,18 @@
           {
             "name": "description_i18n",
             "description": "The description of the line. Placeholder for multilingual strings.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "The label of the line definition. The label is unique for a certain priority and validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -23754,7 +23848,7 @@
             "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -23766,7 +23860,7 @@
             "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -23880,6 +23974,12 @@
         "enumValues": [
           {
             "name": "description_i18n",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -24016,12 +24116,36 @@
             "deprecationReason": null
           },
           {
+            "name": "direction",
+            "description": "The direction of the route definition, label and direction together are unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
             "description": "The scheduled stop point where the route ends at.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "The label of the route definition, label and direction together are unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -24283,11 +24407,11 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid.",
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -24295,11 +24419,11 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid.",
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -24833,11 +24957,35 @@
             "deprecationReason": null
           },
           {
+            "name": "direction",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "uuid_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -24921,7 +25069,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamp_comparison_exp",
+              "name": "timestamptz_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -24933,7 +25081,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamp_comparison_exp",
+              "name": "timestamptz_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -24987,11 +25135,35 @@
             "deprecationReason": null
           },
           {
+            "name": "direction",
+            "description": "The direction of the route definition, label and direction together are unique for a certain priority and validity period.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
             "description": "The scheduled stop point where the route ends at.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "The label of the route definition, label and direction together are unique for a certain priority and validity period.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -25072,10 +25244,10 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid.",
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -25084,10 +25256,10 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid.",
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -25117,12 +25289,36 @@
             "deprecationReason": null
           },
           {
+            "name": "direction",
+            "description": "The direction of the route definition, label and direction together are unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
             "description": "The scheduled stop point where the route ends at.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "The label of the route definition, label and direction together are unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -25178,11 +25374,11 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid.",
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -25190,11 +25386,11 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid.",
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -25225,8 +25421,32 @@
             "deprecationReason": null
           },
           {
+            "name": "direction",
+            "description": "The direction of the route definition, label and direction together are unique for a certain priority and validity period.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
             "description": "The scheduled stop point where the route ends at.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "The label of the route definition, label and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -25286,7 +25506,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid.",
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -25298,7 +25518,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid.",
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -25331,12 +25551,36 @@
             "deprecationReason": null
           },
           {
+            "name": "direction",
+            "description": "The direction of the route definition, label and direction together are unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
             "description": "The scheduled stop point where the route ends at.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "The label of the route definition, label and direction together are unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -25392,11 +25636,11 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid.",
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -25404,11 +25648,11 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid.",
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -25439,8 +25683,32 @@
             "deprecationReason": null
           },
           {
+            "name": "direction",
+            "description": "The direction of the route definition, label and direction together are unique for a certain priority and validity period.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
             "description": "The scheduled stop point where the route ends at.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "The label of the route definition, label and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -25500,7 +25768,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid.",
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -25512,7 +25780,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid.",
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -25624,7 +25892,31 @@
             "deprecationReason": null
           },
           {
+            "name": "direction",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -25751,7 +26043,19 @@
             "deprecationReason": null
           },
           {
+            "name": "direction",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -25820,11 +26124,35 @@
             "deprecationReason": null
           },
           {
+            "name": "direction",
+            "description": "The direction of the route definition, label and direction together are unique for a certain priority and validity period.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
             "description": "The scheduled stop point where the route ends at.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "The label of the route definition, label and direction together are unique for a certain priority and validity period.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -25893,10 +26221,10 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid.",
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -25905,10 +26233,10 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid.",
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -26349,7 +26677,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -26361,7 +26689,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -26794,7 +27122,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamp_comparison_exp",
+              "name": "timestamptz_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -26806,7 +27134,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamp_comparison_exp",
+              "name": "timestamptz_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -26960,7 +27288,7 @@
             "description": "The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -26972,7 +27300,7 @@
             "description": "The point in time when the stop becomes valid. If NULL, the stop has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -27067,7 +27395,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -27079,7 +27407,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -27174,7 +27502,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -27186,7 +27514,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -28409,7 +28737,7 @@
             "description": "The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -28421,7 +28749,7 @@
             "description": "The point in time when the stop becomes valid. If NULL, the stop has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -32369,7 +32697,7 @@
       },
       {
         "kind": "SCALAR",
-        "name": "timestamp",
+        "name": "timestamptz",
         "description": null,
         "fields": null,
         "inputFields": null,
@@ -32379,8 +32707,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "timestamp_comparison_exp",
-        "description": "Boolean expression to compare columns of type \"timestamp\". All fields are combined with logical 'AND'.",
+        "name": "timestamptz_comparison_exp",
+        "description": "Boolean expression to compare columns of type \"timestamptz\". All fields are combined with logical 'AND'.",
         "fields": null,
         "inputFields": [
           {
@@ -32388,7 +32716,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -32400,7 +32728,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -32412,7 +32740,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -32430,7 +32758,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "timestamp",
+                  "name": "timestamptz",
                   "ofType": null
                 }
               }
@@ -32456,7 +32784,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -32468,7 +32796,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -32480,7 +32808,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "timestamptz",
               "ofType": null
             },
             "defaultValue": null,
@@ -32498,7 +32826,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "timestamp",
+                  "name": "timestamptz",
                   "ofType": null
                 }
               }

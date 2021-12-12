@@ -15,7 +15,7 @@ export type Scalars = {
   float8: any;
   geography: any;
   geometry: any;
-  timestamp: any;
+  timestamptz: any;
   uuid: any;
 };
 
@@ -3827,6 +3827,8 @@ export type RouteLine = {
   __typename?: 'route_line';
   /** The description of the line. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
+  /** The label of the line definition. The label is unique for a certain priority and validity period. */
+  label: Scalars['String'];
   /** The ID of the line. */
   line_id: Scalars['uuid'];
   /** An array relationship */
@@ -3842,9 +3844,9 @@ export type RouteLine = {
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
+  validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 
@@ -3922,14 +3924,15 @@ export type RouteLineBoolExp = {
   _not?: Maybe<RouteLineBoolExp>;
   _or?: Maybe<Array<RouteLineBoolExp>>;
   description_i18n?: Maybe<StringComparisonExp>;
+  label?: Maybe<StringComparisonExp>;
   line_id?: Maybe<UuidComparisonExp>;
   line_routes?: Maybe<RouteRouteBoolExp>;
   name_i18n?: Maybe<StringComparisonExp>;
   primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
   priority?: Maybe<IntComparisonExp>;
   short_name_i18n?: Maybe<StringComparisonExp>;
-  validity_end?: Maybe<TimestampComparisonExp>;
-  validity_start?: Maybe<TimestampComparisonExp>;
+  validity_end?: Maybe<TimestamptzComparisonExp>;
+  validity_start?: Maybe<TimestamptzComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.line" */
@@ -3948,6 +3951,8 @@ export type RouteLineIncInput = {
 export type RouteLineInsertInput = {
   /** The description of the line. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
+  /** The label of the line definition. The label is unique for a certain priority and validity period. */
+  label?: Maybe<Scalars['String']>;
   /** The ID of the line. */
   line_id?: Maybe<Scalars['uuid']>;
   line_routes?: Maybe<RouteRouteArrRelInsertInput>;
@@ -3960,9 +3965,9 @@ export type RouteLineInsertInput = {
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
+  validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregate max on columns */
@@ -3970,6 +3975,8 @@ export type RouteLineMaxFields = {
   __typename?: 'route_line_max_fields';
   /** The description of the line. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
+  /** The label of the line definition. The label is unique for a certain priority and validity period. */
+  label?: Maybe<Scalars['String']>;
   /** The ID of the line. */
   line_id?: Maybe<Scalars['uuid']>;
   /** The name of the line. Placeholder for multilingual strings. */
@@ -3979,9 +3986,9 @@ export type RouteLineMaxFields = {
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
+  validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregate min on columns */
@@ -3989,6 +3996,8 @@ export type RouteLineMinFields = {
   __typename?: 'route_line_min_fields';
   /** The description of the line. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
+  /** The label of the line definition. The label is unique for a certain priority and validity period. */
+  label?: Maybe<Scalars['String']>;
   /** The ID of the line. */
   line_id?: Maybe<Scalars['uuid']>;
   /** The name of the line. Placeholder for multilingual strings. */
@@ -3998,9 +4007,9 @@ export type RouteLineMinFields = {
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
+  validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** response of any mutation on the table "route.line" */
@@ -4022,6 +4031,7 @@ export type RouteLineOnConflict = {
 /** Ordering options when selecting data from "route.line". */
 export type RouteLineOrderBy = {
   description_i18n?: Maybe<OrderBy>;
+  label?: Maybe<OrderBy>;
   line_id?: Maybe<OrderBy>;
   line_routes_aggregate?: Maybe<RouteRouteAggregateOrderBy>;
   name_i18n?: Maybe<OrderBy>;
@@ -4043,6 +4053,8 @@ export enum RouteLineSelectColumn {
   /** column name */
   DescriptionI18n = 'description_i18n',
   /** column name */
+  Label = 'label',
+  /** column name */
   LineId = 'line_id',
   /** column name */
   NameI18n = 'name_i18n',
@@ -4062,6 +4074,8 @@ export enum RouteLineSelectColumn {
 export type RouteLineSetInput = {
   /** The description of the line. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
+  /** The label of the line definition. The label is unique for a certain priority and validity period. */
+  label?: Maybe<Scalars['String']>;
   /** The ID of the line. */
   line_id?: Maybe<Scalars['uuid']>;
   /** The name of the line. Placeholder for multilingual strings. */
@@ -4073,9 +4087,9 @@ export type RouteLineSetInput = {
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
+  validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregate stddev on columns */
@@ -4110,6 +4124,8 @@ export type RouteLineSumFields = {
 export enum RouteLineUpdateColumn {
   /** column name */
   DescriptionI18n = 'description_i18n',
+  /** column name */
+  Label = 'label',
   /** column name */
   LineId = 'line_id',
   /** column name */
@@ -4158,8 +4174,12 @@ export type RouteRoute = {
   __typename?: 'route_route';
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
+  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
+  direction?: Maybe<Scalars['String']>;
   /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
+  label?: Maybe<Scalars['String']>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
@@ -4174,10 +4194,10 @@ export type RouteRoute = {
   route_shape?: Maybe<Scalars['geography']>;
   /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  validity_end?: Maybe<Scalars['timestamptz']>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 
@@ -4281,15 +4301,17 @@ export type RouteRouteBoolExp = {
   _not?: Maybe<RouteRouteBoolExp>;
   _or?: Maybe<Array<RouteRouteBoolExp>>;
   description_i18n?: Maybe<StringComparisonExp>;
+  direction?: Maybe<StringComparisonExp>;
   ends_at_scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
+  label?: Maybe<StringComparisonExp>;
   on_line_id?: Maybe<UuidComparisonExp>;
   priority?: Maybe<IntComparisonExp>;
   route_id?: Maybe<UuidComparisonExp>;
   route_journey_patterns?: Maybe<JourneyPatternJourneyPatternBoolExp>;
   route_shape?: Maybe<GeographyComparisonExp>;
   starts_from_scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
-  validity_end?: Maybe<TimestampComparisonExp>;
-  validity_start?: Maybe<TimestampComparisonExp>;
+  validity_end?: Maybe<TimestamptzComparisonExp>;
+  validity_start?: Maybe<TimestamptzComparisonExp>;
 };
 
 /** input type for incrementing numeric columns in table "route.route" */
@@ -4302,8 +4324,12 @@ export type RouteRouteIncInput = {
 export type RouteRouteInsertInput = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
+  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
+  direction?: Maybe<Scalars['String']>;
   /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
+  label?: Maybe<Scalars['String']>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
@@ -4315,10 +4341,10 @@ export type RouteRouteInsertInput = {
   route_shape?: Maybe<Scalars['geography']>;
   /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  validity_end?: Maybe<Scalars['timestamptz']>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregate max on columns */
@@ -4326,8 +4352,12 @@ export type RouteRouteMaxFields = {
   __typename?: 'route_route_max_fields';
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
+  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
+  direction?: Maybe<Scalars['String']>;
   /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
+  label?: Maybe<Scalars['String']>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
@@ -4336,18 +4366,22 @@ export type RouteRouteMaxFields = {
   route_id?: Maybe<Scalars['uuid']>;
   /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  validity_end?: Maybe<Scalars['timestamptz']>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** order by max() on columns of table "route.route" */
 export type RouteRouteMaxOrderBy = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<OrderBy>;
+  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
+  direction?: Maybe<OrderBy>;
   /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<OrderBy>;
+  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
+  label?: Maybe<OrderBy>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<OrderBy>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
@@ -4356,9 +4390,9 @@ export type RouteRouteMaxOrderBy = {
   route_id?: Maybe<OrderBy>;
   /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<OrderBy>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid. */
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<OrderBy>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid. */
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<OrderBy>;
 };
 
@@ -4367,8 +4401,12 @@ export type RouteRouteMinFields = {
   __typename?: 'route_route_min_fields';
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
+  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
+  direction?: Maybe<Scalars['String']>;
   /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
+  label?: Maybe<Scalars['String']>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
@@ -4377,18 +4415,22 @@ export type RouteRouteMinFields = {
   route_id?: Maybe<Scalars['uuid']>;
   /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  validity_end?: Maybe<Scalars['timestamptz']>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** order by min() on columns of table "route.route" */
 export type RouteRouteMinOrderBy = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<OrderBy>;
+  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
+  direction?: Maybe<OrderBy>;
   /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<OrderBy>;
+  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
+  label?: Maybe<OrderBy>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<OrderBy>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
@@ -4397,9 +4439,9 @@ export type RouteRouteMinOrderBy = {
   route_id?: Maybe<OrderBy>;
   /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<OrderBy>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid. */
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<OrderBy>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid. */
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<OrderBy>;
 };
 
@@ -4420,7 +4462,9 @@ export type RouteRouteObjRelInsertInput = {
 /** Ordering options when selecting data from "route.route". */
 export type RouteRouteOrderBy = {
   description_i18n?: Maybe<OrderBy>;
+  direction?: Maybe<OrderBy>;
   ends_at_scheduled_stop_point_id?: Maybe<OrderBy>;
+  label?: Maybe<OrderBy>;
   on_line_id?: Maybe<OrderBy>;
   priority?: Maybe<OrderBy>;
   route_id?: Maybe<OrderBy>;
@@ -4436,7 +4480,11 @@ export enum RouteRouteSelectColumn {
   /** column name */
   DescriptionI18n = 'description_i18n',
   /** column name */
+  Direction = 'direction',
+  /** column name */
   EndsAtScheduledStopPointId = 'ends_at_scheduled_stop_point_id',
+  /** column name */
+  Label = 'label',
   /** column name */
   OnLineId = 'on_line_id',
   /** column name */
@@ -4457,8 +4505,12 @@ export enum RouteRouteSelectColumn {
 export type RouteRouteSetInput = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
+  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
+  direction?: Maybe<Scalars['String']>;
   /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
+  label?: Maybe<Scalars['String']>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
@@ -4469,10 +4521,10 @@ export type RouteRouteSetInput = {
   route_shape?: Maybe<Scalars['geography']>;
   /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  validity_end?: Maybe<Scalars['timestamptz']>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregate stddev on columns */
@@ -4592,9 +4644,9 @@ export type ServicePatternScheduledStopPoint = {
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
+  validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregated selection of "service_pattern.scheduled_stop_point" */
@@ -4649,8 +4701,8 @@ export type ServicePatternScheduledStopPointBoolExp = {
   priority?: Maybe<IntComparisonExp>;
   relative_distance_from_infrastructure_link_start?: Maybe<Float8ComparisonExp>;
   scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
-  validity_end?: Maybe<TimestampComparisonExp>;
-  validity_start?: Maybe<TimestampComparisonExp>;
+  validity_end?: Maybe<TimestamptzComparisonExp>;
+  validity_start?: Maybe<TimestamptzComparisonExp>;
 };
 
 /** input type for incrementing numeric columns in table "service_pattern.scheduled_stop_point" */
@@ -4680,9 +4732,9 @@ export type ServicePatternScheduledStopPointInsertInput = {
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
+  validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregate max on columns */
@@ -4701,9 +4753,9 @@ export type ServicePatternScheduledStopPointMaxFields = {
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
+  validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregate min on columns */
@@ -4722,9 +4774,9 @@ export type ServicePatternScheduledStopPointMinFields = {
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
+  validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** response of any mutation on the table "service_pattern.scheduled_stop_point" */
@@ -4957,9 +5009,9 @@ export type ServicePatternScheduledStopPointSetInput = {
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamp']>;
+  validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamp']>;
+  validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregate stddev on columns */
@@ -5484,17 +5536,17 @@ export type SubscriptionRootServicePatternScheduledStopPointServicedByVehicleMod
   vehicle_mode: ReusableComponentsVehicleModeEnum;
 };
 
-/** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
-export type TimestampComparisonExp = {
-  _eq?: Maybe<Scalars['timestamp']>;
-  _gt?: Maybe<Scalars['timestamp']>;
-  _gte?: Maybe<Scalars['timestamp']>;
-  _in?: Maybe<Array<Scalars['timestamp']>>;
+/** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
+export type TimestamptzComparisonExp = {
+  _eq?: Maybe<Scalars['timestamptz']>;
+  _gt?: Maybe<Scalars['timestamptz']>;
+  _gte?: Maybe<Scalars['timestamptz']>;
+  _in?: Maybe<Array<Scalars['timestamptz']>>;
   _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['timestamp']>;
-  _lte?: Maybe<Scalars['timestamp']>;
-  _neq?: Maybe<Scalars['timestamp']>;
-  _nin?: Maybe<Array<Scalars['timestamp']>>;
+  _lt?: Maybe<Scalars['timestamptz']>;
+  _lte?: Maybe<Scalars['timestamptz']>;
+  _neq?: Maybe<Scalars['timestamptz']>;
+  _nin?: Maybe<Array<Scalars['timestamptz']>>;
 };
 
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
@@ -5522,7 +5574,7 @@ export type InsertRouteOneMutationVariables = Exact<{
 }>;
 
 
-export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id?: any | null | undefined, ends_at_scheduled_stop_point_id?: any | null | undefined, route_shape?: any | null | undefined, on_line_id?: any | null | undefined, priority?: number | null | undefined } | null | undefined };
+export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', starts_from_scheduled_stop_point_id?: any | null | undefined, ends_at_scheduled_stop_point_id?: any | null | undefined, route_shape?: any | null | undefined, on_line_id?: any | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined } | null | undefined };
 
 export type QueryClosestLinkQueryVariables = Exact<{
   point?: Maybe<Scalars['geography']>;
@@ -5600,12 +5652,13 @@ export type InsertStopMutationOptions = Apollo.BaseMutationOptions<InsertStopMut
 export const InsertRouteOneDocument = gql`
     mutation InsertRouteOne($object: route_route_insert_input!) {
   insert_route_route_one(object: $object) {
-    description_i18n
     starts_from_scheduled_stop_point_id
     ends_at_scheduled_stop_point_id
     route_shape
     on_line_id
     priority
+    label
+    direction
   }
 }
     `;
