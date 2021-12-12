@@ -50,10 +50,8 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
         starts_from_scheduled_stop_point_id: startingStop,
         ends_at_scheduled_stop_point_id: finalStop,
         on_line_id: state.routeDetails?.on_line_id,
-        // TODO: route_shape does not end up in hasura (!!!), so probably
-        // we should send something else than "geometry" there (?)
-        route_shape: busRoute.routes[0]?.geometry,
         priority: 10,
+        // route_shape cannot be added here, it is gathered dynamically by the route view from the route's links
       });
       try {
         await insertRouteMutation(mapToVariables(variables));
