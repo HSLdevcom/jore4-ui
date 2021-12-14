@@ -32,3 +32,13 @@ const INSERT_ROUTE = gql`
     }
   }
 `;
+
+const INSERT_LINE = gql`
+  mutation InsertLineOne($object: route_line_insert_input!) {
+    insert_route_line_one(object: $object) {
+      label
+      priority
+      primary_vehicle_mode
+    }
+  }
+`;
