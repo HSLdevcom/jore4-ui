@@ -3,6 +3,7 @@ import { MapEditorContext } from '../../context/MapEditorContext';
 import { initialState, mapEditorReducer } from '../../context/MapEditorReducer';
 import {
   InsertRouteOneMutationVariables,
+  RouteDirectionEnum,
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
 import { Modal } from '../../uiComponents';
@@ -50,6 +51,8 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
         starts_from_scheduled_stop_point_id: startingStop,
         ends_at_scheduled_stop_point_id: finalStop,
         on_line_id: state.routeDetails?.on_line_id,
+        label: state.routeDetails?.description_i18n, // TODO: retrieve label, don't use description for label
+        direction: RouteDirectionEnum.Outbound, // TODO: make this user-configurable
         priority: 10,
         // route_shape cannot be added here, it is gathered dynamically by the route view from the route's links
       });
