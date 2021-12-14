@@ -60,7 +60,7 @@ export const Listbox = ({
   return (
     <HUIListbox
       as="div"
-      className="relative h-full"
+      className="input-element relative h-full"
       value={value}
       onChange={onItemSelected}
       onBlur={onBlur}
@@ -68,12 +68,12 @@ export const Listbox = ({
       {({ open }) => (
         <>
           <HUIListbox.Button
-            className="flex items-center w-full h-full text-left border border-grey rounded focus:outline-none"
+            className="flex items-center w-full h-full text-left focus:outline-none"
             data-testid={testId}
           >
             {buttonContent}
             <i
-              className={`icon-arrow ml-2 transform transition duration-150 ease-in-out ${
+              className={`icon-arrow ml-auto transform transition duration-150 ease-in-out text-tweaked-brand ${
                 open ? '-rotate-180' : 'rotate-0'
               }`}
               style={{ fontSize: 10 }}
@@ -83,9 +83,9 @@ export const Listbox = ({
           <Transition show={open} as={Fragment} {...dropdownTransition}>
             <HUIListbox.Options
               static
-              className="absolute right-0 bg-white border border-black border-opacity-20 rounded-b-md focus:outline-none shadow-md origin-top-right"
+              className="absolute left-0 mt-2 w-full bg-white border border-black border-opacity-20 rounded-b-md focus:outline-none shadow-md"
             >
-              <div className="my-4">
+              <div>
                 {options?.map((item) => (
                   <HUIListbox.Option key={item.key} value={item.value}>
                     {(optionProps) => {

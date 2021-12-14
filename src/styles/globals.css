@@ -6,11 +6,12 @@ button:focus {
   outline: none;
 }
 
-input {
-  height: 24px;
+input, .input-element {
+  height: 44px;
   padding: 12px 10px 12px 10px;
   border: 1px solid #888888;
   border-radius: 5px;
+  background-color: white;
 }
 
 label {
