@@ -12,6 +12,14 @@
     "addToLine": "Yhdistä linjaan",
     "chooseLine": "Valitse linja"
   },
+  "lines": {
+    "createNew": "Luo uusi linja",
+    "properties": "Oheistiedot",
+    "label": "Tunnus",
+    "finnishName": "Nimi (Suomi)",
+    "primaryVehicleMode": "Ensisijainen kulkumuoto",
+    "chooseVehicleMode": "Valitse kulkumuoto"
+  },
   "stops": {
     "stop": "Pysäkki",
     "stopById": "Pysäkki {{ id }}",
@@ -35,6 +43,13 @@
     "location": "Sijainti",
     "latitude": "Latitude",
     "longitude": "Longitude"
+  },
+  "vehicleModeEnum": {
+    "bus": "Bussi",
+    "ferry": "Lautta",
+    "metro": "Metro",
+    "train": "Juna",
+    "tram": "Raitiovaunu"
   },
   "formValidation": {
     "required": "Kenttä vaaditaan"

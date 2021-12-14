@@ -5576,6 +5576,13 @@ export type InsertRouteOneMutationVariables = Exact<{
 
 export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', starts_from_scheduled_stop_point_id?: any | null | undefined, ends_at_scheduled_stop_point_id?: any | null | undefined, route_shape?: any | null | undefined, on_line_id?: any | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined } | null | undefined };
 
+export type InsertLineOneMutationVariables = Exact<{
+  object: RouteLineInsertInput;
+}>;
+
+
+export type InsertLineOneMutation = { __typename?: 'mutation_root', insert_route_line_one?: { __typename?: 'route_line', label: string, priority: number, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined };
+
 export type QueryClosestLinkQueryVariables = Exact<{
   point?: Maybe<Scalars['geography']>;
 }>;
@@ -5688,6 +5695,41 @@ export function useInsertRouteOneMutation(baseOptions?: Apollo.MutationHookOptio
 export type InsertRouteOneMutationHookResult = ReturnType<typeof useInsertRouteOneMutation>;
 export type InsertRouteOneMutationResult = Apollo.MutationResult<InsertRouteOneMutation>;
 export type InsertRouteOneMutationOptions = Apollo.BaseMutationOptions<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
+export const InsertLineOneDocument = gql`
+    mutation InsertLineOne($object: route_line_insert_input!) {
+  insert_route_line_one(object: $object) {
+    label
+    priority
+    primary_vehicle_mode
+  }
+}
+    `;
+export type InsertLineOneMutationFn = Apollo.MutationFunction<InsertLineOneMutation, InsertLineOneMutationVariables>;
+
+/**
+ * __useInsertLineOneMutation__
+ *
+ * To run a mutation, you first call `useInsertLineOneMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertLineOneMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertLineOneMutation, { data, loading, error }] = useInsertLineOneMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useInsertLineOneMutation(baseOptions?: Apollo.MutationHookOptions<InsertLineOneMutation, InsertLineOneMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertLineOneMutation, InsertLineOneMutationVariables>(InsertLineOneDocument, options);
+      }
+export type InsertLineOneMutationHookResult = ReturnType<typeof useInsertLineOneMutation>;
+export type InsertLineOneMutationResult = Apollo.MutationResult<InsertLineOneMutation>;
+export type InsertLineOneMutationOptions = Apollo.BaseMutationOptions<InsertLineOneMutation, InsertLineOneMutationVariables>;
 export const QueryClosestLinkDocument = gql`
     query QueryClosestLink($point: geography) {
   infrastructure_network_resolve_point_to_closest_link(args: {geog: $point}) {
