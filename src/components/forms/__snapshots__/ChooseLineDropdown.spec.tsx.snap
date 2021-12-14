@@ -3,11 +3,12 @@
 exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 1`] = `
 <DocumentFragment>
   <div
-    class="relative h-full"
+    class="input-element relative h-full"
+    id="listbox"
   >
     <button
       aria-haspopup="true"
-      class="flex items-center w-full h-full text-left border border-grey rounded focus:outline-none"
+      class="flex items-center w-full h-full text-left focus:outline-none"
       data-testid="chooseLineDropdown1"
       id="headlessui-listbox-button-1"
       type="button"
@@ -18,7 +19,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
         routes.chooseLine
       </div>
       <i
-        class="icon-arrow ml-2 transform transition duration-150 ease-in-out rotate-0"
+        class="icon-arrow ml-auto transform transition duration-150 ease-in-out text-tweaked-brand rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -29,11 +30,12 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
 exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 2`] = `
 <DocumentFragment>
   <div
-    class="relative h-full"
+    class="input-element relative h-full"
+    id="listbox"
   >
     <button
       aria-haspopup="true"
-      class="flex items-center w-full h-full text-left border border-grey rounded focus:outline-none"
+      class="flex items-center w-full h-full text-left focus:outline-none"
       data-testid="chooseLineDropdown1"
       id="headlessui-listbox-button-1"
       type="button"
@@ -44,7 +46,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
         Line1 name (Line1 description)
       </div>
       <i
-        class="icon-arrow ml-2 transform transition duration-150 ease-in-out rotate-0"
+        class="icon-arrow ml-auto transform transition duration-150 ease-in-out text-tweaked-brand rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -55,13 +57,14 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
 exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 3`] = `
 <DocumentFragment>
   <div
-    class="relative h-full"
+    class="input-element relative h-full"
+    id="listbox"
   >
     <button
       aria-controls="headlessui-listbox-options-3"
       aria-expanded="true"
       aria-haspopup="true"
-      class="flex items-center w-full h-full text-left border border-grey rounded focus:outline-none"
+      class="flex items-center w-full h-full text-left focus:outline-none"
       data-testid="chooseLineDropdown1"
       id="headlessui-listbox-button-1"
       type="button"
@@ -72,21 +75,19 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
         Line1 name (Line1 description)
       </div>
       <i
-        class="icon-arrow ml-2 transform transition duration-150 ease-in-out -rotate-180"
+        class="icon-arrow ml-auto transform transition duration-150 ease-in-out text-tweaked-brand -rotate-180"
         style="font-size: 10px;"
       />
     </button>
     <ul
       aria-activedescendant="headlessui-listbox-option-4"
       aria-labelledby="headlessui-listbox-button-1"
-      class="absolute right-0 bg-white border border-black border-opacity-20 rounded-b-md focus:outline-none shadow-md origin-top-right transition ease-out duration-100 transform opacity-0 scale-95"
+      class="absolute left-0 mt-2 w-full bg-white border border-black border-opacity-20 rounded-b-md focus:outline-none shadow-md transition ease-out duration-100 transform opacity-0 scale-95"
       id="headlessui-listbox-options-3"
       role="listbox"
       tabindex="0"
     >
-      <div
-        class="my-4"
-      >
+      <div>
         <li
           aria-selected="true"
           id="headlessui-listbox-option-4"
