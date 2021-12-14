@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router-dom';
+import { CreateNewLinePage } from './components/CreateNewLinePage';
 import { Main } from './components/Main';
 import { Map } from './components/map';
 import { RoutesAndLinesPage } from './components/RoutesAndLinesPage'; // eslint-disable-line import/no-cycle
@@ -7,6 +8,7 @@ import { RoutesAndLinesPage } from './components/RoutesAndLinesPage'; // eslint-
 export enum Path {
   root = '/',
   routes = '/routes',
+  createLine = '/routes/createLine',
   map = '/map',
   exampleResource = '/example/:id',
   fallback = '*',
@@ -50,6 +52,14 @@ export const routes: Record<Path, Route> = {
     getLink: () => Path.routes,
     component: RoutesAndLinesPage,
     includeInNav: true,
+  },
+  [Path.createLine]: {
+    _routerRoute: Path.createLine,
+    _exact: true,
+    translationKey: 'lines.createNew',
+    getLink: () => Path.createLine,
+    component: CreateNewLinePage,
+    includeInNav: false,
   },
   [Path.map]: {
     _routerRoute: Path.map,

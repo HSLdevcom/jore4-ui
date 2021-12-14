@@ -9,6 +9,7 @@ import { RoutesTable } from './RoutesTable'; // eslint-disable-line import/no-cy
 export const RoutesAndLinesPage = (): JSX.Element => {
   const { t } = useTranslation();
   const openMapRoute = routes[Path.map];
+  const createLineRoute = routes[Path.createLine];
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Container>
@@ -16,6 +17,9 @@ export const RoutesAndLinesPage = (): JSX.Element => {
         <h1 className="text-5xl font-bold">{t('routes.routes')}</h1>
         <SimpleButton className="ml-auto" href={openMapRoute.getLink()}>
           {t('map.open')}
+        </SimpleButton>
+        <SimpleButton className="ml-3" href={createLineRoute.getLink()}>
+          {t('lines.createNew')}
         </SimpleButton>
       </Row>
       <Row className="mt-2">

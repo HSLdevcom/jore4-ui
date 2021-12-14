@@ -24,6 +24,7 @@
     "@hookform/resolvers": "^2.8.3",
     "@seznam/compose-react-refs": "^1.0.6",
     "@turf/area": "^6.5.0",
+    "@types/react-router": "^5.1.17",
     "axios": "0.21.1",
     "graphql": "^15.5.3",
     "i18next": "^20.2.1",

@@ -12,6 +12,14 @@
     "addToLine": "Add to line",
     "chooseLine": "Choose line"
   },
+  "lines": {
+    "createNew": "Create new line",
+    "properties": "Properties",
+    "label": "Label",
+    "finnishName": "Name (Finnish)",
+    "primaryVehicleMode": "Primary vehicle mode",
+    "chooseVehicleMode": "Choose vehicle mode"
+  },
   "stops": {
     "stop": "Stop",
     "stopById": "Stop {{ id }}",
@@ -35,6 +43,13 @@
     "location": "Location",
     "latitude": "Latitude",
     "longitude": "Longitude"
+  },
+  "vehicleModeEnum": {
+    "bus": "Bus",
+    "ferry": "Ferry",
+    "metro": "Metro",
+    "train": "Train",
+    "tram": "Tram"
   },
   "formValidation": {
     "required": "Field is required"
