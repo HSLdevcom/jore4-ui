@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 interface CommonButtonProps {
+  id?: string;
   className?: string;
   inverted?: boolean;
   disabled?: boolean;
@@ -20,7 +21,7 @@ interface LinkButtonProps {
 type Props = CommonButtonProps & (ButtonProps | LinkButtonProps);
 
 export const SimpleButton: React.FC<Props> = (props) => {
-  const { className, inverted, disabled, children } = props;
+  const { id, className, inverted, disabled, children } = props;
   const colorClassNames = inverted
     ? 'text-brand bg-white border border-grey hover:border-brand active:border-brand'
     : 'text-white bg-brand border border-brand hover:bg-opacity-50 active:bg-opacity-50';
@@ -29,6 +30,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
   if ((props as ButtonProps).onClick) {
     return (
       <button
+        id={id}
         className={`${commonClassNames} ${className}`}
         type="button"
         onClick={(props as ButtonProps).onClick}
@@ -47,6 +49,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
       // disabled button shouldn't have href
       // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <Link
+        id={id}
         className={`${commonClassNames} flex items-center ${className}`}
         type="button"
         // @ts-expect-error we want to pass undefined as href for disabled buttons
