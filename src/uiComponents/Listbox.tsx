@@ -39,12 +39,14 @@ export interface FormInputProps {
 }
 
 interface Props extends FormInputProps {
+  id?: string;
   buttonContent: ReactNode;
   testId?: string;
   options: ListboxOptionRenderer[];
 }
 
 export const Listbox = ({
+  id,
   buttonContent,
   testId,
   options,
@@ -59,6 +61,7 @@ export const Listbox = ({
 
   return (
     <HUIListbox
+      id={id || 'listbox'}
       as="div"
       className="input-element relative h-full"
       value={value}
