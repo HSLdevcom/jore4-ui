@@ -5657,6 +5657,11 @@ export type GetStopsByInfraLinkIdsQueryVariables = Exact<{
 
 export type GetStopsByInfraLinkIdsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', closest_point_on_infrastructure_link?: any | null | undefined, direction?: string | null | undefined, label?: string | null | undefined, located_on_infrastructure_link_id?: any | null | undefined, measured_location?: any | null | undefined, priority?: number | null | undefined, relative_distance_from_infrastructure_link_start?: any | null | undefined, scheduled_stop_point_id?: any | null | undefined, validity_end?: any | null | undefined, validity_start?: any | null | undefined }> };
 
+export type GetStopsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStopsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', closest_point_on_infrastructure_link?: any | null | undefined, direction?: string | null | undefined, label?: string | null | undefined, located_on_infrastructure_link_id?: any | null | undefined, measured_location?: any | null | undefined, priority?: number | null | undefined, relative_distance_from_infrastructure_link_start?: any | null | undefined, scheduled_stop_point_id?: any | null | undefined, validity_end?: any | null | undefined, validity_start?: any | null | undefined }> };
+
 
 export const InsertStopDocument = gql`
     mutation InsertStop($object: service_pattern_scheduled_stop_point_insert_input!) {
@@ -5965,3 +5970,46 @@ export function useGetStopsByInfraLinkIdsLazyQuery(baseOptions?: Apollo.LazyQuer
 export type GetStopsByInfraLinkIdsQueryHookResult = ReturnType<typeof useGetStopsByInfraLinkIdsQuery>;
 export type GetStopsByInfraLinkIdsLazyQueryHookResult = ReturnType<typeof useGetStopsByInfraLinkIdsLazyQuery>;
 export type GetStopsByInfraLinkIdsQueryResult = Apollo.QueryResult<GetStopsByInfraLinkIdsQuery, GetStopsByInfraLinkIdsQueryVariables>;
+export const GetStopsDocument = gql`
+    query GetStops {
+  service_pattern_scheduled_stop_point {
+    closest_point_on_infrastructure_link
+    direction
+    label
+    located_on_infrastructure_link_id
+    measured_location
+    priority
+    relative_distance_from_infrastructure_link_start
+    scheduled_stop_point_id
+    validity_end
+    validity_start
+  }
+}
+    `;
+
+/**
+ * __useGetStopsQuery__
+ *
+ * To run a query within a React component, call `useGetStopsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStopsQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsQuery, GetStopsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopsQuery, GetStopsQueryVariables>(GetStopsDocument, options);
+      }
+export function useGetStopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsQuery, GetStopsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopsQuery, GetStopsQueryVariables>(GetStopsDocument, options);
+        }
+export type GetStopsQueryHookResult = ReturnType<typeof useGetStopsQuery>;
+export type GetStopsLazyQueryHookResult = ReturnType<typeof useGetStopsLazyQuery>;
+export type GetStopsQueryResult = Apollo.QueryResult<GetStopsQuery, GetStopsQueryVariables>;

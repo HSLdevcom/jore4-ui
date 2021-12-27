@@ -74,3 +74,20 @@ const QUERY_GET_STOPS = gql`
     }
   }
 `;
+
+const QUERY_GET_ALL_STOPS = gql`
+  query GetStops {
+    service_pattern_scheduled_stop_point {
+      closest_point_on_infrastructure_link
+      direction
+      label
+      located_on_infrastructure_link_id
+      measured_location
+      priority
+      relative_distance_from_infrastructure_link_start
+      scheduled_stop_point_id
+      validity_end
+      validity_start
+    }
+  }
+`;

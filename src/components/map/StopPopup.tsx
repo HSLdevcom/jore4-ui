@@ -7,12 +7,14 @@ import { Point } from '../../types';
 import { SimpleButton } from '../../uiComponents';
 
 interface Props extends Point {
+  finnishName?: string;
   onEdit: () => void;
   onClose: () => void;
   onDelete: () => void;
 }
 
 export const StopPopup = ({
+  finnishName,
   latitude,
   longitude,
   onEdit,
@@ -36,12 +38,12 @@ export const StopPopup = ({
         <Row>
           <Column className="w-full">
             <Row>
-              <h3 className="text-xl font-bold">Esimerkki</h3>
+              <h3 className="text-xl font-bold">Pysäkki</h3>
               <button className="ml-auto" type="button" onClick={onClose}>
                 <i className="icon-close-large ml-4 text-lg" />
               </button>
             </Row>
-            <p className="text-sm">Esimerkkiteksti</p>
+            <p className="text-sm">{finnishName}</p>
           </Column>
         </Row>
         <Row className="mt-16">
