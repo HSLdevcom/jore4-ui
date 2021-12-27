@@ -14,6 +14,7 @@ export interface IMapEditorContext {
   drawingMode: Mode | undefined;
   busRoute?: BusRouteResponse;
   stopsWithinRoute?: ExplicitAny[]; // TODO: correct typings?
+  infraLinksAlongRoute?: ExplicitAny[]; // TODO: correct typings?
 }
 
 export const initialState: IMapEditorContext = {
@@ -23,6 +24,7 @@ export const initialState: IMapEditorContext = {
   routeDetails: undefined,
   busRoute: undefined,
   stopsWithinRoute: undefined,
+  infraLinksAlongRoute: undefined,
 };
 
 export type MapEditorActions =

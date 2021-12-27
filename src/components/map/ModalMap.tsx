@@ -38,14 +38,19 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
     dispatch({ type: 'reset' });
   };
   const onSave = async () => {
-    const { busRoute, stopsWithinRoute } = state;
+    const { busRoute, stopsWithinRoute, infraLinksAlongRoute } = state;
 
-    if (busRoute && stopsWithinRoute && stopsWithinRoute.length >= 2) {
+    if (
+      busRoute &&
+      infraLinksAlongRoute &&
+      stopsWithinRoute &&
+      stopsWithinRoute.length >= 2
+    ) {
       // TODO: user should be able to select starting stop and final stop from some kind of UI.
-      // TODO: for now, just use two random stops within route as starting stop
-      // and final stop.
+      // TODO: for now, just use the first and last stops found.
       const startingStop = stopsWithinRoute[0].scheduled_stop_point_id;
-      const finalStop = stopsWithinRoute[1].scheduled_stop_point_id;
+      const finalStop =
+        stopsWithinRoute[stopsWithinRoute.length - 1].scheduled_stop_point_id;
 
       const variables: InsertRouteOneMutationVariables = mapToObject({
         starts_from_scheduled_stop_point_id: startingStop,
@@ -54,7 +59,24 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
         label: state.routeDetails?.description_i18n, // TODO: retrieve label, don't use description for label
         direction: RouteDirectionEnum.Outbound, // TODO: make this user-configurable
         priority: 10,
-        // route_shape cannot be added here, it is gathered dynamically by the route view from the route's links
+        // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
+        infrastructure_links_along_route: {
+          data: infraLinksAlongRoute.map((linkId, index) => ({
+            infrastructure_link_id: linkId,
+            infrastructure_link_sequence: index,
+            is_traversal_forwards: true, // TODO: calculate the right value
+          })),
+        },
+        route_journey_patterns: {
+          data: {
+            scheduled_stop_point_in_journey_patterns: {
+              data: stopsWithinRoute.map((stop, index) => ({
+                scheduled_stop_point_id: stop.scheduled_stop_point_id,
+                scheduled_stop_point_sequence: index,
+              })),
+            },
+          },
+        },
       });
       try {
         await insertRouteMutation(mapToVariables(variables));

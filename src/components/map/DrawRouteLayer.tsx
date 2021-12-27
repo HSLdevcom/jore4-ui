@@ -118,7 +118,10 @@ const DrawRouteLayerComponent = (
       const stopsWithinRoute =
         // @ts-expect-error problem with generated types?
         stopsResponse.data.service_pattern_scheduled_stop_point;
-      dispatch({ type: 'setState', payload: { stopsWithinRoute } });
+      dispatch({
+        type: 'setState',
+        payload: { stopsWithinRoute, infraLinksAlongRoute: infraLinkIds },
+      });
 
       if (stopsWithinRoute.length >= 2) {
         // eslint-disable-next-line no-console

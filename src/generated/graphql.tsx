@@ -4178,6 +4178,10 @@ export type RouteRoute = {
   direction?: Maybe<Scalars['String']>;
   /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  /** An array relationship */
+  infrastructure_links_along_route: Array<RouteInfrastructureLinkAlongRoute>;
+  /** An aggregate relationship */
+  infrastructure_links_along_route_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
   /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']>;
   /** The line to which this route belongs. */
@@ -4198,6 +4202,38 @@ export type RouteRoute = {
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['timestamptz']>;
+};
+
+
+/**
+ * The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483
+ *
+ *
+ * columns and relationships of "route.route"
+ *
+ */
+export type RouteRouteInfrastructureLinksAlongRouteArgs = {
+  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+};
+
+
+/**
+ * The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483
+ *
+ *
+ * columns and relationships of "route.route"
+ *
+ */
+export type RouteRouteInfrastructureLinksAlongRouteAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 
@@ -4303,6 +4339,7 @@ export type RouteRouteBoolExp = {
   description_i18n?: Maybe<StringComparisonExp>;
   direction?: Maybe<StringComparisonExp>;
   ends_at_scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
+  infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   label?: Maybe<StringComparisonExp>;
   on_line_id?: Maybe<UuidComparisonExp>;
   priority?: Maybe<IntComparisonExp>;
@@ -4328,6 +4365,7 @@ export type RouteRouteInsertInput = {
   direction?: Maybe<Scalars['String']>;
   /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
   /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']>;
   /** The line to which this route belongs. */
@@ -4464,6 +4502,7 @@ export type RouteRouteOrderBy = {
   description_i18n?: Maybe<OrderBy>;
   direction?: Maybe<OrderBy>;
   ends_at_scheduled_stop_point_id?: Maybe<OrderBy>;
+  infrastructure_links_along_route_aggregate?: Maybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
   label?: Maybe<OrderBy>;
   on_line_id?: Maybe<OrderBy>;
   priority?: Maybe<OrderBy>;
