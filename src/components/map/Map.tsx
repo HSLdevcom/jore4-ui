@@ -12,13 +12,11 @@ import { Column } from '../../layoutComponents';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { DrawRouteLayer } from './DrawRouteLayer';
 import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
-import { DynamicStopVectorLayer } from './DynamicStopVectorLayer';
 import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
 import { Maplibre } from './Maplibre';
 import { RouteLayer } from './RouteLayer';
 import { Routes } from './Routes';
 import { Stops } from './Stops';
-import { StopVectorLayer } from './StopVectorLayer';
 
 interface Props {
   drawable?: boolean;
@@ -125,12 +123,10 @@ export const MapComponent = (
         captureDrag
         captureScroll
       />
-      <Stops ref={stopsRef} />
+      {showStops && <Stops ref={stopsRef} />}
       <Routes />
       {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
       {showInfraLinks && <InfraLinksVectorLayer />}
-      {showStops && <StopVectorLayer />}
-      {showDynamicStops && <DynamicStopVectorLayer />}
       {showDynamicInfraLinks && <DynamicInfraLinksVectorLayer />}
       {showRoute && routeSelected && <RouteLayer routeId={routeId as string} />}
     </Maplibre>
