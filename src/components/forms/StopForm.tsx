@@ -12,6 +12,7 @@ import {
   QueryPointDirectionOnLinkDocument,
   QueryPointDirectionOnLinkQueryResult,
   QueryPointDirectionOnLinkQueryVariables,
+  ReusableComponentsVehicleModeEnum,
   useInsertStopMutation,
 } from '../../generated/graphql';
 import { useAsyncQuery } from '../../hooks';
@@ -111,6 +112,12 @@ const StopFormComponent = (
       // term.
       label: state.finnishName,
       priority: 10,
+      vehicle_mode_on_scheduled_stop_point: {
+        data: {
+          // TODO: Replace hard-coded Bus-value with propagated one
+          vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+        },
+      },
     });
 
     try {
