@@ -108,19 +108,28 @@ const DrawRouteLayerComponent = (
       const infraLinksResponse = await fetchInfraLinkIdsByExternalIds({
         externalLinkIds,
       });
-      // @ts-expect-error problem with generated types?
-      const infraLinkIds = infraLinksResponse.data.infrastructure_network_infrastructure_link.map(
-        // TODO: can correct type be imported from generated graphql typings?
-        (item: ExplicitAny) => item.infrastructure_link_id,
-      );
+      const infraLinks =
+        // @ts-expect-error problem with generated types?
+        infraLinksResponse.data.infrastructure_network_infrastructure_link.map(
+          // TODO: can correct type be imported from generated graphql typings?
+          (item: ExplicitAny, index: number) => ({
+            infrastructure_link_id: item.infrastructure_link_id,
+            is_traversal_forwards:
+              routeResponse.routes[0]?.paths[index]?.traversalForwards,
+          }),
+        );
 
-      const stopsResponse = await fetchStopsByInfraLinkIds({ infraLinkIds });
+      const stopsResponse = await fetchStopsByInfraLinkIds({
+        infraLinkIds: infraLinks.map(
+          (link: ExplicitAny) => link.infrastructure_link_id,
+        ),
+      });
       const stopsWithinRoute =
         // @ts-expect-error problem with generated types?
         stopsResponse.data.service_pattern_scheduled_stop_point;
       dispatch({
         type: 'setState',
-        payload: { stopsWithinRoute, infraLinksAlongRoute: infraLinkIds },
+        payload: { stopsWithinRoute, infraLinksAlongRoute: infraLinks },
       });
 
       if (stopsWithinRoute.length >= 2) {

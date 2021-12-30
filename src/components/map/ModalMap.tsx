@@ -61,10 +61,10 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
         priority: 10,
         // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
         infrastructure_links_along_route: {
-          data: infraLinksAlongRoute.map((linkId, index) => ({
-            infrastructure_link_id: linkId,
+          data: infraLinksAlongRoute.map((link, index) => ({
+            infrastructure_link_id: link.infrastructure_link_id,
             infrastructure_link_sequence: index,
-            is_traversal_forwards: true, // TODO: calculate the right value
+            is_traversal_forwards: link.is_traversal_forwards,
           })),
         },
         route_journey_patterns: {
