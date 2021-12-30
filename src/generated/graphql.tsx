@@ -522,6 +522,10 @@ export type InfrastructureNetworkInfrastructureLink = {
   /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
   shape: Scalars['geography'];
   /** An array relationship */
+  vehicle_submode_on_infrastructure_link: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
+  /** An aggregate relationship */
+  vehicle_submode_on_infrastructure_link_aggregate: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate;
+  /** An array relationship */
   vehicle_submode_on_infrastructure_links: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
   /** An aggregate relationship */
   vehicle_submode_on_infrastructure_links_aggregate: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate;
@@ -557,6 +561,38 @@ export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutes
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
   where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+};
+
+
+/**
+ * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
+ *
+ *
+ * columns and relationships of "infrastructure_network.infrastructure_link"
+ *
+ */
+export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinkArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+};
+
+
+/**
+ * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
+ *
+ *
+ * columns and relationships of "infrastructure_network.infrastructure_link"
+ *
+ */
+export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinkAggregateArgs = {
+  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
+  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
 
@@ -670,6 +706,7 @@ export type InfrastructureNetworkInfrastructureLinkBoolExp = {
   infrastructure_link_along_routes?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   infrastructure_link_id?: Maybe<UuidComparisonExp>;
   shape?: Maybe<GeographyComparisonExp>;
+  vehicle_submode_on_infrastructure_link?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   vehicle_submode_on_infrastructure_links?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
 };
 
@@ -702,6 +739,7 @@ export type InfrastructureNetworkInfrastructureLinkInsertInput = {
   infrastructure_link_id?: Maybe<Scalars['uuid']>;
   /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
   shape?: Maybe<Scalars['geography']>;
+  vehicle_submode_on_infrastructure_link?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
   vehicle_submode_on_infrastructure_links?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
 };
 
@@ -777,6 +815,7 @@ export type InfrastructureNetworkInfrastructureLinkOrderBy = {
   infrastructure_link_along_routes_aggregate?: Maybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
   infrastructure_link_id?: Maybe<OrderBy>;
   shape?: Maybe<OrderBy>;
+  vehicle_submode_on_infrastructure_link_aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy>;
   vehicle_submode_on_infrastructure_links_aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy>;
 };
 
@@ -1695,10 +1734,10 @@ export type MutationRoot = {
   delete_route_route?: Maybe<RouteRouteMutationResponse>;
   /** delete data from the table: "service_pattern.scheduled_stop_point" */
   delete_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
-  /** delete data from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  delete_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMutationResponse>;
-  /** delete single row from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  delete_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk?: Maybe<ServicePatternScheduledStopPointServicedByVehicleMode>;
+  /** delete data from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+  delete_service_pattern_vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMutationResponse>;
+  /** delete single row from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+  delete_service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
   /** insert data into the table: "infrastructure_network.direction" */
   insert_infrastructure_network_direction?: Maybe<InfrastructureNetworkDirectionMutationResponse>;
   /** insert a single row into the table: "infrastructure_network.direction" */
@@ -1751,10 +1790,10 @@ export type MutationRoot = {
   insert_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** insert a single row into the table: "service_pattern.scheduled_stop_point" */
   insert_service_pattern_scheduled_stop_point_one?: Maybe<ServicePatternScheduledStopPoint>;
-  /** insert data into the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  insert_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMutationResponse>;
-  /** insert a single row into the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  insert_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_one?: Maybe<ServicePatternScheduledStopPointServicedByVehicleMode>;
+  /** insert data into the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+  insert_service_pattern_vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMutationResponse>;
+  /** insert a single row into the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+  insert_service_pattern_vehicle_mode_on_scheduled_stop_point_one?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
   /** update data of the table: "infrastructure_network.direction" */
   update_infrastructure_network_direction?: Maybe<InfrastructureNetworkDirectionMutationResponse>;
   /** update single row of the table: "infrastructure_network.direction" */
@@ -1803,10 +1842,10 @@ export type MutationRoot = {
   update_route_route?: Maybe<RouteRouteMutationResponse>;
   /** update data of the table: "service_pattern.scheduled_stop_point" */
   update_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
-  /** update data of the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  update_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMutationResponse>;
-  /** update single row of the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  update_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk?: Maybe<ServicePatternScheduledStopPointServicedByVehicleMode>;
+  /** update data of the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+  update_service_pattern_vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMutationResponse>;
+  /** update single row of the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+  update_service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
 };
 
 
@@ -1958,13 +1997,13 @@ export type MutationRootDeleteServicePatternScheduledStopPointArgs = {
 
 
 /** mutation root */
-export type MutationRootDeleteServicePatternScheduledStopPointServicedByVehicleModeArgs = {
-  where: ServicePatternScheduledStopPointServicedByVehicleModeBoolExp;
+export type MutationRootDeleteServicePatternVehicleModeOnScheduledStopPointArgs = {
+  where: ServicePatternVehicleModeOnScheduledStopPointBoolExp;
 };
 
 
 /** mutation root */
-export type MutationRootDeleteServicePatternScheduledStopPointServicedByVehicleModeByPkArgs = {
+export type MutationRootDeleteServicePatternVehicleModeOnScheduledStopPointByPkArgs = {
   scheduled_stop_point_id: Scalars['uuid'];
   vehicle_mode: ReusableComponentsVehicleModeEnum;
 };
@@ -2149,16 +2188,16 @@ export type MutationRootInsertServicePatternScheduledStopPointOneArgs = {
 
 
 /** mutation root */
-export type MutationRootInsertServicePatternScheduledStopPointServicedByVehicleModeArgs = {
-  objects: Array<ServicePatternScheduledStopPointServicedByVehicleModeInsertInput>;
-  on_conflict?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeOnConflict>;
+export type MutationRootInsertServicePatternVehicleModeOnScheduledStopPointArgs = {
+  objects: Array<ServicePatternVehicleModeOnScheduledStopPointInsertInput>;
+  on_conflict?: Maybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
 };
 
 
 /** mutation root */
-export type MutationRootInsertServicePatternScheduledStopPointServicedByVehicleModeOneArgs = {
-  object: ServicePatternScheduledStopPointServicedByVehicleModeInsertInput;
-  on_conflict?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeOnConflict>;
+export type MutationRootInsertServicePatternVehicleModeOnScheduledStopPointOneArgs = {
+  object: ServicePatternVehicleModeOnScheduledStopPointInsertInput;
+  on_conflict?: Maybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
 };
 
 
@@ -2341,16 +2380,16 @@ export type MutationRootUpdateServicePatternScheduledStopPointArgs = {
 
 
 /** mutation root */
-export type MutationRootUpdateServicePatternScheduledStopPointServicedByVehicleModeArgs = {
-  _set?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeSetInput>;
-  where: ServicePatternScheduledStopPointServicedByVehicleModeBoolExp;
+export type MutationRootUpdateServicePatternVehicleModeOnScheduledStopPointArgs = {
+  _set?: Maybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
+  where: ServicePatternVehicleModeOnScheduledStopPointBoolExp;
 };
 
 
 /** mutation root */
-export type MutationRootUpdateServicePatternScheduledStopPointServicedByVehicleModeByPkArgs = {
-  _set?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeSetInput>;
-  pk_columns: ServicePatternScheduledStopPointServicedByVehicleModePkColumnsInput;
+export type MutationRootUpdateServicePatternVehicleModeOnScheduledStopPointByPkArgs = {
+  _set?: Maybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
+  pk_columns: ServicePatternVehicleModeOnScheduledStopPointPkColumnsInput;
 };
 
 /** column ordering options */
@@ -2453,12 +2492,12 @@ export type QueryRoot = {
   service_pattern_scheduled_stop_point: Array<ServicePatternScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point" */
   service_pattern_scheduled_stop_point_aggregate: ServicePatternScheduledStopPointAggregate;
-  /** fetch data from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode: Array<ServicePatternScheduledStopPointServicedByVehicleMode>;
-  /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate: ServicePatternScheduledStopPointServicedByVehicleModeAggregate;
-  /** fetch data from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" using primary key columns */
-  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk?: Maybe<ServicePatternScheduledStopPointServicedByVehicleMode>;
+  /** fetch data from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+  service_pattern_vehicle_mode_on_scheduled_stop_point: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
+  /** fetch aggregated fields from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+  service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate: ServicePatternVehicleModeOnScheduledStopPointAggregate;
+  /** fetch data from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" using primary key columns */
+  service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
 };
 
 
@@ -2794,25 +2833,25 @@ export type QueryRootServicePatternScheduledStopPointAggregateArgs = {
 };
 
 
-export type QueryRootServicePatternScheduledStopPointServicedByVehicleModeArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
+export type QueryRootServicePatternVehicleModeOnScheduledStopPointArgs = {
+  distinct_on?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
+  order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
 };
 
 
-export type QueryRootServicePatternScheduledStopPointServicedByVehicleModeAggregateArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
+export type QueryRootServicePatternVehicleModeOnScheduledStopPointAggregateArgs = {
+  distinct_on?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
+  order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
 };
 
 
-export type QueryRootServicePatternScheduledStopPointServicedByVehicleModeByPkArgs = {
+export type QueryRootServicePatternVehicleModeOnScheduledStopPointByPkArgs = {
   scheduled_stop_point_id: Scalars['uuid'];
   vehicle_mode: ReusableComponentsVehicleModeEnum;
 };
@@ -2826,48 +2865,12 @@ export type QueryRootServicePatternScheduledStopPointServicedByVehicleModeByPkAr
  */
 export type ReusableComponentsVehicleMode = {
   __typename?: 'reusable_components_vehicle_mode';
-  /** An array relationship */
-  scheduled_stop_point_serviced_by_vehicle_modes: Array<ServicePatternScheduledStopPointServicedByVehicleMode>;
-  /** An aggregate relationship */
-  scheduled_stop_point_serviced_by_vehicle_modes_aggregate: ServicePatternScheduledStopPointServicedByVehicleModeAggregate;
   /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   vehicle_mode: Scalars['String'];
   /** An array relationship */
   vehicle_submodes: Array<ReusableComponentsVehicleSubmode>;
   /** An aggregate relationship */
   vehicle_submodes_aggregate: ReusableComponentsVehicleSubmodeAggregate;
-};
-
-
-/**
- * The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283
- *
- *
- * columns and relationships of "reusable_components.vehicle_mode"
- *
- */
-export type ReusableComponentsVehicleModeScheduledStopPointServicedByVehicleModesArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
-};
-
-
-/**
- * The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283
- *
- *
- * columns and relationships of "reusable_components.vehicle_mode"
- *
- */
-export type ReusableComponentsVehicleModeScheduledStopPointServicedByVehicleModesAggregateArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
 };
 
 
@@ -2929,7 +2932,6 @@ export type ReusableComponentsVehicleModeBoolExp = {
   _and?: Maybe<Array<ReusableComponentsVehicleModeBoolExp>>;
   _not?: Maybe<ReusableComponentsVehicleModeBoolExp>;
   _or?: Maybe<Array<ReusableComponentsVehicleModeBoolExp>>;
-  scheduled_stop_point_serviced_by_vehicle_modes?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
   vehicle_mode?: Maybe<StringComparisonExp>;
   vehicle_submodes?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
@@ -2959,7 +2961,6 @@ export type ReusableComponentsVehicleModeEnumComparisonExp = {
 
 /** input type for inserting data into table "reusable_components.vehicle_mode" */
 export type ReusableComponentsVehicleModeInsertInput = {
-  scheduled_stop_point_serviced_by_vehicle_modes?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeArrRelInsertInput>;
   /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   vehicle_mode?: Maybe<Scalars['String']>;
   vehicle_submodes?: Maybe<ReusableComponentsVehicleSubmodeArrRelInsertInput>;
@@ -3004,7 +3005,6 @@ export type ReusableComponentsVehicleModeOnConflict = {
 
 /** Ordering options when selecting data from "reusable_components.vehicle_mode". */
 export type ReusableComponentsVehicleModeOrderBy = {
-  scheduled_stop_point_serviced_by_vehicle_modes_aggregate?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeAggregateOrderBy>;
   vehicle_mode?: Maybe<OrderBy>;
   vehicle_submodes_aggregate?: Maybe<ReusableComponentsVehicleSubmodeAggregateOrderBy>;
 };
@@ -4686,6 +4686,42 @@ export type ServicePatternScheduledStopPoint = {
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
   validity_start?: Maybe<Scalars['timestamptz']>;
+  /** An array relationship */
+  vehicle_mode_on_scheduled_stop_point: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
+  /** An aggregate relationship */
+  vehicle_mode_on_scheduled_stop_point_aggregate: ServicePatternVehicleModeOnScheduledStopPointAggregate;
+};
+
+
+/**
+ * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
+ *
+ *
+ * columns and relationships of "service_pattern.scheduled_stop_point"
+ *
+ */
+export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointArgs = {
+  distinct_on?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+};
+
+
+/**
+ * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
+ *
+ *
+ * columns and relationships of "service_pattern.scheduled_stop_point"
+ *
+ */
+export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointAggregateArgs = {
+  distinct_on?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
 };
 
 /** aggregated selection of "service_pattern.scheduled_stop_point" */
@@ -4742,6 +4778,7 @@ export type ServicePatternScheduledStopPointBoolExp = {
   scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
   validity_end?: Maybe<TimestamptzComparisonExp>;
   validity_start?: Maybe<TimestamptzComparisonExp>;
+  vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
 };
 
 /** input type for incrementing numeric columns in table "service_pattern.scheduled_stop_point" */
@@ -4774,6 +4811,7 @@ export type ServicePatternScheduledStopPointInsertInput = {
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
   validity_start?: Maybe<Scalars['timestamptz']>;
+  vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -4844,6 +4882,7 @@ export type ServicePatternScheduledStopPointOrderBy = {
   scheduled_stop_point_id?: Maybe<OrderBy>;
   validity_end?: Maybe<OrderBy>;
   validity_start?: Maybe<OrderBy>;
+  vehicle_mode_on_scheduled_stop_point_aggregate?: Maybe<ServicePatternVehicleModeOnScheduledStopPointAggregateOrderBy>;
 };
 
 /** select columns of table "service_pattern.scheduled_stop_point" */
@@ -4868,165 +4907,6 @@ export enum ServicePatternScheduledStopPointSelectColumn {
   ValidityEnd = 'validity_end',
   /** column name */
   ValidityStart = 'validity_start'
-}
-
-/**
- * Which scheduled stop points are serviced by which vehicle modes?
- *
- *
- * columns and relationships of "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode"
- *
- */
-export type ServicePatternScheduledStopPointServicedByVehicleMode = {
-  __typename?: 'service_pattern_scheduled_stop_point_serviced_by_vehicle_mode';
-  /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id: Scalars['uuid'];
-  /** An object relationship */
-  vehicleModeByVehicleMode: ReusableComponentsVehicleMode;
-  /** The vehicle mode servicing the scheduled stop point. */
-  vehicle_mode: ReusableComponentsVehicleModeEnum;
-};
-
-/** aggregated selection of "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type ServicePatternScheduledStopPointServicedByVehicleModeAggregate = {
-  __typename?: 'service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate';
-  aggregate?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeAggregateFields>;
-  nodes: Array<ServicePatternScheduledStopPointServicedByVehicleMode>;
-};
-
-/** aggregate fields of "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type ServicePatternScheduledStopPointServicedByVehicleModeAggregateFields = {
-  __typename?: 'service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate_fields';
-  count: Scalars['Int'];
-  max?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMaxFields>;
-  min?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMinFields>;
-};
-
-
-/** aggregate fields of "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type ServicePatternScheduledStopPointServicedByVehicleModeAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
-
-/** order by aggregate values of table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type ServicePatternScheduledStopPointServicedByVehicleModeAggregateOrderBy = {
-  count?: Maybe<OrderBy>;
-  max?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMaxOrderBy>;
-  min?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeMinOrderBy>;
-};
-
-/** input type for inserting array relation for remote table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type ServicePatternScheduledStopPointServicedByVehicleModeArrRelInsertInput = {
-  data: Array<ServicePatternScheduledStopPointServicedByVehicleModeInsertInput>;
-  /** on conflict condition */
-  on_conflict?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeOnConflict>;
-};
-
-/** Boolean expression to filter rows from the table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode". All fields are combined with a logical 'AND'. */
-export type ServicePatternScheduledStopPointServicedByVehicleModeBoolExp = {
-  _and?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>>;
-  _not?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
-  _or?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>>;
-  scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
-  vehicleModeByVehicleMode?: Maybe<ReusableComponentsVehicleModeBoolExp>;
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
-};
-
-/** unique or primary key constraints on table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export enum ServicePatternScheduledStopPointServicedByVehicleModeConstraint {
-  /** unique or primary key constraint */
-  ScheduledStopPointServicedByVehicleModePkey = 'scheduled_stop_point_serviced_by_vehicle_mode_pkey'
-}
-
-/** input type for inserting data into table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type ServicePatternScheduledStopPointServicedByVehicleModeInsertInput = {
-  /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  vehicleModeByVehicleMode?: Maybe<ReusableComponentsVehicleModeObjRelInsertInput>;
-  /** The vehicle mode servicing the scheduled stop point. */
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
-};
-
-/** aggregate max on columns */
-export type ServicePatternScheduledStopPointServicedByVehicleModeMaxFields = {
-  __typename?: 'service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_max_fields';
-  /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-};
-
-/** order by max() on columns of table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type ServicePatternScheduledStopPointServicedByVehicleModeMaxOrderBy = {
-  /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id?: Maybe<OrderBy>;
-};
-
-/** aggregate min on columns */
-export type ServicePatternScheduledStopPointServicedByVehicleModeMinFields = {
-  __typename?: 'service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_min_fields';
-  /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-};
-
-/** order by min() on columns of table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type ServicePatternScheduledStopPointServicedByVehicleModeMinOrderBy = {
-  /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id?: Maybe<OrderBy>;
-};
-
-/** response of any mutation on the table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type ServicePatternScheduledStopPointServicedByVehicleModeMutationResponse = {
-  __typename?: 'service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data from the rows affected by the mutation */
-  returning: Array<ServicePatternScheduledStopPointServicedByVehicleMode>;
-};
-
-/** on conflict condition type for table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type ServicePatternScheduledStopPointServicedByVehicleModeOnConflict = {
-  constraint: ServicePatternScheduledStopPointServicedByVehicleModeConstraint;
-  update_columns?: Array<ServicePatternScheduledStopPointServicedByVehicleModeUpdateColumn>;
-  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
-};
-
-/** Ordering options when selecting data from "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode". */
-export type ServicePatternScheduledStopPointServicedByVehicleModeOrderBy = {
-  scheduled_stop_point_id?: Maybe<OrderBy>;
-  vehicleModeByVehicleMode?: Maybe<ReusableComponentsVehicleModeOrderBy>;
-  vehicle_mode?: Maybe<OrderBy>;
-};
-
-/** primary key columns input for table: service_pattern_scheduled_stop_point_serviced_by_vehicle_mode */
-export type ServicePatternScheduledStopPointServicedByVehicleModePkColumnsInput = {
-  /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id: Scalars['uuid'];
-  /** The vehicle mode servicing the scheduled stop point. */
-  vehicle_mode: ReusableComponentsVehicleModeEnum;
-};
-
-/** select columns of table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export enum ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn {
-  /** column name */
-  ScheduledStopPointId = 'scheduled_stop_point_id',
-  /** column name */
-  VehicleMode = 'vehicle_mode'
-}
-
-/** input type for updating data in table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export type ServicePatternScheduledStopPointServicedByVehicleModeSetInput = {
-  /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The vehicle mode servicing the scheduled stop point. */
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
-};
-
-/** update columns of table "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-export enum ServicePatternScheduledStopPointServicedByVehicleModeUpdateColumn {
-  /** column name */
-  ScheduledStopPointId = 'scheduled_stop_point_id',
-  /** column name */
-  VehicleMode = 'vehicle_mode'
 }
 
 /** input type for updating data in table "service_pattern.scheduled_stop_point" */
@@ -5115,6 +4995,160 @@ export type ServicePatternScheduledStopPointVarianceFields = {
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
+
+/**
+ * Which scheduled stop points are serviced by which vehicle modes?
+ *
+ *
+ * columns and relationships of "service_pattern.vehicle_mode_on_scheduled_stop_point"
+ *
+ */
+export type ServicePatternVehicleModeOnScheduledStopPoint = {
+  __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+  /** The scheduled stop point that is serviced by the vehicle mode. */
+  scheduled_stop_point_id: Scalars['uuid'];
+  /** The vehicle mode servicing the scheduled stop point. */
+  vehicle_mode: ReusableComponentsVehicleModeEnum;
+};
+
+/** aggregated selection of "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export type ServicePatternVehicleModeOnScheduledStopPointAggregate = {
+  __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate';
+  aggregate?: Maybe<ServicePatternVehicleModeOnScheduledStopPointAggregateFields>;
+  nodes: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
+};
+
+/** aggregate fields of "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export type ServicePatternVehicleModeOnScheduledStopPointAggregateFields = {
+  __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMaxFields>;
+  min?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMinFields>;
+};
+
+
+/** aggregate fields of "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export type ServicePatternVehicleModeOnScheduledStopPointAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export type ServicePatternVehicleModeOnScheduledStopPointAggregateOrderBy = {
+  count?: Maybe<OrderBy>;
+  max?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMaxOrderBy>;
+  min?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMinOrderBy>;
+};
+
+/** input type for inserting array relation for remote table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export type ServicePatternVehicleModeOnScheduledStopPointArrRelInsertInput = {
+  data: Array<ServicePatternVehicleModeOnScheduledStopPointInsertInput>;
+  /** on conflict condition */
+  on_conflict?: Maybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
+};
+
+/** Boolean expression to filter rows from the table "service_pattern.vehicle_mode_on_scheduled_stop_point". All fields are combined with a logical 'AND'. */
+export type ServicePatternVehicleModeOnScheduledStopPointBoolExp = {
+  _and?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointBoolExp>>;
+  _not?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+  _or?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointBoolExp>>;
+  scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
+};
+
+/** unique or primary key constraints on table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export enum ServicePatternVehicleModeOnScheduledStopPointConstraint {
+  /** unique or primary key constraint */
+  ScheduledStopPointServicedByVehicleModePkey = 'scheduled_stop_point_serviced_by_vehicle_mode_pkey'
+}
+
+/** input type for inserting data into table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export type ServicePatternVehicleModeOnScheduledStopPointInsertInput = {
+  /** The scheduled stop point that is serviced by the vehicle mode. */
+  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  /** The vehicle mode servicing the scheduled stop point. */
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+};
+
+/** aggregate max on columns */
+export type ServicePatternVehicleModeOnScheduledStopPointMaxFields = {
+  __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point_max_fields';
+  /** The scheduled stop point that is serviced by the vehicle mode. */
+  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by max() on columns of table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export type ServicePatternVehicleModeOnScheduledStopPointMaxOrderBy = {
+  /** The scheduled stop point that is serviced by the vehicle mode. */
+  scheduled_stop_point_id?: Maybe<OrderBy>;
+};
+
+/** aggregate min on columns */
+export type ServicePatternVehicleModeOnScheduledStopPointMinFields = {
+  __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point_min_fields';
+  /** The scheduled stop point that is serviced by the vehicle mode. */
+  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by min() on columns of table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export type ServicePatternVehicleModeOnScheduledStopPointMinOrderBy = {
+  /** The scheduled stop point that is serviced by the vehicle mode. */
+  scheduled_stop_point_id?: Maybe<OrderBy>;
+};
+
+/** response of any mutation on the table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export type ServicePatternVehicleModeOnScheduledStopPointMutationResponse = {
+  __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
+};
+
+/** on conflict condition type for table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export type ServicePatternVehicleModeOnScheduledStopPointOnConflict = {
+  constraint: ServicePatternVehicleModeOnScheduledStopPointConstraint;
+  update_columns?: Array<ServicePatternVehicleModeOnScheduledStopPointUpdateColumn>;
+  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+};
+
+/** Ordering options when selecting data from "service_pattern.vehicle_mode_on_scheduled_stop_point". */
+export type ServicePatternVehicleModeOnScheduledStopPointOrderBy = {
+  scheduled_stop_point_id?: Maybe<OrderBy>;
+  vehicle_mode?: Maybe<OrderBy>;
+};
+
+/** primary key columns input for table: service_pattern_vehicle_mode_on_scheduled_stop_point */
+export type ServicePatternVehicleModeOnScheduledStopPointPkColumnsInput = {
+  /** The scheduled stop point that is serviced by the vehicle mode. */
+  scheduled_stop_point_id: Scalars['uuid'];
+  /** The vehicle mode servicing the scheduled stop point. */
+  vehicle_mode: ReusableComponentsVehicleModeEnum;
+};
+
+/** select columns of table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export enum ServicePatternVehicleModeOnScheduledStopPointSelectColumn {
+  /** column name */
+  ScheduledStopPointId = 'scheduled_stop_point_id',
+  /** column name */
+  VehicleMode = 'vehicle_mode'
+}
+
+/** input type for updating data in table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export type ServicePatternVehicleModeOnScheduledStopPointSetInput = {
+  /** The scheduled stop point that is serviced by the vehicle mode. */
+  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  /** The vehicle mode servicing the scheduled stop point. */
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+};
+
+/** update columns of table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+export enum ServicePatternVehicleModeOnScheduledStopPointUpdateColumn {
+  /** column name */
+  ScheduledStopPointId = 'scheduled_stop_point_id',
+  /** column name */
+  VehicleMode = 'vehicle_mode'
+}
 
 export type StDWithinGeographyInput = {
   distance: Scalars['Float'];
@@ -5211,12 +5245,12 @@ export type SubscriptionRoot = {
   service_pattern_scheduled_stop_point: Array<ServicePatternScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point" */
   service_pattern_scheduled_stop_point_aggregate: ServicePatternScheduledStopPointAggregate;
-  /** fetch data from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode: Array<ServicePatternScheduledStopPointServicedByVehicleMode>;
-  /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" */
-  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate: ServicePatternScheduledStopPointServicedByVehicleModeAggregate;
-  /** fetch data from the table: "service_pattern.scheduled_stop_point_serviced_by_vehicle_mode" using primary key columns */
-  service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk?: Maybe<ServicePatternScheduledStopPointServicedByVehicleMode>;
+  /** fetch data from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+  service_pattern_vehicle_mode_on_scheduled_stop_point: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
+  /** fetch aggregated fields from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
+  service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate: ServicePatternVehicleModeOnScheduledStopPointAggregate;
+  /** fetch data from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" using primary key columns */
+  service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
 };
 
 
@@ -5552,25 +5586,25 @@ export type SubscriptionRootServicePatternScheduledStopPointAggregateArgs = {
 };
 
 
-export type SubscriptionRootServicePatternScheduledStopPointServicedByVehicleModeArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
+export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointArgs = {
+  distinct_on?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
+  order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
 };
 
 
-export type SubscriptionRootServicePatternScheduledStopPointServicedByVehicleModeAggregateArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeSelectColumn>>;
+export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointAggregateArgs = {
+  distinct_on?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointServicedByVehicleModeOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointServicedByVehicleModeBoolExp>;
+  order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
 };
 
 
-export type SubscriptionRootServicePatternScheduledStopPointServicedByVehicleModeByPkArgs = {
+export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointByPkArgs = {
   scheduled_stop_point_id: Scalars['uuid'];
   vehicle_mode: ReusableComponentsVehicleModeEnum;
 };

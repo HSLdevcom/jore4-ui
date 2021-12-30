@@ -4333,6 +4333,200 @@
             "deprecationReason": null
           },
           {
+            "name": "vehicle_submode_on_infrastructure_link",
+            "description": "An array relationship",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "infrastructure_network_vehicle_submode_on_infrastructure_link_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "infrastructure_network_vehicle_submode_on_infrastructure_link_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "infrastructure_network_vehicle_submode_on_infrastructure_link_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "infrastructure_network_vehicle_submode_on_infrastructure_link",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_submode_on_infrastructure_link_aggregate",
+            "description": "An aggregate relationship",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "infrastructure_network_vehicle_submode_on_infrastructure_link_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "infrastructure_network_vehicle_submode_on_infrastructure_link_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "infrastructure_network_vehicle_submode_on_infrastructure_link_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_submode_on_infrastructure_links",
             "description": "An array relationship",
             "args": [
@@ -5162,6 +5356,18 @@
             "deprecationReason": null
           },
           {
+            "name": "vehicle_submode_on_infrastructure_link",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "infrastructure_network_vehicle_submode_on_infrastructure_link_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_submode_on_infrastructure_links",
             "description": null,
             "type": {
@@ -5332,6 +5538,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "geography",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_submode_on_infrastructure_link",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "infrastructure_network_vehicle_submode_on_infrastructure_link_arr_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null,
@@ -5804,6 +6022,18 @@
             "type": {
               "kind": "ENUM",
               "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_submode_on_infrastructure_link_aggregate",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -10902,8 +11132,8 @@
             "deprecationReason": null
           },
           {
-            "name": "delete_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
-            "description": "delete data from the table: \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
+            "name": "delete_service_pattern_vehicle_mode_on_scheduled_stop_point",
+            "description": "delete data from the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
             "args": [
               {
                 "name": "where",
@@ -10913,7 +11143,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
+                    "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
                     "ofType": null
                   }
                 },
@@ -10924,15 +11154,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_mutation_response",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "delete_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk",
-            "description": "delete single row from the table: \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
+            "name": "delete_service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk",
+            "description": "delete single row from the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
             "args": [
               {
                 "name": "scheduled_stop_point_id",
@@ -10969,7 +11199,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
               "ofType": null
             },
             "isDeprecated": false,
@@ -12098,8 +12328,8 @@
             "deprecationReason": null
           },
           {
-            "name": "insert_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
-            "description": "insert data into the table: \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
+            "name": "insert_service_pattern_vehicle_mode_on_scheduled_stop_point",
+            "description": "insert data into the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
             "args": [
               {
                 "name": "objects",
@@ -12115,7 +12345,7 @@
                       "name": null,
                       "ofType": {
                         "kind": "INPUT_OBJECT",
-                        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_insert_input",
+                        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_insert_input",
                         "ofType": null
                       }
                     }
@@ -12130,7 +12360,7 @@
                 "description": "on conflict condition",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_on_conflict",
+                  "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_on_conflict",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -12140,15 +12370,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_mutation_response",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "insert_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_one",
-            "description": "insert a single row into the table: \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
+            "name": "insert_service_pattern_vehicle_mode_on_scheduled_stop_point_one",
+            "description": "insert a single row into the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
             "args": [
               {
                 "name": "object",
@@ -12158,7 +12388,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_insert_input",
+                    "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_insert_input",
                     "ofType": null
                   }
                 },
@@ -12171,7 +12401,7 @@
                 "description": "on conflict condition",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_on_conflict",
+                  "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_on_conflict",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -12181,7 +12411,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
               "ofType": null
             },
             "isDeprecated": false,
@@ -13292,15 +13522,15 @@
             "deprecationReason": null
           },
           {
-            "name": "update_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
-            "description": "update data of the table: \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
+            "name": "update_service_pattern_vehicle_mode_on_scheduled_stop_point",
+            "description": "update data of the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
             "args": [
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_set_input",
+                  "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_set_input",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -13315,7 +13545,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
+                    "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
                     "ofType": null
                   }
                 },
@@ -13326,22 +13556,22 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_mutation_response",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "update_service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk",
-            "description": "update single row of the table: \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
+            "name": "update_service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk",
+            "description": "update single row of the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
             "args": [
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_set_input",
+                  "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_set_input",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -13356,7 +13586,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_pk_columns_input",
+                    "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_pk_columns_input",
                     "ofType": null
                   }
                 },
@@ -13367,7 +13597,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
               "ofType": null
             },
             "isDeprecated": false,
@@ -16773,8 +17003,8 @@
             "deprecationReason": null
           },
           {
-            "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
-            "description": "fetch data from the table: \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
+            "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
+            "description": "fetch data from the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -16787,7 +17017,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_select_column",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_select_column",
                       "ofType": null
                     }
                   }
@@ -16831,7 +17061,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_order_by",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_order_by",
                       "ofType": null
                     }
                   }
@@ -16845,7 +17075,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
+                  "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -16864,7 +17094,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
+                    "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
                     "ofType": null
                   }
                 }
@@ -16874,8 +17104,8 @@
             "deprecationReason": null
           },
           {
-            "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate",
-            "description": "fetch aggregated fields from the table: \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
+            "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate",
+            "description": "fetch aggregated fields from the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -16888,7 +17118,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_select_column",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_select_column",
                       "ofType": null
                     }
                   }
@@ -16932,7 +17162,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_order_by",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_order_by",
                       "ofType": null
                     }
                   }
@@ -16946,7 +17176,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
+                  "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -16959,7 +17189,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate",
+                "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate",
                 "ofType": null
               }
             },
@@ -16967,8 +17197,8 @@
             "deprecationReason": null
           },
           {
-            "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk",
-            "description": "fetch data from the table: \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\" using primary key columns",
+            "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk",
+            "description": "fetch data from the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\" using primary key columns",
             "args": [
               {
                 "name": "scheduled_stop_point_id",
@@ -17005,7 +17235,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
               "ofType": null
             },
             "isDeprecated": false,
@@ -17022,200 +17252,6 @@
         "name": "reusable_components_vehicle_mode",
         "description": "The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283\n\n\ncolumns and relationships of \"reusable_components.vehicle_mode\"\n",
         "fields": [
-          {
-            "name": "scheduled_stop_point_serviced_by_vehicle_modes",
-            "description": "An array relationship",
-            "args": [
-              {
-                "name": "distinct_on",
-                "description": "distinct select on columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "ENUM",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_select_column",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "limit",
-                "description": "limit the number of rows returned",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "offset",
-                "description": "skip the first n rows. Use only with order_by",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "order_by",
-                "description": "sort the rows by one or more columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_order_by",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "where",
-                "description": "filter the rows returned",
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "scheduled_stop_point_serviced_by_vehicle_modes_aggregate",
-            "description": "An aggregate relationship",
-            "args": [
-              {
-                "name": "distinct_on",
-                "description": "distinct select on columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "ENUM",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_select_column",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "limit",
-                "description": "limit the number of rows returned",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "offset",
-                "description": "skip the first n rows. Use only with order_by",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "order_by",
-                "description": "sort the rows by one or more columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_order_by",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "where",
-                "description": "filter the rows returned",
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "vehicle_mode",
             "description": "The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283",
@@ -17622,18 +17658,6 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_serviced_by_vehicle_modes",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "vehicle_mode",
             "description": null,
             "type": {
@@ -17813,18 +17837,6 @@
         "description": "input type for inserting data into table \"reusable_components.vehicle_mode\"",
         "fields": null,
         "inputFields": [
-          {
-            "name": "scheduled_stop_point_serviced_by_vehicle_modes",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_arr_rel_insert_input",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "vehicle_mode",
             "description": "The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283",
@@ -18059,18 +18071,6 @@
         "description": "Ordering options when selecting data from \"reusable_components.vehicle_mode\".",
         "fields": null,
         "inputFields": [
-          {
-            "name": "scheduled_stop_point_serviced_by_vehicle_modes_aggregate",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate_order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "vehicle_mode",
             "description": null,
@@ -26924,6 +26924,200 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode_on_scheduled_stop_point",
+            "description": "An array relationship",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode_on_scheduled_stop_point_aggregate",
+            "description": "An aggregate relationship",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -27370,6 +27564,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode_on_scheduled_stop_point",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -27531,6 +27737,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode_on_scheduled_stop_point",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_arr_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null,
@@ -27959,6 +28177,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode_on_scheduled_stop_point_aggregate",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate_order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -28029,830 +28259,6 @@
           },
           {
             "name": "validity_start",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
-        "description": "Which scheduled stop points are serviced by which vehicle modes?\n\n\ncolumns and relationships of \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"\n",
-        "fields": [
-          {
-            "name": "scheduled_stop_point_id",
-            "description": "The scheduled stop point that is serviced by the vehicle mode.",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "uuid",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vehicleModeByVehicleMode",
-            "description": "An object relationship",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "reusable_components_vehicle_mode",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vehicle_mode",
-            "description": "The vehicle mode servicing the scheduled stop point.",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "ENUM",
-                "name": "reusable_components_vehicle_mode_enum",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate",
-        "description": "aggregated selection of \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": [
-          {
-            "name": "aggregate",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate_fields",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nodes",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate_fields",
-        "description": "aggregate fields of \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": [
-          {
-            "name": "count",
-            "description": null,
-            "args": [
-              {
-                "name": "columns",
-                "description": null,
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "ENUM",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_select_column",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "distinct",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "max",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_max_fields",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "min",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_min_fields",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate_order_by",
-        "description": "order by aggregate values of table \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "count",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "max",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_max_order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "min",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_min_order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_arr_rel_insert_input",
-        "description": "input type for inserting array relation for remote table \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "data",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_insert_input",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "on_conflict",
-            "description": "on conflict condition",
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_on_conflict",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
-        "description": "Boolean expression to filter rows from the table \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\". All fields are combined with a logical 'AND'.",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "_and",
-            "description": null,
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "_not",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "_or",
-            "description": null,
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "scheduled_stop_point_id",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "uuid_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vehicleModeByVehicleMode",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "reusable_components_vehicle_mode_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vehicle_mode",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "reusable_components_vehicle_mode_enum_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "ENUM",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_constraint",
-        "description": "unique or primary key constraints on table \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "scheduled_stop_point_serviced_by_vehicle_mode_pkey",
-            "description": "unique or primary key constraint",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_insert_input",
-        "description": "input type for inserting data into table \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "scheduled_stop_point_id",
-            "description": "The scheduled stop point that is serviced by the vehicle mode.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vehicleModeByVehicleMode",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "reusable_components_vehicle_mode_obj_rel_insert_input",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vehicle_mode",
-            "description": "The vehicle mode servicing the scheduled stop point.",
-            "type": {
-              "kind": "ENUM",
-              "name": "reusable_components_vehicle_mode_enum",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_max_fields",
-        "description": "aggregate max on columns",
-        "fields": [
-          {
-            "name": "scheduled_stop_point_id",
-            "description": "The scheduled stop point that is serviced by the vehicle mode.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_max_order_by",
-        "description": "order by max() on columns of table \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "scheduled_stop_point_id",
-            "description": "The scheduled stop point that is serviced by the vehicle mode.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_min_fields",
-        "description": "aggregate min on columns",
-        "fields": [
-          {
-            "name": "scheduled_stop_point_id",
-            "description": "The scheduled stop point that is serviced by the vehicle mode.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_min_order_by",
-        "description": "order by min() on columns of table \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "scheduled_stop_point_id",
-            "description": "The scheduled stop point that is serviced by the vehicle mode.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_mutation_response",
-        "description": "response of any mutation on the table \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": [
-          {
-            "name": "affected_rows",
-            "description": "number of rows affected by the mutation",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "returning",
-            "description": "data from the rows affected by the mutation",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_on_conflict",
-        "description": "on conflict condition type for table \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "constraint",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "ENUM",
-                "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_constraint",
-                "ofType": null
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "update_columns",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "ENUM",
-                    "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_update_column",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "defaultValue": "[]",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "where",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_order_by",
-        "description": "Ordering options when selecting data from \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\".",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "scheduled_stop_point_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vehicleModeByVehicleMode",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "reusable_components_vehicle_mode_order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vehicle_mode",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_pk_columns_input",
-        "description": "primary key columns input for table: service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "scheduled_stop_point_id",
-            "description": "The scheduled stop point that is serviced by the vehicle mode.",
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "uuid",
-                "ofType": null
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vehicle_mode",
-            "description": "The vehicle mode servicing the scheduled stop point.",
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "ENUM",
-                "name": "reusable_components_vehicle_mode_enum",
-                "ofType": null
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "ENUM",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_select_column",
-        "description": "select columns of table \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "scheduled_stop_point_id",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vehicle_mode",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_set_input",
-        "description": "input type for updating data in table \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "scheduled_stop_point_id",
-            "description": "The scheduled stop point that is serviced by the vehicle mode.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vehicle_mode",
-            "description": "The vehicle mode servicing the scheduled stop point.",
-            "type": {
-              "kind": "ENUM",
-              "name": "reusable_components_vehicle_mode_enum",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "ENUM",
-        "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_update_column",
-        "description": "update columns of table \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "scheduled_stop_point_id",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vehicle_mode",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -29234,6 +28640,778 @@
         "inputFields": null,
         "interfaces": [],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
+        "description": "Which scheduled stop points are serviced by which vehicle modes?\n\n\ncolumns and relationships of \"service_pattern.vehicle_mode_on_scheduled_stop_point\"\n",
+        "fields": [
+          {
+            "name": "scheduled_stop_point_id",
+            "description": "The scheduled stop point that is serviced by the vehicle mode.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "uuid",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode",
+            "description": "The vehicle mode servicing the scheduled stop point.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "reusable_components_vehicle_mode_enum",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate",
+        "description": "aggregated selection of \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": [
+          {
+            "name": "aggregate",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate_fields",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nodes",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate_fields",
+        "description": "aggregate fields of \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": [
+          {
+            "name": "count",
+            "description": null,
+            "args": [
+              {
+                "name": "columns",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "distinct",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "max",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_max_fields",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "min",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_min_fields",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate_order_by",
+        "description": "order by aggregate values of table \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "count",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "max",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_max_order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "min",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_min_order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_arr_rel_insert_input",
+        "description": "input type for inserting array relation for remote table \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "data",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_insert_input",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "on_conflict",
+            "description": "on conflict condition",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_on_conflict",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
+        "description": "Boolean expression to filter rows from the table \"service_pattern.vehicle_mode_on_scheduled_stop_point\". All fields are combined with a logical 'AND'.",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "_and",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_not",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_or",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_point_id",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "uuid_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "reusable_components_vehicle_mode_enum_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_constraint",
+        "description": "unique or primary key constraints on table \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "scheduled_stop_point_serviced_by_vehicle_mode_pkey",
+            "description": "unique or primary key constraint",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_insert_input",
+        "description": "input type for inserting data into table \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "scheduled_stop_point_id",
+            "description": "The scheduled stop point that is serviced by the vehicle mode.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode",
+            "description": "The vehicle mode servicing the scheduled stop point.",
+            "type": {
+              "kind": "ENUM",
+              "name": "reusable_components_vehicle_mode_enum",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_max_fields",
+        "description": "aggregate max on columns",
+        "fields": [
+          {
+            "name": "scheduled_stop_point_id",
+            "description": "The scheduled stop point that is serviced by the vehicle mode.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_max_order_by",
+        "description": "order by max() on columns of table \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "scheduled_stop_point_id",
+            "description": "The scheduled stop point that is serviced by the vehicle mode.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_min_fields",
+        "description": "aggregate min on columns",
+        "fields": [
+          {
+            "name": "scheduled_stop_point_id",
+            "description": "The scheduled stop point that is serviced by the vehicle mode.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_min_order_by",
+        "description": "order by min() on columns of table \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "scheduled_stop_point_id",
+            "description": "The scheduled stop point that is serviced by the vehicle mode.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_mutation_response",
+        "description": "response of any mutation on the table \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": [
+          {
+            "name": "affected_rows",
+            "description": "number of rows affected by the mutation",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "returning",
+            "description": "data from the rows affected by the mutation",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_on_conflict",
+        "description": "on conflict condition type for table \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "constraint",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_constraint",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "update_columns",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_update_column",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "defaultValue": "[]",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "where",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_order_by",
+        "description": "Ordering options when selecting data from \"service_pattern.vehicle_mode_on_scheduled_stop_point\".",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "scheduled_stop_point_id",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_pk_columns_input",
+        "description": "primary key columns input for table: service_pattern_vehicle_mode_on_scheduled_stop_point",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "scheduled_stop_point_id",
+            "description": "The scheduled stop point that is serviced by the vehicle mode.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "uuid",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode",
+            "description": "The vehicle mode servicing the scheduled stop point.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "reusable_components_vehicle_mode_enum",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_select_column",
+        "description": "select columns of table \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "scheduled_stop_point_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_set_input",
+        "description": "input type for updating data in table \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "scheduled_stop_point_id",
+            "description": "The scheduled stop point that is serviced by the vehicle mode.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode",
+            "description": "The vehicle mode servicing the scheduled stop point.",
+            "type": {
+              "kind": "ENUM",
+              "name": "reusable_components_vehicle_mode_enum",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_update_column",
+        "description": "update columns of table \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "scheduled_stop_point_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_mode",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {
@@ -32681,8 +32859,8 @@
             "deprecationReason": null
           },
           {
-            "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
-            "description": "fetch data from the table: \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
+            "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
+            "description": "fetch data from the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -32695,7 +32873,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_select_column",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_select_column",
                       "ofType": null
                     }
                   }
@@ -32739,7 +32917,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_order_by",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_order_by",
                       "ofType": null
                     }
                   }
@@ -32753,7 +32931,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
+                  "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -32772,7 +32950,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
+                    "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
                     "ofType": null
                   }
                 }
@@ -32782,8 +32960,8 @@
             "deprecationReason": null
           },
           {
-            "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate",
-            "description": "fetch aggregated fields from the table: \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\"",
+            "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate",
+            "description": "fetch aggregated fields from the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -32796,7 +32974,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_select_column",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_select_column",
                       "ofType": null
                     }
                   }
@@ -32840,7 +33018,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_order_by",
+                      "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_order_by",
                       "ofType": null
                     }
                   }
@@ -32854,7 +33032,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_bool_exp",
+                  "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -32867,7 +33045,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_aggregate",
+                "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate",
                 "ofType": null
               }
             },
@@ -32875,8 +33053,8 @@
             "deprecationReason": null
           },
           {
-            "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode_by_pk",
-            "description": "fetch data from the table: \"service_pattern.scheduled_stop_point_serviced_by_vehicle_mode\" using primary key columns",
+            "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk",
+            "description": "fetch data from the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\" using primary key columns",
             "args": [
               {
                 "name": "scheduled_stop_point_id",
@@ -32913,7 +33091,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point_serviced_by_vehicle_mode",
+              "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
               "ofType": null
             },
             "isDeprecated": false,
