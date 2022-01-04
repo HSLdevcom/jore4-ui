@@ -15,9 +15,11 @@ import {
   GetStopsByInfraLinkIdsDocument,
   GetStopsByInfraLinkIdsQueryResult,
   GetStopsByInfraLinkIdsQueryVariables,
+  InfrastructureNetworkInfrastructureLink,
   MapExternalLinkIdsToInfraLinkIdsDocument,
   MapExternalLinkIdsToInfraLinkIdsQueryResult,
   MapExternalLinkIdsToInfraLinkIdsQueryVariables,
+  ServicePatternScheduledStopPoint,
 } from '../../generated/graphql';
 import { useAsyncQuery } from '../../hooks';
 import { addRoute, removeRoute } from './mapUtils';
@@ -124,9 +126,43 @@ const DrawRouteLayerComponent = (
           (link: ExplicitAny) => link.infrastructure_link_id,
         ),
       });
+      const findStopIndexByInfraLink = (
+        stop: ServicePatternScheduledStopPoint,
+      ) =>
+        infraLinks.findIndex(
+          (infraLink: InfrastructureNetworkInfrastructureLink) =>
+            infraLink.infrastructure_link_id ===
+            stop.located_on_infrastructure_link_id,
+        );
+      // Filter those stops traversable in the direction in which our route is going.
+      // Sort the returned stops by the infrastructure link order found in the route. This is needed, because the
+      // stops are returned in arbitrary order by fetchStopsByInfraLinkIds.
       const stopsWithinRoute =
         // @ts-expect-error problem with generated types?
-        stopsResponse.data.service_pattern_scheduled_stop_point;
+        stopsResponse.data.service_pattern_scheduled_stop_point
+          .filter((stop: ServicePatternScheduledStopPoint) => {
+            const link = infraLinks.find(
+              (infraLink: InfrastructureNetworkInfrastructureLink) =>
+                infraLink.infrastructure_link_id ===
+                stop.located_on_infrastructure_link_id,
+            );
+
+            return (
+              ((stop.direction === 'forward' ||
+                stop.direction === 'bidirectional') &&
+                link.is_traversal_forwards) ||
+              ((stop.direction === 'backward' ||
+                stop.direction === 'bidirectional') &&
+                !link.is_traversal_forwards)
+            );
+          })
+          .sort(
+            (
+              stop1: ServicePatternScheduledStopPoint,
+              stop2: ServicePatternScheduledStopPoint,
+            ) =>
+              findStopIndexByInfraLink(stop1) - findStopIndexByInfraLink(stop2),
+          );
       dispatch({
         type: 'setState',
         payload: { stopsWithinRoute, infraLinksAlongRoute: infraLinks },
