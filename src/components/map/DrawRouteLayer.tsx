@@ -15,9 +15,11 @@ import {
   GetStopsByInfraLinkIdsDocument,
   GetStopsByInfraLinkIdsQueryResult,
   GetStopsByInfraLinkIdsQueryVariables,
+  InfrastructureNetworkInfrastructureLink,
   MapExternalLinkIdsToInfraLinkIdsDocument,
   MapExternalLinkIdsToInfraLinkIdsQueryResult,
   MapExternalLinkIdsToInfraLinkIdsQueryVariables,
+  ServicePatternScheduledStopPoint,
 } from '../../generated/graphql';
 import { useAsyncQuery } from '../../hooks';
 import { addRoute, removeRoute } from './mapUtils';
@@ -124,9 +126,25 @@ const DrawRouteLayerComponent = (
           (link: ExplicitAny) => link.infrastructure_link_id,
         ),
       });
+      const findStopIndexByInfraLink = (
+        stop: ServicePatternScheduledStopPoint,
+      ) =>
+        infraLinks.findIndex(
+          (infraLink: InfrastructureNetworkInfrastructureLink) =>
+            infraLink.infrastructure_link_id ===
+            stop.located_on_infrastructure_link_id,
+        );
+      // Sort the returned stops by the infrastructure link order found in the route. This is needed, because the
+      // stops are returned in arbitrary order by fetchStopsByInfraLinkIds.
       const stopsWithinRoute =
         // @ts-expect-error problem with generated types?
-        stopsResponse.data.service_pattern_scheduled_stop_point;
+        [...stopsResponse.data.service_pattern_scheduled_stop_point].sort(
+          (
+            stop1: ServicePatternScheduledStopPoint,
+            stop2: ServicePatternScheduledStopPoint,
+          ) =>
+            findStopIndexByInfraLink(stop1) - findStopIndexByInfraLink(stop2),
+        );
       dispatch({
         type: 'setState',
         payload: { stopsWithinRoute, infraLinksAlongRoute: infraLinks },
