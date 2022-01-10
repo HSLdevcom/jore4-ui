@@ -15,12 +15,15 @@ import {
   GetStopsByInfraLinkIdsDocument,
   GetStopsByInfraLinkIdsQueryResult,
   GetStopsByInfraLinkIdsQueryVariables,
-  InfrastructureNetworkInfrastructureLink,
   MapExternalLinkIdsToInfraLinkIdsDocument,
   MapExternalLinkIdsToInfraLinkIdsQueryResult,
   MapExternalLinkIdsToInfraLinkIdsQueryVariables,
   ServicePatternScheduledStopPoint,
 } from '../../generated/graphql';
+import {
+  findStopIndexByInfraLink,
+  InfrastructureLink,
+} from '../../graphql/infrastructureNetwork';
 import { useAsyncQuery } from '../../hooks';
 import { addRoute, removeRoute } from './mapUtils';
 
@@ -110,30 +113,20 @@ const DrawRouteLayerComponent = (
       const infraLinksResponse = await fetchInfraLinkIdsByExternalIds({
         externalLinkIds,
       });
-      const infraLinks =
+      const infraLinks: InfrastructureLink[] =
         // @ts-expect-error problem with generated types?
         infraLinksResponse.data.infrastructure_network_infrastructure_link.map(
           // TODO: can correct type be imported from generated graphql typings?
           (item: ExplicitAny, index: number) => ({
-            infrastructure_link_id: item.infrastructure_link_id,
-            is_traversal_forwards:
+            infrastructureLinkId: item.infrastructure_link_id,
+            isTraversalForwards:
               routeResponse.routes[0]?.paths[index]?.traversalForwards,
           }),
         );
 
       const stopsResponse = await fetchStopsByInfraLinkIds({
-        infraLinkIds: infraLinks.map(
-          (link: ExplicitAny) => link.infrastructure_link_id,
-        ),
+        infraLinkIds: infraLinks.map((link) => link.infrastructureLinkId),
       });
-      const findStopIndexByInfraLink = (
-        stop: ServicePatternScheduledStopPoint,
-      ) =>
-        infraLinks.findIndex(
-          (infraLink: InfrastructureNetworkInfrastructureLink) =>
-            infraLink.infrastructure_link_id ===
-            stop.located_on_infrastructure_link_id,
-        );
       // Filter those stops traversable in the direction in which our route is going.
       // Sort the returned stops by the infrastructure link order found in the route. This is needed, because the
       // stops are returned in arbitrary order by fetchStopsByInfraLinkIds.
@@ -142,18 +135,20 @@ const DrawRouteLayerComponent = (
         stopsResponse.data.service_pattern_scheduled_stop_point
           .filter((stop: ServicePatternScheduledStopPoint) => {
             const link = infraLinks.find(
-              (infraLink: InfrastructureNetworkInfrastructureLink) =>
-                infraLink.infrastructure_link_id ===
+              (infraLink) =>
+                infraLink.infrastructureLinkId ===
                 stop.located_on_infrastructure_link_id,
             );
 
+            if (!stop.direction || !link) {
+              // do not include stops of which we cannot tell if they are on the "right side of the road"
+              return false;
+            }
+
             return (
-              ((stop.direction === 'forward' ||
-                stop.direction === 'bidirectional') &&
-                link.is_traversal_forwards) ||
-              ((stop.direction === 'backward' ||
-                stop.direction === 'bidirectional') &&
-                !link.is_traversal_forwards)
+              stop.direction === 'bidirectional' ||
+              (link.isTraversalForwards && stop.direction === 'forward') ||
+              (!link.isTraversalForwards && stop.direction === 'backward')
             );
           })
           .sort(
@@ -161,7 +156,8 @@ const DrawRouteLayerComponent = (
               stop1: ServicePatternScheduledStopPoint,
               stop2: ServicePatternScheduledStopPoint,
             ) =>
-              findStopIndexByInfraLink(stop1) - findStopIndexByInfraLink(stop2),
+              findStopIndexByInfraLink(infraLinks, stop1) -
+              findStopIndexByInfraLink(infraLinks, stop2),
           );
       dispatch({
         type: 'setState',
