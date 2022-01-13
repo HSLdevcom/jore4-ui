@@ -6,7 +6,7 @@ import {
   RouteDirectionEnum,
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
-import { mapInfraLinksToGraphQL } from '../../graphql/infrastructureNetwork';
+import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql/infrastructureNetwork';
 import { Modal } from '../../uiComponents';
 import { mapToObject, mapToVariables } from '../../utils';
 import { Map } from './Map';
@@ -39,36 +39,35 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
     dispatch({ type: 'reset' });
   };
   const onSave = async () => {
-    const { busRoute, stopsWithinRoute, infraLinksAlongRoute } = state;
+    const { busRoute, stopIdsWithinRoute, infraLinksAlongRoute } = state;
 
     if (
       busRoute &&
       infraLinksAlongRoute &&
-      stopsWithinRoute &&
-      stopsWithinRoute.length >= 2
+      stopIdsWithinRoute &&
+      stopIdsWithinRoute.length >= 2
     ) {
       // TODO: user should be able to select starting stop and final stop from some kind of UI.
       // TODO: for now, just use the first and last stops found.
-      const startingStop = stopsWithinRoute[0].scheduled_stop_point_id;
-      const finalStop =
-        stopsWithinRoute[stopsWithinRoute.length - 1].scheduled_stop_point_id;
+      const startingStopId = stopIdsWithinRoute[0];
+      const finalStopId = stopIdsWithinRoute[stopIdsWithinRoute.length - 1];
 
       const variables: InsertRouteOneMutationVariables = mapToObject({
-        starts_from_scheduled_stop_point_id: startingStop,
-        ends_at_scheduled_stop_point_id: finalStop,
+        starts_from_scheduled_stop_point_id: startingStopId,
+        ends_at_scheduled_stop_point_id: finalStopId,
         on_line_id: state.routeDetails?.on_line_id,
         label: state.routeDetails?.description_i18n, // TODO: retrieve label, don't use description for label
         direction: RouteDirectionEnum.Outbound, // TODO: make this user-configurable
         priority: 10,
         // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
         infrastructure_links_along_route: {
-          data: mapInfraLinksToGraphQL(infraLinksAlongRoute),
+          data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
         },
         route_journey_patterns: {
           data: {
             scheduled_stop_point_in_journey_patterns: {
-              data: stopsWithinRoute.map((stop, index) => ({
-                scheduled_stop_point_id: stop.scheduled_stop_point_id,
+              data: stopIdsWithinRoute.map((stopId, index) => ({
+                scheduled_stop_point_id: stopId,
                 scheduled_stop_point_sequence: index,
               })),
             },

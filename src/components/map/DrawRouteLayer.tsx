@@ -12,17 +12,15 @@ import { DrawLineStringMode, EditingMode, Editor } from 'react-map-gl-draw';
 import { getBusRoute } from '../../api/routing';
 import { MapEditorContext, Mode } from '../../context/MapEditorContext';
 import {
-  GetStopsByInfraLinkIdsDocument,
-  GetStopsByInfraLinkIdsQueryResult,
-  GetStopsByInfraLinkIdsQueryVariables,
-  MapExternalLinkIdsToInfraLinkIdsDocument,
-  MapExternalLinkIdsToInfraLinkIdsQueryResult,
-  MapExternalLinkIdsToInfraLinkIdsQueryVariables,
-  ServicePatternScheduledStopPoint,
+  MapExternalLinkIdsToInfraLinksWithStopsDocument,
+  MapExternalLinkIdsToInfraLinksWithStopsQuery,
+  MapExternalLinkIdsToInfraLinksWithStopsQueryVariables,
+  ReusableComponentsVehicleModeEnum,
 } from '../../generated/graphql';
 import {
-  findStopIndexByInfraLink,
-  InfrastructureLink,
+  extractScheduledStopPointIds,
+  findEntryIndexByExtLinkId,
+  InfrastructureLinkAlongRoute,
 } from '../../graphql/infrastructureNetwork';
 import { useAsyncQuery } from '../../hooks';
 import { addRoute, removeRoute } from './mapUtils';
@@ -89,14 +87,10 @@ const DrawRouteLayerComponent = (
     return modeDetails ? new modeDetails.handler() : undefined;
   }, [hasRoute, mode]);
 
-  const [fetchInfraLinkIdsByExternalIds] = useAsyncQuery<
-    MapExternalLinkIdsToInfraLinkIdsQueryResult,
-    MapExternalLinkIdsToInfraLinkIdsQueryVariables
-  >(MapExternalLinkIdsToInfraLinkIdsDocument);
-  const [fetchStopsByInfraLinkIds] = useAsyncQuery<
-    GetStopsByInfraLinkIdsQueryResult,
-    GetStopsByInfraLinkIdsQueryVariables
-  >(GetStopsByInfraLinkIdsDocument);
+  const [fetchInfraLinksWithStopsByExternalIds] = useAsyncQuery<
+    MapExternalLinkIdsToInfraLinksWithStopsQuery,
+    MapExternalLinkIdsToInfraLinksWithStopsQueryVariables
+  >(MapExternalLinkIdsToInfraLinksWithStopsDocument);
 
   const onAddRoute = useCallback(
     async (e: EditorCallback) => {
@@ -110,61 +104,57 @@ const DrawRouteLayerComponent = (
       const externalLinkIds = routeResponse.routes[0]?.paths?.map(
         (item) => item.externalLinkRef.externalLinkId,
       );
-      const infraLinksResponse = await fetchInfraLinkIdsByExternalIds({
-        externalLinkIds,
-      });
-      const infraLinks: InfrastructureLink[] =
-        // @ts-expect-error problem with generated types?
-        infraLinksResponse.data.infrastructure_network_infrastructure_link.map(
-          // TODO: can correct type be imported from generated graphql typings?
-          (item: ExplicitAny, index: number) => ({
-            infrastructureLinkId: item.infrastructure_link_id,
-            isTraversalForwards:
-              routeResponse.routes[0]?.paths[index]?.traversalForwards,
-          }),
-        );
 
-      const stopsResponse = await fetchStopsByInfraLinkIds({
-        infraLinkIds: infraLinks.map((link) => link.infrastructureLinkId),
-      });
-      // Filter those stops traversable in the direction in which our route is going.
-      // Sort the returned stops by the infrastructure link order found in the route. This is needed, because the
-      // stops are returned in arbitrary order by fetchStopsByInfraLinkIds.
-      const stopsWithinRoute =
-        // @ts-expect-error problem with generated types?
-        stopsResponse.data.service_pattern_scheduled_stop_point
-          .filter((stop: ServicePatternScheduledStopPoint) => {
-            const link = infraLinks.find(
-              (infraLink) =>
-                infraLink.infrastructureLinkId ===
-                stop.located_on_infrastructure_link_id,
-            );
+      // Retrieve the infra links from the external link ids returned by map-matching.
+      // This will return the links in arbitrary order.
+      const infraLinksWithStopsResponse = await fetchInfraLinksWithStopsByExternalIds(
+        {
+          externalLinkIds,
+        },
+      );
 
-            if (!stop.direction || !link) {
-              // do not include stops of which we cannot tell if they are on the "right side of the road"
-              return false;
-            }
+      const infraLinksWithStops =
+        infraLinksWithStopsResponse.data
+          ?.infrastructure_network_infrastructure_link;
 
-            return (
-              stop.direction === 'bidirectional' ||
-              (link.isTraversalForwards && stop.direction === 'forward') ||
-              (!link.isTraversalForwards && stop.direction === 'backward')
-            );
-          })
-          .sort(
-            (
-              stop1: ServicePatternScheduledStopPoint,
-              stop2: ServicePatternScheduledStopPoint,
-            ) =>
-              findStopIndexByInfraLink(infraLinks, stop1) -
-              findStopIndexByInfraLink(infraLinks, stop2),
-          );
+      if (!infraLinksWithStops) {
+        // eslint-disable-next-line no-console
+        console.log("could not fetch route's infra links");
+        return;
+      }
+
+      // Sort the infra links according to the order of the route returned by map-matching
+      const sortedInfraLinksWithStops = [...infraLinksWithStops].sort(
+        (infraLink1, infraLink2) =>
+          findEntryIndexByExtLinkId(externalLinkIds, infraLink1) -
+          findEntryIndexByExtLinkId(externalLinkIds, infraLink2),
+      );
+
+      // Create the list of links used for route creation
+      const infraLinks: InfrastructureLinkAlongRoute[] = sortedInfraLinksWithStops.map(
+        (item, index) => ({
+          infrastructureLinkId: item.infrastructure_link_id,
+          isTraversalForwards:
+            routeResponse.routes[0]?.paths[index]?.traversalForwards,
+        }),
+      );
+
+      // Extract the list of ids of the stops to be included in the route
+      const stopIds = extractScheduledStopPointIds(
+        sortedInfraLinksWithStops,
+        infraLinks,
+        ReusableComponentsVehicleModeEnum.Bus,
+      );
+
       dispatch({
         type: 'setState',
-        payload: { stopsWithinRoute, infraLinksAlongRoute: infraLinks },
+        payload: {
+          stopIdsWithinRoute: stopIds,
+          infraLinksAlongRoute: infraLinks,
+        },
       });
 
-      if (stopsWithinRoute.length >= 2) {
+      if (stopIds.length >= 2) {
         // eslint-disable-next-line no-console
         console.log(
           'Route goes along 2 or more stops and thus can be saved. TODO: show user UI to select which stops to use.',
@@ -185,13 +175,7 @@ const DrawRouteLayerComponent = (
         onDelete(routeId);
       }
     },
-    [
-      map,
-      onDelete,
-      dispatch,
-      fetchInfraLinkIdsByExternalIds,
-      fetchStopsByInfraLinkIds,
-    ],
+    [map, onDelete, dispatch, fetchInfraLinksWithStopsByExternalIds],
   );
 
   const debouncedOnAddRoute = useMemo(() => debounce(onAddRoute, 500), [
