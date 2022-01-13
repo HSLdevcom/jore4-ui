@@ -1,6 +1,7 @@
 import produce from 'immer';
 import { BusRouteResponse } from '../api/routing';
 import { FormState as RouteFormState } from '../components/forms/CreateRouteForm';
+import { InfrastructureLinkAlongRoute } from '../graphql/infrastructureNetwork';
 
 export enum Mode {
   Draw,
@@ -13,8 +14,8 @@ export interface IMapEditorContext {
   routeDetails?: RouteFormState;
   drawingMode: Mode | undefined;
   busRoute?: BusRouteResponse;
-  stopsWithinRoute?: ExplicitAny[]; // TODO: correct typings?
-  infraLinksAlongRoute?: ExplicitAny[]; // TODO: correct typings?
+  stopIdsWithinRoute?: string[];
+  infraLinksAlongRoute?: InfrastructureLinkAlongRoute[];
 }
 
 export const initialState: IMapEditorContext = {
@@ -23,7 +24,7 @@ export const initialState: IMapEditorContext = {
   drawingMode: undefined,
   routeDetails: undefined,
   busRoute: undefined,
-  stopsWithinRoute: undefined,
+  stopIdsWithinRoute: undefined,
   infraLinksAlongRoute: undefined,
 };
 
