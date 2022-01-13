@@ -519,6 +519,10 @@ export type InfrastructureNetworkInfrastructureLink = {
   infrastructure_link_along_routes_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
   /** The ID of the infrastructure link. */
   infrastructure_link_id: Scalars['uuid'];
+  /** An array relationship */
+  scheduled_stop_point_located_on_infrastructure_link: Array<ServicePatternScheduledStopPoint>;
+  /** An aggregate relationship */
+  scheduled_stop_point_located_on_infrastructure_link_aggregate: ServicePatternScheduledStopPointAggregate;
   /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
   shape: Scalars['geography'];
   /** An array relationship */
@@ -561,6 +565,38 @@ export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutes
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
   where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+};
+
+
+/**
+ * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
+ *
+ *
+ * columns and relationships of "infrastructure_network.infrastructure_link"
+ *
+ */
+export type InfrastructureNetworkInfrastructureLinkScheduledStopPointLocatedOnInfrastructureLinkArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+};
+
+
+/**
+ * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
+ *
+ *
+ * columns and relationships of "infrastructure_network.infrastructure_link"
+ *
+ */
+export type InfrastructureNetworkInfrastructureLinkScheduledStopPointLocatedOnInfrastructureLinkAggregateArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 
@@ -705,6 +741,7 @@ export type InfrastructureNetworkInfrastructureLinkBoolExp = {
   external_source?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
   infrastructure_link_along_routes?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   infrastructure_link_id?: Maybe<UuidComparisonExp>;
+  scheduled_stop_point_located_on_infrastructure_link?: Maybe<ServicePatternScheduledStopPointBoolExp>;
   shape?: Maybe<GeographyComparisonExp>;
   vehicle_submode_on_infrastructure_link?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   vehicle_submode_on_infrastructure_links?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
@@ -737,6 +774,7 @@ export type InfrastructureNetworkInfrastructureLinkInsertInput = {
   infrastructure_link_along_routes?: Maybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
   /** The ID of the infrastructure link. */
   infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  scheduled_stop_point_located_on_infrastructure_link?: Maybe<ServicePatternScheduledStopPointArrRelInsertInput>;
   /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
   shape?: Maybe<Scalars['geography']>;
   vehicle_submode_on_infrastructure_link?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
@@ -814,6 +852,7 @@ export type InfrastructureNetworkInfrastructureLinkOrderBy = {
   external_source?: Maybe<InfrastructureNetworkExternalSourceOrderBy>;
   infrastructure_link_along_routes_aggregate?: Maybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
   infrastructure_link_id?: Maybe<OrderBy>;
+  scheduled_stop_point_located_on_infrastructure_link_aggregate?: Maybe<ServicePatternScheduledStopPointAggregateOrderBy>;
   shape?: Maybe<OrderBy>;
   vehicle_submode_on_infrastructure_link_aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy>;
   vehicle_submode_on_infrastructure_links_aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy>;
@@ -4754,6 +4793,26 @@ export type ServicePatternScheduledStopPointAggregateFieldsCountArgs = {
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
+/** order by aggregate values of table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointAggregateOrderBy = {
+  avg?: Maybe<ServicePatternScheduledStopPointAvgOrderBy>;
+  count?: Maybe<OrderBy>;
+  max?: Maybe<ServicePatternScheduledStopPointMaxOrderBy>;
+  min?: Maybe<ServicePatternScheduledStopPointMinOrderBy>;
+  stddev?: Maybe<ServicePatternScheduledStopPointStddevOrderBy>;
+  stddev_pop?: Maybe<ServicePatternScheduledStopPointStddevPopOrderBy>;
+  stddev_samp?: Maybe<ServicePatternScheduledStopPointStddevSampOrderBy>;
+  sum?: Maybe<ServicePatternScheduledStopPointSumOrderBy>;
+  var_pop?: Maybe<ServicePatternScheduledStopPointVarPopOrderBy>;
+  var_samp?: Maybe<ServicePatternScheduledStopPointVarSampOrderBy>;
+  variance?: Maybe<ServicePatternScheduledStopPointVarianceOrderBy>;
+};
+
+/** input type for inserting array relation for remote table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointArrRelInsertInput = {
+  data: Array<ServicePatternScheduledStopPointInsertInput>;
+};
+
 /** aggregate avg on columns */
 export type ServicePatternScheduledStopPointAvgFields = {
   __typename?: 'service_pattern_scheduled_stop_point_avg_fields';
@@ -4761,6 +4820,14 @@ export type ServicePatternScheduledStopPointAvgFields = {
   priority?: Maybe<Scalars['Float']>;
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointAvgOrderBy = {
+  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "service_pattern.scheduled_stop_point". All fields are combined with a logical 'AND'. */
@@ -4835,6 +4902,26 @@ export type ServicePatternScheduledStopPointMaxFields = {
   validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
+/** order by max() on columns of table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointMaxOrderBy = {
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
+  direction?: Maybe<OrderBy>;
+  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
+  label?: Maybe<OrderBy>;
+  /** The infrastructure link on which the stop is located. */
+  located_on_infrastructure_link_id?: Maybe<OrderBy>;
+  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
+  /** The ID of the scheduled stop point. */
+  scheduled_stop_point_id?: Maybe<OrderBy>;
+  /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  validity_end?: Maybe<OrderBy>;
+  /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
+  validity_start?: Maybe<OrderBy>;
+};
+
 /** aggregate min on columns */
 export type ServicePatternScheduledStopPointMinFields = {
   __typename?: 'service_pattern_scheduled_stop_point_min_fields';
@@ -4854,6 +4941,26 @@ export type ServicePatternScheduledStopPointMinFields = {
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
   validity_start?: Maybe<Scalars['timestamptz']>;
+};
+
+/** order by min() on columns of table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointMinOrderBy = {
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
+  direction?: Maybe<OrderBy>;
+  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
+  label?: Maybe<OrderBy>;
+  /** The infrastructure link on which the stop is located. */
+  located_on_infrastructure_link_id?: Maybe<OrderBy>;
+  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
+  /** The ID of the scheduled stop point. */
+  scheduled_stop_point_id?: Maybe<OrderBy>;
+  /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  validity_end?: Maybe<OrderBy>;
+  /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
+  validity_start?: Maybe<OrderBy>;
 };
 
 /** response of any mutation on the table "service_pattern.scheduled_stop_point" */
@@ -4942,6 +5049,14 @@ export type ServicePatternScheduledStopPointStddevFields = {
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
+/** order by stddev() on columns of table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointStddevOrderBy = {
+  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
+};
+
 /** aggregate stddev_pop on columns */
 export type ServicePatternScheduledStopPointStddevPopFields = {
   __typename?: 'service_pattern_scheduled_stop_point_stddev_pop_fields';
@@ -4949,6 +5064,14 @@ export type ServicePatternScheduledStopPointStddevPopFields = {
   priority?: Maybe<Scalars['Float']>;
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointStddevPopOrderBy = {
+  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -4960,6 +5083,14 @@ export type ServicePatternScheduledStopPointStddevSampFields = {
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
+/** order by stddev_samp() on columns of table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointStddevSampOrderBy = {
+  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
+};
+
 /** aggregate sum on columns */
 export type ServicePatternScheduledStopPointSumFields = {
   __typename?: 'service_pattern_scheduled_stop_point_sum_fields';
@@ -4967,6 +5098,14 @@ export type ServicePatternScheduledStopPointSumFields = {
   priority?: Maybe<Scalars['Int']>;
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
+};
+
+/** order by sum() on columns of table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointSumOrderBy = {
+  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
 };
 
 /** aggregate var_pop on columns */
@@ -4978,6 +5117,14 @@ export type ServicePatternScheduledStopPointVarPopFields = {
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
+/** order by var_pop() on columns of table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointVarPopOrderBy = {
+  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
+};
+
 /** aggregate var_samp on columns */
 export type ServicePatternScheduledStopPointVarSampFields = {
   __typename?: 'service_pattern_scheduled_stop_point_var_samp_fields';
@@ -4987,6 +5134,14 @@ export type ServicePatternScheduledStopPointVarSampFields = {
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
+/** order by var_samp() on columns of table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointVarSampOrderBy = {
+  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
+};
+
 /** aggregate variance on columns */
 export type ServicePatternScheduledStopPointVarianceFields = {
   __typename?: 'service_pattern_scheduled_stop_point_variance_fields';
@@ -4994,6 +5149,14 @@ export type ServicePatternScheduledStopPointVarianceFields = {
   priority?: Maybe<Scalars['Float']>;
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointVarianceOrderBy = {
+  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
 };
 
 /**
@@ -5677,19 +5840,12 @@ export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum }> };
 
-export type MapExternalLinkIdsToInfraLinkIdsQueryVariables = Exact<{
+export type MapExternalLinkIdsToInfraLinksWithStopsQueryVariables = Exact<{
   externalLinkIds?: Maybe<Array<Scalars['String']> | Scalars['String']>;
 }>;
 
 
-export type MapExternalLinkIdsToInfraLinkIdsQuery = { __typename?: 'query_root', infrastructure_network_infrastructure_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: any, external_link_id: string }> };
-
-export type GetStopsByInfraLinkIdsQueryVariables = Exact<{
-  infraLinkIds?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
-}>;
-
-
-export type GetStopsByInfraLinkIdsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', closest_point_on_infrastructure_link?: any | null | undefined, direction?: string | null | undefined, label?: string | null | undefined, located_on_infrastructure_link_id?: any | null | undefined, measured_location?: any | null | undefined, priority?: number | null | undefined, relative_distance_from_infrastructure_link_start?: any | null | undefined, scheduled_stop_point_id?: any | null | undefined, validity_end?: any | null | undefined, validity_start?: any | null | undefined }> };
+export type MapExternalLinkIdsToInfraLinksWithStopsQuery = { __typename?: 'query_root', infrastructure_network_infrastructure_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: any, external_link_id: string, scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, direction?: string | null | undefined, relative_distance_from_infrastructure_link_start?: any | null | undefined, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> }> };
 
 export type GetStopsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5920,90 +6076,52 @@ export function useListAllLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type ListAllLinesQueryHookResult = ReturnType<typeof useListAllLinesQuery>;
 export type ListAllLinesLazyQueryHookResult = ReturnType<typeof useListAllLinesLazyQuery>;
 export type ListAllLinesQueryResult = Apollo.QueryResult<ListAllLinesQuery, ListAllLinesQueryVariables>;
-export const MapExternalLinkIdsToInfraLinkIdsDocument = gql`
-    query MapExternalLinkIdsToInfraLinkIds($externalLinkIds: [String!]) {
+export const MapExternalLinkIdsToInfraLinksWithStopsDocument = gql`
+    query MapExternalLinkIdsToInfraLinksWithStops($externalLinkIds: [String!]) {
   infrastructure_network_infrastructure_link(
     where: {external_link_id: {_in: $externalLinkIds}}
   ) {
     infrastructure_link_id
     external_link_id
+    scheduled_stop_point_located_on_infrastructure_link {
+      scheduled_stop_point_id
+      direction
+      relative_distance_from_infrastructure_link_start
+      vehicle_mode_on_scheduled_stop_point {
+        vehicle_mode
+      }
+    }
   }
 }
     `;
 
 /**
- * __useMapExternalLinkIdsToInfraLinkIdsQuery__
+ * __useMapExternalLinkIdsToInfraLinksWithStopsQuery__
  *
- * To run a query within a React component, call `useMapExternalLinkIdsToInfraLinkIdsQuery` and pass it any options that fit your needs.
- * When your component renders, `useMapExternalLinkIdsToInfraLinkIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useMapExternalLinkIdsToInfraLinksWithStopsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMapExternalLinkIdsToInfraLinksWithStopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useMapExternalLinkIdsToInfraLinkIdsQuery({
+ * const { data, loading, error } = useMapExternalLinkIdsToInfraLinksWithStopsQuery({
  *   variables: {
  *      externalLinkIds: // value for 'externalLinkIds'
  *   },
  * });
  */
-export function useMapExternalLinkIdsToInfraLinkIdsQuery(baseOptions?: Apollo.QueryHookOptions<MapExternalLinkIdsToInfraLinkIdsQuery, MapExternalLinkIdsToInfraLinkIdsQueryVariables>) {
+export function useMapExternalLinkIdsToInfraLinksWithStopsQuery(baseOptions?: Apollo.QueryHookOptions<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MapExternalLinkIdsToInfraLinkIdsQuery, MapExternalLinkIdsToInfraLinkIdsQueryVariables>(MapExternalLinkIdsToInfraLinkIdsDocument, options);
+        return Apollo.useQuery<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>(MapExternalLinkIdsToInfraLinksWithStopsDocument, options);
       }
-export function useMapExternalLinkIdsToInfraLinkIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MapExternalLinkIdsToInfraLinkIdsQuery, MapExternalLinkIdsToInfraLinkIdsQueryVariables>) {
+export function useMapExternalLinkIdsToInfraLinksWithStopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MapExternalLinkIdsToInfraLinkIdsQuery, MapExternalLinkIdsToInfraLinkIdsQueryVariables>(MapExternalLinkIdsToInfraLinkIdsDocument, options);
+          return Apollo.useLazyQuery<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>(MapExternalLinkIdsToInfraLinksWithStopsDocument, options);
         }
-export type MapExternalLinkIdsToInfraLinkIdsQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinkIdsQuery>;
-export type MapExternalLinkIdsToInfraLinkIdsLazyQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinkIdsLazyQuery>;
-export type MapExternalLinkIdsToInfraLinkIdsQueryResult = Apollo.QueryResult<MapExternalLinkIdsToInfraLinkIdsQuery, MapExternalLinkIdsToInfraLinkIdsQueryVariables>;
-export const GetStopsByInfraLinkIdsDocument = gql`
-    query GetStopsByInfraLinkIds($infraLinkIds: [uuid!]) {
-  service_pattern_scheduled_stop_point(
-    where: {located_on_infrastructure_link_id: {_in: $infraLinkIds}}
-  ) {
-    closest_point_on_infrastructure_link
-    direction
-    label
-    located_on_infrastructure_link_id
-    measured_location
-    priority
-    relative_distance_from_infrastructure_link_start
-    scheduled_stop_point_id
-    validity_end
-    validity_start
-  }
-}
-    `;
-
-/**
- * __useGetStopsByInfraLinkIdsQuery__
- *
- * To run a query within a React component, call `useGetStopsByInfraLinkIdsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopsByInfraLinkIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetStopsByInfraLinkIdsQuery({
- *   variables: {
- *      infraLinkIds: // value for 'infraLinkIds'
- *   },
- * });
- */
-export function useGetStopsByInfraLinkIdsQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsByInfraLinkIdsQuery, GetStopsByInfraLinkIdsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopsByInfraLinkIdsQuery, GetStopsByInfraLinkIdsQueryVariables>(GetStopsByInfraLinkIdsDocument, options);
-      }
-export function useGetStopsByInfraLinkIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsByInfraLinkIdsQuery, GetStopsByInfraLinkIdsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopsByInfraLinkIdsQuery, GetStopsByInfraLinkIdsQueryVariables>(GetStopsByInfraLinkIdsDocument, options);
-        }
-export type GetStopsByInfraLinkIdsQueryHookResult = ReturnType<typeof useGetStopsByInfraLinkIdsQuery>;
-export type GetStopsByInfraLinkIdsLazyQueryHookResult = ReturnType<typeof useGetStopsByInfraLinkIdsLazyQuery>;
-export type GetStopsByInfraLinkIdsQueryResult = Apollo.QueryResult<GetStopsByInfraLinkIdsQuery, GetStopsByInfraLinkIdsQueryVariables>;
+export type MapExternalLinkIdsToInfraLinksWithStopsQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinksWithStopsQuery>;
+export type MapExternalLinkIdsToInfraLinksWithStopsLazyQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinksWithStopsLazyQuery>;
+export type MapExternalLinkIdsToInfraLinksWithStopsQueryResult = Apollo.QueryResult<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>;
 export const GetStopsDocument = gql`
     query GetStops {
   service_pattern_scheduled_stop_point {
