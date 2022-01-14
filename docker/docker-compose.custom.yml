@@ -3,11 +3,13 @@ services:
     # locking hasura image so that we can develop the UI against a static graphql API
     # Link to available jore4-hasura images in Docker Hub:
     # https://hub.docker.com/r/hsldevcom/jore4-hasura/tags?page=1&ordering=last_updated
-    image: 'hsldevcom/jore4-hasura:infra-link-stop-point-rel--abcab366fb2f26e7ba99b0d1e45948db7443039f'
+    image: 'hsldevcom/jore4-hasura:main--e9fab31f5ee7d808f1d97a3185217c432147762d'
     environment:
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
     volumes:
-      - './2524600800000_seed-data:/hasura-migrations/default/2524600800000_seed-data'
+      - './default/2524600600000_seed-infra-links:/hasura-migrations/default/2524600600000_seed-infra-links'
+      - './default/2524600700000_seed-infra-vehicle-submode:/hasura-migrations/default/2524600700000_seed-infra-vehicle-submode'
+      - './default/2524600800000_seed-routes:/hasura-migrations/default/2524600800000_seed-routes'
 
   martin:
     image: urbica/martin
