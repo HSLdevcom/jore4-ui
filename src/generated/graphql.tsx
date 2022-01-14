@@ -5834,13 +5834,6 @@ export type InsertRouteOneMutationVariables = Exact<{
 
 export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', starts_from_scheduled_stop_point_id?: any | null | undefined, ends_at_scheduled_stop_point_id?: any | null | undefined, route_shape?: any | null | undefined, on_line_id?: any | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined } | null | undefined };
 
-export type InsertLineOneMutationVariables = Exact<{
-  object: RouteLineInsertInput;
-}>;
-
-
-export type InsertLineOneMutation = { __typename?: 'mutation_root', insert_route_line_one?: { __typename?: 'route_line', label: string, priority: number, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined };
-
 export type QueryClosestLinkQueryVariables = Exact<{
   point?: Maybe<Scalars['geography']>;
 }>;
@@ -5857,11 +5850,6 @@ export type QueryPointDirectionOnLinkQueryVariables = Exact<{
 
 export type QueryPointDirectionOnLinkQuery = { __typename?: 'query_root', infrastructure_network_find_point_direction_on_link: Array<{ __typename?: 'infrastructure_network_direction', value: string }> };
 
-export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum }> };
-
 export type MapExternalLinkIdsToInfraLinksWithStopsQueryVariables = Exact<{
   externalLinkIds?: Maybe<Array<Scalars['String']> | Scalars['String']>;
 }>;
@@ -5874,7 +5862,89 @@ export type GetStopsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetStopsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', closest_point_on_infrastructure_link?: any | null | undefined, direction?: string | null | undefined, label?: string | null | undefined, located_on_infrastructure_link_id?: any | null | undefined, measured_location?: any | null | undefined, priority?: number | null | undefined, relative_distance_from_infrastructure_link_start?: any | null | undefined, scheduled_stop_point_id?: any | null | undefined, validity_end?: any | null | undefined, validity_start?: any | null | undefined }> };
 
+export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined };
 
+export type LineAllFieldsFragment = { __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string };
+
+export type RouteAllFieldsFragment = { __typename?: 'route_route', route_id?: any | null | undefined, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id?: any | null | undefined, ends_at_scheduled_stop_point_id?: any | null | undefined, route_shape?: any | null | undefined, on_line_id?: any | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined };
+
+export type RouteDefaultFieldsFragment = { __typename?: 'route_route', route_id?: any | null | undefined, description_i18n?: string | null | undefined, on_line_id?: any | null | undefined };
+
+export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined }> };
+
+export type ListChangingRoutesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListChangingRoutesQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id?: any | null | undefined, description_i18n?: string | null | undefined, on_line_id?: any | null | undefined, route_line?: { __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined } | null | undefined, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined } | null | undefined }> };
+
+export type GetRouteDetailsByIdQueryVariables = Exact<{
+  route_id: Scalars['uuid'];
+}>;
+
+
+export type GetRouteDetailsByIdQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id?: any | null | undefined, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id?: any | null | undefined, ends_at_scheduled_stop_point_id?: any | null | undefined, route_shape?: any | null | undefined, on_line_id?: any | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined }> };
+
+export type InsertLineOneMutationVariables = Exact<{
+  object: RouteLineInsertInput;
+}>;
+
+
+export type InsertLineOneMutation = { __typename?: 'mutation_root', insert_route_line_one?: { __typename?: 'route_line', line_id: any, label: string, priority: number, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined };
+
+export type ScheduledStopPointDefaultFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined };
+
+export const LineDefaultFieldsFragmentDoc = gql`
+    fragment line_default_fields on route_line {
+  line_id
+  name_i18n
+  short_name_i18n
+  description_i18n
+}
+    `;
+export const LineAllFieldsFragmentDoc = gql`
+    fragment line_all_fields on route_line {
+  line_id
+  name_i18n
+  short_name_i18n
+  description_i18n
+  primary_vehicle_mode
+  validity_start
+  validity_end
+  priority
+  label
+}
+    `;
+export const RouteAllFieldsFragmentDoc = gql`
+    fragment route_all_fields on route_route {
+  route_id
+  description_i18n
+  starts_from_scheduled_stop_point_id
+  ends_at_scheduled_stop_point_id
+  route_shape
+  on_line_id
+  validity_start
+  validity_end
+  priority
+  label
+  direction
+}
+    `;
+export const RouteDefaultFieldsFragmentDoc = gql`
+    fragment route_default_fields on route_route {
+  route_id
+  description_i18n
+  on_line_id
+}
+    `;
+export const ScheduledStopPointDefaultFieldsFragmentDoc = gql`
+    fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {
+  scheduled_stop_point_id
+  label
+}
+    `;
 export const InsertStopDocument = gql`
     mutation InsertStop($object: service_pattern_scheduled_stop_point_insert_input!) {
   insert_service_pattern_scheduled_stop_point_one(object: $object) {
@@ -5951,41 +6021,6 @@ export function useInsertRouteOneMutation(baseOptions?: Apollo.MutationHookOptio
 export type InsertRouteOneMutationHookResult = ReturnType<typeof useInsertRouteOneMutation>;
 export type InsertRouteOneMutationResult = Apollo.MutationResult<InsertRouteOneMutation>;
 export type InsertRouteOneMutationOptions = Apollo.BaseMutationOptions<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
-export const InsertLineOneDocument = gql`
-    mutation InsertLineOne($object: route_line_insert_input!) {
-  insert_route_line_one(object: $object) {
-    label
-    priority
-    primary_vehicle_mode
-  }
-}
-    `;
-export type InsertLineOneMutationFn = Apollo.MutationFunction<InsertLineOneMutation, InsertLineOneMutationVariables>;
-
-/**
- * __useInsertLineOneMutation__
- *
- * To run a mutation, you first call `useInsertLineOneMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useInsertLineOneMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [insertLineOneMutation, { data, loading, error }] = useInsertLineOneMutation({
- *   variables: {
- *      object: // value for 'object'
- *   },
- * });
- */
-export function useInsertLineOneMutation(baseOptions?: Apollo.MutationHookOptions<InsertLineOneMutation, InsertLineOneMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertLineOneMutation, InsertLineOneMutationVariables>(InsertLineOneDocument, options);
-      }
-export type InsertLineOneMutationHookResult = ReturnType<typeof useInsertLineOneMutation>;
-export type InsertLineOneMutationResult = Apollo.MutationResult<InsertLineOneMutation>;
-export type InsertLineOneMutationOptions = Apollo.BaseMutationOptions<InsertLineOneMutation, InsertLineOneMutationVariables>;
 export const QueryClosestLinkDocument = gql`
     query QueryClosestLink($point: geography) {
   infrastructure_network_resolve_point_to_closest_link(args: {geog: $point}) {
@@ -6060,44 +6095,6 @@ export function useQueryPointDirectionOnLinkLazyQuery(baseOptions?: Apollo.LazyQ
 export type QueryPointDirectionOnLinkQueryHookResult = ReturnType<typeof useQueryPointDirectionOnLinkQuery>;
 export type QueryPointDirectionOnLinkLazyQueryHookResult = ReturnType<typeof useQueryPointDirectionOnLinkLazyQuery>;
 export type QueryPointDirectionOnLinkQueryResult = Apollo.QueryResult<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>;
-export const ListAllLinesDocument = gql`
-    query ListAllLines {
-  route_line {
-    line_id
-    name_i18n
-    short_name_i18n
-    description_i18n
-    primary_vehicle_mode
-  }
-}
-    `;
-
-/**
- * __useListAllLinesQuery__
- *
- * To run a query within a React component, call `useListAllLinesQuery` and pass it any options that fit your needs.
- * When your component renders, `useListAllLinesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useListAllLinesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useListAllLinesQuery(baseOptions?: Apollo.QueryHookOptions<ListAllLinesQuery, ListAllLinesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument, options);
-      }
-export function useListAllLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListAllLinesQuery, ListAllLinesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument, options);
-        }
-export type ListAllLinesQueryHookResult = ReturnType<typeof useListAllLinesQuery>;
-export type ListAllLinesLazyQueryHookResult = ReturnType<typeof useListAllLinesLazyQuery>;
-export type ListAllLinesQueryResult = Apollo.QueryResult<ListAllLinesQuery, ListAllLinesQueryVariables>;
 export const MapExternalLinkIdsToInfraLinksWithStopsDocument = gql`
     query MapExternalLinkIdsToInfraLinksWithStops($externalLinkIds: [String!]) {
   infrastructure_network_infrastructure_link(
@@ -6187,3 +6184,153 @@ export function useGetStopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetStopsQueryHookResult = ReturnType<typeof useGetStopsQuery>;
 export type GetStopsLazyQueryHookResult = ReturnType<typeof useGetStopsLazyQuery>;
 export type GetStopsQueryResult = Apollo.QueryResult<GetStopsQuery, GetStopsQueryVariables>;
+export const ListAllLinesDocument = gql`
+    query ListAllLines {
+  route_line {
+    ...line_default_fields
+  }
+}
+    ${LineDefaultFieldsFragmentDoc}`;
+
+/**
+ * __useListAllLinesQuery__
+ *
+ * To run a query within a React component, call `useListAllLinesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListAllLinesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListAllLinesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListAllLinesQuery(baseOptions?: Apollo.QueryHookOptions<ListAllLinesQuery, ListAllLinesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument, options);
+      }
+export function useListAllLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListAllLinesQuery, ListAllLinesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument, options);
+        }
+export type ListAllLinesQueryHookResult = ReturnType<typeof useListAllLinesQuery>;
+export type ListAllLinesLazyQueryHookResult = ReturnType<typeof useListAllLinesLazyQuery>;
+export type ListAllLinesQueryResult = Apollo.QueryResult<ListAllLinesQuery, ListAllLinesQueryVariables>;
+export const ListChangingRoutesDocument = gql`
+    query ListChangingRoutes {
+  route_route {
+    ...route_default_fields
+    route_line {
+      ...line_default_fields
+    }
+    starts_from_scheduled_stop_point {
+      ...scheduled_stop_point_default_fields
+    }
+    ends_at_scheduled_stop_point {
+      ...scheduled_stop_point_default_fields
+    }
+  }
+}
+    ${RouteDefaultFieldsFragmentDoc}
+${LineDefaultFieldsFragmentDoc}
+${ScheduledStopPointDefaultFieldsFragmentDoc}`;
+
+/**
+ * __useListChangingRoutesQuery__
+ *
+ * To run a query within a React component, call `useListChangingRoutesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListChangingRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListChangingRoutesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListChangingRoutesQuery(baseOptions?: Apollo.QueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>(ListChangingRoutesDocument, options);
+      }
+export function useListChangingRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>(ListChangingRoutesDocument, options);
+        }
+export type ListChangingRoutesQueryHookResult = ReturnType<typeof useListChangingRoutesQuery>;
+export type ListChangingRoutesLazyQueryHookResult = ReturnType<typeof useListChangingRoutesLazyQuery>;
+export type ListChangingRoutesQueryResult = Apollo.QueryResult<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>;
+export const GetRouteDetailsByIdDocument = gql`
+    query GetRouteDetailsById($route_id: uuid!) {
+  route_route(where: {route_id: {_eq: $route_id}}) {
+    ...route_all_fields
+  }
+}
+    ${RouteAllFieldsFragmentDoc}`;
+
+/**
+ * __useGetRouteDetailsByIdQuery__
+ *
+ * To run a query within a React component, call `useGetRouteDetailsByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRouteDetailsByIdQuery({
+ *   variables: {
+ *      route_id: // value for 'route_id'
+ *   },
+ * });
+ */
+export function useGetRouteDetailsByIdQuery(baseOptions: Apollo.QueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
+      }
+export function useGetRouteDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
+        }
+export type GetRouteDetailsByIdQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdQuery>;
+export type GetRouteDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdLazyQuery>;
+export type GetRouteDetailsByIdQueryResult = Apollo.QueryResult<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>;
+export const InsertLineOneDocument = gql`
+    mutation InsertLineOne($object: route_line_insert_input!) {
+  insert_route_line_one(object: $object) {
+    line_id
+    label
+    priority
+    primary_vehicle_mode
+  }
+}
+    `;
+export type InsertLineOneMutationFn = Apollo.MutationFunction<InsertLineOneMutation, InsertLineOneMutationVariables>;
+
+/**
+ * __useInsertLineOneMutation__
+ *
+ * To run a mutation, you first call `useInsertLineOneMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertLineOneMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertLineOneMutation, { data, loading, error }] = useInsertLineOneMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useInsertLineOneMutation(baseOptions?: Apollo.MutationHookOptions<InsertLineOneMutation, InsertLineOneMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertLineOneMutation, InsertLineOneMutationVariables>(InsertLineOneDocument, options);
+      }
+export type InsertLineOneMutationHookResult = ReturnType<typeof useInsertLineOneMutation>;
+export type InsertLineOneMutationResult = Apollo.MutationResult<InsertLineOneMutation>;
+export type InsertLineOneMutationOptions = Apollo.BaseMutationOptions<InsertLineOneMutation, InsertLineOneMutationVariables>;

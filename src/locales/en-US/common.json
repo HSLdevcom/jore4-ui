@@ -10,7 +10,8 @@
     "enterRouteData": "Enter route data",
     "name": "Name of the route",
     "addToLine": "Add to line",
-    "chooseLine": "Choose line"
+    "chooseLine": "Choose line",
+    "changingRoutes": "Changing routes"
   },
   "lines": {
     "createNew": "Create new line",

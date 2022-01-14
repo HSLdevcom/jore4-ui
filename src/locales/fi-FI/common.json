@@ -10,7 +10,8 @@
     "enterRouteData": "Anna reitin tiedot",
     "name": "Reitin nimi",
     "addToLine": "Yhdistä linjaan",
-    "chooseLine": "Valitse linja"
+    "chooseLine": "Valitse linja",
+    "changingRoutes": "Muuttuvat reitit"
   },
   "lines": {
     "createNew": "Luo uusi linja",

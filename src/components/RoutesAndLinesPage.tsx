@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useListChangingRoutesQuery } from '../generated/graphql';
+import { mapListChangingRoutesResult } from '../graphql/route';
 import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { SimpleButton } from '../uiComponents';
@@ -11,6 +13,9 @@ export const RoutesAndLinesPage = (): JSX.Element => {
   const openMapRoute = routes[Path.map];
   const createLineReactRoute = routes[Path.createLine];
   const [isOpen, setIsOpen] = useState(false);
+  const changingRoutesResult = useListChangingRoutesQuery();
+  const changingRoutes = mapListChangingRoutesResult(changingRoutesResult);
+
   return (
     <Container>
       <Row>
@@ -31,8 +36,10 @@ export const RoutesAndLinesPage = (): JSX.Element => {
           Piirrä reitti
         </SimpleButton>
       </Row>
-      <h2 className="text-bold mb-14 mt-12 text-4xl">Esimerkkireitit</h2>
-      <RoutesTable />
+      <h2 className="text-bold mb-14 mt-12 text-4xl">
+        {t('routes.changingRoutes')}
+      </h2>
+      {changingRoutes && <RoutesTable routes={changingRoutes} />}
       <ModalMap isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </Container>
   );
