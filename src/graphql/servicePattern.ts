@@ -1,0 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { gql } from '@apollo/client';
+
+const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
+  fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {
+    scheduled_stop_point_id
+    label
+  }
+`;
