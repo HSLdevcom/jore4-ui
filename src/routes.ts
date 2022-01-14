@@ -1,14 +1,16 @@
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router-dom';
-import { CreateNewLinePage } from './components/CreateNewLinePage';
+import { CreateNewLinePage } from './components/CreateNewLinePage'; // eslint-disable-line import/no-cycle
 import { Main } from './components/Main';
 import { Map } from './components/map';
+import { LineDetailsPage } from './components/routes-and-lines/LineDetailsPage';
 import { RoutesAndLinesPage } from './components/RoutesAndLinesPage'; // eslint-disable-line import/no-cycle
 
 export enum Path {
   root = '/',
   routes = '/routes',
   createLine = '/routes/createLine',
+  lineDetails = '/lines/:id',
   map = '/map',
   exampleResource = '/example/:id',
   fallback = '*',
@@ -59,6 +61,14 @@ export const routes: Record<Path, Route> = {
     translationKey: 'lines.createNew',
     getLink: () => Path.createLine,
     component: CreateNewLinePage,
+    includeInNav: false,
+  },
+  [Path.lineDetails]: {
+    _routerRoute: Path.lineDetails,
+    _exact: true,
+    translationKey: 'lines.lineDetails',
+    getLink: (id: string) => Path.lineDetails.replace(':id', id),
+    component: LineDetailsPage,
     includeInNav: false,
   },
   [Path.map]: {

@@ -19,7 +19,8 @@
     "label": "Label",
     "finnishName": "Name (Finnish)",
     "primaryVehicleMode": "Primary vehicle mode",
-    "chooseVehicleMode": "Choose vehicle mode"
+    "chooseVehicleMode": "Choose vehicle mode",
+    "line": "Line"
   },
   "stops": {
     "stop": "Stop",
