@@ -2,6 +2,7 @@
 import { FetchResult, gql } from '@apollo/client';
 import {
   InsertLineOneMutation,
+  useGetLineDetailsByIdQuery,
   useGetRouteDetailsByIdQuery,
   useListChangingRoutesQuery,
 } from '../generated/graphql';
@@ -81,6 +82,17 @@ const LIST_CHANGING_ROUTES = gql`
 export const mapListChangingRoutesResult = (
   result: ReturnType<typeof useListChangingRoutesQuery>,
 ) => result.data?.route_route;
+
+const GET_LINE_DETAILS_BY_ID = gql`
+  query GetLineDetailsById($line_id: uuid!) {
+    route_line(where: { line_id: { _eq: $line_id } }) {
+      ...line_all_fields
+    }
+  }
+`;
+export const mapLineDetailsResult = (
+  result: ReturnType<typeof useGetLineDetailsByIdQuery>,
+) => result.data?.route_line[0];
 
 const GET_ROUTE_DETAILS_BY_ID = gql`
   query GetRouteDetailsById($route_id: uuid!) {
