@@ -1,11 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import {
   ReusableComponentsVehicleModeEnum,
   useInsertLineOneMutation,
 } from '../generated/graphql';
+import { mapInsertLineOneResult } from '../graphql/route';
 import { Container, Row } from '../layoutComponents';
+import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { Priority } from '../types/Priority';
 import { SimpleButton } from '../uiComponents';
 import { mapToObject, mapToVariables, submitFormByRef } from '../utils';
@@ -15,6 +18,8 @@ export const CreateNewLinePage = (): JSX.Element => {
   const [mutateFunction] = useInsertLineOneMutation();
   const history = useHistory();
   const formRef = useRef<ExplicitAny>(null);
+  const [createdLineId, setCreatedLineId] = useState();
+  const { t } = useTranslation();
 
   const onSave = () => {
     submitFormByRef(formRef);
@@ -33,19 +38,28 @@ export const CreateNewLinePage = (): JSX.Element => {
     });
 
     try {
-      await mutateFunction(mapToVariables(variables));
-      // eslint-disable-next-line no-console
-      console.log('Line created succesfully. TODO: inform user about it');
+      const result = await mutateFunction(mapToVariables(variables));
+      const createdLine = mapInsertLineOneResult(result);
 
-      history.goBack();
+      // eslint-disable-next-line no-console
+      console.log(
+        'Line created successfully. TODO: inform user about it',
+        result,
+      );
+
+      setCreatedLineId(createdLine?.line_id);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(`Err, ${err}, TODO: show error message}`);
     }
   };
 
-  const { t } = useTranslation();
-  return (
+  return createdLineId ? (
+    // if line was successfully created, redirect to its page
+    <Redirect
+      to={{ pathname: routes[Path.lineDetails].getLink(createdLineId) }}
+    />
+  ) : (
     <Container>
       <Row>
         <i className="icon-bus-alt text-tweaked-brand text-5xl" />

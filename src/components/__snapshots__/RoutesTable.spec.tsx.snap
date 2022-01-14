@@ -13,36 +13,40 @@ exports[`<RoutesTable /> Renders the routes table based on data 1`] = `
         <td
           class="pl-16 pr-4 py-4 font-bold"
         >
-          <div
-            class="flex flex-row undefined"
+          <a
+            href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
           >
             <div
-              class="flex flex-col w-1/2"
+              class="flex flex-row undefined"
             >
-              <p
-                class="text-4xl"
-              />
-              <p
-                class="text-lg"
+              <div
+                class="flex flex-col w-1/2"
               >
-                pysäkki B - pysäkki A
-              </p>
+                <p
+                  class="text-4xl"
+                />
+                <p
+                  class="text-lg"
+                >
+                  pysäkki B - pysäkki A
+                </p>
+              </div>
+              <div
+                class="flex flex-col w-1/2 text-right"
+              >
+                <p
+                  class="text-lg font-bold"
+                >
+                  Voimassa  - 
+                </p>
+                <p
+                  class="text-lg"
+                >
+                  Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                </p>
+              </div>
             </div>
-            <div
-              class="flex flex-col w-1/2 text-right"
-            >
-              <p
-                class="text-lg font-bold"
-              >
-                Voimassa  - 
-              </p>
-              <p
-                class="text-lg"
-              >
-                Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
-              </p>
-            </div>
-          </div>
+          </a>
         </td>
         <td
           class="border"

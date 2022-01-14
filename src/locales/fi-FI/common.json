@@ -19,7 +19,8 @@
     "label": "Tunnus",
     "finnishName": "Nimi (Suomi)",
     "primaryVehicleMode": "Ensisijainen kulkumuoto",
-    "chooseVehicleMode": "Valitse kulkumuoto"
+    "chooseVehicleMode": "Valitse kulkumuoto",
+    "line": "Linja"
   },
   "stops": {
     "stop": "Pysäkki",

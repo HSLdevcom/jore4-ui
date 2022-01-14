@@ -5880,6 +5880,13 @@ export type ListChangingRoutesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ListChangingRoutesQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id?: any | null | undefined, description_i18n?: string | null | undefined, on_line_id?: any | null | undefined, route_line?: { __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined } | null | undefined, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined } | null | undefined }> };
 
+export type GetLineDetailsByIdQueryVariables = Exact<{
+  line_id: Scalars['uuid'];
+}>;
+
+
+export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string }> };
+
 export type GetRouteDetailsByIdQueryVariables = Exact<{
   route_id: Scalars['uuid'];
 }>;
@@ -6263,6 +6270,41 @@ export function useListChangingRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type ListChangingRoutesQueryHookResult = ReturnType<typeof useListChangingRoutesQuery>;
 export type ListChangingRoutesLazyQueryHookResult = ReturnType<typeof useListChangingRoutesLazyQuery>;
 export type ListChangingRoutesQueryResult = Apollo.QueryResult<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>;
+export const GetLineDetailsByIdDocument = gql`
+    query GetLineDetailsById($line_id: uuid!) {
+  route_line(where: {line_id: {_eq: $line_id}}) {
+    ...line_all_fields
+  }
+}
+    ${LineAllFieldsFragmentDoc}`;
+
+/**
+ * __useGetLineDetailsByIdQuery__
+ *
+ * To run a query within a React component, call `useGetLineDetailsByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLineDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLineDetailsByIdQuery({
+ *   variables: {
+ *      line_id: // value for 'line_id'
+ *   },
+ * });
+ */
+export function useGetLineDetailsByIdQuery(baseOptions: Apollo.QueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument, options);
+      }
+export function useGetLineDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument, options);
+        }
+export type GetLineDetailsByIdQueryHookResult = ReturnType<typeof useGetLineDetailsByIdQuery>;
+export type GetLineDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetLineDetailsByIdLazyQuery>;
+export type GetLineDetailsByIdQueryResult = Apollo.QueryResult<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>;
 export const GetRouteDetailsByIdDocument = gql`
     query GetRouteDetailsById($route_id: uuid!) {
   route_route(where: {route_id: {_eq: $route_id}}) {
