@@ -23,18 +23,18 @@ describe('<ChooseLineDropdown />', () => {
         data: {
           route_line: [
             {
+              __typename: 'route_line',
               line_id: 'line1',
               name_i18n: 'Line1 name',
-              description_i18n: 'Line1 description',
-              primary_vehicle_mode: 'bus',
               short_name_i18n: 'Line1',
+              description_i18n: 'Line1 description',
             },
             {
+              __typename: 'route_line',
               line_id: 'line2',
               name_i18n: 'Line2 name',
-              description_i18n: 'Line2 description',
-              primary_vehicle_mode: 'bus',
               short_name_i18n: 'Line2',
+              description_i18n: 'Line2 description',
             },
           ] as RouteLine[],
         },

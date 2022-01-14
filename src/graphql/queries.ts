@@ -33,18 +33,6 @@ const QUERY_POINT_DIRECTION = gql`
   }
 `;
 
-const LIST_ALL_LINES = gql`
-  query ListAllLines {
-    route_line {
-      line_id
-      name_i18n
-      short_name_i18n
-      description_i18n
-      primary_vehicle_mode
-    }
-  }
-`;
-
 const QUERY_MAP_EXTERNAL_LINK_IDS_TO_INFRA_LINKS_WITH_STOPS = gql`
   query MapExternalLinkIdsToInfraLinksWithStops($externalLinkIds: [String!]) {
     infrastructure_network_infrastructure_link(
