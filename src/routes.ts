@@ -9,7 +9,7 @@ import { RoutesAndLinesPage } from './components/RoutesAndLinesPage'; // eslint-
 export enum Path {
   root = '/',
   routes = '/routes',
-  createLine = '/routes/createLine',
+  createLine = '/lines/create',
   lineDetails = '/lines/:id',
   map = '/map',
   exampleResource = '/example/:id',
