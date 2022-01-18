@@ -9,13 +9,6 @@ export type InfrastructureLinkAlongRoute = {
   isTraversalForwards: boolean;
 };
 
-export const findEntryIndexByExtLinkId = (
-  extLinkIds: string[],
-  // eslint-disable-next-line camelcase
-  infraLink: { external_link_id: string },
-) =>
-  extLinkIds.findIndex((extLinkId) => extLinkId === infraLink.external_link_id);
-
 export const mapInfraLinksAlongRouteToGraphQL = (
   infraLinks: InfrastructureLinkAlongRoute[],
 ) =>
@@ -25,14 +18,36 @@ export const mapInfraLinksAlongRouteToGraphQL = (
     is_traversal_forwards: link.isTraversalForwards,
   }));
 
+// Order the given infra links to match the order of the given external ids. Throws if there is no infra link
+// present for a given external link id.
+// NB: We cannot use sort on the infra link array, because some links might be traversed multiple times and thus
+// have to be duplicated.
+export const orderInfraLinksByExternalLinkId = (
+  infraLinksWithStops: MapExternalLinkIdsToInfraLinksWithStopsQuery['infrastructure_network_infrastructure_link'],
+  externalLinkIds: string[],
+) =>
+  externalLinkIds.map((externalLinkId) => {
+    const infraLinkWithStop = infraLinksWithStops.find(
+      (link) => link.external_link_id === externalLinkId,
+    );
+
+    if (!infraLinkWithStop) {
+      throw new Error(
+        `Could not find link with stop for external link id ${externalLinkId}`,
+      );
+    }
+
+    return infraLinkWithStop;
+  });
+
 // Sort and filter the stop point ids from a MapExternalLinkIdsToInfraLinksWithStops
 // query result.
 export const extractScheduledStopPointIds = (
-  sortedInfraLinksWithStops: MapExternalLinkIdsToInfraLinksWithStopsQuery['infrastructure_network_infrastructure_link'],
+  orderedInfraLinksWithStops: MapExternalLinkIdsToInfraLinksWithStopsQuery['infrastructure_network_infrastructure_link'],
   infraLinks: InfrastructureLinkAlongRoute[],
   vehicleMode: ReusableComponentsVehicleModeEnum,
 ) =>
-  sortedInfraLinksWithStops.flatMap((infraLinkWithStops, index) => {
+  orderedInfraLinksWithStops.flatMap((infraLinkWithStops, index) => {
     const isLinkTraversalForwards = infraLinks[index].isTraversalForwards;
 
     return (

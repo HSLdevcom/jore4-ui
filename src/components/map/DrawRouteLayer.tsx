@@ -19,8 +19,8 @@ import {
 } from '../../generated/graphql';
 import {
   extractScheduledStopPointIds,
-  findEntryIndexByExtLinkId,
   InfrastructureLinkAlongRoute,
+  orderInfraLinksByExternalLinkId,
 } from '../../graphql/infrastructureNetwork';
 import { useAsyncQuery } from '../../hooks';
 import { addRoute, removeRoute } from './mapUtils';
@@ -123,15 +123,14 @@ const DrawRouteLayerComponent = (
         return;
       }
 
-      // Sort the infra links according to the order of the route returned by map-matching
-      const sortedInfraLinksWithStops = [...infraLinksWithStops].sort(
-        (infraLink1, infraLink2) =>
-          findEntryIndexByExtLinkId(externalLinkIds, infraLink1) -
-          findEntryIndexByExtLinkId(externalLinkIds, infraLink2),
+      // Order the infra links to match the order of the route returned by map-matching
+      const orderedInfraLinksWithStops = orderInfraLinksByExternalLinkId(
+        infraLinksWithStops,
+        externalLinkIds,
       );
 
       // Create the list of links used for route creation
-      const infraLinks: InfrastructureLinkAlongRoute[] = sortedInfraLinksWithStops.map(
+      const infraLinks: InfrastructureLinkAlongRoute[] = orderedInfraLinksWithStops.map(
         (item, index) => ({
           infrastructureLinkId: item.infrastructure_link_id,
           isTraversalForwards:
@@ -141,7 +140,7 @@ const DrawRouteLayerComponent = (
 
       // Extract the list of ids of the stops to be included in the route
       const stopIds = extractScheduledStopPointIds(
-        sortedInfraLinksWithStops,
+        orderedInfraLinksWithStops,
         infraLinks,
         ReusableComponentsVehicleModeEnum.Bus,
       );
