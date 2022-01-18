@@ -21,6 +21,7 @@
   },
   "lines": {
     "createNew": "Luo uusi linja",
+    "saveSuccess": "Linja tallennettu",
     "properties": "Oheistiedot",
     "label": "Tunnus",
     "finnishName": "Nimi (Suomi)",
