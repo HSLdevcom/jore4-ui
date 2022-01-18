@@ -5898,7 +5898,14 @@ export type GetLineDetailsByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id?: any | null | undefined, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id?: any | null | undefined, ends_at_scheduled_stop_point_id?: any | null | undefined, route_shape?: any | null | undefined, on_line_id?: any | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: any, on_route_id: any, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: any, scheduled_stop_point_id: any, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> }> };
+export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string } | null | undefined };
+
+export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
+  line_id: Scalars['uuid'];
+}>;
+
+
+export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id?: any | null | undefined, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id?: any | null | undefined, ends_at_scheduled_stop_point_id?: any | null | undefined, route_shape?: any | null | undefined, on_line_id?: any | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: any, on_route_id: any, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: any, scheduled_stop_point_id: any, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> } | null | undefined };
 
 export type GetRouteDetailsByIdQueryVariables = Exact<{
   route_id: Scalars['uuid'];
@@ -5913,6 +5920,14 @@ export type InsertLineOneMutationVariables = Exact<{
 
 
 export type InsertLineOneMutation = { __typename?: 'mutation_root', insert_route_line_one?: { __typename?: 'route_line', line_id: any, label: string, priority: number, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined };
+
+export type PatchLineMutationVariables = Exact<{
+  line_id: Scalars['uuid'];
+  object: RouteLineSetInput;
+}>;
+
+
+export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string } | null | undefined };
 
 export type ScheduledStopPointDefaultFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined };
 
@@ -6349,19 +6364,11 @@ export type ListChangingRoutesLazyQueryHookResult = ReturnType<typeof useListCha
 export type ListChangingRoutesQueryResult = Apollo.QueryResult<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>;
 export const GetLineDetailsByIdDocument = gql`
     query GetLineDetailsById($line_id: uuid!) {
-  route_line(where: {line_id: {_eq: $line_id}}) {
+  route_line_by_pk(line_id: $line_id) {
     ...line_all_fields
-    line_routes {
-      ...route_with_stops
-      route_journey_patterns {
-        ...journey_pattern_with_stops
-      }
-    }
   }
 }
-    ${LineAllFieldsFragmentDoc}
-${RouteWithStopsFragmentDoc}
-${JourneyPatternWithStopsFragmentDoc}`;
+    ${LineAllFieldsFragmentDoc}`;
 
 /**
  * __useGetLineDetailsByIdQuery__
@@ -6390,6 +6397,49 @@ export function useGetLineDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type GetLineDetailsByIdQueryHookResult = ReturnType<typeof useGetLineDetailsByIdQuery>;
 export type GetLineDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetLineDetailsByIdLazyQuery>;
 export type GetLineDetailsByIdQueryResult = Apollo.QueryResult<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>;
+export const GetLineDetailsWithRoutesByIdDocument = gql`
+    query GetLineDetailsWithRoutesById($line_id: uuid!) {
+  route_line_by_pk(line_id: $line_id) {
+    ...line_all_fields
+    line_routes {
+      ...route_with_stops
+      route_journey_patterns {
+        ...journey_pattern_with_stops
+      }
+    }
+  }
+}
+    ${LineAllFieldsFragmentDoc}
+${RouteWithStopsFragmentDoc}
+${JourneyPatternWithStopsFragmentDoc}`;
+
+/**
+ * __useGetLineDetailsWithRoutesByIdQuery__
+ *
+ * To run a query within a React component, call `useGetLineDetailsWithRoutesByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLineDetailsWithRoutesByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLineDetailsWithRoutesByIdQuery({
+ *   variables: {
+ *      line_id: // value for 'line_id'
+ *   },
+ * });
+ */
+export function useGetLineDetailsWithRoutesByIdQuery(baseOptions: Apollo.QueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>(GetLineDetailsWithRoutesByIdDocument, options);
+      }
+export function useGetLineDetailsWithRoutesByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>(GetLineDetailsWithRoutesByIdDocument, options);
+        }
+export type GetLineDetailsWithRoutesByIdQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdQuery>;
+export type GetLineDetailsWithRoutesByIdLazyQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdLazyQuery>;
+export type GetLineDetailsWithRoutesByIdQueryResult = Apollo.QueryResult<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>;
 export const GetRouteDetailsByIdDocument = gql`
     query GetRouteDetailsById($route_id: uuid!) {
   route_route(where: {route_id: {_eq: $route_id}}) {
@@ -6461,3 +6511,37 @@ export function useInsertLineOneMutation(baseOptions?: Apollo.MutationHookOption
 export type InsertLineOneMutationHookResult = ReturnType<typeof useInsertLineOneMutation>;
 export type InsertLineOneMutationResult = Apollo.MutationResult<InsertLineOneMutation>;
 export type InsertLineOneMutationOptions = Apollo.BaseMutationOptions<InsertLineOneMutation, InsertLineOneMutationVariables>;
+export const PatchLineDocument = gql`
+    mutation PatchLine($line_id: uuid!, $object: route_line_set_input!) {
+  update_route_line_by_pk(pk_columns: {line_id: $line_id}, _set: $object) {
+    ...line_all_fields
+  }
+}
+    ${LineAllFieldsFragmentDoc}`;
+export type PatchLineMutationFn = Apollo.MutationFunction<PatchLineMutation, PatchLineMutationVariables>;
+
+/**
+ * __usePatchLineMutation__
+ *
+ * To run a mutation, you first call `usePatchLineMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePatchLineMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [patchLineMutation, { data, loading, error }] = usePatchLineMutation({
+ *   variables: {
+ *      line_id: // value for 'line_id'
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function usePatchLineMutation(baseOptions?: Apollo.MutationHookOptions<PatchLineMutation, PatchLineMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PatchLineMutation, PatchLineMutationVariables>(PatchLineDocument, options);
+      }
+export type PatchLineMutationHookResult = ReturnType<typeof usePatchLineMutation>;
+export type PatchLineMutationResult = Apollo.MutationResult<PatchLineMutation>;
+export type PatchLineMutationOptions = Apollo.BaseMutationOptions<PatchLineMutation, PatchLineMutationVariables>;
