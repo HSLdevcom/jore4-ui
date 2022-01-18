@@ -5,6 +5,7 @@ import {
   RouteLine,
   RouteRoute,
   useGetLineDetailsByIdQuery,
+  useGetLineDetailsWithRoutesByIdQuery,
   useGetRouteDetailsByIdQuery,
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
@@ -107,7 +108,18 @@ export const mapListChangingRoutesResult = (
 
 const GET_LINE_DETAILS_BY_ID = gql`
   query GetLineDetailsById($line_id: uuid!) {
-    route_line(where: { line_id: { _eq: $line_id } }) {
+    route_line_by_pk(line_id: $line_id) {
+      ...line_all_fields
+    }
+  }
+`;
+export const mapLineDetailsResult = (
+  result: ReturnType<typeof useGetLineDetailsByIdQuery>,
+) => result.data?.route_line_by_pk as RouteLine | undefined;
+
+const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
+  query GetLineDetailsWithRoutesById($line_id: uuid!) {
+    route_line_by_pk(line_id: $line_id) {
       ...line_all_fields
       line_routes {
         ...route_with_stops
@@ -118,9 +130,9 @@ const GET_LINE_DETAILS_BY_ID = gql`
     }
   }
 `;
-export const mapLineDetailsResult = (
-  result: ReturnType<typeof useGetLineDetailsByIdQuery>,
-) => result.data?.route_line[0] as RouteLine | undefined;
+export const mapLineDetailsWithRoutesResult = (
+  result: ReturnType<typeof useGetLineDetailsWithRoutesByIdQuery>,
+) => result.data?.route_line_by_pk as RouteLine | undefined;
 
 const GET_ROUTE_DETAILS_BY_ID = gql`
   query GetRouteDetailsById($route_id: uuid!) {
@@ -151,3 +163,11 @@ export const mapInsertLineOneResult = (
     Record<string, ExplicitAny>
   >,
 ) => result.data?.insert_route_line_one as RouteLine | undefined;
+
+const UPDATE_LINE = gql`
+  mutation PatchLine($line_id: uuid!, $object: route_line_set_input!) {
+    update_route_line_by_pk(pk_columns: { line_id: $line_id }, _set: $object) {
+      ...line_all_fields
+    }
+  }
+`;
