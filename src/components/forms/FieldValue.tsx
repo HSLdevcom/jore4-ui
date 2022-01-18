@@ -14,7 +14,7 @@ export const FieldValue = ({
 }: Props): JSX.Element => {
   return (
     <Column className={className}>
-      <span className="text-3xl">{value}</span>
+      <span className="text-3xl font-semibold">{value}</span>
       <span>{fieldName}</span>
     </Column>
   );

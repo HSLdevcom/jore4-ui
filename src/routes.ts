@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { CreateNewLinePage } from './components/CreateNewLinePage'; // eslint-disable-line import/no-cycle
 import { Main } from './components/Main';
 import { Map } from './components/map';
+import { EditLinePage } from './components/routes-and-lines/EditLinePage'; // eslint-disable-line import/no-cycle
 import { LineDetailsPage } from './components/routes-and-lines/LineDetailsPage'; // eslint-disable-line import/no-cycle
 import { RoutesAndLinesPage } from './components/RoutesAndLinesPage'; // eslint-disable-line import/no-cycle
 
@@ -11,6 +12,7 @@ export enum Path {
   routes = '/routes',
   createLine = '/lines/create',
   lineDetails = '/lines/:id',
+  editLine = '/lines/:id/edit',
   map = '/map',
   exampleResource = '/example/:id',
   fallback = '*',
@@ -69,6 +71,14 @@ export const routes: Record<Path, Route> = {
     translationKey: 'lines.lineDetails',
     getLink: (id: string) => Path.lineDetails.replace(':id', id),
     component: LineDetailsPage,
+    includeInNav: false,
+  },
+  [Path.editLine]: {
+    _routerRoute: Path.editLine,
+    _exact: true,
+    translationKey: 'lines.editLine',
+    getLink: (id: string) => Path.editLine.replace(':id', id),
+    component: EditLinePage,
     includeInNav: false,
   },
   [Path.map]: {

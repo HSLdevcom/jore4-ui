@@ -21,6 +21,7 @@
   },
   "lines": {
     "createNew": "Create new line",
+    "saveSuccess": "Line saved",
     "properties": "Properties",
     "label": "Label",
     "finnishName": "Name (Finnish)",

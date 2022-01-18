@@ -4,13 +4,16 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
 import { MapEditorContext } from '../../context/MapEditorContext';
 import { ModalMapContext } from '../../context/ModalMapContext';
-import { RouteLine, useGetLineDetailsByIdQuery } from '../../generated/graphql';
-import { mapLineDetailsResult } from '../../graphql/route';
+import {
+  RouteLine,
+  useGetLineDetailsWithRoutesByIdQuery,
+} from '../../generated/graphql';
+import { mapLineDetailsWithRoutesResult } from '../../graphql/route';
 import { Column, Container, Row } from '../../layoutComponents';
 import { mapToShortDate } from '../../time';
 import { SimpleButton } from '../../uiComponents';
 import { mapToVariables } from '../../utils';
-import { AdditionalInformation } from './AdditionalInformation';
+import { AdditionalInformation } from './AdditionalInformation'; // eslint-disable-line import/no-cycle
 import { MapPreview } from './MapPreview';
 import { PageHeader } from './PageHeader';
 import { RouteStopsTable } from './RouteStopsTable'; // eslint-disable-line import/no-cycle
@@ -87,10 +90,10 @@ export const LineDetailsPage = (): JSX.Element => {
   const { dispatch: modalMapDispatch } = useContext(ModalMapContext);
   const { dispatch: mapEditorDispatch } = useContext(MapEditorContext);
 
-  const lineDetailsResult = useGetLineDetailsByIdQuery(
+  const lineDetailsResult = useGetLineDetailsWithRoutesByIdQuery(
     mapToVariables({ line_id: id }),
   );
-  const line = mapLineDetailsResult(lineDetailsResult);
+  const line = mapLineDetailsWithRoutesResult(lineDetailsResult);
 
   const buildValidityPeriod = (validityStart?: string, validityEnd?: string) =>
     `${mapToShortDate(validityStart)} - ${mapToShortDate(validityEnd)}`;
@@ -132,7 +135,9 @@ export const LineDetailsPage = (): JSX.Element => {
             </Row>
             <Row>
               <Column className="w-full">
-                <h1 className="text-3xl">{t('lines.routes')}</h1>
+                <h1 className="mt-8 text-3xl font-semibold">
+                  {t('lines.routes')}
+                </h1>
                 {line.line_routes?.length > 0 ? (
                   <RouteStopsTable routes={line.line_routes} />
                 ) : (
