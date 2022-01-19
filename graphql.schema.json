@@ -23699,6 +23699,45 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "route_line_obj_rel_insert_input",
+        "description": "input type for inserting object relation for remote table \"route.line\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "data",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "route_line_insert_input",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "on_conflict",
+            "description": "on conflict condition",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "route_line_on_conflict",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "route_line_on_conflict",
         "description": "on conflict condition type for table \"route.line\"",
         "fields": null,
@@ -24358,6 +24397,18 @@
             "deprecationReason": null
           },
           {
+            "name": "ends_at_scheduled_stop_point",
+            "description": "An object relationship",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "service_pattern_scheduled_stop_point",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
             "description": "The scheduled stop point where the route ends at.",
             "args": [],
@@ -24806,12 +24857,36 @@
             "deprecationReason": null
           },
           {
+            "name": "route_line",
+            "description": "An object relationship",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "route_line",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "route_shape",
             "description": "A PostGIS LinestringZ geography in EPSG:4326 describing the shape of the route.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "geography",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "starts_from_scheduled_stop_point",
+            "description": "An object relationship",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "service_pattern_scheduled_stop_point",
               "ofType": null
             },
             "isDeprecated": false,
@@ -25393,6 +25468,18 @@
             "deprecationReason": null
           },
           {
+            "name": "ends_at_scheduled_stop_point",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
             "description": null,
             "type": {
@@ -25477,11 +25564,35 @@
             "deprecationReason": null
           },
           {
+            "name": "route_line",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "route_line_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "route_shape",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "geography_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "starts_from_scheduled_stop_point",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -25583,6 +25694,18 @@
             "deprecationReason": null
           },
           {
+            "name": "ends_at_scheduled_stop_point",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_obj_rel_insert_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
             "description": "The scheduled stop point where the route ends at.",
             "type": {
@@ -25667,11 +25790,35 @@
             "deprecationReason": null
           },
           {
+            "name": "route_line",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "route_line_obj_rel_insert_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "route_shape",
             "description": "A PostGIS LinestringZ geography in EPSG:4326 describing the shape of the route.",
             "type": {
               "kind": "SCALAR",
               "name": "geography",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "starts_from_scheduled_stop_point",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_obj_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null,
@@ -26352,6 +26499,18 @@
             "deprecationReason": null
           },
           {
+            "name": "ends_at_scheduled_stop_point",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ends_at_scheduled_stop_point_id",
             "description": null,
             "type": {
@@ -26436,11 +26595,35 @@
             "deprecationReason": null
           },
           {
+            "name": "route_line",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "route_line_order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "route_shape",
             "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "starts_from_scheduled_stop_point",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_order_by",
               "ofType": null
             },
             "defaultValue": null,
