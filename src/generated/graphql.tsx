@@ -4060,6 +4060,13 @@ export type RouteLineMutationResponse = {
   returning: Array<RouteLine>;
 };
 
+/** input type for inserting object relation for remote table "route.line" */
+export type RouteLineObjRelInsertInput = {
+  data: RouteLineInsertInput;
+  /** on conflict condition */
+  on_conflict?: Maybe<RouteLineOnConflict>;
+};
+
 /** on conflict condition type for table "route.line" */
 export type RouteLineOnConflict = {
   constraint: RouteLineConstraint;
@@ -4215,6 +4222,8 @@ export type RouteRoute = {
   description_i18n?: Maybe<Scalars['String']>;
   /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
   direction?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  ends_at_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPoint>;
   /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** An array relationship */
@@ -4233,8 +4242,12 @@ export type RouteRoute = {
   route_journey_patterns: Array<JourneyPatternJourneyPattern>;
   /** An aggregate relationship */
   route_journey_patterns_aggregate: JourneyPatternJourneyPatternAggregate;
+  /** An object relationship */
+  route_line?: Maybe<RouteLine>;
   /** A PostGIS LinestringZ geography in EPSG:4326 describing the shape of the route. */
   route_shape?: Maybe<Scalars['geography']>;
+  /** An object relationship */
+  starts_from_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPoint>;
   /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
@@ -4377,6 +4390,7 @@ export type RouteRouteBoolExp = {
   _or?: Maybe<Array<RouteRouteBoolExp>>;
   description_i18n?: Maybe<StringComparisonExp>;
   direction?: Maybe<StringComparisonExp>;
+  ends_at_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointBoolExp>;
   ends_at_scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
   infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   label?: Maybe<StringComparisonExp>;
@@ -4384,7 +4398,9 @@ export type RouteRouteBoolExp = {
   priority?: Maybe<IntComparisonExp>;
   route_id?: Maybe<UuidComparisonExp>;
   route_journey_patterns?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  route_line?: Maybe<RouteLineBoolExp>;
   route_shape?: Maybe<GeographyComparisonExp>;
+  starts_from_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointBoolExp>;
   starts_from_scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
   validity_end?: Maybe<TimestamptzComparisonExp>;
   validity_start?: Maybe<TimestamptzComparisonExp>;
@@ -4402,6 +4418,7 @@ export type RouteRouteInsertInput = {
   description_i18n?: Maybe<Scalars['String']>;
   /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
   direction?: Maybe<Scalars['String']>;
+  ends_at_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointObjRelInsertInput>;
   /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
@@ -4414,8 +4431,10 @@ export type RouteRouteInsertInput = {
   /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
   route_journey_patterns?: Maybe<JourneyPatternJourneyPatternArrRelInsertInput>;
+  route_line?: Maybe<RouteLineObjRelInsertInput>;
   /** A PostGIS LinestringZ geography in EPSG:4326 describing the shape of the route. */
   route_shape?: Maybe<Scalars['geography']>;
+  starts_from_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointObjRelInsertInput>;
   /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
@@ -4540,6 +4559,7 @@ export type RouteRouteObjRelInsertInput = {
 export type RouteRouteOrderBy = {
   description_i18n?: Maybe<OrderBy>;
   direction?: Maybe<OrderBy>;
+  ends_at_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointOrderBy>;
   ends_at_scheduled_stop_point_id?: Maybe<OrderBy>;
   infrastructure_links_along_route_aggregate?: Maybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
   label?: Maybe<OrderBy>;
@@ -4547,7 +4567,9 @@ export type RouteRouteOrderBy = {
   priority?: Maybe<OrderBy>;
   route_id?: Maybe<OrderBy>;
   route_journey_patterns_aggregate?: Maybe<JourneyPatternJourneyPatternAggregateOrderBy>;
+  route_line?: Maybe<RouteLineOrderBy>;
   route_shape?: Maybe<OrderBy>;
+  starts_from_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointOrderBy>;
   starts_from_scheduled_stop_point_id?: Maybe<OrderBy>;
   validity_end?: Maybe<OrderBy>;
   validity_start?: Maybe<OrderBy>;
