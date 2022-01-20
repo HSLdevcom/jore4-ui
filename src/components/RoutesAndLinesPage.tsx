@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useListChangingRoutesQuery } from '../generated/graphql';
-import { mapListChangingRoutesResult } from '../graphql/route';
-import { Container, Row } from '../layoutComponents';
+import { Link } from 'react-router-dom';
+import {
+  useListChangingRoutesQuery,
+  useListOwnLinesQuery,
+} from '../generated/graphql';
+import {
+  mapListChangingRoutesResult,
+  mapListOwnLinesResult,
+} from '../graphql/route';
+import { Column, Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { SimpleButton } from '../uiComponents';
 import { ModalMap } from './map/ModalMap';
@@ -15,6 +22,8 @@ export const RoutesAndLinesPage = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const changingRoutesResult = useListChangingRoutesQuery();
   const changingRoutes = mapListChangingRoutesResult(changingRoutesResult);
+  const ownLinesResult = useListOwnLinesQuery();
+  const ownLines = mapListOwnLinesResult(ownLinesResult);
 
   return (
     <Container>
@@ -40,6 +49,23 @@ export const RoutesAndLinesPage = (): JSX.Element => {
         {t('routes.changingRoutes')}
       </h2>
       {changingRoutes && <RoutesTable routes={changingRoutes} />}
+      <h2 className="text-bold mb-14 mt-12 text-4xl">{t('routes.ownLines')}</h2>
+      {ownLines?.length > 0 &&
+        // TODO create proper components for displaying lines, these are just placeholders
+        ownLines.map((item) => {
+          return (
+            <Link
+              to={routes[Path.lineDetails].getLink(item.line_id)}
+              key={item.line_id}
+            >
+              <Column className="border">
+                <span>{item.label}</span>
+                <span>{item.name_i18n}</span>
+                <span>{item.description_i18n}</span>
+              </Column>
+            </Link>
+          );
+        })}
       <ModalMap isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </Container>
   );
