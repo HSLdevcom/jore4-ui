@@ -18,6 +18,7 @@ module.exports = {
         grey: colors.grey,
         'light-grey': colors.lightGrey,
         background: colors.background,
+        'city-bicycle-yellow': colors.cityBicycleYellow,
       },
     },
   },

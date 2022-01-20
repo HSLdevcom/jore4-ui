@@ -7,6 +7,7 @@ const theme = {
     background: '#F2F5F7',
     grey: '#888888',
     lightGrey: '#CCCCCC',
+    cityBicycleYellow: '#FCBC19',
   },
 };
 
