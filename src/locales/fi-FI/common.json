@@ -20,7 +20,9 @@
     "finnishName": "Nimi (Suomi)",
     "primaryVehicleMode": "Ensisijainen kulkumuoto",
     "chooseVehicleMode": "Valitse kulkumuoto",
-    "line": "Linja"
+    "line": "Linja",
+    "linesName": "Linjan nimi",
+    "additionalInformation": "Oheistiedot"
   },
   "stops": {
     "stop": "Pysäkki",

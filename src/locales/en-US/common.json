@@ -20,7 +20,9 @@
     "finnishName": "Name (Finnish)",
     "primaryVehicleMode": "Primary vehicle mode",
     "chooseVehicleMode": "Choose vehicle mode",
-    "line": "Line"
+    "line": "Line",
+    "linesName": "Line's name",
+    "additionalInformation": "Additional information"
   },
   "stops": {
     "stop": "Stop",
