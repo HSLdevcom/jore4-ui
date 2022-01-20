@@ -9,5 +9,6 @@ export const theme = {
     lightGrey: "#CCCCCC",
     hslDarkGreen: "#3B7F00",
     hslRed: "#DC0451",
+    cityBicycleYellow: "#FCBC19",
   },
 };

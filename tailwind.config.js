@@ -20,6 +20,7 @@ module.exports = {
         'light-grey': colors.lightGrey,
         'hsl-dark-green': colors.hslDarkGreen,
         'hsl-red': colors.hslRed,
+        'city-bicycle-yellow': colors.cityBicycleYellow,
       },
     },
   },
