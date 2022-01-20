@@ -12,7 +12,8 @@
     "name": "Reitin nimi",
     "addToLine": "Yhdistä linjaan",
     "chooseLine": "Valitse linja",
-    "changingRoutes": "Muuttuvat reitit"
+    "changingRoutes": "Muuttuvat reitit",
+    "ownLines": "Omat linjat"
   },
   "lines": {
     "createNew": "Luo uusi linja",

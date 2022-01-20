@@ -12,7 +12,8 @@
     "name": "Name of the route",
     "addToLine": "Add to line",
     "chooseLine": "Choose line",
-    "changingRoutes": "Changing routes"
+    "changingRoutes": "Changing routes",
+    "ownLines": "Own lines"
   },
   "lines": {
     "createNew": "Create new line",

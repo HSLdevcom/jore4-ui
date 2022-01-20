@@ -5875,6 +5875,11 @@ export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined }> };
 
+export type ListOwnLinesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined }> };
+
 export type ListChangingRoutesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6225,6 +6230,40 @@ export function useListAllLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type ListAllLinesQueryHookResult = ReturnType<typeof useListAllLinesQuery>;
 export type ListAllLinesLazyQueryHookResult = ReturnType<typeof useListAllLinesLazyQuery>;
 export type ListAllLinesQueryResult = Apollo.QueryResult<ListAllLinesQuery, ListAllLinesQueryVariables>;
+export const ListOwnLinesDocument = gql`
+    query ListOwnLines {
+  route_line {
+    ...line_default_fields
+  }
+}
+    ${LineDefaultFieldsFragmentDoc}`;
+
+/**
+ * __useListOwnLinesQuery__
+ *
+ * To run a query within a React component, call `useListOwnLinesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListOwnLinesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListOwnLinesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListOwnLinesQuery(baseOptions?: Apollo.QueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument, options);
+      }
+export function useListOwnLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument, options);
+        }
+export type ListOwnLinesQueryHookResult = ReturnType<typeof useListOwnLinesQuery>;
+export type ListOwnLinesLazyQueryHookResult = ReturnType<typeof useListOwnLinesLazyQuery>;
+export type ListOwnLinesQueryResult = Apollo.QueryResult<ListOwnLinesQuery, ListOwnLinesQueryVariables>;
 export const ListChangingRoutesDocument = gql`
     query ListChangingRoutes {
   route_route {

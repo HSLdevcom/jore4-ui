@@ -7,6 +7,7 @@ import {
   useGetLineDetailsByIdQuery,
   useGetRouteDetailsByIdQuery,
   useListChangingRoutesQuery,
+  useListOwnLinesQuery,
 } from '../generated/graphql';
 
 const LINE_DEFAULT_FIELDS = gql`
@@ -63,6 +64,18 @@ const LIST_ALL_LINES = gql`
     }
   }
 `;
+
+// TODO this is just listing all lines for now
+const LIST_OWN_LINES = gql`
+  query ListOwnLines {
+    route_line {
+      ...line_default_fields
+    }
+  }
+`;
+export const mapListOwnLinesResult = (
+  result: ReturnType<typeof useListOwnLinesQuery>,
+) => result.data?.route_line as RouteLine[];
 
 // TODO this will list all routes for now
 const LIST_CHANGING_ROUTES = gql`
