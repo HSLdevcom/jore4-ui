@@ -45,6 +45,8 @@
 .icon-check:before { content: '\e82b'; } /* '' */
 .icon-check-circle:before { content: '\e82c'; } /* '' */
 .icon-info:before { content: '\e82d'; } /* '' */
+.icon-_-placeholder:before { content: '\e82e'; } /* '' */
+.icon-time2:before { content: '\e82e'; } /* '' */
 .icon-hsl-card-angle-1:before { content: '\e82f'; } /* '' */
 .icon-hsl-card-angle:before { content: '\e830'; } /* '' */
 .icon-arrow-2:before { content: '\e831'; } /* '' */
@@ -58,4 +60,5 @@
 .icon-train:before { content: '\e83b'; } /* '' */
 .icon-bus-alt:before { content: '\e83c'; } /* '' */
 .icon-tram:before { content: '\e83d'; } /* '' */
+.icon-pen:before { content: '\e83e'; } /* '' */
 .icon-metro:before { content: '\e83f'; } /* '' */
