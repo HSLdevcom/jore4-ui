@@ -103,10 +103,15 @@ Current icon font can be previewed by opening (`src/generated/fontello/demo.html
 Icon font can be updated by following these steps:
 
 - Export desired svg icons from [JORE4 figma](https://www.figma.com/file/ImSTkCqQn0nhVUtMcUm41P/JORE-4.0-UX?node-id=1503%3A53530).
-- Import exsisting icon font's `config.json` (from directory `src/generated/fontello`) to [fontello](https://fontello.com/)
+  (Right click, "Copy as SVG", save to a file with '.svg' extension)
+- Import existing icon font's `config.json` (from directory `src/generated/fontello`) to [fontello](https://fontello.com/)
+  (Import button is found under the wrench icon on the top of the page)
 - Upload new icons to fontello's page. Please check that names of the icons make sense.
+  (Use the same Import functionality as with `config.json`, but select svg files this time)
 - Export new font from fontello. Replace contents of `src/generated/fontello` with the package that fontello provided.
+  (Make sure you set the font name to `hsl-icons`)
 - Use new icons where needed. 😎
+  (`<i className="icon-xxx"/>`)
 
 (**If you rename or remove existing icons**, do global search with old name to make sure that you don't break anything!
 Intellisense doesn't notice if nonexisting icons are used in the project.)
