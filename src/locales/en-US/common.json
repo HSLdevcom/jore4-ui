@@ -26,7 +26,10 @@
     "linesName": "Line's name",
     "linesType": "Line's type",
     "areaOfOperation": "Area of operation",
-    "additionalInformation": "Additional information"
+    "additionalInformation": "Additional information",
+    "routes": "Routes",
+    "createNewRoute": "Create new route",
+    "createNewRouteInstructions": "Route drawing opens in a new window."
   },
   "stops": {
     "stop": "Stop",

@@ -5870,6 +5870,8 @@ export type RouteAllFieldsFragment = { __typename?: 'route_route', route_id?: an
 
 export type RouteDefaultFieldsFragment = { __typename?: 'route_route', route_id?: any | null | undefined, description_i18n?: string | null | undefined, on_line_id?: any | null | undefined };
 
+export type RouteWithStopsFragment = { __typename?: 'route_route', route_id?: any | null | undefined, description_i18n?: string | null | undefined, on_line_id?: any | null | undefined, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined } | null | undefined };
+
 export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5890,7 +5892,7 @@ export type GetLineDetailsByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string }> };
+export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id?: any | null | undefined, description_i18n?: string | null | undefined, on_line_id?: any | null | undefined, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: any | null | undefined, label?: string | null | undefined } | null | undefined }> }> };
 
 export type GetRouteDetailsByIdQueryVariables = Exact<{
   route_id: Scalars['uuid'];
@@ -5957,6 +5959,18 @@ export const ScheduledStopPointDefaultFieldsFragmentDoc = gql`
   label
 }
     `;
+export const RouteWithStopsFragmentDoc = gql`
+    fragment route_with_stops on route_route {
+  ...route_default_fields
+  starts_from_scheduled_stop_point {
+    ...scheduled_stop_point_default_fields
+  }
+  ends_at_scheduled_stop_point {
+    ...scheduled_stop_point_default_fields
+  }
+}
+    ${RouteDefaultFieldsFragmentDoc}
+${ScheduledStopPointDefaultFieldsFragmentDoc}`;
 export const InsertStopDocument = gql`
     mutation InsertStop($object: service_pattern_scheduled_stop_point_insert_input!) {
   insert_service_pattern_scheduled_stop_point_one(object: $object) {
@@ -6267,21 +6281,14 @@ export type ListOwnLinesQueryResult = Apollo.QueryResult<ListOwnLinesQuery, List
 export const ListChangingRoutesDocument = gql`
     query ListChangingRoutes {
   route_route {
-    ...route_default_fields
+    ...route_with_stops
     route_line {
       ...line_default_fields
     }
-    starts_from_scheduled_stop_point {
-      ...scheduled_stop_point_default_fields
-    }
-    ends_at_scheduled_stop_point {
-      ...scheduled_stop_point_default_fields
-    }
   }
 }
-    ${RouteDefaultFieldsFragmentDoc}
-${LineDefaultFieldsFragmentDoc}
-${ScheduledStopPointDefaultFieldsFragmentDoc}`;
+    ${RouteWithStopsFragmentDoc}
+${LineDefaultFieldsFragmentDoc}`;
 
 /**
  * __useListChangingRoutesQuery__
@@ -6313,9 +6320,13 @@ export const GetLineDetailsByIdDocument = gql`
     query GetLineDetailsById($line_id: uuid!) {
   route_line(where: {line_id: {_eq: $line_id}}) {
     ...line_all_fields
+    line_routes {
+      ...route_with_stops
+    }
   }
 }
-    ${LineAllFieldsFragmentDoc}`;
+    ${LineAllFieldsFragmentDoc}
+${RouteWithStopsFragmentDoc}`;
 
 /**
  * __useGetLineDetailsByIdQuery__

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { CreateNewLinePage } from './components/CreateNewLinePage'; // eslint-disable-line import/no-cycle
 import { Main } from './components/Main';
 import { Map } from './components/map';
-import { LineDetailsPage } from './components/routes-and-lines/LineDetailsPage';
+import { LineDetailsPage } from './components/routes-and-lines/LineDetailsPage'; // eslint-disable-line import/no-cycle
 import { RoutesAndLinesPage } from './components/RoutesAndLinesPage'; // eslint-disable-line import/no-cycle
 
 export enum Path {

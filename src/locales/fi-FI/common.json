@@ -24,10 +24,12 @@
     "chooseVehicleMode": "Valitse kulkumuoto",
     "line": "Linja",
     "linesName": "Linjan nimi",
-
     "linesType": "Linjan tyyppi",
     "areaOfOperation": "Joukkoliikennekohde",
-    "additionalInformation": "Oheistiedot"
+    "additionalInformation": "Oheistiedot",
+    "routes": "Reitit",
+    "createNewRoute": "Luo reitti",
+    "createNewRouteInstructions": "Täysin uuden reitin luominen avautuu karttanäkymään."
   },
   "stops": {
     "stop": "Pysäkki",
