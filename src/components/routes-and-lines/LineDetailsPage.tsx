@@ -1,18 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useGetLineDetailsByIdQuery } from '../../generated/graphql';
 import { mapLineDetailsResult } from '../../graphql/route';
 import { Column, Container, Row } from '../../layoutComponents';
 import { mapToShortDate } from '../../time';
+import { SimpleButton } from '../../uiComponents';
 import { mapToVariables } from '../../utils';
+import { ModalMap } from '../map/ModalMap';
 import { AdditionalInformation } from './AdditionalInformation';
 import { MapPreview } from './MapPreview';
 import { PageHeader } from './PageHeader';
+import { RouteStopsTable } from './RouteStopsTable'; // eslint-disable-line import/no-cycle
+
+interface Props {
+  className?: string;
+  onCreateRoute: () => void;
+}
+
+const CreateRouteBox: React.FC<Props> = ({ className, onCreateRoute }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Column
+      className={`items-center bg-background border border-light-grey p-8 ${className}`}
+    >
+      <SimpleButton
+        id="create-route-button"
+        className="mb-4"
+        onClick={onCreateRoute}
+      >
+        {t('lines.createNewRoute')}
+      </SimpleButton>
+      <span>{t('lines.createNewRouteInstructions')}</span>
+    </Column>
+  );
+};
 
 export const LineDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
+  const [isOpen, setIsOpen] = useState(false);
   const lineDetailsResult = useGetLineDetailsByIdQuery(
     mapToVariables({ line_id: id }),
   );
@@ -20,6 +48,9 @@ export const LineDetailsPage = (): JSX.Element => {
 
   const buildValidityPeriod = (validityStart?: string, validityEnd?: string) =>
     `${mapToShortDate(validityStart)} - ${mapToShortDate(validityEnd)}`;
+
+  const openMap = () => setIsOpen(true);
+  const closeMap = () => setIsOpen(false);
 
   return (
     <div>
@@ -40,12 +71,29 @@ export const LineDetailsPage = (): JSX.Element => {
           </Column>
         </Row>
       </PageHeader>
-      <Container>
-        <Row>
-          {line && <AdditionalInformation className="w-2/3" line={line} />}
-          <MapPreview className="w-1/3" />
-        </Row>
-      </Container>
+      {line && (
+        <Container>
+          <Column>
+            <Row>
+              <AdditionalInformation className="w-2/3" line={line} />
+              <MapPreview className="w-1/3" />
+            </Row>
+            <Row>
+              <Column className="w-full">
+                <h1 className="text-3xl">{t('lines.routes')}</h1>
+                {line.line_routes?.length > 0 ? (
+                  line.line_routes.map((item) => {
+                    return <RouteStopsTable key={item.route_id} route={item} />;
+                  })
+                ) : (
+                  <CreateRouteBox onCreateRoute={openMap} />
+                )}
+              </Column>
+            </Row>
+          </Column>
+          <ModalMap isOpen={isOpen} onClose={closeMap} />
+        </Container>
+      )}
     </div>
   );
 };

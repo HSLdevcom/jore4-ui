@@ -57,6 +57,18 @@ const ROUTE_DEFAULT_FIELDS = gql`
   }
 `;
 
+const ROUTE_WITH_STOPS = gql`
+  fragment route_with_stops on route_route {
+    ...route_default_fields
+    starts_from_scheduled_stop_point {
+      ...scheduled_stop_point_default_fields
+    }
+    ends_at_scheduled_stop_point {
+      ...scheduled_stop_point_default_fields
+    }
+  }
+`;
+
 const LIST_ALL_LINES = gql`
   query ListAllLines {
     route_line {
@@ -81,15 +93,9 @@ export const mapListOwnLinesResult = (
 const LIST_CHANGING_ROUTES = gql`
   query ListChangingRoutes {
     route_route {
-      ...route_default_fields
+      ...route_with_stops
       route_line {
         ...line_default_fields
-      }
-      starts_from_scheduled_stop_point {
-        ...scheduled_stop_point_default_fields
-      }
-      ends_at_scheduled_stop_point {
-        ...scheduled_stop_point_default_fields
       }
     }
   }
@@ -102,6 +108,9 @@ const GET_LINE_DETAILS_BY_ID = gql`
   query GetLineDetailsById($line_id: uuid!) {
     route_line(where: { line_id: { _eq: $line_id } }) {
       ...line_all_fields
+      line_routes {
+        ...route_with_stops
+      }
     }
   }
 `;
