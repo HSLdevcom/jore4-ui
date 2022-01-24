@@ -8,7 +8,7 @@ interface Props {
   routeId: string;
 }
 
-export const RouteLayer = ({ routeId }: Props): JSX.Element => {
+export const RouteLayer = ({ routeId }: Props) => {
   const routeDetailsResult = useGetRouteDetailsByIdQuery(
     mapToVariables({ route_id: routeId }),
   );
@@ -18,6 +18,12 @@ export const RouteLayer = ({ routeId }: Props): JSX.Element => {
     type: 'line' as const,
     paint: {},
   };
+
+  // do not render anything before data is received
+  if (!routeDetails?.route_shape) {
+    return null;
+  }
+
   return (
     <Source type="geojson" data={routeDetails?.route_shape}>
       <Layer {...layerStyle} />
