@@ -83,7 +83,7 @@ const LIST_CHANGING_ROUTES = gql`
 `;
 export const mapListChangingRoutesResult = (
   result: ReturnType<typeof useListChangingRoutesQuery>,
-) => result.data?.route_route as RouteRoute[];
+) => result.data?.route_route as RouteRoute[] | undefined;
 
 const GET_LINE_DETAILS_BY_ID = gql`
   query GetLineDetailsById($line_id: uuid!) {
@@ -94,7 +94,7 @@ const GET_LINE_DETAILS_BY_ID = gql`
 `;
 export const mapLineDetailsResult = (
   result: ReturnType<typeof useGetLineDetailsByIdQuery>,
-) => result.data?.route_line[0] as RouteLine;
+) => result.data?.route_line[0] as RouteLine | undefined;
 
 const GET_ROUTE_DETAILS_BY_ID = gql`
   query GetRouteDetailsById($route_id: uuid!) {
@@ -105,7 +105,7 @@ const GET_ROUTE_DETAILS_BY_ID = gql`
 `;
 export const mapRouteDetailsResult = (
   result: ReturnType<typeof useGetRouteDetailsByIdQuery>,
-) => result.data?.route_route[0] as RouteRoute;
+) => result.data?.route_route[0] as RouteRoute | undefined;
 
 const INSERT_LINE = gql`
   mutation InsertLineOne($object: route_line_insert_input!) {
@@ -124,4 +124,4 @@ export const mapInsertLineOneResult = (
     Record<string, ExplicitAny>,
     Record<string, ExplicitAny>
   >,
-) => result.data?.insert_route_line_one;
+) => result.data?.insert_route_line_one as RouteLine | undefined;

@@ -20,7 +20,7 @@ export const LineDetailsPage = (): JSX.Element => {
       <PageHeader>
         <i className="icon-bus-alt text-tweaked-brand text-5xl" />
         <h1 className="text-5xl font-bold">
-          {t('lines.line')} {line.label}
+          {t('lines.line')} {line?.label}
         </h1>
       </PageHeader>
       <Container>TODO</Container>
