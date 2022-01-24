@@ -1,4 +1,5 @@
 import React, { useReducer, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MapEditorContext } from '../../context/MapEditorContext';
 import { initialState, mapEditorReducer } from '../../context/MapEditorReducer';
 import {
@@ -8,7 +9,7 @@ import {
 } from '../../generated/graphql';
 import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql/infrastructureNetwork';
 import { Modal } from '../../uiComponents';
-import { mapToObject, mapToVariables } from '../../utils';
+import { mapToObject, mapToVariables, showToast } from '../../utils';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
@@ -27,6 +28,7 @@ const mapFooterHeight = 82;
 
 export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
   const mapRef = useRef<ExplicitAny>(null);
+  const { t } = useTranslation();
 
   const [insertRouteMutation] = useInsertRouteOneMutation();
   const [state, dispatch] = useReducer(mapEditorReducer, initialState);
@@ -76,17 +78,15 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
       });
       try {
         await insertRouteMutation(mapToVariables(variables));
-        // eslint-disable-next-line no-console
-        console.log('Route saved succesfully. TODO: inform user about it');
+        showToast({ type: 'success', message: t('routes.saveSuccess') });
       } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log(
-          `Error when creating route, ${err}, TODO: show error message}`,
-        );
+        showToast({
+          type: 'danger',
+          message: `${t('errors.saveFailed')}, ${err}`,
+        });
       }
     } else {
-      // eslint-disable-next-line no-console
-      console.log('Something went wrong, cannot save route.');
+      showToast({ type: 'danger', message: t('errors.saveFailed') });
     }
   };
   const onDeleteRoute = () => {

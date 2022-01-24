@@ -7,6 +7,7 @@
     "root": "Etusivu",
     "routes": "Reitit ja linjat",
     "save": "Tallenna reitti",
+    "saveSuccess": "Reitti tallennettu",
     "enterRouteData": "Anna reitin tiedot",
     "name": "Reitin nimi",
     "addToLine": "Yhdistä linjaan",
@@ -26,7 +27,8 @@
     "stop": "Pysäkki",
     "stopById": "Pysäkki {{ id }}",
     "nameAddress": "Nimi ja osoite",
-    "finnishName": "Nimi (Suomi)"
+    "finnishName": "Nimi (Suomi)",
+    "saveSuccess": "Pysäkki luotu"
   },
   "navigation": {
     "logout": "Kirjaudu ulos",
@@ -55,6 +57,9 @@
   },
   "formValidation": {
     "required": "Kenttä vaaditaan"
+  },
+  "errors": {
+    "saveFailed": "Tallennus epäonnistui"
   },
   "save": "Tallenna",
   "edit": "Muokkaa",

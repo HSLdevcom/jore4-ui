@@ -7,5 +7,7 @@ export const theme = {
     background: "#F2F5F7",
     grey: "#888888",
     lightGrey: "#CCCCCC",
+    hslDarkGreen: "#3B7F00",
+    hslRed: "#DC0451",
   },
 };

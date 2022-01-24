@@ -11,7 +11,12 @@ import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { Priority } from '../types/Priority';
 import { SimpleButton } from '../uiComponents';
-import { mapToObject, mapToVariables, submitFormByRef } from '../utils';
+import {
+  mapToObject,
+  mapToVariables,
+  showToast,
+  submitFormByRef,
+} from '../utils';
 import { FormState, LinePropertiesForm } from './forms/LinePropertiesForm';
 
 export const CreateNewLinePage = (): JSX.Element => {
@@ -41,16 +46,16 @@ export const CreateNewLinePage = (): JSX.Element => {
       const result = await mutateFunction(mapToVariables(variables));
       const createdLine = mapInsertLineOneResult(result);
 
+      showToast({ type: 'success', message: t('routes.saveSuccess') });
       // eslint-disable-next-line no-console
-      console.log(
-        'Line created successfully. TODO: inform user about it',
-        result,
-      );
+      console.log('Line created successfully.', result);
 
       setCreatedLineId(createdLine?.line_id);
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(`Err, ${err}, TODO: show error message}`);
+      showToast({
+        type: 'danger',
+        message: `${t('errors.saveFailed')}, '${err}'`,
+      });
     }
   };
 

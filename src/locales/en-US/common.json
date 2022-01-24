@@ -7,6 +7,7 @@
     "root": "Main page",
     "routes": "Routes and lines",
     "save": "Save route",
+    "saveSuccess": "Route saved",
     "enterRouteData": "Enter route data",
     "name": "Name of the route",
     "addToLine": "Add to line",
@@ -26,7 +27,8 @@
     "stop": "Stop",
     "stopById": "Stop {{ id }}",
     "nameAddress": "Name and address",
-    "finnishName": "Name (Finnish)"
+    "finnishName": "Name (Finnish)",
+    "saveSuccess": "Stop created"
   },
   "navigation": {
     "logout": "Log out",
@@ -55,6 +57,9 @@
   },
   "formValidation": {
     "required": "Field is required"
+  },
+  "errors": {
+    "saveFailed": "Something went wrong"
   },
   "save": "Save",
   "edit": "Edit",

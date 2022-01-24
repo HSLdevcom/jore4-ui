@@ -22,6 +22,7 @@ import {
   mapPointToPointGeography,
   mapToObject,
   mapToVariables,
+  showToast,
 } from '../../utils';
 
 const parseInfraLinkId = (
@@ -123,11 +124,12 @@ const StopFormComponent = (
     try {
       await mutateFunction(mapToVariables(variables));
       onSubmitSuccess();
-      // eslint-disable-next-line no-console
-      console.log('Stop created succesfully. TODO: inform user about it');
+      showToast({ type: 'success', message: t('stops.saveSuccess') });
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(`Err, ${err}, TODO: show error message}`);
+      showToast({
+        type: 'danger',
+        message: `${t('errors.saveFailed')}, ${err}`,
+      });
     }
   };
 

@@ -5,7 +5,7 @@ import {
 } from '@headlessui/react';
 import React, { Fragment, ReactNode } from 'react';
 import { Noop } from 'react-hook-form';
-import { addClassName } from '../utils';
+import { addClassName } from '../utils/components';
 
 // copied from HeadlessUI Listbox as it's not exported
 export type ValueFn = (...event: ExplicitAny[]) => void;
