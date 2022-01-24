@@ -18,9 +18,14 @@ export const RouteLayer = ({ routeId }: Props): JSX.Element => {
     type: 'line' as const,
     paint: {},
   };
+
+  // do not render anything before data is received
   return (
-    <Source type="geojson" data={routeDetails?.route_shape}>
-      <Layer {...layerStyle} />
-    </Source>
+    (routeDetails?.route_shape && (
+      <Source type="geojson" data={routeDetails?.route_shape}>
+        <Layer {...layerStyle} />
+      </Source>
+    )) ||
+    null
   );
 };
