@@ -1,24 +1,20 @@
 import React from 'react';
 import { RouteRoute } from '../../generated/graphql';
-import { RoutesTableRow } from '../RoutesTableRow'; // eslint-disable-line import/no-cycle
+import { RouteStopsSection } from './RouteStopsSection'; // eslint-disable-line import/no-cycle
 
 interface Props {
   className?: string;
-  route: RouteRoute;
+  routes: RouteRoute[];
   testId?: string;
 }
 
-export const RouteStopsTable = ({
-  className,
-  route,
-  testId,
-}: Props): JSX.Element => {
-  // TODO reusing another component to display route info; should be replaced with custom component
+export const RouteStopsTable = ({ className, routes, testId }: Props) => {
   return (
-    <table className={`w-full ${className}`} data-testid={testId}>
-      <tbody>
-        <RoutesTableRow key={route.route_id} route={route} />
-      </tbody>
+    // setting a fake "height: 1px" so that "height: 100%" would work for the table cells
+    <table className={`h-1 w-full ${className}`} data-testid={testId}>
+      {routes.map((item) => {
+        return <RouteStopsSection key={item.route_id} route={item} />;
+      })}
     </table>
   );
 };
