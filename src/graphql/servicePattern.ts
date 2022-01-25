@@ -5,5 +5,7 @@ const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
   fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {
     scheduled_stop_point_id
     label
+    validity_start
+    validity_end
   }
 `;
