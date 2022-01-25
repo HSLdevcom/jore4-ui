@@ -24,3 +24,9 @@ export const formatDate = (
 
 export const mapToShortDate = (date?: DateTime | string, locale?: string) =>
   formatDate(DateTime.DATE_SHORT, date, locale);
+
+export const mapToShortDateTime = (date?: DateTime | string, locale?: string) =>
+  formatDate(DateTime.DATETIME_SHORT, date, locale);
+
+export const MIN_DATE = DateTime.fromISO('1970-01-01').startOf('day');
+export const MAX_DATE = DateTime.fromISO('2050-12-31').endOf('day');
