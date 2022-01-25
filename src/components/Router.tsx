@@ -2,6 +2,7 @@
 import React, { FunctionComponent } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { routes } from '../routes';
+import { ModalMap } from './map/ModalMap';
 import { Navbar } from './navbar';
 
 export const Router: FunctionComponent = () => {
@@ -18,6 +19,7 @@ export const Router: FunctionComponent = () => {
           />
         ))}
       </Switch>
+      <ModalMap />
     </BrowserRouter>
   );
 };

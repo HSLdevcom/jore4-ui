@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { Router } from '../components/Router';
 import { Toaster } from '../components/Toaster';
 import { MapEditorContextProvider } from '../context/MapEditorContextProvider';
+import { ModalMapContextProvider } from '../context/ModalMapContextProvider';
 import { UserContextProvider } from '../context/UserContextProvider';
 import '../generated/fontello/css/hsl-icons.css';
 import { GQLClient } from '../graphql';
@@ -23,12 +24,14 @@ function MyApp({ Component, pageProps }: AppProps) {
     <SafeHydrate>
       <ApolloProvider client={GQLClient}>
         <UserContextProvider>
-          <MapEditorContextProvider>
-            <Router />
-            <Toaster />
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            <Component {...pageProps} />
-          </MapEditorContextProvider>
+          <ModalMapContextProvider>
+            <MapEditorContextProvider>
+              <Router />
+              <Toaster />
+              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+              <Component {...pageProps} />
+            </MapEditorContextProvider>
+          </ModalMapContextProvider>
         </UserContextProvider>
       </ApolloProvider>
     </SafeHydrate>

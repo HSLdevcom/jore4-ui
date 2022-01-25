@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { MapEditorContext } from '../../context/MapEditorContext';
+import { ModalMapContext } from '../../context/ModalMapContext';
 import { useGetLineDetailsByIdQuery } from '../../generated/graphql';
 import { mapLineDetailsResult } from '../../graphql/route';
 import { Column, Container, Row } from '../../layoutComponents';
 import { mapToShortDate } from '../../time';
 import { SimpleButton } from '../../uiComponents';
 import { mapToVariables } from '../../utils';
-import { ModalMap } from '../map/ModalMap';
 import { AdditionalInformation } from './AdditionalInformation';
 import { MapPreview } from './MapPreview';
 import { PageHeader } from './PageHeader';
@@ -40,7 +41,9 @@ const CreateRouteBox: React.FC<Props> = ({ className, onCreateRoute }) => {
 export const LineDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const [isOpen, setIsOpen] = useState(false);
+  const { dispatch: modalMapDispatch } = useContext(ModalMapContext);
+  const { dispatch: mapEditorDispatch } = useContext(MapEditorContext);
+
   const lineDetailsResult = useGetLineDetailsByIdQuery(
     mapToVariables({ line_id: id }),
   );
@@ -49,8 +52,16 @@ export const LineDetailsPage = (): JSX.Element => {
   const buildValidityPeriod = (validityStart?: string, validityEnd?: string) =>
     `${mapToShortDate(validityStart)} - ${mapToShortDate(validityEnd)}`;
 
-  const openMap = () => setIsOpen(true);
-  const closeMap = () => setIsOpen(false);
+  const onCreateRoute = () => {
+    mapEditorDispatch({ type: 'reset' });
+    mapEditorDispatch({
+      type: 'setState',
+      payload: {
+        routeDetails: { on_line_id: id, description_i18n: 'Route X' },
+      },
+    });
+    modalMapDispatch({ type: 'open' });
+  };
 
   return (
     <div>
@@ -86,12 +97,11 @@ export const LineDetailsPage = (): JSX.Element => {
                     return <RouteStopsTable key={item.route_id} route={item} />;
                   })
                 ) : (
-                  <CreateRouteBox onCreateRoute={openMap} />
+                  <CreateRouteBox onCreateRoute={onCreateRoute} />
                 )}
               </Column>
             </Row>
           </Column>
-          <ModalMap isOpen={isOpen} onClose={closeMap} />
         </Container>
       )}
     </div>

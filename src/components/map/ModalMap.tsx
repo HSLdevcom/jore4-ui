@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEditorContext } from '../../context/MapEditorContext';
+import { ModalMapContext } from '../../context/ModalMapContext';
 import {
   InsertRouteOneMutationVariables,
   RouteDirectionEnum,
@@ -14,8 +15,6 @@ import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
 
 interface Props {
-  isOpen: boolean;
-  onClose: () => void;
   className?: string;
 }
 
@@ -25,22 +24,26 @@ interface Props {
 const mapHeaderHeight = 64;
 const mapFooterHeight = 82;
 
-export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
+export const ModalMap: React.FC<Props> = ({ className }) => {
   const mapRef = useRef<ExplicitAny>(null);
   const { t } = useTranslation();
-  const { state, dispatch } = useContext(MapEditorContext);
+  const { state: mapEditorState, dispatch: mapEditorDispatch } =
+    useContext(MapEditorContext);
+  const { state: modalMapState, dispatch: modalMapDispatch } =
+    useContext(ModalMapContext);
 
   const [insertRouteMutation] = useInsertRouteOneMutation();
 
-  const onAddStop = () => dispatch({ type: 'toggleAddStop' });
-  const onDrawRoute = () => dispatch({ type: 'toggleDrawRoute' });
-  const onEditRoute = () => dispatch({ type: 'toggleEditRoute' });
+  const onAddStop = () => mapEditorDispatch({ type: 'toggleAddStop' });
+  const onDrawRoute = () => mapEditorDispatch({ type: 'toggleDrawRoute' });
+  const onEditRoute = () => mapEditorDispatch({ type: 'toggleEditRoute' });
   const onCancel = () => {
     mapRef?.current?.onDeleteDrawnRoute();
-    dispatch({ type: 'reset' });
+    mapEditorDispatch({ type: 'reset' });
   };
   const onSave = async () => {
-    const { busRoute, stopIdsWithinRoute, infraLinksAlongRoute } = state;
+    const { busRoute, stopIdsWithinRoute, infraLinksAlongRoute } =
+      mapEditorState;
 
     if (
       busRoute &&
@@ -56,8 +59,8 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
       const variables: InsertRouteOneMutationVariables = mapToObject({
         starts_from_scheduled_stop_point_id: startingStopId,
         ends_at_scheduled_stop_point_id: finalStopId,
-        on_line_id: state.routeDetails?.on_line_id,
-        label: state.routeDetails?.description_i18n, // TODO: retrieve label, don't use description for label
+        on_line_id: mapEditorState.routeDetails?.on_line_id,
+        label: mapEditorState.routeDetails?.description_i18n, // TODO: retrieve label, don't use description for label
         direction: RouteDirectionEnum.Outbound, // TODO: make this user-configurable
         priority: 10,
         // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
@@ -89,18 +92,25 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
     }
   };
   const onDeleteRoute = () => {
-    dispatch({ type: 'setState', payload: { drawingMode: undefined } });
+    mapEditorDispatch({
+      type: 'setState',
+      payload: { drawingMode: undefined },
+    });
     mapRef?.current?.onDeleteDrawnRoute();
   };
   const onCloseModalMap = () => {
-    dispatch({ type: 'reset' });
-    onClose();
+    mapEditorDispatch({ type: 'reset' });
+    modalMapDispatch({ type: 'close' });
   };
 
-  const { canAddStops } = state;
+  const { canAddStops } = mapEditorState;
 
   return (
-    <Modal isOpen={isOpen} onClose={onCloseModalMap} className={className}>
+    <Modal
+      isOpen={modalMapState.isOpen}
+      onClose={onCloseModalMap}
+      className={className}
+    >
       <MapHeader onClose={onCloseModalMap} />
       {/* Setting height of map component dynamically seems to be tricky as
           it doesn't respect e.g. "height: 100%" rule.
