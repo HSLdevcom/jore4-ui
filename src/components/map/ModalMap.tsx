@@ -1,7 +1,6 @@
-import React, { useReducer, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEditorContext } from '../../context/MapEditorContext';
-import { initialState, mapEditorReducer } from '../../context/MapEditorReducer';
 import {
   InsertRouteOneMutationVariables,
   RouteDirectionEnum,
@@ -29,9 +28,9 @@ const mapFooterHeight = 82;
 export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
   const mapRef = useRef<ExplicitAny>(null);
   const { t } = useTranslation();
+  const { state, dispatch } = useContext(MapEditorContext);
 
   const [insertRouteMutation] = useInsertRouteOneMutation();
-  const [state, dispatch] = useReducer(mapEditorReducer, initialState);
 
   const onAddStop = () => dispatch({ type: 'toggleAddStop' });
   const onDrawRoute = () => dispatch({ type: 'toggleDrawRoute' });
@@ -101,32 +100,30 @@ export const ModalMap: React.FC<Props> = ({ isOpen, onClose, className }) => {
   const { canAddStops } = state;
 
   return (
-    <MapEditorContext.Provider value={{ state, dispatch }}>
-      <Modal isOpen={isOpen} onClose={onCloseModalMap} className={className}>
-        <MapHeader onClose={onCloseModalMap} />
-        {/* Setting height of map component dynamically seems to be tricky as
+    <Modal isOpen={isOpen} onClose={onCloseModalMap} className={className}>
+      <MapHeader onClose={onCloseModalMap} />
+      {/* Setting height of map component dynamically seems to be tricky as
           it doesn't respect e.g. "height: 100%" rule.
           As a workaround we can use css's `calc` function and magically subtract
           height of MapHeader and MapFooterfrom full screen height.
           This is ugly, but seems to work perfectly - at least until someone changes
           height of header/footer...
         */}
-        <Map
-          height={`calc(100vh - ${mapHeaderHeight + mapFooterHeight}px)`}
-          canAddStops={canAddStops}
-          drawable
-          ref={mapRef}
-        />
-        <MapFooter
-          onDrawRoute={onDrawRoute}
-          onEditRoute={onEditRoute}
-          onDeleteRoute={onDeleteRoute}
-          onCancel={onCancel}
-          onSave={onSave}
-          canAddStops={canAddStops}
-          onAddStop={onAddStop}
-        />
-      </Modal>
-    </MapEditorContext.Provider>
+      <Map
+        height={`calc(100vh - ${mapHeaderHeight + mapFooterHeight}px)`}
+        canAddStops={canAddStops}
+        drawable
+        ref={mapRef}
+      />
+      <MapFooter
+        onDrawRoute={onDrawRoute}
+        onEditRoute={onEditRoute}
+        onDeleteRoute={onDeleteRoute}
+        onCancel={onCancel}
+        onSave={onSave}
+        canAddStops={canAddStops}
+        onAddStop={onAddStop}
+      />
+    </Modal>
   );
 };

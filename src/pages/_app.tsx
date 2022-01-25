@@ -3,6 +3,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import type { AppProps } from 'next/app';
 import { Router } from '../components/Router';
 import { Toaster } from '../components/Toaster';
+import { MapEditorContextProvider } from '../context/MapEditorContextProvider';
 import { UserContextProvider } from '../context/UserContextProvider';
 import '../generated/fontello/css/hsl-icons.css';
 import { GQLClient } from '../graphql';
@@ -22,10 +23,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     <SafeHydrate>
       <ApolloProvider client={GQLClient}>
         <UserContextProvider>
-          <Router />
-          <Toaster />
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Component {...pageProps} />
+          <MapEditorContextProvider>
+            <Router />
+            <Toaster />
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+            <Component {...pageProps} />
+          </MapEditorContextProvider>
         </UserContextProvider>
       </ApolloProvider>
     </SafeHydrate>

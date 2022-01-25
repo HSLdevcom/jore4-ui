@@ -44,6 +44,7 @@ const reducerFunction = (
 ) => {
   const { type, payload } = action;
 
+  // note: with the use or 'immer', we can modify the state object directly
   switch (type) {
     case 'reset':
       return initialState;
