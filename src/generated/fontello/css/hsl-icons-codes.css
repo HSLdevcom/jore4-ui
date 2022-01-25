@@ -5,7 +5,6 @@
 .icon-contactless:before { content: '\e803'; } /* '' */
 .icon-home:before { content: '\e804'; } /* '' */
 .icon-statistics:before { content: '\e805'; } /* '' */
-.icon-alert-filled:before { content: '\e806'; } /* '' */
 .icon-hsl-alt:before { content: '\e807'; } /* '' */
 .icon-hsl:before { content: '\e808'; } /* '' */
 .icon-hsl-card-lost:before { content: '\e809'; } /* '' */
@@ -61,3 +60,4 @@
 .icon-tram:before { content: '\e83d'; } /* '' */
 .icon-pen:before { content: '\e83e'; } /* '' */
 .icon-metro:before { content: '\e83f'; } /* '' */
+.icon-alert-filled:before { content: '\e8bf'; } /* '' */
