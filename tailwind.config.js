@@ -6,8 +6,7 @@ const theme = require('./theme.js');
 const { colors } = theme;
 
 module.exports = {
-  purge: ['./src/**/*.{js,ts,jsx,tsx}'], // Tailwind can tree-shake unused styles in production in files defined in these directories
-  darkMode: false, // or 'media' or 'class'
+  content: ['./src/**/*.{js,ts,jsx,tsx}'], // Tailwind can tree-shake unused styles in production in files defined in these directories
   theme: {
     extend: {
       colors: {
@@ -22,16 +21,6 @@ module.exports = {
         'hsl-red': colors.hslRed,
         'city-bicycle-yellow': colors.cityBicycleYellow,
       },
-    },
-  },
-  variants: {
-    extend: {
-      backgroundOpacity: ['active'],
-      borderColor: ['active', 'important'],
-      borderRadius: ['important'],
-      borderWidth: ['important'],
-      margin: ['important'],
-      padding: ['important'],
     },
   },
   plugins: [
