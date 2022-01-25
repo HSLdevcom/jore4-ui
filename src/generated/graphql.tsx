@@ -1272,6 +1272,8 @@ export type JourneyPatternJourneyPatternBoolExp = {
 /** unique or primary key constraints on table "journey_pattern.journey_pattern" */
 export enum JourneyPatternJourneyPatternConstraint {
   /** unique or primary key constraint */
+  JourneyPatternOnRouteIdIdx = 'journey_pattern_on_route_id_idx',
+  /** unique or primary key constraint */
   JourneyPatternPkey = 'journey_pattern_pkey'
 }
 

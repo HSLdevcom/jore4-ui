@@ -8306,6 +8306,12 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "journey_pattern_on_route_id_idx",
+            "description": "unique or primary key constraint",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "journey_pattern_pkey",
             "description": "unique or primary key constraint",
             "isDeprecated": false,
@@ -14343,7 +14349,7 @@
             "args": [
               {
                 "name": "args",
-                "description": "input parameters for function \"infrastructure_network.find_point_direction_on_link\"",
+                "description": "input parameters for function \"infrastructure_network_find_point_direction_on_link\"",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -14460,7 +14466,7 @@
             "args": [
               {
                 "name": "args",
-                "description": "input parameters for function \"infrastructure_network.find_point_direction_on_link\"",
+                "description": "input parameters for function \"infrastructure_network_find_point_direction_on_link_aggregate\"",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -14792,7 +14798,7 @@
             "args": [
               {
                 "name": "args",
-                "description": "input parameters for function \"infrastructure_network.resolve_point_to_closest_link\"",
+                "description": "input parameters for function \"infrastructure_network_resolve_point_to_closest_link\"",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -14909,7 +14915,7 @@
             "args": [
               {
                 "name": "args",
-                "description": "input parameters for function \"infrastructure_network.resolve_point_to_closest_link\"",
+                "description": "input parameters for function \"infrastructure_network_resolve_point_to_closest_link_aggregate\"",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -31054,7 +31060,7 @@
             "args": [
               {
                 "name": "args",
-                "description": "input parameters for function \"infrastructure_network.find_point_direction_on_link\"",
+                "description": "input parameters for function \"infrastructure_network_find_point_direction_on_link\"",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -31171,7 +31177,7 @@
             "args": [
               {
                 "name": "args",
-                "description": "input parameters for function \"infrastructure_network.find_point_direction_on_link\"",
+                "description": "input parameters for function \"infrastructure_network_find_point_direction_on_link_aggregate\"",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -31503,7 +31509,7 @@
             "args": [
               {
                 "name": "args",
-                "description": "input parameters for function \"infrastructure_network.resolve_point_to_closest_link\"",
+                "description": "input parameters for function \"infrastructure_network_resolve_point_to_closest_link\"",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -31620,7 +31626,7 @@
             "args": [
               {
                 "name": "args",
-                "description": "input parameters for function \"infrastructure_network.resolve_point_to_closest_link\"",
+                "description": "input parameters for function \"infrastructure_network_resolve_point_to_closest_link_aggregate\"",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
