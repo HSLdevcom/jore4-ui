@@ -111,6 +111,9 @@ const GET_LINE_DETAILS_BY_ID = gql`
       ...line_all_fields
       line_routes {
         ...route_with_stops
+        route_journey_patterns {
+          ...journey_pattern_with_stops
+        }
       }
     }
   }
