@@ -134,9 +134,7 @@ export const LineDetailsPage = (): JSX.Element => {
               <Column className="w-full">
                 <h1 className="text-3xl">{t('lines.routes')}</h1>
                 {line.line_routes?.length > 0 ? (
-                  line.line_routes.map((item) => {
-                    return <RouteStopsTable key={item.route_id} route={item} />;
-                  })
+                  <RouteStopsTable routes={line.line_routes} />
                 ) : (
                   <CreateRouteBox onCreateRoute={onCreateRoute} />
                 )}
