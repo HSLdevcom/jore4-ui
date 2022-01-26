@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AiFillPlusCircle } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
 import { MapEditorContext } from '../../context/MapEditorContext';
 import { ModalMapContext } from '../../context/ModalMapContext';
-import { useGetLineDetailsByIdQuery } from '../../generated/graphql';
+import { RouteLine, useGetLineDetailsByIdQuery } from '../../generated/graphql';
 import { mapLineDetailsResult } from '../../graphql/route';
 import { Column, Container, Row } from '../../layoutComponents';
 import { mapToShortDate } from '../../time';
@@ -35,6 +36,51 @@ const CreateRouteBox: React.FC<Props> = ({ className, onCreateRoute }) => {
       </SimpleButton>
       <span>{t('lines.createNewRouteInstructions')}</span>
     </Column>
+  );
+};
+
+interface LineTitleProps {
+  className?: string;
+  line: RouteLine;
+  onCreateRoute: () => void;
+}
+
+const LineTitle: React.FC<LineTitleProps> = ({
+  className,
+  line,
+  onCreateRoute,
+}) => {
+  const { t } = useTranslation();
+
+  const onToggleRoute = () => {
+    // eslint-disable-next-line no-console
+    console.log('TODO');
+  };
+
+  return (
+    <Row className={`items-center ${className}`}>
+      <span className="mr-4 text-4xl font-bold">
+        {t('lines.line')} {line.label}
+      </span>
+      <span>
+        {line.line_routes?.length > 0 &&
+          line.line_routes.map((item) => (
+            <SimpleButton
+              key={item.route_id}
+              className="mr-2 w-20 !rounded bg-tweaked-brand !px-0 !py-0 !text-sm !font-light text-white"
+              onClick={onToggleRoute}
+            >
+              {item.label}
+            </SimpleButton>
+          ))}
+      </span>
+      <button type="button">
+        <AiFillPlusCircle
+          className="text-3xl text-brand"
+          onClick={onCreateRoute}
+        />
+      </button>
+    </Row>
   );
 };
 
@@ -71,9 +117,7 @@ export const LineDetailsPage = (): JSX.Element => {
             <i className="icon-bus-alt text-5xl text-tweaked-brand" />
           </Column>
           <Column>
-            <h1 className="text-5xl font-bold">
-              {t('lines.line')} {line?.label}
-            </h1>
+            {line && <LineTitle line={line} onCreateRoute={onCreateRoute} />}
             {line?.name_i18n}
             <Row>
               <i className="icon-time2 text-xl text-city-bicycle-yellow" />

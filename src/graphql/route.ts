@@ -59,7 +59,7 @@ const ROUTE_DEFAULT_FIELDS = gql`
 
 const ROUTE_WITH_STOPS = gql`
   fragment route_with_stops on route_route {
-    ...route_default_fields
+    ...route_all_fields
     starts_from_scheduled_stop_point {
       ...scheduled_stop_point_default_fields
     }
