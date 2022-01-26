@@ -8,7 +8,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
   >
     <button
       aria-haspopup="true"
-      class="flex items-center w-full h-full text-left focus:outline-none"
+      class="flex h-full w-full items-center text-left focus:outline-none"
       data-testid="chooseLineDropdown1"
       id="headlessui-listbox-button-1"
       type="button"
@@ -19,7 +19,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
         routes.chooseLine
       </div>
       <i
-        class="icon-arrow ml-auto transform transition duration-150 ease-in-out text-tweaked-brand rotate-0"
+        class="icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -35,7 +35,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
   >
     <button
       aria-haspopup="true"
-      class="flex items-center w-full h-full text-left focus:outline-none"
+      class="flex h-full w-full items-center text-left focus:outline-none"
       data-testid="chooseLineDropdown1"
       id="headlessui-listbox-button-1"
       type="button"
@@ -46,7 +46,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
         Line1 name (Line1 description)
       </div>
       <i
-        class="icon-arrow ml-auto transform transition duration-150 ease-in-out text-tweaked-brand rotate-0"
+        class="icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -64,7 +64,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
       aria-controls="headlessui-listbox-options-3"
       aria-expanded="true"
       aria-haspopup="true"
-      class="flex items-center w-full h-full text-left focus:outline-none"
+      class="flex h-full w-full items-center text-left focus:outline-none"
       data-testid="chooseLineDropdown1"
       id="headlessui-listbox-button-1"
       type="button"
@@ -75,14 +75,14 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
         Line1 name (Line1 description)
       </div>
       <i
-        class="icon-arrow ml-auto transform transition duration-150 ease-in-out text-tweaked-brand -rotate-180"
+        class="icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out -rotate-180"
         style="font-size: 10px;"
       />
     </button>
     <ul
       aria-activedescendant="headlessui-listbox-option-4"
       aria-labelledby="headlessui-listbox-button-1"
-      class="absolute left-0 mt-2 w-full bg-white border border-black border-opacity-20 rounded-b-md focus:outline-none shadow-md transition ease-out duration-100 transform opacity-0 scale-95"
+      class="absolute left-0 mt-2 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
       id="headlessui-listbox-options-3"
       role="listbox"
       tabindex="0"

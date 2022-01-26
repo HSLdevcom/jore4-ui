@@ -54,7 +54,7 @@ export const FilterPanel = ({
         <h3 className={headingClassName}>{t('map.showRoutes')}</h3>
         <ToggleRow toggles={routes} />
       </Card>
-      <Card className="!border-t-0 flex-col rounded-t-none">
+      <Card className="flex-col rounded-t-none !border-t-0">
         <h3 className={headingClassName}>{t('map.showStops')}</h3>
         <ToggleRow toggles={stops} />
       </Card>

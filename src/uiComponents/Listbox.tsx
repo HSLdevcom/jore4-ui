@@ -71,12 +71,12 @@ export const Listbox = ({
       {({ open }) => (
         <>
           <HUIListbox.Button
-            className="flex items-center w-full h-full text-left focus:outline-none"
+            className="flex h-full w-full items-center text-left focus:outline-none"
             data-testid={testId}
           >
             {buttonContent}
             <i
-              className={`icon-arrow ml-auto transition duration-150 ease-in-out text-tweaked-brand ${
+              className={`icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out ${
                 open ? '-rotate-180' : 'rotate-0'
               }`}
               style={{ fontSize: 10 }}
@@ -86,7 +86,7 @@ export const Listbox = ({
           <Transition show={open} as={Fragment} {...dropdownTransition}>
             <HUIListbox.Options
               static
-              className="absolute left-0 mt-2 w-full bg-white border border-black border-opacity-20 rounded-b-md focus:outline-none shadow-md"
+              className="absolute left-0 mt-2 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
             >
               <div>
                 {options?.map((item) => (

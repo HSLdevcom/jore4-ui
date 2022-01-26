@@ -13,7 +13,7 @@ export const NavLinks: FunctionComponent = () => {
           <div key={translationKey} className="flex hover:bg-brand-darker">
             <NavLink
               to={getLink()}
-              className="mx-5 py-5 text-white border-b-4 border-transparent hover:border-white"
+              className="mx-5 border-b-4 border-transparent py-5 text-white hover:border-white"
               activeClassName="!border-white"
               exact
             >

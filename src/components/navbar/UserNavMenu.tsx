@@ -16,12 +16,12 @@ export const UserNavMenu = ({ className }: Props): JSX.Element => {
 
   return (
     <div
-      className={`text-white self-stretch z-10 hover:bg-brand-darker ${className}`}
+      className={`z-10 self-stretch text-white hover:bg-brand-darker ${className}`}
     >
       {!userContext.loggedIn ? (
         <a
           href={LOGIN_URL}
-          className="flex items-center mx-3 h-full border-b-4 border-transparent hover:border-white focus:outline-none"
+          className="mx-3 flex h-full items-center border-b-4 border-transparent hover:border-white focus:outline-none"
         >
           {userIcon}
         </a>

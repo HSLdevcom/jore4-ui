@@ -18,7 +18,7 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
   })}`;
   return (
     <tr className={`border border-l-8 ${className}`}>
-      <td className="pl-16 pr-4 py-4 font-bold">
+      <td className="py-4 pl-16 pr-4 font-bold">
         <Link to={routes[Path.lineDetails].getLink(route.on_line_id)}>
           <Row>
             <Column className="w-1/2">
@@ -42,7 +42,7 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
       </td>
       <td className="border">
         <Link to={openInMapUrl} className="flex justify-center py-3">
-          <MdPinDrop className="text-center text-tweaked-brand text-5xl" />
+          <MdPinDrop className="text-center text-5xl text-tweaked-brand" />
         </Link>
       </td>
     </tr>
