@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { Column, Row } from '../../layoutComponents';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
-const schema = z.object({
+export const schema = z.object({
   description_i18n: z.string().min(1),
   on_line_id: z.string().uuid(),
 });

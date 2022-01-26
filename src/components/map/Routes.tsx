@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { MapEditorContext, Mode } from '../../context/MapEditorContext';
-import { FormState } from '../forms/CreateRouteForm';
+import { FormState, schema } from '../forms/CreateRouteForm';
 import { CreateRouteModal } from './CreateRouteModal';
 
 export const Routes: React.FC = () => {
@@ -9,7 +9,10 @@ export const Routes: React.FC = () => {
     dispatch,
   } = useContext(MapEditorContext);
 
-  const showCreateForm = !routeDetails && drawingMode === Mode.Draw;
+  // checking whether 'routeDetails' already contains all the information necessary
+  // if not -> should show the form
+  const areFormValuesValid = schema.safeParse(routeDetails).success;
+  const showCreateForm = !areFormValuesValid && drawingMode === Mode.Draw;
 
   const onCancel = () => {
     dispatch({ type: 'reset' });

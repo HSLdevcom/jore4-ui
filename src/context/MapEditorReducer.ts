@@ -11,7 +11,7 @@ export enum Mode {
 export interface IMapEditorContext {
   hasRoute: boolean;
   canAddStops: boolean;
-  routeDetails?: RouteFormState;
+  routeDetails?: Partial<RouteFormState>;
   drawingMode: Mode | undefined;
   busRoute?: BusRouteResponse;
   stopIdsWithinRoute?: string[];
