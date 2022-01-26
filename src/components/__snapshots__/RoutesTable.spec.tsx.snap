@@ -11,7 +11,7 @@ exports[`<RoutesTable /> Renders the routes table based on data 1`] = `
         class="border border-l-8 undefined"
       >
         <td
-          class="pl-16 pr-4 py-4 font-bold"
+          class="py-4 pl-16 pr-4 font-bold"
         >
           <a
             href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
@@ -56,7 +56,7 @@ exports[`<RoutesTable /> Renders the routes table based on data 1`] = `
             href="/map?routeId=03d55414-e5cf-4cce-9faf-d86ccb7e5f98"
           >
             <svg
-              class="text-center text-tweaked-brand text-5xl"
+              class="text-center text-5xl text-tweaked-brand"
               fill="currentColor"
               height="1em"
               stroke="currentColor"

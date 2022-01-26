@@ -7,7 +7,7 @@ interface Props {
 export const Card: React.FC<Props> = ({ className, children }) => {
   return (
     <div
-      className={`bg-background flex items-start p-2 border rounded ${className}`}
+      className={`flex items-start rounded border bg-background p-2 ${className}`}
     >
       {children}
     </div>

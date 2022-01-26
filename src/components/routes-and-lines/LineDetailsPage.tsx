@@ -23,7 +23,7 @@ const CreateRouteBox: React.FC<Props> = ({ className, onCreateRoute }) => {
 
   return (
     <Column
-      className={`items-center bg-background border border-light-grey p-8 ${className}`}
+      className={`items-center border border-light-grey bg-background p-8 ${className}`}
     >
       <SimpleButton
         id="create-route-button"
@@ -57,7 +57,7 @@ export const LineDetailsPage = (): JSX.Element => {
       <PageHeader>
         <Row>
           <Column>
-            <i className="icon-bus-alt text-tweaked-brand text-5xl" />
+            <i className="icon-bus-alt text-5xl text-tweaked-brand" />
           </Column>
           <Column>
             <h1 className="text-5xl font-bold">
@@ -65,7 +65,7 @@ export const LineDetailsPage = (): JSX.Element => {
             </h1>
             {line?.name_i18n}
             <Row>
-              <i className="icon-time2 text-city-bicycle-yellow text-xl" />
+              <i className="icon-time2 text-xl text-city-bicycle-yellow" />
               {buildValidityPeriod(line?.validity_start, line?.validity_end)}
             </Row>
           </Column>

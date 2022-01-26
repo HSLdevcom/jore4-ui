@@ -16,7 +16,7 @@ export const IconToggle = ({
   return (
     <button
       type="button"
-      className={`border border-gray-300 rounded ${
+      className={`rounded border border-gray-300 ${
         enabled ? 'bg-tweaked-brand text-white' : 'bg-white text-tweaked-brand'
       } ${className}`}
       onClick={() => onToggle(!enabled)}

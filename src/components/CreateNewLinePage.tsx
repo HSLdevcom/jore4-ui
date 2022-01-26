@@ -70,7 +70,7 @@ export const CreateNewLinePage = (): JSX.Element => {
   return (
     <Container>
       <Row>
-        <i className="icon-bus-alt text-tweaked-brand text-5xl" />
+        <i className="icon-bus-alt text-5xl text-tweaked-brand" />
         <h1 className="text-5xl font-bold">{t('lines.createNew')}</h1>
       </Row>
       <Row className="mt-10">

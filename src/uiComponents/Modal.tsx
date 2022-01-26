@@ -17,7 +17,7 @@ export const Modal: React.FC<Props> = ({
     <Dialog
       open={isOpen}
       onClose={onClose}
-      className={`absolute z-10 left-0 top-0 w-full h-full bg-background ${className}`}
+      className={`absolute left-0 top-0 z-10 h-full w-full bg-background ${className}`}
     >
       {children}
     </Dialog>

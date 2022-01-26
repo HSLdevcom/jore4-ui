@@ -1,5 +1,4 @@
 {
   "singleQuote": true,
-  "trailingComma": "all",
-  "twConfig": "tailwind.config.js"
+  "trailingComma": "all"
 }
