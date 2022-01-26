@@ -4,13 +4,11 @@ import { Row } from '../../layoutComponents';
 import { SimpleButton } from '../../uiComponents';
 
 const HeaderFooterContainer: FunctionComponent = ({ children }) => {
-  // There seems to some kind of bug that causes VSCode's
-  // `esbenp.prettier-vscode` plugin to arrange these classnames
-  // in different order than prettier CLI, which causes problems in CI.
-  // As a workaround define classnames in custon string which
-  // `prettier-plugin-tailwind` does not format
-  const classNames = 'px-14 py-7 bg-background border border-light-grey';
-  return <div className={classNames}>{children}</div>;
+  return (
+    <div className="border border-light-grey bg-background px-14 py-7">
+      {children}
+    </div>
+  );
 };
 
 interface HeaderProps {
