@@ -107,11 +107,10 @@ const DrawRouteLayerComponent = (
 
       // Retrieve the infra links from the external link ids returned by map-matching.
       // This will return the links in arbitrary order.
-      const infraLinksWithStopsResponse = await fetchInfraLinksWithStopsByExternalIds(
-        {
+      const infraLinksWithStopsResponse =
+        await fetchInfraLinksWithStopsByExternalIds({
           externalLinkIds,
-        },
-      );
+        });
 
       const infraLinksWithStops =
         infraLinksWithStopsResponse.data
@@ -130,13 +129,12 @@ const DrawRouteLayerComponent = (
       );
 
       // Create the list of links used for route creation
-      const infraLinks: InfrastructureLinkAlongRoute[] = orderedInfraLinksWithStops.map(
-        (item, index) => ({
+      const infraLinks: InfrastructureLinkAlongRoute[] =
+        orderedInfraLinksWithStops.map((item, index) => ({
           infrastructureLinkId: item.infrastructure_link_id,
           isTraversalForwards:
             routeResponse.routes[0]?.paths[index]?.traversalForwards,
-        }),
-      );
+        }));
 
       // Extract the list of ids of the stops to be included in the route
       const stopIds = extractScheduledStopPointIds(
@@ -177,9 +175,10 @@ const DrawRouteLayerComponent = (
     [map, onDelete, dispatch, fetchInfraLinksWithStopsByExternalIds],
   );
 
-  const debouncedOnAddRoute = useMemo(() => debounce(onAddRoute, 500), [
-    onAddRoute,
-  ]);
+  const debouncedOnAddRoute = useMemo(
+    () => debounce(onAddRoute, 500),
+    [onAddRoute],
+  );
 
   const onUpdate = (e: EditorCallback) => {
     if (e.editType === 'addFeature' || e.editType === 'movePosition') {
