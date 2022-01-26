@@ -56,9 +56,10 @@ export const extractScheduledStopPointIds = (
         // - suitable for the given vehicle mode AND
         // - traversable in the direction in which the route is going
         .filter((stop) => {
-          const suitableForVehicleMode = !!stop.vehicle_mode_on_scheduled_stop_point.find(
-            (item) => item.vehicle_mode === vehicleMode,
-          );
+          const suitableForVehicleMode =
+            !!stop.vehicle_mode_on_scheduled_stop_point.find(
+              (item) => item.vehicle_mode === vehicleMode,
+            );
 
           const matchingDirection =
             stop.direction ===
