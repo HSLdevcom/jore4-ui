@@ -60,7 +60,8 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
         starts_from_scheduled_stop_point_id: startingStopId,
         ends_at_scheduled_stop_point_id: finalStopId,
         on_line_id: mapEditorState.routeDetails?.on_line_id,
-        label: mapEditorState.routeDetails?.description_i18n, // TODO: retrieve label, don't use description for label
+        label: mapEditorState.routeDetails?.label,
+        description_i18n: mapEditorState.routeDetails?.description_i18n,
         direction: RouteDirectionEnum.Outbound, // TODO: make this user-configurable
         priority: 10,
         // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route

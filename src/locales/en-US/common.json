@@ -13,6 +13,7 @@
     "saveSuccess": "Route saved",
     "enterRouteData": "Enter route data",
     "name": "Name of the route",
+    "label": "Label",
     "addToLine": "Add to line",
     "chooseLine": "Choose line",
     "changingRoutes": "Changing routes",

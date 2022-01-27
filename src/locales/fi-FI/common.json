@@ -13,6 +13,7 @@
     "saveSuccess": "Reitti tallennettu",
     "enterRouteData": "Anna reitin tiedot",
     "name": "Reitin nimi",
+    "label": "Tunnus",
     "addToLine": "Yhdistä linjaan",
     "chooseLine": "Valitse linja",
     "changingRoutes": "Muuttuvat reitit",
