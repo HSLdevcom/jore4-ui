@@ -26,11 +26,7 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
           <Row>
             <Column className="w-1/2">
               <p className="text-3xl">{route.label}</p>
-              <p className="text-lg">
-                {route.starts_from_scheduled_stop_point?.label}
-                {' - '}
-                {route.ends_at_scheduled_stop_point?.label}
-              </p>
+              <p className="text-lg">{route.description_i18n}</p>
             </Column>
             <Column className="w-1/2 text-right">
               <p className="text-lg font-bold">
