@@ -74,11 +74,8 @@ const LineTitle: React.FC<LineTitleProps> = ({
             </SimpleButton>
           ))}
       </span>
-      <button type="button">
-        <AiFillPlusCircle
-          className="text-3xl text-brand"
-          onClick={onCreateRoute}
-        />
+      <button type="button" onClick={onCreateRoute}>
+        <AiFillPlusCircle className="text-3xl text-brand" />
       </button>
     </Row>
   );
