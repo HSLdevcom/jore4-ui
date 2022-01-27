@@ -37,6 +37,7 @@
   "stops": {
     "stop": "Stop",
     "stopById": "Stop {{ id }}",
+    "label": "Label",
     "nameAddress": "Name and address",
     "finnishName": "Name (Finnish)",
     "saveSuccess": "Stop created"

@@ -37,6 +37,7 @@
   "stops": {
     "stop": "Pysäkki",
     "stopById": "Pysäkki {{ id }}",
+    "label": "Tunnus",
     "nameAddress": "Nimi ja osoite",
     "finnishName": "Nimi (Suomi)",
     "saveSuccess": "Pysäkki luotu"

@@ -144,7 +144,7 @@ const StopFormComponent = (
         <Column className="space-y-2">
           <h3 className="text-lg font-bold">{t('stops.nameAddress')}</h3>
           <Column>
-            <label htmlFor="finnishName">{t('stops.finnishName')}</label>
+            <label htmlFor="finnishName">{t('stops.label')}</label>
             <input type="text" {...register('finnishName', {})} />
             <p>
               {errors.finnishName?.type === 'too_small' &&
