@@ -7,6 +7,7 @@ import { Column, Row } from '../../layoutComponents';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
 export const schema = z.object({
+  label: z.string().min(1),
   description_i18n: z.string().min(1),
   on_line_id: z.string().uuid(),
 });
@@ -40,6 +41,15 @@ const CreateRouteFormComponent = (
       onSubmit={handleSubmit(onSubmit)}
       ref={ref}
     >
+      <Row className="my-5">
+        <Column className="w-full">
+          <label htmlFor="label">{t('routes.label')}</label>
+          <input type="text" {...register('label', {})} />
+          <p>
+            {errors.label?.type === 'too_small' && t('formValidation.required')}
+          </p>
+        </Column>
+      </Row>
       <Row className="my-5">
         <Column className="w-full">
           <label htmlFor="description_i18n">{t('routes.name')}</label>
