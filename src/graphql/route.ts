@@ -13,6 +13,7 @@ import {
 const LINE_DEFAULT_FIELDS = gql`
   fragment line_default_fields on route_line {
     line_id
+    label
     name_i18n
     short_name_i18n
     description_i18n
