@@ -1,7 +1,10 @@
 import { MockedProvider } from '@apollo/client/testing';
 import { act, fireEvent, screen } from '@testing-library/react';
 import React from 'react';
-import { ListAllLinesDocument, RouteLine } from '../../generated/graphql';
+import {
+  ListAllLinesDocument,
+  useListAllLinesQuery,
+} from '../../generated/graphql';
 import { render, sleep } from '../../utils/test-utils';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
@@ -25,6 +28,7 @@ describe('<ChooseLineDropdown />', () => {
             {
               __typename: 'route_line',
               line_id: 'line1',
+              label: '1',
               name_i18n: 'Line1 name',
               short_name_i18n: 'Line1',
               description_i18n: 'Line1 description',
@@ -32,13 +36,14 @@ describe('<ChooseLineDropdown />', () => {
             {
               __typename: 'route_line',
               line_id: 'line2',
+              label: '2',
               name_i18n: 'Line2 name',
               short_name_i18n: 'Line2',
               description_i18n: 'Line2 description',
             },
-          ] as RouteLine[],
+          ],
         },
-      },
+      } as ReturnType<typeof useListAllLinesQuery>,
     },
   ];
 

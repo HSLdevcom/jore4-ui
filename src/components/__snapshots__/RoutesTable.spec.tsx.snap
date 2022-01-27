@@ -8,10 +8,10 @@ exports[`<RoutesTable /> Renders the routes table based on data 1`] = `
   >
     <tbody>
       <tr
-        class="border border-l-8 undefined"
+        class="border undefined"
       >
         <td
-          class="py-4 pl-16 pr-4 font-bold"
+          class="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
         >
           <a
             href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
@@ -23,7 +23,7 @@ exports[`<RoutesTable /> Renders the routes table based on data 1`] = `
                 class="flex flex-col w-1/2"
               >
                 <p
-                  class="text-4xl"
+                  class="text-3xl"
                 />
                 <p
                   class="text-lg"
@@ -42,7 +42,7 @@ exports[`<RoutesTable /> Renders the routes table based on data 1`] = `
                 <p
                   class="text-lg"
                 >
-                  Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
                 </p>
               </div>
             </div>

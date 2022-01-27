@@ -3,6 +3,9 @@
     "fi-FI": "Suomi",
     "en-US": "Englanti"
   },
+  "validity": {
+    "validDuring": "Voimassa {{ startDate }} - {{ endDate }}"
+  },
   "routes": {
     "root": "Etusivu",
     "routes": "Reitit ja linjat",

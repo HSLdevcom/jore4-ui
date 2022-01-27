@@ -3,6 +3,9 @@
     "fi-FI": "Finnish",
     "en-US": "English"
   },
+  "validity": {
+    "validDuring": "Valid {{ startDate }} - {{ endDate }}"
+  },
   "routes": {
     "root": "Main page",
     "routes": "Routes and lines",
