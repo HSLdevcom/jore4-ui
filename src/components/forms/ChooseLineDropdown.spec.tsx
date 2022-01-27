@@ -68,9 +68,7 @@ describe('<ChooseLineDropdown />', () => {
     await act(() => sleep(0));
 
     // dropdown is collapsed, data is loaded and the pre-selected line1 is shown on the button
-    expect(screen.getByTestId(testId)).toHaveTextContent(
-      'Line1 name (Line1 description)',
-    );
+    expect(screen.getByTestId(testId)).toHaveTextContent('1 (Line1 name)');
     expect(container.querySelector('li')).toBeNull();
     expect(asFragment()).toMatchSnapshot();
 
@@ -81,8 +79,8 @@ describe('<ChooseLineDropdown />', () => {
     // dropdown is open, both lines show
     expect(screen.queryByText('routes.chooseLine')).toBeNull();
     const items = container.querySelectorAll('li');
-    expect(items[0].textContent).toBe('Line1 name (Line1 description)');
-    expect(items[1].textContent).toBe('Line2 name (Line2 description)');
+    expect(items[0].textContent).toBe('1 (Line1 name)');
+    expect(items[1].textContent).toBe('2 (Line2 name)');
     expect(asFragment()).toMatchSnapshot();
   });
 });
