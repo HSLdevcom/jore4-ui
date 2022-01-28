@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { MapEditorContext } from '../context/MapEditorContext';
+import { ModalMapContext } from '../context/ModalMapContext';
 import {
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
@@ -16,18 +18,24 @@ import { RoutesTable } from './RoutesTable'; // eslint-disable-line import/no-cy
 
 export const RoutesAndLinesPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const openMapRoute = routes[Path.map];
+  const { dispatch: modalMapDispatch } = useContext(ModalMapContext);
+  const { dispatch: mapEditorDispatch } = useContext(MapEditorContext);
   const createLineReactRoute = routes[Path.createLine];
   const changingRoutesResult = useListChangingRoutesQuery();
   const changingRoutes = mapListChangingRoutesResult(changingRoutesResult);
   const ownLinesResult = useListOwnLinesQuery();
   const ownLines = mapListOwnLinesResult(ownLinesResult);
 
+  const onOpenModalMap = () => {
+    mapEditorDispatch({ type: 'reset' });
+    modalMapDispatch({ type: 'open' });
+  };
+
   return (
     <Container>
       <Row>
         <h1 className="text-5xl font-bold">{t('routes.routes')}</h1>
-        <SimpleButton className="ml-auto" href={openMapRoute.getLink()}>
+        <SimpleButton className="ml-auto" onClick={onOpenModalMap}>
           {t('map.open')}
         </SimpleButton>
         <SimpleButton
