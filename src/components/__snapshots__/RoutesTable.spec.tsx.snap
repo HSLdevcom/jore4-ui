@@ -39,7 +39,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 <p
                   class="text-lg font-bold"
                 >
-                  Voimassa  - 
+                  Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p
                   class="text-lg"
@@ -112,7 +112,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 <p
                   class="text-lg font-bold"
                 >
-                  Voimassa  - 
+                  Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p
                   class="text-lg"
@@ -185,7 +185,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 <p
                   class="text-lg font-bold"
                 >
-                  Voimassa  - 
+                  Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p
                   class="text-lg"
@@ -258,7 +258,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 <p
                   class="text-lg font-bold"
                 >
-                  Voimassa  - 
+                  Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p
                   class="text-lg"
@@ -337,7 +337,7 @@ exports[`<RoutesTable /> Renders the table with route data 1`] = `
                 <p
                   class="text-lg font-bold"
                 >
-                  Voimassa  - 
+                  Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p
                   class="text-lg"
