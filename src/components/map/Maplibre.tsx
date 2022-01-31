@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import MapGL, { MapEvent, NavigationControl } from 'react-map-gl';
+import hslSimpleStyle from './hslSimpleStyle.json';
 import rasterMapStyle from './rasterMapStyle.json';
 
 interface Props {
@@ -65,9 +66,7 @@ export const Maplibre: FunctionComponent<Props> = ({
     return undefined;
   };
 
-  const mapStyle = useVectorTilesAsBaseMap
-    ? 'https://raw.githubusercontent.com/HSLdevcom/hsl-map-style/master/simple-style.json'
-    : rasterMapStyle;
+  const mapStyle = useVectorTilesAsBaseMap ? hslSimpleStyle : rasterMapStyle;
 
   return (
     <MapGL
