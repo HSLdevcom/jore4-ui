@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { RouteLine } from '../generated/graphql';
 import { Column, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
-import { mapToShortDate } from '../time';
+import { mapToShortDate, MAX_DATE, MIN_DATE } from '../time';
 
 interface Props {
   className?: string;
@@ -32,8 +32,8 @@ export const LineTableRow = ({ className, line }: Props): JSX.Element => {
               <Column className="w-1/2 text-right">
                 <p className="text-lg font-bold">
                   {t('validity.validDuring', {
-                    startDate: mapToShortDate(line.validity_start),
-                    endDate: mapToShortDate(line.validity_end),
+                    startDate: mapToShortDate(line.validity_start || MIN_DATE),
+                    endDate: mapToShortDate(line.validity_end || MAX_DATE),
                   })}
                 </p>
                 <p className="text-lg">
