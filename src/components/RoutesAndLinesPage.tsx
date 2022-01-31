@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { MapEditorContext } from '../context/MapEditorContext';
 import { ModalMapContext } from '../context/ModalMapContext';
 import {
+  RouteLine,
   RouteRoute,
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
@@ -12,9 +12,10 @@ import {
   mapListChangingRoutesResult,
   mapListOwnLinesResult,
 } from '../graphql/route';
-import { Column, Container, Row } from '../layoutComponents';
+import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { SimpleButton } from '../uiComponents';
+import { LineTableRow } from './LineTableRow'; // eslint-disable-line import/no-cycle
 import { RoutesTable } from './RoutesTable';
 import { RoutesTableRow } from './RoutesTableRow'; // eslint-disable-line import/no-cycle
 
@@ -51,7 +52,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
       <h2 className="text-bold mb-14 mt-12 text-4xl">
         {t('routes.changingRoutes')}
       </h2>
-      {changingRoutes && (
+      {changingRoutes && changingRoutes.length > 0 && (
         <RoutesTable>
           {changingRoutes.map((item: RouteRoute) => (
             <RoutesTableRow key={item.route_id} route={item} />
@@ -59,22 +60,13 @@ export const RoutesAndLinesPage = (): JSX.Element => {
         </RoutesTable>
       )}
       <h2 className="text-bold mb-14 mt-12 text-4xl">{t('routes.ownLines')}</h2>
-      {ownLines?.length > 0 &&
-        // TODO create proper components for displaying lines, these are just placeholders
-        ownLines.map((item) => {
-          return (
-            <Link
-              to={routes[Path.lineDetails].getLink(item.line_id)}
-              key={item.line_id}
-            >
-              <Column className="border">
-                <span>{item.label}</span>
-                <span>{item.name_i18n}</span>
-                <span>{item.description_i18n}</span>
-              </Column>
-            </Link>
-          );
-        })}
+      {ownLines && ownLines.length > 0 && (
+        <RoutesTable>
+          {ownLines.map((item: RouteLine) => (
+            <LineTableRow key={item.line_id} line={item} />
+          ))}
+        </RoutesTable>
+      )}
     </Container>
   );
 };
