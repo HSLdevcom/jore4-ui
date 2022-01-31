@@ -1,8 +1,9 @@
-import qs from 'qs';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdPinDrop } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { MapEditorContext } from '../context/MapEditorContext';
+import { ModalMapContext } from '../context/ModalMapContext';
 import { RouteLine } from '../generated/graphql';
 import { Column, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
@@ -15,10 +16,22 @@ interface Props {
 
 export const LineTableRow = ({ className, line }: Props): JSX.Element => {
   const { t } = useTranslation();
-  const mapUrl = routes[Path.map].getLink();
-  const openInMapUrl = `${mapUrl}?${qs.stringify({
-    lineId: line.line_id,
-  })}`;
+
+  const { dispatch: modalMapDispatch } = useContext(ModalMapContext);
+  const { dispatch: mapEditorDispatch } = useContext(MapEditorContext);
+
+  // TODO currently can only show a single route
+  const onShowLineRoutes = () => {
+    mapEditorDispatch({ type: 'reset' });
+    mapEditorDispatch({
+      type: 'setState',
+      payload: {
+        displayedRouteId: line.line_routes?.[0]?.route_id,
+      },
+    });
+    modalMapDispatch({ type: 'open' });
+  };
+
   return (
     <tbody>
       <tr className={`border ${className}`}>
@@ -43,10 +56,15 @@ export const LineTableRow = ({ className, line }: Props): JSX.Element => {
             </Row>
           </Link>
         </td>
-        <td className="border">
-          <Link to={openInMapUrl} className="flex justify-center py-3">
-            <MdPinDrop className="text-center text-5xl text-tweaked-brand" />
-          </Link>
+        <td className="w-20 border">
+          <button
+            type="button"
+            className="h-full w-full text-center"
+            onClick={onShowLineRoutes}
+            data-testid="RoutesTableRow::showRoute"
+          >
+            <MdPinDrop className="inline text-center text-5xl text-tweaked-brand" />
+          </button>
         </td>
       </tr>
     </tbody>
