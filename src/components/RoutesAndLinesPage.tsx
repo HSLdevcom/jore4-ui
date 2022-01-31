@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { MapEditorContext } from '../context/MapEditorContext';
 import { ModalMapContext } from '../context/ModalMapContext';
 import {
+  RouteRoute,
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
 } from '../generated/graphql';
@@ -14,7 +15,8 @@ import {
 import { Column, Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { SimpleButton } from '../uiComponents';
-import { RoutesTable } from './RoutesTable'; // eslint-disable-line import/no-cycle
+import { RoutesTable } from './RoutesTable';
+import { RoutesTableRow } from './RoutesTableRow'; // eslint-disable-line import/no-cycle
 
 export const RoutesAndLinesPage = (): JSX.Element => {
   const { t } = useTranslation();
@@ -49,7 +51,13 @@ export const RoutesAndLinesPage = (): JSX.Element => {
       <h2 className="text-bold mb-14 mt-12 text-4xl">
         {t('routes.changingRoutes')}
       </h2>
-      {changingRoutes && <RoutesTable routes={changingRoutes} />}
+      {changingRoutes && (
+        <RoutesTable>
+          {changingRoutes.map((item: RouteRoute) => (
+            <RoutesTableRow key={item.route_id} route={item} />
+          ))}
+        </RoutesTable>
+      )}
       <h2 className="text-bold mb-14 mt-12 text-4xl">{t('routes.ownLines')}</h2>
       {ownLines?.length > 0 &&
         // TODO create proper components for displaying lines, these are just placeholders

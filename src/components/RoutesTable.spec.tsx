@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { useListChangingRoutesQuery } from '../generated/graphql';
+import { RouteRoute, useListChangingRoutesQuery } from '../generated/graphql';
 import { mapListChangingRoutesResult } from '../graphql/route';
 import { render } from '../utils/test-utils';
 import { RoutesTable } from './RoutesTable';
+import { RoutesTableRow } from './RoutesTableRow';
 
 describe(`<${RoutesTable.name} />`, () => {
   const testId = 'routesTable1';
@@ -49,7 +50,11 @@ describe(`<${RoutesTable.name} />`, () => {
     const routes = mapListChangingRoutesResult(mockResponse)!;
     const { asFragment } = render(
       <BrowserRouter>
-        <RoutesTable testId={testId} routes={routes} />
+        <RoutesTable testId={testId}>
+          {routes.map((item: RouteRoute) => (
+            <RoutesTableRow key={item.route_id} route={item} />
+          ))}
+        </RoutesTable>
       </BrowserRouter>,
     );
 
