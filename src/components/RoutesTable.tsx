@@ -1,25 +1,18 @@
 import React from 'react';
-import { RouteRoute } from '../generated/graphql';
-import { RoutesTableRow } from './RoutesTableRow'; // eslint-disable-line import/no-cycle
 
 interface Props {
   className?: string;
-  routes: RouteRoute[];
   testId?: string;
 }
 
-export const RoutesTable = ({
+export const RoutesTable: React.FC<Props> = ({
   className,
-  routes,
   testId,
-}: Props): JSX.Element => {
+  children,
+}) => {
   return (
     <table className={`w-full ${className}`} data-testid={testId}>
-      <tbody>
-        {routes.map((item: RouteRoute) => (
-          <RoutesTableRow key={item.route_id} route={item} />
-        ))}
-      </tbody>
+      {children}
     </table>
   );
 };

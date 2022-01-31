@@ -20,33 +20,35 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
     routeId: route.route_id,
   })}`;
   return (
-    <tr className={`border ${className}`}>
-      <td className="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold">
-        <Link to={routes[Path.lineDetails].getLink(route.on_line_id)}>
-          <Row>
-            <Column className="w-1/2">
-              <p className="text-3xl">{route.label}</p>
-              <p className="text-lg">{route.description_i18n}</p>
-            </Column>
-            <Column className="w-1/2 text-right">
-              <p className="text-lg font-bold">
-                {t('validity.validDuring', {
-                  startDate: mapToShortDate(route.validity_start),
-                  endDate: mapToShortDate(route.validity_end),
-                })}
-              </p>
-              <p className="text-lg">
-                !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
-              </p>
-            </Column>
-          </Row>
-        </Link>
-      </td>
-      <td className="border">
-        <Link to={openInMapUrl} className="flex justify-center py-3">
-          <MdPinDrop className="text-center text-5xl text-tweaked-brand" />
-        </Link>
-      </td>
-    </tr>
+    <tbody>
+      <tr className={`border ${className}`}>
+        <td className="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold">
+          <Link to={routes[Path.lineDetails].getLink(route.on_line_id)}>
+            <Row>
+              <Column className="w-1/2">
+                <p className="text-3xl">{route.label}</p>
+                <p className="text-lg">{route.description_i18n}</p>
+              </Column>
+              <Column className="w-1/2 text-right">
+                <p className="text-lg font-bold">
+                  {t('validity.validDuring', {
+                    startDate: mapToShortDate(route.validity_start),
+                    endDate: mapToShortDate(route.validity_end),
+                  })}
+                </p>
+                <p className="text-lg">
+                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                </p>
+              </Column>
+            </Row>
+          </Link>
+        </td>
+        <td className="border">
+          <Link to={openInMapUrl} className="flex justify-center py-3">
+            <MdPinDrop className="text-center text-5xl text-tweaked-brand" />
+          </Link>
+        </td>
+      </tr>
+    </tbody>
   );
 };
