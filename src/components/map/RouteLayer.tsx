@@ -13,16 +13,17 @@ export const RouteLayer = ({ routeId }: Props) => {
     mapToVariables({ route_id: routeId }),
   );
   const routeDetails = mapRouteDetailsResult(routeDetailsResult);
-  const layerStyle = {
-    id: 'point',
-    type: 'line' as const,
-    paint: {},
-  };
 
   // do not render anything before data is received
   if (!routeDetails?.route_shape) {
     return null;
   }
+
+  const layerStyle = {
+    id: `route_${routeId}`,
+    type: 'line' as const,
+    paint: {},
+  };
 
   return (
     <Source type="geojson" data={routeDetails?.route_shape}>

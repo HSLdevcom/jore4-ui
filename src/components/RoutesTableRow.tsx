@@ -1,24 +1,23 @@
-import qs from 'qs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdPinDrop } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { RouteRoute } from '../generated/graphql';
+import { useShowRoutesOnModal } from '../hooks';
 import { Column, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { mapToShortDate, MAX_DATE, MIN_DATE } from '../time';
+import { IconButton } from '../uiComponents';
 
 interface Props {
   className?: string;
-  route: Partial<RouteRoute>;
+  route: RouteRoute;
 }
 
 export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
   const { t } = useTranslation();
-  const mapUrl = routes[Path.map].getLink();
-  const openInMapUrl = `${mapUrl}?${qs.stringify({
-    routeId: route.route_id,
-  })}`;
+  const { showRoutesOnModal } = useShowRoutesOnModal();
+
   return (
     <tbody>
       <tr className={`border ${className}`}>
@@ -43,10 +42,13 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
             </Row>
           </Link>
         </td>
-        <td className="border">
-          <Link to={openInMapUrl} className="flex justify-center py-3">
-            <MdPinDrop className="text-center text-5xl text-tweaked-brand" />
-          </Link>
+        <td className="w-20 border">
+          <IconButton
+            className="h-full w-full"
+            onClick={() => showRoutesOnModal([route.route_id])}
+            icon={<MdPinDrop className="text-5xl text-tweaked-brand" />}
+            testId="RoutesTableRow::showRoute"
+          />
         </td>
       </tr>
     </tbody>

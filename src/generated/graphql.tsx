@@ -5886,7 +5886,7 @@ export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{
 export type ListOwnLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined }> };
+export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: any, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id?: any | null | undefined }> }> };
 
 export type ListChangingRoutesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6294,6 +6294,9 @@ export const ListOwnLinesDocument = gql`
     query ListOwnLines {
   route_line {
     ...line_default_fields
+    line_routes {
+      route_id
+    }
   }
 }
     ${LineDefaultFieldsFragmentDoc}`;

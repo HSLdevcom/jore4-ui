@@ -1,12 +1,13 @@
-import qs from 'qs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdPinDrop } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { RouteLine } from '../generated/graphql';
+import { useShowRoutesOnModal } from '../hooks';
 import { Column, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { mapToShortDate, MAX_DATE, MIN_DATE } from '../time';
+import { IconButton } from '../uiComponents';
 
 interface Props {
   className?: string;
@@ -15,10 +16,13 @@ interface Props {
 
 export const LineTableRow = ({ className, line }: Props): JSX.Element => {
   const { t } = useTranslation();
-  const mapUrl = routes[Path.map].getLink();
-  const openInMapUrl = `${mapUrl}?${qs.stringify({
-    lineId: line.line_id,
-  })}`;
+  const { showRoutesOnModal } = useShowRoutesOnModal();
+
+  const showLineRoutes = () => {
+    const lineRouteIds = line.line_routes?.map((item) => item.route_id);
+    showRoutesOnModal(lineRouteIds);
+  };
+
   return (
     <tbody>
       <tr className={`border ${className}`}>
@@ -43,10 +47,13 @@ export const LineTableRow = ({ className, line }: Props): JSX.Element => {
             </Row>
           </Link>
         </td>
-        <td className="border">
-          <Link to={openInMapUrl} className="flex justify-center py-3">
-            <MdPinDrop className="text-center text-5xl text-tweaked-brand" />
-          </Link>
+        <td className="w-20 border">
+          <IconButton
+            className="h-full w-full"
+            onClick={showLineRoutes}
+            icon={<MdPinDrop className="text-5xl text-tweaked-brand" />}
+            testId="LineTableRow::showLineRoutes"
+          />
         </td>
       </tr>
     </tbody>
