@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import { HTMLOverlay, MapEvent } from 'react-map-gl';
 import { MapEditorContext } from '../../context/MapEditorContext';
-import { useUrlQuery } from '../../hooks';
 import { Column } from '../../layoutComponents';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { DrawRouteLayer } from './DrawRouteLayer';
@@ -36,8 +35,10 @@ export const MapComponent = (
   }: Props,
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
-  const { routeId } = useUrlQuery();
-  const routeSelected = !!routeId;
+  const {
+    state: { displayedRouteIds },
+  } = useContext(MapEditorContext);
+  const routeSelected = !!(displayedRouteIds && displayedRouteIds.length > 0);
 
   const [showInfraLinks, setShowInfraLinks] = useState(!routeSelected);
   const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(false);
@@ -128,7 +129,11 @@ export const MapComponent = (
       {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
       {showInfraLinks && <InfraLinksVectorLayer />}
       {showDynamicInfraLinks && <DynamicInfraLinksVectorLayer />}
-      {showRoute && routeSelected && <RouteLayer routeId={routeId as string} />}
+      {showRoute &&
+        routeSelected &&
+        displayedRouteIds.map((item) => (
+          <RouteLayer key={item} routeId={item} />
+        ))}
     </Maplibre>
   );
 };

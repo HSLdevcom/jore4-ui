@@ -3,7 +3,7 @@
 exports[`<RoutesTable /> Renders the table with line data 1`] = `
 <DocumentFragment>
   <table
-    class="w-full undefined"
+    class="h-1 w-full undefined"
     data-testid="routesTable1"
   >
     <tbody>
@@ -51,14 +51,15 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="border"
+          class="w-20 border"
         >
-          <a
-            class="flex justify-center py-3"
-            href="/map?lineId=101f800c-39ed-4d85-8ece-187cd9fe1c5e"
+          <button
+            class="text-center h-full w-full"
+            data-testid="LineTableRow::showLineRoutes"
+            type="button"
           >
             <svg
-              class="text-center text-5xl text-tweaked-brand"
+              class="text-5xl text-tweaked-brand inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -75,7 +76,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
               />
             </svg>
-          </a>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -124,14 +125,15 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="border"
+          class="w-20 border"
         >
-          <a
-            class="flex justify-center py-3"
-            href="/map?lineId=9058c328-efdd-412c-9b2b-37b0f6a2c6fb"
+          <button
+            class="text-center h-full w-full"
+            data-testid="LineTableRow::showLineRoutes"
+            type="button"
           >
             <svg
-              class="text-center text-5xl text-tweaked-brand"
+              class="text-5xl text-tweaked-brand inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -148,7 +150,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
               />
             </svg>
-          </a>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -197,14 +199,15 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="border"
+          class="w-20 border"
         >
-          <a
-            class="flex justify-center py-3"
-            href="/map?lineId=bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2"
+          <button
+            class="text-center h-full w-full"
+            data-testid="LineTableRow::showLineRoutes"
+            type="button"
           >
             <svg
-              class="text-center text-5xl text-tweaked-brand"
+              class="text-5xl text-tweaked-brand inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -221,7 +224,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
               />
             </svg>
-          </a>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -270,14 +273,15 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="border"
+          class="w-20 border"
         >
-          <a
-            class="flex justify-center py-3"
-            href="/map?lineId=db748c5c-42e3-429f-baa0-e0db227dc2c8"
+          <button
+            class="text-center h-full w-full"
+            data-testid="LineTableRow::showLineRoutes"
+            type="button"
           >
             <svg
-              class="text-center text-5xl text-tweaked-brand"
+              class="text-5xl text-tweaked-brand inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -294,7 +298,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
               />
             </svg>
-          </a>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -305,7 +309,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
 exports[`<RoutesTable /> Renders the table with route data 1`] = `
 <DocumentFragment>
   <table
-    class="w-full undefined"
+    class="h-1 w-full undefined"
     data-testid="routesTable1"
   >
     <tbody>
@@ -349,14 +353,15 @@ exports[`<RoutesTable /> Renders the table with route data 1`] = `
           </a>
         </td>
         <td
-          class="border"
+          class="w-20 border"
         >
-          <a
-            class="flex justify-center py-3"
-            href="/map?routeId=03d55414-e5cf-4cce-9faf-d86ccb7e5f98"
+          <button
+            class="text-center h-full w-full"
+            data-testid="RoutesTableRow::showRoute"
+            type="button"
           >
             <svg
-              class="text-center text-5xl text-tweaked-brand"
+              class="text-5xl text-tweaked-brand inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -373,7 +378,7 @@ exports[`<RoutesTable /> Renders the table with route data 1`] = `
                 d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
               />
             </svg>
-          </a>
+          </button>
         </td>
       </tr>
     </tbody>

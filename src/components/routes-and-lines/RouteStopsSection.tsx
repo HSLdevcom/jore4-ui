@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RouteRoute } from '../../generated/graphql';
-import { RouteStopsHeaderRow } from './RouteStopsHeaderRow'; // eslint-disable-line import/no-cycle
+import { RouteStopsHeaderRow } from './RouteStopsHeaderRow';
 import { RouteStopsRow } from './RouteStopsRow';
 
 interface Props {
