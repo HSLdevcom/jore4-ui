@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteRoute } from '../../generated/graphql';
-import { RouteStopsSection } from './RouteStopsSection'; // eslint-disable-line import/no-cycle
+import { RouteStopsSection } from './RouteStopsSection';
 
 interface Props {
   className?: string;

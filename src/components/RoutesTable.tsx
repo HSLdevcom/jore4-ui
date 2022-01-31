@@ -11,7 +11,8 @@ export const RoutesTable: React.FC<Props> = ({
   children,
 }) => {
   return (
-    <table className={`w-full ${className}`} data-testid={testId}>
+    // setting a fake "height: 1px" so that "height: 100%" would work for the table cells
+    <table className={`h-1 w-full ${className}`} data-testid={testId}>
       {children}
     </table>
   );

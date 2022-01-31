@@ -84,6 +84,9 @@ const LIST_OWN_LINES = gql`
   query ListOwnLines {
     route_line {
       ...line_default_fields
+      line_routes {
+        route_id
+      }
     }
   }
 `;
