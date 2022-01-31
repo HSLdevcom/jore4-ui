@@ -1,6 +1,308 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<RoutesTable /> Renders the routes table based on data 1`] = `
+exports[`<RoutesTable /> Renders the table with line data 1`] = `
+<DocumentFragment>
+  <table
+    class="w-full undefined"
+    data-testid="routesTable1"
+  >
+    <tbody>
+      <tr
+        class="border undefined"
+      >
+        <td
+          class="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
+        >
+          <a
+            href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
+          >
+            <div
+              class="flex flex-row undefined"
+            >
+              <div
+                class="flex flex-col w-1/2"
+              >
+                <p
+                  class="text-3xl"
+                >
+                  65
+                </p>
+                <p
+                  class="text-lg"
+                >
+                  Rautatientori - Kätilöopisto - Veräjälaakso
+                </p>
+              </div>
+              <div
+                class="flex flex-col w-1/2 text-right"
+              >
+                <p
+                  class="text-lg font-bold"
+                >
+                  Voimassa  - 
+                </p>
+                <p
+                  class="text-lg"
+                >
+                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                </p>
+              </div>
+            </div>
+          </a>
+        </td>
+        <td
+          class="border"
+        >
+          <a
+            class="flex justify-center py-3"
+            href="/map?lineId=101f800c-39ed-4d85-8ece-187cd9fe1c5e"
+          >
+            <svg
+              class="text-center text-5xl text-tweaked-brand"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+              />
+            </svg>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr
+        class="border undefined"
+      >
+        <td
+          class="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
+        >
+          <a
+            href="/lines/9058c328-efdd-412c-9b2b-37b0f6a2c6fb"
+          >
+            <div
+              class="flex flex-row undefined"
+            >
+              <div
+                class="flex flex-col w-1/2"
+              >
+                <p
+                  class="text-3xl"
+                >
+                  71
+                </p>
+                <p
+                  class="text-lg"
+                >
+                  Rautatientori - Arabia - Malmi as.
+                </p>
+              </div>
+              <div
+                class="flex flex-col w-1/2 text-right"
+              >
+                <p
+                  class="text-lg font-bold"
+                >
+                  Voimassa  - 
+                </p>
+                <p
+                  class="text-lg"
+                >
+                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                </p>
+              </div>
+            </div>
+          </a>
+        </td>
+        <td
+          class="border"
+        >
+          <a
+            class="flex justify-center py-3"
+            href="/map?lineId=9058c328-efdd-412c-9b2b-37b0f6a2c6fb"
+          >
+            <svg
+              class="text-center text-5xl text-tweaked-brand"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+              />
+            </svg>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr
+        class="border undefined"
+      >
+        <td
+          class="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
+        >
+          <a
+            href="/lines/bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2"
+          >
+            <div
+              class="flex flex-row undefined"
+            >
+              <div
+                class="flex flex-col w-1/2"
+              >
+                <p
+                  class="text-3xl"
+                >
+                  785K
+                </p>
+                <p
+                  class="text-lg"
+                >
+                  Rautatientori - Nikkilä
+                </p>
+              </div>
+              <div
+                class="flex flex-col w-1/2 text-right"
+              >
+                <p
+                  class="text-lg font-bold"
+                >
+                  Voimassa  - 
+                </p>
+                <p
+                  class="text-lg"
+                >
+                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                </p>
+              </div>
+            </div>
+          </a>
+        </td>
+        <td
+          class="border"
+        >
+          <a
+            class="flex justify-center py-3"
+            href="/map?lineId=bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2"
+          >
+            <svg
+              class="text-center text-5xl text-tweaked-brand"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+              />
+            </svg>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr
+        class="border undefined"
+      >
+        <td
+          class="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
+        >
+          <a
+            href="/lines/db748c5c-42e3-429f-baa0-e0db227dc2c8"
+          >
+            <div
+              class="flex flex-row undefined"
+            >
+              <div
+                class="flex flex-col w-1/2"
+              >
+                <p
+                  class="text-3xl"
+                >
+                  1234
+                </p>
+                <p
+                  class="text-lg"
+                >
+                  Erottaja - Arkkadiankatu
+                </p>
+              </div>
+              <div
+                class="flex flex-col w-1/2 text-right"
+              >
+                <p
+                  class="text-lg font-bold"
+                >
+                  Voimassa  - 
+                </p>
+                <p
+                  class="text-lg"
+                >
+                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                </p>
+              </div>
+            </div>
+          </a>
+        </td>
+        <td
+          class="border"
+        >
+          <a
+            class="flex justify-center py-3"
+            href="/map?lineId=db748c5c-42e3-429f-baa0-e0db227dc2c8"
+          >
+            <svg
+              class="text-center text-5xl text-tweaked-brand"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+              />
+            </svg>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`<RoutesTable /> Renders the table with route data 1`] = `
 <DocumentFragment>
   <table
     class="w-full undefined"
