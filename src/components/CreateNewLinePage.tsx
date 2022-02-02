@@ -23,7 +23,7 @@ export const CreateNewLinePage = (): JSX.Element => {
   const [mutateFunction] = useInsertLineOneMutation();
   const history = useHistory();
   const formRef = useRef<ExplicitAny>(null);
-  const [createdLineId, setCreatedLineId] = useState();
+  const [createdLineId, setCreatedLineId] = useState<UUID>();
   const { t } = useTranslation();
 
   const onSave = () => {
