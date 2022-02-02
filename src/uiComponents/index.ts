@@ -1,4 +1,5 @@
 export * from './Card';
+export * from './IconButton';
 export * from './IconToggle';
 export * from './Listbox';
 export * from './Modal';
