@@ -79,6 +79,7 @@ export const extractScheduledStopPointIds = (
             : stop2.relative_distance_from_infrastructure_link_start -
               stop1.relative_distance_from_infrastructure_link_start,
         )
-        .map((stop) => stop.scheduled_stop_point_id)
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        .map((stop) => stop.scheduled_stop_point_id!)
     );
   });
