@@ -54,6 +54,13 @@ const cache = new InMemoryCache({
 const client = new ApolloClient({
   link,
   cache,
+  defaultOptions: {
+    watchQuery: {
+      // Should return cached query results first while rerunning the query against the backend.
+      // After the backend response has returned, the query results are updated
+      fetchPolicy: 'cache-and-network',
+    },
+  },
 });
 
 export const GQLClient = client;

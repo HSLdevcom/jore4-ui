@@ -54,8 +54,6 @@ export const EditLinePage = (): JSX.Element => {
     try {
       // patch the line in the backend
       await patchLine(mapToVariables(variables));
-      // invalidate the cache by refetching the line details
-      await lineDetailsResult.refetch();
 
       showToast({ type: 'success', message: t('lines.saveSuccess') });
 
