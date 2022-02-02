@@ -26,7 +26,7 @@ export const LineTableRow = ({ className, line }: Props): JSX.Element => {
     mapEditorDispatch({
       type: 'setState',
       payload: {
-        displayedRouteId: line.line_routes?.[0]?.route_id,
+        displayedRouteId: line.line_routes?.[0]?.route_id || undefined,
       },
     });
     modalMapDispatch({ type: 'open' });

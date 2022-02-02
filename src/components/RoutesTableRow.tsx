@@ -24,7 +24,7 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
     mapEditorDispatch({
       type: 'setState',
       payload: {
-        displayedRouteId: route.route_id,
+        displayedRouteId: route.route_id || undefined,
       },
     });
     modalMapDispatch({ type: 'open' });

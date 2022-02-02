@@ -27,6 +27,9 @@ module.exports = {
         namingConvention: {
           transformUnderscore: true,
         },
+        scalars: {
+          uuid: 'UUID',
+        },
       },
     },
     './graphql.schema.json': {
