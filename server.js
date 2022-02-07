@@ -40,8 +40,11 @@ const devProxy = {
     },
     target: 'http://localhost:3100',
   },
-  '/api/route/v1': {
+  '/api/mapmatching': {
     // Proxy map routing requests to routing service
+    pathRewrite: {
+      '^/api/mapmatching': '', // remove path.
+    },
     target: 'http://localhost:3005',
   },
 };

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: '/api/route/v1',
+  baseURL: '/api/mapmatching/api/route/v1',
 });
 
 const getBus = (coordinates: string) => apiClient.get(`/bus/${coordinates}`);
