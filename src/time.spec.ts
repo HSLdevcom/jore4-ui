@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { i18n } from './i18n';
-import { formatDate } from './time';
+import { formatDate, mapToISODate, parseISODateString } from './time';
 
 describe(`${formatDate.name}()`, () => {
   beforeEach(() => {
@@ -33,5 +33,22 @@ describe(`${formatDate.name}()`, () => {
     const date = DateTime.fromISO('2017-04-20T11:32:00.000-04:00');
     const output = formatDate(DateTime.DATETIME_FULL, date);
     expect(output).toBe('20. huhtikuuta 2017 klo 18.32 UTC+3');
+  });
+});
+
+describe(`${parseISODateString.name}()`, () => {
+  const isoDate = '2017-04-20T11:32:00.000Z';
+  test('Maps ISO string to equivalent DateTime object', () => {
+    const output = parseISODateString(isoDate);
+    expect(DateTime.isDateTime(output)).toBe(true);
+    expect(output?.toUTC().toISO()).toBe(isoDate);
+  });
+});
+
+describe(`${mapToISODate.name}()`, () => {
+  const isoString = '2017-04-20T11:32:00.000Z';
+  test('Maps ISO string to ISO date', () => {
+    const output = mapToISODate(isoString);
+    expect(output).toBe('2017-04-20');
   });
 });

@@ -62,6 +62,19 @@
     "latitude": "Latitude",
     "longitude": "Longitude"
   },
+  "saveChangesModal": {
+    "title": "Save changes",
+    "validityPeriod": "Validity period",
+    "validityStart": "Starts",
+    "validityEnd": "Ends",
+    "indefinite": "Valid indefinitely"
+  },
+  "priority": {
+    "label": "Priority",
+    "standard": "Standard",
+    "temporary": "Temporary",
+    "draft": "Draft"
+  },
   "vehicleModeEnum": {
     "bus": "Bus",
     "ferry": "Ferry",

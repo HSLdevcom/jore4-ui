@@ -5919,7 +5919,7 @@ export type InsertLineOneMutationVariables = Exact<{
 }>;
 
 
-export type InsertLineOneMutation = { __typename?: 'mutation_root', insert_route_line_one?: { __typename?: 'route_line', line_id: UUID, label: string, priority: number, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined };
+export type InsertLineOneMutation = { __typename?: 'mutation_root', insert_route_line_one?: { __typename?: 'route_line', line_id: UUID, label: string, priority: number, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined };
 
 export type PatchLineMutationVariables = Exact<{
   line_id: Scalars['uuid'];
@@ -6487,6 +6487,8 @@ export const InsertLineOneDocument = gql`
     label
     priority
     primary_vehicle_mode
+    validity_start
+    validity_end
   }
 }
     `;

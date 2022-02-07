@@ -1,4 +1,5 @@
 export * from './Card';
+export * from './FormContainer';
 export * from './IconButton';
 export * from './IconToggle';
 export * from './Listbox';

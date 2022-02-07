@@ -157,6 +157,8 @@ const INSERT_LINE = gql`
       label
       priority
       primary_vehicle_mode
+      validity_start
+      validity_end
     }
   }
 `;
