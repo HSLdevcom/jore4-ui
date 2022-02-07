@@ -1,30 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
 import { Redirect, useParams } from 'react-router-dom';
 import {
   useGetLineDetailsByIdQuery,
   usePatchLineMutation,
 } from '../../generated/graphql';
 import { mapLineDetailsResult } from '../../graphql/route';
-import { Container, Row } from '../../layoutComponents';
+import { Container } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
-import { Priority } from '../../types/Priority';
-import { SimpleButton } from '../../uiComponents';
-import {
-  mapToObject,
-  mapToVariables,
-  showToast,
-  submitFormByRef,
-} from '../../utils';
-import { FormState, LinePropertiesForm } from '../forms/LinePropertiesForm';
+import { mapToISODate, parseISODateString } from '../../time';
+import { mapToObject, mapToVariables, showToast } from '../../utils';
+import { EditLineForm, FormState } from './EditLineForm';
 import { PageHeader } from './PageHeader';
 
 export const EditLinePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
   const [patchLine] = usePatchLineMutation();
-  const history = useHistory();
-  const formRef = useRef<ExplicitAny>(null);
+
   const { id } = useParams<{ id: string }>();
   const lineDetailsResult = useGetLineDetailsByIdQuery(
     mapToVariables({ line_id: id }),
@@ -32,12 +24,14 @@ export const EditLinePage = (): JSX.Element => {
   const line = mapLineDetailsResult(lineDetailsResult);
   const { t } = useTranslation();
 
-  const onSave = () => {
-    submitFormByRef(formRef);
-  };
-
-  const onCancel = () => {
-    history.goBack();
+  const defaultValues = {
+    label: line?.label,
+    finnishName: line?.name_i18n,
+    primaryVehicleMode: line?.primary_vehicle_mode,
+    priority: line?.priority,
+    validityStart: mapToISODate(line?.validity_start),
+    validityEnd: mapToISODate(line?.validity_end),
+    indefinite: !line?.validity_end,
   };
 
   const onSubmit = async (state: FormState) => {
@@ -47,7 +41,11 @@ export const EditLinePage = (): JSX.Element => {
         label: state.label,
         name_i18n: state.finnishName,
         primary_vehicle_mode: state.primaryVehicleMode,
-        priority: Priority.Standard, // TODO: Let user chose priority (e.g. in "save" modal, which is to be added later)
+        priority: state.priority,
+        validity_start: parseISODateString(state.validityStart),
+        validity_end: state.indefinite
+          ? null
+          : parseISODateString(state.validityEnd)?.endOf('day'),
       }),
     };
 
@@ -80,35 +78,7 @@ export const EditLinePage = (): JSX.Element => {
         </h1>
       </PageHeader>
       <Container>
-        <Row className="mt-10">
-          <div className="w-full rounded-md border border-light-grey bg-background">
-            {line && (
-              <LinePropertiesForm
-                ref={formRef}
-                className="mb-2 ml-2 p-6"
-                defaultValues={{
-                  label: line.label,
-                  finnishName: line.name_i18n,
-                  primaryVehicleMode: line.primary_vehicle_mode,
-                }}
-                onSubmit={onSubmit}
-              />
-            )}
-          </div>
-        </Row>
-        <Row className="mt-8">
-          <SimpleButton
-            id="cancel-button"
-            className="ml-auto"
-            onClick={onCancel}
-            inverted
-          >
-            {t('cancel')}
-          </SimpleButton>
-          <SimpleButton id="save-button" className="ml-5" onClick={onSave}>
-            {t('save')}
-          </SimpleButton>
-        </Row>
+        <EditLineForm onSubmit={onSubmit} defaultValues={defaultValues} />
       </Container>
     </div>
   );

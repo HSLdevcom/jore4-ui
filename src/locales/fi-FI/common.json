@@ -62,6 +62,19 @@
     "latitude": "Latitude",
     "longitude": "Longitude"
   },
+  "saveChangesModal": {
+    "title": "Tallenna muutos",
+    "validityPeriod": "Muutoksen voimassaolo",
+    "validityStart": "Alkaa",
+    "validityEnd": "Päättyy",
+    "indefinite": "Voimassa toistaiseksi"
+  },
+  "priority": {
+    "label": "Prioriteetti",
+    "standard": "Perusversio",
+    "temporary": "Väliaikainen",
+    "draft": "Luonnos"
+  },
   "vehicleModeEnum": {
     "bus": "Bussi",
     "ferry": "Lautta",
