@@ -13,8 +13,11 @@ const INSERT_STOP = gql`
       scheduled_stop_point_id
       located_on_infrastructure_link_id
       direction
+      priority
       measured_location
       label
+      validity_start
+      validity_end
     }
   }
 `;

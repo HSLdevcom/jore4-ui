@@ -1,7 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import {
@@ -19,11 +19,18 @@ import { useAsyncQuery } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
 import { Direction } from '../../types';
 import {
+  mapDateInputToValidityEnd,
+  mapDateInputToValidityStart,
   mapPointToPointGeography,
   mapToObject,
   mapToVariables,
   showToast,
 } from '../../utils';
+import {
+  ConfirmSaveForm,
+  FormState as ConfirmSaveFormState,
+  schema as confirmSaveFormSchema,
+} from './ConfirmSaveForm';
 
 const parseInfraLinkId = (
   response: ApolloQueryResult<QueryClosestLinkQueryResult>,
@@ -43,13 +50,15 @@ const parseStopDirection = (
     ?.value;
 };
 
-const schema = z.object({
-  finnishName: z.string().min(1),
-  latitude: z.number().min(-90).max(90),
-  longitude: z.number().min(-180).max(180),
-});
+const schema = z
+  .object({
+    finnishName: z.string().min(1),
+    latitude: z.number().min(-90).max(90),
+    longitude: z.number().min(-180).max(180),
+  })
+  .merge(confirmSaveFormSchema);
 
-export type FormState = z.infer<typeof schema>;
+export type FormState = z.infer<typeof schema> & ConfirmSaveFormState;
 
 interface Props {
   className?: string;
@@ -63,14 +72,15 @@ const StopFormComponent = (
 ): JSX.Element => {
   const { t } = useTranslation();
 
+  const methods = useForm<FormState>({
+    defaultValues,
+    resolver: zodResolver(schema),
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormState>({
-    defaultValues,
-    resolver: zodResolver(schema),
-  });
+  } = methods;
 
   const [fetchClosestLink] = useAsyncQuery<
     QueryClosestLinkQueryResult,
@@ -112,7 +122,9 @@ const StopFormComponent = (
       // have been done in jore3 importer, but it won't be correct solution in the long
       // term.
       label: state.finnishName,
-      priority: 10,
+      priority: state.priority,
+      validity_start: mapDateInputToValidityStart(state.validityStart),
+      validity_end: mapDateInputToValidityEnd(state.validityStart),
       vehicle_mode_on_scheduled_stop_point: {
         data: {
           // TODO: Replace hard-coded Bus-value with propagated one
@@ -134,53 +146,59 @@ const StopFormComponent = (
   };
 
   return (
-    <form
-      className={className || ''}
-      onSubmit={handleSubmit(onSubmit)}
-      ref={ref}
-    >
-      <h2 className="pb-6 text-xl font-bold">{t('stops.stop')}</h2>
-      <Row className="space-x-10">
-        <Column className="space-y-2">
-          <h3 className="text-lg font-bold">{t('stops.nameAddress')}</h3>
-          <Column>
-            <label htmlFor="finnishName">{t('stops.label')}</label>
-            <input type="text" {...register('finnishName', {})} />
-            <p>
-              {errors.finnishName?.type === 'too_small' &&
-                t('formValidation.required')}
-            </p>
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <FormProvider {...methods}>
+      <form
+        className={className || ''}
+        onSubmit={handleSubmit(onSubmit)}
+        ref={ref}
+      >
+        <h2 className="pb-6 text-xl font-bold">{t('stops.stop')}</h2>
+        <Row className="space-x-10">
+          <Column className="space-y-2">
+            <h3 className="text-lg font-bold">{t('stops.nameAddress')}</h3>
+            <Column>
+              <label htmlFor="finnishName">{t('stops.label')}</label>
+              <input type="text" {...register('finnishName', {})} />
+              <p>
+                {errors.finnishName?.type === 'too_small' &&
+                  t('formValidation.required')}
+              </p>
+            </Column>
           </Column>
-        </Column>
-        <Column className="space-y-2">
-          <h3 className="text-lg font-bold">{t('map.location')}</h3>
-          <Row className="space-x-5">
-            <Column>
-              <label htmlFor="latitude">{t('map.latitude')}</label>
-              <input
-                type="number"
-                {...register('latitude', {
-                  valueAsNumber: true,
-                })}
-                step="any"
-              />
-              <p>{errors.latitude?.message}</p>
-            </Column>
-            <Column>
-              <label htmlFor="longitude">{t('map.longitude')}</label>
-              <input
-                type="number"
-                {...register('longitude', {
-                  valueAsNumber: true,
-                })}
-                step="any"
-              />
-              <p>{errors.longitude?.message}</p>
-            </Column>
-          </Row>
-        </Column>
-      </Row>
-    </form>
+          <Column className="space-y-2">
+            <h3 className="text-lg font-bold">{t('map.location')}</h3>
+            <Row className="space-x-5">
+              <Column>
+                <label htmlFor="latitude">{t('map.latitude')}</label>
+                <input
+                  type="number"
+                  {...register('latitude', {
+                    valueAsNumber: true,
+                  })}
+                  step="any"
+                />
+                <p>{errors.latitude?.message}</p>
+              </Column>
+              <Column>
+                <label htmlFor="longitude">{t('map.longitude')}</label>
+                <input
+                  type="number"
+                  {...register('longitude', {
+                    valueAsNumber: true,
+                  })}
+                  step="any"
+                />
+                <p>{errors.longitude?.message}</p>
+              </Column>
+            </Row>
+          </Column>
+        </Row>
+        <Row>
+          <ConfirmSaveForm className="mt-2" />
+        </Row>
+      </form>
+    </FormProvider>
   );
 };
 
