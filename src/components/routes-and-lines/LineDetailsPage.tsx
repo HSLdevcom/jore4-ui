@@ -96,7 +96,7 @@ export const LineDetailsPage = (): JSX.Element => {
   const line = mapLineDetailsWithRoutesResult(lineDetailsResult);
 
   const buildValidityPeriod = (validityStart?: string, validityEnd?: string) =>
-    `${mapToShortDate(validityStart)} - ${mapToShortDate(validityEnd)}`;
+    `${mapToShortDate(validityStart)} - ${mapToShortDate(validityEnd) || ''}`;
 
   const onCreateRoute = () => {
     mapEditorDispatch({ type: 'reset' });
