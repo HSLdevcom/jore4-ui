@@ -1,4 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
+import { AppInsightsContext } from '@microsoft/applicationinsights-react-js';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import type { AppProps } from 'next/app';
 import { Router } from '../components/Router';
@@ -10,6 +11,7 @@ import '../generated/fontello/css/hsl-icons.css';
 import { GQLClient } from '../graphql';
 import '../i18n';
 import '../styles/globals.css';
+import { reactPlugin } from './AppInsights';
 
 function SafeHydrate({ children }: { children: JSX.Element }) {
   return (
@@ -21,20 +23,22 @@ function SafeHydrate({ children }: { children: JSX.Element }) {
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SafeHydrate>
-      <ApolloProvider client={GQLClient}>
-        <UserContextProvider>
-          <ModalMapContextProvider>
-            <MapEditorContextProvider>
-              <Router />
-              <Toaster />
-              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-              <Component {...pageProps} />
-            </MapEditorContextProvider>
-          </ModalMapContextProvider>
-        </UserContextProvider>
-      </ApolloProvider>
-    </SafeHydrate>
+    <AppInsightsContext.Provider value={reactPlugin}>
+      <SafeHydrate>
+        <ApolloProvider client={GQLClient}>
+          <UserContextProvider>
+            <ModalMapContextProvider>
+              <MapEditorContextProvider>
+                <Router />
+                <Toaster />
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                <Component {...pageProps} />
+              </MapEditorContextProvider>
+            </ModalMapContextProvider>
+          </UserContextProvider>
+        </ApolloProvider>
+      </SafeHydrate>
+    </AppInsightsContext.Provider>
   );
 }
 
