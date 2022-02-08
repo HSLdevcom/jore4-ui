@@ -18,6 +18,8 @@ const LINE_DEFAULT_FIELDS = gql`
     name_i18n
     short_name_i18n
     description_i18n
+    validity_start
+    validity_end
   }
 `;
 
