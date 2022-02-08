@@ -6,13 +6,14 @@ import { MdOutlineHistory, MdPinDrop } from 'react-icons/md';
 import { RouteRoute } from '../../generated/graphql';
 import { useShowRoutesOnModal } from '../../hooks';
 import { Row } from '../../layoutComponents';
+import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
 import {
   mapToShortDate,
   mapToShortDateTime,
   MAX_DATE,
   MIN_DATE,
 } from '../../time';
-import { IconButton } from '../../uiComponents';
+import { EditButton, IconButton } from '../../uiComponents';
 
 interface Props {
   className?: string;
@@ -35,7 +36,10 @@ export const RouteStopsHeaderRow = ({
       <td className="border-l-8 py-4 pl-16 pr-4 text-3xl font-bold">
         {route.label}
       </td>
-      <td className="text-3xl">{route.description_i18n}</td>
+      <td className="flex items-center py-4 text-3xl">
+        {route.description_i18n}
+        <EditButton href={routes[Path.editRoute].getLink(route.route_id)} />
+      </td>
       <td>
         {t('validity.validDuring', {
           startDate: mapToShortDate(route.validity_start || MIN_DATE),

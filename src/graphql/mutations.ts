@@ -25,6 +25,7 @@ const INSERT_STOP = gql`
 const INSERT_ROUTE = gql`
   mutation InsertRouteOne($object: route_route_insert_input!) {
     insert_route_route_one(object: $object) {
+      route_id
       starts_from_scheduled_stop_point_id
       ends_at_scheduled_stop_point_id
       route_shape

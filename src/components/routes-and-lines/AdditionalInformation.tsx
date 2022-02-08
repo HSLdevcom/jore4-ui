@@ -1,10 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { MdModeEdit } from 'react-icons/md';
-import { Link } from 'react-router-dom';
 import { RouteLine } from '../../generated/graphql';
 import { Column, Row } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
+import { EditButton } from '../../uiComponents';
 import { FieldValue } from '../forms/FieldValue';
 
 interface Props {
@@ -18,11 +17,7 @@ export const AdditionalInformation: React.FC<Props> = ({ className, line }) => {
     <Column className={className}>
       <Row className="mb-10 items-center text-3xl font-semibold">
         {t('lines.additionalInformation')}
-        <Link to={routes[Path.editLine].getLink(line.line_id)}>
-          <div className="ml-5 rounded-full border border-grey">
-            <MdModeEdit className="m-2 text-3xl text-tweaked-brand" />
-          </div>
-        </Link>
+        <EditButton href={routes[Path.editLine].getLink(line.line_id)} />
       </Row>
       <Row className="mb-5">
         <FieldValue
