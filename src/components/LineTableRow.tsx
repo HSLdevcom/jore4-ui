@@ -19,8 +19,7 @@ export const LineTableRow = ({ className, line }: Props): JSX.Element => {
   const { showRoutesOnModal } = useShowRoutesOnModal();
 
   const showLineRoutes = () => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const lineRouteIds = line.line_routes?.map((item) => item.route_id!);
+    const lineRouteIds = line.line_routes?.map((item) => item.route_id);
     showRoutesOnModal(lineRouteIds);
   };
 
