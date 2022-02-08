@@ -8,9 +8,14 @@ import {
 import { mapInsertLineOneResult } from '../graphql/route';
 import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
-import { parseISODateString } from '../time';
 import { Priority } from '../types/Priority';
-import { mapToObject, mapToVariables, showToast } from '../utils';
+import {
+  mapDateInputToValidityEnd,
+  mapDateInputToValidityStart,
+  mapToObject,
+  mapToVariables,
+  showToast,
+} from '../utils';
 import { EditLineForm, FormState } from './routes-and-lines/EditLineForm';
 
 export const CreateNewLinePage = (): JSX.Element => {
@@ -29,10 +34,11 @@ export const CreateNewLinePage = (): JSX.Element => {
       name_i18n: state.finnishName,
       primary_vehicle_mode: state.primaryVehicleMode,
       priority: state.priority,
-      validity_start: parseISODateString(state.validityStart),
-      validity_end: state.indefinite
-        ? null
-        : parseISODateString(state.validityEnd)?.endOf('day'),
+      validity_start: mapDateInputToValidityStart(state.validityStart),
+      validity_end: mapDateInputToValidityEnd(
+        state.validityEnd,
+        state.indefinite,
+      ),
     });
 
     try {
