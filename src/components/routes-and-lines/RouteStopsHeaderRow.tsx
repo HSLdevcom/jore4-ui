@@ -51,8 +51,7 @@ export const RouteStopsHeaderRow = ({
       <td className="w-20 border-l-4 border-r-4 border-white">
         <IconButton
           className="h-full w-full"
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          onClick={() => showRoutesOnModal([route.route_id!])}
+          onClick={() => showRoutesOnModal([route.route_id])}
           icon={<MdPinDrop className="text-5xl text-tweaked-brand" />}
           testId="RouteStopsHeaderRow::showRoute"
         />
