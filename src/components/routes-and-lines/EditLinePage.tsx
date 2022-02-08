@@ -8,8 +8,14 @@ import {
 import { mapLineDetailsResult } from '../../graphql/route';
 import { Container } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
-import { mapToISODate, parseISODateString } from '../../time';
-import { mapToObject, mapToVariables, showToast } from '../../utils';
+import { mapToISODate } from '../../time';
+import {
+  mapDateInputToValidityEnd,
+  mapDateInputToValidityStart,
+  mapToObject,
+  mapToVariables,
+  showToast,
+} from '../../utils';
 import { EditLineForm, FormState } from './EditLineForm';
 import { PageHeader } from './PageHeader';
 
@@ -42,10 +48,11 @@ export const EditLinePage = (): JSX.Element => {
         name_i18n: state.finnishName,
         primary_vehicle_mode: state.primaryVehicleMode,
         priority: state.priority,
-        validity_start: parseISODateString(state.validityStart),
-        validity_end: state.indefinite
-          ? null
-          : parseISODateString(state.validityEnd)?.endOf('day'),
+        validity_start: mapDateInputToValidityStart(state.validityStart),
+        validity_end: mapDateInputToValidityEnd(
+          state.validityEnd,
+          state.indefinite,
+        ),
       }),
     };
 
