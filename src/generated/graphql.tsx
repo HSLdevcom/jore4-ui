@@ -5838,7 +5838,7 @@ export type InsertRouteOneMutationVariables = Exact<{
 }>;
 
 
-export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, priority: number, validity_start?: any | null | undefined, validity_end?: any | null | undefined, label: string, direction: string } | null | undefined };
+export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', route_id: UUID, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, priority: number, validity_start?: any | null | undefined, validity_end?: any | null | undefined, label: string, direction: string } | null | undefined };
 
 export type QueryClosestLinkQueryVariables = Exact<{
   point?: Maybe<Scalars['geography']>;
@@ -5912,7 +5912,7 @@ export type GetRouteDetailsByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetRouteDetailsByIdQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string }> };
+export type GetRouteDetailsByIdQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', label: string } | null | undefined }> };
 
 export type InsertLineOneMutationVariables = Exact<{
   object: RouteLineInsertInput;
@@ -5928,6 +5928,14 @@ export type PatchLineMutationVariables = Exact<{
 
 
 export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string } | null | undefined };
+
+export type PatchRouteMutationVariables = Exact<{
+  route_id: Scalars['uuid'];
+  object: RouteRouteSetInput;
+}>;
+
+
+export type PatchRouteMutation = { __typename?: 'mutation_root', update_route_route?: { __typename?: 'route_route_mutation_response', returning: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string }> } | null | undefined };
 
 export type ScheduledStopPointDefaultFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined };
 
@@ -6069,6 +6077,7 @@ export type InsertStopMutationOptions = Apollo.BaseMutationOptions<InsertStopMut
 export const InsertRouteOneDocument = gql`
     mutation InsertRouteOne($object: route_route_insert_input!) {
   insert_route_route_one(object: $object) {
+    route_id
     starts_from_scheduled_stop_point_id
     ends_at_scheduled_stop_point_id
     route_shape
@@ -6461,6 +6470,9 @@ export const GetRouteDetailsByIdDocument = gql`
     query GetRouteDetailsById($route_id: uuid!) {
   route_route(where: {route_id: {_eq: $route_id}}) {
     ...route_all_fields
+    route_line {
+      label
+    }
   }
 }
     ${RouteAllFieldsFragmentDoc}`;
@@ -6564,6 +6576,42 @@ export function usePatchLineMutation(baseOptions?: Apollo.MutationHookOptions<Pa
 export type PatchLineMutationHookResult = ReturnType<typeof usePatchLineMutation>;
 export type PatchLineMutationResult = Apollo.MutationResult<PatchLineMutation>;
 export type PatchLineMutationOptions = Apollo.BaseMutationOptions<PatchLineMutation, PatchLineMutationVariables>;
+export const PatchRouteDocument = gql`
+    mutation PatchRoute($route_id: uuid!, $object: route_route_set_input!) {
+  update_route_route(where: {route_id: {_eq: $route_id}}, _set: $object) {
+    returning {
+      ...route_all_fields
+    }
+  }
+}
+    ${RouteAllFieldsFragmentDoc}`;
+export type PatchRouteMutationFn = Apollo.MutationFunction<PatchRouteMutation, PatchRouteMutationVariables>;
+
+/**
+ * __usePatchRouteMutation__
+ *
+ * To run a mutation, you first call `usePatchRouteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePatchRouteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [patchRouteMutation, { data, loading, error }] = usePatchRouteMutation({
+ *   variables: {
+ *      route_id: // value for 'route_id'
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function usePatchRouteMutation(baseOptions?: Apollo.MutationHookOptions<PatchRouteMutation, PatchRouteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PatchRouteMutation, PatchRouteMutationVariables>(PatchRouteDocument, options);
+      }
+export type PatchRouteMutationHookResult = ReturnType<typeof usePatchRouteMutation>;
+export type PatchRouteMutationResult = Apollo.MutationResult<PatchRouteMutation>;
+export type PatchRouteMutationOptions = Apollo.BaseMutationOptions<PatchRouteMutation, PatchRouteMutationVariables>;
 export const RemoveStopDocument = gql`
     mutation RemoveStop($id: uuid!) {
   delete_service_pattern_scheduled_stop_point(

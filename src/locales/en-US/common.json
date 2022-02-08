@@ -8,6 +8,7 @@
   },
   "routes": {
     "root": "Main page",
+    "route": "Route",
     "routes": "Routes and lines",
     "save": "Save route",
     "saveSuccess": "Route saved",

@@ -49,6 +49,9 @@ const link = process.browser
 
 const cache = new InMemoryCache({
   typePolicies: {
+    route_route: {
+      keyFields: ['route_id'],
+    },
     service_pattern_scheduled_stop_point: {
       keyFields: ['scheduled_stop_point_id'],
     },
