@@ -2,10 +2,12 @@ import { DateTime } from 'luxon';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { MdOutlineHistory, MdPinDrop } from 'react-icons/md';
+import { MdModeEdit, MdOutlineHistory, MdPinDrop } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 import { RouteRoute } from '../../generated/graphql';
 import { useShowRoutesOnModal } from '../../hooks';
 import { Row } from '../../layoutComponents';
+import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
 import {
   mapToShortDate,
   mapToShortDateTime,
@@ -35,7 +37,14 @@ export const RouteStopsHeaderRow = ({
       <td className="border-l-8 py-4 pl-16 pr-4 text-3xl font-bold">
         {route.label}
       </td>
-      <td className="text-3xl">{route.description_i18n}</td>
+      <td className="flex items-center py-4 text-3xl">
+        {route.description_i18n}
+        <Link to={routes[Path.editRoute].getLink(route.route_id)}>
+          <div className="ml-5 rounded-full border border-grey bg-white">
+            <MdModeEdit className="m-2 text-3xl text-tweaked-brand" />
+          </div>
+        </Link>
+      </td>
       <td>
         {t('validity.validDuring', {
           startDate: mapToShortDate(route.validity_start || MIN_DATE),

@@ -4,12 +4,14 @@ import { CreateNewLinePage } from './components/CreateNewLinePage'; // eslint-di
 import { Main } from './components/Main';
 import { Map } from './components/map';
 import { EditLinePage } from './components/routes-and-lines/EditLinePage'; // eslint-disable-line import/no-cycle
+import { EditRoutePage } from './components/routes-and-lines/EditRoutePage'; // eslint-disable-line import/no-cycle
 import { LineDetailsPage } from './components/routes-and-lines/LineDetailsPage'; // eslint-disable-line import/no-cycle
 import { RoutesAndLinesPage } from './components/RoutesAndLinesPage'; // eslint-disable-line import/no-cycle
 
 export enum Path {
   root = '/',
   routes = '/routes',
+  editRoute = '/routes/:id/edit',
   createLine = '/lines/create',
   lineDetails = '/lines/:id',
   editLine = '/lines/:id/edit',
@@ -56,6 +58,14 @@ export const routes: Record<Path, Route> = {
     getLink: () => Path.routes,
     component: RoutesAndLinesPage,
     includeInNav: true,
+  },
+  [Path.editRoute]: {
+    _routerRoute: Path.editRoute,
+    _exact: true,
+    translationKey: 'routes.editRoute',
+    getLink: (id: string) => Path.editRoute.replace(':id', id),
+    component: EditRoutePage,
+    includeInNav: false,
   },
   [Path.createLine]: {
     _routerRoute: Path.createLine,

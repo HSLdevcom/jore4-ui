@@ -143,6 +143,9 @@ const GET_ROUTE_DETAILS_BY_ID = gql`
   query GetRouteDetailsById($route_id: uuid!) {
     route_route(where: { route_id: { _eq: $route_id } }) {
       ...route_all_fields
+      route_line {
+        label
+      }
     }
   }
 `;
@@ -175,6 +178,16 @@ const UPDATE_LINE = gql`
   mutation PatchLine($line_id: uuid!, $object: route_line_set_input!) {
     update_route_line_by_pk(pk_columns: { line_id: $line_id }, _set: $object) {
       ...line_all_fields
+    }
+  }
+`;
+
+const UPDATE_ROUTE = gql`
+  mutation PatchRoute($route_id: uuid!, $object: route_route_set_input!) {
+    update_route_route(where: { route_id: { _eq: $route_id } }, _set: $object) {
+      returning {
+        ...route_all_fields
+      }
     }
   }
 `;
