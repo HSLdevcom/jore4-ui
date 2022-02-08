@@ -16,7 +16,7 @@ import { mapToVariables } from '../../utils';
 import { AdditionalInformation } from './AdditionalInformation'; // eslint-disable-line import/no-cycle
 import { MapPreview } from './MapPreview';
 import { PageHeader } from './PageHeader';
-import { RouteStopsTable } from './RouteStopsTable';
+import { RouteStopsTable } from './RouteStopsTable'; // eslint-disable-line import/no-cycle
 
 interface Props {
   className?: string;

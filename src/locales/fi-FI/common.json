@@ -8,6 +8,7 @@
   },
   "routes": {
     "root": "Etusivu",
+    "route": "Reitti",
     "routes": "Reitit ja linjat",
     "save": "Tallenna reitti",
     "saveSuccess": "Reitti tallennettu",
