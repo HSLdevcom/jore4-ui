@@ -5831,7 +5831,7 @@ export type InsertStopMutationVariables = Exact<{
 }>;
 
 
-export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_pattern_scheduled_stop_point_one?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, located_on_infrastructure_link_id: UUID, direction: string, measured_location: any, label: string } | null | undefined };
+export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_pattern_scheduled_stop_point_one?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, located_on_infrastructure_link_id: UUID, direction: string, priority: number, measured_location: any, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined };
 
 export type InsertRouteOneMutationVariables = Exact<{
   object: RouteRouteInsertInput;
@@ -6025,8 +6025,11 @@ export const InsertStopDocument = gql`
     scheduled_stop_point_id
     located_on_infrastructure_link_id
     direction
+    priority
     measured_location
     label
+    validity_start
+    validity_end
   }
 }
     `;
