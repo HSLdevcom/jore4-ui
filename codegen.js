@@ -7,6 +7,7 @@ module.exports = {
         headers: {
           'x-hasura-admin-secret': 'hasura',
         },
+        loader: './schema-loader.js',
       },
     },
   ],

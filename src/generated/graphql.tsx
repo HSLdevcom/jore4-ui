@@ -4223,23 +4223,23 @@ export type RouteRoute = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
   /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
-  direction?: Maybe<Scalars['String']>;
+  direction: Scalars['String'];
   /** An object relationship */
   ends_at_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPoint>;
   /** The scheduled stop point where the route ends at. */
-  ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  ends_at_scheduled_stop_point_id: Scalars['uuid'];
   /** An array relationship */
   infrastructure_links_along_route: Array<RouteInfrastructureLinkAlongRoute>;
   /** An aggregate relationship */
   infrastructure_links_along_route_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
   /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   /** The line to which this route belongs. */
-  on_line_id?: Maybe<Scalars['uuid']>;
+  on_line_id: Scalars['uuid'];
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority: Scalars['Int'];
   /** The ID of the route. */
-  route_id?: Maybe<Scalars['uuid']>;
+  route_id: Scalars['uuid'];
   /** An array relationship */
   route_journey_patterns: Array<JourneyPatternJourneyPattern>;
   /** An aggregate relationship */
@@ -4251,7 +4251,7 @@ export type RouteRoute = {
   /** An object relationship */
   starts_from_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPoint>;
   /** The scheduled stop point where the route starts from. */
-  starts_from_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  starts_from_scheduled_stop_point_id: Scalars['uuid'];
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
@@ -4732,19 +4732,19 @@ export type ServicePatternScheduledStopPoint = {
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction?: Maybe<Scalars['String']>;
+  direction: Scalars['String'];
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   /** The infrastructure link on which the stop is located. */
-  located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  located_on_infrastructure_link_id: Scalars['uuid'];
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
-  measured_location?: Maybe<Scalars['geography']>;
+  measured_location: Scalars['geography'];
   /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority: Scalars['Int'];
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
-  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  scheduled_stop_point_id: Scalars['uuid'];
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
@@ -5824,21 +5824,21 @@ export type UuidComparisonExp = {
 
 export type ScheduledStopPointInJourneyPatternDefaultFieldsFragment = { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean };
 
-export type JourneyPatternWithStopsFragment = { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: UUID | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> };
+export type JourneyPatternWithStopsFragment = { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> };
 
 export type InsertStopMutationVariables = Exact<{
   object: ServicePatternScheduledStopPointInsertInput;
 }>;
 
 
-export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_pattern_scheduled_stop_point_one?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: UUID | null | undefined, located_on_infrastructure_link_id?: UUID | null | undefined, direction?: string | null | undefined, measured_location?: any | null | undefined, label?: string | null | undefined } | null | undefined };
+export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_pattern_scheduled_stop_point_one?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, located_on_infrastructure_link_id: UUID, direction: string, measured_location: any, label: string } | null | undefined };
 
 export type InsertRouteOneMutationVariables = Exact<{
   object: RouteRouteInsertInput;
 }>;
 
 
-export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', starts_from_scheduled_stop_point_id?: UUID | null | undefined, ends_at_scheduled_stop_point_id?: UUID | null | undefined, route_shape?: any | null | undefined, on_line_id?: UUID | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined } | null | undefined };
+export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, priority: number, label: string, direction: string } | null | undefined };
 
 export type QueryClosestLinkQueryVariables = Exact<{
   point?: Maybe<Scalars['geography']>;
@@ -5861,22 +5861,22 @@ export type MapExternalLinkIdsToInfraLinksWithStopsQueryVariables = Exact<{
 }>;
 
 
-export type MapExternalLinkIdsToInfraLinksWithStopsQuery = { __typename?: 'query_root', infrastructure_network_infrastructure_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, external_link_id: string, scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: UUID | null | undefined, direction?: string | null | undefined, relative_distance_from_infrastructure_link_start?: any | null | undefined, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> }> };
+export type MapExternalLinkIdsToInfraLinksWithStopsQuery = { __typename?: 'query_root', infrastructure_network_infrastructure_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, external_link_id: string, scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> }> };
 
 export type GetStopsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetStopsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', closest_point_on_infrastructure_link?: any | null | undefined, direction?: string | null | undefined, label?: string | null | undefined, located_on_infrastructure_link_id?: UUID | null | undefined, measured_location?: any | null | undefined, priority?: number | null | undefined, relative_distance_from_infrastructure_link_start?: any | null | undefined, scheduled_stop_point_id?: UUID | null | undefined, validity_end?: any | null | undefined, validity_start?: any | null | undefined }> };
+export type GetStopsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', closest_point_on_infrastructure_link?: any | null | undefined, direction: string, label: string, located_on_infrastructure_link_id: UUID, measured_location: any, priority: number, relative_distance_from_infrastructure_link_start?: any | null | undefined, scheduled_stop_point_id: UUID, validity_end?: any | null | undefined, validity_start?: any | null | undefined }> };
 
 export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined };
 
 export type LineAllFieldsFragment = { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string };
 
-export type RouteAllFieldsFragment = { __typename?: 'route_route', route_id?: UUID | null | undefined, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id?: UUID | null | undefined, ends_at_scheduled_stop_point_id?: UUID | null | undefined, route_shape?: any | null | undefined, on_line_id?: UUID | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined };
+export type RouteAllFieldsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string };
 
-export type RouteDefaultFieldsFragment = { __typename?: 'route_route', route_id?: UUID | null | undefined, description_i18n?: string | null | undefined, on_line_id?: UUID | null | undefined };
+export type RouteDefaultFieldsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, on_line_id: UUID };
 
-export type RouteWithStopsFragment = { __typename?: 'route_route', route_id?: UUID | null | undefined, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id?: UUID | null | undefined, ends_at_scheduled_stop_point_id?: UUID | null | undefined, route_shape?: any | null | undefined, on_line_id?: UUID | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: UUID | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: UUID | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined };
+export type RouteWithStopsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined };
 
 export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5886,12 +5886,12 @@ export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{
 export type ListOwnLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id?: UUID | null | undefined }> }> };
+export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id: UUID }> }> };
 
 export type ListChangingRoutesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListChangingRoutesQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id?: UUID | null | undefined, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id?: UUID | null | undefined, ends_at_scheduled_stop_point_id?: UUID | null | undefined, route_shape?: any | null | undefined, on_line_id?: UUID | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined, route_line?: { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: UUID | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: UUID | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> };
+export type ListChangingRoutesQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> };
 
 export type GetLineDetailsByIdQueryVariables = Exact<{
   line_id: Scalars['uuid'];
@@ -5905,14 +5905,14 @@ export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id?: UUID | null | undefined, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id?: UUID | null | undefined, ends_at_scheduled_stop_point_id?: UUID | null | undefined, route_shape?: any | null | undefined, on_line_id?: UUID | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: UUID | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: UUID | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: UUID | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> } | null | undefined };
+export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> } | null | undefined };
 
 export type GetRouteDetailsByIdQueryVariables = Exact<{
   route_id: Scalars['uuid'];
 }>;
 
 
-export type GetRouteDetailsByIdQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id?: UUID | null | undefined, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id?: UUID | null | undefined, ends_at_scheduled_stop_point_id?: UUID | null | undefined, route_shape?: any | null | undefined, on_line_id?: UUID | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined }> };
+export type GetRouteDetailsByIdQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string }> };
 
 export type InsertLineOneMutationVariables = Exact<{
   object: RouteLineInsertInput;
@@ -5929,7 +5929,7 @@ export type PatchLineMutationVariables = Exact<{
 
 export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string } | null | undefined };
 
-export type ScheduledStopPointDefaultFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: UUID | null | undefined, label?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined };
+export type ScheduledStopPointDefaultFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined };
 
 export const ScheduledStopPointInJourneyPatternDefaultFieldsFragmentDoc = gql`
     fragment scheduled_stop_point_in_journey_pattern_default_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
