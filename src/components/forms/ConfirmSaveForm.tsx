@@ -62,6 +62,7 @@ export const ConfirmSaveForm = ({ className }: Props): JSX.Element => {
               {t('priority.temporary')}
             </SimpleButton>
           </Row>
+          <p>{errors.priority && t('formValidation.required')}</p>
         </Column>
       </Row>
       <Row className="space-x-4">
