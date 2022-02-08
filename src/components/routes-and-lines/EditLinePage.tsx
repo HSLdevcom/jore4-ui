@@ -16,7 +16,7 @@ import {
   mapToVariables,
   showToast,
 } from '../../utils';
-import { EditLineForm, FormState } from './EditLineForm';
+import { FormState, LineForm } from '../forms/LineForm';
 import { PageHeader } from './PageHeader';
 
 export const EditLinePage = (): JSX.Element => {
@@ -85,7 +85,7 @@ export const EditLinePage = (): JSX.Element => {
         </h1>
       </PageHeader>
       <Container>
-        <EditLineForm onSubmit={onSubmit} defaultValues={defaultValues} />
+        <LineForm onSubmit={onSubmit} defaultValues={defaultValues} />
       </Container>
     </div>
   );
