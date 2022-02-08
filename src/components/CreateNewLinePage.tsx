@@ -16,7 +16,7 @@ import {
   mapToVariables,
   showToast,
 } from '../utils';
-import { EditLineForm, FormState } from './routes-and-lines/EditLineForm';
+import { FormState, LineForm } from './forms/LineForm';
 
 export const CreateNewLinePage = (): JSX.Element => {
   const [mutateFunction] = useInsertLineOneMutation();
@@ -72,7 +72,7 @@ export const CreateNewLinePage = (): JSX.Element => {
         <i className="icon-bus-alt text-5xl text-tweaked-brand" />
         <h1 className="text-5xl font-bold">{t('lines.createNew')}</h1>
       </Row>
-      <EditLineForm onSubmit={onSubmit} defaultValues={defaultValues} />
+      <LineForm onSubmit={onSubmit} defaultValues={defaultValues} />
     </Container>
   );
 };

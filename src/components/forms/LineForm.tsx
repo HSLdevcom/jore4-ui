@@ -10,12 +10,12 @@ import {
   ConfirmSaveForm,
   FormState as ConfirmSaveFormState,
   schema as confirmSaveFormSchema,
-} from '../forms/ConfirmSaveForm';
+} from './ConfirmSaveForm';
 import {
   FormState as LinePropertiesFormState,
   LinePropertiesForm,
   schema as linePropertiesFormSchema,
-} from '../forms/LinePropertiesForm';
+} from './LinePropertiesForm';
 
 export type FormState = LinePropertiesFormState & ConfirmSaveFormState;
 
@@ -24,10 +24,7 @@ interface Props {
   onSubmit: (state: FormState) => void;
 }
 
-export const EditLineForm = ({
-  defaultValues,
-  onSubmit,
-}: Props): JSX.Element => {
+export const LineForm = ({ defaultValues, onSubmit }: Props): JSX.Element => {
   const history = useHistory();
   const formRef = useRef<ExplicitAny>(null);
 
