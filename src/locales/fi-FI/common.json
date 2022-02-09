@@ -12,6 +12,7 @@
     "routes": "Reitit ja linjat",
     "save": "Tallenna reitti",
     "saveSuccess": "Reitti tallennettu",
+    "deleteSuccess": "Reitti poistettu",
     "enterRouteData": "Anna reitin tiedot",
     "name": "Reitin nimi",
     "label": "Tunnus",
