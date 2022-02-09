@@ -7,6 +7,10 @@ services:
     environment:
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
 
+  jore4-mapmatching:
+    # pinning map-maching API to compatible version
+    image: "hsldevcom/jore4-map-matching:main--c88198562a3800b412647f2e487f89ba5972f216"
+
   martin:
     image: urbica/martin
     restart: unless-stopped
