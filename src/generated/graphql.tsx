@@ -5931,6 +5931,13 @@ export type PatchLineMutation = { __typename?: 'mutation_root', update_route_lin
 
 export type ScheduledStopPointDefaultFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined };
 
+export type RemoveStopMutationVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type RemoveStopMutation = { __typename?: 'mutation_root', delete_service_pattern_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point_mutation_response', returning: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID }> } | null | undefined };
+
 export const ScheduledStopPointInJourneyPatternDefaultFieldsFragmentDoc = gql`
     fragment scheduled_stop_point_in_journey_pattern_default_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
   journey_pattern_id
@@ -6555,3 +6562,40 @@ export function usePatchLineMutation(baseOptions?: Apollo.MutationHookOptions<Pa
 export type PatchLineMutationHookResult = ReturnType<typeof usePatchLineMutation>;
 export type PatchLineMutationResult = Apollo.MutationResult<PatchLineMutation>;
 export type PatchLineMutationOptions = Apollo.BaseMutationOptions<PatchLineMutation, PatchLineMutationVariables>;
+export const RemoveStopDocument = gql`
+    mutation RemoveStop($id: uuid!) {
+  delete_service_pattern_scheduled_stop_point(
+    where: {scheduled_stop_point_id: {_eq: $id}}
+  ) {
+    returning {
+      scheduled_stop_point_id
+    }
+  }
+}
+    `;
+export type RemoveStopMutationFn = Apollo.MutationFunction<RemoveStopMutation, RemoveStopMutationVariables>;
+
+/**
+ * __useRemoveStopMutation__
+ *
+ * To run a mutation, you first call `useRemoveStopMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveStopMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeStopMutation, { data, loading, error }] = useRemoveStopMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useRemoveStopMutation(baseOptions?: Apollo.MutationHookOptions<RemoveStopMutation, RemoveStopMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveStopMutation, RemoveStopMutationVariables>(RemoveStopDocument, options);
+      }
+export type RemoveStopMutationHookResult = ReturnType<typeof useRemoveStopMutation>;
+export type RemoveStopMutationResult = Apollo.MutationResult<RemoveStopMutation>;
+export type RemoveStopMutationOptions = Apollo.BaseMutationOptions<RemoveStopMutation, RemoveStopMutationVariables>;
