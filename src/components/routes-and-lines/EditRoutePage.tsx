@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { Redirect, useParams } from 'react-router-dom';
 import {
+  useDeleteRouteMutation,
   useGetRouteDetailsByIdQuery,
   usePatchRouteMutation,
 } from '../../generated/graphql';
@@ -22,6 +23,7 @@ import { PageHeader } from './PageHeader';
 export const EditRoutePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
   const [patchRoute] = usePatchRouteMutation();
+  const [deleteRoute] = useDeleteRouteMutation();
   const history = useHistory();
   const formRef = useRef<ExplicitAny>(null);
 
@@ -58,6 +60,22 @@ export const EditRoutePage = (): JSX.Element => {
       await patchRoute(mapToVariables(variables));
 
       showToast({ type: 'success', message: t('routes.saveSuccess') });
+
+      setHasFinishedEditing(true);
+    } catch (err) {
+      showToast({
+        type: 'danger',
+        message: `${t('errors.saveFailed')}, '${err}'`,
+      });
+    }
+  };
+
+  const onDelete = async () => {
+    try {
+      // delete the route from the backend
+      await deleteRoute(mapToVariables({ route_id: route?.route_id }));
+
+      showToast({ type: 'success', message: t('routes.deleteSuccess') });
 
       setHasFinishedEditing(true);
     } catch (err) {
@@ -105,8 +123,16 @@ export const EditRoutePage = (): JSX.Element => {
         </Row>
         <Row className="mt-8">
           <SimpleButton
-            id="cancel-button"
+            id="delete-button"
             className="ml-auto"
+            onClick={onDelete}
+            inverted
+          >
+            {t('map.deleteRoute')}
+          </SimpleButton>
+          <SimpleButton
+            id="cancel-button"
+            className="ml-5"
             onClick={onCancel}
             inverted
           >
