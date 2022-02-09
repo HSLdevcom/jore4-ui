@@ -5937,6 +5937,13 @@ export type PatchRouteMutationVariables = Exact<{
 
 export type PatchRouteMutation = { __typename?: 'mutation_root', update_route_route?: { __typename?: 'route_route_mutation_response', returning: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string }> } | null | undefined };
 
+export type DeleteRouteMutationVariables = Exact<{
+  route_id: Scalars['uuid'];
+}>;
+
+
+export type DeleteRouteMutation = { __typename?: 'mutation_root', delete_route_route?: { __typename?: 'route_route_mutation_response', returning: Array<{ __typename?: 'route_route', route_id: UUID }> } | null | undefined };
+
 export type ScheduledStopPointDefaultFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined };
 
 export type RemoveStopMutationVariables = Exact<{
@@ -6612,6 +6619,41 @@ export function usePatchRouteMutation(baseOptions?: Apollo.MutationHookOptions<P
 export type PatchRouteMutationHookResult = ReturnType<typeof usePatchRouteMutation>;
 export type PatchRouteMutationResult = Apollo.MutationResult<PatchRouteMutation>;
 export type PatchRouteMutationOptions = Apollo.BaseMutationOptions<PatchRouteMutation, PatchRouteMutationVariables>;
+export const DeleteRouteDocument = gql`
+    mutation DeleteRoute($route_id: uuid!) {
+  delete_route_route(where: {route_id: {_eq: $route_id}}) {
+    returning {
+      route_id
+    }
+  }
+}
+    `;
+export type DeleteRouteMutationFn = Apollo.MutationFunction<DeleteRouteMutation, DeleteRouteMutationVariables>;
+
+/**
+ * __useDeleteRouteMutation__
+ *
+ * To run a mutation, you first call `useDeleteRouteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteRouteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteRouteMutation, { data, loading, error }] = useDeleteRouteMutation({
+ *   variables: {
+ *      route_id: // value for 'route_id'
+ *   },
+ * });
+ */
+export function useDeleteRouteMutation(baseOptions?: Apollo.MutationHookOptions<DeleteRouteMutation, DeleteRouteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteRouteMutation, DeleteRouteMutationVariables>(DeleteRouteDocument, options);
+      }
+export type DeleteRouteMutationHookResult = ReturnType<typeof useDeleteRouteMutation>;
+export type DeleteRouteMutationResult = Apollo.MutationResult<DeleteRouteMutation>;
+export type DeleteRouteMutationOptions = Apollo.BaseMutationOptions<DeleteRouteMutation, DeleteRouteMutationVariables>;
 export const RemoveStopDocument = gql`
     mutation RemoveStop($id: uuid!) {
   delete_service_pattern_scheduled_stop_point(

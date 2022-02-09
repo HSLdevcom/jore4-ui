@@ -191,3 +191,13 @@ const UPDATE_ROUTE = gql`
     }
   }
 `;
+
+const DELETE_ROUTE = gql`
+  mutation DeleteRoute($route_id: uuid!) {
+    delete_route_route(where: { route_id: { _eq: $route_id } }) {
+      returning {
+        route_id
+      }
+    }
+  }
+`;

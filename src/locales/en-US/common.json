@@ -12,6 +12,7 @@
     "routes": "Routes and lines",
     "save": "Save route",
     "saveSuccess": "Route saved",
+    "deleteSuccess": "Route deleted",
     "enterRouteData": "Enter route data",
     "name": "Name of the route",
     "label": "Label",
