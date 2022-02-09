@@ -133,7 +133,7 @@ const DrawRouteLayerComponent = (
         orderedInfraLinksWithStops.map((item, index) => ({
           infrastructureLinkId: item.infrastructure_link_id,
           isTraversalForwards:
-            routeResponse.routes[0]?.paths[index]?.traversalForwards,
+            routeResponse.routes[0]?.paths[index]?.isTraversalForwards,
         }));
 
       // Extract the list of ids of the stops to be included in the route

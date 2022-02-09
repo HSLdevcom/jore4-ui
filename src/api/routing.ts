@@ -30,7 +30,7 @@ export interface BusRouteResponse {
         fi: string;
         sv: string;
       };
-      traversalForwards: boolean;
+      isTraversalForwards: boolean;
     }[];
   }[];
 }
