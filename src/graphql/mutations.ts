@@ -35,3 +35,15 @@ const INSERT_ROUTE = gql`
     }
   }
 `;
+
+const REMOVE_STOP = gql`
+  mutation RemoveStop($id: uuid!) {
+    delete_service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _eq: $id } }
+    ) {
+      returning {
+        scheduled_stop_point_id
+      }
+    }
+  }
+`;

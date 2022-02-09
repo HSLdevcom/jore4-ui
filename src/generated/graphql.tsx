@@ -5840,6 +5840,13 @@ export type InsertRouteOneMutationVariables = Exact<{
 
 export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', starts_from_scheduled_stop_point_id?: UUID | null | undefined, ends_at_scheduled_stop_point_id?: UUID | null | undefined, route_shape?: any | null | undefined, on_line_id?: UUID | null | undefined, priority?: number | null | undefined, label?: string | null | undefined, direction?: string | null | undefined } | null | undefined };
 
+export type RemoveStopMutationVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type RemoveStopMutation = { __typename?: 'mutation_root', delete_service_pattern_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point_mutation_response', returning: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id?: UUID | null | undefined }> } | null | undefined };
+
 export type QueryClosestLinkQueryVariables = Exact<{
   point?: Maybe<Scalars['geography']>;
 }>;
@@ -6098,6 +6105,43 @@ export function useInsertRouteOneMutation(baseOptions?: Apollo.MutationHookOptio
 export type InsertRouteOneMutationHookResult = ReturnType<typeof useInsertRouteOneMutation>;
 export type InsertRouteOneMutationResult = Apollo.MutationResult<InsertRouteOneMutation>;
 export type InsertRouteOneMutationOptions = Apollo.BaseMutationOptions<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
+export const RemoveStopDocument = gql`
+    mutation RemoveStop($id: uuid!) {
+  delete_service_pattern_scheduled_stop_point(
+    where: {scheduled_stop_point_id: {_eq: $id}}
+  ) {
+    returning {
+      scheduled_stop_point_id
+    }
+  }
+}
+    `;
+export type RemoveStopMutationFn = Apollo.MutationFunction<RemoveStopMutation, RemoveStopMutationVariables>;
+
+/**
+ * __useRemoveStopMutation__
+ *
+ * To run a mutation, you first call `useRemoveStopMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveStopMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeStopMutation, { data, loading, error }] = useRemoveStopMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useRemoveStopMutation(baseOptions?: Apollo.MutationHookOptions<RemoveStopMutation, RemoveStopMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveStopMutation, RemoveStopMutationVariables>(RemoveStopDocument, options);
+      }
+export type RemoveStopMutationHookResult = ReturnType<typeof useRemoveStopMutation>;
+export type RemoveStopMutationResult = Apollo.MutationResult<RemoveStopMutation>;
+export type RemoveStopMutationOptions = Apollo.BaseMutationOptions<RemoveStopMutation, RemoveStopMutationVariables>;
 export const QueryClosestLinkDocument = gql`
     query QueryClosestLink($point: geography) {
   infrastructure_network_resolve_point_to_closest_link(args: {geog: $point}) {
