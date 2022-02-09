@@ -19,5 +19,15 @@ else
   echo "E2E docker-compose package is up to date, no need to download new version."
 fi
 
+if [[ "${1:-x}" == "--volume" ]]
+then
+  # start the testdb with mounted volume
+  DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.testdb-volume.yml -f ./docker/docker-compose.custom.yml"
+  echo $DOCKER_COMPOSE_CMD
+else
+  DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml"
+  echo $DOCKER_COMPOSE_CMD
+fi
+
 # start up only services that are needed in local ui development
-docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml up -d jore4-auth jore4-testdb jore4-hasura jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching
+$DOCKER_COMPOSE_CMD up -d jore4-auth jore4-testdb jore4-hasura jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching

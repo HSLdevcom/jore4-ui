@@ -1,0 +1,5 @@
+services:
+  jore4-testdb:
+    # preserve db's state to local disk to avoid data loss if db container is removed
+    volumes:
+      - './testdb:/var/lib/postgresql/data'
