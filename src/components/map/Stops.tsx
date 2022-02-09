@@ -1,19 +1,17 @@
 import produce from 'immer';
 import React, { useCallback, useImperativeHandle, useState } from 'react';
 import { MapEvent } from 'react-map-gl';
-import { useGetStopsQuery } from '../../generated/graphql';
+import {
+  ServicePatternScheduledStopPoint,
+  useGetStopsQuery,
+  useRemoveStopMutation,
+} from '../../generated/graphql';
+import { mapGetStopsResult } from '../../graphql/queries';
 import { Point } from '../../types';
+import { mapToVariables, showToast } from '../../utils';
 import { EditStopModal } from './EditStopModal';
 import { Stop } from './Stop';
 import { StopPopup } from './StopPopup';
-
-interface StopInfo extends Point {
-  finnishName?: string;
-}
-
-interface PopupInfo extends StopInfo {
-  index: number;
-}
 
 const mapLngLatToPoint = (lngLat: number[]): Point => {
   // allow for the z-coordinate to be passed, even though it is ignored
@@ -25,88 +23,138 @@ const mapLngLatToPoint = (lngLat: number[]): Point => {
   return { longitude: lngLat[0], latitude: lngLat[1] };
 };
 
-// eslint-disable-next-line react/display-name
 export const Stops = React.forwardRef((props, ref) => {
-  const [popupInfo, setPopupInfo] = useState<PopupInfo | null>(null);
-  const [selectedLayerIndex, setSelectedLayerIndex] = useState<number | null>(
-    null,
-  );
+  const [selectedStopId, setSelectedStopId] = useState<UUID | null>();
+  const [popupInfo, setPopupInfo] =
+    useState<Partial<ServicePatternScheduledStopPoint> | null>(null);
+  const [draftStop, setDraftStop] =
+    useState<Partial<ServicePatternScheduledStopPoint> | null>();
+  const [showEditForm, setShowEditForm] = useState(false);
 
-  const onOpenPopup = (point: Point, index: number) => {
-    setPopupInfo({ ...point, index });
-    setSelectedLayerIndex(index);
+  // TODO: Fetch only the stops visible on the map?
+  const stopsResult = useGetStopsQuery({});
+  const stops = mapGetStopsResult(stopsResult);
+  const [removeStopMutation] = useRemoveStopMutation();
+
+  const onOpenPopup = (point: Partial<ServicePatternScheduledStopPoint>) => {
+    setPopupInfo(point);
+    setSelectedStopId(point.scheduled_stop_point_id);
   };
 
   const onClosePopup = () => {
     setPopupInfo(null);
-    setSelectedLayerIndex(null);
+    setSelectedStopId(null);
   };
-
-  const [stops, setStops] = useState<StopInfo[]>([]);
-
-  // TODO: Fetch only the stops visible on the map
-  useGetStopsQuery({
-    onCompleted: (loadedStops) =>
-      setStops(
-        loadedStops.service_pattern_scheduled_stop_point.map((stop) => ({
-          ...mapLngLatToPoint(stop.measured_location.coordinates),
-          finnishName: stop.label || undefined,
-        })),
-      ),
-  });
-
-  const [showEditForm, setShowEditForm] = useState(false);
 
   useImperativeHandle(ref, () => ({
     onCreateStop: (e: MapEvent) => {
-      const newItem = mapLngLatToPoint(e.lngLat);
-      setStops([...stops, newItem]);
-      onOpenPopup(newItem, stops.length);
+      const stop: Partial<ServicePatternScheduledStopPoint> = {
+        measured_location: {
+          coordinates: e.lngLat,
+        },
+      };
+
+      setDraftStop(stop);
+      onOpenPopup(stop);
     },
   }));
 
-  const onRemoveStop = (index: number) => {
-    const updatedStops = produce(stops, (draft) => {
-      draft.splice(index, 1);
-    });
-    setStops(updatedStops);
+  const onRemoveStop = (id?: UUID) => {
+    if (id) {
+      // we are removing stop that is already stored to backend
+      removeStopMutation({
+        ...mapToVariables({ id }),
+        update(cache) {
+          // Remove stop from apollo's cache after deletion so that
+          // it also disappears from ui.
+          // TODO: probably we shouldn't have to do this manually or
+          // at least we should have helper function for this.
+          // Based on https://stackoverflow.com/a/66713628
+          const cached = cache.identify({
+            scheduled_stop_point_id: id,
+            __typename: 'service_pattern_scheduled_stop_point',
+          });
+          // @ts-expect-error something
+          cache.evict(cached);
+          cache.gc();
+        },
+      });
+    } else {
+      // we are "removing" stop that isn't saved yet
+      setDraftStop(null);
+    }
     onClosePopup();
   };
 
   const onStopDragEnd = useCallback(
-    (event, index) => {
-      const updatedStops = produce(stops, (draft) => {
-        draft[index] = mapLngLatToPoint(event.lngLat);
+    (event, stopId) => {
+      const existingStop = stops?.find(
+        (item) => item.scheduled_stop_point_id === stopId,
+      );
+      if (!existingStop) {
+        // eslint-disable-next-line no-console
+        console.log('Something went wrong when trying to move stop', stopId);
+        return;
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const updatedStop = produce(existingStop, (draft) => {
+        draft.measured_location.coordinates = event.lngLat;
+        // TODO: also fetch closest infra link id and
+        // stop direction based on new coordinates and
+        // set those here
       });
-      setStops(updatedStops);
+      showToast({
+        type: 'danger',
+        message: 'Moving stops by dragging is currently not supported',
+      });
+      // TODO: do mutation to move stop on backend
     },
     [stops],
   );
 
   return (
     <>
-      {stops.map((item, index) => (
+      {stops?.map((item) => {
+        const point = mapLngLatToPoint(item.measured_location.coordinates);
+        return (
+          <Stop
+            key={item.scheduled_stop_point_id}
+            selected={item.scheduled_stop_point_id === selectedStopId}
+            longitude={point.longitude}
+            latitude={point.latitude}
+            onClick={() => onOpenPopup(item)}
+            onDragEnd={(e) => onStopDragEnd(e, item.scheduled_stop_point_id)}
+            draggable
+          />
+        );
+      })}
+      {draftStop && (
         <Stop
-          // eslint-disable-next-line react/no-array-index-key
-          key={index}
-          selected={index === selectedLayerIndex}
-          longitude={item.longitude}
-          latitude={item.latitude}
-          onClick={() => onOpenPopup(item, index)}
-          onDragEnd={(e) => onStopDragEnd(e, index)}
-          draggable
+          selected
+          longitude={
+            mapLngLatToPoint(draftStop.measured_location.coordinates).longitude
+          }
+          latitude={
+            mapLngLatToPoint(draftStop.measured_location.coordinates).latitude
+          }
+          onClick={() => onOpenPopup(draftStop)}
+          onDragEnd={() => null}
         />
-      ))}
+      )}
       {popupInfo && (
         <StopPopup
-          longitude={popupInfo.longitude}
-          latitude={popupInfo.latitude}
-          finnishName={popupInfo.finnishName}
+          longitude={
+            mapLngLatToPoint(popupInfo.measured_location.coordinates).longitude
+          }
+          latitude={
+            mapLngLatToPoint(popupInfo.measured_location.coordinates).latitude
+          }
+          finnishName={popupInfo.label || ''}
           onEdit={() => {
             setShowEditForm(true);
           }}
           onDelete={() => {
-            onRemoveStop(popupInfo.index);
+            onRemoveStop(popupInfo.scheduled_stop_point_id || undefined);
           }}
           onClose={onClosePopup}
         />
@@ -114,9 +162,11 @@ export const Stops = React.forwardRef((props, ref) => {
       {showEditForm && popupInfo && (
         <EditStopModal
           defaultValues={{
-            finnishName: popupInfo.finnishName,
-            latitude: popupInfo.latitude,
-            longitude: popupInfo.longitude,
+            finnishName: popupInfo.label || '',
+            latitude: mapLngLatToPoint(popupInfo.measured_location.coordinates)
+              .latitude,
+            longitude: mapLngLatToPoint(popupInfo.measured_location.coordinates)
+              .longitude,
           }}
           onCancel={() => setShowEditForm(false)}
           onClose={() => setShowEditForm(false)}

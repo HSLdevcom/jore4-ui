@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { gql } from '@apollo/client';
+import {
+  ServicePatternScheduledStopPoint,
+  useGetStopsQuery,
+} from '../generated/graphql';
 
 /*
  * Define graphql queries here and then `@graphql-codegen` can generate TypeScript code for those.
@@ -68,3 +72,9 @@ const QUERY_GET_ALL_STOPS = gql`
     }
   }
 `;
+export const mapGetStopsResult = (
+  result: ReturnType<typeof useGetStopsQuery>,
+) =>
+  result.data?.service_pattern_scheduled_stop_point as
+    | ServicePatternScheduledStopPoint[]
+    | undefined;

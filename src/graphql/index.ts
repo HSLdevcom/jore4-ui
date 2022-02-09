@@ -48,7 +48,11 @@ const link = process.browser
   : apolloLink;
 
 const cache = new InMemoryCache({
-  typePolicies: {},
+  typePolicies: {
+    service_pattern_scheduled_stop_point: {
+      keyFields: ['scheduled_stop_point_id'],
+    },
+  },
 });
 
 const client = new ApolloClient({
