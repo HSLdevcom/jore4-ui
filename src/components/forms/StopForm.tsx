@@ -153,49 +153,51 @@ const StopFormComponent = (
         onSubmit={handleSubmit(onSubmit)}
         ref={ref}
       >
-        <h2 className="pb-6 text-xl font-bold">{t('stops.stop')}</h2>
-        <Row className="space-x-10">
-          <Column className="space-y-2">
-            <h3 className="text-lg font-bold">{t('stops.nameAddress')}</h3>
-            <Column>
-              <label htmlFor="finnishName">{t('stops.label')}</label>
-              <input type="text" {...register('finnishName', {})} />
-              <p>
-                {errors.finnishName?.type === 'too_small' &&
-                  t('formValidation.required')}
-              </p>
+        <div className="mx-12">
+          <h2 className="pb-6 text-xl font-bold">{t('stops.stop')}</h2>
+          <Row className="space-x-10">
+            <Column className="space-y-2">
+              <h3 className="text-lg font-bold">{t('stops.nameAddress')}</h3>
+              <Column>
+                <label htmlFor="finnishName">{t('stops.label')}</label>
+                <input type="text" {...register('finnishName', {})} />
+                <p>
+                  {errors.finnishName?.type === 'too_small' &&
+                    t('formValidation.required')}
+                </p>
+              </Column>
             </Column>
-          </Column>
-          <Column className="space-y-2">
-            <h3 className="text-lg font-bold">{t('map.location')}</h3>
-            <Row className="space-x-5">
-              <Column>
-                <label htmlFor="latitude">{t('map.latitude')}</label>
-                <input
-                  type="number"
-                  {...register('latitude', {
-                    valueAsNumber: true,
-                  })}
-                  step="any"
-                />
-                <p>{errors.latitude?.message}</p>
-              </Column>
-              <Column>
-                <label htmlFor="longitude">{t('map.longitude')}</label>
-                <input
-                  type="number"
-                  {...register('longitude', {
-                    valueAsNumber: true,
-                  })}
-                  step="any"
-                />
-                <p>{errors.longitude?.message}</p>
-              </Column>
-            </Row>
-          </Column>
-        </Row>
-        <Row>
-          <ConfirmSaveForm className="mt-2" />
+            <Column className="space-y-2">
+              <h3 className="text-lg font-bold">{t('map.location')}</h3>
+              <Row className="space-x-5">
+                <Column>
+                  <label htmlFor="latitude">{t('map.latitude')}</label>
+                  <input
+                    type="number"
+                    {...register('latitude', {
+                      valueAsNumber: true,
+                    })}
+                    step="any"
+                  />
+                  <p>{errors.latitude?.message}</p>
+                </Column>
+                <Column>
+                  <label htmlFor="longitude">{t('map.longitude')}</label>
+                  <input
+                    type="number"
+                    {...register('longitude', {
+                      valueAsNumber: true,
+                    })}
+                    step="any"
+                  />
+                  <p>{errors.longitude?.message}</p>
+                </Column>
+              </Row>
+            </Column>
+          </Row>
+        </div>
+        <Row className="mt-7 border-t border-light-grey px-12">
+          <ConfirmSaveForm className="mt-5" />
         </Row>
       </form>
     </FormProvider>
