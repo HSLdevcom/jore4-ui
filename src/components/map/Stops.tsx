@@ -14,7 +14,7 @@ import {
 } from '../../generated/graphql';
 import { mapGetStopsResult } from '../../graphql/queries';
 import { Point } from '../../types';
-import { mapToVariables, showToast } from '../../utils';
+import { mapToVariables, removeFromApolloCache, showToast } from '../../utils';
 import { EditStopModal } from './EditStopModal';
 import { Stop } from './Stop';
 import { StopPopup } from './StopPopup';
@@ -85,19 +85,12 @@ export const Stops = React.forwardRef((props, ref) => {
       // we are removing stop that is already stored to backend
       removeStopMutation({
         ...mapToVariables({ id }),
+        // remove stop from cache after mutation
         update(cache) {
-          // Remove stop from apollo's cache after deletion so that
-          // it also disappears from ui.
-          // TODO: probably we shouldn't have to do this manually or
-          // at least we should have helper function for this.
-          // Based on https://stackoverflow.com/a/66713628
-          const cached = cache.identify({
+          removeFromApolloCache(cache, {
             scheduled_stop_point_id: id,
             __typename: 'service_pattern_scheduled_stop_point',
           });
-          // @ts-expect-error something
-          cache.evict(cached);
-          cache.gc();
         },
       });
     } else {
