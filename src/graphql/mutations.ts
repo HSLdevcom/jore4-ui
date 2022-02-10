@@ -30,6 +30,8 @@ const INSERT_ROUTE = gql`
       route_shape
       on_line_id
       priority
+      validity_start
+      validity_end
       label
       direction
     }

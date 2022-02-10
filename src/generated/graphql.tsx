@@ -5838,7 +5838,7 @@ export type InsertRouteOneMutationVariables = Exact<{
 }>;
 
 
-export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, priority: number, label: string, direction: string } | null | undefined };
+export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, priority: number, validity_start?: any | null | undefined, validity_end?: any | null | undefined, label: string, direction: string } | null | undefined };
 
 export type QueryClosestLinkQueryVariables = Exact<{
   point?: Maybe<Scalars['geography']>;
@@ -6074,6 +6074,8 @@ export const InsertRouteOneDocument = gql`
     route_shape
     on_line_id
     priority
+    validity_start
+    validity_end
     label
     direction
   }
