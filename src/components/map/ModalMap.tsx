@@ -9,7 +9,13 @@ import {
 } from '../../generated/graphql';
 import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql/infrastructureNetwork';
 import { Modal } from '../../uiComponents';
-import { mapToObject, mapToVariables, showToast } from '../../utils';
+import {
+  mapDateInputToValidityEnd,
+  mapDateInputToValidityStart,
+  mapToObject,
+  mapToVariables,
+  showToast,
+} from '../../utils';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
@@ -63,7 +69,14 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
         label: mapEditorState.routeDetails?.label,
         description_i18n: mapEditorState.routeDetails?.description_i18n,
         direction: RouteDirectionEnum.Outbound, // TODO: make this user-configurable
-        priority: 10,
+        priority: mapEditorState.routeDetails?.priority,
+        validity_start: mapDateInputToValidityStart(
+          mapEditorState.routeDetails?.validityStart,
+        ),
+        validity_end: mapDateInputToValidityEnd(
+          mapEditorState.routeDetails?.validityEnd,
+          mapEditorState.routeDetails?.indefinite,
+        ),
         // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
         infrastructure_links_along_route: {
           data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
