@@ -15,7 +15,7 @@ export const schema = z
   .object({
     label: z.string().min(1),
     description_i18n: z.string().min(1),
-    on_line_id: z.string().uuid(),
+    on_line_id: z.string().uuid().min(1),
   })
   .merge(confirmSaveFormSchema);
 
@@ -87,7 +87,10 @@ const CreateRouteFormComponent = (
                   />
                 )}
               />
-              <p>{errors.on_line_id?.message}</p>
+              <p>
+                {errors.on_line_id?.type === 'invalid_type' &&
+                  t('formValidation.required')}
+              </p>
             </Column>
           </Row>
         </div>
