@@ -17,6 +17,6 @@ export const mapDateInputToValidityStart = (isoDate: string) =>
 // maps ISO date string (yyyy-mm-dd, returned e.g. from <input type="date" />)
 // to validity end DateTime object
 export const mapDateInputToValidityEnd = (
-  isoDate: string,
+  isoDate?: string,
   isIndefinite = false,
 ) => (isIndefinite ? null : parseISODateString(isoDate)?.endOf('day'));

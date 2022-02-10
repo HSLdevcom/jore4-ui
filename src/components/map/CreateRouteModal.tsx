@@ -36,7 +36,7 @@ export const CreateRouteModal = ({
             heading={t('routes.enterRouteData')}
           >
             <CreateRouteForm
-              className="p-12"
+              className="my-8"
               defaultValues={defaultValues}
               ref={formRef}
               onSubmit={onSuccess}

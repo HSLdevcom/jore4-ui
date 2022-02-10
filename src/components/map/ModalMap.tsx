@@ -9,7 +9,13 @@ import {
 } from '../../generated/graphql';
 import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql/infrastructureNetwork';
 import { Modal } from '../../uiComponents';
-import { mapToObject, mapToVariables, showToast } from '../../utils';
+import {
+  mapDateInputToValidityEnd,
+  mapDateInputToValidityStart,
+  mapToObject,
+  mapToVariables,
+  showToast,
+} from '../../utils';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
@@ -56,14 +62,30 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
       const startingStopId = stopIdsWithinRoute[0];
       const finalStopId = stopIdsWithinRoute[stopIdsWithinRoute.length - 1];
 
+      const { routeDetails } = mapEditorState;
+      if (!routeDetails) {
+        // eslint-disable-next-line no-console
+        console.error('Something went wrong');
+        return;
+      }
+
       const variables: InsertRouteOneMutationVariables = mapToObject({
         starts_from_scheduled_stop_point_id: startingStopId,
         ends_at_scheduled_stop_point_id: finalStopId,
-        on_line_id: mapEditorState.routeDetails?.on_line_id,
-        label: mapEditorState.routeDetails?.label,
-        description_i18n: mapEditorState.routeDetails?.description_i18n,
+        on_line_id: routeDetails.on_line_id,
+        label: routeDetails.label,
+        description_i18n: routeDetails.description_i18n,
         direction: RouteDirectionEnum.Outbound, // TODO: make this user-configurable
-        priority: 10,
+        priority: routeDetails.priority,
+        validity_start: mapDateInputToValidityStart(
+          // form validation makes sure that 'validityStart' has a valid value at this poin
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          routeDetails.validityStart!,
+        ),
+        validity_end: mapDateInputToValidityEnd(
+          routeDetails.validityEnd,
+          routeDetails.indefinite,
+        ),
         // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
         infrastructure_links_along_route: {
           data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
