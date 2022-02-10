@@ -1,6 +1,12 @@
 import produce from 'immer';
-import React, { useCallback, useImperativeHandle, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import { MapEvent } from 'react-map-gl';
+import { MapEditorContext } from '../../context/MapEditorContext';
 import {
   ServicePatternScheduledStopPoint,
   useGetStopsQuery,
@@ -24,26 +30,41 @@ const mapLngLatToPoint = (lngLat: number[]): Point => {
 };
 
 export const Stops = React.forwardRef((props, ref) => {
-  const [selectedStopId, setSelectedStopId] = useState<UUID | null>();
-  const [popupInfo, setPopupInfo] =
-    useState<Partial<ServicePatternScheduledStopPoint> | null>(null);
-  const [draftStop, setDraftStop] =
-    useState<Partial<ServicePatternScheduledStopPoint> | null>();
+  // TODO: We might want to move these to MapEditorContext
+  const [popupInfo, setPopupInfo] = useState<
+    Partial<ServicePatternScheduledStopPoint> | undefined
+  >();
+  const [draftStop, setDraftStop] = useState<
+    Partial<ServicePatternScheduledStopPoint> | undefined
+  >();
   const [showEditForm, setShowEditForm] = useState(false);
 
+  const {
+    dispatch: mapEditorDispatch,
+    state: { selectedStopId },
+  } = useContext(MapEditorContext);
   // TODO: Fetch only the stops visible on the map?
   const stopsResult = useGetStopsQuery({});
   const stops = mapGetStopsResult(stopsResult);
   const [removeStopMutation] = useRemoveStopMutation();
 
+  const setSelectedStopId = (id?: UUID) => {
+    mapEditorDispatch({
+      type: 'setState',
+      payload: {
+        selectedStopId: id,
+      },
+    });
+  };
+
   const onOpenPopup = (point: Partial<ServicePatternScheduledStopPoint>) => {
     setPopupInfo(point);
-    setSelectedStopId(point.scheduled_stop_point_id);
+    setSelectedStopId(point.scheduled_stop_point_id || undefined);
   };
 
   const onClosePopup = () => {
-    setPopupInfo(null);
-    setSelectedStopId(null);
+    setPopupInfo(undefined);
+    setSelectedStopId(undefined);
   };
 
   useImperativeHandle(ref, () => ({
@@ -81,7 +102,7 @@ export const Stops = React.forwardRef((props, ref) => {
       });
     } else {
       // we are "removing" stop that isn't saved yet
-      setDraftStop(null);
+      setDraftStop(undefined);
     }
     onClosePopup();
   };
