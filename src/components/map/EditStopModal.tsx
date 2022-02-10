@@ -30,7 +30,7 @@ export const EditStopModal = ({
             heading={t('stops.stopById', { id: 'xxxxx' })}
           >
             <StopForm
-              className="p-12"
+              className="my-8"
               defaultValues={defaultValues}
               onSubmitSuccess={onClose}
               ref={formRef}
