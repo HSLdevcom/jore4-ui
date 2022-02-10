@@ -11,6 +11,7 @@ export enum Mode {
 export interface IMapEditorContext {
   hasRoute: boolean;
   displayedRouteIds?: UUID[];
+  selectedStopId?: UUID;
   canAddStops: boolean;
   routeDetails?: Partial<RouteFormState>;
   drawingMode: Mode | undefined;
@@ -22,6 +23,7 @@ export interface IMapEditorContext {
 export const initialState: IMapEditorContext = {
   hasRoute: false,
   displayedRouteIds: undefined,
+  selectedStopId: undefined,
   canAddStops: false,
   drawingMode: undefined,
   routeDetails: undefined,
