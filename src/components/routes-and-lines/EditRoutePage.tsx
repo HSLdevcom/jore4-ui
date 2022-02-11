@@ -9,18 +9,22 @@ import {
 import { mapRouteDetailsResult } from '../../graphql/route';
 import { Container, Row } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
+import { mapToISODate } from '../../time';
 import {
   ConfirmationDialog,
   FormContainer,
   SimpleButton,
 } from '../../uiComponents';
 import {
+  mapDateInputToValidityEnd,
+  mapDateInputToValidityStart,
   mapToObject,
   mapToVariables,
   showToast,
   submitFormByRef,
 } from '../../utils';
-import { FormState, RoutePropertiesForm } from '../forms/RoutePropertiesForm';
+import { FormState } from '../forms/CreateRouteForm';
+import { RoutePropertiesForm } from '../forms/RoutePropertiesForm';
 import { PageHeader } from './PageHeader';
 
 export const EditRoutePage = (): JSX.Element => {
@@ -48,14 +52,17 @@ export const EditRoutePage = (): JSX.Element => {
   };
 
   const onSubmit = async (state: FormState) => {
-    const { finnishName, label, onLineId } = state;
+    const { label, priority, validityStart, validityEnd, indefinite } = state;
 
     const variables = {
       route_id: id,
       ...mapToObject({
-        description_i18n: finnishName,
+        description_i18n: state.description_i18n,
         label,
-        on_line_id: onLineId,
+        on_line_id: state.on_line_id,
+        priority,
+        validity_start: mapDateInputToValidityStart(validityStart),
+        validity_end: mapDateInputToValidityEnd(validityEnd, indefinite),
       }),
     };
 
@@ -116,9 +123,13 @@ export const EditRoutePage = (): JSX.Element => {
                 ref={formRef}
                 className="mb-2 ml-2 p-6"
                 defaultValues={{
-                  finnishName: route.description_i18n || '',
+                  description_i18n: route.description_i18n || '',
                   label: route.label,
-                  onLineId: route.on_line_id,
+                  on_line_id: route.on_line_id,
+                  priority: route.priority,
+                  validityStart: mapToISODate(route.validity_start),
+                  validityEnd: mapToISODate(route?.validity_end),
+                  indefinite: !route?.validity_end,
                 }}
                 onSubmit={onSubmit}
               />
