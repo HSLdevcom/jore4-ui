@@ -71,6 +71,12 @@
     "validityEnd": "Päättyy",
     "indefinite": "Voimassa toistaiseksi"
   },
+  "confirmDeleteRouteDialog": {
+    "title": "Poista reitti?",
+    "description": "Reitti poistetaan sille kuuluvalta linjalta.",
+    "confirmText": "Poista",
+    "cancelText": "Peruuta"
+  },
   "priority": {
     "label": "Prioriteetti",
     "standard": "Perusversio",
