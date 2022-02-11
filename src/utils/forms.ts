@@ -1,4 +1,4 @@
-import { parseISODateString } from '../time';
+import { mapToISODate, parseISODateString } from '../time';
 
 // Submits form implemented with `react-hook-form` by ref
 // useful in cases where ui designs prevent us from defining
@@ -20,3 +20,9 @@ export const mapDateInputToValidityEnd = (
   isoDate?: string,
   isIndefinite = false,
 ) => (isIndefinite ? null : parseISODateString(isoDate)?.endOf('day'));
+// maps validity end DateTime object to
+// to validity end ISO date string and isIndefinite boolean
+export const mapValidityEndToFormState = (validityEnd: string | null) =>
+  validityEnd === null
+    ? { isIndefinite: true, validityEnd: undefined }
+    : { isIndefinite: false, validityEnd: mapToISODate(validityEnd) };

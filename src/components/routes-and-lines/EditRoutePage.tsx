@@ -10,11 +10,15 @@ import {
 import { mapRouteDetailsResult } from '../../graphql/route';
 import { Container, Row } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
+import { mapToISODate } from '../../time';
 import { SimpleButton } from '../../uiComponents';
 import { ConfirmationDialog } from '../../uiComponents/ComfirmationDialog';
 import {
+  mapDateInputToValidityEnd,
+  mapDateInputToValidityStart,
   mapToObject,
   mapToVariables,
+  mapValidityEndToFormState,
   showToast,
   submitFormByRef,
 } from '../../utils';
@@ -47,7 +51,15 @@ export const EditRoutePage = (): JSX.Element => {
   };
 
   const onSubmit = async (state: FormState) => {
-    const { finnishName, label, onLineId } = state;
+    const {
+      finnishName,
+      label,
+      onLineId,
+      priority,
+      validityStart,
+      validityEnd,
+      indefinite,
+    } = state;
 
     const variables = {
       route_id: id,
@@ -55,6 +67,9 @@ export const EditRoutePage = (): JSX.Element => {
         description_i18n: finnishName,
         label,
         on_line_id: onLineId,
+        priority,
+        validity_start: mapDateInputToValidityStart(validityStart),
+        validity_end: mapDateInputToValidityEnd(validityEnd, indefinite),
       }),
     };
 
@@ -118,6 +133,12 @@ export const EditRoutePage = (): JSX.Element => {
                   finnishName: route.description_i18n || '',
                   label: route.label,
                   onLineId: route.on_line_id,
+                  priority: route.priority,
+                  validityStart: mapToISODate(route.validity_start),
+                  validityEnd: mapValidityEndToFormState(route.validity_end)
+                    .validityEnd,
+                  indefinite: mapValidityEndToFormState(route.validity_end)
+                    .isIndefinite,
                 }}
                 onSubmit={onSubmit}
               />
