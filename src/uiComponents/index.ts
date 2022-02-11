@@ -1,4 +1,5 @@
 export * from './Card';
+export * from './ConfirmationDialog';
 export * from './EditButton';
 export * from './FormContainer';
 export * from './IconButton';

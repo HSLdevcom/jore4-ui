@@ -10,7 +10,11 @@ import {
 import { mapRouteDetailsResult } from '../../graphql/route';
 import { Container, Row } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
-import { FormContainer, SimpleButton } from '../../uiComponents';
+import {
+  ConfirmationDialog,
+  FormContainer,
+  SimpleButton,
+} from '../../uiComponents';
 import {
   mapToObject,
   mapToVariables,
@@ -22,6 +26,8 @@ import { PageHeader } from './PageHeader';
 
 export const EditRoutePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const [patchRoute] = usePatchRouteMutation();
   const [deleteRoute] = useDeleteRouteMutation();
   const history = useHistory();
@@ -125,7 +131,7 @@ export const EditRoutePage = (): JSX.Element => {
           <SimpleButton
             id="delete-button"
             className="ml-auto"
-            onClick={onDelete}
+            onClick={() => setIsDeleting(true)}
             inverted
           >
             {t('map.deleteRoute')}
@@ -143,6 +149,15 @@ export const EditRoutePage = (): JSX.Element => {
           </SimpleButton>
         </Row>
       </Container>
+      <ConfirmationDialog
+        isOpen={isDeleting}
+        onCancel={() => setIsDeleting(false)}
+        onConfirm={onDelete}
+        title={t('confirmDeleteRouteDialog.title')}
+        description={t('confirmDeleteRouteDialog.description')}
+        confirmText={t('confirmDeleteRouteDialog.confirmText')}
+        cancelText={t('confirmDeleteRouteDialog.cancelText')}
+      />
     </div>
   );
 };
