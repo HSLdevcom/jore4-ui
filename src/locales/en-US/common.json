@@ -71,6 +71,12 @@
     "validityEnd": "Ends",
     "indefinite": "Valid indefinitely"
   },
+  "confirmDeleteRouteDialog": {
+    "title": "Delete route?",
+    "description": "Route will be deleted from the line it belongs to.",
+    "confirmText": "Delete",
+    "cancelText": "Cancel"
+  },
   "priority": {
     "label": "Priority",
     "standard": "Standard",
