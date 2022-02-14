@@ -12,7 +12,7 @@ export const schema = z.object({
     .string()
     .min(1)
     .regex(/[0-9]{4}-[0-9]{2}-[0-9]{2}/),
-  validityEnd: z.string().regex(/[0-9]{4}-[0-9]{2}-[0-9]{2}/),
+  validityEnd: z.string(),
   indefinite: z.boolean(),
 });
 
