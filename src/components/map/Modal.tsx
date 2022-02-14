@@ -63,7 +63,7 @@ export const Modal: FunctionComponent<Props> = ({
   children,
 }) => {
   return (
-    <div className="bg-white">
+    <div className="overflow-auto bg-white">
       <ModalHeader onClose={onClose} heading={heading} />
       {children}
       <ModalFooter onCancel={onCancel} onSave={onSave} />

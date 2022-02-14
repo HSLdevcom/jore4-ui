@@ -28,7 +28,7 @@ export const CreateRouteModal = ({
   return (
     <HTMLOverlay
       redraw={() => (
-        <div className="ml-5 mt-5 flex">
+        <div className="flex max-h-full py-5 pl-5">
           <Modal
             onSave={onModalSave}
             onCancel={onCancel}
