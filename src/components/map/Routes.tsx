@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { MapEditorContext, Mode } from '../../context/MapEditorContext';
-import { FormState, schema } from '../forms/CreateRouteForm';
+import { FormState, schema } from '../forms/RoutePropertiesForm';
 import { CreateRouteModal } from './CreateRouteModal';
 
 export const Routes: React.FC = () => {
