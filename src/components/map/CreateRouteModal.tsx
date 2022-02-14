@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HTMLOverlay } from 'react-map-gl';
 import { submitFormByRef } from '../../utils';
-import { CreateRouteForm, FormState } from '../forms/CreateRouteForm';
+import { FormState, RoutePropertiesForm } from '../forms/RoutePropertiesForm';
 import { Modal } from './Modal';
 
 interface Props {
@@ -35,8 +35,8 @@ export const CreateRouteModal = ({
             onClose={onClose}
             heading={t('routes.enterRouteData')}
           >
-            <CreateRouteForm
-              className="my-8"
+            <RoutePropertiesForm
+              className="my-8 mx-12 max-w-sm"
               defaultValues={defaultValues}
               ref={formRef}
               onSubmit={onSuccess}

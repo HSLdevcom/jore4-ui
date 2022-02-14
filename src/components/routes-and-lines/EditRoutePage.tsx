@@ -23,8 +23,7 @@ import {
   showToast,
   submitFormByRef,
 } from '../../utils';
-import { FormState } from '../forms/CreateRouteForm';
-import { RoutePropertiesForm } from '../forms/RoutePropertiesForm';
+import { FormState, RoutePropertiesForm } from '../forms/RoutePropertiesForm';
 import { PageHeader } from './PageHeader';
 
 export const EditRoutePage = (): JSX.Element => {

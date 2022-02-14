@@ -2,10 +2,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
 import { Column, Row } from '../../layoutComponents';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
-import { ConfirmSaveForm } from './ConfirmSaveForm';
-import { FormState, schema } from './CreateRouteForm';
+import {
+  ConfirmSaveForm,
+  FormState as ConfirmSaveFormState,
+  schema as confirmSaveFormSchema,
+} from './ConfirmSaveForm';
 
 interface Props {
   id?: string;
@@ -14,6 +18,16 @@ interface Props {
   defaultValues: Partial<FormState>;
   onSubmit: (state: FormState) => void;
 }
+
+export const schema = z
+  .object({
+    label: z.string().min(1),
+    description_i18n: z.string().min(1),
+    on_line_id: z.string().uuid().min(1),
+  })
+  .merge(confirmSaveFormSchema);
+
+export type FormState = z.infer<typeof schema> & ConfirmSaveFormState;
 
 const RoutePropertiesFormComponent = (
   { id, routeLabel, className, defaultValues, onSubmit }: Props,
@@ -42,13 +56,15 @@ const RoutePropertiesFormComponent = (
         onSubmit={handleSubmit(onSubmit)}
         ref={ref}
       >
-        <Row>
-          <h2 className="mb-8 text-2xl font-bold">
-            {t('routes.route')} {routeLabel}
-          </h2>
-        </Row>
-        <Row className="mb-5 space-x-10">
-          <Column className="w-2/4">
+        {routeLabel && (
+          <Row>
+            <h2 className="mb-8 text-2xl font-bold">
+              {t('routes.route')} {routeLabel}
+            </h2>
+          </Row>
+        )}
+        <Row className="mb-5 flex-wrap gap-2">
+          <Column className="w-1/2 flex-auto">
             <label htmlFor="description_i18n">{t('routes.name')}</label>
             <input
               id="description_i18n"
@@ -60,7 +76,7 @@ const RoutePropertiesFormComponent = (
                 t('formValidation.required')}
             </p>
           </Column>
-          <Column className="w-1/4">
+          <Column className="w-1/6 flex-auto">
             <label htmlFor="label">{t('routes.label')}</label>
             <input id="label" type="text" {...register('label', {})} />
             <p>
@@ -68,7 +84,7 @@ const RoutePropertiesFormComponent = (
                 t('formValidation.required')}
             </p>
           </Column>
-          <Column className="w-1/4">
+          <Column className="w-56 flex-auto">
             <label htmlFor="on_line_id">{t('routes.addToLine')}</label>
             <Controller
               name="on_line_id"
