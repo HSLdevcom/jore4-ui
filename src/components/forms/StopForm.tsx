@@ -7,10 +7,10 @@ import { z } from 'zod';
 import {
   InsertStopMutationVariables,
   QueryClosestLinkDocument,
-  QueryClosestLinkQueryResult,
+  QueryClosestLinkQuery,
   QueryClosestLinkQueryVariables,
   QueryPointDirectionOnLinkDocument,
-  QueryPointDirectionOnLinkQueryResult,
+  QueryPointDirectionOnLinkQuery,
   QueryPointDirectionOnLinkQueryVariables,
   ReusableComponentsVehicleModeEnum,
   useInsertStopMutation,
@@ -33,19 +33,16 @@ import {
 } from './ConfirmSaveForm';
 
 const parseInfraLinkId = (
-  response: ApolloQueryResult<QueryClosestLinkQueryResult>,
+  response: ApolloQueryResult<QueryClosestLinkQuery>,
 ) => {
-  return (
-    // @ts-expect-error types seems to be off
-    response.data?.infrastructure_network_resolve_point_to_closest_link?.[0]
-      ?.infrastructure_link_id
-  );
+  return response.data
+    ?.infrastructure_network_resolve_point_to_closest_link?.[0]
+    ?.infrastructure_link_id;
 };
 
 const parseStopDirection = (
-  response: ApolloQueryResult<QueryPointDirectionOnLinkQueryResult>,
+  response: ApolloQueryResult<QueryPointDirectionOnLinkQuery>,
 ) => {
-  // @ts-expect-error types seems to be off
   return response.data?.infrastructure_network_find_point_direction_on_link?.[0]
     ?.value;
 };
@@ -83,11 +80,11 @@ const StopFormComponent = (
   } = methods;
 
   const [fetchClosestLink] = useAsyncQuery<
-    QueryClosestLinkQueryResult,
+    QueryClosestLinkQuery,
     QueryClosestLinkQueryVariables
   >(QueryClosestLinkDocument);
   const [fetchStopDirection] = useAsyncQuery<
-    QueryPointDirectionOnLinkQueryResult,
+    QueryPointDirectionOnLinkQuery,
     QueryPointDirectionOnLinkQueryVariables
   >(QueryPointDirectionOnLinkDocument);
   const [mutateFunction] = useInsertStopMutation();

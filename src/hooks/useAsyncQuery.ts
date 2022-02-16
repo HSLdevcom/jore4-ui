@@ -8,7 +8,10 @@ import {
 import { useState } from 'react';
 
 // based on https://github.com/apollographql/apollo-client/issues/7714
-export const useAsyncQuery = <TData, TVariables = OperationVariables>(
+export const useAsyncQuery = <
+  TData extends GqlQueryResultData,
+  TVariables = OperationVariables,
+>(
   query: DocumentNode | TypedDocumentNode<TData, TVariables>,
 ): [
   (variables: TVariables) => Promise<ApolloQueryResult<TData>>,
