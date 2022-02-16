@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FetchResult, gql } from '@apollo/client';
+import { FetchResult, gql, ApolloQueryResult } from '@apollo/client';
 import {
   InsertLineOneMutation,
   RouteLine,
   RouteRoute,
   useGetLineDetailsByIdQuery,
   useGetLineDetailsWithRoutesByIdQuery,
-  useGetRouteDetailsByIdQuery,
+  useGetRouteDetailsByIdsQuery,
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
+  GetRouteDetailsByIdsQuery,
 } from '../generated/graphql';
 
 const LINE_DEFAULT_FIELDS = gql`
@@ -69,6 +70,15 @@ const ROUTE_WITH_STOPS = gql`
     }
     ends_at_scheduled_stop_point {
       ...scheduled_stop_point_default_fields
+    }
+  }
+`;
+
+const ROUTE_WITH_JOURNEY_PATTERN_STOPS = gql`
+  fragment route_with_journey_pattern_stops on route_route {
+    ...route_all_fields
+    route_journey_patterns {
+      ...journey_pattern_with_stops
     }
   }
 `;
@@ -139,10 +149,10 @@ export const mapLineDetailsWithRoutesResult = (
   result: ReturnType<typeof useGetLineDetailsWithRoutesByIdQuery>,
 ) => result.data?.route_line_by_pk as RouteLine | undefined;
 
-const GET_ROUTE_DETAILS_BY_ID = gql`
-  query GetRouteDetailsById($route_id: uuid!) {
-    route_route(where: { route_id: { _eq: $route_id } }) {
-      ...route_all_fields
+const GET_ROUTE_DETAILS_BY_IDS = gql`
+  query GetRouteDetailsByIds($route_ids: [uuid!]) {
+    route_route(where: { route_id: { _in: $route_ids } }) {
+      ...route_with_journey_pattern_stops
       route_line {
         label
       }
@@ -150,8 +160,12 @@ const GET_ROUTE_DETAILS_BY_ID = gql`
   }
 `;
 export const mapRouteDetailsResult = (
-  result: ReturnType<typeof useGetRouteDetailsByIdQuery>,
+  result: ReturnType<typeof useGetRouteDetailsByIdsQuery>,
 ) => result.data?.route_route[0] as RouteRoute | undefined;
+
+export const mapRoutesDetailsResult = (
+  result: ApolloQueryResult<GetRouteDetailsByIdsQuery>,
+) => result.data?.route_route as RouteRoute[] | [];
 
 const INSERT_LINE = gql`
   mutation InsertLineOne($object: route_line_insert_input!) {

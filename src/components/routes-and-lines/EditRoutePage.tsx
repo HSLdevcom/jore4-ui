@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Redirect, useParams } from 'react-router-dom';
 import {
   useDeleteRouteMutation,
-  useGetRouteDetailsByIdQuery,
+  useGetRouteDetailsByIdsQuery,
   usePatchRouteMutation,
 } from '../../generated/graphql';
 import { mapRouteDetailsResult } from '../../graphql';
@@ -36,8 +36,8 @@ export const EditRoutePage = (): JSX.Element => {
 
   const { id } = useParams<{ id: string }>();
 
-  const routeDetailsResult = useGetRouteDetailsByIdQuery({
-    ...mapToVariables({ route_id: id }),
+  const routeDetailsResult = useGetRouteDetailsByIdsQuery({
+    ...mapToVariables({ route_ids: [id] }),
   });
   const route = mapRouteDetailsResult(routeDetailsResult);
   const { t } = useTranslation();
