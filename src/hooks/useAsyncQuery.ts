@@ -7,8 +7,13 @@ import {
 } from '@apollo/client';
 import { useState } from 'react';
 
+type GqlResultData = { __typename?: 'query_root' };
+
 // based on https://github.com/apollographql/apollo-client/issues/7714
-export const useAsyncQuery = <TData, TVariables = OperationVariables>(
+export const useAsyncQuery = <
+  TData extends GqlResultData,
+  TVariables = OperationVariables,
+>(
   query: DocumentNode | TypedDocumentNode<TData, TVariables>,
 ): [
   (variables: TVariables) => Promise<ApolloQueryResult<TData>>,
