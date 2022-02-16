@@ -5,6 +5,7 @@ interface Props {
   borderWidth?: number;
   fillColor?: string;
   borderColor?: string;
+  centerDot?: boolean;
   onClick?: () => void;
 }
 
@@ -13,6 +14,7 @@ const CircleComponent = ({
   borderWidth = 2,
   fillColor = 'white',
   borderColor = 'black',
+  centerDot = false,
   onClick,
 }: Props): JSX.Element => {
   return (
@@ -25,6 +27,16 @@ const CircleComponent = ({
         strokeWidth={borderWidth}
         fill={fillColor}
       />
+      {centerDot && (
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={1}
+          stroke={borderColor}
+          strokeWidth={borderWidth}
+          fill={fillColor}
+        />
+      )}
     </svg>
   );
 };
