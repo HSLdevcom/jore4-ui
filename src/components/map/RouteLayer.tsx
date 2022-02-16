@@ -1,8 +1,11 @@
 import React from 'react';
 import { Layer, Source } from 'react-map-gl';
 import { useGetRouteDetailsByIdQuery } from '../../generated/graphql';
+import { theme } from '../../generated/theme';
 import { mapRouteDetailsResult } from '../../graphql/route';
 import { mapToVariables } from '../../utils';
+
+const { colors } = theme;
 
 interface Props {
   routeId: string;
@@ -22,7 +25,11 @@ export const RouteLayer = ({ routeId }: Props) => {
   const layerStyle = {
     id: `route_${routeId}`,
     type: 'line' as const,
-    paint: {},
+    paint: {
+      'line-color': colors.stop,
+      'line-width': 8,
+      'line-opacity': 0.75,
+    },
   };
 
   return (

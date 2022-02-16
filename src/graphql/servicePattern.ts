@@ -7,6 +7,10 @@ const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
     label
     validity_start
     validity_end
+    measured_location
+    vehicle_mode_on_scheduled_stop_point {
+      vehicle_mode
+    }
   }
 `;
 

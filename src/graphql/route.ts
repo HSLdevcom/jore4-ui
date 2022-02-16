@@ -50,6 +50,9 @@ const ROUTE_ALL_FIELDS = gql`
     priority
     label
     direction
+    route_journey_patterns {
+      ...journey_pattern_with_stops
+    }
   }
 `;
 
@@ -87,7 +90,10 @@ const LIST_OWN_LINES = gql`
     route_line {
       ...line_default_fields
       line_routes {
-        route_id
+        ...route_with_stops
+        route_journey_patterns {
+          ...journey_pattern_with_stops
+        }
       }
     }
   }
