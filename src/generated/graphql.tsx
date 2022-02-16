@@ -5861,6 +5861,8 @@ export type RouteDefaultFieldsFragment = { __typename?: 'route_route', route_id:
 
 export type RouteWithStopsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined };
 
+export type RouteWithJourneyPatternStopsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> }> };
+
 export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5890,12 +5892,12 @@ export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
 
 export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> } | null | undefined };
 
-export type GetRouteDetailsByIdQueryVariables = Exact<{
-  route_id: Scalars['uuid'];
+export type GetRouteDetailsByIdsQueryVariables = Exact<{
+  route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
 
 
-export type GetRouteDetailsByIdQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', label: string } | null | undefined }> };
+export type GetRouteDetailsByIdsQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', label: string } | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> }> }> };
 
 export type InsertLineOneMutationVariables = Exact<{
   object: RouteLineInsertInput;
@@ -5955,36 +5957,6 @@ export type InsertStopMutationVariables = Exact<{
 
 export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_pattern_scheduled_stop_point_one?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, located_on_infrastructure_link_id: UUID, direction: string, priority: number, measured_location: GeoJSON.Point, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined };
 
-export const ScheduledStopPointInJourneyPatternDefaultFieldsFragmentDoc = gql`
-    fragment scheduled_stop_point_in_journey_pattern_default_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
-  journey_pattern_id
-  scheduled_stop_point_id
-  scheduled_stop_point_sequence
-  is_timing_point
-  is_via_point
-}
-    `;
-export const ScheduledStopPointDefaultFieldsFragmentDoc = gql`
-    fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {
-  scheduled_stop_point_id
-  label
-  validity_start
-  validity_end
-}
-    `;
-export const JourneyPatternWithStopsFragmentDoc = gql`
-    fragment journey_pattern_with_stops on journey_pattern_journey_pattern {
-  journey_pattern_id
-  on_route_id
-  scheduled_stop_point_in_journey_patterns {
-    ...scheduled_stop_point_in_journey_pattern_default_fields
-    scheduled_stop_point {
-      ...scheduled_stop_point_default_fields
-    }
-  }
-}
-    ${ScheduledStopPointInJourneyPatternDefaultFieldsFragmentDoc}
-${ScheduledStopPointDefaultFieldsFragmentDoc}`;
 export const LineDefaultFieldsFragmentDoc = gql`
     fragment line_default_fields on route_line {
   line_id
@@ -6031,6 +6003,14 @@ export const RouteAllFieldsFragmentDoc = gql`
   direction
 }
     `;
+export const ScheduledStopPointDefaultFieldsFragmentDoc = gql`
+    fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {
+  scheduled_stop_point_id
+  label
+  validity_start
+  validity_end
+}
+    `;
 export const RouteWithStopsFragmentDoc = gql`
     fragment route_with_stops on route_route {
   ...route_all_fields
@@ -6043,6 +6023,37 @@ export const RouteWithStopsFragmentDoc = gql`
 }
     ${RouteAllFieldsFragmentDoc}
 ${ScheduledStopPointDefaultFieldsFragmentDoc}`;
+export const ScheduledStopPointInJourneyPatternDefaultFieldsFragmentDoc = gql`
+    fragment scheduled_stop_point_in_journey_pattern_default_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
+  journey_pattern_id
+  scheduled_stop_point_id
+  scheduled_stop_point_sequence
+  is_timing_point
+  is_via_point
+}
+    `;
+export const JourneyPatternWithStopsFragmentDoc = gql`
+    fragment journey_pattern_with_stops on journey_pattern_journey_pattern {
+  journey_pattern_id
+  on_route_id
+  scheduled_stop_point_in_journey_patterns {
+    ...scheduled_stop_point_in_journey_pattern_default_fields
+    scheduled_stop_point {
+      ...scheduled_stop_point_default_fields
+    }
+  }
+}
+    ${ScheduledStopPointInJourneyPatternDefaultFieldsFragmentDoc}
+${ScheduledStopPointDefaultFieldsFragmentDoc}`;
+export const RouteWithJourneyPatternStopsFragmentDoc = gql`
+    fragment route_with_journey_pattern_stops on route_route {
+  ...route_all_fields
+  route_journey_patterns {
+    ...journey_pattern_with_stops
+  }
+}
+    ${RouteAllFieldsFragmentDoc}
+${JourneyPatternWithStopsFragmentDoc}`;
 export const QueryClosestLinkDocument = gql`
     query QueryClosestLink($point: geography) {
   infrastructure_network_resolve_point_to_closest_link(args: {geog: $point}) {
@@ -6350,44 +6361,44 @@ export function useGetLineDetailsWithRoutesByIdLazyQuery(baseOptions?: Apollo.La
 export type GetLineDetailsWithRoutesByIdQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdQuery>;
 export type GetLineDetailsWithRoutesByIdLazyQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdLazyQuery>;
 export type GetLineDetailsWithRoutesByIdQueryResult = Apollo.QueryResult<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>;
-export const GetRouteDetailsByIdDocument = gql`
-    query GetRouteDetailsById($route_id: uuid!) {
-  route_route(where: {route_id: {_eq: $route_id}}) {
-    ...route_all_fields
+export const GetRouteDetailsByIdsDocument = gql`
+    query GetRouteDetailsByIds($route_ids: [uuid!]) {
+  route_route(where: {route_id: {_in: $route_ids}}) {
+    ...route_with_journey_pattern_stops
     route_line {
       label
     }
   }
 }
-    ${RouteAllFieldsFragmentDoc}`;
+    ${RouteWithJourneyPatternStopsFragmentDoc}`;
 
 /**
- * __useGetRouteDetailsByIdQuery__
+ * __useGetRouteDetailsByIdsQuery__
  *
- * To run a query within a React component, call `useGetRouteDetailsByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRouteDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetRouteDetailsByIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteDetailsByIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetRouteDetailsByIdQuery({
+ * const { data, loading, error } = useGetRouteDetailsByIdsQuery({
  *   variables: {
- *      route_id: // value for 'route_id'
+ *      route_ids: // value for 'route_ids'
  *   },
  * });
  */
-export function useGetRouteDetailsByIdQuery(baseOptions: Apollo.QueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>) {
+export function useGetRouteDetailsByIdsQuery(baseOptions?: Apollo.QueryHookOptions<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
+        return Apollo.useQuery<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>(GetRouteDetailsByIdsDocument, options);
       }
-export function useGetRouteDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>) {
+export function useGetRouteDetailsByIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
+          return Apollo.useLazyQuery<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>(GetRouteDetailsByIdsDocument, options);
         }
-export type GetRouteDetailsByIdQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdQuery>;
-export type GetRouteDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdLazyQuery>;
-export type GetRouteDetailsByIdQueryResult = Apollo.QueryResult<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>;
+export type GetRouteDetailsByIdsQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdsQuery>;
+export type GetRouteDetailsByIdsLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdsLazyQuery>;
+export type GetRouteDetailsByIdsQueryResult = Apollo.QueryResult<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>;
 export const InsertLineOneDocument = gql`
     mutation InsertLineOne($object: route_line_insert_input!) {
   insert_route_line_one(object: $object) {

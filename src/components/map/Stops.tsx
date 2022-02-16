@@ -9,6 +9,7 @@ import { MapEvent } from 'react-map-gl';
 import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { MapEditorContext } from '../../context/MapEditorContext';
 import {
+  ReusableComponentsVehicleModeEnum,
   ServicePatternScheduledStopPoint,
   useGetStopsQuery,
   useRemoveStopMutation,
@@ -40,7 +41,7 @@ export const Stops = React.forwardRef((props, ref) => {
 
   const {
     dispatch: mapEditorDispatch,
-    state: { selectedStopId },
+    state: { selectedStopId, stopIdsWithinRoute },
   } = useContext(MapEditorContext);
   // TODO: Fetch only the stops visible on the map?
   const stopsResult = useGetStopsQuery({});
@@ -138,6 +139,11 @@ export const Stops = React.forwardRef((props, ref) => {
             onClick={() => onOpenPopup(item)}
             onDragEnd={(e) => onStopDragEnd(e, item.scheduled_stop_point_id)}
             draggable
+            onVehicleRoute={
+              stopIdsWithinRoute?.includes(item.scheduled_stop_point_id)
+                ? ReusableComponentsVehicleModeEnum.Bus
+                : undefined
+            }
           />
         );
       })}
