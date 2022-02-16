@@ -12,7 +12,7 @@ import {
   useGetStopsQuery,
   useRemoveStopMutation,
 } from '../../generated/graphql';
-import { mapGetStopsResult } from '../../graphql/queries';
+import { mapGetStopsResult } from '../../graphql';
 import { Point } from '../../types';
 import { mapToVariables, removeFromApolloCache, showToast } from '../../utils';
 import { EditStopModal } from './EditStopModal';

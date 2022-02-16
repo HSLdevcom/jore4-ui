@@ -182,6 +182,23 @@ const UPDATE_LINE = gql`
   }
 `;
 
+const INSERT_ROUTE = gql`
+  mutation InsertRouteOne($object: route_route_insert_input!) {
+    insert_route_route_one(object: $object) {
+      route_id
+      starts_from_scheduled_stop_point_id
+      ends_at_scheduled_stop_point_id
+      route_shape
+      on_line_id
+      priority
+      validity_start
+      validity_end
+      label
+      direction
+    }
+  }
+`;
+
 const UPDATE_ROUTE = gql`
   mutation PatchRoute($route_id: uuid!, $object: route_route_set_input!) {
     update_route_route(where: { route_id: { _eq: $route_id } }, _set: $object) {

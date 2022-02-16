@@ -8,10 +8,7 @@ import {
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
 } from '../generated/graphql';
-import {
-  mapListChangingRoutesResult,
-  mapListOwnLinesResult,
-} from '../graphql/route';
+import { mapListChangingRoutesResult, mapListOwnLinesResult } from '../graphql';
 import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { SimpleButton } from '../uiComponents';

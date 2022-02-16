@@ -21,7 +21,7 @@ import {
   extractScheduledStopPointIds,
   InfrastructureLinkAlongRoute,
   orderInfraLinksByExternalLinkId,
-} from '../../graphql/infrastructureNetwork';
+} from '../../graphql';
 import { useAsyncQuery } from '../../hooks';
 import { addRoute, removeRoute } from './mapUtils';
 

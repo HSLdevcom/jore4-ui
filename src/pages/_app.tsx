@@ -7,7 +7,7 @@ import { MapEditorContextProvider } from '../context/MapEditorContextProvider';
 import { ModalMapContextProvider } from '../context/ModalMapContextProvider';
 import { UserContextProvider } from '../context/UserContextProvider';
 import '../generated/fontello/css/hsl-icons.css';
-import { GQLClient } from '../graphql';
+import { createGraphqlClient } from '../graphql';
 import '../i18n';
 import '../styles/globals.css';
 
@@ -20,9 +20,10 @@ function SafeHydrate({ children }: { children: JSX.Element }) {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const graphqlClient = createGraphqlClient();
   return (
     <SafeHydrate>
-      <ApolloProvider client={GQLClient}>
+      <ApolloProvider client={graphqlClient}>
         <UserContextProvider>
           <ModalMapContextProvider>
             <MapEditorContextProvider>

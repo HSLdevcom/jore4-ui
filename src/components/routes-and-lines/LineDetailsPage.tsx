@@ -8,7 +8,7 @@ import {
   RouteLine,
   useGetLineDetailsWithRoutesByIdQuery,
 } from '../../generated/graphql';
-import { mapLineDetailsWithRoutesResult } from '../../graphql/route';
+import { mapLineDetailsWithRoutesResult } from '../../graphql';
 import { Column, Container, Row } from '../../layoutComponents';
 import { mapToShortDate } from '../../time';
 import { SimpleButton } from '../../uiComponents';

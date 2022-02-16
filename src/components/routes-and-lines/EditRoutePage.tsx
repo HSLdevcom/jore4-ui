@@ -6,7 +6,7 @@ import {
   useGetRouteDetailsByIdQuery,
   usePatchRouteMutation,
 } from '../../generated/graphql';
-import { mapRouteDetailsResult } from '../../graphql/route';
+import { mapRouteDetailsResult } from '../../graphql';
 import { Container, Row } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
 import { mapToISODate } from '../../time';
