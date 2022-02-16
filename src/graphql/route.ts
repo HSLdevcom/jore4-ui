@@ -50,6 +50,9 @@ const ROUTE_ALL_FIELDS = gql`
     priority
     label
     direction
+    route_journey_patterns {
+      ...journey_pattern_with_stops
+    }
   }
 `;
 
