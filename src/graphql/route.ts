@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FetchResult, gql } from '@apollo/client';
+import { FetchResult, gql, ApolloQueryResult } from '@apollo/client';
 import {
   InsertLineOneMutation,
   RouteLine,
@@ -9,6 +9,7 @@ import {
   useGetRouteDetailsByIdQuery,
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
+  GetRouteDetailsByIdQuery,
 } from '../generated/graphql';
 
 const LINE_DEFAULT_FIELDS = gql`
@@ -50,6 +51,9 @@ const ROUTE_ALL_FIELDS = gql`
     priority
     label
     direction
+    route_journey_patterns {
+      ...journey_pattern_with_stops
+    }
   }
 `;
 
@@ -140,8 +144,8 @@ export const mapLineDetailsWithRoutesResult = (
 ) => result.data?.route_line_by_pk as RouteLine | undefined;
 
 const GET_ROUTE_DETAILS_BY_ID = gql`
-  query GetRouteDetailsById($route_id: uuid!) {
-    route_route(where: { route_id: { _eq: $route_id } }) {
+  query GetRouteDetailsById($route_ids: [uuid!]) {
+    route_route(where: { route_id: { _in: $route_ids } }) {
       ...route_all_fields
       route_line {
         label
@@ -152,6 +156,10 @@ const GET_ROUTE_DETAILS_BY_ID = gql`
 export const mapRouteDetailsResult = (
   result: ReturnType<typeof useGetRouteDetailsByIdQuery>,
 ) => result.data?.route_route[0] as RouteRoute | undefined;
+
+export const mapRoutesDetailsResult = (
+  result: ApolloQueryResult<GetRouteDetailsByIdQuery>,
+) => result.data?.route_route as RouteRoute[] | [];
 
 const INSERT_LINE = gql`
   mutation InsertLineOne($object: route_line_insert_input!) {

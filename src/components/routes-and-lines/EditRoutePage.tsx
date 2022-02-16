@@ -37,7 +37,7 @@ export const EditRoutePage = (): JSX.Element => {
   const { id } = useParams<{ id: string }>();
 
   const routeDetailsResult = useGetRouteDetailsByIdQuery({
-    ...mapToVariables({ route_id: id }),
+    ...mapToVariables({ route_ids: [id] }),
   });
   const route = mapRouteDetailsResult(routeDetailsResult);
   const { t } = useTranslation();
