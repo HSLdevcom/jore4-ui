@@ -5,7 +5,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   useInsertLineOneMutation,
 } from '../generated/graphql';
-import { mapInsertLineOneResult } from '../graphql/route';
+import { mapInsertLineOneResult } from '../graphql';
 import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { Priority } from '../types/Priority';

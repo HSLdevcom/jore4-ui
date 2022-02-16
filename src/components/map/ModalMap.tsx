@@ -7,7 +7,7 @@ import {
   RouteDirectionEnum,
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
-import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql/infrastructureNetwork';
+import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
 import { Modal } from '../../uiComponents';
 import {
   mapDateInputToValidityEnd,

@@ -6,10 +6,7 @@ import {
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
 } from '../generated/graphql';
-import {
-  mapListChangingRoutesResult,
-  mapListOwnLinesResult,
-} from '../graphql/route';
+import { mapListChangingRoutesResult, mapListOwnLinesResult } from '../graphql';
 import { render } from '../utils/test-utils';
 import { LineTableRow } from './LineTableRow';
 import { RoutesTable } from './RoutesTable';

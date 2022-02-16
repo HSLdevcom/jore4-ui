@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { BusRouteResponse } from '../api/routing';
 import { FormState as RouteFormState } from '../components/forms/RoutePropertiesForm';
-import { InfrastructureLinkAlongRoute } from '../graphql/infrastructureNetwork';
+import { InfrastructureLinkAlongRoute } from '../graphql';
 
 export enum Mode {
   Draw,

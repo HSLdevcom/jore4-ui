@@ -5,7 +5,7 @@ import {
   useGetLineDetailsByIdQuery,
   usePatchLineMutation,
 } from '../../generated/graphql';
-import { mapLineDetailsResult } from '../../graphql/route';
+import { mapLineDetailsResult } from '../../graphql';
 import { Container } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
 import { mapToISODate } from '../../time';

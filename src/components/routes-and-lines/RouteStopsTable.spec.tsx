@@ -2,7 +2,7 @@ import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { useGetLineDetailsWithRoutesByIdQuery } from '../../generated/graphql';
-import { mapLineDetailsWithRoutesResult } from '../../graphql/route';
+import { mapLineDetailsWithRoutesResult } from '../../graphql';
 import { render } from '../../utils/test-utils';
 import { RouteStopsTable } from './RouteStopsTable';
 

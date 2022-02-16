@@ -5822,24 +5822,6 @@ export type UuidComparisonExp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
-export type ScheduledStopPointInJourneyPatternDefaultFieldsFragment = { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean };
-
-export type JourneyPatternWithStopsFragment = { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> };
-
-export type InsertStopMutationVariables = Exact<{
-  object: ServicePatternScheduledStopPointInsertInput;
-}>;
-
-
-export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_pattern_scheduled_stop_point_one?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, located_on_infrastructure_link_id: UUID, direction: string, priority: number, measured_location: any, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined };
-
-export type InsertRouteOneMutationVariables = Exact<{
-  object: RouteRouteInsertInput;
-}>;
-
-
-export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', route_id: UUID, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, priority: number, validity_start?: any | null | undefined, validity_end?: any | null | undefined, label: string, direction: string } | null | undefined };
-
 export type QueryClosestLinkQueryVariables = Exact<{
   point?: Maybe<Scalars['geography']>;
 }>;
@@ -5863,10 +5845,9 @@ export type MapExternalLinkIdsToInfraLinksWithStopsQueryVariables = Exact<{
 
 export type MapExternalLinkIdsToInfraLinksWithStopsQuery = { __typename?: 'query_root', infrastructure_network_infrastructure_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, external_link_id: string, scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> }> };
 
-export type GetStopsQueryVariables = Exact<{ [key: string]: never; }>;
+export type ScheduledStopPointInJourneyPatternDefaultFieldsFragment = { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean };
 
-
-export type GetStopsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', closest_point_on_infrastructure_link?: any | null | undefined, direction: string, label: string, located_on_infrastructure_link_id: UUID, measured_location: any, priority: number, relative_distance_from_infrastructure_link_start?: any | null | undefined, scheduled_stop_point_id: UUID, validity_end?: any | null | undefined, validity_start?: any | null | undefined }> };
+export type JourneyPatternWithStopsFragment = { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> };
 
 export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined };
 
@@ -5929,6 +5910,13 @@ export type PatchLineMutationVariables = Exact<{
 
 export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string } | null | undefined };
 
+export type InsertRouteOneMutationVariables = Exact<{
+  object: RouteRouteInsertInput;
+}>;
+
+
+export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', route_id: UUID, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: any | null | undefined, on_line_id: UUID, priority: number, validity_start?: any | null | undefined, validity_end?: any | null | undefined, label: string, direction: string } | null | undefined };
+
 export type PatchRouteMutationVariables = Exact<{
   route_id: Scalars['uuid'];
   object: RouteRouteSetInput;
@@ -5952,6 +5940,18 @@ export type RemoveStopMutationVariables = Exact<{
 
 
 export type RemoveStopMutation = { __typename?: 'mutation_root', delete_service_pattern_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point_mutation_response', returning: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID }> } | null | undefined };
+
+export type GetStopsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStopsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', closest_point_on_infrastructure_link?: any | null | undefined, direction: string, label: string, located_on_infrastructure_link_id: UUID, measured_location: any, priority: number, relative_distance_from_infrastructure_link_start?: any | null | undefined, scheduled_stop_point_id: UUID, validity_end?: any | null | undefined, validity_start?: any | null | undefined }> };
+
+export type InsertStopMutationVariables = Exact<{
+  object: ServicePatternScheduledStopPointInsertInput;
+}>;
+
+
+export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_pattern_scheduled_stop_point_one?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, located_on_infrastructure_link_id: UUID, direction: string, priority: number, measured_location: any, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined };
 
 export const ScheduledStopPointInJourneyPatternDefaultFieldsFragmentDoc = gql`
     fragment scheduled_stop_point_in_journey_pattern_default_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
@@ -6041,88 +6041,6 @@ export const RouteWithStopsFragmentDoc = gql`
 }
     ${RouteAllFieldsFragmentDoc}
 ${ScheduledStopPointDefaultFieldsFragmentDoc}`;
-export const InsertStopDocument = gql`
-    mutation InsertStop($object: service_pattern_scheduled_stop_point_insert_input!) {
-  insert_service_pattern_scheduled_stop_point_one(object: $object) {
-    scheduled_stop_point_id
-    located_on_infrastructure_link_id
-    direction
-    priority
-    measured_location
-    label
-    validity_start
-    validity_end
-  }
-}
-    `;
-export type InsertStopMutationFn = Apollo.MutationFunction<InsertStopMutation, InsertStopMutationVariables>;
-
-/**
- * __useInsertStopMutation__
- *
- * To run a mutation, you first call `useInsertStopMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useInsertStopMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [insertStopMutation, { data, loading, error }] = useInsertStopMutation({
- *   variables: {
- *      object: // value for 'object'
- *   },
- * });
- */
-export function useInsertStopMutation(baseOptions?: Apollo.MutationHookOptions<InsertStopMutation, InsertStopMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertStopMutation, InsertStopMutationVariables>(InsertStopDocument, options);
-      }
-export type InsertStopMutationHookResult = ReturnType<typeof useInsertStopMutation>;
-export type InsertStopMutationResult = Apollo.MutationResult<InsertStopMutation>;
-export type InsertStopMutationOptions = Apollo.BaseMutationOptions<InsertStopMutation, InsertStopMutationVariables>;
-export const InsertRouteOneDocument = gql`
-    mutation InsertRouteOne($object: route_route_insert_input!) {
-  insert_route_route_one(object: $object) {
-    route_id
-    starts_from_scheduled_stop_point_id
-    ends_at_scheduled_stop_point_id
-    route_shape
-    on_line_id
-    priority
-    validity_start
-    validity_end
-    label
-    direction
-  }
-}
-    `;
-export type InsertRouteOneMutationFn = Apollo.MutationFunction<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
-
-/**
- * __useInsertRouteOneMutation__
- *
- * To run a mutation, you first call `useInsertRouteOneMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useInsertRouteOneMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [insertRouteOneMutation, { data, loading, error }] = useInsertRouteOneMutation({
- *   variables: {
- *      object: // value for 'object'
- *   },
- * });
- */
-export function useInsertRouteOneMutation(baseOptions?: Apollo.MutationHookOptions<InsertRouteOneMutation, InsertRouteOneMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertRouteOneMutation, InsertRouteOneMutationVariables>(InsertRouteOneDocument, options);
-      }
-export type InsertRouteOneMutationHookResult = ReturnType<typeof useInsertRouteOneMutation>;
-export type InsertRouteOneMutationResult = Apollo.MutationResult<InsertRouteOneMutation>;
-export type InsertRouteOneMutationOptions = Apollo.BaseMutationOptions<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
 export const QueryClosestLinkDocument = gql`
     query QueryClosestLink($point: geography) {
   infrastructure_network_resolve_point_to_closest_link(args: {geog: $point}) {
@@ -6243,49 +6161,6 @@ export function useMapExternalLinkIdsToInfraLinksWithStopsLazyQuery(baseOptions?
 export type MapExternalLinkIdsToInfraLinksWithStopsQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinksWithStopsQuery>;
 export type MapExternalLinkIdsToInfraLinksWithStopsLazyQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinksWithStopsLazyQuery>;
 export type MapExternalLinkIdsToInfraLinksWithStopsQueryResult = Apollo.QueryResult<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>;
-export const GetStopsDocument = gql`
-    query GetStops {
-  service_pattern_scheduled_stop_point {
-    closest_point_on_infrastructure_link
-    direction
-    label
-    located_on_infrastructure_link_id
-    measured_location
-    priority
-    relative_distance_from_infrastructure_link_start
-    scheduled_stop_point_id
-    validity_end
-    validity_start
-  }
-}
-    `;
-
-/**
- * __useGetStopsQuery__
- *
- * To run a query within a React component, call `useGetStopsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetStopsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetStopsQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsQuery, GetStopsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopsQuery, GetStopsQueryVariables>(GetStopsDocument, options);
-      }
-export function useGetStopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsQuery, GetStopsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopsQuery, GetStopsQueryVariables>(GetStopsDocument, options);
-        }
-export type GetStopsQueryHookResult = ReturnType<typeof useGetStopsQuery>;
-export type GetStopsLazyQueryHookResult = ReturnType<typeof useGetStopsLazyQuery>;
-export type GetStopsQueryResult = Apollo.QueryResult<GetStopsQuery, GetStopsQueryVariables>;
 export const ListAllLinesDocument = gql`
     query ListAllLines {
   route_line {
@@ -6583,6 +6458,48 @@ export function usePatchLineMutation(baseOptions?: Apollo.MutationHookOptions<Pa
 export type PatchLineMutationHookResult = ReturnType<typeof usePatchLineMutation>;
 export type PatchLineMutationResult = Apollo.MutationResult<PatchLineMutation>;
 export type PatchLineMutationOptions = Apollo.BaseMutationOptions<PatchLineMutation, PatchLineMutationVariables>;
+export const InsertRouteOneDocument = gql`
+    mutation InsertRouteOne($object: route_route_insert_input!) {
+  insert_route_route_one(object: $object) {
+    route_id
+    starts_from_scheduled_stop_point_id
+    ends_at_scheduled_stop_point_id
+    route_shape
+    on_line_id
+    priority
+    validity_start
+    validity_end
+    label
+    direction
+  }
+}
+    `;
+export type InsertRouteOneMutationFn = Apollo.MutationFunction<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
+
+/**
+ * __useInsertRouteOneMutation__
+ *
+ * To run a mutation, you first call `useInsertRouteOneMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertRouteOneMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertRouteOneMutation, { data, loading, error }] = useInsertRouteOneMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useInsertRouteOneMutation(baseOptions?: Apollo.MutationHookOptions<InsertRouteOneMutation, InsertRouteOneMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertRouteOneMutation, InsertRouteOneMutationVariables>(InsertRouteOneDocument, options);
+      }
+export type InsertRouteOneMutationHookResult = ReturnType<typeof useInsertRouteOneMutation>;
+export type InsertRouteOneMutationResult = Apollo.MutationResult<InsertRouteOneMutation>;
+export type InsertRouteOneMutationOptions = Apollo.BaseMutationOptions<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
 export const PatchRouteDocument = gql`
     mutation PatchRoute($route_id: uuid!, $object: route_route_set_input!) {
   update_route_route(where: {route_id: {_eq: $route_id}}, _set: $object) {
@@ -6691,3 +6608,86 @@ export function useRemoveStopMutation(baseOptions?: Apollo.MutationHookOptions<R
 export type RemoveStopMutationHookResult = ReturnType<typeof useRemoveStopMutation>;
 export type RemoveStopMutationResult = Apollo.MutationResult<RemoveStopMutation>;
 export type RemoveStopMutationOptions = Apollo.BaseMutationOptions<RemoveStopMutation, RemoveStopMutationVariables>;
+export const GetStopsDocument = gql`
+    query GetStops {
+  service_pattern_scheduled_stop_point {
+    closest_point_on_infrastructure_link
+    direction
+    label
+    located_on_infrastructure_link_id
+    measured_location
+    priority
+    relative_distance_from_infrastructure_link_start
+    scheduled_stop_point_id
+    validity_end
+    validity_start
+  }
+}
+    `;
+
+/**
+ * __useGetStopsQuery__
+ *
+ * To run a query within a React component, call `useGetStopsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStopsQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsQuery, GetStopsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopsQuery, GetStopsQueryVariables>(GetStopsDocument, options);
+      }
+export function useGetStopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsQuery, GetStopsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopsQuery, GetStopsQueryVariables>(GetStopsDocument, options);
+        }
+export type GetStopsQueryHookResult = ReturnType<typeof useGetStopsQuery>;
+export type GetStopsLazyQueryHookResult = ReturnType<typeof useGetStopsLazyQuery>;
+export type GetStopsQueryResult = Apollo.QueryResult<GetStopsQuery, GetStopsQueryVariables>;
+export const InsertStopDocument = gql`
+    mutation InsertStop($object: service_pattern_scheduled_stop_point_insert_input!) {
+  insert_service_pattern_scheduled_stop_point_one(object: $object) {
+    scheduled_stop_point_id
+    located_on_infrastructure_link_id
+    direction
+    priority
+    measured_location
+    label
+    validity_start
+    validity_end
+  }
+}
+    `;
+export type InsertStopMutationFn = Apollo.MutationFunction<InsertStopMutation, InsertStopMutationVariables>;
+
+/**
+ * __useInsertStopMutation__
+ *
+ * To run a mutation, you first call `useInsertStopMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertStopMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertStopMutation, { data, loading, error }] = useInsertStopMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useInsertStopMutation(baseOptions?: Apollo.MutationHookOptions<InsertStopMutation, InsertStopMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertStopMutation, InsertStopMutationVariables>(InsertStopDocument, options);
+      }
+export type InsertStopMutationHookResult = ReturnType<typeof useInsertStopMutation>;
+export type InsertStopMutationResult = Apollo.MutationResult<InsertStopMutation>;
+export type InsertStopMutationOptions = Apollo.BaseMutationOptions<InsertStopMutation, InsertStopMutationVariables>;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layer, Source } from 'react-map-gl';
 import { useGetRouteDetailsByIdQuery } from '../../generated/graphql';
-import { mapRouteDetailsResult } from '../../graphql/route';
+import { mapRouteDetailsResult } from '../../graphql';
 import { mapToVariables } from '../../utils';
 
 interface Props {
