@@ -6,6 +6,7 @@ import {
   useApolloClient,
 } from '@apollo/client';
 import { useState } from 'react';
+import { GqlQueryResultData } from '../graphql';
 
 // based on https://github.com/apollographql/apollo-client/issues/7714
 export const useAsyncQuery = <
