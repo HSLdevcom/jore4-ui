@@ -21,7 +21,7 @@ import { Direction } from '../../types';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
-  mapPointToPointGeography,
+  mapPointToGeoJSON,
   mapToObject,
   mapToVariables,
   showToast,
@@ -90,7 +90,7 @@ const StopFormComponent = (
   const [mutateFunction] = useInsertStopMutation();
 
   const onSubmit = async (state: FormState) => {
-    const point = mapPointToPointGeography({
+    const point = mapPointToGeoJSON({
       latitude: state.latitude,
       longitude: state.longitude,
     });

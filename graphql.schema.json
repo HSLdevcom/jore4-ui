@@ -1820,6 +1820,26 @@
       },
       {
         "kind": "SCALAR",
+        "name": "geography_linestring",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "geography_point",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
         "name": "geometry",
         "description": null,
         "fields": null,
@@ -24904,7 +24924,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "geography",
+              "name": "geography_linestring",
               "ofType": null
             },
             "isDeprecated": false,
@@ -27321,7 +27341,7 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "geography",
+                "name": "geography_point",
                 "ofType": null
               }
             },

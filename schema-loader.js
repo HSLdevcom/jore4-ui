@@ -13,6 +13,11 @@ module.exports = async (schemaString, config) => {
       // Overrides come here...
       // Note: if the fields/types change in Hasura, these overrides should also be updated
       gql`
+        # define custom scalar for geography types that can only be points
+        scalar geography_point
+        # define custom scalar for geography types that can only be lines
+        scalar geography_linestring
+
         # setting fields not-nullable in route.route VIEW
         type route_route {
           route_id: uuid!
@@ -22,12 +27,13 @@ module.exports = async (schemaString, config) => {
           priority: Int!
           label: String!
           direction: String!
+          route_shape: geography_linestring
         }
 
         # setting fields not-nullable in service_pattern.scheduled_stop_point VIEW
         type service_pattern_scheduled_stop_point {
           scheduled_stop_point_id: uuid!
-          measured_location: geography!
+          measured_location: geography_point!
           located_on_infrastructure_link_id: uuid!
           direction: String!
           label: String!

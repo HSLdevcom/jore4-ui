@@ -6,6 +6,7 @@ import React, {
   useState,
 } from 'react';
 import { MapEvent } from 'react-map-gl';
+import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { MapEditorContext } from '../../context/MapEditorContext';
 import {
   ServicePatternScheduledStopPoint,
@@ -13,30 +14,28 @@ import {
   useRemoveStopMutation,
 } from '../../generated/graphql';
 import { mapGetStopsResult } from '../../graphql';
-import { Point } from '../../types';
-import { mapToVariables, removeFromApolloCache, showToast } from '../../utils';
+import { RequiredKeys } from '../../types';
+import {
+  mapLngLatToGeoJSON,
+  mapLngLatToPoint,
+  mapToVariables,
+  removeFromApolloCache,
+  showToast,
+} from '../../utils';
 import { EditStopModal } from './EditStopModal';
 import { Stop } from './Stop';
 import { StopPopup } from './StopPopup';
 
-const mapLngLatToPoint = (lngLat: number[]): Point => {
-  // allow for the z-coordinate to be passed, even though it is ignored
-  if (lngLat.length < 2 || lngLat.length > 3) {
-    throw new Error(
-      `Expected lngLat to be like [number, number] or [number, number, number] but got ${lngLat}`,
-    );
-  }
-  return { longitude: lngLat[0], latitude: lngLat[1] };
-};
+// draft stops only can only have a few attributes filled when placed, the rest is filled within the form
+type DraftStop = RequiredKeys<
+  Partial<ServicePatternScheduledStopPoint>,
+  'measured_location'
+>;
 
 export const Stops = React.forwardRef((props, ref) => {
   // TODO: We might want to move these to MapEditorContext
-  const [popupInfo, setPopupInfo] = useState<
-    Partial<ServicePatternScheduledStopPoint> | undefined
-  >();
-  const [draftStop, setDraftStop] = useState<
-    Partial<ServicePatternScheduledStopPoint> | undefined
-  >();
+  const [popupInfo, setPopupInfo] = useState<DraftStop | undefined>();
+  const [draftStop, setDraftStop] = useState<DraftStop | undefined>();
   const [showEditForm, setShowEditForm] = useState(false);
 
   const {
@@ -57,7 +56,7 @@ export const Stops = React.forwardRef((props, ref) => {
     });
   };
 
-  const onOpenPopup = (point: Partial<ServicePatternScheduledStopPoint>) => {
+  const onOpenPopup = (point: DraftStop) => {
     setPopupInfo(point);
     setSelectedStopId(point.scheduled_stop_point_id || undefined);
   };
@@ -69,10 +68,8 @@ export const Stops = React.forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     onCreateStop: (e: MapEvent) => {
-      const stop: Partial<ServicePatternScheduledStopPoint> = {
-        measured_location: {
-          coordinates: e.lngLat,
-        },
+      const stop: DraftStop = {
+        measured_location: mapLngLatToGeoJSON(e.lngLat),
       };
 
       setDraftStop(stop);
@@ -100,7 +97,9 @@ export const Stops = React.forwardRef((props, ref) => {
     onClosePopup();
   };
 
-  const onStopDragEnd = useCallback(
+  const onStopDragEnd = useCallback<
+    (event: CallbackEvent, stopId: UUID) => void
+  >(
     (event, stopId) => {
       const existingStop = stops?.find(
         (item) => item.scheduled_stop_point_id === stopId,

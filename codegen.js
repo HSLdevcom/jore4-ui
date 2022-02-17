@@ -30,6 +30,10 @@ module.exports = {
         },
         scalars: {
           uuid: 'UUID',
+          geography: 'GeoJSON.Geometry',
+          geometry: 'GeoJSON.Geometry',
+          geography_point: 'GeoJSON.Point',
+          geography_linestring: 'GeoJSON.LineString',
         },
       },
     },

@@ -33,10 +33,6 @@ describe(`<${RouteStopsTable.name} />`, () => {
               'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
             route_shape: {
               type: 'LineString',
-              crs: {
-                type: 'name',
-                properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
-              },
               coordinates: [
                 [24.927431159, 60.163633535, 8.809],
                 [24.929195906, 60.164250755, 8.621],
