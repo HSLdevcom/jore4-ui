@@ -2,7 +2,7 @@ import React from 'react';
 import { Layer, Source } from 'react-map-gl';
 import { useGetRouteDetailsByIdQuery } from '../../generated/graphql';
 import { mapRouteDetailsResult } from '../../graphql';
-import { mapToVariables } from '../../utils';
+import { mapGeoJSONtoFeature, mapToVariables } from '../../utils';
 
 interface Props {
   routeId: string;
@@ -26,7 +26,7 @@ export const RouteLayer = ({ routeId }: Props) => {
   };
 
   return (
-    <Source type="geojson" data={routeDetails?.route_shape}>
+    <Source type="geojson" data={mapGeoJSONtoFeature(routeDetails.route_shape)}>
       <Layer {...layerStyle} />
     </Source>
   );
