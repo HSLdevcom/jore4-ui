@@ -32,6 +32,8 @@ describe('<ChooseLineDropdown />', () => {
               name_i18n: 'Line1 name',
               short_name_i18n: 'Line1',
               description_i18n: 'Line1 description',
+              validity_start: '2017-02-13T12:51:48.000Z',
+              validity_end: null,
             },
             {
               __typename: 'route_line',
@@ -40,6 +42,8 @@ describe('<ChooseLineDropdown />', () => {
               name_i18n: 'Line2 name',
               short_name_i18n: 'Line2',
               description_i18n: 'Line2 description',
+              validity_start: '2017-02-13T12:51:48.000Z',
+              validity_end: null,
             },
           ],
         },
