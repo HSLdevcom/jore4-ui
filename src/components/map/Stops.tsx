@@ -5,6 +5,7 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MapEvent } from 'react-map-gl';
 import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { MapEditorContext } from '../../context/MapEditorContext';
@@ -16,6 +17,7 @@ import {
 } from '../../generated/graphql';
 import { mapGetStopsResult } from '../../graphql';
 import { RequiredKeys } from '../../types';
+import { ConfirmationDialog } from '../../uiComponents';
 import {
   mapLngLatToGeoJSON,
   mapLngLatToPoint,
@@ -37,7 +39,10 @@ export const Stops = React.forwardRef((props, ref) => {
   // TODO: We might want to move these to MapEditorContext
   const [popupInfo, setPopupInfo] = useState<DraftStop | undefined>();
   const [draftStop, setDraftStop] = useState<DraftStop | undefined>();
+  const [isDeleting, setIsDeleting] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+
+  const { t } = useTranslation();
 
   const {
     dispatch: mapEditorDispatch,
@@ -96,6 +101,7 @@ export const Stops = React.forwardRef((props, ref) => {
       setDraftStop(undefined);
     }
     onClosePopup();
+    setIsDeleting(false);
   };
 
   const onStopDragEnd = useCallback<
@@ -173,7 +179,7 @@ export const Stops = React.forwardRef((props, ref) => {
             setShowEditForm(true);
           }}
           onDelete={() => {
-            onRemoveStop(popupInfo.scheduled_stop_point_id || undefined);
+            setIsDeleting(true);
           }}
           onClose={onClosePopup}
         />
@@ -191,6 +197,17 @@ export const Stops = React.forwardRef((props, ref) => {
           onClose={() => setShowEditForm(false)}
         />
       )}
+      <ConfirmationDialog
+        isOpen={isDeleting}
+        onCancel={() => setIsDeleting(false)}
+        onConfirm={() =>
+          onRemoveStop(popupInfo?.scheduled_stop_point_id || undefined)
+        }
+        title={t('confirmDeleteStopDialog.title')}
+        description={t('confirmDeleteStopDialog.description')}
+        confirmText={t('confirmDeleteStopDialog.confirmText')}
+        cancelText={t('confirmDeleteStopDialog.cancelText')}
+      />
     </>
   );
 });

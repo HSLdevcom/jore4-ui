@@ -77,6 +77,12 @@
     "confirmText": "Poista",
     "cancelText": "Peruuta"
   },
+  "confirmDeleteStopDialog": {
+    "title": "Poista pysäkki?",
+    "description": "Oletko varma, että haluat poistaa pysäkin?",
+    "confirmText": "Poista",
+    "cancelText": "Peruuta"
+  },
   "priority": {
     "label": "Prioriteetti",
     "standard": "Perusversio",
