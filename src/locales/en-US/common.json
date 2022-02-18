@@ -44,7 +44,9 @@
     "label": "Label",
     "nameAddress": "Name and address",
     "finnishName": "Name (Finnish)",
-    "saveSuccess": "Stop created"
+    "saveSuccess": "Stop created",
+    "fetchClosestLinkFailed": "Could not find infrastructure link for the stop",
+    "fetchDirectionFailed": "Could not find direction for the stop's infrastructure link"
   },
   "navigation": {
     "logout": "Log out",
