@@ -44,7 +44,9 @@
     "label": "Tunnus",
     "nameAddress": "Nimi ja osoite",
     "finnishName": "Nimi (Suomi)",
-    "saveSuccess": "Pysäkki luotu"
+    "saveSuccess": "Pysäkki luotu",
+    "fetchClosestLinkFailed": "Infrastruktuurilinkkiä ei pystytty päättelemään pysäkille",
+    "fetchDirectionFailed": "Suuntaa ei pystytty päättelemään pysäkin infrastruktuurilinkille"
   },
   "navigation": {
     "logout": "Kirjaudu ulos",

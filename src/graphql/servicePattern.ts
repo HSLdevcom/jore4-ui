@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { gql } from '@apollo/client';
 import {
+  QueryClosestLinkQuery,
+  QueryPointDirectionOnLinkQuery,
   ServicePatternScheduledStopPoint,
   useGetStopsQuery,
 } from '../generated/graphql';
+import { GqlQueryResult } from './types';
 
 const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
   fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {
@@ -65,3 +68,15 @@ const INSERT_STOP = gql`
     }
   }
 `;
+
+export const mapClosestLinkResult = (
+  result: GqlQueryResult<QueryClosestLinkQuery>,
+) =>
+  result.data?.infrastructure_network_resolve_point_to_closest_link?.[0]
+    ?.infrastructure_link_id as UUID | undefined;
+
+export const mapGetPointDirectionOnLinkResult = (
+  result: GqlQueryResult<QueryPointDirectionOnLinkQuery>,
+) =>
+  result.data?.infrastructure_network_find_point_direction_on_link?.[0]
+    ?.value as string | undefined;

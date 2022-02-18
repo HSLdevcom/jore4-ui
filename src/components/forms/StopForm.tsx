@@ -1,4 +1,3 @@
-import { ApolloQueryResult } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -6,46 +5,28 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import {
   InsertStopMutationVariables,
-  QueryClosestLinkDocument,
-  QueryClosestLinkQuery,
-  QueryClosestLinkQueryVariables,
-  QueryPointDirectionOnLinkDocument,
-  QueryPointDirectionOnLinkQuery,
-  QueryPointDirectionOnLinkQueryVariables,
   ReusableComponentsVehicleModeEnum,
   useInsertStopMutation,
 } from '../../generated/graphql';
-import { useAsyncQuery } from '../../hooks';
+import { useGetStopLinkAndDirection } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
-import { Direction } from '../../types';
+import { Point } from '../../types';
 import {
+  DirectionNotResolvedError,
+  LinkNotResolvedError,
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   mapPointToGeoJSON,
   mapToObject,
   mapToVariables,
-  showToast,
+  showDangerToast,
+  showSuccessToast,
 } from '../../utils';
 import {
   ConfirmSaveForm,
   FormState as ConfirmSaveFormState,
   schema as confirmSaveFormSchema,
 } from './ConfirmSaveForm';
-
-const parseInfraLinkId = (
-  response: ApolloQueryResult<QueryClosestLinkQuery>,
-) => {
-  return response.data
-    ?.infrastructure_network_resolve_point_to_closest_link?.[0]
-    ?.infrastructure_link_id;
-};
-
-const parseStopDirection = (
-  response: ApolloQueryResult<QueryPointDirectionOnLinkQuery>,
-) => {
-  return response.data?.infrastructure_network_find_point_direction_on_link?.[0]
-    ?.value;
-};
 
 const schema = z
   .object({
@@ -79,66 +60,58 @@ const StopFormComponent = (
     formState: { errors },
   } = methods;
 
-  const [fetchClosestLink] = useAsyncQuery<
-    QueryClosestLinkQuery,
-    QueryClosestLinkQueryVariables
-  >(QueryClosestLinkDocument);
-  const [fetchStopDirection] = useAsyncQuery<
-    QueryPointDirectionOnLinkQuery,
-    QueryPointDirectionOnLinkQueryVariables
-  >(QueryPointDirectionOnLinkDocument);
-  const [mutateFunction] = useInsertStopMutation();
+  const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
+  const [insertStop] = useInsertStopMutation();
 
   const onSubmit = async (state: FormState) => {
-    const point = mapPointToGeoJSON({
+    const stopLocation: Point = {
       latitude: state.latitude,
       longitude: state.longitude,
-    });
-    const closestLinkResponse = await fetchClosestLink({ point });
-    const closestLinkId = parseInfraLinkId(closestLinkResponse);
-    const stopDirectionResponse = await fetchStopDirection({
-      point_of_interest: point,
-      infrastructure_link_uuid: closestLinkId,
-      point_max_distance_in_meters: 50,
-    });
-    const direction = parseStopDirection(stopDirectionResponse);
-
-    if (!direction) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `Could not resolve stop direction. TODO: implement ui for entering it manually. Fallbacking to "${Direction.Forward}" for now.`,
-      );
-    }
-
-    const variables: InsertStopMutationVariables = mapToObject({
-      located_on_infrastructure_link_id: closestLinkId,
-      // TODO: Getting link direction is not always possible. In those cases we should let user input direction manually. Use hardcoded value for now.
-      direction: direction || Direction.Forward,
-      measured_location: point,
-      // TODO: how we should calculate label? Use finnishName as label for now as
-      // have been done in jore3 importer, but it won't be correct solution in the long
-      // term.
-      label: state.finnishName,
-      priority: state.priority,
-      validity_start: mapDateInputToValidityStart(state.validityStart),
-      validity_end: mapDateInputToValidityEnd(state.validityStart),
-      vehicle_mode_on_scheduled_stop_point: {
-        data: {
-          // TODO: Replace hard-coded Bus-value with propagated one
-          vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
-        },
-      },
-    });
+    };
 
     try {
-      await mutateFunction(mapToVariables(variables));
-      onSubmitSuccess();
-      showToast({ type: 'success', message: t('stops.saveSuccess') });
-    } catch (err) {
-      showToast({
-        type: 'danger',
-        message: `${t('errors.saveFailed')}, ${err}`,
+      // get computed values for closest link and direction
+      const { closestLinkId, direction } = await getStopLinkAndDirection({
+        stopLocation,
       });
+
+      // insert stop to db
+      const variables: InsertStopMutationVariables = mapToObject({
+        located_on_infrastructure_link_id: closestLinkId,
+        direction,
+        measured_location: mapPointToGeoJSON(stopLocation),
+        // TODO: how we should calculate label? Use finnishName as label for now as
+        // have been done in jore3 importer, but it won't be correct solution in the long
+        // term.
+        label: state.finnishName,
+        priority: state.priority,
+        validity_start: mapDateInputToValidityStart(state.validityStart),
+        validity_end: mapDateInputToValidityEnd(state.validityStart),
+        vehicle_mode_on_scheduled_stop_point: {
+          data: {
+            // TODO: Replace hard-coded Bus-value with propagated one
+            vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+          },
+        },
+      });
+      await insertStop(mapToVariables(variables));
+
+      // handle success
+      showSuccessToast(t('stops.saveSuccess'));
+      onSubmitSuccess();
+    } catch (err) {
+      if (err instanceof LinkNotResolvedError) {
+        showDangerToast(t('stops.fetchClosestLinkFailed'));
+        return;
+      }
+      if (err instanceof DirectionNotResolvedError) {
+        showDangerToast(t('stops.fetchDirectionFailed'));
+        return;
+      }
+      // if other error happened, show the generic error message
+      showDangerToast(
+        `${t('errors.saveFailed')}, ${err}, ${(err as Error).message}`,
+      );
     }
   };
 

@@ -132,10 +132,13 @@ export const Stops = React.forwardRef((props, ref) => {
         (item) => item.scheduled_stop_point_id === stopId,
       );
       if (!existingStop) {
-        // eslint-disable-next-line no-console
-        console.log('Something went wrong when trying to move stop', stopId);
+        showToast({
+          type: 'danger',
+          message: 'Something went wrong when trying to move stop',
+        });
         return;
       }
+
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const updatedStop = produce(existingStop, (draft) => {
         draft.measured_location.coordinates = event.lngLat;

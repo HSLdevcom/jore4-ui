@@ -14,3 +14,17 @@ export const showToast = (options: ToastOptions) => {
     </ToastTransition>
   ));
 };
+
+export const showDangerToast = (message: string) => {
+  return showToast({
+    message,
+    type: 'danger',
+  });
+};
+
+export const showSuccessToast = (message: string) => {
+  return showToast({
+    message,
+    type: 'success',
+  });
+};
