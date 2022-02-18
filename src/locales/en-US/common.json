@@ -77,6 +77,12 @@
     "confirmText": "Delete",
     "cancelText": "Cancel"
   },
+  "confirmDeleteStopDialog": {
+    "title": "Delete stop?",
+    "description": "Are you sure you want to delete the stop?",
+    "confirmText": "Delete",
+    "cancelText": "Cancel"
+  },
   "priority": {
     "label": "Priority",
     "standard": "Standard",
