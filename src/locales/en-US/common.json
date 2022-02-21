@@ -45,8 +45,10 @@
     "nameAddress": "Name and address",
     "finnishName": "Name (Finnish)",
     "saveSuccess": "Stop created",
+    "editSuccess": "Stop edited",
     "fetchClosestLinkFailed": "Could not find infrastructure link for the stop",
-    "fetchDirectionFailed": "Could not find direction for the stop's infrastructure link"
+    "fetchDirectionFailed": "Could not find direction for the stop's infrastructure link",
+    "cannotEditTerminalStops": "Editing the start and end stops of a route is not allowed"
   },
   "navigation": {
     "logout": "Log out",
