@@ -1,6 +1,4 @@
-import produce from 'immer';
 import React, {
-  useCallback,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -19,13 +17,19 @@ import {
   useRemoveStopMutation,
 } from '../../generated/graphql';
 import { mapGetStopsResult, mapRoutesDetailsResult } from '../../graphql';
+import { useEditStop } from '../../hooks';
 import { RequiredKeys } from '../../types';
 import { ConfirmationDialog } from '../../uiComponents';
 import {
+  DirectionNotResolvedError,
+  EditRouteTerminalStopsError,
+  LinkNotResolvedError,
   mapLngLatToGeoJSON,
   mapLngLatToPoint,
   mapToVariables,
   removeFromApolloCache,
+  showDangerToast,
+  showSuccessToast,
   showToast,
 } from '../../utils';
 import { EditStopModal } from './EditStopModal';
@@ -67,6 +71,11 @@ export const Stops = React.forwardRef((props, ref) => {
   const stopsResult = useGetStopsQuery({});
   const stops = mapGetStopsResult(stopsResult);
   const [removeStopMutation] = useRemoveStopMutation();
+  const {
+    prepareAndValidateEdit,
+    mapEditChangesToMutationVariables,
+    editStopMutation,
+  } = useEditStop();
 
   const routesResult = useGetRoutesWithInfrastructureLinksQuery(
     mapToVariables({ route_ids: displayedRouteIds || [] }),
@@ -124,36 +133,62 @@ export const Stops = React.forwardRef((props, ref) => {
     setIsDeleting(false);
   };
 
-  const onStopDragEnd = useCallback<
-    (event: CallbackEvent, stopId: UUID) => void
-  >(
-    (event, stopId) => {
-      const existingStop = stops?.find(
-        (item) => item.scheduled_stop_point_id === stopId,
-      );
-      if (!existingStop) {
-        showToast({
-          type: 'danger',
-          message: 'Something went wrong when trying to move stop',
-        });
-        return;
-      }
+  const onEditSuccess = () => {
+    showSuccessToast(t('stops.editSuccess'));
+  };
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const updatedStop = produce(existingStop, (draft) => {
-        draft.measured_location.coordinates = event.lngLat;
-        // TODO: also fetch closest infra link id and
-        // stop direction based on new coordinates and
-        // set those here
-      });
+  const onEditFail = (err: Error) => {
+    if (err instanceof LinkNotResolvedError) {
+      showDangerToast(t('stops.fetchClosestLinkFailed'));
+      return;
+    }
+    if (err instanceof DirectionNotResolvedError) {
+      showDangerToast(t('stops.fetchDirectionFailed'));
+      return;
+    }
+    if (err instanceof EditRouteTerminalStopsError) {
+      showDangerToast(t('stops.cannotEditTerminalStops'));
+      return;
+    }
+    // if other error happened, show the generic error message
+    showDangerToast(`${t('errors.saveFailed')}, ${err}, ${err.message}`);
+  };
+
+  const onStopDragEnd = async (event: CallbackEvent, stopId: UUID) => {
+    const existingStop = stops?.find(
+      (item) => item.scheduled_stop_point_id === stopId,
+    );
+    if (!existingStop) {
       showToast({
         type: 'danger',
-        message: 'Moving stops by dragging is currently not supported',
+        message: 'Something went wrong when trying to move stop',
       });
-      // TODO: do mutation to move stop on backend
-    },
-    [stops],
-  );
+      return;
+    }
+
+    try {
+      const changes = await prepareAndValidateEdit({
+        stopId,
+        patch: {
+          measured_location: mapLngLatToGeoJSON(event.lngLat),
+        },
+      });
+      if (changes.deleteStopFromRoutes.length > 0) {
+        const deletedFromRoutes = changes.deleteStopFromRoutes
+          .map((item) => item.label)
+          .join(', ');
+        showDangerToast(
+          `This stop is now removed from the following routes: ${deletedFromRoutes}`,
+        );
+      }
+      const variables = mapEditChangesToMutationVariables(changes);
+      await editStopMutation({ variables });
+
+      onEditSuccess();
+    } catch (err) {
+      onEditFail(err as Error);
+    }
+  };
 
   useEffect(() => {
     // If editing/creating a route, show stops along edited/created route

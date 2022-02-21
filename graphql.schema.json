@@ -29377,7 +29377,7 @@
             "description": "The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326.",
             "type": {
               "kind": "SCALAR",
-              "name": "geography",
+              "name": "geography_point",
               "ofType": null
             },
             "defaultValue": null,

@@ -59,6 +59,9 @@ const ROUTE_DEFAULT_FIELDS = gql`
     route_id
     description_i18n
     on_line_id
+    label
+    starts_from_scheduled_stop_point_id
+    ends_at_scheduled_stop_point_id
   }
 `;
 

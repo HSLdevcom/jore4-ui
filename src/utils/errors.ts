@@ -50,3 +50,12 @@ export class DirectionNotResolvedError extends GraphQLError {
     Object.setPrototypeOf(this, DirectionNotResolvedError.prototype);
   }
 }
+
+export class EditRouteTerminalStopsError extends ExtendableError {
+  constructor(errorMessage?: string) {
+    super(errorMessage);
+
+    // Set the prototype explicitly.
+    Object.setPrototypeOf(this, EditRouteTerminalStopsError.prototype);
+  }
+}

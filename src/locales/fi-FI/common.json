@@ -45,10 +45,12 @@
     "nameAddress": "Nimi ja osoite",
     "finnishName": "Nimi (Suomi)",
     "saveSuccess": "Pysäkki luotu",
+    "editSuccess": "Pysäkki muokattu",
     "fetchClosestLinkFailed": "Infrastruktuurilinkkiä ei pystytty päättelemään pysäkille",
     "fetchDirectionFailed": "Suuntaa ei pystytty päättelemään pysäkin infrastruktuurilinkille",
     "notPartOfRoute": "Ei reitin käytössä",
-    "removeFromRoute": "Poista reitin käytöstä"
+    "removeFromRoute": "Poista reitin käytöstä",
+    "cannotEditTerminalStops": "Reitin alku- ja päätepysäkin muokkaaminen ei ole sallittua"
   },
   "navigation": {
     "logout": "Kirjaudu ulos",

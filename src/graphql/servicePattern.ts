@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { gql } from '@apollo/client';
 import {
+  GetStopWithRouteGraphDataByIdQuery,
   QueryClosestLinkQuery,
   QueryPointDirectionOnLinkQuery,
   RouteRoute,
@@ -15,6 +16,21 @@ const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
     label
     validity_start
     validity_end
+  }
+`;
+
+const SCHEDULED_STOP_POINT_ALL_FIELDS = gql`
+  fragment scheduled_stop_point_all_fields on service_pattern_scheduled_stop_point {
+    scheduled_stop_point_id
+    label
+    measured_location
+    located_on_infrastructure_link_id
+    direction
+    relative_distance_from_infrastructure_link_start
+    closest_point_on_infrastructure_link
+    validity_start
+    validity_end
+    priority
   }
 `;
 
@@ -33,16 +49,7 @@ const REMOVE_STOP = gql`
 const QUERY_GET_ALL_STOPS = gql`
   query GetStops {
     service_pattern_scheduled_stop_point {
-      closest_point_on_infrastructure_link
-      direction
-      label
-      located_on_infrastructure_link_id
-      measured_location
-      priority
-      relative_distance_from_infrastructure_link_start
-      scheduled_stop_point_id
-      validity_end
-      validity_start
+      ...scheduled_stop_point_all_fields
     }
   }
 `;
@@ -89,3 +96,64 @@ export const getStopsAlongRouteGeometry = (route: RouteRoute) => {
         .scheduled_stop_point_located_on_infrastructure_link,
   );
 };
+
+const EDIT_STOP = gql`
+  mutation EditStop(
+    $stop_id: uuid!
+    $stop_patch: service_pattern_scheduled_stop_point_set_input!
+    $delete_from_journey_pattern_ids: [uuid!]!
+  ) {
+    # edit the stop itself
+    update_service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _eq: $stop_id } }
+      _set: $stop_patch
+    ) {
+      returning {
+        ...scheduled_stop_point_all_fields
+      }
+    }
+
+    # delete the stop from the following journey patterns
+    delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        _and: {
+          scheduled_stop_point_id: { _eq: $stop_id }
+          journey_pattern_id: { _in: $delete_from_journey_pattern_ids }
+        }
+      }
+    ) {
+      returning {
+        ...scheduled_stop_point_in_journey_pattern_default_fields
+      }
+    }
+  }
+`;
+
+const GET_STOP_WITH_ROUTE_GRAPH_DATA_BY_ID = gql`
+  query GetStopWithRouteGraphDataById($stop_id: uuid!) {
+    service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _eq: $stop_id } }
+    ) {
+      ...scheduled_stop_point_default_fields
+      scheduled_stop_point_in_journey_patterns {
+        ...scheduled_stop_point_in_journey_pattern_default_fields
+        journey_pattern {
+          journey_pattern_id
+          journey_pattern_route {
+            ...route_default_fields
+            infrastructure_links_along_route {
+              infrastructure_link_id
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const mapGetStopWithRouteGraphDataByIdResult = (
+  result: GqlQueryResult<GetStopWithRouteGraphDataByIdQuery>,
+) =>
+  result.data?.service_pattern_scheduled_stop_point?.[0] as
+    | ServicePatternScheduledStopPoint
+    | undefined;
