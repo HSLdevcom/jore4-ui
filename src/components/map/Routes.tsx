@@ -5,27 +5,39 @@ import { CreateRouteModal } from './CreateRouteModal';
 
 export const Routes: React.FC = () => {
   const {
-    state: { routeDetails, drawingMode },
+    state: { routeDetails, drawingMode, editingRouteId },
     dispatch,
   } = useContext(MapEditorContext);
 
+  if (editingRouteId === undefined) {
+    return null;
+  }
+
   // checking whether 'routeDetails' already contains all the information necessary
   // if not -> should show the form
-  const areFormValuesValid = schema.safeParse(routeDetails).success;
+  const areFormValuesValid = schema.safeParse(
+    routeDetails?.get(editingRouteId),
+  ).success;
   const showCreateForm = !areFormValuesValid && drawingMode === Mode.Draw;
 
   const onCancel = () => {
-    dispatch({ type: 'reset' });
+    dispatch({ type: 'stopDrawRoute' });
   };
   const onClose = () => {
-    dispatch({ type: 'reset' });
+    dispatch({ type: 'stopDrawRoute' });
   };
 
   const onSuccess = (data: FormState) => {
-    dispatch({ type: 'setState', payload: { routeDetails: data } });
+    dispatch({
+      type: 'setState',
+      payload: {
+        routeDetails: new Map(routeDetails).set(editingRouteId, data),
+      },
+    });
   };
 
-  const defaultValues: Partial<FormState> = routeDetails || {};
+  const defaultValues: Partial<FormState> =
+    routeDetails?.get(editingRouteId) || {};
 
   return (
     <>
