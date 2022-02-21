@@ -24,6 +24,7 @@
     "@graphql-typed-document-node/core": "^3.1.0",
     "@headlessui/react": "^1.0.0",
     "@hookform/resolvers": "^2.8.3",
+    "@nebula.gl/edit-modes": "0.23.8",
     "@seznam/compose-react-refs": "^1.0.6",
     "@turf/area": "^6.5.0",
     "@types/react-router": "^5.1.17",

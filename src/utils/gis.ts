@@ -29,11 +29,11 @@ export const mapLngLatToPoint = (lngLat: number[]) => {
 
 export const mapLngLatToGeoJSON = flow(mapLngLatToPoint, mapPointToGeoJSON);
 
-export const mapGeoJSONtoFeature = (geoJson: GeoJSON.Geometry) => {
-  const feature: GeoJSON.Feature = {
+export function mapGeoJSONtoFeature<T extends GeoJSON.Geometry>(geoJson: T) {
+  const feature: GeoJSON.Feature<T> = {
     type: 'Feature',
     geometry: geoJson,
     properties: {},
   };
   return feature;
-};
+}

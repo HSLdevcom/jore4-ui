@@ -26,20 +26,28 @@ export const MapFooter: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const {
-    state: { hasRoute, drawingMode },
+    state: { drawingMode, displayedRouteIds, creatingNewRoute, hasRoute },
   } = useContext(MapEditorContext);
+
+  const viewMode = drawingMode === undefined;
+  const changesInProgress = creatingNewRoute || !viewMode;
+
   return (
     <Row className="space-x-4 bg-white px-10 py-5">
       <SimpleButton
         onClick={onDrawRoute}
-        disabled={hasRoute}
+        disabled={!viewMode || creatingNewRoute}
         inverted={drawingMode !== Mode.Draw}
       >
         {t('map.drawRoute')}
       </SimpleButton>
       <SimpleButton
         onClick={onEditRoute}
-        disabled={!hasRoute}
+        disabled={
+          // Don't enable editing when multiple routes are visible since there is no way
+          // to select which one of the visible routes to edit
+          !(creatingNewRoute || displayedRouteIds?.length === 1)
+        }
         inverted={drawingMode !== Mode.Edit}
       >
         {t('map.editRoute')}
@@ -54,20 +62,23 @@ export const MapFooter: React.FC<Props> = ({
       <SimpleButton
         className="!px-3"
         onClick={onDeleteRoute}
-        disabled={!hasRoute}
+        disabled={!changesInProgress}
       >
         <MdDelete aria-label={t('map.deleteRoute')} />
       </SimpleButton>
-      <Visible visible={hasRoute}>
+      <Visible visible={changesInProgress}>
         <SimpleButton
           className="!ml-auto"
           onClick={onCancel}
-          disabled={!hasRoute}
+          disabled={!changesInProgress}
           inverted
         >
           {t('cancel')}
         </SimpleButton>
-        <SimpleButton onClick={onSave} disabled={!hasRoute}>
+        <SimpleButton
+          onClick={onSave}
+          disabled={!(changesInProgress && hasRoute)}
+        >
           {t('routes.save')}
         </SimpleButton>
       </Visible>

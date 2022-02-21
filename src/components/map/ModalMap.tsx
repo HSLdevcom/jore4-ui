@@ -1,21 +1,10 @@
 import React, { useContext, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapEditorContext } from '../../context/MapEditorContext';
+import { MapEditorContext, Mode } from '../../context/MapEditorContext';
 import { ModalMapContext } from '../../context/ModalMapContext';
-import {
-  InsertRouteOneMutationVariables,
-  RouteDirectionEnum,
-  useInsertRouteOneMutation,
-} from '../../generated/graphql';
-import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
+import { useEditRouteGeometry } from '../../hooks/useEditRouteGeometry';
 import { Modal } from '../../uiComponents';
-import {
-  mapDateInputToValidityEnd,
-  mapDateInputToValidityStart,
-  mapToObject,
-  mapToVariables,
-  showToast,
-} from '../../utils';
+import { showToast } from '../../utils';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
@@ -38,22 +27,51 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const { state: modalMapState, dispatch: modalMapDispatch } =
     useContext(ModalMapContext);
 
-  const [insertRouteMutation] = useInsertRouteOneMutation();
+  const {
+    mapRouteDetailsToInsertMutationVariables,
+    mapRouteDetailsToUpdateMutationVariables,
+    insertRouteMutation,
+    updateRouteGeometryMutation,
+  } = useEditRouteGeometry();
+
+  const { drawingMode } = mapEditorState;
 
   const onAddStop = () => mapEditorDispatch({ type: 'toggleAddStop' });
-  const onDrawRoute = () => mapEditorDispatch({ type: 'toggleDrawRoute' });
-  const onEditRoute = () => mapEditorDispatch({ type: 'toggleEditRoute' });
+  const onDrawRoute = () => {
+    mapRef?.current?.onDeleteDrawnRoute();
+    mapEditorDispatch({
+      type: drawingMode === Mode.Draw ? 'stopDrawRoute' : 'startDrawRoute',
+    });
+  };
+  const onEditRoute = () => {
+    if (!mapEditorState.creatingNewRoute) {
+      mapRef?.current?.onDeleteDrawnRoute();
+    }
+    mapEditorDispatch({
+      type: drawingMode === Mode.Edit ? 'stopEditRoute' : 'startEditRoute',
+    });
+  };
   const onCancel = () => {
     mapRef?.current?.onDeleteDrawnRoute();
-    mapEditorDispatch({ type: 'reset' });
+
+    mapEditorDispatch({ type: 'stopDrawRoute' });
+    mapEditorDispatch({ type: 'stopEditRoute' });
   };
   const onSave = async () => {
-    const { busRoute, stopIdsWithinRoute, infraLinksAlongRoute } =
-      mapEditorState;
+    const {
+      busRoute,
+      stopIdsWithinRoute,
+      infraLinksAlongRoute,
+      editingRouteId,
+    } = mapEditorState;
+
+    if (editingRouteId === undefined) {
+      return;
+    }
 
     if (
       busRoute &&
-      infraLinksAlongRoute &&
+      infraLinksAlongRoute?.has(editingRouteId) &&
       stopIdsWithinRoute &&
       stopIdsWithinRoute.length >= 2
     ) {
@@ -62,64 +80,64 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
       const startingStopId = stopIdsWithinRoute[0];
       const finalStopId = stopIdsWithinRoute[stopIdsWithinRoute.length - 1];
 
-      const { routeDetails } = mapEditorState;
-      if (!routeDetails) {
+      const { routeDetails: routeDetailsMap } = mapEditorState;
+
+      if (!routeDetailsMap?.has(editingRouteId)) {
         // eslint-disable-next-line no-console
         console.error('Something went wrong');
         return;
       }
 
-      const variables: InsertRouteOneMutationVariables = mapToObject({
-        starts_from_scheduled_stop_point_id: startingStopId,
-        ends_at_scheduled_stop_point_id: finalStopId,
-        on_line_id: routeDetails.on_line_id,
-        label: routeDetails.label,
-        description_i18n: routeDetails.description_i18n,
-        direction: RouteDirectionEnum.Outbound, // TODO: make this user-configurable
-        priority: routeDetails.priority,
-        validity_start: mapDateInputToValidityStart(
-          // form validation makes sure that 'validityStart' has a valid value at this poin
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          routeDetails.validityStart!,
-        ),
-        validity_end: mapDateInputToValidityEnd(
-          routeDetails.validityEnd,
-          routeDetails.indefinite,
-        ),
-        // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
-        infrastructure_links_along_route: {
-          data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
-        },
-        route_journey_patterns: {
-          data: {
-            scheduled_stop_point_in_journey_patterns: {
-              data: stopIdsWithinRoute.map((stopId, index) => ({
-                scheduled_stop_point_id: stopId,
-                scheduled_stop_point_sequence: index,
-              })),
-            },
-          },
-        },
-      });
-      try {
-        await insertRouteMutation(mapToVariables(variables));
-        showToast({ type: 'success', message: t('routes.saveSuccess') });
-      } catch (err) {
-        showToast({
-          type: 'danger',
-          message: `${t('errors.saveFailed')}, ${err}`,
-        });
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const routeDetails = routeDetailsMap.get(editingRouteId)!;
+
+      const currentRouteInfrastructureLinks =
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        infraLinksAlongRoute.get(editingRouteId)!;
+
+      if (editingRouteId) {
+        const variables = mapRouteDetailsToUpdateMutationVariables(
+          editingRouteId,
+          stopIdsWithinRoute,
+          currentRouteInfrastructureLinks,
+          startingStopId,
+          finalStopId,
+        );
+
+        try {
+          await updateRouteGeometryMutation(variables);
+          showToast({ type: 'success', message: t('routes.saveSuccess') });
+        } catch (err) {
+          showToast({
+            type: 'danger',
+            message: `${t('errors.saveFailed')}, ${err}`,
+          });
+        }
+      } else {
+        const variables = mapRouteDetailsToInsertMutationVariables(
+          routeDetails,
+          stopIdsWithinRoute,
+          currentRouteInfrastructureLinks,
+          startingStopId,
+          finalStopId,
+        );
+
+        try {
+          await insertRouteMutation(variables);
+          showToast({ type: 'success', message: t('routes.saveSuccess') });
+        } catch (err) {
+          showToast({
+            type: 'danger',
+            message: `${t('errors.saveFailed')}, ${err}`,
+          });
+        }
       }
     } else {
       showToast({ type: 'danger', message: t('errors.saveFailed') });
     }
   };
   const onDeleteRoute = () => {
-    mapEditorDispatch({
-      type: 'setState',
-      payload: { drawingMode: undefined },
-    });
-    mapRef?.current?.onDeleteDrawnRoute();
+    onCancel();
   };
   const onCloseModalMap = () => {
     mapEditorDispatch({ type: 'reset' });
