@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { gql } from '@apollo/client';
+import { Geometry } from '../components/map/mapUtils';
 import {
   InfrastructureNetworkDirectionEnum,
   MapExternalLinkIdsToInfraLinksWithStopsQuery,
@@ -9,6 +10,7 @@ import {
 export type InfrastructureLinkAlongRoute = {
   infrastructureLinkId: string;
   isTraversalForwards: boolean;
+  shape: Geometry;
 };
 
 export const mapInfraLinksAlongRouteToGraphQL = (
@@ -128,6 +130,7 @@ const QUERY_MAP_EXTERNAL_LINK_IDS_TO_INFRA_LINKS_WITH_STOPS = gql`
           vehicle_mode
         }
       }
+      shape
     }
   }
 `;

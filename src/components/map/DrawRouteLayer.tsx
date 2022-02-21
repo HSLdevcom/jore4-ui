@@ -1,11 +1,14 @@
+import { Feature, PointCoordinates } from '@nebula.gl/edit-modes';
 import composeRefs from '@seznam/compose-react-refs';
 import debounce from 'lodash/debounce';
 import React, {
   useCallback,
   useContext,
+  useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
+  useState,
 } from 'react';
 import { MapContext } from 'react-map-gl';
 import { DrawLineStringMode, EditingMode, Editor } from 'react-map-gl-draw';
@@ -41,6 +44,43 @@ interface EditorCallback {
   selectedFeatureIndex: number;
 }
 
+const mapInfraLinksToFeatures = (
+  infraLinks: InfrastructureLinkAlongRoute[] | undefined,
+): Feature[] => {
+  if (!infraLinks || infraLinks.length === 0) return [];
+  return [
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'LineString',
+        coordinates: infraLinks?.flatMap((link, index) => {
+          const isFirst = index === 0;
+          let linkCoordinates = link.shape.coordinates;
+
+          // Order coordinates properly
+          if (linkCoordinates.length > 0 && !link.isTraversalForwards) {
+            linkCoordinates = [...linkCoordinates].reverse();
+          }
+
+          // To simplify the path drawn,
+          // remove points in the middle of the infrastructure link
+          const firstPoint = linkCoordinates[0];
+          const lastPoint = linkCoordinates[linkCoordinates.length - 1];
+
+          const pointsToDraw = isFirst ? [firstPoint, lastPoint] : [lastPoint];
+
+          // Remove z-coordinate
+          return pointsToDraw.map(
+            (coordinates: number[]) =>
+              coordinates.slice(0, 2) as PointCoordinates,
+          );
+        }),
+      },
+      properties: {},
+    },
+  ];
+};
+
 // `react-map-gl-draw` library can't be updated into latest version
 // until following issue is resolved. Otherwise editing won't work.
 // https://github.com/uber/nebula.gl/issues/580
@@ -54,13 +94,15 @@ const DrawRouteLayerComponent = (
   const { map } = useContext(MapContext);
   const editorRef = useRef<ExplicitAny>(null);
   const {
-    state: { hasRoute },
+    state: { hasRoute, infraLinksAlongRoute, editingRouteId },
     dispatch,
   } = useContext(MapEditorContext);
 
+  const [features, setFeatures] = useState<Feature[]>();
+
   const onDelete = useCallback(
     (routeId: string) => {
-      editorRef.current.deleteFeatures(routeId);
+      setFeatures([]);
       removeRoute(map, routeId);
       dispatch({ type: 'setState', payload: { hasRoute: false } });
     },
@@ -78,14 +120,10 @@ const DrawRouteLayerComponent = (
   }));
 
   const modeHandler = useMemo(() => {
-    if (hasRoute && mode === Mode.Draw) {
-      // allow user to draw only one draft route at once.
-      return undefined;
-    }
     const modeDetails = modes.find((item) => item.type === mode);
     // eslint-disable-next-line new-cap
     return modeDetails ? new modeDetails.handler() : undefined;
-  }, [hasRoute, mode]);
+  }, [mode]);
 
   const [fetchInfraLinksWithStopsByExternalIds] = useAsyncQuery<
     MapExternalLinkIdsToInfraLinksWithStopsQuery,
@@ -94,6 +132,13 @@ const DrawRouteLayerComponent = (
 
   const onAddRoute = useCallback(
     async (e: EditorCallback) => {
+      // user added new route or edited existing one
+      dispatch({ type: 'setState', payload: { hasRoute: true } });
+
+      if (editingRouteId === undefined) {
+        return;
+      }
+
       const addedFeatureIndex = e.data.length - 1;
       const routeId = String(addedFeatureIndex);
       const { coordinates } = e.data[addedFeatureIndex].geometry;
@@ -134,6 +179,7 @@ const DrawRouteLayerComponent = (
           infrastructureLinkId: item.infrastructure_link_id,
           isTraversalForwards:
             routeResponse.routes[0]?.paths[index]?.isTraversalForwards,
+          shape: item.shape,
         }));
 
       // Extract the list of ids of the stops to be included in the route
@@ -147,7 +193,10 @@ const DrawRouteLayerComponent = (
         type: 'setState',
         payload: {
           stopIdsWithinRoute: stopIds,
-          infraLinksAlongRoute: infraLinks,
+          infraLinksAlongRoute: new Map(infraLinksAlongRoute).set(
+            editingRouteId,
+            infraLinks,
+          ),
         },
       });
 
@@ -172,8 +221,24 @@ const DrawRouteLayerComponent = (
         onDelete(routeId);
       }
     },
-    [map, onDelete, dispatch, fetchInfraLinksWithStopsByExternalIds],
+    // TODO: Why does adding fetchInfraLinksWithStopsByExternalIds to his array result in
+    // debounce not working (callback being generated again)?
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [map, onDelete, dispatch, infraLinksAlongRoute, editingRouteId],
   );
+
+  useEffect(() => {
+    if (editingRouteId) {
+      const newFeatures = mapInfraLinksToFeatures(
+        infraLinksAlongRoute?.get(editingRouteId),
+      );
+
+      setFeatures(newFeatures);
+    } else {
+      setFeatures([]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editingRouteId]);
 
   const debouncedOnAddRoute = useMemo(
     () => debounce(onAddRoute, 500),
@@ -181,11 +246,17 @@ const DrawRouteLayerComponent = (
   );
 
   const onUpdate = (e: EditorCallback) => {
+    setFeatures(e.data);
     if (e.editType === 'addFeature' || e.editType === 'movePosition') {
-      // user added new route or edited existing one
-      dispatch({ type: 'setState', payload: { hasRoute: true } });
       // Editor calls onUpdate callback million times when route is being edited. That's why we want to debounce onAddRoute event.
       debouncedOnAddRoute(e);
+
+      if (e.editType === 'addFeature') {
+        dispatch({
+          type: 'setState',
+          payload: { drawingMode: undefined },
+        });
+      }
     }
   };
 
@@ -208,9 +279,11 @@ const DrawRouteLayerComponent = (
         cursor: getCursor(),
       }}
       ref={composeRefs(externalRef, editorRef)}
-      clickRadius={12}
+      clickRadius={20}
       mode={modeHandler}
       onUpdate={onUpdate}
+      features={features}
+      featuresDraggable={false}
     />
   );
 };

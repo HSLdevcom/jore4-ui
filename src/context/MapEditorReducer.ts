@@ -1,7 +1,9 @@
-import produce from 'immer';
+import produce, { enableMapSet } from 'immer';
 import { BusRouteResponse } from '../api/routing';
 import { FormState as RouteFormState } from '../components/forms/RoutePropertiesForm';
 import { InfrastructureLinkAlongRoute } from '../graphql';
+
+enableMapSet();
 
 export enum Mode {
   Draw,
@@ -11,33 +13,38 @@ export enum Mode {
 export interface IMapEditorContext {
   hasRoute: boolean;
   displayedRouteIds?: UUID[];
+  creatingNewRoute: boolean;
+  editingRouteId?: UUID | null;
   selectedStopId?: UUID;
   canAddStops: boolean;
-  routeDetails?: Partial<RouteFormState>;
+  routeDetails: Map<UUID | null, Partial<RouteFormState>>;
   drawingMode: Mode | undefined;
   busRoute?: BusRouteResponse;
   stopIdsWithinRoute?: string[];
-  infraLinksAlongRoute?: InfrastructureLinkAlongRoute[];
+  infraLinksAlongRoute: Map<UUID | null, InfrastructureLinkAlongRoute[]>;
 }
 
 export const initialState: IMapEditorContext = {
   hasRoute: false,
   displayedRouteIds: undefined,
+  creatingNewRoute: false,
   selectedStopId: undefined,
   canAddStops: false,
   drawingMode: undefined,
-  routeDetails: undefined,
+  routeDetails: new Map(),
   busRoute: undefined,
   stopIdsWithinRoute: undefined,
-  infraLinksAlongRoute: undefined,
+  infraLinksAlongRoute: new Map(),
 };
 
 export type MapEditorActions =
   | 'reset'
   | 'setState'
   | 'toggleAddStop'
-  | 'toggleDrawRoute'
-  | 'toggleEditRoute';
+  | 'startDrawRoute'
+  | 'stopDrawRoute'
+  | 'startEditRoute'
+  | 'stopEditRoute';
 
 const reducerFunction = (
   draft: IMapEditorContext,
@@ -47,6 +54,10 @@ const reducerFunction = (
   },
 ) => {
   const { type, payload } = action;
+
+  const routeToEdit = draft.creatingNewRoute
+    ? null
+    : draft?.displayedRouteIds?.[0];
 
   // note: with the use or 'immer', we can modify the state object directly
   switch (type) {
@@ -58,13 +69,27 @@ const reducerFunction = (
       draft.drawingMode = undefined;
       draft.canAddStops = !draft.canAddStops;
       break;
-    case 'toggleDrawRoute':
-      draft.drawingMode =
-        draft.drawingMode !== Mode.Draw ? Mode.Draw : undefined;
+    case 'startDrawRoute':
+      draft.drawingMode = Mode.Draw;
+      draft.creatingNewRoute = true;
+      draft.editingRouteId = null;
+      draft.infraLinksAlongRoute.set(null, []);
       break;
-    case 'toggleEditRoute':
-      draft.drawingMode =
-        draft.drawingMode !== Mode.Edit ? Mode.Edit : undefined;
+    case 'stopDrawRoute':
+      draft.drawingMode = undefined;
+      draft.creatingNewRoute = false;
+      draft.editingRouteId = undefined;
+      break;
+    case 'startEditRoute':
+      draft.drawingMode = Mode.Edit;
+      draft.editingRouteId = routeToEdit;
+      break;
+    case 'stopEditRoute':
+      draft.drawingMode = undefined;
+      if (!draft.creatingNewRoute) {
+        draft.editingRouteId = undefined;
+      }
+
       break;
     default:
   }

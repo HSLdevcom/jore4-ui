@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FetchResult, gql, ApolloQueryResult } from '@apollo/client';
+import { ApolloQueryResult, FetchResult, gql } from '@apollo/client';
 import {
+  GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
   RouteLine,
   RouteRoute,
@@ -9,7 +10,6 @@ import {
   useGetRouteDetailsByIdsQuery,
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
-  GetRouteDetailsByIdsQuery,
 } from '../generated/graphql';
 
 const LINE_DEFAULT_FIELDS = gql`
@@ -79,6 +79,22 @@ const ROUTE_WITH_JOURNEY_PATTERN_STOPS = gql`
     ...route_all_fields
     route_journey_patterns {
       ...journey_pattern_with_stops
+    }
+  }
+`;
+
+const ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
+  fragment route_with_infrastructure_links on route_route {
+    ...route_with_journey_pattern_stops
+    route_line {
+      label
+    }
+    infrastructure_links_along_route {
+      infrastructure_link_id
+      infrastructure_link {
+        shape
+      }
+      is_traversal_forwards
     }
   }
 `;
@@ -167,6 +183,14 @@ export const mapRoutesDetailsResult = (
   result: ApolloQueryResult<GetRouteDetailsByIdsQuery>,
 ) => result.data?.route_route as RouteRoute[] | [];
 
+const GET_ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
+  query GetRouteWithInfrastructureLinks($route_ids: [uuid!]) {
+    route_route(where: { route_id: { _in: $route_ids } }) {
+      ...route_with_infrastructure_links
+    }
+  }
+`;
+
 const INSERT_LINE = gql`
   mutation InsertLineOne($object: route_line_insert_input!) {
     insert_route_line_one(object: $object) {
@@ -218,6 +242,57 @@ const UPDATE_ROUTE = gql`
     update_route_route(where: { route_id: { _eq: $route_id } }, _set: $object) {
       returning {
         ...route_all_fields
+      }
+    }
+  }
+`;
+
+const UPDATE_ROUTE_GEOMETRY = gql`
+  mutation UpdateRouteGeometry(
+    $route_id: uuid!
+    $new_infrastructure_links: [route_infrastructure_link_along_route_insert_input!]!
+    $new_journey_pattern: journey_pattern_journey_pattern_insert_input!
+    $route_route: route_route_set_input!
+  ) {
+    delete_route_infrastructure_link_along_route(
+      where: { route_id: { _eq: $route_id } }
+    ) {
+      returning {
+        route_id
+      }
+    }
+
+    insert_route_infrastructure_link_along_route(
+      objects: $new_infrastructure_links
+    ) {
+      returning {
+        route_id
+        infrastructure_link_id
+        infrastructure_link {
+          shape
+        }
+        is_traversal_forwards
+      }
+    }
+
+    delete_journey_pattern_journey_pattern(
+      where: { on_route_id: { _eq: $route_id } }
+    ) {
+      returning {
+        on_route_id
+      }
+    }
+
+    insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
+      on_route_id
+    }
+
+    update_route_route(
+      where: { route_id: { _eq: $route_id } }
+      _set: $route_route
+    ) {
+      returning {
+        ...route_with_infrastructure_links
       }
     }
   }
