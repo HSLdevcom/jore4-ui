@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ApolloQueryResult, gql } from '@apollo/client';
 import {
+  GetStopByIdQuery,
   GetStopsAlongInfrastructureLinksQuery,
   GetStopWithRouteGraphDataByIdQuery,
   QueryClosestLinkQuery,
@@ -61,6 +62,22 @@ export const mapGetStopsResult = (
 ) =>
   result.data?.service_pattern_scheduled_stop_point as
     | ServicePatternScheduledStopPoint[]
+    | undefined;
+
+const GET_STOP_BY_ID = gql`
+  query GetStopById($stopId: uuid!) {
+    service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _eq: $stopId } }
+    ) {
+      ...scheduled_stop_point_all_fields
+    }
+  }
+`;
+export const mapGetStopByIdResult = (
+  result: GqlQueryResult<GetStopByIdQuery>,
+) =>
+  result.data?.service_pattern_scheduled_stop_point[0] as
+    | ServicePatternScheduledStopPoint
     | undefined;
 
 const INSERT_STOP = gql`

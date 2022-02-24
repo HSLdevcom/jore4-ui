@@ -4,21 +4,20 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import {
-  InsertStopMutationVariables,
   ReusableComponentsVehicleModeEnum,
-  useInsertStopMutation,
+  ServicePatternScheduledStopPoint,
+  ServicePatternScheduledStopPointInsertInput,
+  ServicePatternScheduledStopPointSetInput,
 } from '../../generated/graphql';
-import { useGetStopLinkAndDirection } from '../../hooks';
+import { useCreateStop, useEditStop } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
-import { Point } from '../../types';
+import { mapToISODate } from '../../time';
+import { RequiredKeys } from '../../types';
 import {
-  DirectionNotResolvedError,
-  LinkNotResolvedError,
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
+  mapLngLatToPoint,
   mapPointToGeoJSON,
-  mapToObject,
-  mapToVariables,
   showDangerToast,
   showSuccessToast,
 } from '../../utils';
@@ -30,6 +29,7 @@ import {
 
 const schema = z
   .object({
+    stopId: z.string().uuid().optional(), // for stops that are edited
     finnishName: z.string().min(1),
     latitude: z.number().min(-90).max(90),
     longitude: z.number().min(-180).max(180),
@@ -37,6 +37,29 @@ const schema = z
   .merge(confirmSaveFormSchema);
 
 export type FormState = z.infer<typeof schema> & ConfirmSaveFormState;
+
+export const mapStopDataToFormState = (
+  stop: RequiredKeys<
+    Partial<ServicePatternScheduledStopPoint>,
+    'measured_location'
+  >,
+) => {
+  const { latitude, longitude } = mapLngLatToPoint(
+    stop.measured_location.coordinates,
+  );
+  const formState: Partial<FormState> = {
+    stopId: stop.scheduled_stop_point_id,
+    finnishName: stop.label || '',
+    latitude,
+    longitude,
+    priority: stop.priority,
+    validityStart: mapToISODate(stop.validity_start),
+    validityEnd: mapToISODate(stop.validity_end),
+    indefinite: !stop.validity_end,
+  };
+
+  return formState;
+};
 
 interface Props {
   className?: string;
@@ -60,59 +83,87 @@ const StopFormComponent = (
     formState: { errors },
   } = methods;
 
-  const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
-  const [insertStop] = useInsertStopMutation();
+  const {
+    prepareEdit,
+    editStopMutation,
+    mapEditChangesToVariables,
+    defaultErrorHandler,
+  } = useEditStop();
+  const { prepareCreate, mapCreateChangesToVariables, insertStopMutation } =
+    useCreateStop();
 
-  const onSubmit = async (state: FormState) => {
-    const stopLocation: Point = {
-      latitude: state.latitude,
-      longitude: state.longitude,
+  const mapFormStateToInput = (state: FormState) => {
+    const input:
+      | ServicePatternScheduledStopPointSetInput
+      | ServicePatternScheduledStopPointInsertInput = {
+      measured_location: mapPointToGeoJSON(state),
+      label: state.finnishName,
+      priority: state.priority,
+      validity_start: mapDateInputToValidityStart(state.validityStart),
+      validity_end: mapDateInputToValidityEnd(state.validityEnd),
     };
+    return input;
+  };
 
+  const onEdit = async (state: FormState) => {
     try {
-      // get computed values for closest link and direction
-      const { closestLinkId, direction } = await getStopLinkAndDirection({
-        stopLocation,
+      // in case of editing, the stopId is valid
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const stopId = state.stopId!;
+      const changes = await prepareEdit({
+        stopId,
+        patch: {
+          ...mapFormStateToInput(state),
+        },
       });
+      if (changes.deleteStopFromRoutes.length > 0) {
+        const deletedFromRouteLabels = changes.deleteStopFromRoutes.map(
+          (item) => item.label,
+        );
+        showDangerToast(
+          `This stop is now removed from the following routes: ${deletedFromRouteLabels.join(
+            ', ',
+          )}`,
+        );
+      }
+      const variables = mapEditChangesToVariables(changes);
+      await editStopMutation({ variables });
 
-      // insert stop to db
-      const variables: InsertStopMutationVariables = mapToObject({
-        located_on_infrastructure_link_id: closestLinkId,
-        direction,
-        measured_location: mapPointToGeoJSON(stopLocation),
-        // TODO: how we should calculate label? Use finnishName as label for now as
-        // have been done in jore3 importer, but it won't be correct solution in the long
-        // term.
-        label: state.finnishName,
-        priority: state.priority,
-        validity_start: mapDateInputToValidityStart(state.validityStart),
-        validity_end: mapDateInputToValidityEnd(state.validityStart),
-        vehicle_mode_on_scheduled_stop_point: {
-          data: {
-            // TODO: Replace hard-coded Bus-value with propagated one
-            vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+      showSuccessToast(t('stops.editSuccess'));
+      onSubmitSuccess();
+    } catch (err) {
+      defaultErrorHandler(err as Error);
+    }
+  };
+
+  const onCreate = async (state: FormState) => {
+    try {
+      const changes = await prepareCreate({
+        input: {
+          ...mapFormStateToInput(state),
+          vehicle_mode_on_scheduled_stop_point: {
+            data: [
+              {
+                // TODO: Replace hard-coded Bus-value with propagated one
+                vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+              },
+            ],
           },
         },
       });
-      await insertStop(mapToVariables(variables));
 
-      // handle success
+      const variables = mapCreateChangesToVariables(changes);
+      await insertStopMutation({ variables });
+
       showSuccessToast(t('stops.saveSuccess'));
       onSubmitSuccess();
     } catch (err) {
-      if (err instanceof LinkNotResolvedError) {
-        showDangerToast(t('stops.fetchClosestLinkFailed'));
-        return;
-      }
-      if (err instanceof DirectionNotResolvedError) {
-        showDangerToast(t('stops.fetchDirectionFailed'));
-        return;
-      }
-      // if other error happened, show the generic error message
-      showDangerToast(
-        `${t('errors.saveFailed')}, ${err}, ${(err as Error).message}`,
-      );
+      defaultErrorHandler(err as Error);
     }
+  };
+
+  const onSubmit = (state: FormState) => {
+    return state.stopId ? onEdit(state) : onCreate(state);
   };
 
   return (
