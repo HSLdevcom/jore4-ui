@@ -4914,7 +4914,7 @@ export type ServicePatternScheduledStopPointInsertInput = {
   /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
-  measured_location?: Maybe<Scalars['geography']>;
+  measured_location?: Maybe<Scalars['geography_point']>;
   /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
@@ -6017,6 +6017,13 @@ export type GetStopsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetStopsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number }> };
 
+export type GetStopByIdQueryVariables = Exact<{
+  stopId: Scalars['uuid'];
+}>;
+
+
+export type GetStopByIdQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number }> };
+
 export type InsertStopMutationVariables = Exact<{
   object: ServicePatternScheduledStopPointInsertInput;
 }>;
@@ -6994,6 +7001,43 @@ export function useGetStopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetStopsQueryHookResult = ReturnType<typeof useGetStopsQuery>;
 export type GetStopsLazyQueryHookResult = ReturnType<typeof useGetStopsLazyQuery>;
 export type GetStopsQueryResult = Apollo.QueryResult<GetStopsQuery, GetStopsQueryVariables>;
+export const GetStopByIdDocument = gql`
+    query GetStopById($stopId: uuid!) {
+  service_pattern_scheduled_stop_point(
+    where: {scheduled_stop_point_id: {_eq: $stopId}}
+  ) {
+    ...scheduled_stop_point_all_fields
+  }
+}
+    ${ScheduledStopPointAllFieldsFragmentDoc}`;
+
+/**
+ * __useGetStopByIdQuery__
+ *
+ * To run a query within a React component, call `useGetStopByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopByIdQuery({
+ *   variables: {
+ *      stopId: // value for 'stopId'
+ *   },
+ * });
+ */
+export function useGetStopByIdQuery(baseOptions: Apollo.QueryHookOptions<GetStopByIdQuery, GetStopByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopByIdQuery, GetStopByIdQueryVariables>(GetStopByIdDocument, options);
+      }
+export function useGetStopByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopByIdQuery, GetStopByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopByIdQuery, GetStopByIdQueryVariables>(GetStopByIdDocument, options);
+        }
+export type GetStopByIdQueryHookResult = ReturnType<typeof useGetStopByIdQuery>;
+export type GetStopByIdLazyQueryHookResult = ReturnType<typeof useGetStopByIdLazyQuery>;
+export type GetStopByIdQueryResult = Apollo.QueryResult<GetStopByIdQuery, GetStopByIdQueryVariables>;
 export const InsertStopDocument = gql`
     mutation InsertStop($object: service_pattern_scheduled_stop_point_insert_input!) {
   insert_service_pattern_scheduled_stop_point_one(object: $object) {

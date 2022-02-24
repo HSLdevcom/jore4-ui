@@ -1,7 +1,12 @@
-import { uniqBy } from 'lodash';
 import flow from 'lodash/flow';
+import isEqual from 'lodash/isEqual';
+import uniqBy from 'lodash/uniqBy';
+import { useTranslation } from 'react-i18next';
 import {
   EditStopMutationVariables,
+  GetStopByIdDocument,
+  GetStopByIdQuery,
+  GetStopByIdQueryVariables,
   GetStopWithRouteGraphDataByIdDocument,
   GetStopWithRouteGraphDataByIdQuery,
   GetStopWithRouteGraphDataByIdQueryVariables,
@@ -11,12 +16,21 @@ import {
   ServicePatternScheduledStopPointSetInput,
   useEditStopMutation,
 } from '../generated/graphql';
-import { mapGetStopWithRouteGraphDataByIdResult } from '../graphql';
-import { EditRouteTerminalStopsError, mapLngLatToPoint } from '../utils';
+import {
+  mapGetStopByIdResult,
+  mapGetStopWithRouteGraphDataByIdResult,
+} from '../graphql';
+import {
+  DirectionNotResolvedError,
+  EditRouteTerminalStopsError,
+  LinkNotResolvedError,
+  mapLngLatToPoint,
+  showDangerToast,
+} from '../utils';
 import { useAsyncQuery } from './useAsyncQuery';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 
-interface Params {
+interface EditParams {
   stopId: UUID;
   patch: ServicePatternScheduledStopPointSetInput;
 }
@@ -29,12 +43,17 @@ interface EditChanges {
 }
 
 export const useEditStop = () => {
+  const { t } = useTranslation();
   const [editStopMutation] = useEditStopMutation();
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
-  const [getStopRoutes] = useAsyncQuery<
+  const [getStopWithRouteGraphData] = useAsyncQuery<
     GetStopWithRouteGraphDataByIdQuery,
     GetStopWithRouteGraphDataByIdQueryVariables
   >(GetStopWithRouteGraphDataByIdDocument);
+  const [getStopById] = useAsyncQuery<
+    GetStopByIdQuery,
+    GetStopByIdQueryVariables
+  >(GetStopByIdDocument);
 
   // checking whether this stop is the start or end stop of an existing route
   const isStartingOrEndingStopOfAnyRoute = (
@@ -98,7 +117,7 @@ export const useEditStop = () => {
 
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
-  const prepareAndValidateEdit = async ({ stopId, patch }: Params) => {
+  const prepareEdit = async ({ stopId, patch }: EditParams) => {
     const changes: EditChanges = {
       stopId,
       patch,
@@ -106,10 +125,17 @@ export const useEditStop = () => {
       deleteStopFromJourneyPatterns: [],
     };
 
-    if (patch.measured_location) {
+    const stopResult = await getStopById({ stopId });
+    const oldStop = mapGetStopByIdResult(stopResult);
+
+    const newLocation = patch.measured_location?.coordinates;
+    const oldLocation = oldStop?.measured_location.coordinates;
+
+    if (newLocation && !isEqual(newLocation, oldLocation)) {
       // if we modified the location of the stop, have to also fetch the new infra link and direction
       const { closestLinkId, direction } = await getStopLinkAndDirection({
-        stopLocation: mapLngLatToPoint(patch.measured_location.coordinates),
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        stopLocation: mapLngLatToPoint(patch.measured_location!.coordinates),
       });
       // eslint-disable-next-line no-param-reassign
       patch.located_on_infrastructure_link_id = closestLinkId;
@@ -117,7 +143,9 @@ export const useEditStop = () => {
       patch.direction = direction;
 
       // check if we tried to move the starting or ending stop of an existing route
-      const stopRoutesResult = await getStopRoutes({ stop_id: stopId });
+      const stopRoutesResult = await getStopWithRouteGraphData({
+        stop_id: stopId,
+      });
       const stopWithRouteGraphData =
         mapGetStopWithRouteGraphDataByIdResult(stopRoutesResult);
       if (isStartingOrEndingStopOfAnyRoute(stopId, stopWithRouteGraphData)) {
@@ -140,7 +168,7 @@ export const useEditStop = () => {
     return changes;
   };
 
-  const mapEditChangesToMutationVariables = (changes: EditChanges) => {
+  const mapEditChangesToVariables = (changes: EditChanges) => {
     const variables: EditStopMutationVariables = {
       stop_id: changes.stopId,
       stop_patch: changes.patch,
@@ -152,16 +180,36 @@ export const useEditStop = () => {
     return variables;
   };
 
-  const prepareAndExecuteEdit = flow(
-    prepareAndValidateEdit,
-    mapEditChangesToMutationVariables,
+  const prepareAndExecute = flow(
+    prepareEdit,
+    mapEditChangesToVariables,
     editStopMutation,
   );
 
+  // default handler that can be used to show error messages as toast
+  // in case an exception is thrown
+  const defaultErrorHandler = (err: Error) => {
+    if (err instanceof LinkNotResolvedError) {
+      showDangerToast(t('stops.fetchClosestLinkFailed'));
+      return;
+    }
+    if (err instanceof DirectionNotResolvedError) {
+      showDangerToast(t('stops.fetchDirectionFailed'));
+      return;
+    }
+    if (err instanceof EditRouteTerminalStopsError) {
+      showDangerToast(t('stops.cannotEditTerminalStops'));
+      return;
+    }
+    // if other error happened, show the generic error message
+    showDangerToast(`${t('errors.saveFailed')}, ${err}, ${err.message}`);
+  };
+
   return {
-    prepareAndValidateEdit,
-    mapEditChangesToMutationVariables,
+    prepareEdit,
+    mapEditChangesToVariables,
     editStopMutation,
-    prepareAndExecuteEdit,
+    prepareAndExecute,
+    defaultErrorHandler,
   };
 };

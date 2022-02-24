@@ -20,9 +20,6 @@ import { useFilterStops } from '../../hooks/useFilterStops';
 import { RequiredKeys } from '../../types';
 import { ConfirmationDialog } from '../../uiComponents';
 import {
-  DirectionNotResolvedError,
-  EditRouteTerminalStopsError,
-  LinkNotResolvedError,
   mapLngLatToGeoJSON,
   mapLngLatToPoint,
   mapToVariables,
@@ -31,6 +28,7 @@ import {
   showSuccessToast,
   showToast,
 } from '../../utils';
+import { mapStopDataToFormState } from '../forms/StopForm';
 import { EditStopModal } from './EditStopModal';
 import { Stop } from './Stop';
 import { StopPopup } from './StopPopup';
@@ -67,9 +65,10 @@ export const Stops = React.forwardRef((props, ref) => {
 
   const [removeStopMutation] = useRemoveStopMutation();
   const {
-    prepareAndValidateEdit,
-    mapEditChangesToMutationVariables,
+    prepareEdit,
+    mapEditChangesToVariables,
     editStopMutation,
+    defaultErrorHandler,
   } = useEditStop();
 
   const routesResult = useGetRoutesWithInfrastructureLinksQuery(
@@ -137,27 +136,6 @@ export const Stops = React.forwardRef((props, ref) => {
     setIsDeleting(false);
   };
 
-  const onEditSuccess = () => {
-    showSuccessToast(t('stops.editSuccess'));
-  };
-
-  const onEditFail = (err: Error) => {
-    if (err instanceof LinkNotResolvedError) {
-      showDangerToast(t('stops.fetchClosestLinkFailed'));
-      return;
-    }
-    if (err instanceof DirectionNotResolvedError) {
-      showDangerToast(t('stops.fetchDirectionFailed'));
-      return;
-    }
-    if (err instanceof EditRouteTerminalStopsError) {
-      showDangerToast(t('stops.cannotEditTerminalStops'));
-      return;
-    }
-    // if other error happened, show the generic error message
-    showDangerToast(`${t('errors.saveFailed')}, ${err}, ${err.message}`);
-  };
-
   const onStopDragEnd = async (event: CallbackEvent, stopId: UUID) => {
     const existingStop = stops?.find(
       (item) => item.scheduled_stop_point_id === stopId,
@@ -171,7 +149,7 @@ export const Stops = React.forwardRef((props, ref) => {
     }
 
     try {
-      const changes = await prepareAndValidateEdit({
+      const changes = await prepareEdit({
         stopId,
         patch: {
           measured_location: mapLngLatToGeoJSON(event.lngLat),
@@ -185,12 +163,12 @@ export const Stops = React.forwardRef((props, ref) => {
           `This stop is now removed from the following routes: ${deletedFromRoutes}`,
         );
       }
-      const variables = mapEditChangesToMutationVariables(changes);
+      const variables = mapEditChangesToVariables(changes);
       await editStopMutation({ variables });
 
-      onEditSuccess();
+      showSuccessToast(t('stops.editSuccess'));
     } catch (err) {
-      onEditFail(err as Error);
+      defaultErrorHandler(err as Error);
     }
   };
 
@@ -248,13 +226,7 @@ export const Stops = React.forwardRef((props, ref) => {
       )}
       {showEditForm && popupInfo && (
         <EditStopModal
-          defaultValues={{
-            finnishName: popupInfo.label || '',
-            latitude: mapLngLatToPoint(popupInfo.measured_location.coordinates)
-              .latitude,
-            longitude: mapLngLatToPoint(popupInfo.measured_location.coordinates)
-              .longitude,
-          }}
+          defaultValues={mapStopDataToFormState(popupInfo)}
           onCancel={() => setShowEditForm(false)}
           onClose={() => setShowEditForm(false)}
         />
