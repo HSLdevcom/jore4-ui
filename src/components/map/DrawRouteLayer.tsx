@@ -1,6 +1,7 @@
 import { Feature } from '@nebula.gl/edit-modes';
 import composeRefs from '@seznam/compose-react-refs';
 import debounce from 'lodash/debounce';
+import remove from 'lodash/remove';
 import React, {
   useCallback,
   useContext,
@@ -10,8 +11,14 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MapContext } from 'react-map-gl';
-import { DrawLineStringMode, EditingMode, Editor } from 'react-map-gl-draw';
+import {
+  DrawLineStringMode,
+  EditingMode,
+  Editor,
+  RENDER_STATE,
+} from 'react-map-gl-draw';
 import { getBusRoute } from '../../api/routing';
 import { MapEditorContext, Mode } from '../../context/MapEditorContext';
 import {
@@ -26,7 +33,7 @@ import {
   orderInfraLinksByExternalLinkId,
 } from '../../graphql';
 import { useAsyncQuery } from '../../hooks';
-import { mapGeoJSONtoFeature } from '../../utils';
+import { mapGeoJSONtoFeature, showToast } from '../../utils';
 import { addRoute, removeRoute } from './mapUtils';
 
 type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
@@ -94,6 +101,9 @@ const DrawRouteLayerComponent = (
   } = useContext(MapEditorContext);
 
   const [routeFeatures, setRouteFeatures] = useState<LineStringFeature[]>();
+  const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
+
+  const { t } = useTranslation();
 
   const onDelete = useCallback(
     (routeId: string) => {
@@ -126,7 +136,7 @@ const DrawRouteLayerComponent = (
   >(MapExternalLinkIdsToInfraLinksWithStopsDocument);
 
   const onUpdateRouteGeometry = useCallback(
-    async (e: EditorCallback) => {
+    async (newFeatures: LineStringFeature[]) => {
       // user added new route or edited existing one
       dispatch({ type: 'setState', payload: { hasRoute: true } });
 
@@ -134,11 +144,13 @@ const DrawRouteLayerComponent = (
         return;
       }
 
-      const addedFeatureIndex = e.data.length - 1;
+      const addedFeatureIndex = newFeatures.length - 1;
       const routeId = String(addedFeatureIndex);
-      const { coordinates } = e.data[addedFeatureIndex].geometry;
+      const { coordinates } = newFeatures[addedFeatureIndex].geometry;
 
-      const routeResponse = await getBusRoute(coordinates);
+      const routeResponse = await getBusRoute(
+        coordinates as GeoJSON.Position[],
+      );
       dispatch({ type: 'setState', payload: { busRoute: routeResponse } });
 
       const externalLinkIds = routeResponse.routes[0]?.paths?.map(
@@ -229,6 +241,10 @@ const DrawRouteLayerComponent = (
       );
 
       setRouteFeatures(newFeatures);
+
+      if (newFeatures?.length !== 0) {
+        onUpdateRouteGeometry(newFeatures);
+      }
     } else {
       setRouteFeatures([]);
     }
@@ -244,7 +260,7 @@ const DrawRouteLayerComponent = (
     setRouteFeatures(e.data);
     if (e.editType === 'addFeature' || e.editType === 'movePosition') {
       // Editor calls onUpdate callback million times when route is being edited. That's why we want to debounce onAddRoute event.
-      debouncedOnAddRoute(e);
+      debouncedOnAddRoute(e.data);
 
       if (e.editType === 'addFeature') {
         dispatch({
@@ -266,6 +282,71 @@ const DrawRouteLayerComponent = (
     }
   };
 
+  const keyDown = useCallback(
+    (event) => {
+      if (
+        routeFeatures &&
+        routeFeatures.length > 0 &&
+        (event.key === 'Backspace' || event.key === 'Delete')
+      ) {
+        const feature = routeFeatures[0];
+        const coordinates = feature.geometry.coordinates as GeoJSON.Position[];
+
+        if (coordinates.length - selectedSnapPoints.length < 2) {
+          showToast({
+            type: 'danger',
+            message: t('errors.leaveMultipleHandles'),
+          });
+
+          return;
+        }
+
+        remove(coordinates, (element: GeoJSON.Position, index: number) =>
+          selectedSnapPoints.includes(index),
+        );
+
+        setRouteFeatures([
+          { ...feature, geometry: { type: 'LineString', coordinates } },
+        ]);
+        setSelectedSnapPoints([]);
+
+        debouncedOnAddRoute(routeFeatures);
+      }
+    },
+    [routeFeatures, selectedSnapPoints, debouncedOnAddRoute, t],
+  );
+
+  useEffect(() => {
+    document.addEventListener('keydown', keyDown, false);
+
+    return () => {
+      document.removeEventListener('keydown', keyDown, false);
+    };
+  }, [keyDown]);
+
+  const handleStyle = ({
+    state,
+    index,
+  }: {
+    state: RENDER_STATE;
+    index: number;
+  }) => {
+    if (state === RENDER_STATE.HOVERED) {
+      return {
+        stroke: 'green',
+      };
+    }
+    if (selectedSnapPoints.includes(index)) {
+      return {
+        stroke: 'red',
+      };
+    }
+    return {
+      stroke: 'green',
+      strokeDasharray: '4,3',
+    };
+  };
+
   return (
     <Editor
       style={{
@@ -279,6 +360,30 @@ const DrawRouteLayerComponent = (
       onUpdate={onUpdate}
       features={routeFeatures as Feature[]}
       featuresDraggable={false}
+      selectable
+      onSelect={({
+        selectedEditHandleIndex,
+      }: {
+        selectedEditHandleIndex: number;
+      }) => {
+        if (selectedEditHandleIndex === null) {
+          return;
+        }
+
+        if (selectedSnapPoints.includes(selectedEditHandleIndex)) {
+          setSelectedSnapPoints(
+            selectedSnapPoints.filter(
+              (handle) => handle !== selectedEditHandleIndex,
+            ),
+          );
+        } else {
+          setSelectedSnapPoints([
+            ...selectedSnapPoints,
+            selectedEditHandleIndex,
+          ]);
+        }
+      }}
+      editHandleStyle={handleStyle}
     />
   );
 };
