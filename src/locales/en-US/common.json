@@ -100,7 +100,8 @@
     "required": "Field is required"
   },
   "errors": {
-    "saveFailed": "Something went wrong"
+    "saveFailed": "Something went wrong",
+    "leaveMultipleHandles": "Cannot delete snap point(s)! You should leave at least two of them."
   },
   "save": "Save",
   "edit": "Edit",
