@@ -32,6 +32,7 @@ import {
   showSuccessToast,
   showToast,
 } from '../../utils';
+import { mapStopDataToFormState } from '../forms/StopForm';
 import { EditStopModal } from './EditStopModal';
 import { Stop } from './Stop';
 import { StopPopup } from './StopPopup';
@@ -255,13 +256,7 @@ export const Stops = React.forwardRef((props, ref) => {
       )}
       {showEditForm && popupInfo && (
         <EditStopModal
-          defaultValues={{
-            finnishName: popupInfo.label || '',
-            latitude: mapLngLatToPoint(popupInfo.measured_location.coordinates)
-              .latitude,
-            longitude: mapLngLatToPoint(popupInfo.measured_location.coordinates)
-              .longitude,
-          }}
+          defaultValues={mapStopDataToFormState(popupInfo)}
           onCancel={() => setShowEditForm(false)}
           onClose={() => setShowEditForm(false)}
         />

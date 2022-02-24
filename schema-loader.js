@@ -45,6 +45,11 @@ module.exports = async (schemaString, config) => {
         type service_pattern_scheduled_stop_point_set_input {
           measured_location: geography_point
         }
+
+        # settings fields for service_pattern.scheduled_stop_point insert object
+        type service_pattern_scheduled_stop_point_insert_input {
+          measured_location: geography_point
+        }
       `,
       hasuraSchema,
     ],

@@ -1,22 +1,32 @@
-import { uniqBy } from 'lodash';
 import flow from 'lodash/flow';
+import isEqual from 'lodash/isEqual';
+import uniqBy from 'lodash/uniqBy';
 import {
   EditStopMutationVariables,
+  GetStopByIdDocument,
+  GetStopByIdQuery,
+  GetStopByIdQueryVariables,
   GetStopWithRouteGraphDataByIdDocument,
   GetStopWithRouteGraphDataByIdQuery,
   GetStopWithRouteGraphDataByIdQueryVariables,
+  InsertStopMutationVariables,
   JourneyPatternJourneyPattern,
   RouteRoute,
   ServicePatternScheduledStopPoint,
+  ServicePatternScheduledStopPointInsertInput,
   ServicePatternScheduledStopPointSetInput,
   useEditStopMutation,
+  useInsertStopMutation,
 } from '../generated/graphql';
-import { mapGetStopWithRouteGraphDataByIdResult } from '../graphql';
+import {
+  mapGetStopByIdResult,
+  mapGetStopWithRouteGraphDataByIdResult,
+} from '../graphql';
 import { EditRouteTerminalStopsError, mapLngLatToPoint } from '../utils';
 import { useAsyncQuery } from './useAsyncQuery';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 
-interface Params {
+interface EditParams {
   stopId: UUID;
   patch: ServicePatternScheduledStopPointSetInput;
 }
@@ -28,13 +38,25 @@ interface EditChanges {
   deleteStopFromJourneyPatterns: JourneyPatternJourneyPattern[];
 }
 
+interface CreateParams {
+  input: ServicePatternScheduledStopPointInsertInput;
+}
+interface CreateChanges {
+  stopToCreate: ServicePatternScheduledStopPointInsertInput;
+}
+
 export const useEditStop = () => {
   const [editStopMutation] = useEditStopMutation();
+  const [insertStopMutation] = useInsertStopMutation();
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
   const [getStopRoutes] = useAsyncQuery<
     GetStopWithRouteGraphDataByIdQuery,
     GetStopWithRouteGraphDataByIdQueryVariables
   >(GetStopWithRouteGraphDataByIdDocument);
+  const [getStopById] = useAsyncQuery<
+    GetStopByIdQuery,
+    GetStopByIdQueryVariables
+  >(GetStopByIdDocument);
 
   // checking whether this stop is the start or end stop of an existing route
   const isStartingOrEndingStopOfAnyRoute = (
@@ -98,7 +120,7 @@ export const useEditStop = () => {
 
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
-  const prepareAndValidateEdit = async ({ stopId, patch }: Params) => {
+  const prepareAndValidateEdit = async ({ stopId, patch }: EditParams) => {
     const changes: EditChanges = {
       stopId,
       patch,
@@ -106,10 +128,17 @@ export const useEditStop = () => {
       deleteStopFromJourneyPatterns: [],
     };
 
-    if (patch.measured_location) {
+    const stopResult = await getStopById({ stopId });
+    const oldStop = mapGetStopByIdResult(stopResult);
+
+    const newLocation = patch.measured_location?.coordinates;
+    const oldLocation = oldStop?.measured_location.coordinates;
+
+    if (newLocation && !isEqual(newLocation, oldLocation)) {
       // if we modified the location of the stop, have to also fetch the new infra link and direction
       const { closestLinkId, direction } = await getStopLinkAndDirection({
-        stopLocation: mapLngLatToPoint(patch.measured_location.coordinates),
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        stopLocation: mapLngLatToPoint(patch.measured_location!.coordinates),
       });
       // eslint-disable-next-line no-param-reassign
       patch.located_on_infrastructure_link_id = closestLinkId;
@@ -158,10 +187,50 @@ export const useEditStop = () => {
     editStopMutation,
   );
 
+  // prepare variables for mutation and validate if it's even allowed
+  // try to produce a changeset that can be displayed on an explanatory UI
+  const prepareAndValidateCreate = async ({ input }: CreateParams) => {
+    const changes: CreateChanges = {
+      stopToCreate: input,
+    };
+
+    if (changes.stopToCreate.measured_location) {
+      // we need to fetch the infra link and direction for the stop
+      const { closestLinkId, direction } = await getStopLinkAndDirection({
+        stopLocation: mapLngLatToPoint(
+          changes.stopToCreate.measured_location.coordinates,
+        ),
+      });
+      changes.stopToCreate.located_on_infrastructure_link_id = closestLinkId;
+      changes.stopToCreate.direction = direction;
+    }
+
+    return changes;
+  };
+
+  const mapCreateChangesToMutationVariables = (changes: CreateChanges) => {
+    const variables: InsertStopMutationVariables = {
+      object: changes.stopToCreate,
+    };
+    return variables;
+  };
+
+  const prepareAndExecuteCreate = flow(
+    prepareAndValidateCreate,
+    mapCreateChangesToMutationVariables,
+    insertStopMutation,
+  );
+
   return {
+    // edit
     prepareAndValidateEdit,
     mapEditChangesToMutationVariables,
     editStopMutation,
     prepareAndExecuteEdit,
+    // create
+    prepareAndValidateCreate,
+    mapCreateChangesToMutationVariables,
+    insertStopMutation,
+    prepareAndExecuteCreate,
   };
 };
