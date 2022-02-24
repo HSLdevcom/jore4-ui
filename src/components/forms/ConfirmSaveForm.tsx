@@ -18,7 +18,7 @@ export const schema = z.object({
   // .partial() and .refine() methods have been called, so validation
   // is left out for now. See message of commit
   // c7f8d6f6f95712a6d7a6d5003c4b170390e731f9 for details
-  validityEnd: z.string(),
+  validityEnd: z.string().optional(),
   indefinite: z.boolean(),
 });
 
