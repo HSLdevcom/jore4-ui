@@ -1,3 +1,4 @@
+import { Position } from '@nebula.gl/edit-modes';
 import axios from 'axios';
 
 const apiClient = axios.create({
@@ -6,9 +7,9 @@ const apiClient = axios.create({
 
 const getBus = (coordinates: string) => apiClient.get(`/bus/${coordinates}`);
 
-interface Geometry {
+export interface Geometry {
   type: 'LineString';
-  coordinates: LngLat[];
+  coordinates: Position[];
 }
 
 export interface BusRouteResponse {
@@ -35,8 +36,7 @@ export interface BusRouteResponse {
   }[];
 }
 
-type LngLat = [string, string];
-export const getBusRoute = async (coordinates: LngLat[]) => {
+export const getBusRoute = async (coordinates: Position[]) => {
   const response = await getBus(coordinates.join('~'));
   return response.data as BusRouteResponse;
 };

@@ -100,7 +100,8 @@
     "required": "Kenttä vaaditaan"
   },
   "errors": {
-    "saveFailed": "Tallennus epäonnistui"
+    "saveFailed": "Tallennus epäonnistui",
+    "leaveMultipleHandles": "Poistaminen epäonnistui! Jätä vähintään 2 pistettä!"
   },
   "save": "Tallenna",
   "edit": "Muokkaa",
