@@ -100,7 +100,8 @@
     "required": "Field is required"
   },
   "errors": {
-    "saveFailed": "Something went wrong"
+    "saveFailed": "Something went wrong",
+    "leaveMultipleHandles": "Deletion unsuccessful! Please leave at least two points!"
   },
   "save": "Save",
   "edit": "Edit",
