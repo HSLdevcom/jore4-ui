@@ -2,6 +2,7 @@ import { FormState as RouteFormState } from '../components/forms/RouteProperties
 import {
   InsertRouteOneMutationVariables,
   RouteDirectionEnum,
+  useDeleteRouteMutation,
   useInsertRouteOneMutation,
   useUpdateRouteGeometryMutation,
 } from '../generated/graphql';
@@ -19,6 +20,7 @@ import {
 export const useEditRouteGeometry = () => {
   const [insertRouteMutation] = useInsertRouteOneMutation();
   const [updateRouteGeometryMutation] = useUpdateRouteGeometryMutation();
+  const [deleteRouteMutation] = useDeleteRouteMutation();
 
   const mapRouteDetailsToInsertMutationVariables = (
     routeDetails: Partial<RouteFormState>,
@@ -93,6 +95,10 @@ export const useEditRouteGeometry = () => {
     return variables;
   };
 
+  const deleteRoute = async (routeId: UUID) => {
+    await deleteRouteMutation(mapToVariables({ route_id: routeId }));
+  };
+
   return {
     // edit
     updateRouteGeometryMutation,
@@ -100,5 +106,7 @@ export const useEditRouteGeometry = () => {
     // create
     insertRouteMutation,
     mapRouteDetailsToInsertMutationVariables,
+    // delete
+    deleteRoute,
   };
 };
