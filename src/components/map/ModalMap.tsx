@@ -1,15 +1,16 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEditorContext, Mode } from '../../context/MapEditorContext';
 import { ModalMapContext } from '../../context/ModalMapContext';
 import {
   InsertRouteOneMutationVariables,
   RouteDirectionEnum,
+  useDeleteRouteMutation,
   useInsertRouteOneMutation,
   useUpdateRouteGeometryMutation,
 } from '../../generated/graphql';
 import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
-import { Modal } from '../../uiComponents';
+import { ConfirmationDialog, Modal } from '../../uiComponents';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
@@ -39,8 +40,11 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const { state: modalMapState, dispatch: modalMapDispatch } =
     useContext(ModalMapContext);
 
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const [insertRouteMutation] = useInsertRouteOneMutation();
   const [updateRouteGeometryMutation] = useUpdateRouteGeometryMutation();
+  const [deleteRoute] = useDeleteRouteMutation();
 
   const { drawingMode } = mapEditorState;
 
@@ -178,9 +182,33 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
       showToast({ type: 'danger', message: t('errors.saveFailed') });
     }
   };
-  const onDeleteRoute = () => {
-    onCancel();
+  const onDeleteConfirm = async () => {
+    try {
+      // delete the route from the backend
+      await deleteRoute(
+        mapToVariables({ route_id: mapEditorState.editingRouteId }),
+      );
+
+      showToast({ type: 'success', message: t('routes.deleteSuccess') });
+
+      setIsDeleting(false);
+      modalMapDispatch({ type: 'close' });
+    } catch (err) {
+      showToast({
+        type: 'danger',
+        message: `${t('errors.saveFailed')}, '${err}'`,
+      });
+    }
   };
+
+  const onDeleteRoute = async () => {
+    if (mapEditorState.creatingNewRoute) {
+      onCancel();
+    } else {
+      setIsDeleting(true);
+    }
+  };
+
   const onCloseModalMap = () => {
     mapEditorDispatch({ type: 'reset' });
     modalMapDispatch({ type: 'close' });
@@ -216,6 +244,15 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
         onSave={onSave}
         canAddStops={canAddStops}
         onAddStop={onAddStop}
+      />
+      <ConfirmationDialog
+        isOpen={isDeleting}
+        onCancel={() => setIsDeleting(false)}
+        onConfirm={onDeleteConfirm}
+        title={t('confirmDeleteRouteDialog.title')}
+        description={t('confirmDeleteRouteDialog.description')}
+        confirmText={t('confirmDeleteRouteDialog.confirmText')}
+        cancelText={t('confirmDeleteRouteDialog.cancelText')}
       />
     </Modal>
   );
