@@ -15,6 +15,7 @@ import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
 import { Maplibre } from './Maplibre';
 import { RouteLayer } from './RouteLayer';
 import { Routes } from './Routes';
+import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { Stops } from './Stops';
 
 interface Props {
@@ -36,8 +37,9 @@ export const MapComponent = (
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
   const {
-    state: { displayedRouteIds },
+    state: { displayedRouteIds, drawingMode, hasRoute },
   } = useContext(MapEditorContext);
+
   const routeSelected = !!(displayedRouteIds && displayedRouteIds.length > 0);
 
   const [showInfraLinks, setShowInfraLinks] = useState(!routeSelected);
@@ -45,9 +47,6 @@ export const MapComponent = (
   const [showRoute, setShowRoute] = useState(routeSelected);
   const [showStops, setShowStops] = useState(!routeSelected);
   const [showDynamicStops, setShowDynamicStops] = useState(false);
-  const {
-    state: { drawingMode },
-  } = useContext(MapEditorContext);
 
   // TODO: avoid any type
   const editorLayerRef = useRef<ExplicitAny>(null);
@@ -80,44 +79,51 @@ export const MapComponent = (
           height: 'auto',
         }}
         redraw={() => (
-          <Column>
-            <FilterPanel
-              className="ml-8 mt-8"
-              routes={[
-                {
-                  iconClassName: 'icon-bus',
-                  enabled: showInfraLinks,
-                  onToggle: setShowInfraLinks,
-                },
-                {
-                  iconClassName: 'icon-route',
-                  enabled: showDynamicInfraLinks,
-                  onToggle: setShowDynamicInfraLinks,
-                },
-                ...(routeSelected
-                  ? [
-                      {
-                        iconClassName: 'icon-route',
-                        enabled: showRoute,
-                        onToggle: setShowRoute,
-                      },
-                    ]
-                  : []),
-              ]}
-              stops={[
-                {
-                  iconClassName: 'icon-bus',
-                  enabled: showStops,
-                  onToggle: setShowStops,
-                },
-                {
-                  iconClassName: 'icon-bus',
-                  enabled: showDynamicStops,
-                  onToggle: setShowDynamicStops,
-                },
-              ]}
-            />
-          </Column>
+          <>
+            <Column className="items-start">
+              <FilterPanel
+                className="ml-8 mt-8"
+                routes={[
+                  {
+                    iconClassName: 'icon-bus',
+                    enabled: showInfraLinks,
+                    onToggle: setShowInfraLinks,
+                  },
+                  {
+                    iconClassName: 'icon-route',
+                    enabled: showDynamicInfraLinks,
+                    onToggle: setShowDynamicInfraLinks,
+                  },
+                  ...(routeSelected
+                    ? [
+                        {
+                          iconClassName: 'icon-route',
+                          enabled: showRoute,
+                          onToggle: setShowRoute,
+                        },
+                      ]
+                    : []),
+                ]}
+                stops={[
+                  {
+                    iconClassName: 'icon-bus',
+                    enabled: showStops,
+                    onToggle: setShowStops,
+                  },
+                  {
+                    iconClassName: 'icon-bus',
+                    enabled: showDynamicStops,
+                    onToggle: setShowDynamicStops,
+                  },
+                ]}
+              />
+            </Column>
+            {hasRoute && (
+              <Column>
+                <RouteStopsOverlay className="ml-8 mt-4" />
+              </Column>
+            )}
+          </>
         )}
         captureClick
         captureDoubleClick
