@@ -127,6 +127,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
 
           showToast({ type: 'success', message: t('routes.saveSuccess') });
           mapEditorDispatch({ type: 'stopDrawRoute' });
+          mapRef?.current?.onDeleteDrawnRoute();
         } catch (err) {
           showToast({
             type: 'danger',
