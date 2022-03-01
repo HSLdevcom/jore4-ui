@@ -169,7 +169,21 @@ exports[`<RouteStopsTable /> Renders the route with stops in case it has journer
            
         </td>
         <td>
-          ...
+          <div
+            class="static h-full"
+          >
+            <button
+              aria-haspopup="true"
+              class="mx-auto flex h-full items-center px-3 focus:outline-none"
+              id="headlessui-menu-button-1"
+              type="button"
+            >
+              <i
+                class="icon-more"
+                style="font-size: 14px;"
+              />
+            </button>
+          </div>
         </td>
       </tr>
       <tr
@@ -215,7 +229,21 @@ exports[`<RouteStopsTable /> Renders the route with stops in case it has journer
            
         </td>
         <td>
-          ...
+          <div
+            class="static h-full"
+          >
+            <button
+              aria-haspopup="true"
+              class="mx-auto flex h-full items-center px-3 focus:outline-none"
+              id="headlessui-menu-button-2"
+              type="button"
+            >
+              <i
+                class="icon-more"
+                style="font-size: 14px;"
+              />
+            </button>
+          </div>
         </td>
       </tr>
     </tbody>

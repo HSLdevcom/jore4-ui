@@ -60,4 +60,6 @@
 .icon-tram:before { content: '\e83d'; } /* '' */
 .icon-pen:before { content: '\e83e'; } /* '' */
 .icon-metro:before { content: '\e83f'; } /* '' */
+.icon-locate:before { content: '\e840'; } /* '' */
+.icon-more:before { content: '\e841'; } /* '' */
 .icon-alert-filled:before { content: '\e8bf'; } /* '' */
