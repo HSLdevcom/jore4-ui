@@ -51,6 +51,8 @@ export const extractScheduledStopPointIds = (
   orderedInfraLinksWithStops: MapExternalLinkIdsToInfraLinksWithStopsQuery['infrastructure_network_infrastructure_link'],
   infraLinks: InfrastructureLinkAlongRoute[],
   vehicleMode: ReusableComponentsVehicleModeEnum,
+  oldLinks: InfrastructureLinkAlongRoute[],
+  oldStopIds: UUID[],
 ) =>
   orderedInfraLinksWithStops.flatMap((infraLinkWithStops, index) => {
     const isLinkTraversalForwards = infraLinks[index].isTraversalForwards;
@@ -74,7 +76,18 @@ export const extractScheduledStopPointIds = (
             (!isLinkTraversalForwards &&
               stop.direction === InfrastructureNetworkDirectionEnum.Backward);
 
-          return suitableForVehicleMode && matchingDirection;
+          const removedFromRoute =
+            // This link was part of the route before
+            oldLinks.find(
+              (link) =>
+                link.infrastructureLinkId ===
+                infraLinkWithStops.infrastructure_link_id,
+              // This stop was not included in the route previously
+            ) && !oldStopIds.includes(stop.scheduled_stop_point_id);
+
+          return (
+            suitableForVehicleMode && matchingDirection && !removedFromRoute
+          );
         })
         // sort the stops on the same link according to the link traversal direction
         .sort((stop1, stop2) =>

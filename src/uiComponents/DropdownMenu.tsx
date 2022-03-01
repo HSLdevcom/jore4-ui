@@ -23,7 +23,7 @@ export const DropdownMenu = ({ children, testId }: Props): JSX.Element => {
           <Transition show={open} as={Fragment} {...dropdownTransition}>
             <Menu.Items
               static
-              className="absolute z-10 w-max origin-top-right overflow-visible bg-white shadow-md focus:outline-none"
+              className="absolute z-10 w-max origin-top-right overflow-visible bg-white text-black shadow-md focus:outline-none"
             >
               {React.Children.map(children, (child) => (
                 <Menu.Item>

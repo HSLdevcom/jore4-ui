@@ -38,6 +38,7 @@ import {
 import { useAsyncQuery } from '../../hooks';
 import { mapGeoJSONtoFeature, mapToVariables, showToast } from '../../utils';
 import { addRoute, removeRoute } from './mapUtils';
+import { getRouteStopIds } from './Stops';
 
 type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
 
@@ -149,7 +150,9 @@ const DrawRouteLayerComponent = (
       // user added new route or edited existing one
       dispatch({ type: 'setState', payload: { hasRoute: true } });
 
-      if (editedRouteData.id === undefined && !creatingNewRoute) {
+      const editingRouteId = editedRouteData.id;
+
+      if (editingRouteId === undefined && !creatingNewRoute) {
         return;
       }
 
@@ -183,6 +186,11 @@ const DrawRouteLayerComponent = (
         return;
       }
 
+      let oldStopIds = editedRouteData.stopIds || [];
+      if (oldStopIds?.length === 0 && !creatingNewRoute) {
+        oldStopIds = routes.flatMap((route) => getRouteStopIds(route));
+      }
+
       // Order the infra links to match the order of the route returned by map-matching
       const orderedInfraLinksWithStops = orderInfraLinksByExternalLinkId(
         infraLinksWithStops,
@@ -203,6 +211,8 @@ const DrawRouteLayerComponent = (
         orderedInfraLinksWithStops,
         infraLinks,
         ReusableComponentsVehicleModeEnum.Bus,
+        editedRouteData.infraLinks || [],
+        oldStopIds,
       );
 
       dispatch({
