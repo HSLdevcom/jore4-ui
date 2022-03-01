@@ -2,6 +2,7 @@ import { FormState as RouteFormState } from '../components/forms/RouteProperties
 import {
   InsertRouteOneMutationVariables,
   RouteDirectionEnum,
+  UpdateRouteGeometryMutationVariables,
   useDeleteRouteMutation,
   useInsertRouteOneMutation,
   useUpdateRouteGeometryMutation,
@@ -72,7 +73,7 @@ export const useEditRouteGeometry = () => {
     startingStopId: UUID,
     finalStopId: UUID,
   ) => {
-    const variables = mapToVariables({
+    const variables: UpdateRouteGeometryMutationVariables = {
       route_id: editingRouteId,
       new_infrastructure_links: mapInfraLinksAlongRouteToGraphQL(
         infraLinksAlongRoute,
@@ -90,9 +91,9 @@ export const useEditRouteGeometry = () => {
         starts_from_scheduled_stop_point_id: startingStopId,
         ends_at_scheduled_stop_point_id: finalStopId,
       },
-    });
+    };
 
-    return variables;
+    return mapToVariables(variables);
   };
 
   const deleteRoute = async (routeId: UUID) => {

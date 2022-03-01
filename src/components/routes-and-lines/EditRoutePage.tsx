@@ -2,14 +2,15 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redirect, useParams } from 'react-router-dom';
 import {
+  RouteRoute,
   useDeleteRouteMutation,
   useGetRouteDetailsByIdsQuery,
   usePatchRouteMutation,
 } from '../../generated/graphql';
 import { mapRouteDetailsResult } from '../../graphql';
-import { mapRouteToRouteDetails } from '../../hooks';
 import { Container, Row } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
+import { mapToISODate } from '../../time';
 import {
   ConfirmationDialog,
   FormContainer,
@@ -25,6 +26,16 @@ import {
 } from '../../utils';
 import { FormState, RoutePropertiesForm } from '../forms/RoutePropertiesForm';
 import { PageHeader } from './PageHeader';
+
+const mapRouteToFormState = (route: RouteRoute): FormState => ({
+  description_i18n: route.description_i18n || '',
+  label: route.label,
+  on_line_id: route.on_line_id,
+  priority: route.priority,
+  validityStart: mapToISODate(route.validity_start) || '',
+  validityEnd: mapToISODate(route?.validity_end) || '',
+  indefinite: !route?.validity_end,
+});
 
 export const EditRoutePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
@@ -121,7 +132,7 @@ export const EditRoutePage = (): JSX.Element => {
                 routeLabel={route.label}
                 ref={formRef}
                 className="mb-2 ml-2 p-6"
-                defaultValues={mapRouteToRouteDetails(route)}
+                defaultValues={mapRouteToFormState(route)}
                 onSubmit={onSubmit}
               />
             )}

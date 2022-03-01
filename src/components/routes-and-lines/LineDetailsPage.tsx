@@ -103,7 +103,9 @@ export const LineDetailsPage = (): JSX.Element => {
     mapEditorDispatch({
       type: 'setState',
       payload: {
-        routeDetails: new Map().set(null, { on_line_id: id }),
+        editedRouteData: {
+          metaData: { on_line_id: id },
+        },
       },
     });
     modalMapDispatch({ type: 'open' });

@@ -8,6 +8,7 @@ import {
   useGetLineDetailsByIdQuery,
   useGetLineDetailsWithRoutesByIdQuery,
   useGetRouteDetailsByIdsQuery,
+  useGetRoutesWithInfrastructureLinksQuery,
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
 } from '../generated/graphql';
@@ -180,11 +181,13 @@ export const mapRouteDetailsResult = (
 ) => result.data?.route_route[0] as RouteRoute | undefined;
 
 export const mapRoutesDetailsResult = (
-  result: ApolloQueryResult<GetRouteDetailsByIdsQuery>,
+  result:
+    | ApolloQueryResult<GetRouteDetailsByIdsQuery>
+    | ReturnType<typeof useGetRoutesWithInfrastructureLinksQuery>,
 ) => result.data?.route_route as RouteRoute[] | [];
 
 const GET_ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
-  query GetRouteWithInfrastructureLinks($route_ids: [uuid!]) {
+  query GetRoutesWithInfrastructureLinks($route_ids: [uuid!]) {
     route_route(where: { route_id: { _in: $route_ids } }) {
       ...route_with_infrastructure_links
     }

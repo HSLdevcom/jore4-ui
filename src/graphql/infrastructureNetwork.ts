@@ -5,6 +5,7 @@ import {
   InfrastructureNetworkDirectionEnum,
   MapExternalLinkIdsToInfraLinksWithStopsQuery,
   ReusableComponentsVehicleModeEnum,
+  RouteRoute,
 } from '../generated/graphql';
 
 export type InfrastructureLinkAlongRoute = {
@@ -134,3 +135,11 @@ const QUERY_MAP_EXTERNAL_LINK_IDS_TO_INFRA_LINKS_WITH_STOPS = gql`
     }
   }
 `;
+
+export const mapGraphQLRouteToInfraLinks = (route: RouteRoute) => {
+  return route.infrastructure_links_along_route.map((link) => ({
+    infrastructureLinkId: link.infrastructure_link_id,
+    isTraversalForwards: link.is_traversal_forwards,
+    shape: link.infrastructure_link.shape,
+  }));
+};
