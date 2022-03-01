@@ -2,6 +2,7 @@ import produce from 'immer';
 import React, {
   useCallback,
   useContext,
+  useEffect,
   useImperativeHandle,
   useState,
 } from 'react';
@@ -11,11 +12,13 @@ import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { MapEditorContext } from '../../context/MapEditorContext';
 import {
   ReusableComponentsVehicleModeEnum,
+  RouteRoute,
   ServicePatternScheduledStopPoint,
+  useGetRoutesWithInfrastructureLinksQuery,
   useGetStopsQuery,
   useRemoveStopMutation,
 } from '../../generated/graphql';
-import { mapGetStopsResult } from '../../graphql';
+import { mapGetStopsResult, mapRoutesDetailsResult } from '../../graphql';
 import { RequiredKeys } from '../../types';
 import { ConfirmationDialog } from '../../uiComponents';
 import {
@@ -35,23 +38,40 @@ type DraftStop = RequiredKeys<
   'measured_location'
 >;
 
+const getRouteStopIds = (route: RouteRoute) => {
+  return route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns.map(
+    (point) => point.scheduled_stop_point_id,
+  );
+};
+
 export const Stops = React.forwardRef((props, ref) => {
   // TODO: We might want to move these to MapEditorContext
   const [popupInfo, setPopupInfo] = useState<DraftStop | undefined>();
   const [draftStop, setDraftStop] = useState<DraftStop | undefined>();
   const [isDeleting, setIsDeleting] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [stopIdsWithinRoute, setStopIdsWithinRoute] = useState<UUID[]>([]);
 
   const { t } = useTranslation();
 
   const {
     dispatch: mapEditorDispatch,
-    state: { selectedStopId, stopIdsWithinRoute },
+    state: {
+      selectedStopId,
+      displayedRouteIds,
+      editedRouteData,
+      creatingNewRoute,
+    },
   } = useContext(MapEditorContext);
   // TODO: Fetch only the stops visible on the map?
   const stopsResult = useGetStopsQuery({});
   const stops = mapGetStopsResult(stopsResult);
   const [removeStopMutation] = useRemoveStopMutation();
+
+  const routesResult = useGetRoutesWithInfrastructureLinksQuery(
+    mapToVariables({ route_ids: displayedRouteIds || [] }),
+  );
+  const routes = mapRoutesDetailsResult(routesResult);
 
   const setSelectedStopId = (id?: UUID) => {
     mapEditorDispatch({
@@ -131,6 +151,17 @@ export const Stops = React.forwardRef((props, ref) => {
     },
     [stops],
   );
+
+  useEffect(() => {
+    // If editing/creating a route, show stops along edited/created route
+    if (creatingNewRoute || editedRouteData.id) {
+      setStopIdsWithinRoute(editedRouteData.stopIds || []);
+    } else {
+      const stopIds = routes?.flatMap((route) => getRouteStopIds(route)) || [];
+
+      setStopIdsWithinRoute(stopIds);
+    }
+  }, [routes, creatingNewRoute, editedRouteData.stopIds, editedRouteData.id]);
 
   return (
     <>

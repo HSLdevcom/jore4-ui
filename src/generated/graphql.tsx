@@ -5901,12 +5901,12 @@ export type GetRouteDetailsByIdsQueryVariables = Exact<{
 
 export type GetRouteDetailsByIdsQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', label: string } | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> }> }> };
 
-export type GetRouteWithInfrastructureLinksQueryVariables = Exact<{
+export type GetRoutesWithInfrastructureLinksQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
 
 
-export type GetRouteWithInfrastructureLinksQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', label: string } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', shape: GeoJSON.Geometry } }>, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> }> }> };
+export type GetRoutesWithInfrastructureLinksQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', label: string } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', shape: GeoJSON.Geometry } }>, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> }> }> };
 
 export type InsertLineOneMutationVariables = Exact<{
   object: RouteLineInsertInput;
@@ -6434,8 +6434,8 @@ export function useGetRouteDetailsByIdsLazyQuery(baseOptions?: Apollo.LazyQueryH
 export type GetRouteDetailsByIdsQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdsQuery>;
 export type GetRouteDetailsByIdsLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdsLazyQuery>;
 export type GetRouteDetailsByIdsQueryResult = Apollo.QueryResult<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>;
-export const GetRouteWithInfrastructureLinksDocument = gql`
-    query GetRouteWithInfrastructureLinks($route_ids: [uuid!]) {
+export const GetRoutesWithInfrastructureLinksDocument = gql`
+    query GetRoutesWithInfrastructureLinks($route_ids: [uuid!]) {
   route_route(where: {route_id: {_in: $route_ids}}) {
     ...route_with_infrastructure_links
   }
@@ -6443,32 +6443,32 @@ export const GetRouteWithInfrastructureLinksDocument = gql`
     ${RouteWithInfrastructureLinksFragmentDoc}`;
 
 /**
- * __useGetRouteWithInfrastructureLinksQuery__
+ * __useGetRoutesWithInfrastructureLinksQuery__
  *
- * To run a query within a React component, call `useGetRouteWithInfrastructureLinksQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRouteWithInfrastructureLinksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetRoutesWithInfrastructureLinksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRoutesWithInfrastructureLinksQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetRouteWithInfrastructureLinksQuery({
+ * const { data, loading, error } = useGetRoutesWithInfrastructureLinksQuery({
  *   variables: {
  *      route_ids: // value for 'route_ids'
  *   },
  * });
  */
-export function useGetRouteWithInfrastructureLinksQuery(baseOptions?: Apollo.QueryHookOptions<GetRouteWithInfrastructureLinksQuery, GetRouteWithInfrastructureLinksQueryVariables>) {
+export function useGetRoutesWithInfrastructureLinksQuery(baseOptions?: Apollo.QueryHookOptions<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteWithInfrastructureLinksQuery, GetRouteWithInfrastructureLinksQueryVariables>(GetRouteWithInfrastructureLinksDocument, options);
+        return Apollo.useQuery<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>(GetRoutesWithInfrastructureLinksDocument, options);
       }
-export function useGetRouteWithInfrastructureLinksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteWithInfrastructureLinksQuery, GetRouteWithInfrastructureLinksQueryVariables>) {
+export function useGetRoutesWithInfrastructureLinksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteWithInfrastructureLinksQuery, GetRouteWithInfrastructureLinksQueryVariables>(GetRouteWithInfrastructureLinksDocument, options);
+          return Apollo.useLazyQuery<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>(GetRoutesWithInfrastructureLinksDocument, options);
         }
-export type GetRouteWithInfrastructureLinksQueryHookResult = ReturnType<typeof useGetRouteWithInfrastructureLinksQuery>;
-export type GetRouteWithInfrastructureLinksLazyQueryHookResult = ReturnType<typeof useGetRouteWithInfrastructureLinksLazyQuery>;
-export type GetRouteWithInfrastructureLinksQueryResult = Apollo.QueryResult<GetRouteWithInfrastructureLinksQuery, GetRouteWithInfrastructureLinksQueryVariables>;
+export type GetRoutesWithInfrastructureLinksQueryHookResult = ReturnType<typeof useGetRoutesWithInfrastructureLinksQuery>;
+export type GetRoutesWithInfrastructureLinksLazyQueryHookResult = ReturnType<typeof useGetRoutesWithInfrastructureLinksLazyQuery>;
+export type GetRoutesWithInfrastructureLinksQueryResult = Apollo.QueryResult<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>;
 export const InsertLineOneDocument = gql`
     mutation InsertLineOne($object: route_line_insert_input!) {
   insert_route_line_one(object: $object) {

@@ -26,14 +26,17 @@ import {
   MapExternalLinkIdsToInfraLinksWithStopsQuery,
   MapExternalLinkIdsToInfraLinksWithStopsQueryVariables,
   ReusableComponentsVehicleModeEnum,
+  useGetRoutesWithInfrastructureLinksQuery,
 } from '../../generated/graphql';
 import {
   extractScheduledStopPointIds,
   InfrastructureLinkAlongRoute,
+  mapGraphQLRouteToInfraLinks,
+  mapRoutesDetailsResult,
   orderInfraLinksByExternalLinkId,
 } from '../../graphql';
 import { useAsyncQuery } from '../../hooks';
-import { mapGeoJSONtoFeature, showToast } from '../../utils';
+import { mapGeoJSONtoFeature, mapToVariables, showToast } from '../../utils';
 import { addRoute, removeRoute } from './mapUtils';
 
 type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
@@ -54,16 +57,16 @@ interface EditorCallback {
   selectedFeatureIndex: number;
 }
 
-const mapInfraLinksToFeatures = (
-  infraLinks: InfrastructureLinkAlongRoute[] | undefined,
-): LineStringFeature[] => {
-  if (!infraLinks || infraLinks.length === 0) return [];
+const mapInfraLinksToFeature = (
+  infraLinks: InfrastructureLinkAlongRoute[],
+): LineStringFeature => {
   const coordinates: GeoJSON.Position[] = infraLinks.flatMap((link, index) => {
     const isFirst = index === 0;
     let linkCoordinates = link.shape.coordinates;
 
     // Order coordinates properly
     if (linkCoordinates.length > 0 && !link.isTraversalForwards) {
+      // TODO: Could be optimized since only first and last coordinates are being used
       linkCoordinates = [...linkCoordinates].reverse();
     }
 
@@ -80,7 +83,7 @@ const mapInfraLinksToFeatures = (
     );
   });
 
-  return [mapGeoJSONtoFeature({ type: 'LineString', coordinates })];
+  return mapGeoJSONtoFeature({ type: 'LineString', coordinates });
 };
 
 // `react-map-gl-draw` library can't be updated into latest version
@@ -96,11 +99,11 @@ const DrawRouteLayerComponent = (
   const { map } = useContext(MapContext);
   const editorRef = useRef<ExplicitAny>(null);
   const {
-    state: { hasRoute, infraLinksAlongRoute, editingRouteId },
+    state: { hasRoute, editedRouteData, creatingNewRoute },
     dispatch,
   } = useContext(MapEditorContext);
 
-  const [routeFeatures, setRouteFeatures] = useState<LineStringFeature[]>();
+  const [routeFeatures, setRouteFeatures] = useState<LineStringFeature[]>([]);
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
 
   const { t } = useTranslation();
@@ -130,6 +133,12 @@ const DrawRouteLayerComponent = (
     return modeDetails ? new modeDetails.handler() : undefined;
   }, [mode]);
 
+  const routesResult = useGetRoutesWithInfrastructureLinksQuery(
+    mapToVariables({ route_ids: [editedRouteData.id] || [] }),
+  );
+
+  const routes = mapRoutesDetailsResult(routesResult);
+
   const [fetchInfraLinksWithStopsByExternalIds] = useAsyncQuery<
     MapExternalLinkIdsToInfraLinksWithStopsQuery,
     MapExternalLinkIdsToInfraLinksWithStopsQueryVariables
@@ -140,7 +149,7 @@ const DrawRouteLayerComponent = (
       // user added new route or edited existing one
       dispatch({ type: 'setState', payload: { hasRoute: true } });
 
-      if (editingRouteId === undefined) {
+      if (editedRouteData.id === undefined && !creatingNewRoute) {
         return;
       }
 
@@ -199,11 +208,11 @@ const DrawRouteLayerComponent = (
       dispatch({
         type: 'setState',
         payload: {
-          stopIdsWithinRoute: stopIds,
-          infraLinksAlongRoute: new Map(infraLinksAlongRoute).set(
-            editingRouteId,
+          editedRouteData: {
+            ...editedRouteData,
+            stopIds,
             infraLinks,
-          ),
+          },
         },
       });
 
@@ -231,25 +240,40 @@ const DrawRouteLayerComponent = (
     // TODO: Why does adding fetchInfraLinksWithStopsByExternalIds to his array result in
     // debounce not working (callback being generated again)?
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [map, onDelete, dispatch, infraLinksAlongRoute, editingRouteId],
+    [map, onDelete, dispatch, creatingNewRoute, editedRouteData],
   );
 
+  // Update features if needed
   useEffect(() => {
-    if (editingRouteId) {
-      const newFeatures = mapInfraLinksToFeatures(
-        infraLinksAlongRoute?.get(editingRouteId),
-      );
+    // If creating new route or features already exist,
+    // no need to get new features
+    if (creatingNewRoute || routeFeatures?.length !== 0) {
+      return;
+    }
+
+    if (mode === Mode.Edit && routes && routes[0]) {
+      // Starting to edit a route, generate features from infra links
+      const infraLinks = mapGraphQLRouteToInfraLinks(routes[0]);
+      const newFeatures = [mapInfraLinksToFeature(infraLinks)];
 
       setRouteFeatures(newFeatures);
-
-      if (newFeatures?.length !== 0) {
-        onUpdateRouteGeometry(newFeatures);
-      }
+      onUpdateRouteGeometry(newFeatures);
     } else {
+      // If not drawing or editing, clear features
       setRouteFeatures([]);
+      dispatch({
+        type: 'setState',
+        payload: { hasRoute: false },
+      });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editingRouteId]);
+  }, [
+    onUpdateRouteGeometry,
+    mode,
+    creatingNewRoute,
+    dispatch,
+    routes,
+    routeFeatures?.length,
+  ]);
 
   const debouncedOnAddRoute = useMemo(
     () => debounce(onUpdateRouteGeometry, 500),
