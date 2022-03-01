@@ -27,6 +27,13 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const { state: modalMapState, dispatch: modalMapDispatch } =
     useContext(ModalMapContext);
 
+  const {
+    id: editingRouteId,
+    infraLinks,
+    stopIds: stopIdsWithinRoute,
+    metaData: routeDetails,
+  } = mapEditorState.editedRouteData;
+
   const [isDeleting, setIsDeleting] = useState(false);
 
   const {
@@ -58,23 +65,13 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     mapRef?.current?.onDeleteDrawnRoute();
 
     mapEditorDispatch({ type: 'stopDrawRoute' });
-    mapEditorDispatch({ type: 'stopEditRoute' });
   };
   const onSave = async () => {
-    const {
-      busRoute,
-      stopIdsWithinRoute,
-      infraLinksAlongRoute,
-      editingRouteId,
-    } = mapEditorState;
-
-    if (editingRouteId === undefined) {
-      return;
-    }
+    const { busRoute } = mapEditorState;
 
     if (
       busRoute &&
-      infraLinksAlongRoute?.has(editingRouteId) &&
+      infraLinks &&
       stopIdsWithinRoute &&
       stopIdsWithinRoute.length >= 2
     ) {
@@ -83,26 +80,11 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
       const startingStopId = stopIdsWithinRoute[0];
       const finalStopId = stopIdsWithinRoute[stopIdsWithinRoute.length - 1];
 
-      const { routeDetails: routeDetailsMap } = mapEditorState;
-
-      if (!routeDetailsMap?.has(editingRouteId)) {
-        // eslint-disable-next-line no-console
-        console.error('Something went wrong');
-        return;
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const routeDetails = routeDetailsMap.get(editingRouteId)!;
-
-      const currentRouteInfrastructureLinks =
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        infraLinksAlongRoute.get(editingRouteId)!;
-
       if (editingRouteId) {
         const variables = mapRouteDetailsToUpdateMutationVariables(
           editingRouteId,
           stopIdsWithinRoute,
-          currentRouteInfrastructureLinks,
+          infraLinks,
           startingStopId,
           finalStopId,
         );
@@ -117,17 +99,34 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
           });
         }
       } else {
+        if (!routeDetails) {
+          return;
+        }
+
         const variables = mapRouteDetailsToInsertMutationVariables(
           routeDetails,
           stopIdsWithinRoute,
-          currentRouteInfrastructureLinks,
+          infraLinks,
           startingStopId,
           finalStopId,
         );
 
         try {
-          await insertRouteMutation(variables);
+          const response = await insertRouteMutation(variables);
+          const newRouteId = response.data?.insert_route_route_one?.route_id;
+
+          mapEditorDispatch({
+            type: 'setState',
+            payload: {
+              displayedRouteIds: [
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                newRouteId!,
+              ],
+            },
+          });
+
           showToast({ type: 'success', message: t('routes.saveSuccess') });
+          mapEditorDispatch({ type: 'stopDrawRoute' });
         } catch (err) {
           showToast({
             type: 'danger',
@@ -141,12 +140,12 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   };
   const onDeleteConfirm = async () => {
     try {
-      if (!mapEditorState.editingRouteId) {
+      if (!editingRouteId) {
         return;
       }
 
       // delete the route from the backend
-      await deleteRoute(mapEditorState.editingRouteId);
+      await deleteRoute(editingRouteId);
 
       showToast({ type: 'success', message: t('routes.deleteSuccess') });
 
