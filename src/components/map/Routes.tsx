@@ -5,19 +5,18 @@ import { CreateRouteModal } from './CreateRouteModal';
 
 export const Routes: React.FC = () => {
   const {
-    state: { routeDetails, drawingMode, editingRouteId },
+    state: { editedRouteData, drawingMode, creatingNewRoute },
     dispatch,
   } = useContext(MapEditorContext);
 
-  if (editingRouteId === undefined) {
+  if (editedRouteData.id === undefined && !creatingNewRoute) {
     return null;
   }
 
+  const routeDetails = editedRouteData.metaData;
   // checking whether 'routeDetails' already contains all the information necessary
   // if not -> should show the form
-  const areFormValuesValid = schema.safeParse(
-    routeDetails?.get(editingRouteId),
-  ).success;
+  const areFormValuesValid = schema.safeParse(routeDetails).success;
   const showCreateForm = !areFormValuesValid && drawingMode === Mode.Draw;
 
   const onCancel = () => {
@@ -31,13 +30,14 @@ export const Routes: React.FC = () => {
     dispatch({
       type: 'setState',
       payload: {
-        routeDetails: new Map(routeDetails).set(editingRouteId, data),
+        editedRouteData: {
+          metaData: data,
+        },
       },
     });
   };
 
-  const defaultValues: Partial<FormState> =
-    routeDetails?.get(editingRouteId) || {};
+  const defaultValues: Partial<FormState> = routeDetails || {};
 
   return (
     <>

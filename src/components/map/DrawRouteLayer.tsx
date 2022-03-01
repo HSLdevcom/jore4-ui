@@ -22,14 +22,19 @@ import {
 import { getBusRoute } from '../../api/routing';
 import { MapEditorContext, Mode } from '../../context/MapEditorContext';
 import {
+  GetRouteWithInfrastructureLinksDocument,
+  GetRouteWithInfrastructureLinksQuery,
+  GetRouteWithInfrastructureLinksQueryVariables,
   MapExternalLinkIdsToInfraLinksWithStopsDocument,
   MapExternalLinkIdsToInfraLinksWithStopsQuery,
   MapExternalLinkIdsToInfraLinksWithStopsQueryVariables,
   ReusableComponentsVehicleModeEnum,
+  RouteRoute,
 } from '../../generated/graphql';
 import {
   extractScheduledStopPointIds,
   InfrastructureLinkAlongRoute,
+  mapRoutesDetailsResult,
   orderInfraLinksByExternalLinkId,
 } from '../../graphql';
 import { useAsyncQuery } from '../../hooks';
@@ -83,6 +88,14 @@ const mapInfraLinksToFeatures = (
   return [mapGeoJSONtoFeature({ type: 'LineString', coordinates })];
 };
 
+const mapGraphQLRouteToInfraLinks = (route: RouteRoute) => {
+  return route.infrastructure_links_along_route.map((link) => ({
+    infrastructureLinkId: link.infrastructure_link_id,
+    isTraversalForwards: link.is_traversal_forwards,
+    shape: link.infrastructure_link.shape,
+  }));
+};
+
 // `react-map-gl-draw` library can't be updated into latest version
 // until following issue is resolved. Otherwise editing won't work.
 // https://github.com/uber/nebula.gl/issues/580
@@ -96,11 +109,11 @@ const DrawRouteLayerComponent = (
   const { map } = useContext(MapContext);
   const editorRef = useRef<ExplicitAny>(null);
   const {
-    state: { hasRoute, infraLinksAlongRoute, editingRouteId },
+    state: { hasRoute, editedRouteData, creatingNewRoute },
     dispatch,
   } = useContext(MapEditorContext);
 
-  const [routeFeatures, setRouteFeatures] = useState<LineStringFeature[]>();
+  const [routeFeatures, setRouteFeatures] = useState<LineStringFeature[]>([]);
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
 
   const { t } = useTranslation();
@@ -130,6 +143,11 @@ const DrawRouteLayerComponent = (
     return modeDetails ? new modeDetails.handler() : undefined;
   }, [mode]);
 
+  const [fetchRouteDetails] = useAsyncQuery<
+    GetRouteWithInfrastructureLinksQuery,
+    GetRouteWithInfrastructureLinksQueryVariables
+  >(GetRouteWithInfrastructureLinksDocument);
+
   const [fetchInfraLinksWithStopsByExternalIds] = useAsyncQuery<
     MapExternalLinkIdsToInfraLinksWithStopsQuery,
     MapExternalLinkIdsToInfraLinksWithStopsQueryVariables
@@ -140,7 +158,7 @@ const DrawRouteLayerComponent = (
       // user added new route or edited existing one
       dispatch({ type: 'setState', payload: { hasRoute: true } });
 
-      if (editingRouteId === undefined) {
+      if (editedRouteData.id === undefined && !creatingNewRoute) {
         return;
       }
 
@@ -199,11 +217,11 @@ const DrawRouteLayerComponent = (
       dispatch({
         type: 'setState',
         payload: {
-          stopIdsWithinRoute: stopIds,
-          infraLinksAlongRoute: new Map(infraLinksAlongRoute).set(
-            editingRouteId,
+          editedRouteData: {
+            ...editedRouteData,
+            stopIds,
             infraLinks,
-          ),
+          },
         },
       });
 
@@ -231,25 +249,63 @@ const DrawRouteLayerComponent = (
     // TODO: Why does adding fetchInfraLinksWithStopsByExternalIds to his array result in
     // debounce not working (callback being generated again)?
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [map, onDelete, dispatch, infraLinksAlongRoute, editingRouteId],
+    [map, onDelete, dispatch, creatingNewRoute, editedRouteData],
   );
 
   useEffect(() => {
-    if (editingRouteId) {
-      const newFeatures = mapInfraLinksToFeatures(
-        infraLinksAlongRoute?.get(editingRouteId),
-      );
-
-      setRouteFeatures(newFeatures);
-
-      if (newFeatures?.length !== 0) {
-        onUpdateRouteGeometry(newFeatures);
+    const updateFeatures = async () => {
+      if (
+        (creatingNewRoute && editedRouteData.infraLinks?.length !== 0) ||
+        routeFeatures?.length !== 0
+      ) {
+        return;
       }
-    } else {
-      setRouteFeatures([]);
-    }
+
+      if (mode !== undefined) {
+        let newFeatures;
+
+        // If local state does not have infralinks for route under editing, fetch them
+        // Otherwise get infralinks from store
+        if (
+          editedRouteData.infraLinks?.length === 0 &&
+          !creatingNewRoute &&
+          editedRouteData.id
+        ) {
+          const routeDetailsResults = await fetchRouteDetails({
+            route_ids: [editedRouteData.id],
+          });
+          const routes = mapRoutesDetailsResult(routeDetailsResults);
+
+          const infraLinks = mapGraphQLRouteToInfraLinks(routes[0]);
+
+          dispatch({
+            type: 'setState',
+            payload: { editedRouteData: { ...editedRouteData, infraLinks } },
+          });
+
+          newFeatures = mapInfraLinksToFeatures(infraLinks);
+        } else {
+          newFeatures = mapInfraLinksToFeatures(editedRouteData.infraLinks);
+        }
+
+        if (newFeatures?.length !== 0) {
+          setRouteFeatures(newFeatures);
+
+          onUpdateRouteGeometry(newFeatures);
+        }
+      } else {
+        setRouteFeatures([]);
+        dispatch({
+          type: 'setState',
+          payload: { hasRoute: false },
+        });
+      }
+    };
+
+    updateFeatures();
+    // Using useAsyncQuery callback in dep list causes infinite calls, why?
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editingRouteId]);
+  }, [editedRouteData, onUpdateRouteGeometry, mode]);
 
   const debouncedOnAddRoute = useMemo(
     () => debounce(onUpdateRouteGeometry, 500),
