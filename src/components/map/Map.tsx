@@ -7,14 +7,18 @@ import React, {
 } from 'react';
 import { HTMLOverlay, MapEvent } from 'react-map-gl';
 import { MapEditorContext } from '../../context/MapEditorContext';
+import { useGetRoutesWithInfrastructureLinksQuery } from '../../generated/graphql';
+import { mapRoutesDetailsResult } from '../../graphql';
 import { Column } from '../../layoutComponents';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
+import { mapToVariables } from '../../utils';
 import { DrawRouteLayer } from './DrawRouteLayer';
 import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
 import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
 import { Maplibre } from './Maplibre';
 import { RouteLayer } from './RouteLayer';
 import { Routes } from './Routes';
+import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { Stops } from './Stops';
 
 interface Props {
@@ -36,8 +40,15 @@ export const MapComponent = (
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
   const {
-    state: { displayedRouteIds },
+    state: {
+      displayedRouteIds,
+      editedRouteData,
+      creatingNewRoute,
+      drawingMode,
+      hasRoute,
+    },
   } = useContext(MapEditorContext);
+
   const routeSelected = !!(displayedRouteIds && displayedRouteIds.length > 0);
 
   const [showInfraLinks, setShowInfraLinks] = useState(!routeSelected);
@@ -45,13 +56,20 @@ export const MapComponent = (
   const [showRoute, setShowRoute] = useState(routeSelected);
   const [showStops, setShowStops] = useState(!routeSelected);
   const [showDynamicStops, setShowDynamicStops] = useState(false);
-  const {
-    state: { drawingMode },
-  } = useContext(MapEditorContext);
 
   // TODO: avoid any type
   const editorLayerRef = useRef<ExplicitAny>(null);
   const stopsRef = useRef<ExplicitAny>(null);
+
+  const routesResult = useGetRoutesWithInfrastructureLinksQuery(
+    mapToVariables({ route_ids: displayedRouteIds || [] }),
+  );
+
+  const routes = mapRoutesDetailsResult(routesResult);
+
+  const editedRouteMetadata = creatingNewRoute
+    ? editedRouteData.metaData
+    : routes?.[0];
 
   useImperativeHandle(externalRef, () => ({
     onDeleteDrawnRoute: () => {
@@ -80,44 +98,57 @@ export const MapComponent = (
           height: 'auto',
         }}
         redraw={() => (
-          <Column>
-            <FilterPanel
-              className="ml-8 mt-8"
-              routes={[
-                {
-                  iconClassName: 'icon-bus',
-                  enabled: showInfraLinks,
-                  onToggle: setShowInfraLinks,
-                },
-                {
-                  iconClassName: 'icon-route',
-                  enabled: showDynamicInfraLinks,
-                  onToggle: setShowDynamicInfraLinks,
-                },
-                ...(routeSelected
-                  ? [
-                      {
-                        iconClassName: 'icon-route',
-                        enabled: showRoute,
-                        onToggle: setShowRoute,
-                      },
-                    ]
-                  : []),
-              ]}
-              stops={[
-                {
-                  iconClassName: 'icon-bus',
-                  enabled: showStops,
-                  onToggle: setShowStops,
-                },
-                {
-                  iconClassName: 'icon-bus',
-                  enabled: showDynamicStops,
-                  onToggle: setShowDynamicStops,
-                },
-              ]}
-            />
-          </Column>
+          <>
+            <Column className="items-start">
+              <FilterPanel
+                className="ml-8 mt-8"
+                routes={[
+                  {
+                    iconClassName: 'icon-bus',
+                    enabled: showInfraLinks,
+                    onToggle: setShowInfraLinks,
+                  },
+                  {
+                    iconClassName: 'icon-route',
+                    enabled: showDynamicInfraLinks,
+                    onToggle: setShowDynamicInfraLinks,
+                  },
+                  ...(routeSelected
+                    ? [
+                        {
+                          iconClassName: 'icon-route',
+                          enabled: showRoute,
+                          onToggle: setShowRoute,
+                        },
+                      ]
+                    : []),
+                ]}
+                stops={[
+                  {
+                    iconClassName: 'icon-bus',
+                    enabled: showStops,
+                    onToggle: setShowStops,
+                  },
+                  {
+                    iconClassName: 'icon-bus',
+                    enabled: showDynamicStops,
+                    onToggle: setShowDynamicStops,
+                  },
+                ]}
+              />
+            </Column>
+            {hasRoute && (
+              <Column>
+                {editedRouteMetadata && editedRouteData.stopIds && (
+                  <RouteStopsOverlay
+                    className="ml-8 mt-4"
+                    stopIds={editedRouteData.stopIds}
+                    route={editedRouteMetadata}
+                  />
+                )}
+              </Column>
+            )}
+          </>
         )}
         captureClick
         captureDoubleClick

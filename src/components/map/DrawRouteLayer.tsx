@@ -29,15 +29,16 @@ import {
   useGetRoutesWithInfrastructureLinksQuery,
 } from '../../generated/graphql';
 import {
-  extractScheduledStopPointIds,
   InfrastructureLinkAlongRoute,
   mapGraphQLRouteToInfraLinks,
   mapRoutesDetailsResult,
   orderInfraLinksByExternalLinkId,
 } from '../../graphql';
 import { useAsyncQuery } from '../../hooks';
+import { useEditRouteGeometry } from '../../hooks/useEditRouteGeometry';
 import { mapGeoJSONtoFeature, mapToVariables, showToast } from '../../utils';
 import { addRoute, removeRoute } from './mapUtils';
+import { getRouteStopIds } from './Stops';
 
 type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
 
@@ -105,6 +106,8 @@ const DrawRouteLayerComponent = (
 
   const [routeFeatures, setRouteFeatures] = useState<LineStringFeature[]>([]);
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
+
+  const { extractScheduledStopPointIds } = useEditRouteGeometry();
 
   const { t } = useTranslation();
 
@@ -183,6 +186,11 @@ const DrawRouteLayerComponent = (
         return;
       }
 
+      let oldStopIds = editedRouteData.stopIds || [];
+      if (oldStopIds?.length === 0 && !creatingNewRoute) {
+        oldStopIds = routes.flatMap((route) => getRouteStopIds(route));
+      }
+
       // Order the infra links to match the order of the route returned by map-matching
       const orderedInfraLinksWithStops = orderInfraLinksByExternalLinkId(
         infraLinksWithStops,
@@ -199,11 +207,13 @@ const DrawRouteLayerComponent = (
         }));
 
       // Extract the list of ids of the stops to be included in the route
-      const stopIds = extractScheduledStopPointIds(
+      const stopIds = extractScheduledStopPointIds({
         orderedInfraLinksWithStops,
         infraLinks,
-        ReusableComponentsVehicleModeEnum.Bus,
-      );
+        vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
+        oldLinks: editedRouteData.infraLinks || [],
+        oldStopIds,
+      });
 
       dispatch({
         type: 'setState',
