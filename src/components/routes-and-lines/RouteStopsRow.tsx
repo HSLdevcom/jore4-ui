@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineHistory } from 'react-icons/md';
 import { ServicePatternScheduledStopPoint } from '../../generated/graphql';
+import { useEditRouteGeometry } from '../../hooks/useEditRouteGeometry';
 import { Row } from '../../layoutComponents';
 import {
   mapToShortDate,
@@ -10,6 +10,8 @@ import {
   MAX_DATE,
   MIN_DATE,
 } from '../../time';
+import { SimpleDropdownMenu } from '../../uiComponents';
+import { showDangerToast, showSuccessToast } from '../../utils';
 
 interface Props {
   className?: string;
@@ -29,6 +31,20 @@ export const RouteStopsRow = ({
     stop.scheduled_stop_point_in_journey_patterns.some(
       (item) => item.journey_pattern?.on_route_id === routeId,
     );
+
+  const { deleteStopFromJourneyPattern } = useEditRouteGeometry();
+
+  const deleteFromJourneyPattern = async () => {
+    try {
+      await deleteStopFromJourneyPattern({
+        routeId,
+        stopPointId: stop.scheduled_stop_point_id,
+      });
+      showSuccessToast(t('routes.saveSuccess'));
+    } catch (err) {
+      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
+    }
+  };
 
   return (
     <tr
@@ -53,7 +69,15 @@ export const RouteStopsRow = ({
         </Row>
       </td>
       <td>&nbsp;</td>
-      <td>...</td>
+      <td>
+        {stopBelongsToJourneyPattern && (
+          <SimpleDropdownMenu>
+            <button type="button" onClick={deleteFromJourneyPattern}>
+              {t('stops.removeFromRoute')}
+            </button>
+          </SimpleDropdownMenu>
+        )}
+      </td>
     </tr>
   );
 };

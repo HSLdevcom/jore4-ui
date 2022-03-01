@@ -305,9 +305,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         <td>
            
         </td>
-        <td>
-          ...
-        </td>
+        <td />
       </tr>
       <tr
         class="border border-l-8 bg-background text-dark-grey undefined"
@@ -353,9 +351,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         <td>
            
         </td>
-        <td>
-          ...
-        </td>
+        <td />
       </tr>
       <tr
         class="border border-l-8 bg-background text-dark-grey undefined"
@@ -401,9 +397,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         <td>
            
         </td>
-        <td>
-          ...
-        </td>
+        <td />
       </tr>
     </tbody>
   </table>

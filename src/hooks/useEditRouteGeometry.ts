@@ -4,6 +4,7 @@ import {
   RouteDirectionEnum,
   UpdateRouteGeometryMutationVariables,
   useDeleteRouteMutation,
+  useDeleteStopFromJourneyPatternMutation,
   useInsertRouteOneMutation,
   useUpdateRouteGeometryMutation,
 } from '../generated/graphql';
@@ -16,12 +17,20 @@ import {
   mapDateInputToValidityStart,
   mapToObject,
   mapToVariables,
+  removeFromApolloCache,
 } from '../utils';
+
+interface DeleteStopFromJourneyPatternParams {
+  routeId: UUID;
+  stopPointId: UUID;
+}
 
 export const useEditRouteGeometry = () => {
   const [insertRouteMutation] = useInsertRouteOneMutation();
   const [updateRouteGeometryMutation] = useUpdateRouteGeometryMutation();
   const [deleteRouteMutation] = useDeleteRouteMutation();
+  const [deleteStopFromJourneyPatternMutation] =
+    useDeleteStopFromJourneyPatternMutation();
 
   const mapRouteDetailsToInsertMutationVariables = (
     routeDetails: Partial<RouteFormState>,
@@ -100,10 +109,30 @@ export const useEditRouteGeometry = () => {
     await deleteRouteMutation(mapToVariables({ route_id: routeId }));
   };
 
+  const deleteStopFromJourneyPattern = async ({
+    routeId,
+    stopPointId,
+  }: DeleteStopFromJourneyPatternParams) => {
+    await deleteStopFromJourneyPatternMutation({
+      ...mapToVariables({
+        route_id: routeId,
+        scheduled_stop_point_id: stopPointId,
+      }),
+      // remove scheduled stop point from cache after mutation
+      update(cache) {
+        removeFromApolloCache(cache, {
+          scheduled_stop_point_id: stopPointId,
+          __typename: 'service_pattern_scheduled_stop_point',
+        });
+      },
+    });
+  };
+
   return {
     // edit
     updateRouteGeometryMutation,
     mapRouteDetailsToUpdateMutationVariables,
+    deleteStopFromJourneyPattern,
     // create
     insertRouteMutation,
     mapRouteDetailsToInsertMutationVariables,
