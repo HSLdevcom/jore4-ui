@@ -105,6 +105,7 @@ export const LineDetailsPage = (): JSX.Element => {
       payload: {
         editedRouteData: {
           metaData: { on_line_id: id },
+          stops: [],
         },
       },
     });

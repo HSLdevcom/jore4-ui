@@ -30,7 +30,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const {
     id: editingRouteId,
     infraLinks,
-    stopIds: stopIdsWithinRoute,
+    stops: routeStops,
     metaData: routeDetails,
   } = mapEditorState.editedRouteData;
 
@@ -68,12 +68,14 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   };
   const onSave = async () => {
     const { busRoute } = mapEditorState;
+    const stopsWithinRoute = routeStops.filter((item) => item.belongsToRoute);
+    const stopIdsWithinRoute = stopsWithinRoute.map((item) => item.id);
 
     if (
       busRoute &&
       infraLinks &&
-      stopIdsWithinRoute &&
-      stopIdsWithinRoute.length >= 2
+      stopsWithinRoute &&
+      stopsWithinRoute.length >= 2
     ) {
       // TODO: user should be able to select starting stop and final stop from some kind of UI.
       // TODO: for now, just use the first and last stops found.

@@ -141,7 +141,7 @@ export const useEditRouteGeometry = () => {
 
   // Sort and filter the stop point ids from a MapExternalLinkIdsToInfraLinksWithStops
   // query result.
-  const extractScheduledStopPointIds = ({
+  const extractScheduledStopPoints = ({
     orderedInfraLinksWithStops,
     infraLinks,
     vehicleMode,
@@ -171,18 +171,7 @@ export const useEditRouteGeometry = () => {
               (!isLinkTraversalForwards &&
                 stop.direction === InfrastructureNetworkDirectionEnum.Backward);
 
-            const removedFromRoute =
-              // This link was part of the route before
-              oldLinks.find(
-                (link) =>
-                  link.infrastructureLinkId ===
-                  infraLinkWithStops.infrastructure_link_id,
-                // This stop was not included in the route previously
-              ) && !oldStopIds.includes(stop.scheduled_stop_point_id);
-
-            return (
-              suitableForVehicleMode && matchingDirection && !removedFromRoute
-            );
+            return suitableForVehicleMode && matchingDirection;
           })
           // sort the stops on the same link according to the link traversal direction
           .sort((stop1, stop2) =>
@@ -192,7 +181,21 @@ export const useEditRouteGeometry = () => {
               : stop2.relative_distance_from_infrastructure_link_start -
                 stop1.relative_distance_from_infrastructure_link_start,
           )
-          .map((stop) => stop.scheduled_stop_point_id)
+          .map((stop) => {
+            const removedFromRoute =
+              // This link was part of the route before
+              oldLinks.find(
+                (link) =>
+                  link.infrastructureLinkId ===
+                  infraLinkWithStops.infrastructure_link_id,
+                // This stop was not included in the route previously
+              ) && !oldStopIds.includes(stop.scheduled_stop_point_id);
+
+            return {
+              id: stop.scheduled_stop_point_id,
+              belongsToRoute: !removedFromRoute,
+            };
+          })
       );
     });
 
@@ -207,6 +210,6 @@ export const useEditRouteGeometry = () => {
     // delete
     deleteRoute,
     // helpers
-    extractScheduledStopPointIds,
+    extractScheduledStopPoints,
   };
 };
