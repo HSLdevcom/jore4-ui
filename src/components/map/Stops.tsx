@@ -2,7 +2,6 @@ import produce from 'immer';
 import React, {
   useCallback,
   useContext,
-  useEffect,
   useImperativeHandle,
   useState,
 } from 'react';
@@ -50,7 +49,6 @@ export const Stops = React.forwardRef((props, ref) => {
   const [draftStop, setDraftStop] = useState<DraftStop | undefined>();
   const [isDeleting, setIsDeleting] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [stopIdsWithinRoute, setStopIdsWithinRoute] = useState<UUID[]>([]);
 
   const { t } = useTranslation();
 
@@ -72,6 +70,15 @@ export const Stops = React.forwardRef((props, ref) => {
     mapToVariables({ route_ids: displayedRouteIds || [] }),
   );
   const routes = mapRoutesDetailsResult(routesResult);
+
+  // If editing/creating a route, show stops along edited/created route,
+  // otherwise show every stop belonging to visible routes
+  const stopIdsWithinRoute =
+    creatingNewRoute || editedRouteData.id
+      ? editedRouteData.stops
+          .filter((item) => item.belongsToRoute)
+          .map((item) => item.id)
+      : routes?.flatMap((route) => getRouteStopIds(route));
 
   const setSelectedStopId = (id?: UUID) => {
     mapEditorDispatch({
@@ -154,17 +161,6 @@ export const Stops = React.forwardRef((props, ref) => {
     },
     [stops],
   );
-
-  useEffect(() => {
-    // If editing/creating a route, show stops along edited/created route
-    if (creatingNewRoute || editedRouteData.id) {
-      setStopIdsWithinRoute(editedRouteData.stopIds || []);
-    } else {
-      const stopIds = routes?.flatMap((route) => getRouteStopIds(route)) || [];
-
-      setStopIdsWithinRoute(stopIds);
-    }
-  }, [routes, creatingNewRoute, editedRouteData.stopIds, editedRouteData.id]);
 
   return (
     <>

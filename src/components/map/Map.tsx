@@ -139,11 +139,11 @@ export const MapComponent = (
             </Column>
             {hasRoute && (
               <Column>
-                {editedRouteMetadata && editedRouteData.stopIds && (
+                {editedRouteMetadata && editedRouteData.stops && (
                   <RouteStopsOverlay
                     className="ml-8 mt-4"
-                    stopIds={editedRouteData.stopIds}
                     route={editedRouteMetadata}
+                    routeStops={editedRouteData.stops}
                   />
                 )}
               </Column>

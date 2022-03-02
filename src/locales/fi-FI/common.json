@@ -47,7 +47,8 @@
     "saveSuccess": "Pysäkki luotu",
     "fetchClosestLinkFailed": "Infrastruktuurilinkkiä ei pystytty päättelemään pysäkille",
     "fetchDirectionFailed": "Suuntaa ei pystytty päättelemään pysäkin infrastruktuurilinkille",
-    "removeFromRoute": "Poista reitin käytöstä"
+    "removeFromRoute": "Poista reitin käytöstä",
+    "addToRoute": "Lisää reitille"
   },
   "navigation": {
     "logout": "Kirjaudu ulos",
