@@ -106,7 +106,7 @@ const DrawRouteLayerComponent = (
   const [routeFeatures, setRouteFeatures] = useState<LineStringFeature[]>([]);
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
 
-  const { extractScheduledStopPointIds } = useEditRouteGeometry();
+  const { extractScheduledStopPoints } = useEditRouteGeometry();
 
   const { t } = useTranslation();
 
@@ -185,9 +185,19 @@ const DrawRouteLayerComponent = (
         return;
       }
 
-      let oldStopIds = editedRouteData.stopIds || [];
-      if (oldStopIds?.length === 0 && !creatingNewRoute) {
+      let oldStopIds =
+        editedRouteData.stops
+          .filter((item) => item.belongsToRoute)
+          ?.map((item) => item.id) || [];
+
+      let oldInfraLinks = editedRouteData.infraLinks || [];
+
+      if (
+        (oldStopIds?.length === 0 || oldInfraLinks.length === 0) &&
+        !creatingNewRoute
+      ) {
         oldStopIds = routes.flatMap((route) => getRouteStopIds(route));
+        oldInfraLinks = mapGraphQLRouteToInfraLinks(routes[0]);
       }
 
       // Order the infra links to match the order of the route returned by map-matching
@@ -206,11 +216,11 @@ const DrawRouteLayerComponent = (
         }));
 
       // Extract the list of ids of the stops to be included in the route
-      const stopIds = extractScheduledStopPointIds({
+      const stops = extractScheduledStopPoints({
         orderedInfraLinksWithStops,
         infraLinks,
         vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
-        oldLinks: editedRouteData.infraLinks || [],
+        oldLinks: oldInfraLinks,
         oldStopIds,
       });
 
@@ -219,13 +229,13 @@ const DrawRouteLayerComponent = (
         payload: {
           editedRouteData: {
             ...editedRouteData,
-            stopIds,
+            stops,
             infraLinks,
           },
         },
       });
 
-      if (stopIds.length >= 2) {
+      if (stops.filter((item) => item.belongsToRoute).length >= 2) {
         // eslint-disable-next-line no-console
         console.log(
           'Route goes along 2 or more stops and thus can be saved. TODO: show user UI to select which stops to use.',
@@ -249,7 +259,7 @@ const DrawRouteLayerComponent = (
     // TODO: Why does adding fetchInfraLinksWithStopsByExternalIds to his array result in
     // debounce not working (callback being generated again)?
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [map, onDelete, dispatch, creatingNewRoute, editedRouteData],
+    [map, onDelete, dispatch, creatingNewRoute, editedRouteData, routes],
   );
 
   // Update features if needed
