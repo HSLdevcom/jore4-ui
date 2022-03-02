@@ -32,6 +32,7 @@ export const Routes: React.FC = () => {
       payload: {
         editedRouteData: {
           metaData: data,
+          stops: [],
         },
       },
     });

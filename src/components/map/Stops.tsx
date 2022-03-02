@@ -1,13 +1,9 @@
-import React, {
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from 'react';
+import React, { useContext, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEvent } from 'react-map-gl';
 import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { MapEditorContext } from '../../context/MapEditorContext';
+import { RouteStop } from '../../context/MapEditorReducer';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteRoute,
@@ -54,7 +50,6 @@ export const Stops = React.forwardRef((props, ref) => {
   const [draftStop, setDraftStop] = useState<DraftStop | undefined>();
   const [isDeleting, setIsDeleting] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [stopIdsWithinRoute, setStopIdsWithinRoute] = useState<UUID[]>([]);
 
   const { t } = useTranslation();
 
@@ -81,6 +76,16 @@ export const Stops = React.forwardRef((props, ref) => {
     mapToVariables({ route_ids: displayedRouteIds || [] }),
   );
   const routes = mapRoutesDetailsResult(routesResult);
+
+  const mapRouteStopsToStopIds = (routeStops: RouteStop[]) =>
+    routeStops.filter((item) => item.belongsToRoute).map((item) => item.id);
+
+  // If editing/creating a route, show stops along edited/created route,
+  // otherwise show every stop belonging to visible routes
+  const stopIdsWithinRoute =
+    creatingNewRoute || editedRouteData.id
+      ? mapRouteStopsToStopIds(editedRouteData.stops)
+      : routes?.flatMap((route) => getRouteStopIds(route));
 
   const setSelectedStopId = (id?: UUID) => {
     mapEditorDispatch({
@@ -189,17 +194,6 @@ export const Stops = React.forwardRef((props, ref) => {
       onEditFail(err as Error);
     }
   };
-
-  useEffect(() => {
-    // If editing/creating a route, show stops along edited/created route
-    if (creatingNewRoute || editedRouteData.id) {
-      setStopIdsWithinRoute(editedRouteData.stopIds || []);
-    } else {
-      const stopIds = routes?.flatMap((route) => getRouteStopIds(route)) || [];
-
-      setStopIdsWithinRoute(stopIds);
-    }
-  }, [routes, creatingNewRoute, editedRouteData.stopIds, editedRouteData.id]);
 
   return (
     <>

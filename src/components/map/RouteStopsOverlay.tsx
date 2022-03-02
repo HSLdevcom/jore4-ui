@@ -14,7 +14,13 @@ interface Props {
   className?: string;
 }
 
-const StopRow = ({ stop }: { stop: ServicePatternScheduledStopPoint }) => {
+const StopRow = ({
+  stop,
+  onRoute,
+}: {
+  stop: ServicePatternScheduledStopPoint;
+  onRoute: boolean;
+}) => {
   const { label } = stop;
   const { t } = useTranslation();
   const {
@@ -22,14 +28,16 @@ const StopRow = ({ stop }: { stop: ServicePatternScheduledStopPoint }) => {
     state: { editedRouteData },
   } = useContext(MapEditorContext);
 
-  const deleteFromJourneyPattern = () => {
+  const setOnRoute = (belongsToRoute: boolean) => {
     dispatch({
       type: 'setState',
       payload: {
         editedRouteData: {
           ...editedRouteData,
-          stopIds: editedRouteData.stopIds?.filter(
-            (item) => item !== stop.scheduled_stop_point_id,
+          stops: editedRouteData.stops?.map((item) =>
+            item.id === stop.scheduled_stop_point_id
+              ? { ...item, belongsToRoute }
+              : item,
           ),
         },
       },
@@ -39,12 +47,18 @@ const StopRow = ({ stop }: { stop: ServicePatternScheduledStopPoint }) => {
   return (
     <div className="flex items-center justify-between border-b p-2">
       <div className="flex flex-col pl-10">
-        <div className="text-sm font-bold">{label}</div>
+        <div
+          className={`text-sm font-bold ${
+            onRoute ? 'text-black' : 'text-gray-300'
+          }`}
+        >
+          {label}
+        </div>
       </div>
       <div className="text-tweaked-brand">
         <SimpleDropdownMenu>
-          <button type="button" onClick={deleteFromJourneyPattern}>
-            {t('stops.removeFromRoute')}
+          <button type="button" onClick={() => setOnRoute(!onRoute)}>
+            {onRoute ? t('stops.removeFromRoute') : t('stops.addToRoute')}
           </button>
         </SimpleDropdownMenu>
       </div>
@@ -67,9 +81,10 @@ export const RouteStopsOverlay = ({ className }: Props) => {
 
   const stopsResult = useGetStopsQuery({});
   const stops = mapGetStopsResult(stopsResult);
-  const stopsToDisplay = editedRouteData.stopIds?.map((stopId) =>
-    stops?.find((item) => item.scheduled_stop_point_id === stopId),
-  );
+  const stopsToDisplay = editedRouteData.stops?.map((stop) => ({
+    stop: stops?.find((item) => item.scheduled_stop_point_id === stop.id),
+    belongsToRoute: stop.belongsToRoute,
+  }));
 
   if (!route) {
     return null;
@@ -90,10 +105,16 @@ export const RouteStopsOverlay = ({ className }: Props) => {
           </div>
         </div>
         <div>
-          {stopsToDisplay?.map((stop) => (
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            <StopRow key={stop?.scheduled_stop_point_id} stop={stop!} />
-          ))}
+          {stopsToDisplay?.map(
+            (routeStop) =>
+              routeStop.stop && (
+                <StopRow
+                  key={routeStop?.stop?.scheduled_stop_point_id}
+                  stop={routeStop.stop}
+                  onRoute={routeStop.belongsToRoute}
+                />
+              ),
+          )}
         </div>
       </div>
     </div>

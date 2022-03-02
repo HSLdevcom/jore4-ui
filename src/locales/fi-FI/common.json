@@ -50,7 +50,8 @@
     "fetchDirectionFailed": "Suuntaa ei pystytty päättelemään pysäkin infrastruktuurilinkille",
     "notPartOfRoute": "Ei reitin käytössä",
     "removeFromRoute": "Poista reitin käytöstä",
-    "cannotEditTerminalStops": "Reitin alku- ja päätepysäkin muokkaaminen ei ole sallittua"
+    "cannotEditTerminalStops": "Reitin alku- ja päätepysäkin muokkaaminen ei ole sallittua",
+    "addToRoute": "Lisää reitille"
   },
   "navigation": {
     "logout": "Kirjaudu ulos",

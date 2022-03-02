@@ -50,7 +50,8 @@
     "fetchDirectionFailed": "Could not resolve direction for the stop's infrastructure link",
     "notPartOfRoute": "Not part of the route",
     "removeFromRoute": "Remove from route",
-    "cannotEditTerminalStops": "Editing the start and end stops of a route is not allowed"
+    "cannotEditTerminalStops": "Editing the start and end stops of a route is not allowed",
+    "addToRoute": "Add to route"
   },
   "navigation": {
     "logout": "Log out",

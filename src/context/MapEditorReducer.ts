@@ -8,6 +8,11 @@ export enum Mode {
   Edit,
 }
 
+export interface RouteStop {
+  id: UUID;
+  belongsToRoute: boolean;
+}
+
 export interface IMapEditorContext {
   hasRoute: boolean;
   displayedRouteIds?: UUID[];
@@ -19,7 +24,7 @@ export interface IMapEditorContext {
   editedRouteData: {
     id?: UUID;
     metaData?: Partial<RouteFormState>;
-    stopIds?: UUID[];
+    stops: RouteStop[];
     infraLinks?: InfrastructureLinkAlongRoute[];
   };
 }
@@ -35,7 +40,7 @@ export const initialState: IMapEditorContext = {
   editedRouteData: {
     id: undefined,
     metaData: undefined,
-    stopIds: [],
+    stops: [],
     infraLinks: [],
   },
 };
