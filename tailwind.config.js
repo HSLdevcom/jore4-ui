@@ -17,6 +17,7 @@ module.exports = {
         background: colors.background,
         grey: colors.grey,
         'light-grey': colors.lightGrey,
+        'dark-grey': colors.darkGrey,
         'hsl-dark-green': colors.hslDarkGreen,
         'hsl-red': colors.hslRed,
         'city-bicycle-yellow': colors.cityBicycleYellow,
