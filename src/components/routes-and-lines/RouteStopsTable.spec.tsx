@@ -2,8 +2,8 @@ import { MockedProvider } from '@apollo/client/testing';
 import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { useGetLineDetailsWithRoutesByIdQuery } from '../../generated/graphql';
-import { mapLineDetailsWithRoutesResult } from '../../graphql';
+import { GetLineDetailsWithRoutesByIdQuery } from '../../generated/graphql';
+import { GqlQueryResult, mapLineDetailsWithRoutesResult } from '../../graphql';
 import { render } from '../../utils/test-utils';
 import { RouteStopsTable } from './RouteStopsTable';
 
@@ -57,63 +57,107 @@ describe(`<${RouteStopsTable.name} />`, () => {
             },
             ends_at_scheduled_stop_point: {
               scheduled_stop_point_id: 'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
-              label: 'pysäkki B',
+              label: 'pysäkki C',
               validity_start: '2021-01-01T00:00:00+00:00',
               validity_end: '2023-12-13T00:00:00+00:00',
               __typename: 'service_pattern_scheduled_stop_point',
             },
-            route_journey_patterns: [
+            infrastructure_links_along_route: [
               {
-                journey_pattern_id: '43e1985d-4643-4415-8367-c4a37fbc0a87',
-                on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
-                scheduled_stop_point_in_journey_patterns: [
-                  {
-                    journey_pattern_id: '43e1985d-4643-4415-8367-c4a37fbc0a87',
-                    scheduled_stop_point_id:
-                      'e3528755-711f-4e4f-9461-7931a2c4bc6d',
-                    scheduled_stop_point_sequence: 0,
-                    is_timing_point: false,
-                    is_via_point: true,
-                    __typename:
-                      'journey_pattern_scheduled_stop_point_in_journey_pattern',
-                    scheduled_stop_point: {
+                infrastructure_link: {
+                  scheduled_stop_point_located_on_infrastructure_link: [
+                    {
                       scheduled_stop_point_id:
                         'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                       label: 'pysäkki A',
                       validity_start: '2021-01-01T00:00:00+00:00',
                       validity_end: '2023-12-13T00:00:00+00:00',
                       __typename: 'service_pattern_scheduled_stop_point',
+                      scheduled_stop_point_in_journey_patterns: [
+                        {
+                          journey_pattern_id:
+                            '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                          scheduled_stop_point_id:
+                            'e3528755-711f-4e4f-9461-7931a2c4bc6d',
+                          scheduled_stop_point_sequence: 0,
+                          is_timing_point: false,
+                          is_via_point: false,
+                          __typename:
+                            'journey_pattern_scheduled_stop_point_in_journey_pattern',
+                        },
+                      ],
                     },
-                  },
-                  {
-                    journey_pattern_id: '43e1985d-4643-4415-8367-c4a37fbc0a87',
-                    scheduled_stop_point_id:
-                      'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
-                    scheduled_stop_point_sequence: 1,
-                    is_timing_point: true,
-                    is_via_point: false,
-                    __typename:
-                      'journey_pattern_scheduled_stop_point_in_journey_pattern',
-                    scheduled_stop_point: {
+                  ],
+                  __typename: 'infrastructure_network_infrastructure_link',
+                },
+                __typename: 'route_infrastructure_link_along_route',
+              },
+              {
+                infrastructure_link: {
+                  scheduled_stop_point_located_on_infrastructure_link: [
+                    {
                       scheduled_stop_point_id:
-                        'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
+                        '4d294d62-df17-46ff-9248-23f66f17fa87',
                       label: 'pysäkki B',
                       validity_start: '2021-01-01T00:00:00+00:00',
                       validity_end: '2023-12-13T00:00:00+00:00',
                       __typename: 'service_pattern_scheduled_stop_point',
+                      scheduled_stop_point_in_journey_patterns: [
+                        {
+                          journey_pattern_id:
+                            '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                          scheduled_stop_point_id:
+                            '4d294d62-df17-46ff-9248-23f66f17fa87',
+                          scheduled_stop_point_sequence: 1,
+                          is_timing_point: true,
+                          is_via_point: true,
+                          __typename:
+                            'journey_pattern_scheduled_stop_point_in_journey_pattern',
+                        },
+                      ],
                     },
-                  },
-                ],
-                __typename: 'journey_pattern_journey_pattern',
+                  ],
+                  __typename: 'infrastructure_network_infrastructure_link',
+                },
+                __typename: 'route_infrastructure_link_along_route',
+              },
+              {
+                infrastructure_link: {
+                  scheduled_stop_point_located_on_infrastructure_link: [
+                    {
+                      scheduled_stop_point_id:
+                        'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
+                      label: 'pysäkki C',
+                      validity_start: '2021-01-01T00:00:00+00:00',
+                      validity_end: '2023-12-13T00:00:00+00:00',
+                      __typename: 'service_pattern_scheduled_stop_point',
+                      scheduled_stop_point_in_journey_patterns: [
+                        {
+                          journey_pattern_id:
+                            '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                          scheduled_stop_point_id:
+                            'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
+                          scheduled_stop_point_sequence: 2,
+                          is_timing_point: false,
+                          is_via_point: false,
+                          __typename:
+                            'journey_pattern_scheduled_stop_point_in_journey_pattern',
+                        },
+                      ],
+                    },
+                  ],
+                  __typename: 'infrastructure_network_infrastructure_link',
+                },
+                __typename: 'route_infrastructure_link_along_route',
               },
             ],
           },
         ],
       },
     },
-  } as ReturnType<typeof useGetLineDetailsWithRoutesByIdQuery>;
+  } as GqlQueryResult<GetLineDetailsWithRoutesByIdQuery>;
 
-  test('Renders the route with stops in case it has journery pattern', async () => {
+  test('Renders the route with stops along its geometry', async () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const line = mapLineDetailsWithRoutesResult(mockResponse)!;
     const { container, asFragment } = render(
@@ -126,6 +170,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
 
     // the stops don't show as the accordion is not open
     expect(container.querySelectorAll('tr')).toHaveLength(1);
+    expect(asFragment()).toMatchSnapshot();
 
     const accordionButton = screen.getByTestId(
       'RouteStopsHeaderRow::toggleAccordion',
@@ -133,35 +178,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
     fireEvent.click(accordionButton);
 
     // the stops should show when the accordion opens
-    expect(container.querySelectorAll('tr')).toHaveLength(3);
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  test('Renders the route without stops in case it does not have a journery pattern', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const line = mapLineDetailsWithRoutesResult(mockResponse)!;
-
-    // removing journery pattern
-    line.line_routes[0].route_journey_patterns = [];
-
-    const { container, asFragment } = render(
-      <MockedProvider addTypename={false}>
-        <BrowserRouter>
-          <RouteStopsTable testId={testId} routes={line.line_routes} />
-        </BrowserRouter>
-      </MockedProvider>,
-    );
-
-    // the stops don't show as the accordion is not open
-    expect(container.querySelectorAll('tr')).toHaveLength(1);
-
-    const accordionButton = screen.getByTestId(
-      'RouteStopsHeaderRow::toggleAccordion',
-    );
-    fireEvent.click(accordionButton);
-
-    // there are no stops show even after the accordion is opened
-    expect(container.querySelectorAll('tr')).toHaveLength(1);
+    expect(container.querySelectorAll('tr')).toHaveLength(4);
     expect(asFragment()).toMatchSnapshot();
   });
 });

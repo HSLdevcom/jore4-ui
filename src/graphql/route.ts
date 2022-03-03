@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ApolloQueryResult, FetchResult, gql } from '@apollo/client';
 import {
+  GetLineDetailsWithRoutesByIdQuery,
   GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
   RouteLine,
   RouteRoute,
   useGetLineDetailsByIdQuery,
-  useGetLineDetailsWithRoutesByIdQuery,
   useGetRouteDetailsByIdsQuery,
   useGetRoutesWithInfrastructureLinksQuery,
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
 } from '../generated/graphql';
+import { GqlQueryResult } from './types';
 
 const LINE_DEFAULT_FIELDS = gql`
   fragment line_default_fields on route_line {
@@ -155,15 +156,25 @@ const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
       ...line_all_fields
       line_routes {
         ...route_with_stops
-        route_journey_patterns {
-          ...journey_pattern_with_stops
+        infrastructure_links_along_route {
+          infrastructure_link {
+            scheduled_stop_point_located_on_infrastructure_link {
+              ...scheduled_stop_point_default_fields
+              scheduled_stop_point_in_journey_patterns {
+                ...scheduled_stop_point_in_journey_pattern_default_fields
+                journey_pattern {
+                  on_route_id
+                }
+              }
+            }
+          }
         }
       }
     }
   }
 `;
 export const mapLineDetailsWithRoutesResult = (
-  result: ReturnType<typeof useGetLineDetailsWithRoutesByIdQuery>,
+  result: GqlQueryResult<GetLineDetailsWithRoutesByIdQuery>,
 ) => result.data?.route_line_by_pk as RouteLine | undefined;
 
 const GET_ROUTE_DETAILS_BY_IDS = gql`

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { RouteRoute } from '../../generated/graphql';
+import { getStopsAlongRouteGeometry } from '../../graphql';
 import { RouteStopsHeaderRow } from './RouteStopsHeaderRow'; // eslint-disable-line import/no-cycle
 import { RouteStopsRow } from './RouteStopsRow';
 
@@ -15,9 +16,7 @@ export const RouteStopsSection = ({ className, route }: Props) => {
     setOpen(!isOpen);
   };
 
-  // TODO handle multiple journey patterns when the UI design supports it
-  // note: a route might not have a journey pattern at all in the data model
-  const journeyPattern = route.route_journey_patterns[0];
+  const stopsAlongRoute = getStopsAlongRouteGeometry(route);
 
   return (
     <tbody className={className}>
@@ -27,10 +26,13 @@ export const RouteStopsSection = ({ className, route }: Props) => {
         isOpen={isOpen}
         onToggle={onToggle}
       />
-      {journeyPattern &&
-        isOpen &&
-        journeyPattern.scheduled_stop_point_in_journey_patterns?.map((item) => (
-          <RouteStopsRow key={item.scheduled_stop_point_id} stop={item} />
+      {isOpen &&
+        stopsAlongRoute.map((item) => (
+          <RouteStopsRow
+            key={item.scheduled_stop_point_id}
+            stop={item}
+            routeId={route.route_id}
+          />
         ))}
     </tbody>
   );
