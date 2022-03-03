@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 import {
   QueryClosestLinkQuery,
   QueryPointDirectionOnLinkQuery,
+  RouteRoute,
   ServicePatternScheduledStopPoint,
   useGetStopsQuery,
 } from '../generated/graphql';
@@ -80,3 +81,11 @@ export const mapGetPointDirectionOnLinkResult = (
 ) =>
   result.data?.infrastructure_network_find_point_direction_on_link?.[0]
     ?.value as string | undefined;
+
+export const getStopsAlongRouteGeometry = (route: RouteRoute) => {
+  return route.infrastructure_links_along_route.flatMap(
+    (infraLink) =>
+      infraLink.infrastructure_link
+        .scheduled_stop_point_located_on_infrastructure_link,
+  );
+};

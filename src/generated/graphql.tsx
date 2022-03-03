@@ -4747,6 +4747,10 @@ export type ServicePatternScheduledStopPoint = {
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id: Scalars['uuid'];
+  /** An array relationship */
+  scheduled_stop_point_in_journey_patterns: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
+  /** An aggregate relationship */
+  scheduled_stop_point_in_journey_patterns_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
@@ -4755,6 +4759,38 @@ export type ServicePatternScheduledStopPoint = {
   vehicle_mode_on_scheduled_stop_point: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
   /** An aggregate relationship */
   vehicle_mode_on_scheduled_stop_point_aggregate: ServicePatternVehicleModeOnScheduledStopPointAggregate;
+};
+
+
+/**
+ * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
+ *
+ *
+ * columns and relationships of "service_pattern.scheduled_stop_point"
+ *
+ */
+export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsArgs = {
+  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+};
+
+
+/**
+ * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
+ *
+ *
+ * columns and relationships of "service_pattern.scheduled_stop_point"
+ *
+ */
+export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsAggregateArgs = {
+  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
 };
 
 
@@ -4869,6 +4905,7 @@ export type ServicePatternScheduledStopPointBoolExp = {
   priority?: Maybe<IntComparisonExp>;
   relative_distance_from_infrastructure_link_start?: Maybe<Float8ComparisonExp>;
   scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
+  scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   validity_end?: Maybe<TimestamptzComparisonExp>;
   validity_start?: Maybe<TimestamptzComparisonExp>;
   vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
@@ -4900,6 +4937,7 @@ export type ServicePatternScheduledStopPointInsertInput = {
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
@@ -5013,6 +5051,7 @@ export type ServicePatternScheduledStopPointOrderBy = {
   priority?: Maybe<OrderBy>;
   relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
   scheduled_stop_point_id?: Maybe<OrderBy>;
+  scheduled_stop_point_in_journey_patterns_aggregate?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy>;
   validity_end?: Maybe<OrderBy>;
   validity_start?: Maybe<OrderBy>;
   vehicle_mode_on_scheduled_stop_point_aggregate?: Maybe<ServicePatternVehicleModeOnScheduledStopPointAggregateOrderBy>;
@@ -5892,7 +5931,7 @@ export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> } | null | undefined };
+export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, description_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string, direction: string, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } }> }> } }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> } | null | undefined };
 
 export type GetRouteDetailsByIdsQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
@@ -6359,15 +6398,26 @@ export const GetLineDetailsWithRoutesByIdDocument = gql`
     ...line_all_fields
     line_routes {
       ...route_with_stops
-      route_journey_patterns {
-        ...journey_pattern_with_stops
+      infrastructure_links_along_route {
+        infrastructure_link {
+          scheduled_stop_point_located_on_infrastructure_link {
+            ...scheduled_stop_point_default_fields
+            scheduled_stop_point_in_journey_patterns {
+              ...scheduled_stop_point_in_journey_pattern_default_fields
+              journey_pattern {
+                on_route_id
+              }
+            }
+          }
+        }
       }
     }
   }
 }
     ${LineAllFieldsFragmentDoc}
 ${RouteWithStopsFragmentDoc}
-${JourneyPatternWithStopsFragmentDoc}`;
+${ScheduledStopPointDefaultFieldsFragmentDoc}
+${ScheduledStopPointInJourneyPatternDefaultFieldsFragmentDoc}`;
 
 /**
  * __useGetLineDetailsWithRoutesByIdQuery__

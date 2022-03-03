@@ -40,7 +40,7 @@ export const RouteStopsHeaderRow = ({
         {route.description_i18n}
         <EditButton href={routes[Path.editRoute].getLink(route.route_id)} />
       </td>
-      <td>
+      <td className="pr-16 text-right">
         {t('validity.validDuring', {
           startDate: mapToShortDate(route.validity_start || MIN_DATE),
           endDate: mapToShortDate(route.validity_end || MAX_DATE),
