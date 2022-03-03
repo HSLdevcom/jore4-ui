@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { gql } from '@apollo/client';
 import {
+  RouteRoute,
   ServicePatternScheduledStopPoint,
   useGetStopsQuery,
 } from '../generated/graphql';
@@ -65,3 +66,11 @@ const INSERT_STOP = gql`
     }
   }
 `;
+
+export const getStopsAlongRouteGeometry = (route: RouteRoute) => {
+  return route.infrastructure_links_along_route.flatMap(
+    (infraLink) =>
+      infraLink.infrastructure_link
+        .scheduled_stop_point_located_on_infrastructure_link,
+  );
+};

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FetchResult, gql, ApolloQueryResult } from '@apollo/client';
+import { ApolloQueryResult, FetchResult, gql } from '@apollo/client';
 import {
+  GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
   RouteLine,
   RouteRoute,
@@ -9,7 +10,6 @@ import {
   useGetRouteDetailsByIdsQuery,
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
-  GetRouteDetailsByIdsQuery,
 } from '../generated/graphql';
 
 const LINE_DEFAULT_FIELDS = gql`
@@ -138,8 +138,15 @@ const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
       ...line_all_fields
       line_routes {
         ...route_with_stops
-        route_journey_patterns {
-          ...journey_pattern_with_stops
+        infrastructure_links_along_route {
+          infrastructure_link {
+            scheduled_stop_point_located_on_infrastructure_link {
+              ...scheduled_stop_point_default_fields
+              scheduled_stop_point_in_journey_patterns {
+                ...scheduled_stop_point_in_journey_pattern_default_fields
+              }
+            }
+          }
         }
       }
     }

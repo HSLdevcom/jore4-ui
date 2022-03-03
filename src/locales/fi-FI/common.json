@@ -44,7 +44,8 @@
     "label": "Tunnus",
     "nameAddress": "Nimi ja osoite",
     "finnishName": "Nimi (Suomi)",
-    "saveSuccess": "Pysäkki luotu"
+    "saveSuccess": "Pysäkki luotu",
+    "notPartOfRoute": "Ei reitin käytössä"
   },
   "navigation": {
     "logout": "Kirjaudu ulos",
