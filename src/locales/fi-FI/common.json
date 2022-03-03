@@ -46,7 +46,8 @@
     "finnishName": "Nimi (Suomi)",
     "saveSuccess": "Pysäkki luotu",
     "fetchClosestLinkFailed": "Infrastruktuurilinkkiä ei pystytty päättelemään pysäkille",
-    "fetchDirectionFailed": "Suuntaa ei pystytty päättelemään pysäkin infrastruktuurilinkille"
+    "fetchDirectionFailed": "Suuntaa ei pystytty päättelemään pysäkin infrastruktuurilinkille",
+    "notPartOfRoute": "Ei reitin käytössä"
   },
   "navigation": {
     "logout": "Kirjaudu ulos",
