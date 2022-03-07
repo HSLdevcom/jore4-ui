@@ -28,7 +28,7 @@ export const EditLinePage = (): JSX.Element => {
     primaryVehicleMode: line?.primary_vehicle_mode,
     priority: line?.priority,
     validityStart: mapToISODate(line?.validity_start),
-    validityEnd: mapToISODate(line?.validity_end),
+    validityEnd: mapToISODate(line?.validity_end) || '',
     indefinite: !line?.validity_end,
   };
 
