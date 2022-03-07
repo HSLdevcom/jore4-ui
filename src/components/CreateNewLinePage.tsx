@@ -1,25 +1,16 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
-import {
-  ReusableComponentsVehicleModeEnum,
-  useInsertLineOneMutation,
-} from '../generated/graphql';
+import { ReusableComponentsVehicleModeEnum } from '../generated/graphql';
 import { mapInsertLineOneResult } from '../graphql';
+import { useCreateLine } from '../hooks';
 import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { Priority } from '../types/Priority';
-import {
-  mapDateInputToValidityEnd,
-  mapDateInputToValidityStart,
-  mapToObject,
-  mapToVariables,
-  showToast,
-} from '../utils';
 import { FormState, LineForm } from './forms/LineForm';
 
 export const CreateNewLinePage = (): JSX.Element => {
-  const [mutateFunction] = useInsertLineOneMutation();
+  const [saveLine] = useCreateLine();
   const [createdLineId, setCreatedLineId] = useState<UUID>();
   const { t } = useTranslation();
 
@@ -29,32 +20,12 @@ export const CreateNewLinePage = (): JSX.Element => {
   };
 
   const onSubmit = async (state: FormState) => {
-    const variables = mapToObject({
-      label: state.label,
-      name_i18n: state.finnishName,
-      primary_vehicle_mode: state.primaryVehicleMode,
-      priority: state.priority,
-      validity_start: mapDateInputToValidityStart(state.validityStart),
-      validity_end: mapDateInputToValidityEnd(
-        state.validityEnd,
-        state.indefinite,
-      ),
-    });
-
     try {
-      const result = await mutateFunction(mapToVariables(variables));
+      const result = await saveLine(state);
       const createdLine = mapInsertLineOneResult(result);
-
-      showToast({ type: 'success', message: t('routes.saveSuccess') });
-      // eslint-disable-next-line no-console
-      console.log('Line created successfully.', result);
-
       setCreatedLineId(createdLine?.line_id);
     } catch (err) {
-      showToast({
-        type: 'danger',
-        message: `${t('errors.saveFailed')}, '${err}'`,
-      });
+      // noop
     }
   };
 

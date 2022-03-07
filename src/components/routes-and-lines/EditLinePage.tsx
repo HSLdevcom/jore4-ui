@@ -1,27 +1,19 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redirect, useParams } from 'react-router-dom';
-import {
-  useGetLineDetailsByIdQuery,
-  usePatchLineMutation,
-} from '../../generated/graphql';
+import { useGetLineDetailsByIdQuery } from '../../generated/graphql';
 import { mapLineDetailsResult } from '../../graphql';
+import { useEditLine } from '../../hooks';
 import { Container } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
 import { mapToISODate } from '../../time';
-import {
-  mapDateInputToValidityEnd,
-  mapDateInputToValidityStart,
-  mapToObject,
-  mapToVariables,
-  showToast,
-} from '../../utils';
+import { mapToVariables } from '../../utils';
 import { FormState, LineForm } from '../forms/LineForm';
 import { PageHeader } from './PageHeader';
 
 export const EditLinePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
-  const [patchLine] = usePatchLineMutation();
+  const [editLine] = useEditLine();
 
   const { id } = useParams<{ id: string }>();
   const lineDetailsResult = useGetLineDetailsByIdQuery(
@@ -41,33 +33,11 @@ export const EditLinePage = (): JSX.Element => {
   };
 
   const onSubmit = async (state: FormState) => {
-    const variables = {
-      line_id: id,
-      ...mapToObject({
-        label: state.label,
-        name_i18n: state.finnishName,
-        primary_vehicle_mode: state.primaryVehicleMode,
-        priority: state.priority,
-        validity_start: mapDateInputToValidityStart(state.validityStart),
-        validity_end: mapDateInputToValidityEnd(
-          state.validityEnd,
-          state.indefinite,
-        ),
-      }),
-    };
-
     try {
-      // patch the line in the backend
-      await patchLine(mapToVariables(variables));
-
-      showToast({ type: 'success', message: t('lines.saveSuccess') });
-
+      await editLine(id, state);
       setHasFinishedEditing(true);
     } catch (err) {
-      showToast({
-        type: 'danger',
-        message: `${t('errors.saveFailed')}, '${err}'`,
-      });
+      // noop
     }
   };
 

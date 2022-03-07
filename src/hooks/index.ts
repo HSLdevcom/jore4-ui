@@ -1,5 +1,7 @@
 export * from './useAsyncQuery';
+export * from './useCreateLine';
 export * from './useDeleteRoute';
+export * from './useEditLine';
 export * from './useEditRoute';
 export * from './useEditRouteGeometry';
 export * from './useEditStop';
