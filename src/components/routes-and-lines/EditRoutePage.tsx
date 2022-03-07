@@ -3,11 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { Redirect, useParams } from 'react-router-dom';
 import {
   RouteRoute,
-  useDeleteRouteMutation,
   useGetRouteDetailsByIdsQuery,
-  usePatchRouteMutation,
 } from '../../generated/graphql';
 import { mapRouteDetailsResult } from '../../graphql';
+import { useDeleteRoute, useEditRoute } from '../../hooks';
 import { Container, Row } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
 import { mapToISODate } from '../../time';
@@ -16,14 +15,7 @@ import {
   FormContainer,
   SimpleButton,
 } from '../../uiComponents';
-import {
-  mapDateInputToValidityEnd,
-  mapDateInputToValidityStart,
-  mapToObject,
-  mapToVariables,
-  showToast,
-  submitFormByRef,
-} from '../../utils';
+import { mapToVariables, submitFormByRef } from '../../utils';
 import { FormState, RoutePropertiesForm } from '../forms/RoutePropertiesForm';
 import { PageHeader } from './PageHeader';
 
@@ -41,8 +33,9 @@ export const EditRoutePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const [patchRoute] = usePatchRouteMutation();
-  const [deleteRoute] = useDeleteRouteMutation();
+  const [editRoute] = useEditRoute();
+  const [deleteRoute] = useDeleteRoute();
+
   const formRef = useRef<ExplicitAny>(null);
 
   const { id } = useParams<{ id: string }>();
@@ -62,48 +55,20 @@ export const EditRoutePage = (): JSX.Element => {
   };
 
   const onSubmit = async (state: FormState) => {
-    const { label, priority, validityStart, validityEnd, indefinite } = state;
-
-    const variables = {
-      route_id: id,
-      ...mapToObject({
-        description_i18n: state.description_i18n,
-        label,
-        on_line_id: state.on_line_id,
-        priority,
-        validity_start: mapDateInputToValidityStart(validityStart),
-        validity_end: mapDateInputToValidityEnd(validityEnd, indefinite),
-      }),
-    };
-
     try {
-      // patch the route in the backend
-      await patchRoute(mapToVariables(variables));
-
-      showToast({ type: 'success', message: t('routes.saveSuccess') });
-
+      await editRoute(id, state);
       setHasFinishedEditing(true);
     } catch (err) {
-      showToast({
-        type: 'danger',
-        message: `${t('errors.saveFailed')}, '${err}'`,
-      });
+      // noop
     }
   };
 
   const onDelete = async () => {
     try {
-      // delete the route from the backend
-      await deleteRoute(mapToVariables({ route_id: route?.route_id }));
-
-      showToast({ type: 'success', message: t('routes.deleteSuccess') });
-
+      await deleteRoute(route?.route_id);
       setHasFinishedEditing(true);
     } catch (err) {
-      showToast({
-        type: 'danger',
-        message: `${t('errors.saveFailed')}, '${err}'`,
-      });
+      // noop
     }
   };
 
