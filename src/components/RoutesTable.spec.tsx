@@ -34,7 +34,6 @@ describe(`<${RoutesTable.name} />`, () => {
             label: '65',
             name_i18n: 'Rautatientori - Kätilöopisto - Veräjälaakso',
             short_name_i18n: 'Rautatientori - Veräjälaakso',
-            description_i18n: 'Rautatientori - Kätilöopisto - Veräjälaakso',
             __typename: 'route_line',
           },
           starts_from_scheduled_stop_point: {
@@ -79,7 +78,6 @@ describe(`<${RoutesTable.name} />`, () => {
           label: '65',
           name_i18n: 'Rautatientori - Veräjälaakso',
           short_name_i18n: 'Rautatientori - Veräjälaakso',
-          description_i18n: 'Rautatientori - Kätilöopisto - Veräjälaakso',
           __typename: 'route_line',
         },
         {
@@ -87,7 +85,6 @@ describe(`<${RoutesTable.name} />`, () => {
           label: '71',
           name_i18n: 'Rautatientori - Malmi as.',
           short_name_i18n: 'Rautatientori - Malmi as.',
-          description_i18n: 'Rautatientori - Arabia - Malmi as.',
           __typename: 'route_line',
         },
         {
@@ -95,7 +92,6 @@ describe(`<${RoutesTable.name} />`, () => {
           label: '785K',
           name_i18n: 'Rautatientori - Nikkilä',
           short_name_i18n: 'Rautatientori - Nikkilä',
-          description_i18n: 'Rautatientori - Nikkilä',
           __typename: 'route_line',
         },
         {
@@ -103,7 +99,6 @@ describe(`<${RoutesTable.name} />`, () => {
           label: '1234',
           name_i18n: 'Erottaja - Arkkadiankatu',
           short_name_i18n: 'Erottaja - Arkkadiankatu',
-          description_i18n: 'Erottaja - Arkkadiankatu',
           __typename: 'route_line',
         },
       ],

@@ -20,7 +20,6 @@ const LINE_DEFAULT_FIELDS = gql`
     label
     name_i18n
     short_name_i18n
-    description_i18n
     validity_start
     validity_end
   }
@@ -31,7 +30,6 @@ const LINE_ALL_FIELDS = gql`
     line_id
     name_i18n
     short_name_i18n
-    description_i18n
     primary_vehicle_mode
     validity_start
     validity_end

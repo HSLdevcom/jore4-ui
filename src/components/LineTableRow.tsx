@@ -31,7 +31,7 @@ export const LineTableRow = ({ className, line }: Props): JSX.Element => {
             <Row>
               <Column className="w-1/2">
                 <p className="text-3xl">{line.label}</p>
-                <p className="text-lg">{line.description_i18n}</p>
+                <p className="text-lg">{line.name_i18n}</p>
               </Column>
               <Column className="w-1/2 text-right">
                 <p className="text-lg font-bold">

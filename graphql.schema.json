@@ -22527,18 +22527,6 @@
         "description": "The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487\n\n\ncolumns and relationships of \"route.line\"\n",
         "fields": [
           {
-            "name": "description_i18n",
-            "description": "The description of the line. Placeholder for multilingual strings.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
             "description": "The label of the line definition. The label is unique for a certain priority and validity period.",
             "args": [],
@@ -23163,18 +23151,6 @@
             "deprecationReason": null
           },
           {
-            "name": "description_i18n",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
             "description": null,
             "type": {
@@ -23334,18 +23310,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "description_i18n",
-            "description": "The description of the line. Placeholder for multilingual strings.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
             "description": "The label of the line definition. The label is unique for a certain priority and validity period.",
             "type": {
@@ -23464,18 +23428,6 @@
         "description": "aggregate max on columns",
         "fields": [
           {
-            "name": "description_i18n",
-            "description": "The description of the line. Placeholder for multilingual strings.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
             "description": "The label of the line definition. The label is unique for a certain priority and validity period.",
             "args": [],
@@ -23570,18 +23522,6 @@
         "name": "route_line_min_fields",
         "description": "aggregate min on columns",
         "fields": [
-          {
-            "name": "description_i18n",
-            "description": "The description of the line. Placeholder for multilingual strings.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "label",
             "description": "The label of the line definition. The label is unique for a certain priority and validity period.",
@@ -23832,18 +23772,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "description_i18n",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
             "description": null,
             "type": {
@@ -23992,12 +23920,6 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "description_i18n",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
             "description": "column name",
             "isDeprecated": false,
@@ -24054,18 +23976,6 @@
         "description": "input type for updating data in table \"route.line\"",
         "fields": null,
         "inputFields": [
-          {
-            "name": "description_i18n",
-            "description": "The description of the line. Placeholder for multilingual strings.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "label",
             "description": "The label of the line definition. The label is unique for a certain priority and validity period.",
@@ -24267,12 +24177,6 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
-          {
-            "name": "description_i18n",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "label",
             "description": "column name",

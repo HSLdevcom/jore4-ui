@@ -30,7 +30,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 <p
                   class="text-lg"
                 >
-                  Rautatientori - Kätilöopisto - Veräjälaakso
+                  Rautatientori - Veräjälaakso
                 </p>
               </div>
               <div
@@ -104,7 +104,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 <p
                   class="text-lg"
                 >
-                  Rautatientori - Arabia - Malmi as.
+                  Rautatientori - Malmi as.
                 </p>
               </div>
               <div
