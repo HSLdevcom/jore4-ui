@@ -5,13 +5,16 @@ import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { MapEditorContext } from '../../context/MapEditorContext';
 import {
   ReusableComponentsVehicleModeEnum,
-  RouteRoute,
   ServicePatternScheduledStopPoint,
   useGetRoutesWithInfrastructureLinksQuery,
   useGetStopsQuery,
   useRemoveStopMutation,
 } from '../../generated/graphql';
-import { mapGetStopsResult, mapRoutesDetailsResult } from '../../graphql';
+import {
+  getRouteStopIds,
+  mapGetStopsResult,
+  mapRoutesDetailsResult,
+} from '../../graphql';
 import { useEditStop } from '../../hooks';
 import { RequiredKeys } from '../../types';
 import { ConfirmationDialog } from '../../uiComponents';
@@ -36,12 +39,6 @@ type DraftStop = RequiredKeys<
   Partial<ServicePatternScheduledStopPoint>,
   'measured_location'
 >;
-
-export const getRouteStopIds = (route: RouteRoute) => {
-  return route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns.map(
-    (point) => point.scheduled_stop_point_id,
-  );
-};
 
 export const Stops = React.forwardRef((props, ref) => {
   // TODO: We might want to move these to MapEditorContext

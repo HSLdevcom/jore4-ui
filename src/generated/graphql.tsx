@@ -5870,6 +5870,13 @@ export type MapExternalLinkIdsToInfraLinksWithStopsQueryVariables = Exact<{
 
 export type MapExternalLinkIdsToInfraLinksWithStopsQuery = { __typename?: 'query_root', infrastructure_network_infrastructure_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, external_link_id: string, shape: GeoJSON.Geometry, scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> }> };
 
+export type GetStopsAlongInfrastructureLinksQueryVariables = Exact<{
+  infrastructure_link_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
+}>;
+
+
+export type GetStopsAlongInfrastructureLinksQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number }> };
+
 export type ScheduledStopPointInJourneyPatternDefaultFieldsFragment = { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean };
 
 export type JourneyPatternWithStopsFragment = { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> };
@@ -6273,6 +6280,43 @@ export function useMapExternalLinkIdsToInfraLinksWithStopsLazyQuery(baseOptions?
 export type MapExternalLinkIdsToInfraLinksWithStopsQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinksWithStopsQuery>;
 export type MapExternalLinkIdsToInfraLinksWithStopsLazyQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinksWithStopsLazyQuery>;
 export type MapExternalLinkIdsToInfraLinksWithStopsQueryResult = Apollo.QueryResult<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>;
+export const GetStopsAlongInfrastructureLinksDocument = gql`
+    query GetStopsAlongInfrastructureLinks($infrastructure_link_ids: [uuid!]) {
+  service_pattern_scheduled_stop_point(
+    where: {located_on_infrastructure_link_id: {_in: $infrastructure_link_ids}}
+  ) {
+    ...scheduled_stop_point_all_fields
+  }
+}
+    ${ScheduledStopPointAllFieldsFragmentDoc}`;
+
+/**
+ * __useGetStopsAlongInfrastructureLinksQuery__
+ *
+ * To run a query within a React component, call `useGetStopsAlongInfrastructureLinksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopsAlongInfrastructureLinksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopsAlongInfrastructureLinksQuery({
+ *   variables: {
+ *      infrastructure_link_ids: // value for 'infrastructure_link_ids'
+ *   },
+ * });
+ */
+export function useGetStopsAlongInfrastructureLinksQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>(GetStopsAlongInfrastructureLinksDocument, options);
+      }
+export function useGetStopsAlongInfrastructureLinksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>(GetStopsAlongInfrastructureLinksDocument, options);
+        }
+export type GetStopsAlongInfrastructureLinksQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksQuery>;
+export type GetStopsAlongInfrastructureLinksLazyQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksLazyQuery>;
+export type GetStopsAlongInfrastructureLinksQueryResult = Apollo.QueryResult<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>;
 export const ListAllLinesDocument = gql`
     query ListAllLines {
   route_line {

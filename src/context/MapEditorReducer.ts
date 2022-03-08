@@ -1,5 +1,4 @@
 import produce from 'immer';
-import { BusRouteResponse } from '../api/routing';
 import { FormState as RouteFormState } from '../components/forms/RoutePropertiesForm';
 import { InfrastructureLinkAlongRoute } from '../graphql';
 
@@ -20,7 +19,6 @@ export interface IMapEditorContext {
   selectedStopId?: UUID;
   canAddStops: boolean;
   drawingMode: Mode | undefined;
-  busRoute?: BusRouteResponse;
   editedRouteData: {
     id?: UUID;
     metaData?: Partial<RouteFormState>;
@@ -36,7 +34,6 @@ export const initialState: IMapEditorContext = {
   selectedStopId: undefined,
   canAddStops: false,
   drawingMode: undefined,
-  busRoute: undefined,
   editedRouteData: {
     id: undefined,
     metaData: undefined,

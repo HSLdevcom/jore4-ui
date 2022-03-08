@@ -344,3 +344,9 @@ const DELETE_STOP_FROM_JOURNEY_PATTERN = gql`
     }
   }
 `;
+
+export const getRouteStopIds = (route: RouteRoute) => {
+  return route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns.map(
+    (point) => point.scheduled_stop_point_id,
+  );
+};
