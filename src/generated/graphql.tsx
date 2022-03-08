@@ -5881,6 +5881,14 @@ export type ScheduledStopPointInJourneyPatternDefaultFieldsFragment = { __typena
 
 export type JourneyPatternWithStopsFragment = { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: any | null | undefined, validity_end?: any | null | undefined } | null | undefined }> };
 
+export type UpdateRouteJourneyPatternMutationVariables = Exact<{
+  route_id: Scalars['uuid'];
+  new_journey_pattern: JourneyPatternJourneyPatternInsertInput;
+}>;
+
+
+export type UpdateRouteJourneyPatternMutation = { __typename?: 'mutation_root', delete_journey_pattern_journey_pattern?: { __typename?: 'journey_pattern_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID }> } | null | undefined, insert_journey_pattern_journey_pattern_one?: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } | null | undefined };
+
 export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: any | null | undefined, validity_end?: any | null | undefined };
 
 export type LineAllFieldsFragment = { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string };
@@ -6317,6 +6325,45 @@ export function useGetStopsAlongInfrastructureLinksLazyQuery(baseOptions?: Apoll
 export type GetStopsAlongInfrastructureLinksQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksQuery>;
 export type GetStopsAlongInfrastructureLinksLazyQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksLazyQuery>;
 export type GetStopsAlongInfrastructureLinksQueryResult = Apollo.QueryResult<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>;
+export const UpdateRouteJourneyPatternDocument = gql`
+    mutation UpdateRouteJourneyPattern($route_id: uuid!, $new_journey_pattern: journey_pattern_journey_pattern_insert_input!) {
+  delete_journey_pattern_journey_pattern(where: {on_route_id: {_eq: $route_id}}) {
+    returning {
+      on_route_id
+    }
+  }
+  insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
+    on_route_id
+  }
+}
+    `;
+export type UpdateRouteJourneyPatternMutationFn = Apollo.MutationFunction<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>;
+
+/**
+ * __useUpdateRouteJourneyPatternMutation__
+ *
+ * To run a mutation, you first call `useUpdateRouteJourneyPatternMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateRouteJourneyPatternMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateRouteJourneyPatternMutation, { data, loading, error }] = useUpdateRouteJourneyPatternMutation({
+ *   variables: {
+ *      route_id: // value for 'route_id'
+ *      new_journey_pattern: // value for 'new_journey_pattern'
+ *   },
+ * });
+ */
+export function useUpdateRouteJourneyPatternMutation(baseOptions?: Apollo.MutationHookOptions<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>(UpdateRouteJourneyPatternDocument, options);
+      }
+export type UpdateRouteJourneyPatternMutationHookResult = ReturnType<typeof useUpdateRouteJourneyPatternMutation>;
+export type UpdateRouteJourneyPatternMutationResult = Apollo.MutationResult<UpdateRouteJourneyPatternMutation>;
+export type UpdateRouteJourneyPatternMutationOptions = Apollo.BaseMutationOptions<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>;
 export const ListAllLinesDocument = gql`
     query ListAllLines {
   route_line {

@@ -305,7 +305,37 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         <td>
            
         </td>
-        <td />
+        <td>
+          <div
+            class="static h-full"
+          >
+            <button
+              aria-haspopup="true"
+              class="mx-auto flex h-full items-center px-3 focus:outline-none"
+              id="headlessui-menu-button-1"
+              type="button"
+            >
+              <svg
+                class="text-3xl"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                  fill="none"
+                />
+                <path
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                />
+              </svg>
+            </button>
+          </div>
+        </td>
       </tr>
       <tr
         class="border border-l-8 bg-background text-dark-grey undefined"
@@ -351,7 +381,37 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         <td>
            
         </td>
-        <td />
+        <td>
+          <div
+            class="static h-full"
+          >
+            <button
+              aria-haspopup="true"
+              class="mx-auto flex h-full items-center px-3 focus:outline-none"
+              id="headlessui-menu-button-2"
+              type="button"
+            >
+              <svg
+                class="text-3xl"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                  fill="none"
+                />
+                <path
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                />
+              </svg>
+            </button>
+          </div>
+        </td>
       </tr>
       <tr
         class="border border-l-8 bg-background text-dark-grey undefined"
@@ -397,7 +457,37 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         <td>
            
         </td>
-        <td />
+        <td>
+          <div
+            class="static h-full"
+          >
+            <button
+              aria-haspopup="true"
+              class="mx-auto flex h-full items-center px-3 focus:outline-none"
+              id="headlessui-menu-button-3"
+              type="button"
+            >
+              <svg
+                class="text-3xl"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                  fill="none"
+                />
+                <path
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                />
+              </svg>
+            </button>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { gql } from '@apollo/client';
+import { ServicePatternScheduledStopPoint } from '../generated/graphql';
 
 const SCHEDULED_STOP_POINT_IN_JOURNEY_PATTERN_DEFAULT_FIELDS = gql`
   fragment scheduled_stop_point_in_journey_pattern_default_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
@@ -23,3 +24,31 @@ const JOURNEY_PATTERN_WITH_STOPS = gql`
     }
   }
 `;
+
+const UPDATE_ROUTE_JOURNEY_PATTERN = gql`
+  mutation UpdateRouteJourneyPattern(
+    $route_id: uuid!
+    $new_journey_pattern: journey_pattern_journey_pattern_insert_input!
+  ) {
+    delete_journey_pattern_journey_pattern(
+      where: { on_route_id: { _eq: $route_id } }
+    ) {
+      returning {
+        on_route_id
+      }
+    }
+
+    insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
+      on_route_id
+    }
+  }
+`;
+
+// check if the stop belongs to any of the current route's journey patterns
+export const stopBelongsToJourneyPattern = (
+  stop: ServicePatternScheduledStopPoint,
+  routeId: UUID,
+) =>
+  stop.scheduled_stop_point_in_journey_patterns.some(
+    (item) => item.journey_pattern?.on_route_id === routeId,
+  );

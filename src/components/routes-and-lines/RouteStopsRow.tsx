@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineHistory } from 'react-icons/md';
 import { ServicePatternScheduledStopPoint } from '../../generated/graphql';
+import { stopBelongsToJourneyPattern } from '../../graphql';
 import { useEditRouteGeometry } from '../../hooks/useEditRouteGeometry';
 import { Row } from '../../layoutComponents';
 import {
@@ -17,20 +18,18 @@ interface Props {
   className?: string;
   stop: ServicePatternScheduledStopPoint;
   routeId: UUID;
+  onAddToRoute: (stopId: UUID) => void;
 }
 
 export const RouteStopsRow = ({
   className,
   stop,
   routeId,
+  onAddToRoute,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
-  // check if the stop belongs to any of the current route's journey patterns
-  const stopBelongsToJourneyPattern =
-    stop.scheduled_stop_point_in_journey_patterns.some(
-      (item) => item.journey_pattern?.on_route_id === routeId,
-    );
+  const belongsToJourneyPattern = stopBelongsToJourneyPattern(stop, routeId);
 
   const { deleteStopFromJourneyPattern } = useEditRouteGeometry();
 
@@ -49,13 +48,13 @@ export const RouteStopsRow = ({
   return (
     <tr
       className={`border border-l-8 ${
-        stopBelongsToJourneyPattern ? '' : 'bg-background text-dark-grey'
+        belongsToJourneyPattern ? '' : 'bg-background text-dark-grey'
       } ${className}`}
     >
       <td className="py-4 pl-16 pr-4">{stop.label}</td>
       <td>!Pysäkki X</td>
       <td className="pr-16 text-right">
-        {stopBelongsToJourneyPattern
+        {belongsToJourneyPattern
           ? t('validity.validDuring', {
               startDate: mapToShortDate(stop.validity_start || MIN_DATE),
               endDate: mapToShortDate(stop.validity_end || MAX_DATE),
@@ -70,13 +69,20 @@ export const RouteStopsRow = ({
       </td>
       <td>&nbsp;</td>
       <td>
-        {stopBelongsToJourneyPattern && (
-          <SimpleDropdownMenu>
+        <SimpleDropdownMenu>
+          {belongsToJourneyPattern ? (
             <button type="button" onClick={deleteFromJourneyPattern}>
               {t('stops.removeFromRoute')}
             </button>
-          </SimpleDropdownMenu>
-        )}
+          ) : (
+            <button
+              type="button"
+              onClick={() => onAddToRoute(stop.scheduled_stop_point_id)}
+            >
+              {t('stops.addToRoute')}
+            </button>
+          )}
+        </SimpleDropdownMenu>
       </td>
     </tr>
   );
