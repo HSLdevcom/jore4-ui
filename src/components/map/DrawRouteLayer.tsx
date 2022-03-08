@@ -19,27 +19,19 @@ import {
   Editor,
   RENDER_STATE,
 } from 'react-map-gl-draw';
-import { getBusRoute } from '../../api/routing';
 import { MapEditorContext, Mode } from '../../context/MapEditorContext';
 import {
-  MapExternalLinkIdsToInfraLinksWithStopsDocument,
-  MapExternalLinkIdsToInfraLinksWithStopsQuery,
-  MapExternalLinkIdsToInfraLinksWithStopsQueryVariables,
   ReusableComponentsVehicleModeEnum,
   useGetRoutesWithInfrastructureLinksQuery,
 } from '../../generated/graphql';
 import {
-  InfrastructureLinkAlongRoute,
   mapGraphQLRouteToInfraLinks,
   mapRoutesDetailsResult,
-  orderInfraLinksByExternalLinkId,
 } from '../../graphql';
-import { useAsyncQuery, useEditRouteGeometry } from '../../hooks';
-import { mapGeoJSONtoFeature, mapToVariables, showToast } from '../../utils';
+import { LineStringFeature } from '../../hooks';
+import { useExtractRouteFromFeature } from '../../hooks/useExtractRouteFromFeature';
+import { mapToVariables, showToast } from '../../utils';
 import { addRoute, removeRoute } from './mapUtils';
-import { getRouteStopIds } from './Stops';
-
-type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
 
 interface Props {
   mode?: Mode;
@@ -56,35 +48,6 @@ interface EditorCallback {
   editContext: ExplicitAny;
   selectedFeatureIndex: number;
 }
-
-const mapInfraLinksToFeature = (
-  infraLinks: InfrastructureLinkAlongRoute[],
-): LineStringFeature => {
-  const coordinates: GeoJSON.Position[] = infraLinks.flatMap((link, index) => {
-    const isFirst = index === 0;
-    let linkCoordinates = link.shape.coordinates;
-
-    // Order coordinates properly
-    if (linkCoordinates.length > 0 && !link.isTraversalForwards) {
-      // TODO: Could be optimized since only first and last coordinates are being used
-      linkCoordinates = [...linkCoordinates].reverse();
-    }
-
-    // To simplify the path drawn,
-    // remove points in the middle of the infrastructure link
-    const firstPoint = linkCoordinates[0];
-    const lastPoint = linkCoordinates[linkCoordinates.length - 1];
-
-    const pointsToDraw = isFirst ? [firstPoint, lastPoint] : [lastPoint];
-
-    // Remove z-coordinate
-    return pointsToDraw.map(
-      (coordinate: number[]) => coordinate.slice(0, 2) as GeoJSON.Position,
-    );
-  });
-
-  return mapGeoJSONtoFeature({ type: 'LineString', coordinates });
-};
 
 // `react-map-gl-draw` library can't be updated into latest version
 // until following issue is resolved. Otherwise editing won't work.
@@ -106,7 +69,15 @@ const DrawRouteLayerComponent = (
   const [routeFeatures, setRouteFeatures] = useState<LineStringFeature[]>([]);
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
 
-  const { extractScheduledStopPoints } = useEditRouteGeometry();
+  const {
+    extractScheduledStopPointIds,
+    extractCoordinatesFromFeatures,
+    getInfraLinksWithStopsForCoordinates,
+    mapInfraLinksToFeature,
+    getRemovedStopIds,
+    getRouteStops,
+    getOldRouteGeometryVariables,
+  } = useExtractRouteFromFeature();
 
   const { t } = useTranslation();
 
@@ -141,88 +112,38 @@ const DrawRouteLayerComponent = (
 
   const routes = mapRoutesDetailsResult(routesResult);
 
-  const [fetchInfraLinksWithStopsByExternalIds] = useAsyncQuery<
-    MapExternalLinkIdsToInfraLinksWithStopsQuery,
-    MapExternalLinkIdsToInfraLinksWithStopsQueryVariables
-  >(MapExternalLinkIdsToInfraLinksWithStopsDocument);
-
   const onUpdateRouteGeometry = useCallback(
     async (newFeatures: LineStringFeature[]) => {
-      // user added new route or edited existing one
-      dispatch({ type: 'setState', payload: { hasRoute: true } });
-
       if ((!routes || editedRouteData.id === undefined) && !creatingNewRoute) {
         return;
       }
 
-      const addedFeatureIndex = newFeatures.length - 1;
-      const routeId = String(addedFeatureIndex);
-      const { coordinates } = newFeatures[addedFeatureIndex].geometry;
+      const { coordinates, routeId } =
+        extractCoordinatesFromFeatures(newFeatures);
 
-      const routeResponse = await getBusRoute(
-        coordinates as GeoJSON.Position[],
-      );
-      dispatch({ type: 'setState', payload: { busRoute: routeResponse } });
+      const { infraLinks, orderedInfraLinksWithStops, geometry } =
+        await getInfraLinksWithStopsForCoordinates(coordinates);
 
-      const externalLinkIds = routeResponse.routes[0]?.paths?.map(
-        (item) => item.externalLinkRef.externalLinkId,
-      );
-
-      // Retrieve the infra links from the external link ids returned by map-matching.
-      // This will return the links in arbitrary order.
-      const infraLinksWithStopsResponse =
-        await fetchInfraLinksWithStopsByExternalIds({
-          externalLinkIds,
-        });
-
-      const infraLinksWithStops =
-        infraLinksWithStopsResponse.data
-          ?.infrastructure_network_infrastructure_link;
-
-      if (!infraLinksWithStops) {
-        // eslint-disable-next-line no-console
-        console.log("could not fetch route's infra links");
-        return;
-      }
-
-      let oldStopIds =
-        editedRouteData.stops
-          .filter((item) => item.belongsToRoute)
-          ?.map((item) => item.id) || [];
-
-      let oldInfraLinks = editedRouteData.infraLinks || [];
-
-      if (
-        (oldStopIds?.length === 0 || oldInfraLinks.length === 0) &&
-        !creatingNewRoute
-      ) {
-        oldStopIds = routes.flatMap((route) => getRouteStopIds(route));
-        oldInfraLinks = mapGraphQLRouteToInfraLinks(routes[0]);
-      }
-
-      // Order the infra links to match the order of the route returned by map-matching
-      const orderedInfraLinksWithStops = orderInfraLinksByExternalLinkId(
-        infraLinksWithStops,
-        externalLinkIds,
+      const { oldStopIds, oldInfraLinks } = getOldRouteGeometryVariables(
+        editedRouteData.stops,
+        editedRouteData.infraLinks,
+        routes,
+        creatingNewRoute,
       );
 
-      // Create the list of links used for route creation
-      const infraLinks: InfrastructureLinkAlongRoute[] =
-        orderedInfraLinksWithStops.map((item, index) => ({
-          infrastructureLinkId: item.infrastructure_link_id,
-          isTraversalForwards:
-            routeResponse.routes[0]?.paths[index]?.isTraversalForwards,
-          shape: item.shape,
-        }));
+      const removedStopIds = await getRemovedStopIds(
+        oldInfraLinks.map((link) => link.infrastructureLinkId),
+        oldStopIds,
+      );
 
       // Extract the list of ids of the stops to be included in the route
-      const stops = extractScheduledStopPoints({
+      const stopIds = extractScheduledStopPointIds({
         orderedInfraLinksWithStops,
         infraLinks,
         vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
-        oldLinks: oldInfraLinks,
-        oldStopIds,
       });
+
+      const stops = getRouteStops(stopIds, removedStopIds || []);
 
       dispatch({
         type: 'setState',
@@ -232,6 +153,7 @@ const DrawRouteLayerComponent = (
             stops,
             infraLinks,
           },
+          hasRoute: true,
         },
       });
 
@@ -247,8 +169,8 @@ const DrawRouteLayerComponent = (
         );
       }
 
-      if (routeResponse?.routes?.[0]?.geometry) {
-        addRoute(map, routeId, routeResponse.routes[0].geometry);
+      if (geometry) {
+        addRoute(map, routeId, geometry);
       } else {
         // map matching backend didn't returned valid route. -> remove
         // also drawn route. Maybe we should show notification to the user
@@ -256,10 +178,20 @@ const DrawRouteLayerComponent = (
         onDelete(routeId);
       }
     },
-    // TODO: Why does adding fetchInfraLinksWithStopsByExternalIds to his array result in
-    // debounce not working (callback being generated again)?
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [map, onDelete, dispatch, creatingNewRoute, editedRouteData, routes],
+    [
+      routes,
+      editedRouteData,
+      creatingNewRoute,
+      extractCoordinatesFromFeatures,
+      getInfraLinksWithStopsForCoordinates,
+      getOldRouteGeometryVariables,
+      getRemovedStopIds,
+      extractScheduledStopPointIds,
+      getRouteStops,
+      dispatch,
+      map,
+      onDelete,
+    ],
   );
 
   // Update features if needed
@@ -286,6 +218,7 @@ const DrawRouteLayerComponent = (
       });
     }
   }, [
+    mapInfraLinksToFeature,
     onUpdateRouteGeometry,
     mode,
     creatingNewRoute,
