@@ -2,6 +2,7 @@ import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEditorContext, Mode } from '../../context/MapEditorContext';
 import { ModalMapContext } from '../../context/ModalMapContext';
+import { useExtractRouteFromFeature } from '../../hooks';
 import { useEditRouteGeometry } from '../../hooks/useEditRouteGeometry';
 import { ConfirmationDialog, Modal } from '../../uiComponents';
 import { showToast } from '../../utils';
@@ -44,6 +45,8 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     deleteRoute,
   } = useEditRouteGeometry();
 
+  const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
+
   const { drawingMode } = mapEditorState;
 
   const onAddStop = () => mapEditorDispatch({ type: 'toggleAddStop' });
@@ -67,16 +70,9 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     mapEditorDispatch({ type: 'stopDrawRoute' });
   };
   const onSave = async () => {
-    const { busRoute } = mapEditorState;
-    const stopsWithinRoute = routeStops.filter((item) => item.belongsToRoute);
-    const stopIdsWithinRoute = stopsWithinRoute.map((item) => item.id);
+    const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
 
-    if (
-      busRoute &&
-      infraLinks &&
-      stopsWithinRoute &&
-      stopsWithinRoute.length >= 2
-    ) {
+    if (infraLinks && stopIdsWithinRoute && stopIdsWithinRoute.length >= 2) {
       // TODO: user should be able to select starting stop and final stop from some kind of UI.
       // TODO: for now, just use the first and last stops found.
       const startingStopId = stopIdsWithinRoute[0];
