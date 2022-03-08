@@ -1,9 +1,6 @@
 import { FormState as RouteFormState } from '../components/forms/RoutePropertiesForm';
 import {
-  InfrastructureNetworkDirectionEnum,
   InsertRouteOneMutationVariables,
-  MapExternalLinkIdsToInfraLinksWithStopsQuery,
-  ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
   UpdateRouteGeometryMutationVariables,
   useDeleteRouteMutation,
@@ -26,14 +23,6 @@ import {
 interface DeleteStopFromJourneyPatternParams {
   routeId: UUID;
   stopPointId: UUID;
-}
-
-interface ExtractScheduledStopPointIdsParams {
-  orderedInfraLinksWithStops: MapExternalLinkIdsToInfraLinksWithStopsQuery['infrastructure_network_infrastructure_link'];
-  infraLinks: InfrastructureLinkAlongRoute[];
-  vehicleMode: ReusableComponentsVehicleModeEnum;
-  oldLinks: InfrastructureLinkAlongRoute[];
-  oldStopIds: UUID[];
 }
 
 export const useEditRouteGeometry = () => {
@@ -139,66 +128,6 @@ export const useEditRouteGeometry = () => {
     });
   };
 
-  // Sort and filter the stop point ids from a MapExternalLinkIdsToInfraLinksWithStops
-  // query result.
-  const extractScheduledStopPoints = ({
-    orderedInfraLinksWithStops,
-    infraLinks,
-    vehicleMode,
-    oldLinks,
-    oldStopIds,
-  }: ExtractScheduledStopPointIdsParams) =>
-    orderedInfraLinksWithStops.flatMap((infraLinkWithStops, index) => {
-      const isLinkTraversalForwards = infraLinks[index].isTraversalForwards;
-
-      return (
-        infraLinkWithStops.scheduled_stop_point_located_on_infrastructure_link
-          // only include the ids of the stops
-          // - suitable for the given vehicle mode AND
-          // - traversable in the direction in which the route is going
-          .filter((stop) => {
-            const suitableForVehicleMode =
-              !!stop.vehicle_mode_on_scheduled_stop_point.find(
-                (item) => item.vehicle_mode === vehicleMode,
-              );
-
-            const matchingDirection =
-              stop.direction ===
-                InfrastructureNetworkDirectionEnum.Bidirectional ||
-              (isLinkTraversalForwards &&
-                stop.direction ===
-                  InfrastructureNetworkDirectionEnum.Forward) ||
-              (!isLinkTraversalForwards &&
-                stop.direction === InfrastructureNetworkDirectionEnum.Backward);
-
-            return suitableForVehicleMode && matchingDirection;
-          })
-          // sort the stops on the same link according to the link traversal direction
-          .sort((stop1, stop2) =>
-            isLinkTraversalForwards
-              ? stop1.relative_distance_from_infrastructure_link_start -
-                stop2.relative_distance_from_infrastructure_link_start
-              : stop2.relative_distance_from_infrastructure_link_start -
-                stop1.relative_distance_from_infrastructure_link_start,
-          )
-          .map((stop) => {
-            const removedFromRoute =
-              // This link was part of the route before
-              oldLinks.find(
-                (link) =>
-                  link.infrastructureLinkId ===
-                  infraLinkWithStops.infrastructure_link_id,
-                // This stop was not included in the route previously
-              ) && !oldStopIds.includes(stop.scheduled_stop_point_id);
-
-            return {
-              id: stop.scheduled_stop_point_id,
-              belongsToRoute: !removedFromRoute,
-            };
-          })
-      );
-    });
-
   return {
     // edit
     updateRouteGeometryMutation,
@@ -209,7 +138,5 @@ export const useEditRouteGeometry = () => {
     mapRouteDetailsToInsertMutationVariables,
     // delete
     deleteRoute,
-    // helpers
-    extractScheduledStopPoints,
   };
 };
