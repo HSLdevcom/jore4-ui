@@ -91,6 +91,18 @@ const QUERY_MAP_EXTERNAL_LINK_IDS_TO_INFRA_LINKS_WITH_STOPS = gql`
   }
 `;
 
+const GET_STOPS_ALONG_INFRASTRUCTURE_LINKS = gql`
+  query GetStopsAlongInfrastructureLinks($infrastructure_link_ids: [uuid!]) {
+    service_pattern_scheduled_stop_point(
+      where: {
+        located_on_infrastructure_link_id: { _in: $infrastructure_link_ids }
+      }
+    ) {
+      ...scheduled_stop_point_all_fields
+    }
+  }
+`;
+
 export const mapGraphQLRouteToInfraLinks = (route: RouteRoute) => {
   return route.infrastructure_links_along_route.map((link) => ({
     infrastructureLinkId: link.infrastructure_link_id,

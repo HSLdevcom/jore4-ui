@@ -3,17 +3,19 @@ import { useTranslation } from 'react-i18next';
 import { MapEvent } from 'react-map-gl';
 import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { MapEditorContext } from '../../context/MapEditorContext';
-import { RouteStop } from '../../context/MapEditorReducer';
 import {
   ReusableComponentsVehicleModeEnum,
-  RouteRoute,
   ServicePatternScheduledStopPoint,
   useGetRoutesWithInfrastructureLinksQuery,
   useGetStopsQuery,
   useRemoveStopMutation,
 } from '../../generated/graphql';
-import { mapGetStopsResult, mapRoutesDetailsResult } from '../../graphql';
-import { useEditStop } from '../../hooks';
+import {
+  getRouteStopIds,
+  mapGetStopsResult,
+  mapRoutesDetailsResult,
+} from '../../graphql';
+import { useEditStop, useExtractRouteFromFeature } from '../../hooks';
 import { RequiredKeys } from '../../types';
 import { ConfirmationDialog } from '../../uiComponents';
 import {
@@ -37,12 +39,6 @@ type DraftStop = RequiredKeys<
   Partial<ServicePatternScheduledStopPoint>,
   'measured_location'
 >;
-
-export const getRouteStopIds = (route: RouteRoute) => {
-  return route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns.map(
-    (point) => point.scheduled_stop_point_id,
-  );
-};
 
 export const Stops = React.forwardRef((props, ref) => {
   // TODO: We might want to move these to MapEditorContext
@@ -77,8 +73,7 @@ export const Stops = React.forwardRef((props, ref) => {
   );
   const routes = mapRoutesDetailsResult(routesResult);
 
-  const mapRouteStopsToStopIds = (routeStops: RouteStop[]) =>
-    routeStops.filter((item) => item.belongsToRoute).map((item) => item.id);
+  const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
 
   // If editing/creating a route, show stops along edited/created route,
   // otherwise show every stop belonging to visible routes
