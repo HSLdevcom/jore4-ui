@@ -9,6 +9,7 @@ import {
 import { mapGetStopsResult, mapRoutesDetailsResult } from '../../graphql';
 import { SimpleDropdownMenu } from '../../uiComponents/SimpleDropdownMenu';
 import { mapToVariables } from '../../utils';
+import { MapOverlay, MapOverlayHeader } from './MapOverlay';
 
 interface Props {
   className?: string;
@@ -91,32 +92,26 @@ export const RouteStopsOverlay = ({ className }: Props) => {
   }
 
   return (
-    <div className={`inline-block w-72 ${className}`}>
-      <div className="flex flex-col bg-white shadow-md">
-        <div className="flex flex-row items-center space-x-1 border-b border-gray-200 bg-background p-2">
-          <i className="icon-bus-alt text-2xl text-tweaked-brand" />
-          <div>
-            <h2 className="text-bold text-2xl text-tweaked-brand">
-              {route.description_i18n}
-            </h2>
-            <div className="text-light text-xs text-gray-500">
-              {route.label}
-            </div>
-          </div>
-        </div>
+    <MapOverlay className={className}>
+      <MapOverlayHeader>
+        <i className="icon-bus-alt text-2xl text-tweaked-brand" />
         <div>
-          {stopsToDisplay?.map(
-            (routeStop) =>
-              routeStop.stop && (
-                <StopRow
-                  key={routeStop?.stop?.scheduled_stop_point_id}
-                  stop={routeStop.stop}
-                  onRoute={routeStop.belongsToRoute}
-                />
-              ),
-          )}
+          <h2 className="text-2xl font-bold text-tweaked-brand">
+            {route.description_i18n}
+          </h2>
+          <div className="text-light text-xs text-gray-500">{route.label}</div>
         </div>
-      </div>
-    </div>
+      </MapOverlayHeader>
+      {stopsToDisplay?.map(
+        (routeStop) =>
+          routeStop.stop && (
+            <StopRow
+              key={routeStop?.stop?.scheduled_stop_point_id}
+              stop={routeStop.stop}
+              onRoute={routeStop.belongsToRoute}
+            />
+          ),
+      )}
+    </MapOverlay>
   );
 };

@@ -40,6 +40,7 @@
   },
   "stops": {
     "stop": "Stop",
+    "stops": "Stops",
     "stopById": "Stop {{ id }}",
     "label": "Label",
     "nameAddress": "Name and address",
@@ -109,6 +110,12 @@
   "errors": {
     "saveFailed": "Something went wrong",
     "leaveMultipleHandles": "Cannot delete snap point(s)! You should leave at least two of them."
+  },
+  "filters": {
+    "title": "Filter view",
+    "future": "Future",
+    "current": "Current",
+    "past": "Past"
   },
   "save": "Save",
   "edit": "Edit",
