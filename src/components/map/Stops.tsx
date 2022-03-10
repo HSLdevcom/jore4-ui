@@ -16,6 +16,7 @@ import {
   mapRoutesDetailsResult,
 } from '../../graphql';
 import { useEditStop, useExtractRouteFromFeature } from '../../hooks';
+import { useFilterStops } from '../../hooks/useFilterStops';
 import { RequiredKeys } from '../../types';
 import { ConfirmationDialog } from '../../uiComponents';
 import {
@@ -48,6 +49,7 @@ export const Stops = React.forwardRef((props, ref) => {
   const [showEditForm, setShowEditForm] = useState(false);
 
   const { t } = useTranslation();
+  const { filter } = useFilterStops();
 
   const {
     dispatch: mapEditorDispatch,
@@ -60,7 +62,9 @@ export const Stops = React.forwardRef((props, ref) => {
   } = useContext(MapEditorContext);
   // TODO: Fetch only the stops visible on the map?
   const stopsResult = useGetStopsQuery({});
-  const stops = mapGetStopsResult(stopsResult);
+  const unfilteredStops = mapGetStopsResult(stopsResult);
+  const stops = filter(unfilteredStops || []);
+
   const [removeStopMutation] = useRemoveStopMutation();
   const {
     prepareAndValidateEdit,
