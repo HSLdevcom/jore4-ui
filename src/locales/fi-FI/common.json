@@ -40,6 +40,7 @@
   },
   "stops": {
     "stop": "Pysäkki",
+    "stops": "Pysäkit",
     "stopById": "Pysäkki {{ id }}",
     "label": "Tunnus",
     "nameAddress": "Nimi ja osoite",
@@ -109,6 +110,12 @@
   "errors": {
     "saveFailed": "Tallennus epäonnistui",
     "leaveMultipleHandles": "Pisteitä ei voida poistaa! Jätä vähintään kaksi pistettä."
+  },
+  "filters": {
+    "title": "Suodata näkymää",
+    "future": "Tulevat",
+    "current": "Nykyiset",
+    "past": "Menneet"
   },
   "save": "Tallenna",
   "edit": "Muokkaa",

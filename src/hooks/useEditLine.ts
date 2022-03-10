@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { FormState } from '../components/forms/LineForm';
 import {
-  InsertLineOneMutationVariables,
   PatchLineMutationVariables,
   usePatchLineMutation,
 } from '../generated/graphql';

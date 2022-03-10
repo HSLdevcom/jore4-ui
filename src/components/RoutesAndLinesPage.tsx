@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEditorContext } from '../context/MapEditorContext';
 import { ModalMapContext } from '../context/ModalMapContext';
@@ -46,7 +46,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
           {t('lines.createNew')}
         </SimpleButton>
       </Row>
-      <h2 className="text-bold mb-14 mt-12 text-4xl">
+      <h2 className="mb-14 mt-12 text-4xl font-bold">
         {t('routes.changingRoutes')}
       </h2>
       {changingRoutes && changingRoutes.length > 0 && (
@@ -56,7 +56,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
           ))}
         </RoutesTable>
       )}
-      <h2 className="text-bold mb-14 mt-12 text-4xl">{t('routes.ownLines')}</h2>
+      <h2 className="mb-14 mt-12 text-4xl font-bold">{t('routes.ownLines')}</h2>
       {ownLines && ownLines.length > 0 && (
         <RoutesTable>
           {ownLines.map((item: RouteLine) => (

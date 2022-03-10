@@ -16,6 +16,7 @@ import { Maplibre } from './Maplibre';
 import { RouteLayer } from './RouteLayer';
 import { Routes } from './Routes';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
+import { StopFilterOverlay } from './StopFilterOverlay';
 import { Stops } from './Stops';
 
 interface Props {
@@ -125,6 +126,27 @@ export const MapComponent = (
             )}
           </>
         )}
+        captureClick
+        captureDoubleClick
+        captureDrag
+        captureScroll
+      />
+      <HTMLOverlay
+        style={{
+          top: 'auto',
+          left: 'auto',
+          bottom: 0,
+          right: 0,
+          width: 'auto',
+          height: 'auto',
+        }}
+        redraw={() =>
+          (showStops || showDynamicStops) && (
+            <Column>
+              <StopFilterOverlay className="mr-12 mb-8" />
+            </Column>
+          )
+        }
         captureClick
         captureDoubleClick
         captureDrag
