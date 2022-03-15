@@ -116,7 +116,8 @@
     "title": "Suodata näkymää",
     "future": "Tulevat",
     "current": "Nykyiset",
-    "past": "Menneet"
+    "past": "Menneet",
+    "observationDate": "Tarkasteluhetki"
   },
   "save": "Tallenna",
   "edit": "Muokkaa",

@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapFilterContext } from '../context/MapFilterContext';
@@ -14,24 +15,22 @@ interface FilterItem {
   filterFunction: StopFilterFunction;
 }
 
-const isFutureStop: (date: Date) => StopFilterFunction = (date) => (stop) =>
-  stop.validity_start > date.toISOString();
+const isFutureStop: (date: DateTime) => StopFilterFunction = (date) => (stop) =>
+  DateTime.fromISO(stop.validity_start) > date;
 
-const isCurrentStop: (date: Date) => StopFilterFunction = (date) => (stop) =>
-  stop.validity_start < date.toISOString() &&
-  stop.validity_end > date.toISOString();
+const isCurrentStop: (date: DateTime) => StopFilterFunction =
+  (date) => (stop) =>
+    DateTime.fromISO(stop.validity_start) <= date &&
+    (!stop.validity_end || DateTime.fromISO(stop.validity_end) >= date);
 
-const isPastStop: (date: Date) => StopFilterFunction = (date) => (stop) =>
-  stop.validity_end < date.toISOString();
+const isPastStop: (date: DateTime) => StopFilterFunction = (date) => (stop) =>
+  stop.validity_end && DateTime.fromISO(stop.validity_end) < date;
 
 export const useFilterStops = () => {
   const { t } = useTranslation();
 
-  // TODO: Get this from context when time of review date setting has been implemented
-  const timeOfReview = new Date();
-
   const {
-    state: { stopFilters },
+    state: { stopFilters, observationDate, showStopFilterOverlay },
     dispatch,
   } = useContext(MapFilterContext);
 
@@ -39,17 +38,17 @@ export const useFilterStops = () => {
     {
       type: FilterType.ShowFutureStops,
       label: t('filters.future'),
-      filterFunction: isFutureStop(timeOfReview),
+      filterFunction: isFutureStop(observationDate),
     },
     {
       type: FilterType.ShowCurrentStops,
       label: t('filters.current'),
-      filterFunction: isCurrentStop(timeOfReview),
+      filterFunction: isCurrentStop(observationDate),
     },
     {
       type: FilterType.ShowPastStops,
       label: t('filters.past'),
-      filterFunction: isPastStop(timeOfReview),
+      filterFunction: isPastStop(observationDate),
     },
   ];
 
@@ -89,5 +88,12 @@ export const useFilterStops = () => {
     );
   };
 
-  return { filter, timeBasedFilterItems };
+  const toggleShowFilters = () => {
+    dispatch({
+      type: 'setState',
+      payload: { showStopFilterOverlay: !showStopFilterOverlay },
+    });
+  };
+
+  return { filter, timeBasedFilterItems, toggleShowFilters };
 };
