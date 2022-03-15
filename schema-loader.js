@@ -38,6 +38,8 @@ module.exports = async (schemaString, config) => {
           direction: String!
           label: String!
           priority: Int!
+          validity_start: timestamptz!
+          validity_end: timestamptz
         }
 
         # settings fields for service_pattern.scheduled_stop_point update object

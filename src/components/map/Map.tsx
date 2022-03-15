@@ -7,12 +7,14 @@ import React, {
 } from 'react';
 import { HTMLOverlay, MapEvent } from 'react-map-gl';
 import { MapEditorContext } from '../../context/MapEditorContext';
+import { MapFilterContext } from '../../context/MapFilterContext';
 import { Column } from '../../layoutComponents';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { DrawRouteLayer } from './DrawRouteLayer';
 import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
 import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
 import { Maplibre } from './Maplibre';
+import { ObservationDateOverlay } from './ObservationDateOverlay';
 import { RouteLayer } from './RouteLayer';
 import { Routes } from './Routes';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
@@ -40,6 +42,9 @@ export const MapComponent = (
   const {
     state: { displayedRouteIds, drawingMode, hasRoute },
   } = useContext(MapEditorContext);
+  const {
+    state: { showStopFilterOverlay },
+  } = useContext(MapFilterContext);
 
   const routeSelected = !!(displayedRouteIds && displayedRouteIds.length > 0);
 
@@ -140,13 +145,14 @@ export const MapComponent = (
           width: 'auto',
           height: 'auto',
         }}
-        redraw={() =>
-          (showStops || showDynamicStops) && (
-            <Column>
-              <StopFilterOverlay className="mr-12 mb-8" />
-            </Column>
-          )
-        }
+        redraw={() => (
+          <Column>
+            {showStopFilterOverlay && (
+              <StopFilterOverlay className="mr-12 mb-4" />
+            )}
+            <ObservationDateOverlay className="mr-12 mb-8" />
+          </Column>
+        )}
         captureClick
         captureDoubleClick
         captureDrag

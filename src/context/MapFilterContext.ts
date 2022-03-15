@@ -7,10 +7,7 @@ import {
 
 export const MapFilterContext = React.createContext<{
   state: IMapFilterContext;
-  dispatch: Dispatch<{
-    type: MapFilterActions;
-    payload?: Partial<IMapFilterContext>;
-  }>;
+  dispatch: Dispatch<MapFilterActions>;
 }>({
   state: initialState,
   dispatch: () => undefined,
