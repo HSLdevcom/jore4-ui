@@ -13,7 +13,7 @@ export const StopFilterOverlay = ({ className }: Props) => {
   const { timeBasedFilterItems } = useFilterStops();
 
   return (
-    <MapOverlay className={className}>
+    <MapOverlay className={`${className} rounded-b`}>
       <MapOverlayHeader>
         <h2 className="text-xl font-bold">{t('filters.title')}</h2>
       </MapOverlayHeader>

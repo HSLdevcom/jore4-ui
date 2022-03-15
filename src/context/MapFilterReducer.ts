@@ -12,10 +12,13 @@ export interface Filter {
 }
 
 export interface IMapFilterContext {
+  showStopFilterOverlay: boolean;
   stopFilters: Filter[];
+  observationDate: string;
 }
 
 export const initialState: IMapFilterContext = {
+  showStopFilterOverlay: false,
   stopFilters: [
     {
       type: FilterType.ShowFutureStops,
@@ -30,6 +33,7 @@ export const initialState: IMapFilterContext = {
       enabled: true,
     },
   ],
+  observationDate: new Date().toISOString().split('T')[0], // Date in yyyy-mm-dd format
 };
 
 export type MapFilterActions = 'setState';
