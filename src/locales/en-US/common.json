@@ -115,7 +115,8 @@
     "title": "Filter view",
     "future": "Future",
     "current": "Current",
-    "past": "Past"
+    "past": "Past",
+    "observationDate": "Observation date"
   },
   "save": "Save",
   "edit": "Edit",
