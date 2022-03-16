@@ -22,7 +22,7 @@ export const initialState: IMapFilterContext = {
   stopFilters: [
     {
       type: FilterType.ShowFutureStops,
-      enabled: true,
+      enabled: false,
     },
     {
       type: FilterType.ShowCurrentStops,
@@ -30,7 +30,7 @@ export const initialState: IMapFilterContext = {
     },
     {
       type: FilterType.ShowPastStops,
-      enabled: true,
+      enabled: false,
     },
   ],
   observationDate: new Date().toISOString().split('T')[0], // Date in yyyy-mm-dd format
