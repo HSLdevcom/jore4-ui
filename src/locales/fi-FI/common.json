@@ -109,6 +109,7 @@
   },
   "errors": {
     "saveFailed": "Tallennus epäonnistui",
+    "validityConflict": "Samalla prioriteetilla ja voimassaoloajalla on jo olemassa vastaava resurssi.",
     "leaveMultipleHandles": "Pisteitä ei voida poistaa! Jätä vähintään kaksi pistettä."
   },
   "filters": {

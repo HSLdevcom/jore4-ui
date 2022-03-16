@@ -109,6 +109,7 @@
   },
   "errors": {
     "saveFailed": "Something went wrong",
+    "validityConflict": "Priority and validity period is overlapping with existing resource.",
     "leaveMultipleHandles": "Cannot delete snap point(s)! You should leave at least two of them."
   },
   "filters": {

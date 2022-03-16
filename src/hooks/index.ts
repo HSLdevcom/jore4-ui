@@ -1,4 +1,5 @@
 export * from './useAsyncQuery';
+export * from './useCheckValidityAndPriorityConflicts';
 export * from './useCreateLine';
 export * from './useDeleteRoute';
 export * from './useEditLine';

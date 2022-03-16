@@ -151,6 +151,17 @@ export const mapLineDetailsResult = (
   result: ReturnType<typeof useGetLineDetailsByIdQuery>,
 ) => result.data?.route_line_by_pk as RouteLine | undefined;
 
+const GET_LINES_BY_VALIDITY = gql`
+  query GetLinesByValidity($filter: route_line_bool_exp) {
+    route_line(where: $filter) {
+      line_id
+      validity_start
+      validity_end
+      priority
+    }
+  }
+`;
+
 const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
   query GetLineDetailsWithRoutesById($line_id: uuid!) {
     route_line_by_pk(line_id: $line_id) {
