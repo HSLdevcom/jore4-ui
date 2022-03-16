@@ -11,9 +11,10 @@ import {
   mapDateInputToValidityStart,
   mapToObject,
   mapToVariables,
-  showDangerToast,
+  showDangerToastWithError,
   showSuccessToast,
 } from '../utils';
+import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
 
 export const mapFormToMutation = (
   state: FormState,
@@ -36,16 +37,23 @@ export const mapFormToMutation = (
 export const useCreateLine = () => {
   const { t } = useTranslation();
   const [mutateFunction] = useInsertLineOneMutation();
+  const { checkLineValidity } = useCheckValidityAndPriorityConflicts();
 
   const worker = async (state: FormState) => {
     const variables = mapFormToMutation(state);
 
     try {
+      await checkLineValidity({
+        label: state.label,
+        priority: state.priority,
+        validityStart: variables.object.validity_start,
+        validityEnd: variables.object.validity_end || undefined,
+      });
       const result = await mutateFunction(mapToVariables(variables));
       showSuccessToast(t('routes.saveSuccess'));
       return result;
     } catch (err) {
-      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
+      showDangerToastWithError(t('errors.saveFailed'), err);
       throw err;
     }
   };
