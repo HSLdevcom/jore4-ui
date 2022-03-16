@@ -22,6 +22,13 @@ export const showDangerToast = (message: string) => {
   });
 };
 
+export const showDangerToastWithError = (message: string, err: unknown) => {
+  if (err instanceof Error) {
+    return showDangerToast(`${message}: ${err.message}`);
+  }
+  return showDangerToast(message);
+};
+
 export const showSuccessToast = (message: string) => {
   return showToast({
     message,

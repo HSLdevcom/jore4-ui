@@ -5925,6 +5925,13 @@ export type GetLineDetailsByIdQueryVariables = Exact<{
 
 export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string } | null | undefined };
 
+export type GetLinesByValidityQueryVariables = Exact<{
+  filter?: Maybe<RouteLineBoolExp>;
+}>;
+
+
+export type GetLinesByValidityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number }> };
+
 export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
   line_id: Scalars['uuid'];
 }>;
@@ -6515,6 +6522,44 @@ export function useGetLineDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type GetLineDetailsByIdQueryHookResult = ReturnType<typeof useGetLineDetailsByIdQuery>;
 export type GetLineDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetLineDetailsByIdLazyQuery>;
 export type GetLineDetailsByIdQueryResult = Apollo.QueryResult<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>;
+export const GetLinesByValidityDocument = gql`
+    query GetLinesByValidity($filter: route_line_bool_exp) {
+  route_line(where: $filter) {
+    line_id
+    validity_start
+    validity_end
+    priority
+  }
+}
+    `;
+
+/**
+ * __useGetLinesByValidityQuery__
+ *
+ * To run a query within a React component, call `useGetLinesByValidityQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLinesByValidityQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLinesByValidityQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useGetLinesByValidityQuery(baseOptions?: Apollo.QueryHookOptions<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>(GetLinesByValidityDocument, options);
+      }
+export function useGetLinesByValidityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>(GetLinesByValidityDocument, options);
+        }
+export type GetLinesByValidityQueryHookResult = ReturnType<typeof useGetLinesByValidityQuery>;
+export type GetLinesByValidityLazyQueryHookResult = ReturnType<typeof useGetLinesByValidityLazyQuery>;
+export type GetLinesByValidityQueryResult = Apollo.QueryResult<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>;
 export const GetLineDetailsWithRoutesByIdDocument = gql`
     query GetLineDetailsWithRoutesById($line_id: uuid!) {
   route_line_by_pk(line_id: $line_id) {

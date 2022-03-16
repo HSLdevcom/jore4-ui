@@ -4,12 +4,18 @@ import {
   PatchLineMutationVariables,
   usePatchLineMutation,
 } from '../generated/graphql';
-import { mapToVariables, showDangerToast, showSuccessToast } from '../utils';
+import {
+  mapToVariables,
+  showDangerToastWithError,
+  showSuccessToast,
+} from '../utils';
+import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
 import { mapFormToMutation } from './useCreateLine';
 
 export const useEditLine = () => {
   const { t } = useTranslation();
   const [patchLine] = usePatchLineMutation();
+  const { checkLineValidity } = useCheckValidityAndPriorityConflicts();
 
   const worker = async (lineId: UUID, state: FormState) => {
     const variables: PatchLineMutationVariables = {
@@ -18,11 +24,20 @@ export const useEditLine = () => {
     };
 
     try {
+      await checkLineValidity(
+        {
+          label: state.label,
+          priority: state.priority,
+          validityStart: variables.object.validity_start,
+          validityEnd: variables.object.validity_end || undefined,
+        },
+        lineId,
+      );
       const result = await patchLine(mapToVariables(variables));
       showSuccessToast(t('lines.saveSuccess'));
       return result;
     } catch (err) {
-      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
+      showDangerToastWithError(t('errors.saveFailed'), err);
       throw err;
     }
   };
