@@ -1,23 +1,6 @@
 import produce from 'immer';
 import { DateTime } from 'luxon';
-import { SetObservationDateAction } from './MapFilterActions';
-
-export enum FilterType {
-  ShowFutureStops = 'show-future-stops',
-  ShowCurrentStops = 'show-current-stops',
-  ShowPastStops = 'show-past-stops',
-}
-
-export interface Filter {
-  type: FilterType;
-  enabled: boolean;
-}
-
-export interface IMapFilterContext {
-  showStopFilterOverlay: boolean;
-  stopFilters: Filter[];
-  observationDate: DateTime;
-}
+import { FilterType, IMapFilterContext, MapFilterActions } from './types';
 
 export const initialState: IMapFilterContext = {
   showStopFilterOverlay: false,
@@ -37,13 +20,6 @@ export const initialState: IMapFilterContext = {
   ],
   observationDate: DateTime.now(),
 };
-
-type SetStateAction = {
-  type: 'setState';
-  payload?: Partial<IMapFilterContext>;
-};
-
-export type MapFilterActions = SetStateAction | SetObservationDateAction;
 
 const reducerFunction = (
   draft: IMapFilterContext,

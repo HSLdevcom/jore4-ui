@@ -4,7 +4,7 @@ import type { AppProps } from 'next/app';
 import { Router } from '../components/Router';
 import { Toaster } from '../components/Toaster';
 import { MapEditorContextProvider } from '../context/MapEditorContextProvider';
-import { MapFilterContextProvider } from '../context/MapFilterContextProvider';
+import { MapFilterContextProvider } from '../context/MapFilter/contextProvider';
 import { ModalMapContextProvider } from '../context/ModalMapContextProvider';
 import { UserContextProvider } from '../context/UserContextProvider';
 import '../generated/fontello/css/hsl-icons.css';

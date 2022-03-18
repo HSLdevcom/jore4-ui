@@ -1,6 +1,6 @@
 import { FC, useReducer } from 'react';
-import { MapFilterContext } from './MapFilterContext';
-import { initialState, mapFilterReducer } from './MapFilterReducer';
+import { MapFilterContext } from './context';
+import { initialState, mapFilterReducer } from './reducer';
 
 export const MapFilterContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(mapFilterReducer, initialState);
