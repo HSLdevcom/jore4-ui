@@ -1,9 +1,6 @@
 import React, { Dispatch } from 'react';
-import {
-  IMapFilterContext,
-  initialState,
-  MapFilterActions,
-} from './MapFilterReducer';
+import { initialState } from './reducer';
+import { IMapFilterContext, MapFilterActions } from './types';
 
 export const MapFilterContext = React.createContext<{
   state: IMapFilterContext;

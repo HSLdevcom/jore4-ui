@@ -1,8 +1,7 @@
 import { DateTime } from 'luxon';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapFilterContext } from '../context/MapFilterContext';
-import { FilterType } from '../context/MapFilterReducer';
+import { FilterType, MapFilterContext, setState } from '../context/MapFilter';
 import { ServicePatternScheduledStopPoint } from '../generated/graphql';
 
 type StopFilterFunction = (stop: ServicePatternScheduledStopPoint) => boolean;
@@ -56,7 +55,7 @@ export const useFilterStops = () => {
     const newStopFilters = stopFilters.map((filter) =>
       filter.type === filterType ? { type: filterType, enabled } : filter,
     );
-    dispatch({ type: 'setState', payload: { stopFilters: newStopFilters } });
+    dispatch(setState({ stopFilters: newStopFilters }));
   };
 
   const toggleFunction = (filterType: FilterType) => {
@@ -89,10 +88,7 @@ export const useFilterStops = () => {
   };
 
   const toggleShowFilters = () => {
-    dispatch({
-      type: 'setState',
-      payload: { showStopFilterOverlay: !showStopFilterOverlay },
-    });
+    dispatch(setState({ showStopFilterOverlay: !showStopFilterOverlay }));
   };
 
   return { filter, timeBasedFilterItems, toggleShowFilters };

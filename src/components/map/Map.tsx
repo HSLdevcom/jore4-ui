@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { HTMLOverlay, MapEvent } from 'react-map-gl';
 import { MapEditorContext } from '../../context/MapEditorContext';
-import { MapFilterContext } from '../../context/MapFilterContext';
+import { MapFilterContext } from '../../context/MapFilter';
 import { Column } from '../../layoutComponents';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { DrawRouteLayer } from './DrawRouteLayer';
