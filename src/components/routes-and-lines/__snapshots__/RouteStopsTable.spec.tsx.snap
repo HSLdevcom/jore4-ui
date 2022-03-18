@@ -2,6 +2,28 @@
 
 exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`] = `
 <DocumentFragment>
+  <div
+    class="flex items-center"
+  >
+    <label
+      class="my-8 mr-8 font-normal"
+      id="headlessui-label-1"
+    >
+      Näytä käyttämättömät pysäkit
+    </label>
+    <button
+      aria-checked="true"
+      aria-labelledby="headlessui-label-1"
+      class="undefined border-brand bg-brand relative inline-flex h-6 w-11 items-center rounded-full border  transition-colors"
+      id="headlessui-switch-2"
+      role="switch"
+      tabindex="0"
+    >
+      <span
+        class="translate-x-5 border-brand inline-block h-6 w-6 transform rounded-full border  bg-white transition-transform"
+      />
+    </button>
+  </div>
   <table
     class="h-1 w-full undefined"
     data-testid="routeStopsTable1"
@@ -135,6 +157,28 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
 
 exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`] = `
 <DocumentFragment>
+  <div
+    class="flex items-center"
+  >
+    <label
+      class="my-8 mr-8 font-normal"
+      id="headlessui-label-1"
+    >
+      Näytä käyttämättömät pysäkit
+    </label>
+    <button
+      aria-checked="true"
+      aria-labelledby="headlessui-label-1"
+      class="undefined border-brand bg-brand relative inline-flex h-6 w-11 items-center rounded-full border  transition-colors"
+      id="headlessui-switch-2"
+      role="switch"
+      tabindex="0"
+    >
+      <span
+        class="translate-x-5 border-brand inline-block h-6 w-6 transform rounded-full border  bg-white transition-transform"
+      />
+    </button>
+  </div>
   <table
     class="h-1 w-full undefined"
     data-testid="routeStopsTable1"
@@ -312,7 +356,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <button
               aria-haspopup="true"
               class="mx-auto flex h-full items-center px-3 focus:outline-none"
-              id="headlessui-menu-button-1"
+              id="headlessui-menu-button-3"
               type="button"
             >
               <svg
@@ -388,7 +432,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <button
               aria-haspopup="true"
               class="mx-auto flex h-full items-center px-3 focus:outline-none"
-              id="headlessui-menu-button-2"
+              id="headlessui-menu-button-4"
               type="button"
             >
               <svg
@@ -464,7 +508,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <button
               aria-haspopup="true"
               class="mx-auto flex h-full items-center px-3 focus:outline-none"
-              id="headlessui-menu-button-3"
+              id="headlessui-menu-button-5"
               type="button"
             >
               <svg
