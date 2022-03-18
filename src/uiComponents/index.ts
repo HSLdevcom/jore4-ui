@@ -11,3 +11,4 @@ export * from './SimpleDropdownMenu';
 export * from './Spinner';
 export * from './Toast';
 export * from './ToastTransition';
+export * from './Toggle';
