@@ -9,5 +9,6 @@ export * from './Modal';
 export * from './SimpleButton';
 export * from './SimpleDropdownMenu';
 export * from './Spinner';
+export * from './Switch';
 export * from './Toast';
 export * from './ToastTransition';
