@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteRoute } from '../../generated/graphql';
-import { getStopsAlongRouteGeometry } from '../../graphql';
+import {
+  getStopsAlongRouteGeometry,
+  stopBelongsToJourneyPattern,
+} from '../../graphql';
 import { useEditRouteGeometry } from '../../hooks';
 import { showDangerToast, showSuccessToast } from '../../utils';
 import { RouteStopsHeaderRow } from './RouteStopsHeaderRow'; // eslint-disable-line import/no-cycle
@@ -10,9 +13,14 @@ import { RouteStopsRow } from './RouteStopsRow';
 interface Props {
   className?: string;
   route: RouteRoute;
+  showUnusedStops: boolean;
 }
 
-export const RouteStopsSection = ({ className, route }: Props) => {
+export const RouteStopsSection = ({
+  className,
+  route,
+  showUnusedStops,
+}: Props) => {
   const [isOpen, setOpen] = useState(false);
   const { t } = useTranslation();
 
@@ -23,6 +31,13 @@ export const RouteStopsSection = ({ className, route }: Props) => {
   };
 
   const stopsAlongRoute = getStopsAlongRouteGeometry(route);
+  const displayedRoutes = stopsAlongRoute.filter((item) => {
+    const belongsToJourneyPattern = stopBelongsToJourneyPattern(
+      item,
+      route.route_id,
+    );
+    return belongsToJourneyPattern || showUnusedStops;
+  });
 
   const onAddToRoute = async (stopToAdd: UUID) => {
     try {
@@ -42,7 +57,7 @@ export const RouteStopsSection = ({ className, route }: Props) => {
         onToggle={onToggle}
       />
       {isOpen &&
-        stopsAlongRoute.map((item) => (
+        displayedRoutes.map((item) => (
           <RouteStopsRow
             key={item.scheduled_stop_point_id}
             stop={item}

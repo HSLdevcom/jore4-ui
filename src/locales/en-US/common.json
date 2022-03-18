@@ -19,7 +19,8 @@
     "addToLine": "Add to line",
     "chooseLine": "Choose line",
     "changingRoutes": "Changing routes",
-    "ownLines": "Own lines"
+    "ownLines": "Own lines",
+    "showUnusedStops": "Show unused stops"
   },
   "lines": {
     "createNew": "Create new line",

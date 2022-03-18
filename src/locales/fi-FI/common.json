@@ -19,7 +19,8 @@
     "addToLine": "Yhdistä linjaan",
     "chooseLine": "Valitse linja",
     "changingRoutes": "Muuttuvat reitit",
-    "ownLines": "Omat linjat"
+    "ownLines": "Omat linjat",
+    "showUnusedStops": "Näytä reittiin kuulumattomat pysäkit"
   },
   "lines": {
     "createNew": "Luo uusi linja",
