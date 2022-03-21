@@ -4,22 +4,27 @@ import {
   InsertRouteOneMutationVariables,
   ReusableComponentsVehicleModeEnum,
   RouteLineInsertInput,
+  RouteLineSetInput,
   useInsertLineOneMutation,
 } from '../generated/graphql';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
-  mapToObject,
-  mapToVariables,
   showDangerToastWithError,
-  showSuccessToast,
 } from '../utils';
 import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
 
-export const mapFormToMutation = (
+interface CreateParams {
+  form: FormState;
+}
+interface CreateChanges {
+  input: RouteLineInsertInput;
+}
+
+export const mapFormToInput = (
   state: FormState,
-): InsertRouteOneMutationVariables => {
-  const mutation: RouteLineInsertInput = {
+): RouteLineSetInput | RouteLineInsertInput => {
+  const input = {
     label: state.label,
     name_i18n: state.finnishName,
     primary_vehicle_mode:
@@ -31,7 +36,7 @@ export const mapFormToMutation = (
       state.indefinite,
     ),
   };
-  return mapToObject(mutation);
+  return input;
 };
 
 export const useCreateLine = () => {
@@ -39,24 +44,38 @@ export const useCreateLine = () => {
   const [mutateFunction] = useInsertLineOneMutation();
   const { checkLineValidity } = useCheckValidityAndPriorityConflicts();
 
-  const worker = async (state: FormState) => {
-    const variables = mapFormToMutation(state);
+  const prepareCreate = async ({ form }: CreateParams) => {
+    const input = mapFormToInput(form);
+    await checkLineValidity({
+      label: form.label,
+      priority: form.priority,
+      validityStart: input.validity_start,
+      validityEnd: input.validity_end || undefined,
+    });
 
-    try {
-      await checkLineValidity({
-        label: state.label,
-        priority: state.priority,
-        validityStart: variables.object.validity_start,
-        validityEnd: variables.object.validity_end || undefined,
-      });
-      const result = await mutateFunction(mapToVariables(variables));
-      showSuccessToast(t('routes.saveSuccess'));
-      return result;
-    } catch (err) {
-      showDangerToastWithError(t('errors.saveFailed'), err);
-      throw err;
-    }
+    const changes: CreateChanges = {
+      input,
+    };
+
+    return changes;
   };
 
-  return [worker];
+  const mapCreateChangesToVariables = (
+    changes: CreateChanges,
+  ): InsertRouteOneMutationVariables => ({
+    object: changes.input,
+  });
+
+  // default handler that can be used to show error messages as toast
+  // in case an exception is thrown
+  const defaultErrorHandler = (err: unknown) => {
+    showDangerToastWithError(t('errors.saveFailed'), err);
+  };
+
+  return {
+    prepareCreate,
+    mapCreateChangesToVariables,
+    insertLineMutation: mutateFunction,
+    defaultErrorHandler,
+  };
 };

@@ -2,45 +2,65 @@ import { useTranslation } from 'react-i18next';
 import { FormState } from '../components/forms/LineForm';
 import {
   PatchLineMutationVariables,
+  RouteLineSetInput,
   usePatchLineMutation,
 } from '../generated/graphql';
-import {
-  mapToVariables,
-  showDangerToastWithError,
-  showSuccessToast,
-} from '../utils';
+import { showDangerToastWithError } from '../utils';
 import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
-import { mapFormToMutation } from './useCreateLine';
+import { mapFormToInput } from './useCreateLine';
+
+interface EditParams {
+  lineId: UUID;
+  form: FormState;
+}
+
+interface EditChanges {
+  lineId: UUID;
+  patch: RouteLineSetInput;
+}
 
 export const useEditLine = () => {
   const { t } = useTranslation();
-  const [patchLine] = usePatchLineMutation();
+  const [mutateFunction] = usePatchLineMutation();
   const { checkLineValidity } = useCheckValidityAndPriorityConflicts();
 
-  const worker = async (lineId: UUID, state: FormState) => {
-    const variables: PatchLineMutationVariables = {
-      line_id: lineId,
-      ...mapFormToMutation(state),
+  const prepareEdit = async ({ lineId, form }: EditParams) => {
+    const input = mapFormToInput(form);
+    await checkLineValidity(
+      {
+        label: form.label,
+        priority: form.priority,
+        validityStart: input.validity_start,
+        validityEnd: input.validity_end || undefined,
+      },
+      lineId,
+    );
+
+    const changes: EditChanges = {
+      lineId,
+      patch: input,
     };
 
-    try {
-      await checkLineValidity(
-        {
-          label: state.label,
-          priority: state.priority,
-          validityStart: variables.object.validity_start,
-          validityEnd: variables.object.validity_end || undefined,
-        },
-        lineId,
-      );
-      const result = await patchLine(mapToVariables(variables));
-      showSuccessToast(t('lines.saveSuccess'));
-      return result;
-    } catch (err) {
-      showDangerToastWithError(t('errors.saveFailed'), err);
-      throw err;
-    }
+    return changes;
   };
 
-  return [worker];
+  const mapEditChangesToVariables = (
+    changes: EditChanges,
+  ): PatchLineMutationVariables => ({
+    line_id: changes.lineId,
+    object: changes.patch,
+  });
+
+  // default handler that can be used to show error messages as toast
+  // in case an exception is thrown
+  const defaultErrorHandler = (err: unknown) => {
+    showDangerToastWithError(t('errors.saveFailed'), err);
+  };
+
+  return {
+    prepareEdit,
+    mapEditChangesToVariables,
+    editLineMutation: mutateFunction,
+    defaultErrorHandler,
+  };
 };

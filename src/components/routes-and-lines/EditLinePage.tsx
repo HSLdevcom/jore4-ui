@@ -13,7 +13,12 @@ import { PageHeader } from './PageHeader';
 
 export const EditLinePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
-  const [editLine] = useEditLine();
+  const {
+    prepareEdit,
+    mapEditChangesToVariables,
+    editLineMutation,
+    defaultErrorHandler,
+  } = useEditLine();
 
   const { id } = useParams<{ id: string }>();
   const lineDetailsResult = useGetLineDetailsByIdQuery(
@@ -32,12 +37,14 @@ export const EditLinePage = (): JSX.Element => {
     indefinite: !line?.validity_end,
   };
 
-  const onSubmit = async (state: FormState) => {
+  const onSubmit = async (form: FormState) => {
     try {
-      await editLine(id, state);
+      const changes = await prepareEdit({ lineId: id, form });
+      const variables = mapEditChangesToVariables(changes);
+      await editLineMutation({ variables });
       setHasFinishedEditing(true);
     } catch (err) {
-      // noop
+      defaultErrorHandler(err);
     }
   };
 

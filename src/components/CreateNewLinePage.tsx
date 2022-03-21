@@ -10,7 +10,12 @@ import { Priority } from '../types/Priority';
 import { FormState, LineForm } from './forms/LineForm';
 
 export const CreateNewLinePage = (): JSX.Element => {
-  const [saveLine] = useCreateLine();
+  const {
+    prepareCreate,
+    mapCreateChangesToVariables,
+    insertLineMutation,
+    defaultErrorHandler,
+  } = useCreateLine();
   const [createdLineId, setCreatedLineId] = useState<UUID>();
   const { t } = useTranslation();
 
@@ -19,13 +24,15 @@ export const CreateNewLinePage = (): JSX.Element => {
     priority: Priority.Draft,
   };
 
-  const onSubmit = async (state: FormState) => {
+  const onSubmit = async (form: FormState) => {
     try {
-      const result = await saveLine(state);
+      const changes = await prepareCreate({ form });
+      const variables = mapCreateChangesToVariables(changes);
+      const result = await insertLineMutation({ variables });
       const createdLine = mapInsertLineOneResult(result);
       setCreatedLineId(createdLine?.line_id);
     } catch (err) {
-      // noop
+      defaultErrorHandler(err);
     }
   };
 
