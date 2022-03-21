@@ -1,5 +1,6 @@
 import { MockedProvider } from '@apollo/client/testing';
 import { fireEvent, screen } from '@testing-library/react';
+import { DateTime } from 'luxon';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { GetLineDetailsWithRoutesByIdQuery } from '../../generated/graphql';
@@ -18,8 +19,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
         name_i18n: 'Rautatientori - Veräjälaakso',
         short_name_i18n: 'Rautatientori - Veräjälaakso',
         primary_vehicle_mode: 'bus',
-        validity_start: '2021-01-01T00:00:00+00:00',
-        validity_end: '2023-12-13T00:00:00+00:00',
+        validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
+        validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),
         priority: 10,
         label: '65',
         __typename: 'route_line',
@@ -41,8 +42,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
               ],
             },
             on_line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
-            validity_start: '2021-01-01T00:00:00+00:00',
-            validity_end: '2023-12-13T00:00:00+00:00',
+            validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
+            validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),
             priority: 10,
             label: '65 itään',
             direction: 'outbound',
@@ -50,15 +51,15 @@ describe(`<${RouteStopsTable.name} />`, () => {
             starts_from_scheduled_stop_point: {
               scheduled_stop_point_id: 'e3528755-711f-4e4f-9461-7931a2c4bc6d',
               label: 'pysäkki A',
-              validity_start: '2021-01-01T00:00:00+00:00',
-              validity_end: '2023-12-13T00:00:00+00:00',
+              validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
+              validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),
               __typename: 'service_pattern_scheduled_stop_point',
             },
             ends_at_scheduled_stop_point: {
               scheduled_stop_point_id: 'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
               label: 'pysäkki C',
-              validity_start: '2021-01-01T00:00:00+00:00',
-              validity_end: '2023-12-13T00:00:00+00:00',
+              validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
+              validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),
               __typename: 'service_pattern_scheduled_stop_point',
             },
             infrastructure_links_along_route: [
@@ -69,8 +70,12 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       scheduled_stop_point_id:
                         'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                       label: 'pysäkki A',
-                      validity_start: '2021-01-01T00:00:00+00:00',
-                      validity_end: '2023-12-13T00:00:00+00:00',
+                      validity_start: DateTime.fromISO(
+                        '2021-01-01T00:00:00+00:00',
+                      ),
+                      validity_end: DateTime.fromISO(
+                        '2023-12-13T00:00:00+00:00',
+                      ),
                       __typename: 'service_pattern_scheduled_stop_point',
                       scheduled_stop_point_in_journey_patterns: [
                         {
@@ -98,8 +103,12 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       scheduled_stop_point_id:
                         '4d294d62-df17-46ff-9248-23f66f17fa87',
                       label: 'pysäkki B',
-                      validity_start: '2021-01-01T00:00:00+00:00',
-                      validity_end: '2023-12-13T00:00:00+00:00',
+                      validity_start: DateTime.fromISO(
+                        '2021-01-01T00:00:00+00:00',
+                      ),
+                      validity_end: DateTime.fromISO(
+                        '2023-12-13T00:00:00+00:00',
+                      ),
                       __typename: 'service_pattern_scheduled_stop_point',
                       scheduled_stop_point_in_journey_patterns: [
                         {
@@ -127,8 +136,12 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       scheduled_stop_point_id:
                         'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                       label: 'pysäkki C',
-                      validity_start: '2021-01-01T00:00:00+00:00',
-                      validity_end: '2023-12-13T00:00:00+00:00',
+                      validity_start: DateTime.fromISO(
+                        '2021-01-01T00:00:00+00:00',
+                      ),
+                      validity_end: DateTime.fromISO(
+                        '2023-12-13T00:00:00+00:00',
+                      ),
                       __typename: 'service_pattern_scheduled_stop_point',
                       scheduled_stop_point_in_journey_patterns: [
                         {

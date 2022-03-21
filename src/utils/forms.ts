@@ -1,4 +1,4 @@
-import { parseISODateString } from '../time';
+import { parseDate } from '../time';
 
 // Submits form implemented with `react-hook-form` by ref
 // useful in cases where ui designs prevent us from defining
@@ -13,10 +13,10 @@ export const submitFormByRef = (formRef: ExplicitAny) => {
 // maps ISO date string (yyyy-mm-dd, returned e.g. from <input type="date" />)
 // to validity start DateTime object
 export const mapDateInputToValidityStart = (isoDate: string) =>
-  parseISODateString(isoDate);
+  parseDate(isoDate);
 // maps ISO date string (yyyy-mm-dd, returned e.g. from <input type="date" />)
 // to validity end DateTime object
 export const mapDateInputToValidityEnd = (
   isoDate?: string,
   isIndefinite = false,
-) => (isIndefinite ? null : parseISODateString(isoDate)?.endOf('day'));
+) => (isIndefinite ? null : parseDate(isoDate)?.endOf('day'));
