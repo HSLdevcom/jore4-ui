@@ -4,7 +4,7 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 COPY ./src ./src
 COPY ./public ./public
-COPY tsconfig.json next.config.js next-env.d.ts tailwind.config.js postcss.config.js convert-theme-to-ts theme.js ./
+COPY tsconfig.json next.config.js next-env.d.ts tailwind.config.js postcss.config.js convert-theme-to-ts theme.js graphql.schema.json ./
 
 ARG NEXT_PUBLIC_GIT_HASH=unknown
 RUN yarn build
