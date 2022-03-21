@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { i18n } from './i18n';
-import { formatDate, mapToISODate, parseISODateString } from './time';
+import { formatDate, mapToISODate, parseDate } from './time';
 
 describe(`${formatDate.name}()`, () => {
   beforeEach(() => {
@@ -36,10 +36,10 @@ describe(`${formatDate.name}()`, () => {
   });
 });
 
-describe(`${parseISODateString.name}()`, () => {
+describe(`${parseDate.name}()`, () => {
   const isoDate = '2017-04-20T11:32:00.000Z';
   test('Maps ISO string to equivalent DateTime object', () => {
-    const output = parseISODateString(isoDate);
+    const output = parseDate(isoDate);
     expect(DateTime.isDateTime(output)).toBe(true);
     expect(output?.toUTC().toISO()).toBe(isoDate);
   });

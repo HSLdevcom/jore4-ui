@@ -1,5 +1,6 @@
 import { MockedProvider } from '@apollo/client/testing';
 import { act, fireEvent, screen } from '@testing-library/react';
+import { DateTime } from 'luxon';
 import React from 'react';
 import {
   ListAllLinesDocument,
@@ -31,7 +32,7 @@ describe('<ChooseLineDropdown />', () => {
               label: '1',
               name_i18n: 'Line1 name',
               short_name_i18n: 'Line1',
-              validity_start: '2017-02-13T12:51:48.000Z',
+              validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
               validity_end: null,
             },
             {
@@ -40,7 +41,7 @@ describe('<ChooseLineDropdown />', () => {
               label: '2',
               name_i18n: 'Line2 name',
               short_name_i18n: 'Line2',
-              validity_start: '2017-02-13T12:51:48.000Z',
+              validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
               validity_end: null,
             },
           ],

@@ -51,7 +51,9 @@ export const useCreateLine = () => {
     const conflicts = await getConflictingLines({
       label: form.label,
       priority: form.priority,
-      validityStart: input.validity_start,
+      // this form value always exists
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      validityStart: input.validity_start!,
       validityEnd: input.validity_end || undefined,
     });
 
