@@ -5,6 +5,7 @@ import {
   RouteLineSetInput,
   usePatchLineMutation,
 } from '../generated/graphql';
+import { MIN_DATE } from '../time';
 import { showDangerToastWithError } from '../utils';
 import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
 import { mapFormToInput } from './useCreateLine';
@@ -30,7 +31,7 @@ export const useEditLine = () => {
       {
         label: form.label,
         priority: form.priority,
-        validityStart: input.validity_start,
+        validityStart: input.validity_start || MIN_DATE,
         validityEnd: input.validity_end || undefined,
       },
       lineId,

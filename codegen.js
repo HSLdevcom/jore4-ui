@@ -16,6 +16,12 @@ module.exports = {
   generates: {
     './src/generated/graphql.tsx': {
       plugins: [
+        {
+          // importing luxon to be able to use its DateTime type
+          add: {
+            content: "import * as luxon from 'luxon';",
+          },
+        },
         'typescript',
         'typescript-operations',
         'typescript-react-apollo',
@@ -34,6 +40,7 @@ module.exports = {
           geometry: 'GeoJSON.Geometry',
           geography_point: 'GeoJSON.Point',
           geography_linestring: 'GeoJSON.LineString',
+          timestamptz: 'luxon.DateTime',
         },
       },
     },
