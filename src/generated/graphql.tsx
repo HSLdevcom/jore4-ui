@@ -3990,7 +3990,7 @@ export type RouteLineIncInput = {
 /** input type for inserting data into table "route.line" */
 export type RouteLineInsertInput = {
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
-  label: Scalars['String'];
+  label?: Maybe<Scalars['String']>;
   /** The ID of the line. */
   line_id?: Maybe<Scalars['uuid']>;
   line_routes?: Maybe<RouteRouteArrRelInsertInput>;
@@ -3999,7 +3999,7 @@ export type RouteLineInsertInput = {
   /** The mode of the vehicles used as primary on the line. */
   primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority: Scalars['Int'];
+  priority?: Maybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
@@ -4111,15 +4111,15 @@ export enum RouteLineSelectColumn {
 /** input type for updating data in table "route.line" */
 export type RouteLineSetInput = {
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
-  label: Scalars['String'];
+  label?: Maybe<Scalars['String']>;
   /** The ID of the line. */
-  line_id: Scalars['uuid'];
+  line_id?: Maybe<Scalars['uuid']>;
   /** The name of the line. Placeholder for multilingual strings. */
   name_i18n?: Maybe<Scalars['String']>;
   /** The mode of the vehicles used as primary on the line. */
   primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority: Scalars['Int'];
+  priority?: Maybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */

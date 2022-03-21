@@ -30,19 +30,6 @@ module.exports = async (schemaString, config) => {
           route_shape: geography_linestring
         }
 
-        # setting fields not-nullable in route.line insert object
-        type route_line_insert_input {
-          priority: Int!
-          label: String!
-        }
-
-        # setting fields not-nullable in route.line update object
-        type route_line_set_input {
-          line_id: uuid!
-          priority: Int!
-          label: String!
-        }
-
         # setting fields not-nullable in service_pattern.scheduled_stop_point VIEW
         type service_pattern_scheduled_stop_point {
           scheduled_stop_point_id: uuid!

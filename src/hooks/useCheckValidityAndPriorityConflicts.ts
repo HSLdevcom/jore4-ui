@@ -4,15 +4,16 @@ import {
   GetLinesByValidityDocument,
   GetLinesByValidityQuery,
   GetLinesByValidityQueryVariables,
+  Maybe,
   RouteLineBoolExp,
 } from '../generated/graphql';
 import { Priority } from '../types/Priority';
 import { useAsyncQuery } from './useAsyncQuery';
 
 interface CommonParams {
-  label: string;
-  priority: Priority;
-  validityStart: DateTime;
+  label?: Maybe<string>;
+  priority?: Maybe<Priority>;
+  validityStart?: DateTime;
   validityEnd?: DateTime;
 }
 
@@ -80,6 +81,16 @@ export const useCheckValidityAndPriorityConflicts = () => {
   >(GetLinesByValidityDocument);
 
   const checkLineValidity = async (params: CommonParams, lineId?: UUID) => {
+    if (!params.label || !params.priority || !params.validityStart) {
+      // Should never happen as these fields are required in zod's schema
+      // that is used in form validation.
+      // Anyway these are defined as
+      // optional values in CommonParams as generated graphql
+      // MyResourceInsertInput and MyResourceSetInput types want to have
+      // everything defined as optional.
+      throw new Error('label, priority or validityStart missing');
+    }
+
     // Ignore row itself as if we are editing existing version of row then
     // possible conflict doesn't matter as we are *overwriting* conflicting
     // version.
