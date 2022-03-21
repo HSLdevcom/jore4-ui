@@ -3,9 +3,18 @@ import React, { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
+import {
+  ReusableComponentsVehicleModeEnum,
+  RouteLineInsertInput,
+  RouteLineSetInput,
+} from '../../generated/graphql';
 import { Row } from '../../layoutComponents';
 import { FormContainer, SimpleButton } from '../../uiComponents';
-import { submitFormByRef } from '../../utils';
+import {
+  mapDateInputToValidityEnd,
+  mapDateInputToValidityStart,
+  submitFormByRef,
+} from '../../utils';
 import {
   ConfirmSaveForm,
   FormState as ConfirmSaveFormState,
@@ -23,6 +32,24 @@ interface Props {
   defaultValues: Partial<FormState>;
   onSubmit: (state: FormState) => void;
 }
+
+export const mapFormToInput = (
+  state: FormState,
+): RouteLineSetInput | RouteLineInsertInput => {
+  const input = {
+    label: state.label,
+    name_i18n: state.finnishName,
+    primary_vehicle_mode:
+      state.primaryVehicleMode as ReusableComponentsVehicleModeEnum,
+    priority: state.priority,
+    validity_start: mapDateInputToValidityStart(state.validityStart),
+    validity_end: mapDateInputToValidityEnd(
+      state.validityEnd,
+      state.indefinite,
+    ),
+  };
+  return input;
+};
 
 export const LineForm = ({ defaultValues, onSubmit }: Props): JSX.Element => {
   const history = useHistory();
