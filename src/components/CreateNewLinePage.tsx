@@ -7,10 +7,15 @@ import { useCreateLine } from '../hooks';
 import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { Priority } from '../types/Priority';
-import { FormState, LineForm } from './forms/LineForm';
+import { FormState, LineForm, mapFormToInput } from './forms/LineForm';
 
 export const CreateNewLinePage = (): JSX.Element => {
-  const [saveLine] = useCreateLine();
+  const {
+    prepareCreate,
+    mapCreateChangesToVariables,
+    insertLineMutation,
+    defaultErrorHandler,
+  } = useCreateLine();
   const [createdLineId, setCreatedLineId] = useState<UUID>();
   const { t } = useTranslation();
 
@@ -21,11 +26,15 @@ export const CreateNewLinePage = (): JSX.Element => {
 
   const onSubmit = async (state: FormState) => {
     try {
-      const result = await saveLine(state);
+      const changes = await prepareCreate({
+        input: mapFormToInput(state),
+      });
+      const variables = mapCreateChangesToVariables(changes);
+      const result = await insertLineMutation({ variables });
       const createdLine = mapInsertLineOneResult(result);
       setCreatedLineId(createdLine?.line_id);
     } catch (err) {
-      // noop
+      defaultErrorHandler(err);
     }
   };
 

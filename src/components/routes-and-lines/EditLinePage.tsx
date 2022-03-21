@@ -8,12 +8,17 @@ import { Container } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
 import { mapToISODate } from '../../time';
 import { mapToVariables } from '../../utils';
-import { FormState, LineForm } from '../forms/LineForm';
+import { FormState, LineForm, mapFormToInput } from '../forms/LineForm';
 import { PageHeader } from './PageHeader';
 
 export const EditLinePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
-  const [editLine] = useEditLine();
+  const {
+    prepareEdit,
+    mapEditChangesToVariables,
+    editLineMutation,
+    defaultErrorHandler,
+  } = useEditLine();
 
   const { id } = useParams<{ id: string }>();
   const lineDetailsResult = useGetLineDetailsByIdQuery(
@@ -34,10 +39,15 @@ export const EditLinePage = (): JSX.Element => {
 
   const onSubmit = async (state: FormState) => {
     try {
-      await editLine(id, state);
+      const changes = await prepareEdit({
+        lineId: id,
+        patch: mapFormToInput(state),
+      });
+      const variables = mapEditChangesToVariables(changes);
+      await editLineMutation({ variables });
       setHasFinishedEditing(true);
     } catch (err) {
-      // noop
+      defaultErrorHandler(err);
     }
   };
 
