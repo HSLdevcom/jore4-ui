@@ -7,7 +7,7 @@ import { useCreateLine } from '../hooks';
 import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { Priority } from '../types/Priority';
-import { FormState, LineForm, mapFormToInput } from './forms/LineForm';
+import { FormState, LineForm } from './forms/LineForm';
 
 export const CreateNewLinePage = (): JSX.Element => {
   const {
@@ -24,11 +24,9 @@ export const CreateNewLinePage = (): JSX.Element => {
     priority: Priority.Draft,
   };
 
-  const onSubmit = async (state: FormState) => {
+  const onSubmit = async (form: FormState) => {
     try {
-      const changes = await prepareCreate({
-        input: mapFormToInput(state),
-      });
+      const changes = await prepareCreate({ form });
       const variables = mapCreateChangesToVariables(changes);
       const result = await insertLineMutation({ variables });
       const createdLine = mapInsertLineOneResult(result);

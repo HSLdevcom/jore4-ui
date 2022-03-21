@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { FormState } from '../components/forms/LineForm';
 import {
   PatchLineMutationVariables,
   RouteLineSetInput,
@@ -6,10 +7,11 @@ import {
 } from '../generated/graphql';
 import { showDangerToastWithError } from '../utils';
 import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
+import { mapFormToInput } from './useCreateLine';
 
 interface EditParams {
   lineId: UUID;
-  patch: RouteLineSetInput;
+  form: FormState;
 }
 
 interface EditChanges {
@@ -22,20 +24,21 @@ export const useEditLine = () => {
   const [mutateFunction] = usePatchLineMutation();
   const { checkLineValidity } = useCheckValidityAndPriorityConflicts();
 
-  const prepareEdit = async ({ lineId, patch }: EditParams) => {
+  const prepareEdit = async ({ lineId, form }: EditParams) => {
+    const input = mapFormToInput(form);
     await checkLineValidity(
       {
-        label: patch.label,
-        priority: patch.priority,
-        validityStart: patch.validity_start,
-        validityEnd: patch.validity_end || undefined,
+        label: form.label,
+        priority: form.priority,
+        validityStart: input.validity_start,
+        validityEnd: input.validity_end || undefined,
       },
       lineId,
     );
 
     const changes: EditChanges = {
       lineId,
-      patch,
+      patch: input,
     };
 
     return changes;

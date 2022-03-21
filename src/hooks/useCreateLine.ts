@@ -1,28 +1,54 @@
 import { useTranslation } from 'react-i18next';
+import { FormState } from '../components/forms/LineForm';
 import {
   InsertRouteOneMutationVariables,
+  ReusableComponentsVehicleModeEnum,
   RouteLineInsertInput,
+  RouteLineSetInput,
   useInsertLineOneMutation,
 } from '../generated/graphql';
-import { showDangerToastWithError } from '../utils';
+import {
+  mapDateInputToValidityEnd,
+  mapDateInputToValidityStart,
+  showDangerToastWithError,
+} from '../utils';
 import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
 
 interface CreateParams {
-  input: RouteLineInsertInput;
+  form: FormState;
 }
 interface CreateChanges {
   input: RouteLineInsertInput;
 }
+
+export const mapFormToInput = (
+  state: FormState,
+): RouteLineSetInput | RouteLineInsertInput => {
+  const input = {
+    label: state.label,
+    name_i18n: state.finnishName,
+    primary_vehicle_mode:
+      state.primaryVehicleMode as ReusableComponentsVehicleModeEnum,
+    priority: state.priority,
+    validity_start: mapDateInputToValidityStart(state.validityStart),
+    validity_end: mapDateInputToValidityEnd(
+      state.validityEnd,
+      state.indefinite,
+    ),
+  };
+  return input;
+};
 
 export const useCreateLine = () => {
   const { t } = useTranslation();
   const [mutateFunction] = useInsertLineOneMutation();
   const { checkLineValidity } = useCheckValidityAndPriorityConflicts();
 
-  const prepareCreate = async ({ input }: CreateParams) => {
+  const prepareCreate = async ({ form }: CreateParams) => {
+    const input = mapFormToInput(form);
     await checkLineValidity({
-      label: input.label,
-      priority: input.priority,
+      label: form.label,
+      priority: form.priority,
       validityStart: input.validity_start,
       validityEnd: input.validity_end || undefined,
     });
