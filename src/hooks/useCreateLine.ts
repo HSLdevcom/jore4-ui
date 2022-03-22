@@ -3,6 +3,7 @@ import { FormState } from '../components/forms/LineForm';
 import {
   InsertRouteOneMutationVariables,
   ReusableComponentsVehicleModeEnum,
+  RouteLine,
   RouteLineInsertInput,
   RouteLineSetInput,
   useInsertLineOneMutation,
@@ -19,6 +20,7 @@ interface CreateParams {
 }
 interface CreateChanges {
   input: RouteLineInsertInput;
+  conflicts?: RouteLine[];
 }
 
 export const mapFormToInput = (
@@ -42,11 +44,11 @@ export const mapFormToInput = (
 export const useCreateLine = () => {
   const { t } = useTranslation();
   const [mutateFunction] = useInsertLineOneMutation();
-  const { checkLineValidity } = useCheckValidityAndPriorityConflicts();
+  const { getConflictingLines } = useCheckValidityAndPriorityConflicts();
 
   const prepareCreate = async ({ form }: CreateParams) => {
     const input = mapFormToInput(form);
-    await checkLineValidity({
+    const conflicts = await getConflictingLines({
       label: form.label,
       priority: form.priority,
       validityStart: input.validity_start,
@@ -55,6 +57,7 @@ export const useCreateLine = () => {
 
     const changes: CreateChanges = {
       input,
+      conflicts,
     };
 
     return changes;

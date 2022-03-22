@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { FormState } from '../components/forms/LineForm';
 import {
   PatchLineMutationVariables,
+  RouteLine,
   RouteLineSetInput,
   usePatchLineMutation,
 } from '../generated/graphql';
@@ -17,16 +18,17 @@ interface EditParams {
 interface EditChanges {
   lineId: UUID;
   patch: RouteLineSetInput;
+  conflicts?: RouteLine[];
 }
 
 export const useEditLine = () => {
   const { t } = useTranslation();
   const [mutateFunction] = usePatchLineMutation();
-  const { checkLineValidity } = useCheckValidityAndPriorityConflicts();
+  const { getConflictingLines } = useCheckValidityAndPriorityConflicts();
 
   const prepareEdit = async ({ lineId, form }: EditParams) => {
     const input = mapFormToInput(form);
-    await checkLineValidity(
+    const conflicts = await getConflictingLines(
       {
         label: form.label,
         priority: form.priority,
@@ -39,6 +41,7 @@ export const useEditLine = () => {
     const changes: EditChanges = {
       lineId,
       patch: input,
+      conflicts,
     };
 
     return changes;

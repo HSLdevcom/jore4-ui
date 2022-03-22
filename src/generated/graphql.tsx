@@ -5930,7 +5930,7 @@ export type GetLinesByValidityQueryVariables = Exact<{
 }>;
 
 
-export type GetLinesByValidityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number }> };
+export type GetLinesByValidityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string }> };
 
 export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
   line_id: Scalars['uuid'];
@@ -6525,13 +6525,10 @@ export type GetLineDetailsByIdQueryResult = Apollo.QueryResult<GetLineDetailsByI
 export const GetLinesByValidityDocument = gql`
     query GetLinesByValidity($filter: route_line_bool_exp) {
   route_line(where: $filter) {
-    line_id
-    validity_start
-    validity_end
-    priority
+    ...line_all_fields
   }
 }
-    `;
+    ${LineAllFieldsFragmentDoc}`;
 
 /**
  * __useGetLinesByValidityQuery__

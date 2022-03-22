@@ -154,10 +154,7 @@ export const mapLineDetailsResult = (
 const GET_LINES_BY_VALIDITY = gql`
   query GetLinesByValidity($filter: route_line_bool_exp) {
     route_line(where: $filter) {
-      line_id
-      validity_start
-      validity_end
-      priority
+      ...line_all_fields
     }
   }
 `;

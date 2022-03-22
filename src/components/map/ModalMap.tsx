@@ -177,7 +177,9 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     <Modal
       isOpen={modalMapState.isOpen}
       onClose={onCloseModalMap}
-      className={className}
+      className={`absolute left-0 top-0 z-10 h-full w-full !bg-background ${
+        className || ''
+      }`}
     >
       <MapHeader onClose={onCloseModalMap} />
       {/* Setting height of map component dynamically seems to be tricky as

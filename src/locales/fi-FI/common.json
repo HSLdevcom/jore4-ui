@@ -78,7 +78,9 @@
     "validityPeriod": "Muutoksen voimassaolo",
     "validityStart": "Alkaa",
     "validityEnd": "Päättyy",
-    "indefinite": "Voimassa toistaiseksi"
+    "indefinite": "Voimassa toistaiseksi",
+    "validityConflictTitle": "Tallennus sisältää päällekkäisyyksiä",
+    "validityConflictBody": "Muokkaa olemassa olevien resurssien voimassaoloaikoja tai tallenna nykyiset muutokset luonnoksena."
   },
   "confirmDeleteRouteDialog": {
     "title": "Poista reitti?",
@@ -110,7 +112,6 @@
   },
   "errors": {
     "saveFailed": "Tallennus epäonnistui",
-    "validityConflict": "Samalla prioriteetilla ja voimassaoloajalla on jo olemassa vastaava resurssi.",
     "leaveMultipleHandles": "Pisteitä ei voida poistaa! Jätä vähintään kaksi pistettä."
   },
   "filters": {

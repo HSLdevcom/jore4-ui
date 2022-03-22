@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row } from '../../layoutComponents';
-import { SimpleButton } from '../../uiComponents';
+import { CloseIconButton, SimpleButton } from '../../uiComponents';
 
 const HeaderFooterContainer: FunctionComponent = ({ children }) => {
   return (
@@ -21,9 +21,7 @@ const ModalHeader = ({ onClose, heading }: HeaderProps): JSX.Element => {
     <HeaderFooterContainer>
       <Row>
         <p className="text-2xl font-bold">{heading}</p>
-        <button className="ml-auto" type="button" onClick={onClose}>
-          <i className="icon-close-large ml-4 text-lg" />
-        </button>
+        <CloseIconButton className="ml-auto" onClick={onClose} />
       </Row>
     </HeaderFooterContainer>
   );

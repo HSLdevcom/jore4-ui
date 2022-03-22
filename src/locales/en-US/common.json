@@ -78,7 +78,9 @@
     "validityPeriod": "Validity period",
     "validityStart": "Starts",
     "validityEnd": "Ends",
-    "indefinite": "Valid indefinitely"
+    "indefinite": "Valid indefinitely",
+    "validityConflictTitle": "Check conflicts with existing data",
+    "validityConflictBody": "Please change validity times of existing resources or save current changes as draft."
   },
   "confirmDeleteRouteDialog": {
     "title": "Delete route?",
@@ -110,7 +112,6 @@
   },
   "errors": {
     "saveFailed": "Something went wrong",
-    "validityConflict": "Priority and validity period is overlapping with existing resource.",
     "leaveMultipleHandles": "Cannot delete snap point(s)! You should leave at least two of them."
   },
   "filters": {

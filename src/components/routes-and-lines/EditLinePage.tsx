@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redirect, useParams } from 'react-router-dom';
-import { useGetLineDetailsByIdQuery } from '../../generated/graphql';
+import { RouteLine, useGetLineDetailsByIdQuery } from '../../generated/graphql';
 import { mapLineDetailsResult } from '../../graphql';
 import { useEditLine } from '../../hooks';
 import { Container } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
 import { mapToISODate } from '../../time';
 import { mapToVariables } from '../../utils';
+import {
+  ConflictResolverModal,
+  mapLineToCommonConflictItem,
+} from '../ConflictResolverModal';
 import { FormState, LineForm } from '../forms/LineForm';
 import { PageHeader } from './PageHeader';
 
 export const EditLinePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
+  const [conflicts, setConflicts] = useState<RouteLine[]>([]);
   const {
     prepareEdit,
     mapEditChangesToVariables,
@@ -40,6 +45,10 @@ export const EditLinePage = (): JSX.Element => {
   const onSubmit = async (form: FormState) => {
     try {
       const changes = await prepareEdit({ lineId: id, form });
+      if (changes.conflicts?.length) {
+        setConflicts(changes.conflicts);
+        return;
+      }
       const variables = mapEditChangesToVariables(changes);
       await editLineMutation({ variables });
       setHasFinishedEditing(true);
@@ -55,6 +64,10 @@ export const EditLinePage = (): JSX.Element => {
 
   return (
     <div>
+      <ConflictResolverModal
+        onClose={() => setConflicts([])}
+        conflicts={conflicts.map(mapLineToCommonConflictItem)}
+      />
       <PageHeader>
         <i className="icon-bus-alt text-5xl text-tweaked-brand" />
         <h1 className="text-5xl font-bold">
