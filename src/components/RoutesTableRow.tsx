@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdPinDrop } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -6,7 +5,12 @@ import { RouteRoute } from '../generated/graphql';
 import { useShowRoutesOnModal } from '../hooks';
 import { Column, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
-import { mapToShortDate, MAX_DATE, MIN_DATE } from '../time';
+import {
+  mapToShortDate,
+  MAX_DATE,
+  MIN_DATE,
+  parseISODateString,
+} from '../time';
 import { IconButton } from '../uiComponents';
 
 interface Props {
@@ -45,7 +49,14 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
         <td className="w-20 border">
           <IconButton
             className="h-full w-full"
-            onClick={() => showRoutesOnModal([route.route_id])}
+            onClick={() =>
+              showRoutesOnModal(
+                [route.route_id],
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                parseISODateString(route.validity_start)!,
+                parseISODateString(route.validity_end),
+              )
+            }
             icon={<MdPinDrop className="text-5xl text-tweaked-brand" />}
             testId="RoutesTableRow::showRoute"
           />
