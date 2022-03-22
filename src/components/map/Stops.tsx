@@ -15,7 +15,11 @@ import {
   mapGetStopsResult,
   mapRoutesDetailsResult,
 } from '../../graphql';
-import { useEditStop, useExtractRouteFromFeature } from '../../hooks';
+import {
+  useEditStop,
+  useExtractRouteFromFeature,
+  useGetDisplayedRoutes,
+} from '../../hooks';
 import { useFilterStops } from '../../hooks/useFilterStops';
 import { RequiredKeys } from '../../types';
 import { ConfirmationDialog } from '../../uiComponents';
@@ -51,13 +55,10 @@ export const Stops = React.forwardRef((props, ref) => {
 
   const {
     dispatch: mapEditorDispatch,
-    state: {
-      selectedStopId,
-      displayedRouteIds,
-      editedRouteData,
-      creatingNewRoute,
-    },
+    state: { selectedStopId, editedRouteData, creatingNewRoute },
   } = useContext(MapEditorContext);
+  const { displayedRouteIds } = useGetDisplayedRoutes();
+
   // TODO: Fetch only the stops visible on the map?
   const stopsResult = useGetStopsQuery({});
   const unfilteredStops = mapGetStopsResult(stopsResult);
