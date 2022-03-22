@@ -1,0 +1,40 @@
+import {
+  RouteLine,
+  RouteRoute,
+  useSearchAllLinesQuery,
+} from '../../generated/graphql';
+import { mapSearchAllLinesResult } from '../../graphql';
+import { mapToVariables } from '../../utils';
+import { constructGqlFilterObject } from '../../utils/search';
+import { useSearchQueryParser } from './useSearchQueryParser';
+
+export const useSearchResults = (): {
+  lines: RouteLine[];
+  routes: RouteRoute[];
+  resultsCount: number;
+} => {
+  const parsedQueryParameters = useSearchQueryParser();
+
+  const searchConditions = constructGqlFilterObject(
+    parsedQueryParameters.search,
+  );
+
+  const linesResult = useSearchAllLinesQuery(mapToVariables(searchConditions));
+
+  const lines = mapSearchAllLinesResult(linesResult);
+
+  const routes = lines
+    ?.map((line) => line.line_routes)
+    ?.reduce((next, curr) => [...curr, ...next], []);
+
+  const resultsCount =
+    (parsedQueryParameters.filter.displayRoutes
+      ? routes?.length
+      : lines?.length) || 0;
+
+  return {
+    lines,
+    routes,
+    resultsCount,
+  };
+};
