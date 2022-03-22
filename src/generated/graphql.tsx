@@ -5930,7 +5930,7 @@ export type GetLinesByValidityQueryVariables = Exact<{
 }>;
 
 
-export type GetLinesByValidityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number }> };
+export type GetLinesByValidityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, validity_start?: any | null | undefined, validity_end?: any | null | undefined, priority: number, label: string }> };
 
 export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
   line_id: Scalars['uuid'];
@@ -6529,6 +6529,7 @@ export const GetLinesByValidityDocument = gql`
     validity_start
     validity_end
     priority
+    label
   }
 }
     `;

@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-import { useTranslation } from 'react-i18next';
 import {
   GetLinesByValidityDocument,
   GetLinesByValidityQuery,
@@ -73,13 +72,19 @@ const buildCommonGqlFilter = (params: CommonParams) => {
 };
 
 export const useCheckValidityAndPriorityConflicts = () => {
-  const { t } = useTranslation();
   const [getLineValidity] = useAsyncQuery<
     GetLinesByValidityQuery,
     GetLinesByValidityQueryVariables
   >(GetLinesByValidityDocument);
 
   const checkLineValidity = async (params: CommonParams, lineId?: UUID) => {
+    const isDraft = params.priority === Priority.Draft;
+    if (isDraft) {
+      // Resources marked as "draft" are allowed to have conflicts
+      // with priority and validity time
+      return [];
+    }
+
     // Ignore row itself as if we are editing existing version of row then
     // possible conflict doesn't matter as we are *overwriting* conflicting
     // version.
@@ -92,9 +97,7 @@ export const useCheckValidityAndPriorityConflicts = () => {
       filter: { ...lineFilter, ...commonFilter },
     });
 
-    if (data.route_line.length >= 1) {
-      throw new Error(t('errors.validityConflict'));
-    }
+    return data.route_line;
   };
 
   return {

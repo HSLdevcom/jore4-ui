@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { FormState } from '../components/forms/LineForm';
 import {
+  GetLinesByValidityQuery,
   InsertRouteOneMutationVariables,
   ReusableComponentsVehicleModeEnum,
   RouteLineInsertInput,
@@ -19,6 +20,7 @@ interface CreateParams {
 }
 interface CreateChanges {
   input: RouteLineInsertInput;
+  conflicts?: GetLinesByValidityQuery['route_line'];
 }
 
 export const mapFormToInput = (
@@ -46,7 +48,7 @@ export const useCreateLine = () => {
 
   const prepareCreate = async ({ form }: CreateParams) => {
     const input = mapFormToInput(form);
-    await checkLineValidity({
+    const conflicts = await checkLineValidity({
       label: form.label,
       priority: form.priority,
       validityStart: input.validity_start,
@@ -55,6 +57,7 @@ export const useCreateLine = () => {
 
     const changes: CreateChanges = {
       input,
+      conflicts,
     };
 
     return changes;

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { FormState } from '../components/forms/LineForm';
 import {
+  GetLinesByValidityQuery,
   PatchLineMutationVariables,
   RouteLineSetInput,
   usePatchLineMutation,
@@ -17,6 +18,7 @@ interface EditParams {
 interface EditChanges {
   lineId: UUID;
   patch: RouteLineSetInput;
+  conflicts?: GetLinesByValidityQuery['route_line'];
 }
 
 export const useEditLine = () => {
@@ -26,7 +28,7 @@ export const useEditLine = () => {
 
   const prepareEdit = async ({ lineId, form }: EditParams) => {
     const input = mapFormToInput(form);
-    await checkLineValidity(
+    const conflicts = await checkLineValidity(
       {
         label: form.label,
         priority: form.priority,
@@ -39,6 +41,7 @@ export const useEditLine = () => {
     const changes: EditChanges = {
       lineId,
       patch: input,
+      conflicts,
     };
 
     return changes;

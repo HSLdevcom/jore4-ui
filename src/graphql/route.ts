@@ -158,6 +158,7 @@ const GET_LINES_BY_VALIDITY = gql`
       validity_start
       validity_end
       priority
+      label
     }
   }
 `;
