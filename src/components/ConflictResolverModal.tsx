@@ -2,6 +2,7 @@ import { Dialog } from '@headlessui/react';
 import { DateTime } from 'luxon';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { GetLinesByValidityQuery } from '../generated/graphql';
 import { Row } from '../layoutComponents';
 import { mapToShortDate } from '../time';
@@ -29,6 +30,7 @@ interface CommonConflictItem {
   priority: Priority;
   label: string;
   id: UUID;
+  href?: string;
 }
 
 export const mapLinesToCommonConflictItems = (
@@ -40,6 +42,7 @@ export const mapLinesToCommonConflictItems = (
     priority: item.priority,
     label: item.label,
     id: item.line_id,
+    href: `/lines/${item.line_id}`,
   }));
 
 export const ConflictResolverModal: React.FC<Props> = ({
@@ -57,7 +60,16 @@ export const ConflictResolverModal: React.FC<Props> = ({
       <Td>
         {mapToShortDate(item.validityEnd) || t('saveChangesModal.indefinite')}
       </Td>
-      <Td>{item.label}</Td>
+
+      <Td>
+        {item.href ? (
+          <Link to={item.href} className="text-brand">
+            {item.label}
+          </Link>
+        ) : (
+          item.label
+        )}
+      </Td>
     </tr>
   );
 
