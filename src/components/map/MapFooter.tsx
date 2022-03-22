@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { MapEditorContext, Mode } from '../../context/MapEditorContext';
+import { useEditRouteGeometry } from '../../hooks';
 import { Row, Visible } from '../../layoutComponents';
 import { SimpleButton } from '../../uiComponents';
 
@@ -29,14 +30,13 @@ export const MapFooter: React.FC<Props> = ({
     state: { drawingMode, displayedRouteIds, creatingNewRoute, hasRoute },
   } = useContext(MapEditorContext);
 
-  const viewMode = drawingMode === undefined;
-  const changesInProgress = creatingNewRoute || !viewMode;
+  const { hasChangesInProgress, isInViewMode } = useEditRouteGeometry();
 
   return (
     <Row className="space-x-4 bg-white px-10 py-5">
       <SimpleButton
         onClick={onDrawRoute}
-        disabled={!viewMode || creatingNewRoute}
+        disabled={!isInViewMode || creatingNewRoute}
         inverted={drawingMode !== Mode.Draw}
       >
         {t('map.drawRoute')}
@@ -62,22 +62,22 @@ export const MapFooter: React.FC<Props> = ({
       <SimpleButton
         className="!px-3"
         onClick={onDeleteRoute}
-        disabled={!changesInProgress}
+        disabled={!hasChangesInProgress}
       >
         <MdDelete aria-label={t('map.deleteRoute')} />
       </SimpleButton>
-      <Visible visible={changesInProgress}>
+      <Visible visible={hasChangesInProgress}>
         <SimpleButton
           className="!ml-auto"
           onClick={onCancel}
-          disabled={!changesInProgress}
+          disabled={!hasChangesInProgress}
           inverted
         >
           {t('cancel')}
         </SimpleButton>
         <SimpleButton
           onClick={onSave}
-          disabled={!(changesInProgress && hasRoute)}
+          disabled={!(hasChangesInProgress && hasRoute)}
         >
           {t('routes.save')}
         </SimpleButton>

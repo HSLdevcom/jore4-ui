@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdLayers } from 'react-icons/md';
 import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
-import { useFilterStops } from '../../hooks';
+import { useEditRouteGeometry, useFilterStops } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
 import { IconButton } from '../../uiComponents';
 import { MapOverlay } from './MapOverlay';
@@ -19,7 +19,9 @@ export const ObservationDateOverlay = ({ className }: Props) => {
     state: { observationDate },
     dispatch,
   } = useContext(MapFilterContext);
+
   const { toggleShowFilters } = useFilterStops();
+  const { hasChangesInProgress } = useEditRouteGeometry();
 
   return (
     <MapOverlay className={`${className} rounded`}>
@@ -33,6 +35,7 @@ export const ObservationDateOverlay = ({ className }: Props) => {
               dispatch(setObservationDate(DateTime.fromISO(e.target.value)))
             }
             className="flex-1"
+            disabled={hasChangesInProgress}
           />
           <IconButton
             className="block h-11 w-11 self-stretch rounded-md border border-black"
