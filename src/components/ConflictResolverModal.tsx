@@ -2,6 +2,7 @@ import { Dialog } from '@headlessui/react';
 import { DateTime } from 'luxon';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { RouteLine } from '../generated/graphql';
 import { mapPriorityToUiName } from '../i18n/uiNameMappings';
 import { Row } from '../layoutComponents';
@@ -29,6 +30,7 @@ interface CommonConflictItem {
   priority: Priority;
   label: string;
   id: UUID;
+  href?: string;
 }
 
 export const mapLineToCommonConflictItem = (
@@ -39,6 +41,7 @@ export const mapLineToCommonConflictItem = (
   priority: line.priority,
   label: line.label,
   id: line.line_id,
+  href: `/lines/${line.line_id}`,
 });
 
 const ConflictItemRow = ({
@@ -54,7 +57,15 @@ const ConflictItemRow = ({
       <Td>
         {mapToShortDate(item.validityEnd) || t('saveChangesModal.indefinite')}
       </Td>
-      <Td>{item.label}</Td>
+      <Td>
+        {item.href ? (
+          <Link to={item.href} className="text-brand">
+            {item.label}
+          </Link>
+        ) : (
+          item.label
+        )}
+      </Td>
     </tr>
   );
 };
