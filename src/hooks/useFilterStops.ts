@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FilterType, MapFilterContext, setState } from '../context/MapFilter';
 import { ServicePatternScheduledStopPoint } from '../generated/graphql';
+import { isDateInRange } from '../time';
 
 type StopFilterFunction = (stop: ServicePatternScheduledStopPoint) => boolean;
 
@@ -19,8 +20,7 @@ const isFutureStop: (date: DateTime) => StopFilterFunction = (date) => (stop) =>
 
 const isCurrentStop: (date: DateTime) => StopFilterFunction =
   (date) => (stop) =>
-    stop.validity_start <= date &&
-    (!stop.validity_end || stop.validity_end >= date);
+    isDateInRange(date, stop.validity_start, stop.validity_end);
 
 const isPastStop: (date: DateTime) => StopFilterFunction = (date) => (stop) =>
   !!(stop.validity_end && stop.validity_end < date);
