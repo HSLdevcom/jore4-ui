@@ -8,6 +8,7 @@ import React, {
 import { HTMLOverlay, MapEvent } from 'react-map-gl';
 import { MapEditorContext } from '../../context/MapEditorContext';
 import { MapFilterContext } from '../../context/MapFilter';
+import { useGetDisplayedRoutes } from '../../hooks';
 import { Column } from '../../layoutComponents';
 import { FilterPanel } from '../../uiComponents/FilterPanel';
 import { DrawRouteLayer } from './DrawRouteLayer';
@@ -40,13 +41,15 @@ export const MapComponent = (
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
   const {
-    state: { displayedRouteIds, drawingMode, hasRoute },
+    state: { drawingMode, hasRoute, initiallyDisplayedRouteIds },
   } = useContext(MapEditorContext);
   const {
     state: { showStopFilterOverlay },
   } = useContext(MapFilterContext);
 
-  const routeSelected = !!(displayedRouteIds && displayedRouteIds.length > 0);
+  const { displayedRouteIds } = useGetDisplayedRoutes();
+
+  const routeSelected = !!initiallyDisplayedRouteIds?.length;
 
   const [showInfraLinks, setShowInfraLinks] = useState(!routeSelected);
   const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(false);
@@ -165,7 +168,7 @@ export const MapComponent = (
       {showDynamicInfraLinks && <DynamicInfraLinksVectorLayer />}
       {showRoute &&
         routeSelected &&
-        displayedRouteIds.map((item) => (
+        displayedRouteIds?.map((item) => (
           <RouteLayer key={item} routeId={item} />
         ))}
     </Maplibre>

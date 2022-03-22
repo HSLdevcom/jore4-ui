@@ -196,6 +196,27 @@ const GET_ROUTE_DETAILS_BY_IDS = gql`
     }
   }
 `;
+
+const GET_ROUTE_DETAILS_BY_LABELS = gql`
+  query GetRouteDetailsByLabels($labels: [String!], $date: timestamptz) {
+    route_route(
+      where: {
+        label: { _in: $labels }
+        validity_start: { _lte: $date }
+        _or: [
+          { validity_end: { _gte: $date } }
+          { validity_end: { _is_null: true } }
+        ]
+      }
+    ) {
+      ...route_with_journey_pattern_stops
+      route_line {
+        label
+      }
+    }
+  }
+`;
+
 export const mapRouteDetailsResult = (
   result: ReturnType<typeof useGetRouteDetailsByIdsQuery>,
 ) => result.data?.route_route[0] as RouteRoute | undefined;
@@ -203,7 +224,8 @@ export const mapRouteDetailsResult = (
 export const mapRoutesDetailsResult = (
   result:
     | ApolloQueryResult<GetRouteDetailsByIdsQuery>
-    | ReturnType<typeof useGetRoutesWithInfrastructureLinksQuery>,
+    | ReturnType<typeof useGetRoutesWithInfrastructureLinksQuery>
+    | ReturnType<typeof useGetRouteDetailsByIdsQuery>,
 ) => result.data?.route_route as RouteRoute[] | [];
 
 const GET_ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
