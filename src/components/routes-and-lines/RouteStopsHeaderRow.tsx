@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { MdOutlineHistory, MdPinDrop } from 'react-icons/md';
@@ -55,7 +54,14 @@ export const RouteStopsHeaderRow = ({
       <td className="w-20 border-l-4 border-r-4 border-white">
         <IconButton
           className="h-full w-full"
-          onClick={() => showRoutesOnModal([route.route_id])}
+          onClick={() =>
+            showRoutesOnModal(
+              [route.route_id],
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              route.validity_start!,
+              route.validity_end,
+            )
+          }
           icon={<MdPinDrop className="text-5xl text-tweaked-brand" />}
           testId="RouteStopsHeaderRow::showRoute"
         />

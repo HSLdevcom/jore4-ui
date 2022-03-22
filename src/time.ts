@@ -1,5 +1,6 @@
 import isString from 'lodash/isString';
 import { DateTime, Settings } from 'luxon';
+import { Maybe } from './generated/graphql';
 import { i18n } from './i18n';
 
 Settings.defaultZone = 'Europe/Helsinki';
@@ -59,3 +60,11 @@ export const mapToISODate = (date?: DateLike | null) =>
 
 export const MIN_DATE = DateTime.fromISO('1970-01-01').startOf('day');
 export const MAX_DATE = DateTime.fromISO('2050-12-31').endOf('day');
+
+export const isDateInRange = (
+  date: DateTime,
+  startDate: DateTime,
+  endDate?: Maybe<DateTime>,
+) => {
+  return date >= startDate && (!endDate?.isValid || date <= endDate);
+};

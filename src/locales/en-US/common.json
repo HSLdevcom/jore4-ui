@@ -119,7 +119,8 @@
     "future": "Future",
     "current": "Current",
     "past": "Past",
-    "observationDate": "Observation date"
+    "observationDate": "Observation date",
+    "observationDateAdjusted": "Observation date adjusted"
   },
   "save": "Save",
   "edit": "Edit",
