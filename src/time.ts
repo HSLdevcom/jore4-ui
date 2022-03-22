@@ -36,3 +36,11 @@ export const mapToISODate = (date: string) =>
 
 export const MIN_DATE = DateTime.fromISO('1970-01-01').startOf('day');
 export const MAX_DATE = DateTime.fromISO('2050-12-31').endOf('day');
+
+export const isDateInRange = (
+  date: DateTime,
+  startDate: DateTime,
+  endDate?: DateTime,
+) => {
+  return date >= startDate && (!endDate || date <= endDate);
+};

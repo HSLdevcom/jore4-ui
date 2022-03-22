@@ -118,7 +118,8 @@
     "future": "Tulevat",
     "current": "Nykyiset",
     "past": "Menneet",
-    "observationDate": "Tarkasteluhetki"
+    "observationDate": "Tarkasteluhetki",
+    "observationDateAdjusted": "Tarkasteluhetkeä muutettu"
   },
   "save": "Tallenna",
   "edit": "Muokkaa",

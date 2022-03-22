@@ -1,11 +1,13 @@
 import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEditorContext, Mode } from '../../context/MapEditorContext';
+import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
 import { ModalMapContext } from '../../context/ModalMapContext';
 import { useExtractRouteFromFeature } from '../../hooks';
 import { useEditRouteGeometry } from '../../hooks/useEditRouteGeometry';
+import { isDateInRange, parseISODateString } from '../../time';
 import { ConfirmationDialog, Modal } from '../../uiComponents';
-import { showToast } from '../../utils';
+import { showSuccessToast, showToast } from '../../utils';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
@@ -27,6 +29,10 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     useContext(MapEditorContext);
   const { state: modalMapState, dispatch: modalMapDispatch } =
     useContext(ModalMapContext);
+  const {
+    state: { observationDate },
+    dispatch: mapFilterDispatch,
+  } = useContext(MapFilterContext);
 
   const {
     id: editingRouteId,
@@ -123,7 +129,22 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
             },
           });
 
-          showToast({ type: 'success', message: t('routes.saveSuccess') });
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          const validityStart = parseISODateString(routeDetails.validityStart)!;
+
+          showSuccessToast(t('routes.saveSuccess'));
+
+          if (
+            !isDateInRange(
+              observationDate,
+              validityStart,
+              parseISODateString(routeDetails.validityEnd),
+            )
+          ) {
+            mapFilterDispatch(setObservationDate(validityStart));
+            showSuccessToast(t('filters.observationDateAdjusted'));
+          }
+
           mapEditorDispatch({ type: 'stopDrawRoute' });
           mapRef?.current?.onDeleteDrawnRoute();
         } catch (err) {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdPinDrop } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -6,7 +5,12 @@ import { RouteLine } from '../generated/graphql';
 import { useShowRoutesOnModal } from '../hooks';
 import { Column, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
-import { mapToShortDate, MAX_DATE, MIN_DATE } from '../time';
+import {
+  mapToShortDate,
+  MAX_DATE,
+  MIN_DATE,
+  parseISODateString,
+} from '../time';
 import { IconButton } from '../uiComponents';
 
 interface Props {
@@ -20,7 +24,13 @@ export const LineTableRow = ({ className, line }: Props): JSX.Element => {
 
   const showLineRoutes = () => {
     const lineRouteIds = line.line_routes?.map((item) => item.route_id);
-    showRoutesOnModal(lineRouteIds);
+
+    showRoutesOnModal(
+      lineRouteIds,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      parseISODateString(line.validity_start)!,
+      parseISODateString(line.validity_end),
+    );
   };
 
   return (
