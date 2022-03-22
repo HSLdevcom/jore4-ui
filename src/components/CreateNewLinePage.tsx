@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
-import { ReusableComponentsVehicleModeEnum } from '../generated/graphql';
+import {
+  ReusableComponentsVehicleModeEnum,
+  RouteLine,
+} from '../generated/graphql';
 import { mapInsertLineOneResult } from '../graphql';
 import { useCreateLine } from '../hooks';
 import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { Priority } from '../types/Priority';
+import {
+  ConflictResolverModal,
+  mapLineToCommonConflictItem,
+} from './ConflictResolverModal';
 import { FormState, LineForm } from './forms/LineForm';
 
 export const CreateNewLinePage = (): JSX.Element => {
@@ -16,6 +23,7 @@ export const CreateNewLinePage = (): JSX.Element => {
     insertLineMutation,
     defaultErrorHandler,
   } = useCreateLine();
+  const [conflicts, setConflicts] = useState<RouteLine[]>([]);
   const [createdLineId, setCreatedLineId] = useState<UUID>();
   const { t } = useTranslation();
 
@@ -27,6 +35,10 @@ export const CreateNewLinePage = (): JSX.Element => {
   const onSubmit = async (form: FormState) => {
     try {
       const changes = await prepareCreate({ form });
+      if (changes.conflicts?.length) {
+        setConflicts(changes.conflicts);
+        return;
+      }
       const variables = mapCreateChangesToVariables(changes);
       const result = await insertLineMutation({ variables });
       const createdLine = mapInsertLineOneResult(result);
@@ -46,6 +58,10 @@ export const CreateNewLinePage = (): JSX.Element => {
   }
   return (
     <Container>
+      <ConflictResolverModal
+        onClose={() => setConflicts([])}
+        conflicts={conflicts.map(mapLineToCommonConflictItem)}
+      />
       <Row>
         <i className="icon-bus-alt text-5xl text-tweaked-brand" />
         <h1 className="text-5xl font-bold">{t('lines.createNew')}</h1>

@@ -1,0 +1,109 @@
+import { Dialog } from '@headlessui/react';
+import { DateTime } from 'luxon';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { RouteLine } from '../generated/graphql';
+import { mapPriorityToUiName } from '../i18n/uiNameMappings';
+import { Row } from '../layoutComponents';
+import { mapToShortDate } from '../time';
+import { Priority } from '../types/Priority';
+import { CloseIconButton, Modal, SimpleButton } from '../uiComponents';
+
+interface Props {
+  onClose: () => void;
+  className?: string;
+  conflicts?: CommonConflictItem[];
+}
+
+const Th: React.FC = ({ children }) => (
+  <th className="font-normal">{children}</th>
+);
+
+const Td: React.FC = ({ children }) => (
+  <td className="border border-light-grey p-5">{children}</td>
+);
+
+interface CommonConflictItem {
+  validityStart: DateTime;
+  validityEnd: DateTime;
+  priority: Priority;
+  label: string;
+  id: UUID;
+}
+
+export const mapLineToCommonConflictItem = (
+  line: RouteLine,
+): CommonConflictItem => ({
+  validityStart: line.validity_start,
+  validityEnd: line.validity_end,
+  priority: line.priority,
+  label: line.label,
+  id: line.line_id,
+});
+
+const ConflictItemRow = ({
+  item,
+}: {
+  item: CommonConflictItem;
+}): JSX.Element => {
+  const { t } = useTranslation();
+  return (
+    <tr key={item.id}>
+      <Td>{mapPriorityToUiName(item.priority)}</Td>
+      <Td>{mapToShortDate(item.validityStart)}</Td>
+      <Td>
+        {mapToShortDate(item.validityEnd) || t('saveChangesModal.indefinite')}
+      </Td>
+      <Td>{item.label}</Td>
+    </tr>
+  );
+};
+
+export const ConflictResolverModal: React.FC<Props> = ({
+  onClose,
+  className,
+  conflicts = [],
+}) => {
+  const { t } = useTranslation();
+  const isOpen = !!conflicts.length;
+
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      className={`fixed inset-16 z-10 overflow-y-auto p-10 drop-shadow-md ${
+        className || ''
+      }`}
+    >
+      <Dialog.Title className="flex text-xl font-bold">
+        {t('saveChangesModal.validityConflictTitle')}
+        <CloseIconButton className="ml-auto" onClick={onClose} />
+      </Dialog.Title>
+      <Dialog.Description>
+        {t('saveChangesModal.validityConflictBody')}
+      </Dialog.Description>
+
+      <table className="mt-6">
+        <thead>
+          <tr>
+            <Th>{t('priority.label')}</Th>
+            <Th>{t('saveChangesModal.validityStart')}</Th>
+            <Th>{t('saveChangesModal.validityEnd')}</Th>
+            <Th>{t('lines.label')}</Th>
+          </tr>
+        </thead>
+        <tbody>
+          {conflicts.map((item) => (
+            <ConflictItemRow key={item.id} item={item} />
+          ))}
+        </tbody>
+      </table>
+
+      <Row>
+        <SimpleButton className="ml-auto mt-14" onClick={onClose} inverted>
+          {t('cancel')}
+        </SimpleButton>
+      </Row>
+    </Modal>
+  );
+};

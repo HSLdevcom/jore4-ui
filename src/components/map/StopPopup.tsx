@@ -4,7 +4,7 @@ import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl';
 import { Column, Row } from '../../layoutComponents';
 import { Point } from '../../types';
-import { SimpleButton } from '../../uiComponents';
+import { CloseIconButton, SimpleButton } from '../../uiComponents';
 
 interface Props extends Point {
   finnishName?: string;
@@ -39,9 +39,7 @@ export const StopPopup = ({
           <Column className="w-full">
             <Row>
               <h3 className="text-xl font-bold">Pysäkki</h3>
-              <button className="ml-auto" type="button" onClick={onClose}>
-                <i className="icon-close-large ml-4 text-lg" />
-              </button>
+              <CloseIconButton className="ml-auto" onClick={onClose} />
             </Row>
             <p className="text-sm">{finnishName}</p>
           </Column>
