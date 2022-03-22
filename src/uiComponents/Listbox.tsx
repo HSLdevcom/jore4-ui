@@ -11,7 +11,7 @@ import { addClassName } from '../utils/components';
 export type ValueFn = (...event: ExplicitAny[]) => void;
 
 // copied from HeadlessUI Listbox as it's not exported
-interface OptionRenderPropArg {
+export interface OptionRenderPropArg {
   active: boolean;
   selected: boolean;
   disabled: boolean;
@@ -86,7 +86,7 @@ export const Listbox = ({
           <Transition show={open} as={Fragment} {...dropdownTransition}>
             <HUIListbox.Options
               static
-              className="absolute left-0 mt-2 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
+              className="absolute left-0 z-10 mt-2 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
             >
               <div>
                 {options?.map((item) => (
