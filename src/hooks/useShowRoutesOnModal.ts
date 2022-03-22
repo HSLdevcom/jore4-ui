@@ -11,7 +11,7 @@ export const useShowRoutesOnModal = () => {
     mapEditorDispatch({
       type: 'setState',
       payload: {
-        displayedRouteIds: routeIds,
+        initiallyDisplayedRouteIds: routeIds,
       },
     });
 

@@ -116,7 +116,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
           mapEditorDispatch({
             type: 'setState',
             payload: {
-              displayedRouteIds: [
+              initiallyDisplayedRouteIds: [
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 newRouteId!,
               ],
