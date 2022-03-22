@@ -7,6 +7,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
     id="listbox"
   >
     <button
+      aria-expanded="false"
       aria-haspopup="true"
       class="flex h-full w-full items-center text-left focus:outline-none"
       data-testid="chooseLineDropdown1"
@@ -34,6 +35,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
     id="listbox"
   >
     <button
+      aria-expanded="false"
       aria-haspopup="true"
       class="flex h-full w-full items-center text-left focus:outline-none"
       data-testid="chooseLineDropdown1"
@@ -82,7 +84,8 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
     <ul
       aria-activedescendant="headlessui-listbox-option-4"
       aria-labelledby="headlessui-listbox-button-1"
-      class="absolute left-0 mt-2 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
+      aria-orientation="vertical"
+      class="absolute left-0 z-10 mt-2 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
       id="headlessui-listbox-options-3"
       role="listbox"
       tabindex="0"

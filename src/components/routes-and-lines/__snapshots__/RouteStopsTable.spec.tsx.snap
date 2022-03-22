@@ -19,6 +19,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
         id="headlessui-switch-2"
         role="switch"
         tabindex="0"
+        type="button"
       >
         <span
           class="translate-x-5 border-brand inline-block h-6 w-6 transform rounded-full border bg-white transition-transform"
@@ -176,6 +177,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         id="headlessui-switch-2"
         role="switch"
         tabindex="0"
+        type="button"
       >
         <span
           class="translate-x-5 border-brand inline-block h-6 w-6 transform rounded-full border bg-white transition-transform"
@@ -357,6 +359,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               class="static h-full"
             >
               <button
+                aria-expanded="false"
                 aria-haspopup="true"
                 class="mx-auto flex h-full items-center px-3 focus:outline-none"
                 id="headlessui-menu-button-3"
@@ -433,6 +436,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               class="static h-full"
             >
               <button
+                aria-expanded="false"
                 aria-haspopup="true"
                 class="mx-auto flex h-full items-center px-3 focus:outline-none"
                 id="headlessui-menu-button-4"
@@ -509,6 +513,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               class="static h-full"
             >
               <button
+                aria-expanded="false"
                 aria-haspopup="true"
                 class="mx-auto flex h-full items-center px-3 focus:outline-none"
                 id="headlessui-menu-button-5"
