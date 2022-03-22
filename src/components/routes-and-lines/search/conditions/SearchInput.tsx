@@ -1,0 +1,32 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
+type Props = {
+  value: string;
+  onChange: (value: string) => void;
+  onSearch: () => void;
+};
+
+export const SearchInput = ({
+  value,
+  onChange,
+  onSearch,
+}: Props): JSX.Element => {
+  const { t } = useTranslation();
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      onSearch();
+    }
+  };
+  return (
+    <input
+      className="flex-1"
+      id="label-input"
+      type="text"
+      value={value || ''}
+      placeholder={t('search.searchPlaceholder')}
+      onChange={(e) => onChange(e.target.value)}
+      onKeyPress={handleKeyPress}
+    />
+  );
+};
