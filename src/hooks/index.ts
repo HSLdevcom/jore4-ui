@@ -4,6 +4,7 @@ export * from './useContextStateSelector';
 export * from './useCreateLine';
 export * from './useCreateStop';
 export * from './useDeleteRoute';
+export * from './useDeleteStop';
 export * from './useEditLine';
 export * from './useEditRoute';
 export * from './useEditRouteGeometry';

@@ -8,7 +8,6 @@ import {
   ServicePatternScheduledStopPoint,
   useGetRoutesWithInfrastructureLinksQuery,
   useGetStopsQuery,
-  useRemoveStopMutation,
 } from '../../generated/graphql';
 import {
   getRouteStopIds,
@@ -16,6 +15,8 @@ import {
   mapRoutesDetailsResult,
 } from '../../graphql';
 import {
+  DeleteChanges,
+  useDeleteStop,
   useEditStop,
   useExtractRouteFromFeature,
   useGetDisplayedRoutes,
@@ -27,7 +28,6 @@ import {
   mapLngLatToGeoJSON,
   mapLngLatToPoint,
   mapToVariables,
-  removeFromApolloCache,
   showDangerToast,
   showSuccessToast,
   showToast,
@@ -45,9 +45,9 @@ type DraftStop = RequiredKeys<
 
 export const Stops = React.forwardRef((props, ref) => {
   // TODO: We might want to move these to MapEditorContext
-  const [popupInfo, setPopupInfo] = useState<DraftStop | undefined>();
-  const [draftStop, setDraftStop] = useState<DraftStop | undefined>();
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [popupInfo, setPopupInfo] = useState<DraftStop>();
+  const [draftStop, setDraftStop] = useState<DraftStop>();
+  const [deleteChanges, setDeleteChanges] = useState<DeleteChanges>();
   const [showEditForm, setShowEditForm] = useState(false);
 
   const { t } = useTranslation();
@@ -64,7 +64,12 @@ export const Stops = React.forwardRef((props, ref) => {
   const unfilteredStops = mapGetStopsResult(stopsResult);
   const stops = filter(unfilteredStops || []);
 
-  const [removeStopMutation] = useRemoveStopMutation();
+  const {
+    prepareDelete,
+    mapDeleteChangesToVariables,
+    removeStop,
+    defaultErrorHandler: deleteErrorHandler,
+  } = useDeleteStop();
   const {
     prepareEdit,
     mapEditChangesToVariables,
@@ -116,25 +121,65 @@ export const Stops = React.forwardRef((props, ref) => {
     },
   }));
 
-  const onRemoveStop = (id?: UUID) => {
-    if (id) {
-      // we are removing stop that is already stored to backend
-      removeStopMutation({
-        ...mapToVariables({ id }),
-        // remove stop from cache after mutation
-        update(cache) {
-          removeFromApolloCache(cache, {
-            scheduled_stop_point_id: id,
-            __typename: 'service_pattern_scheduled_stop_point',
-          });
-        },
-      });
-    } else {
-      // we are "removing" stop that isn't saved yet
-      setDraftStop(undefined);
+  const onStopEditingFinished = async (refetchStops: boolean) => {
+    setShowEditForm(false);
+    setDraftStop(undefined);
+    setSelectedStopId(undefined);
+    setDeleteChanges(undefined);
+
+    // should we refetch stop data?
+    if (refetchStops) {
+      // the newly created stop should become a regular stop from a draft
+      // also, the recently edited stop's data is refetched
+      await stopsResult.refetch();
     }
-    onClosePopup();
-    setIsDeleting(false);
+  };
+
+  const onShowRemoveStopConfirmDialog = async (stopId: UUID) => {
+    // we are removing stop that is already stored to backend
+    try {
+      const changes = await prepareDelete({
+        stopId,
+      });
+
+      setDeleteChanges(changes);
+    } catch (err) {
+      deleteErrorHandler(err as Error);
+      await onStopEditingFinished(false);
+    }
+  };
+
+  const onRemoveDraftStop = async () => {
+    setDraftStop(undefined);
+    await onStopEditingFinished(false);
+  };
+
+  const onRemoveStop = async (stopId?: UUID) => {
+    if (stopId) {
+      // we are removing stop that is already stored to backend
+      await onShowRemoveStopConfirmDialog(stopId);
+    } else {
+      // we are removing a draft stop
+      await onRemoveDraftStop();
+    }
+    setPopupInfo(undefined);
+  };
+
+  // we are removing stop that is already stored to backend
+  const onRemovePersistedStop = async () => {
+    try {
+      if (!deleteChanges) {
+        throw new Error('Missing deleteChanges');
+      }
+
+      const variables = mapDeleteChangesToVariables(deleteChanges);
+      await removeStop(variables);
+
+      showSuccessToast(t('stops.removeSuccess'));
+    } catch (err) {
+      deleteErrorHandler(err as Error);
+    }
+    await onStopEditingFinished(true);
   };
 
   const onStopDragEnd = async (event: CallbackEvent, stopId: UUID) => {
@@ -171,6 +216,27 @@ export const Stops = React.forwardRef((props, ref) => {
     } catch (err) {
       defaultErrorHandler(err as Error);
     }
+  };
+
+  // TODO improve the confirmation dialog when Design has iterated on how this should look like
+  const buildDeleteConfirmationText = (changes: DeleteChanges) => {
+    const deletedStopText = t('confirmDeleteStopDialog.description', {
+      stopLabel: changes.deletedStop.label,
+    });
+    const confirmationTextParts: string[] = [deletedStopText];
+
+    // if stop is deleted from some routes, list them
+    if (changes.deleteStopFromRoutes.length > 0) {
+      const routeLabels = changes.deleteStopFromRoutes.map(
+        (item) => item.label,
+      );
+      const removedRoutesText = t('confirmDeleteStopDialog.removedFromRoutes', {
+        routeLabels,
+      });
+      confirmationTextParts.push(removedRoutesText);
+    }
+
+    return confirmationTextParts.join('<br/><br/>');
   };
 
   return (
@@ -219,30 +285,28 @@ export const Stops = React.forwardRef((props, ref) => {
           onEdit={() => {
             setShowEditForm(true);
           }}
-          onDelete={() => {
-            setIsDeleting(true);
-          }}
+          onDelete={() => onRemoveStop(popupInfo?.scheduled_stop_point_id)}
           onClose={onClosePopup}
         />
       )}
       {showEditForm && popupInfo && (
         <EditStopModal
           defaultValues={mapStopDataToFormState(popupInfo)}
-          onCancel={() => setShowEditForm(false)}
-          onClose={() => setShowEditForm(false)}
+          onCancel={() => onStopEditingFinished(false)}
+          onClose={() => onStopEditingFinished(true)}
         />
       )}
-      <ConfirmationDialog
-        isOpen={isDeleting}
-        onCancel={() => setIsDeleting(false)}
-        onConfirm={() =>
-          onRemoveStop(popupInfo?.scheduled_stop_point_id || undefined)
-        }
-        title={t('confirmDeleteStopDialog.title')}
-        description={t('confirmDeleteStopDialog.description')}
-        confirmText={t('confirmDeleteStopDialog.confirmText')}
-        cancelText={t('confirmDeleteStopDialog.cancelText')}
-      />
+      {deleteChanges && (
+        <ConfirmationDialog
+          isOpen={!!deleteChanges}
+          onCancel={() => setDeleteChanges(undefined)}
+          onConfirm={onRemovePersistedStop}
+          title={t('confirmDeleteStopDialog.title')}
+          description={buildDeleteConfirmationText(deleteChanges)}
+          confirmText={t('confirmDeleteStopDialog.confirmText')}
+          cancelText={t('confirmDeleteStopDialog.cancelText')}
+        />
+      )}
     </>
   );
 });

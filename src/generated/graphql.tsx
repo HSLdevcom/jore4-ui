@@ -6022,7 +6022,7 @@ export type ScheduledStopPointDefaultFieldsFragment = { __typename?: 'service_pa
 export type ScheduledStopPointAllFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number };
 
 export type RemoveStopMutationVariables = Exact<{
-  id: Scalars['uuid'];
+  stop_id: Scalars['uuid'];
 }>;
 
 
@@ -7023,9 +7023,9 @@ export type DeleteStopFromJourneyPatternMutationHookResult = ReturnType<typeof u
 export type DeleteStopFromJourneyPatternMutationResult = Apollo.MutationResult<DeleteStopFromJourneyPatternMutation>;
 export type DeleteStopFromJourneyPatternMutationOptions = Apollo.BaseMutationOptions<DeleteStopFromJourneyPatternMutation, DeleteStopFromJourneyPatternMutationVariables>;
 export const RemoveStopDocument = gql`
-    mutation RemoveStop($id: uuid!) {
+    mutation RemoveStop($stop_id: uuid!) {
   delete_service_pattern_scheduled_stop_point(
-    where: {scheduled_stop_point_id: {_eq: $id}}
+    where: {scheduled_stop_point_id: {_eq: $stop_id}}
   ) {
     returning {
       scheduled_stop_point_id
@@ -7048,7 +7048,7 @@ export type RemoveStopMutationFn = Apollo.MutationFunction<RemoveStopMutation, R
  * @example
  * const [removeStopMutation, { data, loading, error }] = useRemoveStopMutation({
  *   variables: {
- *      id: // value for 'id'
+ *      stop_id: // value for 'stop_id'
  *   },
  * });
  */
