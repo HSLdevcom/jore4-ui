@@ -23,6 +23,7 @@ export const ConfirmationDialog: React.FC<Props> = ({
   cancelText,
   className,
 }) => {
+  const descHtml = { __html: description };
   return (
     <Dialog
       as="div"
@@ -39,7 +40,8 @@ export const ConfirmationDialog: React.FC<Props> = ({
             </button>
           </div>
 
-          <p className="my-5 text-base">{description}</p>
+          {/* eslint-disable-next-line react/no-danger */}
+          <p className="my-5 text-base" dangerouslySetInnerHTML={descHtml} />
           <div className="flex justify-end space-x-5">
             <SimpleButton inverted onClick={onCancel}>
               {cancelText}

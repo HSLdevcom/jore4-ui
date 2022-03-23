@@ -37,9 +37,9 @@ const SCHEDULED_STOP_POINT_ALL_FIELDS = gql`
 `;
 
 const REMOVE_STOP = gql`
-  mutation RemoveStop($id: uuid!) {
+  mutation RemoveStop($stop_id: uuid!) {
     delete_service_pattern_scheduled_stop_point(
-      where: { scheduled_stop_point_id: { _eq: $id } }
+      where: { scheduled_stop_point_id: { _eq: $stop_id } }
     ) {
       returning {
         scheduled_stop_point_id

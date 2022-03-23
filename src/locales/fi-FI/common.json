@@ -48,6 +48,7 @@
     "finnishName": "Nimi (Suomi)",
     "saveSuccess": "Pysäkki luotu",
     "editSuccess": "Pysäkki muokattu",
+    "removeSuccess": "Pysäkki poistettu",
     "fetchClosestLinkFailed": "Infrastruktuurilinkkiä ei pystytty päättelemään pysäkille",
     "fetchDirectionFailed": "Suuntaa ei pystytty päättelemään pysäkin infrastruktuurilinkille",
     "notPartOfRoute": "Ei reitin käytössä",
@@ -90,7 +91,8 @@
   },
   "confirmDeleteStopDialog": {
     "title": "Poista pysäkki?",
-    "description": "Oletko varma, että haluat poistaa pysäkin?",
+    "description": "Oletko varma, että haluat poistaa pysäkin? ({{ stopLabel }})",
+    "removedFromRoutes": "Pysäkki poistetaan seuraavilta reiteiltä: {{ routeLabels }}",
     "confirmText": "Poista",
     "cancelText": "Peruuta"
   },
