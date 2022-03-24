@@ -1,3 +1,4 @@
+import partial from 'lodash/partial';
 import { DateTime } from 'luxon';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,16 +15,40 @@ interface FilterItem {
   filterFunction: StopFilterFunction;
 }
 
-const isFutureStop: (date: DateTime) => StopFilterFunction = (date) => (stop) =>
-  stop.validity_start > date;
+const isFutureStop = (
+  observationDate: DateTime,
+  stop: ServicePatternScheduledStopPoint,
+) => {
+  // if stop has been valid indefinitely from the start, it can never be a future stop
+  if (!stop.validity_start) {
+    return false;
+  }
 
-const isCurrentStop: (date: DateTime) => StopFilterFunction =
-  (date) => (stop) =>
-    stop.validity_start <= date &&
-    (!stop.validity_end || stop.validity_end >= date);
+  // otherwise its validity has to start after the observation date
+  return stop.validity_start > observationDate;
+};
 
-const isPastStop: (date: DateTime) => StopFilterFunction = (date) => (stop) =>
-  !!(stop.validity_end && stop.validity_end < date);
+const isPastStop = (
+  observationDate: DateTime,
+  stop: ServicePatternScheduledStopPoint,
+) => {
+  // if stop is valid indefinitely, it can never be a past stop
+  if (!stop.validity_end) {
+    return false;
+  }
+
+  // otherwise its validity has to end before the observation date
+  return stop.validity_end < observationDate;
+};
+
+const isCurrentStop = (
+  observationDate: DateTime,
+  stop: ServicePatternScheduledStopPoint,
+) => {
+  return (
+    !isPastStop(observationDate, stop) && !isFutureStop(observationDate, stop)
+  );
+};
 
 export const useFilterStops = () => {
   const { t } = useTranslation();
@@ -37,17 +62,17 @@ export const useFilterStops = () => {
     {
       type: FilterType.ShowFutureStops,
       label: t('filters.future'),
-      filterFunction: isFutureStop(observationDate),
+      filterFunction: partial(isFutureStop, observationDate),
     },
     {
       type: FilterType.ShowCurrentStops,
       label: t('filters.current'),
-      filterFunction: isCurrentStop(observationDate),
+      filterFunction: partial(isCurrentStop, observationDate),
     },
     {
       type: FilterType.ShowPastStops,
       label: t('filters.past'),
-      filterFunction: isPastStop(observationDate),
+      filterFunction: partial(isPastStop, observationDate),
     },
   ];
 
