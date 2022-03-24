@@ -1,4 +1,4 @@
-import { FormState as RouteFormState } from '../components/forms/RoutePropertiesForm';
+import { RouteFormState } from '../components/forms/RoutePropertiesForm.types';
 import { RouteStop } from '../context/MapEditor';
 import {
   InsertRouteOneMutationVariables,

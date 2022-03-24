@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { FormState } from '../components/forms/RoutePropertiesForm';
+import { RouteFormState } from '../components/forms/RoutePropertiesForm.types';
 import {
   InsertRouteOneMutationVariables,
   RouteRouteInsertInput,
@@ -15,7 +15,7 @@ import {
 } from '../utils';
 
 const mapFormToMutation = (
-  state: FormState,
+  state: RouteFormState,
 ): InsertRouteOneMutationVariables => {
   const { label, priority, validityStart, validityEnd, indefinite } = state;
   const mutation: RouteRouteInsertInput = {
@@ -33,7 +33,7 @@ export const useEditRoute = () => {
   const { t } = useTranslation();
   const [patchRoute] = usePatchRouteMutation();
 
-  const worker = async (routeId: UUID, state: FormState) => {
+  const worker = async (routeId: UUID, state: RouteFormState) => {
     const variables = {
       route_id: routeId,
       ...mapFormToMutation(state),
