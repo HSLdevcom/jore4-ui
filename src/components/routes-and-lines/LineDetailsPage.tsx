@@ -10,7 +10,7 @@ import {
 } from '../../generated/graphql';
 import { mapLineDetailsWithRoutesResult } from '../../graphql';
 import { Column, Container, Row } from '../../layoutComponents';
-import { mapToShortDate } from '../../time';
+import { DateLike, mapToShortDate } from '../../time';
 import { SimpleButton } from '../../uiComponents';
 import { mapToVariables } from '../../utils';
 import { AdditionalInformation } from './AdditionalInformation'; // eslint-disable-line import/no-cycle
@@ -95,8 +95,13 @@ export const LineDetailsPage = (): JSX.Element => {
   );
   const line = mapLineDetailsWithRoutesResult(lineDetailsResult);
 
-  const buildValidityPeriod = (validityStart?: string, validityEnd?: string) =>
-    `${mapToShortDate(validityStart)} - ${mapToShortDate(validityEnd) || ''}`;
+  const buildValidityPeriod = (
+    validityStart?: DateLike | null,
+    validityEnd?: DateLike | null,
+  ) =>
+    `${mapToShortDate(validityStart) || ''} - ${
+      mapToShortDate(validityEnd) || ''
+    }`;
 
   const onCreateRoute = () => {
     mapEditorDispatch({ type: 'reset' });

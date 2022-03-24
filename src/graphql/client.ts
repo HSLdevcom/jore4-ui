@@ -1,28 +1,61 @@
 import {
   ApolloClient,
-  concat,
+  from,
   HttpLink,
   InMemoryCache,
   split,
 } from '@apollo/client';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
+import { withScalars } from 'apollo-link-scalars';
+import { buildClientSchema, IntrospectionQuery } from 'graphql';
+import { DateTime } from 'luxon';
+import introspectionResult from '../../graphql.schema.json';
+import { isDateLike, parseDate } from '../time';
 import { mapHttpToWs } from '../utils';
 import { authRoleMiddleware } from './auth';
 
-export const createGraphqlClient = () => {
+const buildScalarMappingLink = () => {
+  const typesMap = {
+    // automatically (de)serializing between graphql timestamptz <-> luxon.DateTime types
+    timestamptz: {
+      serialize: (parsed: unknown) => {
+        // if it's a luxon DateTime, serialize it to ISO string
+        if (DateTime.isDateTime(parsed)) {
+          return parsed.toISO({ includeOffset: true });
+        }
+        // otherwise (string, null, undefined) just pass it on as is
+        return parsed;
+      },
+      parseValue: (raw: unknown) => {
+        if (!isDateLike(raw)) {
+          throw new Error(`Invalid graphql date input: '${raw}'`);
+        }
+
+        return parseDate(raw);
+      },
+    },
+  };
+
+  const schema = buildClientSchema(
+    // graphql-codegen's schema typings are off...
+    introspectionResult as unknown as IntrospectionQuery,
+  );
+
+  return withScalars({ schema, typesMap });
+};
+
+const buildConnectionLink = (isBrowser: boolean) => {
   const graphqlServerUrl = '/api/graphql/v1/graphql';
 
   const httpLink = new HttpLink({
     uri: graphqlServerUrl,
   });
 
-  const apolloLink = concat(authRoleMiddleware, httpLink);
-
   // because next.js might run this on server-side and websockets aren't
   // supported there, we have to check if we are on browser before
   // initializing WebSocket link
-  const wsLink = process.browser
+  const wsLink = isBrowser
     ? new WebSocketLink({
         // WebSocketLink doesn't work with relative url's, so we have to
         // turn relative url into absolute.
@@ -33,8 +66,9 @@ export const createGraphqlClient = () => {
       })
     : undefined;
 
-  const link = process.browser
+  const connectionLink = isBrowser
     ? split(
+        // if running a subscription query, prefer to use wsLink
         ({ query }) => {
           const definition = getMainDefinition(query);
           const isSubscription =
@@ -44,11 +78,15 @@ export const createGraphqlClient = () => {
         },
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         wsLink!,
-        apolloLink,
+        httpLink,
       )
-    : apolloLink;
+    : httpLink;
 
-  const cache = new InMemoryCache({
+  return connectionLink;
+};
+
+const buildCacheDefinition = () => {
+  const cacheDefinition = new InMemoryCache({
     typePolicies: {
       route_route: {
         keyFields: ['route_id'],
@@ -58,6 +96,16 @@ export const createGraphqlClient = () => {
       },
     },
   });
+
+  return cacheDefinition;
+};
+
+export const createGraphqlClient = () => {
+  const scalarMappingLink = buildScalarMappingLink();
+  const connectionLink = buildConnectionLink(!!process.browser);
+  const link = from([scalarMappingLink, authRoleMiddleware, connectionLink]);
+
+  const cache = buildCacheDefinition();
 
   const client = new ApolloClient({
     link,

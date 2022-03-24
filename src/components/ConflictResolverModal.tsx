@@ -25,8 +25,8 @@ const Td: React.FC = ({ children }) => (
 );
 
 interface CommonConflictItem {
-  validityStart: DateTime;
-  validityEnd: DateTime;
+  validityStart?: DateTime;
+  validityEnd?: DateTime;
   priority: Priority;
   label: string;
   id: UUID;
@@ -36,8 +36,8 @@ interface CommonConflictItem {
 export const mapLineToCommonConflictItem = (
   line: RouteLine,
 ): CommonConflictItem => ({
-  validityStart: line.validity_start,
-  validityEnd: line.validity_end,
+  validityStart: line.validity_start || undefined,
+  validityEnd: line.validity_end || undefined,
   priority: line.priority,
   label: line.label,
   id: line.line_id,
@@ -53,7 +53,9 @@ const ConflictItemRow = ({
   return (
     <tr key={item.id}>
       <Td>{mapPriorityToUiName(item.priority)}</Td>
-      <Td>{mapToShortDate(item.validityStart)}</Td>
+      <Td>
+        {mapToShortDate(item.validityStart) || t('saveChangesModal.indefinite')}
+      </Td>
       <Td>
         {mapToShortDate(item.validityEnd) || t('saveChangesModal.indefinite')}
       </Td>

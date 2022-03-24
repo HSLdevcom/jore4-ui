@@ -15,15 +15,15 @@ interface FilterItem {
 }
 
 const isFutureStop: (date: DateTime) => StopFilterFunction = (date) => (stop) =>
-  DateTime.fromISO(stop.validity_start) > date;
+  stop.validity_start > date;
 
 const isCurrentStop: (date: DateTime) => StopFilterFunction =
   (date) => (stop) =>
-    DateTime.fromISO(stop.validity_start) <= date &&
-    (!stop.validity_end || DateTime.fromISO(stop.validity_end) >= date);
+    stop.validity_start <= date &&
+    (!stop.validity_end || stop.validity_end >= date);
 
 const isPastStop: (date: DateTime) => StopFilterFunction = (date) => (stop) =>
-  stop.validity_end && DateTime.fromISO(stop.validity_end) < date;
+  !!(stop.validity_end && stop.validity_end < date);
 
 export const useFilterStops = () => {
   const { t } = useTranslation();
