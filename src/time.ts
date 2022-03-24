@@ -42,5 +42,5 @@ export const isDateInRange = (
   startDate: DateTime,
   endDate?: DateTime,
 ) => {
-  return date >= startDate && (!endDate || date <= endDate);
+  return date >= startDate && (!endDate?.isValid || date <= endDate);
 };
