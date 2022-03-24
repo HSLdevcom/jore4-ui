@@ -16,10 +16,11 @@ import {
   SimpleButton,
 } from '../../uiComponents';
 import { mapToVariables, submitFormByRef } from '../../utils';
-import { FormState, RoutePropertiesForm } from '../forms/RoutePropertiesForm';
+import { RoutePropertiesForm } from '../forms/RoutePropertiesForm';
+import { RouteFormState } from '../forms/RoutePropertiesForm.types';
 import { PageHeader } from './PageHeader';
 
-const mapRouteToFormState = (route: RouteRoute): FormState => ({
+const mapRouteToFormState = (route: RouteRoute): RouteFormState => ({
   description_i18n: route.description_i18n || '',
   label: route.label,
   on_line_id: route.on_line_id,
@@ -54,7 +55,7 @@ export const EditRoutePage = (): JSX.Element => {
     setHasFinishedEditing(true);
   };
 
-  const onSubmit = async (state: FormState) => {
+  const onSubmit = async (state: RouteFormState) => {
     try {
       await editRoute(id, state);
       setHasFinishedEditing(true);

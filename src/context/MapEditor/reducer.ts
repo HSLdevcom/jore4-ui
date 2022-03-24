@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { FormState as RouteFormState } from '../../components/forms/RoutePropertiesForm';
+import { RouteFormState } from '../../components/forms/RoutePropertiesForm.types';
 import { InfrastructureLinkAlongRoute } from '../../graphql';
 
 export enum Mode {

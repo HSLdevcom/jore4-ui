@@ -2,42 +2,28 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 import { Column, Row } from '../../layoutComponents';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
-import {
-  ConfirmSaveForm,
-  FormState as ConfirmSaveFormState,
-  schema as confirmSaveFormSchema,
-} from './ConfirmSaveForm';
+import { ConfirmSaveForm } from './ConfirmSaveForm';
+import { routeFormSchema, RouteFormState } from './RoutePropertiesForm.types';
 
-interface Props {
+export interface RouteFormProps {
   id?: string;
   routeLabel?: string | null;
   className?: string;
-  defaultValues: Partial<FormState>;
-  onSubmit: (state: FormState) => void;
+  defaultValues: Partial<RouteFormState>;
+  onSubmit: (state: RouteFormState) => void;
 }
 
-export const schema = z
-  .object({
-    label: z.string().min(1),
-    description_i18n: z.string().min(1),
-    on_line_id: z.string().uuid().min(1),
-  })
-  .merge(confirmSaveFormSchema);
-
-export type FormState = z.infer<typeof schema> & ConfirmSaveFormState;
-
 const RoutePropertiesFormComponent = (
-  { id, routeLabel, className, defaultValues, onSubmit }: Props,
+  { id, routeLabel, className, defaultValues, onSubmit }: RouteFormProps,
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();
 
-  const methods = useForm<FormState>({
+  const methods = useForm<RouteFormState>({
     defaultValues,
-    resolver: zodResolver(schema),
+    resolver: zodResolver(routeFormSchema),
   });
 
   const {
