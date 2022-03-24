@@ -1,16 +1,14 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HTMLOverlay } from 'react-map-gl';
 import { submitFormByRef } from '../../../utils';
-import {
-  FormState,
-  RoutePropertiesForm,
-} from '../../forms/RoutePropertiesForm';
+import { RoutePropertiesForm } from '../../forms/RoutePropertiesForm';
+import { RouteFormState } from '../../forms/RoutePropertiesForm.types';
 import { Modal } from '../Modal';
 
 interface Props {
-  defaultValues: Partial<FormState>;
-  onSuccess: (data: FormState) => void;
+  defaultValues: Partial<RouteFormState>;
+  onSuccess: (data: RouteFormState) => void;
   onCancel: () => void;
   onClose: () => void;
 }
