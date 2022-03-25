@@ -5909,6 +5909,13 @@ export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }> };
 
+export type SearchAllLinesQueryVariables = Exact<{
+  filter?: Maybe<RouteLineBoolExp>;
+}>;
+
+
+export type SearchAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string }> }> };
+
 export type ListOwnLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6421,6 +6428,45 @@ export function useListAllLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type ListAllLinesQueryHookResult = ReturnType<typeof useListAllLinesQuery>;
 export type ListAllLinesLazyQueryHookResult = ReturnType<typeof useListAllLinesLazyQuery>;
 export type ListAllLinesQueryResult = Apollo.QueryResult<ListAllLinesQuery, ListAllLinesQueryVariables>;
+export const SearchAllLinesDocument = gql`
+    query SearchAllLines($filter: route_line_bool_exp) {
+  route_line(where: $filter) {
+    ...line_default_fields
+    line_routes {
+      ...route_all_fields
+    }
+  }
+}
+    ${LineDefaultFieldsFragmentDoc}
+${RouteAllFieldsFragmentDoc}`;
+
+/**
+ * __useSearchAllLinesQuery__
+ *
+ * To run a query within a React component, call `useSearchAllLinesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchAllLinesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchAllLinesQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useSearchAllLinesQuery(baseOptions?: Apollo.QueryHookOptions<SearchAllLinesQuery, SearchAllLinesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchAllLinesQuery, SearchAllLinesQueryVariables>(SearchAllLinesDocument, options);
+      }
+export function useSearchAllLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchAllLinesQuery, SearchAllLinesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchAllLinesQuery, SearchAllLinesQueryVariables>(SearchAllLinesDocument, options);
+        }
+export type SearchAllLinesQueryHookResult = ReturnType<typeof useSearchAllLinesQuery>;
+export type SearchAllLinesLazyQueryHookResult = ReturnType<typeof useSearchAllLinesLazyQuery>;
+export type SearchAllLinesQueryResult = Apollo.QueryResult<SearchAllLinesQuery, SearchAllLinesQueryVariables>;
 export const ListOwnLinesDocument = gql`
     query ListOwnLines {
   route_line {

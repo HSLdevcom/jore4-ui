@@ -1,3 +1,6 @@
+export * from './search/useSearch';
+export * from './search/useSearchQueryParser';
+export * from './search/useSearchResults';
 export * from './useAsyncQuery';
 export * from './useCheckValidityAndPriorityConflicts';
 export * from './useContextStateSelector';
