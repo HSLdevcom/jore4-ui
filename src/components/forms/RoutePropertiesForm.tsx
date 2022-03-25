@@ -1,8 +1,12 @@
+import { Switch as HuiSwitch } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { MapEditorContext } from '../../context/MapEditor';
 import { Column, Row } from '../../layoutComponents';
+import { Switch, SwitchLabel } from '../../uiComponents';
+import { TemplateRouteSelector } from '../routes-and-lines/TemplateRouteSelector';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { ConfirmSaveForm } from './ConfirmSaveForm';
 import { routeFormSchema, RouteFormState } from './RoutePropertiesForm.types';
@@ -20,11 +24,17 @@ const RoutePropertiesFormComponent = (
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();
+  const {
+    state: { editedRouteData, creatingNewRoute },
+    dispatch,
+  } = useContext(MapEditorContext);
 
   const methods = useForm<RouteFormState>({
     defaultValues,
     resolver: zodResolver(routeFormSchema),
   });
+
+  const [basedOnTemplateRoute, setBasedOnTemplateRoute] = useState(false);
 
   const {
     register,
@@ -32,6 +42,18 @@ const RoutePropertiesFormComponent = (
     formState: { errors },
     control,
   } = methods;
+
+  const setTemplateRoute = (uuid?: UUID) => {
+    dispatch({
+      type: 'setState',
+      payload: {
+        editedRouteData: {
+          ...editedRouteData,
+          templateRouteId: uuid,
+        },
+      },
+    });
+  };
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -88,6 +110,33 @@ const RoutePropertiesFormComponent = (
                 t('formValidation.required')}
             </p>
           </Column>
+          {creatingNewRoute && (
+            <>
+              <Row className="flex-auto items-center">
+                <HuiSwitch.Group>
+                  <SwitchLabel className="my-1 mr-2">
+                    {t('routes.useTemplateRoute')}
+                  </SwitchLabel>
+                  <Switch
+                    checked={basedOnTemplateRoute}
+                    onChange={(enabled: boolean) => {
+                      setBasedOnTemplateRoute(enabled);
+
+                      if (!enabled) {
+                        setTemplateRoute(undefined);
+                      }
+                    }}
+                  />
+                </HuiSwitch.Group>
+              </Row>
+              {basedOnTemplateRoute && (
+                <TemplateRouteSelector
+                  value={editedRouteData.templateRouteId}
+                  onChange={(e) => setTemplateRoute(e.target.value)}
+                />
+              )}
+            </>
+          )}
         </Row>
         <Row className="mt-7 border-t">
           <ConfirmSaveForm className="mt-5" />
