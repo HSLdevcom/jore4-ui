@@ -30,7 +30,7 @@ import {
 } from '../../../graphql';
 import { LineStringFeature } from '../../../hooks';
 import { useExtractRouteFromFeature } from '../../../hooks/useExtractRouteFromFeature';
-import { mapToVariables, showToast } from '../../../utils';
+import { showToast } from '../../../utils';
 import { addRoute, removeRoute } from '../mapUtils';
 
 interface Props {
@@ -65,6 +65,7 @@ const DrawRouteLayerComponent = (
     state: { hasRoute, editedRouteData, creatingNewRoute },
     dispatch,
   } = useContext(MapEditorContext);
+  const { templateRouteId } = editedRouteData;
 
   const [routeFeatures, setRouteFeatures] = useState<LineStringFeature[]>([]);
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
@@ -106,9 +107,14 @@ const DrawRouteLayerComponent = (
     return modeDetails ? new modeDetails.handler() : undefined;
   }, [mode]);
 
-  const routesResult = useGetRoutesWithInfrastructureLinksQuery(
-    mapToVariables({ route_ids: [editedRouteData.id] || [] }),
-  );
+  const baseGeometryRouteId = editedRouteData.id || templateRouteId;
+
+  // Fetch existing route's geometry in case editing existing route
+  // or creating a new route based on a template route
+  const routesResult = useGetRoutesWithInfrastructureLinksQuery({
+    skip: !baseGeometryRouteId,
+    variables: { route_ids: baseGeometryRouteId ? [baseGeometryRouteId] : [] },
+  });
 
   const routes = mapRoutesDetailsResult(routesResult);
 
@@ -128,7 +134,7 @@ const DrawRouteLayerComponent = (
         editedRouteData.stops,
         editedRouteData.infraLinks,
         routes,
-        creatingNewRoute,
+        !creatingNewRoute || !!templateRouteId,
       );
 
       const removedStopIds = await getRemovedStopIds(
@@ -185,6 +191,7 @@ const DrawRouteLayerComponent = (
       extractCoordinatesFromFeatures,
       getInfraLinksWithStopsForCoordinates,
       getOldRouteGeometryVariables,
+      templateRouteId,
       getRemovedStopIds,
       extractScheduledStopPointIds,
       getRouteStops,
@@ -196,9 +203,9 @@ const DrawRouteLayerComponent = (
 
   // Update features if needed
   useEffect(() => {
-    // If creating new route or features already exist,
+    // If creating new route (without a template) or features already exist,
     // no need to get new features
-    if (creatingNewRoute || routeFeatures?.length !== 0) {
+    if ((creatingNewRoute && !templateRouteId) || routeFeatures?.length !== 0) {
       return;
     }
 
@@ -225,6 +232,7 @@ const DrawRouteLayerComponent = (
     dispatch,
     routes,
     routeFeatures?.length,
+    templateRouteId,
   ]);
 
   const debouncedOnAddRoute = useMemo(

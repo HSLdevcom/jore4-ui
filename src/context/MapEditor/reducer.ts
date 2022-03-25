@@ -24,6 +24,7 @@ export interface IMapEditorContext {
     metaData?: Partial<RouteFormState>;
     stops: RouteStop[];
     infraLinks?: InfrastructureLinkAlongRoute[];
+    templateRouteId?: UUID;
   };
 }
 
@@ -39,6 +40,7 @@ export const initialState: IMapEditorContext = {
     metaData: undefined,
     stops: [],
     infraLinks: [],
+    templateRouteId: undefined,
   },
 };
 

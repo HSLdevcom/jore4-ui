@@ -8,6 +8,7 @@ import {
   RouteRoute,
   useGetLineDetailsByIdQuery,
   useGetRouteDetailsByIdsQuery,
+  useGetRouteDetailsByLabelWildcardQuery,
   useGetRoutesWithInfrastructureLinksQuery,
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
@@ -232,6 +233,28 @@ const GET_ROUTE_DETAILS_BY_LABELS = gql`
   }
 `;
 
+const GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`
+  query GetRouteDetailsByLabelWildcard(
+    $label: String!
+    $date: timestamptz
+    $priorities: [Int!]
+  ) {
+    route_route(
+      where: {
+        label: { _like: $label }
+        validity_start: { _lte: $date }
+        _or: [
+          { validity_end: { _gte: $date } }
+          { validity_end: { _is_null: true } }
+        ]
+        priority: { _in: $priorities }
+      }
+    ) {
+      ...route_all_fields
+    }
+  }
+`;
+
 export const mapRouteDetailsResult = (
   result: ReturnType<typeof useGetRouteDetailsByIdsQuery>,
 ) => result.data?.route_route[0] as RouteRoute | undefined;
@@ -240,6 +263,7 @@ export const mapRoutesDetailsResult = (
   result:
     | ApolloQueryResult<GetRouteDetailsByIdsQuery>
     | ReturnType<typeof useGetRoutesWithInfrastructureLinksQuery>
+    | ReturnType<typeof useGetRouteDetailsByLabelWildcardQuery>
     | ReturnType<typeof useGetRouteDetailsByIdsQuery>,
 ) => result.data?.route_route as RouteRoute[] | [];
 
