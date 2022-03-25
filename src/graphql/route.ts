@@ -11,6 +11,7 @@ import {
   useGetRoutesWithInfrastructureLinksQuery,
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
+  useSearchAllLinesQuery,
 } from '../generated/graphql';
 import { GqlQueryResult } from './types';
 
@@ -109,6 +110,20 @@ const LIST_ALL_LINES = gql`
     }
   }
 `;
+
+const SEARCH_ALL_LINES = gql`
+  query SearchAllLines($filter: route_line_bool_exp) {
+    route_line(where: $filter) {
+      ...line_default_fields
+      line_routes {
+        ...route_all_fields
+      }
+    }
+  }
+`;
+export const mapSearchAllLinesResult = (
+  result: ReturnType<typeof useSearchAllLinesQuery>,
+) => result.data?.route_line as RouteLine[];
 
 // TODO this is just listing all lines for now
 const LIST_OWN_LINES = gql`
