@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HTMLOverlay } from 'react-map-gl';
 import { submitFormByRef } from '../../utils';
@@ -41,6 +41,7 @@ export const CreateRouteModal = ({
               defaultValues={defaultValues}
               ref={formRef}
               onSubmit={onSuccess}
+              creatingNewRoute
             />
           </Modal>
         </div>

@@ -65,6 +65,7 @@ const DrawRouteLayerComponent = (
     state: { hasRoute, editedRouteData, creatingNewRoute },
     dispatch,
   } = useContext(MapEditorContext);
+  const { templateRouteId } = editedRouteData;
 
   const [routeFeatures, setRouteFeatures] = useState<LineStringFeature[]>([]);
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
@@ -106,8 +107,10 @@ const DrawRouteLayerComponent = (
     return modeDetails ? new modeDetails.handler() : undefined;
   }, [mode]);
 
+  const baseGeometryRouteId = editedRouteData.id || templateRouteId;
+
   const routesResult = useGetRoutesWithInfrastructureLinksQuery(
-    mapToVariables({ route_ids: [editedRouteData.id] || [] }),
+    mapToVariables({ route_ids: [baseGeometryRouteId] || [] }),
   );
 
   const routes = mapRoutesDetailsResult(routesResult);
@@ -128,7 +131,7 @@ const DrawRouteLayerComponent = (
         editedRouteData.stops,
         editedRouteData.infraLinks,
         routes,
-        creatingNewRoute,
+        !creatingNewRoute || !!templateRouteId,
       );
 
       const removedStopIds = await getRemovedStopIds(
@@ -185,6 +188,7 @@ const DrawRouteLayerComponent = (
       extractCoordinatesFromFeatures,
       getInfraLinksWithStopsForCoordinates,
       getOldRouteGeometryVariables,
+      templateRouteId,
       getRemovedStopIds,
       extractScheduledStopPointIds,
       getRouteStops,
@@ -196,9 +200,9 @@ const DrawRouteLayerComponent = (
 
   // Update features if needed
   useEffect(() => {
-    // If creating new route or features already exist,
+    // If creating new route (without a template) or features already exist,
     // no need to get new features
-    if (creatingNewRoute || routeFeatures?.length !== 0) {
+    if ((creatingNewRoute && !templateRouteId) || routeFeatures?.length !== 0) {
       return;
     }
 
@@ -225,6 +229,7 @@ const DrawRouteLayerComponent = (
     dispatch,
     routes,
     routeFeatures?.length,
+    templateRouteId,
   ]);
 
   const debouncedOnAddRoute = useMemo(
