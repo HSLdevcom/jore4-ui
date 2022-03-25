@@ -20,7 +20,10 @@
     "chooseLine": "Valitse linja",
     "changingRoutes": "Muuttuvat reitit",
     "ownLines": "Omat linjat",
-    "showUnusedStops": "Näytä reittiin kuulumattomat pysäkit"
+    "showUnusedStops": "Näytä reittiin kuulumattomat pysäkit",
+    "useTemplateRoute": "Käytä pohjareittiä",
+    "searchTemplate": "Hae pohjareitti",
+    "chooseRoute": "Valitse reitti"
   },
   "lines": {
     "createNew": "Luo uusi linja",

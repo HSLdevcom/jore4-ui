@@ -20,7 +20,10 @@
     "chooseLine": "Choose line",
     "changingRoutes": "Changing routes",
     "ownLines": "Own lines",
-    "showUnusedStops": "Show unused stops"
+    "showUnusedStops": "Show unused stops",
+    "useTemplateRoute": "Use template route",
+    "searchTemplate": "Search for template route",
+    "chooseRoute": "Choose route"
   },
   "lines": {
     "createNew": "Create new line",

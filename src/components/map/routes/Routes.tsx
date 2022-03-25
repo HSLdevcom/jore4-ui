@@ -36,7 +36,9 @@ export const Routes: React.FC = () => {
         editedRouteData: {
           metaData: data,
           stops: [],
+          templateRouteId: editedRouteData.templateRouteId,
         },
+        drawingMode: editedRouteData.templateRouteId ? Mode.Edit : Mode.Draw,
       },
     });
   };
