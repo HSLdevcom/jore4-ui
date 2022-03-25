@@ -3,13 +3,13 @@ services:
     # locking hasura image so that we can develop the UI against a static graphql API
     # Link to available jore4-hasura images in Docker Hub:
     # https://hub.docker.com/r/hsldevcom/jore4-hasura/tags?page=1&ordering=last_updated
-    image: 'hsldevcom/jore4-hasura:seed-main--20220307-78d6bea0544ec3629cd929e24d4665b3b6b97339'
+    image: 'hsldevcom/jore4-hasura:seed-main--20220311-d6131f9b11d70469e34e39784bbac4dde2ba73cc'
     environment:
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
 
   jore4-mapmatching:
     # pinning map-maching API to compatible version
-    image: "hsldevcom/jore4-map-matching:main--c88198562a3800b412647f2e487f89ba5972f216"
+    image: "hsldevcom/jore4-map-matching:main--20220324-8e5179e719ed37725259ee32d54af248549553c6"
 
   martin:
     image: urbica/martin
