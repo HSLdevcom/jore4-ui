@@ -6,11 +6,13 @@ import { Map } from './components/map';
 import { EditLinePage } from './components/routes-and-lines/EditLinePage'; // eslint-disable-line import/no-cycle
 import { EditRoutePage } from './components/routes-and-lines/EditRoutePage'; // eslint-disable-line import/no-cycle
 import { LineDetailsPage } from './components/routes-and-lines/LineDetailsPage'; // eslint-disable-line import/no-cycle
+import { SearchResultPage } from './components/routes-and-lines/search/SearchResultPage'; // eslint-disable-line import/no-cycle
 import { RoutesAndLinesPage } from './components/RoutesAndLinesPage'; // eslint-disable-line import/no-cycle
 
 export enum Path {
   root = '/',
   routes = '/routes',
+  routesSearch = '/routes/search',
   editRoute = '/routes/:id/edit',
   createLine = '/lines/create',
   lineDetails = '/lines/:id',
@@ -58,6 +60,14 @@ export const routes: Record<Path, Route> = {
     getLink: () => Path.routes,
     component: RoutesAndLinesPage,
     includeInNav: true,
+  },
+  [Path.routesSearch]: {
+    _routerRoute: Path.routesSearch,
+    _exact: true,
+    translationKey: 'routes.routesSearchResult',
+    getLink: () => Path.routesSearch,
+    component: SearchResultPage,
+    includeInNav: false,
   },
   [Path.editRoute]: {
     _routerRoute: Path.editRoute,
