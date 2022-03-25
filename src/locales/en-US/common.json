@@ -36,6 +36,7 @@
     "areaOfOperation": "Area of operation",
     "additionalInformation": "Additional information",
     "routes": "Routes",
+    "lines": "Lines",
     "createNewRoute": "Create new route",
     "createNewRouteInstructions": "Route drawing opens in a new window."
   },
@@ -124,9 +125,18 @@
     "observationDate": "Observation date",
     "observationDateAdjusted": "Observation date adjusted"
   },
+  "search": {
+    "advancedSearchTitle": "Advanced search",
+    "searchResultsTitle": "Search results",
+    "resultCount": "{{ resultCount }} results",
+    "searchPlaceholder": "Enter label",
+    "searchLabel": "Search",
+    "search": "Search"
+  },
   "save": "Save",
   "edit": "Edit",
   "cancel": "Cancel",
   "close": "Close",
-  "version": "Version: {{ version }}"
+  "version": "Version: {{ version }}",
+  "hide": "Hide"
 }

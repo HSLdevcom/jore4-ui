@@ -36,6 +36,7 @@
     "areaOfOperation": "Joukkoliikennekohde",
     "additionalInformation": "Oheistiedot",
     "routes": "Reitit",
+    "lines": "Linjat",
     "createNewRoute": "Luo reitti",
     "createNewRouteInstructions": "Täysin uuden reitin luominen avautuu karttanäkymään."
   },
@@ -124,9 +125,18 @@
     "observationDate": "Tarkasteluhetki",
     "observationDateAdjusted": "Tarkasteluhetkeä muutettu"
   },
+  "search": {
+    "advancedSearchTitle": "Tarkenna",
+    "searchResultsTitle": "Hakutulokset",
+    "resultCount": "{{ resultCount }} hakutulosta",
+    "searchPlaceholder": "Anna tunnus",
+    "searchLabel": "Haku",
+    "search": "Hae"
+  },
   "save": "Tallenna",
   "edit": "Muokkaa",
   "cancel": "Peruuta",
   "close": "Sulje",
-  "version": "Versio: {{ version }}"
+  "version": "Versio: {{ version }}",
+  "hide": "Piilota"
 }

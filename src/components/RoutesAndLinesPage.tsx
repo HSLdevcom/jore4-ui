@@ -6,6 +6,7 @@ import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { SimpleButton } from '../uiComponents';
 import { RoutesAndLinesLists } from './routes-and-lines/RoutesAndLinesLists'; // eslint-disable-line import/no-cycle
+import { SearchContainer } from './routes-and-lines/search/conditions/SearchContainer';
 
 export const RoutesAndLinesPage = (): JSX.Element => {
   const { t } = useTranslation();
@@ -32,6 +33,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
           {t('lines.createNew')}
         </SimpleButton>
       </Row>
+      <SearchContainer />
       <RoutesAndLinesLists />
     </Container>
   );

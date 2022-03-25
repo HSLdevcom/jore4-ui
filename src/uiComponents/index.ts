@@ -10,6 +10,7 @@ export * from './Listbox';
 export * from './Modal';
 export * from './SimpleButton';
 export * from './SimpleDropdownMenu';
+export * from './SimpleSmallButton';
 export * from './Spinner';
 export * from './Switch';
 export * from './Toast';
