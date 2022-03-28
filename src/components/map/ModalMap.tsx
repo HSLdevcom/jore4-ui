@@ -79,8 +79,6 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
 
     if (infraLinks && stopIdsWithinRoute && stopIdsWithinRoute.length >= 2) {
-      // TODO: user should be able to select starting stop and final stop from some kind of UI.
-      // TODO: for now, just use the first and last stops found.
       const startingStopId = stopIdsWithinRoute[0];
       const finalStopId = stopIdsWithinRoute[stopIdsWithinRoute.length - 1];
 
