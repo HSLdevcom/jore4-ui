@@ -1,6 +1,6 @@
 import { FC, useReducer } from 'react';
-import { MapEditorContext } from './MapEditorContext';
-import { initialState, mapEditorReducer } from './MapEditorReducer';
+import { MapEditorContext } from './context';
+import { initialState, mapEditorReducer } from './reducer';
 
 export const MapEditorContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(mapEditorReducer, initialState);

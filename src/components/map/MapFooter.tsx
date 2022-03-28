@@ -1,8 +1,13 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
-import { MapEditorContext, Mode } from '../../context/MapEditorContext';
-import { useEditRouteGeometry } from '../../hooks';
+import {
+  hasChangesInProgressSelector,
+  isInViewModeSelector,
+  MapEditorContext,
+  Mode,
+} from '../../context/MapEditor';
+import { useContextStateSelector } from '../../hooks';
 import { Row, Visible } from '../../layoutComponents';
 import { SimpleButton } from '../../uiComponents';
 
@@ -30,7 +35,14 @@ export const MapFooter: React.FC<Props> = ({
     state: { drawingMode, displayedRouteIds, creatingNewRoute, hasRoute },
   } = useContext(MapEditorContext);
 
-  const { hasChangesInProgress, isInViewMode } = useEditRouteGeometry();
+  const hasChangesInProgress = useContextStateSelector(
+    MapEditorContext,
+    hasChangesInProgressSelector,
+  );
+  const isInViewMode = useContextStateSelector(
+    MapEditorContext,
+    isInViewModeSelector,
+  );
 
   return (
     <Row className="space-x-4 bg-white px-10 py-5">

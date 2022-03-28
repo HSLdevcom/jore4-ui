@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { MapEditorContext } from '../context/MapEditorContext';
+import { MapEditorContext } from '../context/MapEditor';
 import { MapFilterContext } from '../context/MapFilter';
 import {
   GetRouteDetailsByIdsDocument,

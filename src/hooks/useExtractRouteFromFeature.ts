@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { getBusRoute } from '../api/routing';
-import { RouteStop } from '../context/MapEditorReducer';
+import { RouteStop } from '../context/MapEditor';
 import {
   GetStopsAlongInfrastructureLinksDocument,
   GetStopsAlongInfrastructureLinksQuery,
