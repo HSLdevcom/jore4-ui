@@ -1,5 +1,6 @@
 export * from './useAsyncQuery';
 export * from './useCheckValidityAndPriorityConflicts';
+export * from './useContextStateSelector';
 export * from './useCreateLine';
 export * from './useCreateStop';
 export * from './useDeleteRoute';

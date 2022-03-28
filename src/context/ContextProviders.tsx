@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapEditorContextProvider } from './MapEditorContextProvider';
+import { MapEditorContextProvider } from './MapEditor';
 import { MapFilterContextProvider } from './MapFilter';
 import { ModalMapContextProvider } from './ModalMapContextProvider';
 import { UserContextProvider } from './UserContextProvider';

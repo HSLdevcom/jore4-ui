@@ -1,7 +1,5 @@
-import { useContext } from 'react';
 import { FormState as RouteFormState } from '../components/forms/RoutePropertiesForm';
-import { MapEditorContext } from '../context/MapEditorContext';
-import { RouteStop } from '../context/MapEditorReducer';
+import { RouteStop } from '../context/MapEditor';
 import {
   InsertRouteOneMutationVariables,
   RouteDirectionEnum,
@@ -44,10 +42,6 @@ export const useEditRouteGeometry = () => {
     useDeleteStopFromJourneyPatternMutation();
 
   const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
-
-  const {
-    state: { drawingMode, creatingNewRoute },
-  } = useContext(MapEditorContext);
 
   const mapStopsToScheduledStopPoints = (stops: UUID[]) => {
     return {
@@ -196,18 +190,12 @@ export const useEditRouteGeometry = () => {
     });
   };
 
-  // TODO: Implement with selectors
-  const isInViewMode = drawingMode === undefined;
-  const hasChangesInProgress = creatingNewRoute || !isInViewMode;
-
   return {
     // edit
     updateRouteGeometryMutation,
     mapRouteDetailsToUpdateMutationVariables,
     deleteStopFromJourneyPattern,
     addStopToRouteJourneyPattern,
-    isInViewMode,
-    hasChangesInProgress,
     // create
     insertRouteMutation,
     mapRouteDetailsToInsertMutationVariables,

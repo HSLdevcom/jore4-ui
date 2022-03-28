@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
-import { MapEditorContext } from '../../context/MapEditorContext';
+import { MapEditorContext } from '../../context/MapEditor';
 import { ModalMapContext } from '../../context/ModalMapContext';
 import {
   RouteLine,

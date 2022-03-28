@@ -2,8 +2,12 @@ import { DateTime } from 'luxon';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdLayers } from 'react-icons/md';
+import {
+  hasChangesInProgressSelector,
+  MapEditorContext,
+} from '../../context/MapEditor';
 import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
-import { useEditRouteGeometry, useFilterStops } from '../../hooks';
+import { useContextStateSelector, useFilterStops } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
 import { IconButton } from '../../uiComponents';
 import { MapOverlay } from './MapOverlay';
@@ -21,7 +25,10 @@ export const ObservationDateOverlay = ({ className }: Props) => {
   } = useContext(MapFilterContext);
 
   const { toggleShowFilters } = useFilterStops();
-  const { hasChangesInProgress } = useEditRouteGeometry();
+  const hasChangesInProgress = useContextStateSelector(
+    MapEditorContext,
+    hasChangesInProgressSelector,
+  );
 
   return (
     <MapOverlay className={`${className} rounded`}>

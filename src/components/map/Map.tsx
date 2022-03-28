@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 import { HTMLOverlay, MapEvent } from 'react-map-gl';
-import { MapEditorContext } from '../../context/MapEditorContext';
+import { MapEditorContext } from '../../context/MapEditor';
 import { MapFilterContext } from '../../context/MapFilter';
 import { useGetDisplayedRoutes } from '../../hooks';
 import { Column } from '../../layoutComponents';

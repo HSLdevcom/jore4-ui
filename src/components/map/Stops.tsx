@@ -2,7 +2,7 @@ import React, { useContext, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEvent } from 'react-map-gl';
 import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
-import { MapEditorContext } from '../../context/MapEditorContext';
+import { MapEditorContext } from '../../context/MapEditor';
 import {
   ReusableComponentsVehicleModeEnum,
   ServicePatternScheduledStopPoint,
