@@ -19,7 +19,7 @@ import {
   Editor,
   RENDER_STATE,
 } from 'react-map-gl-draw';
-import { MapEditorContext, Mode } from '../../context/MapEditorContext';
+import { MapEditorContext, Mode } from '../../context/MapEditor';
 import {
   ReusableComponentsVehicleModeEnum,
   useGetRoutesWithInfrastructureLinksQuery,

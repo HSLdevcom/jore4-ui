@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { MapEditorContext, Mode } from '../../context/MapEditorContext';
+import { MapEditorContext, Mode } from '../../context/MapEditor';
 import { FormState, schema } from '../forms/RoutePropertiesForm';
 import { CreateRouteModal } from './CreateRouteModal';
 

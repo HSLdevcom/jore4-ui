@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapEditorContext, Mode } from '../../context/MapEditorContext';
+import { MapEditorContext, Mode } from '../../context/MapEditor';
 import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
 import { ModalMapContext } from '../../context/ModalMapContext';
 import { useExtractRouteFromFeature } from '../../hooks';

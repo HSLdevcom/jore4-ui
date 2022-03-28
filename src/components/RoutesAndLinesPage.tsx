@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapEditorContext } from '../context/MapEditorContext';
+import { MapEditorContext } from '../context/MapEditor';
 import { ModalMapContext } from '../context/ModalMapContext';
 import {
   RouteLine,

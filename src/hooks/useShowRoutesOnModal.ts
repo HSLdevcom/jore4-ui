@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { useContext } from 'react';
-import { MapEditorContext } from '../context/MapEditorContext';
+import { MapEditorContext } from '../context/MapEditor';
 import { MapFilterContext, setObservationDate } from '../context/MapFilter';
 import { ModalMapContext } from '../context/ModalMapContext';
 import { Maybe } from '../generated/graphql';
