@@ -84,7 +84,7 @@ export const ConflictResolverModal: React.FC<Props> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      className={`fixed inset-16 z-10 overflow-y-auto p-10 drop-shadow-md ${
+      className={`fixed top-1/2 left-1/2 z-10 -translate-y-1/2 -translate-x-1/2 overflow-y-auto p-10 drop-shadow-md ${
         className || ''
       }`}
     >
