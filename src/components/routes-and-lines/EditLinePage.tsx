@@ -7,7 +7,7 @@ import { useEditLine } from '../../hooks';
 import { Container } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
 import { mapToISODate } from '../../time';
-import { mapToVariables } from '../../utils';
+import { mapToVariables, showSuccessToast } from '../../utils';
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
@@ -52,6 +52,7 @@ export const EditLinePage = (): JSX.Element => {
       const variables = mapEditChangesToVariables(changes);
       await editLineMutation({ variables });
       setHasFinishedEditing(true);
+      showSuccessToast(t('lines.saveSuccess'));
     } catch (err) {
       defaultErrorHandler(err);
     }
