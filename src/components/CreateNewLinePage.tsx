@@ -10,6 +10,7 @@ import { useCreateLine } from '../hooks';
 import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { Priority } from '../types/Priority';
+import { showSuccessToast } from '../utils';
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
@@ -43,6 +44,7 @@ export const CreateNewLinePage = (): JSX.Element => {
       const result = await insertLineMutation({ variables });
       const createdLine = mapInsertLineOneResult(result);
       setCreatedLineId(createdLine?.line_id);
+      showSuccessToast(t('lines.saveSuccess'));
     } catch (err) {
       defaultErrorHandler(err);
     }
