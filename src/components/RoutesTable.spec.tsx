@@ -1,6 +1,4 @@
-import { MockedProvider } from '@apollo/client/testing';
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import {
   RouteLine,
   RouteRoute,
@@ -55,15 +53,11 @@ describe(`<${RoutesTable.name} />`, () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const routes = mapListChangingRoutesResult(routesResponseMock)!;
     const { asFragment } = render(
-      <MockedProvider addTypename={false}>
-        <BrowserRouter>
-          <RoutesTable testId={testId}>
-            {routes.map((item: RouteRoute) => (
-              <RoutesTableRow key={item.route_id} route={item} />
-            ))}
-          </RoutesTable>
-        </BrowserRouter>
-      </MockedProvider>,
+      <RoutesTable testId={testId}>
+        {routes.map((item: RouteRoute) => (
+          <RoutesTableRow key={item.route_id} route={item} />
+        ))}
+      </RoutesTable>,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -109,15 +103,11 @@ describe(`<${RoutesTable.name} />`, () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const lines = mapListOwnLinesResult(linesResponseMock)!;
     const { asFragment } = render(
-      <MockedProvider addTypename={false}>
-        <BrowserRouter>
-          <RoutesTable testId={testId}>
-            {lines.map((item: RouteLine) => (
-              <LineTableRow key={item.line_id} line={item} />
-            ))}
-          </RoutesTable>
-        </BrowserRouter>
-      </MockedProvider>,
+      <RoutesTable testId={testId}>
+        {lines.map((item: RouteLine) => (
+          <LineTableRow key={item.line_id} line={item} />
+        ))}
+      </RoutesTable>,
     );
 
     expect(asFragment()).toMatchSnapshot();

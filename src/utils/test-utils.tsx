@@ -1,11 +1,20 @@
 // Based on https://testing-library.com/docs/react-testing-library/setup#custom-render
 
+import { MockedProvider } from '@apollo/client/testing';
 import { render, RenderOptions } from '@testing-library/react'; // eslint-disable-line import/no-extraneous-dependencies
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { ReduxProvider } from '../redux';
 
-const AllTheProviders: FunctionComponent = ({ children }) => {
+const AllTheProviders: FC = ({ children }) => {
   // Add "providers" or "wrappers" that are needed in all DOM render tests here
-  return <>{children}</>;
+  return (
+    <MockedProvider addTypename={false}>
+      <ReduxProvider>
+        <BrowserRouter>{children}</BrowserRouter>
+      </ReduxProvider>
+    </MockedProvider>
+  );
 };
 
 const customRender = (

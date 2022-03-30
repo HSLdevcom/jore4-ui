@@ -2,9 +2,13 @@ import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEditorContext, Mode } from '../../context/MapEditor';
 import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
-import { ModalMapContext } from '../../context/ModalMapContext';
-import { useExtractRouteFromFeature } from '../../hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useExtractRouteFromFeature,
+} from '../../hooks';
 import { useEditRouteGeometry } from '../../hooks/useEditRouteGeometry';
+import { selectIsModalMapOpen, setIsModalMapOpenAction } from '../../redux';
 import { isDateInRange } from '../../time';
 import { ConfirmationDialog, Modal } from '../../uiComponents';
 import { showSuccessToast, showToast } from '../../utils';
@@ -25,10 +29,10 @@ const mapFooterHeight = 82;
 export const ModalMap: React.FC<Props> = ({ className }) => {
   const mapRef = useRef<ExplicitAny>(null);
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const isModalMapOpen = useAppSelector(selectIsModalMapOpen);
   const { state: mapEditorState, dispatch: mapEditorDispatch } =
     useContext(MapEditorContext);
-  const { state: modalMapState, dispatch: modalMapDispatch } =
-    useContext(ModalMapContext);
   const {
     state: { observationDate },
     dispatch: mapFilterDispatch,
@@ -167,7 +171,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
       showToast({ type: 'success', message: t('routes.deleteSuccess') });
 
       setIsDeleting(false);
-      modalMapDispatch({ type: 'close' });
+      dispatch(setIsModalMapOpenAction(false));
     } catch (err) {
       showToast({
         type: 'danger',
@@ -186,14 +190,14 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
 
   const onCloseModalMap = () => {
     mapEditorDispatch({ type: 'reset' });
-    modalMapDispatch({ type: 'close' });
+    dispatch(setIsModalMapOpenAction(false));
   };
 
   const { canAddStops } = mapEditorState;
 
   return (
     <Modal
-      isOpen={modalMapState.isOpen}
+      isOpen={isModalMapOpen}
       onClose={onCloseModalMap}
       className={`absolute left-0 top-0 z-10 h-full w-full !bg-background ${
         className || ''

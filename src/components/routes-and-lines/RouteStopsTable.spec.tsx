@@ -1,8 +1,6 @@
-import { MockedProvider } from '@apollo/client/testing';
 import { fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { GetLineDetailsWithRoutesByIdQuery } from '../../generated/graphql';
 import { GqlQueryResult, mapLineDetailsWithRoutesResult } from '../../graphql';
 import { render } from '../../utils/test-utils';
@@ -173,11 +171,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const line = mapLineDetailsWithRoutesResult(mockResponse)!;
     const { container, asFragment } = render(
-      <MockedProvider addTypename={false}>
-        <BrowserRouter>
-          <RouteStopsTable testId={testId} routes={line.line_routes} />
-        </BrowserRouter>
-      </MockedProvider>,
+      <RouteStopsTable testId={testId} routes={line.line_routes} />,
     );
 
     // the stops don't show as the accordion is not open
