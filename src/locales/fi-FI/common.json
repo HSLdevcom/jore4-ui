@@ -47,7 +47,6 @@
     "createStop": "Luo uusi pysäkki",
     "label": "Tunnus",
     "nameAddress": "Nimi ja osoite",
-    "finnishName": "Nimi (Suomi)",
     "saveSuccess": "Pysäkki luotu",
     "editSuccess": "Pysäkki muokattu",
     "removeSuccess": "Pysäkki poistettu",
