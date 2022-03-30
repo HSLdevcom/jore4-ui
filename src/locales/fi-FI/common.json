@@ -43,11 +43,10 @@
   "stops": {
     "stop": "Pysäkki",
     "stops": "Pysäkit",
-    "stopById": "Pysäkki {{ stopLabel }}",
+    "stopWithLabel": "Pysäkki {{ stopLabel }}",
     "createStop": "Luo uusi pysäkki",
     "label": "Tunnus",
     "nameAddress": "Nimi ja osoite",
-    "finnishName": "Nimi (Suomi)",
     "saveSuccess": "Pysäkki luotu",
     "editSuccess": "Pysäkki muokattu",
     "removeSuccess": "Pysäkki poistettu",
