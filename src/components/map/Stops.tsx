@@ -2,6 +2,7 @@ import React, { useContext, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEvent } from 'react-map-gl';
 import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
+import { useDispatch, useSelector } from 'react-redux';
 import { MapEditorContext } from '../../context/MapEditor';
 import {
   ReusableComponentsVehicleModeEnum,
@@ -22,6 +23,8 @@ import {
   useGetDisplayedRoutes,
 } from '../../hooks';
 import { useFilterStops } from '../../hooks/useFilterStops';
+import { setSelectedStopId as setSelectedStopIdAction } from '../../redux';
+import { selectSelectedStopId } from '../../redux/selectors';
 import { RequiredKeys } from '../../types';
 import { ConfirmationDialog } from '../../uiComponents';
 import {
@@ -51,11 +54,13 @@ export const Stops = React.forwardRef((props, ref) => {
   const [showEditForm, setShowEditForm] = useState(false);
 
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const { filter } = useFilterStops();
 
+  const selectedStopId = useSelector(selectSelectedStopId);
+
   const {
-    dispatch: mapEditorDispatch,
-    state: { selectedStopId, editedRouteData, creatingNewRoute },
+    state: { editedRouteData, creatingNewRoute },
   } = useContext(MapEditorContext);
   const { displayedRouteIds } = useGetDisplayedRoutes();
 
@@ -91,14 +96,8 @@ export const Stops = React.forwardRef((props, ref) => {
       ? mapRouteStopsToStopIds(editedRouteData.stops)
       : routes?.flatMap((route) => getRouteStopIds(route));
 
-  const setSelectedStopId = (id?: UUID) => {
-    mapEditorDispatch({
-      type: 'setState',
-      payload: {
-        selectedStopId: id,
-      },
-    });
-  };
+  const setSelectedStopId = (id?: UUID) =>
+    dispatch(setSelectedStopIdAction(id));
 
   const onOpenPopup = (point: DraftStop) => {
     setPopupInfo(point);
