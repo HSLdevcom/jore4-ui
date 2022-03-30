@@ -23,7 +23,6 @@ import {
 } from '../../../hooks';
 import { useFilterStops } from '../../../hooks/useFilterStops';
 import { RequiredKeys } from '../../../types';
-import { ConfirmationDialog } from '../../../uiComponents';
 import {
   mapLngLatToGeoJSON,
   mapLngLatToPoint,
@@ -33,6 +32,7 @@ import {
   showToast,
 } from '../../../utils';
 import { mapStopDataToFormState } from '../../forms/StopForm';
+import { DeleteStopConfirmationDialog } from './DeleteStopConfirmationDialog';
 import { EditStopModal } from './EditStopModal';
 import { Stop } from './Stop';
 import { StopPopup } from './StopPopup';
@@ -218,27 +218,6 @@ export const Stops = React.forwardRef((props, ref) => {
     }
   };
 
-  // TODO improve the confirmation dialog when Design has iterated on how this should look like
-  const buildDeleteConfirmationText = (changes: DeleteChanges) => {
-    const deletedStopText = t('confirmDeleteStopDialog.description', {
-      stopLabel: changes.deletedStop.label,
-    });
-    const confirmationTextParts: string[] = [deletedStopText];
-
-    // if stop is deleted from some routes, list them
-    if (changes.deleteStopFromRoutes.length > 0) {
-      const routeLabels = changes.deleteStopFromRoutes.map(
-        (item) => item.label,
-      );
-      const removedRoutesText = t('confirmDeleteStopDialog.removedFromRoutes', {
-        routeLabels,
-      });
-      confirmationTextParts.push(removedRoutesText);
-    }
-
-    return confirmationTextParts.join('<br/><br/>');
-  };
-
   return (
     <>
       {stops?.map((item) => {
@@ -297,14 +276,11 @@ export const Stops = React.forwardRef((props, ref) => {
         />
       )}
       {deleteChanges && (
-        <ConfirmationDialog
+        <DeleteStopConfirmationDialog
           isOpen={!!deleteChanges}
           onCancel={() => setDeleteChanges(undefined)}
           onConfirm={onRemovePersistedStop}
-          title={t('confirmDeleteStopDialog.title')}
-          description={buildDeleteConfirmationText(deleteChanges)}
-          confirmText={t('confirmDeleteStopDialog.confirmText')}
-          cancelText={t('confirmDeleteStopDialog.cancelText')}
+          deleteChanges={deleteChanges}
         />
       )}
     </>
