@@ -1,3 +1,4 @@
+export * from './redux';
 export * from './search/useSearch';
 export * from './search/useSearchQueryParser';
 export * from './search/useSearchResults';
