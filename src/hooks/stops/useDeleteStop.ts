@@ -8,19 +8,19 @@ import {
   RouteRoute,
   ServicePatternScheduledStopPoint,
   useRemoveStopMutation,
-} from '../generated/graphql';
-import { mapGetStopWithRouteGraphDataByIdResult } from '../graphql';
+} from '../../generated/graphql';
+import { mapGetStopWithRouteGraphDataByIdResult } from '../../graphql';
 import {
   EditRouteTerminalStopsError,
   removeFromApolloCache,
   showDangerToast,
   showDangerToastWithError,
-} from '../utils';
-import { useAsyncQuery } from './useAsyncQuery';
+} from '../../utils';
+import { useAsyncQuery } from '../useAsyncQuery';
 import {
   getRoutesOfJourneyPatterns,
   isStartingOrEndingStopOfAnyRoute,
-} from './useEditStop';
+} from './utils';
 
 interface DeleteParams {
   stopId: UUID;
