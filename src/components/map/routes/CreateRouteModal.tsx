@@ -1,39 +1,48 @@
 import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HTMLOverlay } from 'react-map-gl';
-import { submitFormByRef } from '../../utils';
-import { FormState, StopForm } from '../forms/StopForm';
-import { Modal } from './Modal';
+import { submitFormByRef } from '../../../utils';
+import {
+  FormState,
+  RoutePropertiesForm,
+} from '../../forms/RoutePropertiesForm';
+import { Modal } from '../Modal';
 
 interface Props {
   defaultValues: Partial<FormState>;
+  onSuccess: (data: FormState) => void;
   onCancel: () => void;
   onClose: () => void;
 }
 
-export const EditStopModal = ({
+export const CreateRouteModal = ({
   defaultValues,
+  onSuccess,
   onCancel,
   onClose,
 }: Props): JSX.Element => {
-  const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
-  const onSave = () => submitFormByRef(formRef);
+  const { t } = useTranslation();
+
+  const onModalSave = () => {
+    submitFormByRef(formRef);
+  };
+
   return (
     <HTMLOverlay
       redraw={() => (
         <div className="flex max-h-full py-5 pl-5">
           <Modal
-            onSave={onSave}
+            onSave={onModalSave}
             onCancel={onCancel}
             onClose={onClose}
-            heading={t('stops.stopById', { id: 'xxxxx' })}
+            heading={t('routes.enterRouteData')}
           >
-            <StopForm
-              className="my-8"
+            <RoutePropertiesForm
+              className="my-8 mx-12 max-w-sm"
               defaultValues={defaultValues}
-              onSubmitSuccess={onClose}
               ref={formRef}
+              onSubmit={onSuccess}
             />
           </Modal>
         </div>

@@ -10,17 +10,14 @@ import { MapEditorContext } from '../../context/MapEditor';
 import { MapFilterContext } from '../../context/MapFilter';
 import { useGetDisplayedRoutes } from '../../hooks';
 import { Column } from '../../layoutComponents';
-import { FilterPanel } from '../../uiComponents/FilterPanel';
-import { DrawRouteLayer } from './DrawRouteLayer';
-import { DynamicInfraLinksVectorLayer } from './DynamicInfraLinksVectorLayer';
-import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
+import { FilterPanel } from '../../uiComponents';
 import { Maplibre } from './Maplibre';
+import { DynamicInfraLinksVectorLayer, InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
-import { RouteLayer } from './RouteLayer';
-import { Routes } from './Routes';
+import { DrawRouteLayer, RouteLayer, Routes } from './routes';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopFilterOverlay } from './StopFilterOverlay';
-import { Stops } from './Stops';
+import { Stops } from './stops';
 
 interface Props {
   drawable?: boolean;

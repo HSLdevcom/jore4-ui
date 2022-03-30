@@ -2,6 +2,7 @@ export * from './Card';
 export * from './CloseIconButton';
 export * from './ConfirmationDialog';
 export * from './EditButton';
+export * from './FilterPanel';
 export * from './FormContainer';
 export * from './IconButton';
 export * from './IconToggle';

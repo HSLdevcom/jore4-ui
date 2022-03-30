@@ -1,10 +1,10 @@
 import React from 'react';
 import { Marker } from 'react-map-gl';
 import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
-import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
-import { theme } from '../../generated/theme';
-import { Point } from '../../types';
-import { Circle } from './Circle';
+import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
+import { theme } from '../../../generated/theme';
+import { Point } from '../../../types';
+import { Circle } from '../markers';
 
 const { colors } = theme;
 
