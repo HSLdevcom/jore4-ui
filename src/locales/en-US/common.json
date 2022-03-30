@@ -47,7 +47,6 @@
     "createStop": "Create new stop",
     "label": "Label",
     "nameAddress": "Name and address",
-    "finnishName": "Name (Finnish)",
     "saveSuccess": "Stop created",
     "editSuccess": "Stop edited",
     "removeSuccess": "Stop removed",

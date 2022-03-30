@@ -260,7 +260,7 @@ export const Stops = React.forwardRef((props, ref) => {
           latitude={
             mapLngLatToPoint(popupInfo.measured_location.coordinates).latitude
           }
-          finnishName={popupInfo.label || ''}
+          label={popupInfo.label || ''}
           onEdit={() => {
             setShowEditForm(true);
           }}
