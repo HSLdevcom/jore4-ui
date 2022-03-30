@@ -1,6 +1,5 @@
 import flow from 'lodash/flow';
 import isEqual from 'lodash/isEqual';
-import uniqBy from 'lodash/uniqBy';
 import { useTranslation } from 'react-i18next';
 import {
   EditStopMutationVariables,
@@ -15,20 +14,24 @@ import {
   ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointSetInput,
   useEditStopMutation,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import {
   mapGetStopByIdResult,
   mapGetStopWithRouteGraphDataByIdResult,
-} from '../graphql';
+} from '../../graphql';
 import {
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
   LinkNotResolvedError,
   mapLngLatToPoint,
   showDangerToast,
-} from '../utils';
-import { useAsyncQuery } from './useAsyncQuery';
+} from '../../utils';
+import { useAsyncQuery } from '../useAsyncQuery';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
+import {
+  getRoutesOfJourneyPatterns,
+  isStartingOrEndingStopOfAnyRoute,
+} from './utils';
 
 interface EditParams {
   stopId: UUID;
@@ -41,37 +44,6 @@ interface EditChanges {
   deleteStopFromRoutes: RouteRoute[];
   deleteStopFromJourneyPatterns: JourneyPatternJourneyPattern[];
 }
-
-// checking whether this stop is the start or end stop of an existing route
-export const isStartingOrEndingStopOfAnyRoute = (
-  stopId: UUID,
-  stopWithRouteGraphData?: ServicePatternScheduledStopPoint,
-) => {
-  return stopWithRouteGraphData?.scheduled_stop_point_in_journey_patterns.some(
-    (item) => {
-      // journey patterns/routes that this stop is part of
-      const route = item.journey_pattern.journey_pattern_route;
-      // is the stop the start or end stop of this given route
-      return (
-        stopId === route?.starts_from_scheduled_stop_point_id ||
-        stopId === route?.ends_at_scheduled_stop_point_id
-      );
-    },
-  );
-};
-
-// gets the unique list of parent routes for the input journey patterns
-export const getRoutesOfJourneyPatterns = (
-  journeyPatterns: JourneyPatternJourneyPattern[],
-) => {
-  const allRoutes = journeyPatterns
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    .map((item) => item.journey_pattern_route!);
-
-  // in the future, multiple journey patterns may have the same route,
-  // so let's make sure we only return unique results
-  return uniqBy(allRoutes, (route) => route.route_id);
-};
 
 export const useEditStop = () => {
   const { t } = useTranslation();
