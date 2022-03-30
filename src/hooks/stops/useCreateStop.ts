@@ -3,8 +3,8 @@ import {
   InsertStopMutationVariables,
   ServicePatternScheduledStopPointInsertInput,
   useInsertStopMutation,
-} from '../generated/graphql';
-import { mapLngLatToPoint } from '../utils';
+} from '../../generated/graphql';
+import { mapLngLatToPoint } from '../../utils';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 
 interface CreateParams {
