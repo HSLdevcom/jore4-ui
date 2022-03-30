@@ -20,9 +20,9 @@ export const EditStopModal = ({
   const formRef = useRef<ExplicitAny>(null);
   const onSave = () => submitFormByRef(formRef);
   const buildHeading = () => {
-    const { finnishName } = defaultValues;
-    return finnishName
-      ? t('stops.stopById', { stopLabel: finnishName })
+    const { label } = defaultValues;
+    return label
+      ? t('stops.stopWithLabel', { stopLabel: label })
       : t('stops.createStop');
   };
   return (

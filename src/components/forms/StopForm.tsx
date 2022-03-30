@@ -30,7 +30,7 @@ import {
 const schema = z
   .object({
     stopId: z.string().uuid().optional(), // for stops that are edited
-    finnishName: z.string().min(1),
+    label: z.string().min(1),
     latitude: z.number().min(-90).max(90),
     longitude: z.number().min(-180).max(180),
   })
@@ -49,7 +49,7 @@ export const mapStopDataToFormState = (
   );
   const formState: Partial<FormState> = {
     stopId: stop.scheduled_stop_point_id,
-    finnishName: stop.label || '',
+    label: stop.label || '',
     latitude,
     longitude,
     priority: stop.priority,
@@ -97,7 +97,7 @@ const StopFormComponent = (
       | ServicePatternScheduledStopPointSetInput
       | ServicePatternScheduledStopPointInsertInput = {
       measured_location: mapPointToGeoJSON(state),
-      label: state.finnishName,
+      label: state.label,
       priority: state.priority,
       validity_start: mapDateInputToValidityStart(state.validityStart),
       validity_end: mapDateInputToValidityEnd(state.validityEnd),
@@ -180,10 +180,10 @@ const StopFormComponent = (
             <Column className="space-y-2">
               <h3 className="text-lg font-bold">{t('stops.nameAddress')}</h3>
               <Column>
-                <label htmlFor="finnishName">{t('stops.label')}</label>
-                <input type="text" {...register('finnishName', {})} />
+                <label htmlFor="label">{t('stops.label')}</label>
+                <input type="text" {...register('label', {})} />
                 <p>
-                  {errors.finnishName?.type === 'too_small' &&
+                  {errors.label?.type === 'too_small' &&
                     t('formValidation.required')}
                 </p>
               </Column>
