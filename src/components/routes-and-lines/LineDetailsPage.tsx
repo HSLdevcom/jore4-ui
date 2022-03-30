@@ -3,13 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
 import { MapEditorContext } from '../../context/MapEditor';
-import { ModalMapContext } from '../../context/ModalMapContext';
 import {
   RouteLine,
   useGetLineDetailsWithRoutesByIdQuery,
 } from '../../generated/graphql';
 import { mapLineDetailsWithRoutesResult } from '../../graphql';
+import { useAppDispatch } from '../../hooks';
 import { Column, Container, Row } from '../../layoutComponents';
+import { setIsModalMapOpenAction } from '../../redux';
 import { DateLike, mapToShortDate } from '../../time';
 import { SimpleButton } from '../../uiComponents';
 import { mapToVariables } from '../../utils';
@@ -87,7 +88,7 @@ const LineTitle: React.FC<LineTitleProps> = ({
 export const LineDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const { dispatch: modalMapDispatch } = useContext(ModalMapContext);
+  const dispatch = useAppDispatch();
   const { dispatch: mapEditorDispatch } = useContext(MapEditorContext);
 
   const lineDetailsResult = useGetLineDetailsWithRoutesByIdQuery(
@@ -114,7 +115,7 @@ export const LineDetailsPage = (): JSX.Element => {
         },
       },
     });
-    modalMapDispatch({ type: 'open' });
+    dispatch(setIsModalMapOpenAction(true));
   };
 
   return (
