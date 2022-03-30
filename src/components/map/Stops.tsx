@@ -16,12 +16,16 @@ import {
 } from '../../graphql';
 import {
   DeleteChanges,
+  useAppDispatch,
+  useAppSelector,
   useDeleteStop,
   useEditStop,
   useExtractRouteFromFeature,
   useGetDisplayedRoutes,
 } from '../../hooks';
 import { useFilterStops } from '../../hooks/useFilterStops';
+import { setSelectedStopIdAction } from '../../redux';
+import { selectSelectedStopId } from '../../redux/selectors';
 import { RequiredKeys } from '../../types';
 import { ConfirmationDialog } from '../../uiComponents';
 import {
@@ -51,11 +55,13 @@ export const Stops = React.forwardRef((props, ref) => {
   const [showEditForm, setShowEditForm] = useState(false);
 
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const { filter } = useFilterStops();
 
+  const selectedStopId = useAppSelector(selectSelectedStopId);
+
   const {
-    dispatch: mapEditorDispatch,
-    state: { selectedStopId, editedRouteData, creatingNewRoute },
+    state: { editedRouteData, creatingNewRoute },
   } = useContext(MapEditorContext);
   const { displayedRouteIds } = useGetDisplayedRoutes();
 
@@ -91,14 +97,8 @@ export const Stops = React.forwardRef((props, ref) => {
       ? mapRouteStopsToStopIds(editedRouteData.stops)
       : routes?.flatMap((route) => getRouteStopIds(route));
 
-  const setSelectedStopId = (id?: UUID) => {
-    mapEditorDispatch({
-      type: 'setState',
-      payload: {
-        selectedStopId: id,
-      },
-    });
-  };
+  const setSelectedStopId = (id?: UUID) =>
+    dispatch(setSelectedStopIdAction(id));
 
   const onOpenPopup = (point: DraftStop) => {
     setPopupInfo(point);

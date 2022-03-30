@@ -1,12 +1,14 @@
 import { ApolloProvider } from '@apollo/client';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import type { AppProps } from 'next/app';
+import { Provider as ReduxProvider } from 'react-redux';
 import { Router } from '../components/Router';
 import { Toaster } from '../components/Toaster';
 import { ContextProviders } from '../context/ContextProviders';
 import '../generated/fontello/css/hsl-icons.css';
 import { createGraphqlClient } from '../graphql';
 import '../i18n';
+import { store } from '../redux';
 import '../styles/globals.css';
 
 function SafeHydrate({ children }: { children: JSX.Element }) {
@@ -22,12 +24,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SafeHydrate>
       <ApolloProvider client={graphqlClient}>
-        <ContextProviders>
-          <Router />
-          <Toaster />
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Component {...pageProps} />
-        </ContextProviders>
+        <ReduxProvider store={store}>
+          <ContextProviders>
+            <Router />
+            <Toaster />
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+            <Component {...pageProps} />
+          </ContextProviders>
+        </ReduxProvider>
       </ApolloProvider>
     </SafeHydrate>
   );

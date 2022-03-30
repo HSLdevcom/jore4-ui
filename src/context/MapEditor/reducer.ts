@@ -17,7 +17,6 @@ export interface IMapEditorContext {
   initiallyDisplayedRouteIds?: UUID[];
   displayedRouteIds?: UUID[];
   creatingNewRoute: boolean;
-  selectedStopId?: UUID;
   canAddStops: boolean;
   drawingMode: Mode | undefined;
   editedRouteData: {
@@ -33,7 +32,6 @@ export const initialState: IMapEditorContext = {
   initiallyDisplayedRouteIds: undefined,
   displayedRouteIds: undefined,
   creatingNewRoute: false,
-  selectedStopId: undefined,
   canAddStops: false,
   drawingMode: undefined,
   editedRouteData: {
