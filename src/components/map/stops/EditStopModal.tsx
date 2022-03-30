@@ -19,6 +19,12 @@ export const EditStopModal = ({
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
   const onSave = () => submitFormByRef(formRef);
+  const buildHeading = () => {
+    const { finnishName } = defaultValues;
+    return finnishName
+      ? t('stops.stopById', { stopLabel: finnishName })
+      : t('stops.createStop');
+  };
   return (
     <HTMLOverlay
       redraw={() => (
@@ -27,7 +33,7 @@ export const EditStopModal = ({
             onSave={onSave}
             onCancel={onCancel}
             onClose={onClose}
-            heading={t('stops.stopById', { id: 'xxxxx' })}
+            heading={buildHeading()}
           >
             <StopForm
               className="my-8"
