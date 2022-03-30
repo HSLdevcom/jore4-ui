@@ -2,28 +2,28 @@ import React, { useContext, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEvent } from 'react-map-gl';
 import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
-import { MapEditorContext } from '../../context/MapEditor';
+import { MapEditorContext } from '../../../context/MapEditor';
 import {
   ReusableComponentsVehicleModeEnum,
   ServicePatternScheduledStopPoint,
   useGetRoutesWithInfrastructureLinksQuery,
   useGetStopsQuery,
-} from '../../generated/graphql';
+} from '../../../generated/graphql';
 import {
   getRouteStopIds,
   mapGetStopsResult,
   mapRoutesDetailsResult,
-} from '../../graphql';
+} from '../../../graphql';
 import {
   DeleteChanges,
   useDeleteStop,
   useEditStop,
   useExtractRouteFromFeature,
   useGetDisplayedRoutes,
-} from '../../hooks';
-import { useFilterStops } from '../../hooks/useFilterStops';
-import { RequiredKeys } from '../../types';
-import { ConfirmationDialog } from '../../uiComponents';
+} from '../../../hooks';
+import { useFilterStops } from '../../../hooks/useFilterStops';
+import { RequiredKeys } from '../../../types';
+import { ConfirmationDialog } from '../../../uiComponents';
 import {
   mapLngLatToGeoJSON,
   mapLngLatToPoint,
@@ -31,8 +31,8 @@ import {
   showDangerToast,
   showSuccessToast,
   showToast,
-} from '../../utils';
-import { mapStopDataToFormState } from '../forms/StopForm';
+} from '../../../utils';
+import { mapStopDataToFormState } from '../../forms/StopForm';
 import { EditStopModal } from './EditStopModal';
 import { Stop } from './Stop';
 import { StopPopup } from './StopPopup';

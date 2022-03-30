@@ -19,19 +19,19 @@ import {
   Editor,
   RENDER_STATE,
 } from 'react-map-gl-draw';
-import { MapEditorContext, Mode } from '../../context/MapEditor';
+import { MapEditorContext, Mode } from '../../../context/MapEditor';
 import {
   ReusableComponentsVehicleModeEnum,
   useGetRoutesWithInfrastructureLinksQuery,
-} from '../../generated/graphql';
+} from '../../../generated/graphql';
 import {
   mapGraphQLRouteToInfraLinks,
   mapRoutesDetailsResult,
-} from '../../graphql';
-import { LineStringFeature } from '../../hooks';
-import { useExtractRouteFromFeature } from '../../hooks/useExtractRouteFromFeature';
-import { mapToVariables, showToast } from '../../utils';
-import { addRoute, removeRoute } from './mapUtils';
+} from '../../../graphql';
+import { LineStringFeature } from '../../../hooks';
+import { useExtractRouteFromFeature } from '../../../hooks/useExtractRouteFromFeature';
+import { mapToVariables, showToast } from '../../../utils';
+import { addRoute, removeRoute } from '../mapUtils';
 
 interface Props {
   mode?: Mode;

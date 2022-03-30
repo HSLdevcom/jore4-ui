@@ -1,9 +1,9 @@
 import React from 'react';
 import { Layer, Source } from 'react-map-gl';
-import { useGetRouteDetailsByIdsQuery } from '../../generated/graphql';
-import { theme } from '../../generated/theme';
-import { mapRouteDetailsResult } from '../../graphql';
-import { mapGeoJSONtoFeature, mapToVariables } from '../../utils';
+import { useGetRouteDetailsByIdsQuery } from '../../../generated/graphql';
+import { theme } from '../../../generated/theme';
+import { mapRouteDetailsResult } from '../../../graphql';
+import { mapGeoJSONtoFeature, mapToVariables } from '../../../utils';
 
 const { colors } = theme;
 

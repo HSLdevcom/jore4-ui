@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layer, Source } from 'react-map-gl';
-import { theme } from '../../generated/theme';
+import { theme } from '../../../generated/theme';
 
 const { colors } = theme;
 
