@@ -5,18 +5,18 @@ import {
   QueryPointDirectionOnLinkDocument,
   QueryPointDirectionOnLinkQuery,
   QueryPointDirectionOnLinkQueryVariables,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import {
   mapClosestLinkResult,
   mapGetPointDirectionOnLinkResult,
-} from '../graphql';
-import { Point } from '../types';
+} from '../../graphql';
+import { Point } from '../../types';
 import {
   DirectionNotResolvedError,
   LinkNotResolvedError,
   mapPointToGeoJSON,
-} from '../utils';
-import { useAsyncQuery } from './useAsyncQuery';
+} from '../../utils';
+import { useAsyncQuery } from '../useAsyncQuery';
 
 interface Params {
   stopLocation: Point;
