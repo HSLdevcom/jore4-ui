@@ -1,7 +1,5 @@
-import React, { useContext, useImperativeHandle, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useContext, useImperativeHandle } from 'react';
 import { MapEvent } from 'react-map-gl';
-import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { MapEditorContext } from '../../../context/MapEditor';
 import {
   ReusableComponentsVehicleModeEnum,
@@ -15,43 +13,31 @@ import {
   StopWithLocation,
 } from '../../../graphql';
 import {
-  DeleteChanges,
-  useAppDispatch,
+  useAppAction,
   useAppSelector,
   useCreateStop,
-  useDeleteStop,
   useEditStop,
   useExtractRouteFromFeature,
   useGetDisplayedRoutes,
 } from '../../../hooks';
 import { useFilterStops } from '../../../hooks/useFilterStops';
-import { selectSelectedStopId, setSelectedStopIdAction } from '../../../redux';
 import {
-  mapLngLatToGeoJSON,
-  mapLngLatToPoint,
-  mapToVariables,
-  showDangerToast,
-  showSuccessToast,
-  showToast,
-} from '../../../utils';
-import { mapStopDataToFormState } from '../../forms/StopForm';
-import { DeleteStopConfirmationDialog } from './DeleteStopConfirmationDialog';
-import { EditStopModal } from './EditStopModal';
+  selectEditedStopData,
+  selectSelectedStopId,
+  setEditedStopDataAction,
+  setSelectedStopIdAction,
+} from '../../../redux';
+import { mapLngLatToPoint, mapToVariables } from '../../../utils';
+import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
-import { StopPopup } from './StopPopup';
 
 export const Stops = React.forwardRef((props, ref) => {
-  // TODO: We might want to move these to MapEditorContext
-  const [popupInfo, setPopupInfo] = useState<StopWithLocation>();
-  const [draftStop, setDraftStop] = useState<StopWithLocation>();
-  const [deleteChanges, setDeleteChanges] = useState<DeleteChanges>();
-  const [showEditForm, setShowEditForm] = useState(false);
-
-  const { t } = useTranslation();
-  const dispatch = useAppDispatch();
   const { filter } = useFilterStops();
 
   const selectedStopId = useAppSelector(selectSelectedStopId);
+  const editedStopData = useAppSelector(selectEditedStopData);
+  const setSelectedStopId = useAppAction(setSelectedStopIdAction);
+  const setEditedStopData = useAppAction(setEditedStopDataAction);
 
   const {
     state: { editedRouteData, creatingNewRoute },
@@ -62,20 +48,6 @@ export const Stops = React.forwardRef((props, ref) => {
   const stopsResult = useGetStopsQuery({});
   const unfilteredStops = mapGetStopsResult(stopsResult);
   const stops = filter(unfilteredStops || []);
-
-  const { createDraftStop } = useCreateStop();
-  const {
-    prepareDelete,
-    mapDeleteChangesToVariables,
-    removeStop,
-    defaultErrorHandler: deleteErrorHandler,
-  } = useDeleteStop();
-  const {
-    prepareEdit,
-    mapEditChangesToVariables,
-    editStopMutation,
-    defaultErrorHandler,
-  } = useEditStop();
 
   const routesResult = useGetRoutesWithInfrastructureLinksQuery(
     mapToVariables({ route_ids: displayedRouteIds || [] }),
@@ -91,131 +63,35 @@ export const Stops = React.forwardRef((props, ref) => {
       ? mapRouteStopsToStopIds(editedRouteData.stops)
       : routes?.flatMap((route) => getRouteStopIds(route));
 
-  const setSelectedStopId = (id?: UUID) =>
-    dispatch(setSelectedStopIdAction(id));
-
-  const onOpenPopup = (point: StopWithLocation) => {
-    setPopupInfo(point);
-    setSelectedStopId(point.scheduled_stop_point_id || undefined);
+  // can be used for triggering the edit for both existing and draft stops
+  const onEditStop = (stop: StopWithLocation) => {
+    setSelectedStopId(stop.scheduled_stop_point_id || undefined);
+    setEditedStopData(stop);
   };
 
-  const onClosePopup = () => {
-    setPopupInfo(undefined);
-    setSelectedStopId(undefined);
-  };
-
+  const { createDraftStop } = useCreateStop();
+  const { defaultErrorHandler } = useEditStop();
   useImperativeHandle(ref, () => ({
     onCreateStop: async (e: MapEvent) => {
       try {
-        const stop = await createDraftStop(mapLngLatToPoint(e.lngLat));
-
-        setDraftStop(stop);
-        onOpenPopup(stop);
+        const draftStop = await createDraftStop(mapLngLatToPoint(e.lngLat));
+        onEditStop(draftStop);
       } catch (err) {
         defaultErrorHandler(err as Error);
       }
     },
   }));
 
-  const onStopEditingFinished = async (refetchStops: boolean) => {
-    setShowEditForm(false);
-    setDraftStop(undefined);
-    setSelectedStopId(undefined);
-    setDeleteChanges(undefined);
-
-    // should we refetch stop data?
-    if (refetchStops) {
-      // the newly created stop should become a regular stop from a draft
-      // also, the recently edited stop's data is refetched
-      await stopsResult.refetch();
-    }
-  };
-
-  const onShowRemoveStopConfirmDialog = async (stopId: UUID) => {
-    // we are removing stop that is already stored to backend
-    try {
-      const changes = await prepareDelete({
-        stopId,
-      });
-
-      setDeleteChanges(changes);
-    } catch (err) {
-      deleteErrorHandler(err as Error);
-      await onStopEditingFinished(false);
-    }
-  };
-
-  const onRemoveDraftStop = async () => {
-    setDraftStop(undefined);
-    await onStopEditingFinished(false);
-  };
-
-  const onRemoveStop = async (stopId?: UUID) => {
-    if (stopId) {
-      // we are removing stop that is already stored to backend
-      await onShowRemoveStopConfirmDialog(stopId);
-    } else {
-      // we are removing a draft stop
-      await onRemoveDraftStop();
-    }
-    setPopupInfo(undefined);
-  };
-
-  // we are removing stop that is already stored to backend
-  const onRemovePersistedStop = async () => {
-    try {
-      if (!deleteChanges) {
-        throw new Error('Missing deleteChanges');
-      }
-
-      const variables = mapDeleteChangesToVariables(deleteChanges);
-      await removeStop(variables);
-
-      showSuccessToast(t('stops.removeSuccess'));
-    } catch (err) {
-      deleteErrorHandler(err as Error);
-    }
-    await onStopEditingFinished(true);
-  };
-
-  const onStopDragEnd = async (event: CallbackEvent, stopId: UUID) => {
-    const existingStop = stops?.find(
-      (item) => item.scheduled_stop_point_id === stopId,
-    );
-    if (!existingStop) {
-      showToast({
-        type: 'danger',
-        message: 'Something went wrong when trying to move stop',
-      });
-      return;
-    }
-
-    try {
-      const changes = await prepareEdit({
-        stopId,
-        patch: {
-          measured_location: mapLngLatToGeoJSON(event.lngLat),
-        },
-      });
-      if (changes.deleteStopFromRoutes.length > 0) {
-        const deletedFromRoutes = changes.deleteStopFromRoutes
-          .map((item) => item.label)
-          .join(', ');
-        showDangerToast(
-          `This stop is now removed from the following routes: ${deletedFromRoutes}`,
-        );
-      }
-      const variables = mapEditChangesToVariables(changes);
-      await editStopMutation({ variables });
-
-      showSuccessToast(t('stops.editSuccess'));
-    } catch (err) {
-      defaultErrorHandler(err as Error);
-    }
+  const onEditingFinished = async () => {
+    setEditedStopData(undefined);
+    // the newly created stop should become a regular stop from a draft
+    // also, the recently edited stop's data is refetched
+    await stopsResult.refetch();
   };
 
   return (
     <>
+      {/* Display existing stops */}
       {stops?.map((item) => {
         const point = mapLngLatToPoint(item.measured_location.coordinates);
         return (
@@ -224,9 +100,7 @@ export const Stops = React.forwardRef((props, ref) => {
             selected={item.scheduled_stop_point_id === selectedStopId}
             longitude={point.longitude}
             latitude={point.latitude}
-            onClick={() => onOpenPopup(item)}
-            onDragEnd={(e) => onStopDragEnd(e, item.scheduled_stop_point_id)}
-            draggable
+            onClick={() => onEditStop(item)}
             onVehicleRoute={
               stopIdsWithinRoute?.includes(item.scheduled_stop_point_id)
                 ? ReusableComponentsVehicleModeEnum.Bus
@@ -235,48 +109,11 @@ export const Stops = React.forwardRef((props, ref) => {
           />
         );
       })}
-      {draftStop && (
-        <Stop
-          selected
-          longitude={
-            mapLngLatToPoint(draftStop.measured_location.coordinates).longitude
-          }
-          latitude={
-            mapLngLatToPoint(draftStop.measured_location.coordinates).latitude
-          }
-          onClick={() => onOpenPopup(draftStop)}
-          onDragEnd={() => null}
-        />
-      )}
-      {popupInfo && (
-        <StopPopup
-          longitude={
-            mapLngLatToPoint(popupInfo.measured_location.coordinates).longitude
-          }
-          latitude={
-            mapLngLatToPoint(popupInfo.measured_location.coordinates).latitude
-          }
-          label={popupInfo.label || ''}
-          onEdit={() => {
-            setShowEditForm(true);
-          }}
-          onDelete={() => onRemoveStop(popupInfo?.scheduled_stop_point_id)}
-          onClose={onClosePopup}
-        />
-      )}
-      {showEditForm && popupInfo && (
-        <EditStopModal
-          defaultValues={mapStopDataToFormState(popupInfo)}
-          onCancel={() => onStopEditingFinished(false)}
-          onClose={() => onStopEditingFinished(true)}
-        />
-      )}
-      {deleteChanges && (
-        <DeleteStopConfirmationDialog
-          isOpen={!!deleteChanges}
-          onCancel={() => setDeleteChanges(undefined)}
-          onConfirm={onRemovePersistedStop}
-          deleteChanges={deleteChanges}
+      {/* Display edited stop + its editor components */}
+      {editedStopData && (
+        <EditStopLayer
+          editedStopData={editedStopData}
+          onEditingFinished={onEditingFinished}
         />
       )}
     </>

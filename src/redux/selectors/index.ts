@@ -10,6 +10,11 @@ export const selectSelectedStopId = createSelector(
   (map) => map.selectedStopId,
 );
 
+export const selectEditedStopData = createSelector(
+  selectMap,
+  (map) => map.editedStopData,
+);
+
 export const selectIsModalMapOpen = createSelector(
   selectModalMap,
   (modalMap) => modalMap.isOpen,

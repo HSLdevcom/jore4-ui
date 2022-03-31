@@ -1,5 +1,6 @@
 import flow from 'lodash/flow';
 import isEqual from 'lodash/isEqual';
+import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
 import {
   EditStopMutationVariables,
@@ -42,9 +43,16 @@ interface EditParams {
 export interface EditChanges {
   stopId: UUID;
   patch: ScheduledStopPointSetInput;
+  editedStop: ServicePatternScheduledStopPoint;
   deleteStopFromRoutes: RouteRoute[];
   deleteStopFromJourneyPatterns: JourneyPatternJourneyPattern[];
 }
+
+export const isEditChanges = (
+  input: Record<string, ExplicitAny>,
+): input is EditChanges => {
+  return !!input.editedStop;
+};
 
 export const useEditStop = () => {
   const { t } = useTranslation();
@@ -136,9 +144,11 @@ export const useEditStop = () => {
       );
     }
 
+    const editedStop = merge({}, oldStop, patch);
     const changes: EditChanges = {
       stopId,
       patch,
+      editedStop,
       deleteStopFromRoutes,
       deleteStopFromJourneyPatterns,
     };

@@ -101,6 +101,13 @@
     "confirmText": "Poista",
     "cancelText": "Peruuta"
   },
+  "confirmEditStopDialog": {
+    "title": "Vahvista muutos",
+    "description": "Vahvista pysäkin muokkaus ({{ stopLabel }})",
+    "removedFromRoutes": "Pysäkki poistetaan seuraavilta reiteiltä: {{ routeLabels }}",
+    "confirmText": "OK",
+    "cancelText": "Peruuta"
+  },
   "priority": {
     "label": "Prioriteetti",
     "standard": "Perusversio",
@@ -139,6 +146,7 @@
   },
   "save": "Tallenna",
   "edit": "Muokkaa",
+  "move": "Siirrä",
   "cancel": "Peruuta",
   "close": "Sulje",
   "version": "Versio: {{ version }}",
