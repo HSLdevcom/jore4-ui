@@ -1,13 +1,14 @@
-import { useUserContext } from '../context/UserContext';
+import { useAppSelector } from '../hooks';
+import { selectUser } from '../redux';
 
 export function Main() {
-  const userContext = useUserContext();
-  const permissions = userContext.userInfo?.permissions;
+  const { userInfo } = useAppSelector(selectUser);
+  const permissions = userInfo?.permissions;
 
   return (
     <div>
       <h1>Welcome!</h1>
-      {!userContext.loggedIn && <p>Please log in.</p>}
+      {!userInfo && <p>Please log in.</p>}
       {permissions && (
         <div>
           <p>You have the following permissions:</p>

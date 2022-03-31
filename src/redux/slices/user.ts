@@ -1,0 +1,27 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { UserInfo } from '../../types/UserInfo';
+
+interface IState {
+  userInfo?: UserInfo;
+}
+
+const initialState: IState = {
+  userInfo: undefined,
+};
+
+const slice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    loginSuccess: (state, action: PayloadAction<UserInfo>) => {
+      state.userInfo = action.payload;
+    },
+    loginFailed: (state) => {
+      state.userInfo = undefined;
+    },
+  },
+});
+
+export const { loginSuccess, loginFailed } = slice.actions;
+
+export const userReducer = slice.reducer;

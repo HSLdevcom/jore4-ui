@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Router } from '../components/Router';
 import { Toaster } from '../components/Toaster';
+import { UserProvider } from '../components/UserProvider';
 import { ContextProviders } from '../context/ContextProviders';
 import '../generated/fontello/css/hsl-icons.css';
 import { createGraphqlClient } from '../graphql';
@@ -26,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ApolloProvider client={graphqlClient}>
         <ReduxProvider store={store}>
           <ContextProviders>
+            <UserProvider />
             <Router />
             <Toaster />
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
