@@ -51,7 +51,7 @@ export const MapComponent = (
   const [showInfraLinks, setShowInfraLinks] = useState(!routeSelected);
   const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(false);
   const [showRoute, setShowRoute] = useState(routeSelected);
-  const [showStops, setShowStops] = useState(!routeSelected);
+  const [showStops, setShowStops] = useState(true);
   const [showDynamicStops, setShowDynamicStops] = useState(false);
 
   // TODO: avoid any type

@@ -7,7 +7,12 @@ import {
   ReusableComponentsVehicleModeEnum,
   ServicePatternScheduledStopPoint,
 } from '../../generated/graphql';
-import { useCreateStop, useEditStop } from '../../hooks';
+import {
+  CreateChanges,
+  EditChanges,
+  useCreateStop,
+  useEditStop,
+} from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
 import { mapToISODate } from '../../time';
 import { RequiredKeys } from '../../types';
@@ -16,8 +21,6 @@ import {
   mapDateInputToValidityStart,
   mapLngLatToPoint,
   mapPointToGeoJSON,
-  showDangerToast,
-  showSuccessToast,
 } from '../../utils';
 import {
   ConfirmSaveForm,
@@ -62,11 +65,11 @@ export const mapStopDataToFormState = (
 interface Props {
   className?: string;
   defaultValues: Partial<FormState>;
-  onSubmitSuccess: () => void;
+  onSubmit: (changes: CreateChanges | EditChanges) => void;
 }
 
 const StopFormComponent = (
-  { className, defaultValues, onSubmitSuccess }: Props,
+  { className, defaultValues, onSubmit }: Props,
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();
@@ -81,14 +84,8 @@ const StopFormComponent = (
     formState: { errors },
   } = methods;
 
-  const {
-    prepareEdit,
-    editStopMutation,
-    mapEditChangesToVariables,
-    defaultErrorHandler,
-  } = useEditStop();
-  const { prepareCreate, mapCreateChangesToVariables, insertStopMutation } =
-    useCreateStop();
+  const { prepareEdit, defaultErrorHandler } = useEditStop();
+  const { prepareCreate } = useCreateStop();
 
   const mapFormStateToInput = (state: FormState) => {
     const input = {
@@ -112,23 +109,11 @@ const StopFormComponent = (
           ...mapFormStateToInput(state),
         },
       });
-      if (changes.deleteStopFromRoutes.length > 0) {
-        const deletedFromRouteLabels = changes.deleteStopFromRoutes.map(
-          (item) => item.label,
-        );
-        showDangerToast(
-          `This stop is now removed from the following routes: ${deletedFromRouteLabels.join(
-            ', ',
-          )}`,
-        );
-      }
-      const variables = mapEditChangesToVariables(changes);
-      await editStopMutation({ variables });
 
-      showSuccessToast(t('stops.editSuccess'));
-      onSubmitSuccess();
+      return changes;
     } catch (err) {
       defaultErrorHandler(err as Error);
+      throw err;
     }
   };
 
@@ -147,19 +132,16 @@ const StopFormComponent = (
           },
         },
       });
-
-      const variables = mapCreateChangesToVariables(changes);
-      await insertStopMutation({ variables });
-
-      showSuccessToast(t('stops.saveSuccess'));
-      onSubmitSuccess();
+      return changes;
     } catch (err) {
       defaultErrorHandler(err as Error);
+      throw err;
     }
   };
 
-  const onSubmit = (state: FormState) => {
-    return state.stopId ? onEdit(state) : onCreate(state);
+  const onFormSubmit = async (state: FormState) => {
+    const changes = state.stopId ? await onEdit(state) : await onCreate(state);
+    return onSubmit(changes);
   };
 
   return (
@@ -167,7 +149,7 @@ const StopFormComponent = (
     <FormProvider {...methods}>
       <form
         className={className || ''}
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onFormSubmit)}
         ref={ref}
       >
         <div className="mx-12">

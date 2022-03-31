@@ -9,6 +9,7 @@ import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 interface Props extends Point {
   label?: string;
   onEdit: () => void;
+  onMove: () => void;
   onClose: () => void;
   onDelete: () => void;
 }
@@ -18,13 +19,14 @@ export const StopPopup = ({
   latitude,
   longitude,
   onEdit,
+  onMove,
   onClose,
   onDelete,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   return (
     <Popup
-      className="w-60"
+      className="w-80"
       tipSize={10}
       offsetLeft={5}
       offsetTop={25}
@@ -48,7 +50,10 @@ export const StopPopup = ({
           <SimpleButton className="!px-3" onClick={onDelete} inverted>
             <MdDelete aria-label={t('map.deleteRoute')} className="text-lg" />
           </SimpleButton>
-          <SimpleButton className="ml-auto" onClick={onEdit}>
+          <SimpleButton className="ml-auto" onClick={onMove}>
+            {t('move')}
+          </SimpleButton>
+          <SimpleButton className="ml-2" onClick={onEdit}>
             {t('edit')}
           </SimpleButton>
         </Row>

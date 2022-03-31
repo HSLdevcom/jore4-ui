@@ -101,6 +101,13 @@
     "confirmText": "Delete",
     "cancelText": "Cancel"
   },
+  "confirmEditStopDialog": {
+    "title": "Confirm changes",
+    "description": "Confirm stop changes ({{ stopLabel }})",
+    "removedFromRoutes": "The stop will be removed from the following routes: {{ routeLabels }}",
+    "confirmText": "OK",
+    "cancelText": "Cancel"
+  },
   "priority": {
     "label": "Priority",
     "standard": "Standard",
@@ -139,6 +146,7 @@
   },
   "save": "Save",
   "edit": "Edit",
+  "move": "Move",
   "cancel": "Cancel",
   "close": "Close",
   "version": "Version: {{ version }}",

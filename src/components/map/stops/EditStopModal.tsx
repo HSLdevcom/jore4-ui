@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HTMLOverlay } from 'react-map-gl';
+import { CreateChanges, EditChanges } from '../../../hooks';
 import { submitFormByRef } from '../../../utils';
 import { FormState, StopForm } from '../../forms/StopForm';
 import { Modal } from '../Modal';
@@ -9,12 +10,14 @@ interface Props {
   defaultValues: Partial<FormState>;
   onCancel: () => void;
   onClose: () => void;
+  onSubmit: (changes: CreateChanges | EditChanges) => void;
 }
 
 export const EditStopModal = ({
   defaultValues,
   onCancel,
   onClose,
+  onSubmit,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
@@ -38,7 +41,7 @@ export const EditStopModal = ({
             <StopForm
               className="my-8"
               defaultValues={defaultValues}
-              onSubmitSuccess={onClose}
+              onSubmit={onSubmit}
               ref={formRef}
             />
           </Modal>

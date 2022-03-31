@@ -12,7 +12,7 @@ interface Props extends Point {
   draggable?: boolean;
   selected?: boolean;
   onClick: () => void;
-  onDragEnd: (event: CallbackEvent) => void;
+  onDragEnd?: (event: CallbackEvent) => void;
   onVehicleRoute?: ReusableComponentsVehicleModeEnum;
 }
 
