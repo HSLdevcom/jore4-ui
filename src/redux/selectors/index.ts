@@ -3,6 +3,7 @@ import { RootState } from '../store';
 
 export const selectMap = (state: RootState) => state.map;
 export const selectModalMap = (state: RootState) => state.modalMap;
+export const selectUser = (state: RootState) => state.user;
 
 export const selectSelectedStopId = createSelector(
   selectMap,

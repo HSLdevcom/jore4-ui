@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { LOGIN_URL, LOGOUT_URL } from '../../api/user';
-import { useUserContext } from '../../context/UserContext';
+import { useAppSelector } from '../../hooks';
+import { selectUser } from '../../redux';
 import { DropdownMenu } from './DropdownMenu';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 }
 
 export const UserNavMenu = ({ className }: Props): JSX.Element => {
-  const userContext = useUserContext();
+  const { userInfo } = useAppSelector(selectUser);
   const { t } = useTranslation();
 
   const userIcon = <i className="icon-person text-3xl" />;
@@ -18,7 +19,7 @@ export const UserNavMenu = ({ className }: Props): JSX.Element => {
     <div
       className={`z-10 self-stretch text-white hover:bg-brand-darker ${className}`}
     >
-      {!userContext.loggedIn ? (
+      {!userInfo ? (
         <a
           href={LOGIN_URL}
           className="mx-3 flex h-full items-center border-b-4 border-transparent hover:border-white focus:outline-none"
@@ -30,7 +31,7 @@ export const UserNavMenu = ({ className }: Props): JSX.Element => {
           buttonContent={
             <>
               {userIcon}
-              {userContext.userInfo?.givenName}
+              {userInfo.givenName}
             </>
           }
         >
