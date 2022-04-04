@@ -20,6 +20,7 @@ import {
   mapGetStopWithRouteGraphDataByIdResult,
 } from '../../graphql';
 import {
+  defaultTo,
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
   LinkNotResolvedError,
@@ -94,16 +95,24 @@ export const useEditStop = () => {
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
   const prepareEdit = async ({ stopId, patch }: EditParams) => {
+    const stopResult = await getStopById({ stopId });
+    const oldStop = mapGetStopByIdResult(stopResult);
+
     const conflicts = await getConflictingStops(
       {
-        // these form values always exist
+        // data model and form validation should ensure that
+        // label and priority always exist
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        label: patch.label!,
+        label: defaultTo(patch.label, oldStop?.label)!,
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        priority: patch.priority!,
+        priority: defaultTo(patch.priority, oldStop?.priority)!,
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        validityStart: patch.validity_start!,
-        validityEnd: patch.validity_end || undefined,
+        validityStart: defaultTo(
+          patch.validity_start,
+          oldStop?.validity_start,
+        )!,
+        validityEnd:
+          defaultTo(patch.validity_end, oldStop?.validity_end) || undefined,
       },
       stopId,
     );
@@ -114,9 +123,6 @@ export const useEditStop = () => {
       deleteStopFromJourneyPatterns: [],
       conflicts,
     };
-
-    const stopResult = await getStopById({ stopId });
-    const oldStop = mapGetStopByIdResult(stopResult);
 
     const newLocation = patch.measured_location?.coordinates;
     const oldLocation = oldStop?.measured_location.coordinates;
