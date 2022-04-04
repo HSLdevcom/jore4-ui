@@ -16,3 +16,4 @@ export * from './useFilterStops';
 export * from './useGetDisplayedRoutes';
 export * from './useShowRoutesOnModal';
 export * from './useUrlQuery';
+export * from './useMapUrlQuery';

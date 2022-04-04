@@ -1,13 +1,15 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router';
 import { MapEditorContext, Mode } from '../../context/MapEditor';
 import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
 import {
   useAppDispatch,
   useAppSelector,
+  useEditRouteGeometry,
   useExtractRouteFromFeature,
+  useMapUrlQuery,
 } from '../../hooks';
-import { useEditRouteGeometry } from '../../hooks/useEditRouteGeometry';
 import { selectIsModalMapOpen, setIsModalMapOpenAction } from '../../redux';
 import { isDateInRange } from '../../time';
 import { ConfirmationDialog, Modal } from '../../uiComponents';
@@ -30,7 +32,9 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const mapRef = useRef<ExplicitAny>(null);
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const history = useHistory();
   const isModalMapOpen = useAppSelector(selectIsModalMapOpen);
+  const { deleteMapOpenQueryParameter, isMapOpen } = useMapUrlQuery();
   const { state: mapEditorState, dispatch: mapEditorDispatch } =
     useContext(MapEditorContext);
   const {
@@ -56,6 +60,26 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   } = useEditRouteGeometry();
 
   const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
+
+  const syncIsModalMapStateWithMapOpenQueryParam = () => {
+    const mapOpen = isMapOpen();
+    dispatch(setIsModalMapOpenAction(mapOpen));
+  };
+
+  useEffect(() => {
+    // Syncronizes the Redux 'isModalMapOpen' state with the
+    // 'mapOpen' query parameter when the page is loaded.
+    syncIsModalMapStateWithMapOpenQueryParam();
+
+    // Syncronizes the Redux 'isModalMapOpen' state with the
+    // 'mapOpen' query parameter when the url changes.
+    // This ensures that the map will be closed if the user
+    // clicks the back button and the 'mapOpen' query parameter
+    // isn't found from the url.
+    return history.listen(() => {
+      syncIsModalMapStateWithMapOpenQueryParam();
+    });
+  });
 
   const { drawingMode } = mapEditorState;
 
@@ -191,6 +215,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const onCloseModalMap = () => {
     mapEditorDispatch({ type: 'reset' });
     dispatch(setIsModalMapOpenAction(false));
+    deleteMapOpenQueryParameter();
   };
 
   const { canAddStops } = mapEditorState;

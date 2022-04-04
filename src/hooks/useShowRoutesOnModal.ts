@@ -6,9 +6,11 @@ import { Maybe } from '../generated/graphql';
 import { setIsModalMapOpenAction } from '../redux';
 import { isDateInRange } from '../time';
 import { useAppDispatch } from './redux';
+import { useMapUrlQuery } from './useMapUrlQuery';
 
 export const useShowRoutesOnModal = () => {
   const dispatch = useAppDispatch();
+  const { addMapOpenQueryParameter } = useMapUrlQuery();
   const { dispatch: mapEditorDispatch } = useContext(MapEditorContext);
   const { dispatch: mapFilterDispatch } = useContext(MapFilterContext);
 
@@ -21,6 +23,7 @@ export const useShowRoutesOnModal = () => {
       },
     });
     dispatch(setIsModalMapOpenAction(true));
+    addMapOpenQueryParameter();
   };
 
   const showRoutesOnModal = (
