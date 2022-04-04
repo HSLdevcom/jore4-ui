@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { MdOutlineHistory, MdPinDrop } from 'react-icons/md';
-import { RouteRoute } from '../../generated/graphql';
+import { RouteDirectionEnum, RouteRoute } from '../../generated/graphql';
 import { useShowRoutesOnModal } from '../../hooks';
 import { Row } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
@@ -13,6 +13,7 @@ import {
   MIN_DATE,
 } from '../../time';
 import { EditButton, IconButton } from '../../uiComponents';
+import { DirectionBadge } from './DirectionBadge';
 
 interface Props {
   className?: string;
@@ -33,7 +34,10 @@ export const RouteStopsHeaderRow = ({
   return (
     <tr className={`border border-white bg-background ${className}`}>
       <td className="border-l-8 py-4 pl-16 pr-4 text-3xl font-bold">
-        {route.label}
+        <Row className="items-center">
+          <DirectionBadge direction={route.direction as RouteDirectionEnum} />
+          {route.label}
+        </Row>
       </td>
       <td className="flex items-center py-4 text-3xl">
         {route.description_i18n}
