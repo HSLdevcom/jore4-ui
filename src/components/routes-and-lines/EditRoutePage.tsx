@@ -36,7 +36,12 @@ export const EditRoutePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const [editRoute] = useEditRoute();
+  const {
+    prepareEdit,
+    mapEditChangesToVariables,
+    editRouteMutation,
+    defaultErrorHandler,
+  } = useEditRoute();
   const [deleteRoute] = useDeleteRoute();
 
   const formRef = useRef<ExplicitAny>(null);
@@ -57,12 +62,14 @@ export const EditRoutePage = (): JSX.Element => {
     setHasFinishedEditing(true);
   };
 
-  const onSubmit = async (state: RouteFormState) => {
+  const onSubmit = async (form: RouteFormState) => {
     try {
-      await editRoute(id, state);
+      const changes = await prepareEdit({ routeId: id, form });
+      const variables = mapEditChangesToVariables(changes);
+      await editRouteMutation({ variables });
       setHasFinishedEditing(true);
     } catch (err) {
-      // noop
+      defaultErrorHandler(err);
     }
   };
 

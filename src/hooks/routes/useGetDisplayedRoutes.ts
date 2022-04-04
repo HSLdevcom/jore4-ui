@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { MapEditorContext } from '../context/MapEditor';
-import { MapFilterContext } from '../context/MapFilter';
+import { MapEditorContext } from '../../context/MapEditor';
+import { MapFilterContext } from '../../context/MapFilter';
 import {
   GetRouteDetailsByIdsDocument,
   GetRouteDetailsByIdsQuery,
@@ -8,9 +8,9 @@ import {
   GetRouteDetailsByLabelsDocument,
   GetRouteDetailsByLabelsQuery,
   GetRouteDetailsByLabelsQueryVariables,
-} from '../generated/graphql';
-import { mapRoutesDetailsResult } from '../graphql';
-import { useAsyncQuery } from './useAsyncQuery';
+} from '../../generated/graphql';
+import { mapRoutesDetailsResult } from '../../graphql';
+import { useAsyncQuery } from '../useAsyncQuery';
 
 export const useGetDisplayedRoutes = () => {
   const [getRouteDetailsByLabels] = useAsyncQuery<

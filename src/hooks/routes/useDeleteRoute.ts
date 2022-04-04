@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { useDeleteRouteMutation } from '../generated/graphql';
-import { mapToVariables, showDangerToast, showSuccessToast } from '../utils';
+import { useDeleteRouteMutation } from '../../generated/graphql';
+import { mapToVariables, showDangerToast, showSuccessToast } from '../../utils';
 
 export const useDeleteRoute = () => {
   const { t } = useTranslation();

@@ -1,5 +1,5 @@
-import { RouteFormState } from '../components/forms/RoutePropertiesForm.types';
-import { RouteStop } from '../context/MapEditor';
+import { RouteFormState } from '../../components/forms/RoutePropertiesForm.types';
+import { RouteStop } from '../../context/MapEditor';
 import {
   InsertRouteOneMutationVariables,
   RouteRoute,
@@ -10,21 +10,21 @@ import {
   useInsertRouteOneMutation,
   useUpdateRouteGeometryMutation,
   useUpdateRouteJourneyPatternMutation,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import {
   getStopsAlongRouteGeometry,
   InfrastructureLinkAlongRoute,
   mapInfraLinksAlongRouteToGraphQL,
   stopBelongsToJourneyPattern,
-} from '../graphql';
+} from '../../graphql';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   mapToObject,
   mapToVariables,
   removeFromApolloCache,
-} from '../utils';
-import { useExtractRouteFromFeature } from './useExtractRouteFromFeature';
+} from '../../utils';
+import { useExtractRouteFromFeature } from '../useExtractRouteFromFeature';
 
 interface DeleteStopFromJourneyPatternParams {
   routeId: UUID;
