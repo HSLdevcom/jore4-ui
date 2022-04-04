@@ -4911,13 +4911,13 @@ export type ServicePatternScheduledStopPointInsertInput = {
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   direction?: Maybe<Scalars['String']>;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location?: Maybe<Scalars['geography_point']>;
   /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority: Scalars['Int'];
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
@@ -6040,6 +6040,13 @@ export type GetStopsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetStopsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number }> };
 
+export type GetStopsByValidityQueryVariables = Exact<{
+  filter?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+}>;
+
+
+export type GetStopsByValidityQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number }> };
+
 export type GetStopByIdQueryVariables = Exact<{
   stopId: Scalars['uuid'];
 }>;
@@ -7139,6 +7146,41 @@ export function useGetStopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetStopsQueryHookResult = ReturnType<typeof useGetStopsQuery>;
 export type GetStopsLazyQueryHookResult = ReturnType<typeof useGetStopsLazyQuery>;
 export type GetStopsQueryResult = Apollo.QueryResult<GetStopsQuery, GetStopsQueryVariables>;
+export const GetStopsByValidityDocument = gql`
+    query GetStopsByValidity($filter: service_pattern_scheduled_stop_point_bool_exp) {
+  service_pattern_scheduled_stop_point(where: $filter) {
+    ...scheduled_stop_point_all_fields
+  }
+}
+    ${ScheduledStopPointAllFieldsFragmentDoc}`;
+
+/**
+ * __useGetStopsByValidityQuery__
+ *
+ * To run a query within a React component, call `useGetStopsByValidityQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopsByValidityQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopsByValidityQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useGetStopsByValidityQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsByValidityQuery, GetStopsByValidityQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopsByValidityQuery, GetStopsByValidityQueryVariables>(GetStopsByValidityDocument, options);
+      }
+export function useGetStopsByValidityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsByValidityQuery, GetStopsByValidityQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopsByValidityQuery, GetStopsByValidityQueryVariables>(GetStopsByValidityDocument, options);
+        }
+export type GetStopsByValidityQueryHookResult = ReturnType<typeof useGetStopsByValidityQuery>;
+export type GetStopsByValidityLazyQueryHookResult = ReturnType<typeof useGetStopsByValidityLazyQuery>;
+export type GetStopsByValidityQueryResult = Apollo.QueryResult<GetStopsByValidityQuery, GetStopsByValidityQueryVariables>;
 export const GetStopByIdDocument = gql`
     query GetStopById($stopId: uuid!) {
   service_pattern_scheduled_stop_point(

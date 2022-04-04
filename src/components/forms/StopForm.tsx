@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -21,6 +21,10 @@ import {
   showDangerToast,
   showSuccessToast,
 } from '../../utils';
+import {
+  ConflictResolverModal,
+  mapStopToCommonConflictItem,
+} from '../ConflictResolverModal';
 import {
   ConfirmSaveForm,
   FormState as ConfirmSaveFormState,
@@ -91,6 +95,9 @@ const StopFormComponent = (
   } = useEditStop();
   const { prepareCreate, mapCreateChangesToVariables, insertStopMutation } =
     useCreateStop();
+  const [conflicts, setConflicts] = useState<
+    ServicePatternScheduledStopPoint[]
+  >([]);
 
   const mapFormStateToInput = (state: FormState) => {
     const input:
@@ -116,6 +123,10 @@ const StopFormComponent = (
           ...mapFormStateToInput(state),
         },
       });
+      if (changes.conflicts?.length) {
+        setConflicts(changes.conflicts);
+        return;
+      }
       if (changes.deleteStopFromRoutes.length > 0) {
         const deletedFromRouteLabels = changes.deleteStopFromRoutes.map(
           (item) => item.label,
@@ -152,6 +163,11 @@ const StopFormComponent = (
         },
       });
 
+      if (changes.conflicts?.length) {
+        setConflicts(changes.conflicts);
+        return;
+      }
+
       const variables = mapCreateChangesToVariables(changes);
       await insertStopMutation({ variables });
 
@@ -174,6 +190,10 @@ const StopFormComponent = (
         onSubmit={handleSubmit(onSubmit)}
         ref={ref}
       >
+        <ConflictResolverModal
+          onClose={() => setConflicts([])}
+          conflicts={conflicts.map(mapStopToCommonConflictItem)}
+        />
         <div className="mx-12">
           <h2 className="pb-6 text-xl font-bold">{t('stops.stop')}</h2>
           <Row className="space-x-10">

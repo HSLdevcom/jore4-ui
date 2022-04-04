@@ -1,10 +1,12 @@
 import flow from 'lodash/flow';
 import {
   InsertStopMutationVariables,
+  ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointInsertInput,
   useInsertStopMutation,
 } from '../../generated/graphql';
 import { mapLngLatToPoint } from '../../utils';
+import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 
 interface CreateParams {
@@ -12,17 +14,28 @@ interface CreateParams {
 }
 interface CreateChanges {
   stopToCreate: ServicePatternScheduledStopPointInsertInput;
+  conflicts?: ServicePatternScheduledStopPoint[];
 }
 
 export const useCreateStop = () => {
   const [insertStopMutation] = useInsertStopMutation();
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
+  const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
 
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
   const prepareCreate = async ({ input }: CreateParams) => {
+    const conflicts = await getConflictingStops({
+      // these form values always exist
+      label: input.label,
+      priority: input.priority,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      validityStart: input.validity_start!,
+      validityEnd: input.validity_end || undefined,
+    });
     const changes: CreateChanges = {
       stopToCreate: input,
+      conflicts,
     };
 
     if (changes.stopToCreate.measured_location) {

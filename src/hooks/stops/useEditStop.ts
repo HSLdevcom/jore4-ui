@@ -27,6 +27,7 @@ import {
   showDangerToast,
 } from '../../utils';
 import { useAsyncQuery } from '../useAsyncQuery';
+import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 import {
   getRoutesOfJourneyPatterns,
@@ -43,6 +44,7 @@ interface EditChanges {
   patch: ServicePatternScheduledStopPointSetInput;
   deleteStopFromRoutes: RouteRoute[];
   deleteStopFromJourneyPatterns: JourneyPatternJourneyPattern[];
+  conflicts?: ServicePatternScheduledStopPoint[];
 }
 
 export const useEditStop = () => {
@@ -57,6 +59,7 @@ export const useEditStop = () => {
     GetStopByIdQuery,
     GetStopByIdQueryVariables
   >(GetStopByIdDocument);
+  const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
 
   // find all route geometries from which this stop has been removed
   const getJourneyPatternsToDeleteStopFrom = (
@@ -91,11 +94,25 @@ export const useEditStop = () => {
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
   const prepareEdit = async ({ stopId, patch }: EditParams) => {
+    const conflicts = await getConflictingStops(
+      {
+        // these form values always exist
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        label: patch.label!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        priority: patch.priority!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        validityStart: patch.validity_start!,
+        validityEnd: patch.validity_end || undefined,
+      },
+      stopId,
+    );
     const changes: EditChanges = {
       stopId,
       patch,
       deleteStopFromRoutes: [],
       deleteStopFromJourneyPatterns: [],
+      conflicts,
     };
 
     const stopResult = await getStopById({ stopId });
