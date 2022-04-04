@@ -3,7 +3,10 @@ import { DateTime } from 'luxon';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { RouteLine, ServicePatternScheduledStopPoint } from '../generated/graphql';
+import {
+  RouteLine,
+  ServicePatternScheduledStopPoint,
+} from '../generated/graphql';
 import { mapPriorityToUiName } from '../i18n/uiNameMappings';
 import { Row } from '../layoutComponents';
 import { mapToShortDate } from '../time';
