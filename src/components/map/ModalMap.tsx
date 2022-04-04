@@ -1,5 +1,6 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router';
 import { MapEditorContext, Mode } from '../../context/MapEditor';
 import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
 import {
@@ -12,6 +13,7 @@ import { selectIsModalMapOpen, setIsModalMapOpenAction } from '../../redux';
 import { isDateInRange } from '../../time';
 import { ConfirmationDialog, Modal } from '../../uiComponents';
 import { showSuccessToast, showToast } from '../../utils';
+import { deleteMapOpenQueryParameter, isMapOpen } from '../../utils/url';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
@@ -188,9 +190,31 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     }
   };
 
+  const history = useHistory();
+  useEffect(() => {
+    const queryParams = new URLSearchParams(history.location.search);
+    if (isMapOpen(queryParams)) {
+      dispatch(setIsModalMapOpenAction(true));
+    } else {
+      dispatch(setIsModalMapOpenAction(false));
+    }
+  });
+
+  useEffect(() => {
+    return history.listen((location) => {
+      const queryParams = new URLSearchParams(location.search);
+      if (isMapOpen(queryParams)) {
+        dispatch(setIsModalMapOpenAction(true));
+      } else {
+        dispatch(setIsModalMapOpenAction(false));
+      }
+    });
+  });
+
   const onCloseModalMap = () => {
     mapEditorDispatch({ type: 'reset' });
     dispatch(setIsModalMapOpenAction(false));
+    deleteMapOpenQueryParameter(history);
   };
 
   const { canAddStops } = mapEditorState;
