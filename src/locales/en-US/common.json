@@ -23,7 +23,9 @@
     "showUnusedStops": "Show unused stops",
     "useTemplateRoute": "Use template route",
     "searchTemplate": "Search for template route",
-    "chooseRoute": "Choose route"
+    "chooseRoute": "Choose route",
+    "direction": "Direction",
+    "chooseDirection": "Choose direction"
   },
   "lines": {
     "createNew": "Create new line",
@@ -131,6 +133,10 @@
     "regional_tram_service": "Regional tram service",
     "city_tram_service": "City tram service",
     "ferry_service": "Ferry service"
+  },
+  "directionEnum": {
+    "outbound": "1 - Outbound",
+    "inbound": "2 - Inbound"
   },
   "formValidation": {
     "required": "Field is required"

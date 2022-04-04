@@ -8,13 +8,20 @@ interface Props extends FormInputProps {
   testId?: string;
 }
 
-export const LineTypeDropdown = (props: Props): JSX.Element => {
+export const LineTypeDropdown = ({
+  testId,
+  value,
+  onChange,
+  onBlur,
+}: Props): JSX.Element => {
   const { t } = useTranslation();
 
   return (
     <EnumDropdown<RouteTypeOfLineEnum>
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
+      testId={testId}
+      value={value}
+      onChange={onChange}
+      onBlur={onBlur}
       placeholder={t('lines.chooseLinesType')}
       enumType={RouteTypeOfLineEnum}
       uiNameMapper={mapLineTypeToUiName}

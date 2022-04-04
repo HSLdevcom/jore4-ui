@@ -22,6 +22,7 @@ const mapFormToMutation = (
     description_i18n: state.description_i18n,
     label,
     on_line_id: state.on_line_id,
+    direction: state.direction,
     priority,
     validity_start: mapDateInputToValidityStart(validityStart),
     validity_end: mapDateInputToValidityEnd(validityEnd, indefinite),
