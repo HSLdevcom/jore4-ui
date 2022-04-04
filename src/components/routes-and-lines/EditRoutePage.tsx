@@ -10,6 +10,7 @@ import { useDeleteRoute, useEditRoute } from '../../hooks';
 import { Container, Row } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
 import { mapToISODate } from '../../time';
+import { RouteDirection } from '../../types/RouteDirection';
 import {
   ConfirmationDialog,
   FormContainer,
@@ -24,6 +25,7 @@ const mapRouteToFormState = (route: RouteRoute): RouteFormState => ({
   description_i18n: route.description_i18n || '',
   label: route.label,
   on_line_id: route.on_line_id,
+  direction: route.direction as RouteDirection,
   priority: route.priority,
   validityStart: mapToISODate(route.validity_start) || '',
   validityEnd: mapToISODate(route?.validity_end) || '',

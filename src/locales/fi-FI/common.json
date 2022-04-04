@@ -23,7 +23,9 @@
     "showUnusedStops": "Näytä reittiin kuulumattomat pysäkit",
     "useTemplateRoute": "Käytä pohjareittiä",
     "searchTemplate": "Hae pohjareitti",
-    "chooseRoute": "Valitse reitti"
+    "chooseRoute": "Valitse reitti",
+    "direction": "Suunta",
+    "chooseDirection": "Valitse suunta"
   },
   "lines": {
     "createNew": "Luo uusi linja",
@@ -131,6 +133,10 @@
     "regional_tram_service": "Pikaraitiotielinja",
     "city_tram_service": "Raitiovaunu",
     "ferry_service": "Lautta"
+  },
+  "directionEnum": {
+    "outbound": "1 - Keskustasta pois",
+    "inbound": "2 - Keskustaan päin"
   },
   "formValidation": {
     "required": "Kenttä vaaditaan"

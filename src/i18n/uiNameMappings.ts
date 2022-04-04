@@ -4,6 +4,7 @@ import {
 } from '../generated/graphql';
 import { i18n } from '../i18n';
 import { Priority } from '../types/Priority';
+import { RouteDirection } from '../types/RouteDirection';
 
 export const mapPriorityToUiName = (key: Priority) => {
   const uiStrings: Record<Priority, string> = {
@@ -20,3 +21,6 @@ export const mapVehicleModeToUiName = (
 
 export const mapLineTypeToUiName = (key: RouteTypeOfLineEnum) =>
   i18n.t(`lineTypeEnum.${key}`);
+
+export const mapDirectionToUiName = (key: RouteDirection) =>
+  i18n.t(`directionEnum.${key}`);

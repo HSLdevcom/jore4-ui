@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { RouteDirection } from '../../types/RouteDirection';
 import {
   FormState as ConfirmSaveFormState,
   schema as confirmSaveFormSchema,
@@ -9,6 +10,7 @@ export const routeFormSchema = z
     label: z.string().min(1),
     description_i18n: z.string().min(1),
     on_line_id: z.string().uuid().min(1),
+    direction: z.nativeEnum(RouteDirection),
   })
   .merge(confirmSaveFormSchema);
 

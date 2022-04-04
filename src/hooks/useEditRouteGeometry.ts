@@ -2,7 +2,6 @@ import { RouteFormState } from '../components/forms/RoutePropertiesForm.types';
 import { RouteStop } from '../context/MapEditor';
 import {
   InsertRouteOneMutationVariables,
-  RouteDirectionEnum,
   RouteRoute,
   UpdateRouteGeometryMutationVariables,
   UpdateRouteJourneyPatternMutationVariables,
@@ -65,7 +64,7 @@ export const useEditRouteGeometry = () => {
       on_line_id: routeDetails.on_line_id,
       label: routeDetails.label,
       description_i18n: routeDetails.description_i18n,
-      direction: RouteDirectionEnum.Outbound, // TODO: make this user-configurable
+      direction: routeDetails.direction,
       priority: routeDetails.priority,
       validity_start: mapDateInputToValidityStart(
         // form validation makes sure that 'validityStart' has a valid value at this poin
