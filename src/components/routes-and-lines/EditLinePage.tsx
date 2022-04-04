@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redirect, useParams } from 'react-router-dom';
 import { RouteLine, useGetLineDetailsByIdQuery } from '../../generated/graphql';
@@ -37,6 +37,7 @@ export const EditLinePage = (): JSX.Element => {
     finnishName: line?.name_i18n,
     primaryVehicleMode: line?.primary_vehicle_mode,
     priority: line?.priority,
+    typeOfLine: line?.type_of_line,
     validityStart: mapToISODate(line?.validity_start),
     validityEnd: mapToISODate(line?.validity_end),
     indefinite: !line?.validity_end,

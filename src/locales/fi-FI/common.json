@@ -36,6 +36,7 @@
     "line": "Linja",
     "linesName": "Linjan nimi",
     "linesType": "Linjan tyyppi",
+    "chooseLinesType": "Valitse linjan tyyppi",
     "areaOfOperation": "Joukkoliikennekohde",
     "additionalInformation": "Oheistiedot",
     "routes": "Reitit",
@@ -112,6 +113,19 @@
     "metro": "Metro",
     "train": "Juna",
     "tram": "Raitiovaunu"
+  },
+  "lineTypeEnum": {
+    "regional_rail_service": "Seudullinen juna",
+    "suburban_railway": "Lähijuna",
+    "metro_service": "Metro",
+    "regional_bus_service": "U-linja",
+    "stopping_bus_service": "Peruslinja",
+    "special_needs_bus": "Lähibussi",
+    "demand_and_response_bus_service": "Kutsuohjattu lähibussi",
+    "express_bus_service": "Runkolinja",
+    "regional_tram_service": "Pikaraitiotielinja",
+    "city_tram_service": "Raitiovaunu",
+    "ferry_service": "Lautta"
   },
   "formValidation": {
     "required": "Kenttä vaaditaan"

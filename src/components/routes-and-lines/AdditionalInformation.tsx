@@ -1,6 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteLine } from '../../generated/graphql';
+import {
+  mapLineTypeToUiName,
+  mapVehicleModeToUiName,
+} from '../../i18n/uiNameMappings';
 import { Column, Row } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
 import { EditButton } from '../../uiComponents';
@@ -28,7 +32,7 @@ export const AdditionalInformation: React.FC<Props> = ({ className, line }) => {
         <FieldValue
           className="w-1/2"
           fieldName={t('lines.primaryVehicleMode')}
-          value={line.primary_vehicle_mode}
+          value={mapVehicleModeToUiName(line.primary_vehicle_mode)}
         />
       </Row>
       <Row className="mb-5">
@@ -40,7 +44,7 @@ export const AdditionalInformation: React.FC<Props> = ({ className, line }) => {
         <FieldValue
           className="w-1/4"
           fieldName={t('lines.linesType')}
-          value="!Peruslinja"
+          value={mapLineTypeToUiName(line.type_of_line)}
         />
         <FieldValue
           className="w-1/2"
