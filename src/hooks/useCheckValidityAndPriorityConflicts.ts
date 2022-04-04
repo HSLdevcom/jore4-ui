@@ -3,8 +3,13 @@ import {
   GetLinesByValidityDocument,
   GetLinesByValidityQuery,
   GetLinesByValidityQueryVariables,
+  GetStopsByValidityDocument,
+  GetStopsByValidityQuery,
+  GetStopsByValidityQueryVariables,
   RouteLine,
   RouteLineBoolExp,
+  ServicePatternScheduledStopPoint,
+  ServicePatternScheduledStopPointBoolExp,
 } from '../generated/graphql';
 import { Priority } from '../types/Priority';
 import { useAsyncQuery } from './useAsyncQuery';
@@ -72,16 +77,43 @@ const buildCommonGqlFilter = (params: CommonParams) => {
   };
 };
 
+const buildValidityStartMissingGqlFilter = (params: CommonParams) => {
+  const { validityEnd } = params;
+
+  return {
+    _or: [
+      // indefinite validity without start or end
+      {
+        _and: [
+          { validity_start: { _is_null: true } },
+          { validity_end: { _is_null: true } },
+        ],
+      },
+      // valid from the beginning of the times until given time
+      {
+        _and: [
+          { validity_start: { _is_null: true } },
+          { validity_end: { _lte: validityEnd } },
+        ],
+      },
+    ],
+  };
+};
+
 export const useCheckValidityAndPriorityConflicts = () => {
   const [getLineValidity] = useAsyncQuery<
     GetLinesByValidityQuery,
     GetLinesByValidityQueryVariables
   >(GetLinesByValidityDocument);
+  const [getStopValidity] = useAsyncQuery<
+    GetStopsByValidityQuery,
+    GetStopsByValidityQueryVariables
+  >(GetStopsByValidityDocument);
 
   const getConflictingLines = async (params: CommonParams, lineId?: UUID) => {
     const isDraft = params.priority === Priority.Draft;
     if (isDraft) {
-      // Resources marked as "draft" are allowed to have conflicts
+      // Resources marked as "draft" are allowed to overlap
       // with priority and validity time
       return [];
     }
@@ -103,7 +135,42 @@ export const useCheckValidityAndPriorityConflicts = () => {
     return data.route_line as RouteLine[];
   };
 
+  const getConflictingStops = async (params: CommonParams, stopId?: UUID) => {
+    const isDraft = params.priority === Priority.Draft;
+    if (isDraft) {
+      // Resources marked as "draft" are allowed to overlap
+      // with priority and validity time
+      return [];
+    }
+
+    // Ignore row itself as if we are editing existing version of row then
+    // possible conflict doesn't matter as we are *overwriting* conflicting
+    // version.
+    const stopsFilter: ServicePatternScheduledStopPointBoolExp = stopId
+      ? { _not: { scheduled_stop_point_id: { _eq: stopId } } }
+      : {};
+    const commonFilter: ServicePatternScheduledStopPointBoolExp =
+      buildCommonGqlFilter(params);
+    const undefinedValidityStartFilter: ServicePatternScheduledStopPointBoolExp =
+      buildValidityStartMissingGqlFilter(params);
+
+    const { data } = await getStopValidity({
+      filter: {
+        ...stopsFilter,
+        // stops do not necessarily have validity start defined
+        // (e.g. if they have been imported from jore3)
+        ...undefinedValidityStartFilter,
+        ...commonFilter,
+      },
+    });
+
+    // We have to cast return type from GetStopsByValidityQuery['service_pattern_scheduled_stop_point'] -> ServicePatternScheduledStopPoint[]
+    // to be able to use simpler type later on. Both should be the same.
+    return data.service_pattern_scheduled_stop_point as ServicePatternScheduledStopPoint[];
+  };
+
   return {
     getConflictingLines,
+    getConflictingStops,
   };
 };

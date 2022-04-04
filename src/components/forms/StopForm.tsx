@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -22,6 +22,10 @@ import {
   mapLngLatToPoint,
   mapPointToGeoJSON,
 } from '../../utils';
+import {
+  ConflictResolverModal,
+  mapStopToCommonConflictItem,
+} from '../ConflictResolverModal';
 import {
   ConfirmSaveForm,
   FormState as ConfirmSaveFormState,
@@ -86,6 +90,9 @@ const StopFormComponent = (
 
   const { prepareEdit, defaultErrorHandler } = useEditStop();
   const { prepareCreate } = useCreateStop();
+  const [conflicts, setConflicts] = useState<
+    ServicePatternScheduledStopPoint[]
+  >([]);
 
   const mapFormStateToInput = (state: FormState) => {
     const input = {
@@ -132,6 +139,7 @@ const StopFormComponent = (
           },
         },
       });
+
       return changes;
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -141,6 +149,9 @@ const StopFormComponent = (
 
   const onFormSubmit = async (state: FormState) => {
     const changes = state.stopId ? await onEdit(state) : await onCreate(state);
+    if (changes.conflicts?.length) {
+      return setConflicts(changes.conflicts);
+    }
     return onSubmit(changes);
   };
 
@@ -152,6 +163,10 @@ const StopFormComponent = (
         onSubmit={handleSubmit(onFormSubmit)}
         ref={ref}
       >
+        <ConflictResolverModal
+          onClose={() => setConflicts([])}
+          conflicts={conflicts.map(mapStopToCommonConflictItem)}
+        />
         <div className="mx-12">
           <h2 className="pb-6 text-xl font-bold">{t('stops.stop')}</h2>
           <Row className="space-x-10">
