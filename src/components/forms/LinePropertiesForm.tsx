@@ -65,7 +65,7 @@ export const LinePropertiesForm = ({ id, className }: Props): JSX.Element => {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <VehicleModeDropdown
-                id="primary-vehicle-mode-input"
+                testId="primary-vehicle-mode-input"
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
