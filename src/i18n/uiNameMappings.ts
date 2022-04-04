@@ -1,4 +1,7 @@
-import { ReusableComponentsVehicleModeEnum } from '../generated/graphql';
+import {
+  ReusableComponentsVehicleModeEnum,
+  RouteTypeOfLineEnum,
+} from '../generated/graphql';
 import { i18n } from '../i18n';
 import { Priority } from '../types/Priority';
 
@@ -14,3 +17,6 @@ export const mapPriorityToUiName = (key: Priority) => {
 export const mapVehicleModeToUiName = (
   key: ReusableComponentsVehicleModeEnum,
 ) => i18n.t(`vehicleModeEnum.${key}`);
+
+export const mapLineTypeToUiName = (key: RouteTypeOfLineEnum) =>
+  i18n.t(`lineTypeEnum.${key}`);

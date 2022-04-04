@@ -36,6 +36,7 @@
     "line": "Line",
     "linesName": "Line's name",
     "linesType": "Line's type",
+    "chooseLinesType": "Choose type of line",
     "areaOfOperation": "Area of operation",
     "additionalInformation": "Additional information",
     "routes": "Routes",
@@ -117,6 +118,19 @@
     "metro": "Metro",
     "train": "Train",
     "tram": "Tram"
+  },
+  "lineTypeEnum": {
+    "regional_rail_service": "Regional rail service",
+    "suburban_railway": "Suburban railway",
+    "metro_service": "Metro service",
+    "regional_bus_service": "Regional bus service",
+    "stopping_bus_service": "Stopping bus service",
+    "special_needs_bus": "Special needs bus",
+    "demand_and_response_bus_service": "Demand and response bus service",
+    "express_bus_service": "Express bus service",
+    "regional_tram_service": "Regional tram service",
+    "city_tram_service": "City tram service",
+    "ferry_service": "Ferry service"
   },
   "formValidation": {
     "required": "Field is required"

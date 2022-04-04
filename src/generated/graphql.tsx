@@ -1777,6 +1777,10 @@ export type MutationRoot = {
   delete_route_line_by_pk?: Maybe<RouteLine>;
   /** delete data from the table: "route.route" */
   delete_route_route?: Maybe<RouteRouteMutationResponse>;
+  /** delete data from the table: "route.type_of_line" */
+  delete_route_type_of_line?: Maybe<RouteTypeOfLineMutationResponse>;
+  /** delete single row from the table: "route.type_of_line" */
+  delete_route_type_of_line_by_pk?: Maybe<RouteTypeOfLine>;
   /** delete data from the table: "service_pattern.scheduled_stop_point" */
   delete_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** delete data from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
@@ -1831,6 +1835,10 @@ export type MutationRoot = {
   insert_route_route?: Maybe<RouteRouteMutationResponse>;
   /** insert a single row into the table: "route.route" */
   insert_route_route_one?: Maybe<RouteRoute>;
+  /** insert data into the table: "route.type_of_line" */
+  insert_route_type_of_line?: Maybe<RouteTypeOfLineMutationResponse>;
+  /** insert a single row into the table: "route.type_of_line" */
+  insert_route_type_of_line_one?: Maybe<RouteTypeOfLine>;
   /** insert data into the table: "service_pattern.scheduled_stop_point" */
   insert_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** insert a single row into the table: "service_pattern.scheduled_stop_point" */
@@ -1885,6 +1893,10 @@ export type MutationRoot = {
   update_route_line_by_pk?: Maybe<RouteLine>;
   /** update data of the table: "route.route" */
   update_route_route?: Maybe<RouteRouteMutationResponse>;
+  /** update data of the table: "route.type_of_line" */
+  update_route_type_of_line?: Maybe<RouteTypeOfLineMutationResponse>;
+  /** update single row of the table: "route.type_of_line" */
+  update_route_type_of_line_by_pk?: Maybe<RouteTypeOfLine>;
   /** update data of the table: "service_pattern.scheduled_stop_point" */
   update_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** update data of the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
@@ -2032,6 +2044,18 @@ export type MutationRootDeleteRouteLineByPkArgs = {
 /** mutation root */
 export type MutationRootDeleteRouteRouteArgs = {
   where: RouteRouteBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteRouteTypeOfLineArgs = {
+  where: RouteTypeOfLineBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteRouteTypeOfLineByPkArgs = {
+  type_of_line: Scalars['String'];
 };
 
 
@@ -2217,6 +2241,20 @@ export type MutationRootInsertRouteRouteArgs = {
 /** mutation root */
 export type MutationRootInsertRouteRouteOneArgs = {
   object: RouteRouteInsertInput;
+};
+
+
+/** mutation root */
+export type MutationRootInsertRouteTypeOfLineArgs = {
+  objects: Array<RouteTypeOfLineInsertInput>;
+  on_conflict?: Maybe<RouteTypeOfLineOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertRouteTypeOfLineOneArgs = {
+  object: RouteTypeOfLineInsertInput;
+  on_conflict?: Maybe<RouteTypeOfLineOnConflict>;
 };
 
 
@@ -2417,6 +2455,20 @@ export type MutationRootUpdateRouteRouteArgs = {
 
 
 /** mutation root */
+export type MutationRootUpdateRouteTypeOfLineArgs = {
+  _set?: Maybe<RouteTypeOfLineSetInput>;
+  where: RouteTypeOfLineBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateRouteTypeOfLineByPkArgs = {
+  _set?: Maybe<RouteTypeOfLineSetInput>;
+  pk_columns: RouteTypeOfLinePkColumnsInput;
+};
+
+
+/** mutation root */
 export type MutationRootUpdateServicePatternScheduledStopPointArgs = {
   _inc?: Maybe<ServicePatternScheduledStopPointIncInput>;
   _set?: Maybe<ServicePatternScheduledStopPointSetInput>;
@@ -2533,6 +2585,12 @@ export type QueryRoot = {
   route_route: Array<RouteRoute>;
   /** fetch aggregated fields from the table: "route.route" */
   route_route_aggregate: RouteRouteAggregate;
+  /** fetch data from the table: "route.type_of_line" */
+  route_type_of_line: Array<RouteTypeOfLine>;
+  /** fetch aggregated fields from the table: "route.type_of_line" */
+  route_type_of_line_aggregate: RouteTypeOfLineAggregate;
+  /** fetch data from the table: "route.type_of_line" using primary key columns */
+  route_type_of_line_by_pk?: Maybe<RouteTypeOfLine>;
   /** fetch data from the table: "service_pattern.scheduled_stop_point" */
   service_pattern_scheduled_stop_point: Array<ServicePatternScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point" */
@@ -2857,6 +2915,29 @@ export type QueryRootRouteRouteAggregateArgs = {
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<RouteRouteOrderBy>>;
   where?: Maybe<RouteRouteBoolExp>;
+};
+
+
+export type QueryRootRouteTypeOfLineArgs = {
+  distinct_on?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<RouteTypeOfLineOrderBy>>;
+  where?: Maybe<RouteTypeOfLineBoolExp>;
+};
+
+
+export type QueryRootRouteTypeOfLineAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<RouteTypeOfLineOrderBy>>;
+  where?: Maybe<RouteTypeOfLineBoolExp>;
+};
+
+
+export type QueryRootRouteTypeOfLineByPkArgs = {
+  type_of_line: Scalars['String'];
 };
 
 
@@ -3886,10 +3967,16 @@ export type RouteLine = {
   priority: Scalars['Int'];
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  typeOfLineByTypeOfLine: RouteTypeOfLine;
+  /** The type of the line. */
+  type_of_line: RouteTypeOfLineEnum;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
   validity_start?: Maybe<Scalars['timestamptz']>;
+  /** An object relationship */
+  vehicle_mode: ReusableComponentsVehicleMode;
 };
 
 
@@ -3954,11 +4041,39 @@ export type RouteLineAggregateFieldsCountArgs = {
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
+/** order by aggregate values of table "route.line" */
+export type RouteLineAggregateOrderBy = {
+  avg?: Maybe<RouteLineAvgOrderBy>;
+  count?: Maybe<OrderBy>;
+  max?: Maybe<RouteLineMaxOrderBy>;
+  min?: Maybe<RouteLineMinOrderBy>;
+  stddev?: Maybe<RouteLineStddevOrderBy>;
+  stddev_pop?: Maybe<RouteLineStddevPopOrderBy>;
+  stddev_samp?: Maybe<RouteLineStddevSampOrderBy>;
+  sum?: Maybe<RouteLineSumOrderBy>;
+  var_pop?: Maybe<RouteLineVarPopOrderBy>;
+  var_samp?: Maybe<RouteLineVarSampOrderBy>;
+  variance?: Maybe<RouteLineVarianceOrderBy>;
+};
+
+/** input type for inserting array relation for remote table "route.line" */
+export type RouteLineArrRelInsertInput = {
+  data: Array<RouteLineInsertInput>;
+  /** on conflict condition */
+  on_conflict?: Maybe<RouteLineOnConflict>;
+};
+
 /** aggregate avg on columns */
 export type RouteLineAvgFields = {
   __typename?: 'route_line_avg_fields';
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "route.line" */
+export type RouteLineAvgOrderBy = {
+  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "route.line". All fields are combined with a logical 'AND'. */
@@ -3973,8 +4088,11 @@ export type RouteLineBoolExp = {
   primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
   priority?: Maybe<IntComparisonExp>;
   short_name_i18n?: Maybe<StringComparisonExp>;
+  typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineBoolExp>;
+  type_of_line?: Maybe<RouteTypeOfLineEnumComparisonExp>;
   validity_end?: Maybe<TimestamptzComparisonExp>;
   validity_start?: Maybe<TimestamptzComparisonExp>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 /** unique or primary key constraints on table "route.line" */
@@ -4004,10 +4122,14 @@ export type RouteLineInsertInput = {
   priority?: Maybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
+  typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineObjRelInsertInput>;
+  /** The type of the line. */
+  type_of_line?: Maybe<RouteTypeOfLineEnum>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
   validity_start?: Maybe<Scalars['timestamptz']>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeObjRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -4029,6 +4151,24 @@ export type RouteLineMaxFields = {
   validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
+/** order by max() on columns of table "route.line" */
+export type RouteLineMaxOrderBy = {
+  /** The label of the line definition. The label is unique for a certain priority and validity period. */
+  label?: Maybe<OrderBy>;
+  /** The ID of the line. */
+  line_id?: Maybe<OrderBy>;
+  /** The name of the line. Placeholder for multilingual strings. */
+  name_i18n?: Maybe<OrderBy>;
+  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+  /** The shorted name of the line. Placeholder for multilingual strings. */
+  short_name_i18n?: Maybe<OrderBy>;
+  /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
+  validity_end?: Maybe<OrderBy>;
+  /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
+  validity_start?: Maybe<OrderBy>;
+};
+
 /** aggregate min on columns */
 export type RouteLineMinFields = {
   __typename?: 'route_line_min_fields';
@@ -4046,6 +4186,24 @@ export type RouteLineMinFields = {
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
   validity_start?: Maybe<Scalars['timestamptz']>;
+};
+
+/** order by min() on columns of table "route.line" */
+export type RouteLineMinOrderBy = {
+  /** The label of the line definition. The label is unique for a certain priority and validity period. */
+  label?: Maybe<OrderBy>;
+  /** The ID of the line. */
+  line_id?: Maybe<OrderBy>;
+  /** The name of the line. Placeholder for multilingual strings. */
+  name_i18n?: Maybe<OrderBy>;
+  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+  /** The shorted name of the line. Placeholder for multilingual strings. */
+  short_name_i18n?: Maybe<OrderBy>;
+  /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
+  validity_end?: Maybe<OrderBy>;
+  /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
+  validity_start?: Maybe<OrderBy>;
 };
 
 /** response of any mutation on the table "route.line" */
@@ -4080,8 +4238,11 @@ export type RouteLineOrderBy = {
   primary_vehicle_mode?: Maybe<OrderBy>;
   priority?: Maybe<OrderBy>;
   short_name_i18n?: Maybe<OrderBy>;
+  typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineOrderBy>;
+  type_of_line?: Maybe<OrderBy>;
   validity_end?: Maybe<OrderBy>;
   validity_start?: Maybe<OrderBy>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeOrderBy>;
 };
 
 /** primary key columns input for table: route_line */
@@ -4105,6 +4266,8 @@ export enum RouteLineSelectColumn {
   /** column name */
   ShortNameI18n = 'short_name_i18n',
   /** column name */
+  TypeOfLine = 'type_of_line',
+  /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
   ValidityStart = 'validity_start'
@@ -4124,6 +4287,8 @@ export type RouteLineSetInput = {
   priority?: Maybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
+  /** The type of the line. */
+  type_of_line?: Maybe<RouteTypeOfLineEnum>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
@@ -4137,11 +4302,23 @@ export type RouteLineStddevFields = {
   priority?: Maybe<Scalars['Float']>;
 };
 
+/** order by stddev() on columns of table "route.line" */
+export type RouteLineStddevOrderBy = {
+  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+};
+
 /** aggregate stddev_pop on columns */
 export type RouteLineStddevPopFields = {
   __typename?: 'route_line_stddev_pop_fields';
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "route.line" */
+export type RouteLineStddevPopOrderBy = {
+  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -4151,11 +4328,23 @@ export type RouteLineStddevSampFields = {
   priority?: Maybe<Scalars['Float']>;
 };
 
+/** order by stddev_samp() on columns of table "route.line" */
+export type RouteLineStddevSampOrderBy = {
+  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+};
+
 /** aggregate sum on columns */
 export type RouteLineSumFields = {
   __typename?: 'route_line_sum_fields';
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "route.line" */
+export type RouteLineSumOrderBy = {
+  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
 };
 
 /** update columns of table "route.line" */
@@ -4173,6 +4362,8 @@ export enum RouteLineUpdateColumn {
   /** column name */
   ShortNameI18n = 'short_name_i18n',
   /** column name */
+  TypeOfLine = 'type_of_line',
+  /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
   ValidityStart = 'validity_start'
@@ -4185,6 +4376,12 @@ export type RouteLineVarPopFields = {
   priority?: Maybe<Scalars['Float']>;
 };
 
+/** order by var_pop() on columns of table "route.line" */
+export type RouteLineVarPopOrderBy = {
+  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+};
+
 /** aggregate var_samp on columns */
 export type RouteLineVarSampFields = {
   __typename?: 'route_line_var_samp_fields';
@@ -4192,11 +4389,23 @@ export type RouteLineVarSampFields = {
   priority?: Maybe<Scalars['Float']>;
 };
 
+/** order by var_samp() on columns of table "route.line" */
+export type RouteLineVarSampOrderBy = {
+  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
+};
+
 /** aggregate variance on columns */
 export type RouteLineVarianceFields = {
   __typename?: 'route_line_variance_fields';
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "route.line" */
+export type RouteLineVarianceOrderBy = {
+  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<OrderBy>;
 };
 
 /**
@@ -4707,6 +4916,214 @@ export type RouteRouteVarianceOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
 };
+
+/**
+ * Type of line. https://www.transmodel-cen.eu/model/EARoot/EA2/EA1/EA3/EA491.htm
+ *
+ *
+ * columns and relationships of "route.type_of_line"
+ *
+ */
+export type RouteTypeOfLine = {
+  __typename?: 'route_type_of_line';
+  belonging_to_vehicle_mode: ReusableComponentsVehicleModeEnum;
+  /** An array relationship */
+  lines: Array<RouteLine>;
+  /** An aggregate relationship */
+  lines_aggregate: RouteLineAggregate;
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line: Scalars['String'];
+  /** An object relationship */
+  vehicle_mode: ReusableComponentsVehicleMode;
+};
+
+
+/**
+ * Type of line. https://www.transmodel-cen.eu/model/EARoot/EA2/EA1/EA3/EA491.htm
+ *
+ *
+ * columns and relationships of "route.type_of_line"
+ *
+ */
+export type RouteTypeOfLineLinesArgs = {
+  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<RouteLineOrderBy>>;
+  where?: Maybe<RouteLineBoolExp>;
+};
+
+
+/**
+ * Type of line. https://www.transmodel-cen.eu/model/EARoot/EA2/EA1/EA3/EA491.htm
+ *
+ *
+ * columns and relationships of "route.type_of_line"
+ *
+ */
+export type RouteTypeOfLineLinesAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<RouteLineOrderBy>>;
+  where?: Maybe<RouteLineBoolExp>;
+};
+
+/** aggregated selection of "route.type_of_line" */
+export type RouteTypeOfLineAggregate = {
+  __typename?: 'route_type_of_line_aggregate';
+  aggregate?: Maybe<RouteTypeOfLineAggregateFields>;
+  nodes: Array<RouteTypeOfLine>;
+};
+
+/** aggregate fields of "route.type_of_line" */
+export type RouteTypeOfLineAggregateFields = {
+  __typename?: 'route_type_of_line_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<RouteTypeOfLineMaxFields>;
+  min?: Maybe<RouteTypeOfLineMinFields>;
+};
+
+
+/** aggregate fields of "route.type_of_line" */
+export type RouteTypeOfLineAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "route.type_of_line". All fields are combined with a logical 'AND'. */
+export type RouteTypeOfLineBoolExp = {
+  _and?: Maybe<Array<RouteTypeOfLineBoolExp>>;
+  _not?: Maybe<RouteTypeOfLineBoolExp>;
+  _or?: Maybe<Array<RouteTypeOfLineBoolExp>>;
+  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
+  lines?: Maybe<RouteLineBoolExp>;
+  type_of_line?: Maybe<StringComparisonExp>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeBoolExp>;
+};
+
+/** unique or primary key constraints on table "route.type_of_line" */
+export enum RouteTypeOfLineConstraint {
+  /** unique or primary key constraint */
+  TypeOfLinePkey = 'type_of_line_pkey'
+}
+
+export enum RouteTypeOfLineEnum {
+  /** tram */
+  CityTramService = 'city_tram_service',
+  /** bus */
+  DemandAndResponseBusService = 'demand_and_response_bus_service',
+  /** bus */
+  ExpressBusService = 'express_bus_service',
+  /** ferry */
+  FerryService = 'ferry_service',
+  /** metro */
+  MetroService = 'metro_service',
+  /** bus */
+  RegionalBusService = 'regional_bus_service',
+  /** train */
+  RegionalRailService = 'regional_rail_service',
+  /** tram */
+  RegionalTramService = 'regional_tram_service',
+  /** bus */
+  SpecialNeedsBus = 'special_needs_bus',
+  /** bus */
+  StoppingBusService = 'stopping_bus_service',
+  /** train */
+  SuburbanRailway = 'suburban_railway'
+}
+
+/** Boolean expression to compare columns of type "route_type_of_line_enum". All fields are combined with logical 'AND'. */
+export type RouteTypeOfLineEnumComparisonExp = {
+  _eq?: Maybe<RouteTypeOfLineEnum>;
+  _in?: Maybe<Array<RouteTypeOfLineEnum>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _neq?: Maybe<RouteTypeOfLineEnum>;
+  _nin?: Maybe<Array<RouteTypeOfLineEnum>>;
+};
+
+/** input type for inserting data into table "route.type_of_line" */
+export type RouteTypeOfLineInsertInput = {
+  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+  lines?: Maybe<RouteLineArrRelInsertInput>;
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line?: Maybe<Scalars['String']>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeObjRelInsertInput>;
+};
+
+/** aggregate max on columns */
+export type RouteTypeOfLineMaxFields = {
+  __typename?: 'route_type_of_line_max_fields';
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type RouteTypeOfLineMinFields = {
+  __typename?: 'route_type_of_line_min_fields';
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "route.type_of_line" */
+export type RouteTypeOfLineMutationResponse = {
+  __typename?: 'route_type_of_line_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<RouteTypeOfLine>;
+};
+
+/** input type for inserting object relation for remote table "route.type_of_line" */
+export type RouteTypeOfLineObjRelInsertInput = {
+  data: RouteTypeOfLineInsertInput;
+  /** on conflict condition */
+  on_conflict?: Maybe<RouteTypeOfLineOnConflict>;
+};
+
+/** on conflict condition type for table "route.type_of_line" */
+export type RouteTypeOfLineOnConflict = {
+  constraint: RouteTypeOfLineConstraint;
+  update_columns?: Array<RouteTypeOfLineUpdateColumn>;
+  where?: Maybe<RouteTypeOfLineBoolExp>;
+};
+
+/** Ordering options when selecting data from "route.type_of_line". */
+export type RouteTypeOfLineOrderBy = {
+  belonging_to_vehicle_mode?: Maybe<OrderBy>;
+  lines_aggregate?: Maybe<RouteLineAggregateOrderBy>;
+  type_of_line?: Maybe<OrderBy>;
+  vehicle_mode?: Maybe<ReusableComponentsVehicleModeOrderBy>;
+};
+
+/** primary key columns input for table: route_type_of_line */
+export type RouteTypeOfLinePkColumnsInput = {
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line: Scalars['String'];
+};
+
+/** select columns of table "route.type_of_line" */
+export enum RouteTypeOfLineSelectColumn {
+  /** column name */
+  BelongingToVehicleMode = 'belonging_to_vehicle_mode',
+  /** column name */
+  TypeOfLine = 'type_of_line'
+}
+
+/** input type for updating data in table "route.type_of_line" */
+export type RouteTypeOfLineSetInput = {
+  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "route.type_of_line" */
+export enum RouteTypeOfLineUpdateColumn {
+  /** column name */
+  BelongingToVehicleMode = 'belonging_to_vehicle_mode',
+  /** column name */
+  TypeOfLine = 'type_of_line'
+}
 
 /**
  * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
@@ -5455,6 +5872,12 @@ export type SubscriptionRoot = {
   route_route: Array<RouteRoute>;
   /** fetch aggregated fields from the table: "route.route" */
   route_route_aggregate: RouteRouteAggregate;
+  /** fetch data from the table: "route.type_of_line" */
+  route_type_of_line: Array<RouteTypeOfLine>;
+  /** fetch aggregated fields from the table: "route.type_of_line" */
+  route_type_of_line_aggregate: RouteTypeOfLineAggregate;
+  /** fetch data from the table: "route.type_of_line" using primary key columns */
+  route_type_of_line_by_pk?: Maybe<RouteTypeOfLine>;
   /** fetch data from the table: "service_pattern.scheduled_stop_point" */
   service_pattern_scheduled_stop_point: Array<ServicePatternScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point" */
@@ -5782,6 +6205,29 @@ export type SubscriptionRootRouteRouteAggregateArgs = {
 };
 
 
+export type SubscriptionRootRouteTypeOfLineArgs = {
+  distinct_on?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<RouteTypeOfLineOrderBy>>;
+  where?: Maybe<RouteTypeOfLineBoolExp>;
+};
+
+
+export type SubscriptionRootRouteTypeOfLineAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<RouteTypeOfLineOrderBy>>;
+  where?: Maybe<RouteTypeOfLineBoolExp>;
+};
+
+
+export type SubscriptionRootRouteTypeOfLineByPkArgs = {
+  type_of_line: Scalars['String'];
+};
+
+
 export type SubscriptionRootServicePatternScheduledStopPointArgs = {
   distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -5895,7 +6341,7 @@ export type UpdateRouteJourneyPatternMutation = { __typename?: 'mutation_root', 
 
 export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined };
 
-export type LineAllFieldsFragment = { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string };
+export type LineAllFieldsFragment = { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string };
 
 export type RouteAllFieldsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string };
 
@@ -5934,21 +6380,21 @@ export type GetLineDetailsByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
+export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
 
 export type GetLinesByValidityQueryVariables = Exact<{
   filter?: Maybe<RouteLineBoolExp>;
 }>;
 
 
-export type GetLinesByValidityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string }> };
+export type GetLinesByValidityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string }> };
 
 export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
   line_id: Scalars['uuid'];
 }>;
 
 
-export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } }> }> } }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> } | null | undefined };
+export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } }> }> } }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> } | null | undefined };
 
 export type GetRouteDetailsByIdsQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
@@ -5994,7 +6440,7 @@ export type PatchLineMutationVariables = Exact<{
 }>;
 
 
-export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
+export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
 
 export type InsertRouteOneMutationVariables = Exact<{
   object: RouteRouteInsertInput;
@@ -6108,6 +6554,7 @@ export const LineAllFieldsFragmentDoc = gql`
   name_i18n
   short_name_i18n
   primary_vehicle_mode
+  type_of_line
   validity_start
   validity_end
   priority

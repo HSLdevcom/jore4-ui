@@ -33,6 +33,7 @@ const LINE_ALL_FIELDS = gql`
     name_i18n
     short_name_i18n
     primary_vehicle_mode
+    type_of_line
     validity_start
     validity_end
     priority
