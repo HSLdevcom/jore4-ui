@@ -1,5 +1,6 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
-import React, { useState } from 'react';
+import orderBy from 'lodash/orderBy';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteRoute } from '../../generated/graphql';
 import { Switch, SwitchLabel } from '../../uiComponents';
@@ -14,6 +15,7 @@ interface Props {
 export const RouteStopsTable = ({ className, routes, testId }: Props) => {
   const { t } = useTranslation();
   const [showUnusedStops, setShowUnusedStops] = useState(true);
+  const sortedRoutes = orderBy(routes, ['label', 'direction'], ['asc', 'desc']);
 
   return (
     <div>
@@ -27,7 +29,7 @@ export const RouteStopsTable = ({ className, routes, testId }: Props) => {
       </div>
       {/* setting a fake "height: 1px" so that "height: 100%" would work for the table cells */}
       <table className={`h-1 w-full ${className}`} data-testid={testId}>
-        {routes.map((item) => {
+        {sortedRoutes.map((item) => {
           return (
             <RouteStopsSection
               key={item.route_id}
