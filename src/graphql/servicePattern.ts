@@ -79,6 +79,16 @@ export const mapGetStopsResult = (
     | ServicePatternScheduledStopPoint[]
     | undefined;
 
+const GET_STOPS_BY_VALIDITY = gql`
+  query GetStopsByValidity(
+    $filter: service_pattern_scheduled_stop_point_bool_exp
+  ) {
+    service_pattern_scheduled_stop_point(where: $filter) {
+      ...scheduled_stop_point_all_fields
+    }
+  }
+`;
+
 const GET_STOP_BY_ID = gql`
   query GetStopById($stopId: uuid!) {
     service_pattern_scheduled_stop_point(

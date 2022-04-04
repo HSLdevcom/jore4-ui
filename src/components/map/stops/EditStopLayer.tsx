@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
+import { ServicePatternScheduledStopPoint } from '../../../generated/graphql';
 import { ScheduledStopPointSetInput, StopWithLocation } from '../../../graphql';
 import {
   CreateChanges,
@@ -21,6 +22,10 @@ import {
   mapLngLatToPoint,
   showSuccessToast,
 } from '../../../utils';
+import {
+  ConflictResolverModal,
+  mapStopToCommonConflictItem,
+} from '../../ConflictResolverModal';
 import { mapStopDataToFormState } from '../../forms/StopForm';
 import { DeleteStopConfirmationDialog } from './DeleteStopConfirmationDialog';
 import { EditStopConfirmationDialog } from './EditStopConfirmationDialog';
@@ -49,6 +54,9 @@ export const EditStopLayer: React.FC<Props> = ({
   const [displayedEditor, setDisplayedEditor] = useState<StopEditorViews>(
     StopEditorViews.None,
   );
+  const [conflicts, setConflicts] = useState<
+    ServicePatternScheduledStopPoint[]
+  >([]);
 
   const { t } = useTranslation();
 
@@ -199,6 +207,11 @@ export const EditStopLayer: React.FC<Props> = ({
   };
 
   const onStopFormSubmit = async (changes: EditChanges | CreateChanges) => {
+    if (changes.conflicts?.length) {
+      setConflicts(changes.conflicts);
+      return;
+    }
+
     // for editing, it'll need to show a confirmation windows
     if (isEditChanges(changes)) {
       setEditChanges(changes);
@@ -259,6 +272,10 @@ export const EditStopLayer: React.FC<Props> = ({
           deleteChanges={deleteChanges}
         />
       )}
+      <ConflictResolverModal
+        onClose={() => setConflicts([])}
+        conflicts={conflicts.map(mapStopToCommonConflictItem)}
+      />
     </>
   );
 };

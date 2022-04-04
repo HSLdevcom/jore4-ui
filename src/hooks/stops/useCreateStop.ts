@@ -1,11 +1,13 @@
 import flow from 'lodash/flow';
 import {
   InsertStopMutationVariables,
+  ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointInsertInput,
   useInsertStopMutation,
 } from '../../generated/graphql';
 import { StopWithLocation } from '../../graphql';
 import { OptionalKeys } from '../../types';
+import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 
 // the input does not need to contain all the fields
@@ -19,11 +21,13 @@ interface CreateParams {
 }
 export interface CreateChanges {
   stopToCreate: ServicePatternScheduledStopPointInsertInput;
+  conflicts?: ServicePatternScheduledStopPoint[];
 }
 
 export const useCreateStop = () => {
   const [insertStopMutation] = useInsertStopMutation();
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
+  const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
 
   // pre-fills and pre-validates a few fields for the draft stop
   // throws exceptions in case or error
@@ -45,6 +49,13 @@ export const useCreateStop = () => {
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
   const prepareCreate = async ({ input }: CreateParams) => {
+    const conflicts = await getConflictingStops({
+      // these form values always exist
+      label: input.label,
+      priority: input.priority,
+      validityStart: input.validity_start || undefined,
+      validityEnd: input.validity_end || undefined,
+    });
     // we need to fetch the infra link and direction for the stop
     const { closestLink, direction } = await getStopLinkAndDirection({
       stopLocation: input.measured_location,
@@ -58,6 +69,7 @@ export const useCreateStop = () => {
 
     const changes: CreateChanges = {
       stopToCreate,
+      conflicts,
     };
 
     return changes;

@@ -1,25 +1,55 @@
 import { DateTime } from 'luxon';
 import {
-  GetLinesByValidityDocument,
-  GetLinesByValidityQuery,
-  GetLinesByValidityQueryVariables,
   RouteLine,
   RouteLineBoolExp,
+  ServicePatternScheduledStopPoint,
+  ServicePatternScheduledStopPointBoolExp,
+  useGetLinesByValidityAsyncQuery,
+  useGetStopsByValidityAsyncQuery,
 } from '../generated/graphql';
 import { Priority } from '../types/Priority';
-import { useAsyncQuery } from './useAsyncQuery';
 
 interface CommonParams {
   label: string;
   priority: Priority;
-  validityStart: DateTime;
+  validityStart?: DateTime;
   validityEnd?: DateTime;
 }
 
-const buildCommonGqlFilter = (params: CommonParams) => {
+const buildValidityStartMissingGqlFilterOrConditions = (
+  params: CommonParams,
+) => {
+  const { validityEnd } = params;
+
+  return [
+    // indefinite validity without start or end
+    {
+      _and: [
+        { validity_start: { _is_null: true } },
+        { validity_end: { _is_null: true } },
+      ],
+    },
+    // valid from the beginning of the times until given time
+    {
+      _and: [
+        { validity_start: { _is_null: true } },
+        { validity_end: { _gte: validityEnd } },
+      ],
+    },
+  ];
+};
+
+const buildCommonGqlFilter = (
+  params: CommonParams,
+  allowUndefinedValidityStart?: boolean,
+) => {
   const { label, priority, validityStart, validityEnd } = params;
 
   const isIndefinite = !validityEnd;
+
+  const validityStartFilterCondition = allowUndefinedValidityStart
+    ? buildValidityStartMissingGqlFilterOrConditions(params)
+    : [];
 
   const validityFilter = isIndefinite
     ? // case 1: this resource in indefinite
@@ -29,6 +59,7 @@ const buildCommonGqlFilter = (params: CommonParams) => {
           { validity_end: { _gte: validityStart } },
           // there is existing indefinite resource
           { validity_end: { _is_null: true } },
+          ...validityStartFilterCondition,
         ],
       }
     : {
@@ -63,6 +94,7 @@ const buildCommonGqlFilter = (params: CommonParams) => {
               { validity_end: { _lte: validityEnd } },
             ],
           },
+          ...validityStartFilterCondition,
         ],
       };
   return {
@@ -73,15 +105,13 @@ const buildCommonGqlFilter = (params: CommonParams) => {
 };
 
 export const useCheckValidityAndPriorityConflicts = () => {
-  const [getLineValidity] = useAsyncQuery<
-    GetLinesByValidityQuery,
-    GetLinesByValidityQueryVariables
-  >(GetLinesByValidityDocument);
+  const [getLineValidity] = useGetLinesByValidityAsyncQuery();
+  const [getStopValidity] = useGetStopsByValidityAsyncQuery();
 
   const getConflictingLines = async (params: CommonParams, lineId?: UUID) => {
     const isDraft = params.priority === Priority.Draft;
     if (isDraft) {
-      // Resources marked as "draft" are allowed to have conflicts
+      // Resources marked as "draft" are allowed to overlap
       // with priority and validity time
       return [];
     }
@@ -103,7 +133,40 @@ export const useCheckValidityAndPriorityConflicts = () => {
     return data.route_line as RouteLine[];
   };
 
+  const getConflictingStops = async (params: CommonParams, stopId?: UUID) => {
+    const isDraft = params.priority === Priority.Draft;
+    if (isDraft) {
+      // Resources marked as "draft" are allowed to overlap
+      // with priority and validity time
+      return [];
+    }
+
+    // Ignore row itself as if we are editing existing version of row then
+    // possible conflict doesn't matter as we are *overwriting* conflicting
+    // version.
+    const stopsFilter: ServicePatternScheduledStopPointBoolExp = stopId
+      ? { _not: { scheduled_stop_point_id: { _eq: stopId } } }
+      : {};
+    const commonFilter: ServicePatternScheduledStopPointBoolExp =
+      // Stops do not necessarily have validity start defined
+      // (e.g. if they have been imported from jore3)
+      buildCommonGqlFilter(params, true);
+    const filter = {
+      ...stopsFilter,
+      ...commonFilter,
+    };
+
+    const { data } = await getStopValidity({
+      filter,
+    });
+
+    // We have to cast return type from GetStopsByValidityQuery['service_pattern_scheduled_stop_point'] -> ServicePatternScheduledStopPoint[]
+    // to be able to use simpler type later on. Both should be the same.
+    return data.service_pattern_scheduled_stop_point as ServicePatternScheduledStopPoint[];
+  };
+
   return {
     getConflictingLines,
+    getConflictingStops,
   };
 };
