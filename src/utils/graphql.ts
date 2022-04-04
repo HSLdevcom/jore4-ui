@@ -8,6 +8,10 @@ export const mapToVariables = (variables: ExplicitAny) => {
   return { variables };
 };
 
+// null values are valid for patches, so here checking for undefined values only
+export const defaultTo = <V, D>(value: V, defaultValue: D) =>
+  value === undefined ? defaultValue : value;
+
 // Removes item from apollo's cache.
 // TODO: do we really have to do this manually?
 export const removeFromApolloCache = (

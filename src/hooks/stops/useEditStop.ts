@@ -15,6 +15,7 @@ import {
   ScheduledStopPointSetInput,
 } from '../../graphql';
 import {
+  defaultTo,
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
   IncompatibleDirectionsError,
@@ -127,23 +128,29 @@ export const useEditStop = () => {
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
   const prepareEdit = async ({ stopId, patch }: EditParams) => {
-    const conflicts = await getConflictingStops(
-      {
-        // these form values always exist
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        label: patch.label!,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        priority: patch.priority!,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        validityStart: patch.validity_start!,
-        validityEnd: patch.validity_end || undefined,
-      },
-      stopId,
-    );
-
     const stopWithRoutesResult = await getStopWithRouteGraphData({ stopId });
     const stopWithRouteGraphData =
       mapGetStopWithRouteGraphDataByIdResult(stopWithRoutesResult);
+
+    const conflicts = await getConflictingStops(
+      {
+        // data model and form validation should ensure that
+        // label and priority always exist
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        label: defaultTo(patch.label, stopWithRouteGraphData?.label)!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        priority: defaultTo(patch.priority, stopWithRouteGraphData?.priority)!,
+        validityStart:
+          defaultTo(
+            patch.validity_start,
+            stopWithRouteGraphData?.validity_start,
+          ) || undefined,
+        validityEnd:
+          defaultTo(patch.validity_end, stopWithRouteGraphData?.validity_end) ||
+          undefined,
+      },
+      stopId,
+    );
 
     if (!stopWithRouteGraphData) {
       throw new InternalError(`Could not find stop with id ${stopId}`);
