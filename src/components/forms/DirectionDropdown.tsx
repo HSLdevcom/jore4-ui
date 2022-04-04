@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
-import { mapVehicleModeToUiName } from '../../i18n/uiNameMappings';
+import { mapDirectionToUiName } from '../../i18n/uiNameMappings';
+import { RouteDirection } from '../../types/RouteDirection';
 import { FormInputProps } from '../../uiComponents';
 import { EnumDropdown } from './EnumDropdown';
 
@@ -8,7 +8,7 @@ interface Props extends FormInputProps {
   testId?: string;
 }
 
-export const VehicleModeDropdown = ({
+export const DirectionDropdown = ({
   testId,
   value,
   onChange,
@@ -17,14 +17,14 @@ export const VehicleModeDropdown = ({
   const { t } = useTranslation();
 
   return (
-    <EnumDropdown<ReusableComponentsVehicleModeEnum>
+    <EnumDropdown
       testId={testId}
       value={value}
       onChange={onChange}
       onBlur={onBlur}
-      enumType={ReusableComponentsVehicleModeEnum}
-      placeholder={t('lines.chooseVehicleMode')}
-      uiNameMapper={mapVehicleModeToUiName}
+      enumType={RouteDirection}
+      placeholder={t('routes.chooseDirection')}
+      uiNameMapper={mapDirectionToUiName}
     />
   );
 };

@@ -9,6 +9,7 @@ import { Switch, SwitchLabel } from '../../uiComponents';
 import { TemplateRouteSelector } from '../routes-and-lines/TemplateRouteSelector';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { ConfirmSaveForm } from './ConfirmSaveForm';
+import { DirectionDropdown } from './DirectionDropdown';
 import { routeFormSchema, RouteFormState } from './RoutePropertiesForm.types';
 
 export interface RouteFormProps {
@@ -73,7 +74,7 @@ const RoutePropertiesFormComponent = (
           </Row>
         )}
         <Row className="mb-5 flex-wrap gap-2">
-          <Column className="w-1/2 flex-auto">
+          <Column className="w-80 flex-auto">
             <label htmlFor="description_i18n">{t('routes.name')}</label>
             <input
               id="description_i18n"
@@ -85,7 +86,7 @@ const RoutePropertiesFormComponent = (
                 t('formValidation.required')}
             </p>
           </Column>
-          <Column className="w-1/6 flex-auto">
+          <Column className="w-44 flex-auto">
             <label htmlFor="label">{t('routes.label')}</label>
             <input id="label" type="text" {...register('label', {})} />
             <p>
@@ -93,7 +94,25 @@ const RoutePropertiesFormComponent = (
                 t('formValidation.required')}
             </p>
           </Column>
-          <Column className="w-56 flex-auto">
+          <Column className="w-44 flex-auto">
+            <label htmlFor="direction">{t('routes.direction')}</label>
+            <Controller
+              name="direction"
+              control={control}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <DirectionDropdown
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                />
+              )}
+            />
+            <p>
+              {errors.direction?.type === 'invalid_type' &&
+                t('formValidation.required')}
+            </p>
+          </Column>
+          <Column className="w-80 flex-auto">
             <label htmlFor="on_line_id">{t('routes.addToLine')}</label>
             <Controller
               name="on_line_id"
