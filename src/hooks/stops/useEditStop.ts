@@ -22,6 +22,7 @@ import {
   LinkNotResolvedError,
   showDangerToast,
 } from '../../utils';
+import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 import {
   getRoutesOfJourneyPatterns,
@@ -39,6 +40,7 @@ export interface EditChanges {
   editedStop: ServicePatternScheduledStopPoint;
   deleteStopFromRoutes: RouteRoute[];
   deleteStopFromJourneyPatterns: JourneyPatternJourneyPattern[];
+  conflicts?: ServicePatternScheduledStopPoint[];
 }
 
 export const isEditChanges = (
@@ -53,6 +55,7 @@ export const useEditStop = () => {
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
   const [getStopWithRouteGraphData] =
     useGetStopWithRouteGraphDataByIdAsyncQuery();
+  const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
 
   // find all route geometries from which this stop has been removed
   const getJourneyPatternsToDeleteStopFrom = (
@@ -124,6 +127,20 @@ export const useEditStop = () => {
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
   const prepareEdit = async ({ stopId, patch }: EditParams) => {
+    const conflicts = await getConflictingStops(
+      {
+        // these form values always exist
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        label: patch.label!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        priority: patch.priority!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        validityStart: patch.validity_start!,
+        validityEnd: patch.validity_end || undefined,
+      },
+      stopId,
+    );
+
     const stopWithRoutesResult = await getStopWithRouteGraphData({ stopId });
     const stopWithRouteGraphData =
       mapGetStopWithRouteGraphDataByIdResult(stopWithRoutesResult);
@@ -138,6 +155,7 @@ export const useEditStop = () => {
       patch,
       deleteStopFromRoutes: [],
       deleteStopFromJourneyPatterns: [],
+      conflicts,
     };
 
     // changes that are applied if the stop's location is changed

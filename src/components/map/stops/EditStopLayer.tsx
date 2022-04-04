@@ -21,6 +21,10 @@ import {
   mapLngLatToPoint,
   showSuccessToast,
 } from '../../../utils';
+import {
+  ConflictResolverModal,
+  mapStopToCommonConflictItem,
+} from '../../ConflictResolverModal';
 import { mapStopDataToFormState } from '../../forms/StopForm';
 import { DeleteStopConfirmationDialog } from './DeleteStopConfirmationDialog';
 import { EditStopConfirmationDialog } from './EditStopConfirmationDialog';
@@ -243,7 +247,13 @@ export const EditStopLayer: React.FC<Props> = ({
           onSubmit={onStopFormSubmit}
         />
       )}
-      {editChanges && (
+      {editChanges && editChanges.conflicts?.length && (
+        <ConflictResolverModal
+          onClose={() => setEditChanges(undefined)}
+          conflicts={editChanges.conflicts.map(mapStopToCommonConflictItem)}
+        />
+      )}
+      {editChanges && !editChanges.conflicts?.length && (
         <EditStopConfirmationDialog
           isOpen={!!editChanges}
           onCancel={() => setEditChanges(undefined)}
