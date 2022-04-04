@@ -40,7 +40,7 @@ export const AdditionalInformation: React.FC<Props> = ({ className, line }) => {
         <FieldValue
           className="w-1/4"
           fieldName={t('lines.linesType')}
-          value="!Peruslinja"
+          value={t(`lineTypeEnum.${line.type_of_line}`)}
         />
         <FieldValue
           className="w-1/2"

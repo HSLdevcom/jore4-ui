@@ -1,14 +1,15 @@
-import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { Column, Row } from '../../layoutComponents';
+import { LineTypeDropdown } from './LineTypeDropdown';
 import { VehicleModeDropdown } from './VehicleModeDropdown';
 
 export const schema = z.object({
   label: z.string().min(1),
   finnishName: z.string().min(1),
   primaryVehicleMode: z.string().nonempty(),
+  typeOfLine: z.string().nonempty(),
 });
 
 export type FormState = z.infer<typeof schema>;
@@ -74,6 +75,25 @@ export const LinePropertiesForm = ({ id, className }: Props): JSX.Element => {
           />
           <p>
             {errors.primaryVehicleMode?.type === 'invalid_type' &&
+              t('formValidation.required')}
+          </p>
+        </Column>
+        <Column className="w-1/4">
+          <label htmlFor="typeOfLine">{t('lines.linesType')}</label>
+          <Controller
+            name="typeOfLine"
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <LineTypeDropdown
+                id="type-of-line-input"
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+              />
+            )}
+          />
+          <p>
+            {errors.typeOfLine?.type === 'invalid_type' &&
               t('formValidation.required')}
           </p>
         </Column>
