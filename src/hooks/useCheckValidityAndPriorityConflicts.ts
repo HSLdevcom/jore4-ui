@@ -3,8 +3,13 @@ import {
   GetLinesByValidityDocument,
   GetLinesByValidityQuery,
   GetLinesByValidityQueryVariables,
+  GetStopsByValidityDocument,
+  GetStopsByValidityQuery,
+  GetStopsByValidityQueryVariables,
   RouteLine,
   RouteLineBoolExp,
+  ServicePatternScheduledStopPoint,
+  ServicePatternScheduledStopPointBoolExp,
 } from '../generated/graphql';
 import { Priority } from '../types/Priority';
 import { useAsyncQuery } from './useAsyncQuery';
@@ -77,6 +82,10 @@ export const useCheckValidityAndPriorityConflicts = () => {
     GetLinesByValidityQuery,
     GetLinesByValidityQueryVariables
   >(GetLinesByValidityDocument);
+  const [getStopValidity] = useAsyncQuery<
+    GetStopsByValidityQuery,
+    GetStopsByValidityQueryVariables
+  >(GetStopsByValidityDocument);
 
   const getConflictingLines = async (params: CommonParams, lineId?: UUID) => {
     const isDraft = params.priority === Priority.Draft;
@@ -103,7 +112,34 @@ export const useCheckValidityAndPriorityConflicts = () => {
     return data.route_line as RouteLine[];
   };
 
+  const getConflictingStops = async (params: CommonParams, stopId?: UUID) => {
+    const isDraft = params.priority === Priority.Draft;
+    if (isDraft) {
+      // Resources marked as "draft" are allowed to have conflicts
+      // with priority and validity time
+      return [];
+    }
+
+    // Ignore row itself as if we are editing existing version of row then
+    // possible conflict doesn't matter as we are *overwriting* conflicting
+    // version.
+    const stopsFilter: ServicePatternScheduledStopPointBoolExp = stopId
+      ? { _not: { scheduled_stop_point_id: { _eq: stopId } } }
+      : {};
+    const commonFilter: ServicePatternScheduledStopPointBoolExp =
+      buildCommonGqlFilter(params);
+
+    const { data } = await getStopValidity({
+      filter: { ...stopsFilter, ...commonFilter },
+    });
+
+    // We have to cast return type from GetStopsByValidityQuery['service_pattern_scheduled_stop_point'] -> ServicePatternScheduledStopPoint[]
+    // to be able to use simpler type later on. Both should be the same.
+    return data.service_pattern_scheduled_stop_point as ServicePatternScheduledStopPoint[];
+  };
+
   return {
     getConflictingLines,
+    getConflictingStops,
   };
 };

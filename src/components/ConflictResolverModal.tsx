@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { RouteLine } from '../generated/graphql';
+import { RouteLine, ServicePatternScheduledStopPoint } from '../generated/graphql';
 import { mapPriorityToUiName } from '../i18n/uiNameMappings';
 import { Row } from '../layoutComponents';
 import { mapToShortDate } from '../time';
@@ -42,6 +42,16 @@ export const mapLineToCommonConflictItem = (
   label: line.label,
   id: line.line_id,
   href: `/lines/${line.line_id}`,
+});
+
+export const mapStopToCommonConflictItem = (
+  item: ServicePatternScheduledStopPoint,
+): CommonConflictItem => ({
+  validityStart: item.validity_start || undefined,
+  validityEnd: item.validity_end || undefined,
+  priority: item.priority,
+  label: item.label,
+  id: item.scheduled_stop_point_id,
 });
 
 const ConflictItemRow = ({
