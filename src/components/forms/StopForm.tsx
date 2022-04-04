@@ -93,7 +93,10 @@ const StopFormComponent = (
       label: state.label,
       priority: state.priority,
       validity_start: mapDateInputToValidityStart(state.validityStart),
-      validity_end: mapDateInputToValidityEnd(state.validityEnd),
+      validity_end: mapDateInputToValidityEnd(
+        state.validityEnd,
+        state.indefinite,
+      ),
     };
     return input;
   };
