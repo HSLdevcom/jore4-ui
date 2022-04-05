@@ -156,6 +156,187 @@ export type GeometryComparisonExp = {
 };
 
 /**
+ * Transport target, can be used e.g. for cost sharing.
+ *
+ *
+ * columns and relationships of "hsl_route.transport_target"
+ *
+ */
+export type HslRouteTransportTarget = {
+  __typename?: 'hsl_route_transport_target';
+  /** An array relationship */
+  lines: Array<RouteLine>;
+  /** An aggregate relationship */
+  lines_aggregate: RouteLineAggregate;
+  transport_target: Scalars['String'];
+};
+
+
+/**
+ * Transport target, can be used e.g. for cost sharing.
+ *
+ *
+ * columns and relationships of "hsl_route.transport_target"
+ *
+ */
+export type HslRouteTransportTargetLinesArgs = {
+  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<RouteLineOrderBy>>;
+  where?: Maybe<RouteLineBoolExp>;
+};
+
+
+/**
+ * Transport target, can be used e.g. for cost sharing.
+ *
+ *
+ * columns and relationships of "hsl_route.transport_target"
+ *
+ */
+export type HslRouteTransportTargetLinesAggregateArgs = {
+  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<RouteLineOrderBy>>;
+  where?: Maybe<RouteLineBoolExp>;
+};
+
+/** aggregated selection of "hsl_route.transport_target" */
+export type HslRouteTransportTargetAggregate = {
+  __typename?: 'hsl_route_transport_target_aggregate';
+  aggregate?: Maybe<HslRouteTransportTargetAggregateFields>;
+  nodes: Array<HslRouteTransportTarget>;
+};
+
+/** aggregate fields of "hsl_route.transport_target" */
+export type HslRouteTransportTargetAggregateFields = {
+  __typename?: 'hsl_route_transport_target_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<HslRouteTransportTargetMaxFields>;
+  min?: Maybe<HslRouteTransportTargetMinFields>;
+};
+
+
+/** aggregate fields of "hsl_route.transport_target" */
+export type HslRouteTransportTargetAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "hsl_route.transport_target". All fields are combined with a logical 'AND'. */
+export type HslRouteTransportTargetBoolExp = {
+  _and?: Maybe<Array<HslRouteTransportTargetBoolExp>>;
+  _not?: Maybe<HslRouteTransportTargetBoolExp>;
+  _or?: Maybe<Array<HslRouteTransportTargetBoolExp>>;
+  lines?: Maybe<RouteLineBoolExp>;
+  transport_target?: Maybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "hsl_route.transport_target" */
+export enum HslRouteTransportTargetConstraint {
+  /** unique or primary key constraint */
+  TransportTargetPkey = 'transport_target_pkey'
+}
+
+export enum HslRouteTransportTargetEnum {
+  EspooAndKauniainenInternalTraffic = 'espoo_and_kauniainen_internal_traffic',
+  EspooRegionalTraffic = 'espoo_regional_traffic',
+  HelsinkiInternalTraffic = 'helsinki_internal_traffic',
+  KeravaInternalTraffic = 'kerava_internal_traffic',
+  KeravaRegionalTraffic = 'kerava_regional_traffic',
+  KirkkonummiInternalTraffic = 'kirkkonummi_internal_traffic',
+  KirkkonummiRegionalTraffic = 'kirkkonummi_regional_traffic',
+  SipooInternalTraffic = 'sipoo_internal_traffic',
+  SiuntioInternalTraffic = 'siuntio_internal_traffic',
+  SiuntioRegionalTraffic = 'siuntio_regional_traffic',
+  TransverseRegional = 'transverse_regional',
+  TuusulaInternalTraffic = 'tuusula_internal_traffic',
+  TuusulaRegionalTraffic = 'tuusula_regional_traffic',
+  VantaaInternalTraffic = 'vantaa_internal_traffic',
+  VantaaRegionalTraffic = 'vantaa_regional_traffic'
+}
+
+/** Boolean expression to compare columns of type "hsl_route_transport_target_enum". All fields are combined with logical 'AND'. */
+export type HslRouteTransportTargetEnumComparisonExp = {
+  _eq?: Maybe<HslRouteTransportTargetEnum>;
+  _in?: Maybe<Array<HslRouteTransportTargetEnum>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _neq?: Maybe<HslRouteTransportTargetEnum>;
+  _nin?: Maybe<Array<HslRouteTransportTargetEnum>>;
+};
+
+/** input type for inserting data into table "hsl_route.transport_target" */
+export type HslRouteTransportTargetInsertInput = {
+  lines?: Maybe<RouteLineArrRelInsertInput>;
+  transport_target?: Maybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type HslRouteTransportTargetMaxFields = {
+  __typename?: 'hsl_route_transport_target_max_fields';
+  transport_target?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type HslRouteTransportTargetMinFields = {
+  __typename?: 'hsl_route_transport_target_min_fields';
+  transport_target?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "hsl_route.transport_target" */
+export type HslRouteTransportTargetMutationResponse = {
+  __typename?: 'hsl_route_transport_target_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<HslRouteTransportTarget>;
+};
+
+/** input type for inserting object relation for remote table "hsl_route.transport_target" */
+export type HslRouteTransportTargetObjRelInsertInput = {
+  data: HslRouteTransportTargetInsertInput;
+  /** on conflict condition */
+  on_conflict?: Maybe<HslRouteTransportTargetOnConflict>;
+};
+
+/** on conflict condition type for table "hsl_route.transport_target" */
+export type HslRouteTransportTargetOnConflict = {
+  constraint: HslRouteTransportTargetConstraint;
+  update_columns?: Array<HslRouteTransportTargetUpdateColumn>;
+  where?: Maybe<HslRouteTransportTargetBoolExp>;
+};
+
+/** Ordering options when selecting data from "hsl_route.transport_target". */
+export type HslRouteTransportTargetOrderBy = {
+  lines_aggregate?: Maybe<RouteLineAggregateOrderBy>;
+  transport_target?: Maybe<OrderBy>;
+};
+
+/** primary key columns input for table: hsl_route_transport_target */
+export type HslRouteTransportTargetPkColumnsInput = {
+  transport_target: Scalars['String'];
+};
+
+/** select columns of table "hsl_route.transport_target" */
+export enum HslRouteTransportTargetSelectColumn {
+  /** column name */
+  TransportTarget = 'transport_target'
+}
+
+/** input type for updating data in table "hsl_route.transport_target" */
+export type HslRouteTransportTargetSetInput = {
+  transport_target?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "hsl_route.transport_target" */
+export enum HslRouteTransportTargetUpdateColumn {
+  /** column name */
+  TransportTarget = 'transport_target'
+}
+
+/**
  * The direction in which an e.g. infrastructure link can be traversed
  *
  *
@@ -1731,6 +1912,10 @@ export type JourneyPatternScheduledStopPointInJourneyPatternVarianceOrderBy = {
 /** mutation root */
 export type MutationRoot = {
   __typename?: 'mutation_root';
+  /** delete data from the table: "hsl_route.transport_target" */
+  delete_hsl_route_transport_target?: Maybe<HslRouteTransportTargetMutationResponse>;
+  /** delete single row from the table: "hsl_route.transport_target" */
+  delete_hsl_route_transport_target_by_pk?: Maybe<HslRouteTransportTarget>;
   /** delete data from the table: "infrastructure_network.direction" */
   delete_infrastructure_network_direction?: Maybe<InfrastructureNetworkDirectionMutationResponse>;
   /** delete single row from the table: "infrastructure_network.direction" */
@@ -1787,6 +1972,10 @@ export type MutationRoot = {
   delete_service_pattern_vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMutationResponse>;
   /** delete single row from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
   delete_service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
+  /** insert data into the table: "hsl_route.transport_target" */
+  insert_hsl_route_transport_target?: Maybe<HslRouteTransportTargetMutationResponse>;
+  /** insert a single row into the table: "hsl_route.transport_target" */
+  insert_hsl_route_transport_target_one?: Maybe<HslRouteTransportTarget>;
   /** insert data into the table: "infrastructure_network.direction" */
   insert_infrastructure_network_direction?: Maybe<InfrastructureNetworkDirectionMutationResponse>;
   /** insert a single row into the table: "infrastructure_network.direction" */
@@ -1847,6 +2036,10 @@ export type MutationRoot = {
   insert_service_pattern_vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMutationResponse>;
   /** insert a single row into the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
   insert_service_pattern_vehicle_mode_on_scheduled_stop_point_one?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
+  /** update data of the table: "hsl_route.transport_target" */
+  update_hsl_route_transport_target?: Maybe<HslRouteTransportTargetMutationResponse>;
+  /** update single row of the table: "hsl_route.transport_target" */
+  update_hsl_route_transport_target_by_pk?: Maybe<HslRouteTransportTarget>;
   /** update data of the table: "infrastructure_network.direction" */
   update_infrastructure_network_direction?: Maybe<InfrastructureNetworkDirectionMutationResponse>;
   /** update single row of the table: "infrastructure_network.direction" */
@@ -1903,6 +2096,18 @@ export type MutationRoot = {
   update_service_pattern_vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMutationResponse>;
   /** update single row of the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
   update_service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteHslRouteTransportTargetArgs = {
+  where: HslRouteTransportTargetBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteHslRouteTransportTargetByPkArgs = {
+  transport_target: Scalars['String'];
 };
 
 
@@ -2075,6 +2280,20 @@ export type MutationRootDeleteServicePatternVehicleModeOnScheduledStopPointArgs 
 export type MutationRootDeleteServicePatternVehicleModeOnScheduledStopPointByPkArgs = {
   scheduled_stop_point_id: Scalars['uuid'];
   vehicle_mode: ReusableComponentsVehicleModeEnum;
+};
+
+
+/** mutation root */
+export type MutationRootInsertHslRouteTransportTargetArgs = {
+  objects: Array<HslRouteTransportTargetInsertInput>;
+  on_conflict?: Maybe<HslRouteTransportTargetOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertHslRouteTransportTargetOneArgs = {
+  object: HslRouteTransportTargetInsertInput;
+  on_conflict?: Maybe<HslRouteTransportTargetOnConflict>;
 };
 
 
@@ -2281,6 +2500,20 @@ export type MutationRootInsertServicePatternVehicleModeOnScheduledStopPointArgs 
 export type MutationRootInsertServicePatternVehicleModeOnScheduledStopPointOneArgs = {
   object: ServicePatternVehicleModeOnScheduledStopPointInsertInput;
   on_conflict?: Maybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateHslRouteTransportTargetArgs = {
+  _set?: Maybe<HslRouteTransportTargetSetInput>;
+  where: HslRouteTransportTargetBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateHslRouteTransportTargetByPkArgs = {
+  _set?: Maybe<HslRouteTransportTargetSetInput>;
+  pk_columns: HslRouteTransportTargetPkColumnsInput;
 };
 
 
@@ -2507,6 +2740,12 @@ export enum OrderBy {
 
 export type QueryRoot = {
   __typename?: 'query_root';
+  /** fetch data from the table: "hsl_route.transport_target" */
+  hsl_route_transport_target: Array<HslRouteTransportTarget>;
+  /** fetch aggregated fields from the table: "hsl_route.transport_target" */
+  hsl_route_transport_target_aggregate: HslRouteTransportTargetAggregate;
+  /** fetch data from the table: "hsl_route.transport_target" using primary key columns */
+  hsl_route_transport_target_by_pk?: Maybe<HslRouteTransportTarget>;
   /** fetch data from the table: "infrastructure_network.direction" */
   infrastructure_network_direction: Array<InfrastructureNetworkDirection>;
   /** fetch aggregated fields from the table: "infrastructure_network.direction" */
@@ -2601,6 +2840,29 @@ export type QueryRoot = {
   service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate: ServicePatternVehicleModeOnScheduledStopPointAggregate;
   /** fetch data from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" using primary key columns */
   service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
+};
+
+
+export type QueryRootHslRouteTransportTargetArgs = {
+  distinct_on?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<HslRouteTransportTargetOrderBy>>;
+  where?: Maybe<HslRouteTransportTargetBoolExp>;
+};
+
+
+export type QueryRootHslRouteTransportTargetAggregateArgs = {
+  distinct_on?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<HslRouteTransportTargetOrderBy>>;
+  where?: Maybe<HslRouteTransportTargetBoolExp>;
+};
+
+
+export type QueryRootHslRouteTransportTargetByPkArgs = {
+  transport_target: Scalars['String'];
 };
 
 
@@ -3968,6 +4230,9 @@ export type RouteLine = {
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
   /** An object relationship */
+  transportTargetByTransportTarget: HslRouteTransportTarget;
+  transport_target: HslRouteTransportTargetEnum;
+  /** An object relationship */
   typeOfLineByTypeOfLine: RouteTypeOfLine;
   /** The type of the line. */
   type_of_line: RouteTypeOfLineEnum;
@@ -4088,6 +4353,8 @@ export type RouteLineBoolExp = {
   primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
   priority?: Maybe<IntComparisonExp>;
   short_name_i18n?: Maybe<StringComparisonExp>;
+  transportTargetByTransportTarget?: Maybe<HslRouteTransportTargetBoolExp>;
+  transport_target?: Maybe<HslRouteTransportTargetEnumComparisonExp>;
   typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineBoolExp>;
   type_of_line?: Maybe<RouteTypeOfLineEnumComparisonExp>;
   validity_end?: Maybe<TimestamptzComparisonExp>;
@@ -4122,6 +4389,8 @@ export type RouteLineInsertInput = {
   priority?: Maybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
+  transportTargetByTransportTarget?: Maybe<HslRouteTransportTargetObjRelInsertInput>;
+  transport_target?: Maybe<HslRouteTransportTargetEnum>;
   typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineObjRelInsertInput>;
   /** The type of the line. */
   type_of_line?: Maybe<RouteTypeOfLineEnum>;
@@ -4238,6 +4507,8 @@ export type RouteLineOrderBy = {
   primary_vehicle_mode?: Maybe<OrderBy>;
   priority?: Maybe<OrderBy>;
   short_name_i18n?: Maybe<OrderBy>;
+  transportTargetByTransportTarget?: Maybe<HslRouteTransportTargetOrderBy>;
+  transport_target?: Maybe<OrderBy>;
   typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineOrderBy>;
   type_of_line?: Maybe<OrderBy>;
   validity_end?: Maybe<OrderBy>;
@@ -4266,6 +4537,8 @@ export enum RouteLineSelectColumn {
   /** column name */
   ShortNameI18n = 'short_name_i18n',
   /** column name */
+  TransportTarget = 'transport_target',
+  /** column name */
   TypeOfLine = 'type_of_line',
   /** column name */
   ValidityEnd = 'validity_end',
@@ -4287,6 +4560,7 @@ export type RouteLineSetInput = {
   priority?: Maybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
+  transport_target?: Maybe<HslRouteTransportTargetEnum>;
   /** The type of the line. */
   type_of_line?: Maybe<RouteTypeOfLineEnum>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
@@ -4361,6 +4635,8 @@ export enum RouteLineUpdateColumn {
   Priority = 'priority',
   /** column name */
   ShortNameI18n = 'short_name_i18n',
+  /** column name */
+  TransportTarget = 'transport_target',
   /** column name */
   TypeOfLine = 'type_of_line',
   /** column name */
@@ -5794,6 +6070,12 @@ export type StDWithinInput = {
 
 export type SubscriptionRoot = {
   __typename?: 'subscription_root';
+  /** fetch data from the table: "hsl_route.transport_target" */
+  hsl_route_transport_target: Array<HslRouteTransportTarget>;
+  /** fetch aggregated fields from the table: "hsl_route.transport_target" */
+  hsl_route_transport_target_aggregate: HslRouteTransportTargetAggregate;
+  /** fetch data from the table: "hsl_route.transport_target" using primary key columns */
+  hsl_route_transport_target_by_pk?: Maybe<HslRouteTransportTarget>;
   /** fetch data from the table: "infrastructure_network.direction" */
   infrastructure_network_direction: Array<InfrastructureNetworkDirection>;
   /** fetch aggregated fields from the table: "infrastructure_network.direction" */
@@ -5888,6 +6170,29 @@ export type SubscriptionRoot = {
   service_pattern_vehicle_mode_on_scheduled_stop_point_aggregate: ServicePatternVehicleModeOnScheduledStopPointAggregate;
   /** fetch data from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" using primary key columns */
   service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
+};
+
+
+export type SubscriptionRootHslRouteTransportTargetArgs = {
+  distinct_on?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<HslRouteTransportTargetOrderBy>>;
+  where?: Maybe<HslRouteTransportTargetBoolExp>;
+};
+
+
+export type SubscriptionRootHslRouteTransportTargetAggregateArgs = {
+  distinct_on?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<HslRouteTransportTargetOrderBy>>;
+  where?: Maybe<HslRouteTransportTargetBoolExp>;
+};
+
+
+export type SubscriptionRootHslRouteTransportTargetByPkArgs = {
+  transport_target: Scalars['String'];
 };
 
 
