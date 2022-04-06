@@ -40,6 +40,7 @@ export const EditLinePage = (): JSX.Element => {
     finnishName: line?.name_i18n,
     primaryVehicleMode: line?.primary_vehicle_mode,
     priority: line?.priority,
+    transportTarget: line?.transport_target,
     typeOfLine: line?.type_of_line,
     validityStart: mapToISODate(line?.validity_start),
     validityEnd: mapToISODate(line?.validity_end),

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { RouteLine } from '../../../generated/graphql';
 import {
   mapLineTypeToUiName,
+  mapTransportTargetToUiName,
   mapVehicleModeToUiName,
 } from '../../../i18n/uiNameMappings';
 import { Column, Row } from '../../../layoutComponents';
@@ -48,8 +49,8 @@ export const AdditionalInformation: React.FC<Props> = ({ className, line }) => {
         />
         <FieldValue
           className="w-1/2"
-          fieldName={t('lines.areaOfOperation')}
-          value="!Helsingin sisäinen liikenne"
+          fieldName={t('lines.transportTarget')}
+          value={mapTransportTargetToUiName(line.transport_target)}
         />
       </Row>
     </Column>

@@ -34,6 +34,7 @@ const LINE_ALL_FIELDS = gql`
     short_name_i18n
     primary_vehicle_mode
     type_of_line
+    transport_target
     validity_start
     validity_end
     priority
@@ -294,6 +295,7 @@ const INSERT_LINE = gql`
       label
       priority
       primary_vehicle_mode
+      transport_target
       validity_start
       validity_end
     }

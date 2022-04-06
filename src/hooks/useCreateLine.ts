@@ -33,6 +33,7 @@ export const mapFormToInput = (
     primary_vehicle_mode:
       state.primaryVehicleMode as ReusableComponentsVehicleModeEnum,
     priority: state.priority,
+    transport_target: state.transportTarget,
     type_of_line: state.typeOfLine as RouteTypeOfLineEnum,
     validity_start: mapDateInputToValidityStart(state.validityStart),
     validity_end: mapDateInputToValidityEnd(

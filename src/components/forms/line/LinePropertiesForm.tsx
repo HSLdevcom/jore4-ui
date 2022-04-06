@@ -2,16 +2,19 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import {
+  HslRouteTransportTargetEnum,
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
 } from '../../../generated/graphql';
 import { Column, Row } from '../../../layoutComponents';
 import { LineTypeDropdown } from './LineTypeDropdown';
+import { TransportTargetDropdown } from './TransportTargetDropdown';
 import { VehicleModeDropdown } from './VehicleModeDropdown';
 
 export const schema = z.object({
   label: z.string().min(1),
   finnishName: z.string().min(1),
+  transportTarget: z.nativeEnum(HslRouteTransportTargetEnum),
   primaryVehicleMode: z.nativeEnum(ReusableComponentsVehicleModeEnum),
   typeOfLine: z.nativeEnum(RouteTypeOfLineEnum),
 });
@@ -61,6 +64,25 @@ export const LinePropertiesForm = ({ id, className }: Props): JSX.Element => {
         </Column>
       </Row>
       <Row className="space-x-10">
+        <Column className="w-1/4">
+          <label htmlFor="transportTarget">{t('lines.transportTarget')}</label>
+          <Controller
+            name="transportTarget"
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TransportTargetDropdown
+                testId="transport-target-input"
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+              />
+            )}
+          />
+          <p>
+            {errors.transportTarget?.type === 'invalid_type' &&
+              t('formValidation.required')}
+          </p>
+        </Column>
         <Column className="w-1/4">
           <label htmlFor="primaryVehicleMode">
             {t('lines.primaryVehicleMode')}
