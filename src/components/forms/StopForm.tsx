@@ -6,8 +6,6 @@ import { z } from 'zod';
 import {
   ReusableComponentsVehicleModeEnum,
   ServicePatternScheduledStopPoint,
-  ServicePatternScheduledStopPointInsertInput,
-  ServicePatternScheduledStopPointSetInput,
 } from '../../generated/graphql';
 import { useCreateStop, useEditStop } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
@@ -93,9 +91,7 @@ const StopFormComponent = (
     useCreateStop();
 
   const mapFormStateToInput = (state: FormState) => {
-    const input:
-      | ServicePatternScheduledStopPointSetInput
-      | ServicePatternScheduledStopPointInsertInput = {
+    const input = {
       measured_location: mapPointToGeoJSON(state),
       label: state.label,
       priority: state.priority,

@@ -4,11 +4,18 @@ import {
   ServicePatternScheduledStopPointInsertInput,
   useInsertStopMutation,
 } from '../../generated/graphql';
+import { OptionalKeys } from '../../types';
 import { mapLngLatToPoint } from '../../utils';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 
+// the input does not need to contain all the fields
+export type CreateInput = OptionalKeys<
+  ServicePatternScheduledStopPointInsertInput,
+  'direction' | 'located_on_infrastructure_link_id'
+>;
+
 interface CreateParams {
-  input: ServicePatternScheduledStopPointInsertInput;
+  input: CreateInput;
 }
 interface CreateChanges {
   stopToCreate: ServicePatternScheduledStopPointInsertInput;
@@ -21,20 +28,20 @@ export const useCreateStop = () => {
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
   const prepareCreate = async ({ input }: CreateParams) => {
-    const changes: CreateChanges = {
-      stopToCreate: input,
+    // we need to fetch the infra link and direction for the stop
+    const { closestLinkId, direction } = await getStopLinkAndDirection({
+      stopLocation: mapLngLatToPoint(input.measured_location.coordinates),
+    });
+
+    const stopToCreate: ServicePatternScheduledStopPointInsertInput = {
+      ...input,
+      located_on_infrastructure_link_id: closestLinkId,
+      direction,
     };
 
-    if (changes.stopToCreate.measured_location) {
-      // we need to fetch the infra link and direction for the stop
-      const { closestLinkId, direction } = await getStopLinkAndDirection({
-        stopLocation: mapLngLatToPoint(
-          changes.stopToCreate.measured_location.coordinates,
-        ),
-      });
-      changes.stopToCreate.located_on_infrastructure_link_id = closestLinkId;
-      changes.stopToCreate.direction = direction;
-    }
+    const changes: CreateChanges = {
+      stopToCreate,
+    };
 
     return changes;
   };

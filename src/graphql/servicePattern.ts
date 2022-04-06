@@ -8,9 +8,21 @@ import {
   QueryPointDirectionOnLinkQuery,
   RouteRoute,
   ServicePatternScheduledStopPoint,
+  ServicePatternScheduledStopPointSetInput,
   useGetStopsQuery,
 } from '../generated/graphql';
+import { NonNullableKeys } from '../types';
 import { GqlQueryResult } from './types';
+
+// fixing the generated patching object type not to allow null values for required fields
+export type ScheduledStopPointSetInput = NonNullableKeys<
+  ServicePatternScheduledStopPointSetInput,
+  | 'measured_location'
+  | 'located_on_infrastructure_link_id'
+  | 'direction'
+  | 'label'
+  | 'priority'
+>;
 
 const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
   fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {

@@ -12,12 +12,12 @@ import {
   JourneyPatternJourneyPattern,
   RouteRoute,
   ServicePatternScheduledStopPoint,
-  ServicePatternScheduledStopPointSetInput,
   useEditStopMutation,
 } from '../../generated/graphql';
 import {
   mapGetStopByIdResult,
   mapGetStopWithRouteGraphDataByIdResult,
+  ScheduledStopPointSetInput,
 } from '../../graphql';
 import {
   DirectionNotResolvedError,
@@ -35,12 +35,12 @@ import {
 
 interface EditParams {
   stopId: UUID;
-  patch: ServicePatternScheduledStopPointSetInput;
+  patch: ScheduledStopPointSetInput;
 }
 
 interface EditChanges {
   stopId: UUID;
-  patch: ServicePatternScheduledStopPointSetInput;
+  patch: ScheduledStopPointSetInput;
   deleteStopFromRoutes: RouteRoute[];
   deleteStopFromJourneyPatterns: JourneyPatternJourneyPattern[];
 }

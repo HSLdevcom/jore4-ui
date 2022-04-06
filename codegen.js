@@ -7,7 +7,7 @@ module.exports = {
         headers: {
           'x-hasura-admin-secret': 'hasura',
         },
-        loader: './schema-loader.js',
+        loader: './schemaLoader.ts',
       },
     },
   ],
@@ -48,4 +48,6 @@ module.exports = {
       plugins: ['introspection'],
     },
   },
+  // if dealing with a typescript plugin or schema loader, transpile it to javascript first
+  require: ['ts-node/register/transpile-only'],
 };

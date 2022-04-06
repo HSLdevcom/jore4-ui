@@ -4909,15 +4909,15 @@ export type ServicePatternScheduledStopPointInsertInput = {
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction?: Maybe<Scalars['String']>;
+  direction: Scalars['String'];
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   /** The infrastructure link on which the stop is located. */
-  located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  located_on_infrastructure_link_id: Scalars['uuid'];
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
-  measured_location?: Maybe<Scalars['geography_point']>;
+  measured_location: Scalars['geography_point'];
   /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority: Scalars['Int'];
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
