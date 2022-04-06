@@ -55,6 +55,7 @@
     "removeSuccess": "Stop removed",
     "fetchClosestLinkFailed": "Could not resolve infrastructure link for the stop",
     "fetchDirectionFailed": "Could not resolve direction for the stop's infrastructure link",
+    "incompatibleDirections": "Direction of the stop and infrastructure link are not compatible. (Is the bus stop on the wrong side of the street?)",
     "notPartOfRoute": "Not part of the route",
     "removeFromRoute": "Remove from route",
     "cannotEditTerminalStops": "Editing the start and end stops of a route is not allowed",

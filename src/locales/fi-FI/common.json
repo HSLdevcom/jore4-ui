@@ -55,6 +55,7 @@
     "removeSuccess": "Pysäkki poistettu",
     "fetchClosestLinkFailed": "Infrastruktuurilinkkiä ei pystytty päättelemään pysäkille",
     "fetchDirectionFailed": "Suuntaa ei pystytty päättelemään pysäkin infrastruktuurilinkille",
+    "incompatibleDirections": "Pysäkin ja infrastruktuurilinkin suunnat eivät ole yhteensopivia. (Onko pysäkki kadun väärällä puolella?)",
     "notPartOfRoute": "Ei reitin käytössä",
     "removeFromRoute": "Poista reitin käytöstä",
     "cannotEditTerminalStops": "Reitin alku- ja päätepysäkin muokkaaminen ei ole sallittua",

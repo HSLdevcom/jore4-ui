@@ -4,15 +4,18 @@ import {
   GetStopByIdQuery,
   GetStopsAlongInfrastructureLinksQuery,
   GetStopWithRouteGraphDataByIdQuery,
-  QueryClosestLinkQuery,
-  QueryPointDirectionOnLinkQuery,
   RouteRoute,
   ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointSetInput,
   useGetStopsQuery,
 } from '../generated/graphql';
-import { NonNullableKeys } from '../types';
+import { NonNullableKeys, RequiredKeys } from '../types';
 import { GqlQueryResult } from './types';
+
+export type StopWithLocation = RequiredKeys<
+  Partial<ServicePatternScheduledStopPoint>,
+  'measured_location'
+>;
 
 // fixing the generated patching object type not to allow null values for required fields
 export type ScheduledStopPointSetInput = NonNullableKeys<
@@ -108,18 +111,6 @@ const INSERT_STOP = gql`
     }
   }
 `;
-
-export const mapClosestLinkResult = (
-  result: GqlQueryResult<QueryClosestLinkQuery>,
-) =>
-  result.data?.infrastructure_network_resolve_point_to_closest_link?.[0]
-    ?.infrastructure_link_id as UUID | undefined;
-
-export const mapGetPointDirectionOnLinkResult = (
-  result: GqlQueryResult<QueryPointDirectionOnLinkQuery>,
-) =>
-  result.data?.infrastructure_network_find_point_direction_on_link?.[0]
-    ?.value as string | undefined;
 
 export const getStopsAlongRouteGeometry = (route: RouteRoute) => {
   return route.infrastructure_links_along_route.flatMap(

@@ -22,6 +22,7 @@ import {
 import {
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
+  IncompatibleDirectionsError,
   LinkNotResolvedError,
   mapLngLatToPoint,
   showDangerToast,
@@ -38,7 +39,7 @@ interface EditParams {
   patch: ScheduledStopPointSetInput;
 }
 
-interface EditChanges {
+export interface EditChanges {
   stopId: UUID;
   patch: ScheduledStopPointSetInput;
   deleteStopFromRoutes: RouteRoute[];
@@ -91,36 +92,34 @@ export const useEditStop = () => {
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
   const prepareEdit = async ({ stopId, patch }: EditParams) => {
-    const changes: EditChanges = {
-      stopId,
-      patch,
-      deleteStopFromRoutes: [],
-      deleteStopFromJourneyPatterns: [],
-    };
-
     const stopResult = await getStopById({ stopId });
     const oldStop = mapGetStopByIdResult(stopResult);
 
     const newLocation = patch.measured_location?.coordinates;
     const oldLocation = oldStop?.measured_location.coordinates;
 
+    const stopRoutesResult = await getStopWithRouteGraphData({
+      stop_id: stopId,
+    });
+    const stopWithRouteGraphData =
+      mapGetStopWithRouteGraphDataByIdResult(stopRoutesResult);
+
+    let deleteStopFromJourneyPatterns: JourneyPatternJourneyPattern[] = [];
+    let deleteStopFromRoutes: RouteRoute[] = [];
+
     if (newLocation && !isEqual(newLocation, oldLocation)) {
       // if we modified the location of the stop, have to also fetch the new infra link and direction
-      const { closestLinkId, direction } = await getStopLinkAndDirection({
+      const { closestLink, direction } = await getStopLinkAndDirection({
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         stopLocation: mapLngLatToPoint(patch.measured_location!.coordinates),
       });
       // eslint-disable-next-line no-param-reassign
-      patch.located_on_infrastructure_link_id = closestLinkId;
+      patch.located_on_infrastructure_link_id =
+        closestLink.infrastructure_link_id;
       // eslint-disable-next-line no-param-reassign
       patch.direction = direction;
 
       // check if we tried to move the starting or ending stop of an existing route
-      const stopRoutesResult = await getStopWithRouteGraphData({
-        stop_id: stopId,
-      });
-      const stopWithRouteGraphData =
-        mapGetStopWithRouteGraphDataByIdResult(stopRoutesResult);
       if (isStartingOrEndingStopOfAnyRoute(stopId, stopWithRouteGraphData)) {
         throw new EditRouteTerminalStopsError(
           'Cannot move the starting and ending stops of a route',
@@ -128,15 +127,21 @@ export const useEditStop = () => {
       }
 
       // if a stop is moved away from the route geometry, remove it from its journey patterns
-      changes.deleteStopFromJourneyPatterns =
-        getJourneyPatternsToDeleteStopFrom(
-          closestLinkId,
-          stopWithRouteGraphData,
-        );
-      changes.deleteStopFromRoutes = getRoutesOfJourneyPatterns(
-        changes.deleteStopFromJourneyPatterns,
+      deleteStopFromJourneyPatterns = getJourneyPatternsToDeleteStopFrom(
+        closestLink.infrastructure_link_id,
+        stopWithRouteGraphData,
+      );
+      deleteStopFromRoutes = getRoutesOfJourneyPatterns(
+        deleteStopFromJourneyPatterns,
       );
     }
+
+    const changes: EditChanges = {
+      stopId,
+      patch,
+      deleteStopFromRoutes,
+      deleteStopFromJourneyPatterns,
+    };
 
     return changes;
   };
@@ -168,6 +173,10 @@ export const useEditStop = () => {
     }
     if (err instanceof DirectionNotResolvedError) {
       showDangerToast(t('stops.fetchDirectionFailed'));
+      return;
+    }
+    if (err instanceof IncompatibleDirectionsError) {
+      showDangerToast(t('stops.incompatibleDirections'));
       return;
     }
     if (err instanceof EditRouteTerminalStopsError) {

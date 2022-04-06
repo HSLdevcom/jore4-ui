@@ -5,7 +5,6 @@ import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { MapEditorContext } from '../../../context/MapEditor';
 import {
   ReusableComponentsVehicleModeEnum,
-  ServicePatternScheduledStopPoint,
   useGetRoutesWithInfrastructureLinksQuery,
   useGetStopsQuery,
 } from '../../../generated/graphql';
@@ -13,11 +12,13 @@ import {
   getRouteStopIds,
   mapGetStopsResult,
   mapRoutesDetailsResult,
+  StopWithLocation,
 } from '../../../graphql';
 import {
   DeleteChanges,
   useAppDispatch,
   useAppSelector,
+  useCreateStop,
   useDeleteStop,
   useEditStop,
   useExtractRouteFromFeature,
@@ -25,7 +26,6 @@ import {
 } from '../../../hooks';
 import { useFilterStops } from '../../../hooks/useFilterStops';
 import { selectSelectedStopId, setSelectedStopIdAction } from '../../../redux';
-import { RequiredKeys } from '../../../types';
 import {
   mapLngLatToGeoJSON,
   mapLngLatToPoint,
@@ -40,16 +40,10 @@ import { EditStopModal } from './EditStopModal';
 import { Stop } from './Stop';
 import { StopPopup } from './StopPopup';
 
-// draft stops only can only have a few attributes filled when placed, the rest is filled within the form
-type DraftStop = RequiredKeys<
-  Partial<ServicePatternScheduledStopPoint>,
-  'measured_location'
->;
-
 export const Stops = React.forwardRef((props, ref) => {
   // TODO: We might want to move these to MapEditorContext
-  const [popupInfo, setPopupInfo] = useState<DraftStop>();
-  const [draftStop, setDraftStop] = useState<DraftStop>();
+  const [popupInfo, setPopupInfo] = useState<StopWithLocation>();
+  const [draftStop, setDraftStop] = useState<StopWithLocation>();
   const [deleteChanges, setDeleteChanges] = useState<DeleteChanges>();
   const [showEditForm, setShowEditForm] = useState(false);
 
@@ -69,6 +63,7 @@ export const Stops = React.forwardRef((props, ref) => {
   const unfilteredStops = mapGetStopsResult(stopsResult);
   const stops = filter(unfilteredStops || []);
 
+  const { createDraftStop } = useCreateStop();
   const {
     prepareDelete,
     mapDeleteChangesToVariables,
@@ -99,7 +94,7 @@ export const Stops = React.forwardRef((props, ref) => {
   const setSelectedStopId = (id?: UUID) =>
     dispatch(setSelectedStopIdAction(id));
 
-  const onOpenPopup = (point: DraftStop) => {
+  const onOpenPopup = (point: StopWithLocation) => {
     setPopupInfo(point);
     setSelectedStopId(point.scheduled_stop_point_id || undefined);
   };
@@ -110,13 +105,15 @@ export const Stops = React.forwardRef((props, ref) => {
   };
 
   useImperativeHandle(ref, () => ({
-    onCreateStop: (e: MapEvent) => {
-      const stop: DraftStop = {
-        measured_location: mapLngLatToGeoJSON(e.lngLat),
-      };
+    onCreateStop: async (e: MapEvent) => {
+      try {
+        const stop = await createDraftStop(mapLngLatToPoint(e.lngLat));
 
-      setDraftStop(stop);
-      onOpenPopup(stop);
+        setDraftStop(stop);
+        onOpenPopup(stop);
+      } catch (err) {
+        defaultErrorHandler(err as Error);
+      }
     },
   }));
 

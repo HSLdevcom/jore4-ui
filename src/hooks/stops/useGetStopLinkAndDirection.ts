@@ -1,4 +1,5 @@
 import {
+  InfrastructureNetworkDirectionEnum,
   QueryClosestLinkDocument,
   QueryClosestLinkQuery,
   QueryClosestLinkQueryVariables,
@@ -13,6 +14,7 @@ import {
 import { Point } from '../../types';
 import {
   DirectionNotResolvedError,
+  IncompatibleDirectionsError,
   LinkNotResolvedError,
   mapPointToGeoJSON,
 } from '../../utils';
@@ -33,6 +35,21 @@ export const useGetStopLinkAndDirection = () => {
     QueryPointDirectionOnLinkQueryVariables
   >(QueryPointDirectionOnLinkDocument);
 
+  // based on internal_service_pattern.check_scheduled_stop_point_infrastructure_link_direction()
+  const areDirectionsCompatible = (
+    stopDirection: string,
+    linkDirection: InfrastructureNetworkDirectionEnum,
+  ) => {
+    return !(
+      (stopDirection === 'forward' &&
+        linkDirection === InfrastructureNetworkDirectionEnum.Backward) ||
+      (stopDirection === 'backward' &&
+        linkDirection === InfrastructureNetworkDirectionEnum.Forward) ||
+      (stopDirection === 'bidirectional' &&
+        linkDirection !== InfrastructureNetworkDirectionEnum.Bidirectional)
+    );
+  };
+
   const getStopLinkAndDirection = async ({
     stopLocation,
     maxSearchDistance = 50,
@@ -43,9 +60,9 @@ export const useGetStopLinkAndDirection = () => {
     const closestLinkResult = await fetchClosestLink({
       point: locationGeoJson,
     });
-    const closestLinkId = mapClosestLinkResult(closestLinkResult);
+    const closestLink = mapClosestLinkResult(closestLinkResult);
 
-    if (!closestLinkId) {
+    if (!closestLink) {
       throw new LinkNotResolvedError(
         closestLinkResult.error,
         `Could not resolve closest link to point ${stopLocation}`,
@@ -55,7 +72,7 @@ export const useGetStopLinkAndDirection = () => {
     // fetch the direction for the link
     const stopDirectionResult = await fetchStopDirection({
       point_of_interest: locationGeoJson,
-      infrastructure_link_uuid: closestLinkId,
+      infrastructure_link_uuid: closestLink.infrastructure_link_id,
       point_max_distance_in_meters: maxSearchDistance,
     });
     const direction = mapGetPointDirectionOnLinkResult(stopDirectionResult);
@@ -63,12 +80,18 @@ export const useGetStopLinkAndDirection = () => {
     if (!direction) {
       throw new DirectionNotResolvedError(
         stopDirectionResult.error,
-        `Could not resolve direction for link ${closestLinkId}`,
+        `Could not resolve direction for link ${closestLink.infrastructure_link_id}`,
+      );
+    }
+
+    if (!areDirectionsCompatible(direction, closestLink.direction)) {
+      throw new IncompatibleDirectionsError(
+        `Stop direction '${direction}' is not compatible with link direction '${closestLink.direction}'`,
       );
     }
 
     return {
-      closestLinkId,
+      closestLink,
       direction,
     };
   };

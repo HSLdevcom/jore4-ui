@@ -5848,12 +5848,14 @@ export type UuidComparisonExp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
+export type InfrastructureLinkAllFieldsFragment = { __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, shape: GeoJSON.Geometry, estimated_length_in_metres?: any | null | undefined, external_link_id: string, external_link_source: InfrastructureNetworkExternalSourceEnum };
+
 export type QueryClosestLinkQueryVariables = Exact<{
   point?: Maybe<Scalars['geography']>;
 }>;
 
 
-export type QueryClosestLinkQuery = { __typename?: 'query_root', infrastructure_network_resolve_point_to_closest_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID }> };
+export type QueryClosestLinkQuery = { __typename?: 'query_root', infrastructure_network_resolve_point_to_closest_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, shape: GeoJSON.Geometry, estimated_length_in_metres?: any | null | undefined, external_link_id: string, external_link_source: InfrastructureNetworkExternalSourceEnum }> };
 
 export type QueryPointDirectionOnLinkQueryVariables = Exact<{
   point_of_interest?: Maybe<Scalars['geography']>;
@@ -6079,6 +6081,16 @@ export type GetStopWithRouteGraphDataByIdQueryVariables = Exact<{
 
 export type GetStopWithRouteGraphDataByIdQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, journey_pattern_route?: { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, on_line_id: UUID, label: string, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID }> } | null | undefined } }> }> };
 
+export const InfrastructureLinkAllFieldsFragmentDoc = gql`
+    fragment infrastructure_link_all_fields on infrastructure_network_infrastructure_link {
+  infrastructure_link_id
+  direction
+  shape
+  estimated_length_in_metres
+  external_link_id
+  external_link_source
+}
+    `;
 export const LineDefaultFieldsFragmentDoc = gql`
     fragment line_default_fields on route_line {
   line_id
@@ -6209,10 +6221,10 @@ export const ScheduledStopPointAllFieldsFragmentDoc = gql`
 export const QueryClosestLinkDocument = gql`
     query QueryClosestLink($point: geography) {
   infrastructure_network_resolve_point_to_closest_link(args: {geog: $point}) {
-    infrastructure_link_id
+    ...infrastructure_link_all_fields
   }
 }
-    `;
+    ${InfrastructureLinkAllFieldsFragmentDoc}`;
 
 /**
  * __useQueryClosestLinkQuery__

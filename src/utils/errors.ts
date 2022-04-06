@@ -51,6 +51,15 @@ export class DirectionNotResolvedError extends GraphQLError {
   }
 }
 
+export class IncompatibleDirectionsError extends ExtendableError {
+  constructor(errorMessage?: string) {
+    super(errorMessage);
+
+    // Set the prototype explicitly.
+    Object.setPrototypeOf(this, IncompatibleDirectionsError.prototype);
+  }
+}
+
 export class EditRouteTerminalStopsError extends ExtendableError {
   constructor(errorMessage?: string) {
     super(errorMessage);

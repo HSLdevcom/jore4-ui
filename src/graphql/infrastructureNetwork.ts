@@ -2,9 +2,13 @@
 import { gql } from '@apollo/client';
 import { Geometry } from '../components/map/mapUtils';
 import {
+  InfrastructureNetworkInfrastructureLink,
   MapExternalLinkIdsToInfraLinksWithStopsQuery,
+  QueryClosestLinkQuery,
+  QueryPointDirectionOnLinkQuery,
   RouteRoute,
 } from '../generated/graphql';
+import { GqlQueryResult } from './types';
 
 export type InfrastructureLinkAlongRoute = {
   infrastructureLinkId: string;
@@ -43,15 +47,33 @@ export const orderInfraLinksByExternalLinkId = (
     return infraLinkWithStop;
   });
 
+const INFRASTRUCTURE_LINK_ALL_FIELDS = gql`
+  fragment infrastructure_link_all_fields on infrastructure_network_infrastructure_link {
+    infrastructure_link_id
+    direction
+    shape
+    estimated_length_in_metres
+    external_link_id
+    external_link_source
+  }
+`;
+
 const QUERY_CLOSEST_LINK = gql`
   query QueryClosestLink($point: geography) {
     infrastructure_network_resolve_point_to_closest_link(
       args: { geog: $point }
     ) {
-      infrastructure_link_id
+      ...infrastructure_link_all_fields
     }
   }
 `;
+
+export const mapClosestLinkResult = (
+  result: GqlQueryResult<QueryClosestLinkQuery>,
+) =>
+  result.data?.infrastructure_network_resolve_point_to_closest_link[0] as
+    | InfrastructureNetworkInfrastructureLink
+    | undefined;
 
 const QUERY_POINT_DIRECTION = gql`
   query QueryPointDirectionOnLink(
@@ -70,6 +92,12 @@ const QUERY_POINT_DIRECTION = gql`
     }
   }
 `;
+
+export const mapGetPointDirectionOnLinkResult = (
+  result: GqlQueryResult<QueryPointDirectionOnLinkQuery>,
+) =>
+  result.data?.infrastructure_network_find_point_direction_on_link?.[0]
+    ?.value as string | undefined;
 
 const QUERY_MAP_EXTERNAL_LINK_IDS_TO_INFRA_LINKS_WITH_STOPS = gql`
   query MapExternalLinkIdsToInfraLinksWithStops($externalLinkIds: [String!]) {
