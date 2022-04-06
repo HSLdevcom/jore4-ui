@@ -39,7 +39,7 @@
     "linesName": "Line's name",
     "linesType": "Line's type",
     "chooseLinesType": "Choose type of line",
-    "areaOfOperation": "Area of operation",
+    "transportTarget": "Transport target",
     "additionalInformation": "Additional information",
     "routes": "Routes",
     "lines": "Lines",
@@ -137,6 +137,23 @@
   "directionEnum": {
     "outbound": "1 - Outbound",
     "inbound": "2 - Inbound"
+  },
+  "transportTargetEnum": {
+    "helsinki_internal_traffic": "Helsinki internal traffic",
+    "espoo_and_kauniainen_internal_traffic": "Espoo and Kauniainen internal traffic",
+    "vantaa_internal_traffic": "Vantaa internal traffic",
+    "kerava_internal_traffic": "Kerava internal traffic",
+    "kirkkonummi_internal_traffic": "Kirkkonummi internal traffic",
+    "sipoo_internal_traffic": "Sipoo internal traffic",
+    "tuusula_internal_traffic": "Tuusula internal traffic",
+    "siuntio_internal_traffic": "Siuntio internal traffic",
+    "kerava_regional_traffic": "Kerava regional traffic",
+    "kirkkonummi_regional_traffic": "Kirkkonummi regional traffic",
+    "tuusula_regional_traffic": "Tuusula regional traffic",
+    "siuntio_regional_traffic": "Siuntio regional traffic",
+    "espoo_regional_traffic": "Espoo regional traffic",
+    "vantaa_regional_traffic": "Vantaa regional traffic",
+    "transverse_regional": "Transverse regional"
   },
   "formValidation": {
     "required": "Field is required"
