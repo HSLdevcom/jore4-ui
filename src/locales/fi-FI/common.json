@@ -39,7 +39,7 @@
     "linesName": "Linjan nimi",
     "linesType": "Linjan tyyppi",
     "chooseLinesType": "Valitse linjan tyyppi",
-    "areaOfOperation": "Joukkoliikennekohde",
+    "transportTarget": "Joukkoliikennekohde",
     "additionalInformation": "Oheistiedot",
     "routes": "Reitit",
     "lines": "Linjat",
@@ -137,6 +137,23 @@
   "directionEnum": {
     "outbound": "1 - Keskustasta pois",
     "inbound": "2 - Keskustaan päin"
+  },
+  "transportTargetEnum": {
+    "helsinki_internal_traffic": "Helsingin sisäinen liikenne",
+    "espoo_and_kauniainen_internal_traffic": "Espoon ja Kauniaisen sisäinen liikenne",
+    "vantaa_internal_traffic": "Vantaan sisäinen liikenne",
+    "kerava_internal_traffic": "Keravan sisäinen liikenne",
+    "kirkkonummi_internal_traffic": "Kirkkonummen sisäinen liikenne",
+    "sipoo_internal_traffic": "Sipoon sisäinen liikenne",
+    "tuusula_internal_traffic": "Tuusulan sisäinen liikenne",
+    "siuntio_internal_traffic": "Siuntion sisäinen liikenne",
+    "kerava_regional_traffic": "Keravan seudullinen liikenne",
+    "kirkkonummi_regional_traffic": "Kirkkonummen seudullinen liikenne",
+    "tuusula_regional_traffic": "Tuusulan seudullinen liikenne",
+    "siuntio_regional_traffic": "Siuntion seudullinen liikenne",
+    "espoo_regional_traffic": "Espoon seudullinen liikenne",
+    "vantaa_regional_traffic": "Vantaan seudullinen liikenne",
+    "transverse_regional": "Alueiden välinen"
   },
   "formValidation": {
     "required": "Kenttä vaaditaan"
