@@ -25,6 +25,7 @@ module.exports = {
         'typescript',
         'typescript-operations',
         'typescript-react-apollo',
+        './codegen/asyncQueryPlugin/index.ts',
       ],
       config: {
         skipTypename: false,
