@@ -1,4 +1,5 @@
 import * as luxon from 'luxon';
+import { useAsyncQuery } from '../hooks/useAsyncQuery';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
@@ -7375,3 +7376,87 @@ export function useGetStopWithRouteGraphDataByIdLazyQuery(baseOptions?: Apollo.L
 export type GetStopWithRouteGraphDataByIdQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdQuery>;
 export type GetStopWithRouteGraphDataByIdLazyQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdLazyQuery>;
 export type GetStopWithRouteGraphDataByIdQueryResult = Apollo.QueryResult<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>;
+
+export function useQueryClosestLinkAsyncQuery() {
+          return useAsyncQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(QueryClosestLinkDocument);
+        }
+export type QueryClosestLinkAsyncQueryHookResult = ReturnType<typeof useQueryClosestLinkAsyncQuery>;
+export function useQueryPointDirectionOnLinkAsyncQuery() {
+          return useAsyncQuery<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>(QueryPointDirectionOnLinkDocument);
+        }
+export type QueryPointDirectionOnLinkAsyncQueryHookResult = ReturnType<typeof useQueryPointDirectionOnLinkAsyncQuery>;
+export function useMapExternalLinkIdsToInfraLinksWithStopsAsyncQuery() {
+          return useAsyncQuery<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>(MapExternalLinkIdsToInfraLinksWithStopsDocument);
+        }
+export type MapExternalLinkIdsToInfraLinksWithStopsAsyncQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinksWithStopsAsyncQuery>;
+export function useGetStopsAlongInfrastructureLinksAsyncQuery() {
+          return useAsyncQuery<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>(GetStopsAlongInfrastructureLinksDocument);
+        }
+export type GetStopsAlongInfrastructureLinksAsyncQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksAsyncQuery>;
+
+export function useListAllLinesAsyncQuery() {
+          return useAsyncQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument);
+        }
+export type ListAllLinesAsyncQueryHookResult = ReturnType<typeof useListAllLinesAsyncQuery>;
+export function useSearchAllLinesAsyncQuery() {
+          return useAsyncQuery<SearchAllLinesQuery, SearchAllLinesQueryVariables>(SearchAllLinesDocument);
+        }
+export type SearchAllLinesAsyncQueryHookResult = ReturnType<typeof useSearchAllLinesAsyncQuery>;
+export function useListOwnLinesAsyncQuery() {
+          return useAsyncQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument);
+        }
+export type ListOwnLinesAsyncQueryHookResult = ReturnType<typeof useListOwnLinesAsyncQuery>;
+export function useListChangingRoutesAsyncQuery() {
+          return useAsyncQuery<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>(ListChangingRoutesDocument);
+        }
+export type ListChangingRoutesAsyncQueryHookResult = ReturnType<typeof useListChangingRoutesAsyncQuery>;
+export function useGetLineDetailsByIdAsyncQuery() {
+          return useAsyncQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument);
+        }
+export type GetLineDetailsByIdAsyncQueryHookResult = ReturnType<typeof useGetLineDetailsByIdAsyncQuery>;
+export function useGetLinesByValidityAsyncQuery() {
+          return useAsyncQuery<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>(GetLinesByValidityDocument);
+        }
+export type GetLinesByValidityAsyncQueryHookResult = ReturnType<typeof useGetLinesByValidityAsyncQuery>;
+export function useGetLineDetailsWithRoutesByIdAsyncQuery() {
+          return useAsyncQuery<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>(GetLineDetailsWithRoutesByIdDocument);
+        }
+export type GetLineDetailsWithRoutesByIdAsyncQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdAsyncQuery>;
+export function useGetRouteDetailsByIdsAsyncQuery() {
+          return useAsyncQuery<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>(GetRouteDetailsByIdsDocument);
+        }
+export type GetRouteDetailsByIdsAsyncQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdsAsyncQuery>;
+export function useGetRouteDetailsByLabelsAsyncQuery() {
+          return useAsyncQuery<GetRouteDetailsByLabelsQuery, GetRouteDetailsByLabelsQueryVariables>(GetRouteDetailsByLabelsDocument);
+        }
+export type GetRouteDetailsByLabelsAsyncQueryHookResult = ReturnType<typeof useGetRouteDetailsByLabelsAsyncQuery>;
+export function useGetRouteDetailsByLabelWildcardAsyncQuery() {
+          return useAsyncQuery<GetRouteDetailsByLabelWildcardQuery, GetRouteDetailsByLabelWildcardQueryVariables>(GetRouteDetailsByLabelWildcardDocument);
+        }
+export type GetRouteDetailsByLabelWildcardAsyncQueryHookResult = ReturnType<typeof useGetRouteDetailsByLabelWildcardAsyncQuery>;
+export function useGetRoutesWithInfrastructureLinksAsyncQuery() {
+          return useAsyncQuery<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>(GetRoutesWithInfrastructureLinksDocument);
+        }
+export type GetRoutesWithInfrastructureLinksAsyncQueryHookResult = ReturnType<typeof useGetRoutesWithInfrastructureLinksAsyncQuery>;
+
+
+
+
+
+
+
+
+export function useGetStopsAsyncQuery() {
+          return useAsyncQuery<GetStopsQuery, GetStopsQueryVariables>(GetStopsDocument);
+        }
+export type GetStopsAsyncQueryHookResult = ReturnType<typeof useGetStopsAsyncQuery>;
+export function useGetStopByIdAsyncQuery() {
+          return useAsyncQuery<GetStopByIdQuery, GetStopByIdQueryVariables>(GetStopByIdDocument);
+        }
+export type GetStopByIdAsyncQueryHookResult = ReturnType<typeof useGetStopByIdAsyncQuery>;
+
+
+export function useGetStopWithRouteGraphDataByIdAsyncQuery() {
+          return useAsyncQuery<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>(GetStopWithRouteGraphDataByIdDocument);
+        }
+export type GetStopWithRouteGraphDataByIdAsyncQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdAsyncQuery>;
