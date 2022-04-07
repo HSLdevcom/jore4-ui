@@ -2,6 +2,7 @@
 import { gql } from '@apollo/client';
 import { Geometry } from '../components/map/mapUtils';
 import {
+  InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
   MapExternalLinkIdsToInfraLinksWithStopsQuery,
   QueryClosestLinkQuery,
@@ -97,7 +98,7 @@ export const mapGetPointDirectionOnLinkResult = (
   result: GqlQueryResult<QueryPointDirectionOnLinkQuery>,
 ) =>
   result.data?.infrastructure_network_find_point_direction_on_link?.[0]
-    ?.value as string | undefined;
+    ?.value as InfrastructureNetworkDirectionEnum | undefined;
 
 const QUERY_MAP_EXTERNAL_LINK_IDS_TO_INFRA_LINKS_WITH_STOPS = gql`
   query MapExternalLinkIdsToInfraLinksWithStops($externalLinkIds: [String!]) {

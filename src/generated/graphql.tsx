@@ -167,7 +167,7 @@ export type InfrastructureNetworkDirection = {
   infrastructure_links: Array<InfrastructureNetworkInfrastructureLink>;
   /** An aggregate relationship */
   infrastructure_links_aggregate: InfrastructureNetworkInfrastructureLinkAggregate;
-  value: Scalars['String'];
+  value: InfrastructureNetworkDirectionEnum;
 };
 
 
@@ -4719,7 +4719,7 @@ export type ServicePatternScheduledStopPoint = {
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction: Scalars['String'];
+  direction: InfrastructureNetworkDirectionEnum;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
   /** The infrastructure link on which the stop is located. */
@@ -4909,7 +4909,7 @@ export type ServicePatternScheduledStopPointInsertInput = {
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction: Scalars['String'];
+  direction: InfrastructureNetworkDirectionEnum;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
   /** The infrastructure link on which the stop is located. */
@@ -5071,7 +5071,7 @@ export type ServicePatternScheduledStopPointSetInput = {
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction?: Maybe<Scalars['String']>;
+  direction?: Maybe<InfrastructureNetworkDirectionEnum>;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<Scalars['String']>;
   /** The infrastructure link on which the stop is located. */
@@ -5864,21 +5864,21 @@ export type QueryPointDirectionOnLinkQueryVariables = Exact<{
 }>;
 
 
-export type QueryPointDirectionOnLinkQuery = { __typename?: 'query_root', infrastructure_network_find_point_direction_on_link: Array<{ __typename?: 'infrastructure_network_direction', value: string }> };
+export type QueryPointDirectionOnLinkQuery = { __typename?: 'query_root', infrastructure_network_find_point_direction_on_link: Array<{ __typename?: 'infrastructure_network_direction', value: InfrastructureNetworkDirectionEnum }> };
 
 export type MapExternalLinkIdsToInfraLinksWithStopsQueryVariables = Exact<{
   externalLinkIds?: Maybe<Array<Scalars['String']> | Scalars['String']>;
 }>;
 
 
-export type MapExternalLinkIdsToInfraLinksWithStopsQuery = { __typename?: 'query_root', infrastructure_network_infrastructure_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, external_link_id: string, shape: GeoJSON.Geometry, scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> }> };
+export type MapExternalLinkIdsToInfraLinksWithStopsQuery = { __typename?: 'query_root', infrastructure_network_infrastructure_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, external_link_id: string, shape: GeoJSON.Geometry, scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> }> };
 
 export type GetStopsAlongInfrastructureLinksQueryVariables = Exact<{
   infrastructure_link_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
 
 
-export type GetStopsAlongInfrastructureLinksQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number }> };
+export type GetStopsAlongInfrastructureLinksQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number }> };
 
 export type ScheduledStopPointInJourneyPatternDefaultFieldsFragment = { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean };
 
@@ -6037,7 +6037,7 @@ export type DeleteStopFromJourneyPatternMutation = { __typename?: 'mutation_root
 
 export type ScheduledStopPointDefaultFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined };
 
-export type ScheduledStopPointAllFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number };
+export type ScheduledStopPointAllFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number };
 
 export type RemoveStopMutationVariables = Exact<{
   stop_id: Scalars['uuid'];
@@ -6049,21 +6049,21 @@ export type RemoveStopMutation = { __typename?: 'mutation_root', delete_service_
 export type GetStopsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetStopsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number }> };
+export type GetStopsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number }> };
 
 export type GetStopByIdQueryVariables = Exact<{
   stopId: Scalars['uuid'];
 }>;
 
 
-export type GetStopByIdQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number }> };
+export type GetStopByIdQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number }> };
 
 export type InsertStopMutationVariables = Exact<{
   object: ServicePatternScheduledStopPointInsertInput;
 }>;
 
 
-export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_pattern_scheduled_stop_point_one?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, located_on_infrastructure_link_id: UUID, direction: string, priority: number, measured_location: GeoJSON.Point, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined };
+export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_pattern_scheduled_stop_point_one?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, priority: number, measured_location: GeoJSON.Point, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined };
 
 export type EditStopMutationVariables = Exact<{
   stop_id: Scalars['uuid'];
@@ -6072,7 +6072,7 @@ export type EditStopMutationVariables = Exact<{
 }>;
 
 
-export type EditStopMutation = { __typename?: 'mutation_root', update_service_pattern_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point_mutation_response', returning: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: string, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number }> } | null | undefined, delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean }> } | null | undefined };
+export type EditStopMutation = { __typename?: 'mutation_root', update_service_pattern_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point_mutation_response', returning: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number }> } | null | undefined, delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean }> } | null | undefined };
 
 export type GetStopWithRouteGraphDataByIdQueryVariables = Exact<{
   stop_id: Scalars['uuid'];

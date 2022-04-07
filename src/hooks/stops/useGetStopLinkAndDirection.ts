@@ -37,15 +37,15 @@ export const useGetStopLinkAndDirection = () => {
 
   // based on internal_service_pattern.check_scheduled_stop_point_infrastructure_link_direction()
   const areDirectionsCompatible = (
-    stopDirection: string,
+    stopDirection: InfrastructureNetworkDirectionEnum,
     linkDirection: InfrastructureNetworkDirectionEnum,
   ) => {
     return !(
-      (stopDirection === 'forward' &&
+      (stopDirection === InfrastructureNetworkDirectionEnum.Forward &&
         linkDirection === InfrastructureNetworkDirectionEnum.Backward) ||
-      (stopDirection === 'backward' &&
+      (stopDirection === InfrastructureNetworkDirectionEnum.Backward &&
         linkDirection === InfrastructureNetworkDirectionEnum.Forward) ||
-      (stopDirection === 'bidirectional' &&
+      (stopDirection === InfrastructureNetworkDirectionEnum.Bidirectional &&
         linkDirection !== InfrastructureNetworkDirectionEnum.Bidirectional)
     );
   };

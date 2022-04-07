@@ -2345,8 +2345,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "ENUM",
+                "name": "infrastructure_network_direction_enum",
                 "ofType": null
               }
             },
@@ -27196,8 +27196,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "ENUM",
+                "name": "infrastructure_network_direction_enum",
                 "ofType": null
               }
             },
@@ -28456,8 +28456,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "ENUM",
+                "name": "infrastructure_network_direction_enum",
                 "ofType": null
               }
             },
@@ -29360,8 +29360,8 @@
             "name": "direction",
             "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "ENUM",
+              "name": "infrastructure_network_direction_enum",
               "ofType": null
             },
             "defaultValue": null,

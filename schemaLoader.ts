@@ -33,7 +33,7 @@ const hasuraOverrideTypeDefs = gql`
     scheduled_stop_point_id: uuid!
     measured_location: geography_point!
     located_on_infrastructure_link_id: uuid!
-    direction: String!
+    direction: infrastructure_network_direction_enum!
     label: String!
     priority: Int!
   }
@@ -44,7 +44,7 @@ const hasuraOverrideTypeDefs = gql`
     # unfortunately the typing has to be fixed in TypeScript side
     measured_location: geography_point
     located_on_infrastructure_link_id: uuid
-    direction: String
+    direction: infrastructure_network_direction_enum
     label: String
     priority: Int
   }
@@ -53,9 +53,14 @@ const hasuraOverrideTypeDefs = gql`
   type service_pattern_scheduled_stop_point_insert_input {
     measured_location: geography_point!
     located_on_infrastructure_link_id: uuid!
-    direction: String!
+    direction: infrastructure_network_direction_enum!
     label: String!
     priority: Int!
+  }
+
+  # returned fields for infrastructure_network_find_point_direction_on_link function
+  type infrastructure_network_direction {
+    value: infrastructure_network_direction_enum!
   }
 `;
 
