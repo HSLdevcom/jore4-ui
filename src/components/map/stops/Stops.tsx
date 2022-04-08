@@ -27,7 +27,11 @@ import {
   setEditedStopDataAction,
   setSelectedStopIdAction,
 } from '../../../redux';
-import { mapLngLatToPoint, mapToVariables } from '../../../utils';
+import {
+  mapLngLatToGeoJSON,
+  mapLngLatToPoint,
+  mapToVariables,
+} from '../../../utils';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
 
@@ -74,7 +78,8 @@ export const Stops = React.forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     onCreateStop: async (e: MapEvent) => {
       try {
-        const draftStop = await createDraftStop(mapLngLatToPoint(e.lngLat));
+        const stopLocation = mapLngLatToGeoJSON(e.lngLat);
+        const draftStop = await createDraftStop(stopLocation);
         onEditStop(draftStop);
       } catch (err) {
         defaultErrorHandler(err as Error);

@@ -5,8 +5,7 @@ import {
   useInsertStopMutation,
 } from '../../generated/graphql';
 import { StopWithLocation } from '../../graphql';
-import { OptionalKeys, Point } from '../../types';
-import { mapLngLatToPoint, mapPointToGeoJSON } from '../../utils';
+import { OptionalKeys } from '../../types';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 
 // the input does not need to contain all the fields
@@ -28,9 +27,9 @@ export const useCreateStop = () => {
 
   // pre-fills and pre-validates a few fields for the draft stop
   // throws exceptions in case or error
-  const createDraftStop = async (stopLocation: Point) => {
+  const createDraftStop = async (stopLocation: GeoJSON.Point) => {
     const draftStop: StopWithLocation = {
-      measured_location: mapPointToGeoJSON(stopLocation),
+      measured_location: stopLocation,
     };
 
     const { closestLink, direction } = await getStopLinkAndDirection({
@@ -48,7 +47,7 @@ export const useCreateStop = () => {
   const prepareCreate = async ({ input }: CreateParams) => {
     // we need to fetch the infra link and direction for the stop
     const { closestLink, direction } = await getStopLinkAndDirection({
-      stopLocation: mapLngLatToPoint(input.measured_location.coordinates),
+      stopLocation: input.measured_location,
     });
 
     const stopToCreate: ServicePatternScheduledStopPointInsertInput = {

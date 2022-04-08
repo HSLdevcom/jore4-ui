@@ -4,16 +4,12 @@ import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
 import {
   EditStopMutationVariables,
-  GetStopByIdDocument,
-  GetStopByIdQuery,
-  GetStopByIdQueryVariables,
-  GetStopWithRouteGraphDataByIdDocument,
-  GetStopWithRouteGraphDataByIdQuery,
-  GetStopWithRouteGraphDataByIdQueryVariables,
   JourneyPatternJourneyPattern,
   RouteRoute,
   ServicePatternScheduledStopPoint,
   useEditStopMutation,
+  useGetStopByIdAsyncQuery,
+  useGetStopWithRouteGraphDataByIdAsyncQuery,
 } from '../../generated/graphql';
 import {
   mapGetStopByIdResult,
@@ -25,10 +21,8 @@ import {
   EditRouteTerminalStopsError,
   IncompatibleDirectionsError,
   LinkNotResolvedError,
-  mapLngLatToPoint,
   showDangerToast,
 } from '../../utils';
-import { useAsyncQuery } from '../useAsyncQuery';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 import {
   getRoutesOfJourneyPatterns,
@@ -58,14 +52,9 @@ export const useEditStop = () => {
   const { t } = useTranslation();
   const [editStopMutation] = useEditStopMutation();
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
-  const [getStopWithRouteGraphData] = useAsyncQuery<
-    GetStopWithRouteGraphDataByIdQuery,
-    GetStopWithRouteGraphDataByIdQueryVariables
-  >(GetStopWithRouteGraphDataByIdDocument);
-  const [getStopById] = useAsyncQuery<
-    GetStopByIdQuery,
-    GetStopByIdQueryVariables
-  >(GetStopByIdDocument);
+  const [getStopWithRouteGraphData] =
+    useGetStopWithRouteGraphDataByIdAsyncQuery();
+  const [getStopById] = useGetStopByIdAsyncQuery();
 
   // find all route geometries from which this stop has been removed
   const getJourneyPatternsToDeleteStopFrom = (
@@ -103,8 +92,8 @@ export const useEditStop = () => {
     const stopResult = await getStopById({ stopId });
     const oldStop = mapGetStopByIdResult(stopResult);
 
-    const newLocation = patch.measured_location?.coordinates;
-    const oldLocation = oldStop?.measured_location.coordinates;
+    const newLocation = patch.measured_location;
+    const oldLocation = oldStop?.measured_location;
 
     const stopRoutesResult = await getStopWithRouteGraphData({
       stop_id: stopId,
@@ -118,8 +107,7 @@ export const useEditStop = () => {
     if (newLocation && !isEqual(newLocation, oldLocation)) {
       // if we modified the location of the stop, have to also fetch the new infra link and direction
       const { closestLink, direction } = await getStopLinkAndDirection({
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        stopLocation: mapLngLatToPoint(patch.measured_location!.coordinates),
+        stopLocation: newLocation,
       });
       // eslint-disable-next-line no-param-reassign
       patch.located_on_infrastructure_link_id =

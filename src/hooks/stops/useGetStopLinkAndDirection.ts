@@ -1,39 +1,26 @@
 import {
   InfrastructureNetworkDirectionEnum,
-  QueryClosestLinkDocument,
-  QueryClosestLinkQuery,
-  QueryClosestLinkQueryVariables,
-  QueryPointDirectionOnLinkDocument,
-  QueryPointDirectionOnLinkQuery,
-  QueryPointDirectionOnLinkQueryVariables,
+  useQueryClosestLinkAsyncQuery,
+  useQueryPointDirectionOnLinkAsyncQuery,
 } from '../../generated/graphql';
 import {
   mapClosestLinkResult,
   mapGetPointDirectionOnLinkResult,
 } from '../../graphql';
-import { Point } from '../../types';
 import {
   DirectionNotResolvedError,
   IncompatibleDirectionsError,
   LinkNotResolvedError,
-  mapPointToGeoJSON,
 } from '../../utils';
-import { useAsyncQuery } from '../useAsyncQuery';
 
 interface Params {
-  stopLocation: Point;
+  stopLocation: GeoJSON.Point;
   maxSearchDistance?: number;
 }
 
 export const useGetStopLinkAndDirection = () => {
-  const [fetchClosestLink] = useAsyncQuery<
-    QueryClosestLinkQuery,
-    QueryClosestLinkQueryVariables
-  >(QueryClosestLinkDocument);
-  const [fetchStopDirection] = useAsyncQuery<
-    QueryPointDirectionOnLinkQuery,
-    QueryPointDirectionOnLinkQueryVariables
-  >(QueryPointDirectionOnLinkDocument);
+  const [fetchClosestLink] = useQueryClosestLinkAsyncQuery();
+  const [fetchStopDirection] = useQueryPointDirectionOnLinkAsyncQuery();
 
   // based on internal_service_pattern.check_scheduled_stop_point_infrastructure_link_direction()
   const areDirectionsCompatible = (
@@ -54,11 +41,9 @@ export const useGetStopLinkAndDirection = () => {
     stopLocation,
     maxSearchDistance = 50,
   }: Params) => {
-    const locationGeoJson = mapPointToGeoJSON(stopLocation);
-
     // fetch the closest link to the stop location
     const closestLinkResult = await fetchClosestLink({
-      point: locationGeoJson,
+      point: stopLocation,
     });
     const closestLink = mapClosestLinkResult(closestLinkResult);
 
@@ -71,7 +56,7 @@ export const useGetStopLinkAndDirection = () => {
 
     // fetch the direction for the link
     const stopDirectionResult = await fetchStopDirection({
-      point_of_interest: locationGeoJson,
+      point_of_interest: stopLocation,
       infrastructure_link_uuid: closestLink.infrastructure_link_id,
       point_max_distance_in_meters: maxSearchDistance,
     });
