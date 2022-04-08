@@ -17,7 +17,6 @@ export interface IMapEditorContext {
   initiallyDisplayedRouteIds?: UUID[];
   displayedRouteIds?: UUID[];
   creatingNewRoute: boolean;
-  canAddStops: boolean;
   drawingMode: Mode | undefined;
   editedRouteData: {
     id?: UUID;
@@ -33,7 +32,6 @@ export const initialState: IMapEditorContext = {
   initiallyDisplayedRouteIds: undefined,
   displayedRouteIds: undefined,
   creatingNewRoute: false,
-  canAddStops: false,
   drawingMode: undefined,
   editedRouteData: {
     id: undefined,
@@ -47,7 +45,6 @@ export const initialState: IMapEditorContext = {
 export type MapEditorActions =
   | 'reset'
   | 'setState'
-  | 'toggleAddStop'
   | 'startDrawRoute'
   | 'stopDrawRoute'
   | 'startEditRoute'
@@ -72,10 +69,6 @@ const reducerFunction = (
       return initialState;
     case 'setState':
       return { ...draft, ...payload };
-    case 'toggleAddStop':
-      draft.drawingMode = undefined;
-      draft.canAddStops = !draft.canAddStops;
-      break;
     case 'startDrawRoute':
       draft.drawingMode = Mode.Draw;
       draft.creatingNewRoute = true;

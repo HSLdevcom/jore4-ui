@@ -83,7 +83,6 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
 
   const { drawingMode } = mapEditorState;
 
-  const onAddStop = () => mapEditorDispatch({ type: 'toggleAddStop' });
   const onDrawRoute = () => {
     mapRef?.current?.onDeleteDrawnRoute();
     mapEditorDispatch({
@@ -218,8 +217,6 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     deleteMapOpenQueryParameter();
   };
 
-  const { canAddStops } = mapEditorState;
-
   return (
     <Modal
       isOpen={isModalMapOpen}
@@ -238,7 +235,6 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
         */}
       <Map
         height={`calc(100vh - ${mapHeaderHeight + mapFooterHeight}px)`}
-        canAddStops={canAddStops}
         drawable
         ref={mapRef}
       />
@@ -248,8 +244,6 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
         onDeleteRoute={onDeleteRoute}
         onCancel={onCancel}
         onSave={onSave}
-        canAddStops={canAddStops}
-        onAddStop={onAddStop}
       />
       <ConfirmationDialog
         isOpen={isDeleting}

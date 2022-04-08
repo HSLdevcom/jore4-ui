@@ -15,6 +15,11 @@ export const selectEditedStopData = createSelector(
   (map) => map.editedStopData,
 );
 
+export const selectIsCreateStopModeEnabled = createSelector(
+  selectMap,
+  (map) => map.isCreateStopModeEnabled,
+);
+
 export const selectIsModalMapOpen = createSelector(
   selectModalMap,
   (modalMap) => modalMap.isOpen,

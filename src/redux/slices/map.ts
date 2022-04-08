@@ -4,11 +4,13 @@ import { StopWithLocation } from '../../graphql';
 interface IState {
   selectedStopId?: UUID;
   editedStopData?: StopWithLocation;
+  isCreateStopModeEnabled: boolean;
 }
 
 const initialState: IState = {
   selectedStopId: undefined,
   editedStopData: undefined,
+  isCreateStopModeEnabled: false,
 };
 
 const slice = createSlice({
@@ -24,12 +26,16 @@ const slice = createSlice({
     ) => {
       state.editedStopData = action.payload;
     },
+    setIsCreateStopModeEnabled: (state, action: PayloadAction<boolean>) => {
+      state.isCreateStopModeEnabled = action.payload;
+    },
   },
 });
 
 export const {
   setSelectedStopId: setSelectedStopIdAction,
   setEditedStopData: setEditedStopDataAction,
+  setIsCreateStopModeEnabled: setIsCreateStopModeEnabledAction,
 } = slice.actions;
 
 export const mapReducer = slice.reducer;

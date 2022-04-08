@@ -7,8 +7,16 @@ import {
   MapEditorContext,
   Mode,
 } from '../../context/MapEditor';
-import { useContextStateSelector } from '../../hooks';
+import {
+  useAppAction,
+  useAppSelector,
+  useContextStateSelector,
+} from '../../hooks';
 import { Row, Visible } from '../../layoutComponents';
+import {
+  selectIsCreateStopModeEnabled,
+  setIsCreateStopModeEnabledAction,
+} from '../../redux';
 import { SimpleButton } from '../../uiComponents';
 
 interface Props {
@@ -17,8 +25,6 @@ interface Props {
   onDeleteRoute: () => void;
   onCancel: () => void;
   onSave: () => void;
-  canAddStops: boolean;
-  onAddStop: () => void;
 }
 
 export const MapFooter: React.FC<Props> = ({
@@ -27,8 +33,6 @@ export const MapFooter: React.FC<Props> = ({
   onDeleteRoute,
   onCancel,
   onSave,
-  canAddStops,
-  onAddStop,
 }) => {
   const { t } = useTranslation();
   const {
@@ -43,6 +47,14 @@ export const MapFooter: React.FC<Props> = ({
     MapEditorContext,
     isInViewModeSelector,
   );
+  const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
+  const setIsCreateStopModeEnabled = useAppAction(
+    setIsCreateStopModeEnabledAction,
+  );
+
+  const onAddStops = () => {
+    setIsCreateStopModeEnabled(!isCreateStopModeEnabled);
+  };
 
   return (
     <Row className="space-x-4 bg-white px-10 py-5">
@@ -65,9 +77,9 @@ export const MapFooter: React.FC<Props> = ({
         {t('map.editRoute')}
       </SimpleButton>
       <SimpleButton
-        onClick={onAddStop}
+        onClick={onAddStops}
         disabled={drawingMode !== undefined}
-        inverted={!canAddStops}
+        inverted={!isCreateStopModeEnabled}
       >
         {t('map.addStop')}
       </SimpleButton>

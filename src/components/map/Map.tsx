@@ -8,8 +8,9 @@ import React, {
 import { HTMLOverlay, MapEvent } from 'react-map-gl';
 import { MapEditorContext } from '../../context/MapEditor';
 import { MapFilterContext } from '../../context/MapFilter';
-import { useGetDisplayedRoutes } from '../../hooks';
+import { useAppSelector, useGetDisplayedRoutes } from '../../hooks';
 import { Column } from '../../layoutComponents';
+import { selectIsCreateStopModeEnabled } from '../../redux';
 import { FilterPanel } from '../../uiComponents';
 import { Maplibre } from './Maplibre';
 import { DynamicInfraLinksVectorLayer, InfraLinksVectorLayer } from './network';
@@ -21,20 +22,13 @@ import { Stops } from './stops';
 
 interface Props {
   drawable?: boolean;
-  canAddStops?: boolean;
   className?: string;
   width?: string;
   height?: string;
 }
 
 export const MapComponent = (
-  {
-    drawable = false,
-    canAddStops = false,
-    className,
-    width = '100vw',
-    height = '100vh',
-  }: Props,
+  { drawable = false, className, width = '100vw', height = '100vh' }: Props,
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
   const {
@@ -53,6 +47,8 @@ export const MapComponent = (
   const [showRoute, setShowRoute] = useState(routeSelected);
   const [showStops, setShowStops] = useState(true);
   const [showDynamicStops, setShowDynamicStops] = useState(false);
+
+  const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
 
   // TODO: avoid any type
   const editorLayerRef = useRef<ExplicitAny>(null);
@@ -76,7 +72,7 @@ export const MapComponent = (
     <Maplibre
       width={width}
       height={height}
-      onClick={canAddStops ? onCreateStop : undefined}
+      onClick={isCreateStopModeEnabled ? onCreateStop : undefined}
       className={className}
     >
       <HTMLOverlay

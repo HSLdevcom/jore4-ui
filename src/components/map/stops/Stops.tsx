@@ -25,6 +25,7 @@ import {
   selectEditedStopData,
   selectSelectedStopId,
   setEditedStopDataAction,
+  setIsCreateStopModeEnabledAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import {
@@ -42,6 +43,9 @@ export const Stops = React.forwardRef((props, ref) => {
   const editedStopData = useAppSelector(selectEditedStopData);
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
   const setEditedStopData = useAppAction(setEditedStopDataAction);
+  const setIsCreateStopModeEnabled = useAppAction(
+    setIsCreateStopModeEnabledAction,
+  );
 
   const {
     state: { editedRouteData, creatingNewRoute },
@@ -81,6 +85,7 @@ export const Stops = React.forwardRef((props, ref) => {
         const stopLocation = mapLngLatToGeoJSON(e.lngLat);
         const draftStop = await createDraftStop(stopLocation);
         onEditStop(draftStop);
+        setIsCreateStopModeEnabled(false);
       } catch (err) {
         defaultErrorHandler(err as Error);
       }
