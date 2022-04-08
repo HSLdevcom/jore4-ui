@@ -133,7 +133,7 @@ export const EditRoutePage = (): JSX.Element => {
         title={t('confirmDeleteRouteDialog.title')}
         description={t('confirmDeleteRouteDialog.description')}
         confirmText={t('confirmDeleteRouteDialog.confirmText')}
-        cancelText={t('confirmDeleteRouteDialog.cancelText')}
+        cancelText={t('cancel')}
       />
     </div>
   );

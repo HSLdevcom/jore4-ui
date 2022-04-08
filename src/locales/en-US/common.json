@@ -91,22 +91,19 @@
   "confirmDeleteRouteDialog": {
     "title": "Delete route?",
     "description": "Route will be deleted from the line it belongs to.",
-    "confirmText": "Delete",
-    "cancelText": "Cancel"
+    "confirmText": "Delete"
   },
   "confirmDeleteStopDialog": {
     "title": "Delete stop?",
     "description": "Are you sure you want to delete the stop? ({{ stopLabel }})",
     "removedFromRoutes": "The stop will be removed from the following routes: {{ routeLabels }}",
-    "confirmText": "Delete",
-    "cancelText": "Cancel"
+    "confirmText": "Delete"
   },
   "confirmEditStopDialog": {
     "title": "Confirm changes",
     "description": "Confirm stop changes ({{ stopLabel }})",
     "removedFromRoutes": "The stop will be removed from the following routes: {{ routeLabels }}",
-    "confirmText": "OK",
-    "cancelText": "Cancel"
+    "confirmText": "OK"
   },
   "priority": {
     "label": "Priority",

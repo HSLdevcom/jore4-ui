@@ -51,7 +51,7 @@ export const EditStopConfirmationDialog: React.FC<Props> = ({
       title={t('confirmEditStopDialog.title')}
       description={buildDescription(editChanges)}
       confirmText={t('confirmEditStopDialog.confirmText')}
-      cancelText={t('confirmEditStopDialog.cancelText')}
+      cancelText={t('cancel')}
     />
   );
 };

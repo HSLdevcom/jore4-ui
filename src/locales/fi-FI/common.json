@@ -91,22 +91,19 @@
   "confirmDeleteRouteDialog": {
     "title": "Poista reitti?",
     "description": "Reitti poistetaan sille kuuluvalta linjalta.",
-    "confirmText": "Poista",
-    "cancelText": "Peruuta"
+    "confirmText": "Poista"
   },
   "confirmDeleteStopDialog": {
     "title": "Poista pysäkki?",
     "description": "Oletko varma, että haluat poistaa pysäkin? ({{ stopLabel }})",
     "removedFromRoutes": "Pysäkki poistetaan seuraavilta reiteiltä: {{ routeLabels }}",
-    "confirmText": "Poista",
-    "cancelText": "Peruuta"
+    "confirmText": "Poista"
   },
   "confirmEditStopDialog": {
     "title": "Vahvista muutos",
     "description": "Vahvista pysäkin muokkaus ({{ stopLabel }})",
     "removedFromRoutes": "Pysäkki poistetaan seuraavilta reiteiltä: {{ routeLabels }}",
-    "confirmText": "OK",
-    "cancelText": "Peruuta"
+    "confirmText": "OK"
   },
   "priority": {
     "label": "Prioriteetti",
