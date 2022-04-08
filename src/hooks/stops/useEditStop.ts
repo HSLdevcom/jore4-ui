@@ -8,11 +8,9 @@ import {
   RouteRoute,
   ServicePatternScheduledStopPoint,
   useEditStopMutation,
-  useGetStopByIdAsyncQuery,
   useGetStopWithRouteGraphDataByIdAsyncQuery,
 } from '../../generated/graphql';
 import {
-  mapGetStopByIdResult,
   mapGetStopWithRouteGraphDataByIdResult,
   ScheduledStopPointSetInput,
 } from '../../graphql';
@@ -20,6 +18,7 @@ import {
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
   IncompatibleDirectionsError,
+  InternalError,
   LinkNotResolvedError,
   showDangerToast,
 } from '../../utils';
@@ -54,7 +53,6 @@ export const useEditStop = () => {
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
   const [getStopWithRouteGraphData] =
     useGetStopWithRouteGraphDataByIdAsyncQuery();
-  const [getStopById] = useGetStopByIdAsyncQuery();
 
   // find all route geometries from which this stop has been removed
   const getJourneyPatternsToDeleteStopFrom = (
@@ -86,62 +84,80 @@ export const useEditStop = () => {
     );
   };
 
-  // prepare variables for mutation and validate if it's even allowed
-  // try to produce a changeset that can be displayed on an explanatory UI
-  const prepareEdit = async ({ stopId, patch }: EditParams) => {
-    const stopResult = await getStopById({ stopId });
-    const oldStop = mapGetStopByIdResult(stopResult);
-
-    const newLocation = patch.measured_location;
-    const oldLocation = oldStop?.measured_location;
-
-    const stopRoutesResult = await getStopWithRouteGraphData({
-      stop_id: stopId,
+  const onStopLocationChanged = async (
+    newLocation: GeoJSON.Point,
+    stopWithRouteGraphData: ServicePatternScheduledStopPoint,
+  ) => {
+    // if we modified the location of the stop, have to also fetch the new infra link and direction
+    const { closestLink, direction } = await getStopLinkAndDirection({
+      stopLocation: newLocation,
     });
-    const stopWithRouteGraphData =
-      mapGetStopWithRouteGraphDataByIdResult(stopRoutesResult);
 
-    let deleteStopFromJourneyPatterns: JourneyPatternJourneyPattern[] = [];
-    let deleteStopFromRoutes: RouteRoute[] = [];
-
-    if (newLocation && !isEqual(newLocation, oldLocation)) {
-      // if we modified the location of the stop, have to also fetch the new infra link and direction
-      const { closestLink, direction } = await getStopLinkAndDirection({
-        stopLocation: newLocation,
-      });
-      // eslint-disable-next-line no-param-reassign
-      patch.located_on_infrastructure_link_id =
-        closestLink.infrastructure_link_id;
-      // eslint-disable-next-line no-param-reassign
-      patch.direction = direction;
-
-      // check if we tried to move the starting or ending stop of an existing route
-      if (isStartingOrEndingStopOfAnyRoute(stopId, stopWithRouteGraphData)) {
-        throw new EditRouteTerminalStopsError(
-          'Cannot move the starting and ending stops of a route',
-        );
-      }
-
-      // if a stop is moved away from the route geometry, remove it from its journey patterns
-      deleteStopFromJourneyPatterns = getJourneyPatternsToDeleteStopFrom(
-        closestLink.infrastructure_link_id,
-        stopWithRouteGraphData,
-      );
-      deleteStopFromRoutes = getRoutesOfJourneyPatterns(
-        deleteStopFromJourneyPatterns,
+    // check if we tried to move the starting or ending stop of an existing route
+    if (isStartingOrEndingStopOfAnyRoute(stopWithRouteGraphData)) {
+      throw new EditRouteTerminalStopsError(
+        'Cannot move the starting and ending stops of a route',
       );
     }
 
-    const editedStop = merge({}, oldStop, patch);
-    const changes: EditChanges = {
-      stopId,
-      patch,
-      editedStop,
-      deleteStopFromRoutes,
+    // if a stop is moved away from the route geometry, remove it from its journey patterns
+    const deleteStopFromJourneyPatterns = getJourneyPatternsToDeleteStopFrom(
+      closestLink.infrastructure_link_id,
+      stopWithRouteGraphData,
+    );
+    const deleteStopFromRoutes = getRoutesOfJourneyPatterns(
       deleteStopFromJourneyPatterns,
+    );
+
+    const locationChanges: Partial<EditChanges> = {
+      patch: {
+        located_on_infrastructure_link_id: closestLink.infrastructure_link_id,
+        direction,
+      },
+      deleteStopFromJourneyPatterns,
+      deleteStopFromRoutes,
     };
 
-    return changes;
+    return locationChanges;
+  };
+
+  // prepare variables for mutation and validate if it's even allowed
+  // try to produce a changeset that can be displayed on an explanatory UI
+  const prepareEdit = async ({ stopId, patch }: EditParams) => {
+    const stopWithRoutesResult = await getStopWithRouteGraphData({ stopId });
+    const stopWithRouteGraphData =
+      mapGetStopWithRouteGraphDataByIdResult(stopWithRoutesResult);
+
+    if (!stopWithRouteGraphData) {
+      throw new InternalError(`Could not find stop with id ${stopId}`);
+    }
+
+    // changes that will always be applied
+    const defaultChanges = {
+      stopId,
+      patch,
+      deleteStopFromRoutes: [],
+      deleteStopFromJourneyPatterns: [],
+    };
+
+    // changes that are applied if the stop's location is changed
+    const newLocation = patch.measured_location;
+    const oldLocation = stopWithRouteGraphData.measured_location;
+    const hasLocationChanged =
+      newLocation && !isEqual(newLocation, oldLocation);
+    const locationChanges = hasLocationChanged
+      ? await onStopLocationChanged(newLocation, stopWithRouteGraphData)
+      : {};
+
+    const mergedChanges = merge({}, defaultChanges, locationChanges);
+
+    const finalChanges: EditChanges = {
+      ...mergedChanges,
+      // the final state of the stop that will be after patching
+      editedStop: merge({}, stopWithRouteGraphData, mergedChanges.patch),
+    };
+
+    return finalChanges;
   };
 
   const mapEditChangesToVariables = (changes: EditChanges) => {

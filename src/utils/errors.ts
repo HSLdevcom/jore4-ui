@@ -68,3 +68,12 @@ export class EditRouteTerminalStopsError extends ExtendableError {
     Object.setPrototypeOf(this, EditRouteTerminalStopsError.prototype);
   }
 }
+
+export class InternalError extends ExtendableError {
+  constructor(errorMessage?: string) {
+    super(errorMessage);
+
+    // Set the prototype explicitly.
+    Object.setPrototypeOf(this, InternalError.prototype);
+  }
+}

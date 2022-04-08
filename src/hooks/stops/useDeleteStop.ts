@@ -12,6 +12,7 @@ import {
 import { mapGetStopWithRouteGraphDataByIdResult } from '../../graphql';
 import {
   EditRouteTerminalStopsError,
+  InternalError,
   removeFromApolloCache,
   showDangerToast,
   showDangerToastWithError,
@@ -57,17 +58,16 @@ export const useDeleteStop = () => {
   // try to produce a changeset that can be displayed on an explanatory UI
   const prepareDelete = async ({ stopId }: DeleteParams) => {
     // check if we tried to delete the starting or ending stop of an existing route
-    const stopRoutesResult = await getStopWithRouteGraphData({
-      stop_id: stopId,
-    });
-
+    const stopWithRoutesResult = await getStopWithRouteGraphData({ stopId });
     const stopWithRouteGraphData =
-      // we know that the stop exists on the backend
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      mapGetStopWithRouteGraphDataByIdResult(stopRoutesResult)!;
+      mapGetStopWithRouteGraphDataByIdResult(stopWithRoutesResult);
 
-    // TODO: show which routes' terminus stop this is
-    if (isStartingOrEndingStopOfAnyRoute(stopId, stopWithRouteGraphData)) {
+    if (!stopWithRouteGraphData) {
+      throw new InternalError(`Could not find stop with id ${stopId}`);
+    }
+
+    // check if we tried to delete the starting or ending stop of an existing route
+    if (isStartingOrEndingStopOfAnyRoute(stopWithRouteGraphData)) {
       throw new EditRouteTerminalStopsError(
         'Cannot delete the starting and ending stops of a route',
       );

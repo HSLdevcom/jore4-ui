@@ -6,10 +6,10 @@ import {
 
 // checking whether this stop is the start or end stop of an existing route
 export const isStartingOrEndingStopOfAnyRoute = (
-  stopId: UUID,
-  stopWithRouteGraphData?: ServicePatternScheduledStopPoint,
+  stopWithRouteGraphData: ServicePatternScheduledStopPoint,
 ) => {
-  return stopWithRouteGraphData?.scheduled_stop_point_in_journey_patterns.some(
+  const stopId = stopWithRouteGraphData.scheduled_stop_point_id;
+  return stopWithRouteGraphData.scheduled_stop_point_in_journey_patterns.some(
     (item) => {
       // journey patterns/routes that this stop is part of
       const route = item.journey_pattern.journey_pattern_route;

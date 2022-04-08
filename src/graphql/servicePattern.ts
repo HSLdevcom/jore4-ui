@@ -153,11 +153,11 @@ const EDIT_STOP = gql`
 `;
 
 const GET_STOP_WITH_ROUTE_GRAPH_DATA_BY_ID = gql`
-  query GetStopWithRouteGraphDataById($stop_id: uuid!) {
+  query GetStopWithRouteGraphDataById($stopId: uuid!) {
     service_pattern_scheduled_stop_point(
-      where: { scheduled_stop_point_id: { _eq: $stop_id } }
+      where: { scheduled_stop_point_id: { _eq: $stopId } }
     ) {
-      ...scheduled_stop_point_default_fields
+      ...scheduled_stop_point_all_fields
       scheduled_stop_point_in_journey_patterns {
         ...scheduled_stop_point_in_journey_pattern_default_fields
         journey_pattern {
