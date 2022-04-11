@@ -7,3 +7,4 @@ export * from './graphql';
 export * from './search';
 export * from './toastService';
 export * from './url';
+export * from './gql';

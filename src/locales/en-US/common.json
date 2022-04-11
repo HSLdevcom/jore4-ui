@@ -47,7 +47,8 @@
     "routes": "Routes",
     "lines": "Lines",
     "createNewRoute": "Create new route",
-    "createNewRouteInstructions": "Route drawing opens in a new window."
+    "createNewRouteInstructions": "Route drawing opens in a new window.",
+    "showDrafts": "Show drafts"
   },
   "stops": {
     "stop": "Stop",
