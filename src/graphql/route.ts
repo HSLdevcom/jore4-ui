@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ApolloQueryResult, FetchResult, gql } from '@apollo/client';
 import {
+  GetActiveLineDetailsWithRoutesByDateQuery,
   GetLineDetailsWithRoutesByIdQuery,
   GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
   RouteLine,
   RouteRoute,
+  useGetActiveLineDetailsWithRoutesByDateQuery,
   useGetLineDetailsByIdQuery,
   useGetRouteDetailsByIdsQuery,
   useGetRouteDetailsByLabelWildcardQuery,
@@ -199,9 +201,102 @@ const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
     }
   }
 `;
+
 export const mapLineDetailsWithRoutesResult = (
   result: GqlQueryResult<GetLineDetailsWithRoutesByIdQuery>,
 ) => result.data?.route_line_by_pk as RouteLine | undefined;
+
+const GET_ACTIVE_LINE_DETAILS_WITH_ROUTES_BY_DATE = gql`
+  query GetActiveLineDetailsWithRoutesByDate(
+    $label: String!
+    $date: timestamptz
+    $filterPriority: [Int!]
+  ) {
+    route_line(
+      where: {
+        label: { _eq: $label }
+        _and: [
+          {
+            _or: [
+              { validity_start: { _lte: $date } }
+              { validity_start: { _is_null: true } }
+            ]
+          }
+          {
+            _or: [
+              { validity_end: { _gte: $date } }
+              { validity_end: { _is_null: true } }
+            ]
+          }
+        ]
+        priority: { _nin: $filterPriority }
+      }
+      order_by: { priority: desc }
+      limit: 1
+    ) {
+      ...line_all_fields
+      line_routes(
+        where: {
+          _and: [
+            {
+              _or: [
+                { validity_start: { _lte: $date } }
+                { validity_start: { _is_null: true } }
+              ]
+            }
+            {
+              _or: [
+                { validity_end: { _gte: $date } }
+                { validity_end: { _is_null: true } }
+              ]
+            }
+          ]
+          priority: { _nin: $filterPriority }
+        }
+      ) {
+        ...route_with_stops
+        infrastructure_links_along_route {
+          infrastructure_link {
+            scheduled_stop_point_located_on_infrastructure_link(
+              where: {
+                _and: [
+                  {
+                    _or: [
+                      { validity_start: { _lte: $date } }
+                      { validity_start: { _is_null: true } }
+                    ]
+                  }
+                  {
+                    _or: [
+                      { validity_end: { _gte: $date } }
+                      { validity_end: { _is_null: true } }
+                    ]
+                  }
+                ]
+              }
+            ) {
+              ...scheduled_stop_point_default_fields
+              scheduled_stop_point_in_journey_patterns {
+                ...scheduled_stop_point_in_journey_pattern_default_fields
+                journey_pattern {
+                  on_route_id
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const mapActiveLineDetailsByDateResult = (
+  result: ReturnType<typeof useGetActiveLineDetailsWithRoutesByDateQuery>,
+) => result.data?.route_line[0] as RouteLine | undefined;
+
+export const mapActiveLineDetailsWithRoutesByDateResult = (
+  result: GqlQueryResult<GetActiveLineDetailsWithRoutesByDateQuery>,
+) => result.data?.route_line as RouteLine[] | undefined;
 
 const GET_ROUTE_DETAILS_BY_IDS = gql`
   query GetRouteDetailsByIds($route_ids: [uuid!]) {
