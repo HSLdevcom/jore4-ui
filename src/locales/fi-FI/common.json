@@ -42,7 +42,8 @@
     "routes": "Reitit",
     "lines": "Linjat",
     "createNewRoute": "Luo reitti",
-    "createNewRouteInstructions": "Täysin uuden reitin luominen avautuu karttanäkymään."
+    "createNewRouteInstructions": "Täysin uuden reitin luominen avautuu karttanäkymään.",
+    "showDrafts": "Näytä luonnokset"
   },
   "stops": {
     "stop": "Pysäkki",
