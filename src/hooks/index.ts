@@ -1,3 +1,4 @@
+export * from './line-details/useGetLineDetails';
 export * from './redux';
 export * from './routes';
 export * from './search/useSearch';
@@ -11,6 +12,6 @@ export * from './useCreateLine';
 export * from './useEditLine';
 export * from './useExtractRouteFromFeature';
 export * from './useFilterStops';
+export * from './useMapUrlQuery';
 export * from './useShowRoutesOnModal';
 export * from './useUrlQuery';
-export * from './useMapUrlQuery';

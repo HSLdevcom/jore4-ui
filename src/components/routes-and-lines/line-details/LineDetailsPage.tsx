@@ -3,18 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
 import { MapEditorContext } from '../../../context/MapEditor';
+import { RouteLine } from '../../../generated/graphql';
 import {
-  RouteLine,
-  useGetLineDetailsWithRoutesByIdQuery,
-} from '../../../generated/graphql';
-import { mapLineDetailsWithRoutesResult } from '../../../graphql';
-import { useAppDispatch, useMapUrlQuery } from '../../../hooks';
+  useAppDispatch,
+  useGetLineDetails,
+  useMapUrlQuery,
+} from '../../../hooks';
 import { Column, Container, Row } from '../../../layoutComponents';
 import { setIsModalMapOpenAction } from '../../../redux';
 import { DateLike, mapToShortDate } from '../../../time';
 import { SimpleButton } from '../../../uiComponents';
-import { mapToVariables } from '../../../utils';
 import { PageHeader } from '../common/PageHeader';
+import { ActionsRow } from './ActionsRow';
 import { AdditionalInformation } from './AdditionalInformation';
 import { MapPreview } from './MapPreview';
 import { RouteStopsTable } from './RouteStopsTable';
@@ -88,14 +88,11 @@ const LineTitle: React.FC<LineTitleProps> = ({
 export const LineDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
+
   const dispatch = useAppDispatch();
   const { addMapOpenQueryParameter } = useMapUrlQuery();
   const { dispatch: mapEditorDispatch } = useContext(MapEditorContext);
-
-  const lineDetailsResult = useGetLineDetailsWithRoutesByIdQuery(
-    mapToVariables({ line_id: id }),
-  );
-  const line = mapLineDetailsWithRoutesResult(lineDetailsResult);
+  const { line } = useGetLineDetails();
 
   const buildValidityPeriod = (
     validityStart?: DateLike | null,
@@ -137,8 +134,9 @@ export const LineDetailsPage = (): JSX.Element => {
           </Column>
         </Row>
       </PageHeader>
+      <ActionsRow className="mx-auto" />
       {line && (
-        <Container>
+        <Container className="pt-10">
           <Column>
             <Row>
               <AdditionalInformation className="w-2/3" line={line} />
