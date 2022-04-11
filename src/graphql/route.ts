@@ -6,6 +6,7 @@ import {
   InsertLineOneMutation,
   RouteLine,
   RouteRoute,
+  useGetHighestPriorityLineDetailsWithRoutesQuery,
   useGetLineDetailsByIdQuery,
   useGetRouteDetailsByIdsQuery,
   useGetRouteDetailsByLabelWildcardQuery,
@@ -201,9 +202,48 @@ const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
     }
   }
 `;
+
 export const mapLineDetailsWithRoutesResult = (
   result: GqlQueryResult<GetLineDetailsWithRoutesByIdQuery>,
 ) => result.data?.route_line_by_pk as RouteLine | undefined;
+
+const GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
+  query GetHighestPriorityLineDetailsWithRoutes(
+    $lineFilters: route_line_bool_exp
+    $lineRouteFilters: route_route_bool_exp
+    $routeStopFilters: service_pattern_scheduled_stop_point_bool_exp
+  ) {
+    route_line(where: $lineFilters, order_by: { priority: desc }, limit: 1) {
+      ...line_all_fields
+      line_routes(where: $lineRouteFilters) {
+        ...route_with_stops
+        infrastructure_links_along_route {
+          infrastructure_link {
+            scheduled_stop_point_located_on_infrastructure_link(
+              where: $routeStopFilters
+            ) {
+              ...scheduled_stop_point_default_fields
+              scheduled_stop_point_in_journey_patterns {
+                ...scheduled_stop_point_in_journey_pattern_default_fields
+                journey_pattern {
+                  on_route_id
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+// The used query has limit: 1 for the result so it can't have more than 1 route_line in result array.
+export const mapHighestPriorityLineDetailsWithRoutesResult = (
+  result: ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesQuery>,
+) =>
+  result.data?.route_line.length
+    ? (result.data?.route_line[0] as RouteLine)
+    : undefined;
 
 const GET_ROUTE_DETAILS_BY_IDS = gql`
   query GetRouteDetailsByIds($route_ids: [uuid!]) {
