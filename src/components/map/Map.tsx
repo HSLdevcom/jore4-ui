@@ -5,20 +5,32 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { HTMLOverlay, MapEvent } from 'react-map-gl';
+import { HTMLOverlay, Layer, MapEvent } from 'react-map-gl';
 import { MapFilterContext } from '../../context/MapFilter';
-import { useAppSelector, useGetDisplayedRoutes } from '../../hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useGetDisplayedRoutes,
+} from '../../hooks';
 import { Column } from '../../layoutComponents';
 import {
   selectHasDraftRouteGeometry,
   selectIsCreateStopModeEnabled,
   selectMapEditor,
+  selectSelectedRouteId,
+  setSelectedRouteIdAction,
 } from '../../redux';
 import { FilterPanel } from '../../uiComponents';
 import { Maplibre } from './Maplibre';
 import { DynamicInfraLinksVectorLayer, InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
-import { DrawRouteLayer, RouteLayer, Routes } from './routes';
+import {
+  DrawRouteLayer,
+  mapLayerIdToRouteId,
+  RouteLayer,
+  Routes,
+  ROUTE_LAYER_ID_PREFIX,
+} from './routes';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopFilterOverlay } from './StopFilterOverlay';
 import { Stops } from './stops';
@@ -42,6 +54,9 @@ export const MapComponent = (
   const {
     state: { showStopFilterOverlay },
   } = useContext(MapFilterContext);
+
+  const dispatch = useAppDispatch();
+  const selectedRouteId = useAppSelector(selectSelectedRouteId);
 
   const { displayedRouteIds } = useGetDisplayedRoutes();
 
@@ -73,11 +88,39 @@ export const MapComponent = (
     }
   };
 
+  const onClick = (e: MapEvent) => {
+    if (isCreateStopModeEnabled) {
+      onCreateStop(e);
+      return;
+    }
+
+    // Check if route feature has been clicked
+    // If so, extract route id from the layer
+    const { features } = e;
+
+    if (features?.length) {
+      const routeFeatures = features.filter((feature) =>
+        feature.layer.id.includes(ROUTE_LAYER_ID_PREFIX),
+      );
+
+      if (routeFeatures.length) {
+        const clickedFeatureId = mapLayerIdToRouteId(routeFeatures[0].layer.id);
+        dispatch(setSelectedRouteIdAction(clickedFeatureId));
+
+        return;
+      }
+    }
+
+    if (selectedRouteId) {
+      dispatch(setSelectedRouteIdAction(undefined));
+    }
+  };
+
   return (
     <Maplibre
       width={width}
       height={height}
-      onClick={isCreateStopModeEnabled ? onCreateStop : undefined}
+      onClick={onClick}
       className={className}
     >
       <HTMLOverlay
@@ -167,8 +210,22 @@ export const MapComponent = (
       {showRoute &&
         routeSelected &&
         displayedRouteIds?.map((item) => (
-          <RouteLayer key={item} routeId={item} />
+          <RouteLayer
+            key={item}
+            routeId={item}
+            isSelected={selectedRouteId === item && !hasDraftRouteGeometry}
+          />
         ))}
+      {/**
+       * Empty layer for dynamically ordering route layers
+       * https://github.com/visgl/react-map-gl/issues/939#issuecomment-625290200
+       */}
+      <Layer
+        id="route_base"
+        type="background"
+        layout={{ visibility: 'none' }}
+        paint={{}}
+      />
     </Maplibre>
   );
 };
