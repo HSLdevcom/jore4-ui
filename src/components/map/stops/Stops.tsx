@@ -1,6 +1,5 @@
-import React, { useContext, useImperativeHandle } from 'react';
+import React, { useImperativeHandle } from 'react';
 import { MapEvent } from 'react-map-gl';
-import { MapEditorContext } from '../../../context/MapEditor';
 import {
   ReusableComponentsVehicleModeEnum,
   useGetRoutesWithInfrastructureLinksQuery,
@@ -23,6 +22,7 @@ import {
 import { useFilterStops } from '../../../hooks/useFilterStops';
 import {
   selectEditedStopData,
+  selectMapEditor,
   selectSelectedStopId,
   setEditedStopDataAction,
   setIsCreateStopModeEnabledAction,
@@ -47,9 +47,8 @@ export const Stops = React.forwardRef((props, ref) => {
     setIsCreateStopModeEnabledAction,
   );
 
-  const {
-    state: { editedRouteData, creatingNewRoute },
-  } = useContext(MapEditorContext);
+  const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
+
   const { displayedRouteIds } = useGetDisplayedRoutes();
 
   // TODO: Fetch only the stops visible on the map?

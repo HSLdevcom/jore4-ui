@@ -1,5 +1,4 @@
 import { RouteFormState } from '../components/forms/RoutePropertiesForm.types';
-import { RouteStop } from '../context/MapEditor';
 import {
   InsertRouteOneMutationVariables,
   RouteRoute,
@@ -17,6 +16,7 @@ import {
   mapInfraLinksAlongRouteToGraphQL,
   stopBelongsToJourneyPattern,
 } from '../graphql';
+import { RouteStop } from '../redux';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,

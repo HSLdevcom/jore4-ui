@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { getBusRoute } from '../api/routing';
-import { RouteStop } from '../context/MapEditor';
 import {
   GetStopsAlongInfrastructureLinksDocument,
   GetStopsAlongInfrastructureLinksQuery,
@@ -19,6 +18,7 @@ import {
   mapGraphQLRouteToInfraLinks,
   orderInfraLinksByExternalLinkId,
 } from '../graphql';
+import { RouteStop } from '../redux';
 import { mapGeoJSONtoFeature } from '../utils';
 import { useAsyncQuery } from './useAsyncQuery';
 
