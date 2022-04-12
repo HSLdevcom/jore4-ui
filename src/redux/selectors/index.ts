@@ -41,3 +41,8 @@ export const selectHasDraftRouteGeometry = createSelector(
   selectMapEditor,
   (mapEditor) => !!mapEditor.editedRouteData.infraLinks?.length,
 );
+
+export const selectSelectedRouteId = createSelector(
+  selectMapEditor,
+  (mapEditor) => mapEditor.selectedRouteId,
+);
