@@ -6,16 +6,15 @@ import React, {
   useState,
 } from 'react';
 import { HTMLOverlay, MapEvent } from 'react-map-gl';
-import { MapEditorContext } from '../../context/MapEditor';
 import { MapFilterContext } from '../../context/MapFilter';
 import { useAppSelector, useGetDisplayedRoutes } from '../../hooks';
 import { Column } from '../../layoutComponents';
-import { selectIsCreateStopModeEnabled } from '../../redux';
+import { selectIsCreateStopModeEnabled, selectMapEditor } from '../../redux';
 import { FilterPanel } from '../../uiComponents';
 import { Maplibre } from './Maplibre';
 import { DynamicInfraLinksVectorLayer, InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
-import { DrawRouteLayer, RouteLayer, Routes } from './routes';
+import { DrawRouteLayer, RouteLayer, Routes } from './routes/index';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopFilterOverlay } from './StopFilterOverlay';
 import { Stops } from './stops';
@@ -31,9 +30,9 @@ export const MapComponent = (
   { drawable = false, className, width = '100vw', height = '100vh' }: Props,
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
-  const {
-    state: { drawingMode, hasRoute, initiallyDisplayedRouteIds },
-  } = useContext(MapEditorContext);
+  const { drawingMode, hasRoute, initiallyDisplayedRouteIds } =
+    useAppSelector(selectMapEditor);
+
   const {
     state: { showStopFilterOverlay },
   } = useContext(MapFilterContext);
