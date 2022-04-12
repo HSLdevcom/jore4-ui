@@ -2,6 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 export const selectMap = (state: RootState) => state.map;
+export const selectMapEditor = (state: RootState) => state.mapEditor;
 export const selectModalMap = (state: RootState) => state.modalMap;
 export const selectUser = (state: RootState) => state.user;
 
@@ -23,4 +24,15 @@ export const selectIsCreateStopModeEnabled = createSelector(
 export const selectIsModalMapOpen = createSelector(
   selectModalMap,
   (modalMap) => modalMap.isOpen,
+);
+
+export const selectIsInViewMode = createSelector(
+  selectMapEditor,
+  (modalMap) => modalMap.drawingMode === undefined,
+);
+
+export const selectHasChangesInProgress = createSelector(
+  selectMapEditor,
+  selectIsInViewMode,
+  (modalMap, viewMode) => modalMap.creatingNewRoute || !viewMode,
 );

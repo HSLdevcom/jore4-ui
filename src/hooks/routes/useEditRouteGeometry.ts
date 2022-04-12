@@ -1,4 +1,3 @@
-import { RouteStop } from '../../context/MapEditor';
 import {
   RouteRoute,
   UpdateRouteGeometryMutationVariables,
@@ -13,6 +12,7 @@ import {
   mapInfraLinksAlongRouteToGraphQL,
   stopBelongsToJourneyPattern,
 } from '../../graphql';
+import { RouteStop } from '../../redux';
 import { mapToVariables, removeFromApolloCache } from '../../utils';
 import { useExtractRouteFromFeature } from '../useExtractRouteFromFeature';
 import { mapStopsToScheduledStopPoints } from './useCreateRoute';

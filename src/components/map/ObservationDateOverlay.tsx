@@ -2,13 +2,10 @@ import { DateTime } from 'luxon';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdLayers } from 'react-icons/md';
-import {
-  hasChangesInProgressSelector,
-  MapEditorContext,
-} from '../../context/MapEditor';
 import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
-import { useContextStateSelector, useFilterStops } from '../../hooks';
+import { useAppSelector, useFilterStops } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
+import { selectHasChangesInProgress } from '../../redux';
 import { IconButton } from '../../uiComponents';
 import { MapOverlay } from './MapOverlay';
 
@@ -25,10 +22,7 @@ export const ObservationDateOverlay = ({ className }: Props) => {
   } = useContext(MapFilterContext);
 
   const { toggleShowFilters } = useFilterStops();
-  const hasChangesInProgress = useContextStateSelector(
-    MapEditorContext,
-    hasChangesInProgressSelector,
-  );
+  const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
 
   return (
     <MapOverlay className={`${className} rounded`}>

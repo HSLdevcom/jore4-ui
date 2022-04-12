@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
-import { MapEditorContext, Mode } from '../../context/MapEditor';
 import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
 import { RouteRoute } from '../../generated/graphql';
 import {
@@ -13,7 +12,18 @@ import {
   useMapUrlQuery,
 } from '../../hooks';
 import { useCreateRoute } from '../../hooks/routes/useCreateRoute';
-import { selectIsModalMapOpen, setIsModalMapOpenAction } from '../../redux';
+import {
+  Mode,
+  resetAction,
+  selectIsModalMapOpen,
+  selectMapEditor,
+  setIsModalMapOpenAction,
+  setStateAction,
+  startDrawRouteAction,
+  startEditRouteAction,
+  stopDrawRouteAction,
+  stopEditRouteAction,
+} from '../../redux';
 import { isDateInRange } from '../../time';
 import { ConfirmationDialog, Modal } from '../../uiComponents';
 import { showSuccessToast, showToast } from '../../utils';
@@ -42,8 +52,10 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const history = useHistory();
   const isModalMapOpen = useAppSelector(selectIsModalMapOpen);
   const { deleteMapOpenQueryParameter, isMapOpen } = useMapUrlQuery();
-  const { state: mapEditorState, dispatch: mapEditorDispatch } =
-    useContext(MapEditorContext);
+
+  const { editedRouteData, creatingNewRoute, drawingMode } =
+    useAppSelector(selectMapEditor);
+
   const {
     state: { observationDate },
     dispatch: mapFilterDispatch,
@@ -54,7 +66,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     infraLinks,
     stops: routeStops,
     metaData: routeDetails,
-  } = mapEditorState.editedRouteData;
+  } = editedRouteData;
 
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -94,26 +106,28 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     });
   });
 
-  const { drawingMode } = mapEditorState;
-
   const onDrawRoute = () => {
     mapRef?.current?.onDeleteDrawnRoute();
-    mapEditorDispatch({
-      type: drawingMode === Mode.Draw ? 'stopDrawRoute' : 'startDrawRoute',
-    });
+    dispatch(
+      drawingMode === Mode.Draw
+        ? stopDrawRouteAction()
+        : startDrawRouteAction(),
+    );
   };
   const onEditRoute = () => {
-    if (!mapEditorState.creatingNewRoute) {
+    if (!creatingNewRoute) {
       mapRef?.current?.onDeleteDrawnRoute();
     }
-    mapEditorDispatch({
-      type: drawingMode === Mode.Edit ? 'stopEditRoute' : 'startEditRoute',
-    });
+    dispatch(
+      drawingMode === Mode.Edit
+        ? stopEditRouteAction()
+        : startEditRouteAction(),
+    );
   };
   const onCancel = () => {
     mapRef?.current?.onDeleteDrawnRoute();
 
-    mapEditorDispatch({ type: 'stopDrawRoute' });
+    dispatch(stopDrawRouteAction());
   };
   const onSave = async () => {
     const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
@@ -163,12 +177,9 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const newRoute = response.data!.insert_route_route_one!;
 
-          mapEditorDispatch({
-            type: 'setState',
-            payload: {
-              initiallyDisplayedRouteIds: [newRoute.route_id],
-            },
-          });
+          dispatch(
+            setStateAction({ initiallyDisplayedRouteIds: [newRoute.route_id] }),
+          );
 
           showSuccessToast(t('routes.saveSuccess'));
 
@@ -186,7 +197,8 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
             showSuccessToast(t('filters.observationDateAdjusted'));
           }
 
-          mapEditorDispatch({ type: 'stopDrawRoute' });
+          dispatch(stopDrawRouteAction());
+
           mapRef?.current?.onDeleteDrawnRoute();
         } catch (err) {
           defaultInsertRouteErrorHandler(err);
@@ -214,7 +226,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   };
 
   const onDeleteRoute = async () => {
-    if (mapEditorState.creatingNewRoute) {
+    if (creatingNewRoute) {
       onCancel();
     } else {
       setIsDeleting(true);
@@ -222,7 +234,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   };
 
   const onCloseModalMap = () => {
-    mapEditorDispatch({ type: 'reset' });
+    dispatch(resetAction());
     dispatch(setIsModalMapOpenAction(false));
     deleteMapOpenQueryParameter();
   };

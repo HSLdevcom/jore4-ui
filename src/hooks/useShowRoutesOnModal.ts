@@ -1,9 +1,8 @@
 import { DateTime } from 'luxon';
 import { useContext } from 'react';
-import { MapEditorContext } from '../context/MapEditor';
 import { MapFilterContext, setObservationDate } from '../context/MapFilter';
 import { Maybe } from '../generated/graphql';
-import { setIsModalMapOpenAction } from '../redux';
+import { resetAction, setIsModalMapOpenAction, setStateAction } from '../redux';
 import { isDateInRange } from '../time';
 import { useAppDispatch } from './redux';
 import { useMapUrlQuery } from './useMapUrlQuery';
@@ -11,17 +10,15 @@ import { useMapUrlQuery } from './useMapUrlQuery';
 export const useShowRoutesOnModal = () => {
   const dispatch = useAppDispatch();
   const { addMapOpenQueryParameter } = useMapUrlQuery();
-  const { dispatch: mapEditorDispatch } = useContext(MapEditorContext);
   const { dispatch: mapFilterDispatch } = useContext(MapFilterContext);
 
   const showRoutesOnModalById = (routeIds: UUID[]) => {
-    mapEditorDispatch({ type: 'reset' });
-    mapEditorDispatch({
-      type: 'setState',
-      payload: {
+    dispatch(resetAction());
+    dispatch(
+      setStateAction({
         initiallyDisplayedRouteIds: routeIds,
-      },
-    });
+      }),
+    );
     dispatch(setIsModalMapOpenAction(true));
     addMapOpenQueryParameter();
   };
