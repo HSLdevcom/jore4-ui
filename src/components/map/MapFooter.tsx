@@ -31,7 +31,7 @@ export const MapFooter: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { drawingMode, displayedRouteIds, creatingNewRoute } =
+  const { drawingMode, creatingNewRoute, selectedRouteId } =
     useAppSelector(selectMapEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
 
@@ -58,11 +58,7 @@ export const MapFooter: React.FC<Props> = ({
       </SimpleButton>
       <SimpleButton
         onClick={onEditRoute}
-        disabled={
-          // Don't enable editing when multiple routes are visible since there is no way
-          // to select which one of the visible routes to edit
-          !(creatingNewRoute || displayedRouteIds?.length === 1)
-        }
+        disabled={!(creatingNewRoute || selectedRouteId)}
         inverted={drawingMode !== Mode.Edit}
       >
         {t('map.editRoute')}
