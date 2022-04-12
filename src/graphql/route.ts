@@ -210,6 +210,7 @@ const GET_ROUTE_DETAILS_BY_IDS = gql`
       ...route_with_journey_pattern_stops
       route_line {
         label
+        primary_vehicle_mode
       }
     }
   }
@@ -230,6 +231,7 @@ const GET_ROUTE_DETAILS_BY_LABELS = gql`
       ...route_with_journey_pattern_stops
       route_line {
         label
+        primary_vehicle_mode
       }
     }
   }

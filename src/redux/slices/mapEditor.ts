@@ -16,6 +16,7 @@ interface IState {
     infraLinks?: InfrastructureLinkAlongRoute[];
     templateRouteId?: UUID;
   };
+  selectedRouteId?: UUID;
 }
 
 const initialState: IState = {
@@ -30,6 +31,7 @@ const initialState: IState = {
     infraLinks: [],
     templateRouteId: undefined,
   },
+  selectedRouteId: undefined,
 };
 
 export enum Mode {
@@ -60,7 +62,7 @@ const slice = createSlice({
     startEditRoute: (state) => {
       const routeToEdit = state.creatingNewRoute
         ? undefined
-        : state?.displayedRouteIds?.[0];
+        : state?.selectedRouteId;
 
       state.drawingMode = Mode.Edit;
       state.editedRouteData = {
@@ -106,6 +108,7 @@ const slice = createSlice({
       state.drawingMode = state.editedRouteData.templateRouteId
         ? Mode.Edit
         : Mode.Draw;
+      state.selectedRouteId = undefined;
     },
     setInitiallyDisplayedRouteIds: (state, action: PayloadAction<UUID[]>) => {
       return {
@@ -137,6 +140,9 @@ const slice = createSlice({
         stops: [],
         infraLinks: [],
       };
+    },
+    setSelectedRouteId: (state, action: PayloadAction<UUID | undefined>) => {
+      state.selectedRouteId = action.payload;
     },
   },
 });
@@ -177,6 +183,7 @@ export const {
   setDisplayedRouteIds: setDisplayedRouteIdsAction,
   setDraftRouteGeometry: setDraftRouteGeometryAction,
   resetDraftRouteGeometry: resetDraftRouteGeometryAction,
+  setSelectedRouteId: setSelectedRouteIdAction,
 } = slice.actions;
 
 export const mapEditorReducer = slice.reducer;
