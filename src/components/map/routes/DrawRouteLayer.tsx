@@ -19,7 +19,6 @@ import {
   Editor,
   RENDER_STATE,
 } from 'react-map-gl-draw';
-import { MapEditorContext, Mode } from '../../../context/MapEditor';
 import {
   ReusableComponentsVehicleModeEnum,
   useGetRoutesWithInfrastructureLinksQuery,
@@ -28,8 +27,13 @@ import {
   mapGraphQLRouteToInfraLinks,
   mapRoutesDetailsResult,
 } from '../../../graphql';
-import { LineStringFeature } from '../../../hooks';
+import {
+  LineStringFeature,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../hooks';
 import { useExtractRouteFromFeature } from '../../../hooks/useExtractRouteFromFeature';
+import { Mode, selectMapEditor, setStateAction } from '../../../redux';
 import { showToast } from '../../../utils';
 import { addRoute, removeRoute } from '../mapUtils';
 
@@ -61,10 +65,11 @@ const DrawRouteLayerComponent = (
 ): JSX.Element => {
   const { map } = useContext(MapContext);
   const editorRef = useRef<ExplicitAny>(null);
-  const {
-    state: { hasRoute, editedRouteData, creatingNewRoute },
-    dispatch,
-  } = useContext(MapEditorContext);
+
+  const dispatch = useAppDispatch();
+  const { hasRoute, editedRouteData, creatingNewRoute } =
+    useAppSelector(selectMapEditor);
+
   const { templateRouteId } = editedRouteData;
 
   const [routeFeatures, setRouteFeatures] = useState<LineStringFeature[]>([]);
@@ -86,7 +91,7 @@ const DrawRouteLayerComponent = (
     (routeId: string) => {
       setRouteFeatures([]);
       removeRoute(map, routeId);
-      dispatch({ type: 'setState', payload: { hasRoute: false } });
+      dispatch(setStateAction({ hasRoute: false }));
     },
     [map, dispatch],
   );
@@ -151,17 +156,16 @@ const DrawRouteLayerComponent = (
 
       const stops = getRouteStops(stopIds, removedStopIds || []);
 
-      dispatch({
-        type: 'setState',
-        payload: {
+      dispatch(
+        setStateAction({
           editedRouteData: {
             ...editedRouteData,
             stops,
             infraLinks,
           },
           hasRoute: true,
-        },
-      });
+        }),
+      );
 
       if (stops.filter((item) => item.belongsToRoute).length >= 2) {
         // eslint-disable-next-line no-console
@@ -219,10 +223,7 @@ const DrawRouteLayerComponent = (
     } else {
       // If not drawing or editing, clear features
       setRouteFeatures([]);
-      dispatch({
-        type: 'setState',
-        payload: { hasRoute: false },
-      });
+      dispatch(setStateAction({ hasRoute: false }));
     }
   }, [
     mapInfraLinksToFeature,
@@ -247,10 +248,7 @@ const DrawRouteLayerComponent = (
       debouncedOnAddRoute(e.data);
 
       if (e.editType === 'addFeature') {
-        dispatch({
-          type: 'setState',
-          payload: { drawingMode: undefined },
-        });
+        dispatch(setStateAction({ drawingMode: undefined }));
       }
     }
   };

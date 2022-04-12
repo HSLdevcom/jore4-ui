@@ -1,12 +1,12 @@
-import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapEditorContext } from '../../context/MapEditor';
 import {
   ServicePatternScheduledStopPoint,
   useGetRoutesWithInfrastructureLinksQuery,
   useGetStopsQuery,
 } from '../../generated/graphql';
 import { mapGetStopsResult, mapRoutesDetailsResult } from '../../graphql';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { selectMapEditor, setStateAction } from '../../redux';
 import { SimpleDropdownMenu } from '../../uiComponents/SimpleDropdownMenu';
 import { mapToVariables } from '../../utils';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
@@ -24,15 +24,13 @@ const StopRow = ({
 }) => {
   const { label } = stop;
   const { t } = useTranslation();
-  const {
-    dispatch,
-    state: { editedRouteData },
-  } = useContext(MapEditorContext);
+
+  const dispatch = useAppDispatch();
+  const { editedRouteData } = useAppSelector(selectMapEditor);
 
   const setOnRoute = (belongsToRoute: boolean) => {
-    dispatch({
-      type: 'setState',
-      payload: {
+    dispatch(
+      setStateAction({
         editedRouteData: {
           ...editedRouteData,
           stops: editedRouteData.stops?.map((item) =>
@@ -41,8 +39,8 @@ const StopRow = ({
               : item,
           ),
         },
-      },
-    });
+      }),
+    );
   };
 
   return (
@@ -68,9 +66,8 @@ const StopRow = ({
 };
 
 export const RouteStopsOverlay = ({ className }: Props) => {
-  const {
-    state: { displayedRouteIds, editedRouteData },
-  } = useContext(MapEditorContext);
+  const { displayedRouteIds, editedRouteData } =
+    useAppSelector(selectMapEditor);
 
   const routesResult = useGetRoutesWithInfrastructureLinksQuery(
     mapToVariables({ route_ids: displayedRouteIds || [] }),
