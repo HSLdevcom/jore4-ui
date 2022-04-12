@@ -1,5 +1,4 @@
 import { useContext, useEffect } from 'react';
-import { MapEditorContext } from '../../context/MapEditor';
 import { MapFilterContext } from '../../context/MapFilter';
 import {
   GetRouteDetailsByIdsDocument,
@@ -10,6 +9,8 @@ import {
   GetRouteDetailsByLabelsQueryVariables,
 } from '../../generated/graphql';
 import { mapRoutesDetailsResult } from '../../graphql';
+import { selectMapEditor, setStateAction } from '../../redux';
+import { useAppDispatch, useAppSelector } from '../redux';
 import { useAsyncQuery } from '../useAsyncQuery';
 
 export const useGetDisplayedRoutes = () => {
@@ -27,10 +28,9 @@ export const useGetDisplayedRoutes = () => {
     state: { observationDate },
   } = useContext(MapFilterContext);
 
-  const {
-    state: { displayedRouteIds, initiallyDisplayedRouteIds },
-    dispatch,
-  } = useContext(MapEditorContext);
+  const dispatch = useAppDispatch();
+  const { displayedRouteIds, initiallyDisplayedRouteIds } =
+    useAppSelector(selectMapEditor);
 
   useEffect(() => {
     const updateDisplayedRoutes = async () => {
@@ -57,14 +57,13 @@ export const useGetDisplayedRoutes = () => {
         displayedRouteDetailsResult,
       );
 
-      dispatch({
-        type: 'setState',
-        payload: {
+      dispatch(
+        setStateAction({
           displayedRouteIds: displayedRouteDetails.map(
             (route) => route.route_id,
           ),
-        },
-      });
+        }),
+      );
 
       return displayedRouteDetails;
     };

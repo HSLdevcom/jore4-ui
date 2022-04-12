@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
-import { MapEditorContext } from '../../../context/MapEditor';
 import {
   RouteLine,
   useGetLineDetailsWithRoutesByIdQuery,
@@ -10,7 +9,11 @@ import {
 import { mapLineDetailsWithRoutesResult } from '../../../graphql';
 import { useAppDispatch, useMapUrlQuery } from '../../../hooks';
 import { Column, Container, Row } from '../../../layoutComponents';
-import { setIsModalMapOpenAction } from '../../../redux';
+import {
+  resetAction,
+  setIsModalMapOpenAction,
+  setStateAction,
+} from '../../../redux';
 import { DateLike, mapToShortDate } from '../../../time';
 import { SimpleButton } from '../../../uiComponents';
 import { mapToVariables } from '../../../utils';
@@ -90,7 +93,6 @@ export const LineDetailsPage = (): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
   const { addMapOpenQueryParameter } = useMapUrlQuery();
-  const { dispatch: mapEditorDispatch } = useContext(MapEditorContext);
 
   const lineDetailsResult = useGetLineDetailsWithRoutesByIdQuery(
     mapToVariables({ line_id: id }),
@@ -106,16 +108,15 @@ export const LineDetailsPage = (): JSX.Element => {
     }`;
 
   const onCreateRoute = () => {
-    mapEditorDispatch({ type: 'reset' });
-    mapEditorDispatch({
-      type: 'setState',
-      payload: {
+    dispatch(resetAction());
+    dispatch(
+      setStateAction({
         editedRouteData: {
           metaData: { on_line_id: id },
           stops: [],
         },
-      },
-    });
+      }),
+    );
     dispatch(setIsModalMapOpenAction(true));
     addMapOpenQueryParameter();
   };

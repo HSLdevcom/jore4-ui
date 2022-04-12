@@ -1,5 +1,11 @@
-import React, { useContext } from 'react';
-import { MapEditorContext, Mode } from '../../../context/MapEditor';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import {
+  Mode,
+  selectMapEditor,
+  setStateAction,
+  stopDrawRouteAction,
+} from '../../../redux';
 import {
   routeFormSchema,
   RouteFormState,
@@ -7,10 +13,9 @@ import {
 import { CreateRouteModal } from './CreateRouteModal';
 
 export const Routes: React.FC = () => {
-  const {
-    state: { editedRouteData, drawingMode, creatingNewRoute },
-    dispatch,
-  } = useContext(MapEditorContext);
+  const dispatch = useAppDispatch();
+  const { editedRouteData, drawingMode, creatingNewRoute } =
+    useAppSelector(selectMapEditor);
 
   const routeDetails = editedRouteData.metaData;
   // checking whether 'routeDetails' already contains all the information necessary
@@ -19,21 +24,20 @@ export const Routes: React.FC = () => {
   const showCreateForm = !areFormValuesValid && drawingMode === Mode.Draw;
 
   const onClose = () => {
-    dispatch({ type: 'stopDrawRoute' });
+    dispatch(stopDrawRouteAction());
   };
 
   const onSuccess = (data: RouteFormState) => {
-    dispatch({
-      type: 'setState',
-      payload: {
+    dispatch(
+      setStateAction({
         editedRouteData: {
           metaData: data,
           stops: [],
           templateRouteId: editedRouteData.templateRouteId,
         },
         drawingMode: editedRouteData.templateRouteId ? Mode.Edit : Mode.Draw,
-      },
-    });
+      }),
+    );
   };
 
   const defaultValues: Partial<RouteFormState> = routeDetails || {};

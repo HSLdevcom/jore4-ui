@@ -1,20 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
-import {
-  hasChangesInProgressSelector,
-  isInViewModeSelector,
-  MapEditorContext,
-  Mode,
-} from '../../context/MapEditor';
-import {
-  useAppAction,
-  useAppSelector,
-  useContextStateSelector,
-} from '../../hooks';
+import { useAppAction, useAppSelector } from '../../hooks';
 import { Row, Visible } from '../../layoutComponents';
 import {
+  Mode,
+  selectHasChangesInProgress,
   selectIsCreateStopModeEnabled,
+  selectIsInViewMode,
+  selectMapEditor,
   setIsCreateStopModeEnabledAction,
 } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
@@ -35,18 +29,13 @@ export const MapFooter: React.FC<Props> = ({
   onSave,
 }) => {
   const { t } = useTranslation();
-  const {
-    state: { drawingMode, displayedRouteIds, creatingNewRoute, hasRoute },
-  } = useContext(MapEditorContext);
 
-  const hasChangesInProgress = useContextStateSelector(
-    MapEditorContext,
-    hasChangesInProgressSelector,
-  );
-  const isInViewMode = useContextStateSelector(
-    MapEditorContext,
-    isInViewModeSelector,
-  );
+  const { drawingMode, displayedRouteIds, creatingNewRoute, hasRoute } =
+    useAppSelector(selectMapEditor);
+
+  const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
+  const isInViewMode = useAppSelector(selectIsInViewMode);
+
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
   const setIsCreateStopModeEnabled = useAppAction(
     setIsCreateStopModeEnabledAction,
