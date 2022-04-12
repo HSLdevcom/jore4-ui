@@ -1,10 +1,11 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { MapEditorContext } from '../../../context/MapEditor';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
+import { selectMapEditor, setStateAction } from '../../../redux';
 import { Switch, SwitchLabel } from '../../../uiComponents';
 import { ConfirmSaveForm } from '../common/ConfirmSaveForm';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
@@ -25,10 +26,9 @@ const RoutePropertiesFormComponent = (
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();
-  const {
-    state: { editedRouteData, creatingNewRoute },
-    dispatch,
-  } = useContext(MapEditorContext);
+  const dispatch = useAppDispatch();
+
+  const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
 
   const methods = useForm<RouteFormState>({
     defaultValues,
@@ -46,15 +46,14 @@ const RoutePropertiesFormComponent = (
   } = methods;
 
   const setTemplateRoute = (uuid?: UUID) => {
-    dispatch({
-      type: 'setState',
-      payload: {
+    dispatch(
+      setStateAction({
         editedRouteData: {
           ...editedRouteData,
           templateRouteId: uuid,
         },
-      },
-    });
+      }),
+    );
   };
 
   return (
