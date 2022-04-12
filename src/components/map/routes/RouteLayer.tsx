@@ -43,6 +43,7 @@ export const RouteLayer = ({ routeId, isSelected }: Props) => {
         : colors.routes[vehicleMode],
       'line-width': isSelected ? 9 : 8,
       'line-opacity': isSelected ? 1 : 0.75,
+      'line-offset': 6,
     },
     layout: {
       'line-join': 'round',

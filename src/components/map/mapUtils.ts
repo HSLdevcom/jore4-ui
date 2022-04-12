@@ -40,6 +40,7 @@ export const addRoute = (
       'line-color': '#03AA46',
       'line-width': 8,
       'line-opacity': 0.8,
+      'line-offset': 6,
     },
   });
 };
