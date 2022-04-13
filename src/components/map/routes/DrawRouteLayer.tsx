@@ -28,11 +28,12 @@ import {
   mapRoutesDetailsResult,
 } from '../../../graphql';
 import {
+  getRouteStops,
   LineStringFeature,
   useAppDispatch,
   useAppSelector,
+  useExtractRouteFromFeature,
 } from '../../../hooks';
-import { useExtractRouteFromFeature } from '../../../hooks/useExtractRouteFromFeature';
 import {
   Mode,
   resetDraftRouteGeometryAction,
@@ -88,7 +89,6 @@ const DrawRouteLayerComponent = (
     getInfraLinksWithStopsForCoordinates,
     mapInfraLinksToFeature,
     getRemovedStopIds,
-    getRouteStops,
     getOldRouteGeometryVariables,
   } = useExtractRouteFromFeature();
 
@@ -196,7 +196,6 @@ const DrawRouteLayerComponent = (
       templateRouteId,
       getRemovedStopIds,
       extractScheduledStopPointIds,
-      getRouteStops,
       dispatch,
       map,
       onDelete,

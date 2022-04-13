@@ -48,6 +48,9 @@ const SCHEDULED_STOP_POINT_ALL_FIELDS = gql`
     validity_start
     validity_end
     priority
+    vehicle_mode_on_scheduled_stop_point {
+      vehicle_mode
+    }
   }
 `;
 
