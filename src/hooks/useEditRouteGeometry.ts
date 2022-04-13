@@ -67,7 +67,7 @@ export const useEditRouteGeometry = () => {
       direction: routeDetails.direction,
       priority: routeDetails.priority,
       validity_start: mapDateInputToValidityStart(
-        // form validation makes sure that 'validityStart' has a valid value at this poin
+        // form validation makes sure that 'validityStart' has a valid value at this point
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         routeDetails.validityStart!,
       ),
