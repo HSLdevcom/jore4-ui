@@ -1,38 +1,23 @@
 import React, { useImperativeHandle } from 'react';
 import { MapEvent } from 'react-map-gl';
-import {
-  ReusableComponentsVehicleModeEnum,
-  useGetRoutesWithInfrastructureLinksQuery,
-  useGetStopsQuery,
-} from '../../../generated/graphql';
-import {
-  getRouteStopIds,
-  mapGetStopsResult,
-  mapRoutesDetailsResult,
-  StopWithLocation,
-} from '../../../graphql';
+import { useGetStopsQuery } from '../../../generated/graphql';
+import { mapGetStopsResult, StopWithLocation } from '../../../graphql';
 import {
   useAppAction,
   useAppSelector,
   useCreateStop,
   useEditStop,
-  useExtractRouteFromFeature,
-  useGetDisplayedRoutes,
+  useMapStops,
 } from '../../../hooks';
 import { useFilterStops } from '../../../hooks/useFilterStops';
 import {
   selectEditedStopData,
-  selectMapEditor,
   selectSelectedStopId,
   setEditedStopDataAction,
   setIsCreateStopModeEnabledAction,
   setSelectedStopIdAction,
 } from '../../../redux';
-import {
-  mapLngLatToGeoJSON,
-  mapLngLatToPoint,
-  mapToVariables,
-} from '../../../utils';
+import { mapLngLatToGeoJSON, mapLngLatToPoint } from '../../../utils';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
 
@@ -47,28 +32,12 @@ export const Stops = React.forwardRef((props, ref) => {
     setIsCreateStopModeEnabledAction,
   );
 
-  const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
-
-  const { displayedRouteIds } = useGetDisplayedRoutes();
+  const { getStopVehicleMode, getStopHighlighted } = useMapStops();
 
   // TODO: Fetch only the stops visible on the map?
   const stopsResult = useGetStopsQuery({});
   const unfilteredStops = mapGetStopsResult(stopsResult);
   const stops = filter(unfilteredStops || []);
-
-  const routesResult = useGetRoutesWithInfrastructureLinksQuery(
-    mapToVariables({ route_ids: displayedRouteIds || [] }),
-  );
-  const routes = mapRoutesDetailsResult(routesResult);
-
-  const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
-
-  // If editing/creating a route, show stops along edited/created route,
-  // otherwise show every stop belonging to visible routes
-  const stopIdsWithinRoute =
-    creatingNewRoute || editedRouteData.id
-      ? mapRouteStopsToStopIds(editedRouteData.stops)
-      : routes?.flatMap((route) => getRouteStopIds(route));
 
   // can be used for triggering the edit for both existing and draft stops
   const onEditStop = (stop: StopWithLocation) => {
@@ -103,6 +72,7 @@ export const Stops = React.forwardRef((props, ref) => {
       {/* Display existing stops */}
       {stops?.map((item) => {
         const point = mapLngLatToPoint(item.measured_location.coordinates);
+
         return (
           <Stop
             key={item.scheduled_stop_point_id}
@@ -110,11 +80,11 @@ export const Stops = React.forwardRef((props, ref) => {
             longitude={point.longitude}
             latitude={point.latitude}
             onClick={() => onEditStop(item)}
-            onVehicleRoute={
-              stopIdsWithinRoute?.includes(item.scheduled_stop_point_id)
-                ? ReusableComponentsVehicleModeEnum.Bus
-                : undefined
-            }
+            isHighlighted={getStopHighlighted(item.scheduled_stop_point_id)}
+            onVehicleRoute={getStopVehicleMode(
+              item.scheduled_stop_point_id,
+              item,
+            )}
           />
         );
       })}

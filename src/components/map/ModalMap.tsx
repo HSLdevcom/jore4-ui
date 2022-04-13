@@ -18,6 +18,7 @@ import {
   selectIsModalMapOpen,
   selectMapEditor,
   setIsModalMapOpenAction,
+  setSelectedRouteIdAction,
   stopDrawRouteAction,
   toggleDrawRouteAction,
   toggleEditRouteAction,
@@ -51,7 +52,8 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const isModalMapOpen = useAppSelector(selectIsModalMapOpen);
   const { deleteMapOpenQueryParameter, isMapOpen } = useMapUrlQuery();
 
-  const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
+  const { editedRouteData, creatingNewRoute, initiallyDisplayedRouteIds } =
+    useAppSelector(selectMapEditor);
 
   const {
     state: { observationDate },
@@ -167,7 +169,13 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
           const newRoute = response.data!.insert_route_route_one!;
 
           mapRef?.current?.onDeleteDrawnRoute();
-          dispatch(initializeMapEditorWithRoutesAction([newRoute.route_id]));
+          dispatch(
+            initializeMapEditorWithRoutesAction([
+              ...(initiallyDisplayedRouteIds || []),
+              newRoute.route_id,
+            ]),
+          );
+          dispatch(setSelectedRouteIdAction(newRoute.route_id));
 
           showSuccessToast(t('routes.saveSuccess'));
 

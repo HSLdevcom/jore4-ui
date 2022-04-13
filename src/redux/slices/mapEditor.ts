@@ -70,6 +70,9 @@ const slice = createSlice({
     },
     stopEditRoute: (state) => {
       state.drawingMode = undefined;
+      if (!state.creatingNewRoute) {
+        state.editedRouteData = initialState.editedRouteData;
+      }
     },
     setTemplateRouteId: (state, action: PayloadAction<UUID | undefined>) => {
       state.editedRouteData.templateRouteId = action.payload;
