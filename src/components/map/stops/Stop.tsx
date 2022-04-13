@@ -1,4 +1,3 @@
-import React from 'react';
 import { Marker } from 'react-map-gl';
 import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
@@ -14,6 +13,7 @@ interface Props extends Point {
   onClick: () => void;
   onDragEnd?: (event: CallbackEvent) => void;
   onVehicleRoute?: ReusableComponentsVehicleModeEnum;
+  isHighlighted?: boolean;
 }
 
 export const Stop = ({
@@ -24,15 +24,20 @@ export const Stop = ({
   selected = false,
   draggable = false,
   onVehicleRoute = undefined,
+  isHighlighted = false,
 }: Props): JSX.Element => {
-  const iconSize = selected || onVehicleRoute ? 30 : 15;
+  const iconSize = 30;
 
-  const iconBorderColor =
-    selected && onVehicleRoute !== ReusableComponentsVehicleModeEnum.Bus
-      ? 'black'
-      : colors.stop;
+  const vehicleStopColor = onVehicleRoute
+    ? colors.stops[onVehicleRoute]
+    : 'black';
 
-  const iconBorderWidth = selected || onVehicleRoute ? 4 : 2;
+  const iconBorderColor = isHighlighted
+    ? colors.selectedMapItem
+    : vehicleStopColor;
+  const iconFillColor = onVehicleRoute ? 'white' : colors.lightGrey;
+
+  const iconBorderWidth = 4;
 
   return (
     <Marker
@@ -47,8 +52,9 @@ export const Stop = ({
         size={iconSize}
         onClick={onClick}
         borderColor={iconBorderColor}
+        fillColor={iconFillColor}
         borderWidth={iconBorderWidth}
-        centerDot={!!onVehicleRoute}
+        centerDot={selected}
       />
     </Marker>
   );
