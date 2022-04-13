@@ -30,6 +30,16 @@ interface ExtractScheduledStopPointIdsParams {
 
 export type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
 
+export const getRouteStops = (
+  stopIds: UUID[],
+  removedStopIds?: UUID[],
+): RouteStop[] => {
+  return stopIds.map((item) => ({
+    id: item,
+    belongsToRoute: !removedStopIds?.includes(item),
+  }));
+};
+
 export const useExtractRouteFromFeature = () => {
   const [fetchInfraLinksWithStopsByExternalIds] = useAsyncQuery<
     MapExternalLinkIdsToInfraLinksWithStopsQuery,
@@ -200,16 +210,6 @@ export const useExtractRouteFromFeature = () => {
     },
 
     [fetchStopsAlongInfrastructureLinks],
-  );
-
-  const getRouteStops = useCallback(
-    (stopIds: UUID[], removedStopIds: UUID[]) => {
-      return stopIds.map((item) => ({
-        id: item,
-        belongsToRoute: !removedStopIds.includes(item),
-      }));
-    },
-    [],
   );
 
   const getOldRouteGeometryVariables = useCallback(

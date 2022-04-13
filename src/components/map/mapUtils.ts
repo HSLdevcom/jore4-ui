@@ -1,3 +1,5 @@
+import { theme } from '../../generated/theme';
+
 // TODO: Can we import these somewhere?
 export type MaplibreGLMap = any; // eslint-disable-line @typescript-eslint/no-explicit-any
 export type Geometry = any; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -37,9 +39,9 @@ export const addRoute = (
       'line-cap': 'round',
     },
     paint: {
-      'line-color': '#03AA46',
+      'line-color': theme.colors.selectedMapItem,
       'line-width': 8,
-      'line-opacity': 0.8,
+      'line-opacity': 1,
       'line-offset': 6,
     },
   });
