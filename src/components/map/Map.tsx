@@ -60,11 +60,11 @@ export const MapComponent = (
 
   const { displayedRouteIds } = useGetDisplayedRoutes();
 
-  const routeSelected = !!initiallyDisplayedRouteIds?.length;
+  const routeDisplayed = !!initiallyDisplayedRouteIds?.length;
 
-  const [showInfraLinks, setShowInfraLinks] = useState(!routeSelected);
+  const [showInfraLinks, setShowInfraLinks] = useState(!routeDisplayed);
   const [showDynamicInfraLinks, setShowDynamicInfraLinks] = useState(false);
-  const [showRoute, setShowRoute] = useState(routeSelected);
+  const [showRoute, setShowRoute] = useState(routeDisplayed);
   const [showStops, setShowStops] = useState(true);
   const [showDynamicStops, setShowDynamicStops] = useState(false);
 
@@ -144,7 +144,7 @@ export const MapComponent = (
                     enabled: showDynamicInfraLinks,
                     onToggle: setShowDynamicInfraLinks,
                   },
-                  ...(routeSelected
+                  ...(routeDisplayed
                     ? [
                         {
                           iconClassName: 'icon-route',
@@ -168,7 +168,7 @@ export const MapComponent = (
                 ]}
               />
             </Column>
-            {hasDraftRouteGeometry && (
+            {(!!selectedRouteId || hasDraftRouteGeometry) && (
               <Column>
                 <RouteStopsOverlay className="ml-8 mt-4" />
               </Column>
@@ -208,7 +208,7 @@ export const MapComponent = (
       {showInfraLinks && <InfraLinksVectorLayer />}
       {showDynamicInfraLinks && <DynamicInfraLinksVectorLayer />}
       {showRoute &&
-        routeSelected &&
+        routeDisplayed &&
         displayedRouteIds?.map((item) => (
           <RouteLayer
             key={item}

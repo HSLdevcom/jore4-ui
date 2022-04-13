@@ -7,10 +7,12 @@ import {
   DeleteChanges,
   EditChanges,
   isEditChanges,
+  StopWithVehicleMode,
   useAppAction,
   useCreateStop,
   useDeleteStop,
   useEditStop,
+  useMapStops,
 } from '../../../hooks';
 import {
   setEditedStopDataAction,
@@ -72,6 +74,8 @@ export const EditStopLayer: React.FC<Props> = ({
     removeStop,
     defaultErrorHandler: deleteErrorHandler,
   } = useDeleteStop();
+
+  const { getStopVehicleMode } = useMapStops();
 
   // computed values for the edited stop
   const isDraftStop = !editedStopData.scheduled_stop_point_id;
@@ -213,6 +217,14 @@ export const EditStopLayer: React.FC<Props> = ({
     await doCreateStop(changes);
   };
 
+  const getVehicleMode = () =>
+    editedStopData.scheduled_stop_point_id
+      ? getStopVehicleMode(
+          editedStopData.scheduled_stop_point_id,
+          editedStopData as StopWithVehicleMode,
+        )
+      : undefined;
+
   return (
     <>
       {/* Creates new <Stop> instance for both existing and draft stops */}
@@ -223,6 +235,8 @@ export const EditStopLayer: React.FC<Props> = ({
         onClick={() => onStopClicked()}
         draggable={isStopDraggable}
         onDragEnd={(e) => onStopDragEnd(e)}
+        isHighlighted
+        onVehicleRoute={getVehicleMode()}
       />
       {displayedEditor === StopEditorViews.Popup && (
         <StopPopup

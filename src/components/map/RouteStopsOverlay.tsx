@@ -1,12 +1,21 @@
 import { useTranslation } from 'react-i18next';
 import {
+  RouteRoute,
   ServicePatternScheduledStopPoint,
   useGetRoutesWithInfrastructureLinksQuery,
   useGetStopsQuery,
 } from '../../generated/graphql';
-import { mapGetStopsResult, mapRoutesDetailsResult } from '../../graphql';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { selectMapEditor, setStopOnRouteAction } from '../../redux';
+import {
+  getRouteStopIds,
+  mapGetStopsResult,
+  mapRoutesDetailsResult,
+} from '../../graphql';
+import { getRouteStops, useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  selectHasChangesInProgress,
+  selectMapEditor,
+  setStopOnRouteAction,
+} from '../../redux';
 import { SimpleDropdownMenu } from '../../uiComponents/SimpleDropdownMenu';
 import { mapToVariables } from '../../utils';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
@@ -18,9 +27,11 @@ interface Props {
 const StopRow = ({
   stop,
   onRoute,
+  isReadOnly,
 }: {
   stop: ServicePatternScheduledStopPoint;
   onRoute: boolean;
+  isReadOnly?: boolean;
 }) => {
   const { label } = stop;
   const { t } = useTranslation();
@@ -47,23 +58,25 @@ const StopRow = ({
           {label}
         </div>
       </div>
-      <div className="text-tweaked-brand">
-        <SimpleDropdownMenu>
-          <button type="button" onClick={() => setOnRoute(!onRoute)}>
-            {onRoute ? t('stops.removeFromRoute') : t('stops.addToRoute')}
-          </button>
-        </SimpleDropdownMenu>
-      </div>
+      {!isReadOnly && (
+        <div className="text-tweaked-brand">
+          <SimpleDropdownMenu>
+            <button type="button" onClick={() => setOnRoute(!onRoute)}>
+              {onRoute ? t('stops.removeFromRoute') : t('stops.addToRoute')}
+            </button>
+          </SimpleDropdownMenu>
+        </div>
+      )}
     </div>
   );
 };
 
 export const RouteStopsOverlay = ({ className }: Props) => {
-  const { displayedRouteIds, editedRouteData } =
-    useAppSelector(selectMapEditor);
+  const { editedRouteData, selectedRouteId } = useAppSelector(selectMapEditor);
+  const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
 
   const routesResult = useGetRoutesWithInfrastructureLinksQuery(
-    mapToVariables({ route_ids: displayedRouteIds || [] }),
+    mapToVariables({ route_ids: [selectedRouteId] }),
   );
 
   const routes = mapRoutesDetailsResult(routesResult);
@@ -72,7 +85,14 @@ export const RouteStopsOverlay = ({ className }: Props) => {
 
   const stopsResult = useGetStopsQuery({});
   const stops = mapGetStopsResult(stopsResult);
-  const stopsToDisplay = editedRouteData.stops?.map((stop) => ({
+
+  // If creating/editing a route, show edited route stops
+  // otherwise show selected route's stops
+  const routeStops = routeEditingInProgress
+    ? editedRouteData.stops
+    : getRouteStops(route ? getRouteStopIds(route as RouteRoute) : []);
+
+  const stopsToDisplay = routeStops?.map((stop) => ({
     stop: stops?.find((item) => item.scheduled_stop_point_id === stop.id),
     belongsToRoute: stop.belongsToRoute,
   }));
@@ -99,6 +119,7 @@ export const RouteStopsOverlay = ({ className }: Props) => {
               key={routeStop?.stop?.scheduled_stop_point_id}
               stop={routeStop.stop}
               onRoute={routeStop.belongsToRoute}
+              isReadOnly={!routeEditingInProgress}
             />
           ),
       )}
