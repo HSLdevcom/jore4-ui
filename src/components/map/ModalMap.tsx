@@ -144,12 +144,11 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
           const response = await insertRouteMutation(variables);
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const newRoute = response.data!.insert_route_route_one!;
-          const newRouteId = newRoute.route_id;
 
           mapEditorDispatch({
             type: 'setState',
             payload: {
-              initiallyDisplayedRouteIds: [newRouteId],
+              initiallyDisplayedRouteIds: [newRoute.route_id],
             },
           });
 

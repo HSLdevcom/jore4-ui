@@ -12,19 +12,12 @@ export const Routes: React.FC = () => {
     dispatch,
   } = useContext(MapEditorContext);
 
-  if (editedRouteData.id === undefined && !creatingNewRoute) {
-    return null;
-  }
-
   const routeDetails = editedRouteData.metaData;
   // checking whether 'routeDetails' already contains all the information necessary
   // if not -> should show the form
   const areFormValuesValid = routeFormSchema.safeParse(routeDetails).success;
   const showCreateForm = !areFormValuesValid && drawingMode === Mode.Draw;
 
-  const onCancel = () => {
-    dispatch({ type: 'stopDrawRoute' });
-  };
   const onClose = () => {
     dispatch({ type: 'stopDrawRoute' });
   };
@@ -45,16 +38,16 @@ export const Routes: React.FC = () => {
 
   const defaultValues: Partial<RouteFormState> = routeDetails || {};
 
+  if ((!editedRouteData.id && !creatingNewRoute) || !showCreateForm) {
+    return null;
+  }
+
   return (
-    <>
-      {showCreateForm && (
-        <CreateRouteModal
-          defaultValues={defaultValues}
-          onSuccess={onSuccess}
-          onCancel={onCancel}
-          onClose={onClose}
-        />
-      )}
-    </>
+    <CreateRouteModal
+      defaultValues={defaultValues}
+      onSuccess={onSuccess}
+      onCancel={onClose}
+      onClose={onClose}
+    />
   );
 };
