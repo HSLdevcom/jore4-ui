@@ -7,14 +7,19 @@ import { useHistory } from 'react-router';
 import { useUrlQuery } from '../../../hooks';
 import { useGetLineDetails } from '../../../hooks/line-details/useGetLineDetails';
 import { Column, Container, Row } from '../../../layoutComponents';
+import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
 
-export const ActionsRow = ({ className = '' }: { className?: string }) => {
+export const ActionsRow = ({
+  className = '',
+}: {
+  className?: string;
+}): JSX.Element => {
   const { t } = useTranslation();
   const history = useHistory();
   const queryParams = useUrlQuery();
 
-  const { observationDate } = useGetLineDetails();
+  const { line, observationDate } = useGetLineDetails();
 
   const onDateChange = (date: DateTime) => {
     const updatedUrlQuery = produce(queryParams, (draft) => {
@@ -47,14 +52,15 @@ export const ActionsRow = ({ className = '' }: { className?: string }) => {
             className="flex-1"
           />
         </Column>
-        <SimpleButton
-          className="ml-auto"
-          inverted
-          disabled
-          onClick={() => console.log('TODO')} // eslint-disable-line no-console
-        >
-          {t('lines.showDrafts')}
-        </SimpleButton>
+        {line && (
+          <SimpleButton
+            className="ml-auto"
+            inverted
+            href={routeDetails[Path.lineDrafts].getLink(line.label)}
+          >
+            {t('lines.showDrafts')}
+          </SimpleButton>
+        )}
       </Row>
     </Container>
   );
