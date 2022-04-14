@@ -48,7 +48,10 @@
     "lines": "Lines",
     "createNewRoute": "Create new route",
     "createNewRouteInstructions": "Route drawing opens in a new window.",
-    "showDrafts": "Show drafts"
+    "showDrafts": "Show drafts",
+    "draftsTitle": "Drafts",
+    "noDrafts": "No drafts",
+    "showDraftDetails": "Show draft details"
   },
   "stops": {
     "stop": "Stop",
@@ -188,5 +191,11 @@
   "cancel": "Cancel",
   "close": "Close",
   "version": "Version: {{ version }}",
-  "hide": "Hide"
+  "hide": "Hide",
+  "validityStart": "Starts",
+  "validityEnd": "Ends",
+  "status": "Status",
+  "name": "Name",
+  "edited": "Edited",
+  "editor": "Editor"
 }

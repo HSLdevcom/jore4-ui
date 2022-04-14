@@ -48,7 +48,10 @@
     "lines": "Linjat",
     "createNewRoute": "Luo reitti",
     "createNewRouteInstructions": "Uuden reitin luominen avautuu karttanäkymään.",
-    "showDrafts": "Näytä luonnokset"
+    "showDrafts": "Näytä luonnokset",
+    "draftsTitle": "Luonnokset",
+    "noDrafts": "Ei luonnoksia",
+    "showDraftDetails": "Näytä luonnoksen tiedot"
   },
   "stops": {
     "stop": "Pysäkki",
@@ -188,5 +191,11 @@
   "cancel": "Peruuta",
   "close": "Sulje",
   "version": "Versio: {{ version }}",
-  "hide": "Piilota"
+  "hide": "Piilota",
+  "validityStart": "Alkaa",
+  "validityEnd": "Päättyy",
+  "status": "Status",
+  "name": "Nimi",
+  "edited": "Muokattu",
+  "editor": "Muokkaaja"
 }

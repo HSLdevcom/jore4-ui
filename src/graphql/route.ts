@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ApolloQueryResult, FetchResult, gql } from '@apollo/client';
 import {
+  GetDraftLinesByLabelQuery,
   GetLineDetailsWithRoutesByIdQuery,
   GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
@@ -250,6 +251,21 @@ export const mapHighestPriorityLineDetailsWithRoutesResult = (
   result.data?.route_line.length
     ? (result.data?.route_line[0] as RouteLine)
     : undefined;
+
+const GET_DRAFT_LINES_BY_LABEL = gql`
+  query GetDraftLinesByLabel($label: String!) {
+    route_line(where: { label: { _eq: $label }, priority: { _eq: 30 } }) {
+      ...line_all_fields
+      line_routes {
+        ...route_with_stops
+      }
+    }
+  }
+`;
+
+export const mapDraftLinesByLabelResult = (
+  result: GqlQueryResult<GetDraftLinesByLabelQuery>,
+) => result.data?.route_line as RouteLine[] | undefined;
 
 const GET_ROUTE_DETAILS_BY_IDS = gql`
   query GetRouteDetailsByIds($route_ids: [uuid!]) {
