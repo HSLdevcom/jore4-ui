@@ -8,7 +8,7 @@ import {
   useGetLineDetailsWithRoutesByIdQuery,
 } from '../../generated/graphql';
 import { mapLineDetailsWithRoutesResult } from '../../graphql';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useMapUrlQuery } from '../../hooks';
 import { Column, Container, Row } from '../../layoutComponents';
 import { setIsModalMapOpenAction } from '../../redux';
 import { DateLike, mapToShortDate } from '../../time';
@@ -89,6 +89,7 @@ export const LineDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
+  const { addMapOpenQueryParameter } = useMapUrlQuery();
   const { dispatch: mapEditorDispatch } = useContext(MapEditorContext);
 
   const lineDetailsResult = useGetLineDetailsWithRoutesByIdQuery(
@@ -116,6 +117,7 @@ export const LineDetailsPage = (): JSX.Element => {
       },
     });
     dispatch(setIsModalMapOpenAction(true));
+    addMapOpenQueryParameter();
   };
 
   return (
