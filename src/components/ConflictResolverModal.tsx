@@ -5,10 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {
   RouteLine,
+  RouteRoute,
   ServicePatternScheduledStopPoint,
 } from '../generated/graphql';
 import { mapPriorityToUiName } from '../i18n/uiNameMappings';
 import { Row } from '../layoutComponents';
+// eslint-disable-next-line import/no-cycle
+import { Path, routes } from '../routes';
 import { mapToShortDate } from '../time';
 import { Priority } from '../types/Priority';
 import { CloseIconButton, Modal, SimpleButton } from '../uiComponents';
@@ -36,6 +39,17 @@ interface CommonConflictItem {
   href?: string;
 }
 
+export const mapRouteToCommonConflictItem = (
+  route: RouteRoute,
+): CommonConflictItem => ({
+  validityStart: route.validity_start || undefined,
+  validityEnd: route.validity_end || undefined,
+  priority: route.priority,
+  label: route.label,
+  id: route.route_id,
+  href: routes[Path.editRoute].getLink(route.route_id),
+});
+
 export const mapLineToCommonConflictItem = (
   line: RouteLine,
 ): CommonConflictItem => ({
@@ -44,7 +58,7 @@ export const mapLineToCommonConflictItem = (
   priority: line.priority,
   label: line.label,
   id: line.line_id,
-  href: `/lines/${line.line_id}`,
+  href: routes[Path.lineDetails].getLink(line.line_id),
 });
 
 export const mapStopToCommonConflictItem = (

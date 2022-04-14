@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router-dom';
 import { CreateNewLinePage } from './components/CreateNewLinePage'; // eslint-disable-line import/no-cycle
 import { Main } from './components/Main';
-import { Map } from './components/map';
+import { Map } from './components/map'; // eslint-disable-line import/no-cycle
 import { EditLinePage } from './components/routes-and-lines/EditLinePage'; // eslint-disable-line import/no-cycle
 import { EditRoutePage } from './components/routes-and-lines/EditRoutePage'; // eslint-disable-line import/no-cycle
 import { LineDetailsPage } from './components/routes-and-lines/LineDetailsPage'; // eslint-disable-line import/no-cycle

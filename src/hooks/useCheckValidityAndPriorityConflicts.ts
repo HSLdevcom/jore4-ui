@@ -2,9 +2,12 @@ import { DateTime } from 'luxon';
 import {
   RouteLine,
   RouteLineBoolExp,
+  RouteRoute,
+  RouteRouteBoolExp,
   ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointBoolExp,
   useGetLinesByValidityAsyncQuery,
+  useGetRoutesByValidityAsyncQuery,
   useGetStopsByValidityAsyncQuery,
 } from '../generated/graphql';
 import { Priority } from '../types/Priority';
@@ -107,6 +110,7 @@ const buildCommonGqlFilter = (
 export const useCheckValidityAndPriorityConflicts = () => {
   const [getLineValidity] = useGetLinesByValidityAsyncQuery();
   const [getStopValidity] = useGetStopsByValidityAsyncQuery();
+  const [getRouteValidity] = useGetRoutesByValidityAsyncQuery();
 
   const getConflictingLines = async (params: CommonParams, lineId?: UUID) => {
     const isDraft = params.priority === Priority.Draft;
@@ -161,8 +165,34 @@ export const useCheckValidityAndPriorityConflicts = () => {
     return data.service_pattern_scheduled_stop_point as ServicePatternScheduledStopPoint[];
   };
 
+  const getConflictingRoutes = async (params: CommonParams, routeId?: UUID) => {
+    const isDraft = params.priority === Priority.Draft;
+    if (isDraft) {
+      // Resources marked as "draft" are allowed to have conflicts
+      // with priority and validity time
+      return [];
+    }
+
+    // Ignore row itself as if we are editing existing version of row then
+    // possible conflict doesn't matter as we are *overwriting* conflicting
+    // version.
+    const routesFilter: RouteRouteBoolExp = routeId
+      ? { _not: { route_id: { _eq: routeId } } }
+      : {};
+    const commonFilter: RouteRouteBoolExp = buildCommonGqlFilter(params);
+
+    const { data } = await getRouteValidity({
+      filter: { ...routesFilter, ...commonFilter },
+    });
+
+    // We have to cast return type from GetRoutesByValidityQuery['route_route'] -> RouteRoute[]
+    // to be able to use simpler type later on. Both should be the same.
+    return data.route_route as RouteRoute[];
+  };
+
   return {
     getConflictingLines,
     getConflictingStops,
+    getConflictingRoutes,
   };
 };

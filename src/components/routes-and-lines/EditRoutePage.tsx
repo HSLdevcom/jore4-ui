@@ -17,6 +17,11 @@ import {
   SimpleButton,
 } from '../../uiComponents';
 import { mapToVariables, submitFormByRef } from '../../utils';
+// eslint-disable-next-line import/no-cycle
+import {
+  ConflictResolverModal,
+  mapRouteToCommonConflictItem,
+} from '../ConflictResolverModal';
 import { RoutePropertiesForm } from '../forms/RoutePropertiesForm';
 import { RouteFormState } from '../forms/RoutePropertiesForm.types';
 import { PageHeader } from './PageHeader';
@@ -43,9 +48,8 @@ export const EditRoutePage = (): JSX.Element => {
     defaultErrorHandler,
   } = useEditRoute();
   const [deleteRoute] = useDeleteRoute();
-
+  const [conflicts, setConflicts] = useState<RouteRoute[]>([]);
   const formRef = useRef<ExplicitAny>(null);
-
   const { id } = useParams<{ id: string }>();
 
   const routeDetailsResult = useGetRouteDetailsByIdsQuery({
@@ -65,6 +69,10 @@ export const EditRoutePage = (): JSX.Element => {
   const onSubmit = async (form: RouteFormState) => {
     try {
       const changes = await prepareEdit({ routeId: id, form });
+      if (changes.conflicts?.length) {
+        setConflicts(changes.conflicts);
+        return;
+      }
       const variables = mapEditChangesToVariables(changes);
       await editRouteMutation({ variables });
       setHasFinishedEditing(true);
@@ -135,6 +143,10 @@ export const EditRoutePage = (): JSX.Element => {
           </SimpleButton>
         </Row>
       </Container>
+      <ConflictResolverModal
+        onClose={() => setConflicts([])}
+        conflicts={conflicts.map(mapRouteToCommonConflictItem)}
+      />
       <ConfirmationDialog
         isOpen={isDeleting}
         onCancel={() => setIsDeleting(false)}

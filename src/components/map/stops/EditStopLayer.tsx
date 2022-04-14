@@ -21,6 +21,7 @@ import {
   mapLngLatToPoint,
   showSuccessToast,
 } from '../../../utils';
+// eslint-disable-next-line import/no-cycle
 import {
   ConflictResolverModal,
   mapStopToCommonConflictItem,

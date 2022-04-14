@@ -6345,7 +6345,7 @@ export type LineAllFieldsFragment = { __typename?: 'route_line', line_id: UUID, 
 
 export type RouteAllFieldsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string };
 
-export type RouteDefaultFieldsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, on_line_id: UUID, label: string, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID };
+export type RouteDefaultFieldsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, on_line_id: UUID, label: string, priority: number, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID };
 
 export type RouteWithStopsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined };
 
@@ -6426,6 +6426,13 @@ export type GetRoutesWithInfrastructureLinksQueryVariables = Exact<{
 
 
 export type GetRoutesWithInfrastructureLinksQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', label: string } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', shape: GeoJSON.Geometry } }>, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> }> };
+
+export type GetRoutesByValidityQueryVariables = Exact<{
+  filter?: Maybe<RouteRouteBoolExp>;
+}>;
+
+
+export type GetRoutesByValidityQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, route_id: UUID, description_i18n?: string | null | undefined, on_line_id: UUID, label: string, priority: number, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID }> };
 
 export type InsertLineOneMutationVariables = Exact<{
   object: RouteLineInsertInput;
@@ -6533,7 +6540,7 @@ export type GetStopWithRouteGraphDataByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetStopWithRouteGraphDataByIdQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, journey_pattern_route?: { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, on_line_id: UUID, label: string, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID }> } | null | undefined } }> }> };
+export type GetStopWithRouteGraphDataByIdQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, journey_pattern_route?: { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, on_line_id: UUID, label: string, priority: number, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID }> } | null | undefined } }> }> };
 
 export const InfrastructureLinkAllFieldsFragmentDoc = gql`
     fragment infrastructure_link_all_fields on infrastructure_network_infrastructure_link {
@@ -6574,6 +6581,7 @@ export const RouteDefaultFieldsFragmentDoc = gql`
   description_i18n
   on_line_id
   label
+  priority
   starts_from_scheduled_stop_point_id
   ends_at_scheduled_stop_point_id
 }
@@ -7295,6 +7303,43 @@ export function useGetRoutesWithInfrastructureLinksLazyQuery(baseOptions?: Apoll
 export type GetRoutesWithInfrastructureLinksQueryHookResult = ReturnType<typeof useGetRoutesWithInfrastructureLinksQuery>;
 export type GetRoutesWithInfrastructureLinksLazyQueryHookResult = ReturnType<typeof useGetRoutesWithInfrastructureLinksLazyQuery>;
 export type GetRoutesWithInfrastructureLinksQueryResult = Apollo.QueryResult<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>;
+export const GetRoutesByValidityDocument = gql`
+    query GetRoutesByValidity($filter: route_route_bool_exp) {
+  route_route(where: $filter) {
+    ...route_default_fields
+    validity_start
+    validity_end
+  }
+}
+    ${RouteDefaultFieldsFragmentDoc}`;
+
+/**
+ * __useGetRoutesByValidityQuery__
+ *
+ * To run a query within a React component, call `useGetRoutesByValidityQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRoutesByValidityQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRoutesByValidityQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useGetRoutesByValidityQuery(baseOptions?: Apollo.QueryHookOptions<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>(GetRoutesByValidityDocument, options);
+      }
+export function useGetRoutesByValidityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>(GetRoutesByValidityDocument, options);
+        }
+export type GetRoutesByValidityQueryHookResult = ReturnType<typeof useGetRoutesByValidityQuery>;
+export type GetRoutesByValidityLazyQueryHookResult = ReturnType<typeof useGetRoutesByValidityLazyQuery>;
+export type GetRoutesByValidityQueryResult = Apollo.QueryResult<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>;
 export const InsertLineOneDocument = gql`
     mutation InsertLineOne($object: route_line_insert_input!) {
   insert_route_line_one(object: $object) {
@@ -7927,6 +7972,10 @@ export function useGetRoutesWithInfrastructureLinksAsyncQuery() {
           return useAsyncQuery<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>(GetRoutesWithInfrastructureLinksDocument);
         }
 export type GetRoutesWithInfrastructureLinksAsyncQueryHookResult = ReturnType<typeof useGetRoutesWithInfrastructureLinksAsyncQuery>;
+export function useGetRoutesByValidityAsyncQuery() {
+          return useAsyncQuery<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>(GetRoutesByValidityDocument);
+        }
+export type GetRoutesByValidityAsyncQueryHookResult = ReturnType<typeof useGetRoutesByValidityAsyncQuery>;
 
 
 

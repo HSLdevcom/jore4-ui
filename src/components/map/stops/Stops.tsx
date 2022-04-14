@@ -33,7 +33,7 @@ import {
   mapLngLatToPoint,
   mapToVariables,
 } from '../../../utils';
-import { EditStopLayer } from './EditStopLayer';
+import { EditStopLayer } from './EditStopLayer'; // eslint-disable-line import/no-cycle
 import { Stop } from './Stop';
 
 export const Stops = React.forwardRef((props, ref) => {

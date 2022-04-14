@@ -63,6 +63,7 @@ const ROUTE_DEFAULT_FIELDS = gql`
     description_i18n
     on_line_id
     label
+    priority
     starts_from_scheduled_stop_point_id
     ends_at_scheduled_stop_point_id
   }
@@ -272,6 +273,16 @@ const GET_ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
   query GetRoutesWithInfrastructureLinks($route_ids: [uuid!]) {
     route_route(where: { route_id: { _in: $route_ids } }) {
       ...route_with_infrastructure_links
+    }
+  }
+`;
+
+const GET_ROUTES_BY_VALIDITY = gql`
+  query GetRoutesByValidity($filter: route_route_bool_exp) {
+    route_route(where: $filter) {
+      ...route_default_fields
+      validity_start
+      validity_end
     }
   }
 `;

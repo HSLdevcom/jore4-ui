@@ -1,1 +1,1 @@
-export * from './Map';
+export * from './Map'; // eslint-disable-line import/no-cycle
