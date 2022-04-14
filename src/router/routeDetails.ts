@@ -5,6 +5,7 @@ export enum Path {
   editRoute = '/routes/:id/edit',
   createLine = '/lines/create',
   lineDetails = '/lines/:id',
+  lineDrafts = '/lines/:label/drafts',
   editLine = '/lines/:id/edit',
   map = '/map',
   exampleResource = '/example/:id',
@@ -46,6 +47,11 @@ export const routeDetails: Record<Path, RouteDetail> = {
   [Path.lineDetails]: {
     getLink: (id: string) => Path.lineDetails.replace(':id', id),
     translationKey: 'lines.lineDetails',
+    includeInNav: false,
+  },
+  [Path.lineDrafts]: {
+    getLink: (label: string) => Path.lineDrafts.replace(':label', label),
+    translationKey: 'lines.lineDrafts',
     includeInNav: false,
   },
   [Path.editLine]: {

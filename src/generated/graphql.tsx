@@ -6714,6 +6714,14 @@ export type GetHighestPriorityLineDetailsWithRoutesQueryVariables = Exact<{
 
 export type GetHighestPriorityLineDetailsWithRoutesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } }> }> } }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> };
 
+export type GetLinesByLabelAndPriorityQueryVariables = Exact<{
+  label: Scalars['String'];
+  priority: Scalars['Int'];
+}>;
+
+
+export type GetLinesByLabelAndPriorityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> };
+
 export type GetRouteDetailsByIdsQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
@@ -7539,6 +7547,46 @@ export function useGetHighestPriorityLineDetailsWithRoutesLazyQuery(baseOptions?
 export type GetHighestPriorityLineDetailsWithRoutesQueryHookResult = ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesQuery>;
 export type GetHighestPriorityLineDetailsWithRoutesLazyQueryHookResult = ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesLazyQuery>;
 export type GetHighestPriorityLineDetailsWithRoutesQueryResult = Apollo.QueryResult<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>;
+export const GetLinesByLabelAndPriorityDocument = gql`
+    query GetLinesByLabelAndPriority($label: String!, $priority: Int!) {
+  route_line(where: {label: {_eq: $label}, priority: {_eq: $priority}}) {
+    ...line_all_fields
+    line_routes {
+      ...route_with_stops
+    }
+  }
+}
+    ${LineAllFieldsFragmentDoc}
+${RouteWithStopsFragmentDoc}`;
+
+/**
+ * __useGetLinesByLabelAndPriorityQuery__
+ *
+ * To run a query within a React component, call `useGetLinesByLabelAndPriorityQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLinesByLabelAndPriorityQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLinesByLabelAndPriorityQuery({
+ *   variables: {
+ *      label: // value for 'label'
+ *      priority: // value for 'priority'
+ *   },
+ * });
+ */
+export function useGetLinesByLabelAndPriorityQuery(baseOptions: Apollo.QueryHookOptions<GetLinesByLabelAndPriorityQuery, GetLinesByLabelAndPriorityQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLinesByLabelAndPriorityQuery, GetLinesByLabelAndPriorityQueryVariables>(GetLinesByLabelAndPriorityDocument, options);
+      }
+export function useGetLinesByLabelAndPriorityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLinesByLabelAndPriorityQuery, GetLinesByLabelAndPriorityQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLinesByLabelAndPriorityQuery, GetLinesByLabelAndPriorityQueryVariables>(GetLinesByLabelAndPriorityDocument, options);
+        }
+export type GetLinesByLabelAndPriorityQueryHookResult = ReturnType<typeof useGetLinesByLabelAndPriorityQuery>;
+export type GetLinesByLabelAndPriorityLazyQueryHookResult = ReturnType<typeof useGetLinesByLabelAndPriorityLazyQuery>;
+export type GetLinesByLabelAndPriorityQueryResult = Apollo.QueryResult<GetLinesByLabelAndPriorityQuery, GetLinesByLabelAndPriorityQueryVariables>;
 export const GetRouteDetailsByIdsDocument = gql`
     query GetRouteDetailsByIds($route_ids: [uuid!]) {
   route_route(where: {route_id: {_in: $route_ids}}) {
@@ -8393,6 +8441,10 @@ export function useGetHighestPriorityLineDetailsWithRoutesAsyncQuery() {
           return useAsyncQuery<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>(GetHighestPriorityLineDetailsWithRoutesDocument);
         }
 export type GetHighestPriorityLineDetailsWithRoutesAsyncQueryHookResult = ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesAsyncQuery>;
+export function useGetLinesByLabelAndPriorityAsyncQuery() {
+          return useAsyncQuery<GetLinesByLabelAndPriorityQuery, GetLinesByLabelAndPriorityQueryVariables>(GetLinesByLabelAndPriorityDocument);
+        }
+export type GetLinesByLabelAndPriorityAsyncQueryHookResult = ReturnType<typeof useGetLinesByLabelAndPriorityAsyncQuery>;
 export function useGetRouteDetailsByIdsAsyncQuery() {
           return useAsyncQuery<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>(GetRouteDetailsByIdsDocument);
         }

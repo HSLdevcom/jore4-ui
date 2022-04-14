@@ -49,7 +49,10 @@
     "lines": "Lines",
     "createNewRoute": "Create new route",
     "createNewRouteInstructions": "Route drawing opens in a new window.",
-    "showDrafts": "Show drafts"
+    "showDrafts": "Show drafts",
+    "draftsTitle": "Drafts",
+    "noDrafts": "No drafts",
+    "showDraftDetails": "Show draft details"
   },
   "stops": {
     "stop": "Stop",
@@ -180,6 +183,11 @@
     "searchPlaceholder": "Enter label",
     "searchLabel": "Search",
     "search": "Search"
+  },
+  "tableHeaders": {
+    "name": "Name",
+    "edited": "Edited",
+    "editor": "Editor"
   },
   "save": "Save",
   "edit": "Edit",
