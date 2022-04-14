@@ -151,13 +151,9 @@ export const useCheckValidityAndPriorityConflicts = () => {
       // Stops do not necessarily have validity start defined
       // (e.g. if they have been imported from jore3)
       buildCommonGqlFilter(params, true);
-    const filter = {
-      ...stopsFilter,
-      ...commonFilter,
-    };
 
     const { data } = await getStopValidity({
-      filter,
+      filter: { ...stopsFilter, ...commonFilter },
     });
 
     // We have to cast return type from GetStopsByValidityQuery['service_pattern_scheduled_stop_point'] -> ServicePatternScheduledStopPoint[]
