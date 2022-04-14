@@ -49,7 +49,10 @@
     "lines": "Linjat",
     "createNewRoute": "Luo reitti",
     "createNewRouteInstructions": "Uuden reitin luominen avautuu karttanäkymään.",
-    "showDrafts": "Näytä luonnokset"
+    "showDrafts": "Näytä luonnokset",
+    "draftsTitle": "Luonnokset",
+    "noDrafts": "Ei luonnoksia",
+    "showDraftDetails": "Näytä luonnoksen tiedot"
   },
   "stops": {
     "stop": "Pysäkki",
@@ -180,6 +183,11 @@
     "searchPlaceholder": "Anna tunnus",
     "searchLabel": "Haku",
     "search": "Hae"
+  },
+  "tableHeaders": {
+    "name": "Nimi",
+    "edited": "Muokattu",
+    "editor": "Muokkaaja"
   },
   "save": "Tallenna",
   "edit": "Muokkaa",

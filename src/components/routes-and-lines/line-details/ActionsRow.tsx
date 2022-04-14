@@ -4,17 +4,30 @@ import qs from 'qs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
+import { RouteLine } from '../../../generated/graphql';
 import { useUrlQuery } from '../../../hooks';
 import { useGetLineDetails } from '../../../hooks/line-details/useGetLineDetails';
 import { Column, Container, Row } from '../../../layoutComponents';
+import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
 
-export const ActionsRow = ({ className = '' }: { className?: string }) => {
+const getDraftsUrlWithReturnToQueryString = (line: RouteLine) => {
+  const draftUrl = routeDetails[Path.lineDrafts].getLink(line.label);
+  const returnToQueryString = qs.stringify({ returnTo: line.line_id });
+
+  return `${draftUrl}?${returnToQueryString}`;
+};
+
+export const ActionsRow = ({
+  className = '',
+}: {
+  className?: string;
+}): JSX.Element => {
   const { t } = useTranslation();
   const history = useHistory();
   const queryParams = useUrlQuery();
 
-  const { observationDate } = useGetLineDetails();
+  const { line, observationDate } = useGetLineDetails();
 
   const onDateChange = (date: DateTime) => {
     const updatedUrlQuery = produce(queryParams, (draft) => {
@@ -47,14 +60,16 @@ export const ActionsRow = ({ className = '' }: { className?: string }) => {
             className="flex-1"
           />
         </Column>
-        <SimpleButton
-          className="ml-auto"
-          inverted
-          disabled
-          onClick={() => console.log('TODO')} // eslint-disable-line no-console
-        >
-          {t('lines.showDrafts')}
-        </SimpleButton>
+
+        {line && (
+          <SimpleButton
+            className="ml-auto"
+            inverted
+            href={getDraftsUrlWithReturnToQueryString(line)}
+          >
+            {t('lines.showDrafts')}
+          </SimpleButton>
+        )}
       </Row>
     </Container>
   );
