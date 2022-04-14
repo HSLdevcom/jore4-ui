@@ -6,6 +6,7 @@ import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
 import {
   useAppDispatch,
   useAppSelector,
+  useDeleteRoute,
   useEditRouteGeometry,
   useExtractRouteFromFeature,
   useMapUrlQuery,
@@ -56,8 +57,9 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     mapRouteDetailsToUpdateMutationVariables,
     insertRouteMutation,
     updateRouteGeometryMutation,
-    deleteRoute,
   } = useEditRouteGeometry();
+  const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
+    useDeleteRoute();
 
   const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
 
@@ -189,16 +191,12 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
 
       // delete the route from the backend
       await deleteRoute(editingRouteId);
-
-      showToast({ type: 'success', message: t('routes.deleteSuccess') });
+      showSuccessToast(t('routes.deleteSuccess'));
 
       setIsDeleting(false);
       dispatch(setIsModalMapOpenAction(false));
     } catch (err) {
-      showToast({
-        type: 'danger',
-        message: `${t('errors.saveFailed')}, '${err}'`,
-      });
+      defaultDeleteErrorHandler(err);
     }
   };
 
