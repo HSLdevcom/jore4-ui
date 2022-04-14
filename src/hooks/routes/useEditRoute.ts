@@ -2,14 +2,17 @@ import { useTranslation } from 'react-i18next';
 import { RouteFormState } from '../../components/forms/RoutePropertiesForm.types';
 import {
   PatchRouteMutationVariables,
+  RouteRoute,
   RouteRouteSetInput,
   usePatchRouteMutation,
 } from '../../generated/graphql';
+import { MIN_DATE } from '../../time';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   showDangerToastWithError,
 } from '../../utils';
+import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 
 interface EditParams {
   routeId: UUID;
@@ -19,6 +22,7 @@ interface EditParams {
 interface EditChanges {
   routeId: UUID;
   patch: RouteRouteSetInput;
+  conflicts?: RouteRoute[];
 }
 
 const mapFormToInput = (state: RouteFormState): RouteRouteSetInput => {
@@ -38,13 +42,24 @@ const mapFormToInput = (state: RouteFormState): RouteRouteSetInput => {
 export const useEditRoute = () => {
   const { t } = useTranslation();
   const [mutateFunction] = usePatchRouteMutation();
+  const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
 
   const prepareEdit = async ({ routeId, form }: EditParams) => {
     const input = mapFormToInput(form);
+    const conflicts = await getConflictingRoutes(
+      {
+        label: form.label,
+        priority: form.priority,
+        validityStart: input.validity_start || MIN_DATE,
+        validityEnd: input.validity_end || undefined,
+      },
+      routeId,
+    );
 
     const changes: EditChanges = {
       routeId,
       patch: input,
+      conflicts,
     };
 
     return changes;

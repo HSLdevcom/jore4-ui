@@ -8,6 +8,7 @@ import { Container } from '../../layoutComponents';
 import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
 import { mapToISODate } from '../../time';
 import { mapToVariables, showSuccessToast } from '../../utils';
+// eslint-disable-next-line import/no-cycle
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,

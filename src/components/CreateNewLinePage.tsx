@@ -11,6 +11,7 @@ import { Container, Row } from '../layoutComponents';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { Priority } from '../types/Priority';
 import { showSuccessToast } from '../utils';
+// eslint-disable-next-line import/no-cycle
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
