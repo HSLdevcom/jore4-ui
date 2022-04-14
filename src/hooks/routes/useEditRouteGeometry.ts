@@ -5,7 +5,6 @@ import {
   RouteRoute,
   UpdateRouteGeometryMutationVariables,
   UpdateRouteJourneyPatternMutationVariables,
-  useDeleteRouteMutation,
   useDeleteStopFromJourneyPatternMutation,
   useInsertRouteOneMutation,
   useUpdateRouteGeometryMutation,
@@ -36,7 +35,6 @@ export const useEditRouteGeometry = () => {
   const [updateRouteGeometryMutation] = useUpdateRouteGeometryMutation();
   const [updateRouteJourneyPatternMutation] =
     useUpdateRouteJourneyPatternMutation();
-  const [deleteRouteMutation] = useDeleteRouteMutation();
   const [deleteStopFromJourneyPatternMutation] =
     useDeleteStopFromJourneyPatternMutation();
 
@@ -166,10 +164,6 @@ export const useEditRouteGeometry = () => {
     });
   };
 
-  const deleteRoute = async (routeId: UUID) => {
-    await deleteRouteMutation(mapToVariables({ route_id: routeId }));
-  };
-
   const deleteStopFromJourneyPattern = async ({
     routeId,
     stopPointId,
@@ -198,7 +192,5 @@ export const useEditRouteGeometry = () => {
     // create
     insertRouteMutation,
     mapRouteDetailsToInsertMutationVariables,
-    // delete
-    deleteRoute,
   };
 };

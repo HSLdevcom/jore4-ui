@@ -1,23 +1,24 @@
 import { useTranslation } from 'react-i18next';
 import { useDeleteRouteMutation } from '../../generated/graphql';
-import { mapToVariables, showDangerToast, showSuccessToast } from '../../utils';
+import { mapToVariables, showDangerToastWithError } from '../../utils';
 
 export const useDeleteRoute = () => {
   const { t } = useTranslation();
-  const [deleteRoute] = useDeleteRouteMutation();
+  const [mutateFunction] = useDeleteRouteMutation();
 
-  const worker = async (routeId?: UUID) => {
+  const deleteRoute = async (routeId?: UUID) => {
     if (!routeId) throw new Error('Missing routeId');
-    try {
-      const result = await deleteRoute(mapToVariables({ route_id: routeId }));
-      showSuccessToast(t('routes.deleteSuccess'));
-      // TODO: remove also from Apollo's cache
-      return result;
-    } catch (err) {
-      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
-      throw err;
-    }
+
+    const result = await mutateFunction(mapToVariables({ route_id: routeId }));
+
+    return result;
   };
 
-  return [worker];
+  // default handler that can be used to show error messages as toast
+  // in case an exception is thrown
+  const defaultErrorHandler = (err: unknown) => {
+    showDangerToastWithError(t('errors.saveFailed'), err);
+  };
+
+  return { deleteRoute, defaultErrorHandler };
 };
