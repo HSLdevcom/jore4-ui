@@ -3,6 +3,7 @@ import { ApolloQueryResult, FetchResult, gql } from '@apollo/client';
 import {
   GetHighestPriorityLineDetailsWithRoutesQuery,
   GetLineDetailsWithRoutesByIdQuery,
+  GetLinesByLabelAndPriorityQuery,
   GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
   RouteLine,
@@ -250,6 +251,23 @@ export const mapHighestPriorityLineDetailsWithRoutesResult = (
   result.data?.route_line.length
     ? (result.data?.route_line[0] as RouteLine)
     : undefined;
+
+const GET_LINES_BY_LABEL = gql`
+  query GetLinesByLabelAndPriority($label: String!, $priority: Int!) {
+    route_line(
+      where: { label: { _eq: $label }, priority: { _eq: $priority } }
+    ) {
+      ...line_all_fields
+      line_routes {
+        ...route_with_stops
+      }
+    }
+  }
+`;
+
+export const mapLinesByLabelAndPriorityResult = (
+  result: GqlQueryResult<GetLinesByLabelAndPriorityQuery>,
+) => result.data?.route_line as RouteLine[];
 
 const GET_ROUTE_DETAILS_BY_IDS = gql`
   query GetRouteDetailsByIds($route_ids: [uuid!]) {

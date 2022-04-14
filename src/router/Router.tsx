@@ -8,6 +8,7 @@ import { CreateNewLinePage } from '../components/routes-and-lines/create-line/Cr
 import { EditLinePage } from '../components/routes-and-lines/edit-line/EditLinePage';
 import { EditRoutePage } from '../components/routes-and-lines/edit-route/EditRoutePage';
 import { LineDetailsPage } from '../components/routes-and-lines/line-details/LineDetailsPage';
+import { LineDraftsPage } from '../components/routes-and-lines/line-drafts/LineDraftsPage';
 import { RoutesAndLinesPage } from '../components/routes-and-lines/main/RoutesAndLinesPage';
 import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
 import { Main } from '../pages/Main';
@@ -63,6 +64,11 @@ export const Router: FunctionComponent = () => {
       _routerRoute: Path.lineDetails,
       _exact: true,
       component: LineDetailsPage,
+    },
+    [Path.lineDrafts]: {
+      _routerRoute: Path.lineDrafts,
+      _exact: true,
+      component: LineDraftsPage,
     },
     [Path.editLine]: {
       _routerRoute: Path.editLine,
