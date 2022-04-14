@@ -16,7 +16,7 @@ import {
   FormContainer,
   SimpleButton,
 } from '../../uiComponents';
-import { mapToVariables, submitFormByRef } from '../../utils';
+import { mapToVariables, showSuccessToast, submitFormByRef } from '../../utils';
 // eslint-disable-next-line import/no-cycle
 import {
   ConflictResolverModal,
@@ -47,7 +47,8 @@ export const EditRoutePage = (): JSX.Element => {
     editRouteMutation,
     defaultErrorHandler,
   } = useEditRoute();
-  const [deleteRoute] = useDeleteRoute();
+  const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
+    useDeleteRoute();
   const [conflicts, setConflicts] = useState<RouteRoute[]>([]);
   const formRef = useRef<ExplicitAny>(null);
   const { id } = useParams<{ id: string }>();
@@ -84,9 +85,10 @@ export const EditRoutePage = (): JSX.Element => {
   const onDelete = async () => {
     try {
       await deleteRoute(route?.route_id);
+      showSuccessToast(t('routes.deleteSuccess'));
       setHasFinishedEditing(true);
     } catch (err) {
-      // noop
+      defaultDeleteErrorHandler(err);
     }
   };
 
