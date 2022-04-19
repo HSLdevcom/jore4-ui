@@ -34,13 +34,14 @@ export const ConfirmationDialog: React.FC<Props> = ({
     >
       <div className="flex h-full items-center justify-center">
         <div className="w-full max-w-sm rounded-md bg-white p-5 shadow-md">
-          <div className="flex">
-            <div className="text-xl font-bold">{title}</div>
+          <Dialog.Title className="flex text-xl font-bold">
+            {title}
             <CloseIconButton className="ml-auto" onClick={onCancel} />
-          </div>
-
-          {/* eslint-disable-next-line react/no-danger */}
-          <p className="my-5 text-base" dangerouslySetInnerHTML={descHtml} />
+          </Dialog.Title>
+          <Dialog.Description
+            className="my-5"
+            dangerouslySetInnerHTML={descHtml}
+          />
           <div className="flex justify-end space-x-5">
             <SimpleButton inverted onClick={onCancel}>
               {cancelText}
