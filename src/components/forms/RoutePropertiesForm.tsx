@@ -108,7 +108,7 @@ const RoutePropertiesFormComponent = (
               )}
             />
             <p>
-              {errors.direction?.type === 'invalid_type' &&
+              {errors.direction?.type === 'invalid_enum_value' &&
                 t('formValidation.required')}
             </p>
           </Column>
