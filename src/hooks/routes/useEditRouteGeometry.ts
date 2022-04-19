@@ -1,12 +1,9 @@
-import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import { RouteStop } from '../../context/MapEditor';
 import {
-  InsertRouteOneMutationVariables,
   RouteRoute,
   UpdateRouteGeometryMutationVariables,
   UpdateRouteJourneyPatternMutationVariables,
   useDeleteStopFromJourneyPatternMutation,
-  useInsertRouteOneMutation,
   useUpdateRouteGeometryMutation,
   useUpdateRouteJourneyPatternMutation,
 } from '../../generated/graphql';
@@ -16,14 +13,9 @@ import {
   mapInfraLinksAlongRouteToGraphQL,
   stopBelongsToJourneyPattern,
 } from '../../graphql';
-import {
-  mapDateInputToValidityEnd,
-  mapDateInputToValidityStart,
-  mapToObject,
-  mapToVariables,
-  removeFromApolloCache,
-} from '../../utils';
+import { mapToVariables, removeFromApolloCache } from '../../utils';
 import { useExtractRouteFromFeature } from '../useExtractRouteFromFeature';
+import { mapStopsToScheduledStopPoints } from './useCreateRoute';
 
 interface DeleteStopFromJourneyPatternParams {
   routeId: UUID;
@@ -31,7 +23,6 @@ interface DeleteStopFromJourneyPatternParams {
 }
 
 export const useEditRouteGeometry = () => {
-  const [insertRouteMutation] = useInsertRouteOneMutation();
   const [updateRouteGeometryMutation] = useUpdateRouteGeometryMutation();
   const [updateRouteJourneyPatternMutation] =
     useUpdateRouteJourneyPatternMutation();
@@ -39,54 +30,6 @@ export const useEditRouteGeometry = () => {
     useDeleteStopFromJourneyPatternMutation();
 
   const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
-
-  const mapStopsToScheduledStopPoints = (stops: UUID[]) => {
-    return {
-      data: stops.map((stopId, index) => ({
-        scheduled_stop_point_id: stopId,
-        scheduled_stop_point_sequence: index,
-      })),
-    };
-  };
-
-  const mapRouteDetailsToInsertMutationVariables = (
-    routeDetails: Partial<RouteFormState>,
-    stopIdsWithinRoute: UUID[],
-    infraLinksAlongRoute: InfrastructureLinkAlongRoute[],
-    startingStopId: UUID,
-    finalStopId: UUID,
-  ) => {
-    const variables: InsertRouteOneMutationVariables = mapToObject({
-      starts_from_scheduled_stop_point_id: startingStopId,
-      ends_at_scheduled_stop_point_id: finalStopId,
-      on_line_id: routeDetails.on_line_id,
-      label: routeDetails.label,
-      description_i18n: routeDetails.description_i18n,
-      direction: routeDetails.direction,
-      priority: routeDetails.priority,
-      validity_start: mapDateInputToValidityStart(
-        // form validation makes sure that 'validityStart' has a valid value at this point
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        routeDetails.validityStart!,
-      ),
-      validity_end: mapDateInputToValidityEnd(
-        routeDetails.validityEnd,
-        routeDetails.indefinite,
-      ),
-      // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
-      infrastructure_links_along_route: {
-        data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
-      },
-      route_journey_patterns: {
-        data: {
-          scheduled_stop_point_in_journey_patterns:
-            mapStopsToScheduledStopPoints(stopIdsWithinRoute),
-        },
-      },
-    });
-
-    return mapToVariables(variables);
-  };
 
   const mapRouteDetailsToUpdateMutationVariables = (
     editingRouteId: UUID,
@@ -184,13 +127,9 @@ export const useEditRouteGeometry = () => {
   };
 
   return {
-    // edit
     updateRouteGeometryMutation,
     mapRouteDetailsToUpdateMutationVariables,
     deleteStopFromJourneyPattern,
     addStopToRouteJourneyPattern,
-    // create
-    insertRouteMutation,
-    mapRouteDetailsToInsertMutationVariables,
   };
 };

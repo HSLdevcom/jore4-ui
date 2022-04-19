@@ -11,6 +11,7 @@ import {
   useExtractRouteFromFeature,
   useMapUrlQuery,
 } from '../../hooks';
+import { useCreateRoute } from '../../hooks/routes/useCreateRoute';
 import { selectIsModalMapOpen, setIsModalMapOpenAction } from '../../redux';
 import { isDateInRange } from '../../time';
 import { ConfirmationDialog, Modal } from '../../uiComponents';
@@ -53,9 +54,13 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const {
-    mapRouteDetailsToInsertMutationVariables,
-    mapRouteDetailsToUpdateMutationVariables,
+    prepareCreate,
+    mapCreateChangesToVariables,
     insertRouteMutation,
+    defaultErrorHandler: defaultInsertRouteErrorHandler,
+  } = useCreateRoute();
+  const {
+    mapRouteDetailsToUpdateMutationVariables,
     updateRouteGeometryMutation,
   } = useEditRouteGeometry();
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
@@ -134,13 +139,14 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
           return;
         }
 
-        const variables = mapRouteDetailsToInsertMutationVariables(
-          routeDetails,
+        const changes = prepareCreate({
+          form: routeDetails,
           stopIdsWithinRoute,
-          infraLinks,
+          infraLinksAlongRoute: infraLinks,
           startingStopId,
           finalStopId,
-        );
+        });
+        const variables = mapCreateChangesToVariables(changes);
 
         try {
           const response = await insertRouteMutation(variables);
@@ -173,10 +179,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
           mapEditorDispatch({ type: 'stopDrawRoute' });
           mapRef?.current?.onDeleteDrawnRoute();
         } catch (err) {
-          showToast({
-            type: 'danger',
-            message: `${t('errors.saveFailed')}, ${err}`,
-          });
+          defaultInsertRouteErrorHandler(err);
         }
       }
     } else {
