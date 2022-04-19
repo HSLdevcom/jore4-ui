@@ -12,23 +12,27 @@ import { RouteStopsRow } from './RouteStopsRow';
 
 interface Props {
   className?: string;
-  route: RouteRoute;
+  routeDirections: RouteRoute[];
   showUnusedStops: boolean;
 }
 
 export const RouteStopsSection = ({
   className,
-  route,
+  routeDirections,
   showUnusedStops,
 }: Props) => {
   const [isOpen, setOpen] = useState(false);
+  const [routeToDisplayIndex, setRouteToDisplayIndex] = useState(0);
+
   const { t } = useTranslation();
 
   const { addStopToRouteJourneyPattern } = useEditRouteGeometry();
 
-  const onToggle = () => {
+  const onToggleShowStops = () => {
     setOpen(!isOpen);
   };
+
+  const route = routeDirections[routeToDisplayIndex];
 
   const stopsAlongRoute = getStopsAlongRouteGeometry(route);
   const displayedRoutes = stopsAlongRoute.filter((item) => {
@@ -53,8 +57,13 @@ export const RouteStopsSection = ({
       <RouteStopsHeaderRow
         key={route.route_id}
         route={route}
-        isOpen={isOpen}
-        onToggle={onToggle}
+        showStops={isOpen}
+        onToggleShowStops={onToggleShowStops}
+        onToggleDirection={
+          routeDirections.length > 1
+            ? () => setRouteToDisplayIndex(routeToDisplayIndex ? 0 : 1)
+            : undefined
+        }
       />
       {isOpen &&
         displayedRoutes.map((item) => (

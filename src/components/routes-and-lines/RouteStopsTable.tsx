@@ -1,4 +1,5 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
+import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +17,7 @@ export const RouteStopsTable = ({ className, routes, testId }: Props) => {
   const { t } = useTranslation();
   const [showUnusedStops, setShowUnusedStops] = useState(true);
   const sortedRoutes = orderBy(routes, ['label', 'direction'], ['asc', 'desc']);
+  const groupedRoutes = groupBy(sortedRoutes, 'label');
 
   return (
     <div>
@@ -29,11 +31,11 @@ export const RouteStopsTable = ({ className, routes, testId }: Props) => {
       </div>
       {/* setting a fake "height: 1px" so that "height: 100%" would work for the table cells */}
       <table className={`h-1 w-full ${className}`} data-testid={testId}>
-        {sortedRoutes.map((item) => {
+        {Object.values(groupedRoutes).map((routeDirections) => {
           return (
             <RouteStopsSection
-              key={item.route_id}
-              route={item}
+              key={routeDirections[0].route_id}
+              routeDirections={routeDirections}
               showUnusedStops={showUnusedStops}
             />
           );
