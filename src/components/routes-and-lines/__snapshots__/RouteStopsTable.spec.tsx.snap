@@ -44,9 +44,6 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
                 class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-white"
               >
                 1
-                <i
-                  class="icon-opposite border-brank absolute -bottom-2 -right-2 rounded-full border bg-white text-sm text-brand"
-                />
               </span>
               65 itään
             </div>
@@ -214,9 +211,6 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-white"
               >
                 1
-                <i
-                  class="icon-opposite border-brank absolute -bottom-2 -right-2 rounded-full border bg-white text-sm text-brand"
-                />
               </span>
               65 itään
             </div>

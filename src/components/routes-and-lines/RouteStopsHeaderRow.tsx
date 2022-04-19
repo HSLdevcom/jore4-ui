@@ -18,15 +18,17 @@ import { DirectionBadge } from './DirectionBadge';
 interface Props {
   className?: string;
   route: RouteRoute;
-  isOpen: boolean;
-  onToggle: () => void;
+  showStops: boolean;
+  onToggleShowStops: () => void;
+  onToggleDirection?: () => void;
 }
 
 export const RouteStopsHeaderRow = ({
   className,
   route,
-  isOpen,
-  onToggle,
+  showStops,
+  onToggleShowStops,
+  onToggleDirection,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const { showRoutesOnModal } = useShowRoutesOnModal();
@@ -35,7 +37,10 @@ export const RouteStopsHeaderRow = ({
     <tr className={`border border-white bg-background ${className}`}>
       <td className="border-l-8 py-4 pl-16 pr-4 text-3xl font-bold">
         <Row className="items-center">
-          <DirectionBadge direction={route.direction as RouteDirectionEnum} />
+          <DirectionBadge
+            direction={route.direction as RouteDirectionEnum}
+            onToggle={onToggleDirection}
+          />
           {route.label}
         </Row>
       </td>
@@ -74,10 +79,10 @@ export const RouteStopsHeaderRow = ({
         <button
           type="button"
           className="h-full w-full text-center"
-          onClick={onToggle}
+          onClick={onToggleShowStops}
           data-testid="RouteStopsHeaderRow::toggleAccordion"
         >
-          {isOpen ? (
+          {showStops ? (
             <FaChevronUp className="inline text-center text-3xl text-tweaked-brand" />
           ) : (
             <FaChevronDown className="inline text-center text-3xl text-tweaked-brand" />
