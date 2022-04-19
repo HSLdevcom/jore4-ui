@@ -1,5 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import React from 'react';
+import { CloseIconButton } from './CloseIconButton';
 import { SimpleButton } from './SimpleButton';
 
 interface Props {
@@ -35,9 +36,7 @@ export const ConfirmationDialog: React.FC<Props> = ({
         <div className="w-full max-w-sm rounded-md bg-white p-5 shadow-md">
           <div className="flex">
             <div className="text-xl font-bold">{title}</div>
-            <button className="ml-auto" type="button" onClick={onCancel}>
-              <i className="icon-close-large text-lg" />
-            </button>
+            <CloseIconButton className="ml-auto" onClick={onCancel} />
           </div>
 
           {/* eslint-disable-next-line react/no-danger */}
