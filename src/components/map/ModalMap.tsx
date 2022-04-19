@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { MapEditorContext, Mode } from '../../context/MapEditor';
 import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
+import { RouteRoute } from '../../generated/graphql';
 import {
   useAppDispatch,
   useAppSelector,
@@ -16,6 +17,10 @@ import { selectIsModalMapOpen, setIsModalMapOpenAction } from '../../redux';
 import { isDateInRange } from '../../time';
 import { ConfirmationDialog, Modal } from '../../uiComponents';
 import { showSuccessToast, showToast } from '../../utils';
+import {
+  ConflictResolverModal,
+  mapRouteToCommonConflictItem,
+} from '../routes-and-lines/common/ConflictResolverModal';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
@@ -63,6 +68,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     mapRouteDetailsToUpdateMutationVariables,
     updateRouteGeometryMutation,
   } = useEditRouteGeometry();
+  const [conflicts, setConflicts] = useState<RouteRoute[]>([]);
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
     useDeleteRoute();
 
@@ -139,13 +145,17 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
           return;
         }
 
-        const changes = prepareCreate({
+        const changes = await prepareCreate({
           form: routeDetails,
           stopIdsWithinRoute,
           infraLinksAlongRoute: infraLinks,
           startingStopId,
           finalStopId,
         });
+        if (changes.conflicts?.length) {
+          setConflicts(changes.conflicts);
+          return;
+        }
         const variables = mapCreateChangesToVariables(changes);
 
         try {
@@ -253,6 +263,10 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
         description={t('confirmDeleteRouteDialog.description')}
         confirmText={t('confirmDeleteRouteDialog.confirmText')}
         cancelText={t('cancel')}
+      />
+      <ConflictResolverModal
+        onClose={() => setConflicts([])}
+        conflicts={conflicts.map(mapRouteToCommonConflictItem)}
       />
     </Modal>
   );

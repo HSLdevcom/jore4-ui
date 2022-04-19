@@ -2,12 +2,14 @@ import { useTranslation } from 'react-i18next';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
   InsertRouteOneMutationVariables,
+  RouteRoute,
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
 import {
   InfrastructureLinkAlongRoute,
   mapInfraLinksAlongRouteToGraphQL,
 } from '../../graphql';
+import { MIN_DATE } from '../../time';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
@@ -15,6 +17,7 @@ import {
   mapToVariables,
   showDangerToastWithError,
 } from '../../utils';
+import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 
 interface CreateParams {
   form: Partial<RouteFormState>;
@@ -26,6 +29,7 @@ interface CreateParams {
 
 interface CreateChanges {
   input: InsertRouteOneMutationVariables;
+  conflicts?: RouteRoute[];
 }
 
 const mapStopIdToScheduledStopPoint = (stopId: UUID, index: number) => ({
@@ -80,12 +84,22 @@ const mapRouteDetailsToInsertMutationVariables = (
 export const useCreateRoute = () => {
   const { t } = useTranslation();
   const [mutateFunction] = useInsertRouteOneMutation();
+  const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
 
-  const prepareCreate = (params: CreateParams) => {
+  const prepareCreate = async (params: CreateParams) => {
     const input = mapRouteDetailsToInsertMutationVariables(params);
+    const conflicts = await getConflictingRoutes({
+      // Form validation should make sure that label and priority always exist.
+      // For some reason form state is saved as Partial<> so we have to use non-null assertions here...
+      label: params.form.label!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      priority: params.form.priority!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      validityStart: input.object.validity_start || MIN_DATE,
+      validityEnd: input.object.validity_end || undefined,
+    });
 
     const changes: CreateChanges = {
       input,
+      conflicts,
     };
 
     return changes;
