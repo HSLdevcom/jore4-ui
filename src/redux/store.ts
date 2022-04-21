@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { logger } from './middleware/logger';
+// eslint-disable-next-line import/no-cycle
 import { rootReducer } from './rootReducer';
 
 export const store = configureStore({

@@ -9,7 +9,7 @@ import {
   GetRouteDetailsByLabelsQueryVariables,
 } from '../../generated/graphql';
 import { mapRoutesDetailsResult } from '../../graphql';
-import { selectMapEditor, setStateAction } from '../../redux';
+import { selectMapEditor, setDisplayedRouteIdsAction } from '../../redux';
 import { useAppDispatch, useAppSelector } from '../redux';
 import { useAsyncQuery } from '../useAsyncQuery';
 
@@ -58,11 +58,9 @@ export const useGetDisplayedRoutes = () => {
       );
 
       dispatch(
-        setStateAction({
-          displayedRouteIds: displayedRouteDetails.map(
-            (route) => route.route_id,
-          ),
-        }),
+        setDisplayedRouteIdsAction(
+          displayedRouteDetails.map((route) => route.route_id),
+        ),
       );
 
       return displayedRouteDetails;
