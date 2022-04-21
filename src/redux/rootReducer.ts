@@ -1,5 +1,6 @@
 import { AnyAction, combineReducers } from '@reduxjs/toolkit';
 import { mapReducer } from './slices/map';
+// eslint-disable-next-line import/no-cycle
 import { mapEditorReducer } from './slices/mapEditor';
 import { modalMapReducer } from './slices/modalMap';
 import { loginFailedAction, userReducer } from './slices/user';
