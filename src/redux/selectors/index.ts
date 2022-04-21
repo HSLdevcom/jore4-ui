@@ -36,3 +36,8 @@ export const selectHasChangesInProgress = createSelector(
   selectIsInViewMode,
   (modalMap, viewMode) => modalMap.creatingNewRoute || !viewMode,
 );
+
+export const selectHasDraftRouteGeometry = createSelector(
+  selectMapEditor,
+  (mapEditor) => !!mapEditor.editedRouteData.infraLinks?.length,
+);

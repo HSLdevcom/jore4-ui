@@ -6,7 +6,7 @@ import {
 } from '../../generated/graphql';
 import { mapGetStopsResult, mapRoutesDetailsResult } from '../../graphql';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { selectMapEditor, setStateAction } from '../../redux';
+import { selectMapEditor, setStopOnRouteAction } from '../../redux';
 import { SimpleDropdownMenu } from '../../uiComponents/SimpleDropdownMenu';
 import { mapToVariables } from '../../utils';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
@@ -26,19 +26,12 @@ const StopRow = ({
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
-  const { editedRouteData } = useAppSelector(selectMapEditor);
 
   const setOnRoute = (belongsToRoute: boolean) => {
     dispatch(
-      setStateAction({
-        editedRouteData: {
-          ...editedRouteData,
-          stops: editedRouteData.stops?.map((item) =>
-            item.id === stop.scheduled_stop_point_id
-              ? { ...item, belongsToRoute }
-              : item,
-          ),
-        },
+      setStopOnRouteAction({
+        stopId: stop.scheduled_stop_point_id,
+        belongsToRoute,
       }),
     );
   };
