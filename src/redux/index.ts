@@ -5,3 +5,4 @@ export * from './slices/mapEditor';
 export * from './slices/modalMap';
 export * from './slices/user';
 export * from './store';
+export * from './thunks/mapEditor';

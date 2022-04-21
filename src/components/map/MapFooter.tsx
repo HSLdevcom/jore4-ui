@@ -6,6 +6,7 @@ import { Row, Visible } from '../../layoutComponents';
 import {
   Mode,
   selectHasChangesInProgress,
+  selectHasDraftRouteGeometry,
   selectIsCreateStopModeEnabled,
   selectIsInViewMode,
   selectMapEditor,
@@ -30,8 +31,9 @@ export const MapFooter: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { drawingMode, displayedRouteIds, creatingNewRoute, hasRoute } =
+  const { drawingMode, displayedRouteIds, creatingNewRoute } =
     useAppSelector(selectMapEditor);
+  const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
 
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
   const isInViewMode = useAppSelector(selectIsInViewMode);
@@ -90,7 +92,7 @@ export const MapFooter: React.FC<Props> = ({
         </SimpleButton>
         <SimpleButton
           onClick={onSave}
-          disabled={!(hasChangesInProgress && hasRoute)}
+          disabled={!(hasChangesInProgress && hasDraftRouteGeometry)}
         >
           {t('routes.save')}
         </SimpleButton>

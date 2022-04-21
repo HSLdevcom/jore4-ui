@@ -11,16 +11,14 @@ import {
   useMapUrlQuery,
 } from '../../hooks';
 import {
-  Mode,
-  resetAction,
+  resetMapEditorStateAction,
   selectIsModalMapOpen,
   selectMapEditor,
+  setInitiallyDisplayedRouteIdsAction,
   setIsModalMapOpenAction,
-  setStateAction,
-  startDrawRouteAction,
-  startEditRouteAction,
   stopDrawRouteAction,
-  stopEditRouteAction,
+  toggleDrawRouteAction,
+  toggleEditRouteAction,
 } from '../../redux';
 import { isDateInRange } from '../../time';
 import { ConfirmationDialog, Modal } from '../../uiComponents';
@@ -47,8 +45,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const isModalMapOpen = useAppSelector(selectIsModalMapOpen);
   const { deleteMapOpenQueryParameter, isMapOpen } = useMapUrlQuery();
 
-  const { editedRouteData, creatingNewRoute, drawingMode } =
-    useAppSelector(selectMapEditor);
+  const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
 
   const {
     state: { observationDate },
@@ -97,21 +94,13 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
 
   const onDrawRoute = () => {
     mapRef?.current?.onDeleteDrawnRoute();
-    dispatch(
-      drawingMode === Mode.Draw
-        ? stopDrawRouteAction()
-        : startDrawRouteAction(),
-    );
+    dispatch(toggleDrawRouteAction());
   };
   const onEditRoute = () => {
     if (!creatingNewRoute) {
       mapRef?.current?.onDeleteDrawnRoute();
     }
-    dispatch(
-      drawingMode === Mode.Edit
-        ? stopEditRouteAction()
-        : startEditRouteAction(),
-    );
+    dispatch(toggleEditRouteAction());
   };
   const onCancel = () => {
     mapRef?.current?.onDeleteDrawnRoute();
@@ -161,9 +150,8 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const newRoute = response.data!.insert_route_route_one!;
 
-          dispatch(
-            setStateAction({ initiallyDisplayedRouteIds: [newRoute.route_id] }),
-          );
+          mapRef?.current?.onDeleteDrawnRoute();
+          dispatch(setInitiallyDisplayedRouteIdsAction([newRoute.route_id]));
 
           showSuccessToast(t('routes.saveSuccess'));
 
@@ -221,7 +209,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   };
 
   const onCloseModalMap = () => {
-    dispatch(resetAction());
+    dispatch(resetMapEditorStateAction());
     dispatch(setIsModalMapOpenAction(false));
     deleteMapOpenQueryParameter();
   };
