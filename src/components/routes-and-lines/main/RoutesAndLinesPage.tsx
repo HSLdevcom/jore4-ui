@@ -1,7 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useMapUrlQuery } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
-import { resetAction, setIsModalMapOpenAction } from '../../../redux';
+import {
+  resetMapEditorStateAction,
+  setIsModalMapOpenAction,
+} from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
 import { SearchContainer } from '../search/conditions/SearchContainer';
@@ -14,7 +17,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
   const createLineReactRoute = routeDetails[Path.createLine];
   const onOpenModalMap = () => {
     dispatch(setIsModalMapOpenAction(true));
-    dispatch(resetAction());
+    dispatch(resetMapEditorStateAction());
     addMapOpenQueryParameter();
   };
 

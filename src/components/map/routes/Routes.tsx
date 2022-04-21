@@ -1,9 +1,9 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
+  finishRouteMetadataEditingAction,
   Mode,
   selectMapEditor,
-  setStateAction,
   stopDrawRouteAction,
 } from '../../../redux';
 import {
@@ -28,16 +28,7 @@ export const Routes: React.FC = () => {
   };
 
   const onSuccess = (data: RouteFormState) => {
-    dispatch(
-      setStateAction({
-        editedRouteData: {
-          metaData: data,
-          stops: [],
-          templateRouteId: editedRouteData.templateRouteId,
-        },
-        drawingMode: editedRouteData.templateRouteId ? Mode.Edit : Mode.Draw,
-      }),
-    );
+    dispatch(finishRouteMetadataEditingAction(data));
   };
 
   const defaultValues: Partial<RouteFormState> = routeDetails || {};

@@ -10,9 +10,9 @@ import { mapLineDetailsWithRoutesResult } from '../../../graphql';
 import { useAppDispatch, useMapUrlQuery } from '../../../hooks';
 import { Column, Container, Row } from '../../../layoutComponents';
 import {
-  resetAction,
+  resetMapEditorStateAction,
   setIsModalMapOpenAction,
-  setStateAction,
+  setRouteMetadataAction,
 } from '../../../redux';
 import { DateLike, mapToShortDate } from '../../../time';
 import { SimpleButton } from '../../../uiComponents';
@@ -108,15 +108,8 @@ export const LineDetailsPage = (): JSX.Element => {
     }`;
 
   const onCreateRoute = () => {
-    dispatch(resetAction());
-    dispatch(
-      setStateAction({
-        editedRouteData: {
-          metaData: { on_line_id: id },
-          stops: [],
-        },
-      }),
-    );
+    dispatch(resetMapEditorStateAction());
+    dispatch(setRouteMetadataAction({ on_line_id: id }));
     dispatch(setIsModalMapOpenAction(true));
     addMapOpenQueryParameter();
   };

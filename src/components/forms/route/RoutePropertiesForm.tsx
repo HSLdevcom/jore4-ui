@@ -5,7 +5,7 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
-import { selectMapEditor, setStateAction } from '../../../redux';
+import { selectMapEditor, setTemplateRouteIdAction } from '../../../redux';
 import { Switch, SwitchLabel } from '../../../uiComponents';
 import { ConfirmSaveForm } from '../common/ConfirmSaveForm';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
@@ -46,14 +46,7 @@ const RoutePropertiesFormComponent = (
   } = methods;
 
   const setTemplateRoute = (uuid?: UUID) => {
-    dispatch(
-      setStateAction({
-        editedRouteData: {
-          ...editedRouteData,
-          templateRouteId: uuid,
-        },
-      }),
-    );
+    dispatch(setTemplateRouteIdAction(uuid));
   };
 
   return (

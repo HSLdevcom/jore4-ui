@@ -3,7 +3,6 @@ import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm
 import { InfrastructureLinkAlongRoute } from '../../graphql';
 
 interface IState {
-  hasRoute: boolean;
   initiallyDisplayedRouteIds?: UUID[];
   displayedRouteIds?: UUID[];
   creatingNewRoute: boolean;
@@ -18,7 +17,6 @@ interface IState {
 }
 
 const initialState: IState = {
-  hasRoute: false,
   initiallyDisplayedRouteIds: undefined,
   displayedRouteIds: undefined,
   creatingNewRoute: false,
@@ -48,16 +46,12 @@ const slice = createSlice({
     reset: () => {
       return initialState;
     },
-    setState: (state, action: PayloadAction<Partial<IState>>) => {
-      return { ...state, ...action.payload };
-    },
     startDrawRoute: (state) => {
       state.drawingMode = Mode.Draw;
       state.creatingNewRoute = true;
-      state.editedRouteData = initialState.editedRouteData;
     },
     stopDrawRoute: (state) => {
-      state.drawingMode = undefined;
+      state.drawingMode = initialState.drawingMode;
       state.creatingNewRoute = false;
       state.editedRouteData = initialState.editedRouteData;
     },
@@ -75,16 +69,90 @@ const slice = createSlice({
     stopEditRoute: (state) => {
       state.drawingMode = undefined;
     },
+    setTemplateRouteId: (state, action: PayloadAction<UUID | undefined>) => {
+      state.editedRouteData.templateRouteId = action.payload;
+    },
+    setStopOnRoute: (
+      state,
+      action: PayloadAction<{ stopId: UUID; belongsToRoute: boolean }>,
+    ) => {
+      const { stopId, belongsToRoute } = action.payload;
+
+      state.editedRouteData = {
+        ...state.editedRouteData,
+        stops: state.editedRouteData.stops?.map((item) =>
+          item.id === stopId ? { ...item, belongsToRoute } : item,
+        ),
+      };
+    },
+    setRouteMetadata: (
+      state,
+      action: PayloadAction<Partial<RouteFormState>>,
+    ) => {
+      state.editedRouteData.metaData = action.payload;
+    },
+    finishRouteMetadataEditing: (
+      state,
+      action: PayloadAction<Partial<RouteFormState>>,
+    ) => {
+      state.editedRouteData = {
+        metaData: action.payload,
+        stops: [],
+        templateRouteId: state.editedRouteData.templateRouteId,
+      };
+
+      state.drawingMode = state.editedRouteData.templateRouteId
+        ? Mode.Edit
+        : Mode.Draw;
+    },
+    initializeMapEditorWithRoutes: (state, action: PayloadAction<UUID[]>) => {
+      return {
+        ...initialState,
+        initiallyDisplayedRouteIds: action.payload,
+      };
+    },
+    setDisplayedRouteIds: (state, action: PayloadAction<UUID[]>) => {
+      state.displayedRouteIds = action.payload;
+    },
+    setDraftRouteGeometry: (
+      state,
+      action: PayloadAction<{
+        stops: RouteStop[];
+        infraLinks: InfrastructureLinkAlongRoute[];
+      }>,
+    ) => {
+      const { stops, infraLinks } = action.payload;
+
+      state.editedRouteData = {
+        ...state.editedRouteData,
+        stops,
+        infraLinks,
+      };
+    },
+    resetDraftRouteGeometry: (state) => {
+      state.editedRouteData = {
+        ...state.editedRouteData,
+        stops: [],
+        infraLinks: [],
+      };
+    },
   },
 });
 
 export const {
-  reset: resetAction,
-  setState: setStateAction,
+  reset: resetMapEditorStateAction,
   startDrawRoute: startDrawRouteAction,
   stopDrawRoute: stopDrawRouteAction,
   startEditRoute: startEditRouteAction,
   stopEditRoute: stopEditRouteAction,
+  setTemplateRouteId: setTemplateRouteIdAction,
+  setStopOnRoute: setStopOnRouteAction,
+  setRouteMetadata: setRouteMetadataAction,
+  finishRouteMetadataEditing: finishRouteMetadataEditingAction,
+  initializeMapEditorWithRoutes: initializeMapEditorWithRoutesAction,
+  setDisplayedRouteIds: setDisplayedRouteIdsAction,
+  setDraftRouteGeometry: setDraftRouteGeometryAction,
+  resetDraftRouteGeometry: resetDraftRouteGeometryAction,
 } = slice.actions;
 
 export const mapEditorReducer = slice.reducer;
