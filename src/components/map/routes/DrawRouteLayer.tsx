@@ -33,7 +33,14 @@ import {
   useAppSelector,
 } from '../../../hooks';
 import { useExtractRouteFromFeature } from '../../../hooks/useExtractRouteFromFeature';
-import { Mode, selectMapEditor, setStateAction } from '../../../redux';
+import {
+  Mode,
+  resetDraftRouteGeometryAction,
+  selectHasDraftRouteGeometry,
+  selectMapEditor,
+  setDraftRouteGeometryAction,
+  stopEditRouteAction,
+} from '../../../redux';
 import { showToast } from '../../../utils';
 import { addRoute, removeRoute } from '../mapUtils';
 
@@ -67,8 +74,8 @@ const DrawRouteLayerComponent = (
   const editorRef = useRef<ExplicitAny>(null);
 
   const dispatch = useAppDispatch();
-  const { hasRoute, editedRouteData, creatingNewRoute } =
-    useAppSelector(selectMapEditor);
+  const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
+  const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
 
   const { templateRouteId } = editedRouteData;
 
@@ -91,14 +98,14 @@ const DrawRouteLayerComponent = (
     (routeId: string) => {
       setRouteFeatures([]);
       removeRoute(map, routeId);
-      dispatch(setStateAction({ hasRoute: false }));
+      dispatch(resetDraftRouteGeometryAction());
     },
     [map, dispatch],
   );
 
   useImperativeHandle(externalRef, () => ({
     onDeleteRoute: () => {
-      if (hasRoute) {
+      if (hasDraftRouteGeometry) {
         // currently user can draw only one route, so id of it will always be '0'
         const routeId = '0';
         onDelete(routeId);
@@ -156,16 +163,7 @@ const DrawRouteLayerComponent = (
 
       const stops = getRouteStops(stopIds, removedStopIds || []);
 
-      dispatch(
-        setStateAction({
-          editedRouteData: {
-            ...editedRouteData,
-            stops,
-            infraLinks,
-          },
-          hasRoute: true,
-        }),
-      );
+      dispatch(setDraftRouteGeometryAction({ stops, infraLinks }));
 
       if (stops.filter((item) => item.belongsToRoute).length >= 2) {
         // eslint-disable-next-line no-console
@@ -223,7 +221,6 @@ const DrawRouteLayerComponent = (
     } else {
       // If not drawing or editing, clear features
       setRouteFeatures([]);
-      dispatch(setStateAction({ hasRoute: false }));
     }
   }, [
     mapInfraLinksToFeature,
@@ -248,7 +245,7 @@ const DrawRouteLayerComponent = (
       debouncedOnAddRoute(e.data);
 
       if (e.editType === 'addFeature') {
-        dispatch(setStateAction({ drawingMode: undefined }));
+        dispatch(stopEditRouteAction());
       }
     }
   };
@@ -256,7 +253,7 @@ const DrawRouteLayerComponent = (
   const getCursor = () => {
     switch (mode) {
       case Mode.Draw:
-        return hasRoute ? 'not-allowed' : 'crosshair';
+        return hasDraftRouteGeometry ? 'not-allowed' : 'crosshair';
       case Mode.Edit:
         return 'grab';
       default:

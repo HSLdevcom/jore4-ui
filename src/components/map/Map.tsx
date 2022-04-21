@@ -9,12 +9,16 @@ import { HTMLOverlay, MapEvent } from 'react-map-gl';
 import { MapFilterContext } from '../../context/MapFilter';
 import { useAppSelector, useGetDisplayedRoutes } from '../../hooks';
 import { Column } from '../../layoutComponents';
-import { selectIsCreateStopModeEnabled, selectMapEditor } from '../../redux';
+import {
+  selectHasDraftRouteGeometry,
+  selectIsCreateStopModeEnabled,
+  selectMapEditor,
+} from '../../redux';
 import { FilterPanel } from '../../uiComponents';
 import { Maplibre } from './Maplibre';
 import { DynamicInfraLinksVectorLayer, InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
-import { DrawRouteLayer, RouteLayer, Routes } from './routes/index';
+import { DrawRouteLayer, RouteLayer, Routes } from './routes';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopFilterOverlay } from './StopFilterOverlay';
 import { Stops } from './stops';
@@ -30,8 +34,10 @@ export const MapComponent = (
   { drawable = false, className, width = '100vw', height = '100vh' }: Props,
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
-  const { drawingMode, hasRoute, initiallyDisplayedRouteIds } =
+  const { drawingMode, initiallyDisplayedRouteIds } =
     useAppSelector(selectMapEditor);
+
+  const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
 
   const {
     state: { showStopFilterOverlay },
@@ -119,7 +125,7 @@ export const MapComponent = (
                 ]}
               />
             </Column>
-            {hasRoute && (
+            {hasDraftRouteGeometry && (
               <Column>
                 <RouteStopsOverlay className="ml-8 mt-4" />
               </Column>
