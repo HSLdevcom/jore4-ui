@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useMapUrlQuery } from '../hooks';
 import { Container, Row } from '../layoutComponents';
-import { resetAction, setIsModalMapOpenAction } from '../redux';
+import { resetMapEditorStateAction, setIsModalMapOpenAction } from '../redux';
 import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
 import { SimpleButton } from '../uiComponents';
 import { RoutesAndLinesLists } from './routes-and-lines/RoutesAndLinesLists'; // eslint-disable-line import/no-cycle
@@ -14,7 +14,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
   const createLineReactRoute = routes[Path.createLine];
   const onOpenModalMap = () => {
     dispatch(setIsModalMapOpenAction(true));
-    dispatch(resetAction());
+    dispatch(resetMapEditorStateAction());
     addMapOpenQueryParameter();
   };
 
