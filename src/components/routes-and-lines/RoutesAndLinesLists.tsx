@@ -8,8 +8,8 @@ import {
   mapListChangingRoutesResult,
   mapListOwnLinesResult,
 } from '../../graphql';
-import { LinesList } from './LinesList'; // eslint-disable-line import/no-cycle
-import { RoutesList } from './RoutesList'; // eslint-disable-line import/no-cycle
+import { LinesList } from './LinesList';
+import { RoutesList } from './RoutesList';
 
 export const RoutesAndLinesLists = (): JSX.Element => {
   const { t } = useTranslation();

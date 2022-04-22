@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Path, routes } from '../../routes';
+import { Path, routeDetails } from '../../router/routeDetails';
 
 interface Props {
   className?: string;
@@ -10,7 +10,7 @@ interface Props {
 
 export const BrandLogo: FunctionComponent<Props> = ({ className, style }) => {
   const { t } = useTranslation();
-  const target = routes[Path.root];
+  const target = routeDetails[Path.root];
   return (
     <Link
       to={target.getLink()}

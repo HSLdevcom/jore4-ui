@@ -1,0 +1,103 @@
+/* eslint-disable no-underscore-dangle */
+import React, { FunctionComponent } from 'react';
+import { BrowserRouter, Route, Switch, useParams } from 'react-router-dom';
+import { CreateNewLinePage } from '../components/CreateNewLinePage';
+import { Main } from '../components/Main';
+import { ModalMap } from '../components/map/ModalMap';
+import { Navbar } from '../components/navbar';
+import { EditLinePage } from '../components/routes-and-lines/EditLinePage';
+import { EditRoutePage } from '../components/routes-and-lines/EditRoutePage';
+import { LineDetailsPage } from '../components/routes-and-lines/LineDetailsPage';
+import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
+import { RoutesAndLinesPage } from '../components/RoutesAndLinesPage';
+import { Path } from './routeDetails';
+
+export const Router: FunctionComponent = () => {
+  interface Route {
+    _routerRoute: Path;
+    _exact?: boolean; // When true, will only match if the path matches the location.pathname exactly.
+    component: React.ComponentType;
+  }
+
+  const ExampleResourceRoute: FunctionComponent = () => {
+    const { id } = useParams<{ id: string }>();
+    return React.createElement(
+      'h2',
+      null,
+      `Example resource route. Resouce id: ${id}`,
+    );
+  };
+
+  const FallbackRoute: FunctionComponent = () => {
+    return React.createElement('p', null, `404, page not found`);
+  };
+
+  const routes: Record<Path, Route> = {
+    [Path.root]: {
+      _routerRoute: Path.root,
+      _exact: true,
+      component: Main,
+    },
+    [Path.routes]: {
+      _routerRoute: Path.routes,
+      _exact: true,
+      component: RoutesAndLinesPage,
+    },
+    [Path.routesSearch]: {
+      _routerRoute: Path.routesSearch,
+      _exact: true,
+      component: SearchResultPage,
+    },
+    [Path.editRoute]: {
+      _routerRoute: Path.editRoute,
+      _exact: true,
+      component: EditRoutePage,
+    },
+    [Path.createLine]: {
+      _routerRoute: Path.createLine,
+      _exact: true,
+      component: CreateNewLinePage,
+    },
+    [Path.lineDetails]: {
+      _routerRoute: Path.lineDetails,
+      _exact: true,
+      component: LineDetailsPage,
+    },
+    [Path.editLine]: {
+      _routerRoute: Path.editLine,
+      _exact: true,
+      component: EditLinePage,
+    },
+    [Path.map]: {
+      _routerRoute: Path.map,
+      _exact: true,
+      // @ts-expect-error Something wrong due to forwardRef used in Map component?
+      component: Map,
+    },
+    [Path.exampleResource]: {
+      _routerRoute: Path.exampleResource,
+      component: ExampleResourceRoute,
+    },
+    [Path.fallback]: {
+      _routerRoute: Path.fallback,
+      component: FallbackRoute,
+    },
+  };
+
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Switch>
+        {Object.values(routes).map((route) => (
+          <Route
+            key={route._routerRoute}
+            path={route._routerRoute}
+            exact={route._exact || false}
+            component={route.component}
+          />
+        ))}
+      </Switch>
+      <ModalMap />
+    </BrowserRouter>
+  );
+};

@@ -5,10 +5,9 @@ import { RouteLine, useGetLineDetailsByIdQuery } from '../../generated/graphql';
 import { mapLineDetailsResult } from '../../graphql';
 import { useEditLine } from '../../hooks';
 import { Container } from '../../layoutComponents';
-import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
+import { Path, routeDetails } from '../../router/routeDetails';
 import { mapToISODate } from '../../time';
 import { mapToVariables, showSuccessToast } from '../../utils';
-// eslint-disable-next-line import/no-cycle
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
@@ -62,7 +61,9 @@ export const EditLinePage = (): JSX.Element => {
 
   if (hasFinishedEditing) {
     // if line was successfully edited, redirect to its page
-    return <Redirect to={{ pathname: routes[Path.lineDetails].getLink(id) }} />;
+    return (
+      <Redirect to={{ pathname: routeDetails[Path.lineDetails].getLink(id) }} />
+    );
   }
 
   return (

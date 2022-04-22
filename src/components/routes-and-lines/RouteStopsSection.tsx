@@ -7,7 +7,7 @@ import {
 } from '../../graphql';
 import { useEditRouteGeometry } from '../../hooks';
 import { showDangerToast, showSuccessToast } from '../../utils';
-import { RouteStopsHeaderRow } from './RouteStopsHeaderRow'; // eslint-disable-line import/no-cycle
+import { RouteStopsHeaderRow } from './RouteStopsHeaderRow';
 import { RouteStopsRow } from './RouteStopsRow';
 
 interface Props {

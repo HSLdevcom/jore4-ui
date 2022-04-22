@@ -5,7 +5,7 @@ import { MdOutlineHistory, MdPinDrop } from 'react-icons/md';
 import { RouteDirectionEnum, RouteRoute } from '../../generated/graphql';
 import { useShowRoutesOnModal } from '../../hooks';
 import { Row } from '../../layoutComponents';
-import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
+import { Path, routeDetails } from '../../router/routeDetails';
 import {
   mapToShortDate,
   mapToShortDateTime,
@@ -41,7 +41,9 @@ export const RouteStopsHeaderRow = ({
       </td>
       <td className="flex items-center py-4 text-3xl">
         {route.description_i18n}
-        <EditButton href={routes[Path.editRoute].getLink(route.route_id)} />
+        <EditButton
+          href={routeDetails[Path.editRoute].getLink(route.route_id)}
+        />
       </td>
       <td className="pr-16 text-right">
         {t('validity.validDuring', {

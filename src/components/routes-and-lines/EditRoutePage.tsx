@@ -8,7 +8,7 @@ import {
 import { mapRouteDetailsResult } from '../../graphql';
 import { useDeleteRoute, useEditRoute } from '../../hooks';
 import { Container, Row } from '../../layoutComponents';
-import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
+import { Path, routeDetails } from '../../router/routeDetails';
 import { mapToISODate } from '../../time';
 import { RouteDirection } from '../../types/RouteDirection';
 import {
@@ -17,7 +17,6 @@ import {
   SimpleButton,
 } from '../../uiComponents';
 import { mapToVariables, showSuccessToast, submitFormByRef } from '../../utils';
-// eslint-disable-next-line import/no-cycle
 import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,
@@ -96,7 +95,11 @@ export const EditRoutePage = (): JSX.Element => {
     // if route was successfully edited, redirect to its line's page
     return (
       <Redirect
-        to={{ pathname: routes[Path.lineDetails].getLink(route?.on_line_id) }}
+        to={{
+          pathname: route
+            ? routeDetails[Path.lineDetails].getLink(route?.on_line_id)
+            : '404',
+        }}
       />
     );
   }
