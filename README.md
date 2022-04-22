@@ -69,7 +69,13 @@ If you wish to persist the data in the database, start dependencies with `./star
 Docker containers can be stopped gracefully by running `./stop-dependencies.sh`
 If docker setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
 
-**NOTE:** Currently (14.10.2021) authentication backend has a bug which causes it to boot up non-working state when started with this docker-compose. As a workaround you should run `docker restart auth` after all services are succesfully up & running.
+## Loading dump into development database
+
+The jore3 importer microservice imports data from jore3 and converts it to be compatible with the jore4 datamodel. Existing dumps of this converted data can be found from Azure in `hsl-jore4-common / jore4storage / jore4-dump`
+
+To download a dump to your local workspace, run `./development.sh dump:download` and follow the instructions.
+
+To load this dump to your local development database instance, run `./development.sh dump:import` and follow the instructions. _Warning!_ This will empty your current database and overwrite all the data in it!
 
 ## Docker reference
 
