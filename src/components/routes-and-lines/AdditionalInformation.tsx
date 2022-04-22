@@ -6,7 +6,7 @@ import {
   mapVehicleModeToUiName,
 } from '../../i18n/uiNameMappings';
 import { Column, Row } from '../../layoutComponents';
-import { Path, routes } from '../../routes'; // eslint-disable-line import/no-cycle
+import { Path, routeDetails } from '../../router/routeDetails';
 import { EditButton } from '../../uiComponents';
 import { FieldValue } from '../forms/FieldValue';
 
@@ -21,7 +21,7 @@ export const AdditionalInformation: React.FC<Props> = ({ className, line }) => {
     <Column className={className}>
       <Row className="mb-10 items-center text-3xl font-semibold">
         {t('lines.additionalInformation')}
-        <EditButton href={routes[Path.editLine].getLink(line.line_id)} />
+        <EditButton href={routeDetails[Path.editLine].getLink(line.line_id)} />
       </Row>
       <Row className="mb-5">
         <FieldValue

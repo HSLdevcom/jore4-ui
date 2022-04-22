@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { RouteLine } from '../generated/graphql';
 import { useShowRoutesOnModal } from '../hooks';
 import { Column, Row } from '../layoutComponents';
-import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
+import { Path, routeDetails } from '../router/routeDetails';
 import { mapToShortDate, MAX_DATE, MIN_DATE } from '../time';
 import { IconButton } from '../uiComponents';
 
@@ -32,7 +32,7 @@ export const LineTableRow = ({ className, line }: Props): JSX.Element => {
     <tbody>
       <tr className={`border ${className}`}>
         <td className="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold">
-          <Link to={routes[Path.lineDetails].getLink(line.line_id)}>
+          <Link to={routeDetails[Path.lineDetails].getLink(line.line_id)}>
             <Row>
               <Column className="w-1/2">
                 <p className="text-3xl">{line.label}</p>

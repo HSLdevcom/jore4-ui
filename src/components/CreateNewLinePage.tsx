@@ -8,10 +8,9 @@ import {
 import { mapInsertLineOneResult } from '../graphql';
 import { useCreateLine } from '../hooks';
 import { Container, Row } from '../layoutComponents';
-import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
+import { routeDetails, Path } from '../router/routeDetails';
 import { Priority } from '../types/Priority';
 import { showSuccessToast } from '../utils';
-// eslint-disable-next-line import/no-cycle
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
@@ -55,7 +54,7 @@ export const CreateNewLinePage = (): JSX.Element => {
     // if line was successfully created, redirect to its page
     return (
       <Redirect
-        to={{ pathname: routes[Path.lineDetails].getLink(createdLineId) }}
+        to={{ pathname: routeDetails[Path.lineDetails].getLink(createdLineId) }}
       />
     );
   }

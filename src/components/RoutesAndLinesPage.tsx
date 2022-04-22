@@ -4,9 +4,9 @@ import { MapEditorContext } from '../context/MapEditor';
 import { useAppDispatch, useMapUrlQuery } from '../hooks';
 import { Container, Row } from '../layoutComponents';
 import { setIsModalMapOpenAction } from '../redux';
-import { Path, routes } from '../routes'; // eslint-disable-line import/no-cycle
+import { Path, routeDetails } from '../router/routeDetails';
 import { SimpleButton } from '../uiComponents';
-import { RoutesAndLinesLists } from './routes-and-lines/RoutesAndLinesLists'; // eslint-disable-line import/no-cycle
+import { RoutesAndLinesLists } from './routes-and-lines/RoutesAndLinesLists';
 import { SearchContainer } from './routes-and-lines/search/conditions/SearchContainer';
 
 export const RoutesAndLinesPage = (): JSX.Element => {
@@ -14,7 +14,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { dispatch: mapEditorDispatch } = useContext(MapEditorContext);
   const { addMapOpenQueryParameter } = useMapUrlQuery();
-  const createLineReactRoute = routes[Path.createLine];
+  const createLineReactRoute = routeDetails[Path.createLine];
   const onOpenModalMap = () => {
     dispatch(setIsModalMapOpenAction(true));
     mapEditorDispatch({ type: 'reset' });

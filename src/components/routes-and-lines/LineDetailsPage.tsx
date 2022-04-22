@@ -14,10 +14,10 @@ import { setIsModalMapOpenAction } from '../../redux';
 import { DateLike, mapToShortDate } from '../../time';
 import { SimpleButton } from '../../uiComponents';
 import { mapToVariables } from '../../utils';
-import { AdditionalInformation } from './AdditionalInformation'; // eslint-disable-line import/no-cycle
+import { AdditionalInformation } from './AdditionalInformation';
 import { MapPreview } from './MapPreview';
 import { PageHeader } from './PageHeader';
-import { RouteStopsTable } from './RouteStopsTable'; // eslint-disable-line import/no-cycle
+import { RouteStopsTable } from './RouteStopsTable';
 
 interface Props {
   className?: string;

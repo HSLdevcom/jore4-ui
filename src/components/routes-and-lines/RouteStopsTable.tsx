@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteRoute } from '../../generated/graphql';
 import { Switch, SwitchLabel } from '../../uiComponents';
-import { RouteStopsSection } from './RouteStopsSection'; // eslint-disable-line import/no-cycle
+import { RouteStopsSection } from './RouteStopsSection';
 
 interface Props {
   className?: string;

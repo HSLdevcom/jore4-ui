@@ -10,8 +10,7 @@ import {
 } from '../generated/graphql';
 import { mapPriorityToUiName } from '../i18n/uiNameMappings';
 import { Row } from '../layoutComponents';
-// eslint-disable-next-line import/no-cycle
-import { Path, routes } from '../routes';
+import { Path, routeDetails } from '../router/routeDetails';
 import { mapToShortDate } from '../time';
 import { Priority } from '../types/Priority';
 import { CloseIconButton, Modal, SimpleButton } from '../uiComponents';
@@ -47,7 +46,7 @@ export const mapRouteToCommonConflictItem = (
   priority: route.priority,
   label: route.label,
   id: route.route_id,
-  href: routes[Path.editRoute].getLink(route.route_id),
+  href: routeDetails[Path.editRoute].getLink(route.route_id),
 });
 
 export const mapLineToCommonConflictItem = (
@@ -58,7 +57,7 @@ export const mapLineToCommonConflictItem = (
   priority: line.priority,
   label: line.label,
   id: line.line_id,
-  href: routes[Path.lineDetails].getLink(line.line_id),
+  href: routeDetails[Path.lineDetails].getLink(line.line_id),
 });
 
 export const mapStopToCommonConflictItem = (

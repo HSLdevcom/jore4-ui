@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
-import { routes } from '../../routes';
+import { routeDetails } from '../../router/routeDetails';
 
 export const NavLinks: FunctionComponent = () => {
   const { t } = useTranslation();
   return (
     <>
-      {Object.values(routes)
+      {Object.values(routeDetails)
         .filter((item) => item.includeInNav)
         .map(({ translationKey, getLink }) => (
           <div key={translationKey} className="flex hover:bg-brand-darker">
