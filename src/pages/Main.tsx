@@ -1,7 +1,8 @@
+import React from 'react';
 import { useAppSelector } from '../hooks';
 import { selectUser } from '../redux';
 
-export function Main() {
+export const Main: React.FC = () => {
   const { userInfo } = useAppSelector(selectUser);
   const permissions = userInfo?.permissions;
 
@@ -21,4 +22,7 @@ export function Main() {
       )}
     </div>
   );
-}
+};
+
+// eslint-disable-next-line import/no-default-export
+export default Main;

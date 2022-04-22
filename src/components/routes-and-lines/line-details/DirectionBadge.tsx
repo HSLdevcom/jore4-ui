@@ -1,4 +1,4 @@
-import { RouteDirectionEnum } from '../../generated/graphql';
+import { RouteDirectionEnum } from '../../../generated/graphql';
 
 type Props = {
   direction: RouteDirectionEnum;

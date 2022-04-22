@@ -4,18 +4,18 @@ import { Redirect } from 'react-router-dom';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteLine,
-} from '../generated/graphql';
-import { mapInsertLineOneResult } from '../graphql';
-import { useCreateLine } from '../hooks';
-import { Container, Row } from '../layoutComponents';
-import { Path, routeDetails } from '../router/routeDetails';
-import { Priority } from '../types/Priority';
-import { showSuccessToast } from '../utils';
+} from '../../../generated/graphql';
+import { mapInsertLineOneResult } from '../../../graphql';
+import { useCreateLine } from '../../../hooks';
+import { Container, Row } from '../../../layoutComponents';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { Priority } from '../../../types/Priority';
+import { showSuccessToast } from '../../../utils';
+import { FormState, LineForm } from '../../forms/line/LineForm';
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
-} from './ConflictResolverModal';
-import { FormState, LineForm } from './forms/line/LineForm';
+} from '../common/ConflictResolverModal';
 
 export const CreateNewLinePage = (): JSX.Element => {
   const {

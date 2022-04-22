@@ -1,7 +1,7 @@
 import React from 'react';
-import { RouteLine } from '../../generated/graphql';
-import { LineTableRow } from '../LineTableRow';
-import { RoutesTable } from '../RoutesTable';
+import { RouteLine } from '../../../generated/graphql';
+import { LineTableRow } from './LineTableRow';
+import { RoutesTable } from './RoutesTable';
 
 type Props = {
   lines?: RouteLine[];
