@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { MdPinDrop } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { RouteLine } from '../generated/graphql';
-import { useShowRoutesOnModal } from '../hooks';
-import { Column, Row } from '../layoutComponents';
-import { Path, routeDetails } from '../router/routeDetails';
-import { mapToShortDate, MAX_DATE, MIN_DATE } from '../time';
-import { IconButton } from '../uiComponents';
+import { RouteLine } from '../../../generated/graphql';
+import { useShowRoutesOnModal } from '../../../hooks';
+import { Column, Row } from '../../../layoutComponents';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../../time';
+import { IconButton } from '../../../uiComponents';
 
 interface Props {
   className?: string;

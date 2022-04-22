@@ -1,7 +1,7 @@
 import React from 'react';
-import { RouteRoute } from '../../generated/graphql';
-import { RoutesTable } from '../RoutesTable';
-import { RoutesTableRow } from '../RoutesTableRow';
+import { RouteRoute } from '../../../generated/graphql';
+import { RoutesTable } from './RoutesTable';
+import { RoutesTableRow } from './RoutesTableRow';
 
 type Props = {
   routes?: RouteRoute[];

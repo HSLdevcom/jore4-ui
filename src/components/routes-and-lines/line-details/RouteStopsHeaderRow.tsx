@@ -2,17 +2,17 @@ import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { MdOutlineHistory, MdPinDrop } from 'react-icons/md';
-import { RouteDirectionEnum, RouteRoute } from '../../generated/graphql';
-import { useShowRoutesOnModal } from '../../hooks';
-import { Row } from '../../layoutComponents';
-import { Path, routeDetails } from '../../router/routeDetails';
+import { RouteDirectionEnum, RouteRoute } from '../../../generated/graphql';
+import { useShowRoutesOnModal } from '../../../hooks';
+import { Row } from '../../../layoutComponents';
+import { Path, routeDetails } from '../../../router/routeDetails';
 import {
   mapToShortDate,
   mapToShortDateTime,
   MAX_DATE,
   MIN_DATE,
-} from '../../time';
-import { EditButton, IconButton } from '../../uiComponents';
+} from '../../../time';
+import { EditButton, IconButton } from '../../../uiComponents';
 import { DirectionBadge } from './DirectionBadge';
 
 interface Props {

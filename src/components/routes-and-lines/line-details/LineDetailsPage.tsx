@@ -2,21 +2,21 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
-import { MapEditorContext } from '../../context/MapEditor';
+import { MapEditorContext } from '../../../context/MapEditor';
 import {
   RouteLine,
   useGetLineDetailsWithRoutesByIdQuery,
-} from '../../generated/graphql';
-import { mapLineDetailsWithRoutesResult } from '../../graphql';
-import { useAppDispatch, useMapUrlQuery } from '../../hooks';
-import { Column, Container, Row } from '../../layoutComponents';
-import { setIsModalMapOpenAction } from '../../redux';
-import { DateLike, mapToShortDate } from '../../time';
-import { SimpleButton } from '../../uiComponents';
-import { mapToVariables } from '../../utils';
+} from '../../../generated/graphql';
+import { mapLineDetailsWithRoutesResult } from '../../../graphql';
+import { useAppDispatch, useMapUrlQuery } from '../../../hooks';
+import { Column, Container, Row } from '../../../layoutComponents';
+import { setIsModalMapOpenAction } from '../../../redux';
+import { DateLike, mapToShortDate } from '../../../time';
+import { SimpleButton } from '../../../uiComponents';
+import { mapToVariables } from '../../../utils';
+import { PageHeader } from '../common/PageHeader';
 import { AdditionalInformation } from './AdditionalInformation';
 import { MapPreview } from './MapPreview';
-import { PageHeader } from './PageHeader';
 import { RouteStopsTable } from './RouteStopsTable';
 
 interface Props {

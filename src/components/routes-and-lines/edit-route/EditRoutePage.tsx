@@ -4,26 +4,30 @@ import { Redirect, useParams } from 'react-router-dom';
 import {
   RouteRoute,
   useGetRouteDetailsByIdsQuery,
-} from '../../generated/graphql';
-import { mapRouteDetailsResult } from '../../graphql';
-import { useDeleteRoute, useEditRoute } from '../../hooks';
-import { Container, Row } from '../../layoutComponents';
-import { Path, routeDetails } from '../../router/routeDetails';
-import { mapToISODate } from '../../time';
-import { RouteDirection } from '../../types/RouteDirection';
+} from '../../../generated/graphql';
+import { mapRouteDetailsResult } from '../../../graphql';
+import { useDeleteRoute, useEditRoute } from '../../../hooks';
+import { Container, Row } from '../../../layoutComponents';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { mapToISODate } from '../../../time';
+import { RouteDirection } from '../../../types/RouteDirection';
 import {
   ConfirmationDialog,
   FormContainer,
   SimpleButton,
-} from '../../uiComponents';
-import { mapToVariables, showSuccessToast, submitFormByRef } from '../../utils';
+} from '../../../uiComponents';
+import {
+  mapToVariables,
+  showSuccessToast,
+  submitFormByRef,
+} from '../../../utils';
+import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
+import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,
-} from '../ConflictResolverModal';
-import { RoutePropertiesForm } from '../forms/route/RoutePropertiesForm';
-import { RouteFormState } from '../forms/route/RoutePropertiesForm.types';
-import { PageHeader } from './PageHeader';
+} from '../common/ConflictResolverModal';
+import { PageHeader } from '../common/PageHeader';
 
 const mapRouteToFormState = (route: RouteRoute): RouteFormState => ({
   description_i18n: route.description_i18n || '',

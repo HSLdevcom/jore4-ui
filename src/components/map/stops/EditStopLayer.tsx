@@ -21,11 +21,11 @@ import {
   mapLngLatToPoint,
   showSuccessToast,
 } from '../../../utils';
+import { mapStopDataToFormState } from '../../forms/stop/StopForm';
 import {
   ConflictResolverModal,
   mapStopToCommonConflictItem,
-} from '../../ConflictResolverModal';
-import { mapStopDataToFormState } from '../../forms/stop/StopForm';
+} from '../../routes-and-lines/common/ConflictResolverModal';
 import { DeleteStopConfirmationDialog } from './DeleteStopConfirmationDialog';
 import { EditStopConfirmationDialog } from './EditStopConfirmationDialog';
 import { EditStopModal } from './EditStopModal';

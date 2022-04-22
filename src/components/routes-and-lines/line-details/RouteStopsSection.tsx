@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteRoute } from '../../generated/graphql';
+import { RouteRoute } from '../../../generated/graphql';
 import {
   getStopsAlongRouteGeometry,
   stopBelongsToJourneyPattern,
-} from '../../graphql';
-import { useEditRouteGeometry } from '../../hooks';
-import { showDangerToast, showSuccessToast } from '../../utils';
+} from '../../../graphql';
+import { useEditRouteGeometry } from '../../../hooks';
+import { showDangerToast, showSuccessToast } from '../../../utils';
 import { RouteStopsHeaderRow } from './RouteStopsHeaderRow';
 import { RouteStopsRow } from './RouteStopsRow';
 

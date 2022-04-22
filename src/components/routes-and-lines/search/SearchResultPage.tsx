@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useSearch, useSearchResults } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { CloseIconButton } from '../../../uiComponents';
-import { LinesList } from '../LinesList';
-import { RoutesList } from '../RoutesList';
+import { LinesList } from '../main/LinesList';
+import { RoutesList } from '../main/RoutesList';
 import { SearchContainer } from './conditions/SearchContainer';
 import { FiltersContainer } from './filters/FiltersContainer';
 

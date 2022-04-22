@@ -1,13 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteLine } from '../../generated/graphql';
+import { RouteLine } from '../../../generated/graphql';
 import {
   mapLineTypeToUiName,
   mapVehicleModeToUiName,
-} from '../../i18n/uiNameMappings';
-import { Column, Row } from '../../layoutComponents';
-import { Path, routeDetails } from '../../router/routeDetails';
-import { EditButton } from '../../uiComponents';
+} from '../../../i18n/uiNameMappings';
+import { Column, Row } from '../../../layoutComponents';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { EditButton } from '../../../uiComponents';
 import { FieldValue } from './FieldValue';
 
 interface Props {

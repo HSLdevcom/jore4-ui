@@ -1,9 +1,12 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import React from 'react';
-import { GetLineDetailsWithRoutesByIdQuery } from '../../generated/graphql';
-import { GqlQueryResult, mapLineDetailsWithRoutesResult } from '../../graphql';
-import { render } from '../../utils/test-utils';
+import { GetLineDetailsWithRoutesByIdQuery } from '../../../generated/graphql';
+import {
+  GqlQueryResult,
+  mapLineDetailsWithRoutesResult,
+} from '../../../graphql';
+import { render } from '../../../utils/test-utils';
 import { RouteStopsTable } from './RouteStopsTable';
 
 describe(`<${RouteStopsTable.name} />`, () => {

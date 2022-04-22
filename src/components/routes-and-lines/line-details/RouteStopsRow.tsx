@@ -1,18 +1,18 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineHistory } from 'react-icons/md';
-import { ServicePatternScheduledStopPoint } from '../../generated/graphql';
-import { stopBelongsToJourneyPattern } from '../../graphql';
-import { useEditRouteGeometry } from '../../hooks';
-import { Row } from '../../layoutComponents';
+import { ServicePatternScheduledStopPoint } from '../../../generated/graphql';
+import { stopBelongsToJourneyPattern } from '../../../graphql';
+import { useEditRouteGeometry } from '../../../hooks';
+import { Row } from '../../../layoutComponents';
 import {
   mapToShortDate,
   mapToShortDateTime,
   MAX_DATE,
   MIN_DATE,
-} from '../../time';
-import { SimpleDropdownMenu } from '../../uiComponents';
-import { showDangerToast, showSuccessToast } from '../../utils';
+} from '../../../time';
+import { SimpleDropdownMenu } from '../../../uiComponents';
+import { showDangerToast, showSuccessToast } from '../../../utils';
 
 interface Props {
   className?: string;
