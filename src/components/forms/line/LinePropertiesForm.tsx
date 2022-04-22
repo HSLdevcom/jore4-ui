@@ -4,8 +4,8 @@ import { z } from 'zod';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
-} from '../../generated/graphql';
-import { Column, Row } from '../../layoutComponents';
+} from '../../../generated/graphql';
+import { Column, Row } from '../../../layoutComponents';
 import { LineTypeDropdown } from './LineTypeDropdown';
 import { VehicleModeDropdown } from './VehicleModeDropdown';
 

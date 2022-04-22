@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Column, Row } from '../../layoutComponents';
-import { Priority } from '../../types/Priority';
-import { SimpleButton, ValueFn } from '../../uiComponents';
-import { ChooseRouteDropdown } from '../forms/ChooseRouteDropdown';
+import { Column, Row } from '../../../layoutComponents';
+import { Priority } from '../../../types/Priority';
+import { SimpleButton, ValueFn } from '../../../uiComponents';
+import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 interface Props {
   value?: UUID;

@@ -2,8 +2,8 @@ import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HTMLOverlay } from 'react-map-gl';
 import { submitFormByRef } from '../../../utils';
-import { RoutePropertiesForm } from '../../forms/RoutePropertiesForm';
-import { RouteFormState } from '../../forms/RoutePropertiesForm.types';
+import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
+import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import { Modal } from '../Modal';
 
 interface Props {

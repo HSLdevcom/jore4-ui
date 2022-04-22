@@ -1,5 +1,5 @@
-import { FormInputProps, Listbox } from '../../uiComponents';
-import { getEnumValues } from '../../utils';
+import { FormInputProps, Listbox } from '../../../uiComponents';
+import { getEnumValues } from '../../../utils';
 
 // It seems to be impossible to process enumerations in the way done here in a type safe way,
 // at least without using 'as' in many places (which in itself isn't type safe). Therefore,

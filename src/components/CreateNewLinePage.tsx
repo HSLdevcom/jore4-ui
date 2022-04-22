@@ -8,14 +8,14 @@ import {
 import { mapInsertLineOneResult } from '../graphql';
 import { useCreateLine } from '../hooks';
 import { Container, Row } from '../layoutComponents';
-import { routeDetails, Path } from '../router/routeDetails';
+import { Path, routeDetails } from '../router/routeDetails';
 import { Priority } from '../types/Priority';
 import { showSuccessToast } from '../utils';
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
 } from './ConflictResolverModal';
-import { FormState, LineForm } from './forms/LineForm';
+import { FormState, LineForm } from './forms/line/LineForm';
 
 export const CreateNewLinePage = (): JSX.Element => {
   const {

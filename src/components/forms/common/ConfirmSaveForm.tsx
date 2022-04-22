@@ -2,9 +2,9 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { Column, Row } from '../../layoutComponents';
-import { Priority } from '../../types/Priority';
-import { SimpleButton } from '../../uiComponents';
+import { Column, Row } from '../../../layoutComponents';
+import { Priority } from '../../../types/Priority';
+import { SimpleButton } from '../../../uiComponents';
 
 export const schema = z.object({
   priority: z.nativeEnum(Priority),

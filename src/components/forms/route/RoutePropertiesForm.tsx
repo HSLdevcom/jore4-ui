@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useContext, useState } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { MapEditorContext } from '../../context/MapEditor';
-import { Column, Row } from '../../layoutComponents';
-import { Switch, SwitchLabel } from '../../uiComponents';
-import { TemplateRouteSelector } from '../routes-and-lines/TemplateRouteSelector';
+import { MapEditorContext } from '../../../context/MapEditor';
+import { Column, Row } from '../../../layoutComponents';
+import { Switch, SwitchLabel } from '../../../uiComponents';
+import { ConfirmSaveForm } from '../common/ConfirmSaveForm';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
-import { ConfirmSaveForm } from './ConfirmSaveForm';
 import { DirectionDropdown } from './DirectionDropdown';
 import { routeFormSchema, RouteFormState } from './RoutePropertiesForm.types';
+import { TemplateRouteSelector } from './TemplateRouteSelector';
 
 export interface RouteFormProps {
   id?: string;

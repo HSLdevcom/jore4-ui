@@ -5,8 +5,8 @@ import React from 'react';
 import {
   ListAllLinesDocument,
   useListAllLinesQuery,
-} from '../../generated/graphql';
-import { render, sleep } from '../../utils/test-utils';
+} from '../../../generated/graphql';
+import { render, sleep } from '../../../utils/test-utils';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
 describe('<ChooseLineDropdown />', () => {

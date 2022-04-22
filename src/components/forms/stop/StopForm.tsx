@@ -6,27 +6,27 @@ import { z } from 'zod';
 import {
   ReusableComponentsVehicleModeEnum,
   ServicePatternScheduledStopPoint,
-} from '../../generated/graphql';
+} from '../../../generated/graphql';
 import {
   CreateChanges,
   EditChanges,
   useCreateStop,
   useEditStop,
-} from '../../hooks';
-import { Column, Row } from '../../layoutComponents';
-import { mapToISODate } from '../../time';
-import { RequiredKeys } from '../../types';
+} from '../../../hooks';
+import { Column, Row } from '../../../layoutComponents';
+import { mapToISODate } from '../../../time';
+import { RequiredKeys } from '../../../types';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   mapLngLatToPoint,
   mapPointToGeoJSON,
-} from '../../utils';
+} from '../../../utils';
 import {
   ConfirmSaveForm,
   FormState as ConfirmSaveFormState,
   schema as confirmSaveFormSchema,
-} from './ConfirmSaveForm';
+} from '../common/ConfirmSaveForm';
 
 const schema = z
   .object({

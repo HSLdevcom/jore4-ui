@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import {
   RouteRoute,
   useGetRouteDetailsByLabelWildcardQuery,
-} from '../../generated/graphql';
-import { mapRoutesDetailsResult } from '../../graphql';
-import { MAX_DATE, MIN_DATE } from '../../time';
-import { Priority } from '../../types/Priority';
-import { Combobox, ComboboxInputProps } from '../../uiComponents';
-import { mapToVariables } from '../../utils';
-import { DateRange } from '../routes-and-lines/DateRange';
+} from '../../../generated/graphql';
+import { mapRoutesDetailsResult } from '../../../graphql';
+import { MAX_DATE, MIN_DATE } from '../../../time';
+import { Priority } from '../../../types/Priority';
+import { Combobox, ComboboxInputProps } from '../../../uiComponents';
+import { mapToVariables } from '../../../utils';
+import { DateRange } from '../common/DateRange';
 
 interface Props extends ComboboxInputProps {
   testId?: string;

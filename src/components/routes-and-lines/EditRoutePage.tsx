@@ -21,8 +21,8 @@ import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,
 } from '../ConflictResolverModal';
-import { RoutePropertiesForm } from '../forms/RoutePropertiesForm';
-import { RouteFormState } from '../forms/RoutePropertiesForm.types';
+import { RoutePropertiesForm } from '../forms/route/RoutePropertiesForm';
+import { RouteFormState } from '../forms/route/RoutePropertiesForm.types';
 import { PageHeader } from './PageHeader';
 
 const mapRouteToFormState = (route: RouteRoute): RouteFormState => ({

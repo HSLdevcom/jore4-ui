@@ -3,7 +3,7 @@ import { MapEditorContext, Mode } from '../../../context/MapEditor';
 import {
   routeFormSchema,
   RouteFormState,
-} from '../../forms/RoutePropertiesForm.types';
+} from '../../forms/route/RoutePropertiesForm.types';
 import { CreateRouteModal } from './CreateRouteModal';
 
 export const Routes: React.FC = () => {

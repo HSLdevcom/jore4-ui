@@ -8,7 +8,7 @@ import {
 import { Column, Row } from '../../layoutComponents';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { EditButton } from '../../uiComponents';
-import { FieldValue } from '../forms/FieldValue';
+import { FieldValue } from './FieldValue';
 
 interface Props {
   className?: string;

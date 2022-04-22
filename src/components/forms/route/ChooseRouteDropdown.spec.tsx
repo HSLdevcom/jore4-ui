@@ -4,9 +4,9 @@ import { DateTime } from 'luxon';
 import {
   GetRouteDetailsByLabelWildcardDocument,
   useGetRouteDetailsByLabelWildcardQuery,
-} from '../../generated/graphql';
-import { Priority } from '../../types/Priority';
-import { render, sleep } from '../../utils/test-utils';
+} from '../../../generated/graphql';
+import { Priority } from '../../../types/Priority';
+import { render, sleep } from '../../../utils/test-utils';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 describe(`<${ChooseRouteDropdown.name} />`, () => {

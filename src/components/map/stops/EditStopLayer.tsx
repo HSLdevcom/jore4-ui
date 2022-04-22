@@ -25,7 +25,7 @@ import {
   ConflictResolverModal,
   mapStopToCommonConflictItem,
 } from '../../ConflictResolverModal';
-import { mapStopDataToFormState } from '../../forms/StopForm';
+import { mapStopDataToFormState } from '../../forms/stop/StopForm';
 import { DeleteStopConfirmationDialog } from './DeleteStopConfirmationDialog';
 import { EditStopConfirmationDialog } from './EditStopConfirmationDialog';
 import { EditStopModal } from './EditStopModal';

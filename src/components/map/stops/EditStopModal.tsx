@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { HTMLOverlay } from 'react-map-gl';
 import { CreateChanges, EditChanges } from '../../../hooks';
 import { submitFormByRef } from '../../../utils';
-import { FormState, StopForm } from '../../forms/StopForm';
+import { FormState, StopForm } from '../../forms/stop/StopForm';
 import { Modal } from '../Modal';
 
 interface Props {

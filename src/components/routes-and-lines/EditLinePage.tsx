@@ -12,7 +12,7 @@ import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
 } from '../ConflictResolverModal';
-import { FormState, LineForm } from '../forms/LineForm';
+import { FormState, LineForm } from '../forms/line/LineForm';
 import { PageHeader } from './PageHeader';
 
 export const EditLinePage = (): JSX.Element => {

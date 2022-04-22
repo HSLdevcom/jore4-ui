@@ -3,14 +3,14 @@ import React, { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
-import { Row } from '../../layoutComponents';
-import { FormContainer, SimpleButton } from '../../uiComponents';
-import { submitFormByRef } from '../../utils';
+import { Row } from '../../../layoutComponents';
+import { FormContainer, SimpleButton } from '../../../uiComponents';
+import { submitFormByRef } from '../../../utils';
 import {
   ConfirmSaveForm,
   FormState as ConfirmSaveFormState,
   schema as confirmSaveFormSchema,
-} from './ConfirmSaveForm';
+} from '../common/ConfirmSaveForm';
 import {
   FormState as LinePropertiesFormState,
   LinePropertiesForm,

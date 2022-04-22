@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteLine, useListAllLinesQuery } from '../../generated/graphql';
+import { RouteLine, useListAllLinesQuery } from '../../../generated/graphql';
 import {
   FormInputProps as ListboxInputProps,
   Listbox,
-} from '../../uiComponents';
+} from '../../../uiComponents';
 
 interface Props extends ListboxInputProps {
   testId?: string;

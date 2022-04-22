@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { RouteDirection } from '../../types/RouteDirection';
+import { RouteDirection } from '../../../types/RouteDirection';
 import {
   FormState as ConfirmSaveFormState,
   schema as confirmSaveFormSchema,
-} from './ConfirmSaveForm';
+} from '../common/ConfirmSaveForm';
 
 export const routeFormSchema = z
   .object({

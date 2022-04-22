@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { RouteFormState } from '../../components/forms/RoutePropertiesForm.types';
+import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
   PatchRouteMutationVariables,
   RouteRoute,

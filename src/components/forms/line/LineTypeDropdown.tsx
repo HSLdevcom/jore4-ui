@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { RouteTypeOfLineEnum } from '../../generated/graphql';
-import { mapLineTypeToUiName } from '../../i18n/uiNameMappings';
-import { FormInputProps } from '../../uiComponents';
-import { EnumDropdown } from './EnumDropdown';
+import { RouteTypeOfLineEnum } from '../../../generated/graphql';
+import { mapLineTypeToUiName } from '../../../i18n/uiNameMappings';
+import { FormInputProps } from '../../../uiComponents';
+import { EnumDropdown } from '../common/EnumDropdown';
 
 interface Props extends FormInputProps {
   testId?: string;

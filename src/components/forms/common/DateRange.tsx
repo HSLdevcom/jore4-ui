@@ -1,4 +1,4 @@
-import { DateLike, mapToShortDate } from '../../time';
+import { DateLike, mapToShortDate } from '../../../time';
 
 interface DateRangeProps {
   startDate?: DateLike;
