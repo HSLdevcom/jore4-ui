@@ -1,19 +1,22 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redirect, useParams } from 'react-router-dom';
-import { RouteLine, useGetLineDetailsByIdQuery } from '../../generated/graphql';
-import { mapLineDetailsResult } from '../../graphql';
-import { useEditLine } from '../../hooks';
-import { Container } from '../../layoutComponents';
-import { Path, routeDetails } from '../../router/routeDetails';
-import { mapToISODate } from '../../time';
-import { mapToVariables, showSuccessToast } from '../../utils';
+import {
+  RouteLine,
+  useGetLineDetailsByIdQuery,
+} from '../../../generated/graphql';
+import { mapLineDetailsResult } from '../../../graphql';
+import { useEditLine } from '../../../hooks';
+import { Container } from '../../../layoutComponents';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { mapToISODate } from '../../../time';
+import { mapToVariables, showSuccessToast } from '../../../utils';
+import { FormState, LineForm } from '../../forms/line/LineForm';
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
-} from '../ConflictResolverModal';
-import { FormState, LineForm } from '../forms/line/LineForm';
-import { PageHeader } from './PageHeader';
+} from '../common/ConflictResolverModal';
+import { PageHeader } from '../common/PageHeader';
 
 export const EditLinePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);

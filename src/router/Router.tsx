@@ -1,15 +1,15 @@
 /* eslint-disable no-underscore-dangle */
 import React, { FunctionComponent } from 'react';
 import { BrowserRouter, Route, Switch, useParams } from 'react-router-dom';
-import { CreateNewLinePage } from '../components/CreateNewLinePage';
-import { Main } from '../components/Main';
 import { ModalMap } from '../components/map/ModalMap';
 import { Navbar } from '../components/navbar';
-import { EditLinePage } from '../components/routes-and-lines/EditLinePage';
-import { EditRoutePage } from '../components/routes-and-lines/EditRoutePage';
-import { LineDetailsPage } from '../components/routes-and-lines/LineDetailsPage';
+import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
+import { EditLinePage } from '../components/routes-and-lines/edit-line/EditLinePage';
+import { EditRoutePage } from '../components/routes-and-lines/edit-route/EditRoutePage';
+import { LineDetailsPage } from '../components/routes-and-lines/line-details/LineDetailsPage';
+import { RoutesAndLinesPage } from '../components/routes-and-lines/main/RoutesAndLinesPage';
 import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
-import { RoutesAndLinesPage } from '../components/RoutesAndLinesPage';
+import { Main } from '../pages/Main';
 import { Path } from './routeDetails';
 
 export const Router: FunctionComponent = () => {

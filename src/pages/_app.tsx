@@ -1,8 +1,7 @@
 import { ApolloProvider } from '@apollo/client';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import type { AppProps } from 'next/app';
-import { Toaster } from '../components/Toaster';
-import { UserProvider } from '../components/UserProvider';
+import { UserProvider } from '../auth/UserProvider';
 import { ContextProviders } from '../context/ContextProviders';
 import '../generated/fontello/css/hsl-icons.css';
 import { createGraphqlClient } from '../graphql';
@@ -10,6 +9,7 @@ import '../i18n';
 import { ReduxProvider } from '../redux';
 import { Router } from '../router/Router';
 import '../styles/globals.css';
+import { Toaster } from '../uiComponents/Toaster';
 
 function SafeHydrate({ children }: { children: JSX.Element }) {
   return (

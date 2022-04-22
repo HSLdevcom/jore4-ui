@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import {
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
-} from '../../generated/graphql';
+} from '../../../generated/graphql';
 import {
   mapListChangingRoutesResult,
   mapListOwnLinesResult,
-} from '../../graphql';
+} from '../../../graphql';
 import { LinesList } from './LinesList';
 import { RoutesList } from './RoutesList';
 

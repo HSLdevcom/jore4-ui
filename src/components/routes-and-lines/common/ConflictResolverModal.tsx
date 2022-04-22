@@ -7,13 +7,13 @@ import {
   RouteLine,
   RouteRoute,
   ServicePatternScheduledStopPoint,
-} from '../generated/graphql';
-import { mapPriorityToUiName } from '../i18n/uiNameMappings';
-import { Row } from '../layoutComponents';
-import { Path, routeDetails } from '../router/routeDetails';
-import { mapToShortDate } from '../time';
-import { Priority } from '../types/Priority';
-import { CloseIconButton, Modal, SimpleButton } from '../uiComponents';
+} from '../../../generated/graphql';
+import { mapPriorityToUiName } from '../../../i18n/uiNameMappings';
+import { Row } from '../../../layoutComponents';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { mapToShortDate } from '../../../time';
+import { Priority } from '../../../types/Priority';
+import { CloseIconButton, Modal, SimpleButton } from '../../../uiComponents';
 
 interface Props {
   onClose: () => void;

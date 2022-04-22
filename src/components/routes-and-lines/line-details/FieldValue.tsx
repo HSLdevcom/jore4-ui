@@ -1,5 +1,5 @@
 import React from 'react';
-import { Column } from '../../layoutComponents';
+import { Column } from '../../../layoutComponents';
 
 interface Props {
   className?: string;
