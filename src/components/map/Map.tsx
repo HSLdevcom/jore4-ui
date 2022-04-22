@@ -18,7 +18,7 @@ import { ObservationDateOverlay } from './ObservationDateOverlay';
 import { DrawRouteLayer, RouteLayer, Routes } from './routes';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopFilterOverlay } from './StopFilterOverlay';
-import { Stops } from './stops'; // eslint-disable-line import/no-cycle
+import { Stops } from './stops';
 
 interface Props {
   drawable?: boolean;
