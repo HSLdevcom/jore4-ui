@@ -122,6 +122,74 @@ const RoutePropertiesFormComponent = (
                 t('formValidation.required')}
             </p>
           </Column>
+          {!creatingNewRoute && (
+            <>
+              <Row className="mt-5 flex-wrap gap-2">
+                <h2 className="w-full pt-1 text-xl font-bold">
+                  {t('routes.origin')}
+                </h2>
+                <Column className="w-80 flex-auto">
+                  <label htmlFor="origin_name">{t('routes.origin_name')}</label>
+                  <input
+                    id="origin_name"
+                    type="text"
+                    {...register('origin_name', {})}
+                  />
+                  <p>
+                    {errors.origin_name?.type === 'too_small' &&
+                      t('formValidation.required')}
+                  </p>
+                </Column>
+                <Column className="w-80 flex-auto">
+                  <label htmlFor="origin_name_short">
+                    {t('routes.origin_name_short')}
+                  </label>
+                  <input
+                    id="origin_name_short"
+                    type="text"
+                    {...register('origin_name_short', {})}
+                  />
+                  <p>
+                    {errors.origin_name_short?.type === 'too_small' &&
+                      t('formValidation.required')}
+                  </p>
+                </Column>
+              </Row>
+              <Row className="mt-5 flex-wrap gap-2">
+                <h2 className="w-full pt-1 text-xl font-bold">
+                  {t('routes.destination')}
+                </h2>
+                <Column className="w-80 flex-auto">
+                  <label htmlFor="destination_name">
+                    {t('routes.destination_name')}
+                  </label>
+                  <input
+                    id="destination_name"
+                    type="text"
+                    {...register('destination_name', {})}
+                  />
+                  <p>
+                    {errors.destination_name?.type === 'too_small' &&
+                      t('formValidation.required')}
+                  </p>
+                </Column>
+                <Column className="w-80 flex-auto">
+                  <label htmlFor="destination_name_short">
+                    {t('routes.destination_name_short')}
+                  </label>
+                  <input
+                    id="destination_name_short"
+                    type="text"
+                    {...register('destination_name_short', {})}
+                  />
+                  <p>
+                    {errors.destination_name_short?.type === 'too_small' &&
+                      t('formValidation.required')}
+                  </p>
+                </Column>
+              </Row>
+            </>
+          )}
           {creatingNewRoute && (
             <>
               <Row className="flex-auto items-center">

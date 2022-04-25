@@ -37,6 +37,10 @@ export const mapRouteFormToInput = (
     priority,
     validity_start: mapDateInputToValidityStart(validityStart),
     validity_end: mapDateInputToValidityEnd(validityEnd, indefinite),
+    origin_name: state.origin_name,
+    origin_name_short: state.origin_name_short,
+    destination_name: state.destination_name,
+    destination_name_short: state.destination_name_short,
   };
   return mutation;
 };

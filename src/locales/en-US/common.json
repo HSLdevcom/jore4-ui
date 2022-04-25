@@ -29,7 +29,13 @@
     "chooseRoute": "Choose route",
     "direction": "Direction",
     "chooseDirection": "Choose direction",
-    "tooFewStops": "There must be at least two stops on route."
+    "tooFewStops": "There must be at least two stops on route.",
+    "origin": "Origin",
+    "originName": "Origin name",
+    "originShortName": "Origin name short",
+    "destination": "Destination",
+    "destinationName": "Destination name",
+    "destinationShortName": "Destination name short"
   },
   "lines": {
     "createNew": "Create new line",

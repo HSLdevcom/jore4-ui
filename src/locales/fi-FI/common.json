@@ -29,7 +29,13 @@
     "chooseRoute": "Valitse reitti",
     "direction": "Suunta",
     "chooseDirection": "Valitse suunta",
-    "tooFewStops": "Reitillä on oltava ainakin kaksi pysäkkiä."
+    "tooFewStops": "Reitillä on oltava ainakin kaksi pysäkkiä.",
+    "origin": "Lähtöpaikka",
+    "originName": "Lähtöpaikan nimi",
+    "originShortName": "Lähtöpaikan nimen lyhenne",
+    "destination": "Päätepaikka",
+    "destinationName": "Päätepaikan nimi",
+    "destinationShortName": "Päätepaikan nimen lyhenne"
   },
   "lines": {
     "createNew": "Luo uusi linja",

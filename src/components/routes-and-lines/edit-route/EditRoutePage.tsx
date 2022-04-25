@@ -38,6 +38,10 @@ const mapRouteToFormState = (route: RouteRoute): RouteFormState => ({
   validityStart: mapToISODate(route.validity_start) || '',
   validityEnd: mapToISODate(route?.validity_end) || '',
   indefinite: !route?.validity_end,
+  origin_name: route.origin_name || '',
+  origin_name_short: route.origin_name_short || '',
+  destination_name: route.destination_name || '',
+  destination_name_short: route.destination_name_short || '',
 });
 
 export const EditRoutePage = (): JSX.Element => {

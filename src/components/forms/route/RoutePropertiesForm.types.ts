@@ -11,6 +11,10 @@ export const routeFormSchema = z
     finnishName: z.string().min(1),
     on_line_id: z.string().uuid().min(1),
     direction: z.nativeEnum(RouteDirection),
+    origin_name: z.string().optional(),
+    origin_name_short: z.string().optional(),
+    destination_name: z.string().optional(),
+    destination_name_short: z.string().optional(),
   })
   .merge(confirmSaveFormSchema);
 
