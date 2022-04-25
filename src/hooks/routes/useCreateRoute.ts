@@ -60,6 +60,10 @@ const mapRouteDetailsToInsertMutationVariables = (
     description_i18n: form.description_i18n,
     direction: form.direction,
     priority: form.priority,
+    origin_name: form.origin_name,
+    origin_name_short: form.origin_name_short,
+    destination_name: form.destination_name,
+    destination_name_short: form.destination_name_short,
     validity_start: mapDateInputToValidityStart(
       // form validation makes sure that 'validityStart' has a valid value at this point
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

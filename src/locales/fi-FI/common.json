@@ -28,7 +28,13 @@
     "searchTemplate": "Hae pohjareitti",
     "chooseRoute": "Valitse reitti",
     "direction": "Suunta",
-    "chooseDirection": "Valitse suunta"
+    "chooseDirection": "Valitse suunta",
+    "origin": "Lähtöpaikka",
+    "origin_name": "Lähtöpaikan nimi",
+    "origin_name_short": "Lähtöpaikan nimen lyhenne",
+    "destination": "Päätepaikka",
+    "destination_name": "Päätepaikan nimi",
+    "destination_name_short": "Päätepaikan nimen lyhenne"
   },
   "lines": {
     "createNew": "Luo uusi linja",

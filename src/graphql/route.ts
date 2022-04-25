@@ -56,6 +56,10 @@ const ROUTE_ALL_FIELDS = gql`
     priority
     label
     direction
+    origin_name
+    origin_name_short
+    destination_name
+    destination_name_short
   }
 `;
 
@@ -379,6 +383,10 @@ const INSERT_ROUTE = gql`
       validity_end
       label
       direction
+      origin_name
+      origin_name_short
+      destination_name
+      destination_name_short
     }
   }
 `;

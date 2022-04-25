@@ -28,7 +28,13 @@
     "searchTemplate": "Search for template route",
     "chooseRoute": "Choose route",
     "direction": "Direction",
-    "chooseDirection": "Choose direction"
+    "chooseDirection": "Choose direction",
+    "origin": "Origin",
+    "origin_name": "Origin name",
+    "origin_name_short": "Origin name short",
+    "destination": "Destination",
+    "destination_name": "Destination name",
+    "destination_name_short": "Destination name short"
   },
   "lines": {
     "createNew": "Create new line",
