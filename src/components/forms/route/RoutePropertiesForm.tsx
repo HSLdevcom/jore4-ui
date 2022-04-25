@@ -12,6 +12,7 @@ import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';
 import { routeFormSchema, RouteFormState } from './RoutePropertiesForm.types';
 import { TemplateRouteSelector } from './TemplateRouteSelector';
+import { TerminusNameInputs } from './TerminusNameInputs';
 
 export interface RouteFormProps {
   id?: string;
@@ -122,6 +123,7 @@ const RoutePropertiesFormComponent = (
                 t('formValidation.required')}
             </p>
           </Column>
+          <TerminusNameInputs />
           {creatingNewRoute && (
             <>
               <Row className="flex-auto items-center">

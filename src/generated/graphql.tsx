@@ -7929,7 +7929,7 @@ export type InsertRouteOneMutationVariables = Exact<{
 }>;
 
 
-export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', route_id: UUID, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, priority: number, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, label: string, direction: RouteDirectionEnum } | null | undefined };
+export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum } | null | undefined };
 
 export type PatchRouteMutationVariables = Exact<{
   route_id: Scalars['uuid'];
@@ -9014,19 +9014,10 @@ export type PatchLineMutationOptions = Apollo.BaseMutationOptions<PatchLineMutat
 export const InsertRouteOneDocument = gql`
     mutation InsertRouteOne($object: route_route_insert_input!) {
   insert_route_route_one(object: $object) {
-    route_id
-    starts_from_scheduled_stop_point_id
-    ends_at_scheduled_stop_point_id
-    route_shape
-    on_line_id
-    priority
-    validity_start
-    validity_end
-    label
-    direction
+    ...route_all_fields
   }
 }
-    `;
+    ${RouteAllFieldsFragmentDoc}`;
 export type InsertRouteOneMutationFn = Apollo.MutationFunction<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
 
 /**

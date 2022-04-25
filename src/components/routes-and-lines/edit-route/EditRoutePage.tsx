@@ -17,6 +17,7 @@ import {
   SimpleButton,
 } from '../../../uiComponents';
 import {
+  defaultLocalizedString,
   mapToVariables,
   showSuccessToast,
   submitFormByRef,
@@ -38,6 +39,14 @@ const mapRouteToFormState = (route: RouteRoute): RouteFormState => ({
   validityStart: mapToISODate(route.validity_start) || '',
   validityEnd: mapToISODate(route?.validity_end) || '',
   indefinite: !route?.validity_end,
+  origin: {
+    name: defaultLocalizedString(route.origin_name_i18n),
+    shortName: defaultLocalizedString(route.origin_short_name_i18n),
+  },
+  destination: {
+    name: defaultLocalizedString(route.destination_name_i18n),
+    shortName: defaultLocalizedString(route.destination_short_name_i18n),
+  },
 });
 
 export const EditRoutePage = (): JSX.Element => {

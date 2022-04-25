@@ -16,6 +16,28 @@
     "enterRouteData": "Anna reitin tiedot",
     "name": "Reitin nimi",
     "label": "Tunnus",
+    "origin": {
+      "title": "Lähtöpaikka",
+      "name": {
+        "fi_FI": "Lähtöpaikan nimi",
+        "sv_FI": "Lähtöpaikan nimi (ruotsi)"
+      },
+      "shortName": {
+        "fi_FI": "Lähtöpaikan nimen lyhenne",
+        "sv_FI": "Lähtöpaikan nimen lyhenne (ruotsi)"
+      }
+    },
+    "destination": {
+      "title": "Määränpää",
+      "name": {
+        "fi_FI": "Määränpään nimi",
+        "sv_FI": "Määränpään nimi (ruotsi)"
+      },
+      "shortName": {
+        "fi_FI": "Määränpään nimen lyhenne",
+        "sv_FI": "Määränpään nimen lyhenne (ruotsi)"
+      }
+    },
     "addToLine": "Yhdistä linjaan",
     "chooseLine": "Valitse linja",
     "changingRoutes": "Muuttuvat reitit",
