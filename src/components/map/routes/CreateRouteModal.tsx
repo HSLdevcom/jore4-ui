@@ -29,7 +29,7 @@ export const CreateRouteModal = ({
   return (
     <HTMLOverlay
       redraw={() => (
-        <div className="flex max-h-full py-5 pl-5">
+        <div className="flex max-h-full justify-center py-5">
           <Modal
             onSave={onModalSave}
             onCancel={onCancel}
@@ -37,7 +37,7 @@ export const CreateRouteModal = ({
             heading={t('routes.enterRouteData')}
           >
             <RoutePropertiesForm
-              className="my-8 mx-12 max-w-sm"
+              className="my-8 mx-12 max-w-2xl"
               defaultValues={defaultValues}
               ref={formRef}
               onSubmit={onSuccess}

@@ -8,6 +8,7 @@ import {
 } from '../../generated/graphql';
 import { MIN_DATE } from '../../time';
 import {
+  defaultLocalizedString,
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   showDangerToastWithError,
@@ -38,6 +39,12 @@ export const mapRouteFormToInput = (
     priority,
     validity_start: mapDateInputToValidityStart(validityStart),
     validity_end: mapDateInputToValidityEnd(validityEnd, indefinite),
+    origin_name_i18n: defaultLocalizedString(state.origin?.name),
+    origin_short_name_i18n: defaultLocalizedString(state.origin?.shortName),
+    destination_name_i18n: defaultLocalizedString(state.destination?.name),
+    destination_short_name_i18n: defaultLocalizedString(
+      state.destination?.shortName,
+    ),
   };
   return mutation;
 };
