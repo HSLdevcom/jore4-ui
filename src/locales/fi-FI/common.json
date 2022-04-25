@@ -16,6 +16,28 @@
     "enterRouteData": "Anna reitin tiedot",
     "name": "Reitin nimi",
     "label": "Tunnus",
+    "origin": {
+      "title": "Lähtöpaikka",
+      "name": {
+        "fi_FI": "Lähtöpaikan nimi",
+        "sv_FI": "Lähtöpaikan nimi (ruotsi)"
+      },
+      "shortName": {
+        "fi_FI": "Lähtöpaikan nimen lyhenne",
+        "sv_FI": "Lähtöpaikan nimen lyhenne (ruotsi)"
+      }
+    },
+    "destination": {
+      "title": "Päätepaikka",
+      "name": {
+        "fi_FI": "Päätepaikan nimi",
+        "sv_FI": "Päätepaikan nimi (ruotsi)"
+      },
+      "shortName": {
+        "fi_FI": "Päätepaikan nimen lyhenne",
+        "sv_FI": "Päätepaikan nimen lyhenne (ruotsi)"
+      }
+    },
     "addToLine": "Yhdistä linjaan",
     "chooseLine": "Valitse linja",
     "changingRoutes": "Muuttuvat reitit",

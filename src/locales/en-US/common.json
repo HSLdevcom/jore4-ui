@@ -16,6 +16,28 @@
     "enterRouteData": "Enter route data",
     "name": "Name of the route",
     "label": "Label",
+    "origin": {
+      "title": "Origin",
+      "name": {
+        "fi_FI": "Origin name (Finnish)",
+        "sv_FI": "Origin name (Swedish)"
+      },
+      "shortName": {
+        "fi_FI": "Origin short name (Finnish)",
+        "sv_FI": "Origin short name (Swedish)"
+      }
+    },
+    "destination": {
+      "title": "Destination",
+      "name": {
+        "fi_FI": "Destination name (Finnish)",
+        "sv_FI": "Destination name (Swedish)"
+      },
+      "shortName": {
+        "fi_FI": "Destination short name (Finnish)",
+        "sv_FI": "Destination short name (Swedish)"
+      }
+    },
     "addToLine": "Add to line",
     "chooseLine": "Choose line",
     "changingRoutes": "Changing routes",
