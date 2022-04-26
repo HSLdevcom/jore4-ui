@@ -65,7 +65,7 @@ const REMOVE_STOP = gql`
 
 const QUERY_GET_ALL_STOPS = gql`
   query GetStops {
-    service_pattern_scheduled_stop_point {
+    service_pattern_scheduled_stop_point(limit: 300) {
       ...scheduled_stop_point_all_fields
     }
   }
