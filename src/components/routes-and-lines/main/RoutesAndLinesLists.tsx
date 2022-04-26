@@ -9,13 +9,25 @@ import {
   mapListOwnLinesResult,
 } from '../../../graphql';
 import { LinesList } from './LinesList';
+import { ListFooter } from './ListFooter';
+import { ListHeader } from './ListHeader';
 import { RoutesList } from './RoutesList';
 
 export const RoutesAndLinesLists = (): JSX.Element => {
   const { t } = useTranslation();
-  const changingRoutesResult = useListChangingRoutesQuery();
+
+  // changing routes
+  const [showOwnChangingRoutes, setShowOwnChangingRoutes] =
+    React.useState(true);
+  const [changingRoutesLimit, setChangingRoutesLimit] = React.useState<
+    number | undefined
+  >(5);
+  const changingRoutesResult = useListChangingRoutesQuery({
+    variables: { limit: changingRoutesLimit },
+  });
   const changingRoutes = mapListChangingRoutesResult(changingRoutesResult);
 
+  // own lines
   const ownLinesResult = useListOwnLinesQuery();
   const ownLines = mapListOwnLinesResult(ownLinesResult);
 
@@ -24,7 +36,15 @@ export const RoutesAndLinesLists = (): JSX.Element => {
       <h2 className="text-bold mb-14 mt-12 text-4xl">
         {t('routes.changingRoutes')}
       </h2>
+      <ListHeader
+        showOwnLines={showOwnChangingRoutes}
+        limit={changingRoutesLimit}
+        onShowOwnChange={setShowOwnChangingRoutes}
+        onLimitChange={setChangingRoutesLimit}
+        className="mb-5"
+      />
       <RoutesList routes={changingRoutes} />
+      <ListFooter onLimitChange={setChangingRoutesLimit} className="mt-8" />
       <h2 className="text-bold mb-14 mt-12 text-4xl">{t('routes.ownLines')}</h2>
       <LinesList lines={ownLines} />
     </div>

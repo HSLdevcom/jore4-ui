@@ -131,8 +131,11 @@ export const mapSearchAllLinesResult = (
 
 // TODO this is just listing all lines for now
 const LIST_OWN_LINES = gql`
-  query ListOwnLines {
-    route_line {
+  query ListOwnLines($limit: Int = 10) {
+    route_line(
+      limit: $limit
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
       ...line_default_fields
       line_routes {
         route_id
@@ -146,8 +149,11 @@ export const mapListOwnLinesResult = (
 
 // TODO this will list all routes for now
 const LIST_CHANGING_ROUTES = gql`
-  query ListChangingRoutes {
-    route_route {
+  query ListChangingRoutes($limit: Int) {
+    route_route(
+      limit: $limit
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
       ...route_with_stops
       route_line {
         ...line_default_fields
