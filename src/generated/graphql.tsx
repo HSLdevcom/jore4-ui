@@ -6670,12 +6670,16 @@ export type SearchAllLinesQueryVariables = Exact<{
 
 export type SearchAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string }> }> };
 
-export type ListOwnLinesQueryVariables = Exact<{ [key: string]: never; }>;
+export type ListOwnLinesQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+}>;
 
 
 export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id: UUID }> }> };
 
-export type ListChangingRoutesQueryVariables = Exact<{ [key: string]: never; }>;
+export type ListChangingRoutesQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+}>;
 
 
 export type ListChangingRoutesQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> };
@@ -7258,8 +7262,8 @@ export type SearchAllLinesQueryHookResult = ReturnType<typeof useSearchAllLinesQ
 export type SearchAllLinesLazyQueryHookResult = ReturnType<typeof useSearchAllLinesLazyQuery>;
 export type SearchAllLinesQueryResult = Apollo.QueryResult<SearchAllLinesQuery, SearchAllLinesQueryVariables>;
 export const ListOwnLinesDocument = gql`
-    query ListOwnLines {
-  route_line {
+    query ListOwnLines($limit: Int = 10) {
+  route_line(limit: $limit, order_by: [{label: asc}, {validity_start: asc}]) {
     ...line_default_fields
     line_routes {
       route_id
@@ -7280,6 +7284,7 @@ export const ListOwnLinesDocument = gql`
  * @example
  * const { data, loading, error } = useListOwnLinesQuery({
  *   variables: {
+ *      limit: // value for 'limit'
  *   },
  * });
  */
@@ -7295,8 +7300,8 @@ export type ListOwnLinesQueryHookResult = ReturnType<typeof useListOwnLinesQuery
 export type ListOwnLinesLazyQueryHookResult = ReturnType<typeof useListOwnLinesLazyQuery>;
 export type ListOwnLinesQueryResult = Apollo.QueryResult<ListOwnLinesQuery, ListOwnLinesQueryVariables>;
 export const ListChangingRoutesDocument = gql`
-    query ListChangingRoutes {
-  route_route {
+    query ListChangingRoutes($limit: Int) {
+  route_route(limit: $limit, order_by: [{label: asc}, {validity_start: asc}]) {
     ...route_with_stops
     route_line {
       ...line_default_fields
@@ -7318,6 +7323,7 @@ ${LineDefaultFieldsFragmentDoc}`;
  * @example
  * const { data, loading, error } = useListChangingRoutesQuery({
  *   variables: {
+ *      limit: // value for 'limit'
  *   },
  * });
  */
@@ -7974,7 +7980,7 @@ export type RemoveStopMutationResult = Apollo.MutationResult<RemoveStopMutation>
 export type RemoveStopMutationOptions = Apollo.BaseMutationOptions<RemoveStopMutation, RemoveStopMutationVariables>;
 export const GetStopsDocument = gql`
     query GetStops {
-  service_pattern_scheduled_stop_point {
+  service_pattern_scheduled_stop_point(limit: 300) {
     ...scheduled_stop_point_all_fields
   }
 }
