@@ -14,5 +14,6 @@ export * from './SimpleDropdownMenu';
 export * from './SimpleSmallButton';
 export * from './Spinner';
 export * from './Switch';
+export * from './TextButton';
 export * from './Toast';
 export * from './ToastTransition';
