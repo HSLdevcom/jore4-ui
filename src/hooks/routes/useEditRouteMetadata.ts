@@ -39,7 +39,7 @@ const mapFormToInput = (state: RouteFormState): RouteRouteSetInput => {
   return mutation;
 };
 
-export const useEditRoute = () => {
+export const useEditRouteMetadata = () => {
   const { t } = useTranslation();
   const [mutateFunction] = usePatchRouteMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();

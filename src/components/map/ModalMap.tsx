@@ -1,19 +1,14 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
-import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
-import { RouteRoute } from '../../generated/graphql';
 import {
   useAppDispatch,
   useAppSelector,
   useDeleteRoute,
-  useEditRouteGeometry,
-  useExtractRouteFromFeature,
   useMapUrlQuery,
+  useSaveRoute,
 } from '../../hooks';
-import { useCreateRoute } from '../../hooks/routes/useCreateRoute';
 import {
-  initializeMapEditorWithRoutesAction,
   resetMapEditorStateAction,
   selectIsModalMapOpen,
   selectMapEditor,
@@ -22,9 +17,8 @@ import {
   toggleDrawRouteAction,
   toggleEditRouteAction,
 } from '../../redux';
-import { isDateInRange } from '../../time';
 import { ConfirmationDialog, Modal } from '../../uiComponents';
-import { showSuccessToast, showToast } from '../../utils';
+import { showSuccessToast } from '../../utils';
 import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,
@@ -53,35 +47,19 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
 
   const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
 
-  const {
-    state: { observationDate },
-    dispatch: mapFilterDispatch,
-  } = useContext(MapFilterContext);
-
-  const {
-    id: editingRouteId,
-    infraLinks,
-    stops: routeStops,
-    metaData: routeDetails,
-  } = editedRouteData;
+  const { id: editingRouteId } = editedRouteData;
 
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const {
-    prepareCreate,
-    mapCreateChangesToVariables,
-    insertRouteMutation,
-    defaultErrorHandler: defaultInsertRouteErrorHandler,
-  } = useCreateRoute();
-  const {
-    mapRouteDetailsToUpdateMutationVariables,
-    updateRouteGeometryMutation,
-  } = useEditRouteGeometry();
-  const [conflicts, setConflicts] = useState<RouteRoute[]>([]);
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
     useDeleteRoute();
 
-  const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
+  const {
+    saveRoute,
+    defaultErrorHandler: defaultSaveErrorHandler,
+    conflicts,
+    setConflicts,
+  } = useSaveRoute();
 
   const syncIsModalMapStateWithMapOpenQueryParam = () => {
     const mapOpen = isMapOpen();
@@ -119,81 +97,17 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     dispatch(stopDrawRouteAction());
   };
   const onSave = async () => {
-    const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
+    try {
+      // Save variable value since saveRoute resets the value in state
+      const newRouteCreated = creatingNewRoute;
+      await saveRoute();
+      showSuccessToast(t('routes.saveSuccess'));
 
-    if (infraLinks && stopIdsWithinRoute && stopIdsWithinRoute.length >= 2) {
-      const startingStopId = stopIdsWithinRoute[0];
-      const finalStopId = stopIdsWithinRoute[stopIdsWithinRoute.length - 1];
-
-      if (editingRouteId) {
-        const variables = mapRouteDetailsToUpdateMutationVariables(
-          editingRouteId,
-          stopIdsWithinRoute,
-          infraLinks,
-          startingStopId,
-          finalStopId,
-        );
-
-        try {
-          await updateRouteGeometryMutation(variables);
-          showToast({ type: 'success', message: t('routes.saveSuccess') });
-        } catch (err) {
-          showToast({
-            type: 'danger',
-            message: `${t('errors.saveFailed')}, ${err}`,
-          });
-        }
-      } else {
-        if (!routeDetails) {
-          return;
-        }
-
-        const changes = await prepareCreate({
-          form: routeDetails,
-          stopIdsWithinRoute,
-          infraLinksAlongRoute: infraLinks,
-          startingStopId,
-          finalStopId,
-        });
-        if (changes.conflicts?.length) {
-          setConflicts(changes.conflicts);
-          return;
-        }
-        const variables = mapCreateChangesToVariables(changes);
-
-        try {
-          const response = await insertRouteMutation(variables);
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const newRoute = response.data!.insert_route_route_one!;
-
-          mapRef?.current?.onDeleteDrawnRoute();
-          dispatch(initializeMapEditorWithRoutesAction([newRoute.route_id]));
-
-          showSuccessToast(t('routes.saveSuccess'));
-
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const validityStart = newRoute.validity_start!;
-
-          if (
-            !isDateInRange(
-              observationDate,
-              validityStart,
-              newRoute?.validity_end,
-            )
-          ) {
-            mapFilterDispatch(setObservationDate(validityStart));
-            showSuccessToast(t('filters.observationDateAdjusted'));
-          }
-
-          dispatch(stopDrawRouteAction());
-
-          mapRef?.current?.onDeleteDrawnRoute();
-        } catch (err) {
-          defaultInsertRouteErrorHandler(err);
-        }
+      if (newRouteCreated) {
+        mapRef?.current?.onDeleteDrawnRoute();
       }
-    } else {
-      showToast({ type: 'danger', message: t('errors.saveFailed') });
+    } catch (err) {
+      defaultSaveErrorHandler(err);
     }
   };
   const onDeleteConfirm = async () => {

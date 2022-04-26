@@ -25,7 +25,8 @@
     "searchTemplate": "Hae pohjareitti",
     "chooseRoute": "Valitse reitti",
     "direction": "Suunta",
-    "chooseDirection": "Valitse suunta"
+    "chooseDirection": "Valitse suunta",
+    "tooFewStopsOnRoute": "Reitillä on oltava vähintään kaksi pysäkkiä!"
   },
   "lines": {
     "createNew": "Luo uusi linja",
