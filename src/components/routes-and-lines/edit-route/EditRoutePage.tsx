@@ -6,7 +6,7 @@ import {
   useGetRouteDetailsByIdsQuery,
 } from '../../../generated/graphql';
 import { mapRouteDetailsResult } from '../../../graphql';
-import { useDeleteRoute, useEditRoute } from '../../../hooks';
+import { useDeleteRoute, useEditRouteMetadata } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToISODate } from '../../../time';
@@ -49,7 +49,7 @@ export const EditRoutePage = (): JSX.Element => {
     mapEditChangesToVariables,
     editRouteMutation,
     defaultErrorHandler,
-  } = useEditRoute();
+  } = useEditRouteMetadata();
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
     useDeleteRoute();
   const [conflicts, setConflicts] = useState<RouteRoute[]>([]);

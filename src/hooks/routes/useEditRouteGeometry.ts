@@ -1,6 +1,5 @@
 import {
   RouteRoute,
-  UpdateRouteGeometryMutationVariables,
   UpdateRouteJourneyPatternMutationVariables,
   useDeleteStopFromJourneyPatternMutation,
   useUpdateRouteGeometryMutation,
@@ -8,14 +7,12 @@ import {
 } from '../../generated/graphql';
 import {
   getStopsAlongRouteGeometry,
-  InfrastructureLinkAlongRoute,
-  mapInfraLinksAlongRouteToGraphQL,
   stopBelongsToJourneyPattern,
 } from '../../graphql';
 import { RouteStop } from '../../redux';
 import { mapToVariables, removeFromApolloCache } from '../../utils';
 import { useExtractRouteFromFeature } from '../useExtractRouteFromFeature';
-import { mapStopsToScheduledStopPoints } from './useCreateRoute';
+import { mapStopsToScheduledStopPoints } from './useSaveRoute';
 
 interface DeleteStopFromJourneyPatternParams {
   routeId: UUID;
@@ -30,32 +27,6 @@ export const useEditRouteGeometry = () => {
     useDeleteStopFromJourneyPatternMutation();
 
   const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
-
-  const mapRouteDetailsToUpdateMutationVariables = (
-    editingRouteId: UUID,
-    stopIdsWithinRoute: UUID[],
-    infraLinksAlongRoute: InfrastructureLinkAlongRoute[],
-    startingStopId: UUID,
-    finalStopId: UUID,
-  ) => {
-    const variables: UpdateRouteGeometryMutationVariables = {
-      route_id: editingRouteId,
-      new_infrastructure_links: mapInfraLinksAlongRouteToGraphQL(
-        infraLinksAlongRoute,
-      ).map((link) => ({ ...link, route_id: editingRouteId })),
-      new_journey_pattern: {
-        on_route_id: editingRouteId,
-        scheduled_stop_point_in_journey_patterns:
-          mapStopsToScheduledStopPoints(stopIdsWithinRoute),
-      },
-      route_route: {
-        starts_from_scheduled_stop_point_id: startingStopId,
-        ends_at_scheduled_stop_point_id: finalStopId,
-      },
-    };
-
-    return mapToVariables(variables);
-  };
 
   const mapStopIdsToUpdateMutationVariables = (
     stopsIds: UUID[],
@@ -128,7 +99,6 @@ export const useEditRouteGeometry = () => {
 
   return {
     updateRouteGeometryMutation,
-    mapRouteDetailsToUpdateMutationVariables,
     deleteStopFromJourneyPattern,
     addStopToRouteJourneyPattern,
   };
