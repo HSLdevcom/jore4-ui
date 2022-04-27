@@ -27,7 +27,7 @@ export const SimpleDropdownMenu = ({
           <Transition show={open} as={Fragment} {...dropdownTransition}>
             <Menu.Items
               static
-              className="absolute z-10 w-max origin-top-right overflow-visible bg-white text-black shadow-md focus:outline-none"
+              className="absolute z-10 bg-white text-black shadow-md focus:outline-none"
             >
               {React.Children.map(children, (child) => (
                 <Menu.Item>
@@ -35,7 +35,7 @@ export const SimpleDropdownMenu = ({
                     React.isValidElement(child)
                       ? addClassName(
                           child,
-                          `border-x border-b first-of-type:border-t border-black w-full py-1 px-2 focus:outline-none text-left`,
+                          `border-x border-b first-of-type:border-t border-black py-1 px-2 focus:outline-none text-left`,
                         )
                       : child
                   }
