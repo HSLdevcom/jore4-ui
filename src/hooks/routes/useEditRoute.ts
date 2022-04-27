@@ -52,6 +52,7 @@ export const useEditRoute = () => {
         priority: form.priority,
         validityStart: input.validity_start || MIN_DATE,
         validityEnd: input.validity_end || undefined,
+        direction: form.direction,
       },
       routeId,
     );

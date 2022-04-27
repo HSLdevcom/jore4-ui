@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import {
+  RouteDirectionEnum,
   RouteLine,
   RouteLineBoolExp,
   RouteRoute,
@@ -17,6 +18,10 @@ interface CommonParams {
   priority: Priority;
   validityStart?: DateTime;
   validityEnd?: DateTime;
+}
+
+interface RouteParams extends CommonParams {
+  direction: RouteDirectionEnum;
 }
 
 const buildValidityStartMissingGqlFilterOrConditions = (
@@ -165,7 +170,7 @@ export const useCheckValidityAndPriorityConflicts = () => {
     return data.service_pattern_scheduled_stop_point as ServicePatternScheduledStopPoint[];
   };
 
-  const getConflictingRoutes = async (params: CommonParams, routeId?: UUID) => {
+  const getConflictingRoutes = async (params: RouteParams, routeId?: UUID) => {
     const isDraft = params.priority === Priority.Draft;
     if (isDraft) {
       // Resources marked as "draft" are allowed to have conflicts
@@ -173,6 +178,11 @@ export const useCheckValidityAndPriorityConflicts = () => {
       return [];
     }
 
+    // Allow routes with different direction to exists with same validity period.
+    // That way both directions of same route can exist.
+    const directionFilter: RouteRouteBoolExp = {
+      direction: { _eq: params.direction },
+    };
     // Ignore row itself as if we are editing existing version of row then
     // possible conflict doesn't matter as we are *overwriting* conflicting
     // version.
@@ -182,7 +192,7 @@ export const useCheckValidityAndPriorityConflicts = () => {
     const commonFilter: RouteRouteBoolExp = buildCommonGqlFilter(params);
 
     const { data } = await getRouteValidity({
-      filter: { ...routesFilter, ...commonFilter },
+      filter: { ...directionFilter, ...routesFilter, ...commonFilter },
     });
 
     // We have to cast return type from GetRoutesByValidityQuery['route_route'] -> RouteRoute[]
