@@ -89,12 +89,13 @@ export const useCreateRoute = () => {
   const prepareCreate = async (params: CreateParams) => {
     const input = mapRouteDetailsToInsertMutationVariables(params);
     const conflicts = await getConflictingRoutes({
-      // Form validation should make sure that label and priority always exist.
+      // Form validation should make sure that label, priority and direction always exist.
       // For some reason form state is saved as Partial<> so we have to use non-null assertions here...
       label: params.form.label!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
       priority: params.form.priority!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
       validityStart: input.object.validity_start || MIN_DATE,
       validityEnd: input.object.validity_end || undefined,
+      direction: params.form.direction!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
     });
 
     const changes: CreateChanges = {
