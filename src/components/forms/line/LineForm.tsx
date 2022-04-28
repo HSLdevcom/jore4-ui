@@ -30,7 +30,10 @@ export const mapLineToFormState = (line?: RouteLine) => {
   const formState: Partial<FormState> = {
     lineId: line?.line_id,
     label: line?.label,
-    finnishName: line?.name_i18n,
+    finnishName: line?.name_fi || undefined,
+    finnishShortName: line?.short_name_fi || undefined,
+    swedishName: line?.name_sv || undefined,
+    swedishShortName: line?.short_name_sv || undefined,
     primaryVehicleMode: line?.primary_vehicle_mode,
     priority: line?.priority,
     transportTarget: line?.transport_target,
