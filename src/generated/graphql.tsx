@@ -7638,6 +7638,13 @@ export type UpdateRouteJourneyPatternMutation = { __typename?: 'mutation_root', 
 
 export type LocalizedTextsAllFieldsFragment = { __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } };
 
+export type LocalizedTextsMutationResponseFragment = { __typename?: 'localization_localized_text_mutation_response', returning: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> };
+
+export type GetAttributesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAttributesQuery = { __typename?: 'query_root', localization_attribute: Array<{ __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string }> };
+
 export type LineLocalizedFieldsFragment = { __typename?: 'route_line', name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> };
 
 export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> };
@@ -7749,19 +7756,22 @@ export type GetRoutesByValidityQueryVariables = Exact<{
 export type GetRoutesByValidityQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, route_id: UUID, description_i18n?: string | null | undefined, on_line_id: UUID, label: string, priority: number, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID }> };
 
 export type InsertLineOneMutationVariables = Exact<{
-  object: RouteLineInsertInput;
+  line: RouteLineInsertInput;
 }>;
 
 
 export type InsertLineOneMutation = { __typename?: 'mutation_root', insert_route_line_one?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> } | null | undefined };
 
 export type PatchLineMutationVariables = Exact<{
-  line_id: Scalars['uuid'];
-  object: RouteLineSetInput;
+  lineId: Scalars['uuid'];
+  linePatch: RouteLineSetInput;
+  localizedTextsToUpsert: Array<LocalizationLocalizedTextInsertInput> | LocalizationLocalizedTextInsertInput;
+  localizedTextsOnConflict: LocalizationLocalizedTextOnConflict;
+  localizedTextsToDelete: LocalizationLocalizedTextBoolExp;
 }>;
 
 
-export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> } | null | undefined };
+export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> } | null | undefined, insert_localization_localized_text?: { __typename?: 'localization_localized_text_mutation_response', returning: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> } | null | undefined, delete_localization_localized_text?: { __typename?: 'localization_localized_text_mutation_response', returning: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> } | null | undefined };
 
 export type InsertRouteOneMutationVariables = Exact<{
   object: RouteRouteInsertInput;
@@ -7877,6 +7887,13 @@ export const LocalizedTextsAllFieldsFragmentDoc = gql`
   }
 }
     `;
+export const LocalizedTextsMutationResponseFragmentDoc = gql`
+    fragment localized_texts_mutation_response on localization_localized_text_mutation_response {
+  returning {
+    ...localized_texts_all_fields
+  }
+}
+    ${LocalizedTextsAllFieldsFragmentDoc}`;
 export const LineLocalizedFieldsFragmentDoc = gql`
     fragment line_localized_fields on route_line {
   localized_texts {
@@ -8220,6 +8237,41 @@ export function useUpdateRouteJourneyPatternMutation(baseOptions?: Apollo.Mutati
 export type UpdateRouteJourneyPatternMutationHookResult = ReturnType<typeof useUpdateRouteJourneyPatternMutation>;
 export type UpdateRouteJourneyPatternMutationResult = Apollo.MutationResult<UpdateRouteJourneyPatternMutation>;
 export type UpdateRouteJourneyPatternMutationOptions = Apollo.BaseMutationOptions<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>;
+export const GetAttributesDocument = gql`
+    query GetAttributes {
+  localization_attribute {
+    attribute_id
+    attribute_name
+  }
+}
+    `;
+
+/**
+ * __useGetAttributesQuery__
+ *
+ * To run a query within a React component, call `useGetAttributesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAttributesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAttributesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAttributesQuery(baseOptions?: Apollo.QueryHookOptions<GetAttributesQuery, GetAttributesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAttributesQuery, GetAttributesQueryVariables>(GetAttributesDocument, options);
+      }
+export function useGetAttributesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAttributesQuery, GetAttributesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAttributesQuery, GetAttributesQueryVariables>(GetAttributesDocument, options);
+        }
+export type GetAttributesQueryHookResult = ReturnType<typeof useGetAttributesQuery>;
+export type GetAttributesLazyQueryHookResult = ReturnType<typeof useGetAttributesLazyQuery>;
+export type GetAttributesQueryResult = Apollo.QueryResult<GetAttributesQuery, GetAttributesQueryVariables>;
 export const ListAllLinesDocument = gql`
     query ListAllLines {
   route_line {
@@ -8743,8 +8795,8 @@ export type GetRoutesByValidityQueryHookResult = ReturnType<typeof useGetRoutesB
 export type GetRoutesByValidityLazyQueryHookResult = ReturnType<typeof useGetRoutesByValidityLazyQuery>;
 export type GetRoutesByValidityQueryResult = Apollo.QueryResult<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>;
 export const InsertLineOneDocument = gql`
-    mutation InsertLineOne($object: route_line_insert_input!) {
-  insert_route_line_one(object: $object) {
+    mutation InsertLineOne($line: route_line_insert_input!) {
+  insert_route_line_one(object: $line) {
     ...line_all_fields
   }
 }
@@ -8764,7 +8816,7 @@ export type InsertLineOneMutationFn = Apollo.MutationFunction<InsertLineOneMutat
  * @example
  * const [insertLineOneMutation, { data, loading, error }] = useInsertLineOneMutation({
  *   variables: {
- *      object: // value for 'object'
+ *      line: // value for 'line'
  *   },
  * });
  */
@@ -8776,12 +8828,22 @@ export type InsertLineOneMutationHookResult = ReturnType<typeof useInsertLineOne
 export type InsertLineOneMutationResult = Apollo.MutationResult<InsertLineOneMutation>;
 export type InsertLineOneMutationOptions = Apollo.BaseMutationOptions<InsertLineOneMutation, InsertLineOneMutationVariables>;
 export const PatchLineDocument = gql`
-    mutation PatchLine($line_id: uuid!, $object: route_line_set_input!) {
-  update_route_line_by_pk(pk_columns: {line_id: $line_id}, _set: $object) {
+    mutation PatchLine($lineId: uuid!, $linePatch: route_line_set_input!, $localizedTextsToUpsert: [localization_localized_text_insert_input!]!, $localizedTextsOnConflict: localization_localized_text_on_conflict!, $localizedTextsToDelete: localization_localized_text_bool_exp!) {
+  update_route_line_by_pk(pk_columns: {line_id: $lineId}, _set: $linePatch) {
     ...line_all_fields
   }
+  insert_localization_localized_text(
+    objects: $localizedTextsToUpsert
+    on_conflict: $localizedTextsOnConflict
+  ) {
+    ...localized_texts_mutation_response
+  }
+  delete_localization_localized_text(where: $localizedTextsToDelete) {
+    ...localized_texts_mutation_response
+  }
 }
-    ${LineAllFieldsFragmentDoc}`;
+    ${LineAllFieldsFragmentDoc}
+${LocalizedTextsMutationResponseFragmentDoc}`;
 export type PatchLineMutationFn = Apollo.MutationFunction<PatchLineMutation, PatchLineMutationVariables>;
 
 /**
@@ -8797,8 +8859,11 @@ export type PatchLineMutationFn = Apollo.MutationFunction<PatchLineMutation, Pat
  * @example
  * const [patchLineMutation, { data, loading, error }] = usePatchLineMutation({
  *   variables: {
- *      line_id: // value for 'line_id'
- *      object: // value for 'object'
+ *      lineId: // value for 'lineId'
+ *      linePatch: // value for 'linePatch'
+ *      localizedTextsToUpsert: // value for 'localizedTextsToUpsert'
+ *      localizedTextsOnConflict: // value for 'localizedTextsOnConflict'
+ *      localizedTextsToDelete: // value for 'localizedTextsToDelete'
  *   },
  * });
  */
@@ -9316,6 +9381,10 @@ export function useGetStopsAlongInfrastructureLinksAsyncQuery() {
         }
 export type GetStopsAlongInfrastructureLinksAsyncQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksAsyncQuery>;
 
+export function useGetAttributesAsyncQuery() {
+          return useAsyncQuery<GetAttributesQuery, GetAttributesQueryVariables>(GetAttributesDocument);
+        }
+export type GetAttributesAsyncQueryHookResult = ReturnType<typeof useGetAttributesAsyncQuery>;
 export function useListAllLinesAsyncQuery() {
           return useAsyncQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument);
         }

@@ -351,8 +351,8 @@ const GET_ROUTES_BY_VALIDITY = gql`
 `;
 
 const INSERT_LINE = gql`
-  mutation InsertLineOne($object: route_line_insert_input!) {
-    insert_route_line_one(object: $object) {
+  mutation InsertLineOne($line: route_line_insert_input!) {
+    insert_route_line_one(object: $line) {
       ...line_all_fields
     }
   }
@@ -367,9 +367,29 @@ export const mapInsertLineOneResult = (
 ) => result.data?.insert_route_line_one as RouteLine | undefined;
 
 const UPDATE_LINE = gql`
-  mutation PatchLine($line_id: uuid!, $object: route_line_set_input!) {
-    update_route_line_by_pk(pk_columns: { line_id: $line_id }, _set: $object) {
+  mutation PatchLine(
+    $lineId: uuid!
+    $linePatch: route_line_set_input!
+    $localizedTextsToUpsert: [localization_localized_text_insert_input!]!
+    $localizedTextsOnConflict: localization_localized_text_on_conflict!
+    $localizedTextsToDelete: localization_localized_text_bool_exp!
+  ) {
+    update_route_line_by_pk(
+      pk_columns: { line_id: $lineId }
+      _set: $linePatch
+    ) {
       ...line_all_fields
+    }
+
+    insert_localization_localized_text(
+      objects: $localizedTextsToUpsert
+      on_conflict: $localizedTextsOnConflict
+    ) {
+      ...localized_texts_mutation_response
+    }
+
+    delete_localization_localized_text(where: $localizedTextsToDelete) {
+      ...localized_texts_mutation_response
     }
   }
 `;

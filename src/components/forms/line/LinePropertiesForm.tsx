@@ -15,6 +15,9 @@ export const schema = z.object({
   lineId: z.string().uuid().optional(), // for lines that are edited
   label: z.string().min(1),
   finnishName: z.string().min(1),
+  finnishShortName: z.string().min(1),
+  swedishName: z.string().min(1),
+  swedishShortName: z.string().min(1),
   transportTarget: z.nativeEnum(HslRouteTransportTargetEnum),
   primaryVehicleMode: z.nativeEnum(ReusableComponentsVehicleModeEnum),
   typeOfLine: z.nativeEnum(RouteTypeOfLineEnum),
@@ -60,6 +63,52 @@ export const LinePropertiesForm = ({ id, className }: Props): JSX.Element => {
           />
           <p>
             {errors.finnishName?.type === 'too_small' &&
+              t('formValidation.required')}
+          </p>
+        </Column>
+      </Row>
+      <Row className="mb-5 space-x-10">
+        <Column className="w-1/2">
+          <label htmlFor="finnishShortName">
+            {t('lines.finnishShortName')}
+          </label>
+          <input
+            id="finnish-short-name-input"
+            type="text"
+            {...register('finnishShortName', {})}
+          />
+          <p>
+            {errors.finnishShortName?.type === 'too_small' &&
+              t('formValidation.required')}
+          </p>
+        </Column>
+      </Row>
+      <Row className="mb-5 space-x-10">
+        <Column className="w-1/2">
+          <label htmlFor="swedishName">{t('lines.swedishName')}</label>
+          <input
+            id="swedish-name-input"
+            type="text"
+            {...register('swedishName', {})}
+          />
+          <p>
+            {errors.swedishName?.type === 'too_small' &&
+              t('formValidation.required')}
+          </p>
+        </Column>
+      </Row>
+      <Row className="mb-5 space-x-10">
+        <Column className="w-1/2">
+          <label htmlFor="swedishShortName">
+            {t('lines.swedishShortName')}
+          </label>
+          <input
+            id="swedish-short-name-input"
+            type="text"
+            {...register('swedishShortName', {})}
+          />
+          <p>
+            {errors.swedishShortName?.type === 'too_small' &&
               t('formValidation.required')}
           </p>
         </Column>

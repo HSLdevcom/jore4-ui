@@ -8,8 +8,12 @@ import {
 } from '../generated/graphql';
 import { MIN_DATE } from '../time';
 import { showDangerToastWithError } from '../utils';
+import {
+  LocalizedTextMutationInputs,
+  useUpsertLocalizedText,
+} from './localization';
 import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
-import { mapFormToInput } from './useCreateLine';
+import { mapFormToInput, mapFormToLocalizedTexts } from './useCreateLine';
 
 interface EditParams {
   lineId: UUID;
@@ -19,6 +23,7 @@ interface EditParams {
 interface EditChanges {
   lineId: UUID;
   patch: RouteLineSetInput;
+  localizedTextsUpsertInput: LocalizedTextMutationInputs;
   conflicts?: RouteLine[];
 }
 
@@ -26,9 +31,14 @@ export const useEditLine = () => {
   const { t } = useTranslation();
   const [mutateFunction] = usePatchLineMutation();
   const { getConflictingLines } = useCheckValidityAndPriorityConflicts();
+  const { buildUpsertLocalizedTestsInput } = useUpsertLocalizedText();
 
   const prepareEdit = async ({ lineId, form }: EditParams) => {
     const input = mapFormToInput(form);
+    const localizedTexts = mapFormToLocalizedTexts(form);
+    const localizedTextsUpsertInput = await buildUpsertLocalizedTestsInput(
+      localizedTexts,
+    );
     const conflicts = await getConflictingLines(
       {
         label: form.label,
@@ -42,18 +52,25 @@ export const useEditLine = () => {
     const changes: EditChanges = {
       lineId,
       patch: input,
+      localizedTextsUpsertInput,
       conflicts,
     };
 
     return changes;
   };
 
-  const mapEditChangesToVariables = (
-    changes: EditChanges,
-  ): PatchLineMutationVariables => ({
-    line_id: changes.lineId,
-    object: changes.patch,
-  });
+  const mapEditChangesToVariables = (changes: EditChanges) => {
+    const { toUpsert, onConflict, toDelete } =
+      changes.localizedTextsUpsertInput;
+    const variables: PatchLineMutationVariables = {
+      lineId: changes.lineId,
+      linePatch: changes.patch,
+      localizedTextsToUpsert: toUpsert,
+      localizedTextsOnConflict: onConflict,
+      localizedTextsToDelete: toDelete,
+    };
+    return variables;
+  };
 
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown
