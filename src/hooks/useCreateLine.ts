@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { FormState } from '../components/forms/line/LineForm';
 import {
-  InsertRouteOneMutationVariables,
+  InsertLineOneMutationVariables,
+  LocalizationLanguageEnum,
   ReusableComponentsVehicleModeEnum,
   RouteLine,
   RouteLineInsertInput,
@@ -14,6 +15,11 @@ import {
   mapDateInputToValidityStart,
   showDangerToastWithError,
 } from '../utils';
+import {
+  LocalizedText,
+  LocalizedTextMutationInputs,
+  useUpsertLocalizedText,
+} from './localization';
 import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
 
 interface CreateParams {
@@ -21,6 +27,7 @@ interface CreateParams {
 }
 interface CreateChanges {
   input: RouteLineInsertInput;
+  localizedTextsUpsertInput: LocalizedTextMutationInputs;
   conflicts?: RouteLine[];
 }
 
@@ -44,13 +51,48 @@ export const mapFormToInput = (
   return input;
 };
 
+export const mapFormToLocalizedTexts = (state: FormState) => {
+  const localizedTexts: LocalizedText[] = [
+    {
+      entityId: state.lineId,
+      languageCode: LocalizationLanguageEnum.FiFi,
+      attributeName: 'line_name',
+      localizedText: state.finnishName,
+    },
+    {
+      entityId: state.lineId,
+      languageCode: LocalizationLanguageEnum.FiFi,
+      attributeName: 'line_short_name',
+      localizedText: state.finnishShortName,
+    },
+    {
+      entityId: state.lineId,
+      languageCode: LocalizationLanguageEnum.SvFi,
+      attributeName: 'line_name',
+      localizedText: state.swedishName,
+    },
+    {
+      entityId: state.lineId,
+      languageCode: LocalizationLanguageEnum.SvFi,
+      attributeName: 'line_short_name',
+      localizedText: state.swedishShortName,
+    },
+  ];
+  return localizedTexts;
+};
+
 export const useCreateLine = () => {
   const { t } = useTranslation();
   const [mutateFunction] = useInsertLineOneMutation();
   const { getConflictingLines } = useCheckValidityAndPriorityConflicts();
+  const { buildUpsertLocalizedTestsInput } = useUpsertLocalizedText();
 
   const prepareCreate = async ({ form }: CreateParams) => {
     const input = mapFormToInput(form);
+    const localizedTexts = mapFormToLocalizedTexts(form);
+    const localizedTextsUpsertInput = await buildUpsertLocalizedTestsInput(
+      localizedTexts,
+    );
     const conflicts = await getConflictingLines({
       label: form.label,
       priority: form.priority,
@@ -62,17 +104,26 @@ export const useCreateLine = () => {
 
     const changes: CreateChanges = {
       input,
+      localizedTextsUpsertInput,
       conflicts,
     };
 
     return changes;
   };
 
-  const mapCreateChangesToVariables = (
-    changes: CreateChanges,
-  ): InsertRouteOneMutationVariables => ({
-    object: changes.input,
-  });
+  const mapCreateChangesToVariables = (changes: CreateChanges) => {
+    const { toUpsert: data, onConflict } = changes.localizedTextsUpsertInput;
+    const variables: InsertLineOneMutationVariables = {
+      line: {
+        ...changes.input,
+        localized_texts: {
+          data,
+          on_conflict: onConflict,
+        },
+      },
+    };
+    return variables;
+  };
 
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown
