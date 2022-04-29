@@ -29210,6 +29210,18 @@
             "deprecationReason": null
           },
           {
+            "name": "name_fi",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name_i18n",
             "description": "The name of the line. Placeholder for multilingual strings.",
             "args": [],
@@ -29221,6 +29233,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_sv",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -29258,8 +29282,32 @@
             "deprecationReason": null
           },
           {
+            "name": "short_name_fi",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "short_name_i18n",
             "description": "The shorted name of the line. Placeholder for multilingual strings.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "short_name_sv",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -31616,8 +31664,32 @@
         "description": "The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483\n\n\ncolumns and relationships of \"route.route\"\n",
         "fields": [
           {
+            "name": "description_fi",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "description_i18n",
             "description": "The description of the route in the form of starting location - destination. Placeholder for multilingual strings.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "description_sv",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",

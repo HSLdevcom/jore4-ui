@@ -17,12 +17,29 @@ import {
 } from '../generated/graphql';
 import { GqlQueryResult } from './types';
 
+const LINE_LOCALIZED_FIELDS = gql`
+  fragment line_localized_fields on route_line {
+    localized_texts {
+      localized_text
+      language_code
+      codeset {
+        codeset_name
+      }
+    }
+    name_fi @client
+    name_sv @client
+    short_name_fi @client
+    short_name_sv @client
+  }
+`;
+
 const LINE_DEFAULT_FIELDS = gql`
   fragment line_default_fields on route_line {
     line_id
     label
     name_i18n
     short_name_i18n
+    ...line_localized_fields
     validity_start
     validity_end
   }
@@ -33,6 +50,7 @@ const LINE_ALL_FIELDS = gql`
     line_id
     name_i18n
     short_name_i18n
+    ...line_localized_fields
     primary_vehicle_mode
     type_of_line
     transport_target
@@ -43,10 +61,25 @@ const LINE_ALL_FIELDS = gql`
   }
 `;
 
+const ROUTE_LOCALIZED_FIELDS = gql`
+  fragment route_localized_fields on route_route {
+    localized_texts {
+      localized_text
+      language_code
+      codeset {
+        codeset_name
+      }
+    }
+    description_fi @client
+    description_sv @client
+  }
+`;
+
 const ROUTE_ALL_FIELDS = gql`
   fragment route_all_fields on route_route {
     route_id
     description_i18n
+    ...route_localized_fields
     starts_from_scheduled_stop_point_id
     ends_at_scheduled_stop_point_id
     route_shape
@@ -63,6 +96,7 @@ const ROUTE_DEFAULT_FIELDS = gql`
   fragment route_default_fields on route_route {
     route_id
     description_i18n
+    ...route_localized_fields
     on_line_id
     label
     priority
