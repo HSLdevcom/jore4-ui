@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { FunctionComponent } from 'react';
 import { BrowserRouter, Route, Switch, useParams } from 'react-router-dom';
+import { Map } from '../components/map';
 import { ModalMap } from '../components/map/ModalMap';
 import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
