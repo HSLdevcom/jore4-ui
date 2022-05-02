@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { gql } from '@apollo/client';
 
 // const UPSERT_LOCALIZED_TEXTS_PARAMS_FRAGMENT = gql`
@@ -7,21 +8,21 @@ import { gql } from '@apollo/client';
 //   }
 //   `;
 
-// const UPSERT_LOCALIZED_TEXTS_MUTATION_RESPONSE_FRAGMENT = gql`
-//   fragment upsert_localized_texts_response on localization_localized_texts_mutation_response {
-//     returning {
-//       entity_id
-//       language_code
-//       codeset {
-//         codeset_id
-//         codeset_name
-//       }
-//       localized_text
-//     }
-//   }
-// `;
+const UPSERT_LOCALIZED_TEXTS_RESPONSE = gql`
+  fragment upsert_localized_texts_response on localization_localized_texts_mutation_response {
+    returning {
+      entity_id
+      language_code
+      codeset {
+        codeset_id
+        codeset_name
+      }
+      localized_text
+    }
+  }
+`;
 
-export const UPSERT_LOCALIZED_TEXTS = gql`
+const UPSERT_LOCALIZED_TEXTS = gql`
   mutation UpsertLocalizedTexts(
     $localizedTexts: [localization_localized_texts_insert_input!]!
   ) {
@@ -43,14 +44,7 @@ export const UPSERT_LOCALIZED_TEXTS = gql`
         }
       }
     ) {
-      returning {
-        entity_id
-        localized_text
-        language_code
-        codeset {
-          codeset_name
-        }
-      }
+      ...upsert_localized_texts_response
     }
   }
 `;

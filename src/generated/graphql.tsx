@@ -7638,12 +7638,14 @@ export type UpdateRouteJourneyPatternMutationVariables = Exact<{
 
 export type UpdateRouteJourneyPatternMutation = { __typename?: 'mutation_root', delete_journey_pattern_journey_pattern?: { __typename?: 'journey_pattern_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID }> } | null | undefined, insert_journey_pattern_journey_pattern_one?: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } | null | undefined };
 
+export type UpsertLocalizedTextsResponseFragment = { __typename?: 'localization_localized_texts_mutation_response', returning: Array<{ __typename?: 'localization_localized_texts', entity_id: UUID, language_code: LocalizationLanguagesEnum, localized_text?: string | null | undefined, codeset: { __typename?: 'localization_codesets', codeset_id: UUID, codeset_name: string } }> };
+
 export type UpsertLocalizedTextsMutationVariables = Exact<{
   localizedTexts: Array<LocalizationLocalizedTextsInsertInput> | LocalizationLocalizedTextsInsertInput;
 }>;
 
 
-export type UpsertLocalizedTextsMutation = { __typename?: 'mutation_root', insert_localization_localized_texts?: { __typename?: 'localization_localized_texts_mutation_response', returning: Array<{ __typename?: 'localization_localized_texts', entity_id: UUID, localized_text?: string | null | undefined, language_code: LocalizationLanguagesEnum, codeset: { __typename?: 'localization_codesets', codeset_name: string } }> } | null | undefined };
+export type UpsertLocalizedTextsMutation = { __typename?: 'mutation_root', insert_localization_localized_texts?: { __typename?: 'localization_localized_texts_mutation_response', returning: Array<{ __typename?: 'localization_localized_texts', entity_id: UUID, language_code: LocalizationLanguagesEnum, localized_text?: string | null | undefined, codeset: { __typename?: 'localization_codesets', codeset_id: UUID, codeset_name: string } }> } | null | undefined };
 
 export type LineLocalizedFieldsFragment = { __typename?: 'route_line', name_fi?: string | null | undefined, name_sv?: string | null | undefined, short_name_fi?: string | null | undefined, short_name_sv?: string | null | undefined, localized_texts: Array<{ __typename?: 'localization_localized_texts', localized_text?: string | null | undefined, language_code: LocalizationLanguagesEnum, codeset: { __typename?: 'localization_codesets', codeset_name: string } }> };
 
@@ -7873,6 +7875,19 @@ export const InfrastructureLinkAllFieldsFragmentDoc = gql`
   estimated_length_in_metres
   external_link_id
   external_link_source
+}
+    `;
+export const UpsertLocalizedTextsResponseFragmentDoc = gql`
+    fragment upsert_localized_texts_response on localization_localized_texts_mutation_response {
+  returning {
+    entity_id
+    language_code
+    codeset {
+      codeset_id
+      codeset_name
+    }
+    localized_text
+  }
 }
     `;
 export const LineLocalizedFieldsFragmentDoc = gql`
@@ -8243,17 +8258,10 @@ export const UpsertLocalizedTextsDocument = gql`
     on_conflict: {constraint: localized_texts_pkey, update_columns: localized_text}
     objects: {entity_id: "b7392804-fa65-41da-b0aa-ca32431d4532", localized_text: "localizedText", language_code: fi_FI, codeset: {data: {codeset_name: "codesetName"}, on_conflict: {constraint: unique_codeset_name, update_columns: codeset_name}}}
   ) {
-    returning {
-      entity_id
-      localized_text
-      language_code
-      codeset {
-        codeset_name
-      }
-    }
+    ...upsert_localized_texts_response
   }
 }
-    `;
+    ${UpsertLocalizedTextsResponseFragmentDoc}`;
 export type UpsertLocalizedTextsMutationFn = Apollo.MutationFunction<UpsertLocalizedTextsMutation, UpsertLocalizedTextsMutationVariables>;
 
 /**
