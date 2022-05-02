@@ -1987,9 +1987,9 @@ export type LocalizationCodesetsBoolExp = {
 /** unique or primary key constraints on table "localization.codesets" */
 export enum LocalizationCodesetsConstraint {
   /** unique or primary key constraint */
-  CodesetsCodesetNameIdx = 'codesets_codeset_name_idx',
+  CodesetsPkey = 'codesets_pkey',
   /** unique or primary key constraint */
-  CodesetsPkey = 'codesets_pkey'
+  UniqueCodesetName = 'unique_codeset_name'
 }
 
 /** input type for inserting data into table "localization.codesets" */

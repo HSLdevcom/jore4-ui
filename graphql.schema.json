@@ -12072,13 +12072,13 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "codesets_codeset_name_idx",
+            "name": "codesets_pkey",
             "description": "unique or primary key constraint",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "codesets_pkey",
+            "name": "unique_codeset_name",
             "description": "unique or primary key constraint",
             "isDeprecated": false,
             "deprecationReason": null
