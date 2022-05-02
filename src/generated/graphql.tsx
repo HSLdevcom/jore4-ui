@@ -7751,7 +7751,7 @@ export type GetRoutesByValidityQueryVariables = Exact<{
 export type GetRoutesByValidityQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, route_id: UUID, description_i18n?: string | null | undefined, on_line_id: UUID, label: string, priority: number, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, description_fi?: string | null | undefined, description_sv?: string | null | undefined, localized_texts: Array<{ __typename?: 'localization_localized_texts', localized_text?: string | null | undefined, language_code: LocalizationLanguagesEnum, codeset: { __typename?: 'localization_codesets', codeset_name: string } }> }> };
 
 export type InsertLineOneMutationVariables = Exact<{
-  object: RouteLineInsertInput;
+  line: RouteLineInsertInput;
 }>;
 
 
@@ -8753,8 +8753,8 @@ export type GetRoutesByValidityQueryHookResult = ReturnType<typeof useGetRoutesB
 export type GetRoutesByValidityLazyQueryHookResult = ReturnType<typeof useGetRoutesByValidityLazyQuery>;
 export type GetRoutesByValidityQueryResult = Apollo.QueryResult<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>;
 export const InsertLineOneDocument = gql`
-    mutation InsertLineOne($object: route_line_insert_input!) {
-  insert_route_line_one(object: $object) {
+    mutation InsertLineOne($line: route_line_insert_input!) {
+  insert_route_line_one(object: $line) {
     line_id
     label
     priority
@@ -8780,7 +8780,7 @@ export type InsertLineOneMutationFn = Apollo.MutationFunction<InsertLineOneMutat
  * @example
  * const [insertLineOneMutation, { data, loading, error }] = useInsertLineOneMutation({
  *   variables: {
- *      object: // value for 'object'
+ *      line: // value for 'line'
  *   },
  * });
  */

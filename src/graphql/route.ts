@@ -371,8 +371,11 @@ const GET_ROUTES_BY_VALIDITY = gql`
 `;
 
 const INSERT_LINE = gql`
-  mutation InsertLineOne($object: route_line_insert_input!) {
-    insert_route_line_one(object: $object) {
+  mutation InsertLineOne(
+    $line: route_line_insert_input!
+  ) # $localizedTexts: [localization_localized_texts_insert_input!]!
+  {
+    insert_route_line_one(object: $line) {
       line_id
       label
       priority
@@ -383,6 +386,21 @@ const INSERT_LINE = gql`
     }
   }
 `;
+
+// insert_localization_localized_texts(
+//   objects: $localizedTexts
+//   on_conflict: { constraint: localized_texts_pkey }
+// ) {
+//   returning {
+//     entity_id
+//     language_code
+//     codeset {
+//       codeset_id
+//       codeset_name
+//     }
+//     localized_text
+//   }
+// }
 
 export const mapInsertLineOneResult = (
   result: FetchResult<
