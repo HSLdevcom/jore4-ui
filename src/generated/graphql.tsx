@@ -7638,6 +7638,13 @@ export type UpdateRouteJourneyPatternMutationVariables = Exact<{
 
 export type UpdateRouteJourneyPatternMutation = { __typename?: 'mutation_root', delete_journey_pattern_journey_pattern?: { __typename?: 'journey_pattern_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID }> } | null | undefined, insert_journey_pattern_journey_pattern_one?: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } | null | undefined };
 
+export type UpsertLocalizedTextsMutationVariables = Exact<{
+  localizedTexts: Array<LocalizationLocalizedTextsInsertInput> | LocalizationLocalizedTextsInsertInput;
+}>;
+
+
+export type UpsertLocalizedTextsMutation = { __typename?: 'mutation_root', insert_localization_localized_texts?: { __typename?: 'localization_localized_texts_mutation_response', returning: Array<{ __typename?: 'localization_localized_texts', entity_id: UUID, localized_text?: string | null | undefined, language_code: LocalizationLanguagesEnum, codeset: { __typename?: 'localization_codesets', codeset_name: string } }> } | null | undefined };
+
 export type LineLocalizedFieldsFragment = { __typename?: 'route_line', name_fi?: string | null | undefined, name_sv?: string | null | undefined, short_name_fi?: string | null | undefined, short_name_sv?: string | null | undefined, localized_texts: Array<{ __typename?: 'localization_localized_texts', localized_text?: string | null | undefined, language_code: LocalizationLanguagesEnum, codeset: { __typename?: 'localization_codesets', codeset_name: string } }> };
 
 export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, name_fi?: string | null | undefined, name_sv?: string | null | undefined, short_name_fi?: string | null | undefined, short_name_sv?: string | null | undefined, localized_texts: Array<{ __typename?: 'localization_localized_texts', localized_text?: string | null | undefined, language_code: LocalizationLanguagesEnum, codeset: { __typename?: 'localization_codesets', codeset_name: string } }> };
@@ -8230,6 +8237,49 @@ export function useUpdateRouteJourneyPatternMutation(baseOptions?: Apollo.Mutati
 export type UpdateRouteJourneyPatternMutationHookResult = ReturnType<typeof useUpdateRouteJourneyPatternMutation>;
 export type UpdateRouteJourneyPatternMutationResult = Apollo.MutationResult<UpdateRouteJourneyPatternMutation>;
 export type UpdateRouteJourneyPatternMutationOptions = Apollo.BaseMutationOptions<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>;
+export const UpsertLocalizedTextsDocument = gql`
+    mutation UpsertLocalizedTexts($localizedTexts: [localization_localized_texts_insert_input!]!) {
+  insert_localization_localized_texts(
+    on_conflict: {constraint: localized_texts_pkey, update_columns: localized_text}
+    objects: {entity_id: "b7392804-fa65-41da-b0aa-ca32431d4532", localized_text: "localizedText", language_code: fi_FI, codeset: {data: {codeset_name: "codesetName"}, on_conflict: {constraint: unique_codeset_name, update_columns: codeset_name}}}
+  ) {
+    returning {
+      entity_id
+      localized_text
+      language_code
+      codeset {
+        codeset_name
+      }
+    }
+  }
+}
+    `;
+export type UpsertLocalizedTextsMutationFn = Apollo.MutationFunction<UpsertLocalizedTextsMutation, UpsertLocalizedTextsMutationVariables>;
+
+/**
+ * __useUpsertLocalizedTextsMutation__
+ *
+ * To run a mutation, you first call `useUpsertLocalizedTextsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpsertLocalizedTextsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [upsertLocalizedTextsMutation, { data, loading, error }] = useUpsertLocalizedTextsMutation({
+ *   variables: {
+ *      localizedTexts: // value for 'localizedTexts'
+ *   },
+ * });
+ */
+export function useUpsertLocalizedTextsMutation(baseOptions?: Apollo.MutationHookOptions<UpsertLocalizedTextsMutation, UpsertLocalizedTextsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpsertLocalizedTextsMutation, UpsertLocalizedTextsMutationVariables>(UpsertLocalizedTextsDocument, options);
+      }
+export type UpsertLocalizedTextsMutationHookResult = ReturnType<typeof useUpsertLocalizedTextsMutation>;
+export type UpsertLocalizedTextsMutationResult = Apollo.MutationResult<UpsertLocalizedTextsMutation>;
+export type UpsertLocalizedTextsMutationOptions = Apollo.BaseMutationOptions<UpsertLocalizedTextsMutation, UpsertLocalizedTextsMutationVariables>;
 export const ListAllLinesDocument = gql`
     query ListAllLines {
   route_line {
@@ -9340,6 +9390,7 @@ export function useGetStopsAlongInfrastructureLinksAsyncQuery() {
           return useAsyncQuery<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>(GetStopsAlongInfrastructureLinksDocument);
         }
 export type GetStopsAlongInfrastructureLinksAsyncQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksAsyncQuery>;
+
 
 export function useListAllLinesAsyncQuery() {
           return useAsyncQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument);
