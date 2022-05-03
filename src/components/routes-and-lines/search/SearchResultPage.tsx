@@ -1,8 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearch, useSearchResults } from '../../../hooks';
+import { usePagination } from '../../../hooks/usePagination';
 import { Container, Row } from '../../../layoutComponents';
 import { CloseIconButton } from '../../../uiComponents';
+import { Pagination } from '../../../uiComponents/Pagination';
 import { LinesList } from '../main/LinesList';
 import { RoutesList } from '../main/RoutesList';
 import { SearchContainer } from './conditions/SearchContainer';
@@ -12,6 +14,11 @@ export const SearchResultPage = (): JSX.Element => {
   const { queryParameters, handleClose } = useSearch();
   const { lines, routes, resultCount } = useSearchResults();
   const { t } = useTranslation();
+  const { getPaginatedData } = usePagination();
+  const contentPerPage = 10;
+
+  const displayedLines = getPaginatedData(lines, contentPerPage);
+  const displayedRoutes = getPaginatedData(routes, contentPerPage);
 
   return (
     <Container>
@@ -33,9 +40,18 @@ export const SearchResultPage = (): JSX.Element => {
         })}
       </h1>
       {queryParameters.filter.displayRoutes ? (
-        <RoutesList routes={routes} />
+        <RoutesList routes={displayedRoutes} />
       ) : (
-        <LinesList lines={lines} />
+        <LinesList lines={displayedLines} />
+      )}
+      {lines?.length && (
+        <Pagination
+          className="justify-center pt-4"
+          contentPerPage={contentPerPage}
+          totalCount={
+            queryParameters.filter.displayRoutes ? routes.length : lines.length
+          }
+        />
       )}
     </Container>
   );
