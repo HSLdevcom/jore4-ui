@@ -11598,8 +11598,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_codesets",
-        "description": "List of names which are used as localization keys\n\n\ncolumns and relationships of \"localization.codesets\"\n",
+        "name": "localization_codeset",
+        "description": "List of names which are used as localization keys\n\n\ncolumns and relationships of \"localization.codeset\"\n",
         "fields": [
           {
             "name": "codeset_id",
@@ -11648,7 +11648,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -11692,7 +11692,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -11706,7 +11706,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -11725,7 +11725,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_localized_texts",
+                    "name": "localization_localized_text",
                     "ofType": null
                   }
                 }
@@ -11749,7 +11749,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -11793,7 +11793,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -11807,7 +11807,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -11820,7 +11820,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_localized_texts_aggregate",
+                "name": "localization_localized_text_aggregate",
                 "ofType": null
               }
             },
@@ -11835,8 +11835,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_codesets_aggregate",
-        "description": "aggregated selection of \"localization.codesets\"",
+        "name": "localization_codeset_aggregate",
+        "description": "aggregated selection of \"localization.codeset\"",
         "fields": [
           {
             "name": "aggregate",
@@ -11844,7 +11844,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codesets_aggregate_fields",
+              "name": "localization_codeset_aggregate_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -11865,7 +11865,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_codesets",
+                    "name": "localization_codeset",
                     "ofType": null
                   }
                 }
@@ -11882,8 +11882,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_codesets_aggregate_fields",
-        "description": "aggregate fields of \"localization.codesets\"",
+        "name": "localization_codeset_aggregate_fields",
+        "description": "aggregate fields of \"localization.codeset\"",
         "fields": [
           {
             "name": "count",
@@ -11900,7 +11900,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_codesets_select_column",
+                      "name": "localization_codeset_select_column",
                       "ofType": null
                     }
                   }
@@ -11940,7 +11940,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codesets_max_fields",
+              "name": "localization_codeset_max_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -11952,7 +11952,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codesets_min_fields",
+              "name": "localization_codeset_min_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -11966,8 +11966,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codesets_bool_exp",
-        "description": "Boolean expression to filter rows from the table \"localization.codesets\". All fields are combined with a logical 'AND'.",
+        "name": "localization_codeset_bool_exp",
+        "description": "Boolean expression to filter rows from the table \"localization.codeset\". All fields are combined with a logical 'AND'.",
         "fields": null,
         "inputFields": [
           {
@@ -11981,7 +11981,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codesets_bool_exp",
+                  "name": "localization_codeset_bool_exp",
                   "ofType": null
                 }
               }
@@ -11995,7 +11995,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_codesets_bool_exp",
+              "name": "localization_codeset_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -12013,7 +12013,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codesets_bool_exp",
+                  "name": "localization_codeset_bool_exp",
                   "ofType": null
                 }
               }
@@ -12051,7 +12051,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_bool_exp",
+              "name": "localization_localized_text_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -12065,14 +12065,14 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_codesets_constraint",
-        "description": "unique or primary key constraints on table \"localization.codesets\"",
+        "name": "localization_codeset_constraint",
+        "description": "unique or primary key constraints on table \"localization.codeset\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
-            "name": "codesets_pkey",
+            "name": "codeset_pkey",
             "description": "unique or primary key constraint",
             "isDeprecated": false,
             "deprecationReason": null
@@ -12088,8 +12088,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codesets_insert_input",
-        "description": "input type for inserting data into table \"localization.codesets\"",
+        "name": "localization_codeset_insert_input",
+        "description": "input type for inserting data into table \"localization.codeset\"",
         "fields": null,
         "inputFields": [
           {
@@ -12121,7 +12121,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_arr_rel_insert_input",
+              "name": "localization_localized_text_arr_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null,
@@ -12135,7 +12135,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_codesets_max_fields",
+        "name": "localization_codeset_max_fields",
         "description": "aggregate max on columns",
         "fields": [
           {
@@ -12170,7 +12170,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_codesets_min_fields",
+        "name": "localization_codeset_min_fields",
         "description": "aggregate min on columns",
         "fields": [
           {
@@ -12205,8 +12205,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_codesets_mutation_response",
-        "description": "response of any mutation on the table \"localization.codesets\"",
+        "name": "localization_codeset_mutation_response",
+        "description": "response of any mutation on the table \"localization.codeset\"",
         "fields": [
           {
             "name": "affected_rows",
@@ -12239,7 +12239,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_codesets",
+                    "name": "localization_codeset",
                     "ofType": null
                   }
                 }
@@ -12256,8 +12256,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codesets_obj_rel_insert_input",
-        "description": "input type for inserting object relation for remote table \"localization.codesets\"",
+        "name": "localization_codeset_obj_rel_insert_input",
+        "description": "input type for inserting object relation for remote table \"localization.codeset\"",
         "fields": null,
         "inputFields": [
           {
@@ -12268,7 +12268,7 @@
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "localization_codesets_insert_input",
+                "name": "localization_codeset_insert_input",
                 "ofType": null
               }
             },
@@ -12281,7 +12281,7 @@
             "description": "on conflict condition",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_codesets_on_conflict",
+              "name": "localization_codeset_on_conflict",
               "ofType": null
             },
             "defaultValue": null,
@@ -12295,8 +12295,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codesets_on_conflict",
-        "description": "on conflict condition type for table \"localization.codesets\"",
+        "name": "localization_codeset_on_conflict",
+        "description": "on conflict condition type for table \"localization.codeset\"",
         "fields": null,
         "inputFields": [
           {
@@ -12307,7 +12307,7 @@
               "name": null,
               "ofType": {
                 "kind": "ENUM",
-                "name": "localization_codesets_constraint",
+                "name": "localization_codeset_constraint",
                 "ofType": null
               }
             },
@@ -12329,7 +12329,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "ENUM",
-                    "name": "localization_codesets_update_column",
+                    "name": "localization_codeset_update_column",
                     "ofType": null
                   }
                 }
@@ -12344,7 +12344,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_codesets_bool_exp",
+              "name": "localization_codeset_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -12358,8 +12358,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codesets_order_by",
-        "description": "Ordering options when selecting data from \"localization.codesets\".",
+        "name": "localization_codeset_order_by",
+        "description": "Ordering options when selecting data from \"localization.codeset\".",
         "fields": null,
         "inputFields": [
           {
@@ -12391,7 +12391,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_aggregate_order_by",
+              "name": "localization_localized_text_aggregate_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -12405,8 +12405,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codesets_pk_columns_input",
-        "description": "primary key columns input for table: localization_codesets",
+        "name": "localization_codeset_pk_columns_input",
+        "description": "primary key columns input for table: localization_codeset",
         "fields": null,
         "inputFields": [
           {
@@ -12432,8 +12432,8 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_codesets_select_column",
-        "description": "select columns of table \"localization.codesets\"",
+        "name": "localization_codeset_select_column",
+        "description": "select columns of table \"localization.codeset\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -12455,8 +12455,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codesets_set_input",
-        "description": "input type for updating data in table \"localization.codesets\"",
+        "name": "localization_codeset_set_input",
+        "description": "input type for updating data in table \"localization.codeset\"",
         "fields": null,
         "inputFields": [
           {
@@ -12490,8 +12490,8 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_codesets_update_column",
-        "description": "update columns of table \"localization.codesets\"",
+        "name": "localization_codeset_update_column",
+        "description": "update columns of table \"localization.codeset\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -12513,8 +12513,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_languages",
-        "description": "List of languages in which the localized texts may come. Used as enum table\n\n\ncolumns and relationships of \"localization.languages\"\n",
+        "name": "localization_language",
+        "description": "List of languages in which the localized texts may come. Used as enum table\n\n\ncolumns and relationships of \"localization.language\"\n",
         "fields": [
           {
             "name": "language_code",
@@ -12547,7 +12547,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -12591,7 +12591,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -12605,7 +12605,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -12624,7 +12624,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_localized_texts",
+                    "name": "localization_localized_text",
                     "ofType": null
                   }
                 }
@@ -12648,7 +12648,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -12692,7 +12692,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -12706,7 +12706,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -12719,7 +12719,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_localized_texts_aggregate",
+                "name": "localization_localized_text_aggregate",
                 "ofType": null
               }
             },
@@ -12734,8 +12734,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_languages_aggregate",
-        "description": "aggregated selection of \"localization.languages\"",
+        "name": "localization_language_aggregate",
+        "description": "aggregated selection of \"localization.language\"",
         "fields": [
           {
             "name": "aggregate",
@@ -12743,7 +12743,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_languages_aggregate_fields",
+              "name": "localization_language_aggregate_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -12764,7 +12764,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_languages",
+                    "name": "localization_language",
                     "ofType": null
                   }
                 }
@@ -12781,8 +12781,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_languages_aggregate_fields",
-        "description": "aggregate fields of \"localization.languages\"",
+        "name": "localization_language_aggregate_fields",
+        "description": "aggregate fields of \"localization.language\"",
         "fields": [
           {
             "name": "count",
@@ -12799,7 +12799,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_languages_select_column",
+                      "name": "localization_language_select_column",
                       "ofType": null
                     }
                   }
@@ -12839,7 +12839,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_languages_max_fields",
+              "name": "localization_language_max_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -12851,7 +12851,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_languages_min_fields",
+              "name": "localization_language_min_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -12865,8 +12865,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_languages_bool_exp",
-        "description": "Boolean expression to filter rows from the table \"localization.languages\". All fields are combined with a logical 'AND'.",
+        "name": "localization_language_bool_exp",
+        "description": "Boolean expression to filter rows from the table \"localization.language\". All fields are combined with a logical 'AND'.",
         "fields": null,
         "inputFields": [
           {
@@ -12880,7 +12880,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_languages_bool_exp",
+                  "name": "localization_language_bool_exp",
                   "ofType": null
                 }
               }
@@ -12894,7 +12894,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_languages_bool_exp",
+              "name": "localization_language_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -12912,7 +12912,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_languages_bool_exp",
+                  "name": "localization_language_bool_exp",
                   "ofType": null
                 }
               }
@@ -12938,7 +12938,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_bool_exp",
+              "name": "localization_localized_text_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -12952,14 +12952,14 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_languages_constraint",
-        "description": "unique or primary key constraints on table \"localization.languages\"",
+        "name": "localization_language_constraint",
+        "description": "unique or primary key constraints on table \"localization.language\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
-            "name": "languages_pkey",
+            "name": "language_pkey",
             "description": "unique or primary key constraint",
             "isDeprecated": false,
             "deprecationReason": null
@@ -12969,7 +12969,7 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_languages_enum",
+        "name": "localization_language_enum",
         "description": null,
         "fields": null,
         "inputFields": null,
@@ -12998,8 +12998,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_languages_enum_comparison_exp",
-        "description": "Boolean expression to compare columns of type \"localization_languages_enum\". All fields are combined with logical 'AND'.",
+        "name": "localization_language_enum_comparison_exp",
+        "description": "Boolean expression to compare columns of type \"localization_language_enum\". All fields are combined with logical 'AND'.",
         "fields": null,
         "inputFields": [
           {
@@ -13007,7 +13007,7 @@
             "description": null,
             "type": {
               "kind": "ENUM",
-              "name": "localization_languages_enum",
+              "name": "localization_language_enum",
               "ofType": null
             },
             "defaultValue": null,
@@ -13025,7 +13025,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "ENUM",
-                  "name": "localization_languages_enum",
+                  "name": "localization_language_enum",
                   "ofType": null
                 }
               }
@@ -13051,7 +13051,7 @@
             "description": null,
             "type": {
               "kind": "ENUM",
-              "name": "localization_languages_enum",
+              "name": "localization_language_enum",
               "ofType": null
             },
             "defaultValue": null,
@@ -13069,7 +13069,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "ENUM",
-                  "name": "localization_languages_enum",
+                  "name": "localization_language_enum",
                   "ofType": null
                 }
               }
@@ -13085,8 +13085,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_languages_insert_input",
-        "description": "input type for inserting data into table \"localization.languages\"",
+        "name": "localization_language_insert_input",
+        "description": "input type for inserting data into table \"localization.language\"",
         "fields": null,
         "inputFields": [
           {
@@ -13106,7 +13106,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_arr_rel_insert_input",
+              "name": "localization_localized_text_arr_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null,
@@ -13120,7 +13120,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_languages_max_fields",
+        "name": "localization_language_max_fields",
         "description": "aggregate max on columns",
         "fields": [
           {
@@ -13143,7 +13143,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_languages_min_fields",
+        "name": "localization_language_min_fields",
         "description": "aggregate min on columns",
         "fields": [
           {
@@ -13166,8 +13166,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_languages_mutation_response",
-        "description": "response of any mutation on the table \"localization.languages\"",
+        "name": "localization_language_mutation_response",
+        "description": "response of any mutation on the table \"localization.language\"",
         "fields": [
           {
             "name": "affected_rows",
@@ -13200,7 +13200,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_languages",
+                    "name": "localization_language",
                     "ofType": null
                   }
                 }
@@ -13217,8 +13217,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_languages_obj_rel_insert_input",
-        "description": "input type for inserting object relation for remote table \"localization.languages\"",
+        "name": "localization_language_obj_rel_insert_input",
+        "description": "input type for inserting object relation for remote table \"localization.language\"",
         "fields": null,
         "inputFields": [
           {
@@ -13229,7 +13229,7 @@
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "localization_languages_insert_input",
+                "name": "localization_language_insert_input",
                 "ofType": null
               }
             },
@@ -13242,7 +13242,7 @@
             "description": "on conflict condition",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_languages_on_conflict",
+              "name": "localization_language_on_conflict",
               "ofType": null
             },
             "defaultValue": null,
@@ -13256,8 +13256,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_languages_on_conflict",
-        "description": "on conflict condition type for table \"localization.languages\"",
+        "name": "localization_language_on_conflict",
+        "description": "on conflict condition type for table \"localization.language\"",
         "fields": null,
         "inputFields": [
           {
@@ -13268,7 +13268,7 @@
               "name": null,
               "ofType": {
                 "kind": "ENUM",
-                "name": "localization_languages_constraint",
+                "name": "localization_language_constraint",
                 "ofType": null
               }
             },
@@ -13290,7 +13290,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "ENUM",
-                    "name": "localization_languages_update_column",
+                    "name": "localization_language_update_column",
                     "ofType": null
                   }
                 }
@@ -13305,7 +13305,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_languages_bool_exp",
+              "name": "localization_language_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -13319,8 +13319,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_languages_order_by",
-        "description": "Ordering options when selecting data from \"localization.languages\".",
+        "name": "localization_language_order_by",
+        "description": "Ordering options when selecting data from \"localization.language\".",
         "fields": null,
         "inputFields": [
           {
@@ -13340,7 +13340,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_aggregate_order_by",
+              "name": "localization_localized_text_aggregate_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -13354,8 +13354,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_languages_pk_columns_input",
-        "description": "primary key columns input for table: localization_languages",
+        "name": "localization_language_pk_columns_input",
+        "description": "primary key columns input for table: localization_language",
         "fields": null,
         "inputFields": [
           {
@@ -13381,8 +13381,8 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_languages_select_column",
-        "description": "select columns of table \"localization.languages\"",
+        "name": "localization_language_select_column",
+        "description": "select columns of table \"localization.language\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -13398,8 +13398,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_languages_set_input",
-        "description": "input type for updating data in table \"localization.languages\"",
+        "name": "localization_language_set_input",
+        "description": "input type for updating data in table \"localization.language\"",
         "fields": null,
         "inputFields": [
           {
@@ -13421,8 +13421,8 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_languages_update_column",
-        "description": "update columns of table \"localization.languages\"",
+        "name": "localization_language_update_column",
+        "description": "update columns of table \"localization.language\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -13438,8 +13438,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_localized_texts",
-        "description": "List of localized texts for entities like routes, lines, etc.\n\n\ncolumns and relationships of \"localization.localized_texts\"\n",
+        "name": "localization_localized_text",
+        "description": "List of localized texts for entities like routes, lines, etc.\n\n\ncolumns and relationships of \"localization.localized_text\"\n",
         "fields": [
           {
             "name": "codeset",
@@ -13450,7 +13450,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_codesets",
+                "name": "localization_codeset",
                 "ofType": null
               }
             },
@@ -13498,7 +13498,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_languages",
+                "name": "localization_language",
                 "ofType": null
               }
             },
@@ -13514,7 +13514,7 @@
               "name": null,
               "ofType": {
                 "kind": "ENUM",
-                "name": "localization_languages_enum",
+                "name": "localization_language_enum",
                 "ofType": null
               }
             },
@@ -13541,8 +13541,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_localized_texts_aggregate",
-        "description": "aggregated selection of \"localization.localized_texts\"",
+        "name": "localization_localized_text_aggregate",
+        "description": "aggregated selection of \"localization.localized_text\"",
         "fields": [
           {
             "name": "aggregate",
@@ -13550,7 +13550,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_localized_texts_aggregate_fields",
+              "name": "localization_localized_text_aggregate_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -13571,7 +13571,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_localized_texts",
+                    "name": "localization_localized_text",
                     "ofType": null
                   }
                 }
@@ -13588,8 +13588,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_localized_texts_aggregate_fields",
-        "description": "aggregate fields of \"localization.localized_texts\"",
+        "name": "localization_localized_text_aggregate_fields",
+        "description": "aggregate fields of \"localization.localized_text\"",
         "fields": [
           {
             "name": "count",
@@ -13606,7 +13606,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -13646,7 +13646,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_localized_texts_max_fields",
+              "name": "localization_localized_text_max_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -13658,7 +13658,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_localized_texts_min_fields",
+              "name": "localization_localized_text_min_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -13672,8 +13672,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_localized_texts_aggregate_order_by",
-        "description": "order by aggregate values of table \"localization.localized_texts\"",
+        "name": "localization_localized_text_aggregate_order_by",
+        "description": "order by aggregate values of table \"localization.localized_text\"",
         "fields": null,
         "inputFields": [
           {
@@ -13693,7 +13693,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_max_order_by",
+              "name": "localization_localized_text_max_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -13705,7 +13705,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_min_order_by",
+              "name": "localization_localized_text_min_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -13719,8 +13719,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_localized_texts_arr_rel_insert_input",
-        "description": "input type for inserting array relation for remote table \"localization.localized_texts\"",
+        "name": "localization_localized_text_arr_rel_insert_input",
+        "description": "input type for inserting array relation for remote table \"localization.localized_text\"",
         "fields": null,
         "inputFields": [
           {
@@ -13737,7 +13737,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_localized_texts_insert_input",
+                    "name": "localization_localized_text_insert_input",
                     "ofType": null
                   }
                 }
@@ -13752,7 +13752,7 @@
             "description": "on conflict condition",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_on_conflict",
+              "name": "localization_localized_text_on_conflict",
               "ofType": null
             },
             "defaultValue": null,
@@ -13766,8 +13766,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_localized_texts_bool_exp",
-        "description": "Boolean expression to filter rows from the table \"localization.localized_texts\". All fields are combined with a logical 'AND'.",
+        "name": "localization_localized_text_bool_exp",
+        "description": "Boolean expression to filter rows from the table \"localization.localized_text\". All fields are combined with a logical 'AND'.",
         "fields": null,
         "inputFields": [
           {
@@ -13781,7 +13781,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 }
               }
@@ -13795,7 +13795,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_bool_exp",
+              "name": "localization_localized_text_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -13813,7 +13813,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 }
               }
@@ -13827,7 +13827,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_codesets_bool_exp",
+              "name": "localization_codeset_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -13863,7 +13863,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_languages_bool_exp",
+              "name": "localization_language_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -13875,7 +13875,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_languages_enum_comparison_exp",
+              "name": "localization_language_enum_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -13901,14 +13901,14 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_localized_texts_constraint",
-        "description": "unique or primary key constraints on table \"localization.localized_texts\"",
+        "name": "localization_localized_text_constraint",
+        "description": "unique or primary key constraints on table \"localization.localized_text\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
-            "name": "localized_texts_pkey",
+            "name": "localized_text_pkey",
             "description": "unique or primary key constraint",
             "isDeprecated": false,
             "deprecationReason": null
@@ -13918,8 +13918,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_localized_texts_insert_input",
-        "description": "input type for inserting data into table \"localization.localized_texts\"",
+        "name": "localization_localized_text_insert_input",
+        "description": "input type for inserting data into table \"localization.localized_text\"",
         "fields": null,
         "inputFields": [
           {
@@ -13927,7 +13927,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_codesets_obj_rel_insert_input",
+              "name": "localization_codeset_obj_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null,
@@ -13963,7 +13963,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_languages_obj_rel_insert_input",
+              "name": "localization_language_obj_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null,
@@ -13975,7 +13975,7 @@
             "description": "Language of the localized text",
             "type": {
               "kind": "ENUM",
-              "name": "localization_languages_enum",
+              "name": "localization_language_enum",
               "ofType": null
             },
             "defaultValue": null,
@@ -14001,7 +14001,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_localized_texts_max_fields",
+        "name": "localization_localized_text_max_fields",
         "description": "aggregate max on columns",
         "fields": [
           {
@@ -14048,8 +14048,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_localized_texts_max_order_by",
-        "description": "order by max() on columns of table \"localization.localized_texts\"",
+        "name": "localization_localized_text_max_order_by",
+        "description": "order by max() on columns of table \"localization.localized_text\"",
         "fields": null,
         "inputFields": [
           {
@@ -14095,7 +14095,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_localized_texts_min_fields",
+        "name": "localization_localized_text_min_fields",
         "description": "aggregate min on columns",
         "fields": [
           {
@@ -14142,8 +14142,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_localized_texts_min_order_by",
-        "description": "order by min() on columns of table \"localization.localized_texts\"",
+        "name": "localization_localized_text_min_order_by",
+        "description": "order by min() on columns of table \"localization.localized_text\"",
         "fields": null,
         "inputFields": [
           {
@@ -14189,8 +14189,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_localized_texts_mutation_response",
-        "description": "response of any mutation on the table \"localization.localized_texts\"",
+        "name": "localization_localized_text_mutation_response",
+        "description": "response of any mutation on the table \"localization.localized_text\"",
         "fields": [
           {
             "name": "affected_rows",
@@ -14223,7 +14223,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_localized_texts",
+                    "name": "localization_localized_text",
                     "ofType": null
                   }
                 }
@@ -14240,8 +14240,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_localized_texts_on_conflict",
-        "description": "on conflict condition type for table \"localization.localized_texts\"",
+        "name": "localization_localized_text_on_conflict",
+        "description": "on conflict condition type for table \"localization.localized_text\"",
         "fields": null,
         "inputFields": [
           {
@@ -14252,7 +14252,7 @@
               "name": null,
               "ofType": {
                 "kind": "ENUM",
-                "name": "localization_localized_texts_constraint",
+                "name": "localization_localized_text_constraint",
                 "ofType": null
               }
             },
@@ -14274,7 +14274,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "ENUM",
-                    "name": "localization_localized_texts_update_column",
+                    "name": "localization_localized_text_update_column",
                     "ofType": null
                   }
                 }
@@ -14289,7 +14289,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_bool_exp",
+              "name": "localization_localized_text_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -14303,8 +14303,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_localized_texts_order_by",
-        "description": "Ordering options when selecting data from \"localization.localized_texts\".",
+        "name": "localization_localized_text_order_by",
+        "description": "Ordering options when selecting data from \"localization.localized_text\".",
         "fields": null,
         "inputFields": [
           {
@@ -14312,7 +14312,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_codesets_order_by",
+              "name": "localization_codeset_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -14348,7 +14348,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_languages_order_by",
+              "name": "localization_language_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -14386,8 +14386,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_localized_texts_pk_columns_input",
-        "description": "primary key columns input for table: localization_localized_texts",
+        "name": "localization_localized_text_pk_columns_input",
+        "description": "primary key columns input for table: localization_localized_text",
         "fields": null,
         "inputFields": [
           {
@@ -14430,7 +14430,7 @@
               "name": null,
               "ofType": {
                 "kind": "ENUM",
-                "name": "localization_languages_enum",
+                "name": "localization_language_enum",
                 "ofType": null
               }
             },
@@ -14445,8 +14445,8 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_localized_texts_select_column",
-        "description": "select columns of table \"localization.localized_texts\"",
+        "name": "localization_localized_text_select_column",
+        "description": "select columns of table \"localization.localized_text\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -14480,8 +14480,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_localized_texts_set_input",
-        "description": "input type for updating data in table \"localization.localized_texts\"",
+        "name": "localization_localized_text_set_input",
+        "description": "input type for updating data in table \"localization.localized_text\"",
         "fields": null,
         "inputFields": [
           {
@@ -14513,7 +14513,7 @@
             "description": "Language of the localized text",
             "type": {
               "kind": "ENUM",
-              "name": "localization_languages_enum",
+              "name": "localization_language_enum",
               "ofType": null
             },
             "defaultValue": null,
@@ -14539,8 +14539,8 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_localized_texts_update_column",
-        "description": "update columns of table \"localization.localized_texts\"",
+        "name": "localization_localized_text_update_column",
+        "description": "update columns of table \"localization.localized_text\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -15016,8 +15016,8 @@
             "deprecationReason": null
           },
           {
-            "name": "delete_localization_codesets",
-            "description": "delete data from the table: \"localization.codesets\"",
+            "name": "delete_localization_codeset",
+            "description": "delete data from the table: \"localization.codeset\"",
             "args": [
               {
                 "name": "where",
@@ -15027,7 +15027,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_codesets_bool_exp",
+                    "name": "localization_codeset_bool_exp",
                     "ofType": null
                   }
                 },
@@ -15038,15 +15038,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codesets_mutation_response",
+              "name": "localization_codeset_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "delete_localization_codesets_by_pk",
-            "description": "delete single row from the table: \"localization.codesets\"",
+            "name": "delete_localization_codeset_by_pk",
+            "description": "delete single row from the table: \"localization.codeset\"",
             "args": [
               {
                 "name": "codeset_id",
@@ -15067,15 +15067,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codesets",
+              "name": "localization_codeset",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "delete_localization_languages",
-            "description": "delete data from the table: \"localization.languages\"",
+            "name": "delete_localization_language",
+            "description": "delete data from the table: \"localization.language\"",
             "args": [
               {
                 "name": "where",
@@ -15085,7 +15085,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_languages_bool_exp",
+                    "name": "localization_language_bool_exp",
                     "ofType": null
                   }
                 },
@@ -15096,15 +15096,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_languages_mutation_response",
+              "name": "localization_language_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "delete_localization_languages_by_pk",
-            "description": "delete single row from the table: \"localization.languages\"",
+            "name": "delete_localization_language_by_pk",
+            "description": "delete single row from the table: \"localization.language\"",
             "args": [
               {
                 "name": "language_code",
@@ -15125,15 +15125,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_languages",
+              "name": "localization_language",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "delete_localization_localized_texts",
-            "description": "delete data from the table: \"localization.localized_texts\"",
+            "name": "delete_localization_localized_text",
+            "description": "delete data from the table: \"localization.localized_text\"",
             "args": [
               {
                 "name": "where",
@@ -15143,7 +15143,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_localized_texts_bool_exp",
+                    "name": "localization_localized_text_bool_exp",
                     "ofType": null
                   }
                 },
@@ -15154,15 +15154,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_localized_texts_mutation_response",
+              "name": "localization_localized_text_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "delete_localization_localized_texts_by_pk",
-            "description": "delete single row from the table: \"localization.localized_texts\"",
+            "name": "delete_localization_localized_text_by_pk",
+            "description": "delete single row from the table: \"localization.localized_text\"",
             "args": [
               {
                 "name": "codeset_id",
@@ -15204,7 +15204,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "ENUM",
-                    "name": "localization_languages_enum",
+                    "name": "localization_language_enum",
                     "ofType": null
                   }
                 },
@@ -15215,7 +15215,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_localized_texts",
+              "name": "localization_localized_text",
               "ofType": null
             },
             "isDeprecated": false,
@@ -16348,8 +16348,8 @@
             "deprecationReason": null
           },
           {
-            "name": "insert_localization_codesets",
-            "description": "insert data into the table: \"localization.codesets\"",
+            "name": "insert_localization_codeset",
+            "description": "insert data into the table: \"localization.codeset\"",
             "args": [
               {
                 "name": "objects",
@@ -16365,7 +16365,7 @@
                       "name": null,
                       "ofType": {
                         "kind": "INPUT_OBJECT",
-                        "name": "localization_codesets_insert_input",
+                        "name": "localization_codeset_insert_input",
                         "ofType": null
                       }
                     }
@@ -16380,7 +16380,7 @@
                 "description": "on conflict condition",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codesets_on_conflict",
+                  "name": "localization_codeset_on_conflict",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -16390,15 +16390,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codesets_mutation_response",
+              "name": "localization_codeset_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "insert_localization_codesets_one",
-            "description": "insert a single row into the table: \"localization.codesets\"",
+            "name": "insert_localization_codeset_one",
+            "description": "insert a single row into the table: \"localization.codeset\"",
             "args": [
               {
                 "name": "object",
@@ -16408,7 +16408,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_codesets_insert_input",
+                    "name": "localization_codeset_insert_input",
                     "ofType": null
                   }
                 },
@@ -16421,7 +16421,7 @@
                 "description": "on conflict condition",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codesets_on_conflict",
+                  "name": "localization_codeset_on_conflict",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -16431,15 +16431,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codesets",
+              "name": "localization_codeset",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "insert_localization_languages",
-            "description": "insert data into the table: \"localization.languages\"",
+            "name": "insert_localization_language",
+            "description": "insert data into the table: \"localization.language\"",
             "args": [
               {
                 "name": "objects",
@@ -16455,7 +16455,7 @@
                       "name": null,
                       "ofType": {
                         "kind": "INPUT_OBJECT",
-                        "name": "localization_languages_insert_input",
+                        "name": "localization_language_insert_input",
                         "ofType": null
                       }
                     }
@@ -16470,7 +16470,7 @@
                 "description": "on conflict condition",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_languages_on_conflict",
+                  "name": "localization_language_on_conflict",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -16480,15 +16480,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_languages_mutation_response",
+              "name": "localization_language_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "insert_localization_languages_one",
-            "description": "insert a single row into the table: \"localization.languages\"",
+            "name": "insert_localization_language_one",
+            "description": "insert a single row into the table: \"localization.language\"",
             "args": [
               {
                 "name": "object",
@@ -16498,7 +16498,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_languages_insert_input",
+                    "name": "localization_language_insert_input",
                     "ofType": null
                   }
                 },
@@ -16511,7 +16511,7 @@
                 "description": "on conflict condition",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_languages_on_conflict",
+                  "name": "localization_language_on_conflict",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -16521,15 +16521,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_languages",
+              "name": "localization_language",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "insert_localization_localized_texts",
-            "description": "insert data into the table: \"localization.localized_texts\"",
+            "name": "insert_localization_localized_text",
+            "description": "insert data into the table: \"localization.localized_text\"",
             "args": [
               {
                 "name": "objects",
@@ -16545,7 +16545,7 @@
                       "name": null,
                       "ofType": {
                         "kind": "INPUT_OBJECT",
-                        "name": "localization_localized_texts_insert_input",
+                        "name": "localization_localized_text_insert_input",
                         "ofType": null
                       }
                     }
@@ -16560,7 +16560,7 @@
                 "description": "on conflict condition",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_on_conflict",
+                  "name": "localization_localized_text_on_conflict",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -16570,15 +16570,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_localized_texts_mutation_response",
+              "name": "localization_localized_text_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "insert_localization_localized_texts_one",
-            "description": "insert a single row into the table: \"localization.localized_texts\"",
+            "name": "insert_localization_localized_text_one",
+            "description": "insert a single row into the table: \"localization.localized_text\"",
             "args": [
               {
                 "name": "object",
@@ -16588,7 +16588,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_localized_texts_insert_input",
+                    "name": "localization_localized_text_insert_input",
                     "ofType": null
                   }
                 },
@@ -16601,7 +16601,7 @@
                 "description": "on conflict condition",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_on_conflict",
+                  "name": "localization_localized_text_on_conflict",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -16611,7 +16611,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_localized_texts",
+              "name": "localization_localized_text",
               "ofType": null
             },
             "isDeprecated": false,
@@ -18002,15 +18002,15 @@
             "deprecationReason": null
           },
           {
-            "name": "update_localization_codesets",
-            "description": "update data of the table: \"localization.codesets\"",
+            "name": "update_localization_codeset",
+            "description": "update data of the table: \"localization.codeset\"",
             "args": [
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codesets_set_input",
+                  "name": "localization_codeset_set_input",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -18025,7 +18025,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_codesets_bool_exp",
+                    "name": "localization_codeset_bool_exp",
                     "ofType": null
                   }
                 },
@@ -18036,22 +18036,22 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codesets_mutation_response",
+              "name": "localization_codeset_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "update_localization_codesets_by_pk",
-            "description": "update single row of the table: \"localization.codesets\"",
+            "name": "update_localization_codeset_by_pk",
+            "description": "update single row of the table: \"localization.codeset\"",
             "args": [
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codesets_set_input",
+                  "name": "localization_codeset_set_input",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -18066,7 +18066,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_codesets_pk_columns_input",
+                    "name": "localization_codeset_pk_columns_input",
                     "ofType": null
                   }
                 },
@@ -18077,22 +18077,22 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codesets",
+              "name": "localization_codeset",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "update_localization_languages",
-            "description": "update data of the table: \"localization.languages\"",
+            "name": "update_localization_language",
+            "description": "update data of the table: \"localization.language\"",
             "args": [
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_languages_set_input",
+                  "name": "localization_language_set_input",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -18107,7 +18107,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_languages_bool_exp",
+                    "name": "localization_language_bool_exp",
                     "ofType": null
                   }
                 },
@@ -18118,22 +18118,22 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_languages_mutation_response",
+              "name": "localization_language_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "update_localization_languages_by_pk",
-            "description": "update single row of the table: \"localization.languages\"",
+            "name": "update_localization_language_by_pk",
+            "description": "update single row of the table: \"localization.language\"",
             "args": [
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_languages_set_input",
+                  "name": "localization_language_set_input",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -18148,7 +18148,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_languages_pk_columns_input",
+                    "name": "localization_language_pk_columns_input",
                     "ofType": null
                   }
                 },
@@ -18159,22 +18159,22 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_languages",
+              "name": "localization_language",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "update_localization_localized_texts",
-            "description": "update data of the table: \"localization.localized_texts\"",
+            "name": "update_localization_localized_text",
+            "description": "update data of the table: \"localization.localized_text\"",
             "args": [
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_set_input",
+                  "name": "localization_localized_text_set_input",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -18189,7 +18189,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_localized_texts_bool_exp",
+                    "name": "localization_localized_text_bool_exp",
                     "ofType": null
                   }
                 },
@@ -18200,22 +18200,22 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_localized_texts_mutation_response",
+              "name": "localization_localized_text_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "update_localization_localized_texts_by_pk",
-            "description": "update single row of the table: \"localization.localized_texts\"",
+            "name": "update_localization_localized_text_by_pk",
+            "description": "update single row of the table: \"localization.localized_text\"",
             "args": [
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_set_input",
+                  "name": "localization_localized_text_set_input",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -18230,7 +18230,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_localized_texts_pk_columns_input",
+                    "name": "localization_localized_text_pk_columns_input",
                     "ofType": null
                   }
                 },
@@ -18241,7 +18241,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_localized_texts",
+              "name": "localization_localized_text",
               "ofType": null
             },
             "isDeprecated": false,
@@ -21079,8 +21079,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_codesets",
-            "description": "fetch data from the table: \"localization.codesets\"",
+            "name": "localization_codeset",
+            "description": "fetch data from the table: \"localization.codeset\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -21093,7 +21093,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_codesets_select_column",
+                      "name": "localization_codeset_select_column",
                       "ofType": null
                     }
                   }
@@ -21137,7 +21137,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_codesets_order_by",
+                      "name": "localization_codeset_order_by",
                       "ofType": null
                     }
                   }
@@ -21151,7 +21151,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codesets_bool_exp",
+                  "name": "localization_codeset_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -21170,7 +21170,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_codesets",
+                    "name": "localization_codeset",
                     "ofType": null
                   }
                 }
@@ -21180,8 +21180,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_codesets_aggregate",
-            "description": "fetch aggregated fields from the table: \"localization.codesets\"",
+            "name": "localization_codeset_aggregate",
+            "description": "fetch aggregated fields from the table: \"localization.codeset\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -21194,7 +21194,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_codesets_select_column",
+                      "name": "localization_codeset_select_column",
                       "ofType": null
                     }
                   }
@@ -21238,7 +21238,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_codesets_order_by",
+                      "name": "localization_codeset_order_by",
                       "ofType": null
                     }
                   }
@@ -21252,7 +21252,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codesets_bool_exp",
+                  "name": "localization_codeset_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -21265,7 +21265,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_codesets_aggregate",
+                "name": "localization_codeset_aggregate",
                 "ofType": null
               }
             },
@@ -21273,8 +21273,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_codesets_by_pk",
-            "description": "fetch data from the table: \"localization.codesets\" using primary key columns",
+            "name": "localization_codeset_by_pk",
+            "description": "fetch data from the table: \"localization.codeset\" using primary key columns",
             "args": [
               {
                 "name": "codeset_id",
@@ -21295,15 +21295,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codesets",
+              "name": "localization_codeset",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "localization_languages",
-            "description": "fetch data from the table: \"localization.languages\"",
+            "name": "localization_language",
+            "description": "fetch data from the table: \"localization.language\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -21316,7 +21316,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_languages_select_column",
+                      "name": "localization_language_select_column",
                       "ofType": null
                     }
                   }
@@ -21360,7 +21360,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_languages_order_by",
+                      "name": "localization_language_order_by",
                       "ofType": null
                     }
                   }
@@ -21374,7 +21374,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_languages_bool_exp",
+                  "name": "localization_language_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -21393,7 +21393,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_languages",
+                    "name": "localization_language",
                     "ofType": null
                   }
                 }
@@ -21403,8 +21403,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_languages_aggregate",
-            "description": "fetch aggregated fields from the table: \"localization.languages\"",
+            "name": "localization_language_aggregate",
+            "description": "fetch aggregated fields from the table: \"localization.language\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -21417,7 +21417,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_languages_select_column",
+                      "name": "localization_language_select_column",
                       "ofType": null
                     }
                   }
@@ -21461,7 +21461,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_languages_order_by",
+                      "name": "localization_language_order_by",
                       "ofType": null
                     }
                   }
@@ -21475,7 +21475,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_languages_bool_exp",
+                  "name": "localization_language_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -21488,7 +21488,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_languages_aggregate",
+                "name": "localization_language_aggregate",
                 "ofType": null
               }
             },
@@ -21496,8 +21496,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_languages_by_pk",
-            "description": "fetch data from the table: \"localization.languages\" using primary key columns",
+            "name": "localization_language_by_pk",
+            "description": "fetch data from the table: \"localization.language\" using primary key columns",
             "args": [
               {
                 "name": "language_code",
@@ -21518,15 +21518,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_languages",
+              "name": "localization_language",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "localization_localized_texts",
-            "description": "fetch data from the table: \"localization.localized_texts\"",
+            "name": "localization_localized_text",
+            "description": "fetch data from the table: \"localization.localized_text\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -21539,7 +21539,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -21583,7 +21583,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -21597,7 +21597,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -21616,7 +21616,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_localized_texts",
+                    "name": "localization_localized_text",
                     "ofType": null
                   }
                 }
@@ -21626,8 +21626,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_localized_texts_aggregate",
-            "description": "fetch aggregated fields from the table: \"localization.localized_texts\"",
+            "name": "localization_localized_text_aggregate",
+            "description": "fetch aggregated fields from the table: \"localization.localized_text\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -21640,7 +21640,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -21684,7 +21684,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -21698,7 +21698,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -21711,7 +21711,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_localized_texts_aggregate",
+                "name": "localization_localized_text_aggregate",
                 "ofType": null
               }
             },
@@ -21719,8 +21719,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_localized_texts_by_pk",
-            "description": "fetch data from the table: \"localization.localized_texts\" using primary key columns",
+            "name": "localization_localized_text_by_pk",
+            "description": "fetch data from the table: \"localization.localized_text\" using primary key columns",
             "args": [
               {
                 "name": "codeset_id",
@@ -21762,7 +21762,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "ENUM",
-                    "name": "localization_languages_enum",
+                    "name": "localization_language_enum",
                     "ofType": null
                   }
                 },
@@ -21773,7 +21773,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_localized_texts",
+              "name": "localization_localized_text",
               "ofType": null
             },
             "isDeprecated": false,
@@ -29030,7 +29030,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -29074,7 +29074,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -29088,7 +29088,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -29107,7 +29107,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_localized_texts",
+                    "name": "localization_localized_text",
                     "ofType": null
                   }
                 }
@@ -29131,7 +29131,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -29175,7 +29175,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -29189,7 +29189,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -29202,7 +29202,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_localized_texts_aggregate",
+                "name": "localization_localized_text_aggregate",
                 "ofType": null
               }
             },
@@ -29973,7 +29973,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_bool_exp",
+              "name": "localization_localized_text_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -30192,7 +30192,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_arr_rel_insert_input",
+              "name": "localization_localized_text_arr_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null,
@@ -30904,7 +30904,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_aggregate_order_by",
+              "name": "localization_localized_text_aggregate_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -31968,7 +31968,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -32012,7 +32012,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -32026,7 +32026,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -32045,7 +32045,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_localized_texts",
+                    "name": "localization_localized_text",
                     "ofType": null
                   }
                 }
@@ -32069,7 +32069,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -32113,7 +32113,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -32127,7 +32127,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -32140,7 +32140,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_localized_texts_aggregate",
+                "name": "localization_localized_text_aggregate",
                 "ofType": null
               }
             },
@@ -33057,7 +33057,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_bool_exp",
+              "name": "localization_localized_text_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -33295,7 +33295,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_arr_rel_insert_input",
+              "name": "localization_localized_text_arr_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null,
@@ -34112,7 +34112,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_aggregate_order_by",
+              "name": "localization_localized_text_aggregate_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -35951,7 +35951,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -35995,7 +35995,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -36009,7 +36009,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -36028,7 +36028,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_localized_texts",
+                    "name": "localization_localized_text",
                     "ofType": null
                   }
                 }
@@ -36052,7 +36052,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -36096,7 +36096,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -36110,7 +36110,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -36123,7 +36123,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_localized_texts_aggregate",
+                "name": "localization_localized_text_aggregate",
                 "ofType": null
               }
             },
@@ -37198,7 +37198,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_bool_exp",
+              "name": "localization_localized_text_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -37408,7 +37408,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_arr_rel_insert_input",
+              "name": "localization_localized_text_arr_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null,
@@ -38093,7 +38093,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_localized_texts_aggregate_order_by",
+              "name": "localization_localized_text_aggregate_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -41826,8 +41826,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_codesets",
-            "description": "fetch data from the table: \"localization.codesets\"",
+            "name": "localization_codeset",
+            "description": "fetch data from the table: \"localization.codeset\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -41840,7 +41840,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_codesets_select_column",
+                      "name": "localization_codeset_select_column",
                       "ofType": null
                     }
                   }
@@ -41884,7 +41884,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_codesets_order_by",
+                      "name": "localization_codeset_order_by",
                       "ofType": null
                     }
                   }
@@ -41898,7 +41898,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codesets_bool_exp",
+                  "name": "localization_codeset_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -41917,7 +41917,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_codesets",
+                    "name": "localization_codeset",
                     "ofType": null
                   }
                 }
@@ -41927,8 +41927,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_codesets_aggregate",
-            "description": "fetch aggregated fields from the table: \"localization.codesets\"",
+            "name": "localization_codeset_aggregate",
+            "description": "fetch aggregated fields from the table: \"localization.codeset\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -41941,7 +41941,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_codesets_select_column",
+                      "name": "localization_codeset_select_column",
                       "ofType": null
                     }
                   }
@@ -41985,7 +41985,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_codesets_order_by",
+                      "name": "localization_codeset_order_by",
                       "ofType": null
                     }
                   }
@@ -41999,7 +41999,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codesets_bool_exp",
+                  "name": "localization_codeset_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -42012,7 +42012,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_codesets_aggregate",
+                "name": "localization_codeset_aggregate",
                 "ofType": null
               }
             },
@@ -42020,8 +42020,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_codesets_by_pk",
-            "description": "fetch data from the table: \"localization.codesets\" using primary key columns",
+            "name": "localization_codeset_by_pk",
+            "description": "fetch data from the table: \"localization.codeset\" using primary key columns",
             "args": [
               {
                 "name": "codeset_id",
@@ -42042,15 +42042,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codesets",
+              "name": "localization_codeset",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "localization_languages",
-            "description": "fetch data from the table: \"localization.languages\"",
+            "name": "localization_language",
+            "description": "fetch data from the table: \"localization.language\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -42063,7 +42063,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_languages_select_column",
+                      "name": "localization_language_select_column",
                       "ofType": null
                     }
                   }
@@ -42107,7 +42107,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_languages_order_by",
+                      "name": "localization_language_order_by",
                       "ofType": null
                     }
                   }
@@ -42121,7 +42121,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_languages_bool_exp",
+                  "name": "localization_language_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -42140,7 +42140,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_languages",
+                    "name": "localization_language",
                     "ofType": null
                   }
                 }
@@ -42150,8 +42150,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_languages_aggregate",
-            "description": "fetch aggregated fields from the table: \"localization.languages\"",
+            "name": "localization_language_aggregate",
+            "description": "fetch aggregated fields from the table: \"localization.language\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -42164,7 +42164,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_languages_select_column",
+                      "name": "localization_language_select_column",
                       "ofType": null
                     }
                   }
@@ -42208,7 +42208,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_languages_order_by",
+                      "name": "localization_language_order_by",
                       "ofType": null
                     }
                   }
@@ -42222,7 +42222,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_languages_bool_exp",
+                  "name": "localization_language_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -42235,7 +42235,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_languages_aggregate",
+                "name": "localization_language_aggregate",
                 "ofType": null
               }
             },
@@ -42243,8 +42243,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_languages_by_pk",
-            "description": "fetch data from the table: \"localization.languages\" using primary key columns",
+            "name": "localization_language_by_pk",
+            "description": "fetch data from the table: \"localization.language\" using primary key columns",
             "args": [
               {
                 "name": "language_code",
@@ -42265,15 +42265,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_languages",
+              "name": "localization_language",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "localization_localized_texts",
-            "description": "fetch data from the table: \"localization.localized_texts\"",
+            "name": "localization_localized_text",
+            "description": "fetch data from the table: \"localization.localized_text\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -42286,7 +42286,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -42330,7 +42330,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -42344,7 +42344,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -42363,7 +42363,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_localized_texts",
+                    "name": "localization_localized_text",
                     "ofType": null
                   }
                 }
@@ -42373,8 +42373,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_localized_texts_aggregate",
-            "description": "fetch aggregated fields from the table: \"localization.localized_texts\"",
+            "name": "localization_localized_text_aggregate",
+            "description": "fetch aggregated fields from the table: \"localization.localized_text\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -42387,7 +42387,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_localized_texts_select_column",
+                      "name": "localization_localized_text_select_column",
                       "ofType": null
                     }
                   }
@@ -42431,7 +42431,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_localized_texts_order_by",
+                      "name": "localization_localized_text_order_by",
                       "ofType": null
                     }
                   }
@@ -42445,7 +42445,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_localized_texts_bool_exp",
+                  "name": "localization_localized_text_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -42458,7 +42458,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_localized_texts_aggregate",
+                "name": "localization_localized_text_aggregate",
                 "ofType": null
               }
             },
@@ -42466,8 +42466,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_localized_texts_by_pk",
-            "description": "fetch data from the table: \"localization.localized_texts\" using primary key columns",
+            "name": "localization_localized_text_by_pk",
+            "description": "fetch data from the table: \"localization.localized_text\" using primary key columns",
             "args": [
               {
                 "name": "codeset_id",
@@ -42509,7 +42509,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "ENUM",
-                    "name": "localization_languages_enum",
+                    "name": "localization_language_enum",
                     "ofType": null
                   }
                 },
@@ -42520,7 +42520,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_localized_texts",
+              "name": "localization_localized_text",
               "ofType": null
             },
             "isDeprecated": false,
