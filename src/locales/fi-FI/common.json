@@ -39,7 +39,7 @@
     "finnishName": "Nimi (Suomi)",
     "primaryVehicleMode": "Ensisijainen kulkumuoto",
     "chooseVehicleMode": "Valitse kulkumuoto",
-    "line": "Linja",
+    "line": "Linja {{ label }}",
     "linesName": "Linjan nimi",
     "linesType": "Linjan tyyppi",
     "chooseLinesType": "Valitse linjan tyyppi",
