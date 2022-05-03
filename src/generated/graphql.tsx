@@ -6818,7 +6818,9 @@ export type RemoveStopMutationVariables = Exact<{
 
 export type RemoveStopMutation = { __typename?: 'mutation_root', delete_service_pattern_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point_mutation_response', returning: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID }> } | null | undefined };
 
-export type GetStopsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetStopsQueryVariables = Exact<{
+  measured_location_filter?: Maybe<GeographyComparisonExp>;
+}>;
 
 
 export type GetStopsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
@@ -8049,8 +8051,11 @@ export type RemoveStopMutationHookResult = ReturnType<typeof useRemoveStopMutati
 export type RemoveStopMutationResult = Apollo.MutationResult<RemoveStopMutation>;
 export type RemoveStopMutationOptions = Apollo.BaseMutationOptions<RemoveStopMutation, RemoveStopMutationVariables>;
 export const GetStopsDocument = gql`
-    query GetStops {
-  service_pattern_scheduled_stop_point(limit: 300) {
+    query GetStops($measured_location_filter: geography_comparison_exp) {
+  service_pattern_scheduled_stop_point(
+    where: {measured_location: $measured_location_filter}
+    limit: 300
+  ) {
     ...scheduled_stop_point_all_fields
   }
 }
@@ -8068,6 +8073,7 @@ export const GetStopsDocument = gql`
  * @example
  * const { data, loading, error } = useGetStopsQuery({
  *   variables: {
+ *      measured_location_filter: // value for 'measured_location_filter'
  *   },
  * });
  */

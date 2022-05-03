@@ -26,6 +26,11 @@ export const selectIsModalMapOpen = createSelector(
   (modalMap) => modalMap.isOpen,
 );
 
+export const selectMapViewport = createSelector(
+  selectModalMap,
+  (modalMap) => modalMap.viewport,
+);
+
 export const selectIsInViewMode = createSelector(
   selectMapEditor,
   (modalMap) => modalMap.drawingMode === undefined,

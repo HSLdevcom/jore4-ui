@@ -29,6 +29,8 @@
     "@reduxjs/toolkit": "^1.8.0",
     "@seznam/compose-react-refs": "^1.0.6",
     "@turf/area": "^6.5.0",
+    "@turf/distance": "^6.5.0",
+    "@turf/helpers": "^6.5.0",
     "@types/react-router": "^5.1.17",
     "@types/redux-logger": "^3.0.9",
     "apollo-link-scalars": "^4.0.1",
