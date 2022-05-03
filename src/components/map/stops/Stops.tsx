@@ -12,12 +12,18 @@ import {
 import { useFilterStops } from '../../../hooks/useFilterStops';
 import {
   selectEditedStopData,
+  selectMapViewport,
   selectSelectedStopId,
   setEditedStopDataAction,
   setIsCreateStopModeEnabledAction,
   setSelectedStopIdAction,
 } from '../../../redux';
-import { mapLngLatToGeoJSON, mapLngLatToPoint } from '../../../utils';
+import {
+  constructWithinViewportGqlFilter,
+  mapLngLatToGeoJSON,
+  mapLngLatToPoint,
+  mapToVariables,
+} from '../../../utils';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
 
@@ -34,8 +40,14 @@ export const Stops = React.forwardRef((props, ref) => {
 
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
 
-  // TODO: Fetch only the stops visible on the map?
-  const stopsResult = useGetStopsQuery({});
+  const viewport = useAppSelector(selectMapViewport);
+
+  const stopsResult = useGetStopsQuery(
+    mapToVariables({
+      measured_location_filter: constructWithinViewportGqlFilter(viewport),
+    }),
+  );
+
   const unfilteredStops = mapGetStopsResult(stopsResult);
   const stops = filter(unfilteredStops || []);
 
@@ -98,3 +110,5 @@ export const Stops = React.forwardRef((props, ref) => {
     </>
   );
 });
+
+Stops.displayName = 'Stops';
