@@ -39,7 +39,7 @@
     "finnishName": "Name (Finnish)",
     "primaryVehicleMode": "Primary vehicle mode",
     "chooseVehicleMode": "Choose vehicle mode",
-    "line": "Line",
+    "line": "Line {{ label }}",
     "linesName": "Line's name",
     "linesType": "Line's type",
     "chooseLinesType": "Choose type of line",
