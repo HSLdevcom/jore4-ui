@@ -1,5 +1,13 @@
-import React, { FunctionComponent, useState } from 'react';
-import MapGL, { MapEvent, NavigationControl } from 'react-map-gl';
+import distance from '@turf/distance';
+import { point, Units } from '@turf/helpers';
+import debounce from 'lodash/debounce';
+import { FunctionComponent, useMemo, useRef, useState } from 'react';
+import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
+import { useAppDispatch } from '../../hooks';
+import {
+  HELSINKI_CITY_CENTER_COORDINATES,
+  setViewPortAction,
+} from '../../redux';
 import hslSimpleStyle from './hslSimpleStyle.json';
 import rasterMapStyle from './rasterMapStyle.json';
 
@@ -14,7 +22,13 @@ interface Props {
   useVectorTilesAsBaseMap?: boolean;
 }
 
-const helsinkiCityCenterCoordinates = { latitude: 60.1716, longitude: 24.9409 };
+interface MaplibreViewport {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  bearing: number;
+  pitch: number;
+}
 
 export const Maplibre: FunctionComponent<Props> = ({
   className,
@@ -24,12 +38,55 @@ export const Maplibre: FunctionComponent<Props> = ({
   useVectorTilesAsBaseMap = true,
   children,
 }) => {
-  const [viewport, setViewport] = useState({
-    ...helsinkiCityCenterCoordinates,
+  const mapRef = useRef<MapRef>(null);
+
+  const [viewport, setViewport] = useState<MaplibreViewport>({
+    ...HELSINKI_CITY_CENTER_COORDINATES,
     zoom: 13,
     bearing: 0,
     pitch: 0,
   });
+
+  const dispatch = useAppDispatch();
+
+  const updateViewportDebounced = useMemo(
+    () =>
+      debounce(
+        (latitude, longitude, radius) =>
+          dispatch(
+            setViewPortAction({
+              latitude,
+              longitude,
+              radius,
+            }),
+          ),
+        500,
+      ),
+    [dispatch],
+  );
+
+  const onViewportChange = (newViewport: MaplibreViewport) => {
+    setViewport(newViewport);
+
+    if (mapRef.current) {
+      const mapGL = mapRef.current.getMap();
+
+      const bounds = mapGL.getBounds();
+
+      const from = point([newViewport.longitude, newViewport.latitude]);
+      // eslint-disable-next-line no-underscore-dangle
+      const to = point([bounds._sw.lng, bounds._sw.lat]);
+      const options = { units: 'meters' as Units };
+
+      const radius = distance(from, to, options);
+
+      updateViewportDebounced(
+        newViewport.latitude,
+        newViewport.longitude,
+        radius,
+      );
+    }
+  };
 
   const navStyle = {
     bottom: 72,
@@ -74,13 +131,14 @@ export const Maplibre: FunctionComponent<Props> = ({
       {...viewport}
       width={width}
       height={height}
-      onViewportChange={setViewport}
+      onViewportChange={onViewportChange}
       onClick={onClick}
       className={className}
       mapStyle={mapStyle}
       getCursor={getCursor}
       transformRequest={transformRequest}
       doubleClickZoom={false}
+      ref={mapRef}
     >
       {children}
       <NavigationControl style={navStyle} showCompass={false} />

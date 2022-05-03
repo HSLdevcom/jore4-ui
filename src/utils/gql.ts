@@ -1,4 +1,6 @@
 import { DateTime } from 'luxon';
+import { GeographyComparisonExp } from '../generated/graphql';
+import { Viewport } from '../redux/types/modalMap';
 import { Priority } from '../types/Priority';
 
 /** Constructs an object for gql to filter out all
@@ -33,4 +35,16 @@ export const constructDraftPriorityGqlFilter = (priority?: Priority) => ({
 /** Constructs an object for gql to filter by label */
 export const constructLabelGqlFilter = (label?: string) => ({
   label: { _eq: label },
+});
+
+export const constructWithinViewportGqlFilter = (
+  viewport: Viewport,
+): GeographyComparisonExp => ({
+  _st_d_within: {
+    from: {
+      type: 'Point',
+      coordinates: [viewport.longitude, viewport.latitude],
+    },
+    distance: viewport.radius,
+  },
 });
