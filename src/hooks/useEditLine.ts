@@ -8,8 +8,9 @@ import {
 } from '../generated/graphql';
 import { MIN_DATE } from '../time';
 import { showDangerToastWithError } from '../utils';
+import { useUpsertLocalizedText } from './localization';
 import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
-import { mapFormToInput } from './useCreateLine';
+import { mapFormToInput, mapFormToLocalizedTexts } from './useCreateLine';
 
 interface EditParams {
   lineId: UUID;
@@ -19,6 +20,7 @@ interface EditParams {
 interface EditChanges {
   lineId: UUID;
   patch: RouteLineSetInput;
+  localizedTextsUpsertInput: LocalizationLocalizedTextArrRelInsertInput;
   conflicts?: RouteLine[];
 }
 
@@ -26,9 +28,14 @@ export const useEditLine = () => {
   const { t } = useTranslation();
   const [mutateFunction] = usePatchLineMutation();
   const { getConflictingLines } = useCheckValidityAndPriorityConflicts();
+  const { buildUpsertLocalizedTestsInput } = useUpsertLocalizedText();
 
   const prepareEdit = async ({ lineId, form }: EditParams) => {
     const input = mapFormToInput(form);
+    const localizedTexts = mapFormToLocalizedTexts(form);
+    const localizedTextsUpsertInput = await buildUpsertLocalizedTestsInput(
+      localizedTexts,
+    );
     const conflicts = await getConflictingLines(
       {
         label: form.label,
@@ -42,6 +49,7 @@ export const useEditLine = () => {
     const changes: EditChanges = {
       lineId,
       patch: input,
+      localizedTextsUpsertInput,
       conflicts,
     };
 
@@ -51,8 +59,10 @@ export const useEditLine = () => {
   const mapEditChangesToVariables = (
     changes: EditChanges,
   ): PatchLineMutationVariables => ({
-    line_id: changes.lineId,
-    object: changes.patch,
+    lineId: changes.lineId,
+    linePatch: changes.patch,
+    localizedTextsData: changes.localizedTextsUpsertInput.data,
+    localizedTextsOnConflict: changes.localizedTextsUpsertInput.on_conflict,
   });
 
   // default handler that can be used to show error messages as toast

@@ -7638,6 +7638,8 @@ export type UpdateRouteJourneyPatternMutationVariables = Exact<{
 
 export type UpdateRouteJourneyPatternMutation = { __typename?: 'mutation_root', delete_journey_pattern_journey_pattern?: { __typename?: 'journey_pattern_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID }> } | null | undefined, insert_journey_pattern_journey_pattern_one?: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } | null | undefined };
 
+export type UpsertLocalizedTextsResponseFragment = { __typename?: 'localization_localized_text_mutation_response', returning: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, language_code: LocalizationLanguageEnum, localized_text?: string | null | undefined, codeset: { __typename?: 'localization_codeset', codeset_id: UUID, codeset_name: string } }> };
+
 export type GetCodesetsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -7763,12 +7765,14 @@ export type InsertLineOneMutationVariables = Exact<{
 export type InsertLineOneMutation = { __typename?: 'mutation_root', insert_route_line_one?: { __typename?: 'route_line', line_id: UUID, label: string, priority: number, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined };
 
 export type PatchLineMutationVariables = Exact<{
-  line_id: Scalars['uuid'];
-  object: RouteLineSetInput;
+  lineId: Scalars['uuid'];
+  linePatch: RouteLineSetInput;
+  localizedTextsData: Array<LocalizationLocalizedTextInsertInput> | LocalizationLocalizedTextInsertInput;
+  localizedTextsOnConflict: LocalizationLocalizedTextOnConflict;
 }>;
 
 
-export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, name_fi?: string | null | undefined, name_sv?: string | null | undefined, short_name_fi?: string | null | undefined, short_name_sv?: string | null | undefined, localized_texts: Array<{ __typename?: 'localization_localized_text', localized_text?: string | null | undefined, language_code: LocalizationLanguageEnum, codeset: { __typename?: 'localization_codeset', codeset_name: string } }> } | null | undefined };
+export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, name_fi?: string | null | undefined, name_sv?: string | null | undefined, short_name_fi?: string | null | undefined, short_name_sv?: string | null | undefined, localized_texts: Array<{ __typename?: 'localization_localized_text', localized_text?: string | null | undefined, language_code: LocalizationLanguageEnum, codeset: { __typename?: 'localization_codeset', codeset_name: string } }> } | null | undefined, insert_localization_localized_text?: { __typename?: 'localization_localized_text_mutation_response', returning: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, language_code: LocalizationLanguageEnum, localized_text?: string | null | undefined, codeset: { __typename?: 'localization_codeset', codeset_id: UUID, codeset_name: string } }> } | null | undefined };
 
 export type InsertRouteOneMutationVariables = Exact<{
   object: RouteRouteInsertInput;
@@ -7871,6 +7875,19 @@ export const InfrastructureLinkAllFieldsFragmentDoc = gql`
   estimated_length_in_metres
   external_link_id
   external_link_source
+}
+    `;
+export const UpsertLocalizedTextsResponseFragmentDoc = gql`
+    fragment upsert_localized_texts_response on localization_localized_text_mutation_response {
+  returning {
+    entity_id
+    language_code
+    codeset {
+      codeset_id
+      codeset_name
+    }
+    localized_text
+  }
 }
     `;
 export const LineLocalizedFieldsFragmentDoc = gql`
@@ -8832,12 +8849,19 @@ export type InsertLineOneMutationHookResult = ReturnType<typeof useInsertLineOne
 export type InsertLineOneMutationResult = Apollo.MutationResult<InsertLineOneMutation>;
 export type InsertLineOneMutationOptions = Apollo.BaseMutationOptions<InsertLineOneMutation, InsertLineOneMutationVariables>;
 export const PatchLineDocument = gql`
-    mutation PatchLine($line_id: uuid!, $object: route_line_set_input!) {
-  update_route_line_by_pk(pk_columns: {line_id: $line_id}, _set: $object) {
+    mutation PatchLine($lineId: uuid!, $linePatch: route_line_set_input!, $localizedTextsData: [localization_localized_text_insert_input!]!, $localizedTextsOnConflict: localization_localized_text_on_conflict!) {
+  update_route_line_by_pk(pk_columns: {line_id: $lineId}, _set: $linePatch) {
     ...line_all_fields
   }
+  insert_localization_localized_text(
+    objects: $localizedTextsData
+    on_conflict: $localizedTextsOnConflict
+  ) {
+    ...upsert_localized_texts_response
+  }
 }
-    ${LineAllFieldsFragmentDoc}`;
+    ${LineAllFieldsFragmentDoc}
+${UpsertLocalizedTextsResponseFragmentDoc}`;
 export type PatchLineMutationFn = Apollo.MutationFunction<PatchLineMutation, PatchLineMutationVariables>;
 
 /**
@@ -8853,8 +8877,10 @@ export type PatchLineMutationFn = Apollo.MutationFunction<PatchLineMutation, Pat
  * @example
  * const [patchLineMutation, { data, loading, error }] = usePatchLineMutation({
  *   variables: {
- *      line_id: // value for 'line_id'
- *      object: // value for 'object'
+ *      lineId: // value for 'lineId'
+ *      linePatch: // value for 'linePatch'
+ *      localizedTextsData: // value for 'localizedTextsData'
+ *      localizedTextsOnConflict: // value for 'localizedTextsOnConflict'
  *   },
  * });
  */

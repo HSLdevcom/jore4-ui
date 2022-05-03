@@ -371,10 +371,7 @@ const GET_ROUTES_BY_VALIDITY = gql`
 `;
 
 const INSERT_LINE = gql`
-  mutation InsertLineOne(
-    $line: route_line_insert_input!
-  ) # $localizedTexts: [localization_localized_texts_insert_input!]!
-  {
+  mutation InsertLineOne($line: route_line_insert_input!) {
     insert_route_line_one(object: $line) {
       line_id
       label
@@ -387,21 +384,6 @@ const INSERT_LINE = gql`
   }
 `;
 
-// insert_localization_localized_texts(
-//   objects: $localizedTexts
-//   on_conflict: { constraint: localized_texts_pkey }
-// ) {
-//   returning {
-//     entity_id
-//     language_code
-//     codeset {
-//       codeset_id
-//       codeset_name
-//     }
-//     localized_text
-//   }
-// }
-
 export const mapInsertLineOneResult = (
   result: FetchResult<
     InsertLineOneMutation,
@@ -411,9 +393,24 @@ export const mapInsertLineOneResult = (
 ) => result.data?.insert_route_line_one as RouteLine | undefined;
 
 const UPDATE_LINE = gql`
-  mutation PatchLine($line_id: uuid!, $object: route_line_set_input!) {
-    update_route_line_by_pk(pk_columns: { line_id: $line_id }, _set: $object) {
+  mutation PatchLine(
+    $lineId: uuid!
+    $linePatch: route_line_set_input!
+    $localizedTextsData: [localization_localized_text_insert_input!]!
+    $localizedTextsOnConflict: localization_localized_text_on_conflict!
+  ) {
+    update_route_line_by_pk(
+      pk_columns: { line_id: $lineId }
+      _set: $linePatch
+    ) {
       ...line_all_fields
+    }
+
+    insert_localization_localized_text(
+      objects: $localizedTextsData
+      on_conflict: $localizedTextsOnConflict
+    ) {
+      ...upsert_localized_texts_response
     }
   }
 `;

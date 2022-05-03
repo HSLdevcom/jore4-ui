@@ -4,6 +4,20 @@ import { gql } from '@apollo/client';
 import { GetCodesetsQuery, LocalizationCodeset } from '../generated/graphql';
 import { GqlQueryResult } from './types';
 
+const UPSERT_LOCALIZED_TEXTS_RESPONSE = gql`
+  fragment upsert_localized_texts_response on localization_localized_text_mutation_response {
+    returning {
+      entity_id
+      language_code
+      codeset {
+        codeset_id
+        codeset_name
+      }
+      localized_text
+    }
+  }
+`;
+
 const GET_CODESETS = gql`
   query GetCodesets {
     localization_codeset {
@@ -28,20 +42,6 @@ export const mapCodesetsResult = (result: GqlQueryResult<GetCodesetsQuery>) =>
 //     on_conflict: {
 //       constraint: localized_texts_pkey
 //       update_columns: localized_text
-//     }
-//   }
-// `;
-
-// const UPSERT_LOCALIZED_TEXTS_RESPONSE = gql`
-//   fragment upsert_localized_texts_response on localization_localized_texts_mutation_response {
-//     returning {
-//       entity_id
-//       language_code
-//       codeset {
-//         codeset_id
-//         codeset_name
-//       }
-//       localized_text
 //     }
 //   }
 // `;
