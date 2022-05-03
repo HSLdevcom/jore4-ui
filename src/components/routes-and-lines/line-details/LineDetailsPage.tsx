@@ -67,7 +67,7 @@ const LineTitle: React.FC<LineTitleProps> = ({
   return (
     <Row className={`items-center ${className}`}>
       <span className="mr-4 text-4xl font-bold" data-testid="line-page-heading">
-        {t('lines.line')} {line.label}
+        {t('lines.line', { label: line.label })}
       </span>
       <span>
         {line.line_routes?.length > 0 &&
