@@ -113,7 +113,7 @@ export const EditRoutePage = (): JSX.Element => {
       <PageHeader>
         <i className="icon-bus-alt text-5xl text-tweaked-brand" />
         <h1 className="text-5xl font-bold">
-          {`${t('lines.line')} ${route?.route_line?.label || ''}`}
+          {t('lines.line', { label: route?.route_line?.label || '' })}
         </h1>
       </PageHeader>
       <Container>
