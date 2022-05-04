@@ -188,5 +188,7 @@
   "cancel": "Peruuta",
   "close": "Sulje",
   "version": "Versio: {{ version }}",
-  "hide": "Piilota"
+  "hide": "Piilota",
+  "validityStart": "Alkaa",
+  "validityEnd": "Päättyy"
 }

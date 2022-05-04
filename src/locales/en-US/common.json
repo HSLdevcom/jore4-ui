@@ -188,5 +188,7 @@
   "cancel": "Cancel",
   "close": "Close",
   "version": "Version: {{ version }}",
-  "hide": "Hide"
+  "hide": "Hide",
+  "validityStart": "Starts",
+  "validityEnd": "Ends"
 }
