@@ -11598,11 +11598,11 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_codeset",
-        "description": "List of names which are used as localization keys\n\n\ncolumns and relationships of \"localization.codeset\"\n",
+        "name": "localization_attribute",
+        "description": "List of attribute names which are used as localization keys\n\n\ncolumns and relationships of \"localization.attribute\"\n",
         "fields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": null,
             "args": [],
             "type": {
@@ -11618,8 +11618,8 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset_name",
-            "description": "List of names which are used as localization keys. Should be namespaced (e.g. \"route_name\")",
+            "name": "attribute_name",
+            "description": "List of attribute names which are used as localization keys. Should be namespaced (e.g. \"route_name\")",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -11835,8 +11835,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_codeset_aggregate",
-        "description": "aggregated selection of \"localization.codeset\"",
+        "name": "localization_attribute_aggregate",
+        "description": "aggregated selection of \"localization.attribute\"",
         "fields": [
           {
             "name": "aggregate",
@@ -11844,7 +11844,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codeset_aggregate_fields",
+              "name": "localization_attribute_aggregate_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -11865,7 +11865,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_codeset",
+                    "name": "localization_attribute",
                     "ofType": null
                   }
                 }
@@ -11882,8 +11882,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_codeset_aggregate_fields",
-        "description": "aggregate fields of \"localization.codeset\"",
+        "name": "localization_attribute_aggregate_fields",
+        "description": "aggregate fields of \"localization.attribute\"",
         "fields": [
           {
             "name": "count",
@@ -11900,7 +11900,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_codeset_select_column",
+                      "name": "localization_attribute_select_column",
                       "ofType": null
                     }
                   }
@@ -11940,7 +11940,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codeset_max_fields",
+              "name": "localization_attribute_max_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -11952,7 +11952,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codeset_min_fields",
+              "name": "localization_attribute_min_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -11966,8 +11966,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codeset_bool_exp",
-        "description": "Boolean expression to filter rows from the table \"localization.codeset\". All fields are combined with a logical 'AND'.",
+        "name": "localization_attribute_bool_exp",
+        "description": "Boolean expression to filter rows from the table \"localization.attribute\". All fields are combined with a logical 'AND'.",
         "fields": null,
         "inputFields": [
           {
@@ -11981,7 +11981,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codeset_bool_exp",
+                  "name": "localization_attribute_bool_exp",
                   "ofType": null
                 }
               }
@@ -11995,7 +11995,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_codeset_bool_exp",
+              "name": "localization_attribute_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -12013,7 +12013,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codeset_bool_exp",
+                  "name": "localization_attribute_bool_exp",
                   "ofType": null
                 }
               }
@@ -12023,7 +12023,7 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -12035,7 +12035,7 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset_name",
+            "name": "attribute_name",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -12065,20 +12065,20 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_codeset_constraint",
-        "description": "unique or primary key constraints on table \"localization.codeset\"",
+        "name": "localization_attribute_constraint",
+        "description": "unique or primary key constraints on table \"localization.attribute\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
-            "name": "codeset_pkey",
+            "name": "attribute_pkey",
             "description": "unique or primary key constraint",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "unique_codeset_name",
+            "name": "unique_attribute_name",
             "description": "unique or primary key constraint",
             "isDeprecated": false,
             "deprecationReason": null
@@ -12088,12 +12088,12 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codeset_insert_input",
-        "description": "input type for inserting data into table \"localization.codeset\"",
+        "name": "localization_attribute_insert_input",
+        "description": "input type for inserting data into table \"localization.attribute\"",
         "fields": null,
         "inputFields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -12105,8 +12105,8 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset_name",
-            "description": "List of names which are used as localization keys. Should be namespaced (e.g. \"route_name\")",
+            "name": "attribute_name",
+            "description": "List of attribute names which are used as localization keys. Should be namespaced (e.g. \"route_name\")",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -12135,11 +12135,11 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_codeset_max_fields",
+        "name": "localization_attribute_max_fields",
         "description": "aggregate max on columns",
         "fields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": null,
             "args": [],
             "type": {
@@ -12151,8 +12151,8 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset_name",
-            "description": "List of names which are used as localization keys. Should be namespaced (e.g. \"route_name\")",
+            "name": "attribute_name",
+            "description": "List of attribute names which are used as localization keys. Should be namespaced (e.g. \"route_name\")",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -12170,11 +12170,11 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_codeset_min_fields",
+        "name": "localization_attribute_min_fields",
         "description": "aggregate min on columns",
         "fields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": null,
             "args": [],
             "type": {
@@ -12186,8 +12186,8 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset_name",
-            "description": "List of names which are used as localization keys. Should be namespaced (e.g. \"route_name\")",
+            "name": "attribute_name",
+            "description": "List of attribute names which are used as localization keys. Should be namespaced (e.g. \"route_name\")",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -12205,8 +12205,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "localization_codeset_mutation_response",
-        "description": "response of any mutation on the table \"localization.codeset\"",
+        "name": "localization_attribute_mutation_response",
+        "description": "response of any mutation on the table \"localization.attribute\"",
         "fields": [
           {
             "name": "affected_rows",
@@ -12239,7 +12239,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_codeset",
+                    "name": "localization_attribute",
                     "ofType": null
                   }
                 }
@@ -12256,8 +12256,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codeset_obj_rel_insert_input",
-        "description": "input type for inserting object relation for remote table \"localization.codeset\"",
+        "name": "localization_attribute_obj_rel_insert_input",
+        "description": "input type for inserting object relation for remote table \"localization.attribute\"",
         "fields": null,
         "inputFields": [
           {
@@ -12268,7 +12268,7 @@
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "localization_codeset_insert_input",
+                "name": "localization_attribute_insert_input",
                 "ofType": null
               }
             },
@@ -12281,7 +12281,7 @@
             "description": "on conflict condition",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_codeset_on_conflict",
+              "name": "localization_attribute_on_conflict",
               "ofType": null
             },
             "defaultValue": null,
@@ -12295,8 +12295,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codeset_on_conflict",
-        "description": "on conflict condition type for table \"localization.codeset\"",
+        "name": "localization_attribute_on_conflict",
+        "description": "on conflict condition type for table \"localization.attribute\"",
         "fields": null,
         "inputFields": [
           {
@@ -12307,7 +12307,7 @@
               "name": null,
               "ofType": {
                 "kind": "ENUM",
-                "name": "localization_codeset_constraint",
+                "name": "localization_attribute_constraint",
                 "ofType": null
               }
             },
@@ -12329,7 +12329,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "ENUM",
-                    "name": "localization_codeset_update_column",
+                    "name": "localization_attribute_update_column",
                     "ofType": null
                   }
                 }
@@ -12344,7 +12344,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_codeset_bool_exp",
+              "name": "localization_attribute_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -12358,12 +12358,12 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codeset_order_by",
-        "description": "Ordering options when selecting data from \"localization.codeset\".",
+        "name": "localization_attribute_order_by",
+        "description": "Ordering options when selecting data from \"localization.attribute\".",
         "fields": null,
         "inputFields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -12375,7 +12375,7 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset_name",
+            "name": "attribute_name",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -12405,12 +12405,12 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codeset_pk_columns_input",
-        "description": "primary key columns input for table: localization_codeset",
+        "name": "localization_attribute_pk_columns_input",
+        "description": "primary key columns input for table: localization_attribute",
         "fields": null,
         "inputFields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -12432,20 +12432,20 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_codeset_select_column",
-        "description": "select columns of table \"localization.codeset\"",
+        "name": "localization_attribute_select_column",
+        "description": "select columns of table \"localization.attribute\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "codeset_name",
+            "name": "attribute_name",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -12455,12 +12455,12 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "localization_codeset_set_input",
-        "description": "input type for updating data in table \"localization.codeset\"",
+        "name": "localization_attribute_set_input",
+        "description": "input type for updating data in table \"localization.attribute\"",
         "fields": null,
         "inputFields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -12472,8 +12472,8 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset_name",
-            "description": "List of names which are used as localization keys. Should be namespaced (e.g. \"route_name\")",
+            "name": "attribute_name",
+            "description": "List of attribute names which are used as localization keys. Should be namespaced (e.g. \"route_name\")",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -12490,20 +12490,20 @@
       },
       {
         "kind": "ENUM",
-        "name": "localization_codeset_update_column",
-        "description": "update columns of table \"localization.codeset\"",
+        "name": "localization_attribute_update_column",
+        "description": "update columns of table \"localization.attribute\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "codeset_name",
+            "name": "attribute_name",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -12988,7 +12988,7 @@
             "deprecationReason": null
           },
           {
-            "name": "sv_SV",
+            "name": "sv_FI",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -13442,7 +13442,7 @@
         "description": "List of localized texts for entities like routes, lines, etc.\n\n\ncolumns and relationships of \"localization.localized_text\"\n",
         "fields": [
           {
-            "name": "codeset",
+            "name": "attribute",
             "description": "An object relationship",
             "args": [],
             "type": {
@@ -13450,7 +13450,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_codeset",
+                "name": "localization_attribute",
                 "ofType": null
               }
             },
@@ -13458,7 +13458,7 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": "ID of the localization key the localized text refers to",
             "args": [],
             "type": {
@@ -13823,11 +13823,11 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset",
+            "name": "attribute",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_codeset_bool_exp",
+              "name": "localization_attribute_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -13835,7 +13835,7 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -13923,11 +13923,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "codeset",
+            "name": "attribute",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_codeset_obj_rel_insert_input",
+              "name": "localization_attribute_obj_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null,
@@ -13935,7 +13935,7 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": "ID of the localization key the localized text refers to",
             "type": {
               "kind": "SCALAR",
@@ -14005,7 +14005,7 @@
         "description": "aggregate max on columns",
         "fields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": "ID of the localization key the localized text refers to",
             "args": [],
             "type": {
@@ -14053,7 +14053,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": "ID of the localization key the localized text refers to",
             "type": {
               "kind": "ENUM",
@@ -14099,7 +14099,7 @@
         "description": "aggregate min on columns",
         "fields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": "ID of the localization key the localized text refers to",
             "args": [],
             "type": {
@@ -14147,7 +14147,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": "ID of the localization key the localized text refers to",
             "type": {
               "kind": "ENUM",
@@ -14308,11 +14308,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "codeset",
+            "name": "attribute",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "localization_codeset_order_by",
+              "name": "localization_attribute_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -14320,7 +14320,7 @@
             "deprecationReason": null
           },
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -14391,7 +14391,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": "ID of the localization key the localized text refers to",
             "type": {
               "kind": "NON_NULL",
@@ -14452,7 +14452,7 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -14485,7 +14485,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": "ID of the localization key the localized text refers to",
             "type": {
               "kind": "SCALAR",
@@ -14546,7 +14546,7 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "codeset_id",
+            "name": "attribute_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -15016,8 +15016,8 @@
             "deprecationReason": null
           },
           {
-            "name": "delete_localization_codeset",
-            "description": "delete data from the table: \"localization.codeset\"",
+            "name": "delete_localization_attribute",
+            "description": "delete data from the table: \"localization.attribute\"",
             "args": [
               {
                 "name": "where",
@@ -15027,7 +15027,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_codeset_bool_exp",
+                    "name": "localization_attribute_bool_exp",
                     "ofType": null
                   }
                 },
@@ -15038,18 +15038,18 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codeset_mutation_response",
+              "name": "localization_attribute_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "delete_localization_codeset_by_pk",
-            "description": "delete single row from the table: \"localization.codeset\"",
+            "name": "delete_localization_attribute_by_pk",
+            "description": "delete single row from the table: \"localization.attribute\"",
             "args": [
               {
-                "name": "codeset_id",
+                "name": "attribute_id",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -15067,7 +15067,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codeset",
+              "name": "localization_attribute",
               "ofType": null
             },
             "isDeprecated": false,
@@ -15165,7 +15165,7 @@
             "description": "delete single row from the table: \"localization.localized_text\"",
             "args": [
               {
-                "name": "codeset_id",
+                "name": "attribute_id",
                 "description": "ID of the localization key the localized text refers to",
                 "type": {
                   "kind": "NON_NULL",
@@ -16348,8 +16348,8 @@
             "deprecationReason": null
           },
           {
-            "name": "insert_localization_codeset",
-            "description": "insert data into the table: \"localization.codeset\"",
+            "name": "insert_localization_attribute",
+            "description": "insert data into the table: \"localization.attribute\"",
             "args": [
               {
                 "name": "objects",
@@ -16365,7 +16365,7 @@
                       "name": null,
                       "ofType": {
                         "kind": "INPUT_OBJECT",
-                        "name": "localization_codeset_insert_input",
+                        "name": "localization_attribute_insert_input",
                         "ofType": null
                       }
                     }
@@ -16380,7 +16380,7 @@
                 "description": "on conflict condition",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codeset_on_conflict",
+                  "name": "localization_attribute_on_conflict",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -16390,15 +16390,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codeset_mutation_response",
+              "name": "localization_attribute_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "insert_localization_codeset_one",
-            "description": "insert a single row into the table: \"localization.codeset\"",
+            "name": "insert_localization_attribute_one",
+            "description": "insert a single row into the table: \"localization.attribute\"",
             "args": [
               {
                 "name": "object",
@@ -16408,7 +16408,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_codeset_insert_input",
+                    "name": "localization_attribute_insert_input",
                     "ofType": null
                   }
                 },
@@ -16421,7 +16421,7 @@
                 "description": "on conflict condition",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codeset_on_conflict",
+                  "name": "localization_attribute_on_conflict",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -16431,7 +16431,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codeset",
+              "name": "localization_attribute",
               "ofType": null
             },
             "isDeprecated": false,
@@ -18002,15 +18002,15 @@
             "deprecationReason": null
           },
           {
-            "name": "update_localization_codeset",
-            "description": "update data of the table: \"localization.codeset\"",
+            "name": "update_localization_attribute",
+            "description": "update data of the table: \"localization.attribute\"",
             "args": [
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codeset_set_input",
+                  "name": "localization_attribute_set_input",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -18025,7 +18025,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_codeset_bool_exp",
+                    "name": "localization_attribute_bool_exp",
                     "ofType": null
                   }
                 },
@@ -18036,22 +18036,22 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codeset_mutation_response",
+              "name": "localization_attribute_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "update_localization_codeset_by_pk",
-            "description": "update single row of the table: \"localization.codeset\"",
+            "name": "update_localization_attribute_by_pk",
+            "description": "update single row of the table: \"localization.attribute\"",
             "args": [
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codeset_set_input",
+                  "name": "localization_attribute_set_input",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -18066,7 +18066,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "localization_codeset_pk_columns_input",
+                    "name": "localization_attribute_pk_columns_input",
                     "ofType": null
                   }
                 },
@@ -18077,7 +18077,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codeset",
+              "name": "localization_attribute",
               "ofType": null
             },
             "isDeprecated": false,
@@ -21079,8 +21079,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_codeset",
-            "description": "fetch data from the table: \"localization.codeset\"",
+            "name": "localization_attribute",
+            "description": "fetch data from the table: \"localization.attribute\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -21093,7 +21093,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_codeset_select_column",
+                      "name": "localization_attribute_select_column",
                       "ofType": null
                     }
                   }
@@ -21137,7 +21137,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_codeset_order_by",
+                      "name": "localization_attribute_order_by",
                       "ofType": null
                     }
                   }
@@ -21151,7 +21151,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codeset_bool_exp",
+                  "name": "localization_attribute_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -21170,7 +21170,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_codeset",
+                    "name": "localization_attribute",
                     "ofType": null
                   }
                 }
@@ -21180,8 +21180,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_codeset_aggregate",
-            "description": "fetch aggregated fields from the table: \"localization.codeset\"",
+            "name": "localization_attribute_aggregate",
+            "description": "fetch aggregated fields from the table: \"localization.attribute\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -21194,7 +21194,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_codeset_select_column",
+                      "name": "localization_attribute_select_column",
                       "ofType": null
                     }
                   }
@@ -21238,7 +21238,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_codeset_order_by",
+                      "name": "localization_attribute_order_by",
                       "ofType": null
                     }
                   }
@@ -21252,7 +21252,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codeset_bool_exp",
+                  "name": "localization_attribute_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -21265,7 +21265,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_codeset_aggregate",
+                "name": "localization_attribute_aggregate",
                 "ofType": null
               }
             },
@@ -21273,11 +21273,11 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_codeset_by_pk",
-            "description": "fetch data from the table: \"localization.codeset\" using primary key columns",
+            "name": "localization_attribute_by_pk",
+            "description": "fetch data from the table: \"localization.attribute\" using primary key columns",
             "args": [
               {
-                "name": "codeset_id",
+                "name": "attribute_id",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -21295,7 +21295,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codeset",
+              "name": "localization_attribute",
               "ofType": null
             },
             "isDeprecated": false,
@@ -21723,7 +21723,7 @@
             "description": "fetch data from the table: \"localization.localized_text\" using primary key columns",
             "args": [
               {
-                "name": "codeset_id",
+                "name": "attribute_id",
                 "description": "ID of the localization key the localized text refers to",
                 "type": {
                   "kind": "NON_NULL",
@@ -41826,8 +41826,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_codeset",
-            "description": "fetch data from the table: \"localization.codeset\"",
+            "name": "localization_attribute",
+            "description": "fetch data from the table: \"localization.attribute\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -41840,7 +41840,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_codeset_select_column",
+                      "name": "localization_attribute_select_column",
                       "ofType": null
                     }
                   }
@@ -41884,7 +41884,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_codeset_order_by",
+                      "name": "localization_attribute_order_by",
                       "ofType": null
                     }
                   }
@@ -41898,7 +41898,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codeset_bool_exp",
+                  "name": "localization_attribute_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -41917,7 +41917,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "localization_codeset",
+                    "name": "localization_attribute",
                     "ofType": null
                   }
                 }
@@ -41927,8 +41927,8 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_codeset_aggregate",
-            "description": "fetch aggregated fields from the table: \"localization.codeset\"",
+            "name": "localization_attribute_aggregate",
+            "description": "fetch aggregated fields from the table: \"localization.attribute\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -41941,7 +41941,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "localization_codeset_select_column",
+                      "name": "localization_attribute_select_column",
                       "ofType": null
                     }
                   }
@@ -41985,7 +41985,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "localization_codeset_order_by",
+                      "name": "localization_attribute_order_by",
                       "ofType": null
                     }
                   }
@@ -41999,7 +41999,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "localization_codeset_bool_exp",
+                  "name": "localization_attribute_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -42012,7 +42012,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "localization_codeset_aggregate",
+                "name": "localization_attribute_aggregate",
                 "ofType": null
               }
             },
@@ -42020,11 +42020,11 @@
             "deprecationReason": null
           },
           {
-            "name": "localization_codeset_by_pk",
-            "description": "fetch data from the table: \"localization.codeset\" using primary key columns",
+            "name": "localization_attribute_by_pk",
+            "description": "fetch data from the table: \"localization.attribute\" using primary key columns",
             "args": [
               {
-                "name": "codeset_id",
+                "name": "attribute_id",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -42042,7 +42042,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "localization_codeset",
+              "name": "localization_attribute",
               "ofType": null
             },
             "isDeprecated": false,
@@ -42470,7 +42470,7 @@
             "description": "fetch data from the table: \"localization.localized_text\" using primary key columns",
             "args": [
               {
-                "name": "codeset_id",
+                "name": "attribute_id",
                 "description": "ID of the localization key the localized text refers to",
                 "type": {
                   "kind": "NON_NULL",

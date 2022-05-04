@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { gql } from '@apollo/client';
-import { GetCodesetsQuery, LocalizationCodeset } from '../generated/graphql';
+import {
+  GetAttributesQuery,
+  LocalizationAttribute,
+} from '../generated/graphql';
 import { GqlQueryResult } from './types';
 
 const UPSERT_LOCALIZED_TEXTS_RESPONSE = gql`
@@ -9,26 +12,27 @@ const UPSERT_LOCALIZED_TEXTS_RESPONSE = gql`
     returning {
       entity_id
       language_code
-      codeset {
-        codeset_id
-        codeset_name
+      attribute {
+        attribute_id
+        attribute_name
       }
       localized_text
     }
   }
 `;
 
-const GET_CODESETS = gql`
-  query GetCodesets {
-    localization_codeset {
-      codeset_id
-      codeset_name
+const GET_ATTRIBUTES = gql`
+  query GetAttributes {
+    localization_attribute {
+      attribute_id
+      attribute_name
     }
   }
 `;
 
-export const mapCodesetsResult = (result: GqlQueryResult<GetCodesetsQuery>) =>
-  result.data?.localization_codeset as LocalizationCodeset[] | undefined;
+export const mapAttributesResult = (
+  result: GqlQueryResult<GetAttributesQuery>,
+) => result.data?.localization_attribute as LocalizationAttribute[] | undefined;
 
 // const UPSERT_LOCALIZED_TEXTS_PARAMS_FRAGMENT = gql`
 //   fragment upsert_localized_texts_params on localization_localized_texts_insert_input {

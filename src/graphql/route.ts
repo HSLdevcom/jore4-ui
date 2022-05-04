@@ -22,8 +22,8 @@ const LINE_LOCALIZED_FIELDS = gql`
     localized_texts {
       localized_text
       language_code
-      codeset {
-        codeset_name
+      attribute {
+        attribute_name
       }
     }
     name_fi @client
@@ -66,8 +66,8 @@ const ROUTE_LOCALIZED_FIELDS = gql`
     localized_texts {
       localized_text
       language_code
-      codeset {
-        codeset_name
+      attribute {
+        attribute_name
       }
     }
     description_fi @client

@@ -11,6 +11,7 @@ import {
   RouteTypeOfLineEnum,
   useInsertLineOneMutation,
 } from '../generated/graphql';
+import { mapToISODate } from '../time';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
@@ -48,30 +49,46 @@ export const mapFormToInput = (
   return input;
 };
 
+export const mapLineToFormState = (line?: RouteLine) => {
+  const formState: Partial<FormState> = {
+    lineId: line?.line_id,
+    label: line?.label,
+    finnishName: line?.name_i18n,
+    primaryVehicleMode: line?.primary_vehicle_mode,
+    priority: line?.priority,
+    transportTarget: line?.transport_target,
+    typeOfLine: line?.type_of_line,
+    validityStart: mapToISODate(line?.validity_start),
+    validityEnd: mapToISODate(line?.validity_end),
+    indefinite: !line?.validity_end,
+  };
+  return formState;
+};
+
 export const mapFormToLocalizedTexts = (state: FormState) => {
   const localizedTexts: LocalizedText[] = [
     {
       entityId: state.lineId,
       languageCode: LocalizationLanguageEnum.FiFi,
-      codesetName: 'line_name',
+      attributeName: 'line_name',
       localizedText: state.finnishName,
     },
     {
       entityId: state.lineId,
       languageCode: LocalizationLanguageEnum.FiFi,
-      codesetName: 'line_short_name',
+      attributeName: 'line_short_name',
       localizedText: state.finnishShortName,
     },
     {
       entityId: state.lineId,
-      languageCode: LocalizationLanguageEnum.SvSv,
-      codesetName: 'line_name',
+      languageCode: LocalizationLanguageEnum.SvFi,
+      attributeName: 'line_name',
       localizedText: state.swedishName,
     },
     {
       entityId: state.lineId,
-      languageCode: LocalizationLanguageEnum.SvSv,
-      codesetName: 'line_short_name',
+      languageCode: LocalizationLanguageEnum.SvFi,
+      attributeName: 'line_short_name',
       localizedText: state.swedishShortName,
     },
   ];

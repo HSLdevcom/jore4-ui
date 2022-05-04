@@ -5,16 +5,19 @@ import {
   LocalizationLocalizedTextInsertInput,
   LocalizationLocalizedTextOnConflict,
   LocalizationLocalizedTextUpdateColumn,
-  useGetCodesetsAsyncQuery,
+  useGetAttributesAsyncQuery,
 } from '../../generated/graphql';
-import { mapCodesetsResult } from '../../graphql';
+import { mapAttributesResult } from '../../graphql';
 
-export type CodesetName = 'route_description' | 'line_name' | 'line_short_name';
+export type AttributeName =
+  | 'route_description'
+  | 'line_name'
+  | 'line_short_name';
 
 export type LocalizedText = {
   entityId?: UUID; // for objects that are just being created, we don't have an entityId yet
   languageCode: LocalizationLanguageEnum;
-  codesetName: CodesetName;
+  attributeName: AttributeName;
   localizedText?: string;
 };
 
@@ -24,12 +27,12 @@ export type LocalizationLocalizedTextUpsertInput = {
 };
 
 export const useUpsertLocalizedText = () => {
-  const [getCodesets] = useGetCodesetsAsyncQuery();
+  const [getAttributes] = useGetAttributesAsyncQuery();
 
   // builds inputs for upserting localized text
   const buildUpsertLocalizedTestsInput = async (texts: LocalizedText[]) => {
-    const codesetsResult = await getCodesets({});
-    const codesets = mapCodesetsResult(codesetsResult);
+    const attributesResult = await getAttributes({});
+    const attributes = mapAttributesResult(attributesResult);
 
     // if the localized text already exists for the entity, overwrite it!
     const onConflict: LocalizationLocalizedTextOnConflict = {
@@ -38,19 +41,19 @@ export const useUpsertLocalizedText = () => {
     };
 
     const data: LocalizationLocalizedTextInsertInput[] = texts.map((item) => {
-      // find codeset id
-      const codeset = codesets?.find(
-        (cs) => cs.codeset_name === item.codesetName,
+      // find attribute id
+      const attribute = attributes?.find(
+        (attr) => attr.attribute_name === item.attributeName,
       );
 
-      if (!codeset) {
-        throw new Error(`Codeset ${item.codesetName} not found`);
+      if (!attribute) {
+        throw new Error(`Attribute ${item.attributeName} not found`);
       }
 
       return {
         entity_id: item.entityId,
         language_code: item.languageCode,
-        codeset_id: codeset.codeset_id,
+        attribute_id: attribute.attribute_id,
         localized_text: item.localizedText,
       };
     });

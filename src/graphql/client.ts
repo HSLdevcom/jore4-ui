@@ -93,13 +93,14 @@ const buildConnectionLink = (isBrowser: boolean) => {
 const getLocalizedText = (
   options: FieldFunctionOptions,
   lang: LocalizationLanguagesEnum,
-  codesetName: string,
+  attributeName: string,
 ) => {
   const localizedTexts =
     options.readField<LocalizationLocalizedTexts[]>('localized_texts');
   const localizedTextItem = localizedTexts?.find(
     (item) =>
-      item.language_code === lang && item.codeset.codeset_name === codesetName,
+      item.language_code === lang &&
+      item.attribute.attribute_name === attributeName,
   );
   // Note: in case the localized text is not found we must return null instead of undefined,
   // because otherwise none of the computed fields would work because of an apollo bug
