@@ -13,8 +13,8 @@ import { buildClientSchema, IntrospectionQuery } from 'graphql';
 import { DateTime } from 'luxon';
 import introspectionResult from '../../graphql.schema.json';
 import {
-  LocalizationLanguagesEnum,
-  LocalizationLocalizedTexts,
+  LocalizationLanguageEnum,
+  LocalizationLocalizedText,
 } from '../generated/graphql';
 import { isDateLike, parseDate } from '../time';
 import { mapHttpToWs } from '../utils';
@@ -92,11 +92,11 @@ const buildConnectionLink = (isBrowser: boolean) => {
 
 const getLocalizedText = (
   options: FieldFunctionOptions,
-  lang: LocalizationLanguagesEnum,
+  lang: LocalizationLanguageEnum,
   attributeName: string,
 ) => {
   const localizedTexts =
-    options.readField<LocalizationLocalizedTexts[]>('localized_texts');
+    options.readField<LocalizationLocalizedText[]>('localized_texts');
   const localizedTextItem = localizedTexts?.find(
     (item) =>
       item.language_code === lang &&
@@ -117,7 +117,7 @@ const buildCacheDefinition = () => {
             read: (_, options) =>
               getLocalizedText(
                 options,
-                LocalizationLanguagesEnum.FiFi,
+                LocalizationLanguageEnum.FiFi,
                 'route_description',
               ),
           },
@@ -125,7 +125,7 @@ const buildCacheDefinition = () => {
             read: (_, options) =>
               getLocalizedText(
                 options,
-                LocalizationLanguagesEnum.SvSv,
+                LocalizationLanguageEnum.SvFi,
                 'route_description',
               ),
           },
@@ -137,7 +137,7 @@ const buildCacheDefinition = () => {
             read: (_, options) =>
               getLocalizedText(
                 options,
-                LocalizationLanguagesEnum.FiFi,
+                LocalizationLanguageEnum.FiFi,
                 'line_name',
               ),
           },
@@ -145,7 +145,7 @@ const buildCacheDefinition = () => {
             read: (_, options) =>
               getLocalizedText(
                 options,
-                LocalizationLanguagesEnum.SvSv,
+                LocalizationLanguageEnum.SvFi,
                 'line_name',
               ),
           },
@@ -153,7 +153,7 @@ const buildCacheDefinition = () => {
             read: (_, options) =>
               getLocalizedText(
                 options,
-                LocalizationLanguagesEnum.FiFi,
+                LocalizationLanguageEnum.FiFi,
                 'line_short_name',
               ),
           },
@@ -161,7 +161,7 @@ const buildCacheDefinition = () => {
             read: (_, options) =>
               getLocalizedText(
                 options,
-                LocalizationLanguagesEnum.SvSv,
+                LocalizationLanguageEnum.SvFi,
                 'line_short_name',
               ),
           },

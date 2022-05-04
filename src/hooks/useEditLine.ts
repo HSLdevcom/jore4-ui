@@ -8,7 +8,10 @@ import {
 } from '../generated/graphql';
 import { MIN_DATE } from '../time';
 import { showDangerToastWithError } from '../utils';
-import { useUpsertLocalizedText } from './localization';
+import {
+  LocalizationLocalizedTextUpsertInput,
+  useUpsertLocalizedText,
+} from './localization';
 import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
 import { mapFormToInput, mapFormToLocalizedTexts } from './useCreateLine';
 
@@ -20,7 +23,7 @@ interface EditParams {
 interface EditChanges {
   lineId: UUID;
   patch: RouteLineSetInput;
-  localizedTextsUpsertInput: LocalizationLocalizedTextArrRelInsertInput;
+  localizedTextsUpsertInput: LocalizationLocalizedTextUpsertInput;
   conflicts?: RouteLine[];
 }
 
@@ -56,14 +59,16 @@ export const useEditLine = () => {
     return changes;
   };
 
-  const mapEditChangesToVariables = (
-    changes: EditChanges,
-  ): PatchLineMutationVariables => ({
-    lineId: changes.lineId,
-    linePatch: changes.patch,
-    localizedTextsData: changes.localizedTextsUpsertInput.data,
-    localizedTextsOnConflict: changes.localizedTextsUpsertInput.on_conflict,
-  });
+  const mapEditChangesToVariables = (changes: EditChanges) => {
+    const { data, onConflict } = changes.localizedTextsUpsertInput;
+    const variables: PatchLineMutationVariables = {
+      lineId: changes.lineId,
+      linePatch: changes.patch,
+      localizedTextsData: data,
+      localizedTextsOnConflict: onConflict,
+    };
+    return variables;
+  };
 
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown

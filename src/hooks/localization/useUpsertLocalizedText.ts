@@ -1,6 +1,5 @@
 import {
   LocalizationLanguageEnum,
-  LocalizationLocalizedTextArrRelInsertInput,
   LocalizationLocalizedTextConstraint,
   LocalizationLocalizedTextInsertInput,
   LocalizationLocalizedTextOnConflict,
@@ -58,9 +57,9 @@ export const useUpsertLocalizedText = () => {
       };
     });
 
-    const upsertInput: LocalizationLocalizedTextArrRelInsertInput = {
+    const upsertInput: LocalizationLocalizedTextUpsertInput = {
       data,
-      on_conflict: onConflict,
+      onConflict,
     };
 
     return upsertInput;

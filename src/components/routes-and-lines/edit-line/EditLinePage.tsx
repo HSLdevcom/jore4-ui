@@ -6,14 +6,15 @@ import {
   useGetLineDetailsByIdQuery,
 } from '../../../generated/graphql';
 import { mapLineDetailsResult } from '../../../graphql';
-import {
-  mapLineToFormState as mapLineToFormState,
-  useEditLine,
-} from '../../../hooks';
+import { useEditLine } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToVariables, showSuccessToast } from '../../../utils';
-import { FormState, LineForm } from '../../forms/line/LineForm';
+import {
+  FormState,
+  LineForm,
+  mapLineToFormState,
+} from '../../forms/line/LineForm';
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,

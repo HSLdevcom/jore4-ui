@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { FormState } from '../components/forms/line/LineForm';
 import {
-  InsertRouteOneMutationVariables,
+  InsertLineOneMutationVariables,
   LocalizationLanguageEnum,
-  LocalizationLocalizedTextArrRelInsertInput,
   ReusableComponentsVehicleModeEnum,
   RouteLine,
   RouteLineInsertInput,
@@ -11,13 +10,16 @@ import {
   RouteTypeOfLineEnum,
   useInsertLineOneMutation,
 } from '../generated/graphql';
-import { mapToISODate } from '../time';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   showDangerToastWithError,
 } from '../utils';
-import { LocalizedText, useUpsertLocalizedText } from './localization';
+import {
+  LocalizationLocalizedTextUpsertInput,
+  LocalizedText,
+  useUpsertLocalizedText,
+} from './localization';
 import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
 
 interface CreateParams {
@@ -25,7 +27,7 @@ interface CreateParams {
 }
 interface CreateChanges {
   input: RouteLineInsertInput;
-  localizedTextsUpsertInput: LocalizationLocalizedTextArrRelInsertInput;
+  localizedTextsUpsertInput: LocalizationLocalizedTextUpsertInput;
   conflicts?: RouteLine[];
 }
 
@@ -47,22 +49,6 @@ export const mapFormToInput = (
     ),
   };
   return input;
-};
-
-export const mapLineToFormState = (line?: RouteLine) => {
-  const formState: Partial<FormState> = {
-    lineId: line?.line_id,
-    label: line?.label,
-    finnishName: line?.name_i18n,
-    primaryVehicleMode: line?.primary_vehicle_mode,
-    priority: line?.priority,
-    transportTarget: line?.transport_target,
-    typeOfLine: line?.type_of_line,
-    validityStart: mapToISODate(line?.validity_start),
-    validityEnd: mapToISODate(line?.validity_end),
-    indefinite: !line?.validity_end,
-  };
-  return formState;
 };
 
 export const mapFormToLocalizedTexts = (state: FormState) => {
@@ -126,10 +112,14 @@ export const useCreateLine = () => {
   };
 
   const mapCreateChangesToVariables = (changes: CreateChanges) => {
-    const variables: InsertRouteOneMutationVariables = {
-      object: {
+    const { data, onConflict } = changes.localizedTextsUpsertInput;
+    const variables: InsertLineOneMutationVariables = {
+      line: {
         ...changes.input,
-        localized_texts: changes.localizedTextsUpsertInput,
+        localized_texts: {
+          data,
+          on_conflict: onConflict,
+        },
       },
     };
     return variables;
