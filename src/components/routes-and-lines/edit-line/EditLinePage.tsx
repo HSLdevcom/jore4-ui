@@ -38,6 +38,8 @@ export const EditLinePage = (): JSX.Element => {
   const line = mapLineDetailsResult(lineDetailsResult);
   const { t } = useTranslation();
 
+  console.log('line', line);
+
   const defaultValues = mapLineToFormState(line);
 
   const onSubmit = async (form: FormState) => {
