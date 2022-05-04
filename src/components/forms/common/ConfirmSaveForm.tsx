@@ -76,9 +76,7 @@ export const ConfirmSaveForm = ({ className }: Props): JSX.Element => {
       </Row>
       <Row className="space-x-4">
         <Column>
-          <label htmlFor="validityStart">
-            {t('saveChangesModal.validityStart')}
-          </label>
+          <label htmlFor="validityStart">{t('validityStart')}</label>
           <input type="date" {...register('validityStart', {})} />
           <p>
             {errors.validityStart?.type === 'too_small' &&
@@ -87,7 +85,7 @@ export const ConfirmSaveForm = ({ className }: Props): JSX.Element => {
         </Column>
         <Column>
           <label htmlFor="validityEnd" className={indefinite ? 'hidden' : ''}>
-            {t('saveChangesModal.validityEnd')}
+            {t('validityEnd')}
           </label>
           <input
             type="date"
