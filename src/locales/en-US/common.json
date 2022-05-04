@@ -89,8 +89,6 @@
   "saveChangesModal": {
     "title": "Save changes",
     "validityPeriod": "Validity period",
-    "validityStart": "Starts",
-    "validityEnd": "Ends",
     "indefinite": "Valid indefinitely",
     "validityConflictTitle": "Check conflicts with existing data",
     "validityConflictBody": "Please change validity times of existing resources or save current changes as draft."
@@ -188,5 +186,7 @@
   "cancel": "Cancel",
   "close": "Close",
   "version": "Version: {{ version }}",
-  "hide": "Hide"
+  "hide": "Hide",
+  "validityStart": "Starts",
+  "validityEnd": "Ends"
 }

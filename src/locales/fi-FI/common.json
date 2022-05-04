@@ -89,8 +89,6 @@
   "saveChangesModal": {
     "title": "Tallenna muutos",
     "validityPeriod": "Muutoksen voimassaolo",
-    "validityStart": "Alkaa",
-    "validityEnd": "Päättyy",
     "indefinite": "Voimassa toistaiseksi",
     "validityConflictTitle": "Tallennus sisältää päällekkäisyyksiä",
     "validityConflictBody": "Muokkaa olemassa olevien resurssien voimassaoloaikoja tai tallenna nykyiset muutokset luonnoksena."
@@ -188,5 +186,7 @@
   "cancel": "Peruuta",
   "close": "Sulje",
   "version": "Versio: {{ version }}",
-  "hide": "Piilota"
+  "hide": "Piilota",
+  "validityStart": "Alkaa",
+  "validityEnd": "Päättyy"
 }
