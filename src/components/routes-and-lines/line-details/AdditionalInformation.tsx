@@ -29,11 +29,13 @@ export const AdditionalInformation: React.FC<Props> = ({ className, line }) => {
           className="w-1/2"
           fieldName={t('lines.linesName')}
           value={line.name_i18n}
+          testId="line-details-name"
         />
         <FieldValue
           className="w-1/2"
           fieldName={t('lines.primaryVehicleMode')}
           value={mapVehicleModeToUiName(line.primary_vehicle_mode)}
+          testId="line-details-primary-vehicle-mode"
         />
       </Row>
       <Row className="mb-5">
@@ -41,16 +43,19 @@ export const AdditionalInformation: React.FC<Props> = ({ className, line }) => {
           className="w-1/4"
           fieldName={t('lines.label')}
           value={line.label}
+          testId="line-details-label"
         />
         <FieldValue
           className="w-1/4"
           fieldName={t('lines.linesType')}
           value={mapLineTypeToUiName(line.type_of_line)}
+          testId="line-details-type-of-line"
         />
         <FieldValue
           className="w-1/2"
           fieldName={t('lines.transportTarget')}
           value={mapTransportTargetToUiName(line.transport_target)}
+          testId="line-details-transport-target"
         />
       </Row>
     </Column>

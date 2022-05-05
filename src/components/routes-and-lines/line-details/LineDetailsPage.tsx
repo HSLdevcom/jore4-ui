@@ -66,7 +66,7 @@ const LineTitle: React.FC<LineTitleProps> = ({
 
   return (
     <Row className={`items-center ${className}`}>
-      <span className="mr-4 text-4xl font-bold">
+      <span className="mr-4 text-4xl font-bold" data-testid="line-page-heading">
         {t('lines.line')} {line.label}
       </span>
       <span>
@@ -121,10 +121,12 @@ export const LineDetailsPage = (): JSX.Element => {
           </Column>
           <Column>
             {line && <LineTitle line={line} onCreateRoute={onCreateRoute} />}
-            {line?.name_i18n}
+            <span data-testid="line-header-name">{line?.name_i18n}</span>
             <Row>
               <i className="icon-time2 text-xl text-city-bicycle-yellow" />
-              {buildValidityPeriod(line?.validity_start, line?.validity_end)}
+              <span data-testid="line-header-validity-period">
+                {buildValidityPeriod(line?.validity_start, line?.validity_end)}
+              </span>
             </Row>
           </Column>
         </Row>
