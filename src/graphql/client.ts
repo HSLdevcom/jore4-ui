@@ -1,5 +1,6 @@
 import {
   ApolloClient,
+  FieldFunctionOptions,
   from,
   HttpLink,
   InMemoryCache,
@@ -11,6 +12,10 @@ import { withScalars } from 'apollo-link-scalars';
 import { buildClientSchema, IntrospectionQuery } from 'graphql';
 import { DateTime } from 'luxon';
 import introspectionResult from '../../graphql.schema.json';
+import {
+  LocalizationLanguageEnum,
+  LocalizationLocalizedText,
+} from '../generated/graphql';
 import { isDateLike, parseDate } from '../time';
 import { mapHttpToWs } from '../utils';
 import { authRoleMiddleware } from './auth';
@@ -85,11 +90,64 @@ const buildConnectionLink = (isBrowser: boolean) => {
   return connectionLink;
 };
 
+const getLocalizedText = (
+  options: FieldFunctionOptions,
+  lang: LocalizationLanguageEnum,
+  attributeName: string,
+) => {
+  const localizedTexts =
+    options.readField<LocalizationLocalizedText[]>('localized_texts');
+  const localizedTextItem = localizedTexts?.find(
+    (item) =>
+      item.language_code === lang &&
+      item.attribute.attribute_name === attributeName,
+  );
+  // Note: in case the localized text is not found we must return null instead of undefined,
+  // because otherwise none of the computed fields would work because of an apollo bug
+  return localizedTextItem?.localized_text || null;
+};
+
 const buildCacheDefinition = () => {
   const cacheDefinition = new InMemoryCache({
     typePolicies: {
       route_route: {
         keyFields: ['route_id'],
+      },
+      route_line: {
+        fields: {
+          name_fi: {
+            read: (_, options) =>
+              getLocalizedText(
+                options,
+                LocalizationLanguageEnum.FiFi,
+                'line_name',
+              ),
+          },
+          name_sv: {
+            read: (_, options) =>
+              getLocalizedText(
+                options,
+                LocalizationLanguageEnum.SvFi,
+                'line_name',
+              ),
+          },
+          short_name_fi: {
+            read: (_, options) =>
+              getLocalizedText(
+                options,
+                LocalizationLanguageEnum.FiFi,
+                'line_short_name',
+              ),
+          },
+          short_name_sv: {
+            read: (_, options) =>
+              getLocalizedText(
+                options,
+                LocalizationLanguageEnum.SvFi,
+                'line_short_name',
+              ),
+          },
+        },
       },
       service_pattern_scheduled_stop_point: {
         keyFields: ['scheduled_stop_point_id'],

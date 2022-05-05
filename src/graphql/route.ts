@@ -17,12 +17,25 @@ import {
 } from '../generated/graphql';
 import { GqlQueryResult } from './types';
 
+const LINE_LOCALIZED_FIELDS = gql`
+  fragment line_localized_fields on route_line {
+    localized_texts {
+      ...localized_texts_all_fields
+    }
+    name_fi @client
+    name_sv @client
+    short_name_fi @client
+    short_name_sv @client
+  }
+`;
+
 const LINE_DEFAULT_FIELDS = gql`
   fragment line_default_fields on route_line {
     line_id
     label
     name_i18n
     short_name_i18n
+    ...line_localized_fields
     validity_start
     validity_end
   }
@@ -33,6 +46,7 @@ const LINE_ALL_FIELDS = gql`
     line_id
     name_i18n
     short_name_i18n
+    ...line_localized_fields
     primary_vehicle_mode
     type_of_line
     transport_target
@@ -339,13 +353,7 @@ const GET_ROUTES_BY_VALIDITY = gql`
 const INSERT_LINE = gql`
   mutation InsertLineOne($object: route_line_insert_input!) {
     insert_route_line_one(object: $object) {
-      line_id
-      label
-      priority
-      primary_vehicle_mode
-      transport_target
-      validity_start
-      validity_end
+      ...line_all_fields
     }
   }
 `;
@@ -369,16 +377,7 @@ const UPDATE_LINE = gql`
 const INSERT_ROUTE = gql`
   mutation InsertRouteOne($object: route_route_insert_input!) {
     insert_route_route_one(object: $object) {
-      route_id
-      starts_from_scheduled_stop_point_id
-      ends_at_scheduled_stop_point_id
-      route_shape
-      on_line_id
-      priority
-      validity_start
-      validity_end
-      label
-      direction
+      ...route_all_fields
     }
   }
 `;

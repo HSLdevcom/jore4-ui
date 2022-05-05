@@ -16,8 +16,8 @@ const hasuraOverrideTypeDefs = gql`
   # define custom scalar for geography types that can only be lines
   scalar geography_linestring
 
-  # setting fields not-nullable in route.route VIEW
   type route_route {
+    # setting fields not-nullable
     route_id: uuid!
     starts_from_scheduled_stop_point_id: uuid!
     ends_at_scheduled_stop_point_id: uuid!
@@ -26,6 +26,14 @@ const hasuraOverrideTypeDefs = gql`
     label: String!
     direction: String!
     route_shape: geography_linestring
+  }
+
+  type route_line {
+    # adding computed localization fields
+    name_fi: String!
+    name_sv: String!
+    short_name_fi: String!
+    short_name_sv: String!
   }
 
   # setting fields not-nullable in service_pattern.scheduled_stop_point VIEW

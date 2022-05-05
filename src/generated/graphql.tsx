@@ -5012,14 +5012,18 @@ export type RouteLine = {
   localized_texts: Array<LocalizationLocalizedText>;
   /** An aggregate relationship */
   localized_texts_aggregate: LocalizationLocalizedTextAggregate;
+  name_fi: Scalars['String'];
   /** The name of the line. Placeholder for multilingual strings. */
   name_i18n: Scalars['String'];
+  name_sv: Scalars['String'];
   /** The mode of the vehicles used as primary on the line. */
   primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority: Scalars['Int'];
+  short_name_fi: Scalars['String'];
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n?: Maybe<Scalars['String']>;
+  short_name_sv: Scalars['String'];
   transport_target: HslRouteTransportTargetEnum;
   /** An object relationship */
   typeOfLineByTypeOfLine: RouteTypeOfLine;
@@ -7632,9 +7636,13 @@ export type UpdateRouteJourneyPatternMutationVariables = Exact<{
 
 export type UpdateRouteJourneyPatternMutation = { __typename?: 'mutation_root', delete_journey_pattern_journey_pattern?: { __typename?: 'journey_pattern_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID }> } | null | undefined, insert_journey_pattern_journey_pattern_one?: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } | null | undefined };
 
-export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined };
+export type LocalizedTextsAllFieldsFragment = { __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } };
 
-export type LineAllFieldsFragment = { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string };
+export type LineLocalizedFieldsFragment = { __typename?: 'route_line', name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> };
+
+export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> };
+
+export type LineAllFieldsFragment = { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> };
 
 export type RouteAllFieldsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string };
 
@@ -7649,49 +7657,49 @@ export type RouteWithInfrastructureLinksFragment = { __typename?: 'route_route',
 export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }> };
+export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> }> };
 
 export type SearchAllLinesQueryVariables = Exact<{
   filter?: Maybe<RouteLineBoolExp>;
 }>;
 
 
-export type SearchAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string }> }> };
+export type SearchAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string }>, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> }> };
 
 export type ListOwnLinesQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
 }>;
 
 
-export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id: UUID }> }> };
+export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID }>, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> }> };
 
 export type ListChangingRoutesQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
 }>;
 
 
-export type ListChangingRoutesQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> };
+export type ListChangingRoutesQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> } | null | undefined, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> };
 
 export type GetLineDetailsByIdQueryVariables = Exact<{
   line_id: Scalars['uuid'];
 }>;
 
 
-export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
+export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> } | null | undefined };
 
 export type GetLinesByValidityQueryVariables = Exact<{
   filter?: Maybe<RouteLineBoolExp>;
 }>;
 
 
-export type GetLinesByValidityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string }> };
+export type GetLinesByValidityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> }> };
 
 export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
   line_id: Scalars['uuid'];
 }>;
 
 
-export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } }> }> } }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> } | null | undefined };
+export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } }> }> } }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }>, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> } | null | undefined };
 
 export type GetHighestPriorityLineDetailsWithRoutesQueryVariables = Exact<{
   lineFilters?: Maybe<RouteLineBoolExp>;
@@ -7700,7 +7708,7 @@ export type GetHighestPriorityLineDetailsWithRoutesQueryVariables = Exact<{
 }>;
 
 
-export type GetHighestPriorityLineDetailsWithRoutesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } }> }> } }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> };
+export type GetHighestPriorityLineDetailsWithRoutesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } }> }> } }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }>, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> }> };
 
 export type GetRouteDetailsByIdsQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
@@ -7745,7 +7753,7 @@ export type InsertLineOneMutationVariables = Exact<{
 }>;
 
 
-export type InsertLineOneMutation = { __typename?: 'mutation_root', insert_route_line_one?: { __typename?: 'route_line', line_id: UUID, label: string, priority: number, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined };
+export type InsertLineOneMutation = { __typename?: 'mutation_root', insert_route_line_one?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> } | null | undefined };
 
 export type PatchLineMutationVariables = Exact<{
   line_id: Scalars['uuid'];
@@ -7753,14 +7761,14 @@ export type PatchLineMutationVariables = Exact<{
 }>;
 
 
-export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
+export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, name_fi: string, name_sv: string, short_name_fi: string, short_name_sv: string, localized_texts: Array<{ __typename?: 'localization_localized_text', entity_id: UUID, localized_text: string, language_code: LocalizationLanguageEnum, attribute: { __typename?: 'localization_attribute', attribute_id: UUID, attribute_name: string } }> } | null | undefined };
 
 export type InsertRouteOneMutationVariables = Exact<{
   object: RouteRouteInsertInput;
 }>;
 
 
-export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', route_id: UUID, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, priority: number, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, label: string, direction: string } | null | undefined };
+export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string } | null | undefined };
 
 export type PatchRouteMutationVariables = Exact<{
   route_id: Scalars['uuid'];
@@ -7858,21 +7866,45 @@ export const InfrastructureLinkAllFieldsFragmentDoc = gql`
   external_link_source
 }
     `;
+export const LocalizedTextsAllFieldsFragmentDoc = gql`
+    fragment localized_texts_all_fields on localization_localized_text {
+  entity_id
+  localized_text
+  language_code
+  attribute {
+    attribute_id
+    attribute_name
+  }
+}
+    `;
+export const LineLocalizedFieldsFragmentDoc = gql`
+    fragment line_localized_fields on route_line {
+  localized_texts {
+    ...localized_texts_all_fields
+  }
+  name_fi @client
+  name_sv @client
+  short_name_fi @client
+  short_name_sv @client
+}
+    ${LocalizedTextsAllFieldsFragmentDoc}`;
 export const LineDefaultFieldsFragmentDoc = gql`
     fragment line_default_fields on route_line {
   line_id
   label
   name_i18n
   short_name_i18n
+  ...line_localized_fields
   validity_start
   validity_end
 }
-    `;
+    ${LineLocalizedFieldsFragmentDoc}`;
 export const LineAllFieldsFragmentDoc = gql`
     fragment line_all_fields on route_line {
   line_id
   name_i18n
   short_name_i18n
+  ...line_localized_fields
   primary_vehicle_mode
   type_of_line
   transport_target
@@ -7881,7 +7913,7 @@ export const LineAllFieldsFragmentDoc = gql`
   priority
   label
 }
-    `;
+    ${LineLocalizedFieldsFragmentDoc}`;
 export const RouteDefaultFieldsFragmentDoc = gql`
     fragment route_default_fields on route_route {
   route_id
@@ -8713,16 +8745,10 @@ export type GetRoutesByValidityQueryResult = Apollo.QueryResult<GetRoutesByValid
 export const InsertLineOneDocument = gql`
     mutation InsertLineOne($object: route_line_insert_input!) {
   insert_route_line_one(object: $object) {
-    line_id
-    label
-    priority
-    primary_vehicle_mode
-    transport_target
-    validity_start
-    validity_end
+    ...line_all_fields
   }
 }
-    `;
+    ${LineAllFieldsFragmentDoc}`;
 export type InsertLineOneMutationFn = Apollo.MutationFunction<InsertLineOneMutation, InsertLineOneMutationVariables>;
 
 /**
@@ -8786,19 +8812,10 @@ export type PatchLineMutationOptions = Apollo.BaseMutationOptions<PatchLineMutat
 export const InsertRouteOneDocument = gql`
     mutation InsertRouteOne($object: route_route_insert_input!) {
   insert_route_route_one(object: $object) {
-    route_id
-    starts_from_scheduled_stop_point_id
-    ends_at_scheduled_stop_point_id
-    route_shape
-    on_line_id
-    priority
-    validity_start
-    validity_end
-    label
-    direction
+    ...route_all_fields
   }
 }
-    `;
+    ${RouteAllFieldsFragmentDoc}`;
 export type InsertRouteOneMutationFn = Apollo.MutationFunction<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
 
 /**
