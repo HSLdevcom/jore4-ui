@@ -3,7 +3,9 @@ import React, { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
+import { RouteLine } from '../../../generated/graphql';
 import { Row } from '../../../layoutComponents';
+import { mapToISODate } from '../../../time';
 import { FormContainer, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
 import {
@@ -23,6 +25,22 @@ interface Props {
   defaultValues: Partial<FormState>;
   onSubmit: (state: FormState) => void;
 }
+
+export const mapLineToFormState = (line?: RouteLine) => {
+  const formState: Partial<FormState> = {
+    lineId: line?.line_id,
+    label: line?.label,
+    finnishName: line?.name_i18n,
+    primaryVehicleMode: line?.primary_vehicle_mode,
+    priority: line?.priority,
+    transportTarget: line?.transport_target,
+    typeOfLine: line?.type_of_line,
+    validityStart: mapToISODate(line?.validity_start),
+    validityEnd: mapToISODate(line?.validity_end),
+    indefinite: !line?.validity_end,
+  };
+  return formState;
+};
 
 export const LineForm = ({ defaultValues, onSubmit }: Props): JSX.Element => {
   const history = useHistory();

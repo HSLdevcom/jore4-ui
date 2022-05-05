@@ -9,9 +9,12 @@ import { mapLineDetailsResult } from '../../../graphql';
 import { useEditLine } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { mapToISODate } from '../../../time';
 import { mapToVariables, showSuccessToast } from '../../../utils';
-import { FormState, LineForm } from '../../forms/line/LineForm';
+import {
+  FormState,
+  LineForm,
+  mapLineToFormState,
+} from '../../forms/line/LineForm';
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
@@ -35,17 +38,7 @@ export const EditLinePage = (): JSX.Element => {
   const line = mapLineDetailsResult(lineDetailsResult);
   const { t } = useTranslation();
 
-  const defaultValues = {
-    label: line?.label,
-    finnishName: line?.name_i18n,
-    primaryVehicleMode: line?.primary_vehicle_mode,
-    priority: line?.priority,
-    transportTarget: line?.transport_target,
-    typeOfLine: line?.type_of_line,
-    validityStart: mapToISODate(line?.validity_start),
-    validityEnd: mapToISODate(line?.validity_end),
-    indefinite: !line?.validity_end,
-  };
+  const defaultValues = mapLineToFormState(line);
 
   const onSubmit = async (form: FormState) => {
     try {
