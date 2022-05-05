@@ -51,9 +51,11 @@ export const RouteStopsRow = ({
         belongsToJourneyPattern ? '' : 'bg-background text-dark-grey'
       } ${className}`}
     >
-      <td className="py-4 pl-16 pr-4">{stop.label}</td>
-      <td>!Pysäkki X</td>
-      <td className="pr-16 text-right">
+      <td className="py-4 pl-16 pr-4" data-testid="stop-row-label">
+        {stop.label}
+      </td>
+      <td data-testid="stop-row-name">!Pysäkki X</td>
+      <td className="pr-16 text-right" data-testid="stop-row-validity-period">
         {belongsToJourneyPattern
           ? t('validity.validDuring', {
               startDate: mapToShortDate(stop.validity_start || MIN_DATE),
@@ -63,13 +65,15 @@ export const RouteStopsRow = ({
       </td>
       <td>
         <Row className="items-center">
-          !{mapToShortDateTime(DateTime.now())}
+          <span data-testid="stop-row-last-edited">
+            !{mapToShortDateTime(DateTime.now())}
+          </span>
           <MdOutlineHistory className="ml-2 inline text-xl text-tweaked-brand" />
         </Row>
       </td>
       <td>&nbsp;</td>
       <td>
-        <SimpleDropdownMenu>
+        <SimpleDropdownMenu testId="stop-row-action-menu">
           {belongsToJourneyPattern ? (
             <button type="button" onClick={deleteFromJourneyPattern}>
               {t('stops.removeFromRoute')}
