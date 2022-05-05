@@ -121,7 +121,7 @@ export const LineDetailsPage = (): JSX.Element => {
           </Column>
           <Column>
             {line && <LineTitle line={line} onCreateRoute={onCreateRoute} />}
-            {line?.name_i18n}
+            {line?.name_fi}
             <Row>
               <i className="icon-time2 text-xl text-city-bicycle-yellow" />
               {buildValidityPeriod(line?.validity_start, line?.validity_end)}

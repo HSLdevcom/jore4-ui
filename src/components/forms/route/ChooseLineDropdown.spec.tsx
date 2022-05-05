@@ -30,19 +30,55 @@ describe('<ChooseLineDropdown />', () => {
               __typename: 'route_line',
               line_id: 'line1',
               label: '1',
-              name_i18n: 'Line1 name',
-              short_name_i18n: 'Line1',
               validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
               validity_end: null,
+              localized_texts: [
+                {
+                  localized_text: 'Line1 name',
+                  language_code: 'fi_FI',
+                  attribute: {
+                    attribute_name: 'line_name',
+                    __typename: 'localization_attribute',
+                  },
+                  __typename: 'localization_localized_text',
+                },
+                {
+                  localized_text: 'Line1',
+                  language_code: 'fi_FI',
+                  attribute: {
+                    attribute_name: 'line_short_name',
+                    __typename: 'localization_attribute',
+                  },
+                  __typename: 'localization_localized_text',
+                },
+              ],
             },
             {
               __typename: 'route_line',
               line_id: 'line2',
               label: '2',
-              name_i18n: 'Line2 name',
-              short_name_i18n: 'Line2',
               validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
               validity_end: null,
+              localized_texts: [
+                {
+                  localized_text: 'Line2 name',
+                  language_code: 'fi_FI',
+                  attribute: {
+                    attribute_name: 'line_name',
+                    __typename: 'localization_attribute',
+                  },
+                  __typename: 'localization_localized_text',
+                },
+                {
+                  localized_text: 'Line2',
+                  language_code: 'fi_FI',
+                  attribute: {
+                    attribute_name: 'line_short_name',
+                    __typename: 'localization_attribute',
+                  },
+                  __typename: 'localization_localized_text',
+                },
+              ],
             },
           ],
         },

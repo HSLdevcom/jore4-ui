@@ -4,6 +4,7 @@ import {
   GetLineDetailsWithRoutesByIdQuery,
   GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
+  ListChangingRoutesQuery,
   RouteLine,
   RouteRoute,
   useGetHighestPriorityLineDetailsWithRoutesQuery,
@@ -11,7 +12,6 @@ import {
   useGetRouteDetailsByIdsQuery,
   useGetRouteDetailsByLabelWildcardQuery,
   useGetRoutesWithInfrastructureLinksQuery,
-  useListChangingRoutesQuery,
   useListOwnLinesQuery,
   useSearchAllLinesQuery,
 } from '../generated/graphql';
@@ -37,8 +37,6 @@ const LINE_DEFAULT_FIELDS = gql`
   fragment line_default_fields on route_line {
     line_id
     label
-    name_i18n
-    short_name_i18n
     ...line_localized_fields
     validity_start
     validity_end
@@ -48,8 +46,6 @@ const LINE_DEFAULT_FIELDS = gql`
 const LINE_ALL_FIELDS = gql`
   fragment line_all_fields on route_line {
     line_id
-    name_i18n
-    short_name_i18n
     ...line_localized_fields
     primary_vehicle_mode
     type_of_line
@@ -197,7 +193,7 @@ const LIST_CHANGING_ROUTES = gql`
   }
 `;
 export const mapListChangingRoutesResult = (
-  result: ReturnType<typeof useListChangingRoutesQuery>,
+  result: GqlQueryResult<ListChangingRoutesQuery>,
 ) => result.data?.route_route as RouteRoute[] | undefined;
 
 const GET_LINE_DETAILS_BY_ID = gql`

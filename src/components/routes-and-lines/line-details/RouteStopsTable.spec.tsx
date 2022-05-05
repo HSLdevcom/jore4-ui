@@ -17,14 +17,32 @@ describe(`<${RouteStopsTable.name} />`, () => {
     data: {
       route_line_by_pk: {
         line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
-        name_i18n: 'Rautatientori - Veräjälaakso',
-        short_name_i18n: 'Rautatientori - Veräjälaakso',
         primary_vehicle_mode: 'bus',
         validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
         validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),
         priority: 10,
         label: '65',
         __typename: 'route_line',
+        localized_texts: [
+          {
+            localized_text: 'Rautatientori - Veräjälaakso',
+            language_code: 'fi_FI',
+            attribute: {
+              attribute_name: 'line_name',
+              __typename: 'localization_attribute',
+            },
+            __typename: 'localization_localized_text',
+          },
+          {
+            localized_text: 'Rautatientori - Veräjälaakso',
+            language_code: 'fi_FI',
+            attribute: {
+              attribute_name: 'line_short_name',
+              __typename: 'localization_attribute',
+            },
+            __typename: 'localization_localized_text',
+          },
+        ],
         line_routes: [
           {
             route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',

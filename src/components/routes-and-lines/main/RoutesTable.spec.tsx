@@ -1,11 +1,12 @@
 import React from 'react';
 import {
+  ListChangingRoutesQuery,
   RouteLine,
   RouteRoute,
-  useListChangingRoutesQuery,
   useListOwnLinesQuery,
 } from '../../../generated/graphql';
 import {
+  GqlQueryResult,
   mapListChangingRoutesResult,
   mapListOwnLinesResult,
 } from '../../../graphql';
@@ -33,9 +34,27 @@ describe(`<${RoutesTable.name} />`, () => {
           route_line: {
             line_id: lineId,
             label: '65',
-            name_i18n: 'Rautatientori - Kätilöopisto - Veräjälaakso',
-            short_name_i18n: 'Rautatientori - Veräjälaakso',
             __typename: 'route_line',
+            localized_texts: [
+              {
+                localized_text: 'Rautatientori - Kätilöopisto - Veräjälaakso',
+                language_code: 'fi_FI',
+                attribute: {
+                  attribute_name: 'line_name',
+                  __typename: 'localization_attribute',
+                },
+                __typename: 'localization_localized_text',
+              },
+              {
+                localized_text: 'Rautatientori - Veräjälaakso',
+                language_code: 'fi_FI',
+                attribute: {
+                  attribute_name: 'line_short_name',
+                  __typename: 'localization_attribute',
+                },
+                __typename: 'localization_localized_text',
+              },
+            ],
           },
           starts_from_scheduled_stop_point: {
             scheduled_stop_point_id: stop1Id,
@@ -50,7 +69,7 @@ describe(`<${RoutesTable.name} />`, () => {
         },
       ],
     },
-  } as ReturnType<typeof useListChangingRoutesQuery>;
+  } as GqlQueryResult<ListChangingRoutesQuery>;
 
   test('Renders the table with route data', async () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -73,30 +92,102 @@ describe(`<${RoutesTable.name} />`, () => {
         {
           line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
           label: '65',
-          name_i18n: 'Rautatientori - Veräjälaakso',
-          short_name_i18n: 'Rautatientori - Veräjälaakso',
           __typename: 'route_line',
+          localized_texts: [
+            {
+              localized_text: 'Rautatientori - Veräjälaakso',
+              language_code: 'fi_FI',
+              attribute: {
+                attribute_name: 'line_name',
+                __typename: 'localization_attribute',
+              },
+              __typename: 'localization_localized_text',
+            },
+            {
+              localized_text: 'Rautatientori - Veräjälaakso',
+              language_code: 'fi_FI',
+              attribute: {
+                attribute_name: 'line_short_name',
+                __typename: 'localization_attribute',
+              },
+              __typename: 'localization_localized_text',
+            },
+          ],
         },
         {
           line_id: '9058c328-efdd-412c-9b2b-37b0f6a2c6fb',
           label: '71',
-          name_i18n: 'Rautatientori - Malmi as.',
-          short_name_i18n: 'Rautatientori - Malmi as.',
           __typename: 'route_line',
+          localized_texts: [
+            {
+              localized_text: 'Rautatientori - Malmi as.',
+              language_code: 'fi_FI',
+              attribute: {
+                attribute_name: 'line_name',
+                __typename: 'localization_attribute',
+              },
+              __typename: 'localization_localized_text',
+            },
+            {
+              localized_text: 'Rautatientori - Malmi as.',
+              language_code: 'fi_FI',
+              attribute: {
+                attribute_name: 'line_short_name',
+                __typename: 'localization_attribute',
+              },
+              __typename: 'localization_localized_text',
+            },
+          ],
         },
         {
           line_id: 'bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2',
           label: '785K',
-          name_i18n: 'Rautatientori - Nikkilä',
-          short_name_i18n: 'Rautatientori - Nikkilä',
           __typename: 'route_line',
+          localized_texts: [
+            {
+              localized_text: 'Rautatientori - Nikkilä',
+              language_code: 'fi_FI',
+              attribute: {
+                attribute_name: 'line_name',
+                __typename: 'localization_attribute',
+              },
+              __typename: 'localization_localized_text',
+            },
+            {
+              localized_text: 'Rautatientori - Nikkilä',
+              language_code: 'fi_FI',
+              attribute: {
+                attribute_name: 'line_short_name',
+                __typename: 'localization_attribute',
+              },
+              __typename: 'localization_localized_text',
+            },
+          ],
         },
         {
           line_id: 'db748c5c-42e3-429f-baa0-e0db227dc2c8',
           label: '1234',
-          name_i18n: 'Erottaja - Arkkadiankatu',
-          short_name_i18n: 'Erottaja - Arkkadiankatu',
           __typename: 'route_line',
+          localized_texts: [
+            {
+              localized_text: 'Erottaja - Arkkadiankatu',
+              language_code: 'fi_FI',
+              attribute: {
+                attribute_name: 'line_name',
+                __typename: 'localization_attribute',
+              },
+              __typename: 'localization_localized_text',
+            },
+            {
+              localized_text: 'Erottaja - Arkkadiankatu',
+              language_code: 'fi_FI',
+              attribute: {
+                attribute_name: 'line_short_name',
+                __typename: 'localization_attribute',
+              },
+              __typename: 'localization_localized_text',
+            },
+          ],
         },
       ],
     },

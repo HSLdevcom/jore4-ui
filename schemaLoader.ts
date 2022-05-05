@@ -15,6 +15,8 @@ const hasuraOverrideTypeDefs = gql`
   scalar geography_point
   # define custom scalar for geography types that can only be lines
   scalar geography_linestring
+  # define a custom scalar for marking deprecated fields
+  scalar deprecated
 
   type route_route {
     # setting fields not-nullable
@@ -33,10 +35,13 @@ const hasuraOverrideTypeDefs = gql`
 
   type route_line {
     # adding computed localization fields
-    name_fi: String
-    name_sv: String
-    short_name_fi: String
-    short_name_sv: String
+    name_fi: String!
+    name_sv: String!
+    short_name_fi: String!
+    short_name_sv: String!
+    # marking deprecated fields
+    name_i18n: deprecated
+    short_name_i18n: deprecated
   }
 
   # setting fields not-nullable in service_pattern.scheduled_stop_point VIEW

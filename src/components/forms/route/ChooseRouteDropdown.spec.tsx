@@ -3,8 +3,9 @@ import { act, fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import {
   GetRouteDetailsByLabelWildcardDocument,
-  useGetRouteDetailsByLabelWildcardQuery,
+  GetRouteDetailsByLabelWildcardQuery,
 } from '../../../generated/graphql';
+import { GqlQueryResult } from '../../../graphql';
 import { Priority } from '../../../types/Priority';
 import { render, sleep } from '../../../utils/test-utils';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
@@ -45,6 +46,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
               starts_from_scheduled_stop_point_id: 'start',
               ends_at_scheduled_stop_point_id: 'end',
               on_line_id: 'line_id',
+              localized_texts: [],
             },
             {
               __typename: 'route_route',
@@ -59,10 +61,11 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
               starts_from_scheduled_stop_point_id: 'start',
               ends_at_scheduled_stop_point_id: 'end',
               on_line_id: 'line_id',
+              localized_texts: [],
             },
           ],
         },
-      } as ReturnType<typeof useGetRouteDetailsByLabelWildcardQuery>,
+      } as GqlQueryResult<GetRouteDetailsByLabelWildcardQuery>,
     },
     {
       request: {
@@ -89,10 +92,11 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
               starts_from_scheduled_stop_point_id: 'start',
               ends_at_scheduled_stop_point_id: 'end',
               on_line_id: 'line_id',
+              localized_texts: [],
             },
           ],
         },
-      } as ReturnType<typeof useGetRouteDetailsByLabelWildcardQuery>,
+      } as GqlQueryResult<GetRouteDetailsByLabelWildcardQuery>,
     },
   ];
 

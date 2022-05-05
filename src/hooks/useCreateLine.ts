@@ -36,7 +36,6 @@ export const mapFormToInput = (
 ): RouteLineSetInput | RouteLineInsertInput => {
   const input = {
     label: state.label,
-    name_i18n: state.finnishName,
     primary_vehicle_mode:
       state.primaryVehicleMode as ReusableComponentsVehicleModeEnum,
     priority: state.priority,
