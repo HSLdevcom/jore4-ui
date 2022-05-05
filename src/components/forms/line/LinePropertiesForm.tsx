@@ -12,6 +12,7 @@ import { TransportTargetDropdown } from './TransportTargetDropdown';
 import { VehicleModeDropdown } from './VehicleModeDropdown';
 
 export const schema = z.object({
+  lineId: z.string().uuid().optional(), // for lines that are edited
   label: z.string().min(1),
   finnishName: z.string().min(1),
   transportTarget: z.nativeEnum(HslRouteTransportTargetEnum),
