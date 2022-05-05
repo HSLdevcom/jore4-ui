@@ -5,16 +5,20 @@ interface Props {
   className?: string;
   fieldName: string;
   value: string;
+  testId?: string;
 }
 
 export const FieldValue = ({
   className,
   fieldName,
   value,
+  testId,
 }: Props): JSX.Element => {
   return (
     <Column className={className}>
-      <span className="text-3xl font-semibold">{value}</span>
+      <span className="text-3xl font-semibold" data-testid={testId}>
+        {value}
+      </span>
       <span>{fieldName}</span>
     </Column>
   );

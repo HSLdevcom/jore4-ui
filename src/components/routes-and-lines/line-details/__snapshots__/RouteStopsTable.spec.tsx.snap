@@ -43,18 +43,30 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               <span
                 class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-white"
               >
-                1
+                <span
+                  data-testid="direction-value"
+                >
+                  1
+                </span>
                 <i
                   class="icon-opposite border-brank absolute -bottom-2 -right-2 rounded-full border bg-white text-sm text-brand"
                 />
               </span>
-              65 itään
+              <span
+                data-testid="route-row-label"
+              >
+                65 itään
+              </span>
             </div>
           </td>
           <td
             class="flex items-center py-4 text-3xl"
           >
+            <span
+              data-testid="route-row-name"
+            />
             <a
+              data-testid="edit-route-button"
               href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
             >
               <div
@@ -83,6 +95,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
           </td>
           <td
             class="pr-16 text-right"
+            data-testid="route-row-validity-period"
           >
             Voimassa 1.1.2021 - 13.12.2023
           </td>
@@ -90,7 +103,11 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
             <div
               class="flex flex-row items-center"
             >
-              !14.2.2017 klo 14.51
+              <span
+                data-testid="route-row-last-edited"
+              >
+                !14.2.2017 klo 14.51
+              </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"
                 fill="currentColor"
@@ -213,18 +230,30 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               <span
                 class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-white"
               >
-                1
+                <span
+                  data-testid="direction-value"
+                >
+                  1
+                </span>
                 <i
                   class="icon-opposite border-brank absolute -bottom-2 -right-2 rounded-full border bg-white text-sm text-brand"
                 />
               </span>
-              65 itään
+              <span
+                data-testid="route-row-label"
+              >
+                65 itään
+              </span>
             </div>
           </td>
           <td
             class="flex items-center py-4 text-3xl"
           >
+            <span
+              data-testid="route-row-name"
+            />
             <a
+              data-testid="edit-route-button"
               href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
             >
               <div
@@ -253,6 +282,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
           <td
             class="pr-16 text-right"
+            data-testid="route-row-validity-period"
           >
             Voimassa 1.1.2021 - 13.12.2023
           </td>
@@ -260,7 +290,11 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <div
               class="flex flex-row items-center"
             >
-              !14.2.2017 klo 14.51
+              <span
+                data-testid="route-row-last-edited"
+              >
+                !14.2.2017 klo 14.51
+              </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"
                 fill="currentColor"
@@ -339,14 +373,18 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         >
           <td
             class="py-4 pl-16 pr-4"
+            data-testid="stop-row-label"
           >
             pysäkki A
           </td>
-          <td>
+          <td
+            data-testid="stop-row-name"
+          >
             !Pysäkki X
           </td>
           <td
             class="pr-16 text-right"
+            data-testid="stop-row-validity-period"
           >
             Ei reitin käytössä
           </td>
@@ -354,7 +392,11 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <div
               class="flex flex-row items-center"
             >
-              !14.2.2017 klo 14.51
+              <span
+                data-testid="stop-row-last-edited"
+              >
+                !14.2.2017 klo 14.51
+              </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"
                 fill="currentColor"
@@ -386,6 +428,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 aria-expanded="false"
                 aria-haspopup="true"
                 class="mx-auto flex h-full items-center px-3 focus:outline-none"
+                data-testid="stop-row-action-menu"
                 id="headlessui-menu-button-3"
                 type="button"
               >
@@ -416,14 +459,18 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         >
           <td
             class="py-4 pl-16 pr-4"
+            data-testid="stop-row-label"
           >
             pysäkki B
           </td>
-          <td>
+          <td
+            data-testid="stop-row-name"
+          >
             !Pysäkki X
           </td>
           <td
             class="pr-16 text-right"
+            data-testid="stop-row-validity-period"
           >
             Ei reitin käytössä
           </td>
@@ -431,7 +478,11 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <div
               class="flex flex-row items-center"
             >
-              !14.2.2017 klo 14.51
+              <span
+                data-testid="stop-row-last-edited"
+              >
+                !14.2.2017 klo 14.51
+              </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"
                 fill="currentColor"
@@ -463,6 +514,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 aria-expanded="false"
                 aria-haspopup="true"
                 class="mx-auto flex h-full items-center px-3 focus:outline-none"
+                data-testid="stop-row-action-menu"
                 id="headlessui-menu-button-4"
                 type="button"
               >
@@ -493,14 +545,18 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         >
           <td
             class="py-4 pl-16 pr-4"
+            data-testid="stop-row-label"
           >
             pysäkki C
           </td>
-          <td>
+          <td
+            data-testid="stop-row-name"
+          >
             !Pysäkki X
           </td>
           <td
             class="pr-16 text-right"
+            data-testid="stop-row-validity-period"
           >
             Ei reitin käytössä
           </td>
@@ -508,7 +564,11 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <div
               class="flex flex-row items-center"
             >
-              !14.2.2017 klo 14.51
+              <span
+                data-testid="stop-row-last-edited"
+              >
+                !14.2.2017 klo 14.51
+              </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"
                 fill="currentColor"
@@ -540,6 +600,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 aria-expanded="false"
                 aria-haspopup="true"
                 class="mx-auto flex h-full items-center px-3 focus:outline-none"
+                data-testid="stop-row-action-menu"
                 id="headlessui-menu-button-5"
                 type="button"
               >

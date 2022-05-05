@@ -6,11 +6,12 @@ import { Link } from 'react-router-dom';
 // implement onClick if needed
 interface Props {
   href: string;
+  testId?: string;
 }
 
-export const EditButton: React.FC<Props> = ({ href }) => {
+export const EditButton: React.FC<Props> = ({ href, testId }) => {
   return (
-    <Link to={href}>
+    <Link to={href} data-testid={testId}>
       <div className="ml-5 rounded-full border border-grey bg-white">
         <MdModeEdit className="m-2 text-3xl text-tweaked-brand" />
       </div>

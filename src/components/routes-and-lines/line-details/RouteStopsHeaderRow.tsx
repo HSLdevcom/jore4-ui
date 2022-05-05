@@ -36,16 +36,17 @@ export const RouteStopsHeaderRow = ({
       <td className="border-l-8 py-4 pl-16 pr-4 text-3xl font-bold">
         <Row className="items-center">
           <DirectionBadge direction={route.direction as RouteDirectionEnum} />
-          {route.label}
+          <span data-testid="route-row-label">{route.label}</span>
         </Row>
       </td>
       <td className="flex items-center py-4 text-3xl">
-        {route.description_i18n}
+        <span data-testid="route-row-name">{route.description_i18n}</span>
         <EditButton
           href={routeDetails[Path.editRoute].getLink(route.route_id)}
+          testId="edit-route-button"
         />
       </td>
-      <td className="pr-16 text-right">
+      <td className="pr-16 text-right" data-testid="route-row-validity-period">
         {t('validity.validDuring', {
           startDate: mapToShortDate(route.validity_start || MIN_DATE),
           endDate: mapToShortDate(route.validity_end || MAX_DATE),
@@ -53,7 +54,9 @@ export const RouteStopsHeaderRow = ({
       </td>
       <td>
         <Row className="items-center">
-          !{mapToShortDateTime(DateTime.now())}
+          <span data-testid="route-row-last-edited">
+            !{mapToShortDateTime(DateTime.now())}
+          </span>
           <MdOutlineHistory className="ml-2 inline text-xl text-tweaked-brand" />
         </Row>
       </td>
