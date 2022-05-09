@@ -1,13 +1,14 @@
 import produce from 'immer';
 import { groupBy } from 'lodash';
 import { DateTime } from 'luxon';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   RouteDirectionEnum,
   RouteLine,
   RouteRoute,
-  useGetHighestPriorityLineDetailsWithRoutesQuery,
-  useGetLineDetailsWithRoutesByIdQuery,
+  useGetHighestPriorityLineDetailsWithRoutesAsyncQuery,
+  useGetLineDetailsWithRoutesByIdAsyncQuery,
 } from '../../generated/graphql';
 import {
   mapHighestPriorityLineDetailsWithRoutesResult,
@@ -18,7 +19,6 @@ import {
   constructActiveDateGqlFilter,
   constructDraftPriorityGqlFilter,
   constructLabelGqlFilter,
-  mapToVariables,
 } from '../../utils';
 import { useUrlQuery } from '../useUrlQuery';
 
@@ -105,11 +105,9 @@ const constructLineDetailsGqlFilters = (
   const routeStopFilters = constructActiveDateGqlFilter(observationDate);
 
   return {
-    variables: {
-      lineFilters,
-      lineRouteFilters,
-      routeStopFilters,
-    },
+    lineFilters,
+    lineRouteFilters,
+    routeStopFilters,
   };
 };
 
@@ -117,33 +115,58 @@ const constructLineDetailsGqlFilters = (
 export const useGetLineDetails = () => {
   const { id } = useParams<{ id: string }>();
   const queryParams = useUrlQuery();
+  const [getLineDetails] = useGetLineDetailsWithRoutesByIdAsyncQuery();
+  const [getHighestPriorityLineDetails] =
+    useGetHighestPriorityLineDetailsWithRoutesAsyncQuery();
+  const [line, setLine] = useState<RouteLine>();
+  const [observationDate, setObservationDate] = useState<
+    DateTime | null | undefined
+  >();
 
   const [selectedDate, showAll] = [
     queryParams.selectedDate as string,
     queryParams.showAll === 'true',
   ];
 
-  const lineDetailsResult = useGetLineDetailsWithRoutesByIdQuery(
-    mapToVariables({ line_id: id }),
-  );
+  useEffect(() => {
+    const fetchLineDetails = async () => {
+      const lineDetailsResult = await getLineDetails({ line_id: id });
 
-  const line = mapLineDetailsWithRoutesResult(lineDetailsResult);
-  const observationDate = showAll
-    ? undefined
-    : getInitialDate(selectedDate, line?.validity_start, line?.validity_end);
+      const lineDetails = mapLineDetailsWithRoutesResult(lineDetailsResult);
+      const initialDate = showAll
+        ? undefined
+        : getInitialDate(
+            selectedDate,
+            lineDetails?.validity_start,
+            lineDetails?.validity_end,
+          );
 
-  const lineByDateResult = useGetHighestPriorityLineDetailsWithRoutesQuery(
-    constructLineDetailsGqlFilters(line, observationDate),
-  );
+      if (showAll) {
+        setLine(lineDetails);
+      } else {
+        const lineByDateResult = await getHighestPriorityLineDetails(
+          constructLineDetailsGqlFilters(lineDetails, initialDate),
+        );
 
-  const lineByDate =
-    mapHighestPriorityLineDetailsWithRoutesResult(lineByDateResult);
+        const lineByDate =
+          mapHighestPriorityLineDetailsWithRoutesResult(lineByDateResult);
 
-  const filteredLine =
-    !showAll && lineByDate ? filterLineDetailsByDate(lineByDate) : undefined;
+        const filteredLine =
+          !showAll && lineByDate
+            ? filterLineDetailsByDate(lineByDate)
+            : undefined;
+
+        setLine(filteredLine);
+      }
+      setObservationDate(initialDate);
+    };
+
+    fetchLineDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, showAll, selectedDate]);
 
   return {
-    line: showAll ? line : filteredLine,
+    line,
     observationDate,
   };
 };
