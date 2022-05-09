@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ApolloQueryResult, FetchResult, gql } from '@apollo/client';
 import {
+  GetHighestPriorityLineDetailsWithRoutesQuery,
   GetLineDetailsWithRoutesByIdQuery,
   GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
   RouteLine,
   RouteRoute,
-  useGetHighestPriorityLineDetailsWithRoutesQuery,
   useGetLineDetailsByIdQuery,
   useGetRouteDetailsByIdsQuery,
   useGetRouteDetailsByLabelWildcardQuery,
@@ -245,7 +245,7 @@ const GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
 
 // The used query has limit: 1 for the result so it can't have more than 1 route_line in result array.
 export const mapHighestPriorityLineDetailsWithRoutesResult = (
-  result: ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesQuery>,
+  result: GqlQueryResult<GetHighestPriorityLineDetailsWithRoutesQuery>,
 ) =>
   result.data?.route_line.length
     ? (result.data?.route_line[0] as RouteLine)
