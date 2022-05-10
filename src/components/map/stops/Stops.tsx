@@ -1,6 +1,6 @@
 import React, { useImperativeHandle } from 'react';
 import { MapEvent } from 'react-map-gl';
-import { useGetStopsQuery } from '../../../generated/graphql';
+import { useGetStopsByLocationQuery } from '../../../generated/graphql';
 import { mapGetStopsResult, StopWithLocation } from '../../../graphql';
 import {
   useAppAction,
@@ -42,7 +42,7 @@ export const Stops = React.forwardRef((props, ref) => {
 
   const viewport = useAppSelector(selectMapViewport);
 
-  const stopsResult = useGetStopsQuery(
+  const stopsResult = useGetStopsByLocationQuery(
     mapToVariables({
       measured_location_filter: constructWithinViewportGqlFilter(viewport),
     }),
