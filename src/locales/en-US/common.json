@@ -28,7 +28,8 @@
     "searchTemplate": "Search for template route",
     "chooseRoute": "Choose route",
     "direction": "Direction",
-    "chooseDirection": "Choose direction"
+    "chooseDirection": "Choose direction",
+    "tooFewStops": "There must be at least two stops on route."
   },
   "lines": {
     "createNew": "Create new line",
