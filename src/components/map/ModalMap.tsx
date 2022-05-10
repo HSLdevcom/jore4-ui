@@ -24,8 +24,9 @@ import {
   toggleEditRouteAction,
 } from '../../redux';
 import { isDateInRange } from '../../time';
+import { RequiredKeys } from '../../types';
 import { ConfirmationDialog, Modal } from '../../uiComponents';
-import { showSuccessToast, showToast } from '../../utils';
+import { showSuccessToast } from '../../utils';
 import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,
@@ -61,7 +62,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   } = useContext(MapFilterContext);
 
   const {
-    id: editingRouteId,
+    id: editedRouteId,
     infraLinks,
     stops: routeStops,
     metaData: routeDetails,
@@ -105,6 +106,95 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     });
   });
 
+  const editRoute = async (routeId: UUID) => {
+    const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
+
+    // TODO: These will be removed from schema, remove from here as well
+    const startingStopId = stopIdsWithinRoute[0];
+    const finalStopId = stopIdsWithinRoute[stopIdsWithinRoute.length - 1];
+
+    if (!infraLinks || !stopIdsWithinRoute || stopIdsWithinRoute.length < 2) {
+      throw new Error(t('routes.tooFewStops'));
+    }
+
+    const variables = mapRouteDetailsToUpdateMutationVariables(
+      routeId,
+      stopIdsWithinRoute,
+      infraLinks,
+      startingStopId,
+      finalStopId,
+    );
+
+    await updateRouteGeometryMutation(variables);
+  };
+
+  const createRoute = async () => {
+    const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
+
+    // TODO: These will be removed from schema, remove from here as well
+    const startingStopId = stopIdsWithinRoute[0];
+    const finalStopId = stopIdsWithinRoute[stopIdsWithinRoute.length - 1];
+
+    if (!infraLinks || !stopIdsWithinRoute || stopIdsWithinRoute.length < 2) {
+      throw new Error(t('routes.tooFewStops'));
+    }
+
+    const changes = await prepareCreate({
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      form: routeDetails!,
+      stopIdsWithinRoute,
+      infraLinksAlongRoute: infraLinks,
+      startingStopId,
+      finalStopId,
+    });
+    if (changes.conflicts?.length) {
+      setConflicts(changes.conflicts);
+      return undefined;
+    }
+    const variables = mapCreateChangesToVariables(changes);
+
+    const response = await insertRouteMutation(variables);
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return response.data!.insert_route_route_one!;
+  };
+
+  const onRouteCreated = (
+    newRoute: RequiredKeys<Partial<RouteRoute>, 'route_id'>,
+  ) => {
+    // Add created route to displayed routes
+    dispatch(
+      initializeMapEditorWithRoutesAction([
+        ...(initiallyDisplayedRouteIds || []),
+        newRoute.route_id,
+      ]),
+    );
+
+    // Select created route
+    dispatch(setSelectedRouteIdAction(newRoute.route_id));
+
+    // If created route is not valid at the selected observation date,
+    // change observation date to created route's validity start date
+    // so the user can see the freshly created route
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const validityStart = newRoute.validity_start!;
+
+    if (
+      !isDateInRange(observationDate, validityStart, newRoute?.validity_end)
+    ) {
+      mapFilterDispatch(setObservationDate(validityStart));
+      showSuccessToast(t('filters.observationDateAdjusted'));
+    }
+
+    // Reset map editor drap mode and remove draft route
+    // as it is now saved
+
+    dispatch(stopDrawRouteAction());
+
+    mapRef?.current?.onDeleteDrawnRoute();
+  };
+
   const onDrawRoute = () => {
     mapRef?.current?.onDeleteDrawnRoute();
     dispatch(toggleDrawRouteAction());
@@ -121,97 +211,30 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     dispatch(stopDrawRouteAction());
   };
   const onSave = async () => {
-    const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
-
-    if (infraLinks && stopIdsWithinRoute && stopIdsWithinRoute.length >= 2) {
-      const startingStopId = stopIdsWithinRoute[0];
-      const finalStopId = stopIdsWithinRoute[stopIdsWithinRoute.length - 1];
-
-      if (editingRouteId) {
-        const variables = mapRouteDetailsToUpdateMutationVariables(
-          editingRouteId,
-          stopIdsWithinRoute,
-          infraLinks,
-          startingStopId,
-          finalStopId,
-        );
-
-        try {
-          await updateRouteGeometryMutation(variables);
-          showToast({ type: 'success', message: t('routes.saveSuccess') });
-        } catch (err) {
-          showToast({
-            type: 'danger',
-            message: `${t('errors.saveFailed')}, ${err}`,
-          });
-        }
+    try {
+      if (editedRouteId) {
+        await editRoute(editedRouteId);
+        showSuccessToast(t('routes.saveSuccess'));
       } else {
-        if (!routeDetails) {
-          return;
-        }
+        const createdRoute = await createRoute();
+        showSuccessToast(t('routes.saveSuccess'));
 
-        const changes = await prepareCreate({
-          form: routeDetails,
-          stopIdsWithinRoute,
-          infraLinksAlongRoute: infraLinks,
-          startingStopId,
-          finalStopId,
-        });
-        if (changes.conflicts?.length) {
-          setConflicts(changes.conflicts);
-          return;
-        }
-        const variables = mapCreateChangesToVariables(changes);
-
-        try {
-          const response = await insertRouteMutation(variables);
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const newRoute = response.data!.insert_route_route_one!;
-
-          mapRef?.current?.onDeleteDrawnRoute();
-          dispatch(
-            initializeMapEditorWithRoutesAction([
-              ...(initiallyDisplayedRouteIds || []),
-              newRoute.route_id,
-            ]),
-          );
-          dispatch(setSelectedRouteIdAction(newRoute.route_id));
-
-          showSuccessToast(t('routes.saveSuccess'));
-
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const validityStart = newRoute.validity_start!;
-
-          if (
-            !isDateInRange(
-              observationDate,
-              validityStart,
-              newRoute?.validity_end,
-            )
-          ) {
-            mapFilterDispatch(setObservationDate(validityStart));
-            showSuccessToast(t('filters.observationDateAdjusted'));
-          }
-
-          dispatch(stopDrawRouteAction());
-
-          mapRef?.current?.onDeleteDrawnRoute();
-        } catch (err) {
-          defaultInsertRouteErrorHandler(err);
+        if (createdRoute) {
+          onRouteCreated(createdRoute);
         }
       }
-    } else {
-      showToast({ type: 'danger', message: t('errors.saveFailed') });
+    } catch (err) {
+      defaultInsertRouteErrorHandler(err);
     }
   };
   const onDeleteConfirm = async () => {
     try {
-      if (!editingRouteId) {
+      if (!editedRouteId) {
         return;
       }
 
       // delete the route from the backend
-      await deleteRoute(editingRouteId);
+      await deleteRoute(editedRouteId);
       showSuccessToast(t('routes.deleteSuccess'));
 
       setIsDeleting(false);
