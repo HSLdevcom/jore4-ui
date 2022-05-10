@@ -7,7 +7,8 @@ import {
   RouteRoute,
   ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointSetInput,
-  useGetStopsQuery,
+  useGetStopsByIdsQuery,
+  useGetStopsByLocationQuery,
 } from '../generated/graphql';
 import { NonNullableKeys, RequiredKeys } from '../types';
 import { GqlQueryResult } from './types';
@@ -66,8 +67,10 @@ const REMOVE_STOP = gql`
   }
 `;
 
-const QUERY_GET_ALL_STOPS = gql`
-  query GetStops($measured_location_filter: geography_comparison_exp) {
+const QUERY_GET_STOPS_BY_LOCATION = gql`
+  query GetStopsByLocation(
+    $measured_location_filter: geography_comparison_exp
+  ) {
     service_pattern_scheduled_stop_point(
       where: { measured_location: $measured_location_filter }
       limit: 300
@@ -78,7 +81,8 @@ const QUERY_GET_ALL_STOPS = gql`
 `;
 export const mapGetStopsResult = (
   result:
-    | ReturnType<typeof useGetStopsQuery>
+    | ReturnType<typeof useGetStopsByLocationQuery>
+    | ReturnType<typeof useGetStopsByIdsQuery>
     | ApolloQueryResult<GetStopsAlongInfrastructureLinksQuery>,
 ) =>
   result.data?.service_pattern_scheduled_stop_point as
@@ -99,6 +103,16 @@ const GET_STOP_BY_ID = gql`
   query GetStopById($stopId: uuid!) {
     service_pattern_scheduled_stop_point(
       where: { scheduled_stop_point_id: { _eq: $stopId } }
+    ) {
+      ...scheduled_stop_point_all_fields
+    }
+  }
+`;
+
+const GET_STOPS_BY_IDS = gql`
+  query GetStopsByIds($stopIds: [uuid!]) {
+    service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _in: $stopIds } }
     ) {
       ...scheduled_stop_point_all_fields
     }

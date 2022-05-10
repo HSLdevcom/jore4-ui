@@ -3,7 +3,7 @@ import {
   RouteRoute,
   ServicePatternScheduledStopPoint,
   useGetRoutesWithInfrastructureLinksQuery,
-  useGetStopsQuery,
+  useGetStopsByIdsQuery,
 } from '../../generated/graphql';
 import {
   getRouteStopIds,
@@ -82,15 +82,27 @@ export const RouteStopsOverlay = ({ className }: Props) => {
   const routes = mapRoutesDetailsResult(routesResult);
 
   const route = editedRouteData.metaData || routes?.[0];
+  const routeStopIds = route ? getRouteStopIds(route as RouteRoute) : [];
 
-  const stopsResult = useGetStopsQuery({});
+  // If creating/editing a route, fetch edited route stops
+  // otherwise fetch selected route's stops
+  const stopIdsToFetch = routeEditingInProgress
+    ? editedRouteData.stops.map((stop) => stop.id)
+    : routeStopIds;
+
+  const stopsResult = useGetStopsByIdsQuery(
+    mapToVariables({
+      stopIds: stopIdsToFetch,
+    }),
+  );
+
   const stops = mapGetStopsResult(stopsResult);
 
   // If creating/editing a route, show edited route stops
   // otherwise show selected route's stops
   const routeStops = routeEditingInProgress
     ? editedRouteData.stops
-    : getRouteStops(route ? getRouteStopIds(route as RouteRoute) : []);
+    : getRouteStops(routeStopIds);
 
   const stopsToDisplay = routeStops?.map((stop) => ({
     stop: stops?.find((item) => item.scheduled_stop_point_id === stop.id),
