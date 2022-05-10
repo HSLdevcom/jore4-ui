@@ -6818,12 +6818,12 @@ export type RemoveStopMutationVariables = Exact<{
 
 export type RemoveStopMutation = { __typename?: 'mutation_root', delete_service_pattern_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point_mutation_response', returning: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID }> } | null | undefined };
 
-export type GetStopsQueryVariables = Exact<{
+export type GetStopsByLocationQueryVariables = Exact<{
   measured_location_filter?: Maybe<GeographyComparisonExp>;
 }>;
 
 
-export type GetStopsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
+export type GetStopsByLocationQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
 
 export type GetStopsByValidityQueryVariables = Exact<{
   filter?: Maybe<ServicePatternScheduledStopPointBoolExp>;
@@ -6838,6 +6838,13 @@ export type GetStopByIdQueryVariables = Exact<{
 
 
 export type GetStopByIdQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
+
+export type GetStopsByIdsQueryVariables = Exact<{
+  stopIds?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
+}>;
+
+
+export type GetStopsByIdsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
 
 export type InsertStopMutationVariables = Exact<{
   object: ServicePatternScheduledStopPointInsertInput;
@@ -8050,8 +8057,8 @@ export function useRemoveStopMutation(baseOptions?: Apollo.MutationHookOptions<R
 export type RemoveStopMutationHookResult = ReturnType<typeof useRemoveStopMutation>;
 export type RemoveStopMutationResult = Apollo.MutationResult<RemoveStopMutation>;
 export type RemoveStopMutationOptions = Apollo.BaseMutationOptions<RemoveStopMutation, RemoveStopMutationVariables>;
-export const GetStopsDocument = gql`
-    query GetStops($measured_location_filter: geography_comparison_exp) {
+export const GetStopsByLocationDocument = gql`
+    query GetStopsByLocation($measured_location_filter: geography_comparison_exp) {
   service_pattern_scheduled_stop_point(
     where: {measured_location: $measured_location_filter}
     limit: 300
@@ -8062,32 +8069,32 @@ export const GetStopsDocument = gql`
     ${ScheduledStopPointAllFieldsFragmentDoc}`;
 
 /**
- * __useGetStopsQuery__
+ * __useGetStopsByLocationQuery__
  *
- * To run a query within a React component, call `useGetStopsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetStopsByLocationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopsByLocationQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetStopsQuery({
+ * const { data, loading, error } = useGetStopsByLocationQuery({
  *   variables: {
  *      measured_location_filter: // value for 'measured_location_filter'
  *   },
  * });
  */
-export function useGetStopsQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsQuery, GetStopsQueryVariables>) {
+export function useGetStopsByLocationQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopsQuery, GetStopsQueryVariables>(GetStopsDocument, options);
+        return Apollo.useQuery<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>(GetStopsByLocationDocument, options);
       }
-export function useGetStopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsQuery, GetStopsQueryVariables>) {
+export function useGetStopsByLocationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopsQuery, GetStopsQueryVariables>(GetStopsDocument, options);
+          return Apollo.useLazyQuery<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>(GetStopsByLocationDocument, options);
         }
-export type GetStopsQueryHookResult = ReturnType<typeof useGetStopsQuery>;
-export type GetStopsLazyQueryHookResult = ReturnType<typeof useGetStopsLazyQuery>;
-export type GetStopsQueryResult = Apollo.QueryResult<GetStopsQuery, GetStopsQueryVariables>;
+export type GetStopsByLocationQueryHookResult = ReturnType<typeof useGetStopsByLocationQuery>;
+export type GetStopsByLocationLazyQueryHookResult = ReturnType<typeof useGetStopsByLocationLazyQuery>;
+export type GetStopsByLocationQueryResult = Apollo.QueryResult<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>;
 export const GetStopsByValidityDocument = gql`
     query GetStopsByValidity($filter: service_pattern_scheduled_stop_point_bool_exp) {
   service_pattern_scheduled_stop_point(where: $filter) {
@@ -8160,6 +8167,43 @@ export function useGetStopByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetStopByIdQueryHookResult = ReturnType<typeof useGetStopByIdQuery>;
 export type GetStopByIdLazyQueryHookResult = ReturnType<typeof useGetStopByIdLazyQuery>;
 export type GetStopByIdQueryResult = Apollo.QueryResult<GetStopByIdQuery, GetStopByIdQueryVariables>;
+export const GetStopsByIdsDocument = gql`
+    query GetStopsByIds($stopIds: [uuid!]) {
+  service_pattern_scheduled_stop_point(
+    where: {scheduled_stop_point_id: {_in: $stopIds}}
+  ) {
+    ...scheduled_stop_point_all_fields
+  }
+}
+    ${ScheduledStopPointAllFieldsFragmentDoc}`;
+
+/**
+ * __useGetStopsByIdsQuery__
+ *
+ * To run a query within a React component, call `useGetStopsByIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopsByIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopsByIdsQuery({
+ *   variables: {
+ *      stopIds: // value for 'stopIds'
+ *   },
+ * });
+ */
+export function useGetStopsByIdsQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>(GetStopsByIdsDocument, options);
+      }
+export function useGetStopsByIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>(GetStopsByIdsDocument, options);
+        }
+export type GetStopsByIdsQueryHookResult = ReturnType<typeof useGetStopsByIdsQuery>;
+export type GetStopsByIdsLazyQueryHookResult = ReturnType<typeof useGetStopsByIdsLazyQuery>;
+export type GetStopsByIdsQueryResult = Apollo.QueryResult<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>;
 export const InsertStopDocument = gql`
     mutation InsertStop($object: service_pattern_scheduled_stop_point_insert_input!) {
   insert_service_pattern_scheduled_stop_point_one(object: $object) {
@@ -8377,10 +8421,10 @@ export type GetRoutesByValidityAsyncQueryHookResult = ReturnType<typeof useGetRo
 
 
 
-export function useGetStopsAsyncQuery() {
-          return useAsyncQuery<GetStopsQuery, GetStopsQueryVariables>(GetStopsDocument);
+export function useGetStopsByLocationAsyncQuery() {
+          return useAsyncQuery<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>(GetStopsByLocationDocument);
         }
-export type GetStopsAsyncQueryHookResult = ReturnType<typeof useGetStopsAsyncQuery>;
+export type GetStopsByLocationAsyncQueryHookResult = ReturnType<typeof useGetStopsByLocationAsyncQuery>;
 export function useGetStopsByValidityAsyncQuery() {
           return useAsyncQuery<GetStopsByValidityQuery, GetStopsByValidityQueryVariables>(GetStopsByValidityDocument);
         }
@@ -8389,6 +8433,10 @@ export function useGetStopByIdAsyncQuery() {
           return useAsyncQuery<GetStopByIdQuery, GetStopByIdQueryVariables>(GetStopByIdDocument);
         }
 export type GetStopByIdAsyncQueryHookResult = ReturnType<typeof useGetStopByIdAsyncQuery>;
+export function useGetStopsByIdsAsyncQuery() {
+          return useAsyncQuery<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>(GetStopsByIdsDocument);
+        }
+export type GetStopsByIdsAsyncQueryHookResult = ReturnType<typeof useGetStopsByIdsAsyncQuery>;
 
 
 export function useGetStopWithRouteGraphDataByIdAsyncQuery() {
