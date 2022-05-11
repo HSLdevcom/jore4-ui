@@ -9,6 +9,7 @@ export * from './IconButton';
 export * from './IconToggle';
 export * from './Listbox';
 export * from './Modal';
+export * from './Pagination';
 export * from './SimpleButton';
 export * from './SimpleDropdownMenu';
 export * from './SimpleSmallButton';
