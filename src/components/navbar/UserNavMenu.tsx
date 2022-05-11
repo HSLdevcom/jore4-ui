@@ -9,6 +9,12 @@ interface Props {
   className?: string;
 }
 
+export const testIds = {
+  toggleDropdown: 'userNavMenu:toggleDropdown',
+  loginButton: 'userNavMenu:loginButton',
+  logoutButton: 'userNavMenu:logoutButton',
+};
+
 export const UserNavMenu = ({ className }: Props): JSX.Element => {
   const { userInfo } = useAppSelector(selectUser);
   const { t } = useTranslation();
@@ -23,6 +29,7 @@ export const UserNavMenu = ({ className }: Props): JSX.Element => {
         <a
           href={LOGIN_URL}
           className="mx-3 flex h-full items-center border-b-4 border-transparent hover:border-white focus:outline-none"
+          data-testid={testIds.loginButton}
         >
           {userIcon}
         </a>
@@ -34,8 +41,13 @@ export const UserNavMenu = ({ className }: Props): JSX.Element => {
               {userInfo.givenName}
             </>
           }
+          testId={testIds.toggleDropdown}
         >
-          <a href={LOGOUT_URL} className="block">
+          <a
+            href={LOGOUT_URL}
+            className="block"
+            data-testid={testIds.logoutButton}
+          >
             {t('navigation.logout')}
           </a>
         </DropdownMenu>

@@ -15,6 +15,7 @@ export const NavLinks: FunctionComponent = () => {
               to={getLink()}
               className="mx-5 border-b-4 border-transparent py-5 text-white hover:border-white"
               activeClassName="!border-white"
+              data-testid={translationKey}
               exact
             >
               {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
