@@ -15,7 +15,7 @@ describe('<LanguageDropdown />', () => {
     expect(screen.queryByText(englishTitle)).toBeNull();
 
     // click dropdown to open it:
-    const openDropdownButton = screen.getByTestId(testIds.openDropdown);
+    const openDropdownButton = screen.getByTestId(testIds.toggleDropdown);
     fireEvent.click(openDropdownButton);
 
     // dropdown is open:
@@ -24,7 +24,7 @@ describe('<LanguageDropdown />', () => {
   });
   test('Changes language when requested', async () => {
     render(<LanguageDropdown />);
-    const openDropdownButton = screen.getByTestId(testIds.openDropdown);
+    const openDropdownButton = screen.getByTestId(testIds.toggleDropdown);
 
     // default language is finnish:
     expect(i18n.language).toBe('fi-FI');

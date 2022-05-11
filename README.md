@@ -7,13 +7,17 @@ Next.js was still chosen over `create-react-app` as project template as it offer
 
 ## Getting Started
 
-First, run the development server:
+First, make sure you have [yarn](https://yarnpkg.com/) installed.
+
+Then, install dependencies and start the development server:
 
 ```bash
+yarn install
 yarn dev
 ```
 
 Open [http://localhost:3300](http://localhost:3300) with your browser to see the result.
+In order to actually do something with the UI, see instructions below for starting up docker environment for providing rest of the dependencies.
 
 ## Tests & QA
 
@@ -33,7 +37,7 @@ We have enabled `eslint` with opionated rulesets for keeping code style clean & 
 
 Eslint can fix certain linting errors automatically when ran with `--fix` flag, e.g. `yarn lint --fix`.
 
-For better testability (e.g. e2e tests), use the `id` property at least with those DOM elements, which are important for user interaction.
+For better testability (e.g. e2e tests), use the `data-testid` property at least with those DOM elements, which are important for user interaction.
 
 ### Local tests
 
@@ -41,6 +45,15 @@ For tests we use `jest`, `ts-jest` and `@testing-library/react`.
 Ts-jest was chosen over `@babel/preset-typescript` as it has [certain advantages](https://kulshekhar.github.io/ts-jest/docs/babel7-or-ts/) such as type checking.
 `@testing-library/react` is used with jest as it provides ways to interact with DOM.
 Tests can be run with `yarn test`.
+
+### Cypress (e2e) tests
+
+- In order to run e2e tests, you need to have ui and all the dependencies running.
+- To open cypress with browser for developing tests locally: `yarn test:e2e:open`
+- To run all cypress tests without browser: `yarn test:e2e`
+
+Failed tests ran without browser can be investigated visually by looking at videos at `./cypress/videos` and photos at `./cypress/screenshots`.
+Anyway, debugging is generally easier when cypress is opened with browser as then you can poke around with browsers devtools.
 
 ### CI
 
