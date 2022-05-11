@@ -68,6 +68,7 @@
     "@graphql-codegen/visitor-plugin-common": "^2.7.4",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
+    "@testing-library/react-hooks": "^8.0.0",
     "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.175",
     "@types/luxon": "^2.0.9",
