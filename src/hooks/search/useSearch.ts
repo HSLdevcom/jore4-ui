@@ -3,7 +3,11 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Priority } from '../../types/Priority';
 import { createQueryParamString } from '../../utils';
-import { FilterConditions, useSearchQueryParser } from './useSearchQueryParser';
+import {
+  DisplayedSearchResultType,
+  FilterConditions,
+  useSearchQueryParser,
+} from './useSearchQueryParser';
 
 export const useSearch = () => {
   const history = useHistory();
@@ -27,7 +31,10 @@ export const useSearch = () => {
    * Filters modify result table instantly by immediately
    * pushing the change to query string
    */
-  const setFilter = (filterName: keyof FilterConditions, value: boolean) => {
+  const setFilter = (
+    filterName: keyof FilterConditions,
+    value: DisplayedSearchResultType,
+  ) => {
     const combinedParameters = produce(queryParameters, (draft) => {
       draft.filter[filterName] = value;
     });

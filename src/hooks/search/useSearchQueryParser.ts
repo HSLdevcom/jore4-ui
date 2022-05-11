@@ -6,8 +6,14 @@ export type SearchConditions = {
   label: string;
 };
 
+/** Enum for different search result options */
+export enum DisplayedSearchResultType {
+  Routes = 'routes',
+  Lines = 'lines',
+}
+
 export type FilterConditions = {
-  displayRoutes: boolean;
+  displayedData: DisplayedSearchResultType;
 };
 
 /**
@@ -25,7 +31,7 @@ export type SearchParameters = {
 export type QueryStringParameters = {
   priorities: string;
   label: string;
-  displayRoutes: string;
+  displayedData: string;
 };
 
 /**
@@ -35,7 +41,7 @@ export type QueryStringParameters = {
 export type DeserializedQueryStringParameters = {
   priorities: Priority[];
   label: string;
-  displayRoutes: boolean;
+  displayedData: DisplayedSearchResultType;
 };
 
 /**
@@ -48,6 +54,22 @@ const parseAndValidatePriorities = (priorities: string) =>
     .split(',')
     .map((p) => parseInt(p, 10))
     .filter((p) => Object.values(Priority).includes(p));
+
+/**
+ * If displayedData query string is not given or is invalid,
+ * default to Lines
+ */
+const mapDisplayedData = (displayedData: string) => {
+  if (
+    Object.values(DisplayedSearchResultType).includes(
+      displayedData as DisplayedSearchResultType,
+    )
+  ) {
+    return displayedData as DisplayedSearchResultType;
+  }
+
+  return DisplayedSearchResultType.Lines;
+};
 
 /**
  * Returns parsed and validated priorities if priority query string
@@ -76,7 +98,7 @@ const deserializeParameters = (
       priorities: getPriorities(queryParams.priorities),
     },
     filter: {
-      displayRoutes: queryParams.displayRoutes === 'true',
+      displayedData: mapDisplayedData(queryParams.displayedData),
     },
   };
 };
