@@ -1,8 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSearch, useSearchResults } from '../../../hooks';
+import {
+  DisplayedSearchResultType,
+  useSearch,
+  useSearchResults,
+} from '../../../hooks';
 import { usePagination } from '../../../hooks/usePagination';
-import { Container, Row } from '../../../layoutComponents';
+import { Container, Row, Visible } from '../../../layoutComponents';
 import { CloseIconButton, Pagination } from '../../../uiComponents';
 import { LinesList } from '../main/LinesList';
 import { RoutesList } from '../main/RoutesList';
@@ -19,9 +23,16 @@ export const SearchResultPage = (): JSX.Element => {
   const displayedLines = getPaginatedData(lines, itemsPerPage);
   const displayedRoutes = getPaginatedData(routes, itemsPerPage);
 
-  const totalCountOfDisplayedData = queryParameters.filter.displayRoutes
-    ? routes?.length
-    : lines?.length;
+  const ResultList = (): JSX.Element => {
+    switch (queryParameters.filter.displayedData) {
+      case DisplayedSearchResultType.Lines:
+        return <LinesList lines={displayedLines} />;
+      case DisplayedSearchResultType.Routes:
+        return <RoutesList routes={displayedRoutes} />;
+      default:
+        return <></>;
+    }
+  };
 
   return (
     <Container>
@@ -42,20 +53,16 @@ export const SearchResultPage = (): JSX.Element => {
           resultCount,
         })}
       </h1>
-      {queryParameters.filter.displayRoutes ? (
-        <RoutesList routes={displayedRoutes} />
-      ) : (
-        <LinesList lines={displayedLines} />
-      )}
-      {lines?.length > 0 && (
+      <ResultList />
+      <Visible visible={!!resultCount}>
         <div className="grid grid-cols-4">
           <Pagination
             className="col-span-2 col-start-2 pt-4"
             itemsPerPage={itemsPerPage}
-            totalItemsCount={totalCountOfDisplayedData}
+            totalItemsCount={resultCount}
           />
         </div>
-      )}
+      </Visible>
     </Container>
   );
 };
