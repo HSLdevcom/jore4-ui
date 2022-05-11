@@ -3,17 +3,57 @@ import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm
 import { InfrastructureLinkAlongRoute } from '../../graphql';
 
 interface IState {
+  /**
+   * Array of route ids that have been selected to be shown on the map.
+   * Because observation date can be selected, not all routes to be displayed
+   * will be valid for given observation date. Therefore, displayedRouteIds
+   * contains an array of route ids that are valid for the selected observation date.
+   */
   initiallyDisplayedRouteIds?: UUID[];
+  /**
+   * Array of route ids to be displayed in the map.
+   * Calculated dynamically based on initiallyDisplayedRouteIds and selected observation date.
+   * Contains an array of route instances' ids based on initiallyDisplayedRouteIds,
+   * that are valid for selected observation date.
+   */
   displayedRouteIds?: UUID[];
+  /**
+   * Is new route creation in progress
+   */
   creatingNewRoute: boolean;
+  /**
+   * Map editor's draw mode
+   */
   drawingMode: Mode | undefined;
+  /**
+   * Data of route being created / edited
+   */
   editedRouteData: {
+    /**
+     * Id of the edited route
+     */
     id?: UUID;
+    /**
+     * Metadata of the created / edited route
+     */
     metaData?: Partial<RouteFormState>;
+    /**
+     * Array of stops along the route geometry with
+     * information whether or not the stops belongs to the route (journey pattern)
+     */
     stops: RouteStop[];
+    /**
+     * Array of infrastructure links along the created / edited route
+     */
     infraLinks?: InfrastructureLinkAlongRoute[];
+    /**
+     * Id of the route used as a template route, when creating a new route
+     */
     templateRouteId?: UUID;
   };
+  /**
+   * Id of the route that has been selected in the map view
+   */
   selectedRouteId?: UUID;
 }
 
