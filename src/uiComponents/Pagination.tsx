@@ -19,7 +19,7 @@ const DEFAULT_ITEMS_PER_PAGE = 10;
  * And current page is 7 then we render ... 5 6 7 8 9 ... If amountOfNeighbours = 1
  * we render ... 6 7 8 ... (default = 2)
  * @param totalItemsCount the total count of the data which is being paginated
- * @param itemsPerPage how much items there is per page (default=10)
+ * @param itemsPerPage how many items there are per page (default=10)
  */
 export const Pagination = ({
   amountOfNeighbours = DEFAULT_AMOUNT_OF_NEIGHBOURS,

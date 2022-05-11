@@ -5,7 +5,10 @@ import {
 } from '../../generated/graphql';
 import { mapSearchAllLinesResult } from '../../graphql';
 import { constructGqlFilterObject, mapToVariables } from '../../utils';
-import { useSearchQueryParser } from './useSearchQueryParser';
+import {
+  DisplayedSearchResultType,
+  useSearchQueryParser,
+} from './useSearchQueryParser';
 
 export const useSearchResults = (): {
   lines: RouteLine[];
@@ -26,14 +29,24 @@ export const useSearchResults = (): {
     ?.map((line) => line.line_routes)
     ?.reduce((next, curr) => [...curr, ...next], []);
 
-  const resultCount =
-    (parsedQueryParameters.filter.displayRoutes
-      ? routes?.length
-      : lines?.length) || 0;
+  const getResultCount = () => {
+    switch (parsedQueryParameters.filter.displayedData) {
+      case DisplayedSearchResultType.Lines:
+        return lines?.length;
+      case DisplayedSearchResultType.Routes:
+        return routes?.length;
+      default:
+        // eslint-disable-next-line no-console
+        console.error(
+          `Error: ${parsedQueryParameters.filter.displayedData} does not exist.`,
+        );
+        return 0;
+    }
+  };
 
   return {
     lines,
     routes,
-    resultCount,
+    resultCount: getResultCount(),
   };
 };
