@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { DropdownMenu } from './DropdownMenu';
 
 export const testIds = {
-  openDropdown: 'languageDropdown:openDropdown',
+  toggleDropdown: 'languageDropdown:toggleDropdown',
+  toggleLanguage: 'languageDropdown:toggleLanguage',
 };
 
 interface Props {
@@ -25,11 +26,12 @@ export const LanguageDropdown: FunctionComponent<Props> = ({ className }) => {
     >
       <DropdownMenu
         buttonContent={currentLanguageText}
-        testId={testIds.openDropdown}
+        testId={testIds.toggleDropdown}
       >
         <button
           type="button"
           onClick={() => i18n.changeLanguage(anotherLanguage)}
+          data-testid={testIds.toggleLanguage}
         >
           {changeLanguageText}
         </button>
