@@ -76,9 +76,7 @@ export const MapComponent = (
 
   useImperativeHandle(externalRef, () => ({
     onDeleteDrawnRoute: () => {
-      if (editorLayerRef.current) {
-        editorLayerRef.current.onDeleteRoute();
-      }
+      editorLayerRef.current?.onDeleteRoute();
     },
   }));
 
