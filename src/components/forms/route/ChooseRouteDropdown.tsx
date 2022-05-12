@@ -22,7 +22,7 @@ const mapToOptionContent = (item: RouteRoute) => (
   <div className="flex flex-col">
     <div>
       <span className="font-bold">{item.label}</span>
-      {` | ${item.description_i18n}`}
+      {` | ${item.name_i18n?.fi_FI}`}
     </div>
     <div className="text-sm">
       <DateRange
@@ -75,7 +75,7 @@ export const ChooseRouteDropdown = ({
     return (
       <div className="w-full">
         {displayedRoute
-          ? `${displayedRoute.label} (${displayedRoute.description_i18n})`
+          ? `${displayedRoute.label} (${displayedRoute.name_i18n?.fi_FI})`
           : t('routes.chooseRoute')}
       </div>
     );

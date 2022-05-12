@@ -17,11 +17,6 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
   const { t } = useTranslation();
   const { showRoutesOnModal } = useShowRoutesOnModal();
 
-  // FIXME: quick and dirty hack for displaying the description that comes from the jore3 import
-  const description = route.description_i18n?.startsWith('{"fi_FI"')
-    ? JSON.parse(route.description_i18n).fi_FI
-    : route.description_i18n;
-
   return (
     <tbody>
       <tr className={`border ${className}`}>
@@ -30,7 +25,7 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
             <Row>
               <Column className="w-1/2">
                 <p className="text-3xl">{route.label}</p>
-                <p className="text-lg">{description}</p>
+                <p className="text-lg">{route.name_i18n?.fi_FI}</p>
               </Column>
               <Column className="w-1/2 text-right">
                 <p className="text-lg font-bold">

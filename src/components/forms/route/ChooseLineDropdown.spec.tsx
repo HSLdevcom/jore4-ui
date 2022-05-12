@@ -1,12 +1,12 @@
-import { MockedProvider } from '@apollo/client/testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import React from 'react';
 import {
   ListAllLinesDocument,
-  useListAllLinesQuery,
+  ListAllLinesQuery,
 } from '../../../generated/graphql';
-import { render, sleep } from '../../../utils/test-utils';
+import { buildLocalizedString, render, sleep } from '../../../utils/test-utils';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
 describe('<ChooseLineDropdown />', () => {
@@ -17,7 +17,7 @@ describe('<ChooseLineDropdown />', () => {
   const value = 'line1';
   const testId = 'chooseLineDropdown1';
 
-  const mocks = [
+  const mocks: MockedResponse<ListAllLinesQuery>[] = [
     {
       request: {
         query: ListAllLinesDocument,
@@ -30,8 +30,8 @@ describe('<ChooseLineDropdown />', () => {
               __typename: 'route_line',
               line_id: 'line1',
               label: '1',
-              name_i18n: 'Line1 name',
-              short_name_i18n: 'Line1',
+              name_i18n: buildLocalizedString('Line1 name'),
+              short_name_i18n: buildLocalizedString('Line1'),
               validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
               validity_end: null,
             },
@@ -39,14 +39,14 @@ describe('<ChooseLineDropdown />', () => {
               __typename: 'route_line',
               line_id: 'line2',
               label: '2',
-              name_i18n: 'Line2 name',
-              short_name_i18n: 'Line2',
+              name_i18n: buildLocalizedString('Line2 name'),
+              short_name_i18n: buildLocalizedString('Line2'),
               validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
               validity_end: null,
             },
           ],
         },
-      } as ReturnType<typeof useListAllLinesQuery>,
+      },
     },
   ];
 

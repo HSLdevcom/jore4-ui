@@ -37,7 +37,7 @@ export const EditLinePage = (): JSX.Element => {
 
   const defaultValues = {
     label: line?.label,
-    finnishName: line?.name_i18n,
+    finnishName: line?.name_i18n.fi_FI,
     primaryVehicleMode: line?.primary_vehicle_mode,
     priority: line?.priority,
     transportTarget: line?.transport_target,

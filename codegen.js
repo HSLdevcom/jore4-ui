@@ -41,6 +41,7 @@ module.exports = {
           geometry: 'GeoJSON.Geometry',
           geography_point: 'GeoJSON.Point',
           geography_linestring: 'GeoJSON.LineString',
+          localized_string: 'LocalizedString',
           timestamptz: 'luxon.DateTime',
         },
       },

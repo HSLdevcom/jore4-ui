@@ -28,11 +28,6 @@ export const LineTableRow = ({ className, line }: Props): JSX.Element => {
     );
   };
 
-  // FIXME: quick and dirty hack for displaying the name that comes from the jore3 import
-  const name = line.name_i18n?.startsWith('{"fi_FI"')
-    ? JSON.parse(line.name_i18n).fi_FI
-    : line.name_i18n;
-
   return (
     <tbody>
       <tr className={`border ${className}`}>
@@ -41,7 +36,7 @@ export const LineTableRow = ({ className, line }: Props): JSX.Element => {
             <Row>
               <Column className="w-1/2">
                 <p className="text-3xl">{line.label}</p>
-                <p className="text-lg">{name}</p>
+                <p className="text-lg">{line.name_i18n.fi_FI}</p>
               </Column>
               <Column className="w-1/2 text-right">
                 <p className="text-lg font-bold">

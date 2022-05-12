@@ -121,7 +121,7 @@ export const LineDetailsPage = (): JSX.Element => {
           </Column>
           <Column>
             {line && <LineTitle line={line} onCreateRoute={onCreateRoute} />}
-            <span data-testid="line-header-name">{line?.name_i18n}</span>
+            <span data-testid="line-header-name">{line?.name_i18n.fi_FI}</span>
             <Row>
               <i className="icon-time2 text-xl text-city-bicycle-yellow" />
               <span data-testid="line-header-validity-period">

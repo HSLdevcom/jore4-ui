@@ -28,7 +28,7 @@ interface EditChanges {
 const mapFormToInput = (state: RouteFormState): RouteRouteSetInput => {
   const { label, priority, validityStart, validityEnd, indefinite } = state;
   const mutation: RouteRouteSetInput = {
-    description_i18n: state.description_i18n,
+    name_i18n: { fi_FI: state.finnishName },
     label,
     on_line_id: state.on_line_id,
     direction: state.direction,

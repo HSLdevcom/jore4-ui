@@ -1,12 +1,18 @@
-import { MockedProvider } from '@apollo/client/testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import {
   GetRouteDetailsByLabelWildcardDocument,
-  useGetRouteDetailsByLabelWildcardQuery,
+  GetRouteDetailsByLabelWildcardQuery,
+  RouteDirectionEnum,
 } from '../../../generated/graphql';
 import { Priority } from '../../../types/Priority';
-import { render, sleep } from '../../../utils/test-utils';
+import {
+  buildLocalizedString,
+  buildRoute,
+  render,
+  sleep,
+} from '../../../utils/test-utils';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 describe(`<${ChooseRouteDropdown.name} />`, () => {
@@ -19,7 +25,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
   const buttonTestId = `${testId}-button`;
   const inputTestId = `${testId}-input`;
 
-  const mocks = [
+  const mocks: MockedResponse<GetRouteDetailsByLabelWildcardQuery>[] = [
     {
       request: {
         query: GetRouteDetailsByLabelWildcardDocument,
@@ -33,28 +39,30 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
         data: {
           route_route: [
             {
+              ...buildRoute('1'),
+              description_i18n: buildLocalizedString('Route 1'),
+              label: '123',
               __typename: 'route_route',
               route_id: 'route1',
-              description_i18n: 'Route 1',
               validity_start: DateTime.fromISO('2022-03-20T22:00:00+00:00'),
               validity_end: DateTime.fromISO('2022-03-29T20:59:59.999+00:00'),
               priority: 10,
-              label: '123',
-              direction: 'outbound',
+              direction: RouteDirectionEnum.Outbound,
               route_shape: null,
               starts_from_scheduled_stop_point_id: 'start',
               ends_at_scheduled_stop_point_id: 'end',
               on_line_id: 'line_id',
             },
             {
+              ...buildRoute('2'),
+              description_i18n: buildLocalizedString('Route 2'),
+              label: '456',
               __typename: 'route_route',
               route_id: 'route2',
-              description_i18n: 'Route 2',
               validity_start: DateTime.fromISO('2021-01-01T22:00:00+00:00'),
               validity_end: DateTime.fromISO('2022-12-31T21:59:59.999+00:00'),
               priority: 10,
-              label: '456',
-              direction: 'outbound',
+              direction: RouteDirectionEnum.Outbound,
               route_shape: null,
               starts_from_scheduled_stop_point_id: 'start',
               ends_at_scheduled_stop_point_id: 'end',
@@ -62,7 +70,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
             },
           ],
         },
-      } as ReturnType<typeof useGetRouteDetailsByLabelWildcardQuery>,
+      },
     },
     {
       request: {
@@ -77,14 +85,15 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
         data: {
           route_route: [
             {
+              ...buildRoute('1'),
+              description_i18n: buildLocalizedString('Route 1'),
+              label: '123',
               __typename: 'route_route',
               route_id: 'route1',
-              description_i18n: 'Route 1',
               validity_start: DateTime.fromISO('2022-03-20T22:00:00+00:00'),
               validity_end: DateTime.fromISO('2022-03-29T20:59:59.999+00:00'),
               priority: 10,
-              label: '123',
-              direction: 'outbound',
+              direction: RouteDirectionEnum.Outbound,
               route_shape: null,
               starts_from_scheduled_stop_point_id: 'start',
               ends_at_scheduled_stop_point_id: 'end',
@@ -92,7 +101,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
             },
           ],
         },
-      } as ReturnType<typeof useGetRouteDetailsByLabelWildcardQuery>,
+      },
     },
   ];
 
@@ -135,13 +144,13 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
     const items = container.querySelectorAll('li');
 
     expect(items[0].querySelectorAll('div > div')[0].textContent).toBe(
-      `123 | Route 1`,
+      `123 | route 1`,
     );
     expect(items[0].querySelectorAll('div > div')[1].textContent).toBe(
       `21.3.2022 - 29.3.2022`,
     );
     expect(items[1].querySelectorAll('div > div')[0].textContent).toBe(
-      `456 | Route 2`,
+      `456 | route 2`,
     );
     expect(items[1].querySelectorAll('div > div')[1].textContent).toBe(
       `2.1.2021 - 31.12.2022`,
@@ -193,7 +202,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
     const items = container.querySelectorAll('li');
 
     expect(items[0].querySelectorAll('div > div')[0].textContent).toBe(
-      `123 | Route 1`,
+      `123 | route 1`,
     );
     expect(items[0].querySelectorAll('div > div')[1].textContent).toBe(
       `21.3.2022 - 29.3.2022`,

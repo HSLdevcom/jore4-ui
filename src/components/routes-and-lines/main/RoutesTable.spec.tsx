@@ -1,15 +1,21 @@
 import React from 'react';
 import {
+  ListChangingRoutesQuery,
+  RouteDirectionEnum,
   RouteLine,
   RouteRoute,
-  useListChangingRoutesQuery,
   useListOwnLinesQuery,
 } from '../../../generated/graphql';
 import {
+  GqlQueryResult,
   mapListChangingRoutesResult,
   mapListOwnLinesResult,
 } from '../../../graphql';
-import { render } from '../../../utils/test-utils';
+import {
+  buildLocalizedString,
+  buildRoute,
+  render,
+} from '../../../utils/test-utils';
 import { LineTableRow } from './LineTableRow';
 import { RoutesTable } from './RoutesTable';
 import { RoutesTableRow } from './RoutesTableRow';
@@ -22,26 +28,34 @@ describe(`<${RoutesTable.name} />`, () => {
   const stop2Id = 'e3528755-711f-4e4f-9461-7931a2c4bc6d';
 
   // this response is copy-pasted from the actual graphql response
-  const routesResponseMock = {
+  const routesResponseMock: GqlQueryResult<ListChangingRoutesQuery> = {
     data: {
       route_route: [
         {
-          route_id: route1Id,
-          description_i18n: null,
-          on_line_id: lineId,
           __typename: 'route_route',
+          ...buildRoute('1'),
+          route_id: route1Id,
+          on_line_id: lineId,
+          priority: 10,
+          direction: RouteDirectionEnum.Outbound,
           route_line: {
             line_id: lineId,
             label: '65',
-            name_i18n: 'Rautatientori - Kätilöopisto - Veräjälaakso',
-            short_name_i18n: 'Rautatientori - Veräjälaakso',
+            name_i18n: buildLocalizedString(
+              'Rautatientori - Kätilöopisto - Veräjälaakso',
+            ),
+            short_name_i18n: buildLocalizedString(
+              'Rautatientori - Veräjälaakso',
+            ),
             __typename: 'route_line',
           },
+          starts_from_scheduled_stop_point_id: stop1Id,
           starts_from_scheduled_stop_point: {
             scheduled_stop_point_id: stop1Id,
             label: 'pysäkki B',
             __typename: 'service_pattern_scheduled_stop_point',
           },
+          ends_at_scheduled_stop_point_id: stop2Id,
           ends_at_scheduled_stop_point: {
             scheduled_stop_point_id: stop2Id,
             label: 'pysäkki A',
@@ -50,7 +64,7 @@ describe(`<${RoutesTable.name} />`, () => {
         },
       ],
     },
-  } as ReturnType<typeof useListChangingRoutesQuery>;
+  };
 
   test('Renders the table with route data', async () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -73,29 +87,29 @@ describe(`<${RoutesTable.name} />`, () => {
         {
           line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
           label: '65',
-          name_i18n: 'Rautatientori - Veräjälaakso',
-          short_name_i18n: 'Rautatientori - Veräjälaakso',
+          name_i18n: buildLocalizedString('Rautatientori - Veräjälaakso'),
+          short_name_i18n: buildLocalizedString('Rautatientori - Veräjälaakso'),
           __typename: 'route_line',
         },
         {
           line_id: '9058c328-efdd-412c-9b2b-37b0f6a2c6fb',
           label: '71',
-          name_i18n: 'Rautatientori - Malmi as.',
-          short_name_i18n: 'Rautatientori - Malmi as.',
+          name_i18n: buildLocalizedString('Rautatientori - Malmi as.'),
+          short_name_i18n: buildLocalizedString('Rautatientori - Malmi as.'),
           __typename: 'route_line',
         },
         {
           line_id: 'bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2',
           label: '785K',
-          name_i18n: 'Rautatientori - Nikkilä',
-          short_name_i18n: 'Rautatientori - Nikkilä',
+          name_i18n: buildLocalizedString('Rautatientori - Nikkilä'),
+          short_name_i18n: buildLocalizedString('Rautatientori - Nikkilä'),
           __typename: 'route_line',
         },
         {
           line_id: 'db748c5c-42e3-429f-baa0-e0db227dc2c8',
           label: '1234',
-          name_i18n: 'Erottaja - Arkkadiankatu',
-          short_name_i18n: 'Erottaja - Arkkadiankatu',
+          name_i18n: buildLocalizedString('Erottaja - Arkkadiankatu'),
+          short_name_i18n: buildLocalizedString('Erottaja - Arkkadiankatu'),
           __typename: 'route_line',
         },
       ],
