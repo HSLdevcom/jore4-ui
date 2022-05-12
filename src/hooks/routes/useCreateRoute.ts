@@ -19,12 +19,13 @@ import {
 } from '../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 
-interface CreateParams {
-  form: Partial<RouteFormState>;
+export interface RouteGeometry {
   stopIdsWithinRoute: UUID[];
   infraLinksAlongRoute: InfrastructureLinkAlongRoute[];
-  startingStopId: UUID;
-  finalStopId: UUID;
+}
+interface CreateParams {
+  form: Partial<RouteFormState>;
+  routeGeometry: RouteGeometry;
 }
 
 interface CreateChanges {
@@ -42,49 +43,76 @@ export const mapStopsToScheduledStopPoints = (stops: UUID[]) => {
   };
 };
 
-const mapRouteDetailsToInsertMutationVariables = (
-  params: CreateParams,
-): InsertRouteOneMutationVariables => {
-  const {
-    form,
-    stopIdsWithinRoute,
-    infraLinksAlongRoute,
-    startingStopId,
-    finalStopId,
-  } = params;
-  const input: InsertRouteOneMutationVariables = mapToObject({
-    starts_from_scheduled_stop_point_id: startingStopId,
-    ends_at_scheduled_stop_point_id: finalStopId,
-    on_line_id: form.on_line_id,
-    label: form.label,
-    description_i18n: form.description_i18n,
-    direction: form.direction,
-    priority: form.priority,
-    validity_start: mapDateInputToValidityStart(
-      // form validation makes sure that 'validityStart' has a valid value at this point
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      form.validityStart!,
-    ),
-    validity_end: mapDateInputToValidityEnd(form.validityEnd, form.indefinite),
-    // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
-    infrastructure_links_along_route: {
-      data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
-    },
-    route_journey_patterns: {
-      data: {
-        scheduled_stop_point_in_journey_patterns:
-          mapStopsToScheduledStopPoints(stopIdsWithinRoute),
-      },
-    },
-  });
+export const extractFirstAndLastStopFromStops = (
+  stopIdsWithinRoute: UUID[],
+) => {
+  // TODO: These will be removed from schema, remove from here as well
+  const startingStopId = stopIdsWithinRoute[0];
+  const finalStopId = stopIdsWithinRoute[stopIdsWithinRoute.length - 1];
 
-  return input;
+  return { startingStopId, finalStopId };
 };
 
 export const useCreateRoute = () => {
   const { t } = useTranslation();
   const [mutateFunction] = useInsertRouteOneMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
+
+  const validateGeometry = ({
+    stopIdsWithinRoute,
+    infraLinksAlongRoute,
+  }: RouteGeometry) => {
+    if (
+      !infraLinksAlongRoute ||
+      !stopIdsWithinRoute ||
+      stopIdsWithinRoute.length < 2
+    ) {
+      throw new Error(t('routes.tooFewStops'));
+    }
+  };
+
+  const mapRouteDetailsToInsertMutationVariables = (
+    params: CreateParams,
+  ): InsertRouteOneMutationVariables => {
+    const { form, routeGeometry } = params;
+
+    const { stopIdsWithinRoute, infraLinksAlongRoute } = routeGeometry;
+    validateGeometry(routeGeometry);
+
+    const { startingStopId, finalStopId } =
+      extractFirstAndLastStopFromStops(stopIdsWithinRoute);
+
+    const input: InsertRouteOneMutationVariables = mapToObject({
+      starts_from_scheduled_stop_point_id: startingStopId,
+      ends_at_scheduled_stop_point_id: finalStopId,
+      on_line_id: form.on_line_id,
+      label: form.label,
+      description_i18n: form.description_i18n,
+      direction: form.direction,
+      priority: form.priority,
+      validity_start: mapDateInputToValidityStart(
+        // form validation makes sure that 'validityStart' has a valid value at this point
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        form.validityStart!,
+      ),
+      validity_end: mapDateInputToValidityEnd(
+        form.validityEnd,
+        form.indefinite,
+      ),
+      // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
+      infrastructure_links_along_route: {
+        data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
+      },
+      route_journey_patterns: {
+        data: {
+          scheduled_stop_point_in_journey_patterns:
+            mapStopsToScheduledStopPoints(stopIdsWithinRoute),
+        },
+      },
+    });
+
+    return input;
+  };
 
   const prepareCreate = async (params: CreateParams) => {
     const input = mapRouteDetailsToInsertMutationVariables(params);
@@ -120,5 +148,6 @@ export const useCreateRoute = () => {
     mapCreateChangesToVariables,
     insertRouteMutation: mutateFunction,
     defaultErrorHandler,
+    validateGeometry,
   };
 };

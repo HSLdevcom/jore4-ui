@@ -39,7 +39,12 @@ const mapFormToInput = (state: RouteFormState): RouteRouteSetInput => {
   return mutation;
 };
 
-export const useEditRoute = () => {
+/**
+ * Hook for editing route's metadata.
+ * For editing route geometry (journey pattern and infrastructure links),
+ * use editRouteGeometry
+ */
+export const useEditRouteMetadata = () => {
   const { t } = useTranslation();
   const [mutateFunction] = usePatchRouteMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();

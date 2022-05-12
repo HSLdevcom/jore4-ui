@@ -1,4 +1,5 @@
 export * from './useDeleteRoute';
-export * from './useEditRoute';
 export * from './useEditRouteGeometry';
+export * from './useEditRouteJourneyPattern';
+export * from './useEditRouteMetadata';
 export * from './useGetDisplayedRoutes';

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { MdOutlineHistory } from 'react-icons/md';
 import { ServicePatternScheduledStopPoint } from '../../../generated/graphql';
 import { stopBelongsToJourneyPattern } from '../../../graphql';
-import { useEditRouteGeometry } from '../../../hooks';
+import { useEditRouteJourneyPattern } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
 import {
   mapToShortDate,
@@ -31,7 +31,7 @@ export const RouteStopsRow = ({
 
   const belongsToJourneyPattern = stopBelongsToJourneyPattern(stop, routeId);
 
-  const { deleteStopFromJourneyPattern } = useEditRouteGeometry();
+  const { deleteStopFromJourneyPattern } = useEditRouteJourneyPattern();
 
   const deleteFromJourneyPattern = async () => {
     try {
