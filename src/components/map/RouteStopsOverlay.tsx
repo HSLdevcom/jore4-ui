@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import {
-  RouteRoute,
   ServicePatternScheduledStopPoint,
   useGetRoutesWithInfrastructureLinksQuery,
   useGetStopsByIdsQuery,
@@ -80,9 +79,10 @@ export const RouteStopsOverlay = ({ className }: Props) => {
   );
 
   const routes = mapRoutesDetailsResult(routesResult);
+  const selectedRoute = routes?.[0];
 
   const route = editedRouteData.metaData || routes?.[0];
-  const routeStopIds = route ? getRouteStopIds(route as RouteRoute) : [];
+  const routeStopIds = selectedRoute ? getRouteStopIds(selectedRoute) : [];
 
   // If creating/editing a route, fetch edited route stops
   // otherwise fetch selected route's stops
