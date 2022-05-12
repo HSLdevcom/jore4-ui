@@ -105,11 +105,9 @@ const DrawRouteLayerComponent = (
 
   useImperativeHandle(externalRef, () => ({
     onDeleteRoute: () => {
-      if (hasDraftRouteGeometry) {
-        // currently user can draw only one route, so id of it will always be '0'
-        const routeId = '0';
-        onDelete(routeId);
-      }
+      // currently user can draw only one route, so id of it will always be '0'
+      const routeId = '0';
+      onDelete(routeId);
     },
   }));
 
