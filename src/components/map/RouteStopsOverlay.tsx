@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import {
-  RouteRoute,
   ServicePatternScheduledStopPoint,
   useGetRoutesWithInfrastructureLinksQuery,
   useGetStopsByIdsQuery,
@@ -80,15 +79,18 @@ export const RouteStopsOverlay = ({ className }: Props) => {
   );
 
   const routes = mapRoutesDetailsResult(routesResult);
+  const selectedRoute = routes?.[0];
 
-  const route = editedRouteData.metaData || routes?.[0];
-  const routeStopIds = route ? getRouteStopIds(route as RouteRoute) : [];
+  const routeMetadata = editedRouteData.metaData || selectedRoute;
+  const selectedRouteStopIds = selectedRoute
+    ? getRouteStopIds(selectedRoute)
+    : [];
 
   // If creating/editing a route, fetch edited route stops
   // otherwise fetch selected route's stops
   const stopIdsToFetch = routeEditingInProgress
     ? editedRouteData.stops.map((stop) => stop.id)
-    : routeStopIds;
+    : selectedRouteStopIds;
 
   const stopsResult = useGetStopsByIdsQuery(
     mapToVariables({
@@ -102,14 +104,14 @@ export const RouteStopsOverlay = ({ className }: Props) => {
   // otherwise show selected route's stops
   const routeStops = routeEditingInProgress
     ? editedRouteData.stops
-    : getRouteStops(routeStopIds);
+    : getRouteStops(selectedRouteStopIds);
 
   const stopsToDisplay = routeStops?.map((stop) => ({
     stop: stops?.find((item) => item.scheduled_stop_point_id === stop.id),
     belongsToRoute: stop.belongsToRoute,
   }));
 
-  if (!route) {
+  if (!routeMetadata) {
     return null;
   }
 
@@ -119,9 +121,11 @@ export const RouteStopsOverlay = ({ className }: Props) => {
         <i className="icon-bus-alt text-2xl text-tweaked-brand" />
         <div>
           <h2 className="text-2xl font-bold text-tweaked-brand">
-            {route.description_i18n}
+            {routeMetadata.description_i18n}
           </h2>
-          <div className="text-light text-xs text-gray-500">{route.label}</div>
+          <div className="text-light text-xs text-gray-500">
+            {routeMetadata.label}
+          </div>
         </div>
       </MapOverlayHeader>
       {stopsToDisplay?.map(
