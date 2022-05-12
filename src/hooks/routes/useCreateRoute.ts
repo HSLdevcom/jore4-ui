@@ -86,7 +86,7 @@ export const useCreateRoute = () => {
       ends_at_scheduled_stop_point_id: finalStopId,
       on_line_id: form.on_line_id,
       label: form.label,
-      description_i18n: form.description_i18n,
+      name_i18n: form.finnishName,
       direction: form.direction,
       priority: form.priority,
       validity_start: mapDateInputToValidityStart(

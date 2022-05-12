@@ -31,7 +31,7 @@ export const AdditionalInformation: React.FC<Props> = ({ className, line }) => {
         <FieldValue
           className="w-1/2"
           fieldName={t('lines.linesName')}
-          value={line.name_i18n}
+          value={line.name_i18n.fi_FI}
           testId="line-details-name"
         />
         <FieldValue

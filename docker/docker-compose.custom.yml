@@ -3,7 +3,7 @@ services:
     # locking hasura image so that we can develop the UI against a static graphql API
     # Link to available jore4-hasura images in Docker Hub:
     # https://hub.docker.com/r/hsldevcom/jore4-hasura/tags?page=1&ordering=last_updated
-    image: 'hsldevcom/jore4-hasura:seed-transport-target--20220422-bbb3387d2257518843250542a0a0ec6c9b6d2d2e'
+    image: 'hsldevcom/jore4-hasura:seed-localization-jsonb--20220516-1bf1b6e6d023c9accf58d4f7f1db701f438d161e'
     environment:
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
 

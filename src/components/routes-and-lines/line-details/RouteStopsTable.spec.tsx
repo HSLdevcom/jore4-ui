@@ -6,7 +6,7 @@ import {
   GqlQueryResult,
   mapLineDetailsWithRoutesResult,
 } from '../../../graphql';
-import { render } from '../../../utils/test-utils';
+import { buildLocalizedString, render } from '../../../utils/test-utils';
 import { RouteStopsTable } from './RouteStopsTable';
 
 describe(`<${RouteStopsTable.name} />`, () => {
@@ -17,8 +17,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
     data: {
       route_line_by_pk: {
         line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
-        name_i18n: 'Rautatientori - Veräjälaakso',
-        short_name_i18n: 'Rautatientori - Veräjälaakso',
+        name_i18n: buildLocalizedString('Rautatientori - Veräjälaakso'),
+        short_name_i18n: buildLocalizedString('Rautatientori - Veräjälaakso'),
         primary_vehicle_mode: 'bus',
         validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
         validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),

@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { FormState } from '../components/forms/line/LineForm';
 import {
-  InsertRouteOneMutationVariables,
+  InsertLineOneMutationVariables,
   ReusableComponentsVehicleModeEnum,
   RouteLine,
   RouteLineInsertInput,
-  RouteLineSetInput,
   RouteTypeOfLineEnum,
   useInsertLineOneMutation,
 } from '../generated/graphql';
@@ -24,12 +23,11 @@ interface CreateChanges {
   conflicts?: RouteLine[];
 }
 
-export const mapFormToInput = (
-  state: FormState,
-): RouteLineSetInput | RouteLineInsertInput => {
+export const mapFormToInput = (state: FormState) => {
   const input = {
     label: state.label,
-    name_i18n: state.finnishName,
+    name_i18n: { fi_FI: state.finnishName },
+    short_name_i18n: { fi_FI: state.finnishName },
     primary_vehicle_mode:
       state.primaryVehicleMode as ReusableComponentsVehicleModeEnum,
     priority: state.priority,
@@ -70,7 +68,7 @@ export const useCreateLine = () => {
 
   const mapCreateChangesToVariables = (
     changes: CreateChanges,
-  ): InsertRouteOneMutationVariables => ({
+  ): InsertLineOneMutationVariables => ({
     object: changes.input,
   });
 

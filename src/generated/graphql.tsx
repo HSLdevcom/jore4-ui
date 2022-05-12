@@ -19,6 +19,8 @@ export type Scalars = {
   geography_linestring: GeoJSON.LineString;
   geography_point: GeoJSON.Point;
   geometry: GeoJSON.Geometry;
+  jsonb: any;
+  localized_string: LocalizedString;
   timestamptz: luxon.DateTime;
   uuid: UUID;
 };
@@ -292,13 +294,6 @@ export type HslRouteTransportTargetMutationResponse = {
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
   returning: Array<HslRouteTransportTarget>;
-};
-
-/** input type for inserting object relation for remote table "hsl_route.transport_target" */
-export type HslRouteTransportTargetObjRelInsertInput = {
-  data: HslRouteTransportTargetInsertInput;
-  /** on conflict condition */
-  on_conflict?: Maybe<HslRouteTransportTargetOnConflict>;
 };
 
 /** on conflict condition type for table "hsl_route.transport_target" */
@@ -1909,6 +1904,576 @@ export type JourneyPatternScheduledStopPointInJourneyPatternVarianceOrderBy = {
   scheduled_stop_point_sequence?: Maybe<OrderBy>;
 };
 
+/** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
+export type JsonbComparisonExp = {
+  /** is the column contained in the given json value */
+  _contained_in?: Maybe<Scalars['jsonb']>;
+  /** does the column contain the given json value at the top level */
+  _contains?: Maybe<Scalars['jsonb']>;
+  _eq?: Maybe<Scalars['jsonb']>;
+  _gt?: Maybe<Scalars['jsonb']>;
+  _gte?: Maybe<Scalars['jsonb']>;
+  /** does the string exist as a top-level key in the column */
+  _has_key?: Maybe<Scalars['String']>;
+  /** do all of these strings exist as top-level keys in the column */
+  _has_keys_all?: Maybe<Array<Scalars['String']>>;
+  /** do any of these strings exist as top-level keys in the column */
+  _has_keys_any?: Maybe<Array<Scalars['String']>>;
+  _in?: Maybe<Array<Scalars['jsonb']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _lt?: Maybe<Scalars['jsonb']>;
+  _lte?: Maybe<Scalars['jsonb']>;
+  _neq?: Maybe<Scalars['jsonb']>;
+  _nin?: Maybe<Array<Scalars['jsonb']>>;
+};
+
+/**
+ * List of attribute names which are used as localization keys
+ *
+ *
+ * columns and relationships of "localization.attribute"
+ *
+ */
+export type LocalizationAttribute = {
+  __typename?: 'localization_attribute';
+  attribute_id: Scalars['uuid'];
+  /** An attribute name that is used as localization key. Should be namespaced (e.g. "route_name") */
+  attribute_name: Scalars['String'];
+  /** An array relationship */
+  localized_texts: Array<LocalizationLocalizedText>;
+  /** An aggregate relationship */
+  localized_texts_aggregate: LocalizationLocalizedTextAggregate;
+};
+
+
+/**
+ * List of attribute names which are used as localization keys
+ *
+ *
+ * columns and relationships of "localization.attribute"
+ *
+ */
+export type LocalizationAttributeLocalizedTextsArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+
+/**
+ * List of attribute names which are used as localization keys
+ *
+ *
+ * columns and relationships of "localization.attribute"
+ *
+ */
+export type LocalizationAttributeLocalizedTextsAggregateArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+/** aggregated selection of "localization.attribute" */
+export type LocalizationAttributeAggregate = {
+  __typename?: 'localization_attribute_aggregate';
+  aggregate?: Maybe<LocalizationAttributeAggregateFields>;
+  nodes: Array<LocalizationAttribute>;
+};
+
+/** aggregate fields of "localization.attribute" */
+export type LocalizationAttributeAggregateFields = {
+  __typename?: 'localization_attribute_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<LocalizationAttributeMaxFields>;
+  min?: Maybe<LocalizationAttributeMinFields>;
+};
+
+
+/** aggregate fields of "localization.attribute" */
+export type LocalizationAttributeAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<LocalizationAttributeSelectColumn>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "localization.attribute". All fields are combined with a logical 'AND'. */
+export type LocalizationAttributeBoolExp = {
+  _and?: Maybe<Array<LocalizationAttributeBoolExp>>;
+  _not?: Maybe<LocalizationAttributeBoolExp>;
+  _or?: Maybe<Array<LocalizationAttributeBoolExp>>;
+  attribute_id?: Maybe<UuidComparisonExp>;
+  attribute_name?: Maybe<StringComparisonExp>;
+  localized_texts?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+/** unique or primary key constraints on table "localization.attribute" */
+export enum LocalizationAttributeConstraint {
+  /** unique or primary key constraint */
+  AttributePkey = 'attribute_pkey',
+  /** unique or primary key constraint */
+  UniqueAttributeName = 'unique_attribute_name'
+}
+
+/** input type for inserting data into table "localization.attribute" */
+export type LocalizationAttributeInsertInput = {
+  attribute_id?: Maybe<Scalars['uuid']>;
+  /** An attribute name that is used as localization key. Should be namespaced (e.g. "route_name") */
+  attribute_name?: Maybe<Scalars['String']>;
+  localized_texts?: Maybe<LocalizationLocalizedTextArrRelInsertInput>;
+};
+
+/** aggregate max on columns */
+export type LocalizationAttributeMaxFields = {
+  __typename?: 'localization_attribute_max_fields';
+  attribute_id?: Maybe<Scalars['uuid']>;
+  /** An attribute name that is used as localization key. Should be namespaced (e.g. "route_name") */
+  attribute_name?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type LocalizationAttributeMinFields = {
+  __typename?: 'localization_attribute_min_fields';
+  attribute_id?: Maybe<Scalars['uuid']>;
+  /** An attribute name that is used as localization key. Should be namespaced (e.g. "route_name") */
+  attribute_name?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "localization.attribute" */
+export type LocalizationAttributeMutationResponse = {
+  __typename?: 'localization_attribute_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<LocalizationAttribute>;
+};
+
+/** input type for inserting object relation for remote table "localization.attribute" */
+export type LocalizationAttributeObjRelInsertInput = {
+  data: LocalizationAttributeInsertInput;
+  /** on conflict condition */
+  on_conflict?: Maybe<LocalizationAttributeOnConflict>;
+};
+
+/** on conflict condition type for table "localization.attribute" */
+export type LocalizationAttributeOnConflict = {
+  constraint: LocalizationAttributeConstraint;
+  update_columns?: Array<LocalizationAttributeUpdateColumn>;
+  where?: Maybe<LocalizationAttributeBoolExp>;
+};
+
+/** Ordering options when selecting data from "localization.attribute". */
+export type LocalizationAttributeOrderBy = {
+  attribute_id?: Maybe<OrderBy>;
+  attribute_name?: Maybe<OrderBy>;
+  localized_texts_aggregate?: Maybe<LocalizationLocalizedTextAggregateOrderBy>;
+};
+
+/** primary key columns input for table: localization_attribute */
+export type LocalizationAttributePkColumnsInput = {
+  attribute_id: Scalars['uuid'];
+};
+
+/** select columns of table "localization.attribute" */
+export enum LocalizationAttributeSelectColumn {
+  /** column name */
+  AttributeId = 'attribute_id',
+  /** column name */
+  AttributeName = 'attribute_name'
+}
+
+/** input type for updating data in table "localization.attribute" */
+export type LocalizationAttributeSetInput = {
+  attribute_id?: Maybe<Scalars['uuid']>;
+  /** An attribute name that is used as localization key. Should be namespaced (e.g. "route_name") */
+  attribute_name?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "localization.attribute" */
+export enum LocalizationAttributeUpdateColumn {
+  /** column name */
+  AttributeId = 'attribute_id',
+  /** column name */
+  AttributeName = 'attribute_name'
+}
+
+/**
+ * List of languages in which the localized texts may come. Used as enum table
+ *
+ *
+ * columns and relationships of "localization.language"
+ *
+ */
+export type LocalizationLanguage = {
+  __typename?: 'localization_language';
+  language_code: Scalars['String'];
+  /** An array relationship */
+  localized_texts: Array<LocalizationLocalizedText>;
+  /** An aggregate relationship */
+  localized_texts_aggregate: LocalizationLocalizedTextAggregate;
+};
+
+
+/**
+ * List of languages in which the localized texts may come. Used as enum table
+ *
+ *
+ * columns and relationships of "localization.language"
+ *
+ */
+export type LocalizationLanguageLocalizedTextsArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+
+/**
+ * List of languages in which the localized texts may come. Used as enum table
+ *
+ *
+ * columns and relationships of "localization.language"
+ *
+ */
+export type LocalizationLanguageLocalizedTextsAggregateArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+/** aggregated selection of "localization.language" */
+export type LocalizationLanguageAggregate = {
+  __typename?: 'localization_language_aggregate';
+  aggregate?: Maybe<LocalizationLanguageAggregateFields>;
+  nodes: Array<LocalizationLanguage>;
+};
+
+/** aggregate fields of "localization.language" */
+export type LocalizationLanguageAggregateFields = {
+  __typename?: 'localization_language_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<LocalizationLanguageMaxFields>;
+  min?: Maybe<LocalizationLanguageMinFields>;
+};
+
+
+/** aggregate fields of "localization.language" */
+export type LocalizationLanguageAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<LocalizationLanguageSelectColumn>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "localization.language". All fields are combined with a logical 'AND'. */
+export type LocalizationLanguageBoolExp = {
+  _and?: Maybe<Array<LocalizationLanguageBoolExp>>;
+  _not?: Maybe<LocalizationLanguageBoolExp>;
+  _or?: Maybe<Array<LocalizationLanguageBoolExp>>;
+  language_code?: Maybe<StringComparisonExp>;
+  localized_texts?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+/** unique or primary key constraints on table "localization.language" */
+export enum LocalizationLanguageConstraint {
+  /** unique or primary key constraint */
+  LanguagePkey = 'language_pkey'
+}
+
+export enum LocalizationLanguageEnum {
+  EnUs = 'en_US',
+  FiFi = 'fi_FI',
+  SvFi = 'sv_FI'
+}
+
+/** Boolean expression to compare columns of type "localization_language_enum". All fields are combined with logical 'AND'. */
+export type LocalizationLanguageEnumComparisonExp = {
+  _eq?: Maybe<LocalizationLanguageEnum>;
+  _in?: Maybe<Array<LocalizationLanguageEnum>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _neq?: Maybe<LocalizationLanguageEnum>;
+  _nin?: Maybe<Array<LocalizationLanguageEnum>>;
+};
+
+/** input type for inserting data into table "localization.language" */
+export type LocalizationLanguageInsertInput = {
+  language_code?: Maybe<Scalars['String']>;
+  localized_texts?: Maybe<LocalizationLocalizedTextArrRelInsertInput>;
+};
+
+/** aggregate max on columns */
+export type LocalizationLanguageMaxFields = {
+  __typename?: 'localization_language_max_fields';
+  language_code?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type LocalizationLanguageMinFields = {
+  __typename?: 'localization_language_min_fields';
+  language_code?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "localization.language" */
+export type LocalizationLanguageMutationResponse = {
+  __typename?: 'localization_language_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<LocalizationLanguage>;
+};
+
+/** input type for inserting object relation for remote table "localization.language" */
+export type LocalizationLanguageObjRelInsertInput = {
+  data: LocalizationLanguageInsertInput;
+  /** on conflict condition */
+  on_conflict?: Maybe<LocalizationLanguageOnConflict>;
+};
+
+/** on conflict condition type for table "localization.language" */
+export type LocalizationLanguageOnConflict = {
+  constraint: LocalizationLanguageConstraint;
+  update_columns?: Array<LocalizationLanguageUpdateColumn>;
+  where?: Maybe<LocalizationLanguageBoolExp>;
+};
+
+/** Ordering options when selecting data from "localization.language". */
+export type LocalizationLanguageOrderBy = {
+  language_code?: Maybe<OrderBy>;
+  localized_texts_aggregate?: Maybe<LocalizationLocalizedTextAggregateOrderBy>;
+};
+
+/** primary key columns input for table: localization_language */
+export type LocalizationLanguagePkColumnsInput = {
+  language_code: Scalars['String'];
+};
+
+/** select columns of table "localization.language" */
+export enum LocalizationLanguageSelectColumn {
+  /** column name */
+  LanguageCode = 'language_code'
+}
+
+/** input type for updating data in table "localization.language" */
+export type LocalizationLanguageSetInput = {
+  language_code?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "localization.language" */
+export enum LocalizationLanguageUpdateColumn {
+  /** column name */
+  LanguageCode = 'language_code'
+}
+
+/**
+ * List of localized texts for entities like routes, lines, etc.
+ *
+ *
+ * columns and relationships of "localization.localized_text"
+ *
+ */
+export type LocalizationLocalizedText = {
+  __typename?: 'localization_localized_text';
+  /** An object relationship */
+  attribute: LocalizationAttribute;
+  /** ID of the localization key the localized text refers to */
+  attribute_id: Scalars['uuid'];
+  /** ID of the entity the localized text refers to */
+  entity_id: Scalars['uuid'];
+  /** An object relationship */
+  language: LocalizationLanguage;
+  /** Language of the localized text */
+  language_code: LocalizationLanguageEnum;
+  /** The localized text itself, in UTF-8 format */
+  localized_text: Scalars['String'];
+};
+
+/** aggregated selection of "localization.localized_text" */
+export type LocalizationLocalizedTextAggregate = {
+  __typename?: 'localization_localized_text_aggregate';
+  aggregate?: Maybe<LocalizationLocalizedTextAggregateFields>;
+  nodes: Array<LocalizationLocalizedText>;
+};
+
+/** aggregate fields of "localization.localized_text" */
+export type LocalizationLocalizedTextAggregateFields = {
+  __typename?: 'localization_localized_text_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<LocalizationLocalizedTextMaxFields>;
+  min?: Maybe<LocalizationLocalizedTextMinFields>;
+};
+
+
+/** aggregate fields of "localization.localized_text" */
+export type LocalizationLocalizedTextAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "localization.localized_text" */
+export type LocalizationLocalizedTextAggregateOrderBy = {
+  count?: Maybe<OrderBy>;
+  max?: Maybe<LocalizationLocalizedTextMaxOrderBy>;
+  min?: Maybe<LocalizationLocalizedTextMinOrderBy>;
+};
+
+/** input type for inserting array relation for remote table "localization.localized_text" */
+export type LocalizationLocalizedTextArrRelInsertInput = {
+  data: Array<LocalizationLocalizedTextInsertInput>;
+  /** on conflict condition */
+  on_conflict?: Maybe<LocalizationLocalizedTextOnConflict>;
+};
+
+/** Boolean expression to filter rows from the table "localization.localized_text". All fields are combined with a logical 'AND'. */
+export type LocalizationLocalizedTextBoolExp = {
+  _and?: Maybe<Array<LocalizationLocalizedTextBoolExp>>;
+  _not?: Maybe<LocalizationLocalizedTextBoolExp>;
+  _or?: Maybe<Array<LocalizationLocalizedTextBoolExp>>;
+  attribute?: Maybe<LocalizationAttributeBoolExp>;
+  attribute_id?: Maybe<UuidComparisonExp>;
+  entity_id?: Maybe<UuidComparisonExp>;
+  language?: Maybe<LocalizationLanguageBoolExp>;
+  language_code?: Maybe<LocalizationLanguageEnumComparisonExp>;
+  localized_text?: Maybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "localization.localized_text" */
+export enum LocalizationLocalizedTextConstraint {
+  /** unique or primary key constraint */
+  LocalizedTextPkey = 'localized_text_pkey'
+}
+
+/** input type for inserting data into table "localization.localized_text" */
+export type LocalizationLocalizedTextInsertInput = {
+  attribute?: Maybe<LocalizationAttributeObjRelInsertInput>;
+  /** ID of the localization key the localized text refers to */
+  attribute_id?: Maybe<Scalars['uuid']>;
+  /** ID of the entity the localized text refers to */
+  entity_id?: Maybe<Scalars['uuid']>;
+  language?: Maybe<LocalizationLanguageObjRelInsertInput>;
+  /** Language of the localized text */
+  language_code?: Maybe<LocalizationLanguageEnum>;
+  /** The localized text itself, in UTF-8 format */
+  localized_text?: Maybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type LocalizationLocalizedTextMaxFields = {
+  __typename?: 'localization_localized_text_max_fields';
+  /** ID of the localization key the localized text refers to */
+  attribute_id?: Maybe<Scalars['uuid']>;
+  /** ID of the entity the localized text refers to */
+  entity_id?: Maybe<Scalars['uuid']>;
+  /** The localized text itself, in UTF-8 format */
+  localized_text?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "localization.localized_text" */
+export type LocalizationLocalizedTextMaxOrderBy = {
+  /** ID of the localization key the localized text refers to */
+  attribute_id?: Maybe<OrderBy>;
+  /** ID of the entity the localized text refers to */
+  entity_id?: Maybe<OrderBy>;
+  /** The localized text itself, in UTF-8 format */
+  localized_text?: Maybe<OrderBy>;
+};
+
+/** aggregate min on columns */
+export type LocalizationLocalizedTextMinFields = {
+  __typename?: 'localization_localized_text_min_fields';
+  /** ID of the localization key the localized text refers to */
+  attribute_id?: Maybe<Scalars['uuid']>;
+  /** ID of the entity the localized text refers to */
+  entity_id?: Maybe<Scalars['uuid']>;
+  /** The localized text itself, in UTF-8 format */
+  localized_text?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "localization.localized_text" */
+export type LocalizationLocalizedTextMinOrderBy = {
+  /** ID of the localization key the localized text refers to */
+  attribute_id?: Maybe<OrderBy>;
+  /** ID of the entity the localized text refers to */
+  entity_id?: Maybe<OrderBy>;
+  /** The localized text itself, in UTF-8 format */
+  localized_text?: Maybe<OrderBy>;
+};
+
+/** response of any mutation on the table "localization.localized_text" */
+export type LocalizationLocalizedTextMutationResponse = {
+  __typename?: 'localization_localized_text_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<LocalizationLocalizedText>;
+};
+
+/** on conflict condition type for table "localization.localized_text" */
+export type LocalizationLocalizedTextOnConflict = {
+  constraint: LocalizationLocalizedTextConstraint;
+  update_columns?: Array<LocalizationLocalizedTextUpdateColumn>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+/** Ordering options when selecting data from "localization.localized_text". */
+export type LocalizationLocalizedTextOrderBy = {
+  attribute?: Maybe<LocalizationAttributeOrderBy>;
+  attribute_id?: Maybe<OrderBy>;
+  entity_id?: Maybe<OrderBy>;
+  language?: Maybe<LocalizationLanguageOrderBy>;
+  language_code?: Maybe<OrderBy>;
+  localized_text?: Maybe<OrderBy>;
+};
+
+/** primary key columns input for table: localization_localized_text */
+export type LocalizationLocalizedTextPkColumnsInput = {
+  /** ID of the localization key the localized text refers to */
+  attribute_id: Scalars['uuid'];
+  /** ID of the entity the localized text refers to */
+  entity_id: Scalars['uuid'];
+  /** Language of the localized text */
+  language_code: LocalizationLanguageEnum;
+};
+
+/** select columns of table "localization.localized_text" */
+export enum LocalizationLocalizedTextSelectColumn {
+  /** column name */
+  AttributeId = 'attribute_id',
+  /** column name */
+  EntityId = 'entity_id',
+  /** column name */
+  LanguageCode = 'language_code',
+  /** column name */
+  LocalizedText = 'localized_text'
+}
+
+/** input type for updating data in table "localization.localized_text" */
+export type LocalizationLocalizedTextSetInput = {
+  /** ID of the localization key the localized text refers to */
+  attribute_id?: Maybe<Scalars['uuid']>;
+  /** ID of the entity the localized text refers to */
+  entity_id?: Maybe<Scalars['uuid']>;
+  /** Language of the localized text */
+  language_code?: Maybe<LocalizationLanguageEnum>;
+  /** The localized text itself, in UTF-8 format */
+  localized_text?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "localization.localized_text" */
+export enum LocalizationLocalizedTextUpdateColumn {
+  /** column name */
+  AttributeId = 'attribute_id',
+  /** column name */
+  EntityId = 'entity_id',
+  /** column name */
+  LanguageCode = 'language_code',
+  /** column name */
+  LocalizedText = 'localized_text'
+}
+
 /** mutation root */
 export type MutationRoot = {
   __typename?: 'mutation_root';
@@ -1940,6 +2505,18 @@ export type MutationRoot = {
   delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMutationResponse>;
   /** delete single row from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
   delete_journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
+  /** delete data from the table: "localization.attribute" */
+  delete_localization_attribute?: Maybe<LocalizationAttributeMutationResponse>;
+  /** delete single row from the table: "localization.attribute" */
+  delete_localization_attribute_by_pk?: Maybe<LocalizationAttribute>;
+  /** delete data from the table: "localization.language" */
+  delete_localization_language?: Maybe<LocalizationLanguageMutationResponse>;
+  /** delete single row from the table: "localization.language" */
+  delete_localization_language_by_pk?: Maybe<LocalizationLanguage>;
+  /** delete data from the table: "localization.localized_text" */
+  delete_localization_localized_text?: Maybe<LocalizationLocalizedTextMutationResponse>;
+  /** delete single row from the table: "localization.localized_text" */
+  delete_localization_localized_text_by_pk?: Maybe<LocalizationLocalizedText>;
   /** delete data from the table: "reusable_components.vehicle_mode" */
   delete_reusable_components_vehicle_mode?: Maybe<ReusableComponentsVehicleModeMutationResponse>;
   /** delete single row from the table: "reusable_components.vehicle_mode" */
@@ -1962,6 +2539,8 @@ export type MutationRoot = {
   delete_route_line_by_pk?: Maybe<RouteLine>;
   /** delete data from the table: "route.route" */
   delete_route_route?: Maybe<RouteRouteMutationResponse>;
+  /** delete single row from the table: "route.route" */
+  delete_route_route_by_pk?: Maybe<RouteRoute>;
   /** delete data from the table: "route.type_of_line" */
   delete_route_type_of_line?: Maybe<RouteTypeOfLineMutationResponse>;
   /** delete single row from the table: "route.type_of_line" */
@@ -2000,6 +2579,18 @@ export type MutationRoot = {
   insert_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMutationResponse>;
   /** insert a single row into the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
   insert_journey_pattern_scheduled_stop_point_in_journey_pattern_one?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
+  /** insert data into the table: "localization.attribute" */
+  insert_localization_attribute?: Maybe<LocalizationAttributeMutationResponse>;
+  /** insert a single row into the table: "localization.attribute" */
+  insert_localization_attribute_one?: Maybe<LocalizationAttribute>;
+  /** insert data into the table: "localization.language" */
+  insert_localization_language?: Maybe<LocalizationLanguageMutationResponse>;
+  /** insert a single row into the table: "localization.language" */
+  insert_localization_language_one?: Maybe<LocalizationLanguage>;
+  /** insert data into the table: "localization.localized_text" */
+  insert_localization_localized_text?: Maybe<LocalizationLocalizedTextMutationResponse>;
+  /** insert a single row into the table: "localization.localized_text" */
+  insert_localization_localized_text_one?: Maybe<LocalizationLocalizedText>;
   /** insert data into the table: "reusable_components.vehicle_mode" */
   insert_reusable_components_vehicle_mode?: Maybe<ReusableComponentsVehicleModeMutationResponse>;
   /** insert a single row into the table: "reusable_components.vehicle_mode" */
@@ -2064,6 +2655,18 @@ export type MutationRoot = {
   update_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMutationResponse>;
   /** update single row of the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
   update_journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
+  /** update data of the table: "localization.attribute" */
+  update_localization_attribute?: Maybe<LocalizationAttributeMutationResponse>;
+  /** update single row of the table: "localization.attribute" */
+  update_localization_attribute_by_pk?: Maybe<LocalizationAttribute>;
+  /** update data of the table: "localization.language" */
+  update_localization_language?: Maybe<LocalizationLanguageMutationResponse>;
+  /** update single row of the table: "localization.language" */
+  update_localization_language_by_pk?: Maybe<LocalizationLanguage>;
+  /** update data of the table: "localization.localized_text" */
+  update_localization_localized_text?: Maybe<LocalizationLocalizedTextMutationResponse>;
+  /** update single row of the table: "localization.localized_text" */
+  update_localization_localized_text_by_pk?: Maybe<LocalizationLocalizedText>;
   /** update data of the table: "reusable_components.vehicle_mode" */
   update_reusable_components_vehicle_mode?: Maybe<ReusableComponentsVehicleModeMutationResponse>;
   /** update single row of the table: "reusable_components.vehicle_mode" */
@@ -2086,6 +2689,8 @@ export type MutationRoot = {
   update_route_line_by_pk?: Maybe<RouteLine>;
   /** update data of the table: "route.route" */
   update_route_route?: Maybe<RouteRouteMutationResponse>;
+  /** update single row of the table: "route.route" */
+  update_route_route_by_pk?: Maybe<RouteRoute>;
   /** update data of the table: "route.type_of_line" */
   update_route_type_of_line?: Maybe<RouteTypeOfLineMutationResponse>;
   /** update single row of the table: "route.type_of_line" */
@@ -2186,6 +2791,44 @@ export type MutationRootDeleteJourneyPatternScheduledStopPointInJourneyPatternBy
 
 
 /** mutation root */
+export type MutationRootDeleteLocalizationAttributeArgs = {
+  where: LocalizationAttributeBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteLocalizationAttributeByPkArgs = {
+  attribute_id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type MutationRootDeleteLocalizationLanguageArgs = {
+  where: LocalizationLanguageBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteLocalizationLanguageByPkArgs = {
+  language_code: Scalars['String'];
+};
+
+
+/** mutation root */
+export type MutationRootDeleteLocalizationLocalizedTextArgs = {
+  where: LocalizationLocalizedTextBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteLocalizationLocalizedTextByPkArgs = {
+  attribute_id: Scalars['uuid'];
+  entity_id: Scalars['uuid'];
+  language_code: LocalizationLanguageEnum;
+};
+
+
+/** mutation root */
 export type MutationRootDeleteReusableComponentsVehicleModeArgs = {
   where: ReusableComponentsVehicleModeBoolExp;
 };
@@ -2249,6 +2892,12 @@ export type MutationRootDeleteRouteLineByPkArgs = {
 /** mutation root */
 export type MutationRootDeleteRouteRouteArgs = {
   where: RouteRouteBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteRouteRouteByPkArgs = {
+  route_id: Scalars['uuid'];
 };
 
 
@@ -2382,6 +3031,48 @@ export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternOn
 
 
 /** mutation root */
+export type MutationRootInsertLocalizationAttributeArgs = {
+  objects: Array<LocalizationAttributeInsertInput>;
+  on_conflict?: Maybe<LocalizationAttributeOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertLocalizationAttributeOneArgs = {
+  object: LocalizationAttributeInsertInput;
+  on_conflict?: Maybe<LocalizationAttributeOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertLocalizationLanguageArgs = {
+  objects: Array<LocalizationLanguageInsertInput>;
+  on_conflict?: Maybe<LocalizationLanguageOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertLocalizationLanguageOneArgs = {
+  object: LocalizationLanguageInsertInput;
+  on_conflict?: Maybe<LocalizationLanguageOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertLocalizationLocalizedTextArgs = {
+  objects: Array<LocalizationLocalizedTextInsertInput>;
+  on_conflict?: Maybe<LocalizationLocalizedTextOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertLocalizationLocalizedTextOneArgs = {
+  object: LocalizationLocalizedTextInsertInput;
+  on_conflict?: Maybe<LocalizationLocalizedTextOnConflict>;
+};
+
+
+/** mutation root */
 export type MutationRootInsertReusableComponentsVehicleModeArgs = {
   objects: Array<ReusableComponentsVehicleModeInsertInput>;
   on_conflict?: Maybe<ReusableComponentsVehicleModeOnConflict>;
@@ -2454,12 +3145,14 @@ export type MutationRootInsertRouteLineOneArgs = {
 /** mutation root */
 export type MutationRootInsertRouteRouteArgs = {
   objects: Array<RouteRouteInsertInput>;
+  on_conflict?: Maybe<RouteRouteOnConflict>;
 };
 
 
 /** mutation root */
 export type MutationRootInsertRouteRouteOneArgs = {
   object: RouteRouteInsertInput;
+  on_conflict?: Maybe<RouteRouteOnConflict>;
 };
 
 
@@ -2606,6 +3299,48 @@ export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternBy
 
 
 /** mutation root */
+export type MutationRootUpdateLocalizationAttributeArgs = {
+  _set?: Maybe<LocalizationAttributeSetInput>;
+  where: LocalizationAttributeBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateLocalizationAttributeByPkArgs = {
+  _set?: Maybe<LocalizationAttributeSetInput>;
+  pk_columns: LocalizationAttributePkColumnsInput;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateLocalizationLanguageArgs = {
+  _set?: Maybe<LocalizationLanguageSetInput>;
+  where: LocalizationLanguageBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateLocalizationLanguageByPkArgs = {
+  _set?: Maybe<LocalizationLanguageSetInput>;
+  pk_columns: LocalizationLanguagePkColumnsInput;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateLocalizationLocalizedTextArgs = {
+  _set?: Maybe<LocalizationLocalizedTextSetInput>;
+  where: LocalizationLocalizedTextBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateLocalizationLocalizedTextByPkArgs = {
+  _set?: Maybe<LocalizationLocalizedTextSetInput>;
+  pk_columns: LocalizationLocalizedTextPkColumnsInput;
+};
+
+
+/** mutation root */
 export type MutationRootUpdateReusableComponentsVehicleModeArgs = {
   _set?: Maybe<ReusableComponentsVehicleModeSetInput>;
   where: ReusableComponentsVehicleModeBoolExp;
@@ -2665,7 +3400,12 @@ export type MutationRootUpdateRouteInfrastructureLinkAlongRouteByPkArgs = {
 
 /** mutation root */
 export type MutationRootUpdateRouteLineArgs = {
+  _append?: Maybe<RouteLineAppendInput>;
+  _delete_at_path?: Maybe<RouteLineDeleteAtPathInput>;
+  _delete_elem?: Maybe<RouteLineDeleteElemInput>;
+  _delete_key?: Maybe<RouteLineDeleteKeyInput>;
   _inc?: Maybe<RouteLineIncInput>;
+  _prepend?: Maybe<RouteLinePrependInput>;
   _set?: Maybe<RouteLineSetInput>;
   where: RouteLineBoolExp;
 };
@@ -2673,7 +3413,12 @@ export type MutationRootUpdateRouteLineArgs = {
 
 /** mutation root */
 export type MutationRootUpdateRouteLineByPkArgs = {
+  _append?: Maybe<RouteLineAppendInput>;
+  _delete_at_path?: Maybe<RouteLineDeleteAtPathInput>;
+  _delete_elem?: Maybe<RouteLineDeleteElemInput>;
+  _delete_key?: Maybe<RouteLineDeleteKeyInput>;
   _inc?: Maybe<RouteLineIncInput>;
+  _prepend?: Maybe<RouteLinePrependInput>;
   _set?: Maybe<RouteLineSetInput>;
   pk_columns: RouteLinePkColumnsInput;
 };
@@ -2681,9 +3426,27 @@ export type MutationRootUpdateRouteLineByPkArgs = {
 
 /** mutation root */
 export type MutationRootUpdateRouteRouteArgs = {
+  _append?: Maybe<RouteRouteAppendInput>;
+  _delete_at_path?: Maybe<RouteRouteDeleteAtPathInput>;
+  _delete_elem?: Maybe<RouteRouteDeleteElemInput>;
+  _delete_key?: Maybe<RouteRouteDeleteKeyInput>;
   _inc?: Maybe<RouteRouteIncInput>;
+  _prepend?: Maybe<RouteRoutePrependInput>;
   _set?: Maybe<RouteRouteSetInput>;
   where: RouteRouteBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateRouteRouteByPkArgs = {
+  _append?: Maybe<RouteRouteAppendInput>;
+  _delete_at_path?: Maybe<RouteRouteDeleteAtPathInput>;
+  _delete_elem?: Maybe<RouteRouteDeleteElemInput>;
+  _delete_key?: Maybe<RouteRouteDeleteKeyInput>;
+  _inc?: Maybe<RouteRouteIncInput>;
+  _prepend?: Maybe<RouteRoutePrependInput>;
+  _set?: Maybe<RouteRouteSetInput>;
+  pk_columns: RouteRoutePkColumnsInput;
 };
 
 
@@ -2790,6 +3553,24 @@ export type QueryRoot = {
   journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
   /** fetch data from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" using primary key columns */
   journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
+  /** fetch data from the table: "localization.attribute" */
+  localization_attribute: Array<LocalizationAttribute>;
+  /** fetch aggregated fields from the table: "localization.attribute" */
+  localization_attribute_aggregate: LocalizationAttributeAggregate;
+  /** fetch data from the table: "localization.attribute" using primary key columns */
+  localization_attribute_by_pk?: Maybe<LocalizationAttribute>;
+  /** fetch data from the table: "localization.language" */
+  localization_language: Array<LocalizationLanguage>;
+  /** fetch aggregated fields from the table: "localization.language" */
+  localization_language_aggregate: LocalizationLanguageAggregate;
+  /** fetch data from the table: "localization.language" using primary key columns */
+  localization_language_by_pk?: Maybe<LocalizationLanguage>;
+  /** fetch data from the table: "localization.localized_text" */
+  localization_localized_text: Array<LocalizationLocalizedText>;
+  /** fetch aggregated fields from the table: "localization.localized_text" */
+  localization_localized_text_aggregate: LocalizationLocalizedTextAggregate;
+  /** fetch data from the table: "localization.localized_text" using primary key columns */
+  localization_localized_text_by_pk?: Maybe<LocalizationLocalizedText>;
   /** fetch data from the table: "reusable_components.vehicle_mode" */
   reusable_components_vehicle_mode: Array<ReusableComponentsVehicleMode>;
   /** fetch aggregated fields from the table: "reusable_components.vehicle_mode" */
@@ -2824,6 +3605,8 @@ export type QueryRoot = {
   route_route: Array<RouteRoute>;
   /** fetch aggregated fields from the table: "route.route" */
   route_route_aggregate: RouteRouteAggregate;
+  /** fetch data from the table: "route.route" using primary key columns */
+  route_route_by_pk?: Maybe<RouteRoute>;
   /** fetch data from the table: "route.type_of_line" */
   route_type_of_line: Array<RouteTypeOfLine>;
   /** fetch aggregated fields from the table: "route.type_of_line" */
@@ -3046,6 +3829,77 @@ export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = 
 };
 
 
+export type QueryRootLocalizationAttributeArgs = {
+  distinct_on?: Maybe<Array<LocalizationAttributeSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationAttributeOrderBy>>;
+  where?: Maybe<LocalizationAttributeBoolExp>;
+};
+
+
+export type QueryRootLocalizationAttributeAggregateArgs = {
+  distinct_on?: Maybe<Array<LocalizationAttributeSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationAttributeOrderBy>>;
+  where?: Maybe<LocalizationAttributeBoolExp>;
+};
+
+
+export type QueryRootLocalizationAttributeByPkArgs = {
+  attribute_id: Scalars['uuid'];
+};
+
+
+export type QueryRootLocalizationLanguageArgs = {
+  distinct_on?: Maybe<Array<LocalizationLanguageSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLanguageOrderBy>>;
+  where?: Maybe<LocalizationLanguageBoolExp>;
+};
+
+
+export type QueryRootLocalizationLanguageAggregateArgs = {
+  distinct_on?: Maybe<Array<LocalizationLanguageSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLanguageOrderBy>>;
+  where?: Maybe<LocalizationLanguageBoolExp>;
+};
+
+
+export type QueryRootLocalizationLanguageByPkArgs = {
+  language_code: Scalars['String'];
+};
+
+
+export type QueryRootLocalizationLocalizedTextArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+
+export type QueryRootLocalizationLocalizedTextAggregateArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+
+export type QueryRootLocalizationLocalizedTextByPkArgs = {
+  attribute_id: Scalars['uuid'];
+  entity_id: Scalars['uuid'];
+  language_code: LocalizationLanguageEnum;
+};
+
+
 export type QueryRootReusableComponentsVehicleModeArgs = {
   distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3177,6 +4031,11 @@ export type QueryRootRouteRouteAggregateArgs = {
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<RouteRouteOrderBy>>;
   where?: Maybe<RouteRouteBoolExp>;
+};
+
+
+export type QueryRootRouteRouteByPkArgs = {
+  route_id: Scalars['uuid'];
 };
 
 
@@ -4221,16 +5080,18 @@ export type RouteLine = {
   line_routes: Array<RouteRoute>;
   /** An aggregate relationship */
   line_routes_aggregate: RouteRouteAggregate;
+  /** An array relationship */
+  localized_texts: Array<LocalizationLocalizedText>;
+  /** An aggregate relationship */
+  localized_texts_aggregate: LocalizationLocalizedTextAggregate;
   /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n: Scalars['String'];
+  name_i18n: Scalars['localized_string'];
   /** The mode of the vehicles used as primary on the line. */
   primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority: Scalars['Int'];
   /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<Scalars['String']>;
-  /** An object relationship */
-  transportTargetByTransportTarget: HslRouteTransportTarget;
+  short_name_i18n: Scalars['localized_string'];
   transport_target: HslRouteTransportTargetEnum;
   /** An object relationship */
   typeOfLineByTypeOfLine: RouteTypeOfLine;
@@ -4274,6 +5135,62 @@ export type RouteLineLineRoutesAggregateArgs = {
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<RouteRouteOrderBy>>;
   where?: Maybe<RouteRouteBoolExp>;
+};
+
+
+/**
+ * The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487
+ *
+ *
+ * columns and relationships of "route.line"
+ *
+ */
+export type RouteLineLocalizedTextsArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+
+/**
+ * The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487
+ *
+ *
+ * columns and relationships of "route.line"
+ *
+ */
+export type RouteLineLocalizedTextsAggregateArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+
+/**
+ * The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487
+ *
+ *
+ * columns and relationships of "route.line"
+ *
+ */
+export type RouteLineNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
+};
+
+
+/**
+ * The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487
+ *
+ *
+ * columns and relationships of "route.line"
+ *
+ */
+export type RouteLineShortNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
 };
 
 /** aggregated selection of "route.line" */
@@ -4321,6 +5238,14 @@ export type RouteLineAggregateOrderBy = {
   variance?: Maybe<RouteLineVarianceOrderBy>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type RouteLineAppendInput = {
+  /** The name of the line. Placeholder for multilingual strings. */
+  name_i18n?: Maybe<Scalars['jsonb']>;
+  /** The shorted name of the line. Placeholder for multilingual strings. */
+  short_name_i18n?: Maybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting array relation for remote table "route.line" */
 export type RouteLineArrRelInsertInput = {
   data: Array<RouteLineInsertInput>;
@@ -4349,11 +5274,11 @@ export type RouteLineBoolExp = {
   label?: Maybe<StringComparisonExp>;
   line_id?: Maybe<UuidComparisonExp>;
   line_routes?: Maybe<RouteRouteBoolExp>;
-  name_i18n?: Maybe<StringComparisonExp>;
+  localized_texts?: Maybe<LocalizationLocalizedTextBoolExp>;
+  name_i18n?: Maybe<JsonbComparisonExp>;
   primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
   priority?: Maybe<IntComparisonExp>;
-  short_name_i18n?: Maybe<StringComparisonExp>;
-  transportTargetByTransportTarget?: Maybe<HslRouteTransportTargetBoolExp>;
+  short_name_i18n?: Maybe<JsonbComparisonExp>;
   transport_target?: Maybe<HslRouteTransportTargetEnumComparisonExp>;
   typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineBoolExp>;
   type_of_line?: Maybe<RouteTypeOfLineEnumComparisonExp>;
@@ -4368,6 +5293,30 @@ export enum RouteLineConstraint {
   LinePkey = 'line_pkey'
 }
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type RouteLineDeleteAtPathInput = {
+  /** The name of the line. Placeholder for multilingual strings. */
+  name_i18n?: Maybe<Array<Scalars['String']>>;
+  /** The shorted name of the line. Placeholder for multilingual strings. */
+  short_name_i18n?: Maybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type RouteLineDeleteElemInput = {
+  /** The name of the line. Placeholder for multilingual strings. */
+  name_i18n?: Maybe<Scalars['Int']>;
+  /** The shorted name of the line. Placeholder for multilingual strings. */
+  short_name_i18n?: Maybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type RouteLineDeleteKeyInput = {
+  /** The name of the line. Placeholder for multilingual strings. */
+  name_i18n?: Maybe<Scalars['String']>;
+  /** The shorted name of the line. Placeholder for multilingual strings. */
+  short_name_i18n?: Maybe<Scalars['String']>;
+};
+
 /** input type for incrementing numeric columns in table "route.line" */
 export type RouteLineIncInput = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
@@ -4381,15 +5330,15 @@ export type RouteLineInsertInput = {
   /** The ID of the line. */
   line_id?: Maybe<Scalars['uuid']>;
   line_routes?: Maybe<RouteRouteArrRelInsertInput>;
+  localized_texts?: Maybe<LocalizationLocalizedTextArrRelInsertInput>;
   /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<Scalars['String']>;
+  name_i18n: Scalars['localized_string'];
   /** The mode of the vehicles used as primary on the line. */
   primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<Scalars['String']>;
-  transportTargetByTransportTarget?: Maybe<HslRouteTransportTargetObjRelInsertInput>;
+  short_name_i18n: Scalars['localized_string'];
   transport_target?: Maybe<HslRouteTransportTargetEnum>;
   typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineObjRelInsertInput>;
   /** The type of the line. */
@@ -4408,12 +5357,8 @@ export type RouteLineMaxFields = {
   label?: Maybe<Scalars['String']>;
   /** The ID of the line. */
   line_id?: Maybe<Scalars['uuid']>;
-  /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<Scalars['String']>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
@@ -4426,12 +5371,8 @@ export type RouteLineMaxOrderBy = {
   label?: Maybe<OrderBy>;
   /** The ID of the line. */
   line_id?: Maybe<OrderBy>;
-  /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<OrderBy>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<OrderBy>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
   validity_end?: Maybe<OrderBy>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
@@ -4445,12 +5386,8 @@ export type RouteLineMinFields = {
   label?: Maybe<Scalars['String']>;
   /** The ID of the line. */
   line_id?: Maybe<Scalars['uuid']>;
-  /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<Scalars['String']>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
   validity_end?: Maybe<Scalars['timestamptz']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
@@ -4463,12 +5400,8 @@ export type RouteLineMinOrderBy = {
   label?: Maybe<OrderBy>;
   /** The ID of the line. */
   line_id?: Maybe<OrderBy>;
-  /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<OrderBy>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<OrderBy>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
   validity_end?: Maybe<OrderBy>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
@@ -4503,11 +5436,11 @@ export type RouteLineOrderBy = {
   label?: Maybe<OrderBy>;
   line_id?: Maybe<OrderBy>;
   line_routes_aggregate?: Maybe<RouteRouteAggregateOrderBy>;
+  localized_texts_aggregate?: Maybe<LocalizationLocalizedTextAggregateOrderBy>;
   name_i18n?: Maybe<OrderBy>;
   primary_vehicle_mode?: Maybe<OrderBy>;
   priority?: Maybe<OrderBy>;
   short_name_i18n?: Maybe<OrderBy>;
-  transportTargetByTransportTarget?: Maybe<HslRouteTransportTargetOrderBy>;
   transport_target?: Maybe<OrderBy>;
   typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineOrderBy>;
   type_of_line?: Maybe<OrderBy>;
@@ -4520,6 +5453,14 @@ export type RouteLineOrderBy = {
 export type RouteLinePkColumnsInput = {
   /** The ID of the line. */
   line_id: Scalars['uuid'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type RouteLinePrependInput = {
+  /** The name of the line. Placeholder for multilingual strings. */
+  name_i18n?: Maybe<Scalars['jsonb']>;
+  /** The shorted name of the line. Placeholder for multilingual strings. */
+  short_name_i18n?: Maybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "route.line" */
@@ -4553,13 +5494,13 @@ export type RouteLineSetInput = {
   /** The ID of the line. */
   line_id?: Maybe<Scalars['uuid']>;
   /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<Scalars['String']>;
+  name_i18n?: Maybe<Scalars['localized_string']>;
   /** The mode of the vehicles used as primary on the line. */
   primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<Scalars['String']>;
+  short_name_i18n?: Maybe<Scalars['localized_string']>;
   transport_target?: Maybe<HslRouteTransportTargetEnum>;
   /** The type of the line. */
   type_of_line?: Maybe<RouteTypeOfLineEnum>;
@@ -4684,34 +5625,30 @@ export type RouteLineVarianceOrderBy = {
   priority?: Maybe<OrderBy>;
 };
 
-/**
- * The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483
- *
- *
- * columns and relationships of "route.route"
- *
- */
+/** columns and relationships of "route.route" */
 export type RouteRoute = {
   __typename?: 'route_route';
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Scalars['String']>;
-  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
-  direction: Scalars['String'];
+  description_i18n?: Maybe<Scalars['localized_string']>;
+  destination_name_i18n: Scalars['localized_string'];
+  destination_short_name_i18n: Scalars['localized_string'];
+  direction: RouteDirectionEnum;
   /** An object relationship */
   ends_at_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPoint>;
-  /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id: Scalars['uuid'];
   /** An array relationship */
   infrastructure_links_along_route: Array<RouteInfrastructureLinkAlongRoute>;
   /** An aggregate relationship */
   infrastructure_links_along_route_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
-  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
   label: Scalars['String'];
-  /** The line to which this route belongs. */
+  /** An array relationship */
+  localized_texts: Array<LocalizationLocalizedText>;
+  /** An aggregate relationship */
+  localized_texts_aggregate: LocalizationLocalizedTextAggregate;
+  name_i18n: Scalars['localized_string'];
   on_line_id: Scalars['uuid'];
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
+  origin_name_i18n: Scalars['localized_string'];
+  origin_short_name_i18n: Scalars['localized_string'];
   priority: Scalars['Int'];
-  /** The ID of the route. */
   route_id: Scalars['uuid'];
   /** An array relationship */
   route_journey_patterns: Array<JourneyPatternJourneyPattern>;
@@ -4719,26 +5656,35 @@ export type RouteRoute = {
   route_journey_patterns_aggregate: JourneyPatternJourneyPatternAggregate;
   /** An object relationship */
   route_line?: Maybe<RouteLine>;
-  /** A PostGIS LinestringZ geography in EPSG:4326 describing the shape of the route. */
+  /** A computed field, executes function "route.route_shape" */
   route_shape?: Maybe<Scalars['geography_linestring']>;
   /** An object relationship */
   starts_from_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPoint>;
-  /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id: Scalars['uuid'];
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['timestamptz']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 
-/**
- * The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483
- *
- *
- * columns and relationships of "route.route"
- *
- */
+/** columns and relationships of "route.route" */
+export type RouteRouteDescriptionI18nArgs = {
+  path?: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "route.route" */
+export type RouteRouteDestinationNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "route.route" */
+export type RouteRouteDestinationShortNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "route.route" */
 export type RouteRouteInfrastructureLinksAlongRouteArgs = {
   distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -4748,13 +5694,7 @@ export type RouteRouteInfrastructureLinksAlongRouteArgs = {
 };
 
 
-/**
- * The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483
- *
- *
- * columns and relationships of "route.route"
- *
- */
+/** columns and relationships of "route.route" */
 export type RouteRouteInfrastructureLinksAlongRouteAggregateArgs = {
   distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -4764,13 +5704,45 @@ export type RouteRouteInfrastructureLinksAlongRouteAggregateArgs = {
 };
 
 
-/**
- * The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483
- *
- *
- * columns and relationships of "route.route"
- *
- */
+/** columns and relationships of "route.route" */
+export type RouteRouteLocalizedTextsArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+
+/** columns and relationships of "route.route" */
+export type RouteRouteLocalizedTextsAggregateArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+
+/** columns and relationships of "route.route" */
+export type RouteRouteNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "route.route" */
+export type RouteRouteOriginNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "route.route" */
+export type RouteRouteOriginShortNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "route.route" */
 export type RouteRouteRouteJourneyPatternsArgs = {
   distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -4780,13 +5752,7 @@ export type RouteRouteRouteJourneyPatternsArgs = {
 };
 
 
-/**
- * The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483
- *
- *
- * columns and relationships of "route.route"
- *
- */
+/** columns and relationships of "route.route" */
 export type RouteRouteRouteJourneyPatternsAggregateArgs = {
   distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -4840,21 +5806,31 @@ export type RouteRouteAggregateOrderBy = {
   variance?: Maybe<RouteRouteVarianceOrderBy>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type RouteRouteAppendInput = {
+  description_i18n?: Maybe<Scalars['jsonb']>;
+  destination_name_i18n?: Maybe<Scalars['jsonb']>;
+  destination_short_name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: Maybe<Scalars['jsonb']>;
+  origin_name_i18n?: Maybe<Scalars['jsonb']>;
+  origin_short_name_i18n?: Maybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting array relation for remote table "route.route" */
 export type RouteRouteArrRelInsertInput = {
   data: Array<RouteRouteInsertInput>;
+  /** on conflict condition */
+  on_conflict?: Maybe<RouteRouteOnConflict>;
 };
 
 /** aggregate avg on columns */
 export type RouteRouteAvgFields = {
   __typename?: 'route_route_avg_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
 };
 
 /** order by avg() on columns of table "route.route" */
 export type RouteRouteAvgOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
 };
 
@@ -4863,13 +5839,19 @@ export type RouteRouteBoolExp = {
   _and?: Maybe<Array<RouteRouteBoolExp>>;
   _not?: Maybe<RouteRouteBoolExp>;
   _or?: Maybe<Array<RouteRouteBoolExp>>;
-  description_i18n?: Maybe<StringComparisonExp>;
-  direction?: Maybe<StringComparisonExp>;
+  description_i18n?: Maybe<JsonbComparisonExp>;
+  destination_name_i18n?: Maybe<JsonbComparisonExp>;
+  destination_short_name_i18n?: Maybe<JsonbComparisonExp>;
+  direction?: Maybe<RouteDirectionEnumComparisonExp>;
   ends_at_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointBoolExp>;
   ends_at_scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
   infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   label?: Maybe<StringComparisonExp>;
+  localized_texts?: Maybe<LocalizationLocalizedTextBoolExp>;
+  name_i18n?: Maybe<JsonbComparisonExp>;
   on_line_id?: Maybe<UuidComparisonExp>;
+  origin_name_i18n?: Maybe<JsonbComparisonExp>;
+  origin_short_name_i18n?: Maybe<JsonbComparisonExp>;
   priority?: Maybe<IntComparisonExp>;
   route_id?: Maybe<UuidComparisonExp>;
   route_journey_patterns?: Maybe<JourneyPatternJourneyPatternBoolExp>;
@@ -4881,138 +5863,119 @@ export type RouteRouteBoolExp = {
   validity_start?: Maybe<TimestamptzComparisonExp>;
 };
 
+/** unique or primary key constraints on table "route.route" */
+export enum RouteRouteConstraint {
+  /** unique or primary key constraint */
+  RoutePkey = 'route_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type RouteRouteDeleteAtPathInput = {
+  description_i18n?: Maybe<Array<Scalars['String']>>;
+  destination_name_i18n?: Maybe<Array<Scalars['String']>>;
+  destination_short_name_i18n?: Maybe<Array<Scalars['String']>>;
+  name_i18n?: Maybe<Array<Scalars['String']>>;
+  origin_name_i18n?: Maybe<Array<Scalars['String']>>;
+  origin_short_name_i18n?: Maybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type RouteRouteDeleteElemInput = {
+  description_i18n?: Maybe<Scalars['Int']>;
+  destination_name_i18n?: Maybe<Scalars['Int']>;
+  destination_short_name_i18n?: Maybe<Scalars['Int']>;
+  name_i18n?: Maybe<Scalars['Int']>;
+  origin_name_i18n?: Maybe<Scalars['Int']>;
+  origin_short_name_i18n?: Maybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type RouteRouteDeleteKeyInput = {
+  description_i18n?: Maybe<Scalars['String']>;
+  destination_name_i18n?: Maybe<Scalars['String']>;
+  destination_short_name_i18n?: Maybe<Scalars['String']>;
+  name_i18n?: Maybe<Scalars['String']>;
+  origin_name_i18n?: Maybe<Scalars['String']>;
+  origin_short_name_i18n?: Maybe<Scalars['String']>;
+};
+
 /** input type for incrementing numeric columns in table "route.route" */
 export type RouteRouteIncInput = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "route.route" */
 export type RouteRouteInsertInput = {
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Scalars['String']>;
-  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
-  direction?: Maybe<Scalars['String']>;
+  description_i18n?: Maybe<Scalars['localized_string']>;
+  destination_name_i18n: Scalars['localized_string'];
+  destination_short_name_i18n: Scalars['localized_string'];
+  direction?: Maybe<RouteDirectionEnum>;
   ends_at_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointObjRelInsertInput>;
-  /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
-  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']>;
-  /** The line to which this route belongs. */
+  localized_texts?: Maybe<LocalizationLocalizedTextArrRelInsertInput>;
+  name_i18n: Scalars['localized_string'];
   on_line_id?: Maybe<Scalars['uuid']>;
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
+  origin_name_i18n: Scalars['localized_string'];
+  origin_short_name_i18n: Scalars['localized_string'];
   priority?: Maybe<Scalars['Int']>;
-  /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
   route_journey_patterns?: Maybe<JourneyPatternJourneyPatternArrRelInsertInput>;
   route_line?: Maybe<RouteLineObjRelInsertInput>;
-  /** A PostGIS LinestringZ geography in EPSG:4326 describing the shape of the route. */
-  route_shape?: Maybe<Scalars['geography']>;
   starts_from_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointObjRelInsertInput>;
-  /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['timestamptz']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregate max on columns */
 export type RouteRouteMaxFields = {
   __typename?: 'route_route_max_fields';
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Scalars['String']>;
-  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
-  direction?: Maybe<Scalars['String']>;
-  /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']>;
-  /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
-  /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['timestamptz']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** order by max() on columns of table "route.route" */
 export type RouteRouteMaxOrderBy = {
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<OrderBy>;
-  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
-  direction?: Maybe<OrderBy>;
-  /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<OrderBy>;
-  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
   label?: Maybe<OrderBy>;
-  /** The line to which this route belongs. */
   on_line_id?: Maybe<OrderBy>;
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The ID of the route. */
   route_id?: Maybe<OrderBy>;
-  /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<OrderBy>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<OrderBy>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type RouteRouteMinFields = {
   __typename?: 'route_route_min_fields';
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Scalars['String']>;
-  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
-  direction?: Maybe<Scalars['String']>;
-  /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']>;
-  /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
-  /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['timestamptz']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** order by min() on columns of table "route.route" */
 export type RouteRouteMinOrderBy = {
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<OrderBy>;
-  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
-  direction?: Maybe<OrderBy>;
-  /** The scheduled stop point where the route ends at. */
   ends_at_scheduled_stop_point_id?: Maybe<OrderBy>;
-  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
   label?: Maybe<OrderBy>;
-  /** The line to which this route belongs. */
   on_line_id?: Maybe<OrderBy>;
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The ID of the route. */
   route_id?: Maybe<OrderBy>;
-  /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<OrderBy>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<OrderBy>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<OrderBy>;
 };
 
@@ -5028,17 +5991,32 @@ export type RouteRouteMutationResponse = {
 /** input type for inserting object relation for remote table "route.route" */
 export type RouteRouteObjRelInsertInput = {
   data: RouteRouteInsertInput;
+  /** on conflict condition */
+  on_conflict?: Maybe<RouteRouteOnConflict>;
+};
+
+/** on conflict condition type for table "route.route" */
+export type RouteRouteOnConflict = {
+  constraint: RouteRouteConstraint;
+  update_columns?: Array<RouteRouteUpdateColumn>;
+  where?: Maybe<RouteRouteBoolExp>;
 };
 
 /** Ordering options when selecting data from "route.route". */
 export type RouteRouteOrderBy = {
   description_i18n?: Maybe<OrderBy>;
+  destination_name_i18n?: Maybe<OrderBy>;
+  destination_short_name_i18n?: Maybe<OrderBy>;
   direction?: Maybe<OrderBy>;
   ends_at_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointOrderBy>;
   ends_at_scheduled_stop_point_id?: Maybe<OrderBy>;
   infrastructure_links_along_route_aggregate?: Maybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
   label?: Maybe<OrderBy>;
+  localized_texts_aggregate?: Maybe<LocalizationLocalizedTextAggregateOrderBy>;
+  name_i18n?: Maybe<OrderBy>;
   on_line_id?: Maybe<OrderBy>;
+  origin_name_i18n?: Maybe<OrderBy>;
+  origin_short_name_i18n?: Maybe<OrderBy>;
   priority?: Maybe<OrderBy>;
   route_id?: Maybe<OrderBy>;
   route_journey_patterns_aggregate?: Maybe<JourneyPatternJourneyPatternAggregateOrderBy>;
@@ -5050,10 +6028,29 @@ export type RouteRouteOrderBy = {
   validity_start?: Maybe<OrderBy>;
 };
 
+/** primary key columns input for table: route_route */
+export type RouteRoutePkColumnsInput = {
+  route_id: Scalars['uuid'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type RouteRoutePrependInput = {
+  description_i18n?: Maybe<Scalars['jsonb']>;
+  destination_name_i18n?: Maybe<Scalars['jsonb']>;
+  destination_short_name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: Maybe<Scalars['jsonb']>;
+  origin_name_i18n?: Maybe<Scalars['jsonb']>;
+  origin_short_name_i18n?: Maybe<Scalars['jsonb']>;
+};
+
 /** select columns of table "route.route" */
 export enum RouteRouteSelectColumn {
   /** column name */
   DescriptionI18n = 'description_i18n',
+  /** column name */
+  DestinationNameI18n = 'destination_name_i18n',
+  /** column name */
+  DestinationShortNameI18n = 'destination_short_name_i18n',
   /** column name */
   Direction = 'direction',
   /** column name */
@@ -5061,13 +6058,17 @@ export enum RouteRouteSelectColumn {
   /** column name */
   Label = 'label',
   /** column name */
+  NameI18n = 'name_i18n',
+  /** column name */
   OnLineId = 'on_line_id',
+  /** column name */
+  OriginNameI18n = 'origin_name_i18n',
+  /** column name */
+  OriginShortNameI18n = 'origin_short_name_i18n',
   /** column name */
   Priority = 'priority',
   /** column name */
   RouteId = 'route_id',
-  /** column name */
-  RouteShape = 'route_shape',
   /** column name */
   StartsFromScheduledStopPointId = 'starts_from_scheduled_stop_point_id',
   /** column name */
@@ -5078,118 +6079,131 @@ export enum RouteRouteSelectColumn {
 
 /** input type for updating data in table "route.route" */
 export type RouteRouteSetInput = {
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Scalars['String']>;
-  /** The direction of the route definition, label and direction together are unique for a certain priority and validity period. */
-  direction?: Maybe<Scalars['String']>;
-  /** The scheduled stop point where the route ends at. */
+  description_i18n?: Maybe<Scalars['localized_string']>;
+  destination_name_i18n?: Maybe<Scalars['localized_string']>;
+  destination_short_name_i18n?: Maybe<Scalars['localized_string']>;
+  direction?: Maybe<RouteDirectionEnum>;
   ends_at_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The label of the route definition, label and direction together are unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']>;
-  /** The line to which this route belongs. */
+  name_i18n?: Maybe<Scalars['localized_string']>;
   on_line_id?: Maybe<Scalars['uuid']>;
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
+  origin_name_i18n?: Maybe<Scalars['localized_string']>;
+  origin_short_name_i18n?: Maybe<Scalars['localized_string']>;
   priority?: Maybe<Scalars['Int']>;
-  /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
-  /** A PostGIS LinestringZ geography in EPSG:4326 describing the shape of the route. */
-  route_shape?: Maybe<Scalars['geography']>;
-  /** The scheduled stop point where the route starts from. */
   starts_from_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['timestamptz']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregate stddev on columns */
 export type RouteRouteStddevFields = {
   __typename?: 'route_route_stddev_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev() on columns of table "route.route" */
 export type RouteRouteStddevOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type RouteRouteStddevPopFields = {
   __typename?: 'route_route_stddev_pop_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_pop() on columns of table "route.route" */
 export type RouteRouteStddevPopOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type RouteRouteStddevSampFields = {
   __typename?: 'route_route_stddev_samp_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_samp() on columns of table "route.route" */
 export type RouteRouteStddevSampOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
 };
 
 /** aggregate sum on columns */
 export type RouteRouteSumFields = {
   __typename?: 'route_route_sum_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
 };
 
 /** order by sum() on columns of table "route.route" */
 export type RouteRouteSumOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
 };
+
+/** update columns of table "route.route" */
+export enum RouteRouteUpdateColumn {
+  /** column name */
+  DescriptionI18n = 'description_i18n',
+  /** column name */
+  DestinationNameI18n = 'destination_name_i18n',
+  /** column name */
+  DestinationShortNameI18n = 'destination_short_name_i18n',
+  /** column name */
+  Direction = 'direction',
+  /** column name */
+  EndsAtScheduledStopPointId = 'ends_at_scheduled_stop_point_id',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  NameI18n = 'name_i18n',
+  /** column name */
+  OnLineId = 'on_line_id',
+  /** column name */
+  OriginNameI18n = 'origin_name_i18n',
+  /** column name */
+  OriginShortNameI18n = 'origin_short_name_i18n',
+  /** column name */
+  Priority = 'priority',
+  /** column name */
+  RouteId = 'route_id',
+  /** column name */
+  StartsFromScheduledStopPointId = 'starts_from_scheduled_stop_point_id',
+  /** column name */
+  ValidityEnd = 'validity_end',
+  /** column name */
+  ValidityStart = 'validity_start'
+}
 
 /** aggregate var_pop on columns */
 export type RouteRouteVarPopFields = {
   __typename?: 'route_route_var_pop_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_pop() on columns of table "route.route" */
 export type RouteRouteVarPopOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type RouteRouteVarSampFields = {
   __typename?: 'route_route_var_samp_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_samp() on columns of table "route.route" */
 export type RouteRouteVarSampOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type RouteRouteVarianceFields = {
   __typename?: 'route_route_variance_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
 };
 
 /** order by variance() on columns of table "route.route" */
 export type RouteRouteVarianceOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
 };
 
@@ -5416,6 +6430,10 @@ export type ServicePatternScheduledStopPoint = {
   direction: InfrastructureNetworkDirectionEnum;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
+  /** An array relationship */
+  localized_texts: Array<LocalizationLocalizedText>;
+  /** An aggregate relationship */
+  localized_texts_aggregate: LocalizationLocalizedTextAggregate;
   /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id: Scalars['uuid'];
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
@@ -5438,6 +6456,38 @@ export type ServicePatternScheduledStopPoint = {
   vehicle_mode_on_scheduled_stop_point: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
   /** An aggregate relationship */
   vehicle_mode_on_scheduled_stop_point_aggregate: ServicePatternVehicleModeOnScheduledStopPointAggregate;
+};
+
+
+/**
+ * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
+ *
+ *
+ * columns and relationships of "service_pattern.scheduled_stop_point"
+ *
+ */
+export type ServicePatternScheduledStopPointLocalizedTextsArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+
+/**
+ * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
+ *
+ *
+ * columns and relationships of "service_pattern.scheduled_stop_point"
+ *
+ */
+export type ServicePatternScheduledStopPointLocalizedTextsAggregateArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
 };
 
 
@@ -5579,6 +6629,7 @@ export type ServicePatternScheduledStopPointBoolExp = {
   closest_point_on_infrastructure_link?: Maybe<GeographyComparisonExp>;
   direction?: Maybe<StringComparisonExp>;
   label?: Maybe<StringComparisonExp>;
+  localized_texts?: Maybe<LocalizationLocalizedTextBoolExp>;
   located_on_infrastructure_link_id?: Maybe<UuidComparisonExp>;
   measured_location?: Maybe<GeographyComparisonExp>;
   priority?: Maybe<IntComparisonExp>;
@@ -5606,6 +6657,7 @@ export type ServicePatternScheduledStopPointInsertInput = {
   direction: InfrastructureNetworkDirectionEnum;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
+  localized_texts?: Maybe<LocalizationLocalizedTextArrRelInsertInput>;
   /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id: Scalars['uuid'];
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
@@ -5725,6 +6777,7 @@ export type ServicePatternScheduledStopPointOrderBy = {
   closest_point_on_infrastructure_link?: Maybe<OrderBy>;
   direction?: Maybe<OrderBy>;
   label?: Maybe<OrderBy>;
+  localized_texts_aggregate?: Maybe<LocalizationLocalizedTextAggregateOrderBy>;
   located_on_infrastructure_link_id?: Maybe<OrderBy>;
   measured_location?: Maybe<OrderBy>;
   priority?: Maybe<OrderBy>;
@@ -6120,6 +7173,24 @@ export type SubscriptionRoot = {
   journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
   /** fetch data from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" using primary key columns */
   journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
+  /** fetch data from the table: "localization.attribute" */
+  localization_attribute: Array<LocalizationAttribute>;
+  /** fetch aggregated fields from the table: "localization.attribute" */
+  localization_attribute_aggregate: LocalizationAttributeAggregate;
+  /** fetch data from the table: "localization.attribute" using primary key columns */
+  localization_attribute_by_pk?: Maybe<LocalizationAttribute>;
+  /** fetch data from the table: "localization.language" */
+  localization_language: Array<LocalizationLanguage>;
+  /** fetch aggregated fields from the table: "localization.language" */
+  localization_language_aggregate: LocalizationLanguageAggregate;
+  /** fetch data from the table: "localization.language" using primary key columns */
+  localization_language_by_pk?: Maybe<LocalizationLanguage>;
+  /** fetch data from the table: "localization.localized_text" */
+  localization_localized_text: Array<LocalizationLocalizedText>;
+  /** fetch aggregated fields from the table: "localization.localized_text" */
+  localization_localized_text_aggregate: LocalizationLocalizedTextAggregate;
+  /** fetch data from the table: "localization.localized_text" using primary key columns */
+  localization_localized_text_by_pk?: Maybe<LocalizationLocalizedText>;
   /** fetch data from the table: "reusable_components.vehicle_mode" */
   reusable_components_vehicle_mode: Array<ReusableComponentsVehicleMode>;
   /** fetch aggregated fields from the table: "reusable_components.vehicle_mode" */
@@ -6154,6 +7225,8 @@ export type SubscriptionRoot = {
   route_route: Array<RouteRoute>;
   /** fetch aggregated fields from the table: "route.route" */
   route_route_aggregate: RouteRouteAggregate;
+  /** fetch data from the table: "route.route" using primary key columns */
+  route_route_by_pk?: Maybe<RouteRoute>;
   /** fetch data from the table: "route.type_of_line" */
   route_type_of_line: Array<RouteTypeOfLine>;
   /** fetch aggregated fields from the table: "route.type_of_line" */
@@ -6376,6 +7449,77 @@ export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternByPk
 };
 
 
+export type SubscriptionRootLocalizationAttributeArgs = {
+  distinct_on?: Maybe<Array<LocalizationAttributeSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationAttributeOrderBy>>;
+  where?: Maybe<LocalizationAttributeBoolExp>;
+};
+
+
+export type SubscriptionRootLocalizationAttributeAggregateArgs = {
+  distinct_on?: Maybe<Array<LocalizationAttributeSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationAttributeOrderBy>>;
+  where?: Maybe<LocalizationAttributeBoolExp>;
+};
+
+
+export type SubscriptionRootLocalizationAttributeByPkArgs = {
+  attribute_id: Scalars['uuid'];
+};
+
+
+export type SubscriptionRootLocalizationLanguageArgs = {
+  distinct_on?: Maybe<Array<LocalizationLanguageSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLanguageOrderBy>>;
+  where?: Maybe<LocalizationLanguageBoolExp>;
+};
+
+
+export type SubscriptionRootLocalizationLanguageAggregateArgs = {
+  distinct_on?: Maybe<Array<LocalizationLanguageSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLanguageOrderBy>>;
+  where?: Maybe<LocalizationLanguageBoolExp>;
+};
+
+
+export type SubscriptionRootLocalizationLanguageByPkArgs = {
+  language_code: Scalars['String'];
+};
+
+
+export type SubscriptionRootLocalizationLocalizedTextArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+
+export type SubscriptionRootLocalizationLocalizedTextAggregateArgs = {
+  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
+  where?: Maybe<LocalizationLocalizedTextBoolExp>;
+};
+
+
+export type SubscriptionRootLocalizationLocalizedTextByPkArgs = {
+  attribute_id: Scalars['uuid'];
+  entity_id: Scalars['uuid'];
+  language_code: LocalizationLanguageEnum;
+};
+
+
 export type SubscriptionRootReusableComponentsVehicleModeArgs = {
   distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6507,6 +7651,11 @@ export type SubscriptionRootRouteRouteAggregateArgs = {
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<RouteRouteOrderBy>>;
   where?: Maybe<RouteRouteBoolExp>;
+};
+
+
+export type SubscriptionRootRouteRouteByPkArgs = {
+  route_id: Scalars['uuid'];
 };
 
 
@@ -6644,66 +7793,66 @@ export type UpdateRouteJourneyPatternMutationVariables = Exact<{
 
 export type UpdateRouteJourneyPatternMutation = { __typename?: 'mutation_root', delete_journey_pattern_journey_pattern?: { __typename?: 'journey_pattern_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID }> } | null | undefined, insert_journey_pattern_journey_pattern_one?: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } | null | undefined };
 
-export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined };
+export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: LocalizedString, short_name_i18n: LocalizedString, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined };
 
-export type LineAllFieldsFragment = { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string };
+export type LineAllFieldsFragment = { __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string };
 
-export type RouteAllFieldsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string };
+export type RouteAllFieldsFragment = { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum };
 
-export type RouteDefaultFieldsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, on_line_id: UUID, label: string, priority: number, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID };
+export type RouteDefaultFieldsFragment = { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, on_line_id: UUID, label: string, priority: number, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID };
 
-export type RouteWithStopsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined };
+export type RouteWithStopsFragment = { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined };
 
-export type RouteWithJourneyPatternStopsFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> };
+export type RouteWithJourneyPatternStopsFragment = { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> };
 
-export type RouteWithInfrastructureLinksFragment = { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', label: string } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', shape: GeoJSON.Geometry } }>, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> };
+export type RouteWithInfrastructureLinksFragment = { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', label: string } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', shape: GeoJSON.Geometry } }>, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> };
 
 export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }> };
+export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: LocalizedString, short_name_i18n: LocalizedString, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }> };
 
 export type SearchAllLinesQueryVariables = Exact<{
   filter?: Maybe<RouteLineBoolExp>;
 }>;
 
 
-export type SearchAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string }> }> };
+export type SearchAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: LocalizedString, short_name_i18n: LocalizedString, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum }> }> };
 
 export type ListOwnLinesQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
 }>;
 
 
-export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id: UUID }> }> };
+export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: LocalizedString, short_name_i18n: LocalizedString, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id: UUID }> }> };
 
 export type ListChangingRoutesQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
 }>;
 
 
-export type ListChangingRoutesQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: string, short_name_i18n?: string | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> };
+export type ListChangingRoutesQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: LocalizedString, short_name_i18n: LocalizedString, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> };
 
 export type GetLineDetailsByIdQueryVariables = Exact<{
   line_id: Scalars['uuid'];
 }>;
 
 
-export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
+export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
 
 export type GetLinesByValidityQueryVariables = Exact<{
   filter?: Maybe<RouteLineBoolExp>;
 }>;
 
 
-export type GetLinesByValidityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string }> };
+export type GetLinesByValidityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string }> };
 
 export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
   line_id: Scalars['uuid'];
 }>;
 
 
-export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } }> }> } }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> } | null | undefined };
+export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } }> }> } }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> } | null | undefined };
 
 export type GetHighestPriorityLineDetailsWithRoutesQueryVariables = Exact<{
   lineFilters?: Maybe<RouteLineBoolExp>;
@@ -6712,7 +7861,7 @@ export type GetHighestPriorityLineDetailsWithRoutesQueryVariables = Exact<{
 }>;
 
 
-export type GetHighestPriorityLineDetailsWithRoutesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } }> }> } }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> };
+export type GetHighestPriorityLineDetailsWithRoutesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } }> }> } }>, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> };
 
 export type GetLinesByLabelAndPriorityQueryVariables = Exact<{
   label: Scalars['String'];
@@ -6720,14 +7869,14 @@ export type GetLinesByLabelAndPriorityQueryVariables = Exact<{
 }>;
 
 
-export type GetLinesByLabelAndPriorityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> };
+export type GetLinesByLabelAndPriorityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, starts_from_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined, ends_at_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> };
 
 export type GetRouteDetailsByIdsQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
 
 
-export type GetRouteDetailsByIdsQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', label: string, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> }> };
+export type GetRouteDetailsByIdsQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', label: string, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> }> };
 
 export type GetRouteDetailsByLabelsQueryVariables = Exact<{
   labels?: Maybe<Array<Scalars['String']> | Scalars['String']>;
@@ -6735,7 +7884,7 @@ export type GetRouteDetailsByLabelsQueryVariables = Exact<{
 }>;
 
 
-export type GetRouteDetailsByLabelsQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', label: string, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> }> };
+export type GetRouteDetailsByLabelsQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', label: string, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> }> };
 
 export type GetRouteDetailsByLabelWildcardQueryVariables = Exact<{
   label: Scalars['String'];
@@ -6744,21 +7893,21 @@ export type GetRouteDetailsByLabelWildcardQueryVariables = Exact<{
 }>;
 
 
-export type GetRouteDetailsByLabelWildcardQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string }> };
+export type GetRouteDetailsByLabelWildcardQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum }> };
 
 export type GetRoutesWithInfrastructureLinksQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
 
 
-export type GetRoutesWithInfrastructureLinksQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', label: string } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', shape: GeoJSON.Geometry } }>, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> }> };
+export type GetRoutesWithInfrastructureLinksQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', label: string } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', shape: GeoJSON.Geometry } }>, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> }> };
 
 export type GetRoutesByValidityQueryVariables = Exact<{
   filter?: Maybe<RouteRouteBoolExp>;
 }>;
 
 
-export type GetRoutesByValidityQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, route_id: UUID, description_i18n?: string | null | undefined, on_line_id: UUID, label: string, priority: number, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID }> };
+export type GetRoutesByValidityQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, on_line_id: UUID, label: string, priority: number, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID }> };
 
 export type InsertLineOneMutationVariables = Exact<{
   object: RouteLineInsertInput;
@@ -6773,14 +7922,14 @@ export type PatchLineMutationVariables = Exact<{
 }>;
 
 
-export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: string, short_name_i18n?: string | null | undefined, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
+export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
 
 export type InsertRouteOneMutationVariables = Exact<{
   object: RouteRouteInsertInput;
 }>;
 
 
-export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', route_id: UUID, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, priority: number, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, label: string, direction: string } | null | undefined };
+export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', route_id: UUID, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, priority: number, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, label: string, direction: RouteDirectionEnum } | null | undefined };
 
 export type PatchRouteMutationVariables = Exact<{
   route_id: Scalars['uuid'];
@@ -6788,7 +7937,7 @@ export type PatchRouteMutationVariables = Exact<{
 }>;
 
 
-export type PatchRouteMutation = { __typename?: 'mutation_root', update_route_route?: { __typename?: 'route_route_mutation_response', returning: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string }> } | null | undefined };
+export type PatchRouteMutation = { __typename?: 'mutation_root', update_route_route?: { __typename?: 'route_route_mutation_response', returning: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum }> } | null | undefined };
 
 export type UpdateRouteGeometryMutationVariables = Exact<{
   route_id: Scalars['uuid'];
@@ -6798,7 +7947,7 @@ export type UpdateRouteGeometryMutationVariables = Exact<{
 }>;
 
 
-export type UpdateRouteGeometryMutation = { __typename?: 'mutation_root', delete_route_infrastructure_link_along_route?: { __typename?: 'route_infrastructure_link_along_route_mutation_response', returning: Array<{ __typename?: 'route_infrastructure_link_along_route', route_id: UUID }> } | null | undefined, insert_route_infrastructure_link_along_route?: { __typename?: 'route_infrastructure_link_along_route_mutation_response', returning: Array<{ __typename?: 'route_infrastructure_link_along_route', route_id: UUID, infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', shape: GeoJSON.Geometry } }> } | null | undefined, delete_journey_pattern_journey_pattern?: { __typename?: 'journey_pattern_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID }> } | null | undefined, insert_journey_pattern_journey_pattern_one?: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } | null | undefined, update_route_route?: { __typename?: 'route_route_mutation_response', returning: Array<{ __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: string, route_line?: { __typename?: 'route_line', label: string } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', shape: GeoJSON.Geometry } }>, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> }> } | null | undefined };
+export type UpdateRouteGeometryMutation = { __typename?: 'mutation_root', delete_route_infrastructure_link_along_route?: { __typename?: 'route_infrastructure_link_along_route_mutation_response', returning: Array<{ __typename?: 'route_infrastructure_link_along_route', route_id: UUID }> } | null | undefined, insert_route_infrastructure_link_along_route?: { __typename?: 'route_infrastructure_link_along_route_mutation_response', returning: Array<{ __typename?: 'route_infrastructure_link_along_route', route_id: UUID, infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', shape: GeoJSON.Geometry } }> } | null | undefined, delete_journey_pattern_journey_pattern?: { __typename?: 'journey_pattern_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID }> } | null | undefined, insert_journey_pattern_journey_pattern_one?: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } | null | undefined, update_route_route?: { __typename?: 'route_route_mutation_response', returning: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', label: string } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', shape: GeoJSON.Geometry } }>, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> }> }> } | null | undefined };
 
 export type DeleteRouteMutationVariables = Exact<{
   route_id: Scalars['uuid'];
@@ -6875,7 +8024,7 @@ export type GetStopWithRouteGraphDataByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetStopWithRouteGraphDataByIdQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, journey_pattern_route?: { __typename?: 'route_route', route_id: UUID, description_i18n?: string | null | undefined, on_line_id: UUID, label: string, priority: number, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID }> } | null | undefined } }>, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
+export type GetStopWithRouteGraphDataByIdQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, journey_pattern_route?: { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, on_line_id: UUID, label: string, priority: number, starts_from_scheduled_stop_point_id: UUID, ends_at_scheduled_stop_point_id: UUID, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID }> } | null | undefined } }>, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
 
 export const InfrastructureLinkAllFieldsFragmentDoc = gql`
     fragment infrastructure_link_all_fields on infrastructure_network_infrastructure_link {
@@ -6914,7 +8063,12 @@ export const LineAllFieldsFragmentDoc = gql`
 export const RouteDefaultFieldsFragmentDoc = gql`
     fragment route_default_fields on route_route {
   route_id
+  name_i18n
   description_i18n
+  origin_name_i18n
+  origin_short_name_i18n
+  destination_name_i18n
+  destination_short_name_i18n
   on_line_id
   label
   priority
@@ -6925,7 +8079,12 @@ export const RouteDefaultFieldsFragmentDoc = gql`
 export const RouteAllFieldsFragmentDoc = gql`
     fragment route_all_fields on route_route {
   route_id
+  name_i18n
   description_i18n
+  origin_name_i18n
+  origin_short_name_i18n
+  destination_name_i18n
+  destination_short_name_i18n
   starts_from_scheduled_stop_point_id
   ends_at_scheduled_stop_point_id
   route_shape

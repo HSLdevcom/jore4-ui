@@ -81,7 +81,11 @@ export const RouteStopsOverlay = ({ className }: Props) => {
   const routes = mapRoutesDetailsResult(routesResult);
   const selectedRoute = routes?.[0];
 
+  // FIXME: the typings are off, shouldn't compare editedRouteData.metaData with selectedRoute
   const routeMetadata = editedRouteData.metaData || selectedRoute;
+  const routeName =
+    editedRouteData.metaData?.finnishName || selectedRoute?.name_i18n?.fi_FI;
+
   const selectedRouteStopIds = selectedRoute
     ? getRouteStopIds(selectedRoute)
     : [];
@@ -120,9 +124,7 @@ export const RouteStopsOverlay = ({ className }: Props) => {
       <MapOverlayHeader>
         <i className="icon-bus-alt text-2xl text-tweaked-brand" />
         <div>
-          <h2 className="text-2xl font-bold text-tweaked-brand">
-            {routeMetadata.description_i18n}
-          </h2>
+          <h2 className="text-2xl font-bold text-tweaked-brand">{routeName}</h2>
           <div className="text-light text-xs text-gray-500">
             {routeMetadata.label}
           </div>

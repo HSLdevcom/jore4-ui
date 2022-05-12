@@ -15,17 +15,48 @@ const hasuraOverrideTypeDefs = gql`
   scalar geography_point
   # define custom scalar for geography types that can only be lines
   scalar geography_linestring
+  # defined custom scalar for jsonb fields that contain localized strings
+  scalar localized_string
 
-  # setting fields not-nullable in route.route VIEW
+  # fixing the types of some route.route fields
   type route_route {
-    route_id: uuid!
-    starts_from_scheduled_stop_point_id: uuid!
-    ends_at_scheduled_stop_point_id: uuid!
-    on_line_id: uuid!
-    priority: Int!
-    label: String!
-    direction: String!
+    name_i18n: localized_string!
+    description_i18n: localized_string
+    origin_name_i18n: localized_string!
+    origin_short_name_i18n: localized_string!
+    destination_name_i18n: localized_string!
+    destination_short_name_i18n: localized_string!
     route_shape: geography_linestring
+  }
+  type route_route_set_input {
+    name_i18n: localized_string
+    description_i18n: localized_string
+    origin_name_i18n: localized_string
+    origin_short_name_i18n: localized_string
+    destination_name_i18n: localized_string
+    destination_short_name_i18n: localized_string
+  }
+  type route_route_insert_input {
+    name_i18n: localized_string!
+    description_i18n: localized_string
+    origin_name_i18n: localized_string!
+    origin_short_name_i18n: localized_string!
+    destination_name_i18n: localized_string!
+    destination_short_name_i18n: localized_string!
+  }
+
+  # fixing the types of some route.line fields
+  type route_line {
+    name_i18n: localized_string!
+    short_name_i18n: localized_string!
+  }
+  type route_line_set_input {
+    name_i18n: localized_string
+    short_name_i18n: localized_string
+  }
+  type route_line_insert_input {
+    name_i18n: localized_string!
+    short_name_i18n: localized_string!
   }
 
   # setting fields not-nullable in service_pattern.scheduled_stop_point VIEW

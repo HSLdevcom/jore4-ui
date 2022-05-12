@@ -11,7 +11,7 @@ interface Props extends ListboxInputProps {
 }
 
 const mapToOptionContent = (item: RouteLine) => (
-  <span>{`${item.label} (${item.name_i18n})`}</span>
+  <span>{`${item.label} (${item.name_i18n.fi_FI})`}</span>
 );
 
 const mapToOption = (item: RouteLine) => ({
@@ -40,7 +40,7 @@ export const ChooseLineDropdown = ({
   const mapToButtonContent = (displayedLine?: RouteLine) => (
     <div className="w-full">
       {displayedLine
-        ? `${displayedLine.label} (${displayedLine.name_i18n})`
+        ? `${displayedLine.label} (${displayedLine.name_i18n.fi_FI})`
         : t('routes.chooseLine')}
     </div>
   );

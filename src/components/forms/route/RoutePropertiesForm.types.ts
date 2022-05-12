@@ -8,7 +8,7 @@ import {
 export const routeFormSchema = z
   .object({
     label: z.string().min(1),
-    description_i18n: z.string().min(1),
+    finnishName: z.string().min(1),
     on_line_id: z.string().uuid().min(1),
     direction: z.nativeEnum(RouteDirection),
   })

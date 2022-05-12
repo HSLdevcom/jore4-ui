@@ -4,7 +4,7 @@ import { Column } from '../../../layoutComponents';
 interface Props {
   className?: string;
   fieldName: string;
-  value: string;
+  value?: string;
   testId?: string;
 }
 
@@ -17,7 +17,7 @@ export const FieldValue = ({
   return (
     <Column className={className}>
       <span className="text-3xl font-semibold" data-testid={testId}>
-        {value}
+        {value || '-'}
       </span>
       <span>{fieldName}</span>
     </Column>

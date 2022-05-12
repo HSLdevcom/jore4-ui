@@ -67,14 +67,14 @@ const RoutePropertiesFormComponent = (
         )}
         <Row className="mb-5 flex-wrap gap-2">
           <Column className="w-80 flex-auto">
-            <label htmlFor="description_i18n">{t('routes.name')}</label>
+            <label htmlFor="finnishName">{t('routes.name')}</label>
             <input
-              id="description_i18n"
+              id="finnishName"
               type="text"
-              {...register('description_i18n', {})}
+              {...register('finnishName', {})}
             />
             <p>
-              {errors.description_i18n?.type === 'too_small' &&
+              {errors.finnishName?.type === 'too_small' &&
                 t('formValidation.required')}
             </p>
           </Column>

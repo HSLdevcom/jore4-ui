@@ -6,13 +6,13 @@ import {
   GetLinesByLabelAndPriorityQuery,
   GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
+  ListChangingRoutesQuery,
   RouteLine,
   RouteRoute,
   useGetLineDetailsByIdQuery,
   useGetRouteDetailsByIdsQuery,
   useGetRouteDetailsByLabelWildcardQuery,
   useGetRoutesWithInfrastructureLinksQuery,
-  useListChangingRoutesQuery,
   useListOwnLinesQuery,
   useSearchAllLinesQuery,
 } from '../generated/graphql';
@@ -47,7 +47,12 @@ const LINE_ALL_FIELDS = gql`
 const ROUTE_ALL_FIELDS = gql`
   fragment route_all_fields on route_route {
     route_id
+    name_i18n
     description_i18n
+    origin_name_i18n
+    origin_short_name_i18n
+    destination_name_i18n
+    destination_short_name_i18n
     starts_from_scheduled_stop_point_id
     ends_at_scheduled_stop_point_id
     route_shape
@@ -63,7 +68,12 @@ const ROUTE_ALL_FIELDS = gql`
 const ROUTE_DEFAULT_FIELDS = gql`
   fragment route_default_fields on route_route {
     route_id
+    name_i18n
     description_i18n
+    origin_name_i18n
+    origin_short_name_i18n
+    destination_name_i18n
+    destination_short_name_i18n
     on_line_id
     label
     priority
@@ -164,7 +174,7 @@ const LIST_CHANGING_ROUTES = gql`
   }
 `;
 export const mapListChangingRoutesResult = (
-  result: ReturnType<typeof useListChangingRoutesQuery>,
+  result: GqlQueryResult<ListChangingRoutesQuery>,
 ) => result.data?.route_route as RouteRoute[] | undefined;
 
 const GET_LINE_DETAILS_BY_ID = gql`

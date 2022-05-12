@@ -40,7 +40,7 @@ export const RouteStopsHeaderRow = ({
         </Row>
       </td>
       <td className="flex items-center py-4 text-3xl">
-        <span data-testid="route-row-name">{route.description_i18n}</span>
+        <span data-testid="route-row-name">{route.name_i18n?.fi_FI}</span>
         <EditButton
           href={routeDetails[Path.editRoute].getLink(route.route_id)}
           testId="edit-route-button"
