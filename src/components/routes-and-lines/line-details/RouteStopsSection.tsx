@@ -5,7 +5,7 @@ import {
   getStopsAlongRouteGeometry,
   stopBelongsToJourneyPattern,
 } from '../../../graphql';
-import { useEditRouteGeometry } from '../../../hooks';
+import { useEditRouteJourneyPattern } from '../../../hooks';
 import { showDangerToast, showSuccessToast } from '../../../utils';
 import { RouteStopsHeaderRow } from './RouteStopsHeaderRow';
 import { RouteStopsRow } from './RouteStopsRow';
@@ -24,7 +24,7 @@ export const RouteStopsSection = ({
   const [isOpen, setOpen] = useState(false);
   const { t } = useTranslation();
 
-  const { addStopToRouteJourneyPattern } = useEditRouteGeometry();
+  const { addStopToRouteJourneyPattern } = useEditRouteJourneyPattern();
 
   const onToggle = () => {
     setOpen(!isOpen);

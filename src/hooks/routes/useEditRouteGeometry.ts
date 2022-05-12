@@ -1,50 +1,53 @@
+import { useTranslation } from 'react-i18next';
 import {
-  RouteRoute,
   UpdateRouteGeometryMutationVariables,
-  UpdateRouteJourneyPatternMutationVariables,
-  useDeleteStopFromJourneyPatternMutation,
   useUpdateRouteGeometryMutation,
-  useUpdateRouteJourneyPatternMutation,
 } from '../../generated/graphql';
+import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
+import { mapToVariables, showDangerToastWithError } from '../../utils';
 import {
-  getStopsAlongRouteGeometry,
-  InfrastructureLinkAlongRoute,
-  mapInfraLinksAlongRouteToGraphQL,
-  stopBelongsToJourneyPattern,
-} from '../../graphql';
-import { RouteStop } from '../../redux';
-import { mapToVariables, removeFromApolloCache } from '../../utils';
-import { useExtractRouteFromFeature } from '../useExtractRouteFromFeature';
-import { mapStopsToScheduledStopPoints } from './useCreateRoute';
+  extractFirstAndLastStopFromStops,
+  mapStopsToScheduledStopPoints,
+  RouteGeometry,
+  useCreateRoute,
+} from './useCreateRoute';
 
-interface DeleteStopFromJourneyPatternParams {
+interface EditParams {
   routeId: UUID;
-  stopPointId: UUID;
+  newGeometry: RouteGeometry;
 }
 
-export const useEditRouteGeometry = () => {
-  const [updateRouteGeometryMutation] = useUpdateRouteGeometryMutation();
-  const [updateRouteJourneyPatternMutation] =
-    useUpdateRouteJourneyPatternMutation();
-  const [deleteStopFromJourneyPatternMutation] =
-    useDeleteStopFromJourneyPatternMutation();
+interface EditChanges {
+  patch: UpdateRouteGeometryMutationVariables;
+}
 
-  const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
+/**
+ * Hook for editing route's geometry (journey pattern and infrastructure links).
+ * For editing route metadata (name, label, validity etc.),
+ * use editRouteMetadata
+ */
+export const useEditRouteGeometry = () => {
+  const { t } = useTranslation();
+  const [mutateFunction] = useUpdateRouteGeometryMutation();
+  const { validateGeometry } = useCreateRoute();
 
   const mapRouteDetailsToUpdateMutationVariables = (
-    editingRouteId: UUID,
-    stopIdsWithinRoute: UUID[],
-    infraLinksAlongRoute: InfrastructureLinkAlongRoute[],
-    startingStopId: UUID,
-    finalStopId: UUID,
+    routeId: UUID,
+    routeGeometry: RouteGeometry,
   ) => {
+    const { stopIdsWithinRoute, infraLinksAlongRoute } = routeGeometry;
+    validateGeometry(routeGeometry);
+
+    const { startingStopId, finalStopId } =
+      extractFirstAndLastStopFromStops(stopIdsWithinRoute);
+
     const variables: UpdateRouteGeometryMutationVariables = {
-      route_id: editingRouteId,
+      route_id: routeId,
       new_infrastructure_links: mapInfraLinksAlongRouteToGraphQL(
         infraLinksAlongRoute,
-      ).map((link) => ({ ...link, route_id: editingRouteId })),
+      ).map((link) => ({ ...link, route_id: routeId })),
       new_journey_pattern: {
-        on_route_id: editingRouteId,
+        on_route_id: routeId,
         scheduled_stop_point_in_journey_patterns:
           mapStopsToScheduledStopPoints(stopIdsWithinRoute),
       },
@@ -54,82 +57,35 @@ export const useEditRouteGeometry = () => {
       },
     };
 
-    return mapToVariables(variables);
+    return variables;
   };
 
-  const mapStopIdsToUpdateMutationVariables = (
-    stopsIds: UUID[],
-    routeId: UUID,
-  ) => {
-    const variables: UpdateRouteJourneyPatternMutationVariables = {
-      route_id: routeId,
-      new_journey_pattern: {
-        on_route_id: routeId,
-        scheduled_stop_point_in_journey_patterns:
-          mapStopsToScheduledStopPoints(stopsIds),
-      },
+  const prepareEdit = async ({ routeId, newGeometry }: EditParams) => {
+    const input = mapRouteDetailsToUpdateMutationVariables(
+      routeId,
+      newGeometry,
+    );
+
+    const changes: EditChanges = {
+      patch: input,
     };
 
-    return mapToVariables(variables);
+    return changes;
   };
 
-  const addStopToRouteJourneyPattern = async (
-    stopPointId: UUID,
-    route: RouteRoute,
-  ) => {
-    const stopsAlongRoute = getStopsAlongRouteGeometry(route);
+  const mapEditChangesToVariables = (changes: EditChanges) =>
+    mapToVariables(changes.patch);
 
-    const routeStops: RouteStop[] = stopsAlongRoute.map((stop) => ({
-      id: stop.scheduled_stop_point_id,
-      belongsToRoute: stopBelongsToJourneyPattern(stop, route.route_id),
-    }));
-
-    const newRouteStops = routeStops.map((item) =>
-      item.id === stopPointId ? { ...item, belongsToRoute: true } : item,
-    );
-
-    const stopIdsWithinRoute = mapRouteStopsToStopIds(newRouteStops);
-
-    const variables = mapStopIdsToUpdateMutationVariables(
-      stopIdsWithinRoute,
-      route.route_id,
-    );
-
-    await updateRouteJourneyPatternMutation({
-      ...variables,
-      // remove scheduled stop point from cache after mutation
-      update(cache) {
-        removeFromApolloCache(cache, {
-          scheduled_stop_point_id: stopPointId,
-          __typename: 'service_pattern_scheduled_stop_point',
-        });
-      },
-    });
-  };
-
-  const deleteStopFromJourneyPattern = async ({
-    routeId,
-    stopPointId,
-  }: DeleteStopFromJourneyPatternParams) => {
-    await deleteStopFromJourneyPatternMutation({
-      ...mapToVariables({
-        route_id: routeId,
-        scheduled_stop_point_id: stopPointId,
-      }),
-      // remove scheduled stop point from cache after mutation
-      update(cache) {
-        removeFromApolloCache(cache, {
-          scheduled_stop_point_id: stopPointId,
-          __typename: 'service_pattern_scheduled_stop_point',
-        });
-      },
-    });
+  // default handler that can be used to show error messages as toast
+  // in case an exception is thrown
+  const defaultErrorHandler = (err: unknown) => {
+    showDangerToastWithError(t('errors.saveFailed'), err);
   };
 
   return {
-    updateRouteGeometryMutation,
-    mapRouteDetailsToUpdateMutationVariables,
-    deleteStopFromJourneyPattern,
-    addStopToRouteJourneyPattern,
+    prepareEdit,
+    mapEditChangesToVariables,
+    editRouteMutation: mutateFunction,
+    defaultErrorHandler,
   };
 };

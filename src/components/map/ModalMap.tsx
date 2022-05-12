@@ -76,10 +76,10 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     insertRouteMutation,
     defaultErrorHandler: defaultInsertRouteErrorHandler,
   } = useCreateRoute();
-  const {
-    mapRouteDetailsToUpdateMutationVariables,
-    updateRouteGeometryMutation,
-  } = useEditRouteGeometry();
+
+  const { prepareEdit, mapEditChangesToVariables, editRouteMutation } =
+    useEditRouteGeometry();
+
   const [conflicts, setConflicts] = useState<RouteRoute[]>([]);
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
     useDeleteRoute();
@@ -109,43 +109,29 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const editRoute = async (routeId: UUID) => {
     const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
 
-    // TODO: These will be removed from schema, remove from here as well
-    const startingStopId = stopIdsWithinRoute[0];
-    const finalStopId = stopIdsWithinRoute[stopIdsWithinRoute.length - 1];
-
-    if (!infraLinks || !stopIdsWithinRoute || stopIdsWithinRoute.length < 2) {
-      throw new Error(t('routes.tooFewStops'));
-    }
-
-    const variables = mapRouteDetailsToUpdateMutationVariables(
+    const changes = await prepareEdit({
       routeId,
-      stopIdsWithinRoute,
-      infraLinks,
-      startingStopId,
-      finalStopId,
-    );
+      newGeometry: {
+        stopIdsWithinRoute,
+        infraLinksAlongRoute: infraLinks || [],
+      },
+    });
 
-    await updateRouteGeometryMutation(variables);
+    const variables = mapEditChangesToVariables(changes);
+
+    await editRouteMutation(variables);
   };
 
   const createRoute = async () => {
     const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
 
-    // TODO: These will be removed from schema, remove from here as well
-    const startingStopId = stopIdsWithinRoute[0];
-    const finalStopId = stopIdsWithinRoute[stopIdsWithinRoute.length - 1];
-
-    if (!infraLinks || !stopIdsWithinRoute || stopIdsWithinRoute.length < 2) {
-      throw new Error(t('routes.tooFewStops'));
-    }
-
     const changes = await prepareCreate({
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       form: routeDetails!,
-      stopIdsWithinRoute,
-      infraLinksAlongRoute: infraLinks,
-      startingStopId,
-      finalStopId,
+      routeGeometry: {
+        stopIdsWithinRoute,
+        infraLinksAlongRoute: infraLinks || [],
+      },
     });
     if (changes.conflicts?.length) {
       setConflicts(changes.conflicts);
