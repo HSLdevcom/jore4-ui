@@ -33,13 +33,13 @@ interface CreateChanges {
   conflicts?: RouteRoute[];
 }
 
-const mapStopIdToScheduledStopPoint = (stopId: UUID, index: number) => ({
+const mapStopIdToStopInSequence = (stopId: UUID, index: number) => ({
   scheduled_stop_point_id: stopId,
   scheduled_stop_point_sequence: index,
 });
-export const mapStopsToScheduledStopPoints = (stops: UUID[]) => {
+export const mapStopsToStopSequence = (stops: UUID[]) => {
   return {
-    data: stops.map(mapStopIdToScheduledStopPoint),
+    data: stops.map(mapStopIdToStopInSequence),
   };
 };
 
@@ -77,7 +77,6 @@ export const useCreateRoute = () => {
     const { form, routeGeometry } = params;
 
     const { stopIdsWithinRoute, infraLinksAlongRoute } = routeGeometry;
-    validateGeometry(routeGeometry);
 
     const { startingStopId, finalStopId } =
       extractFirstAndLastStopFromStops(stopIdsWithinRoute);
@@ -106,7 +105,7 @@ export const useCreateRoute = () => {
       route_journey_patterns: {
         data: {
           scheduled_stop_point_in_journey_patterns:
-            mapStopsToScheduledStopPoints(stopIdsWithinRoute),
+            mapStopsToStopSequence(stopIdsWithinRoute),
         },
       },
     });
@@ -115,6 +114,8 @@ export const useCreateRoute = () => {
   };
 
   const prepareCreate = async (params: CreateParams) => {
+    validateGeometry(params.routeGeometry);
+
     const input = mapRouteDetailsToInsertMutationVariables(params);
     const conflicts = await getConflictingRoutes({
       // Form validation should make sure that label, priority and direction always exist.
