@@ -1,4 +1,5 @@
 import {
+  DeleteStopFromJourneyPatternMutationVariables,
   RouteRoute,
   UpdateRouteJourneyPatternMutationVariables,
   useDeleteStopFromJourneyPatternMutation,
@@ -9,13 +10,25 @@ import {
   stopBelongsToJourneyPattern,
 } from '../../graphql';
 import { RouteStop } from '../../redux';
-import { mapToVariables, removeFromApolloCache } from '../../utils';
+import { removeFromApolloCache } from '../../utils';
 import { useExtractRouteFromFeature } from '../useExtractRouteFromFeature';
 import { mapStopsToStopSequence } from './useCreateRoute';
 
-interface DeleteStopFromJourneyPatternParams {
+interface DeleteStopParams {
   routeId: UUID;
   stopPointId: UUID;
+}
+
+type DeleteStopChanges = DeleteStopParams;
+
+interface AddStopParams {
+  stopPointId: UUID;
+  route: RouteRoute;
+}
+
+interface AddStopChanges {
+  routeId: UUID;
+  stopIdsWithinRoute: UUID[];
 }
 
 /**
@@ -29,26 +42,37 @@ export const useEditRouteJourneyPattern = () => {
 
   const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
 
-  const mapStopIdsToUpdateMutationVariables = (
-    stopsIds: UUID[],
-    routeId: UUID,
-  ) => {
-    const variables: UpdateRouteJourneyPatternMutationVariables = {
-      route_id: routeId,
-      new_journey_pattern: {
-        on_route_id: routeId,
-        scheduled_stop_point_in_journey_patterns:
-          mapStopsToStopSequence(stopsIds),
-      },
-    };
+  const prepareDeleteStopFromRoute = (params: DeleteStopParams) => {
+    const changes: DeleteStopChanges = params;
 
-    return mapToVariables(variables);
+    return changes;
   };
 
-  const addStopToRouteJourneyPattern = async (
-    stopPointId: UUID,
-    route: RouteRoute,
+  const mapDeleteStopFromRouteChangesToVariables = (
+    changes: DeleteStopChanges,
+  ) => ({
+    route_id: changes.routeId,
+    scheduled_stop_point_id: changes.stopPointId,
+  });
+
+  const deleteStopFromRouteMutation = async (
+    variables: DeleteStopFromJourneyPatternMutationVariables,
   ) => {
+    await deleteStopFromJourneyPatternMutation({
+      variables,
+      // remove scheduled stop point from cache after mutation
+      update(cache) {
+        removeFromApolloCache(cache, {
+          scheduled_stop_point_id: variables.route_id,
+          __typename: 'service_pattern_scheduled_stop_point',
+        });
+      },
+    });
+  };
+
+  const prepareAddStopToRoute = (params: AddStopParams) => {
+    const { route, stopPointId } = params;
+
     const stopsAlongRoute = getStopsAlongRouteGeometry(route);
 
     const routeStops: RouteStop[] = stopsAlongRoute.map((stop) => ({
@@ -62,44 +86,49 @@ export const useEditRouteJourneyPattern = () => {
 
     const stopIdsWithinRoute = mapRouteStopsToStopIds(newRouteStops);
 
-    const variables = mapStopIdsToUpdateMutationVariables(
+    const changes: AddStopChanges = {
+      routeId: route.route_id,
       stopIdsWithinRoute,
-      route.route_id,
-    );
+    };
 
-    await updateRouteJourneyPatternMutation({
-      ...variables,
-      // remove scheduled stop point from cache after mutation
-      update(cache) {
-        removeFromApolloCache(cache, {
-          scheduled_stop_point_id: stopPointId,
-          __typename: 'service_pattern_scheduled_stop_point',
-        });
-      },
-    });
+    return changes;
   };
 
-  const deleteStopFromJourneyPattern = async ({
-    routeId,
-    stopPointId,
-  }: DeleteStopFromJourneyPatternParams) => {
-    await deleteStopFromJourneyPatternMutation({
-      ...mapToVariables({
-        route_id: routeId,
-        scheduled_stop_point_id: stopPointId,
-      }),
+  const mapAddStopToRouteChangesToVariables = (changes: AddStopChanges) => {
+    const variables: UpdateRouteJourneyPatternMutationVariables = {
+      route_id: changes.routeId,
+      new_journey_pattern: {
+        on_route_id: changes.routeId,
+        scheduled_stop_point_in_journey_patterns: mapStopsToStopSequence(
+          changes.stopIdsWithinRoute,
+        ),
+      },
+    };
+
+    return variables;
+  };
+
+  const addStopToRouteMutation = async (
+    variables: UpdateRouteJourneyPatternMutationVariables,
+  ) => {
+    await updateRouteJourneyPatternMutation({
+      variables,
       // remove scheduled stop point from cache after mutation
       update(cache) {
         removeFromApolloCache(cache, {
-          scheduled_stop_point_id: stopPointId,
-          __typename: 'service_pattern_scheduled_stop_point',
+          route_id: variables.route_id,
+          __typename: 'route_route',
         });
       },
     });
   };
 
   return {
-    deleteStopFromJourneyPattern,
-    addStopToRouteJourneyPattern,
+    prepareDeleteStopFromRoute,
+    mapDeleteStopFromRouteChangesToVariables,
+    deleteStopFromRouteMutation,
+    prepareAddStopToRoute,
+    mapAddStopToRouteChangesToVariables,
+    addStopToRouteMutation,
   };
 };
