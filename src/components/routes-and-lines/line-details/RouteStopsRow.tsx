@@ -31,14 +31,21 @@ export const RouteStopsRow = ({
 
   const belongsToJourneyPattern = stopBelongsToJourneyPattern(stop, routeId);
 
-  const { deleteStopFromJourneyPattern } = useEditRouteJourneyPattern();
+  const {
+    prepareDeleteStopFromRoute,
+    mapDeleteStopFromRouteChangesToVariables,
+    deleteStopFromRouteMutation,
+  } = useEditRouteJourneyPattern();
 
   const deleteFromJourneyPattern = async () => {
     try {
-      await deleteStopFromJourneyPattern({
+      const changes = prepareDeleteStopFromRoute({
         routeId,
         stopPointId: stop.scheduled_stop_point_id,
       });
+      const variables = mapDeleteStopFromRouteChangesToVariables(changes);
+
+      await deleteStopFromRouteMutation(variables);
       showSuccessToast(t('routes.saveSuccess'));
     } catch (err) {
       showDangerToast(`${t('errors.saveFailed')}, '${err}'`);

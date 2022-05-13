@@ -24,7 +24,11 @@ export const RouteStopsSection = ({
   const [isOpen, setOpen] = useState(false);
   const { t } = useTranslation();
 
-  const { addStopToRouteJourneyPattern } = useEditRouteJourneyPattern();
+  const {
+    prepareAddStopToRoute,
+    mapAddStopToRouteChangesToVariables,
+    addStopToRouteMutation,
+  } = useEditRouteJourneyPattern();
 
   const onToggle = () => {
     setOpen(!isOpen);
@@ -41,7 +45,11 @@ export const RouteStopsSection = ({
 
   const onAddToRoute = async (stopToAdd: UUID) => {
     try {
-      await addStopToRouteJourneyPattern(stopToAdd, route);
+      const changes = prepareAddStopToRoute({ stopPointId: stopToAdd, route });
+
+      const variables = mapAddStopToRouteChangesToVariables(changes);
+
+      await addStopToRouteMutation(variables);
       showSuccessToast(t('routes.saveSuccess'));
     } catch (err) {
       showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
