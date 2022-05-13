@@ -85,9 +85,9 @@ export const useEditRouteMetadata = () => {
   };
 
   return {
-    prepareEdit,
-    mapEditChangesToVariables,
-    editRouteMutation: mutateFunction,
+    prepareEditMetadata: prepareEdit,
+    mapEditMetadataChangesToVariables: mapEditChangesToVariables,
+    editRouteMetadataMutation: mutateFunction,
     defaultErrorHandler,
   };
 };

@@ -7,7 +7,7 @@ import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
 import { mapToVariables, showDangerToastWithError } from '../../utils';
 import {
   extractFirstAndLastStopFromStops,
-  mapStopsToScheduledStopPoints,
+  mapStopsToStopSequence,
   RouteGeometry,
   useCreateRoute,
 } from './useCreateRoute';
@@ -36,7 +36,6 @@ export const useEditRouteGeometry = () => {
     routeGeometry: RouteGeometry,
   ) => {
     const { stopIdsWithinRoute, infraLinksAlongRoute } = routeGeometry;
-    validateGeometry(routeGeometry);
 
     const { startingStopId, finalStopId } =
       extractFirstAndLastStopFromStops(stopIdsWithinRoute);
@@ -49,7 +48,7 @@ export const useEditRouteGeometry = () => {
       new_journey_pattern: {
         on_route_id: routeId,
         scheduled_stop_point_in_journey_patterns:
-          mapStopsToScheduledStopPoints(stopIdsWithinRoute),
+          mapStopsToStopSequence(stopIdsWithinRoute),
       },
       route_route: {
         starts_from_scheduled_stop_point_id: startingStopId,
@@ -61,6 +60,8 @@ export const useEditRouteGeometry = () => {
   };
 
   const prepareEdit = async ({ routeId, newGeometry }: EditParams) => {
+    validateGeometry(newGeometry);
+
     const input = mapRouteDetailsToUpdateMutationVariables(
       routeId,
       newGeometry,
@@ -83,9 +84,9 @@ export const useEditRouteGeometry = () => {
   };
 
   return {
-    prepareEdit,
-    mapEditChangesToVariables,
-    editRouteMutation: mutateFunction,
+    prepareEditGeometry: prepareEdit,
+    mapEditGeometryChangesToVariables: mapEditChangesToVariables,
+    editRouteGeometryMutation: mutateFunction,
     defaultErrorHandler,
   };
 };

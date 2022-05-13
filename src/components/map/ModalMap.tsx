@@ -77,8 +77,11 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     defaultErrorHandler: defaultInsertRouteErrorHandler,
   } = useCreateRoute();
 
-  const { prepareEdit, mapEditChangesToVariables, editRouteMutation } =
-    useEditRouteGeometry();
+  const {
+    prepareEditGeometry,
+    mapEditGeometryChangesToVariables,
+    editRouteGeometryMutation,
+  } = useEditRouteGeometry();
 
   const [conflicts, setConflicts] = useState<RouteRoute[]>([]);
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
@@ -109,7 +112,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const editRoute = async (routeId: UUID) => {
     const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
 
-    const changes = await prepareEdit({
+    const changes = await prepareEditGeometry({
       routeId,
       newGeometry: {
         stopIdsWithinRoute,
@@ -117,9 +120,9 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
       },
     });
 
-    const variables = mapEditChangesToVariables(changes);
+    const variables = mapEditGeometryChangesToVariables(changes);
 
-    await editRouteMutation(variables);
+    await editRouteGeometryMutation(variables);
   };
 
   const createRoute = async () => {

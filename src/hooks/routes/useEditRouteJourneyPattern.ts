@@ -11,7 +11,7 @@ import {
 import { RouteStop } from '../../redux';
 import { mapToVariables, removeFromApolloCache } from '../../utils';
 import { useExtractRouteFromFeature } from '../useExtractRouteFromFeature';
-import { mapStopsToScheduledStopPoints } from './useCreateRoute';
+import { mapStopsToStopSequence } from './useCreateRoute';
 
 interface DeleteStopFromJourneyPatternParams {
   routeId: UUID;
@@ -38,7 +38,7 @@ export const useEditRouteJourneyPattern = () => {
       new_journey_pattern: {
         on_route_id: routeId,
         scheduled_stop_point_in_journey_patterns:
-          mapStopsToScheduledStopPoints(stopsIds),
+          mapStopsToStopSequence(stopsIds),
       },
     };
 
