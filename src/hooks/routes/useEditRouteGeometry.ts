@@ -60,7 +60,7 @@ export const useEditRouteGeometry = () => {
   };
 
   const prepareEdit = async ({ routeId, newGeometry }: EditParams) => {
-    validateGeometry(newGeometry);
+    await validateGeometry(newGeometry);
 
     const input = mapRouteDetailsToUpdateMutationVariables(
       routeId,
