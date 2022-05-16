@@ -2,8 +2,7 @@ import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
-  RouteLine,
-  RouteRoute,
+  Maybe,
   useGetLineDetailsByIdAsyncQuery,
   useGetStopsByIdsAsyncQuery,
 } from '../../generated/graphql';
@@ -20,9 +19,9 @@ import { extractFirstAndLastStopFromStops } from './utils';
 
 interface ValidityPeriodParams {
   // eslint-disable-next-line camelcase
-  validity_start?: DateTime;
+  validity_start?: Maybe<DateTime>;
   // eslint-disable-next-line camelcase
-  validity_end?: DateTime | null;
+  validity_end?: Maybe<DateTime>;
 }
 
 export const useValidateRoute = () => {
@@ -100,8 +99,8 @@ export const useValidateRoute = () => {
   };
 
   const checkIsRouteValidityInsideLineValidity = (
-    route: RouteRoute | ValidityPeriodParams,
-    line: RouteLine,
+    route: ValidityPeriodParams,
+    line: ValidityPeriodParams,
   ) => {
     const lineValidityStart = line?.validity_start?.startOf('day');
     const lineValidityEnd = line?.validity_end?.endOf('day');
@@ -144,5 +143,9 @@ export const useValidateRoute = () => {
     );
   };
 
-  return { validateGeometry, validateMetadata };
+  return {
+    validateGeometry,
+    validateMetadata,
+    checkIsRouteValidityInsideLineValidity,
+  };
 };
