@@ -1,4 +1,5 @@
 export * from './line-details/useGetLineDetails';
+export * from './map';
 export * from './redux';
 export * from './routes';
 export * from './search/useSearch';
