@@ -29,7 +29,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
           {t('map.open')}
         </SimpleButton>
         <SimpleButton
-          id="create-line-button"
+          data-testid="create-line-button"
           className="ml-3"
           href={createLineReactRoute.getLink()}
         >
