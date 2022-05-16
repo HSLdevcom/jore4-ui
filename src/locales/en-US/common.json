@@ -56,7 +56,8 @@
     "showDrafts": "Show drafts",
     "draftsTitle": "Drafts",
     "noDrafts": "No drafts",
-    "showDraftDetails": "Show draft details"
+    "showDraftDetails": "Show draft details",
+    "routesOutsideValidity": "The following routes' validity period exceed the line's new validity period"
   },
   "stops": {
     "stop": "Stop",

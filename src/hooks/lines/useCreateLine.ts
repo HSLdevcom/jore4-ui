@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { FormState } from '../components/forms/line/LineForm';
+import { FormState } from '../../components/forms/line/LineForm';
 import {
   InsertLineOneMutationVariables,
   ReusableComponentsVehicleModeEnum,
@@ -7,13 +7,13 @@ import {
   RouteLineInsertInput,
   RouteTypeOfLineEnum,
   useInsertLineOneMutation,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   showDangerToastWithError,
-} from '../utils';
-import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
+} from '../../utils';
+import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 
 interface CreateParams {
   form: FormState;

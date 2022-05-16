@@ -95,7 +95,7 @@ export const useValidateRoute = () => {
 
   const checkIsRouteValidityInsideLineValidity = (
     route: RouteRoute | ValidityPeriodParams,
-    line: RouteLine,
+    line: RouteLine | ValidityPeriodParams,
   ) => {
     const lineValidityStart = line?.validity_start?.startOf('day');
     const lineValidityEnd = line?.validity_end?.endOf('day');
@@ -138,5 +138,9 @@ export const useValidateRoute = () => {
     );
   };
 
-  return { validateGeometry, validateMetadata };
+  return {
+    validateGeometry,
+    validateMetadata,
+    checkIsRouteValidityInsideLineValidity,
+  };
 };

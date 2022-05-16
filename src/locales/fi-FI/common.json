@@ -56,7 +56,8 @@
     "showDrafts": "Näytä luonnokset",
     "draftsTitle": "Luonnokset",
     "noDrafts": "Ei luonnoksia",
-    "showDraftDetails": "Näytä luonnoksen tiedot"
+    "showDraftDetails": "Näytä luonnoksen tiedot",
+    "routesOutsideValidity": "Seuraavien reittien voimassaolo ylittää linjan uuden voimassaoloajan"
   },
   "stops": {
     "stop": "Pysäkki",

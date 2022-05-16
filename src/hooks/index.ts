@@ -1,4 +1,5 @@
 export * from './line-details/useGetLineDetails';
+export * from './lines';
 export * from './map';
 export * from './redux';
 export * from './routes';
@@ -8,8 +9,6 @@ export * from './search/useSearchResults';
 export * from './stops';
 export * from './useAsyncQuery';
 export * from './useCheckValidityAndPriorityConflicts';
-export * from './useCreateLine';
-export * from './useEditLine';
 export * from './useExtractRouteFromFeature';
 export * from './useFilterStops';
 export * from './useMapUrlQuery';
