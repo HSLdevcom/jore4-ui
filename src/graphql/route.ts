@@ -16,6 +16,7 @@ import {
   useListOwnLinesQuery,
   useSearchAllLinesQuery,
 } from '../generated/graphql';
+import { InfrastructureLinkAlongRoute } from './infrastructureNetwork';
 import { GqlQueryResult } from './types';
 
 const LINE_DEFAULT_FIELDS = gql`
@@ -509,3 +510,8 @@ export const getRouteStopIds = (route: RouteRoute) => {
     (point) => point.scheduled_stop_point_id,
   );
 };
+
+export interface RouteGeometry {
+  stopIdsWithinRoute: UUID[];
+  infraLinksAlongRoute: InfrastructureLinkAlongRoute[];
+}
