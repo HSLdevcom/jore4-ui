@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 interface CommonButtonProps {
   id?: string;
   className?: string;
+  testId?: string;
   inverted?: boolean;
   disabled?: boolean;
   children?: ReactNode;
@@ -21,7 +22,7 @@ interface LinkButtonProps {
 type Props = CommonButtonProps & (ButtonProps | LinkButtonProps);
 
 export const SimpleButton: React.FC<Props> = (props) => {
-  const { id, className, inverted, disabled, children } = props;
+  const { id, className, inverted, disabled, testId, children } = props;
   const colorClassNames = inverted
     ? 'text-brand bg-white border border-grey hover:border-brand active:border-brand'
     : 'text-white bg-brand border border-brand hover:bg-opacity-50 active:bg-opacity-50';
@@ -35,6 +36,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
         type="button"
         onClick={(props as ButtonProps).onClick}
         disabled={disabled}
+        data-testid={testId}
       >
         {children}
       </button>
@@ -56,6 +58,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
         to={disabled ? undefined : (props as LinkButtonProps).href}
         aria-disabled={disabled}
         tabIndex={disabled ? -1 : undefined}
+        data-testid={testId}
       >
         {children}
       </Link>

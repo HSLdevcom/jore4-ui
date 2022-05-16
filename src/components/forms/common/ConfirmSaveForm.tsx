@@ -24,6 +24,15 @@ export const schema = z.object({
 
 export type FormState = z.infer<typeof schema>;
 
+const testIds = {
+  standardPriorityButton: 'confirmSaveForm:standardPriorityButton',
+  draftPriorityButton: 'confirmSaveForm:draftPriorityButton',
+  temporaryPriorityButton: 'confirmSaveForm:temporaryPriorityButton',
+  startDateInput: 'confirmSaveForm:startDateInput',
+  endDateInput: 'confirmSaveForm:endDateInput',
+  indefiniteCheckbox: 'confirmSaveForm:indefiniteCheckbox',
+};
+
 interface Props {
   className?: string;
 }
@@ -55,18 +64,21 @@ export const ConfirmSaveForm = ({ className }: Props): JSX.Element => {
             <SimpleButton
               onClick={() => setPriority(Priority.Standard)}
               inverted={priority !== Priority.Standard}
+              testId={testIds.standardPriorityButton}
             >
               {t('priority.standard')}
             </SimpleButton>
             <SimpleButton
               onClick={() => setPriority(Priority.Draft)}
               inverted={priority !== Priority.Draft}
+              testId={testIds.draftPriorityButton}
             >
               {t('priority.draft')}
             </SimpleButton>
             <SimpleButton
               onClick={() => setPriority(Priority.Temporary)}
               inverted={priority !== Priority.Temporary}
+              testId={testIds.temporaryPriorityButton}
             >
               {t('priority.temporary')}
             </SimpleButton>
@@ -77,7 +89,11 @@ export const ConfirmSaveForm = ({ className }: Props): JSX.Element => {
       <Row className="space-x-4">
         <Column>
           <label htmlFor="validityStart">{t('validityStart')}</label>
-          <input type="date" {...register('validityStart', {})} />
+          <input
+            type="date"
+            {...register('validityStart', {})}
+            data-testid={testIds.startDateInput}
+          />
           <p>
             {errors.validityStart?.type === 'too_small' &&
               t('formValidation.required')}
@@ -92,6 +108,7 @@ export const ConfirmSaveForm = ({ className }: Props): JSX.Element => {
             {...register('validityEnd', {})}
             className="disabled:hidden"
             disabled={indefinite}
+            data-testid={testIds.endDateInput}
           />
         </Column>
       </Row>
@@ -101,6 +118,7 @@ export const ConfirmSaveForm = ({ className }: Props): JSX.Element => {
           id="indefinite"
           {...register('indefinite', {})}
           className="mr-2 "
+          data-testid={testIds.indefiniteCheckbox}
         />
         <label htmlFor="indefinite" className="self-center font-normal">
           {t('saveChangesModal.indefinite')}

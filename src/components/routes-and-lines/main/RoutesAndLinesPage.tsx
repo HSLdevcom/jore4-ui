@@ -30,6 +30,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
         </SimpleButton>
         <SimpleButton
           id="create-line-button"
+          data-testid="create-line-button"
           className="ml-3"
           href={createLineReactRoute.getLink()}
         >

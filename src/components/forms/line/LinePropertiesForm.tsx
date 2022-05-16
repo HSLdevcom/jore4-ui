@@ -21,6 +21,11 @@ export const schema = z.object({
 
 export type FormState = z.infer<typeof schema>;
 
+const testIds = {
+  transportTargetDropdown: 'transport-target-input',
+  vehicleModeDropdown: 'primary-vehicle-mode-input',
+  lineTypeDropdown: 'type-of-line-input',
+};
 interface Props {
   id?: string;
   className?: string;
@@ -71,7 +76,7 @@ export const LinePropertiesForm = ({ id, className }: Props): JSX.Element => {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <TransportTargetDropdown
-                testId="transport-target-input"
+                testId={testIds.transportTargetDropdown}
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
@@ -92,7 +97,7 @@ export const LinePropertiesForm = ({ id, className }: Props): JSX.Element => {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <VehicleModeDropdown
-                testId="primary-vehicle-mode-input"
+                testId={testIds.vehicleModeDropdown}
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
@@ -111,7 +116,7 @@ export const LinePropertiesForm = ({ id, className }: Props): JSX.Element => {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <LineTypeDropdown
-                testId="type-of-line-input"
+                testId={testIds.lineTypeDropdown}
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
