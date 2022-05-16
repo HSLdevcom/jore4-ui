@@ -3,3 +3,4 @@ export * from './useEditRouteGeometry';
 export * from './useEditRouteJourneyPattern';
 export * from './useEditRouteMetadata';
 export * from './useGetDisplayedRoutes';
+export * from './useValidateRoute';
