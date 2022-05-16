@@ -3,14 +3,11 @@ import {
   UpdateRouteGeometryMutationVariables,
   useUpdateRouteGeometryMutation,
 } from '../../generated/graphql';
-import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
+import { mapInfraLinksAlongRouteToGraphQL, RouteGeometry } from '../../graphql';
 import { mapToVariables, showDangerToastWithError } from '../../utils';
-import {
-  extractFirstAndLastStopFromStops,
-  mapStopsToStopSequence,
-  RouteGeometry,
-  useCreateRoute,
-} from './useCreateRoute';
+import { mapStopsToStopSequence } from './useCreateRoute';
+import { useValidateRoute } from './useValidateRoute';
+import { extractFirstAndLastStopFromStops } from './utils';
 
 interface EditParams {
   routeId: UUID;
@@ -29,7 +26,7 @@ interface EditChanges {
 export const useEditRouteGeometry = () => {
   const { t } = useTranslation();
   const [mutateFunction] = useUpdateRouteGeometryMutation();
-  const { validateGeometry } = useCreateRoute();
+  const { validateGeometry } = useValidateRoute();
 
   const mapRouteDetailsToUpdateMutationVariables = (
     routeId: UUID,
