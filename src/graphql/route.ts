@@ -2,6 +2,7 @@
 import { ApolloQueryResult, FetchResult, gql } from '@apollo/client';
 import {
   GetHighestPriorityLineDetailsWithRoutesQuery,
+  GetLineDetailsByIdQuery,
   GetLineDetailsWithRoutesByIdQuery,
   GetLinesByLabelAndPriorityQuery,
   GetRouteDetailsByIdsQuery,
@@ -9,7 +10,6 @@ import {
   ListChangingRoutesQuery,
   RouteLine,
   RouteRoute,
-  useGetLineDetailsByIdQuery,
   useGetRouteDetailsByIdsQuery,
   useGetRouteDetailsByLabelWildcardQuery,
   useGetRoutesWithInfrastructureLinksQuery,
@@ -186,7 +186,7 @@ const GET_LINE_DETAILS_BY_ID = gql`
   }
 `;
 export const mapLineDetailsResult = (
-  result: ReturnType<typeof useGetLineDetailsByIdQuery>,
+  result: GqlQueryResult<GetLineDetailsByIdQuery>,
 ) => result.data?.route_line_by_pk as RouteLine | undefined;
 
 const GET_LINES_BY_VALIDITY = gql`
