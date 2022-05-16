@@ -1,13 +1,23 @@
 import { useTranslation } from 'react-i18next';
 import { FormState } from '../components/forms/line/LineForm';
 import {
+  GetLineDetailsWithRoutesByIdDocument,
+  GetLineDetailsWithRoutesByIdQuery,
+  GetLineDetailsWithRoutesByIdQueryVariables,
   PatchLineMutationVariables,
   RouteLine,
   RouteLineSetInput,
   usePatchLineMutation,
 } from '../generated/graphql';
+import { mapLineDetailsWithRoutesResult } from '../graphql';
 import { MIN_DATE } from '../time';
-import { showDangerToastWithError } from '../utils';
+import {
+  mapDateInputToValidityEnd,
+  mapDateInputToValidityStart,
+  showDangerToastWithError,
+} from '../utils';
+import { useValidateRoute } from './routes';
+import { useAsyncQuery } from './useAsyncQuery';
 import { useCheckValidityAndPriorityConflicts } from './useCheckValidityAndPriorityConflicts';
 import { mapFormToInput } from './useCreateLine';
 
@@ -26,9 +36,48 @@ export const useEditLine = () => {
   const { t } = useTranslation();
   const [mutateFunction] = usePatchLineMutation();
   const { getConflictingLines } = useCheckValidityAndPriorityConflicts();
+  const { checkIsRouteValidityInsideLineValidity } = useValidateRoute();
+
+  const [getLineWithRoutesById] = useAsyncQuery<
+    GetLineDetailsWithRoutesByIdQuery,
+    GetLineDetailsWithRoutesByIdQueryVariables
+  >(GetLineDetailsWithRoutesByIdDocument);
+
+  const validateLine = async ({ lineId, form }: EditParams) => {
+    const lineResult = await getLineWithRoutesById({ line_id: lineId });
+    const line = mapLineDetailsWithRoutesResult(lineResult);
+
+    const routes = line?.line_routes;
+    const conflictinRoutes: string[] = [];
+
+    const lineValidityStart = mapDateInputToValidityStart(form.validityStart);
+    const lineValidityEnd = mapDateInputToValidityEnd(
+      form.validityEnd,
+      form.indefinite,
+    );
+
+    routes?.forEach((route) => {
+      try {
+        checkIsRouteValidityInsideLineValidity(route, {
+          validity_start: lineValidityStart,
+          validity_end: lineValidityEnd,
+        });
+      } catch (error) {
+        conflictinRoutes.push(route.label);
+      }
+    });
+
+    if (conflictinRoutes.length) {
+      throw new Error(
+        `${t('lines.routesOutsideValidity')}: ${conflictinRoutes.join(', ')}`,
+      );
+    }
+  };
 
   const prepareEdit = async ({ lineId, form }: EditParams) => {
     const input = mapFormToInput(form);
+
+    await validateLine({ lineId, form });
     const conflicts = await getConflictingLines(
       {
         label: form.label,
