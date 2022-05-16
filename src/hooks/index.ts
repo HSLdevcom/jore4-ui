@@ -11,6 +11,7 @@ export * from './useCreateLine';
 export * from './useEditLine';
 export * from './useExtractRouteFromFeature';
 export * from './useFilterStops';
+export * from './useIsModalMapOpen';
 export * from './useMapUrlQuery';
 export * from './useShowRoutesOnModal';
 export * from './useUrlQuery';
