@@ -1,11 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { useHistory } from 'react-router';
-import { useAppDispatch, useAppSelector, useMapUrlQuery } from '../../hooks';
-import {
-  resetMapEditorStateAction,
-  selectIsModalMapOpen,
-  setIsModalMapOpenAction,
-} from '../../redux';
+import React, { useRef } from 'react';
+import { useIsModalMapOpen } from '../../hooks';
 import { Modal } from '../../uiComponents';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
@@ -26,36 +20,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
   const mapRef = useRef<ExplicitAny>(null);
   const routeEditorRef = useRef<ExplicitAny>(null);
 
-  const dispatch = useAppDispatch();
-  const history = useHistory();
-  const isModalMapOpen = useAppSelector(selectIsModalMapOpen);
-  const { deleteMapOpenQueryParameter, isMapOpen } = useMapUrlQuery();
-
-  const syncIsModalMapStateWithMapOpenQueryParam = () => {
-    const mapOpen = isMapOpen();
-    dispatch(setIsModalMapOpenAction(mapOpen));
-  };
-
-  useEffect(() => {
-    // Syncronizes the Redux 'isModalMapOpen' state with the
-    // 'mapOpen' query parameter when the page is loaded.
-    syncIsModalMapStateWithMapOpenQueryParam();
-
-    // Syncronizes the Redux 'isModalMapOpen' state with the
-    // 'mapOpen' query parameter when the url changes.
-    // This ensures that the map will be closed if the user
-    // clicks the back button and the 'mapOpen' query parameter
-    // isn't found from the url.
-    return history.listen(() => {
-      syncIsModalMapStateWithMapOpenQueryParam();
-    });
-  });
-
-  const onCloseModalMap = () => {
-    dispatch(resetMapEditorStateAction());
-    dispatch(setIsModalMapOpenAction(false));
-    deleteMapOpenQueryParameter();
-  };
+  const { isModalMapOpen, onCloseModalMap } = useIsModalMapOpen();
 
   return (
     <Modal
