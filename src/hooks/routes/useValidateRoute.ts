@@ -1,0 +1,83 @@
+import { useTranslation } from 'react-i18next';
+import {
+  GetStopsByIdsDocument,
+  GetStopsByIdsQuery,
+  GetStopsByIdsQueryVariables,
+} from '../../generated/graphql';
+import { mapGetStopsResult } from '../../graphql';
+import { useAsyncQuery } from '../useAsyncQuery';
+import { RouteGeometry } from './types';
+import { extractFirstAndLastStopFromStops } from './utils';
+
+export const useValidateRoute = () => {
+  const { t } = useTranslation();
+
+  const [getStopsByIds] = useAsyncQuery<
+    GetStopsByIdsQuery,
+    GetStopsByIdsQueryVariables
+  >(GetStopsByIdsDocument);
+
+  /**
+   * Check that there are enoung stops on the route
+   */
+  const validateStopCount = ({
+    stopIdsWithinRoute,
+    infraLinksAlongRoute,
+  }: RouteGeometry) => {
+    if (
+      !infraLinksAlongRoute ||
+      !stopIdsWithinRoute ||
+      stopIdsWithinRoute.length < 2
+    ) {
+      throw new Error(t('routes.tooFewStops'));
+    }
+  };
+
+  /**
+   * Check that route's starting stop resides on starting infrastructure link
+   * and route's final stop resides on final infrastructure link
+   */
+  const validateStartFinalStops = async ({
+    stopIdsWithinRoute,
+    infraLinksAlongRoute,
+  }: RouteGeometry) => {
+    const { startingStopId, finalStopId } =
+      extractFirstAndLastStopFromStops(stopIdsWithinRoute);
+
+    const stopsResult = await getStopsByIds({
+      stopIds: [startingStopId, finalStopId],
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const stops = mapGetStopsResult(stopsResult)!;
+
+    const startingStop = stops[0];
+    const finalStop = stops[1];
+
+    const startingInfraLink = infraLinksAlongRoute[0];
+    const finalInfraLink =
+      infraLinksAlongRoute[infraLinksAlongRoute.length - 1];
+
+    if (
+      startingStop.located_on_infrastructure_link_id !==
+      startingInfraLink.infrastructureLinkId
+    ) {
+      throw new Error(t('routes.startingStopNotOnStartingInfraLink'));
+    }
+
+    if (
+      finalStop.located_on_infrastructure_link_id !==
+      finalInfraLink.infrastructureLinkId
+    ) {
+      throw new Error(t('routes.finalStopNotOnFinalInfraLink'));
+    }
+  };
+
+  const validateGeometry = async (routeGeometry: RouteGeometry) => {
+    validateStopCount(routeGeometry);
+
+    await validateStartFinalStops(routeGeometry);
+  };
+
+  return { validateGeometry };
+};
