@@ -41,7 +41,7 @@ export const useCreateRoute = () => {
   const { t } = useTranslation();
   const [mutateFunction] = useInsertRouteOneMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
-  const { validateGeometry } = useValidateRoute();
+  const { validateGeometry, validateMetadata } = useValidateRoute();
 
   const mapRouteDetailsToInsertMutationVariables = (
     params: CreateParams,
@@ -74,6 +74,7 @@ export const useCreateRoute = () => {
 
   const prepareCreate = async (params: CreateParams) => {
     await validateGeometry(params.routeGeometry);
+    await validateMetadata(params.form as RouteFormState);
 
     const input = mapRouteDetailsToInsertMutationVariables(params);
     const conflicts = await getConflictingRoutes({

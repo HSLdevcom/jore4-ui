@@ -31,7 +31,9 @@
     "chooseDirection": "Valitse suunta",
     "tooFewStops": "Reitillä on oltava ainakin kaksi pysäkkiä.",
     "startingStopNotOnStartingInfraLink": "Reitin alkupysäkin on sijaittava reitin ensimäisellä infralinkillä.",
-    "finalStopNotOnFinalInfraLink": "Reitin päätepysäkin on sijaittava reitin viimeisellä infralinkillä."
+    "finalStopNotOnFinalInfraLink": "Reitin päätepysäkin on sijaittava reitin viimeisellä infralinkillä.",
+    "startNotInsideLineValidity": "Reitin voimassaoloaika ei voi alkaa ennen linjan voimassaoloajan alkamista.",
+    "endNotInsideLineValidity": "Reitin voimassaoloaika ei voi jatkua linjan voimassaoloajan ulkopuolelle."
   },
   "lines": {
     "createNew": "Luo uusi linja",

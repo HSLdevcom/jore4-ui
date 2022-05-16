@@ -13,6 +13,7 @@ import {
   showDangerToastWithError,
 } from '../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
+import { useValidateRoute } from './useValidateRoute';
 
 interface EditParams {
   routeId: UUID;
@@ -50,9 +51,12 @@ export const useEditRouteMetadata = () => {
   const { t } = useTranslation();
   const [mutateFunction] = usePatchRouteMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
+  const { validateMetadata } = useValidateRoute();
 
   const prepareEdit = async ({ routeId, form }: EditParams) => {
     const input = mapRouteFormToInput(form);
+
+    await validateMetadata(form);
     const conflicts = await getConflictingRoutes(
       {
         label: form.label,
