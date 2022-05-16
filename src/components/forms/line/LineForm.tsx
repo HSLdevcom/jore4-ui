@@ -19,6 +19,11 @@ import {
 
 export type FormState = LinePropertiesFormState & ConfirmSaveFormState;
 
+const testIds = {
+  saveButton: 'lineForm:saveButton',
+  cancelButton: 'lineForm:cancelButton',
+};
+
 interface Props {
   defaultValues: Partial<FormState>;
   onSubmit: (state: FormState) => void;
@@ -61,14 +66,18 @@ export const LineForm = ({ defaultValues, onSubmit }: Props): JSX.Element => {
         </Row>
         <Row className="mt-8 space-x-5">
           <SimpleButton
-            id="cancel-button"
             className="ml-auto"
             onClick={onCancel}
             inverted
+            testId={testIds.cancelButton}
           >
             {t('cancel')}
           </SimpleButton>
-          <SimpleButton id="save-button" onClick={onSave}>
+          <SimpleButton
+            onClick={onSave}
+            id="save-button"
+            testId={testIds.saveButton}
+          >
             {t('save')}
           </SimpleButton>
         </Row>
