@@ -1,12 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
+  GetStopsByIdsDocument,
+  GetStopsByIdsQuery,
+  GetStopsByIdsQueryVariables,
   InsertRouteOneMutationVariables,
   RouteRoute,
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
 import {
   InfrastructureLinkAlongRoute,
+  mapGetStopsResult,
   mapInfraLinksAlongRouteToGraphQL,
 } from '../../graphql';
 import { MIN_DATE } from '../../time';
@@ -15,6 +19,7 @@ import {
   mapToVariables,
   showDangerToastWithError,
 } from '../../utils';
+import { useAsyncQuery } from '../useAsyncQuery';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 
@@ -56,17 +61,57 @@ export const useCreateRoute = () => {
   const { t } = useTranslation();
   const [mutateFunction] = useInsertRouteOneMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
+  const [getStopsByIds] = useAsyncQuery<
+    GetStopsByIdsQuery,
+    GetStopsByIdsQueryVariables
+  >(GetStopsByIdsDocument);
 
-  const validateGeometry = ({
+  const validateGeometry = async ({
     stopIdsWithinRoute,
     infraLinksAlongRoute,
   }: RouteGeometry) => {
+    // Check that there are enoung stops on the route
+
     if (
       !infraLinksAlongRoute ||
       !stopIdsWithinRoute ||
       stopIdsWithinRoute.length < 2
     ) {
       throw new Error(t('routes.tooFewStops'));
+    }
+
+    // Check that route's starting stop resides on starting infrastructure link
+    // and route's final stop resides on final infrastructure link
+
+    const { startingStopId, finalStopId } =
+      extractFirstAndLastStopFromStops(stopIdsWithinRoute);
+
+    const stopsResult = await getStopsByIds({
+      stopIds: [startingStopId, finalStopId],
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const stops = mapGetStopsResult(stopsResult)!;
+
+    const startingStop = stops[0];
+    const finalStop = stops[1];
+
+    const startingInfraLink = infraLinksAlongRoute[0];
+    const finalInfraLink =
+      infraLinksAlongRoute[infraLinksAlongRoute.length - 1];
+
+    if (
+      startingStop.located_on_infrastructure_link_id !==
+      startingInfraLink.infrastructureLinkId
+    ) {
+      throw new Error(t('routes.startingStopNotOnStartingInfraLink'));
+    }
+
+    if (
+      finalStop.located_on_infrastructure_link_id !==
+      finalInfraLink.infrastructureLinkId
+    ) {
+      throw new Error(t('routes.finalStopNotOnFinalInfraLink'));
     }
   };
 
@@ -100,7 +145,7 @@ export const useCreateRoute = () => {
   };
 
   const prepareCreate = async (params: CreateParams) => {
-    validateGeometry(params.routeGeometry);
+    await validateGeometry(params.routeGeometry);
 
     const input = mapRouteDetailsToInsertMutationVariables(params);
     const conflicts = await getConflictingRoutes({

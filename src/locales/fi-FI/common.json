@@ -29,7 +29,9 @@
     "chooseRoute": "Valitse reitti",
     "direction": "Suunta",
     "chooseDirection": "Valitse suunta",
-    "tooFewStops": "Reitillä on oltava ainakin kaksi pysäkkiä."
+    "tooFewStops": "Reitillä on oltava ainakin kaksi pysäkkiä.",
+    "startingStopNotOnStartingInfraLink": "Reitin alkupysäkin on sijaittava reitin ensimäisellä infralinkillä.",
+    "finalStopNotOnFinalInfraLink": "Reitin päätepysäkin on sijaittava reitin viimeisellä infralinkillä."
   },
   "lines": {
     "createNew": "Luo uusi linja",
