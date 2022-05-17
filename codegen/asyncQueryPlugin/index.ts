@@ -23,7 +23,7 @@ export const plugin: PluginFunction<
   documents: Types.DocumentFile[],
   config: AsyncQueryRawPluginConfig,
 ) => {
-  const allAst = concatAST(documents.map((item) => item.document!));
+  const allAst = concatAST(documents.map((item) => item.document));
 
   const allFragments: LoadedFragment[] = [
     ...(
@@ -51,7 +51,9 @@ export const plugin: PluginFunction<
     prepend: visitor.getImports(),
     content: [
       visitor.fragments,
-      ...visitorResult.definitions.filter((t: any) => typeof t === 'string'),
+      ...visitorResult.definitions.filter(
+        (t: unknown) => typeof t === 'string',
+      ),
     ].join('\n'),
   };
 };
