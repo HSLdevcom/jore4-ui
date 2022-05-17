@@ -6,6 +6,7 @@ describe('Verify that creating new line works', () => {
   beforeEach(() => {
     lineForm = new LineForm();
     confirmSaveForm = new ConfirmSaveForm();
+    cy.mockLogin();
     cy.visit('/lines/create');
   });
   it('Creates new line as expected', () => {

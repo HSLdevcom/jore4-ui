@@ -28,3 +28,21 @@
 Cypress.Commands.add('getByTestId', (selector, ...args) => {
   return cy.get(`[data-testid="${selector}"]`, ...args);
 });
+
+// @ts-expect-error "Argument of type '() => Cypress.Chainable<null>' is not assignable to parameter of type 'CommandFn<"mockLogin">'."
+Cypress.Commands.add('mockLogin', () => {
+  cy.fixture('users/e2e.json').then((userInfo) => {
+    cy.intercept('GET', '/api/auth/public/v1/userInfo', {
+      statusCode: 200,
+      body: userInfo,
+    });
+  });
+
+  // TODO: we should match only '/api/graphql' requests, but for some
+  // reason that doesn't seem to work. (Could be because our graphql
+  // requests use ws:// protocol?)
+  return cy.intercept('*', (req) => {
+    // eslint-disable-next-line no-param-reassign
+    req.headers['x-hasura-admin-secret'] = 'hasura';
+  });
+});
