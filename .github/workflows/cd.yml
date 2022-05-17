@@ -110,3 +110,34 @@ jobs:
       - name: upload test results
         if: ${{ always() && env.BRANCH_EXISTS }}
         uses: HSLdevcom/jore4-robot/github-actions/upload-results@actions-v1
+
+  run_cypress_tests:
+    needs: push_to_registry
+    name: Run cypress e2e tests locally
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Extract metadata to env variables
+        uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
+
+      - name: start e2e env
+        uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
+        with:
+          ui_version: $IMAGE_NAME:$COMMIT_ID
+
+      - name: Cache node modules
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      - name: Install yarn dependencies && check that lockfile is up-to-date
+        run: yarn --frozen-lockfile
+
+      - name: Run cypress tests
+        run: |
+          curl http://localhost:3300
+          yarn test:e2e
