@@ -136,6 +136,7 @@ export const MapComponent = (
       onClick={onClick}
       className={className}
     >
+      {showStops && <Stops ref={stopsRef} />}
       <HTMLOverlay
         style={{
           width: 'auto',
@@ -215,7 +216,6 @@ export const MapComponent = (
         captureDrag
         captureScroll
       />
-      {showStops && <Stops ref={stopsRef} />}
       <Routes />
       {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
       {showInfraLinks && <InfraLinksVectorLayer />}
