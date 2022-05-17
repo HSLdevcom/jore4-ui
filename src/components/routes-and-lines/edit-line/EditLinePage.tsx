@@ -7,7 +7,7 @@ import {
 } from '../../../generated/graphql';
 import { mapLineDetailsResult } from '../../../graphql';
 import { useEditLine } from '../../../hooks';
-import { Container } from '../../../layoutComponents';
+import { Container, Visible } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToISODate } from '../../../time';
 import { mapToVariables, showSuccessToast } from '../../../utils';
@@ -83,7 +83,9 @@ export const EditLinePage = (): JSX.Element => {
         </h1>
       </PageHeader>
       <Container>
-        <LineForm onSubmit={onSubmit} defaultValues={defaultValues} />
+        <Visible visible={!!line}>
+          <LineForm onSubmit={onSubmit} defaultValues={defaultValues} />
+        </Visible>
       </Container>
     </div>
   );
