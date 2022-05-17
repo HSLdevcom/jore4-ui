@@ -11,20 +11,19 @@ import {
 } from '../../graphql';
 import { MIN_DATE } from '../../time';
 import {
-  mapDateInputToValidityEnd,
-  mapDateInputToValidityStart,
   mapToObject,
   mapToVariables,
   showDangerToastWithError,
 } from '../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
+import { mapRouteFormToInput } from './useEditRouteMetadata';
 
 export interface RouteGeometry {
   stopIdsWithinRoute: UUID[];
   infraLinksAlongRoute: InfrastructureLinkAlongRoute[];
 }
 interface CreateParams {
-  form: Partial<RouteFormState>;
+  form: RouteFormState;
   routeGeometry: RouteGeometry;
 }
 
@@ -82,22 +81,9 @@ export const useCreateRoute = () => {
       extractFirstAndLastStopFromStops(stopIdsWithinRoute);
 
     const input: InsertRouteOneMutationVariables = mapToObject({
+      ...mapRouteFormToInput(form),
       starts_from_scheduled_stop_point_id: startingStopId,
       ends_at_scheduled_stop_point_id: finalStopId,
-      on_line_id: form.on_line_id,
-      label: form.label,
-      name_i18n: form.finnishName,
-      direction: form.direction,
-      priority: form.priority,
-      validity_start: mapDateInputToValidityStart(
-        // form validation makes sure that 'validityStart' has a valid value at this point
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        form.validityStart!,
-      ),
-      validity_end: mapDateInputToValidityEnd(
-        form.validityEnd,
-        form.indefinite,
-      ),
       // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
       infrastructure_links_along_route: {
         data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),

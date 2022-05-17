@@ -26,6 +26,7 @@ import { isDateInRange } from '../../../time';
 import { RequiredKeys } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
 import { showSuccessToast } from '../../../utils';
+import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,
@@ -98,8 +99,9 @@ const RouteEditorComponent = (
     const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
 
     const changes = await prepareCreate({
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      form: routeDetails!,
+      // At the point of saving a route, the form has been validated
+      // and it contains all required values
+      form: routeDetails as RouteFormState,
       routeGeometry: {
         stopIdsWithinRoute,
         infraLinksAlongRoute: infraLinks || [],
