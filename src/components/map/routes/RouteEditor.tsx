@@ -177,9 +177,9 @@ const RouteEditorComponent = (
         showSuccessToast(t('routes.saveSuccess'));
       } else {
         const createdRoute = await createRoute();
-        showSuccessToast(t('routes.saveSuccess'));
 
         if (createdRoute) {
+          showSuccessToast(t('routes.saveSuccess'));
           onRouteCreated(createdRoute);
         }
       }
