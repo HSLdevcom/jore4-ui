@@ -4,7 +4,6 @@ import { Modal } from '../../uiComponents';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
-import { RouteEditor } from './routes/RouteEditor';
 
 interface Props {
   className?: string;
@@ -18,7 +17,6 @@ const mapFooterHeight = 82;
 
 export const ModalMap: React.FC<Props> = ({ className }) => {
   const mapRef = useRef<ExplicitAny>(null);
-  const routeEditorRef = useRef<ExplicitAny>(null);
 
   const { isModalMapOpen, onCloseModalMap } = useIsModalMapOpen();
 
@@ -44,15 +42,11 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
         ref={mapRef}
       />
       <MapFooter
-        onDrawRoute={() => routeEditorRef.current.onDrawRoute()}
-        onEditRoute={() => routeEditorRef.current.onEditRoute()}
-        onDeleteRoute={() => routeEditorRef.current.onDeleteRoute()}
-        onCancel={() => routeEditorRef.current.onCancel()}
-        onSave={() => routeEditorRef.current.onSave()}
-      />
-      <RouteEditor
-        onDeleteDrawnRoute={() => mapRef.current.onDeleteDrawnRoute()}
-        ref={routeEditorRef}
+        onDrawRoute={() => mapRef.current.onDrawRoute()}
+        onEditRoute={() => mapRef.current.onEditRoute()}
+        onDeleteRoute={() => mapRef.current.onDeleteRoute()}
+        onCancel={() => mapRef.current.onCancel()}
+        onSave={() => mapRef.current.onSave()}
       />
     </Modal>
   );
