@@ -31,6 +31,7 @@ import {
   Routes,
   ROUTE_LAYER_ID_PREFIX,
 } from './routes';
+import { RouteEditor } from './routes/RouteEditor';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopFilterOverlay } from './StopFilterOverlay';
 import { Stops } from './stops';
@@ -46,6 +47,8 @@ export const MapComponent = (
   { drawable = false, className, width = '100vw', height = '100vh' }: Props,
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
+  const routeEditorRef = useRef<ExplicitAny>(null);
+
   const { drawingMode, initiallyDisplayedRouteIds } =
     useAppSelector(selectMapEditor);
 
@@ -75,8 +78,20 @@ export const MapComponent = (
   const stopsRef = useRef<ExplicitAny>(null);
 
   useImperativeHandle(externalRef, () => ({
-    onDeleteDrawnRoute: () => {
-      editorLayerRef.current?.onDeleteRoute();
+    onDrawRoute: () => {
+      routeEditorRef.current?.onDrawRoute();
+    },
+    onEditRoute: () => {
+      routeEditorRef.current?.onEditRoute();
+    },
+    onDeleteRoute: () => {
+      routeEditorRef.current?.onDeleteRoute();
+    },
+    onCancel: () => {
+      routeEditorRef.current?.onCancel();
+    },
+    onSave: () => {
+      routeEditorRef.current?.onSave();
     },
   }));
 
@@ -223,6 +238,10 @@ export const MapComponent = (
         type="background"
         layout={{ visibility: 'none' }}
         paint={{}}
+      />
+      <RouteEditor
+        onDeleteDrawnRoute={() => editorLayerRef.current?.onDeleteRoute()}
+        ref={routeEditorRef}
       />
     </Maplibre>
   );
