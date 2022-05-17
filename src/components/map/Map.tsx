@@ -140,6 +140,7 @@ export const MapComponent = (
         style={{
           width: 'auto',
           height: 'auto',
+          zIndex: 10,
         }}
         redraw={() => (
           <>
@@ -201,6 +202,7 @@ export const MapComponent = (
           right: 0,
           width: 'auto',
           height: 'auto',
+          zIndex: 10,
         }}
         redraw={() => (
           <Column>

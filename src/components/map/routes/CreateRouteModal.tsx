@@ -28,6 +28,7 @@ export const CreateRouteModal = ({
 
   return (
     <HTMLOverlay
+      style={{ zIndex: 20 }}
       redraw={() => (
         <div className="flex max-h-full py-5 pl-5">
           <Modal
