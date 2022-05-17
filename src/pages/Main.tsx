@@ -7,7 +7,7 @@ export const Main: React.FC = () => {
   const permissions = userInfo?.permissions;
 
   return (
-    <div>
+    <div data-testid="main">
       <h1>Welcome!</h1>
       {!userInfo && <p>Please log in.</p>}
       {permissions && (
