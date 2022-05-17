@@ -10,7 +10,7 @@
     "ts:check": "yarn tsc --noEmit && yarn tsc --noEmit --project ./cypress",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
-    "lint": "eslint './src/**/*.{ts,tsx}' --max-warnings=0",
+    "lint": "eslint './**/*.{ts,tsx}' --max-warnings=0",
     "test": "jest --ci",
     "test:e2e": "yarn cypress run",
     "test:e2e:open": "yarn cypress open",
