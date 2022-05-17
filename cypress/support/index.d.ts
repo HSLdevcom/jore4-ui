@@ -8,5 +8,13 @@ declare namespace Cypress {
      * @example cy.getByTestId('exampleTestid')
      */
     getByTestId(value: string): Chainable<Element>;
+
+    /**
+     * Mimics admin login by mocking auth backend response and authenticating
+     * graphql calls with secret admin headers.
+     * Does not support logging it with given credentials or roles so far.
+     * @example cy.mockLogin()
+     */
+    mockLogin(): Chainable<Element>;
   }
 }

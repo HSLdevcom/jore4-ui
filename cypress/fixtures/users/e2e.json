@@ -1,0 +1,15 @@
+{
+  "id": "614887bdc51ad96c7232e045",
+  "fullName": "Testi Käyttäjä",
+  "givenName": "Testi",
+  "familyName": null,
+  "permissions": [
+    "jore4-network-infra-read",
+    "jore4-network-infra-write",
+    "jore4-transport-line-read",
+    "jore4-transport-line-write",
+    "jore4-compensation-fee-read",
+    "jore4-compensation-fee-write",
+    "admin"
+  ]
+}
