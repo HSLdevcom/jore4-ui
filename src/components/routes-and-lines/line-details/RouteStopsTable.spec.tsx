@@ -6,7 +6,10 @@ import {
   GqlQueryResult,
   mapLineDetailsWithRoutesResult,
 } from '../../../graphql';
-import { buildLocalizedString, render } from '../../../utils/test-utils';
+import {
+  buildLocalizedString,
+  render,
+} from '../../../utils/testing/test-utils';
 import { RouteStopsTable } from './RouteStopsTable';
 
 describe(`<${RouteStopsTable.name} />`, () => {

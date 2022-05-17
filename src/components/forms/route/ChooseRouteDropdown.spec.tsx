@@ -12,7 +12,7 @@ import {
   buildRoute,
   render,
   sleep,
-} from '../../../utils/test-utils';
+} from '../../../utils/testing/test-utils';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 describe(`<${ChooseRouteDropdown.name} />`, () => {

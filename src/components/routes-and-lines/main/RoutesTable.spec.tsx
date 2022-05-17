@@ -15,7 +15,7 @@ import {
   buildLocalizedString,
   buildRoute,
   render,
-} from '../../../utils/test-utils';
+} from '../../../utils/testing/test-utils';
 import { LineTableRow } from './LineTableRow';
 import { RoutesTable } from './RoutesTable';
 import { RoutesTableRow } from './RoutesTableRow';

@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { useUrlQuery } from '../hooks';
-import { render } from '../utils/test-utils';
+import { render } from '../utils/testing/test-utils';
 import { Pagination } from './Pagination';
 
 jest.mock('../hooks/useUrlQuery', () => ({

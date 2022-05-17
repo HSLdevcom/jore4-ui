@@ -6,7 +6,11 @@ import {
   ListAllLinesDocument,
   ListAllLinesQuery,
 } from '../../../generated/graphql';
-import { buildLocalizedString, render, sleep } from '../../../utils/test-utils';
+import {
+  buildLocalizedString,
+  render,
+  sleep,
+} from '../../../utils/testing/test-utils';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
 describe('<ChooseLineDropdown />', () => {

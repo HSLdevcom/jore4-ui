@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { render } from '../utils/test-utils';
+import { render } from '../utils/testing/test-utils';
 import { Combobox } from './Combobox';
 
 describe('<Combobox />', () => {
