@@ -61,12 +61,6 @@ interface EditorCallback {
   selectedFeatureIndex: number;
 }
 
-// `react-map-gl-draw` library can't be updated into latest version
-// until following issue is resolved. Otherwise editing won't work.
-// https://github.com/uber/nebula.gl/issues/580
-// Latest version of `react-map-gl-draw` doesn't seem to have peer dependencies,
-// but v0.21.1 seems to require to have `@turf/area` dependency installed.
-
 const DrawRouteLayerComponent = (
   { mode }: Props,
   externalRef: ExplicitAny,
