@@ -25,7 +25,9 @@ interface EditChanges {
   conflicts?: RouteRoute[];
 }
 
-const mapFormToInput = (state: RouteFormState): RouteRouteSetInput => {
+export const mapRouteFormToInput = (
+  state: RouteFormState,
+): RouteRouteSetInput => {
   const { label, priority, validityStart, validityEnd, indefinite } = state;
   const mutation: RouteRouteSetInput = {
     name_i18n: { fi_FI: state.finnishName },
@@ -50,7 +52,7 @@ export const useEditRouteMetadata = () => {
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
 
   const prepareEdit = async ({ routeId, form }: EditParams) => {
-    const input = mapFormToInput(form);
+    const input = mapRouteFormToInput(form);
     const conflicts = await getConflictingRoutes(
       {
         label: form.label,
