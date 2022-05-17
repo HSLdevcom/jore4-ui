@@ -83,7 +83,9 @@ export const EditLinePage = (): JSX.Element => {
         </h1>
       </PageHeader>
       <Container>
-        <LineForm onSubmit={onSubmit} defaultValues={defaultValues} />
+        {(!id || line) && (
+          <LineForm onSubmit={onSubmit} defaultValues={defaultValues} />
+        )}
       </Container>
     </div>
   );
