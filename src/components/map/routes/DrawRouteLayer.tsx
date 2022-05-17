@@ -13,12 +13,7 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapContext } from 'react-map-gl';
-import {
-  DrawLineStringMode,
-  EditingMode,
-  Editor,
-  RENDER_STATE,
-} from 'react-map-gl-draw';
+import { DrawLineStringMode, EditingMode, Editor } from 'react-map-gl-draw';
 import {
   ReusableComponentsVehicleModeEnum,
   useGetRoutesWithInfrastructureLinksQuery,
@@ -44,6 +39,7 @@ import {
 } from '../../../redux';
 import { showToast } from '../../../utils';
 import { addRoute, removeRoute } from '../mapUtils';
+import { featureStyle, handleStyle } from './editorStyles';
 
 interface Props {
   mode?: Mode;
@@ -294,29 +290,6 @@ const DrawRouteLayerComponent = (
     };
   }, [keyDown]);
 
-  const handleStyle = ({
-    state,
-    index,
-  }: {
-    state: RENDER_STATE;
-    index: number;
-  }) => {
-    if (state === RENDER_STATE.HOVERED) {
-      return {
-        stroke: 'green',
-      };
-    }
-    if (selectedSnapPoints.includes(index)) {
-      return {
-        stroke: 'red',
-      };
-    }
-    return {
-      stroke: 'green',
-      strokeDasharray: '4,3',
-    };
-  };
-
   return (
     <Editor
       style={{
@@ -324,8 +297,9 @@ const DrawRouteLayerComponent = (
         // write styles manually
         cursor: getCursor(),
       }}
+      featureStyle={featureStyle}
       ref={composeRefs(externalRef, editorRef)}
-      clickRadius={20}
+      clickRadius={24}
       mode={modeHandler}
       onUpdate={onUpdate}
       features={routeFeatures as Feature[]}
@@ -353,7 +327,7 @@ const DrawRouteLayerComponent = (
           ]);
         }
       }}
-      editHandleStyle={handleStyle}
+      editHandleStyle={handleStyle(selectedSnapPoints)}
     />
   );
 };
