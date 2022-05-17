@@ -40,6 +40,7 @@ yarn-error.log*
 docker/*
 !docker/docker-compose.custom.yml
 !docker/docker-compose.testdb-volume.yml
+!docker/docker-compose.local-ui.yml
 
 pg_data
 mbtiles
