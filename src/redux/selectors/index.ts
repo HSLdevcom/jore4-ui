@@ -1,8 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { DateTime } from 'luxon';
 import { RootState } from '../store';
 
 export const selectMap = (state: RootState) => state.map;
 export const selectMapEditor = (state: RootState) => state.mapEditor;
+export const selectMapFilter = (state: RootState) => state.mapFilter;
 export const selectModalMap = (state: RootState) => state.modalMap;
 export const selectUser = (state: RootState) => state.user;
 
@@ -50,4 +52,9 @@ export const selectHasDraftRouteGeometry = createSelector(
 export const selectSelectedRouteId = createSelector(
   selectMapEditor,
   (mapEditor) => mapEditor.selectedRouteId,
+);
+
+export const selectMapObservationDate = createSelector(
+  selectMapFilter,
+  (mapFilter) => DateTime.fromISO(mapFilter.observationDate),
 );

@@ -1,12 +1,5 @@
-import React, {
-  Ref,
-  useContext,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import React, { Ref, useImperativeHandle, useRef, useState } from 'react';
 import { HTMLOverlay, Layer, MapEvent } from 'react-map-gl';
-import { MapFilterContext } from '../../context/MapFilter';
 import {
   useAppDispatch,
   useAppSelector,
@@ -17,6 +10,7 @@ import {
   selectHasDraftRouteGeometry,
   selectIsCreateStopModeEnabled,
   selectMapEditor,
+  selectMapFilter,
   selectSelectedRouteId,
   setSelectedRouteIdAction,
 } from '../../redux';
@@ -53,10 +47,7 @@ export const MapComponent = (
     useAppSelector(selectMapEditor);
 
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
-
-  const {
-    state: { showStopFilterOverlay },
-  } = useContext(MapFilterContext);
+  const { showStopFilterOverlay } = useAppSelector(selectMapFilter);
 
   const dispatch = useAppDispatch();
   const selectedRouteId = useAppSelector(selectSelectedRouteId);

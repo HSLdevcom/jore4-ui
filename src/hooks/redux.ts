@@ -2,15 +2,20 @@ import {
   ActionCreatorWithOptionalPayload,
   ActionCreatorWithoutPayload,
   ActionCreatorWithPayload,
+  ActionCreatorWithPreparedPayload,
 } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux';
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-export const useAppAction = <TPayload extends ExplicitAny>(
+export const useAppAction = <
+  TPayload extends ExplicitAny,
+  TActionPayload extends ExplicitAny,
+>(
   action:
     | ActionCreatorWithOptionalPayload<TPayload>
+    | ActionCreatorWithPreparedPayload<TPayload[], TActionPayload>
     | ActionCreatorWithPayload<TPayload>
     | ActionCreatorWithoutPayload,
 ) => {
