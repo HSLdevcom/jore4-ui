@@ -1,4 +1,4 @@
-export * from './actions/mapFilter';
+export * from './actions';
 export * from './ReduxProvider';
 export * from './selectors';
 export * from './slices/map';

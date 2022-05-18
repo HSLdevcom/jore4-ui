@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { StopWithLocation } from '../../graphql';
+import { setEditedStopDataAction, StoreStop } from '../actions/map';
 
 interface IState {
   selectedStopId?: UUID;
-  editedStopData?: StopWithLocation;
+  editedStopData?: StoreStop;
   isCreateStopModeEnabled: boolean;
 }
 
@@ -20,21 +20,22 @@ const slice = createSlice({
     setSelectedStopId: (state, action: PayloadAction<UUID | undefined>) => {
       state.selectedStopId = action.payload;
     },
-    setEditedStopData: (
-      state,
-      action: PayloadAction<StopWithLocation | undefined>,
-    ) => {
-      state.editedStopData = action.payload;
-    },
     setIsCreateStopModeEnabled: (state, action: PayloadAction<boolean>) => {
       state.isCreateStopModeEnabled = action.payload;
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(
+      setEditedStopDataAction,
+      (state, action: PayloadAction<StoreStop | undefined>) => {
+        state.editedStopData = action.payload;
+      },
+    );
   },
 });
 
 export const {
   setSelectedStopId: setSelectedStopIdAction,
-  setEditedStopData: setEditedStopDataAction,
   setIsCreateStopModeEnabled: setIsCreateStopModeEnabledAction,
 } = slice.actions;
 
