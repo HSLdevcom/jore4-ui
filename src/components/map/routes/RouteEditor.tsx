@@ -1,9 +1,5 @@
-import React, { Ref, useContext, useImperativeHandle, useState } from 'react';
+import React, { Ref, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  MapFilterContext,
-  setObservationDate,
-} from '../../../context/MapFilter';
 import { RouteRoute } from '../../../generated/graphql';
 import {
   useAppDispatch,
@@ -16,7 +12,9 @@ import { useCreateRoute } from '../../../hooks/routes/useCreateRoute';
 import {
   initializeMapEditorWithRoutesAction,
   selectMapEditor,
+  selectMapObservationDate,
   setIsModalMapOpenAction,
+  setMapObservationDateAction,
   setSelectedRouteIdAction,
   stopDrawRouteAction,
   toggleDrawRouteAction,
@@ -45,11 +43,7 @@ const RouteEditorComponent = (
 
   const { editedRouteData, creatingNewRoute, initiallyDisplayedRouteIds } =
     useAppSelector(selectMapEditor);
-
-  const {
-    state: { observationDate },
-    dispatch: mapFilterDispatch,
-  } = useContext(MapFilterContext);
+  const observationDate = useAppSelector(selectMapObservationDate);
 
   const {
     id: editedRouteId,
@@ -142,7 +136,7 @@ const RouteEditorComponent = (
     if (
       !isDateInRange(observationDate, validityStart, newRoute?.validity_end)
     ) {
-      mapFilterDispatch(setObservationDate(validityStart));
+      dispatch(setMapObservationDateAction(validityStart));
       showSuccessToast(t('filters.observationDateAdjusted'));
     }
 

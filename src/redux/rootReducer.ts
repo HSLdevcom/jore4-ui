@@ -1,12 +1,14 @@
 import { AnyAction, combineReducers } from '@reduxjs/toolkit';
 import { mapReducer } from './slices/map';
 import { mapEditorReducer } from './slices/mapEditor';
+import { mapFilterReducer } from './slices/mapFilter';
 import { modalMapReducer } from './slices/modalMap';
 import { loginFailedAction, userReducer } from './slices/user';
 
 const appReducer = combineReducers({
   map: mapReducer,
   mapEditor: mapEditorReducer,
+  mapFilter: mapFilterReducer,
   modalMap: modalMapReducer,
   user: userReducer,
 });
