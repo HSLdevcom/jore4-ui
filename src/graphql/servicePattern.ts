@@ -10,8 +10,9 @@ import {
   useGetStopsByIdsQuery,
   useGetStopsByLocationQuery,
 } from '../generated/graphql';
+import { mapFromStoreType, mapToStoreType } from '../redux/utils/mappers';
 import { NonNullableKeys, RequiredKeys } from '../types';
-import { GqlQueryResult } from './types';
+import { GqlQueryResult, StoreType } from './types';
 
 export type StopWithLocation = RequiredKeys<
   Partial<ServicePatternScheduledStopPoint>,
@@ -210,3 +211,13 @@ export const mapGetStopWithRouteGraphDataByIdResult = (
   result.data?.service_pattern_scheduled_stop_point?.[0] as
     | ServicePatternScheduledStopPoint
     | undefined;
+
+export const mapStopToStoreStop = (
+  stop: StopWithLocation,
+): StoreType<StopWithLocation> =>
+  mapToStoreType(stop, ['validity_start', 'validity_end']);
+
+export const mapStoreStopToStop = (
+  stop: StoreType<StopWithLocation>,
+): StopWithLocation =>
+  mapFromStoreType(stop, ['validity_start', 'validity_end']);
