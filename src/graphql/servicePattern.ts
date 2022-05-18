@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ApolloQueryResult, gql } from '@apollo/client';
+import { DateTime } from 'luxon';
 import {
   GetStopByIdQuery,
   GetStopsAlongInfrastructureLinksQuery,
@@ -210,3 +211,27 @@ export const mapGetStopWithRouteGraphDataByIdResult = (
   result.data?.service_pattern_scheduled_stop_point?.[0] as
     | ServicePatternScheduledStopPoint
     | undefined;
+
+export interface StoreStop
+  extends Omit<StopWithLocation, 'validity_start' | 'validity_end'> {
+  // eslint-disable-next-line camelcase
+  validity_start?: string;
+  // eslint-disable-next-line camelcase
+  validity_end?: string;
+}
+
+export const mapStopToStoreStop = (stop: StopWithLocation): StoreStop => ({
+  ...stop,
+  validity_start: stop?.validity_start?.toISO(),
+  validity_end: stop?.validity_end?.toISO(),
+});
+
+export const mapStoreStopToStop = (stop: StoreStop): StopWithLocation => ({
+  ...stop,
+  validity_start: stop?.validity_start
+    ? DateTime.fromISO(stop?.validity_start)
+    : undefined,
+  validity_end: stop?.validity_end
+    ? DateTime.fromISO(stop?.validity_end)
+    : undefined,
+});
