@@ -2,7 +2,6 @@ import { ApolloProvider } from '@apollo/client';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import type { AppProps } from 'next/app';
 import { UserProvider } from '../auth/UserProvider';
-import { ContextProviders } from '../context/ContextProviders';
 import '../generated/fontello/css/hsl-icons.css';
 import { createGraphqlClient } from '../graphql';
 import '../i18n';
@@ -25,13 +24,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     <SafeHydrate>
       <ApolloProvider client={graphqlClient}>
         <ReduxProvider>
-          <ContextProviders>
-            <UserProvider />
-            <Router />
-            <Toaster />
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            <Component {...pageProps} />
-          </ContextProviders>
+          <UserProvider />
+          <Router />
+          <Toaster />
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Component {...pageProps} />
         </ReduxProvider>
       </ApolloProvider>
     </SafeHydrate>
