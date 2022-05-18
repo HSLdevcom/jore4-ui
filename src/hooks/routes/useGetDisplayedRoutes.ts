@@ -1,5 +1,4 @@
-import { useContext, useEffect } from 'react';
-import { MapFilterContext } from '../../context/MapFilter';
+import { useEffect } from 'react';
 import {
   GetRouteDetailsByIdsDocument,
   GetRouteDetailsByIdsQuery,
@@ -9,7 +8,11 @@ import {
   GetRouteDetailsByLabelsQueryVariables,
 } from '../../generated/graphql';
 import { mapRoutesDetailsResult } from '../../graphql';
-import { selectMapEditor, setDisplayedRouteIdsAction } from '../../redux';
+import {
+  selectMapEditor,
+  selectMapObservationDate,
+  setDisplayedRouteIdsAction,
+} from '../../redux';
 import { useAppDispatch, useAppSelector } from '../redux';
 import { useAsyncQuery } from '../useAsyncQuery';
 
@@ -24,9 +27,7 @@ export const useGetDisplayedRoutes = () => {
     GetRouteDetailsByIdsQueryVariables
   >(GetRouteDetailsByIdsDocument);
 
-  const {
-    state: { observationDate },
-  } = useContext(MapFilterContext);
+  const observationDate = useAppSelector(selectMapObservationDate);
 
   const dispatch = useAppDispatch();
   const { displayedRouteIds, initiallyDisplayedRouteIds } =
