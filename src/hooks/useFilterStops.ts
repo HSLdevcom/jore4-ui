@@ -1,9 +1,15 @@
 import partial from 'lodash/partial';
 import { DateTime } from 'luxon';
-import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FilterType, MapFilterContext, setState } from '../context/MapFilter';
 import { ServicePatternScheduledStopPoint } from '../generated/graphql';
+import {
+  FilterType,
+  selectMapFilter,
+  selectMapObservationDate,
+  setShowStopFilterOverlayAction,
+  setStopFilterAction,
+} from '../redux';
+import { useAppDispatch, useAppSelector } from './redux';
 
 type StopFilterFunction = (stop: ServicePatternScheduledStopPoint) => boolean;
 
@@ -52,11 +58,11 @@ const isCurrentStop = (
 
 export const useFilterStops = () => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
-  const {
-    state: { stopFilters, observationDate, showStopFilterOverlay },
-    dispatch,
-  } = useContext(MapFilterContext);
+  const { stopFilters, showStopFilterOverlay } =
+    useAppSelector(selectMapFilter);
+  const observationDate = useAppSelector(selectMapObservationDate);
 
   const timeBasedFilters = [
     {
@@ -76,19 +82,12 @@ export const useFilterStops = () => {
     },
   ];
 
-  const setFilterEnabled = (filterType: FilterType, enabled: boolean) => {
-    const newStopFilters = stopFilters.map((filter) =>
-      filter.type === filterType ? { type: filterType, enabled } : filter,
-    );
-    dispatch(setState({ stopFilters: newStopFilters }));
-  };
-
   const toggleFunction = (filterType: FilterType) => {
-    return (enabled: boolean) => setFilterEnabled(filterType, enabled);
+    return (enabled: boolean) =>
+      dispatch(setStopFilterAction({ filterType, enabled }));
   };
 
-  const isFilterEnabled = (filterType: FilterType) =>
-    !!stopFilters.find((item) => item.type === filterType)?.enabled;
+  const isFilterEnabled = (filterType: FilterType) => stopFilters[filterType];
 
   const timeBasedFilterItems: FilterItem[] = timeBasedFilters.map((item) => {
     const { type, label, filterFunction } = item;
@@ -113,7 +112,7 @@ export const useFilterStops = () => {
   };
 
   const toggleShowFilters = () => {
-    dispatch(setState({ showStopFilterOverlay: !showStopFilterOverlay }));
+    dispatch(setShowStopFilterOverlayAction(!showStopFilterOverlay));
   };
 
   return { filter, timeBasedFilterItems, toggleShowFilters };

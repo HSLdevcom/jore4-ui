@@ -1,11 +1,13 @@
 import { DateTime } from 'luxon';
-import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdLayers } from 'react-icons/md';
-import { MapFilterContext, setObservationDate } from '../../context/MapFilter';
-import { useAppSelector, useFilterStops } from '../../hooks';
+import { useAppDispatch, useAppSelector, useFilterStops } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
-import { selectHasChangesInProgress } from '../../redux';
+import {
+  selectHasChangesInProgress,
+  selectMapObservationDate,
+  setMapObservationDateAction,
+} from '../../redux';
 import { IconButton } from '../../uiComponents';
 import { MapOverlay } from './MapOverlay';
 
@@ -15,11 +17,9 @@ interface Props {
 
 export const ObservationDateOverlay = ({ className }: Props) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
-  const {
-    state: { observationDate },
-    dispatch,
-  } = useContext(MapFilterContext);
+  const observationDate = useAppSelector(selectMapObservationDate);
 
   const { toggleShowFilters } = useFilterStops();
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
@@ -33,7 +33,9 @@ export const ObservationDateOverlay = ({ className }: Props) => {
             type="date"
             value={observationDate.toISODate()}
             onChange={(e) =>
-              dispatch(setObservationDate(DateTime.fromISO(e.target.value)))
+              dispatch(
+                setMapObservationDateAction(DateTime.fromISO(e.target.value)),
+              )
             }
             className="flex-1"
             disabled={hasChangesInProgress}
