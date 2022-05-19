@@ -1,3 +1,4 @@
+export * from './ApolloProvider';
 export * from './auth';
 export * from './client';
 export * from './infrastructureNetwork';
