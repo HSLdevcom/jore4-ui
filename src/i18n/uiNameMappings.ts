@@ -1,6 +1,7 @@
 import {
   HslRouteTransportTargetEnum,
   ReusableComponentsVehicleModeEnum,
+  RouteDirectionEnum,
   RouteTypeOfLineEnum,
 } from '../generated/graphql';
 import { i18n } from '../i18n';
@@ -28,3 +29,7 @@ export const mapDirectionToUiName = (key: RouteDirection) =>
 
 export const mapTransportTargetToUiName = (key: HslRouteTransportTargetEnum) =>
   i18n.t(`transportTargetEnum.${key}`);
+
+export const mapDirectionToShortUiName = (
+  direction?: RouteDirection | RouteDirectionEnum,
+) => (direction === RouteDirectionEnum.Outbound ? '1' : '2');
