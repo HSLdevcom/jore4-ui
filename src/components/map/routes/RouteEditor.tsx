@@ -185,11 +185,11 @@ const RouteEditorComponent = (
   };
 
   const onDeleteConfirm = async () => {
-    try {
-      if (!editedRouteId) {
-        return;
-      }
+    if (!editedRouteId) {
+      return;
+    }
 
+    try {
       // delete the route from the backend
       await deleteRoute(editedRouteId);
       showSuccessToast(t('routes.deleteSuccess'));
