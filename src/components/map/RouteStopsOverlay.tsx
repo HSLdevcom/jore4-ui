@@ -10,6 +10,7 @@ import {
   mapRoutesDetailsResult,
 } from '../../graphql';
 import { getRouteStops, useAppDispatch, useAppSelector } from '../../hooks';
+import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import {
   selectHasChangesInProgress,
   selectMapEditor,
@@ -130,6 +131,17 @@ export const RouteStopsOverlay = ({ className }: Props) => {
           </div>
         </div>
       </MapOverlayHeader>
+      <div className="flex items-center border-b py-2 px-3">
+        <div className="ml-1 flex h-6 w-6 items-center justify-center rounded-sm bg-brand font-bold text-white">
+          {mapDirectionToShortUiName(routeMetadata.direction)}
+        </div>
+        <div className="ml-2 flex flex-col">
+          <h2 className="text-base font-bold text-black">{routeName}</h2>
+          <div className="text-light text-xs text-gray-500">
+            {routeMetadata.label}
+          </div>
+        </div>
+      </div>
       {stopsToDisplay?.map(
         (routeStop) =>
           routeStop.stop && (
