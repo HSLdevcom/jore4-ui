@@ -63,7 +63,7 @@ describe('<ChooseLineDropdown />', () => {
     );
 
     // dropdown is collapsed, value is not yet bound to dropdown, 'Choose line' text shows
-    expect(screen.getByTestId(testId)).toHaveTextContent('routes.chooseLine');
+    expect(screen.getByTestId(testId)).toHaveTextContent('Valitse linja');
     expect(container.querySelector('li')).toBeNull();
     expect(asFragment()).toMatchSnapshot();
 
