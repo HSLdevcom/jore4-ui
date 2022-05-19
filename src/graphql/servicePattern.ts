@@ -78,7 +78,6 @@ const QUERY_GET_STOPS_BY_LOCATION = gql`
   ) {
     service_pattern_scheduled_stop_point(
       where: { measured_location: $measured_location_filter }
-      limit: 300
     ) {
       ...scheduled_stop_point_all_fields
     }

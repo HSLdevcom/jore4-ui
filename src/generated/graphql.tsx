@@ -9259,7 +9259,6 @@ export const GetStopsByLocationDocument = gql`
     query GetStopsByLocation($measured_location_filter: geography_comparison_exp) {
   service_pattern_scheduled_stop_point(
     where: {measured_location: $measured_location_filter}
-    limit: 300
   ) {
     ...scheduled_stop_point_all_fields
   }
