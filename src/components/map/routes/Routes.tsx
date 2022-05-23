@@ -2,8 +2,8 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   finishRouteMetadataEditingAction,
-  Mode,
   selectMapEditor,
+  setRouteMetadataFormOpenAction,
   stopDrawRouteAction,
 } from '../../../redux';
 import {
@@ -14,26 +14,34 @@ import { CreateRouteModal } from './CreateRouteModal';
 
 export const Routes: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { editedRouteData, drawingMode, creatingNewRoute } =
+  const { editedRouteData, isRouteMetadataFormOpen } =
     useAppSelector(selectMapEditor);
 
   const routeDetails = editedRouteData.metaData;
-  // checking whether 'routeDetails' already contains all the information necessary
-  // if not -> should show the form
-  const areFormValuesValid = routeFormSchema.safeParse(routeDetails).success;
-  const showCreateForm = !areFormValuesValid && drawingMode === Mode.Draw;
 
   const onClose = () => {
-    dispatch(stopDrawRouteAction());
+    dispatch(setRouteMetadataFormOpenAction(false));
+
+    const hasFormBeenSubmitted =
+      routeFormSchema.safeParse(routeDetails).success;
+
+    // Only clear route creation state is there the form has not been submitted
+    if (!hasFormBeenSubmitted) {
+      dispatch(stopDrawRouteAction());
+    }
   };
 
   const onSuccess = (data: RouteFormState) => {
-    dispatch(finishRouteMetadataEditingAction(data));
+    const areFormValuesValid = routeFormSchema.safeParse(data).success;
+
+    if (areFormValuesValid) {
+      dispatch(finishRouteMetadataEditingAction(data));
+    }
   };
 
   const defaultValues: Partial<RouteFormState> = routeDetails || {};
 
-  if ((!editedRouteData.id && !creatingNewRoute) || !showCreateForm) {
+  if (!isRouteMetadataFormOpen) {
     return null;
   }
 
