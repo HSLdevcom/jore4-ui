@@ -13,7 +13,7 @@ interface Props {
   onClose: () => void;
 }
 
-export const CreateRouteModal = ({
+export const EditRouteModal = ({
   defaultValues,
   onSuccess,
   onCancel,

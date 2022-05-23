@@ -2,29 +2,37 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   finishRouteMetadataEditingAction,
-  Mode,
   selectMapEditor,
+  setRouteMetadataFormOpenAction,
   stopDrawRouteAction,
 } from '../../../redux';
 import {
   routeFormSchema,
   RouteFormState,
 } from '../../forms/route/RoutePropertiesForm.types';
-import { CreateRouteModal } from './CreateRouteModal';
+import { EditRouteModal } from './EditRouteModal';
 
-export const Routes: React.FC = () => {
+const areFormValuesValid = (formData?: Partial<RouteFormState>) =>
+  routeFormSchema.safeParse(formData).success;
+
+export const EditRouteMetadataLayer: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { editedRouteData, drawingMode, creatingNewRoute } =
+  const { editedRouteData, isRouteMetadataFormOpen } =
     useAppSelector(selectMapEditor);
 
   const routeDetails = editedRouteData.metaData;
-  // checking whether 'routeDetails' already contains all the information necessary
-  // if not -> should show the form
-  const areFormValuesValid = routeFormSchema.safeParse(routeDetails).success;
-  const showCreateForm = !areFormValuesValid && drawingMode === Mode.Draw;
 
   const onClose = () => {
-    dispatch(stopDrawRouteAction());
+    dispatch(setRouteMetadataFormOpenAction(false));
+
+    const alreadyHaveValidFormValues = areFormValuesValid(routeDetails);
+
+    // In case route metadata form has not yet been submitted with valid values,
+    // closing the metadata form will also cancel the route creation.
+    // Otherwise, clicking close on the modal will only close the modal
+    if (!alreadyHaveValidFormValues) {
+      dispatch(stopDrawRouteAction());
+    }
   };
 
   const onSuccess = (data: RouteFormState) => {
@@ -33,12 +41,12 @@ export const Routes: React.FC = () => {
 
   const defaultValues: Partial<RouteFormState> = routeDetails || {};
 
-  if ((!editedRouteData.id && !creatingNewRoute) || !showCreateForm) {
+  if (!isRouteMetadataFormOpen) {
     return null;
   }
 
   return (
-    <CreateRouteModal
+    <EditRouteModal
       defaultValues={defaultValues}
       onSuccess={onSuccess}
       onCancel={onClose}
