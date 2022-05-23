@@ -12,8 +12,8 @@ interface Props {
 export const EditButton: React.FC<Props> = ({ href, testId }) => {
   return (
     <Link to={href} data-testid={testId}>
-      <div className="ml-5 rounded-full border border-grey bg-white">
-        <MdModeEdit className="m-2 text-3xl text-tweaked-brand" />
+      <div className="ml-5 h-10 w-10 rounded-full border border-grey bg-white">
+        <MdModeEdit className="m-2 text-2xl text-tweaked-brand" />
       </div>
     </Link>
   );
