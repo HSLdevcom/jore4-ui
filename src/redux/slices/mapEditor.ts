@@ -52,6 +52,10 @@ interface IState {
     templateRouteId?: UUID;
   };
   /**
+   * Is route metadata form open
+   */
+  isRouteMetadataFormOpen: boolean;
+  /**
    * Id of the route that has been selected in the map view
    */
   selectedRouteId?: UUID;
@@ -69,6 +73,7 @@ const initialState: IState = {
     infraLinks: [],
     templateRouteId: undefined,
   },
+  isRouteMetadataFormOpen: false,
   selectedRouteId: undefined,
 };
 
@@ -89,8 +94,9 @@ const slice = createSlice({
       return initialState;
     },
     startDrawRoute: (state) => {
-      state.drawingMode = Mode.Draw;
+      state.isRouteMetadataFormOpen = true;
       state.creatingNewRoute = true;
+      state.selectedRouteId = undefined;
     },
     stopDrawRoute: (state) => {
       state.drawingMode = initialState.drawingMode;
@@ -142,14 +148,15 @@ const slice = createSlice({
     ) => {
       state.editedRouteData = {
         metaData: action.payload,
-        stops: [],
+        stops: state.editedRouteData.stops,
+        infraLinks: state.editedRouteData.infraLinks,
         templateRouteId: state.editedRouteData.templateRouteId,
       };
 
       state.drawingMode = state.editedRouteData.templateRouteId
         ? Mode.Edit
         : Mode.Draw;
-      state.selectedRouteId = undefined;
+      state.isRouteMetadataFormOpen = false;
     },
     initializeMapEditorWithRoutes: (state, action: PayloadAction<UUID[]>) => {
       return {
@@ -185,6 +192,9 @@ const slice = createSlice({
     setSelectedRouteId: (state, action: PayloadAction<UUID | undefined>) => {
       state.selectedRouteId = action.payload;
     },
+    setRouteMetadataFormOpen: (state, action: PayloadAction<boolean>) => {
+      state.isRouteMetadataFormOpen = action.payload;
+    },
   },
 });
 
@@ -203,6 +213,7 @@ export const {
   setDraftRouteGeometry: setDraftRouteGeometryAction,
   resetDraftRouteGeometry: resetDraftRouteGeometryAction,
   setSelectedRouteId: setSelectedRouteIdAction,
+  setRouteMetadataFormOpen: setRouteMetadataFormOpenAction,
 } = slice.actions;
 
 export const mapEditorReducer = slice.reducer;
