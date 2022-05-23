@@ -51,15 +51,15 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 border"
+          class="w-20 border text-center"
         >
           <button
-            class="text-center h-full w-full"
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
             data-testid="LineTableRow::showLineRoutes"
             type="button"
           >
             <svg
-              class="text-5xl text-tweaked-brand inline text-center"
+              class="text-2xl inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -125,15 +125,15 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 border"
+          class="w-20 border text-center"
         >
           <button
-            class="text-center h-full w-full"
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
             data-testid="LineTableRow::showLineRoutes"
             type="button"
           >
             <svg
-              class="text-5xl text-tweaked-brand inline text-center"
+              class="text-2xl inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -199,15 +199,15 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 border"
+          class="w-20 border text-center"
         >
           <button
-            class="text-center h-full w-full"
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
             data-testid="LineTableRow::showLineRoutes"
             type="button"
           >
             <svg
-              class="text-5xl text-tweaked-brand inline text-center"
+              class="text-2xl inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -273,15 +273,15 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 border"
+          class="w-20 border text-center"
         >
           <button
-            class="text-center h-full w-full"
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
             data-testid="LineTableRow::showLineRoutes"
             type="button"
           >
             <svg
-              class="text-5xl text-tweaked-brand inline text-center"
+              class="text-2xl inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -357,15 +357,15 @@ exports[`<RoutesTable /> Renders the table with route data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 border"
+          class="w-20 border text-center"
         >
           <button
-            class="text-center h-full w-full"
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
             data-testid="RoutesTableRow::showRoute"
             type="button"
           >
             <svg
-              class="text-5xl text-tweaked-brand inline text-center"
+              class="text-2xl inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
