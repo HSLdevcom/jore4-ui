@@ -30,6 +30,7 @@ export const EditStopModal = ({
   };
   return (
     <HTMLOverlay
+      style={{ zIndex: 10 }}
       redraw={() => (
         <div className="flex max-h-full py-5 pl-5">
           <Modal
