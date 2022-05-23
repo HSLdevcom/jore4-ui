@@ -70,10 +70,10 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
             >
               <div
-                class="ml-5 rounded-full border border-grey bg-white"
+                class="ml-5 h-10 w-10 rounded-full border border-grey bg-white"
               >
                 <svg
-                  class="m-2 text-3xl text-tweaked-brand"
+                  class="m-2 text-2xl text-tweaked-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -257,10 +257,10 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
             >
               <div
-                class="ml-5 rounded-full border border-grey bg-white"
+                class="ml-5 h-10 w-10 rounded-full border border-grey bg-white"
               >
                 <svg
-                  class="m-2 text-3xl text-tweaked-brand"
+                  class="m-2 text-2xl text-tweaked-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
