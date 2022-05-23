@@ -20,9 +20,9 @@ import { DynamicInfraLinksVectorLayer, InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
 import {
   DrawRouteLayer,
+  EditRouteMetadataLayer,
   mapLayerIdToRouteId,
   RouteLayer,
-  Routes,
   ROUTE_LAYER_ID_PREFIX,
 } from './routes';
 import { RouteEditor } from './routes/RouteEditor';
@@ -207,7 +207,7 @@ export const MapComponent = (
         captureDrag
         captureScroll
       />
-      <Routes />
+      <EditRouteMetadataLayer />
       {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
       {showInfraLinks && <InfraLinksVectorLayer />}
       {showDynamicInfraLinks && <DynamicInfraLinksVectorLayer />}
