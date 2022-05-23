@@ -1,12 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { MdPinDrop } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { RouteRoute } from '../../../generated/graphql';
 import { useShowRoutesOnModal } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../../time';
-import { IconButton } from '../../../uiComponents';
+import { LocatorButton } from '../../../uiComponents';
 
 interface Props {
   className?: string;
@@ -41,9 +40,8 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
             </Row>
           </Link>
         </td>
-        <td className="w-20 border">
-          <IconButton
-            className="h-full w-full"
+        <td className="w-20 border text-center">
+          <LocatorButton
             onClick={() =>
               showRoutesOnModal(
                 [route.route_id],
@@ -52,7 +50,6 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
                 route.validity_end,
               )
             }
-            icon={<MdPinDrop className="text-5xl text-tweaked-brand" />}
             testId="RoutesTableRow::showRoute"
           />
         </td>
