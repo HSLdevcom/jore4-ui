@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { MdOutlineHistory, MdPinDrop } from 'react-icons/md';
+import { MdOutlineHistory } from 'react-icons/md';
 import { RouteDirectionEnum, RouteRoute } from '../../../generated/graphql';
 import { useShowRoutesOnModal } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
@@ -12,7 +12,7 @@ import {
   MAX_DATE,
   MIN_DATE,
 } from '../../../time';
-import { EditButton, IconButton } from '../../../uiComponents';
+import { EditButton, LocatorButton } from '../../../uiComponents';
 import { DirectionBadge } from './DirectionBadge';
 
 interface Props {
@@ -60,9 +60,8 @@ export const RouteStopsHeaderRow = ({
           <MdOutlineHistory className="ml-2 inline text-xl text-tweaked-brand" />
         </Row>
       </td>
-      <td className="w-20 border-l-4 border-r-4 border-white">
-        <IconButton
-          className="h-full w-full"
+      <td className="w-20 border-l-4 border-r-4 border-white text-center">
+        <LocatorButton
           onClick={() =>
             showRoutesOnModal(
               [route.route_id],
@@ -71,7 +70,6 @@ export const RouteStopsHeaderRow = ({
               route.validity_end,
             )
           }
-          icon={<MdPinDrop className="text-5xl text-tweaked-brand" />}
           testId="RouteStopsHeaderRow::showRoute"
         />
       </td>
