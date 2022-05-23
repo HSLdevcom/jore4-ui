@@ -11,11 +11,14 @@ import {
   mapRoutesDetailsResult,
 } from '../../graphql';
 import { getRouteStops, useAppDispatch, useAppSelector } from '../../hooks';
+import { Visible } from '../../layoutComponents';
 import {
   selectHasChangesInProgress,
   selectMapEditor,
+  setRouteMetadataFormOpenAction,
   setStopOnRouteAction,
 } from '../../redux';
+import { EditButton } from '../../uiComponents';
 import { SimpleDropdownMenu } from '../../uiComponents/SimpleDropdownMenu';
 import { mapToVariables } from '../../utils';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
@@ -72,7 +75,9 @@ const StopRow = ({
 };
 
 export const RouteStopsOverlay = ({ className }: Props) => {
-  const { editedRouteData, selectedRouteId } = useAppSelector(selectMapEditor);
+  const dispatch = useAppDispatch();
+  const { editedRouteData, selectedRouteId, creatingNewRoute } =
+    useAppSelector(selectMapEditor);
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
 
   const routesResult = useGetRoutesWithInfrastructureLinksQuery(
@@ -130,6 +135,11 @@ export const RouteStopsOverlay = ({ className }: Props) => {
             {routeMetadata.label}
           </div>
         </div>
+        <Visible visible={creatingNewRoute}>
+          <EditButton
+            onClick={() => dispatch(setRouteMetadataFormOpenAction(true))}
+          />
+        </Visible>
       </MapOverlayHeader>
       <div className="flex items-center border-b py-2 px-3">
         <div className="ml-1 flex h-6 w-6 items-center justify-center rounded-sm bg-brand font-bold text-white">
