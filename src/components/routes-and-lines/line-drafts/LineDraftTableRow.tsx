@@ -44,7 +44,7 @@ export const LineDraftTableRow = ({
         </td>
         <td className={commonClassName}>{mapToShortDate(line.validity_end)}</td>
         <td className={commonClassName}>{line.label}</td>
-        <td className={commonClassName}>{line.name_i18n}</td>
+        <td className={commonClassName}>{line.name_i18n.fi_FI}</td>
         <td className={commonClassName}>!14.4.2022 klo 14.34</td>
         <td className={commonClassName}>!Muokkaaja</td>
         <td className={commonClassName}>
