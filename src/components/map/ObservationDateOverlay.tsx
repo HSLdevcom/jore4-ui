@@ -32,11 +32,16 @@ export const ObservationDateOverlay = ({ className }: Props) => {
           <input
             type="date"
             value={observationDate.toISODate()}
-            onChange={(e) =>
-              dispatch(
-                setMapObservationDateAction(DateTime.fromISO(e.target.value)),
-              )
-            }
+            onChange={(e) => {
+              const { value } = e.target;
+
+              // Do not allow setting empty value to observation date
+              if (!value) {
+                return;
+              }
+
+              dispatch(setMapObservationDateAction(DateTime.fromISO(value)));
+            }}
             className="flex-1"
             disabled={hasChangesInProgress}
           />
