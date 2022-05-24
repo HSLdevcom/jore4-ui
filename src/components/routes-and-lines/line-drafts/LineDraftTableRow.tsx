@@ -6,7 +6,11 @@ import { useShowRoutesOnModal } from '../../../hooks';
 import { mapPriorityToUiName } from '../../../i18n/uiNameMappings';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDate } from '../../../time';
-import { IconButton, SimpleDropdownMenu } from '../../../uiComponents';
+import {
+  AlignDirection,
+  IconButton,
+  SimpleDropdownMenu,
+} from '../../../uiComponents';
 
 interface Props {
   className?: string;
@@ -55,7 +59,7 @@ export const LineDraftTableRow = ({
           />
         </td>
         <td className={commonClassName}>
-          <SimpleDropdownMenu>
+          <SimpleDropdownMenu alignItems={AlignDirection.Left}>
             <Link
               type="button"
               to={routeDetails[Path.lineDetails].getLink(line.line_id)}

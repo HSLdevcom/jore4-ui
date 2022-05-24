@@ -11,7 +11,7 @@ import {
   MAX_DATE,
   MIN_DATE,
 } from '../../../time';
-import { SimpleDropdownMenu } from '../../../uiComponents';
+import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
 import { showDangerToast, showSuccessToast } from '../../../utils';
 
 interface Props {
@@ -80,7 +80,10 @@ export const RouteStopsRow = ({
       </td>
       <td>&nbsp;</td>
       <td>
-        <SimpleDropdownMenu testId="stop-row-action-menu">
+        <SimpleDropdownMenu
+          alignItems={AlignDirection.Left}
+          testId="stop-row-action-menu"
+        >
           {belongsToJourneyPattern ? (
             <button type="button" onClick={deleteFromJourneyPattern}>
               {t('stops.removeFromRoute')}
