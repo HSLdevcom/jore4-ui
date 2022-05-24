@@ -80,7 +80,7 @@ export const RouteStopsRow = ({
       </td>
       <td>&nbsp;</td>
       <td>
-        <SimpleDropdownMenu testId="stop-row-action-menu">
+        <SimpleDropdownMenu openMenuItemsLeft testId="stop-row-action-menu">
           {belongsToJourneyPattern ? (
             <button type="button" onClick={deleteFromJourneyPattern}>
               {t('stops.removeFromRoute')}

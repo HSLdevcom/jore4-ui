@@ -55,7 +55,7 @@ export const LineDraftTableRow = ({
           />
         </td>
         <td className={commonClassName}>
-          <SimpleDropdownMenu>
+          <SimpleDropdownMenu openMenuItemsLeft>
             <Link
               type="button"
               to={routeDetails[Path.lineDetails].getLink(line.line_id)}

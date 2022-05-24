@@ -422,12 +422,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
           <td>
             <div
-              class="static h-full"
+              class="relative"
             >
               <button
                 aria-expanded="false"
                 aria-haspopup="true"
-                class="mx-auto flex h-full items-center px-3 focus:outline-none"
+                class="mx-auto flex items-center px-3 focus:outline-none"
                 data-testid="stop-row-action-menu"
                 id="headlessui-menu-button-3"
                 type="button"
@@ -508,12 +508,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
           <td>
             <div
-              class="static h-full"
+              class="relative"
             >
               <button
                 aria-expanded="false"
                 aria-haspopup="true"
-                class="mx-auto flex h-full items-center px-3 focus:outline-none"
+                class="mx-auto flex items-center px-3 focus:outline-none"
                 data-testid="stop-row-action-menu"
                 id="headlessui-menu-button-4"
                 type="button"
@@ -594,12 +594,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
           <td>
             <div
-              class="static h-full"
+              class="relative"
             >
               <button
                 aria-expanded="false"
                 aria-haspopup="true"
-                class="mx-auto flex h-full items-center px-3 focus:outline-none"
+                class="mx-auto flex items-center px-3 focus:outline-none"
                 data-testid="stop-row-action-menu"
                 id="headlessui-menu-button-5"
                 type="button"
