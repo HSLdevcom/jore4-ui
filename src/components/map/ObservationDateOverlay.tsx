@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdLayers } from 'react-icons/md';
 import { useAppDispatch, useAppSelector, useFilterStops } from '../../hooks';
@@ -24,6 +25,17 @@ export const ObservationDateOverlay = ({ className }: Props) => {
   const { toggleShowFilters } = useFilterStops();
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
 
+  const onObservationDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    // Do not allow setting empty value to observation date
+    if (!value) {
+      return;
+    }
+
+    dispatch(setMapObservationDateAction(DateTime.fromISO(value)));
+  };
+
   return (
     <MapOverlay className={`${className} rounded`}>
       <Column className="space-y-1 p-3">
@@ -32,11 +44,7 @@ export const ObservationDateOverlay = ({ className }: Props) => {
           <input
             type="date"
             value={observationDate.toISODate()}
-            onChange={(e) =>
-              dispatch(
-                setMapObservationDateAction(DateTime.fromISO(e.target.value)),
-              )
-            }
+            onChange={onObservationDateChange}
             className="flex-1"
             disabled={hasChangesInProgress}
           />
