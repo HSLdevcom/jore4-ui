@@ -8,7 +8,7 @@ import {
   RouteLine,
   RouteRoute,
   useGetHighestPriorityLineDetailsWithRoutesAsyncQuery,
-  useGetLineDetailsWithRoutesByIdAsyncQuery,
+  useGetLineDetailsWithRoutesByIdQuery,
 } from '../../generated/graphql';
 import {
   mapHighestPriorityLineDetailsWithRoutesResult,
@@ -115,7 +115,10 @@ const constructLineDetailsGqlFilters = (
 export const useGetLineDetails = () => {
   const { id } = useParams<{ id: string }>();
   const queryParams = useUrlQuery();
-  const [getLineDetails] = useGetLineDetailsWithRoutesByIdAsyncQuery();
+  const lineDetailsResult = useGetLineDetailsWithRoutesByIdQuery({
+    variables: { line_id: id },
+  });
+
   const [getHighestPriorityLineDetails] =
     useGetHighestPriorityLineDetailsWithRoutesAsyncQuery();
   const [line, setLine] = useState<RouteLine>();
@@ -128,10 +131,8 @@ export const useGetLineDetails = () => {
     queryParams.showAll === 'true',
   ];
 
-  useEffect(() => {
-    const fetchLineDetails = async () => {
-      const lineDetailsResult = await getLineDetails({ line_id: id });
-
+  const fetchLineDetails = async () => {
+    if (lineDetailsResult) {
       const lineDetails = mapLineDetailsWithRoutesResult(lineDetailsResult);
       const initialDate = showAll
         ? undefined
@@ -159,11 +160,12 @@ export const useGetLineDetails = () => {
         setLine(filteredLine);
       }
       setObservationDate(initialDate);
-    };
-
+    }
+  };
+  useEffect(() => {
     fetchLineDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, showAll, selectedDate]);
+  }, [id, showAll, selectedDate, lineDetailsResult]);
 
   return {
     line,
