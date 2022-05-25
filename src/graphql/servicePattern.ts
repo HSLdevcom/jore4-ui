@@ -158,7 +158,6 @@ const EDIT_STOP = gql`
   mutation EditStop(
     $stop_id: uuid!
     $stop_patch: service_pattern_scheduled_stop_point_set_input!
-    $delete_from_journey_pattern_ids: [uuid!]!
   ) {
     # edit the stop itself
     update_service_pattern_scheduled_stop_point(
@@ -167,20 +166,6 @@ const EDIT_STOP = gql`
     ) {
       returning {
         ...scheduled_stop_point_all_fields
-      }
-    }
-
-    # delete the stop from the following journey patterns
-    delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
-      where: {
-        _and: {
-          scheduled_stop_point_id: { _eq: $stop_id }
-          journey_pattern_id: { _in: $delete_from_journey_pattern_ids }
-        }
-      }
-    ) {
-      returning {
-        ...scheduled_stop_point_in_journey_pattern_default_fields
       }
     }
   }

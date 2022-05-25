@@ -9887,27 +9887,15 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point",
-            "description": "An object relationship",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "name": "scheduled_stop_point_label",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "uuid",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -9924,6 +9912,200 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_points",
+            "description": "An array relationship",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "service_pattern_scheduled_stop_point_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "service_pattern_scheduled_stop_point_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "service_pattern_scheduled_stop_point_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "service_pattern_scheduled_stop_point",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_points_aggregate",
+            "description": "An aggregate relationship",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "service_pattern_scheduled_stop_point_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "service_pattern_scheduled_stop_point_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "service_pattern_scheduled_stop_point_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "service_pattern_scheduled_stop_point_aggregate",
                 "ofType": null
               }
             },
@@ -10506,23 +10688,11 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point",
+            "name": "scheduled_stop_point_label",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "scheduled_stop_point_id",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "uuid_comparison_exp",
+              "name": "String_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -10535,6 +10705,18 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "Int_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_points",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -10641,23 +10823,11 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point",
+            "name": "scheduled_stop_point_label",
             "description": null,
             "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_obj_rel_insert_input",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
-            "type": {
               "kind": "SCALAR",
-              "name": "uuid",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -10670,6 +10840,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_points",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_arr_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null,
@@ -10699,12 +10881,12 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "name": "scheduled_stop_point_label",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "uuid",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -10747,8 +10929,8 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "name": "scheduled_stop_point_label",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -10793,12 +10975,12 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "name": "scheduled_stop_point_label",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "uuid",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -10841,8 +11023,8 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "name": "scheduled_stop_point_label",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -11038,19 +11220,7 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "scheduled_stop_point_id",
+            "name": "scheduled_stop_point_label",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -11067,6 +11237,18 @@
             "type": {
               "kind": "ENUM",
               "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_points_aggregate",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_aggregate_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -11148,7 +11330,7 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_id",
+            "name": "scheduled_stop_point_label",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -11205,11 +11387,11 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "name": "scheduled_stop_point_label",
+            "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "uuid",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -11444,7 +11626,7 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_id",
+            "name": "scheduled_stop_point_label",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -32458,34 +32640,6 @@
             "deprecationReason": null
           },
           {
-            "name": "ends_at_scheduled_stop_point",
-            "description": "An object relationship",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ends_at_scheduled_stop_point_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "uuid",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "infrastructure_links_along_route",
             "description": "An array relationship",
             "args": [
@@ -33243,34 +33397,6 @@
             "deprecationReason": null
           },
           {
-            "name": "starts_from_scheduled_stop_point",
-            "description": "An object relationship",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "service_pattern_scheduled_stop_point",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "starts_from_scheduled_stop_point_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "uuid",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "validity_end",
             "description": null,
             "args": [],
@@ -33953,30 +34079,6 @@
             "deprecationReason": null
           },
           {
-            "name": "ends_at_scheduled_stop_point",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ends_at_scheduled_stop_point_id",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "uuid_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "infrastructure_links_along_route",
             "description": null,
             "type": {
@@ -34114,30 +34216,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "geography_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "starts_from_scheduled_stop_point",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "starts_from_scheduled_stop_point_id",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "uuid_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -34573,30 +34651,6 @@
             "deprecationReason": null
           },
           {
-            "name": "ends_at_scheduled_stop_point",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_obj_rel_insert_input",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ends_at_scheduled_stop_point_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "infrastructure_links_along_route",
             "description": null,
             "type": {
@@ -34741,30 +34795,6 @@
             "deprecationReason": null
           },
           {
-            "name": "starts_from_scheduled_stop_point",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_obj_rel_insert_input",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "starts_from_scheduled_stop_point_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "validity_end",
             "description": null,
             "type": {
@@ -34798,18 +34828,6 @@
         "name": "route_route_max_fields",
         "description": "aggregate max on columns",
         "fields": [
-          {
-            "name": "ends_at_scheduled_stop_point_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "label",
             "description": null,
@@ -34848,18 +34866,6 @@
           },
           {
             "name": "route_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "starts_from_scheduled_stop_point_id",
             "description": null,
             "args": [],
             "type": {
@@ -34907,18 +34913,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "ends_at_scheduled_stop_point_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
             "description": null,
             "type": {
@@ -34967,18 +34961,6 @@
             "deprecationReason": null
           },
           {
-            "name": "starts_from_scheduled_stop_point_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "validity_end",
             "description": null,
             "type": {
@@ -35012,18 +34994,6 @@
         "name": "route_route_min_fields",
         "description": "aggregate min on columns",
         "fields": [
-          {
-            "name": "ends_at_scheduled_stop_point_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "label",
             "description": null,
@@ -35073,18 +35043,6 @@
             "deprecationReason": null
           },
           {
-            "name": "starts_from_scheduled_stop_point_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "validity_end",
             "description": null,
             "args": [],
@@ -35120,18 +35078,6 @@
         "description": "order by min() on columns of table \"route.route\"",
         "fields": null,
         "inputFields": [
-          {
-            "name": "ends_at_scheduled_stop_point_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "label",
             "description": null,
@@ -35170,18 +35116,6 @@
           },
           {
             "name": "route_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "starts_from_scheduled_stop_point_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -35429,30 +35363,6 @@
             "deprecationReason": null
           },
           {
-            "name": "ends_at_scheduled_stop_point",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ends_at_scheduled_stop_point_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "infrastructure_links_along_route_aggregate",
             "description": null,
             "type": {
@@ -35586,30 +35496,6 @@
           },
           {
             "name": "route_shape",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "starts_from_scheduled_stop_point",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "service_pattern_scheduled_stop_point_order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "starts_from_scheduled_stop_point_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -35792,12 +35678,6 @@
             "deprecationReason": null
           },
           {
-            "name": "ends_at_scheduled_stop_point_id",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
             "description": "column name",
             "isDeprecated": false,
@@ -35835,12 +35715,6 @@
           },
           {
             "name": "route_id",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "starts_from_scheduled_stop_point_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -35908,18 +35782,6 @@
             "type": {
               "kind": "ENUM",
               "name": "route_direction_enum",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ends_at_scheduled_stop_point_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
               "ofType": null
             },
             "defaultValue": null,
@@ -36000,18 +35862,6 @@
           },
           {
             "name": "route_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "starts_from_scheduled_stop_point_id",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -36268,12 +36118,6 @@
             "deprecationReason": null
           },
           {
-            "name": "ends_at_scheduled_stop_point_id",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
             "description": "column name",
             "isDeprecated": false,
@@ -36311,12 +36155,6 @@
           },
           {
             "name": "route_id",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "starts_from_scheduled_stop_point_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -39704,33 +39542,6 @@
         ],
         "inputFields": null,
         "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "service_pattern_scheduled_stop_point_obj_rel_insert_input",
-        "description": "input type for inserting object relation for remote table \"service_pattern.scheduled_stop_point\"",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "data",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "INPUT_OBJECT",
-                "name": "service_pattern_scheduled_stop_point_insert_input",
-                "ofType": null
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },

@@ -3,7 +3,6 @@ import {
   GetStopWithRouteGraphDataByIdDocument,
   GetStopWithRouteGraphDataByIdQuery,
   GetStopWithRouteGraphDataByIdQueryVariables,
-  JourneyPatternJourneyPattern,
   RemoveStopMutationVariables,
   RouteRoute,
   ServicePatternScheduledStopPoint,
@@ -18,10 +17,7 @@ import {
   showDangerToastWithError,
 } from '../../utils';
 import { useAsyncQuery } from '../useAsyncQuery';
-import {
-  getRoutesOfJourneyPatterns,
-  isStartingOrEndingStopOfAnyRoute,
-} from './utils';
+import { getRoutesOfJourneyPatterns } from './utils';
 
 interface DeleteParams {
   stopId: UUID;
@@ -30,7 +26,6 @@ interface DeleteParams {
 export interface DeleteChanges extends DeleteParams {
   deletedStop: ServicePatternScheduledStopPoint;
   deleteStopFromRoutes: RouteRoute[];
-  deleteStopFromJourneyPatterns: JourneyPatternJourneyPattern[];
 }
 
 export const useDeleteStop = () => {
@@ -66,13 +61,6 @@ export const useDeleteStop = () => {
       throw new InternalError(`Could not find stop with id ${stopId}`);
     }
 
-    // check if we tried to delete the starting or ending stop of an existing route
-    if (isStartingOrEndingStopOfAnyRoute(stopWithRouteGraphData)) {
-      throw new EditRouteTerminalStopsError(
-        'Cannot delete the starting and ending stops of a route',
-      );
-    }
-
     // if the stop was part of a journey pattern, remove it from there too
     const deleteStopFromJourneyPatterns = getJourneyPatternsToDeleteStopFrom(
       stopWithRouteGraphData,
@@ -85,7 +73,6 @@ export const useDeleteStop = () => {
       stopId,
       deletedStop: stopWithRouteGraphData,
       deleteStopFromRoutes,
-      deleteStopFromJourneyPatterns,
     };
 
     return changes;
