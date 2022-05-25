@@ -219,10 +219,7 @@ export const EditStopLayer: React.FC<Props> = ({
 
   const getVehicleMode = () =>
     editedStopData.scheduled_stop_point_id
-      ? getStopVehicleMode(
-          editedStopData.scheduled_stop_point_id,
-          editedStopData as StopWithVehicleMode,
-        )
+      ? getStopVehicleMode(editedStopData as StopWithVehicleMode)
       : undefined;
 
   return (

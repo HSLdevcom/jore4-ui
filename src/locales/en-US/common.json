@@ -52,8 +52,6 @@
     "direction": "Direction",
     "chooseDirection": "Choose direction",
     "tooFewStops": "There must be at least two stops on route.",
-    "startingStopNotOnStartingInfraLink": "Route's starting stop must reside on route's first infrastructure link.",
-    "finalStopNotOnFinalInfraLink": "Route's final stop must reside on route's final infrastructure link.",
     "startNotInsideLineValidity": "Route's validity period cannot start before line's validity period.",
     "endNotInsideLineValidity": "Route's validity period cannot exceed the line's validity period."
   },
@@ -132,7 +130,7 @@
   "confirmDeleteStopDialog": {
     "title": "Delete stop?",
     "description": "Are you sure you want to delete the stop? ({{ stopLabel }})",
-    "removedFromRoutes": "The stop will be removed from the following routes: {{ routeLabels }}",
+    "removedFromRoutes": "Removing the stop might remove the stop from the following routes: {{ routeLabels }}",
     "confirmText": "Delete"
   },
   "confirmEditStopDialog": {

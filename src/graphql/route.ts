@@ -54,8 +54,6 @@ const ROUTE_ALL_FIELDS = gql`
     origin_short_name_i18n
     destination_name_i18n
     destination_short_name_i18n
-    starts_from_scheduled_stop_point_id
-    ends_at_scheduled_stop_point_id
     route_shape
     on_line_id
     validity_start
@@ -78,20 +76,6 @@ const ROUTE_DEFAULT_FIELDS = gql`
     on_line_id
     label
     priority
-    starts_from_scheduled_stop_point_id
-    ends_at_scheduled_stop_point_id
-  }
-`;
-
-const ROUTE_WITH_STOPS = gql`
-  fragment route_with_stops on route_route {
-    ...route_all_fields
-    starts_from_scheduled_stop_point {
-      ...scheduled_stop_point_default_fields
-    }
-    ends_at_scheduled_stop_point {
-      ...scheduled_stop_point_default_fields
-    }
   }
 `;
 
@@ -167,7 +151,7 @@ const LIST_CHANGING_ROUTES = gql`
       limit: $limit
       order_by: [{ label: asc }, { validity_start: asc }]
     ) {
-      ...route_with_stops
+      ...route_all_fields
       route_line {
         ...line_default_fields
       }
@@ -202,7 +186,7 @@ const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
     route_line_by_pk(line_id: $line_id) {
       ...line_all_fields
       line_routes {
-        ...route_with_stops
+        ...route_all_fields
         infrastructure_links_along_route {
           infrastructure_link {
             scheduled_stop_point_located_on_infrastructure_link {
@@ -234,7 +218,7 @@ const GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
     route_line(where: $lineFilters, order_by: { priority: desc }, limit: 1) {
       ...line_all_fields
       line_routes(where: $lineRouteFilters) {
-        ...route_with_stops
+        ...route_all_fields
         infrastructure_links_along_route {
           infrastructure_link {
             scheduled_stop_point_located_on_infrastructure_link(
@@ -270,7 +254,7 @@ const GET_LINES_BY_LABEL = gql`
     ) {
       ...line_all_fields
       line_routes {
-        ...route_with_stops
+        ...route_all_fields
       }
     }
   }
@@ -420,7 +404,6 @@ const UPDATE_ROUTE_GEOMETRY = gql`
     $route_id: uuid!
     $new_infrastructure_links: [route_infrastructure_link_along_route_insert_input!]!
     $new_journey_pattern: journey_pattern_journey_pattern_insert_input!
-    $route_route: route_route_set_input!
   ) {
     delete_route_infrastructure_link_along_route(
       where: { route_id: { _eq: $route_id } }
@@ -454,15 +437,6 @@ const UPDATE_ROUTE_GEOMETRY = gql`
     insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
       on_route_id
     }
-
-    update_route_route(
-      where: { route_id: { _eq: $route_id } }
-      _set: $route_route
-    ) {
-      returning {
-        ...route_with_infrastructure_links
-      }
-    }
   }
 `;
 
@@ -479,13 +453,13 @@ const DELETE_ROUTE = gql`
 const DELETE_STOP_FROM_JOURNEY_PATTERN = gql`
   mutation DeleteStopFromJourneyPattern(
     $route_id: uuid!
-    $scheduled_stop_point_id: uuid!
+    $scheduled_stop_point_label: String!
   ) {
     delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
       where: {
         _and: {
           journey_pattern: { on_route_id: { _eq: $route_id } }
-          scheduled_stop_point_id: { _eq: $scheduled_stop_point_id }
+          scheduled_stop_point_label: { _eq: $scheduled_stop_point_label }
         }
       }
     ) {
@@ -498,13 +472,13 @@ const DELETE_STOP_FROM_JOURNEY_PATTERN = gql`
   }
 `;
 
-export const getRouteStopIds = (route: RouteRoute) => {
+export const getRouteStopLabels = (route: RouteRoute) => {
   return route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns.map(
-    (point) => point.scheduled_stop_point_id,
+    (point) => point.scheduled_stop_point_label,
   );
 };
 
 export interface RouteGeometry {
-  stopIdsWithinRoute: UUID[];
+  stopLabelsWithinRoute: string[];
   infraLinksAlongRoute: InfrastructureLinkAlongRoute[];
 }

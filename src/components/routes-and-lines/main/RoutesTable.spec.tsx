@@ -24,8 +24,6 @@ describe(`<${RoutesTable.name} />`, () => {
   const testId = 'routesTable1';
   const route1Id = '03d55414-e5cf-4cce-9faf-d86ccb7e5f98';
   const lineId = '101f800c-39ed-4d85-8ece-187cd9fe1c5e';
-  const stop1Id = 'f8eace87-7901-4438-bfee-bb6f24f1c4c4';
-  const stop2Id = 'e3528755-711f-4e4f-9461-7931a2c4bc6d';
 
   // this response is copy-pasted from the actual graphql response
   const routesResponseMock: GqlQueryResult<ListChangingRoutesQuery> = {
@@ -48,18 +46,6 @@ describe(`<${RoutesTable.name} />`, () => {
               'Rautatientori - Veräjälaakso',
             ),
             __typename: 'route_line',
-          },
-          starts_from_scheduled_stop_point_id: stop1Id,
-          starts_from_scheduled_stop_point: {
-            scheduled_stop_point_id: stop1Id,
-            label: 'pysäkki B',
-            __typename: 'service_pattern_scheduled_stop_point',
-          },
-          ends_at_scheduled_stop_point_id: stop2Id,
-          ends_at_scheduled_stop_point: {
-            scheduled_stop_point_id: stop2Id,
-            label: 'pysäkki A',
-            __typename: 'service_pattern_scheduled_stop_point',
           },
         },
       ],

@@ -18,7 +18,7 @@ interface Props {
   className?: string;
   stop: ServicePatternScheduledStopPoint;
   routeId: UUID;
-  onAddToRoute: (stopId: UUID) => void;
+  onAddToRoute: (stopLabel: string) => void;
 }
 
 export const RouteStopsRow = ({
@@ -41,7 +41,7 @@ export const RouteStopsRow = ({
     try {
       const changes = prepareDeleteStopFromRoute({
         routeId,
-        stopPointId: stop.scheduled_stop_point_id,
+        stopPointLabel: stop.label,
       });
       const variables = mapDeleteStopFromRouteChangesToVariables(changes);
 
@@ -89,10 +89,7 @@ export const RouteStopsRow = ({
               {t('stops.removeFromRoute')}
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={() => onAddToRoute(stop.scheduled_stop_point_id)}
-            >
+            <button type="button" onClick={() => onAddToRoute(stop.label)}>
               {t('stops.addToRoute')}
             </button>
           )}
