@@ -43,9 +43,12 @@ export const RouteStopsSection = ({
     return belongsToJourneyPattern || showUnusedStops;
   });
 
-  const onAddToRoute = async (stopToAdd: UUID) => {
+  const onAddToRoute = async (stopToAdd: string) => {
     try {
-      const changes = prepareAddStopToRoute({ stopPointId: stopToAdd, route });
+      const changes = prepareAddStopToRoute({
+        stopPointLabel: stopToAdd,
+        route,
+      });
 
       const variables = mapAddStopToRouteChangesToVariables(changes);
 

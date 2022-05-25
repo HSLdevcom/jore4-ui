@@ -74,11 +74,11 @@ const DrawRouteLayerComponent = (
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
 
   const {
-    extractScheduledStopPointIds,
+    extractScheduledStopPointLabels,
     extractCoordinatesFromFeatures,
     getInfraLinksWithStopsForCoordinates,
     mapInfraLinksToFeature,
-    getRemovedStopIds,
+    getRemovedStopLabels,
     getOldRouteGeometryVariables,
   } = useExtractRouteFromFeature();
 
@@ -130,40 +130,28 @@ const DrawRouteLayerComponent = (
       const { infraLinks, orderedInfraLinksWithStops, geometry } =
         await getInfraLinksWithStopsForCoordinates(coordinates);
 
-      const { oldStopIds, oldInfraLinks } = getOldRouteGeometryVariables(
+      const { oldStopLabels, oldInfraLinks } = getOldRouteGeometryVariables(
         editedRouteData.stops,
         editedRouteData.infraLinks,
         routes,
         !creatingNewRoute || !!templateRouteId,
       );
 
-      const removedStopIds = await getRemovedStopIds(
+      const removedStopLabels = await getRemovedStopLabels(
         oldInfraLinks.map((link) => link.infrastructureLinkId),
-        oldStopIds,
+        oldStopLabels,
       );
 
       // Extract the list of ids of the stops to be included in the route
-      const stopIds = extractScheduledStopPointIds({
+      const stopLabels = await extractScheduledStopPointLabels({
         orderedInfraLinksWithStops,
         infraLinks,
         vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
       });
 
-      const stops = getRouteStops(stopIds, removedStopIds || []);
+      const stops = getRouteStops(stopLabels, removedStopLabels || []);
 
       dispatch(setDraftRouteGeometryAction({ stops, infraLinks }));
-
-      if (stops.filter((item) => item.belongsToRoute).length >= 2) {
-        // eslint-disable-next-line no-console
-        console.log(
-          'Route goes along 2 or more stops and thus can be saved. TODO: show user UI to select which stops to use.',
-        );
-      } else {
-        // eslint-disable-next-line no-console
-        console.log(
-          'There were less than 2 stops within route. Route needs at least starting stop and final stop. TODO: inform user about this.',
-        );
-      }
 
       if (geometry) {
         addRoute(map, routeId, geometry);
@@ -176,14 +164,16 @@ const DrawRouteLayerComponent = (
     },
     [
       routes,
-      editedRouteData,
+      editedRouteData.id,
+      editedRouteData.stops,
+      editedRouteData.infraLinks,
       creatingNewRoute,
       extractCoordinatesFromFeatures,
       getInfraLinksWithStopsForCoordinates,
       getOldRouteGeometryVariables,
       templateRouteId,
-      getRemovedStopIds,
-      extractScheduledStopPointIds,
+      getRemovedStopLabels,
+      extractScheduledStopPointLabels,
       dispatch,
       map,
       onDelete,

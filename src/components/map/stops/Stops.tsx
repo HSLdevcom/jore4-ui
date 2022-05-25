@@ -92,11 +92,11 @@ export const Stops = React.forwardRef((props, ref) => {
             longitude={point.longitude}
             latitude={point.latitude}
             onClick={() => onEditStop(item)}
-            isHighlighted={getStopHighlighted(item.scheduled_stop_point_id)}
-            onVehicleRoute={getStopVehicleMode(
+            isHighlighted={getStopHighlighted(
               item.scheduled_stop_point_id,
-              item,
+              item.label,
             )}
+            onVehicleRoute={getStopVehicleMode(item)}
           />
         );
       })}

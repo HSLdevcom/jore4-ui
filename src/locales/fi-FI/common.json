@@ -52,8 +52,6 @@
     "direction": "Suunta",
     "chooseDirection": "Valitse suunta",
     "tooFewStops": "Reitillä on oltava ainakin kaksi pysäkkiä.",
-    "startingStopNotOnStartingInfraLink": "Reitin alkupysäkin on sijaittava reitin ensimäisellä infralinkillä.",
-    "finalStopNotOnFinalInfraLink": "Reitin päätepysäkin on sijaittava reitin viimeisellä infralinkillä.",
     "startNotInsideLineValidity": "Reitin voimassaoloaika ei voi alkaa ennen linjan voimassaoloajan alkamista.",
     "endNotInsideLineValidity": "Reitin voimassaoloaika ei voi jatkua linjan voimassaoloajan ulkopuolelle."
   },
@@ -132,7 +130,7 @@
   "confirmDeleteStopDialog": {
     "title": "Poista pysäkki?",
     "description": "Oletko varma, että haluat poistaa pysäkin? ({{ stopLabel }})",
-    "removedFromRoutes": "Pysäkki poistetaan seuraavilta reiteiltä: {{ routeLabels }}",
+    "removedFromRoutes": "Pysäkin poistaminen saattaa poistaa pysäkin seuraavilta reiteiltä: {{ routeLabels }}",
     "confirmText": "Poista"
   },
   "confirmEditStopDialog": {

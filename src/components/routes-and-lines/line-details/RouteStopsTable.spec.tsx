@@ -29,10 +29,6 @@ describe(`<${RouteStopsTable.name} />`, () => {
           {
             route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
             description_i18n: null,
-            starts_from_scheduled_stop_point_id:
-              'e3528755-711f-4e4f-9461-7931a2c4bc6d',
-            ends_at_scheduled_stop_point_id:
-              'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
             route_shape: {
               type: 'LineString',
               coordinates: [
@@ -49,20 +45,6 @@ describe(`<${RouteStopsTable.name} />`, () => {
             label: '65 itään',
             direction: 'outbound',
             __typename: 'route_route',
-            starts_from_scheduled_stop_point: {
-              scheduled_stop_point_id: 'e3528755-711f-4e4f-9461-7931a2c4bc6d',
-              label: 'pysäkki A',
-              validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
-              validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),
-              __typename: 'service_pattern_scheduled_stop_point',
-            },
-            ends_at_scheduled_stop_point: {
-              scheduled_stop_point_id: 'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
-              label: 'pysäkki C',
-              validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
-              validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),
-              __typename: 'service_pattern_scheduled_stop_point',
-            },
             infrastructure_links_along_route: [
               {
                 infrastructure_link: {
@@ -82,8 +64,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         {
                           journey_pattern_id:
                             '43e1985d-4643-4415-8367-c4a37fbc0a87',
-                          scheduled_stop_point_id:
-                            'e3528755-711f-4e4f-9461-7931a2c4bc6d',
+                          scheduled_stop_point_label: 'pysäkki A',
                           scheduled_stop_point_sequence: 0,
                           is_timing_point: false,
                           is_via_point: false,
@@ -115,8 +96,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         {
                           journey_pattern_id:
                             '43e1985d-4643-4415-8367-c4a37fbc0a87',
-                          scheduled_stop_point_id:
-                            '4d294d62-df17-46ff-9248-23f66f17fa87',
+                          scheduled_stop_point_label: 'pysäkki B',
                           scheduled_stop_point_sequence: 1,
                           is_timing_point: true,
                           is_via_point: true,
@@ -148,8 +128,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         {
                           journey_pattern_id:
                             '43e1985d-4643-4415-8367-c4a37fbc0a87',
-                          scheduled_stop_point_id:
-                            'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
+                          scheduled_stop_point_label: 'pysäkki C',
                           scheduled_stop_point_sequence: 2,
                           is_timing_point: false,
                           is_via_point: false,

@@ -25,10 +25,7 @@ import {
 } from '../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
-import {
-  getRoutesOfJourneyPatterns,
-  isStartingOrEndingStopOfAnyRoute,
-} from './utils';
+import { getRoutesOfJourneyPatterns } from './utils';
 
 interface EditParams {
   stopId: UUID;
@@ -96,13 +93,6 @@ export const useEditStop = () => {
     const { closestLink, direction } = await getStopLinkAndDirection({
       stopLocation: newLocation,
     });
-
-    // check if we tried to move the starting or ending stop of an existing route
-    if (isStartingOrEndingStopOfAnyRoute(stopWithRouteGraphData)) {
-      throw new EditRouteTerminalStopsError(
-        'Cannot move the starting and ending stops of a route',
-      );
-    }
 
     // if a stop is moved away from the route geometry, remove it from its journey patterns
     const deleteStopFromJourneyPatterns = getJourneyPatternsToDeleteStopFrom(
@@ -203,10 +193,6 @@ export const useEditStop = () => {
     const variables: EditStopMutationVariables = {
       stop_id: changes.stopId,
       stop_patch: changes.patch,
-      delete_from_journey_pattern_ids:
-        changes.deleteStopFromJourneyPatterns.map(
-          (item) => item.journey_pattern_id,
-        ),
     };
     return variables;
   };
