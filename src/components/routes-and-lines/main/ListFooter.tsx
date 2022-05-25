@@ -16,7 +16,7 @@ export const ListFooter = ({
   return (
     <div className={`${className || ''} flex`}>
       <SimpleButton
-        className="ml-auto"
+        containerClassName="ml-auto"
         onClick={() => onLimitChange(undefined)}
       >
         {t('routes.showAll')}

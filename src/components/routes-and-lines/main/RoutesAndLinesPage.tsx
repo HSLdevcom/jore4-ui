@@ -25,13 +25,13 @@ export const RoutesAndLinesPage = (): JSX.Element => {
     <Container>
       <Row>
         <h1 className="text-5xl font-bold">{t('routes.routes')}</h1>
-        <SimpleButton className="ml-auto" onClick={onOpenModalMap}>
+        <SimpleButton containerClassName="ml-auto" onClick={onOpenModalMap}>
           {t('map.open')}
         </SimpleButton>
         <SimpleButton
           id="create-line-button"
           data-testid="create-line-button"
-          className="ml-3"
+          containerClassName="ml-3"
           href={createLineReactRoute.getLink()}
         >
           {t('lines.createNew')}

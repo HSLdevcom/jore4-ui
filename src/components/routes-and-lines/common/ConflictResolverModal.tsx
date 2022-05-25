@@ -139,7 +139,11 @@ export const ConflictResolverModal: React.FC<Props> = ({
       </table>
 
       <Row>
-        <SimpleButton className="ml-auto mt-14" onClick={onClose} inverted>
+        <SimpleButton
+          containerClassName="ml-auto mt-14"
+          onClick={onClose}
+          inverted
+        >
           {t('cancel')}
         </SimpleButton>
       </Row>
