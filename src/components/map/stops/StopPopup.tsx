@@ -47,13 +47,13 @@ export const StopPopup = ({
           </Column>
         </Row>
         <Row className="mt-16">
-          <SimpleButton className="!px-3" onClick={onDelete} inverted>
+          <SimpleButton className="h-full !px-3" onClick={onDelete} inverted>
             <MdDelete aria-label={t('map.deleteRoute')} className="text-lg" />
           </SimpleButton>
-          <SimpleButton className="ml-auto" onClick={onMove}>
+          <SimpleButton containerClassName="ml-auto" onClick={onMove}>
             {t('move')}
           </SimpleButton>
-          <SimpleButton className="ml-2" onClick={onEdit}>
+          <SimpleButton containerClassName="ml-2" onClick={onEdit}>
             {t('edit')}
           </SimpleButton>
         </Row>

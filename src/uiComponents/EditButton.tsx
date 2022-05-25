@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdModeEdit } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { commonHoverStyle } from './SimpleButton';
 
 interface LinkProps {
   href: string;
@@ -16,8 +17,10 @@ interface CommonProps {
 type Props = CommonProps & (LinkProps | ButtonProps);
 
 const ButtonContent = () => (
-  <div className="ml-5 h-10 w-10 rounded-full border border-grey bg-white">
-    <MdModeEdit className="m-2 text-2xl text-tweaked-brand" />
+  <div
+    className={`ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white ${commonHoverStyle}`}
+  >
+    <MdModeEdit className="text-2xl text-tweaked-brand" />
   </div>
 );
 

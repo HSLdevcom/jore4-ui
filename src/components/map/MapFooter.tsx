@@ -71,7 +71,7 @@ export const MapFooter: React.FC<Props> = ({
         {t('map.addStop')}
       </SimpleButton>
       <SimpleButton
-        className="!px-3"
+        className="h-full !px-3"
         onClick={onDeleteRoute}
         disabled={!hasChangesInProgress}
       >
@@ -79,7 +79,7 @@ export const MapFooter: React.FC<Props> = ({
       </SimpleButton>
       <Visible visible={hasChangesInProgress}>
         <SimpleButton
-          className="!ml-auto"
+          containerClassName="!ml-auto"
           onClick={onCancel}
           disabled={!hasChangesInProgress}
           inverted
