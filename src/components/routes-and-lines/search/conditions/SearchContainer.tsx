@@ -45,10 +45,14 @@ export const SearchContainer = (): JSX.Element => {
           />
         </div>
         <Row className="flex justify-end bg-background py-4">
-          <SimpleButton className="mr-6" inverted onClick={toggleIsExpanded}>
+          <SimpleButton
+            containerClassName="mr-6"
+            inverted
+            onClick={toggleIsExpanded}
+          >
             {t('hide')}
           </SimpleButton>
-          <SimpleButton className="mr-6" onClick={handleSearch}>
+          <SimpleButton containerClassName="mr-6" onClick={handleSearch}>
             {t('search.search')}
           </SimpleButton>
         </Row>

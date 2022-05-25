@@ -66,7 +66,7 @@ export const LineForm = ({ defaultValues, onSubmit }: Props): JSX.Element => {
         </Row>
         <Row className="mt-8 space-x-5">
           <SimpleButton
-            className="ml-auto"
+            containerClassName="ml-auto"
             onClick={onCancel}
             inverted
             testId={testIds.cancelButton}
