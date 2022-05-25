@@ -37,7 +37,7 @@ const ModalFooter = ({ onCancel, onSave }: FooterProps): JSX.Element => {
   return (
     <HeaderFooterContainer>
       <Row className="space-x-4">
-        <SimpleButton className="ml-auto" onClick={onCancel} inverted>
+        <SimpleButton containerClassName="ml-auto" onClick={onCancel} inverted>
           {t('cancel')}
         </SimpleButton>
         <SimpleButton onClick={onSave}>{t('save')}</SimpleButton>
