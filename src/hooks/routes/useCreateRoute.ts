@@ -15,7 +15,6 @@ import {
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { useValidateRoute } from './useValidateRoute';
-import { extractFirstAndLastStopFromStops } from './utils';
 
 interface CreateParams {
   form: RouteFormState;
@@ -27,13 +26,13 @@ interface CreateChanges {
   conflicts?: RouteRoute[];
 }
 
-const mapStopIdToStopInSequence = (stopId: UUID, index: number) => ({
-  scheduled_stop_point_id: stopId,
+const mapStopLabelToStopInSequence = (stopLabel: string, index: number) => ({
+  scheduled_stop_point_label: stopLabel,
   scheduled_stop_point_sequence: index,
 });
 export const mapStopsToStopSequence = (stops: UUID[]) => {
   return {
-    data: stops.map(mapStopIdToStopInSequence),
+    data: stops.map(mapStopLabelToStopInSequence),
   };
 };
 
@@ -48,23 +47,19 @@ export const useCreateRoute = () => {
   ): InsertRouteOneMutationVariables => {
     const { form, routeGeometry } = params;
 
-    const { stopIdsWithinRoute, infraLinksAlongRoute } = routeGeometry;
-
-    const { startingStopId, finalStopId } =
-      extractFirstAndLastStopFromStops(stopIdsWithinRoute);
+    const { stopLabelsWithinRoute, infraLinksAlongRoute } = routeGeometry;
 
     const input: InsertRouteOneMutationVariables = mapToObject({
       ...mapRouteFormToInput(form),
-      starts_from_scheduled_stop_point_id: startingStopId,
-      ends_at_scheduled_stop_point_id: finalStopId,
       // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
       infrastructure_links_along_route: {
         data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
       },
       route_journey_patterns: {
         data: {
-          scheduled_stop_point_in_journey_patterns:
-            mapStopsToStopSequence(stopIdsWithinRoute),
+          scheduled_stop_point_in_journey_patterns: mapStopsToStopSequence(
+            stopLabelsWithinRoute,
+          ),
         },
       },
     });

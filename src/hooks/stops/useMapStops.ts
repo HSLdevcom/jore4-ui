@@ -3,8 +3,13 @@ import {
   ReusableComponentsVehicleModeEnum,
   ServicePatternScheduledStopPoint,
   useGetRoutesWithInfrastructureLinksQuery,
+  useGetStopsByLabelsQuery,
 } from '../../generated/graphql';
-import { getRouteStopIds, mapRoutesDetailsResult } from '../../graphql';
+import {
+  getRouteStopLabels,
+  mapGetStopsResult,
+  mapRoutesDetailsResult,
+} from '../../graphql';
 import {
   selectHasChangesInProgress,
   selectMapEditor,
@@ -26,56 +31,72 @@ export const useMapStops = () => {
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
   const { displayedRouteIds } = useGetDisplayedRoutes();
   const selectedStopId = useAppSelector(selectSelectedStopId);
-  const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
+  const { mapRouteStopsToStopLabels } = useExtractRouteFromFeature();
 
-  const highlightedStopsRouteIds = selectedRouteId ? [selectedRouteId] : [];
-
-  const highlightedStopsRoutesResult = useGetRoutesWithInfrastructureLinksQuery(
-    mapToVariables({ route_ids: highlightedStopsRouteIds }),
+  const selectedRoutesResult = useGetRoutesWithInfrastructureLinksQuery(
+    mapToVariables({ route_ids: selectedRouteId ? [selectedRouteId] : [] }),
   );
-  const highlightedStopsRoutes = mapRoutesDetailsResult(
-    highlightedStopsRoutesResult,
+  const selectedRoutes = mapRoutesDetailsResult(selectedRoutesResult);
+  const selectedRouteStopsResult = useGetStopsByLabelsQuery(
+    mapToVariables({
+      stopLabels:
+        selectedRoutes?.flatMap((route) => getRouteStopLabels(route)) || [],
+    }),
   );
+  const stopsIdsOnSelectedRoute = mapGetStopsResult(
+    selectedRouteStopsResult,
+  )?.map((stop) => stop.scheduled_stop_point_id);
 
   const displayedRoutesResult = useGetRoutesWithInfrastructureLinksQuery(
     mapToVariables({ route_ids: displayedRouteIds }),
   );
   const displayedRoutes = mapRoutesDetailsResult(displayedRoutesResult);
 
-  const stopIdsOnEditedRoute = mapRouteStopsToStopIds(editedRouteData.stops);
+  const stopLabelsOnEditedRoute = mapRouteStopsToStopLabels(
+    editedRouteData.stops,
+  );
+
+  const editedRouteStopsResult = useGetStopsByLabelsQuery(
+    mapToVariables({
+      stopLabels: stopLabelsOnEditedRoute,
+    }),
+  );
+
+  const stopsIdsOnEditedRoute = mapGetStopsResult(editedRouteStopsResult)?.map(
+    (stop) => stop.scheduled_stop_point_id,
+  );
 
   const getStopVehicleMode = useCallback(
     (
-      stopId: UUID,
       stop: StopWithVehicleMode,
     ): ReusableComponentsVehicleModeEnum | undefined => {
-      const stopsIdsOnRoutes = [
-        ...stopIdsOnEditedRoute,
-        ...(displayedRoutes?.flatMap((route) => getRouteStopIds(route)) || []),
+      const stopsLabelsOnRoutes = [
+        ...stopLabelsOnEditedRoute,
+        ...(displayedRoutes?.flatMap((route) => getRouteStopLabels(route)) ||
+          []),
       ];
 
-      return stopsIdsOnRoutes?.includes(stopId)
+      return stop.label && stopsLabelsOnRoutes?.includes(stop.label)
         ? stop.vehicle_mode_on_scheduled_stop_point[0].vehicle_mode
         : undefined;
     },
-    [displayedRoutes, stopIdsOnEditedRoute],
+    [displayedRoutes, stopLabelsOnEditedRoute],
   );
 
   const getStopHighlighted = useCallback(
-    (stopId: UUID): boolean => {
+    (id: UUID): boolean => {
       // If editing a route, highlight stops on edited route
-      // Otherwise highlight stops belonging to highlighted routes
+      // Otherwise highlight stops belonging to selected route
       const highlightedStopIds = routeEditingInProgress
-        ? stopIdsOnEditedRoute
-        : highlightedStopsRoutes?.flatMap((route) => getRouteStopIds(route)) ||
-          [];
+        ? stopsIdsOnEditedRoute
+        : stopsIdsOnSelectedRoute;
 
-      return highlightedStopIds?.includes(stopId) || selectedStopId === stopId;
+      return highlightedStopIds?.includes(id) || selectedStopId === id;
     },
     [
       routeEditingInProgress,
-      stopIdsOnEditedRoute,
-      highlightedStopsRoutes,
+      stopsIdsOnEditedRoute,
+      stopsIdsOnSelectedRoute,
       selectedStopId,
     ],
   );

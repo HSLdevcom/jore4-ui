@@ -82,7 +82,7 @@ export enum Mode {
   Edit,
 }
 export interface RouteStop {
-  id: UUID;
+  label: string;
   belongsToRoute: boolean;
 }
 
@@ -143,14 +143,14 @@ const slice = createSlice({
      */
     setStopOnRoute: (
       state,
-      action: PayloadAction<{ stopId: UUID; belongsToRoute: boolean }>,
+      action: PayloadAction<{ stopLabel: string; belongsToRoute: boolean }>,
     ) => {
-      const { stopId, belongsToRoute } = action.payload;
+      const { stopLabel, belongsToRoute } = action.payload;
 
       state.editedRouteData = {
         ...state.editedRouteData,
         stops: state.editedRouteData.stops?.map((item) =>
-          item.id === stopId ? { ...item, belongsToRoute } : item,
+          item.label === stopLabel ? { ...item, belongsToRoute } : item,
         ),
       };
     },

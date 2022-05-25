@@ -1,14 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import {
-  ServicePatternScheduledStopPoint,
-  useGetRoutesWithInfrastructureLinksQuery,
-  useGetStopsByIdsQuery,
-} from '../../generated/graphql';
-import {
-  getRouteStopIds,
-  mapGetStopsResult,
-  mapRoutesDetailsResult,
-} from '../../graphql';
+import { useGetRoutesWithInfrastructureLinksQuery } from '../../generated/graphql';
+import { getRouteStopLabels, mapRoutesDetailsResult } from '../../graphql';
 import { getRouteStops, useAppDispatch, useAppSelector } from '../../hooks';
 import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import { Visible } from '../../layoutComponents';
@@ -27,15 +19,14 @@ interface Props {
 }
 
 const StopRow = ({
-  stop,
+  label,
   onRoute,
   isReadOnly,
 }: {
-  stop: ServicePatternScheduledStopPoint;
+  label: string;
   onRoute: boolean;
   isReadOnly?: boolean;
 }) => {
-  const { label } = stop;
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
@@ -43,7 +34,7 @@ const StopRow = ({
   const setOnRoute = (belongsToRoute: boolean) => {
     dispatch(
       setStopOnRouteAction({
-        stopId: stop.scheduled_stop_point_id,
+        stopLabel: label,
         belongsToRoute,
       }),
     );
@@ -91,34 +82,15 @@ export const RouteStopsOverlay = ({ className }: Props) => {
   const routeName =
     editedRouteData.metaData?.finnishName || selectedRoute?.name_i18n?.fi_FI;
 
-  const selectedRouteStopIds = selectedRoute
-    ? getRouteStopIds(selectedRoute)
+  const selectedRouteStopLabels = selectedRoute
+    ? getRouteStopLabels(selectedRoute)
     : [];
-
-  // If creating/editing a route, fetch edited route stops
-  // otherwise fetch selected route's stops
-  const stopIdsToFetch = routeEditingInProgress
-    ? editedRouteData.stops.map((stop) => stop.id)
-    : selectedRouteStopIds;
-
-  const stopsResult = useGetStopsByIdsQuery(
-    mapToVariables({
-      stopIds: stopIdsToFetch,
-    }),
-  );
-
-  const stops = mapGetStopsResult(stopsResult);
 
   // If creating/editing a route, show edited route stops
   // otherwise show selected route's stops
   const routeStops = routeEditingInProgress
     ? editedRouteData.stops
-    : getRouteStops(selectedRouteStopIds);
-
-  const stopsToDisplay = routeStops?.map((stop) => ({
-    stop: stops?.find((item) => item.scheduled_stop_point_id === stop.id),
-    belongsToRoute: stop.belongsToRoute,
-  }));
+    : getRouteStops(selectedRouteStopLabels);
 
   if (!routeMetadata) {
     return null;
@@ -151,17 +123,14 @@ export const RouteStopsOverlay = ({ className }: Props) => {
           </div>
         </div>
       </div>
-      {stopsToDisplay?.map(
-        (routeStop) =>
-          routeStop.stop && (
-            <StopRow
-              key={routeStop?.stop?.scheduled_stop_point_id}
-              stop={routeStop.stop}
-              onRoute={routeStop.belongsToRoute}
-              isReadOnly={!routeEditingInProgress}
-            />
-          ),
-      )}
+      {routeStops?.map((routeStop) => (
+        <StopRow
+          key={routeStop.label}
+          label={routeStop.label}
+          onRoute={routeStop.belongsToRoute}
+          isReadOnly={!routeEditingInProgress}
+        />
+      ))}
     </MapOverlay>
   );
 };

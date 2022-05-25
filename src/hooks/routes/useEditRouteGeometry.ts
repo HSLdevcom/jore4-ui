@@ -7,7 +7,6 @@ import { mapInfraLinksAlongRouteToGraphQL, RouteGeometry } from '../../graphql';
 import { mapToVariables, showDangerToastWithError } from '../../utils';
 import { mapStopsToStopSequence } from './useCreateRoute';
 import { useValidateRoute } from './useValidateRoute';
-import { extractFirstAndLastStopFromStops } from './utils';
 
 interface EditParams {
   routeId: UUID;
@@ -32,10 +31,7 @@ export const useEditRouteGeometry = () => {
     routeId: UUID,
     routeGeometry: RouteGeometry,
   ) => {
-    const { stopIdsWithinRoute, infraLinksAlongRoute } = routeGeometry;
-
-    const { startingStopId, finalStopId } =
-      extractFirstAndLastStopFromStops(stopIdsWithinRoute);
+    const { stopLabelsWithinRoute, infraLinksAlongRoute } = routeGeometry;
 
     const variables: UpdateRouteGeometryMutationVariables = {
       route_id: routeId,
@@ -44,12 +40,9 @@ export const useEditRouteGeometry = () => {
       ).map((link) => ({ ...link, route_id: routeId })),
       new_journey_pattern: {
         on_route_id: routeId,
-        scheduled_stop_point_in_journey_patterns:
-          mapStopsToStopSequence(stopIdsWithinRoute),
-      },
-      route_route: {
-        starts_from_scheduled_stop_point_id: startingStopId,
-        ends_at_scheduled_stop_point_id: finalStopId,
+        scheduled_stop_point_in_journey_patterns: mapStopsToStopSequence(
+          stopLabelsWithinRoute,
+        ),
       },
     };
 

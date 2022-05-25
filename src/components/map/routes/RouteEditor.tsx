@@ -71,15 +71,15 @@ const RouteEditorComponent = (
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
     useDeleteRoute();
 
-  const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
+  const { mapRouteStopsToStopLabels } = useExtractRouteFromFeature();
 
   const editRoute = async (routeId: UUID) => {
-    const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
+    const stopLabelsWithinRoute = mapRouteStopsToStopLabels(routeStops);
 
     const changes = await prepareEditGeometry({
       routeId,
       newGeometry: {
-        stopIdsWithinRoute,
+        stopLabelsWithinRoute,
         infraLinksAlongRoute: infraLinks || [],
       },
     });
@@ -90,14 +90,14 @@ const RouteEditorComponent = (
   };
 
   const createRoute = async () => {
-    const stopIdsWithinRoute = mapRouteStopsToStopIds(routeStops);
+    const stopLabelsWithinRoute = mapRouteStopsToStopLabels(routeStops);
 
     const changes = await prepareCreate({
       // At the point of saving a route, the form has been validated
       // and it contains all required values
       form: routeDetails as RouteFormState,
       routeGeometry: {
-        stopIdsWithinRoute,
+        stopLabelsWithinRoute,
         infraLinksAlongRoute: infraLinks || [],
       },
     });

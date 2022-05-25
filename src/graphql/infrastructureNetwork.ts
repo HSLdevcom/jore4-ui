@@ -108,6 +108,7 @@ const QUERY_MAP_EXTERNAL_LINK_IDS_TO_INFRA_LINKS_WITH_STOPS = gql`
       infrastructure_link_id
       external_link_id
       scheduled_stop_point_located_on_infrastructure_link {
+        label
         scheduled_stop_point_id
         direction
         relative_distance_from_infrastructure_link_start
