@@ -79,7 +79,7 @@ export const MapFooter: React.FC<Props> = ({
       </SimpleButton>
       <Visible visible={hasChangesInProgress}>
         <SimpleButton
-          className="!ml-auto"
+          containerClassName="!ml-auto"
           onClick={onCancel}
           disabled={!hasChangesInProgress}
           inverted

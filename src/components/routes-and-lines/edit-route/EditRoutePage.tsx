@@ -142,7 +142,7 @@ export const EditRoutePage = (): JSX.Element => {
         <Row className="mt-8">
           <SimpleButton
             id="delete-button"
-            className="ml-auto"
+            containerClassName="ml-auto"
             onClick={() => setIsDeleting(true)}
             inverted
           >
@@ -150,13 +150,17 @@ export const EditRoutePage = (): JSX.Element => {
           </SimpleButton>
           <SimpleButton
             id="cancel-button"
-            className="ml-5"
+            containerClassName="ml-5"
             onClick={onCancel}
             inverted
           >
             {t('cancel')}
           </SimpleButton>
-          <SimpleButton id="save-button" className="ml-5" onClick={onSave}>
+          <SimpleButton
+            id="save-button"
+            containerClassName="ml-5"
+            onClick={onSave}
+          >
             {t('save')}
           </SimpleButton>
         </Row>

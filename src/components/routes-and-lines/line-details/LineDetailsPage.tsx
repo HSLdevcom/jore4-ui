@@ -36,7 +36,7 @@ const CreateRouteBox: React.FC<Props> = ({ className, onCreateRoute }) => {
     >
       <SimpleButton
         id="create-route-button"
-        className="mb-4"
+        containerClassName="mb-4"
         onClick={onCreateRoute}
       >
         {t('lines.createNewRoute')}
@@ -74,7 +74,8 @@ const LineTitle: React.FC<LineTitleProps> = ({
           line.line_routes.map((item) => (
             <SimpleButton
               key={item.route_id}
-              className="mr-2 w-20 !rounded bg-tweaked-brand !px-0 !py-0 !text-sm !font-light text-white"
+              containerClassName="mr-2"
+              className="w-20 !rounded bg-tweaked-brand !px-0 !py-0 !text-sm !font-light text-white"
               onClick={onToggleRoute}
             >
               {item.label}
