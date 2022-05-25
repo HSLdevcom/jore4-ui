@@ -4,7 +4,7 @@ import {
   ServicePatternScheduledStopPoint,
   useGetRoutesWithInfrastructureLinksQuery,
 } from '../../generated/graphql';
-import { getRouteStopIds, mapRoutesDetailsResult } from '../../graphql';
+import { getRouteStopLabels, mapRoutesDetailsResult } from '../../graphql';
 import {
   selectHasChangesInProgress,
   selectMapEditor,
@@ -26,7 +26,7 @@ export const useMapStops = () => {
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
   const { displayedRouteIds } = useGetDisplayedRoutes();
   const selectedStopId = useAppSelector(selectSelectedStopId);
-  const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
+  const { mapRouteStopsToStopLabels } = useExtractRouteFromFeature();
 
   const highlightedStopsRouteIds = selectedRouteId ? [selectedRouteId] : [];
 
@@ -42,39 +42,42 @@ export const useMapStops = () => {
   );
   const displayedRoutes = mapRoutesDetailsResult(displayedRoutesResult);
 
-  const stopIdsOnEditedRoute = mapRouteStopsToStopIds(editedRouteData.stops);
+  const stopLabelsOnEditedRoute = mapRouteStopsToStopLabels(
+    editedRouteData.stops,
+  );
 
   const getStopVehicleMode = useCallback(
     (
-      stopId: UUID,
       stop: StopWithVehicleMode,
     ): ReusableComponentsVehicleModeEnum | undefined => {
-      const stopsIdsOnRoutes = [
-        ...stopIdsOnEditedRoute,
-        ...(displayedRoutes?.flatMap((route) => getRouteStopIds(route)) || []),
+      const stopsLabelsOnRoutes = [
+        ...stopLabelsOnEditedRoute,
+        ...(displayedRoutes?.flatMap((route) => getRouteStopLabels(route)) ||
+          []),
       ];
 
-      return stopsIdsOnRoutes?.includes(stopId)
+      return stop.label && stopsLabelsOnRoutes?.includes(stop.label)
         ? stop.vehicle_mode_on_scheduled_stop_point[0].vehicle_mode
         : undefined;
     },
-    [displayedRoutes, stopIdsOnEditedRoute],
+    [displayedRoutes, stopLabelsOnEditedRoute],
   );
 
   const getStopHighlighted = useCallback(
-    (stopId: UUID): boolean => {
+    (id: UUID, label: string): boolean => {
       // If editing a route, highlight stops on edited route
       // Otherwise highlight stops belonging to highlighted routes
-      const highlightedStopIds = routeEditingInProgress
-        ? stopIdsOnEditedRoute
-        : highlightedStopsRoutes?.flatMap((route) => getRouteStopIds(route)) ||
-          [];
+      const highlightedStopLabels = routeEditingInProgress
+        ? stopLabelsOnEditedRoute
+        : highlightedStopsRoutes?.flatMap((route) =>
+            getRouteStopLabels(route),
+          ) || [];
 
-      return highlightedStopIds?.includes(stopId) || selectedStopId === stopId;
+      return highlightedStopLabels?.includes(label) || selectedStopId === id;
     },
     [
       routeEditingInProgress,
-      stopIdsOnEditedRoute,
+      stopLabelsOnEditedRoute,
       highlightedStopsRoutes,
       selectedStopId,
     ],

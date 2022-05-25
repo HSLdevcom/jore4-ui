@@ -17,8 +17,10 @@ import { DrawLineStringMode, EditingMode, Editor } from 'react-map-gl-draw';
 import {
   ReusableComponentsVehicleModeEnum,
   useGetRoutesWithInfrastructureLinksQuery,
+  useGetStopsByIdsAsyncQuery,
 } from '../../../generated/graphql';
 import {
+  mapGetStopsResult,
   mapGraphQLRouteToInfraLinks,
   mapRoutesDetailsResult,
 } from '../../../graphql';
@@ -64,6 +66,8 @@ const DrawRouteLayerComponent = (
   const { map } = useContext(MapContext);
   const editorRef = useRef<ExplicitAny>(null);
 
+  const [getStopsByIds] = useGetStopsByIdsAsyncQuery();
+
   const dispatch = useAppDispatch();
   const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
@@ -78,7 +82,7 @@ const DrawRouteLayerComponent = (
     extractCoordinatesFromFeatures,
     getInfraLinksWithStopsForCoordinates,
     mapInfraLinksToFeature,
-    getRemovedStopIds,
+    getRemovedStopLabels,
     getOldRouteGeometryVariables,
   } = useExtractRouteFromFeature();
 
@@ -130,16 +134,16 @@ const DrawRouteLayerComponent = (
       const { infraLinks, orderedInfraLinksWithStops, geometry } =
         await getInfraLinksWithStopsForCoordinates(coordinates);
 
-      const { oldStopIds, oldInfraLinks } = getOldRouteGeometryVariables(
+      const { oldStopLabels, oldInfraLinks } = getOldRouteGeometryVariables(
         editedRouteData.stops,
         editedRouteData.infraLinks,
         routes,
         !creatingNewRoute || !!templateRouteId,
       );
 
-      const removedStopIds = await getRemovedStopIds(
+      const removedStopLabels = await getRemovedStopLabels(
         oldInfraLinks.map((link) => link.infrastructureLinkId),
-        oldStopIds,
+        oldStopLabels,
       );
 
       // Extract the list of ids of the stops to be included in the route
@@ -149,21 +153,25 @@ const DrawRouteLayerComponent = (
         vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
       });
 
-      const stops = getRouteStops(stopIds, removedStopIds || []);
+      const stopsResult = await getStopsByIds({
+        stopIds,
+      });
+
+      // Keep the same order as in stopIds,
+      // as fetching from GraphQL loses the order
+      const stopLabels =
+        mapGetStopsResult(stopsResult)
+          ?.slice()
+          ?.sort(
+            (a, b) =>
+              stopIds.indexOf(a.scheduled_stop_point_id) -
+              stopIds.indexOf(b.scheduled_stop_point_id),
+          )
+          ?.map((stop) => stop.label) || [];
+
+      const stops = getRouteStops(stopLabels, removedStopLabels || []);
 
       dispatch(setDraftRouteGeometryAction({ stops, infraLinks }));
-
-      if (stops.filter((item) => item.belongsToRoute).length >= 2) {
-        // eslint-disable-next-line no-console
-        console.log(
-          'Route goes along 2 or more stops and thus can be saved. TODO: show user UI to select which stops to use.',
-        );
-      } else {
-        // eslint-disable-next-line no-console
-        console.log(
-          'There were less than 2 stops within route. Route needs at least starting stop and final stop. TODO: inform user about this.',
-        );
-      }
 
       if (geometry) {
         addRoute(map, routeId, geometry);
@@ -176,14 +184,17 @@ const DrawRouteLayerComponent = (
     },
     [
       routes,
-      editedRouteData,
+      editedRouteData.id,
+      editedRouteData.stops,
+      editedRouteData.infraLinks,
       creatingNewRoute,
       extractCoordinatesFromFeatures,
       getInfraLinksWithStopsForCoordinates,
       getOldRouteGeometryVariables,
       templateRouteId,
-      getRemovedStopIds,
+      getRemovedStopLabels,
       extractScheduledStopPointIds,
+      getStopsByIds,
       dispatch,
       map,
       onDelete,

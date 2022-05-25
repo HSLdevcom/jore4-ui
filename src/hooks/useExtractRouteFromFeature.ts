@@ -12,7 +12,7 @@ import {
   RouteRoute,
 } from '../generated/graphql';
 import {
-  getRouteStopIds,
+  getRouteStopLabels,
   InfrastructureLinkAlongRoute,
   mapGetStopsResult,
   mapGraphQLRouteToInfraLinks,
@@ -31,12 +31,12 @@ interface ExtractScheduledStopPointIdsParams {
 export type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
 
 export const getRouteStops = (
-  stopIds: UUID[],
-  removedStopIds?: UUID[],
+  stopLabels: string[],
+  removedStopLabels?: string[],
 ): RouteStop[] => {
-  return stopIds.map((item) => ({
-    id: item,
-    belongsToRoute: !removedStopIds?.includes(item),
+  return stopLabels.map((item) => ({
+    label: item,
+    belongsToRoute: !removedStopLabels?.includes(item),
   }));
 };
 
@@ -51,8 +51,8 @@ export const useExtractRouteFromFeature = () => {
     GetStopsAlongInfrastructureLinksQueryVariables
   >(GetStopsAlongInfrastructureLinksDocument);
 
-  const mapRouteStopsToStopIds = (routeStops: RouteStop[]) =>
-    routeStops.filter((item) => item.belongsToRoute).map((item) => item.id);
+  const mapRouteStopsToStopLabels = (routeStops: RouteStop[]) =>
+    routeStops.filter((item) => item.belongsToRoute).map((item) => item.label);
 
   // Sort and filter the stop point ids from a MapExternalLinkIdsToInfraLinksWithStops
   // query result.
@@ -198,15 +198,15 @@ export const useExtractRouteFromFeature = () => {
     [fetchInfraLinksWithStopsByExternalIds],
   );
 
-  const getRemovedStopIds = useCallback(
-    async (infrastructureLinkIds: UUID[], currentStopIds: UUID[]) => {
+  const getRemovedStopLabels = useCallback(
+    async (infrastructureLinkIds: UUID[], currentStopLabels: string[]) => {
       const stopsResult = await fetchStopsAlongInfrastructureLinks({
         infrastructure_link_ids: infrastructureLinkIds,
       });
 
       return mapGetStopsResult(stopsResult)
-        ?.map((item) => item.scheduled_stop_point_id)
-        .filter((stop) => !currentStopIds.includes(stop));
+        ?.map((item) => item.label)
+        .filter((stop) => !currentStopLabels.includes(stop));
     },
 
     [fetchStopsAlongInfrastructureLinks],
@@ -219,7 +219,7 @@ export const useExtractRouteFromFeature = () => {
       routes: RouteRoute[],
       extractFromExistingRoute: boolean,
     ) => {
-      const previouslyEditedRouteStops = mapRouteStopsToStopIds(stateStops);
+      const previouslyEditedRouteStops = mapRouteStopsToStopLabels(stateStops);
       const previouslyEditedRouteInfrastructureLinks = stateInfraLinks || [];
 
       // If we are editing existing route and it has not been edited yet,
@@ -230,14 +230,14 @@ export const useExtractRouteFromFeature = () => {
         extractFromExistingRoute
       ) {
         return {
-          oldStopIds: routes.flatMap((route) => getRouteStopIds(route)),
+          oldStopLabels: routes.flatMap((route) => getRouteStopLabels(route)),
           oldInfraLinks: mapGraphQLRouteToInfraLinks(routes[0]),
         };
       }
 
       // If route has been edited, return edited route's stops and infra links
       return {
-        oldStopIds: previouslyEditedRouteStops,
+        oldStopLabels: previouslyEditedRouteStops,
         oldInfraLinks: previouslyEditedRouteInfrastructureLinks,
       };
     },
@@ -249,9 +249,9 @@ export const useExtractRouteFromFeature = () => {
     mapInfraLinksToFeature,
     extractCoordinatesFromFeatures,
     getInfraLinksWithStopsForCoordinates,
-    getRemovedStopIds,
+    getRemovedStopLabels,
     getRouteStops,
     getOldRouteGeometryVariables,
-    mapRouteStopsToStopIds,
+    mapRouteStopsToStopLabels,
   };
 };
