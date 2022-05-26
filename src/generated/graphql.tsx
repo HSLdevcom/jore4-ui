@@ -1585,6 +1585,32 @@ export type JourneyPatternScheduledStopPointInJourneyPattern = {
   scheduled_stop_point_id: Scalars['uuid'];
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence: Scalars['Int'];
+  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
+};
+
+
+/**
+ * The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern.
+ *
+ *
+ * columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern"
+ *
+ */
+export type JourneyPatternScheduledStopPointInJourneyPatternViaPointNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
+};
+
+
+/**
+ * The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern.
+ *
+ *
+ * columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern"
+ *
+ */
+export type JourneyPatternScheduledStopPointInJourneyPatternViaPointShortNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
 };
 
 /** aggregated selection of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1632,6 +1658,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy = {
   variance?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarianceOrderBy>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type JourneyPatternScheduledStopPointInJourneyPatternAppendInput = {
+  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting array relation for remote table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput = {
   data: Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
@@ -1664,6 +1696,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternBoolExp = {
   scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointBoolExp>;
   scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
   scheduled_stop_point_sequence?: Maybe<IntComparisonExp>;
+  via_point_name_i18n?: Maybe<JsonbComparisonExp>;
+  via_point_short_name_i18n?: Maybe<JsonbComparisonExp>;
 };
 
 /** unique or primary key constraints on table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1671,6 +1705,24 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternConstraint {
   /** unique or primary key constraint */
   ScheduledStopPointInJourneyPatternPkey = 'scheduled_stop_point_in_journey_pattern_pkey'
 }
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput = {
+  via_point_name_i18n?: Maybe<Array<Scalars['String']>>;
+  via_point_short_name_i18n?: Maybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput = {
+  via_point_name_i18n?: Maybe<Scalars['Int']>;
+  via_point_short_name_i18n?: Maybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput = {
+  via_point_name_i18n?: Maybe<Scalars['String']>;
+  via_point_short_name_i18n?: Maybe<Scalars['String']>;
+};
 
 /** input type for incrementing numeric columns in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternIncInput = {
@@ -1692,6 +1744,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternInsertInput = {
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
+  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
 };
 
 /** aggregate max on columns */
@@ -1761,6 +1815,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternOrderBy = {
   scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointOrderBy>;
   scheduled_stop_point_id?: Maybe<OrderBy>;
   scheduled_stop_point_sequence?: Maybe<OrderBy>;
+  via_point_name_i18n?: Maybe<OrderBy>;
+  via_point_short_name_i18n?: Maybe<OrderBy>;
 };
 
 /** primary key columns input for table: journey_pattern_scheduled_stop_point_in_journey_pattern */
@@ -1769,6 +1825,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput = {
   journey_pattern_id: Scalars['uuid'];
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence: Scalars['Int'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type JourneyPatternScheduledStopPointInJourneyPatternPrependInput = {
+  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1782,7 +1844,11 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumn {
   /** column name */
   ScheduledStopPointId = 'scheduled_stop_point_id',
   /** column name */
-  ScheduledStopPointSequence = 'scheduled_stop_point_sequence'
+  ScheduledStopPointSequence = 'scheduled_stop_point_sequence',
+  /** column name */
+  ViaPointNameI18n = 'via_point_name_i18n',
+  /** column name */
+  ViaPointShortNameI18n = 'via_point_short_name_i18n'
 }
 
 /** input type for updating data in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1797,6 +1863,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternSetInput = {
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
+  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
 };
 
 /** aggregate stddev on columns */
@@ -1862,7 +1930,11 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternUpdateColumn {
   /** column name */
   ScheduledStopPointId = 'scheduled_stop_point_id',
   /** column name */
-  ScheduledStopPointSequence = 'scheduled_stop_point_sequence'
+  ScheduledStopPointSequence = 'scheduled_stop_point_sequence',
+  /** column name */
+  ViaPointNameI18n = 'via_point_name_i18n',
+  /** column name */
+  ViaPointShortNameI18n = 'via_point_short_name_i18n'
 }
 
 /** aggregate var_pop on columns */
@@ -3284,7 +3356,12 @@ export type MutationRootUpdateJourneyPatternJourneyPatternByPkArgs = {
 
 /** mutation root */
 export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternArgs = {
+  _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
+  _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
+  _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
+  _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
   _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+  _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
   _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
   where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
 };
@@ -3292,7 +3369,12 @@ export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternAr
 
 /** mutation root */
 export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
+  _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
+  _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
+  _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
+  _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
   _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+  _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
   _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
   pk_columns: JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput;
 };
@@ -7964,6 +8046,31 @@ export type DeleteStopFromJourneyPatternMutationVariables = Exact<{
 
 export type DeleteStopFromJourneyPatternMutation = { __typename?: 'mutation_root', delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> } }> } | null | undefined };
 
+export type PatchScheduledStopPointViaInfoMutationVariables = Exact<{
+  scheduled_stop_point_id: Scalars['uuid'];
+  journey_pattern_id: Scalars['uuid'];
+  object: JourneyPatternScheduledStopPointInJourneyPatternSetInput;
+}>;
+
+
+export type PatchScheduledStopPointViaInfoMutation = { __typename?: 'mutation_root', update_journey_pattern_scheduled_stop_point_in_journey_pattern?: { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', scheduled_stop_point_id: UUID, journey_pattern_id: UUID, is_via_point: boolean, via_point_name_i18n?: any | null | undefined, via_point_short_name_i18n?: any | null | undefined }> } | null | undefined };
+
+export type RemoveScheduledStopPointViaInfoMutationVariables = Exact<{
+  scheduled_stop_point_id: Scalars['uuid'];
+  journey_pattern_id: Scalars['uuid'];
+}>;
+
+
+export type RemoveScheduledStopPointViaInfoMutation = { __typename?: 'mutation_root', update_journey_pattern_scheduled_stop_point_in_journey_pattern?: { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', scheduled_stop_point_id: UUID, journey_pattern_id: UUID, is_via_point: boolean, via_point_name_i18n?: any | null | undefined, via_point_short_name_i18n?: any | null | undefined }> } | null | undefined };
+
+export type GetScheduledStopPointInfoForViaModalQueryVariables = Exact<{
+  journey_pattern_id: Scalars['uuid'];
+  scheduled_stop_point_id: Scalars['uuid'];
+}>;
+
+
+export type GetScheduledStopPointInfoForViaModalQuery = { __typename?: 'query_root', journey_pattern_scheduled_stop_point_in_journey_pattern: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', via_point_name_i18n?: any | null | undefined, via_point_short_name_i18n?: any | null | undefined, journey_pattern_id: UUID, is_via_point: boolean, scheduled_stop_point_id: UUID, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_route?: { __typename?: 'route_route', route_id: UUID, label: string } | null | undefined, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', is_via_point: boolean, journey_pattern_id: UUID, scheduled_stop_point_id: UUID, scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string } | null | undefined }> } }> };
+
 export type ScheduledStopPointDefaultFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined };
 
 export type ScheduledStopPointAllFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> };
@@ -9227,6 +9334,150 @@ export function useDeleteStopFromJourneyPatternMutation(baseOptions?: Apollo.Mut
 export type DeleteStopFromJourneyPatternMutationHookResult = ReturnType<typeof useDeleteStopFromJourneyPatternMutation>;
 export type DeleteStopFromJourneyPatternMutationResult = Apollo.MutationResult<DeleteStopFromJourneyPatternMutation>;
 export type DeleteStopFromJourneyPatternMutationOptions = Apollo.BaseMutationOptions<DeleteStopFromJourneyPatternMutation, DeleteStopFromJourneyPatternMutationVariables>;
+export const PatchScheduledStopPointViaInfoDocument = gql`
+    mutation PatchScheduledStopPointViaInfo($scheduled_stop_point_id: uuid!, $journey_pattern_id: uuid!, $object: journey_pattern_scheduled_stop_point_in_journey_pattern_set_input!) {
+  update_journey_pattern_scheduled_stop_point_in_journey_pattern(
+    where: {scheduled_stop_point_id: {_eq: $scheduled_stop_point_id}, journey_pattern_id: {_eq: $journey_pattern_id}}
+    _set: $object
+  ) {
+    returning {
+      scheduled_stop_point_id
+      journey_pattern_id
+      is_via_point
+      via_point_name_i18n
+      via_point_short_name_i18n
+    }
+  }
+}
+    `;
+export type PatchScheduledStopPointViaInfoMutationFn = Apollo.MutationFunction<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>;
+
+/**
+ * __usePatchScheduledStopPointViaInfoMutation__
+ *
+ * To run a mutation, you first call `usePatchScheduledStopPointViaInfoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePatchScheduledStopPointViaInfoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [patchScheduledStopPointViaInfoMutation, { data, loading, error }] = usePatchScheduledStopPointViaInfoMutation({
+ *   variables: {
+ *      scheduled_stop_point_id: // value for 'scheduled_stop_point_id'
+ *      journey_pattern_id: // value for 'journey_pattern_id'
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function usePatchScheduledStopPointViaInfoMutation(baseOptions?: Apollo.MutationHookOptions<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>(PatchScheduledStopPointViaInfoDocument, options);
+      }
+export type PatchScheduledStopPointViaInfoMutationHookResult = ReturnType<typeof usePatchScheduledStopPointViaInfoMutation>;
+export type PatchScheduledStopPointViaInfoMutationResult = Apollo.MutationResult<PatchScheduledStopPointViaInfoMutation>;
+export type PatchScheduledStopPointViaInfoMutationOptions = Apollo.BaseMutationOptions<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>;
+export const RemoveScheduledStopPointViaInfoDocument = gql`
+    mutation RemoveScheduledStopPointViaInfo($scheduled_stop_point_id: uuid!, $journey_pattern_id: uuid!) {
+  update_journey_pattern_scheduled_stop_point_in_journey_pattern(
+    where: {scheduled_stop_point_id: {_eq: $scheduled_stop_point_id}, journey_pattern_id: {_eq: $journey_pattern_id}}
+    _set: {is_via_point: false, via_point_name_i18n: null, via_point_short_name_i18n: null}
+  ) {
+    returning {
+      scheduled_stop_point_id
+      journey_pattern_id
+      is_via_point
+      via_point_name_i18n
+      via_point_short_name_i18n
+    }
+  }
+}
+    `;
+export type RemoveScheduledStopPointViaInfoMutationFn = Apollo.MutationFunction<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>;
+
+/**
+ * __useRemoveScheduledStopPointViaInfoMutation__
+ *
+ * To run a mutation, you first call `useRemoveScheduledStopPointViaInfoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveScheduledStopPointViaInfoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeScheduledStopPointViaInfoMutation, { data, loading, error }] = useRemoveScheduledStopPointViaInfoMutation({
+ *   variables: {
+ *      scheduled_stop_point_id: // value for 'scheduled_stop_point_id'
+ *      journey_pattern_id: // value for 'journey_pattern_id'
+ *   },
+ * });
+ */
+export function useRemoveScheduledStopPointViaInfoMutation(baseOptions?: Apollo.MutationHookOptions<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>(RemoveScheduledStopPointViaInfoDocument, options);
+      }
+export type RemoveScheduledStopPointViaInfoMutationHookResult = ReturnType<typeof useRemoveScheduledStopPointViaInfoMutation>;
+export type RemoveScheduledStopPointViaInfoMutationResult = Apollo.MutationResult<RemoveScheduledStopPointViaInfoMutation>;
+export type RemoveScheduledStopPointViaInfoMutationOptions = Apollo.BaseMutationOptions<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>;
+export const GetScheduledStopPointInfoForViaModalDocument = gql`
+    query GetScheduledStopPointInfoForViaModal($journey_pattern_id: uuid!, $scheduled_stop_point_id: uuid!) {
+  journey_pattern_scheduled_stop_point_in_journey_pattern(
+    where: {journey_pattern_id: {_eq: $journey_pattern_id}, scheduled_stop_point_id: {_eq: $scheduled_stop_point_id}}
+  ) {
+    via_point_name_i18n
+    via_point_short_name_i18n
+    journey_pattern_id
+    is_via_point
+    scheduled_stop_point_id
+    journey_pattern {
+      journey_pattern_route {
+        route_id
+        label
+      }
+      scheduled_stop_point_in_journey_patterns {
+        is_via_point
+        journey_pattern_id
+        scheduled_stop_point_id
+        scheduled_stop_point {
+          scheduled_stop_point_id
+          label
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetScheduledStopPointInfoForViaModalQuery__
+ *
+ * To run a query within a React component, call `useGetScheduledStopPointInfoForViaModalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetScheduledStopPointInfoForViaModalQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetScheduledStopPointInfoForViaModalQuery({
+ *   variables: {
+ *      journey_pattern_id: // value for 'journey_pattern_id'
+ *      scheduled_stop_point_id: // value for 'scheduled_stop_point_id'
+ *   },
+ * });
+ */
+export function useGetScheduledStopPointInfoForViaModalQuery(baseOptions: Apollo.QueryHookOptions<GetScheduledStopPointInfoForViaModalQuery, GetScheduledStopPointInfoForViaModalQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetScheduledStopPointInfoForViaModalQuery, GetScheduledStopPointInfoForViaModalQueryVariables>(GetScheduledStopPointInfoForViaModalDocument, options);
+      }
+export function useGetScheduledStopPointInfoForViaModalLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetScheduledStopPointInfoForViaModalQuery, GetScheduledStopPointInfoForViaModalQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetScheduledStopPointInfoForViaModalQuery, GetScheduledStopPointInfoForViaModalQueryVariables>(GetScheduledStopPointInfoForViaModalDocument, options);
+        }
+export type GetScheduledStopPointInfoForViaModalQueryHookResult = ReturnType<typeof useGetScheduledStopPointInfoForViaModalQuery>;
+export type GetScheduledStopPointInfoForViaModalLazyQueryHookResult = ReturnType<typeof useGetScheduledStopPointInfoForViaModalLazyQuery>;
+export type GetScheduledStopPointInfoForViaModalQueryResult = Apollo.QueryResult<GetScheduledStopPointInfoForViaModalQuery, GetScheduledStopPointInfoForViaModalQueryVariables>;
 export const RemoveStopDocument = gql`
     mutation RemoveStop($stop_id: uuid!) {
   delete_service_pattern_scheduled_stop_point(
@@ -9631,6 +9882,12 @@ export type GetRoutesByValidityAsyncQueryHookResult = ReturnType<typeof useGetRo
 
 
 
+
+
+export function useGetScheduledStopPointInfoForViaModalAsyncQuery() {
+          return useAsyncQuery<GetScheduledStopPointInfoForViaModalQuery, GetScheduledStopPointInfoForViaModalQueryVariables>(GetScheduledStopPointInfoForViaModalDocument);
+        }
+export type GetScheduledStopPointInfoForViaModalAsyncQueryHookResult = ReturnType<typeof useGetScheduledStopPointInfoForViaModalAsyncQuery>;
 
 export function useGetStopsByLocationAsyncQuery() {
           return useAsyncQuery<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>(GetStopsByLocationDocument);

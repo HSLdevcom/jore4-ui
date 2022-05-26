@@ -1,6 +1,7 @@
 export * from './line-details/useGetLineDetails';
 export * from './lines';
 export * from './map';
+export * from './line-details/useViaModal';
 export * from './redux';
 export * from './routes';
 export * from './search/useSearch';

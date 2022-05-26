@@ -5,6 +5,7 @@ export const selectMap = (state: RootState) => state.map;
 export const selectMapEditor = (state: RootState) => state.mapEditor;
 export const selectModalMap = (state: RootState) => state.modalMap;
 export const selectUser = (state: RootState) => state.user;
+export const selectModals = (state: RootState) => state.modals;
 
 export const selectSelectedStopId = createSelector(
   selectMap,
@@ -50,4 +51,9 @@ export const selectHasDraftRouteGeometry = createSelector(
 export const selectSelectedRouteId = createSelector(
   selectMapEditor,
   (mapEditor) => mapEditor.selectedRouteId,
+);
+
+export const selectViaModal = createSelector(
+  selectModals,
+  (modals) => modals.viaModal,
 );
