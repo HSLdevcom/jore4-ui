@@ -82,6 +82,9 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         {
                           journey_pattern_id:
                             '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                          journey_pattern: {
+                            on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                          },
                           scheduled_stop_point_id:
                             'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                           scheduled_stop_point_sequence: 0,
@@ -115,6 +118,9 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         {
                           journey_pattern_id:
                             '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                          journey_pattern: {
+                            on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                          },
                           scheduled_stop_point_id:
                             '4d294d62-df17-46ff-9248-23f66f17fa87',
                           scheduled_stop_point_sequence: 1,
@@ -148,6 +154,9 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         {
                           journey_pattern_id:
                             '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                          journey_pattern: {
+                            on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                          },
                           scheduled_stop_point_id:
                             'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                           scheduled_stop_point_sequence: 2,

@@ -3,16 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { MdOutlineHistory } from 'react-icons/md';
 import { ServicePatternScheduledStopPoint } from '../../../generated/graphql';
 import { stopBelongsToJourneyPattern } from '../../../graphql';
-import { useEditRouteJourneyPattern } from '../../../hooks';
-import { Row } from '../../../layoutComponents';
+import { Row, Visible } from '../../../layoutComponents';
 import {
   mapToShortDate,
   mapToShortDateTime,
   MAX_DATE,
   MIN_DATE,
 } from '../../../time';
-import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
-import { showDangerToast, showSuccessToast } from '../../../utils';
+import { StopActionsDropdown } from './StopActionsDropdown';
 
 interface Props {
   className?: string;
@@ -28,29 +26,16 @@ export const RouteStopsRow = ({
   onAddToRoute,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
-
   const belongsToJourneyPattern = stopBelongsToJourneyPattern(stop, routeId);
 
-  const {
-    prepareDeleteStopFromRoute,
-    mapDeleteStopFromRouteChangesToVariables,
-    deleteStopFromRouteMutation,
-  } = useEditRouteJourneyPattern();
+  const scheduledStopPointInJourneyPattern =
+    stop.scheduled_stop_point_in_journey_patterns.find(
+      (point) =>
+        point.scheduled_stop_point_id === stop.scheduled_stop_point_id &&
+        point.journey_pattern.on_route_id === routeId,
+    );
 
-  const deleteFromJourneyPattern = async () => {
-    try {
-      const changes = prepareDeleteStopFromRoute({
-        routeId,
-        stopPointId: stop.scheduled_stop_point_id,
-      });
-      const variables = mapDeleteStopFromRouteChangesToVariables(changes);
-
-      await deleteStopFromRouteMutation(variables);
-      showSuccessToast(t('routes.saveSuccess'));
-    } catch (err) {
-      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
-    }
-  };
+  const isViaPoint = scheduledStopPointInJourneyPattern?.is_via_point;
 
   return (
     <tr
@@ -61,7 +46,13 @@ export const RouteStopsRow = ({
       <td className="py-4 pl-16 pr-4" data-testid="stop-row-label">
         {stop.label}
       </td>
-      <td data-testid="stop-row-name">!Pysäkki X</td>
+      <td data-testid="stop-row-name">
+        <span>!Pysäkki X</span>
+        <Visible visible={isViaPoint}>
+          <i className="icon-via text-4xl text-hsl-dark-green" />
+        </Visible>
+      </td>
+
       <td className="pr-16 text-right" data-testid="stop-row-validity-period">
         {belongsToJourneyPattern
           ? t('validity.validDuring', {
@@ -80,23 +71,11 @@ export const RouteStopsRow = ({
       </td>
       <td>&nbsp;</td>
       <td>
-        <SimpleDropdownMenu
-          alignItems={AlignDirection.Left}
-          testId="stop-row-action-menu"
-        >
-          {belongsToJourneyPattern ? (
-            <button type="button" onClick={deleteFromJourneyPattern}>
-              {t('stops.removeFromRoute')}
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => onAddToRoute(stop.scheduled_stop_point_id)}
-            >
-              {t('stops.addToRoute')}
-            </button>
-          )}
-        </SimpleDropdownMenu>
+        <StopActionsDropdown
+          routeId={routeId}
+          stop={stop}
+          onAddToRoute={onAddToRoute}
+        />
       </td>
     </tr>
   );

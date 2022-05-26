@@ -2,6 +2,7 @@ import { AnyAction, combineReducers } from '@reduxjs/toolkit';
 import { mapReducer } from './slices/map';
 import { mapEditorReducer } from './slices/mapEditor';
 import { modalMapReducer } from './slices/modalMap';
+import { modalsReducer } from './slices/modals';
 import { loginFailedAction, userReducer } from './slices/user';
 
 const appReducer = combineReducers({
@@ -9,6 +10,7 @@ const appReducer = combineReducers({
   mapEditor: mapEditorReducer,
   modalMap: modalMapReducer,
   user: userReducer,
+  modals: modalsReducer,
 });
 
 export const rootReducer = (state: ExplicitAny, action: AnyAction) => {
