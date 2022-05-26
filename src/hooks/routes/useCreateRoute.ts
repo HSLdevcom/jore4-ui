@@ -6,6 +6,7 @@ import {
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
 import { mapInfraLinksAlongRouteToGraphQL, RouteGeometry } from '../../graphql';
+import { RouteStop } from '../../redux';
 import { MIN_DATE } from '../../time';
 import {
   mapToObject,
@@ -31,9 +32,23 @@ const mapStopIdToStopInSequence = (stopId: UUID, index: number) => ({
   scheduled_stop_point_id: stopId,
   scheduled_stop_point_sequence: index,
 });
+
+const mapExistingStopToStopInSequence = (stop: RouteStop, index: number) => ({
+  scheduled_stop_point_id: stop.id,
+  is_via_point: stop.is_via_point,
+  is_timing_point: stop.is_timing_point,
+  scheduled_stop_point_sequence: index,
+});
+
 export const mapStopsToStopSequence = (stops: UUID[]) => {
   return {
     data: stops.map(mapStopIdToStopInSequence),
+  };
+};
+
+export const mapExistingStopsToStopSequence = (stops: RouteStop[]) => {
+  return {
+    data: stops.map(mapExistingStopToStopInSequence),
   };
 };
 

@@ -11,8 +11,7 @@ import {
 } from '../../graphql';
 import { RouteStop } from '../../redux';
 import { removeFromApolloCache } from '../../utils';
-import { useExtractRouteFromFeature } from '../useExtractRouteFromFeature';
-import { mapStopsToStopSequence } from './useCreateRoute';
+import { mapExistingStopsToStopSequence } from './useCreateRoute';
 
 interface DeleteStopParams {
   routeId: UUID;
@@ -28,7 +27,7 @@ interface AddStopParams {
 
 interface AddStopChanges {
   routeId: UUID;
-  stopIdsWithinRoute: UUID[];
+  stopsWithinRoute: RouteStop[];
 }
 
 /**
@@ -39,8 +38,6 @@ export const useEditRouteJourneyPattern = () => {
     useUpdateRouteJourneyPatternMutation();
   const [deleteStopFromJourneyPatternMutation] =
     useDeleteStopFromJourneyPatternMutation();
-
-  const { mapRouteStopsToStopIds } = useExtractRouteFromFeature();
 
   const prepareDeleteStopFromRoute = (params: DeleteStopParams) => {
     const changes: DeleteStopChanges = params;
@@ -75,20 +72,27 @@ export const useEditRouteJourneyPattern = () => {
 
     const stopsAlongRoute = getStopsAlongRouteGeometry(route);
 
-    const routeStops: RouteStop[] = stopsAlongRoute.map((stop) => ({
-      id: stop.scheduled_stop_point_id,
-      belongsToRoute: stopBelongsToJourneyPattern(stop, route.route_id),
-    }));
+    const routeStops: RouteStop[] = stopsAlongRoute.map((stop) => {
+      const scheduledStopPointInJourneyPattern =
+        stop.scheduled_stop_point_in_journey_patterns.find(
+          (point) =>
+            point.scheduled_stop_point_id === stop.scheduled_stop_point_id &&
+            point.journey_pattern.on_route_id === route.route_id,
+        );
+      return {
+        id: stop.scheduled_stop_point_id,
+        ...scheduledStopPointInJourneyPattern,
+        belongsToRoute: stopBelongsToJourneyPattern(stop, route.route_id),
+      };
+    });
 
     const newRouteStops = routeStops.map((item) =>
       item.id === stopPointId ? { ...item, belongsToRoute: true } : item,
     );
 
-    const stopIdsWithinRoute = mapRouteStopsToStopIds(newRouteStops);
-
     const changes: AddStopChanges = {
       routeId: route.route_id,
-      stopIdsWithinRoute,
+      stopsWithinRoute: newRouteStops,
     };
 
     return changes;
@@ -99,9 +103,8 @@ export const useEditRouteJourneyPattern = () => {
       route_id: changes.routeId,
       new_journey_pattern: {
         on_route_id: changes.routeId,
-        scheduled_stop_point_in_journey_patterns: mapStopsToStopSequence(
-          changes.stopIdsWithinRoute,
-        ),
+        scheduled_stop_point_in_journey_patterns:
+          mapExistingStopsToStopSequence(changes.stopsWithinRoute),
       },
     };
 

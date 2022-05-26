@@ -7791,7 +7791,7 @@ export type UpdateRouteJourneyPatternMutationVariables = Exact<{
 }>;
 
 
-export type UpdateRouteJourneyPatternMutation = { __typename?: 'mutation_root', delete_journey_pattern_journey_pattern?: { __typename?: 'journey_pattern_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID }> } | null | undefined, insert_journey_pattern_journey_pattern_one?: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID } | null | undefined };
+export type UpdateRouteJourneyPatternMutation = { __typename?: 'mutation_root', delete_journey_pattern_journey_pattern?: { __typename?: 'journey_pattern_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID }> } | null | undefined, insert_journey_pattern_journey_pattern_one?: { __typename?: 'journey_pattern_journey_pattern', on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_id: UUID, is_via_point: boolean, is_timing_point: boolean }> } | null | undefined };
 
 export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: LocalizedString, short_name_i18n: LocalizedString, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined };
 
@@ -8346,6 +8346,12 @@ export const UpdateRouteJourneyPatternDocument = gql`
   }
   insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
     on_route_id
+    scheduled_stop_point_in_journey_patterns {
+      journey_pattern_id
+      scheduled_stop_point_id
+      is_via_point
+      is_timing_point
+    }
   }
 }
     `;

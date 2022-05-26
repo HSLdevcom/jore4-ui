@@ -40,6 +40,12 @@ const UPDATE_ROUTE_JOURNEY_PATTERN = gql`
 
     insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
       on_route_id
+      scheduled_stop_point_in_journey_patterns {
+        journey_pattern_id
+        scheduled_stop_point_id
+        is_via_point
+        is_timing_point
+      }
     }
   }
 `;

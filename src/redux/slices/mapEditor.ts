@@ -79,6 +79,10 @@ export enum Mode {
 export interface RouteStop {
   id: UUID;
   belongsToRoute: boolean;
+  // eslint-disable-next-line camelcase
+  is_via_point?: boolean;
+  // eslint-disable-next-line camelcase
+  is_timing_point?: boolean;
 }
 
 const slice = createSlice({
