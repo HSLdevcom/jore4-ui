@@ -1,10 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import {
+  JourneyPatternJourneyPatternInsertInput,
+  RouteInfrastructureLinkAlongRouteInsertInput,
   UpdateRouteGeometryMutationVariables,
+  useGetRoutesWithInfrastructureLinksAsyncQuery,
   useUpdateRouteGeometryMutation,
 } from '../../generated/graphql';
 import { mapInfraLinksAlongRouteToGraphQL, RouteGeometry } from '../../graphql';
-import { mapToVariables, showDangerToastWithError } from '../../utils';
+import { removeFromApolloCache, showDangerToastWithError } from '../../utils';
 import { mapStopsToStopSequence } from './useCreateRoute';
 import { useValidateRoute } from './useValidateRoute';
 
@@ -14,7 +17,9 @@ interface EditParams {
 }
 
 interface EditChanges {
-  patch: UpdateRouteGeometryMutationVariables;
+  routeId: UUID;
+  newInfrastructureLinks: RouteInfrastructureLinkAlongRouteInsertInput[];
+  newJourneyPattern: JourneyPatternJourneyPatternInsertInput;
 }
 
 /**
@@ -25,20 +30,20 @@ interface EditChanges {
 export const useEditRouteGeometry = () => {
   const { t } = useTranslation();
   const [mutateFunction] = useUpdateRouteGeometryMutation();
+  const [getRoutesById] = useGetRoutesWithInfrastructureLinksAsyncQuery();
   const { validateGeometry } = useValidateRoute();
 
-  const mapRouteDetailsToUpdateMutationVariables = (
-    routeId: UUID,
-    routeGeometry: RouteGeometry,
-  ) => {
-    const { stopLabelsWithinRoute, infraLinksAlongRoute } = routeGeometry;
+  const prepareEdit = async ({ routeId, newGeometry }: EditParams) => {
+    await validateGeometry(newGeometry);
 
-    const variables: UpdateRouteGeometryMutationVariables = {
-      route_id: routeId,
-      new_infrastructure_links: mapInfraLinksAlongRouteToGraphQL(
+    const { stopLabelsWithinRoute, infraLinksAlongRoute } = newGeometry;
+
+    const changes: EditChanges = {
+      routeId,
+      newInfrastructureLinks: mapInfraLinksAlongRouteToGraphQL(
         infraLinksAlongRoute,
       ).map((link) => ({ ...link, route_id: routeId })),
-      new_journey_pattern: {
+      newJourneyPattern: {
         on_route_id: routeId,
         scheduled_stop_point_in_journey_patterns: mapStopsToStopSequence(
           stopLabelsWithinRoute,
@@ -46,26 +51,16 @@ export const useEditRouteGeometry = () => {
       },
     };
 
-    return variables;
-  };
-
-  const prepareEdit = async ({ routeId, newGeometry }: EditParams) => {
-    await validateGeometry(newGeometry);
-
-    const input = mapRouteDetailsToUpdateMutationVariables(
-      routeId,
-      newGeometry,
-    );
-
-    const changes: EditChanges = {
-      patch: input,
-    };
-
     return changes;
   };
 
-  const mapEditChangesToVariables = (changes: EditChanges) =>
-    mapToVariables(changes.patch);
+  const mapEditChangesToVariables = (
+    changes: EditChanges,
+  ): UpdateRouteGeometryMutationVariables => ({
+    route_id: changes.routeId,
+    new_infrastructure_links: changes.newInfrastructureLinks,
+    new_journey_pattern: changes.newJourneyPattern,
+  });
 
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown
@@ -73,10 +68,25 @@ export const useEditRouteGeometry = () => {
     showDangerToastWithError(t('errors.saveFailed'), err);
   };
 
+  const editRouteGeometryMutation = async (
+    variables: UpdateRouteGeometryMutationVariables,
+  ) => {
+    await mutateFunction({
+      variables,
+      update(cache) {
+        removeFromApolloCache(cache, {
+          route_id: variables.route_id,
+          __typename: 'route_route',
+        });
+      },
+    });
+    await getRoutesById({ route_ids: [variables.route_id] });
+  };
+
   return {
     prepareEditGeometry: prepareEdit,
     mapEditGeometryChangesToVariables: mapEditChangesToVariables,
-    editRouteGeometryMutation: mutateFunction,
+    editRouteGeometryMutation,
     defaultErrorHandler,
   };
 };
