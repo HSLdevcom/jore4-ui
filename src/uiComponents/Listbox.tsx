@@ -4,7 +4,7 @@ import {
   TransitionClasses,
 } from '@headlessui/react';
 import React, { Fragment, ReactNode } from 'react';
-import { Noop } from 'react-hook-form';
+import { ControllerFieldState, Noop } from 'react-hook-form';
 import { addClassName } from '../utils/components';
 
 // copied from HeadlessUI Listbox as it's not exported
@@ -36,6 +36,7 @@ export interface FormInputProps {
   value?: string;
   onChange: ValueFn;
   onBlur: Noop;
+  fieldState?: ControllerFieldState;
 }
 
 interface Props extends FormInputProps {
@@ -45,6 +46,11 @@ interface Props extends FormInputProps {
   options: ListboxOptionRenderer[];
 }
 
+const buttonErrorStyles =
+  '!border-hsl-red !bg-hsl-red !bg-opacity-5 !border-2 text-hsl-red';
+
+const arrowErrorStyles = 'text-hsl-red';
+
 export const Listbox = ({
   id,
   buttonContent,
@@ -53,17 +59,20 @@ export const Listbox = ({
   value,
   onChange,
   onBlur,
+  fieldState,
 }: Props): JSX.Element => {
   const onItemSelected = (val: string) => {
     const event = { target: { value: val } };
     onChange(event);
   };
 
+  const hasError = !!fieldState?.error;
+
   return (
     <HUIListbox
       id={id || 'listbox'}
       as="div"
-      className="input-element relative h-full"
+      className="relative"
       value={value}
       onChange={onItemSelected}
       onBlur={onBlur}
@@ -71,12 +80,16 @@ export const Listbox = ({
       {({ open }) => (
         <>
           <HUIListbox.Button
-            className="flex h-full w-full items-center text-left focus:outline-none"
+            className={`${
+              hasError ? buttonErrorStyles : ''
+            } input-element flex w-full items-center text-left focus:outline-none`}
             data-testid={testId}
           >
             {buttonContent}
             <i
-              className={`icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out ${
+              className={`${
+                hasError ? arrowErrorStyles : ''
+              } icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out ${
                 open ? '-rotate-180' : 'rotate-0'
               }`}
               style={{ fontSize: 10 }}
@@ -86,7 +99,7 @@ export const Listbox = ({
           <Transition show={open} as={Fragment} {...dropdownTransition}>
             <HUIListbox.Options
               static
-              className="absolute left-0 z-10 mt-2 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
+              className="absolute left-0 z-10 w-full rounded-b-md border border-grey bg-white shadow-md focus:outline-none"
             >
               <div>
                 {options?.map((item) => (
@@ -98,7 +111,7 @@ export const Listbox = ({
                             child,
                             `${
                               optionProps.active ? 'bg-background' : ''
-                            } flex group text-left px-2 py-2 focus:outline-none`,
+                            } flex group text-left px-2 py-2 focus:outline-none border-b border-grey`,
                           )
                         : child;
                     }}

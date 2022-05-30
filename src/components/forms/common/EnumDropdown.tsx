@@ -16,12 +16,11 @@ export interface EnumDropdownProps<TEnum> extends FormInputProps {
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function EnumDropdown<TEnum extends Object>({
   testId,
-  value,
-  onChange,
-  onBlur,
   enumType,
   uiNameMapper,
   placeholder,
+  value,
+  ...formInputProps
 }: EnumDropdownProps<TEnum>) {
   const values = getEnumValues(enumType);
 
@@ -49,8 +48,8 @@ export function EnumDropdown<TEnum extends Object>({
       }
       options={options}
       value={value}
-      onChange={onChange}
-      onBlur={onBlur}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...formInputProps}
     />
   );
 }
