@@ -187,3 +187,72 @@ Maps in UI has four to five toggles depending on situation:
 - **1. c** show/hide route (Not available if no route is selected)
 - **2. a** show/hide stops served from jore4-mbtiles-server
 - **2. b** show/hide stops served from martin
+
+## Coding style
+
+### Inline components
+
+**What?** Avoid using inline components unless it's a must.
+
+**Why?** Using inline components makes them tightly coupled with their host component. When the child
+component's functionality grows, it's going to be hard to detach it from the host component.
+
+**Bad**
+
+```
+export const EditButton: React.FC<Props> = (props) => {
+  const { testId } = props;
+  const href = (props as LinkProps)?.href;
+  const onClick = (props as ButtonProps)?.onClick;
+
+  const ButtonContent = () => (
+    <div className="ml-5 h-10 w-10 rounded-full border border-grey bg-white">
+      <MdModeEdit className="m-2 text-2xl text-tweaked-brand" />
+    </div>
+  );
+
+  if (href) {
+    return (
+      <Link to={href} data-testid={testId}>
+        <ButtonContent />
+      </Link>
+    );
+  }
+
+  return (
+    <button onClick={onClick} type="button" data-testid={testId}>
+      <ButtonContent />
+    </button>
+  );
+};
+```
+
+**Good**
+
+```
+const ButtonContent = () => (
+  <div className="ml-5 h-10 w-10 rounded-full border border-grey bg-white">
+    <MdModeEdit className="m-2 text-2xl text-tweaked-brand" />
+  </div>
+);
+
+export const EditButton: React.FC<Props> = (props) => {
+  const { testId } = props;
+  const href = (props as LinkProps)?.href;
+  const onClick = (props as ButtonProps)?.onClick;
+
+  if (href) {
+    return (
+      <Link to={href} data-testid={testId}>
+        <ButtonContent />
+      </Link>
+    );
+  }
+
+  return (
+    <button onClick={onClick} type="button" data-testid={testId}>
+      <ButtonContent />
+    </button>
+  );
+};
+```
