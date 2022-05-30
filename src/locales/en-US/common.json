@@ -204,6 +204,9 @@
     "future": "Future",
     "current": "Current",
     "past": "Past",
+    "standard": "Standard",
+    "temporary": "Temporary",
+    "draft": "Draft",
     "observationDate": "Observation date",
     "observationDateAdjusted": "Observation date adjusted"
   },

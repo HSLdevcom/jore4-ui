@@ -204,6 +204,9 @@
     "future": "Tulevat",
     "current": "Nykyiset",
     "past": "Menneet",
+    "standard": "Perusversiot",
+    "temporary": "Väliaikaiset",
+    "draft": "Luonnokset",
     "observationDate": "Tarkasteluhetki",
     "observationDateAdjusted": "Tarkasteluhetkeä muutettu"
   },
