@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Column, Row } from '../../../layoutComponents';
-import { StringInput } from '../common/StringInput';
+import { InputField } from '../common';
 import { RouteFormState } from './RoutePropertiesForm.types';
 
 const testIds = {
@@ -30,14 +30,16 @@ export const TerminusNameInputs = ({ className = '' }: Props): JSX.Element => {
       </h2>
       <Row className="mt-5 flex-wrap gap-2">
         <Column className="w-80 flex-auto">
-          <StringInput<RouteFormState>
+          <InputField<RouteFormState>
+            type="text"
             translationPrefix="routes"
             fieldPath="origin.name.fi_FI"
             testId={testIds.originFinnishNameInput}
           />
         </Column>
         <Column className="w-80 flex-auto">
-          <StringInput<RouteFormState>
+          <InputField<RouteFormState>
+            type="text"
             translationPrefix="routes"
             fieldPath="origin.shortName.fi_FI"
             testId={testIds.originFinnishShortNameInput}
@@ -46,14 +48,16 @@ export const TerminusNameInputs = ({ className = '' }: Props): JSX.Element => {
       </Row>
       <Row className="mt-5 flex-wrap gap-2">
         <Column className="w-80 flex-auto">
-          <StringInput<RouteFormState>
+          <InputField<RouteFormState>
+            type="text"
             translationPrefix="routes"
             fieldPath="origin.name.sv_FI"
             testId={testIds.originSwedishNameInput}
           />
         </Column>
         <Column className="w-80 flex-auto">
-          <StringInput<RouteFormState>
+          <InputField<RouteFormState>
+            type="text"
             translationPrefix="routes"
             fieldPath="origin.shortName.sv_FI"
             testId={testIds.originSwedishShortNameInput}
@@ -65,14 +69,16 @@ export const TerminusNameInputs = ({ className = '' }: Props): JSX.Element => {
       </h2>
       <Row className="mt-5 flex-wrap gap-2">
         <Column className="w-80 flex-auto">
-          <StringInput<RouteFormState>
+          <InputField<RouteFormState>
+            type="text"
             translationPrefix="routes"
             fieldPath="destination.name.fi_FI"
             testId={testIds.destinationFinnishNameInput}
           />
         </Column>
         <Column className="w-80 flex-auto">
-          <StringInput<RouteFormState>
+          <InputField<RouteFormState>
+            type="text"
             translationPrefix="routes"
             fieldPath="destination.shortName.fi_FI"
             testId={testIds.destinationFinnishShortNameInput}
@@ -81,14 +87,16 @@ export const TerminusNameInputs = ({ className = '' }: Props): JSX.Element => {
       </Row>
       <Row className="mt-5 flex-wrap gap-2">
         <Column className="w-80 flex-auto">
-          <StringInput<RouteFormState>
+          <InputField<RouteFormState>
+            type="text"
             translationPrefix="routes"
             fieldPath="destination.name.sv_FI"
             testId={testIds.destinationSwedishNameInput}
           />
         </Column>
         <Column className="w-80 flex-auto">
-          <StringInput<RouteFormState>
+          <InputField<RouteFormState>
+            type="text"
             translationPrefix="routes"
             fieldPath="destination.shortName.sv_FI"
             testId={testIds.destinationSwedishShortNameInput}
