@@ -9,11 +9,18 @@ import {
   setShowStopFilterOverlayAction,
   setStopFilterAction,
 } from '../redux';
+import { Priority } from '../types/Priority';
 import { useAppDispatch, useAppSelector } from './redux';
 
 type StopFilterFunction = (stop: ServicePatternScheduledStopPoint) => boolean;
 
-interface FilterItem {
+interface Filter {
+  type: FilterType;
+  label: string;
+  filterFunction: (stop: ServicePatternScheduledStopPoint) => boolean;
+}
+
+export interface FilterItem {
   id: string;
   enabled: boolean;
   label: string;
@@ -56,6 +63,14 @@ const isCurrentStop = (
   );
 };
 
+const mapFilterItemsToFilterFunctions = (filterItems: FilterItem[]) =>
+  filterItems.filter((item) => item.enabled).map((item) => item.filterFunction);
+
+const hasPriority = (
+  priority: Priority,
+  stop: ServicePatternScheduledStopPoint,
+) => stop.priority === priority;
+
 export const useFilterStops = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -82,6 +97,24 @@ export const useFilterStops = () => {
     },
   ];
 
+  const priorityFilters = [
+    {
+      type: FilterType.ShowStandardStops,
+      label: t('filters.standard'),
+      filterFunction: partial(hasPriority, Priority.Standard),
+    },
+    {
+      type: FilterType.ShowTemporaryStops,
+      label: t('filters.temporary'),
+      filterFunction: partial(hasPriority, Priority.Temporary),
+    },
+    {
+      type: FilterType.ShowDraftStops,
+      label: t('filters.draft'),
+      filterFunction: partial(hasPriority, Priority.Draft),
+    },
+  ];
+
   const toggleFunction = (filterType: FilterType) => {
     return (enabled: boolean) =>
       dispatch(setStopFilterAction({ filterType, enabled }));
@@ -89,8 +122,8 @@ export const useFilterStops = () => {
 
   const isFilterEnabled = (filterType: FilterType) => stopFilters[filterType];
 
-  const timeBasedFilterItems: FilterItem[] = timeBasedFilters.map((item) => {
-    const { type, label, filterFunction } = item;
+  const mapFilterToFilterItem = (filter: Filter): FilterItem => {
+    const { type, label, filterFunction } = filter;
 
     return {
       id: `filter-${type}`,
@@ -99,15 +132,28 @@ export const useFilterStops = () => {
       toggleFunction: toggleFunction(type),
       filterFunction,
     };
-  });
+  };
+
+  const timeBasedFilterItems: FilterItem[] = timeBasedFilters.map(
+    mapFilterToFilterItem,
+  );
+
+  const priorityFilterItems: FilterItem[] = priorityFilters.map(
+    mapFilterToFilterItem,
+  );
 
   const filter = (stops: ServicePatternScheduledStopPoint[]) => {
-    const timeBasedFilterFunctions = timeBasedFilterItems
-      .filter((item) => item.enabled)
-      .map((item) => item.filterFunction);
+    const timeBasedFilterFunctions =
+      mapFilterItemsToFilterFunctions(timeBasedFilterItems);
+    const priorityFilterFunctions =
+      mapFilterItemsToFilterFunctions(priorityFilterItems);
 
-    return stops.filter((stop) =>
-      timeBasedFilterFunctions.some((filterFunction) => filterFunction(stop)),
+    return stops.filter(
+      (stop) =>
+        timeBasedFilterFunctions.some((filterFunction) =>
+          filterFunction(stop),
+        ) &&
+        priorityFilterFunctions.some((filterFunction) => filterFunction(stop)),
     );
   };
 
@@ -115,5 +161,10 @@ export const useFilterStops = () => {
     dispatch(setShowStopFilterOverlayAction(!showStopFilterOverlay));
   };
 
-  return { filter, timeBasedFilterItems, toggleShowFilters };
+  return {
+    filter,
+    timeBasedFilterItems,
+    priorityFilterItems,
+    toggleShowFilters,
+  };
 };

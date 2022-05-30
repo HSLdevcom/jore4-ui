@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useFilterStops } from '../../hooks/useFilterStops';
+import { FilterItem, useFilterStops } from '../../hooks/useFilterStops';
 import { Row } from '../../layoutComponents';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
 
@@ -7,10 +7,29 @@ interface Props {
   className?: string;
 }
 
+const FilterRow = ({ filter }: { filter: FilterItem }) => {
+  const { id, enabled, label, toggleFunction } = filter;
+
+  return (
+    <Row key={id}>
+      <input
+        type="checkbox"
+        id={id}
+        className="mr-2 h-8"
+        onChange={(e) => toggleFunction(e.target.checked)}
+        checked={enabled}
+      />
+      <label htmlFor={id} className="mb-0 self-center font-normal">
+        {label}
+      </label>
+    </Row>
+  );
+};
+
 export const StopFilterOverlay = ({ className }: Props) => {
   const { t } = useTranslation();
 
-  const { timeBasedFilterItems } = useFilterStops();
+  const { timeBasedFilterItems, priorityFilterItems } = useFilterStops();
 
   return (
     <MapOverlay className={`${className} rounded-b`}>
@@ -20,18 +39,11 @@ export const StopFilterOverlay = ({ className }: Props) => {
       <div className="p-4">
         <div className="font-bold">{t('stops.stops')}</div>
         {timeBasedFilterItems.map((filter) => (
-          <Row key={filter.id}>
-            <input
-              type="checkbox"
-              id={filter.id}
-              className="mr-2 h-8"
-              onChange={(e) => filter.toggleFunction(e.target.checked)}
-              checked={filter.enabled}
-            />
-            <label htmlFor={filter.id} className="mb-0 self-center font-normal">
-              {filter.label}
-            </label>
-          </Row>
+          <FilterRow key={filter.id} filter={filter} />
+        ))}
+        <div className="my-2 border" />
+        {priorityFilterItems.map((filter) => (
+          <FilterRow key={filter.id} filter={filter} />
         ))}
       </div>
     </MapOverlay>

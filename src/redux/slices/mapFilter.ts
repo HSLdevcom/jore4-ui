@@ -5,6 +5,9 @@ export enum FilterType {
   ShowFutureStops = 'show-future-stops',
   ShowCurrentStops = 'show-current-stops',
   ShowPastStops = 'show-past-stops',
+  ShowStandardStops = 'show-standard-stops',
+  ShowTemporaryStops = 'show-temporary-stops',
+  ShowDraftStops = 'show-draft-stops',
 }
 
 export interface IState {
@@ -21,6 +24,9 @@ const initialState: IState = {
     [FilterType.ShowFutureStops]: false,
     [FilterType.ShowCurrentStops]: true,
     [FilterType.ShowPastStops]: false,
+    [FilterType.ShowStandardStops]: true,
+    [FilterType.ShowTemporaryStops]: true,
+    [FilterType.ShowDraftStops]: true,
   },
   observationDate: DateTime.now().toISO(),
 };
