@@ -256,3 +256,31 @@ export const EditButton: React.FC<Props> = (props) => {
   );
 };
 ```
+
+### Namespaced imports
+
+**What?** Strive on grouping imports together by namespace
+
+**Why?** It's easier to follow what component/function is imported from where if they are namespaced
+
+**Bad**
+
+```
+import { EditButton } from '../../uiComponents';
+import { SimpleDropdownMenu } from '../../uiComponents/SimpleDropdownMenu';
+```
+
+**Good**
+
+Import it like this:
+
+```
+import { EditButton, SimpleDropdownMenu } from '../../uiComponents';
+```
+
+uiComponents/index.ts:
+
+```
+export * from './EditButton';
+export * from './SimpleDropdownMenu';
+```
