@@ -4,6 +4,11 @@ services:
     # Link to available jore4-hasura images in Docker Hub:
     # https://hub.docker.com/r/hsldevcom/jore4-hasura/tags?page=1&ordering=last_updated
     image: 'hsldevcom/jore4-hasura:seed-localization-jsonb--20220516-1bf1b6e6d023c9accf58d4f7f1db701f438d161e'
+    # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
+    # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
+    depends_on:
+      jore4-testdb:
+        condition: service_healthy
     environment:
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
 
@@ -40,14 +45,3 @@ services:
       - 25432:5432
     networks:
       - jore4
-
-  # Automatically restart unhealthy docker containers: https://hub.docker.com/r/willfarrell/autoheal
-  # Speeds up the startup as we need don't need to wait for hasura restart so long
-  autoheal:
-    restart: 'unless-stopped'
-    container_name: autoheal
-    image: willfarrell/autoheal
-    environment:
-      - AUTOHEAL_CONTAINER_LABEL=all
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
