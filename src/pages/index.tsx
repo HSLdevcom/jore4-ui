@@ -11,7 +11,17 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <footer className="mt-6 flex justify-center">
+      <footer
+        className="flex justify-center"
+        /* 
+          Set fixed height and margin manually, so height is known 
+          and can used to calculate desired height for map component in MapPage.tsx
+        */
+        style={{
+          height: 'var(--footer-height)',
+          marginTop: 'var(--footer-margin-top)',
+        }}
+      >
         <p>{t('version', { version: process.env.NEXT_PUBLIC_GIT_HASH })}</p>
       </footer>
     </div>
