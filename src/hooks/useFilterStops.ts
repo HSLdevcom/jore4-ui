@@ -1,3 +1,5 @@
+import groupBy from 'lodash/groupBy';
+import maxBy from 'lodash/maxBy';
 import partial from 'lodash/partial';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
@@ -22,10 +24,11 @@ interface Filter {
 
 export interface FilterItem {
   id: string;
-  enabled: boolean;
+  isActive: boolean;
   label: string;
-  toggleFunction: (enabled: boolean) => void;
+  toggleFunction: (isActive: boolean) => void;
   filterFunction: StopFilterFunction;
+  disabled: boolean;
 }
 
 const isFutureStop = (
@@ -64,7 +67,9 @@ const isCurrentStop = (
 };
 
 const mapFilterItemsToFilterFunctions = (filterItems: FilterItem[]) =>
-  filterItems.filter((item) => item.enabled).map((item) => item.filterFunction);
+  filterItems
+    .filter((item) => item.isActive)
+    .map((item) => item.filterFunction);
 
 const hasPriority = (
   priority: Priority,
@@ -78,6 +83,15 @@ export const useFilterStops = () => {
   const { stopFilters, showStopFilterOverlay } =
     useAppSelector(selectMapFilter);
   const observationDate = useAppSelector(selectMapObservationDate);
+
+  const highestPriorityCurrentFilter = {
+    type: FilterType.ShowHighestPriorityCurrentStops,
+    label: t('filters.highestPriorityCurrent'),
+    // Current stops that are not drafts
+    filterFunction: (stop: ServicePatternScheduledStopPoint) =>
+      isCurrentStop(observationDate, stop) &&
+      !hasPriority(Priority.Draft, stop),
+  };
 
   const timeBasedFilters = [
     {
@@ -116,21 +130,26 @@ export const useFilterStops = () => {
   ];
 
   const toggleFunction = (filterType: FilterType) => {
-    return (enabled: boolean) =>
-      dispatch(setStopFilterAction({ filterType, enabled }));
+    return (isActive: boolean) =>
+      dispatch(setStopFilterAction({ filterType, isActive }));
   };
 
-  const isFilterEnabled = (filterType: FilterType) => stopFilters[filterType];
+  const isFilterActive = (filterType: FilterType) => stopFilters[filterType];
 
   const mapFilterToFilterItem = (filter: Filter): FilterItem => {
     const { type, label, filterFunction } = filter;
 
     return {
       id: `filter-${type}`,
-      enabled: isFilterEnabled(type),
+      isActive: isFilterActive(type),
       label,
       toggleFunction: toggleFunction(type),
       filterFunction,
+      // If "Show situation on the selected date" -filter is active
+      // all other filters are disabled
+      disabled:
+        type !== FilterType.ShowHighestPriorityCurrentStops &&
+        isFilterActive(FilterType.ShowHighestPriorityCurrentStops),
     };
   };
 
@@ -142,7 +161,35 @@ export const useFilterStops = () => {
     mapFilterToFilterItem,
   );
 
+  const highestPriorityCurrentFilterItem = mapFilterToFilterItem(
+    highestPriorityCurrentFilter,
+  );
+
+  const filterHighestPriorityCurrentStops = (
+    stops: ServicePatternScheduledStopPoint[],
+  ) => {
+    // Get all current stops that are not drafts
+    const currentStops = stops.filter(
+      highestPriorityCurrentFilter.filterFunction,
+    );
+
+    // Group stops by label
+    const groupedCurrentStops = groupBy(currentStops, 'label');
+
+    // Sort grouped stops by priority in descending order and pick the first one for each label
+    return Object.values(groupedCurrentStops).flatMap(
+      (stopInstances) =>
+        maxBy(stopInstances, 'priority') as ServicePatternScheduledStopPoint,
+    );
+  };
+
   const filter = (stops: ServicePatternScheduledStopPoint[]) => {
+    // If "Show situation on the selected date" filter is selected,
+    // ignore other filters
+    if (isFilterActive(FilterType.ShowHighestPriorityCurrentStops)) {
+      return filterHighestPriorityCurrentStops(stops);
+    }
+
     const timeBasedFilterFunctions =
       mapFilterItemsToFilterFunctions(timeBasedFilterItems);
     const priorityFilterFunctions =
@@ -165,6 +212,7 @@ export const useFilterStops = () => {
     filter,
     timeBasedFilterItems,
     priorityFilterItems,
+    highestPriorityCurrentFilterItem,
     toggleShowFilters,
   };
 };

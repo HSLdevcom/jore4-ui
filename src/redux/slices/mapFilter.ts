@@ -8,6 +8,7 @@ export enum FilterType {
   ShowStandardStops = 'show-standard-stops',
   ShowTemporaryStops = 'show-temporary-stops',
   ShowDraftStops = 'show-draft-stops',
+  ShowHighestPriorityCurrentStops = 'show-highest-priority-current-stops',
 }
 
 export interface IState {
@@ -27,6 +28,7 @@ const initialState: IState = {
     [FilterType.ShowStandardStops]: true,
     [FilterType.ShowTemporaryStops]: true,
     [FilterType.ShowDraftStops]: true,
+    [FilterType.ShowHighestPriorityCurrentStops]: true,
   },
   observationDate: DateTime.now().toISO(),
 };
@@ -40,10 +42,10 @@ const slice = createSlice({
     },
     setStopFilter: (
       state,
-      action: PayloadAction<{ filterType: FilterType; enabled: boolean }>,
+      action: PayloadAction<{ filterType: FilterType; isActive: boolean }>,
     ) => {
-      const { filterType, enabled } = action.payload;
-      state.stopFilters[filterType] = enabled;
+      const { filterType, isActive } = action.payload;
+      state.stopFilters[filterType] = isActive;
     },
     setMapObservationDate: {
       reducer: (state, action: PayloadAction<string>) => {
