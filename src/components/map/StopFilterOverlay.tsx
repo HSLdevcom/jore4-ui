@@ -8,7 +8,7 @@ interface Props {
 }
 
 const FilterRow = ({ filter }: { filter: FilterItem }) => {
-  const { id, enabled, label, toggleFunction } = filter;
+  const { id, isActive, label, toggleFunction, disabled } = filter;
 
   return (
     <Row key={id}>
@@ -17,7 +17,9 @@ const FilterRow = ({ filter }: { filter: FilterItem }) => {
         id={id}
         className="mr-2 h-8"
         onChange={(e) => toggleFunction(e.target.checked)}
-        checked={enabled}
+        // If filter is disaled, make it appear as not checked
+        checked={isActive}
+        disabled={disabled}
       />
       <label htmlFor={id} className="mb-0 self-center font-normal">
         {label}
@@ -29,7 +31,11 @@ const FilterRow = ({ filter }: { filter: FilterItem }) => {
 export const StopFilterOverlay = ({ className }: Props) => {
   const { t } = useTranslation();
 
-  const { timeBasedFilterItems, priorityFilterItems } = useFilterStops();
+  const {
+    timeBasedFilterItems,
+    priorityFilterItems,
+    highestPriorityCurrentFilterItem,
+  } = useFilterStops();
 
   return (
     <MapOverlay className={`${className} rounded-b`}>
@@ -38,6 +44,8 @@ export const StopFilterOverlay = ({ className }: Props) => {
       </MapOverlayHeader>
       <div className="p-4">
         <div className="font-bold">{t('stops.stops')}</div>
+        <FilterRow filter={highestPriorityCurrentFilterItem} />
+        <div className="my-2 border" />
         {timeBasedFilterItems.map((filter) => (
           <FilterRow key={filter.id} filter={filter} />
         ))}

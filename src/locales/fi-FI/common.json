@@ -207,6 +207,7 @@
     "standard": "Perusversiot",
     "temporary": "Väliaikaiset",
     "draft": "Luonnokset",
+    "highestPriorityCurrent": "Näytä tilanne valittuna päivänä",
     "observationDate": "Tarkasteluhetki",
     "observationDateAdjusted": "Tarkasteluhetkeä muutettu"
   },
