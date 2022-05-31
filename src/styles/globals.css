@@ -20,3 +20,13 @@ label {
   size: 14px;
   margin-bottom: 4px;
 }
+
+:root {
+  /**
+    Magic values that can be seen with browsers devtools.
+    Probably won't work in all corner cases.
+  **/
+  --navbar-height: 68px;
+  --footer-height: 24px;
+  --footer-margin-top: 24px;
+}
