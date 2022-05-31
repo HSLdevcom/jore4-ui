@@ -1,3 +1,5 @@
+import groupBy from 'lodash/groupBy';
+import orderBy from 'lodash/orderBy';
 import partial from 'lodash/partial';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +28,7 @@ export interface FilterItem {
   label: string;
   toggleFunction: (enabled: boolean) => void;
   filterFunction: StopFilterFunction;
+  filterDisabled: boolean;
 }
 
 const isFutureStop = (
@@ -79,6 +82,15 @@ export const useFilterStops = () => {
     useAppSelector(selectMapFilter);
   const observationDate = useAppSelector(selectMapObservationDate);
 
+  const highestCurrentFilter = {
+    type: FilterType.ShowHighestCurrentStops,
+    label: t('filters.highestCurrent'),
+    // Current stops that are not drafts
+    filterFunction: (stop: ServicePatternScheduledStopPoint) =>
+      isCurrentStop(observationDate, stop) &&
+      !hasPriority(Priority.Draft, stop),
+  };
+
   const timeBasedFilters = [
     {
       type: FilterType.ShowFutureStops,
@@ -131,6 +143,11 @@ export const useFilterStops = () => {
       label,
       toggleFunction: toggleFunction(type),
       filterFunction,
+      // If "Show situation on the selected date" -filter is enabled
+      // all other filters are disabled
+      filterDisabled:
+        type !== FilterType.ShowHighestCurrentStops &&
+        isFilterEnabled(FilterType.ShowHighestCurrentStops),
     };
   };
 
@@ -142,7 +159,30 @@ export const useFilterStops = () => {
     mapFilterToFilterItem,
   );
 
+  const highestCurrentFilterItem = mapFilterToFilterItem(highestCurrentFilter);
+
+  const filterHighestCurrentStops = (
+    stops: ServicePatternScheduledStopPoint[],
+  ) => {
+    // Get all current stops that are not drafts
+    const currentStops = stops.filter(highestCurrentFilter.filterFunction);
+
+    // Group stops by label
+    const groupedCurrentStops = groupBy(currentStops, 'label');
+
+    // Sort grouped stops by priority in descending order and pick the first one for each label
+    return Object.values(groupedCurrentStops).flatMap(
+      (stopInstances) => orderBy(stopInstances, 'priority', 'desc')[0],
+    );
+  };
+
   const filter = (stops: ServicePatternScheduledStopPoint[]) => {
+    // If "Show situation on the selected date" filter is selected,
+    // ignore other filters
+    if (isFilterEnabled(FilterType.ShowHighestCurrentStops)) {
+      return filterHighestCurrentStops(stops);
+    }
+
     const timeBasedFilterFunctions =
       mapFilterItemsToFilterFunctions(timeBasedFilterItems);
     const priorityFilterFunctions =
@@ -165,6 +205,7 @@ export const useFilterStops = () => {
     filter,
     timeBasedFilterItems,
     priorityFilterItems,
+    highestCurrentFilterItem,
     toggleShowFilters,
   };
 };

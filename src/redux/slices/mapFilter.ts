@@ -8,6 +8,7 @@ export enum FilterType {
   ShowStandardStops = 'show-standard-stops',
   ShowTemporaryStops = 'show-temporary-stops',
   ShowDraftStops = 'show-draft-stops',
+  ShowHighestCurrentStops = 'show-highest-current-stops',
 }
 
 export interface IState {
@@ -27,6 +28,7 @@ const initialState: IState = {
     [FilterType.ShowStandardStops]: true,
     [FilterType.ShowTemporaryStops]: true,
     [FilterType.ShowDraftStops]: true,
+    [FilterType.ShowHighestCurrentStops]: true,
   },
   observationDate: DateTime.now().toISO(),
 };

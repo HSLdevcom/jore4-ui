@@ -207,6 +207,7 @@
     "standard": "Standard",
     "temporary": "Temporary",
     "draft": "Draft",
+    "highestCurrent": "Show situation on the selected date",
     "observationDate": "Observation date",
     "observationDateAdjusted": "Observation date adjusted"
   },
