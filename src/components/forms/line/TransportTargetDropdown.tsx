@@ -10,21 +10,18 @@ interface Props extends FormInputProps {
 
 export const TransportTargetDropdown = ({
   testId,
-  value,
-  onChange,
-  onBlur,
+  ...formInputProps
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
   return (
     <EnumDropdown<HslRouteTransportTargetEnum>
       testId={testId}
-      value={value}
-      onChange={onChange}
-      onBlur={onBlur}
       enumType={HslRouteTransportTargetEnum}
       placeholder={t('lines.transportTarget')}
       uiNameMapper={mapTransportTargetToUiName}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...formInputProps}
     />
   );
 };

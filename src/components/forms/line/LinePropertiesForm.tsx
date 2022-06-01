@@ -1,4 +1,3 @@
-import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import {
@@ -6,7 +5,8 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
 } from '../../../generated/graphql';
-import { Column, Row } from '../../../layoutComponents';
+import { Row } from '../../../layoutComponents';
+import { InputField } from '../common';
 import { LineTypeDropdown } from './LineTypeDropdown';
 import { TransportTargetDropdown } from './TransportTargetDropdown';
 import { VehicleModeDropdown } from './VehicleModeDropdown';
@@ -22,6 +22,8 @@ export const schema = z.object({
 export type FormState = z.infer<typeof schema>;
 
 const testIds = {
+  label: 'LinePropertiesForm:label',
+  finnishName: 'LinePropertiesForm:finnishName',
   transportTargetDropdown: 'transport-target-input',
   vehicleModeDropdown: 'primary-vehicle-mode-input',
   lineTypeDropdown: 'type-of-line-input',
@@ -34,100 +36,66 @@ interface Props {
 export const LinePropertiesForm = ({ id, className }: Props): JSX.Element => {
   const { t } = useTranslation();
 
-  const {
-    register,
-    control,
-    formState: { errors },
-  } = useFormContext<FormState>();
-
   return (
     <div id={id || ''} className={className || ''}>
       <Row>
         <h2 className="mb-8 text-2xl font-bold">{t('lines.properties')}</h2>
       </Row>
       <Row className="mb-5 space-x-10">
-        <Column className="w-1/4">
-          <label htmlFor="label">{t('lines.label')}</label>
-          <input id="label-input" type="text" {...register('label', {})} />
-          <p>
-            {errors.label?.type === 'too_small' && t('formValidation.required')}
-          </p>
-        </Column>
+        <InputField<FormState>
+          type="text"
+          className="w-1/4"
+          translationPrefix="lines"
+          fieldPath="label"
+          testId={testIds.label}
+        />
       </Row>
       <Row className="mb-5 space-x-10">
-        <Column className="w-1/2">
-          <label htmlFor="finnishName">{t('lines.finnishName')}</label>
-          <input
-            id="finnish-name-input"
-            type="text"
-            {...register('finnishName', {})}
-          />
-          <p>
-            {errors.finnishName?.type === 'too_small' &&
-              t('formValidation.required')}
-          </p>
-        </Column>
+        <InputField<FormState>
+          type="text"
+          className="w-1/2"
+          translationPrefix="lines"
+          fieldPath="finnishName"
+          testId={testIds.finnishName}
+        />
       </Row>
       <Row className="space-x-10">
-        <Column className="w-1/4">
-          <label htmlFor="transportTarget">{t('lines.transportTarget')}</label>
-          <Controller
-            name="transportTarget"
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TransportTargetDropdown
-                testId={testIds.transportTargetDropdown}
-                value={value}
-                onChange={onChange}
-                onBlur={onBlur}
-              />
-            )}
-          />
-          <p>
-            {errors.transportTarget?.type === 'invalid_type' &&
-              t('formValidation.required')}
-          </p>
-        </Column>
-        <Column className="w-1/4">
-          <label htmlFor="primaryVehicleMode">
-            {t('lines.primaryVehicleMode')}
-          </label>
-          <Controller
-            name="primaryVehicleMode"
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <VehicleModeDropdown
-                testId={testIds.vehicleModeDropdown}
-                value={value}
-                onChange={onChange}
-                onBlur={onBlur}
-              />
-            )}
-          />
-          <p>
-            {errors.primaryVehicleMode?.type === 'invalid_type' &&
-              t('formValidation.required')}
-          </p>
-        </Column>
-        <Column className="w-1/4">
-          <label htmlFor="typeOfLine">{t('lines.linesType')}</label>
-          <Controller
-            name="typeOfLine"
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <LineTypeDropdown
-                testId={testIds.lineTypeDropdown}
-                value={value}
-                onChange={onChange}
-                onBlur={onBlur}
-              />
-            )}
-          />
-          <p>
-            {errors.typeOfLine?.type === 'invalid_type' &&
-              t('formValidation.required')}
-          </p>
-        </Column>
+        <InputField<FormState>
+          className="w-1/4"
+          translationPrefix="lines"
+          fieldPath="transportTarget"
+          testId={testIds.transportTargetDropdown}
+          inputElementRenderer={(props) => (
+            <TransportTargetDropdown
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...props}
+            />
+          )}
+        />
+        <InputField<FormState>
+          className="w-1/4"
+          translationPrefix="lines"
+          fieldPath="primaryVehicleMode"
+          testId={testIds.vehicleModeDropdown}
+          inputElementRenderer={(props) => (
+            <VehicleModeDropdown
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...props}
+            />
+          )}
+        />
+        <InputField<FormState>
+          className="w-1/4"
+          translationPrefix="lines"
+          fieldPath="typeOfLine"
+          testId={testIds.lineTypeDropdown}
+          inputElementRenderer={(props) => (
+            <LineTypeDropdown
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...props}
+            />
+          )}
+        />
       </Row>
     </div>
   );
