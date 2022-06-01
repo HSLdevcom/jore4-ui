@@ -11,12 +11,12 @@ import {
 import { useCreateRoute } from '../../../hooks/routes/useCreateRoute';
 import {
   initializeMapEditorWithRoutesAction,
+  resetRouteCreatingAction,
   selectMapEditor,
   selectMapObservationDate,
   setIsModalMapOpenAction,
   setMapObservationDateAction,
   setSelectedRouteIdAction,
-  stopDrawRouteAction,
   toggleDrawRouteAction,
   toggleEditRouteAction,
 } from '../../../redux';
@@ -143,7 +143,7 @@ const RouteEditorComponent = (
     // Reset map editor drap mode and remove draft route
     // as it is now saved
 
-    dispatch(stopDrawRouteAction());
+    dispatch(resetRouteCreatingAction());
 
     onDeleteDrawnRoute();
   };
@@ -163,7 +163,7 @@ const RouteEditorComponent = (
   const onCancel = () => {
     onDeleteDrawnRoute();
 
-    dispatch(stopDrawRouteAction());
+    dispatch(resetRouteCreatingAction());
   };
 
   const onSave = async () => {

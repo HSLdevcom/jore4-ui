@@ -35,7 +35,7 @@ import {
   selectHasDraftRouteGeometry,
   selectMapEditor,
   setDraftRouteGeometryAction,
-  stopEditRouteAction,
+  stopRouteEditingAction,
 } from '../../../redux';
 import { showToast } from '../../../utils';
 import { addRoute, removeRoute } from '../mapUtils';
@@ -232,7 +232,7 @@ const DrawRouteLayerComponent = (
       debouncedOnAddRoute(e.data);
 
       if (e.editType === 'addFeature') {
-        dispatch(stopEditRouteAction());
+        dispatch(stopRouteEditingAction());
       }
     }
   };

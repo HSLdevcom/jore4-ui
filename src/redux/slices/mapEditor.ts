@@ -93,17 +93,26 @@ const slice = createSlice({
     reset: () => {
       return initialState;
     },
-    startDrawRoute: (state) => {
+    /**
+     * Start creating a new route. Start by opening metadata form.
+     */
+    startRouteCreating: (state) => {
       state.isRouteMetadataFormOpen = true;
       state.creatingNewRoute = true;
       state.selectedRouteId = undefined;
     },
-    stopDrawRoute: (state) => {
+    /**
+     * Quit route creation mode. Reset draw mode and metadata.
+     */
+    resetRouteCreating: (state) => {
       state.drawingMode = initialState.drawingMode;
       state.creatingNewRoute = false;
       state.editedRouteData = initialState.editedRouteData;
     },
-    startEditRoute: (state) => {
+    /**
+     * Start editing route geometry. Could be existing route or freshly drawn draft route.
+     */
+    startRouteEditing: (state) => {
       const routeToEdit = state.creatingNewRoute
         ? undefined
         : state?.selectedRouteId;
@@ -114,15 +123,24 @@ const slice = createSlice({
         id: routeToEdit,
       };
     },
-    stopEditRoute: (state) => {
+    /**
+     * Stop editing route geometry.
+     */
+    stopRouteEditing: (state) => {
       state.drawingMode = undefined;
       if (!state.creatingNewRoute) {
         state.editedRouteData = initialState.editedRouteData;
       }
     },
+    /**
+     * Set template route to be used when drawing a new route.
+     */
     setTemplateRouteId: (state, action: PayloadAction<UUID | undefined>) => {
       state.editedRouteData.templateRouteId = action.payload;
     },
+    /**
+     * Set a stop to (not) belong to a route when creating / editing a route.
+     */
     setStopOnRoute: (
       state,
       action: PayloadAction<{ stopId: UUID; belongsToRoute: boolean }>,
@@ -136,12 +154,18 @@ const slice = createSlice({
         ),
       };
     },
+    /**
+     * Set created / edited route metadata.
+     */
     setRouteMetadata: (
       state,
       action: PayloadAction<Partial<RouteFormState>>,
     ) => {
       state.editedRouteData.metaData = action.payload;
     },
+    /**
+     * Finish editing route metadata form, store metadata in state and close form.
+     */
     finishRouteMetadataEditing: (
       state,
       action: PayloadAction<Partial<RouteFormState>>,
@@ -156,15 +180,24 @@ const slice = createSlice({
         : Mode.Draw;
       state.isRouteMetadataFormOpen = false;
     },
+    /**
+     * Initialize map editor state to show some routes.
+     */
     initializeMapEditorWithRoutes: (state, action: PayloadAction<UUID[]>) => {
       return {
         ...initialState,
         initiallyDisplayedRouteIds: action.payload,
       };
     },
+    /**
+     * Set route instances to show in the map view.
+     */
     setDisplayedRouteIds: (state, action: PayloadAction<UUID[]>) => {
       state.displayedRouteIds = action.payload;
     },
+    /**
+     * Store created / edited route geometry in state.
+     */
     setDraftRouteGeometry: (
       state,
       action: PayloadAction<{
@@ -180,6 +213,9 @@ const slice = createSlice({
         infraLinks,
       };
     },
+    /**
+     * Reset created / edited route geometry in state.
+     */
     resetDraftRouteGeometry: (state) => {
       state.editedRouteData = {
         ...state.editedRouteData,
@@ -187,9 +223,15 @@ const slice = createSlice({
         infraLinks: [],
       };
     },
+    /**
+     * Select a route by id.
+     */
     setSelectedRouteId: (state, action: PayloadAction<UUID | undefined>) => {
       state.selectedRouteId = action.payload;
     },
+    /**
+     * Set route metadata edit form open / closed.
+     */
     setRouteMetadataFormOpen: (state, action: PayloadAction<boolean>) => {
       state.isRouteMetadataFormOpen = action.payload;
     },
@@ -198,10 +240,10 @@ const slice = createSlice({
 
 export const {
   reset: resetMapEditorStateAction,
-  startDrawRoute: startDrawRouteAction,
-  stopDrawRoute: stopDrawRouteAction,
-  startEditRoute: startEditRouteAction,
-  stopEditRoute: stopEditRouteAction,
+  startRouteCreating: startRouteCreatingAction,
+  resetRouteCreating: resetRouteCreatingAction,
+  startRouteEditing: startRouteEditingAction,
+  stopRouteEditing: stopRouteEditingAction,
   setTemplateRouteId: setTemplateRouteIdAction,
   setStopOnRoute: setStopOnRouteAction,
   setRouteMetadata: setRouteMetadataAction,

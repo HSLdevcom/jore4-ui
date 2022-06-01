@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   Mode,
-  startDrawRouteAction,
-  startEditRouteAction,
-  stopDrawRouteAction,
-  stopEditRouteAction,
+  resetRouteCreatingAction,
+  startRouteCreatingAction,
+  startRouteEditingAction,
+  stopRouteEditingAction,
 } from '../slices/mapEditor';
 import { RootState } from '../store';
 
@@ -14,9 +14,9 @@ export const toggleDrawRouteAction = createAsyncThunk<
   { state: RootState }
 >('mapEditor/toggleDrawRoute', (_, thunkAPI) => {
   if (thunkAPI.getState().mapEditor.drawingMode === Mode.Draw) {
-    thunkAPI.dispatch(stopDrawRouteAction());
+    thunkAPI.dispatch(resetRouteCreatingAction());
   } else {
-    thunkAPI.dispatch(startDrawRouteAction());
+    thunkAPI.dispatch(startRouteCreatingAction());
   }
 });
 
@@ -26,8 +26,8 @@ export const toggleEditRouteAction = createAsyncThunk<
   { state: RootState }
 >('mapEditor/toggleEditRoute', (_, thunkAPI) => {
   if (thunkAPI.getState().mapEditor.drawingMode === Mode.Edit) {
-    thunkAPI.dispatch(stopEditRouteAction());
+    thunkAPI.dispatch(stopRouteEditingAction());
   } else {
-    thunkAPI.dispatch(startEditRouteAction());
+    thunkAPI.dispatch(startRouteEditingAction());
   }
 });
