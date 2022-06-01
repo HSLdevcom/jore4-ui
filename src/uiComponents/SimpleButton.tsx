@@ -43,7 +43,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
   const commonClassNames = `px-4 py-2 font-bold rounded-full ${colorClassNames} ${disabledClassNames}`;
   if ((props as ButtonProps).onClick) {
     return (
-      <span className={containerClassName}>
+      <span className={`inline-flex ${containerClassName}`}>
         <button
           id={id}
           className={`${commonClassNames} ${className}`}
@@ -63,7 +63,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
     // https://getbootstrap.com/docs/5.1/components/buttons/#link-functionality-caveat
     // "Disabled buttons using <a> should not include the href attribute."
     return (
-      <span className={`flex ${containerClassName}`}>
+      <span className={`inline-flex ${containerClassName}`}>
         <Link
           id={id}
           className={`${commonClassNames} flex items-center ${className}`}
