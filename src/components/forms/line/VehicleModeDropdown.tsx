@@ -10,21 +10,18 @@ interface Props extends FormInputProps {
 
 export const VehicleModeDropdown = ({
   testId,
-  value,
-  onChange,
-  onBlur,
+  ...formInputProps
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
   return (
     <EnumDropdown<ReusableComponentsVehicleModeEnum>
       testId={testId}
-      value={value}
-      onChange={onChange}
-      onBlur={onBlur}
       enumType={ReusableComponentsVehicleModeEnum}
       placeholder={t('lines.chooseVehicleMode')}
       uiNameMapper={mapVehicleModeToUiName}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...formInputProps}
     />
   );
 };

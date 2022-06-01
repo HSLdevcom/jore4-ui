@@ -50,7 +50,7 @@ export const AdditionalInformation: React.FC<Props> = ({ className, line }) => {
         />
         <FieldValue
           className="w-1/4"
-          fieldName={t('lines.linesType')}
+          fieldName={t('lines.typeOfLine')}
           value={mapLineTypeToUiName(line.type_of_line)}
           testId="line-details-type-of-line"
         />
