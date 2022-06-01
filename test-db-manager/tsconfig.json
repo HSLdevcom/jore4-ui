@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+    "outDir": "ts-dist",
+    "rootDir": "src",
+    "moduleResolution": "node",
+    // for some reason building this project gives errors if this is not defined
+    "skipLibCheck": true /* Skip type checking of all declaration files (*.d.ts). */
+  },
+  "include": ["src"]
+}
