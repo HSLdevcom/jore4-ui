@@ -1,0 +1,5 @@
+ts-dist/
+dist/
+tsconfig.tsbuildinfo
+node_modules
+.rollup.cache
