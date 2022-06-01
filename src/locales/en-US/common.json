@@ -147,6 +147,10 @@
     "temporary": "Temporary",
     "draft": "Draft"
   },
+  "validityPeriod": {
+    "validityStart": "Starts",
+    "validityEnd": "Ends"
+  },
   "vehicleModeEnum": {
     "bus": "Bus",
     "ferry": "Ferry",
@@ -222,7 +226,5 @@
   "cancel": "Cancel",
   "close": "Close",
   "version": "Version: {{ version }}",
-  "hide": "Hide",
-  "validityStart": "Starts",
-  "validityEnd": "Ends"
+  "hide": "Hide"
 }

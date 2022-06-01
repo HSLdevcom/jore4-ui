@@ -126,8 +126,8 @@ export const ConflictResolverModal: React.FC<Props> = ({
         <thead>
           <tr>
             <Th>{t('priority.label')}</Th>
-            <Th>{t('validityStart')}</Th>
-            <Th>{t('validityEnd')}</Th>
+            <Th>{t('confirmSave.validityStart')}</Th>
+            <Th>{t('confirmSave.validityEnd')}</Th>
             <Th>{t('lines.label')}</Th>
           </tr>
         </thead>
