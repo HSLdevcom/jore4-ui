@@ -284,3 +284,10 @@ uiComponents/index.ts:
 export * from './EditButton';
 export * from './SimpleDropdownMenu';
 ```
+
+## Yarn workspaces
+
+Currently we have `test-db-manager` in separate yarn workspace and jore-ui in "workspace root".
+Because of that we get `error Running this command will add the dependency to the workspace root rather than the workspace itself, which might not be what you want - if you really meant it, make it explicit by running this command again with the -W flag (or --ignore-workspace-root-check).` when trying to `yarn add` anything to the ui project itself.
+We can ignore that for now and use `-W` flag when adding dependencies.
+At some point we could consider moving `test-db-manager` to a separate repository or moving ui project itself to a separate workspace.
