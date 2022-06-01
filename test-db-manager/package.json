@@ -1,0 +1,28 @@
+{
+  "name": "@hsl/jore4-test-db-manager",
+  "version": "1.0.0",
+  "description": "DB manager for Jore4 testing",
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "yarn clean && yarn rollup --config rollup.config.js",
+    "clean": "rm -rf ts-dist && rm -rf dist && rm -f tsconfig.tsbuildinfo && rm -rf .rollup.cache",
+    "ts:check": "yarn tsc --noEmit",
+    "ts:build": "yarn tsc --build",
+    "qa": "yarn --frozen-lockfile && yarn ts:check"
+  },
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "knex": "^2.1.0",
+    "pg": "^8.7.3",
+    "rollup": "^2.75.5",
+    "typescript": "^4.7.2"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.6.5"
+  }
+}
