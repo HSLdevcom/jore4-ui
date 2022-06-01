@@ -2,9 +2,9 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   finishRouteMetadataEditingAction,
+  resetRouteCreatingAction,
   selectMapEditor,
   setRouteMetadataFormOpenAction,
-  stopDrawRouteAction,
 } from '../../../redux';
 import {
   routeFormSchema,
@@ -31,7 +31,7 @@ export const EditRouteMetadataLayer: React.FC = () => {
     // closing the metadata form will also cancel the route creation.
     // Otherwise, clicking close on the modal will only close the modal
     if (!alreadyHaveValidFormValues) {
-      dispatch(stopDrawRouteAction());
+      dispatch(resetRouteCreatingAction());
     }
   };
 
