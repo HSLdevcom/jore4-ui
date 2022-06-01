@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { Column, Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/Priority';
 import { SimpleButton } from '../../../uiComponents';
+import { InputField } from './InputField';
 
 export const schema = z.object({
   priority: z.nativeEnum(Priority),
@@ -87,30 +88,19 @@ export const ConfirmSaveForm = ({ className }: Props): JSX.Element => {
         </Column>
       </Row>
       <Row className="space-x-4">
-        <Column>
-          <label htmlFor="validityStart">{t('validityStart')}</label>
-          <input
-            type="date"
-            {...register('validityStart', {})}
-            data-testid={testIds.startDateInput}
-          />
-          <p>
-            {errors.validityStart?.type === 'too_small' &&
-              t('formValidation.required')}
-          </p>
-        </Column>
-        <Column>
-          <label htmlFor="validityEnd" className={indefinite ? 'hidden' : ''}>
-            {t('validityEnd')}
-          </label>
-          <input
-            type="date"
-            {...register('validityEnd', {})}
-            className="disabled:hidden"
-            disabled={indefinite}
-            data-testid={testIds.endDateInput}
-          />
-        </Column>
+        <InputField<FormState>
+          type="date"
+          translationPrefix="validityPeriod"
+          fieldPath="validityStart"
+          testId={testIds.startDateInput}
+        />
+        <InputField<FormState>
+          className={indefinite ? 'hidden' : ''}
+          type="date"
+          translationPrefix="validityPeriod"
+          fieldPath="validityEnd"
+          testId={testIds.endDateInput}
+        />
       </Row>
       <Row>
         <input

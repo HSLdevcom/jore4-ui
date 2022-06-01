@@ -147,6 +147,10 @@
     "temporary": "Väliaikainen",
     "draft": "Luonnos"
   },
+  "validityPeriod": {
+    "validityStart": "Alkaa",
+    "validityEnd": "Päättyy"
+  },
   "vehicleModeEnum": {
     "bus": "Bussi",
     "ferry": "Lautta",
@@ -222,7 +226,5 @@
   "cancel": "Peruuta",
   "close": "Sulje",
   "version": "Versio: {{ version }}",
-  "hide": "Piilota",
-  "validityStart": "Alkaa",
-  "validityEnd": "Päättyy"
+  "hide": "Piilota"
 }
