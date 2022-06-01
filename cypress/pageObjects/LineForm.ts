@@ -1,10 +1,10 @@
 export class LineForm {
   getLabelInput() {
-    return cy.get('#label-input');
+    return cy.getByTestId('LinePropertiesForm:label');
   }
 
   getFinnishNameInput() {
-    return cy.get('#finnish-name-input');
+    return cy.getByTestId('LinePropertiesForm:finnishName');
   }
 
   selectTransportTarget(target: string) {
