@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ApolloQueryResult, gql } from '@apollo/client';
 import {
+  GetRoutesBrokenByStopChangeQuery,
   GetStopByIdQuery,
   GetStopsAlongInfrastructureLinksQuery,
   GetStopWithRouteGraphDataByIdQuery,
@@ -170,7 +171,9 @@ export const getStopsAlongRouteGeometry = (route: RouteRoute) => {
 const EDIT_STOP = gql`
   mutation EditStop(
     $stop_id: uuid!
+    $stop_label: String!
     $stop_patch: service_pattern_scheduled_stop_point_set_input!
+    $delete_from_journey_pattern_ids: [uuid!]!
   ) {
     # edit the stop itself
     update_service_pattern_scheduled_stop_point(
@@ -179,6 +182,20 @@ const EDIT_STOP = gql`
     ) {
       returning {
         ...scheduled_stop_point_all_fields
+      }
+    }
+
+    # delete the stop from the following journey patterns
+    delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        _and: {
+          scheduled_stop_point_label: { _eq: $stop_label }
+          journey_pattern_id: { _in: $delete_from_journey_pattern_ids }
+        }
+      }
+    ) {
+      returning {
+        ...scheduled_stop_point_in_journey_pattern_default_fields
       }
     }
   }
@@ -222,3 +239,38 @@ export const mapStoreStopToStop = (
   stop: StoreType<StopWithLocation>,
 ): StopWithLocation =>
   mapFromStoreType(stop, ['validity_start', 'validity_end']);
+
+const GET_ROUTES_BROKEN_BY_STOP_CHANGE = gql`
+  query GetRoutesBrokenByStopChange(
+    $new_located_on_infrastructure_link_id: uuid!
+    $new_direction: String!
+    $new_label: String!
+    $new_validity_start: timestamptz
+    $new_validity_end: timestamptz
+    $new_measured_location: geography!
+    $replace_scheduled_stop_point_id: uuid
+  ) {
+    journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point(
+      args: {
+        replace_scheduled_stop_point_id: $replace_scheduled_stop_point_id
+        new_located_on_infrastructure_link_id: $new_located_on_infrastructure_link_id
+        new_direction: $new_direction
+        new_label: $new_label
+        new_validity_start: $new_validity_start
+        new_validity_end: $new_validity_end
+        new_measured_location: $new_measured_location
+      }
+    ) {
+      journey_pattern_id
+      journey_pattern_route {
+        ...route_all_fields
+      }
+    }
+  }
+`;
+
+export const mapGetRoutesBrokenByStopChangeResult = (
+  result: GqlQueryResult<GetRoutesBrokenByStopChangeQuery>,
+) =>
+  result.data
+    ?.journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point;
