@@ -77,3 +77,12 @@ export class InternalError extends ExtendableError {
     Object.setPrototypeOf(this, InternalError.prototype);
   }
 }
+
+export class IncompatibleWithExistingRoutesError extends ExtendableError {
+  constructor(errorMessage?: string) {
+    super(errorMessage);
+
+    // Set the prototype explicitly.
+    Object.setPrototypeOf(this, IncompatibleWithExistingRoutesError.prototype);
+  }
+}
