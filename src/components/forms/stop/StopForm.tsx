@@ -121,30 +121,31 @@ const StopFormComponent = (
   };
 
   const onCreate = async (state: FormState) => {
-    try {
-      const changes = await prepareCreate({
-        input: {
-          ...mapFormStateToInput(state),
-          vehicle_mode_on_scheduled_stop_point: {
-            data: [
-              {
-                // TODO: Replace hard-coded Bus-value with propagated one
-                vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
-              },
-            ],
-          },
+    const changes = await prepareCreate({
+      input: {
+        ...mapFormStateToInput(state),
+        vehicle_mode_on_scheduled_stop_point: {
+          data: [
+            {
+              // TODO: Replace hard-coded Bus-value with propagated one
+              vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+            },
+          ],
         },
-      });
-      return changes;
-    } catch (err) {
-      defaultErrorHandler(err as Error);
-      throw err;
-    }
+      },
+    });
+    return changes;
   };
 
   const onFormSubmit = async (state: FormState) => {
-    const changes = state.stopId ? await onEdit(state) : await onCreate(state);
-    return onSubmit(changes);
+    try {
+      const changes = state.stopId
+        ? await onEdit(state)
+        : await onCreate(state);
+      return onSubmit(changes);
+    } catch (err) {
+      return defaultErrorHandler(err as Error);
+    }
   };
 
   return (
