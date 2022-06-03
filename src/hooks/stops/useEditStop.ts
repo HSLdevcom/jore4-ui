@@ -22,6 +22,7 @@ import {
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
   IncompatibleDirectionsError,
+  IncompatibleWithExistingRoutesError,
   InternalError,
   LinkNotResolvedError,
   showDangerToast,
@@ -250,6 +251,11 @@ export const useEditStop = () => {
     }
     if (err instanceof EditRouteTerminalStopsError) {
       showDangerToast(t('stops.cannotEditTerminalStops'));
+    }
+    if (err instanceof IncompatibleWithExistingRoutesError) {
+      showDangerToast(
+        t('stops.stopBreaksRoutes', { routeLabels: err.message }),
+      );
       return;
     }
     // if other error happened, show the generic error message
