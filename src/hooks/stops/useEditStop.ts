@@ -4,13 +4,14 @@ import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
 import {
   EditStopMutationVariables,
-  JourneyPatternJourneyPattern,
   RouteRoute,
   ServicePatternScheduledStopPoint,
   useEditStopMutation,
+  useGetRoutesBrokenByStopChangeAsyncQuery,
   useGetStopWithRouteGraphDataByIdAsyncQuery,
 } from '../../generated/graphql';
 import {
+  mapGetRoutesBrokenByStopChangeResult,
   mapGetStopWithRouteGraphDataByIdResult,
   ScheduledStopPointSetInput,
 } from '../../graphql';
@@ -25,7 +26,6 @@ import {
 } from '../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
-import { getRoutesOfJourneyPatterns } from './utils';
 
 interface EditParams {
   stopId: UUID;
@@ -34,10 +34,11 @@ interface EditParams {
 
 export interface EditChanges {
   stopId: UUID;
+  stopLabel: string;
   patch: ScheduledStopPointSetInput;
   editedStop: ServicePatternScheduledStopPoint;
   deleteStopFromRoutes: RouteRoute[];
-  deleteStopFromJourneyPatterns: JourneyPatternJourneyPattern[];
+  deleteStopFromJourneyPatternIds?: UUID[];
   conflicts?: ServicePatternScheduledStopPoint[];
 }
 
@@ -54,61 +55,45 @@ export const useEditStop = () => {
   const [getStopWithRouteGraphData] =
     useGetStopWithRouteGraphDataByIdAsyncQuery();
   const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
-
-  // find all route geometries from which this stop has been removed
-  const getJourneyPatternsToDeleteStopFrom = (
-    stopNewLinkId: UUID,
-    stopWithRouteGraphData?: ServicePatternScheduledStopPoint,
-  ) => {
-    if (!stopWithRouteGraphData) {
-      return [];
-    }
-
-    return (
-      stopWithRouteGraphData.scheduled_stop_point_in_journey_patterns
-        // we are interested in journey patterns
-        .map((item) => item.journey_pattern)
-        // check all the journey patterns' routes that this stop is currently part of
-        .filter((journeyPattern) => {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const route = journeyPattern.journey_pattern_route!;
-
-          // check if new link is still part of a route's geometry
-          const isNewLinkPartOfRouteGeometry =
-            route.infrastructure_links_along_route.some(
-              (link) => link.infrastructure_link_id === stopNewLinkId,
-            );
-
-          // if new link is not part of the route's existing geometry, the stop should be removed from it
-          return !isNewLinkPartOfRouteGeometry;
-        })
-    );
-  };
+  const [getBrokenRoutes] = useGetRoutesBrokenByStopChangeAsyncQuery();
 
   const onStopLocationChanged = async (
-    newLocation: GeoJSON.Point,
-    stopWithRouteGraphData: ServicePatternScheduledStopPoint,
+    oldStop: ServicePatternScheduledStopPoint,
+    newStop: ScheduledStopPointSetInput,
+    stopId?: UUID,
   ) => {
     // if we modified the location of the stop, have to also fetch the new infra link and direction
     const { closestLink, direction } = await getStopLinkAndDirection({
-      stopLocation: newLocation,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      stopLocation: newStop.measured_location!,
     });
 
     // if a stop is moved away from the route geometry, remove it from its journey patterns
-    const deleteStopFromJourneyPatterns = getJourneyPatternsToDeleteStopFrom(
-      closestLink.infrastructure_link_id,
-      stopWithRouteGraphData,
-    );
-    const deleteStopFromRoutes = getRoutesOfJourneyPatterns(
-      deleteStopFromJourneyPatterns,
-    );
+    const brokenRoutesResult = await getBrokenRoutes({
+      new_located_on_infrastructure_link_id: closestLink.infrastructure_link_id,
+      new_direction: direction,
+      new_label: newStop.label || oldStop.label,
+      new_validity_start: newStop.validity_start,
+      new_validity_end: newStop.validity_end,
+      replace_scheduled_stop_point_id: stopId,
+    });
+
+    const brokenRoutes =
+      mapGetRoutesBrokenByStopChangeResult(brokenRoutesResult);
+
+    const deleteStopFromJourneyPatternIds = brokenRoutes
+      ? brokenRoutes?.map((route) => route.journey_pattern_id)
+      : [];
+    const deleteStopFromRoutes = brokenRoutes
+      ? brokenRoutes?.map((route) => route.journey_pattern_route as RouteRoute)
+      : [];
 
     const locationChanges: Partial<EditChanges> = {
       patch: {
         located_on_infrastructure_link_id: closestLink.infrastructure_link_id,
         direction,
       },
-      deleteStopFromJourneyPatterns,
+      deleteStopFromJourneyPatternIds,
       deleteStopFromRoutes,
     };
 
@@ -122,6 +107,11 @@ export const useEditStop = () => {
     const stopWithRouteGraphData =
       mapGetStopWithRouteGraphDataByIdResult(stopWithRoutesResult);
 
+    // data model and form validation should ensure that
+    // label always exists
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const stopLabel = defaultTo(patch.label, stopWithRouteGraphData?.label)!;
+
     const hasEditedValidity =
       !!stopWithRouteGraphData &&
       (patch.label !== stopWithRouteGraphData.label ||
@@ -132,10 +122,9 @@ export const useEditStop = () => {
     const conflicts = hasEditedValidity
       ? await getConflictingStops(
           {
+            label: stopLabel,
             // data model and form validation should ensure that
-            // label and priority always exist
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            label: defaultTo(patch.label, stopWithRouteGraphData?.label)!,
+            // priority always exists
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             priority: defaultTo(
               patch.priority,
@@ -163,6 +152,7 @@ export const useEditStop = () => {
     // changes that will always be applied
     const defaultChanges = {
       stopId,
+      stopLabel,
       patch,
       deleteStopFromRoutes: [],
       deleteStopFromJourneyPatterns: [],
@@ -175,7 +165,7 @@ export const useEditStop = () => {
     const hasLocationChanged =
       newLocation && !isEqual(newLocation, oldLocation);
     const locationChanges = hasLocationChanged
-      ? await onStopLocationChanged(newLocation, stopWithRouteGraphData)
+      ? await onStopLocationChanged(stopWithRouteGraphData, patch, stopId)
       : {};
 
     const mergedChanges = merge({}, defaultChanges, locationChanges);
@@ -192,7 +182,10 @@ export const useEditStop = () => {
   const mapEditChangesToVariables = (changes: EditChanges) => {
     const variables: EditStopMutationVariables = {
       stop_id: changes.stopId,
+      stop_label: changes.stopLabel,
       stop_patch: changes.patch,
+      delete_from_journey_pattern_ids:
+        changes.deleteStopFromJourneyPatternIds || [],
     };
     return variables;
   };
