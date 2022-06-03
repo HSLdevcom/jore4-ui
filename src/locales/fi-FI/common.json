@@ -95,7 +95,8 @@
     "notPartOfRoute": "Ei reitin käytössä",
     "removeFromRoute": "Poista reitin käytöstä",
     "cannotEditTerminalStops": "Reitin alku- ja päätepysäkin muokkaaminen ei ole sallittua",
-    "addToRoute": "Lisää reitille"
+    "addToRoute": "Lisää reitille",
+    "stopBreaksRoutes": "Lisättävä pysäkki ei ole yhteensopiva seuraavien reittien kanssa: ({{ routeLabels }})"
   },
   "navigation": {
     "logout": "Kirjaudu ulos",
