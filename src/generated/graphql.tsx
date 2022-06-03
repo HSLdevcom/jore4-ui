@@ -1349,6 +1349,16 @@ export enum InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkUpdateColumn 
   VehicleSubmode = 'vehicle_submode'
 }
 
+export type JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs = {
+  new_direction?: Maybe<Scalars['String']>;
+  new_label?: Maybe<Scalars['String']>;
+  new_located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  new_measured_location?: Maybe<Scalars['geography']>;
+  new_validity_end?: Maybe<Scalars['timestamptz']>;
+  new_validity_start?: Maybe<Scalars['timestamptz']>;
+  replace_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+};
+
 /**
  * The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813
  *
@@ -3568,6 +3578,10 @@ export type QueryRoot = {
   infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate;
   /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" using primary key columns */
   infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
+  /** execute function "journey_pattern.check_infra_link_stop_refs_with_new_scheduled_stop_point" which returns "journey_pattern.journey_pattern" */
+  journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point: Array<JourneyPatternJourneyPattern>;
+  /** execute function "journey_pattern.check_infra_link_stop_refs_with_new_scheduled_stop_point" and query aggregates on result of table type "journey_pattern.journey_pattern" */
+  journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point_aggregate: JourneyPatternJourneyPatternAggregate;
   /** fetch data from the table: "journey_pattern.journey_pattern" */
   journey_pattern_journey_pattern: Array<JourneyPatternJourneyPattern>;
   /** fetch aggregated fields from the table: "journey_pattern.journey_pattern" */
@@ -3806,6 +3820,26 @@ export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggr
 export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs = {
   infrastructure_link_id: Scalars['uuid'];
   vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
+};
+
+
+export type QueryRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs = {
+  args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
+  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+};
+
+
+export type QueryRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointAggregateArgs = {
+  args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
+  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 
@@ -7147,6 +7181,10 @@ export type SubscriptionRoot = {
   infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate;
   /** fetch data from the table: "infrastructure_network.vehicle_submode_on_infrastructure_link" using primary key columns */
   infrastructure_network_vehicle_submode_on_infrastructure_link_by_pk?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
+  /** execute function "journey_pattern.check_infra_link_stop_refs_with_new_scheduled_stop_point" which returns "journey_pattern.journey_pattern" */
+  journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point: Array<JourneyPatternJourneyPattern>;
+  /** execute function "journey_pattern.check_infra_link_stop_refs_with_new_scheduled_stop_point" and query aggregates on result of table type "journey_pattern.journey_pattern" */
+  journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point_aggregate: JourneyPatternJourneyPatternAggregate;
   /** fetch data from the table: "journey_pattern.journey_pattern" */
   journey_pattern_journey_pattern: Array<JourneyPatternJourneyPattern>;
   /** fetch aggregated fields from the table: "journey_pattern.journey_pattern" */
@@ -7385,6 +7423,26 @@ export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureL
 export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs = {
   infrastructure_link_id: Scalars['uuid'];
   vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
+};
+
+
+export type SubscriptionRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs = {
+  args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
+  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+};
+
+
+export type SubscriptionRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointAggregateArgs = {
+  args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
+  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 
@@ -8002,11 +8060,13 @@ export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_
 
 export type EditStopMutationVariables = Exact<{
   stop_id: Scalars['uuid'];
+  stop_label: Scalars['String'];
   stop_patch: ServicePatternScheduledStopPointSetInput;
+  delete_from_journey_pattern_ids: Array<Scalars['uuid']> | Scalars['uuid'];
 }>;
 
 
-export type EditStopMutation = { __typename?: 'mutation_root', update_service_pattern_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point_mutation_response', returning: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> } | null | undefined };
+export type EditStopMutation = { __typename?: 'mutation_root', update_service_pattern_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point_mutation_response', returning: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> } | null | undefined, delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean }> } | null | undefined };
 
 export type GetStopWithRouteGraphDataByIdQueryVariables = Exact<{
   stopId: Scalars['uuid'];
@@ -8014,6 +8074,19 @@ export type GetStopWithRouteGraphDataByIdQueryVariables = Exact<{
 
 
 export type GetStopWithRouteGraphDataByIdQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, journey_pattern_route?: { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, on_line_id: UUID, label: string, priority: number, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID }> } | null | undefined } }>, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
+
+export type GetRoutesBrokenByStopChangeQueryVariables = Exact<{
+  new_located_on_infrastructure_link_id: Scalars['uuid'];
+  new_direction: Scalars['String'];
+  new_label: Scalars['String'];
+  new_validity_start?: Maybe<Scalars['timestamptz']>;
+  new_validity_end?: Maybe<Scalars['timestamptz']>;
+  new_measured_location: Scalars['geography'];
+  replace_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+}>;
+
+
+export type GetRoutesBrokenByStopChangeQuery = { __typename?: 'query_root', journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, journey_pattern_route?: { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum } | null | undefined }> };
 
 export const InfrastructureLinkAllFieldsFragmentDoc = gql`
     fragment infrastructure_link_all_fields on infrastructure_network_infrastructure_link {
@@ -9447,7 +9520,7 @@ export type InsertStopMutationHookResult = ReturnType<typeof useInsertStopMutati
 export type InsertStopMutationResult = Apollo.MutationResult<InsertStopMutation>;
 export type InsertStopMutationOptions = Apollo.BaseMutationOptions<InsertStopMutation, InsertStopMutationVariables>;
 export const EditStopDocument = gql`
-    mutation EditStop($stop_id: uuid!, $stop_patch: service_pattern_scheduled_stop_point_set_input!) {
+    mutation EditStop($stop_id: uuid!, $stop_label: String!, $stop_patch: service_pattern_scheduled_stop_point_set_input!, $delete_from_journey_pattern_ids: [uuid!]!) {
   update_service_pattern_scheduled_stop_point(
     where: {scheduled_stop_point_id: {_eq: $stop_id}}
     _set: $stop_patch
@@ -9456,8 +9529,16 @@ export const EditStopDocument = gql`
       ...scheduled_stop_point_all_fields
     }
   }
+  delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
+    where: {_and: {scheduled_stop_point_label: {_eq: $stop_label}, journey_pattern_id: {_in: $delete_from_journey_pattern_ids}}}
+  ) {
+    returning {
+      ...scheduled_stop_point_in_journey_pattern_default_fields
+    }
+  }
 }
-    ${ScheduledStopPointAllFieldsFragmentDoc}`;
+    ${ScheduledStopPointAllFieldsFragmentDoc}
+${ScheduledStopPointInJourneyPatternDefaultFieldsFragmentDoc}`;
 export type EditStopMutationFn = Apollo.MutationFunction<EditStopMutation, EditStopMutationVariables>;
 
 /**
@@ -9474,7 +9555,9 @@ export type EditStopMutationFn = Apollo.MutationFunction<EditStopMutation, EditS
  * const [editStopMutation, { data, loading, error }] = useEditStopMutation({
  *   variables: {
  *      stop_id: // value for 'stop_id'
+ *      stop_label: // value for 'stop_label'
  *      stop_patch: // value for 'stop_patch'
+ *      delete_from_journey_pattern_ids: // value for 'delete_from_journey_pattern_ids'
  *   },
  * });
  */
@@ -9536,6 +9619,52 @@ export function useGetStopWithRouteGraphDataByIdLazyQuery(baseOptions?: Apollo.L
 export type GetStopWithRouteGraphDataByIdQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdQuery>;
 export type GetStopWithRouteGraphDataByIdLazyQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdLazyQuery>;
 export type GetStopWithRouteGraphDataByIdQueryResult = Apollo.QueryResult<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>;
+export const GetRoutesBrokenByStopChangeDocument = gql`
+    query GetRoutesBrokenByStopChange($new_located_on_infrastructure_link_id: uuid!, $new_direction: String!, $new_label: String!, $new_validity_start: timestamptz, $new_validity_end: timestamptz, $new_measured_location: geography!, $replace_scheduled_stop_point_id: uuid) {
+  journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point(
+    args: {replace_scheduled_stop_point_id: $replace_scheduled_stop_point_id, new_located_on_infrastructure_link_id: $new_located_on_infrastructure_link_id, new_direction: $new_direction, new_label: $new_label, new_validity_start: $new_validity_start, new_validity_end: $new_validity_end, new_measured_location: $new_measured_location}
+  ) {
+    journey_pattern_id
+    journey_pattern_route {
+      ...route_all_fields
+    }
+  }
+}
+    ${RouteAllFieldsFragmentDoc}`;
+
+/**
+ * __useGetRoutesBrokenByStopChangeQuery__
+ *
+ * To run a query within a React component, call `useGetRoutesBrokenByStopChangeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRoutesBrokenByStopChangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRoutesBrokenByStopChangeQuery({
+ *   variables: {
+ *      new_located_on_infrastructure_link_id: // value for 'new_located_on_infrastructure_link_id'
+ *      new_direction: // value for 'new_direction'
+ *      new_label: // value for 'new_label'
+ *      new_validity_start: // value for 'new_validity_start'
+ *      new_validity_end: // value for 'new_validity_end'
+ *      new_measured_location: // value for 'new_measured_location'
+ *      replace_scheduled_stop_point_id: // value for 'replace_scheduled_stop_point_id'
+ *   },
+ * });
+ */
+export function useGetRoutesBrokenByStopChangeQuery(baseOptions: Apollo.QueryHookOptions<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>(GetRoutesBrokenByStopChangeDocument, options);
+      }
+export function useGetRoutesBrokenByStopChangeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>(GetRoutesBrokenByStopChangeDocument, options);
+        }
+export type GetRoutesBrokenByStopChangeQueryHookResult = ReturnType<typeof useGetRoutesBrokenByStopChangeQuery>;
+export type GetRoutesBrokenByStopChangeLazyQueryHookResult = ReturnType<typeof useGetRoutesBrokenByStopChangeLazyQuery>;
+export type GetRoutesBrokenByStopChangeQueryResult = Apollo.QueryResult<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>;
 
 export function useQueryClosestLinkAsyncQuery() {
           return useAsyncQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(QueryClosestLinkDocument);
@@ -9644,3 +9773,7 @@ export function useGetStopWithRouteGraphDataByIdAsyncQuery() {
           return useAsyncQuery<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>(GetStopWithRouteGraphDataByIdDocument);
         }
 export type GetStopWithRouteGraphDataByIdAsyncQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdAsyncQuery>;
+export function useGetRoutesBrokenByStopChangeAsyncQuery() {
+          return useAsyncQuery<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>(GetRoutesBrokenByStopChangeDocument);
+        }
+export type GetRoutesBrokenByStopChangeAsyncQueryHookResult = ReturnType<typeof useGetRoutesBrokenByStopChangeAsyncQuery>;
