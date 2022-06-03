@@ -95,7 +95,8 @@
     "notPartOfRoute": "Not part of the route",
     "removeFromRoute": "Remove from route",
     "cannotEditTerminalStops": "Editing the start and end stops of a route is not allowed",
-    "addToRoute": "Add to route"
+    "addToRoute": "Add to route",
+    "stopBreaksRoutes": "The stop to be added is not compatible with the following routes: ({{ routeLabels }})"
   },
   "navigation": {
     "logout": "Log out",
