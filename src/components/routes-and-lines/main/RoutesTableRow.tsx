@@ -50,6 +50,9 @@ export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
                 route.validity_end,
               )
             }
+            disabled={
+              !route.route_shape /* some routes imported from jore3 are missing the geometry */
+            }
             testId="RoutesTableRow::showRoute"
           />
         </td>
