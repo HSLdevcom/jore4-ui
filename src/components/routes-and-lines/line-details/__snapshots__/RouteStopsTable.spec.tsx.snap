@@ -132,7 +132,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
             class="w-20 border-l-4 border-r-4 border-white text-center"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
+              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
               data-testid="RouteStopsHeaderRow::showRoute"
               type="button"
             >
@@ -319,7 +319,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             class="w-20 border-l-4 border-r-4 border-white text-center"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
+              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
               data-testid="RouteStopsHeaderRow::showRoute"
               type="button"
             >

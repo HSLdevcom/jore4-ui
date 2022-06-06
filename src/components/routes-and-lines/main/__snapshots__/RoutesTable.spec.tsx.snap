@@ -8,16 +8,16 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
   >
     <tbody>
       <tr
-        class="border undefined"
+        class="border border-light-grey "
       >
         <td
-          class="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
+          class="border-l-12 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
         >
           <a
             href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
           >
             <div
-              class="flex flex-row undefined"
+              class="flex flex-row items-center"
             >
               <div
                 class="flex flex-col w-1/2"
@@ -28,7 +28,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                   65
                 </p>
                 <p
-                  class="text-lg"
+                  class="text-base"
                 >
                   Rautatientori - Veräjälaakso
                 </p>
@@ -37,12 +37,12 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 class="flex flex-col w-1/2 text-right"
               >
                 <p
-                  class="text-lg font-bold"
+                  class="text-base font-bold"
                 >
                   Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p
-                  class="text-lg"
+                  class="text-base font-normal"
                 >
                   !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
                 </p>
@@ -51,10 +51,10 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 border text-center"
+          class="w-20 p-6"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
             data-testid="LineTableRow::showLineRoutes"
             type="button"
           >
@@ -82,16 +82,16 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
     </tbody>
     <tbody>
       <tr
-        class="border undefined"
+        class="border border-light-grey "
       >
         <td
-          class="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
+          class="border-l-12 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
         >
           <a
             href="/lines/9058c328-efdd-412c-9b2b-37b0f6a2c6fb"
           >
             <div
-              class="flex flex-row undefined"
+              class="flex flex-row items-center"
             >
               <div
                 class="flex flex-col w-1/2"
@@ -102,7 +102,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                   71
                 </p>
                 <p
-                  class="text-lg"
+                  class="text-base"
                 >
                   Rautatientori - Malmi as.
                 </p>
@@ -111,12 +111,12 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 class="flex flex-col w-1/2 text-right"
               >
                 <p
-                  class="text-lg font-bold"
+                  class="text-base font-bold"
                 >
                   Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p
-                  class="text-lg"
+                  class="text-base font-normal"
                 >
                   !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
                 </p>
@@ -125,10 +125,10 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 border text-center"
+          class="w-20 p-6"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
             data-testid="LineTableRow::showLineRoutes"
             type="button"
           >
@@ -156,16 +156,16 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
     </tbody>
     <tbody>
       <tr
-        class="border undefined"
+        class="border border-light-grey "
       >
         <td
-          class="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
+          class="border-l-12 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
         >
           <a
             href="/lines/bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2"
           >
             <div
-              class="flex flex-row undefined"
+              class="flex flex-row items-center"
             >
               <div
                 class="flex flex-col w-1/2"
@@ -176,7 +176,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                   785K
                 </p>
                 <p
-                  class="text-lg"
+                  class="text-base"
                 >
                   Rautatientori - Nikkilä
                 </p>
@@ -185,12 +185,12 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 class="flex flex-col w-1/2 text-right"
               >
                 <p
-                  class="text-lg font-bold"
+                  class="text-base font-bold"
                 >
                   Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p
-                  class="text-lg"
+                  class="text-base font-normal"
                 >
                   !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
                 </p>
@@ -199,10 +199,10 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 border text-center"
+          class="w-20 p-6"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
             data-testid="LineTableRow::showLineRoutes"
             type="button"
           >
@@ -230,16 +230,16 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
     </tbody>
     <tbody>
       <tr
-        class="border undefined"
+        class="border border-light-grey "
       >
         <td
-          class="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
+          class="border-l-12 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
         >
           <a
             href="/lines/db748c5c-42e3-429f-baa0-e0db227dc2c8"
           >
             <div
-              class="flex flex-row undefined"
+              class="flex flex-row items-center"
             >
               <div
                 class="flex flex-col w-1/2"
@@ -250,7 +250,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                   1234
                 </p>
                 <p
-                  class="text-lg"
+                  class="text-base"
                 >
                   Erottaja - Arkkadiankatu
                 </p>
@@ -259,12 +259,12 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                 class="flex flex-col w-1/2 text-right"
               >
                 <p
-                  class="text-lg font-bold"
+                  class="text-base font-bold"
                 >
                   Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p
-                  class="text-lg"
+                  class="text-base font-normal"
                 >
                   !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
                 </p>
@@ -273,10 +273,10 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 border text-center"
+          class="w-20 p-6"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
             data-testid="LineTableRow::showLineRoutes"
             type="button"
           >
@@ -314,16 +314,16 @@ exports[`<RoutesTable /> Renders the table with route data 1`] = `
   >
     <tbody>
       <tr
-        class="border undefined"
+        class="border border-light-grey "
       >
         <td
-          class="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
+          class="border-l-12 border-hsl-dark-green py-4 pl-16 pr-4 font-bold"
         >
           <a
             href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
           >
             <div
-              class="flex flex-row undefined"
+              class="flex flex-row items-center"
             >
               <div
                 class="flex flex-col w-1/2"
@@ -334,7 +334,7 @@ exports[`<RoutesTable /> Renders the table with route data 1`] = `
                   route 1
                 </p>
                 <p
-                  class="text-lg"
+                  class="text-base"
                 >
                   route 1
                 </p>
@@ -343,12 +343,12 @@ exports[`<RoutesTable /> Renders the table with route data 1`] = `
                 class="flex flex-col w-1/2 text-right"
               >
                 <p
-                  class="text-lg font-bold"
+                  class="text-base font-bold"
                 >
                   Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p
-                  class="text-lg"
+                  class="text-base font-normal"
                 >
                   !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
                 </p>
@@ -357,11 +357,12 @@ exports[`<RoutesTable /> Renders the table with route data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 border text-center"
+          class="w-20 p-6"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
             data-testid="RoutesTableRow::showRoute"
+            disabled=""
             type="button"
           >
             <svg
