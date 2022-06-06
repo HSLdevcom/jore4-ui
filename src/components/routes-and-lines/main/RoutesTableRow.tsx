@@ -12,35 +12,36 @@ interface Props {
   route: RouteRoute;
 }
 
-export const RoutesTableRow = ({ className, route }: Props): JSX.Element => {
+export const RoutesTableRow = ({
+  className = '',
+  route,
+}: Props): JSX.Element => {
   const { t } = useTranslation();
   const { showRoutesOnModal } = useShowRoutesOnModal();
 
   return (
     <tbody>
-      <tr className={`border ${className}`}>
-        <td className="border-l-8 border-hsl-dark-green py-4 pl-16 pr-4 font-bold">
+      <tr className={`border border-light-grey ${className}`}>
+        <td className="border-l-12 border-hsl-dark-green py-4 pl-16 pr-4">
           <Link to={routeDetails[Path.lineDetails].getLink(route.on_line_id)}>
-            <Row>
-              <Column className="w-1/2">
+            <Row className="items-center">
+              <Column className="w-1/2 font-bold">
                 <p className="text-3xl">{route.label}</p>
-                <p className="text-lg">{route.name_i18n?.fi_FI}</p>
+                <p>{route.name_i18n?.fi_FI}</p>
               </Column>
               <Column className="w-1/2 text-right">
-                <p className="text-lg font-bold">
+                <p className="font-bold">
                   {t('validity.validDuring', {
                     startDate: mapToShortDate(route.validity_start || MIN_DATE),
                     endDate: mapToShortDate(route.validity_end || MAX_DATE),
                   })}
                 </p>
-                <p className="text-lg">
-                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
-                </p>
+                <p>!Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija</p>
               </Column>
             </Row>
           </Link>
         </td>
-        <td className="w-20 border text-center">
+        <td className="w-20 p-6">
           <LocatorButton
             onClick={() =>
               showRoutesOnModal(
