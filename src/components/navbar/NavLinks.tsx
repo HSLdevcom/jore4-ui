@@ -1,12 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
+import { LoggedIn } from '../../layoutComponents/LoggedIn';
 import { routeDetails } from '../../router/routeDetails';
 
 export const NavLinks: FunctionComponent = () => {
   const { t } = useTranslation();
   return (
-    <>
+    <LoggedIn>
       {Object.values(routeDetails)
         .filter((item) => item.includeInNav)
         .map(({ translationKey, getLink }) => (
@@ -23,6 +24,6 @@ export const NavLinks: FunctionComponent = () => {
             </NavLink>
           </div>
         ))}
-    </>
+    </LoggedIn>
   );
 };
