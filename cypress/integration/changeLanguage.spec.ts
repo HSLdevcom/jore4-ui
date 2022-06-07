@@ -4,6 +4,7 @@ describe('Verify that language chancing works', () => {
   let navbar: Navbar;
   beforeEach(() => {
     navbar = new Navbar();
+    cy.mockLogin();
     cy.visit('/');
   });
   it('Changes language from FI to EN', () => {
