@@ -6,6 +6,7 @@ import {
   GetLineDetailsWithRoutesByIdQuery,
   GetLinesByLabelAndPriorityQuery,
   GetRouteDetailsByIdsQuery,
+  GetScheduledStopPointWithViaInfoQuery,
   InsertLineOneMutation,
   ListChangingRoutesQuery,
   RouteLine,
@@ -244,6 +245,7 @@ const GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
               scheduled_stop_point_in_journey_patterns {
                 ...scheduled_stop_point_in_journey_pattern_default_fields
                 journey_pattern {
+                  journey_pattern_id
                   on_route_id
                 }
               }
@@ -508,3 +510,83 @@ export interface RouteGeometry {
   stopIdsWithinRoute: UUID[];
   infraLinksAlongRoute: InfrastructureLinkAlongRoute[];
 }
+const UPDATE_SCHEDULED_STOP_POINT_VIA_INFO = gql`
+  mutation PatchScheduledStopPointViaInfo(
+    $scheduled_stop_point_id: uuid!
+    $journey_pattern_id: uuid!
+    $object: journey_pattern_scheduled_stop_point_in_journey_pattern_set_input!
+  ) {
+    update_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        scheduled_stop_point_id: { _eq: $scheduled_stop_point_id }
+        journey_pattern_id: { _eq: $journey_pattern_id }
+      }
+      _set: $object
+    ) {
+      returning {
+        scheduled_stop_point_id
+        journey_pattern_id
+        is_via_point
+        via_point_name_i18n
+        via_point_short_name_i18n
+      }
+    }
+  }
+`;
+
+const REMOVE_SCHEDULED_STOP_POINT_VIA_INFO = gql`
+  mutation RemoveScheduledStopPointViaInfo(
+    $scheduled_stop_point_id: uuid!
+    $journey_pattern_id: uuid!
+  ) {
+    update_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        scheduled_stop_point_id: { _eq: $scheduled_stop_point_id }
+        journey_pattern_id: { _eq: $journey_pattern_id }
+      }
+      _set: {
+        is_via_point: false
+        via_point_name_i18n: null
+        via_point_short_name_i18n: null
+      }
+    ) {
+      returning {
+        scheduled_stop_point_id
+        journey_pattern_id
+        is_via_point
+        via_point_name_i18n
+        via_point_short_name_i18n
+      }
+    }
+  }
+`;
+
+const GET_SCHEDULED_STOP_POINT_WITH_VIA_INFO = gql`
+  query GetScheduledStopPointWithViaInfo(
+    $journey_pattern_id: uuid!
+    $scheduled_stop_point_id: uuid!
+  ) {
+    journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        journey_pattern_id: { _eq: $journey_pattern_id }
+        scheduled_stop_point_id: { _eq: $scheduled_stop_point_id }
+      }
+    ) {
+      via_point_name_i18n
+      via_point_short_name_i18n
+      journey_pattern_id
+      is_via_point
+      scheduled_stop_point_id
+      journey_pattern {
+        journey_pattern_route {
+          route_id
+          label
+        }
+      }
+    }
+  }
+`;
+
+export const mapGetScheduledStopPointWithViaInfo = (
+  result: GqlQueryResult<GetScheduledStopPointWithViaInfoQuery>,
+) => result.data?.journey_pattern_scheduled_stop_point_in_journey_pattern[0];
