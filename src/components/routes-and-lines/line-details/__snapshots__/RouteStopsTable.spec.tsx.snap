@@ -369,7 +369,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
         </tr>
         <tr
-          class="border border-l-8 bg-background text-dark-grey undefined"
+          class="border border-l-8  undefined"
         >
           <td
             class="py-4 pl-16 pr-4"
@@ -380,13 +380,15 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           <td
             data-testid="stop-row-name"
           >
-            !Pysäkki X
+            <span>
+              !Pysäkki X
+            </span>
           </td>
           <td
             class="pr-16 text-right"
             data-testid="stop-row-validity-period"
           >
-            Ei reitin käytössä
+            Voimassa 1.1.2021 - 13.12.2023
           </td>
           <td>
             <div
@@ -455,7 +457,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
         </tr>
         <tr
-          class="border border-l-8 bg-background text-dark-grey undefined"
+          class="border border-l-8  undefined"
         >
           <td
             class="py-4 pl-16 pr-4"
@@ -466,13 +468,18 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           <td
             data-testid="stop-row-name"
           >
-            !Pysäkki X
+            <span>
+              !Pysäkki X
+            </span>
+            <i
+              class="icon-via text-4xl text-hsl-dark-green"
+            />
           </td>
           <td
             class="pr-16 text-right"
             data-testid="stop-row-validity-period"
           >
-            Ei reitin käytössä
+            Voimassa 1.1.2021 - 13.12.2023
           </td>
           <td>
             <div
@@ -541,7 +548,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
         </tr>
         <tr
-          class="border border-l-8 bg-background text-dark-grey undefined"
+          class="border border-l-8  undefined"
         >
           <td
             class="py-4 pl-16 pr-4"
@@ -552,13 +559,15 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           <td
             data-testid="stop-row-name"
           >
-            !Pysäkki X
+            <span>
+              !Pysäkki X
+            </span>
           </td>
           <td
             class="pr-16 text-right"
             data-testid="stop-row-validity-period"
           >
-            Ei reitin käytössä
+            Voimassa 1.1.2021 - 13.12.2023
           </td>
           <td>
             <div

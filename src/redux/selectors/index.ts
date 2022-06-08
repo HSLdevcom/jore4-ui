@@ -8,6 +8,7 @@ export const selectMapEditor = (state: RootState) => state.mapEditor;
 export const selectMapFilter = (state: RootState) => state.mapFilter;
 export const selectModalMap = (state: RootState) => state.modalMap;
 export const selectUser = (state: RootState) => state.user;
+export const selectModals = (state: RootState) => state.modals;
 
 export const selectSelectedStopId = createSelector(
   selectMap,
@@ -57,4 +58,14 @@ export const selectSelectedRouteId = createSelector(
 export const selectMapObservationDate = createSelector(
   selectMapFilter,
   (mapFilter) => DateTime.fromISO(mapFilter.observationDate),
+);
+
+export const selectViaModal = createSelector(
+  selectModals,
+  (modals) => modals.viaModal,
+);
+
+export const selectIsViaModalOpen = createSelector(
+  selectModals,
+  (modals) => modals.viaModal.isOpen,
 );
