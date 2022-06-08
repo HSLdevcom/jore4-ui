@@ -201,7 +201,7 @@ const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
               ...scheduled_stop_point_default_fields
               scheduled_stop_point_in_journey_patterns {
                 ...scheduled_stop_point_in_journey_pattern_all_fields
-                journey_pattern {
+                journey_pattern (where: { on_route_id: {_eq: {journey_pattern_route}} }) {
                   journey_pattern_id
                   on_route_id
                 }

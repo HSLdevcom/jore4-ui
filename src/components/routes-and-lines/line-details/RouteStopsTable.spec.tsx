@@ -64,6 +64,9 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         {
                           journey_pattern_id:
                             '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                          journey_pattern: {
+                            on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                          },
                           scheduled_stop_point_label: 'pysäkki A',
                           scheduled_stop_point_sequence: 0,
                           is_timing_point: false,
@@ -96,6 +99,9 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         {
                           journey_pattern_id:
                             '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                          journey_pattern: {
+                            on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                          },
                           scheduled_stop_point_label: 'pysäkki B',
                           scheduled_stop_point_sequence: 1,
                           is_timing_point: true,
@@ -128,6 +134,9 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         {
                           journey_pattern_id:
                             '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                          journey_pattern: {
+                            on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                          },
                           scheduled_stop_point_label: 'pysäkki C',
                           scheduled_stop_point_sequence: 2,
                           is_timing_point: false,
