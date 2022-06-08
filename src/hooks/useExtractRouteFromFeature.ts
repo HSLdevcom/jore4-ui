@@ -5,25 +5,29 @@ import {
   GetStopsAlongInfrastructureLinksQuery,
   GetStopsAlongInfrastructureLinksQueryVariables,
   InfrastructureNetworkDirectionEnum,
+  InfrastructureNetworkInfrastructureLink,
   MapExternalLinkIdsToInfraLinksWithStopsDocument,
   MapExternalLinkIdsToInfraLinksWithStopsQuery,
   MapExternalLinkIdsToInfraLinksWithStopsQueryVariables,
   ReusableComponentsVehicleModeEnum,
   RouteRoute,
+  ServicePatternScheduledStopPoint,
 } from '../generated/graphql';
 import {
   getRouteStopLabels,
   InfrastructureLinkAlongRoute,
   mapGetStopsResult,
   mapGraphQLRouteToInfraLinks,
+  mapInfraLinkWithStopsResult,
   orderInfraLinksByExternalLinkId,
 } from '../graphql';
 import { RouteStop } from '../redux';
 import { mapGeoJSONtoFeature } from '../utils';
 import { useAsyncQuery } from './useAsyncQuery';
+import { useFilterStops } from './useFilterStops';
 
 interface ExtractScheduledStopPointIdsParams {
-  orderedInfraLinksWithStops: MapExternalLinkIdsToInfraLinksWithStopsQuery['infrastructure_network_infrastructure_link'];
+  orderedInfraLinksWithStops: InfrastructureNetworkInfrastructureLink[];
   infraLinks: InfrastructureLinkAlongRoute[];
   vehicleMode: ReusableComponentsVehicleModeEnum;
 }
@@ -51,27 +55,57 @@ export const useExtractRouteFromFeature = () => {
     GetStopsAlongInfrastructureLinksQueryVariables
   >(GetStopsAlongInfrastructureLinksDocument);
 
+  const { filter } = useFilterStops();
+
   const mapRouteStopsToStopLabels = (routeStops: RouteStop[]) =>
     routeStops.filter((item) => item.belongsToRoute).map((item) => item.label);
 
   /**
-   * Sort and filter the stop point labels
+   * Get stops that are along route geometry
+   * and are visible to user (filtered by stop filters in map view)
+   */
+  const getFilteredStopIdsAlongRouteGeometry = useCallback(
+    (orderedInfraLinksWithStops: InfrastructureNetworkInfrastructureLink[]) => {
+      const unfilteredStops = orderedInfraLinksWithStops.flatMap(
+        (link) => link.scheduled_stop_point_located_on_infrastructure_link,
+      ) as ServicePatternScheduledStopPoint[];
+
+      const stops = filter(unfilteredStops || []);
+
+      return stops.map((stop) => stop.scheduled_stop_point_id);
+    },
+    [filter],
+  );
+
+  /**
+   * Sort and filter the stop points
    * from a MapExternalLinkIdsToInfraLinksWithStops query result.
    */
-  const extractScheduledStopPointLabels = useCallback(
+  const extractScheduledStopPoints = useCallback(
     ({
       orderedInfraLinksWithStops,
       infraLinks,
       vehicleMode,
-    }: ExtractScheduledStopPointIdsParams) =>
-      orderedInfraLinksWithStops.flatMap((infraLinkWithStops, index) => {
+    }: ExtractScheduledStopPointIdsParams) => {
+      // We need to filter all stops at once instead of filtering them
+      // for each infrastructure link separately, because for example
+      // separate versions of a stop might be on different infrastructure links,
+      // and we only want all but the hightest priority instance to be filtered out.
+      // Filtering for infra links separately could result in the same stop being
+      // multiple times in the result set.
+      const filteredStopIds = getFilteredStopIdsAlongRouteGeometry(
+        orderedInfraLinksWithStops,
+      );
+
+      return orderedInfraLinksWithStops.flatMap((infraLinkWithStops, index) => {
         const isLinkTraversalForwards = infraLinks[index].isTraversalForwards;
 
         return (
           infraLinkWithStops.scheduled_stop_point_located_on_infrastructure_link
             // only include the ids of the stops
             // - suitable for the given vehicle mode AND
-            // - traversable in the direction in which the route is going
+            // - traversable in the direction in which the route is going AND
+            // - visible to the user after applying filters
             .filter((stop) => {
               const suitableForVehicleMode =
                 !!stop.vehicle_mode_on_scheduled_stop_point.find(
@@ -88,7 +122,15 @@ export const useExtractRouteFromFeature = () => {
                   stop.direction ===
                     InfrastructureNetworkDirectionEnum.Backward);
 
-              return suitableForVehicleMode && matchingDirection;
+              const visibleAfterFiltering = filteredStopIds.includes(
+                stop.scheduled_stop_point_id,
+              );
+
+              return (
+                suitableForVehicleMode &&
+                matchingDirection &&
+                visibleAfterFiltering
+              );
             })
             // sort the stops on the same link according to the link traversal direction
             .sort((stop1, stop2) =>
@@ -98,10 +140,10 @@ export const useExtractRouteFromFeature = () => {
                 : stop2.relative_distance_from_infrastructure_link_start -
                   stop1.relative_distance_from_infrastructure_link_start,
             )
-            .map((stop) => stop.label)
         );
-      }),
-    [],
+      });
+    },
+    [getFilteredStopIdsAlongRouteGeometry],
   );
 
   const extractCoordinatesFromFeatures = useCallback(
@@ -167,9 +209,9 @@ export const useExtractRouteFromFeature = () => {
           externalLinkIds,
         });
 
-      const infraLinksWithStops =
-        infraLinksWithStopsResponse.data
-          ?.infrastructure_network_infrastructure_link;
+      const infraLinksWithStops = mapInfraLinkWithStopsResult(
+        infraLinksWithStopsResponse,
+      );
 
       if (!infraLinksWithStops) {
         throw new Error("could not fetch route's infra links");
@@ -247,7 +289,7 @@ export const useExtractRouteFromFeature = () => {
   );
 
   return {
-    extractScheduledStopPointLabels,
+    extractScheduledStopPoints,
     mapInfraLinksToFeature,
     extractCoordinatesFromFeatures,
     getInfraLinksWithStopsForCoordinates,
@@ -255,5 +297,6 @@ export const useExtractRouteFromFeature = () => {
     getRouteStops,
     getOldRouteGeometryVariables,
     mapRouteStopsToStopLabels,
+    getFilteredStopIdsAlongRouteGeometry,
   };
 };

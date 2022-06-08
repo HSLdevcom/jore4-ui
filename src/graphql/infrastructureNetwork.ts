@@ -31,7 +31,7 @@ export const mapInfraLinksAlongRouteToGraphQL = (
 // NB: We cannot use sort on the infra link array, because some links might be traversed multiple times and thus
 // have to be duplicated.
 export const orderInfraLinksByExternalLinkId = (
-  infraLinksWithStops: MapExternalLinkIdsToInfraLinksWithStopsQuery['infrastructure_network_infrastructure_link'],
+  infraLinksWithStops: InfrastructureNetworkInfrastructureLink[],
   externalLinkIds: string[],
 ) =>
   externalLinkIds.map((externalLinkId) => {
@@ -108,18 +108,19 @@ const QUERY_MAP_EXTERNAL_LINK_IDS_TO_INFRA_LINKS_WITH_STOPS = gql`
       infrastructure_link_id
       external_link_id
       scheduled_stop_point_located_on_infrastructure_link {
-        label
-        scheduled_stop_point_id
-        direction
-        relative_distance_from_infrastructure_link_start
-        vehicle_mode_on_scheduled_stop_point {
-          vehicle_mode
-        }
+        ...scheduled_stop_point_all_fields
       }
       shape
     }
   }
 `;
+
+export const mapInfraLinkWithStopsResult = (
+  result: GqlQueryResult<MapExternalLinkIdsToInfraLinksWithStopsQuery>,
+) =>
+  result.data?.infrastructure_network_infrastructure_link as
+    | InfrastructureNetworkInfrastructureLink[]
+    | [];
 
 const GET_STOPS_ALONG_INFRASTRUCTURE_LINKS = gql`
   query GetStopsAlongInfrastructureLinks($infrastructure_link_ids: [uuid!]) {

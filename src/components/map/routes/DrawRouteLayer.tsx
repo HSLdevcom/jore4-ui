@@ -75,7 +75,7 @@ const DrawRouteLayerComponent = (
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
 
   const {
-    extractScheduledStopPointLabels,
+    extractScheduledStopPoints,
     extractCoordinatesFromFeatures,
     getInfraLinksWithStopsForCoordinates,
     mapInfraLinksToFeature,
@@ -143,12 +143,13 @@ const DrawRouteLayerComponent = (
         oldStopLabels,
       );
 
-      // Extract the list of ids of the stops to be included in the route
-      const stopLabels = await extractScheduledStopPointLabels({
-        orderedInfraLinksWithStops,
-        infraLinks,
-        vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
-      });
+      const stopLabels =
+        // Extract list of the stops to be included in the route
+        extractScheduledStopPoints({
+          orderedInfraLinksWithStops,
+          infraLinks,
+          vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
+        }).map((stop) => stop.label);
 
       const stops = getRouteStops(stopLabels, removedStopLabels || []);
 
@@ -174,7 +175,7 @@ const DrawRouteLayerComponent = (
       getOldRouteGeometryVariables,
       templateRouteId,
       getRemovedStopLabels,
-      extractScheduledStopPointLabels,
+      extractScheduledStopPoints,
       dispatch,
       map,
       onDelete,
