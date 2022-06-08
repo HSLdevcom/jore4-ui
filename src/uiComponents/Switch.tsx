@@ -5,10 +5,16 @@ interface Props {
   className?: string;
   checked: boolean;
   onChange: (enabled: boolean) => void;
+  testId?: string;
 }
 
 // a pre-styled version of the Headless UI Switch component
-export const Switch: React.FC<Props> = ({ className, checked, onChange }) => {
+export const Switch: React.FC<Props> = ({
+  testId,
+  className,
+  checked,
+  onChange,
+}) => {
   return (
     <HuiSwitch
       checked={checked}
@@ -16,6 +22,7 @@ export const Switch: React.FC<Props> = ({ className, checked, onChange }) => {
       className={`${className} ${
         checked ? 'border-brand bg-brand' : 'border-grey'
       } relative inline-flex h-6 w-11 items-center rounded-full border transition-colors`}
+      data-testid={testId}
     >
       <span
         className={`${

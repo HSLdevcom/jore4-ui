@@ -14,7 +14,7 @@ interface Props {
 
 export const RouteStopsTable = ({ className, routes, testId }: Props) => {
   const { t } = useTranslation();
-  const [showUnusedStops, setShowUnusedStops] = useState(true);
+  const [showUnusedStops, setShowUnusedStops] = useState(false);
   const sortedRoutes = orderBy(routes, ['label', 'direction'], ['asc', 'desc']);
 
   return (
@@ -24,7 +24,11 @@ export const RouteStopsTable = ({ className, routes, testId }: Props) => {
           <SwitchLabel className="my-8 mr-8">
             {t('routes.showUnusedStops')}
           </SwitchLabel>
-          <Switch checked={showUnusedStops} onChange={setShowUnusedStops} />
+          <Switch
+            checked={showUnusedStops}
+            onChange={setShowUnusedStops}
+            testId="show-unused-stops-switch"
+          />
         </HuiSwitch.Group>
       </div>
       {/* setting a fake "height: 1px" so that "height: 100%" would work for the table cells */}

@@ -70,7 +70,12 @@ describe(`<${RouteStopsTable.name} />`, () => {
             __typename: 'route_route',
             infrastructure_links_along_route: [
               {
+                route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                infrastructure_link_id: 'c63b749f-5060-4710-8b07-ec9ac017cb5f',
+                infrastructure_link_sequence: 0,
                 infrastructure_link: {
+                  infrastructure_link_id:
+                    'c63b749f-5060-4710-8b07-ec9ac017cb5f',
                   scheduled_stop_point_located_on_infrastructure_link: [
                     {
                       priority: 10,
@@ -106,7 +111,12 @@ describe(`<${RouteStopsTable.name} />`, () => {
                 __typename: 'route_infrastructure_link_along_route',
               },
               {
+                route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                infrastructure_link_id: '2feba2ae-c7af-4034-a299-9e592e67358f',
+                infrastructure_link_sequence: 0,
                 infrastructure_link: {
+                  infrastructure_link_id:
+                    '2feba2ae-c7af-4034-a299-9e592e67358f',
                   scheduled_stop_point_located_on_infrastructure_link: [
                     {
                       priority: 10,
@@ -120,21 +130,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         '2050-12-13T00:00:00+00:00',
                       ),
                       __typename: 'service_pattern_scheduled_stop_point',
-                      scheduled_stop_point_in_journey_patterns: [
-                        {
-                          journey_pattern_id:
-                            '43e1985d-4643-4415-8367-c4a37fbc0a87',
-                          journey_pattern: {
-                            on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
-                          },
-                          scheduled_stop_point_label: 'pysäkki B',
-                          scheduled_stop_point_sequence: 1,
-                          is_timing_point: false,
-                          is_via_point: false,
-                          __typename:
-                            'journey_pattern_scheduled_stop_point_in_journey_pattern',
-                        },
-                      ],
+                      scheduled_stop_point_in_journey_patterns: [],
                     },
                   ],
                   __typename: 'infrastructure_network_infrastructure_link',
@@ -142,7 +138,12 @@ describe(`<${RouteStopsTable.name} />`, () => {
                 __typename: 'route_infrastructure_link_along_route',
               },
               {
+                route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                infrastructure_link_id: 'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
+                infrastructure_link_sequence: 0,
                 infrastructure_link: {
+                  infrastructure_link_id:
+                    'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
                   scheduled_stop_point_located_on_infrastructure_link: [
                     {
                       priority: 10,
@@ -200,7 +201,16 @@ describe(`<${RouteStopsTable.name} />`, () => {
     );
     fireEvent.click(accordionButton);
 
-    // the stops should show when the accordion opens
+    // the stops on journey pattern should show when the accordion opens
+    expect(container.querySelectorAll('tr')).toHaveLength(3);
+    expect(asFragment()).toMatchSnapshot();
+
+    const showUnusedStopsToggle = screen.getByTestId(
+      'show-unused-stops-switch',
+    );
+    fireEvent.click(showUnusedStopsToggle);
+
+    // all the stops should show when unused stops toggle has been clicked
     expect(container.querySelectorAll('tr')).toHaveLength(4);
     expect(asFragment()).toMatchSnapshot();
   });
