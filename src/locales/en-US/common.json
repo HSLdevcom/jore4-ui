@@ -223,6 +223,23 @@
     "edited": "Edited",
     "editor": "Editor"
   },
+  "viaModal": {
+    "createViaPoint": "Convert stop to a via point",
+    "editViaPoint": "Edit via information",
+    "viaPointName": {
+      "fi_FI": "Via information (Finnish)",
+      "sv_FI": "Via information (Swedish)"
+    },
+    "viaPointShortName": {
+      "fi_FI": "Via information short (Finnish)",
+      "sv_FI": "Via information short (Swedish)"
+    },
+    "viaModalTitle": "Via information for route {{ label }}",
+    "removeViaInfo": "Remove via information",
+    "setViaInfo": "Set via information",
+    "viaSaveSuccess": "Via information set",
+    "viaRemoveSuccess": "Via information removed"
+  },
   "save": "Save",
   "edit": "Edit",
   "move": "Move",
