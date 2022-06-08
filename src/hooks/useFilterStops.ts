@@ -77,6 +77,28 @@ const hasPriority = (
   stop: ServicePatternScheduledStopPoint,
 ) => stop.priority === priority;
 
+export const filterHighestPriorityCurrentStops = (
+  stops: ServicePatternScheduledStopPoint[],
+  observationDate: DateTime,
+  allowDrafts = false,
+) => {
+  // Get all current stops
+  const currentStops = stops.filter(
+    (stop: ServicePatternScheduledStopPoint) =>
+      isCurrentStop(observationDate, stop) &&
+      (allowDrafts || !hasPriority(Priority.Draft, stop)),
+  );
+
+  // Group stops by label
+  const groupedCurrentStops = groupBy(currentStops, 'label');
+
+  // Pick stop instance with the highest priority for each stop label
+  return Object.values(groupedCurrentStops).flatMap(
+    (stopInstances) =>
+      maxBy(stopInstances, 'priority') as ServicePatternScheduledStopPoint,
+  );
+};
+
 export const useFilterStops = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -187,31 +209,12 @@ export const useFilterStops = () => {
     [highestPriorityCurrentFilter, mapFilterToFilterItem],
   );
 
-  const filterHighestPriorityCurrentStops = useCallback(
-    (stops: ServicePatternScheduledStopPoint[]) => {
-      // Get all current stops that are not drafts
-      const currentStops = stops.filter(
-        highestPriorityCurrentFilter.filterFunction,
-      );
-
-      // Group stops by label
-      const groupedCurrentStops = groupBy(currentStops, 'label');
-
-      // Sort grouped stops by priority in descending order and pick the first one for each label
-      return Object.values(groupedCurrentStops).flatMap(
-        (stopInstances) =>
-          maxBy(stopInstances, 'priority') as ServicePatternScheduledStopPoint,
-      );
-    },
-    [highestPriorityCurrentFilter.filterFunction],
-  );
-
   const filter = useCallback(
     (stops: ServicePatternScheduledStopPoint[]) => {
       // If "Show situation on the selected date" filter is selected,
       // ignore other filters
       if (isFilterActive(FilterType.ShowHighestPriorityCurrentStops)) {
-        return filterHighestPriorityCurrentStops(stops);
+        return filterHighestPriorityCurrentStops(stops, observationDate);
       }
 
       const timeBasedFilterFunctions =
@@ -230,10 +233,10 @@ export const useFilterStops = () => {
       );
     },
     [
-      filterHighestPriorityCurrentStops,
       isFilterActive,
       priorityFilterItems,
       timeBasedFilterItems,
+      observationDate,
     ],
   );
 

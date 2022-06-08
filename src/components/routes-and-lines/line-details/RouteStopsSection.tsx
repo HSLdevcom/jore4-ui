@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteRoute } from '../../../generated/graphql';
@@ -5,7 +6,12 @@ import {
   getStopsAlongRouteGeometry,
   stopBelongsToJourneyPattern,
 } from '../../../graphql';
-import { useEditRouteJourneyPattern } from '../../../hooks';
+import {
+  filterHighestPriorityCurrentStops,
+  useEditRouteJourneyPattern,
+  useGetLineDetails,
+} from '../../../hooks';
+import { Priority } from '../../../types/Priority';
 import { showDangerToast, showSuccessToast } from '../../../utils';
 import { RouteStopsHeaderRow } from './RouteStopsHeaderRow';
 import { RouteStopsRow } from './RouteStopsRow';
@@ -35,13 +41,33 @@ export const RouteStopsSection = ({
     setOpen(!isOpen);
   };
 
+  const { observationDate } = useGetLineDetails();
+
   const stopsAlongRoute = getStopsAlongRouteGeometry(route);
-  const displayedRoutes = stopsAlongRoute.filter((item) => {
+
+  // Fetch the stop with highest priority that is valid on observation date.
+  // If route is draft, allow adding draft stops to it.
+  const highestPriorityStopInstances = filterHighestPriorityCurrentStops(
+    stopsAlongRoute,
+    observationDate || DateTime.now(),
+    route.priority === Priority.Draft,
+  );
+
+  const displayedStops = stopsAlongRoute.filter((item) => {
     const belongsToJourneyPattern = stopBelongsToJourneyPattern(
       item,
       route.route_id,
     );
-    return belongsToJourneyPattern || showUnusedStops;
+
+    // Only display one stop instance for each stop label.
+    const isHighestPriorityInstance = highestPriorityStopInstances?.find(
+      (stop) => item.scheduled_stop_point_id === stop.scheduled_stop_point_id,
+    );
+
+    return (
+      !!isHighestPriorityInstance &&
+      (belongsToJourneyPattern || showUnusedStops)
+    );
   });
 
   const onAddToRoute = async (stopLabel: string) => {
@@ -85,7 +111,7 @@ export const RouteStopsSection = ({
         onToggle={onToggle}
       />
       {isOpen &&
-        displayedRoutes.map((item) => (
+        displayedStops.map((item) => (
           <RouteStopsRow
             key={item.scheduled_stop_point_id}
             stop={item}

@@ -37,6 +37,7 @@ export type ScheduledStopPointSetInput = NonNullableKeys<
 
 const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
   fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {
+    priority
     scheduled_stop_point_id
     label
     validity_start
