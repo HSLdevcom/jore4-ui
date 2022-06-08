@@ -80,6 +80,7 @@ const DrawRouteLayerComponent = (
     mapInfraLinksToFeature,
     getRemovedStopLabels,
     getOldRouteGeometryVariables,
+    getFilteredStopIdsAlongRouteGeometry,
   } = useExtractRouteFromFeature();
 
   const { t } = useTranslation();
@@ -142,8 +143,13 @@ const DrawRouteLayerComponent = (
         oldStopLabels,
       );
 
+      const stopIdsVisible = await getFilteredStopIdsAlongRouteGeometry(
+        orderedInfraLinksWithStops,
+      );
+
       // Extract the list of ids of the stops to be included in the route
       const stopLabels = await extractScheduledStopPointLabels({
+        stopIdsVisible,
         orderedInfraLinksWithStops,
         infraLinks,
         vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
@@ -173,6 +179,7 @@ const DrawRouteLayerComponent = (
       getOldRouteGeometryVariables,
       templateRouteId,
       getRemovedStopLabels,
+      getFilteredStopIdsAlongRouteGeometry,
       extractScheduledStopPointLabels,
       dispatch,
       map,
