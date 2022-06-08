@@ -1,4 +1,4 @@
-export * from './line-details/useGetLineDetails';
+export * from './line-details';
 export * from './lines';
 export * from './map';
 export * from './redux';
@@ -14,3 +14,4 @@ export * from './useFilterStops';
 export * from './useMapUrlQuery';
 export * from './useShowRoutesOnModal';
 export * from './useUrlQuery';
+export * from './via';
