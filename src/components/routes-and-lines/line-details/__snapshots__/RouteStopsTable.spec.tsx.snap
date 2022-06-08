@@ -64,7 +64,9 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
           >
             <span
               data-testid="route-row-name"
-            />
+            >
+              Reitti A - B FI
+            </span>
             <a
               data-testid="edit-route-button"
               href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
@@ -251,7 +253,9 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <span
               data-testid="route-row-name"
-            />
+            >
+              Reitti A - B FI
+            </span>
             <a
               data-testid="edit-route-button"
               href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
@@ -392,7 +396,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             class="pr-16 text-right"
             data-testid="stop-row-validity-period"
           >
-            Voimassa 1.1.2021 - 13.12.2023
+            Voimassa 1.1.2000 - 13.12.2050
           </td>
           <td>
             <div
@@ -478,16 +482,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               <span>
                 !Pysäkki X
               </span>
-              <i
-                class="icon-via text-4xl text-hsl-dark-green"
-              />
             </div>
           </td>
           <td
             class="pr-16 text-right"
             data-testid="stop-row-validity-period"
           >
-            Voimassa 1.1.2021 - 13.12.2023
+            Voimassa 1.1.2000 - 13.12.2050
           </td>
           <td>
             <div
@@ -579,7 +580,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             class="pr-16 text-right"
             data-testid="stop-row-validity-period"
           >
-            Voimassa 1.1.2021 - 13.12.2023
+            Voimassa 1.1.2000 - 13.12.2050
           </td>
           <td>
             <div

@@ -1,6 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import React from 'react';
 import { GetLineDetailsWithRoutesByIdQuery } from '../../../generated/graphql';
 import {
   GqlQueryResult,
@@ -20,6 +19,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
         name_i18n: buildLocalizedString('Rautatientori - Veräjälaakso'),
         short_name_i18n: buildLocalizedString('Rautatientori - Veräjälaakso'),
         primary_vehicle_mode: 'bus',
+        type_of_line: 'regional_bus_service',
+        transport_target: 'helsinki_internal_traffic',
         validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
         validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),
         priority: 10,
@@ -28,7 +29,29 @@ describe(`<${RouteStopsTable.name} />`, () => {
         line_routes: [
           {
             route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
-            description_i18n: null,
+            name_i18n: {
+              fi_FI: 'Reitti A - B FI',
+            },
+            description_i18n: {
+              fi_FI: 'Reitti A - B desc FI',
+              sv_FI: 'Reitti A - B desc SV',
+            },
+            origin_name_i18n: {
+              fi_FI: 'A FI',
+              sv_FI: 'A SV',
+            },
+            origin_short_name_i18n: {
+              fi_FI: 'A short FI',
+              sv_FI: 'A short SV',
+            },
+            destination_name_i18n: {
+              fi_FI: 'B FI',
+              sv_FI: 'B SV',
+            },
+            destination_short_name_i18n: {
+              fi_FI: 'B short FI',
+              sv_FI: 'B short SV',
+            },
             route_shape: {
               type: 'LineString',
               coordinates: [
@@ -50,14 +73,15 @@ describe(`<${RouteStopsTable.name} />`, () => {
                 infrastructure_link: {
                   scheduled_stop_point_located_on_infrastructure_link: [
                     {
+                      priority: 10,
                       scheduled_stop_point_id:
                         'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                       label: 'pysäkki A',
                       validity_start: DateTime.fromISO(
-                        '2021-01-01T00:00:00+00:00',
+                        '2000-01-01T00:00:00+00:00',
                       ),
                       validity_end: DateTime.fromISO(
-                        '2023-12-13T00:00:00+00:00',
+                        '2050-12-13T00:00:00+00:00',
                       ),
                       __typename: 'service_pattern_scheduled_stop_point',
                       scheduled_stop_point_in_journey_patterns: [
@@ -85,14 +109,15 @@ describe(`<${RouteStopsTable.name} />`, () => {
                 infrastructure_link: {
                   scheduled_stop_point_located_on_infrastructure_link: [
                     {
+                      priority: 10,
                       scheduled_stop_point_id:
                         '4d294d62-df17-46ff-9248-23f66f17fa87',
                       label: 'pysäkki B',
                       validity_start: DateTime.fromISO(
-                        '2021-01-01T00:00:00+00:00',
+                        '2000-01-01T00:00:00+00:00',
                       ),
                       validity_end: DateTime.fromISO(
-                        '2023-12-13T00:00:00+00:00',
+                        '2050-12-13T00:00:00+00:00',
                       ),
                       __typename: 'service_pattern_scheduled_stop_point',
                       scheduled_stop_point_in_journey_patterns: [
@@ -104,8 +129,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           },
                           scheduled_stop_point_label: 'pysäkki B',
                           scheduled_stop_point_sequence: 1,
-                          is_timing_point: true,
-                          is_via_point: true,
+                          is_timing_point: false,
+                          is_via_point: false,
                           __typename:
                             'journey_pattern_scheduled_stop_point_in_journey_pattern',
                         },
@@ -120,14 +145,15 @@ describe(`<${RouteStopsTable.name} />`, () => {
                 infrastructure_link: {
                   scheduled_stop_point_located_on_infrastructure_link: [
                     {
+                      priority: 10,
                       scheduled_stop_point_id:
                         'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                       label: 'pysäkki C',
                       validity_start: DateTime.fromISO(
-                        '2021-01-01T00:00:00+00:00',
+                        '2000-01-01T00:00:00+00:00',
                       ),
                       validity_end: DateTime.fromISO(
-                        '2023-12-13T00:00:00+00:00',
+                        '2050-12-13T00:00:00+00:00',
                       ),
                       __typename: 'service_pattern_scheduled_stop_point',
                       scheduled_stop_point_in_journey_patterns: [
