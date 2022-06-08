@@ -64,7 +64,9 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
           >
             <span
               data-testid="route-row-name"
-            />
+            >
+              Reitti A - B FI
+            </span>
             <a
               data-testid="edit-route-button"
               href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
@@ -200,16 +202,16 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         Näytä reittiin kuulumattomat pysäkit
       </label>
       <button
-        aria-checked="true"
+        aria-checked="false"
         aria-labelledby="headlessui-label-1"
-        class="undefined border-brand bg-brand relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
+        class="undefined border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
         id="headlessui-switch-2"
         role="switch"
         tabindex="0"
         type="button"
       >
         <span
-          class="translate-x-5 border-brand inline-block h-6 w-6 transform rounded-full border bg-white transition-transform"
+          class="-translate-x-1 border-grey inline-block h-6 w-6 transform rounded-full border bg-white transition-transform"
         />
       </button>
     </div>
@@ -251,7 +253,9 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <span
               data-testid="route-row-name"
-            />
+            >
+              Reitti A - B FI
+            </span>
             <a
               data-testid="edit-route-button"
               href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
@@ -369,7 +373,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
         </tr>
         <tr
-          class="border border-l-8 bg-background text-dark-grey undefined"
+          class="border border-l-8  undefined"
         >
           <td
             class="py-4 pl-16 pr-4"
@@ -386,7 +390,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             class="pr-16 text-right"
             data-testid="stop-row-validity-period"
           >
-            Ei reitin käytössä
+            Voimassa 1.1.2000 - 13.12.2050
           </td>
           <td>
             <div
@@ -455,7 +459,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
         </tr>
         <tr
-          class="border border-l-8 bg-background text-dark-grey undefined"
+          class="border border-l-8  undefined"
         >
           <td
             class="py-4 pl-16 pr-4"
@@ -472,7 +476,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             class="pr-16 text-right"
             data-testid="stop-row-validity-period"
           >
-            Ei reitin käytössä
+            Voimassa 1.1.2000 - 13.12.2050
           </td>
           <td>
             <div
@@ -541,7 +545,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
         </tr>
         <tr
-          class="border border-l-8 bg-background text-dark-grey undefined"
+          class="border border-l-8  undefined"
         >
           <td
             class="py-4 pl-16 pr-4"
@@ -558,7 +562,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             class="pr-16 text-right"
             data-testid="stop-row-validity-period"
           >
-            Ei reitin käytössä
+            Voimassa 1.1.2000 - 13.12.2050
           </td>
           <td>
             <div
