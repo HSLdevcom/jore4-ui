@@ -1,29 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row } from '../../layoutComponents';
-import { CloseIconButton, SimpleButton } from '../../uiComponents';
+import { SimpleButton } from '../../uiComponents';
+import { ModalHeader } from '../modal';
 
 const HeaderFooterContainer: FunctionComponent = ({ children }) => {
   return (
     <div className="border border-light-grey bg-background px-14 py-7">
       {children}
     </div>
-  );
-};
-
-interface HeaderProps {
-  onClose: () => void;
-  heading: string;
-}
-
-const ModalHeader = ({ onClose, heading }: HeaderProps): JSX.Element => {
-  return (
-    <HeaderFooterContainer>
-      <Row>
-        <p className="text-2xl font-bold">{heading}</p>
-        <CloseIconButton className="ml-auto" onClick={onClose} />
-      </Row>
-    </HeaderFooterContainer>
   );
 };
 
