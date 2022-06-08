@@ -14,7 +14,7 @@ interface Props {
 
 export const RouteStopsTable = ({ className, routes, testId }: Props) => {
   const { t } = useTranslation();
-  const [showUnusedStops, setShowUnusedStops] = useState(true);
+  const [showUnusedStops, setShowUnusedStops] = useState(false);
   const sortedRoutes = orderBy(routes, ['label', 'direction'], ['asc', 'desc']);
 
   return (
