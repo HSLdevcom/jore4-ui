@@ -136,6 +136,9 @@ Icon font can be updated by following these steps:
 (**If you rename or remove existing icons**, do global search with old name to make sure that you don't break anything!
 Intellisense doesn't notice if nonexisting icons are used in the project.)
 
+If the imported SVG in Fontello does not look like the icon from Figma (e.g. outline circle is missing), follow these steps:
+https://medium.com/mabiloft/we-designed-an-icon-font-with-figma-and-fontello-and-it-has-not-been-a-piece-of-cake-b2948973738e
+
 ## Experimenting with digiroad network and pre-calculated vector tiles
 
 Primary way of presenting vector tiles in UI will be using pre-calculated vector tiles.
