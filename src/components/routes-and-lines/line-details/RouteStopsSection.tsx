@@ -43,10 +43,10 @@ export const RouteStopsSection = ({
     return belongsToJourneyPattern || showUnusedStops;
   });
 
-  const onAddToRoute = async (stopToAdd: string) => {
+  const onAddToRoute = async (stopLabel: string) => {
     try {
       const changes = prepareAddStopToRoute({
-        stopPointLabel: stopToAdd,
+        stopPointLabel: stopLabel,
         route,
       });
 

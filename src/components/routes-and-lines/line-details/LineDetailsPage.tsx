@@ -5,18 +5,21 @@ import { useParams } from 'react-router-dom';
 import { RouteLine } from '../../../generated/graphql';
 import {
   useAppDispatch,
+  useAppSelector,
   useGetLineDetails,
   useMapUrlQuery,
 } from '../../../hooks';
-import { Column, Container, Row } from '../../../layoutComponents';
+import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import {
   resetMapEditorStateAction,
+  selectIsViaModalOpen,
   setIsModalMapOpenAction,
   setRouteMetadataAction,
 } from '../../../redux';
 import { DateLike, mapToShortDate } from '../../../time';
 import { SimpleButton } from '../../../uiComponents';
 import { PageHeader } from '../common/PageHeader';
+import { ViaModal } from '../via/ViaModal';
 import { ActionsRow } from './ActionsRow';
 import { AdditionalInformation } from './AdditionalInformation';
 import { MapPreview } from './MapPreview';
@@ -113,6 +116,8 @@ export const LineDetailsPage = (): JSX.Element => {
     addMapOpenQueryParameter();
   };
 
+  const isViaModalOpen = useAppSelector(selectIsViaModalOpen);
+
   return (
     <div>
       <PageHeader>
@@ -155,6 +160,9 @@ export const LineDetailsPage = (): JSX.Element => {
           </Column>
         </Container>
       )}
+      <Visible visible={isViaModalOpen}>
+        <ViaModal />
+      </Visible>
     </div>
   );
 };
