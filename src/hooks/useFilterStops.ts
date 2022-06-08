@@ -2,6 +2,7 @@ import groupBy from 'lodash/groupBy';
 import maxBy from 'lodash/maxBy';
 import partial from 'lodash/partial';
 import { DateTime } from 'luxon';
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ServicePatternScheduledStopPoint } from '../generated/graphql';
 import {
@@ -84,129 +85,161 @@ export const useFilterStops = () => {
     useAppSelector(selectMapFilter);
   const observationDate = useAppSelector(selectMapObservationDate);
 
-  const highestPriorityCurrentFilter = {
-    type: FilterType.ShowHighestPriorityCurrentStops,
-    label: t('filters.highestPriorityCurrent'),
-    // Current stops that are not drafts
-    filterFunction: (stop: ServicePatternScheduledStopPoint) =>
-      isCurrentStop(observationDate, stop) &&
-      !hasPriority(Priority.Draft, stop),
-  };
-
-  const timeBasedFilters = [
-    {
-      type: FilterType.ShowFutureStops,
-      label: t('filters.future'),
-      filterFunction: partial(isFutureStop, observationDate),
-    },
-    {
-      type: FilterType.ShowCurrentStops,
-      label: t('filters.current'),
-      filterFunction: partial(isCurrentStop, observationDate),
-    },
-    {
-      type: FilterType.ShowPastStops,
-      label: t('filters.past'),
-      filterFunction: partial(isPastStop, observationDate),
-    },
-  ];
-
-  const priorityFilters = [
-    {
-      type: FilterType.ShowStandardStops,
-      label: t('filters.standard'),
-      filterFunction: partial(hasPriority, Priority.Standard),
-    },
-    {
-      type: FilterType.ShowTemporaryStops,
-      label: t('filters.temporary'),
-      filterFunction: partial(hasPriority, Priority.Temporary),
-    },
-    {
-      type: FilterType.ShowDraftStops,
-      label: t('filters.draft'),
-      filterFunction: partial(hasPriority, Priority.Draft),
-    },
-  ];
-
-  const toggleFunction = (filterType: FilterType) => {
-    return (isActive: boolean) =>
-      dispatch(setStopFilterAction({ filterType, isActive }));
-  };
-
-  const isFilterActive = (filterType: FilterType) => stopFilters[filterType];
-
-  const mapFilterToFilterItem = (filter: Filter): FilterItem => {
-    const { type, label, filterFunction } = filter;
-
-    return {
-      id: `filter-${type}`,
-      isActive: isFilterActive(type),
-      label,
-      toggleFunction: toggleFunction(type),
-      filterFunction,
-      // If "Show situation on the selected date" -filter is active
-      // all other filters are disabled
-      disabled:
-        type !== FilterType.ShowHighestPriorityCurrentStops &&
-        isFilterActive(FilterType.ShowHighestPriorityCurrentStops),
-    };
-  };
-
-  const timeBasedFilterItems: FilterItem[] = timeBasedFilters.map(
-    mapFilterToFilterItem,
+  const highestPriorityCurrentFilter = useMemo(
+    () => ({
+      type: FilterType.ShowHighestPriorityCurrentStops,
+      label: t('filters.highestPriorityCurrent'),
+      // Current stops that are not drafts
+      filterFunction: (stop: ServicePatternScheduledStopPoint) =>
+        isCurrentStop(observationDate, stop) &&
+        !hasPriority(Priority.Draft, stop),
+    }),
+    [observationDate, t],
   );
 
-  const priorityFilterItems: FilterItem[] = priorityFilters.map(
-    mapFilterToFilterItem,
+  const timeBasedFilters = useMemo(
+    () => [
+      {
+        type: FilterType.ShowFutureStops,
+        label: t('filters.future'),
+        filterFunction: partial(isFutureStop, observationDate),
+      },
+      {
+        type: FilterType.ShowCurrentStops,
+        label: t('filters.current'),
+        filterFunction: partial(isCurrentStop, observationDate),
+      },
+      {
+        type: FilterType.ShowPastStops,
+        label: t('filters.past'),
+        filterFunction: partial(isPastStop, observationDate),
+      },
+    ],
+    [observationDate, t],
   );
 
-  const highestPriorityCurrentFilterItem = mapFilterToFilterItem(
-    highestPriorityCurrentFilter,
+  const priorityFilters = useMemo(
+    () => [
+      {
+        type: FilterType.ShowStandardStops,
+        label: t('filters.standard'),
+        filterFunction: partial(hasPriority, Priority.Standard),
+      },
+      {
+        type: FilterType.ShowTemporaryStops,
+        label: t('filters.temporary'),
+        filterFunction: partial(hasPriority, Priority.Temporary),
+      },
+      {
+        type: FilterType.ShowDraftStops,
+        label: t('filters.draft'),
+        filterFunction: partial(hasPriority, Priority.Draft),
+      },
+    ],
+    [t],
   );
 
-  const filterHighestPriorityCurrentStops = (
-    stops: ServicePatternScheduledStopPoint[],
-  ) => {
-    // Get all current stops that are not drafts
-    const currentStops = stops.filter(
-      highestPriorityCurrentFilter.filterFunction,
-    );
+  const toggleFunction = useCallback(
+    (filterType: FilterType) => {
+      return (isActive: boolean) =>
+        dispatch(setStopFilterAction({ filterType, isActive }));
+    },
+    [dispatch],
+  );
 
-    // Group stops by label
-    const groupedCurrentStops = groupBy(currentStops, 'label');
+  const isFilterActive = useCallback(
+    (filterType: FilterType) => stopFilters[filterType],
+    [stopFilters],
+  );
 
-    // Sort grouped stops by priority in descending order and pick the first one for each label
-    return Object.values(groupedCurrentStops).flatMap(
-      (stopInstances) =>
-        maxBy(stopInstances, 'priority') as ServicePatternScheduledStopPoint,
-    );
-  };
+  const mapFilterToFilterItem = useCallback(
+    (filter: Filter): FilterItem => {
+      const { type, label, filterFunction } = filter;
 
-  const filter = (stops: ServicePatternScheduledStopPoint[]) => {
-    // If "Show situation on the selected date" filter is selected,
-    // ignore other filters
-    if (isFilterActive(FilterType.ShowHighestPriorityCurrentStops)) {
-      return filterHighestPriorityCurrentStops(stops);
-    }
+      return {
+        id: `filter-${type}`,
+        isActive: isFilterActive(type),
+        label,
+        toggleFunction: toggleFunction(type),
+        filterFunction,
+        // If "Show situation on the selected date" -filter is active
+        // all other filters are disabled
+        disabled:
+          type !== FilterType.ShowHighestPriorityCurrentStops &&
+          isFilterActive(FilterType.ShowHighestPriorityCurrentStops),
+      };
+    },
+    [isFilterActive, toggleFunction],
+  );
 
-    const timeBasedFilterFunctions =
-      mapFilterItemsToFilterFunctions(timeBasedFilterItems);
-    const priorityFilterFunctions =
-      mapFilterItemsToFilterFunctions(priorityFilterItems);
+  const timeBasedFilterItems: FilterItem[] = useMemo(
+    () => timeBasedFilters.map(mapFilterToFilterItem),
+    [mapFilterToFilterItem, timeBasedFilters],
+  );
 
-    return stops.filter(
-      (stop) =>
-        timeBasedFilterFunctions.some((filterFunction) =>
-          filterFunction(stop),
-        ) &&
-        priorityFilterFunctions.some((filterFunction) => filterFunction(stop)),
-    );
-  };
+  const priorityFilterItems: FilterItem[] = useMemo(
+    () => priorityFilters.map(mapFilterToFilterItem),
+    [mapFilterToFilterItem, priorityFilters],
+  );
 
-  const toggleShowFilters = () => {
+  const highestPriorityCurrentFilterItem = useMemo(
+    () => mapFilterToFilterItem(highestPriorityCurrentFilter),
+    [highestPriorityCurrentFilter, mapFilterToFilterItem],
+  );
+
+  const filterHighestPriorityCurrentStops = useCallback(
+    (stops: ServicePatternScheduledStopPoint[]) => {
+      // Get all current stops that are not drafts
+      const currentStops = stops.filter(
+        highestPriorityCurrentFilter.filterFunction,
+      );
+
+      // Group stops by label
+      const groupedCurrentStops = groupBy(currentStops, 'label');
+
+      // Sort grouped stops by priority in descending order and pick the first one for each label
+      return Object.values(groupedCurrentStops).flatMap(
+        (stopInstances) =>
+          maxBy(stopInstances, 'priority') as ServicePatternScheduledStopPoint,
+      );
+    },
+    [highestPriorityCurrentFilter.filterFunction],
+  );
+
+  const filter = useCallback(
+    (stops: ServicePatternScheduledStopPoint[]) => {
+      // If "Show situation on the selected date" filter is selected,
+      // ignore other filters
+      if (isFilterActive(FilterType.ShowHighestPriorityCurrentStops)) {
+        return filterHighestPriorityCurrentStops(stops);
+      }
+
+      const timeBasedFilterFunctions =
+        mapFilterItemsToFilterFunctions(timeBasedFilterItems);
+      const priorityFilterFunctions =
+        mapFilterItemsToFilterFunctions(priorityFilterItems);
+
+      return stops.filter(
+        (stop) =>
+          timeBasedFilterFunctions.some((filterFunction) =>
+            filterFunction(stop),
+          ) &&
+          priorityFilterFunctions.some((filterFunction) =>
+            filterFunction(stop),
+          ),
+      );
+    },
+    [
+      filterHighestPriorityCurrentStops,
+      isFilterActive,
+      priorityFilterItems,
+      timeBasedFilterItems,
+    ],
+  );
+
+  const toggleShowFilters = useCallback(() => {
     dispatch(setShowStopFilterOverlayAction(!showStopFilterOverlay));
-  };
+  }, [dispatch, showStopFilterOverlay]);
 
   return {
     filter,
