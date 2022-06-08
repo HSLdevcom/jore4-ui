@@ -27,7 +27,7 @@ const initialState: IState = {
     [FilterType.ShowPastStops]: false,
     [FilterType.ShowStandardStops]: true,
     [FilterType.ShowTemporaryStops]: true,
-    [FilterType.ShowDraftStops]: true,
+    [FilterType.ShowDraftStops]: false,
     [FilterType.ShowHighestPriorityCurrentStops]: true,
   },
   observationDate: DateTime.now().toISO(),
