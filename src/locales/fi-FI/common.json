@@ -223,6 +223,23 @@
     "edited": "Muokattu",
     "editor": "Muokkaaja"
   },
+  "viaModal": {
+    "createViaPoint": "Tee pysäkistä via-piste",
+    "editViaPoint": "Muuta via-tietoa",
+    "viaPointName": {
+      "fi_FI": "Via-tieto suomeksi",
+      "sv_FI": "Via-tieto ruotsiksi"
+    },
+    "viaPointShortName": {
+      "fi_FI": "Via-tiedon lyhenne suomeksi",
+      "sv_FI": "Via-tiedon lyhenne ruotsiksi"
+    },
+    "viaModalTitle": "Via-tieto reitille {{ label }}",
+    "removeViaInfo": "Poista via-tieto",
+    "setViaInfo": "Aseta via-tieto",
+    "viaSaveSuccess": "Via-tieto asetettu",
+    "viaRemoveSuccess": "Via-tieto poistettu"
+  },
   "save": "Tallenna",
   "edit": "Muokkaa",
   "move": "Siirrä",
