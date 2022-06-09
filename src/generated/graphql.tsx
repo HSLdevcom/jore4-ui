@@ -1596,6 +1596,8 @@ export type JourneyPatternScheduledStopPointInJourneyPattern = {
   scheduled_stop_points: Array<ServicePatternScheduledStopPoint>;
   /** An aggregate relationship */
   scheduled_stop_points_aggregate: ServicePatternScheduledStopPointAggregate;
+  via_point_name_i18n?: Maybe<Scalars['localized_string']>;
+  via_point_short_name_i18n?: Maybe<Scalars['localized_string']>;
 };
 
 
@@ -1628,6 +1630,30 @@ export type JourneyPatternScheduledStopPointInJourneyPatternScheduledStopPointsA
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+};
+
+
+/**
+ * The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern.
+ *
+ *
+ * columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern"
+ *
+ */
+export type JourneyPatternScheduledStopPointInJourneyPatternViaPointNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
+};
+
+
+/**
+ * The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern.
+ *
+ *
+ * columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern"
+ *
+ */
+export type JourneyPatternScheduledStopPointInJourneyPatternViaPointShortNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
 };
 
 /** aggregated selection of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1675,6 +1701,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy = {
   variance?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarianceOrderBy>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type JourneyPatternScheduledStopPointInJourneyPatternAppendInput = {
+  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting array relation for remote table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput = {
   data: Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
@@ -1707,6 +1739,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternBoolExp = {
   scheduled_stop_point_label?: Maybe<StringComparisonExp>;
   scheduled_stop_point_sequence?: Maybe<IntComparisonExp>;
   scheduled_stop_points?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  via_point_name_i18n?: Maybe<JsonbComparisonExp>;
+  via_point_short_name_i18n?: Maybe<JsonbComparisonExp>;
 };
 
 /** unique or primary key constraints on table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1714,6 +1748,24 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternConstraint {
   /** unique or primary key constraint */
   ScheduledStopPointInJourneyPatternPkey = 'scheduled_stop_point_in_journey_pattern_pkey'
 }
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput = {
+  via_point_name_i18n?: Maybe<Array<Scalars['String']>>;
+  via_point_short_name_i18n?: Maybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput = {
+  via_point_name_i18n?: Maybe<Scalars['Int']>;
+  via_point_short_name_i18n?: Maybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput = {
+  via_point_name_i18n?: Maybe<Scalars['String']>;
+  via_point_short_name_i18n?: Maybe<Scalars['String']>;
+};
 
 /** input type for incrementing numeric columns in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternIncInput = {
@@ -1734,6 +1786,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternInsertInput = {
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
   scheduled_stop_points?: Maybe<ServicePatternScheduledStopPointArrRelInsertInput>;
+  via_point_name_i18n?: Maybe<Scalars['localized_string']>;
+  via_point_short_name_i18n?: Maybe<Scalars['localized_string']>;
 };
 
 /** aggregate max on columns */
@@ -1799,6 +1853,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternOrderBy = {
   scheduled_stop_point_label?: Maybe<OrderBy>;
   scheduled_stop_point_sequence?: Maybe<OrderBy>;
   scheduled_stop_points_aggregate?: Maybe<ServicePatternScheduledStopPointAggregateOrderBy>;
+  via_point_name_i18n?: Maybe<OrderBy>;
+  via_point_short_name_i18n?: Maybe<OrderBy>;
 };
 
 /** primary key columns input for table: journey_pattern_scheduled_stop_point_in_journey_pattern */
@@ -1807,6 +1863,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput = {
   journey_pattern_id: Scalars['uuid'];
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence: Scalars['Int'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type JourneyPatternScheduledStopPointInJourneyPatternPrependInput = {
+  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1820,7 +1882,11 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumn {
   /** column name */
   ScheduledStopPointLabel = 'scheduled_stop_point_label',
   /** column name */
-  ScheduledStopPointSequence = 'scheduled_stop_point_sequence'
+  ScheduledStopPointSequence = 'scheduled_stop_point_sequence',
+  /** column name */
+  ViaPointNameI18n = 'via_point_name_i18n',
+  /** column name */
+  ViaPointShortNameI18n = 'via_point_short_name_i18n'
 }
 
 /** input type for updating data in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1834,6 +1900,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternSetInput = {
   scheduled_stop_point_label?: Maybe<Scalars['String']>;
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
+  via_point_name_i18n?: Maybe<Scalars['localized_string']>;
+  via_point_short_name_i18n?: Maybe<Scalars['localized_string']>;
 };
 
 /** aggregate stddev on columns */
@@ -1899,7 +1967,11 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternUpdateColumn {
   /** column name */
   ScheduledStopPointLabel = 'scheduled_stop_point_label',
   /** column name */
-  ScheduledStopPointSequence = 'scheduled_stop_point_sequence'
+  ScheduledStopPointSequence = 'scheduled_stop_point_sequence',
+  /** column name */
+  ViaPointNameI18n = 'via_point_name_i18n',
+  /** column name */
+  ViaPointShortNameI18n = 'via_point_short_name_i18n'
 }
 
 /** aggregate var_pop on columns */
@@ -1964,553 +2036,6 @@ export type JsonbComparisonExp = {
   _nin?: Maybe<Array<Scalars['jsonb']>>;
 };
 
-/**
- * List of attribute names which are used as localization keys
- *
- *
- * columns and relationships of "localization.attribute"
- *
- */
-export type LocalizationAttribute = {
-  __typename?: 'localization_attribute';
-  attribute_id: Scalars['uuid'];
-  /** An attribute name that is used as localization key. Should be namespaced (e.g. "route_name") */
-  attribute_name: Scalars['String'];
-  /** An array relationship */
-  localized_texts: Array<LocalizationLocalizedText>;
-  /** An aggregate relationship */
-  localized_texts_aggregate: LocalizationLocalizedTextAggregate;
-};
-
-
-/**
- * List of attribute names which are used as localization keys
- *
- *
- * columns and relationships of "localization.attribute"
- *
- */
-export type LocalizationAttributeLocalizedTextsArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-
-/**
- * List of attribute names which are used as localization keys
- *
- *
- * columns and relationships of "localization.attribute"
- *
- */
-export type LocalizationAttributeLocalizedTextsAggregateArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-/** aggregated selection of "localization.attribute" */
-export type LocalizationAttributeAggregate = {
-  __typename?: 'localization_attribute_aggregate';
-  aggregate?: Maybe<LocalizationAttributeAggregateFields>;
-  nodes: Array<LocalizationAttribute>;
-};
-
-/** aggregate fields of "localization.attribute" */
-export type LocalizationAttributeAggregateFields = {
-  __typename?: 'localization_attribute_aggregate_fields';
-  count: Scalars['Int'];
-  max?: Maybe<LocalizationAttributeMaxFields>;
-  min?: Maybe<LocalizationAttributeMinFields>;
-};
-
-
-/** aggregate fields of "localization.attribute" */
-export type LocalizationAttributeAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<LocalizationAttributeSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
-
-/** Boolean expression to filter rows from the table "localization.attribute". All fields are combined with a logical 'AND'. */
-export type LocalizationAttributeBoolExp = {
-  _and?: Maybe<Array<LocalizationAttributeBoolExp>>;
-  _not?: Maybe<LocalizationAttributeBoolExp>;
-  _or?: Maybe<Array<LocalizationAttributeBoolExp>>;
-  attribute_id?: Maybe<UuidComparisonExp>;
-  attribute_name?: Maybe<StringComparisonExp>;
-  localized_texts?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-/** unique or primary key constraints on table "localization.attribute" */
-export enum LocalizationAttributeConstraint {
-  /** unique or primary key constraint */
-  AttributePkey = 'attribute_pkey',
-  /** unique or primary key constraint */
-  UniqueAttributeName = 'unique_attribute_name'
-}
-
-/** input type for inserting data into table "localization.attribute" */
-export type LocalizationAttributeInsertInput = {
-  attribute_id?: Maybe<Scalars['uuid']>;
-  /** An attribute name that is used as localization key. Should be namespaced (e.g. "route_name") */
-  attribute_name?: Maybe<Scalars['String']>;
-  localized_texts?: Maybe<LocalizationLocalizedTextArrRelInsertInput>;
-};
-
-/** aggregate max on columns */
-export type LocalizationAttributeMaxFields = {
-  __typename?: 'localization_attribute_max_fields';
-  attribute_id?: Maybe<Scalars['uuid']>;
-  /** An attribute name that is used as localization key. Should be namespaced (e.g. "route_name") */
-  attribute_name?: Maybe<Scalars['String']>;
-};
-
-/** aggregate min on columns */
-export type LocalizationAttributeMinFields = {
-  __typename?: 'localization_attribute_min_fields';
-  attribute_id?: Maybe<Scalars['uuid']>;
-  /** An attribute name that is used as localization key. Should be namespaced (e.g. "route_name") */
-  attribute_name?: Maybe<Scalars['String']>;
-};
-
-/** response of any mutation on the table "localization.attribute" */
-export type LocalizationAttributeMutationResponse = {
-  __typename?: 'localization_attribute_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data from the rows affected by the mutation */
-  returning: Array<LocalizationAttribute>;
-};
-
-/** input type for inserting object relation for remote table "localization.attribute" */
-export type LocalizationAttributeObjRelInsertInput = {
-  data: LocalizationAttributeInsertInput;
-  /** on conflict condition */
-  on_conflict?: Maybe<LocalizationAttributeOnConflict>;
-};
-
-/** on conflict condition type for table "localization.attribute" */
-export type LocalizationAttributeOnConflict = {
-  constraint: LocalizationAttributeConstraint;
-  update_columns?: Array<LocalizationAttributeUpdateColumn>;
-  where?: Maybe<LocalizationAttributeBoolExp>;
-};
-
-/** Ordering options when selecting data from "localization.attribute". */
-export type LocalizationAttributeOrderBy = {
-  attribute_id?: Maybe<OrderBy>;
-  attribute_name?: Maybe<OrderBy>;
-  localized_texts_aggregate?: Maybe<LocalizationLocalizedTextAggregateOrderBy>;
-};
-
-/** primary key columns input for table: localization_attribute */
-export type LocalizationAttributePkColumnsInput = {
-  attribute_id: Scalars['uuid'];
-};
-
-/** select columns of table "localization.attribute" */
-export enum LocalizationAttributeSelectColumn {
-  /** column name */
-  AttributeId = 'attribute_id',
-  /** column name */
-  AttributeName = 'attribute_name'
-}
-
-/** input type for updating data in table "localization.attribute" */
-export type LocalizationAttributeSetInput = {
-  attribute_id?: Maybe<Scalars['uuid']>;
-  /** An attribute name that is used as localization key. Should be namespaced (e.g. "route_name") */
-  attribute_name?: Maybe<Scalars['String']>;
-};
-
-/** update columns of table "localization.attribute" */
-export enum LocalizationAttributeUpdateColumn {
-  /** column name */
-  AttributeId = 'attribute_id',
-  /** column name */
-  AttributeName = 'attribute_name'
-}
-
-/**
- * List of languages in which the localized texts may come. Used as enum table
- *
- *
- * columns and relationships of "localization.language"
- *
- */
-export type LocalizationLanguage = {
-  __typename?: 'localization_language';
-  language_code: Scalars['String'];
-  /** An array relationship */
-  localized_texts: Array<LocalizationLocalizedText>;
-  /** An aggregate relationship */
-  localized_texts_aggregate: LocalizationLocalizedTextAggregate;
-};
-
-
-/**
- * List of languages in which the localized texts may come. Used as enum table
- *
- *
- * columns and relationships of "localization.language"
- *
- */
-export type LocalizationLanguageLocalizedTextsArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-
-/**
- * List of languages in which the localized texts may come. Used as enum table
- *
- *
- * columns and relationships of "localization.language"
- *
- */
-export type LocalizationLanguageLocalizedTextsAggregateArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-/** aggregated selection of "localization.language" */
-export type LocalizationLanguageAggregate = {
-  __typename?: 'localization_language_aggregate';
-  aggregate?: Maybe<LocalizationLanguageAggregateFields>;
-  nodes: Array<LocalizationLanguage>;
-};
-
-/** aggregate fields of "localization.language" */
-export type LocalizationLanguageAggregateFields = {
-  __typename?: 'localization_language_aggregate_fields';
-  count: Scalars['Int'];
-  max?: Maybe<LocalizationLanguageMaxFields>;
-  min?: Maybe<LocalizationLanguageMinFields>;
-};
-
-
-/** aggregate fields of "localization.language" */
-export type LocalizationLanguageAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<LocalizationLanguageSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
-
-/** Boolean expression to filter rows from the table "localization.language". All fields are combined with a logical 'AND'. */
-export type LocalizationLanguageBoolExp = {
-  _and?: Maybe<Array<LocalizationLanguageBoolExp>>;
-  _not?: Maybe<LocalizationLanguageBoolExp>;
-  _or?: Maybe<Array<LocalizationLanguageBoolExp>>;
-  language_code?: Maybe<StringComparisonExp>;
-  localized_texts?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-/** unique or primary key constraints on table "localization.language" */
-export enum LocalizationLanguageConstraint {
-  /** unique or primary key constraint */
-  LanguagePkey = 'language_pkey'
-}
-
-export enum LocalizationLanguageEnum {
-  EnUs = 'en_US',
-  FiFi = 'fi_FI',
-  SvFi = 'sv_FI'
-}
-
-/** Boolean expression to compare columns of type "localization_language_enum". All fields are combined with logical 'AND'. */
-export type LocalizationLanguageEnumComparisonExp = {
-  _eq?: Maybe<LocalizationLanguageEnum>;
-  _in?: Maybe<Array<LocalizationLanguageEnum>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<LocalizationLanguageEnum>;
-  _nin?: Maybe<Array<LocalizationLanguageEnum>>;
-};
-
-/** input type for inserting data into table "localization.language" */
-export type LocalizationLanguageInsertInput = {
-  language_code?: Maybe<Scalars['String']>;
-  localized_texts?: Maybe<LocalizationLocalizedTextArrRelInsertInput>;
-};
-
-/** aggregate max on columns */
-export type LocalizationLanguageMaxFields = {
-  __typename?: 'localization_language_max_fields';
-  language_code?: Maybe<Scalars['String']>;
-};
-
-/** aggregate min on columns */
-export type LocalizationLanguageMinFields = {
-  __typename?: 'localization_language_min_fields';
-  language_code?: Maybe<Scalars['String']>;
-};
-
-/** response of any mutation on the table "localization.language" */
-export type LocalizationLanguageMutationResponse = {
-  __typename?: 'localization_language_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data from the rows affected by the mutation */
-  returning: Array<LocalizationLanguage>;
-};
-
-/** input type for inserting object relation for remote table "localization.language" */
-export type LocalizationLanguageObjRelInsertInput = {
-  data: LocalizationLanguageInsertInput;
-  /** on conflict condition */
-  on_conflict?: Maybe<LocalizationLanguageOnConflict>;
-};
-
-/** on conflict condition type for table "localization.language" */
-export type LocalizationLanguageOnConflict = {
-  constraint: LocalizationLanguageConstraint;
-  update_columns?: Array<LocalizationLanguageUpdateColumn>;
-  where?: Maybe<LocalizationLanguageBoolExp>;
-};
-
-/** Ordering options when selecting data from "localization.language". */
-export type LocalizationLanguageOrderBy = {
-  language_code?: Maybe<OrderBy>;
-  localized_texts_aggregate?: Maybe<LocalizationLocalizedTextAggregateOrderBy>;
-};
-
-/** primary key columns input for table: localization_language */
-export type LocalizationLanguagePkColumnsInput = {
-  language_code: Scalars['String'];
-};
-
-/** select columns of table "localization.language" */
-export enum LocalizationLanguageSelectColumn {
-  /** column name */
-  LanguageCode = 'language_code'
-}
-
-/** input type for updating data in table "localization.language" */
-export type LocalizationLanguageSetInput = {
-  language_code?: Maybe<Scalars['String']>;
-};
-
-/** update columns of table "localization.language" */
-export enum LocalizationLanguageUpdateColumn {
-  /** column name */
-  LanguageCode = 'language_code'
-}
-
-/**
- * List of localized texts for entities like routes, lines, etc.
- *
- *
- * columns and relationships of "localization.localized_text"
- *
- */
-export type LocalizationLocalizedText = {
-  __typename?: 'localization_localized_text';
-  /** An object relationship */
-  attribute: LocalizationAttribute;
-  /** ID of the localization key the localized text refers to */
-  attribute_id: Scalars['uuid'];
-  /** ID of the entity the localized text refers to */
-  entity_id: Scalars['uuid'];
-  /** An object relationship */
-  language: LocalizationLanguage;
-  /** Language of the localized text */
-  language_code: LocalizationLanguageEnum;
-  /** The localized text itself, in UTF-8 format */
-  localized_text: Scalars['String'];
-};
-
-/** aggregated selection of "localization.localized_text" */
-export type LocalizationLocalizedTextAggregate = {
-  __typename?: 'localization_localized_text_aggregate';
-  aggregate?: Maybe<LocalizationLocalizedTextAggregateFields>;
-  nodes: Array<LocalizationLocalizedText>;
-};
-
-/** aggregate fields of "localization.localized_text" */
-export type LocalizationLocalizedTextAggregateFields = {
-  __typename?: 'localization_localized_text_aggregate_fields';
-  count: Scalars['Int'];
-  max?: Maybe<LocalizationLocalizedTextMaxFields>;
-  min?: Maybe<LocalizationLocalizedTextMinFields>;
-};
-
-
-/** aggregate fields of "localization.localized_text" */
-export type LocalizationLocalizedTextAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
-
-/** order by aggregate values of table "localization.localized_text" */
-export type LocalizationLocalizedTextAggregateOrderBy = {
-  count?: Maybe<OrderBy>;
-  max?: Maybe<LocalizationLocalizedTextMaxOrderBy>;
-  min?: Maybe<LocalizationLocalizedTextMinOrderBy>;
-};
-
-/** input type for inserting array relation for remote table "localization.localized_text" */
-export type LocalizationLocalizedTextArrRelInsertInput = {
-  data: Array<LocalizationLocalizedTextInsertInput>;
-  /** on conflict condition */
-  on_conflict?: Maybe<LocalizationLocalizedTextOnConflict>;
-};
-
-/** Boolean expression to filter rows from the table "localization.localized_text". All fields are combined with a logical 'AND'. */
-export type LocalizationLocalizedTextBoolExp = {
-  _and?: Maybe<Array<LocalizationLocalizedTextBoolExp>>;
-  _not?: Maybe<LocalizationLocalizedTextBoolExp>;
-  _or?: Maybe<Array<LocalizationLocalizedTextBoolExp>>;
-  attribute?: Maybe<LocalizationAttributeBoolExp>;
-  attribute_id?: Maybe<UuidComparisonExp>;
-  entity_id?: Maybe<UuidComparisonExp>;
-  language?: Maybe<LocalizationLanguageBoolExp>;
-  language_code?: Maybe<LocalizationLanguageEnumComparisonExp>;
-  localized_text?: Maybe<StringComparisonExp>;
-};
-
-/** unique or primary key constraints on table "localization.localized_text" */
-export enum LocalizationLocalizedTextConstraint {
-  /** unique or primary key constraint */
-  LocalizedTextPkey = 'localized_text_pkey'
-}
-
-/** input type for inserting data into table "localization.localized_text" */
-export type LocalizationLocalizedTextInsertInput = {
-  attribute?: Maybe<LocalizationAttributeObjRelInsertInput>;
-  /** ID of the localization key the localized text refers to */
-  attribute_id?: Maybe<Scalars['uuid']>;
-  /** ID of the entity the localized text refers to */
-  entity_id?: Maybe<Scalars['uuid']>;
-  language?: Maybe<LocalizationLanguageObjRelInsertInput>;
-  /** Language of the localized text */
-  language_code?: Maybe<LocalizationLanguageEnum>;
-  /** The localized text itself, in UTF-8 format */
-  localized_text?: Maybe<Scalars['String']>;
-};
-
-/** aggregate max on columns */
-export type LocalizationLocalizedTextMaxFields = {
-  __typename?: 'localization_localized_text_max_fields';
-  /** ID of the localization key the localized text refers to */
-  attribute_id?: Maybe<Scalars['uuid']>;
-  /** ID of the entity the localized text refers to */
-  entity_id?: Maybe<Scalars['uuid']>;
-  /** The localized text itself, in UTF-8 format */
-  localized_text?: Maybe<Scalars['String']>;
-};
-
-/** order by max() on columns of table "localization.localized_text" */
-export type LocalizationLocalizedTextMaxOrderBy = {
-  /** ID of the localization key the localized text refers to */
-  attribute_id?: Maybe<OrderBy>;
-  /** ID of the entity the localized text refers to */
-  entity_id?: Maybe<OrderBy>;
-  /** The localized text itself, in UTF-8 format */
-  localized_text?: Maybe<OrderBy>;
-};
-
-/** aggregate min on columns */
-export type LocalizationLocalizedTextMinFields = {
-  __typename?: 'localization_localized_text_min_fields';
-  /** ID of the localization key the localized text refers to */
-  attribute_id?: Maybe<Scalars['uuid']>;
-  /** ID of the entity the localized text refers to */
-  entity_id?: Maybe<Scalars['uuid']>;
-  /** The localized text itself, in UTF-8 format */
-  localized_text?: Maybe<Scalars['String']>;
-};
-
-/** order by min() on columns of table "localization.localized_text" */
-export type LocalizationLocalizedTextMinOrderBy = {
-  /** ID of the localization key the localized text refers to */
-  attribute_id?: Maybe<OrderBy>;
-  /** ID of the entity the localized text refers to */
-  entity_id?: Maybe<OrderBy>;
-  /** The localized text itself, in UTF-8 format */
-  localized_text?: Maybe<OrderBy>;
-};
-
-/** response of any mutation on the table "localization.localized_text" */
-export type LocalizationLocalizedTextMutationResponse = {
-  __typename?: 'localization_localized_text_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data from the rows affected by the mutation */
-  returning: Array<LocalizationLocalizedText>;
-};
-
-/** on conflict condition type for table "localization.localized_text" */
-export type LocalizationLocalizedTextOnConflict = {
-  constraint: LocalizationLocalizedTextConstraint;
-  update_columns?: Array<LocalizationLocalizedTextUpdateColumn>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-/** Ordering options when selecting data from "localization.localized_text". */
-export type LocalizationLocalizedTextOrderBy = {
-  attribute?: Maybe<LocalizationAttributeOrderBy>;
-  attribute_id?: Maybe<OrderBy>;
-  entity_id?: Maybe<OrderBy>;
-  language?: Maybe<LocalizationLanguageOrderBy>;
-  language_code?: Maybe<OrderBy>;
-  localized_text?: Maybe<OrderBy>;
-};
-
-/** primary key columns input for table: localization_localized_text */
-export type LocalizationLocalizedTextPkColumnsInput = {
-  /** ID of the localization key the localized text refers to */
-  attribute_id: Scalars['uuid'];
-  /** ID of the entity the localized text refers to */
-  entity_id: Scalars['uuid'];
-  /** Language of the localized text */
-  language_code: LocalizationLanguageEnum;
-};
-
-/** select columns of table "localization.localized_text" */
-export enum LocalizationLocalizedTextSelectColumn {
-  /** column name */
-  AttributeId = 'attribute_id',
-  /** column name */
-  EntityId = 'entity_id',
-  /** column name */
-  LanguageCode = 'language_code',
-  /** column name */
-  LocalizedText = 'localized_text'
-}
-
-/** input type for updating data in table "localization.localized_text" */
-export type LocalizationLocalizedTextSetInput = {
-  /** ID of the localization key the localized text refers to */
-  attribute_id?: Maybe<Scalars['uuid']>;
-  /** ID of the entity the localized text refers to */
-  entity_id?: Maybe<Scalars['uuid']>;
-  /** Language of the localized text */
-  language_code?: Maybe<LocalizationLanguageEnum>;
-  /** The localized text itself, in UTF-8 format */
-  localized_text?: Maybe<Scalars['String']>;
-};
-
-/** update columns of table "localization.localized_text" */
-export enum LocalizationLocalizedTextUpdateColumn {
-  /** column name */
-  AttributeId = 'attribute_id',
-  /** column name */
-  EntityId = 'entity_id',
-  /** column name */
-  LanguageCode = 'language_code',
-  /** column name */
-  LocalizedText = 'localized_text'
-}
-
 /** mutation root */
 export type MutationRoot = {
   __typename?: 'mutation_root';
@@ -2542,18 +2067,6 @@ export type MutationRoot = {
   delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMutationResponse>;
   /** delete single row from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
   delete_journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
-  /** delete data from the table: "localization.attribute" */
-  delete_localization_attribute?: Maybe<LocalizationAttributeMutationResponse>;
-  /** delete single row from the table: "localization.attribute" */
-  delete_localization_attribute_by_pk?: Maybe<LocalizationAttribute>;
-  /** delete data from the table: "localization.language" */
-  delete_localization_language?: Maybe<LocalizationLanguageMutationResponse>;
-  /** delete single row from the table: "localization.language" */
-  delete_localization_language_by_pk?: Maybe<LocalizationLanguage>;
-  /** delete data from the table: "localization.localized_text" */
-  delete_localization_localized_text?: Maybe<LocalizationLocalizedTextMutationResponse>;
-  /** delete single row from the table: "localization.localized_text" */
-  delete_localization_localized_text_by_pk?: Maybe<LocalizationLocalizedText>;
   /** delete data from the table: "reusable_components.vehicle_mode" */
   delete_reusable_components_vehicle_mode?: Maybe<ReusableComponentsVehicleModeMutationResponse>;
   /** delete single row from the table: "reusable_components.vehicle_mode" */
@@ -2616,18 +2129,6 @@ export type MutationRoot = {
   insert_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMutationResponse>;
   /** insert a single row into the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
   insert_journey_pattern_scheduled_stop_point_in_journey_pattern_one?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
-  /** insert data into the table: "localization.attribute" */
-  insert_localization_attribute?: Maybe<LocalizationAttributeMutationResponse>;
-  /** insert a single row into the table: "localization.attribute" */
-  insert_localization_attribute_one?: Maybe<LocalizationAttribute>;
-  /** insert data into the table: "localization.language" */
-  insert_localization_language?: Maybe<LocalizationLanguageMutationResponse>;
-  /** insert a single row into the table: "localization.language" */
-  insert_localization_language_one?: Maybe<LocalizationLanguage>;
-  /** insert data into the table: "localization.localized_text" */
-  insert_localization_localized_text?: Maybe<LocalizationLocalizedTextMutationResponse>;
-  /** insert a single row into the table: "localization.localized_text" */
-  insert_localization_localized_text_one?: Maybe<LocalizationLocalizedText>;
   /** insert data into the table: "reusable_components.vehicle_mode" */
   insert_reusable_components_vehicle_mode?: Maybe<ReusableComponentsVehicleModeMutationResponse>;
   /** insert a single row into the table: "reusable_components.vehicle_mode" */
@@ -2692,18 +2193,6 @@ export type MutationRoot = {
   update_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMutationResponse>;
   /** update single row of the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
   update_journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
-  /** update data of the table: "localization.attribute" */
-  update_localization_attribute?: Maybe<LocalizationAttributeMutationResponse>;
-  /** update single row of the table: "localization.attribute" */
-  update_localization_attribute_by_pk?: Maybe<LocalizationAttribute>;
-  /** update data of the table: "localization.language" */
-  update_localization_language?: Maybe<LocalizationLanguageMutationResponse>;
-  /** update single row of the table: "localization.language" */
-  update_localization_language_by_pk?: Maybe<LocalizationLanguage>;
-  /** update data of the table: "localization.localized_text" */
-  update_localization_localized_text?: Maybe<LocalizationLocalizedTextMutationResponse>;
-  /** update single row of the table: "localization.localized_text" */
-  update_localization_localized_text_by_pk?: Maybe<LocalizationLocalizedText>;
   /** update data of the table: "reusable_components.vehicle_mode" */
   update_reusable_components_vehicle_mode?: Maybe<ReusableComponentsVehicleModeMutationResponse>;
   /** update single row of the table: "reusable_components.vehicle_mode" */
@@ -2824,44 +2313,6 @@ export type MutationRootDeleteJourneyPatternScheduledStopPointInJourneyPatternAr
 export type MutationRootDeleteJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid'];
   scheduled_stop_point_sequence: Scalars['Int'];
-};
-
-
-/** mutation root */
-export type MutationRootDeleteLocalizationAttributeArgs = {
-  where: LocalizationAttributeBoolExp;
-};
-
-
-/** mutation root */
-export type MutationRootDeleteLocalizationAttributeByPkArgs = {
-  attribute_id: Scalars['uuid'];
-};
-
-
-/** mutation root */
-export type MutationRootDeleteLocalizationLanguageArgs = {
-  where: LocalizationLanguageBoolExp;
-};
-
-
-/** mutation root */
-export type MutationRootDeleteLocalizationLanguageByPkArgs = {
-  language_code: Scalars['String'];
-};
-
-
-/** mutation root */
-export type MutationRootDeleteLocalizationLocalizedTextArgs = {
-  where: LocalizationLocalizedTextBoolExp;
-};
-
-
-/** mutation root */
-export type MutationRootDeleteLocalizationLocalizedTextByPkArgs = {
-  attribute_id: Scalars['uuid'];
-  entity_id: Scalars['uuid'];
-  language_code: LocalizationLanguageEnum;
 };
 
 
@@ -3064,48 +2515,6 @@ export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternAr
 export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternOneArgs = {
   object: JourneyPatternScheduledStopPointInJourneyPatternInsertInput;
   on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
-};
-
-
-/** mutation root */
-export type MutationRootInsertLocalizationAttributeArgs = {
-  objects: Array<LocalizationAttributeInsertInput>;
-  on_conflict?: Maybe<LocalizationAttributeOnConflict>;
-};
-
-
-/** mutation root */
-export type MutationRootInsertLocalizationAttributeOneArgs = {
-  object: LocalizationAttributeInsertInput;
-  on_conflict?: Maybe<LocalizationAttributeOnConflict>;
-};
-
-
-/** mutation root */
-export type MutationRootInsertLocalizationLanguageArgs = {
-  objects: Array<LocalizationLanguageInsertInput>;
-  on_conflict?: Maybe<LocalizationLanguageOnConflict>;
-};
-
-
-/** mutation root */
-export type MutationRootInsertLocalizationLanguageOneArgs = {
-  object: LocalizationLanguageInsertInput;
-  on_conflict?: Maybe<LocalizationLanguageOnConflict>;
-};
-
-
-/** mutation root */
-export type MutationRootInsertLocalizationLocalizedTextArgs = {
-  objects: Array<LocalizationLocalizedTextInsertInput>;
-  on_conflict?: Maybe<LocalizationLocalizedTextOnConflict>;
-};
-
-
-/** mutation root */
-export type MutationRootInsertLocalizationLocalizedTextOneArgs = {
-  object: LocalizationLocalizedTextInsertInput;
-  on_conflict?: Maybe<LocalizationLocalizedTextOnConflict>;
 };
 
 
@@ -3321,7 +2730,12 @@ export type MutationRootUpdateJourneyPatternJourneyPatternByPkArgs = {
 
 /** mutation root */
 export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternArgs = {
+  _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
+  _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
+  _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
+  _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
   _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+  _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
   _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
   where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
 };
@@ -3329,51 +2743,14 @@ export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternAr
 
 /** mutation root */
 export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
+  _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
+  _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
+  _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
+  _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
   _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+  _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
   _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
   pk_columns: JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput;
-};
-
-
-/** mutation root */
-export type MutationRootUpdateLocalizationAttributeArgs = {
-  _set?: Maybe<LocalizationAttributeSetInput>;
-  where: LocalizationAttributeBoolExp;
-};
-
-
-/** mutation root */
-export type MutationRootUpdateLocalizationAttributeByPkArgs = {
-  _set?: Maybe<LocalizationAttributeSetInput>;
-  pk_columns: LocalizationAttributePkColumnsInput;
-};
-
-
-/** mutation root */
-export type MutationRootUpdateLocalizationLanguageArgs = {
-  _set?: Maybe<LocalizationLanguageSetInput>;
-  where: LocalizationLanguageBoolExp;
-};
-
-
-/** mutation root */
-export type MutationRootUpdateLocalizationLanguageByPkArgs = {
-  _set?: Maybe<LocalizationLanguageSetInput>;
-  pk_columns: LocalizationLanguagePkColumnsInput;
-};
-
-
-/** mutation root */
-export type MutationRootUpdateLocalizationLocalizedTextArgs = {
-  _set?: Maybe<LocalizationLocalizedTextSetInput>;
-  where: LocalizationLocalizedTextBoolExp;
-};
-
-
-/** mutation root */
-export type MutationRootUpdateLocalizationLocalizedTextByPkArgs = {
-  _set?: Maybe<LocalizationLocalizedTextSetInput>;
-  pk_columns: LocalizationLocalizedTextPkColumnsInput;
 };
 
 
@@ -3594,24 +2971,6 @@ export type QueryRoot = {
   journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
   /** fetch data from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" using primary key columns */
   journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
-  /** fetch data from the table: "localization.attribute" */
-  localization_attribute: Array<LocalizationAttribute>;
-  /** fetch aggregated fields from the table: "localization.attribute" */
-  localization_attribute_aggregate: LocalizationAttributeAggregate;
-  /** fetch data from the table: "localization.attribute" using primary key columns */
-  localization_attribute_by_pk?: Maybe<LocalizationAttribute>;
-  /** fetch data from the table: "localization.language" */
-  localization_language: Array<LocalizationLanguage>;
-  /** fetch aggregated fields from the table: "localization.language" */
-  localization_language_aggregate: LocalizationLanguageAggregate;
-  /** fetch data from the table: "localization.language" using primary key columns */
-  localization_language_by_pk?: Maybe<LocalizationLanguage>;
-  /** fetch data from the table: "localization.localized_text" */
-  localization_localized_text: Array<LocalizationLocalizedText>;
-  /** fetch aggregated fields from the table: "localization.localized_text" */
-  localization_localized_text_aggregate: LocalizationLocalizedTextAggregate;
-  /** fetch data from the table: "localization.localized_text" using primary key columns */
-  localization_localized_text_by_pk?: Maybe<LocalizationLocalizedText>;
   /** fetch data from the table: "reusable_components.vehicle_mode" */
   reusable_components_vehicle_mode: Array<ReusableComponentsVehicleMode>;
   /** fetch aggregated fields from the table: "reusable_components.vehicle_mode" */
@@ -3887,77 +3246,6 @@ export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternAggregateAr
 export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid'];
   scheduled_stop_point_sequence: Scalars['Int'];
-};
-
-
-export type QueryRootLocalizationAttributeArgs = {
-  distinct_on?: Maybe<Array<LocalizationAttributeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationAttributeOrderBy>>;
-  where?: Maybe<LocalizationAttributeBoolExp>;
-};
-
-
-export type QueryRootLocalizationAttributeAggregateArgs = {
-  distinct_on?: Maybe<Array<LocalizationAttributeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationAttributeOrderBy>>;
-  where?: Maybe<LocalizationAttributeBoolExp>;
-};
-
-
-export type QueryRootLocalizationAttributeByPkArgs = {
-  attribute_id: Scalars['uuid'];
-};
-
-
-export type QueryRootLocalizationLanguageArgs = {
-  distinct_on?: Maybe<Array<LocalizationLanguageSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLanguageOrderBy>>;
-  where?: Maybe<LocalizationLanguageBoolExp>;
-};
-
-
-export type QueryRootLocalizationLanguageAggregateArgs = {
-  distinct_on?: Maybe<Array<LocalizationLanguageSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLanguageOrderBy>>;
-  where?: Maybe<LocalizationLanguageBoolExp>;
-};
-
-
-export type QueryRootLocalizationLanguageByPkArgs = {
-  language_code: Scalars['String'];
-};
-
-
-export type QueryRootLocalizationLocalizedTextArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-
-export type QueryRootLocalizationLocalizedTextAggregateArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-
-export type QueryRootLocalizationLocalizedTextByPkArgs = {
-  attribute_id: Scalars['uuid'];
-  entity_id: Scalars['uuid'];
-  language_code: LocalizationLanguageEnum;
 };
 
 
@@ -5141,10 +4429,6 @@ export type RouteLine = {
   line_routes: Array<RouteRoute>;
   /** An aggregate relationship */
   line_routes_aggregate: RouteRouteAggregate;
-  /** An array relationship */
-  localized_texts: Array<LocalizationLocalizedText>;
-  /** An aggregate relationship */
-  localized_texts_aggregate: LocalizationLocalizedTextAggregate;
   /** The name of the line. Placeholder for multilingual strings. */
   name_i18n: Scalars['localized_string'];
   /** The mode of the vehicles used as primary on the line. */
@@ -5196,38 +4480,6 @@ export type RouteLineLineRoutesAggregateArgs = {
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<RouteRouteOrderBy>>;
   where?: Maybe<RouteRouteBoolExp>;
-};
-
-
-/**
- * The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487
- *
- *
- * columns and relationships of "route.line"
- *
- */
-export type RouteLineLocalizedTextsArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-
-/**
- * The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487
- *
- *
- * columns and relationships of "route.line"
- *
- */
-export type RouteLineLocalizedTextsAggregateArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
 };
 
 
@@ -5335,7 +4587,6 @@ export type RouteLineBoolExp = {
   label?: Maybe<StringComparisonExp>;
   line_id?: Maybe<UuidComparisonExp>;
   line_routes?: Maybe<RouteRouteBoolExp>;
-  localized_texts?: Maybe<LocalizationLocalizedTextBoolExp>;
   name_i18n?: Maybe<JsonbComparisonExp>;
   primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
   priority?: Maybe<IntComparisonExp>;
@@ -5391,7 +4642,6 @@ export type RouteLineInsertInput = {
   /** The ID of the line. */
   line_id?: Maybe<Scalars['uuid']>;
   line_routes?: Maybe<RouteRouteArrRelInsertInput>;
-  localized_texts?: Maybe<LocalizationLocalizedTextArrRelInsertInput>;
   /** The name of the line. Placeholder for multilingual strings. */
   name_i18n: Scalars['localized_string'];
   /** The mode of the vehicles used as primary on the line. */
@@ -5497,7 +4747,6 @@ export type RouteLineOrderBy = {
   label?: Maybe<OrderBy>;
   line_id?: Maybe<OrderBy>;
   line_routes_aggregate?: Maybe<RouteRouteAggregateOrderBy>;
-  localized_texts_aggregate?: Maybe<LocalizationLocalizedTextAggregateOrderBy>;
   name_i18n?: Maybe<OrderBy>;
   primary_vehicle_mode?: Maybe<OrderBy>;
   priority?: Maybe<OrderBy>;
@@ -5698,10 +4947,6 @@ export type RouteRoute = {
   /** An aggregate relationship */
   infrastructure_links_along_route_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
   label: Scalars['String'];
-  /** An array relationship */
-  localized_texts: Array<LocalizationLocalizedText>;
-  /** An aggregate relationship */
-  localized_texts_aggregate: LocalizationLocalizedTextAggregate;
   name_i18n: Scalars['localized_string'];
   on_line_id: Scalars['uuid'];
   origin_name_i18n: Scalars['localized_string'];
@@ -5756,26 +5001,6 @@ export type RouteRouteInfrastructureLinksAlongRouteAggregateArgs = {
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
   where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
-};
-
-
-/** columns and relationships of "route.route" */
-export type RouteRouteLocalizedTextsArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-
-/** columns and relationships of "route.route" */
-export type RouteRouteLocalizedTextsAggregateArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
 };
 
 
@@ -5900,7 +5125,6 @@ export type RouteRouteBoolExp = {
   direction?: Maybe<RouteDirectionEnumComparisonExp>;
   infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   label?: Maybe<StringComparisonExp>;
-  localized_texts?: Maybe<LocalizationLocalizedTextBoolExp>;
   name_i18n?: Maybe<JsonbComparisonExp>;
   on_line_id?: Maybe<UuidComparisonExp>;
   origin_name_i18n?: Maybe<JsonbComparisonExp>;
@@ -5963,7 +5187,6 @@ export type RouteRouteInsertInput = {
   direction?: Maybe<RouteDirectionEnum>;
   infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
   label?: Maybe<Scalars['String']>;
-  localized_texts?: Maybe<LocalizationLocalizedTextArrRelInsertInput>;
   name_i18n: Scalars['localized_string'];
   on_line_id?: Maybe<Scalars['uuid']>;
   origin_name_i18n: Scalars['localized_string'];
@@ -6049,7 +5272,6 @@ export type RouteRouteOrderBy = {
   direction?: Maybe<OrderBy>;
   infrastructure_links_along_route_aggregate?: Maybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
   label?: Maybe<OrderBy>;
-  localized_texts_aggregate?: Maybe<LocalizationLocalizedTextAggregateOrderBy>;
   name_i18n?: Maybe<OrderBy>;
   on_line_id?: Maybe<OrderBy>;
   origin_name_i18n?: Maybe<OrderBy>;
@@ -6455,10 +5677,6 @@ export type ServicePatternScheduledStopPoint = {
   direction: InfrastructureNetworkDirectionEnum;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
-  /** An array relationship */
-  localized_texts: Array<LocalizationLocalizedText>;
-  /** An aggregate relationship */
-  localized_texts_aggregate: LocalizationLocalizedTextAggregate;
   /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id: Scalars['uuid'];
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
@@ -6481,38 +5699,6 @@ export type ServicePatternScheduledStopPoint = {
   vehicle_mode_on_scheduled_stop_point: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
   /** An aggregate relationship */
   vehicle_mode_on_scheduled_stop_point_aggregate: ServicePatternVehicleModeOnScheduledStopPointAggregate;
-};
-
-
-/**
- * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
- *
- *
- * columns and relationships of "service_pattern.scheduled_stop_point"
- *
- */
-export type ServicePatternScheduledStopPointLocalizedTextsArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-
-/**
- * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
- *
- *
- * columns and relationships of "service_pattern.scheduled_stop_point"
- *
- */
-export type ServicePatternScheduledStopPointLocalizedTextsAggregateArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
 };
 
 
@@ -6654,7 +5840,6 @@ export type ServicePatternScheduledStopPointBoolExp = {
   closest_point_on_infrastructure_link?: Maybe<GeographyComparisonExp>;
   direction?: Maybe<StringComparisonExp>;
   label?: Maybe<StringComparisonExp>;
-  localized_texts?: Maybe<LocalizationLocalizedTextBoolExp>;
   located_on_infrastructure_link_id?: Maybe<UuidComparisonExp>;
   measured_location?: Maybe<GeographyComparisonExp>;
   priority?: Maybe<IntComparisonExp>;
@@ -6682,7 +5867,6 @@ export type ServicePatternScheduledStopPointInsertInput = {
   direction: InfrastructureNetworkDirectionEnum;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
-  localized_texts?: Maybe<LocalizationLocalizedTextArrRelInsertInput>;
   /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id: Scalars['uuid'];
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
@@ -6797,7 +5981,6 @@ export type ServicePatternScheduledStopPointOrderBy = {
   closest_point_on_infrastructure_link?: Maybe<OrderBy>;
   direction?: Maybe<OrderBy>;
   label?: Maybe<OrderBy>;
-  localized_texts_aggregate?: Maybe<LocalizationLocalizedTextAggregateOrderBy>;
   located_on_infrastructure_link_id?: Maybe<OrderBy>;
   measured_location?: Maybe<OrderBy>;
   priority?: Maybe<OrderBy>;
@@ -7197,24 +6380,6 @@ export type SubscriptionRoot = {
   journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
   /** fetch data from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" using primary key columns */
   journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
-  /** fetch data from the table: "localization.attribute" */
-  localization_attribute: Array<LocalizationAttribute>;
-  /** fetch aggregated fields from the table: "localization.attribute" */
-  localization_attribute_aggregate: LocalizationAttributeAggregate;
-  /** fetch data from the table: "localization.attribute" using primary key columns */
-  localization_attribute_by_pk?: Maybe<LocalizationAttribute>;
-  /** fetch data from the table: "localization.language" */
-  localization_language: Array<LocalizationLanguage>;
-  /** fetch aggregated fields from the table: "localization.language" */
-  localization_language_aggregate: LocalizationLanguageAggregate;
-  /** fetch data from the table: "localization.language" using primary key columns */
-  localization_language_by_pk?: Maybe<LocalizationLanguage>;
-  /** fetch data from the table: "localization.localized_text" */
-  localization_localized_text: Array<LocalizationLocalizedText>;
-  /** fetch aggregated fields from the table: "localization.localized_text" */
-  localization_localized_text_aggregate: LocalizationLocalizedTextAggregate;
-  /** fetch data from the table: "localization.localized_text" using primary key columns */
-  localization_localized_text_by_pk?: Maybe<LocalizationLocalizedText>;
   /** fetch data from the table: "reusable_components.vehicle_mode" */
   reusable_components_vehicle_mode: Array<ReusableComponentsVehicleMode>;
   /** fetch aggregated fields from the table: "reusable_components.vehicle_mode" */
@@ -7490,77 +6655,6 @@ export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternAggr
 export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid'];
   scheduled_stop_point_sequence: Scalars['Int'];
-};
-
-
-export type SubscriptionRootLocalizationAttributeArgs = {
-  distinct_on?: Maybe<Array<LocalizationAttributeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationAttributeOrderBy>>;
-  where?: Maybe<LocalizationAttributeBoolExp>;
-};
-
-
-export type SubscriptionRootLocalizationAttributeAggregateArgs = {
-  distinct_on?: Maybe<Array<LocalizationAttributeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationAttributeOrderBy>>;
-  where?: Maybe<LocalizationAttributeBoolExp>;
-};
-
-
-export type SubscriptionRootLocalizationAttributeByPkArgs = {
-  attribute_id: Scalars['uuid'];
-};
-
-
-export type SubscriptionRootLocalizationLanguageArgs = {
-  distinct_on?: Maybe<Array<LocalizationLanguageSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLanguageOrderBy>>;
-  where?: Maybe<LocalizationLanguageBoolExp>;
-};
-
-
-export type SubscriptionRootLocalizationLanguageAggregateArgs = {
-  distinct_on?: Maybe<Array<LocalizationLanguageSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLanguageOrderBy>>;
-  where?: Maybe<LocalizationLanguageBoolExp>;
-};
-
-
-export type SubscriptionRootLocalizationLanguageByPkArgs = {
-  language_code: Scalars['String'];
-};
-
-
-export type SubscriptionRootLocalizationLocalizedTextArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-
-export type SubscriptionRootLocalizationLocalizedTextAggregateArgs = {
-  distinct_on?: Maybe<Array<LocalizationLocalizedTextSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<LocalizationLocalizedTextOrderBy>>;
-  where?: Maybe<LocalizationLocalizedTextBoolExp>;
-};
-
-
-export type SubscriptionRootLocalizationLocalizedTextByPkArgs = {
-  attribute_id: Scalars['uuid'];
-  entity_id: Scalars['uuid'];
-  language_code: LocalizationLanguageEnum;
 };
 
 
