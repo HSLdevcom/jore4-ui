@@ -1585,6 +1585,32 @@ export type JourneyPatternScheduledStopPointInJourneyPattern = {
   scheduled_stop_point_id: Scalars['uuid'];
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence: Scalars['Int'];
+  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
+};
+
+
+/**
+ * The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern.
+ *
+ *
+ * columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern"
+ *
+ */
+export type JourneyPatternScheduledStopPointInJourneyPatternViaPointNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
+};
+
+
+/**
+ * The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern.
+ *
+ *
+ * columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern"
+ *
+ */
+export type JourneyPatternScheduledStopPointInJourneyPatternViaPointShortNameI18nArgs = {
+  path?: Maybe<Scalars['String']>;
 };
 
 /** aggregated selection of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1632,6 +1658,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy = {
   variance?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarianceOrderBy>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type JourneyPatternScheduledStopPointInJourneyPatternAppendInput = {
+  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting array relation for remote table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput = {
   data: Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
@@ -1664,6 +1696,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternBoolExp = {
   scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointBoolExp>;
   scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
   scheduled_stop_point_sequence?: Maybe<IntComparisonExp>;
+  via_point_name_i18n?: Maybe<JsonbComparisonExp>;
+  via_point_short_name_i18n?: Maybe<JsonbComparisonExp>;
 };
 
 /** unique or primary key constraints on table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1671,6 +1705,24 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternConstraint {
   /** unique or primary key constraint */
   ScheduledStopPointInJourneyPatternPkey = 'scheduled_stop_point_in_journey_pattern_pkey'
 }
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput = {
+  via_point_name_i18n?: Maybe<Array<Scalars['String']>>;
+  via_point_short_name_i18n?: Maybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput = {
+  via_point_name_i18n?: Maybe<Scalars['Int']>;
+  via_point_short_name_i18n?: Maybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput = {
+  via_point_name_i18n?: Maybe<Scalars['String']>;
+  via_point_short_name_i18n?: Maybe<Scalars['String']>;
+};
 
 /** input type for incrementing numeric columns in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternIncInput = {
@@ -1692,6 +1744,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternInsertInput = {
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
+  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
 };
 
 /** aggregate max on columns */
@@ -1761,6 +1815,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternOrderBy = {
   scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointOrderBy>;
   scheduled_stop_point_id?: Maybe<OrderBy>;
   scheduled_stop_point_sequence?: Maybe<OrderBy>;
+  via_point_name_i18n?: Maybe<OrderBy>;
+  via_point_short_name_i18n?: Maybe<OrderBy>;
 };
 
 /** primary key columns input for table: journey_pattern_scheduled_stop_point_in_journey_pattern */
@@ -1769,6 +1825,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput = {
   journey_pattern_id: Scalars['uuid'];
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence: Scalars['Int'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type JourneyPatternScheduledStopPointInJourneyPatternPrependInput = {
+  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1782,7 +1844,11 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumn {
   /** column name */
   ScheduledStopPointId = 'scheduled_stop_point_id',
   /** column name */
-  ScheduledStopPointSequence = 'scheduled_stop_point_sequence'
+  ScheduledStopPointSequence = 'scheduled_stop_point_sequence',
+  /** column name */
+  ViaPointNameI18n = 'via_point_name_i18n',
+  /** column name */
+  ViaPointShortNameI18n = 'via_point_short_name_i18n'
 }
 
 /** input type for updating data in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1797,6 +1863,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternSetInput = {
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The order of the scheduled stop point within the journey pattern. */
   scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
+  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
 };
 
 /** aggregate stddev on columns */
@@ -1862,7 +1930,11 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternUpdateColumn {
   /** column name */
   ScheduledStopPointId = 'scheduled_stop_point_id',
   /** column name */
-  ScheduledStopPointSequence = 'scheduled_stop_point_sequence'
+  ScheduledStopPointSequence = 'scheduled_stop_point_sequence',
+  /** column name */
+  ViaPointNameI18n = 'via_point_name_i18n',
+  /** column name */
+  ViaPointShortNameI18n = 'via_point_short_name_i18n'
 }
 
 /** aggregate var_pop on columns */
@@ -2621,7 +2693,12 @@ export type MutationRootUpdateJourneyPatternJourneyPatternByPkArgs = {
 
 /** mutation root */
 export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternArgs = {
+  _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
+  _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
+  _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
+  _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
   _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+  _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
   _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
   where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
 };
@@ -2629,7 +2706,12 @@ export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternAr
 
 /** mutation root */
 export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
+  _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
+  _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
+  _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
+  _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
   _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+  _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
   _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
   pk_columns: JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput;
 };
