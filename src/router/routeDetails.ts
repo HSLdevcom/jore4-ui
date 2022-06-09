@@ -7,7 +7,6 @@ export enum Path {
   lineDetails = '/lines/:id',
   lineDrafts = '/lines/:label/drafts',
   editLine = '/lines/:id/edit',
-  map = '/map',
   exampleResource = '/example/:id',
   fallback = '*',
 }
@@ -58,11 +57,6 @@ export const routeDetails: Record<Path, RouteDetail> = {
     getLink: (id: string) => Path.editLine.replace(':id', id),
     translationKey: 'lines.editLine',
     includeInNav: false,
-  },
-  [Path.map]: {
-    getLink: () => Path.map,
-    translationKey: 'map.map',
-    includeInNav: true,
   },
   [Path.exampleResource]: {
     getLink: (id: string) => Path.exampleResource.replace(':id', id),
