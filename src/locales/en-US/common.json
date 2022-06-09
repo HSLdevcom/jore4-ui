@@ -229,5 +229,13 @@
   "cancel": "Cancel",
   "close": "Close",
   "version": "Version: {{ version }}",
-  "hide": "Hide"
+  "hide": "Hide",
+  "welcomePage": {
+    "heading": "JORE4:n käyttöönotto alkaa!",
+    "subheading1": "Mitä?",
+    "paragraph1": "JORE4 tulee korvaamaan nykyisen JOREn kokonaisuudessaan. Mutta ei aivan vielä! Ensimmäisellä versiolla hallitsemme reittejä ja linjoja. Kaikkea ei ole hiottu loppuun, myös tarkoituksella. Haluamme palautteesi siitä, mihin on tärkeintä kiinnittää voimavarat seuraavaksi. Palautetta keräämme esim. haastatteluin, sitä voi lähettää myös suoraan Slackissa.",
+    "subheading2": "Kehitystyö jatkuu",
+    "paragraph2": "Saamamme palautteen perusteella listaamme oleellisimmat kehityskohteet. Kehitystyön edetessä lisäämme uutta toiminnallisuutta. Seuraavaksi alkaa aikatauluihin liittyvien ominaisuuksien toteuttaminen.",
+    "login": "Siirry kirjautumiseen"
+  }
 }
