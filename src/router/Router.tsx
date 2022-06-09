@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { FunctionComponent } from 'react';
 import { BrowserRouter, Route, Switch, useParams } from 'react-router-dom';
-import { MapPage } from '../components/map';
 import { ModalMap } from '../components/map/ModalMap';
 import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
@@ -74,11 +73,6 @@ export const Router: FunctionComponent = () => {
       _routerRoute: Path.editLine,
       _exact: true,
       component: EditLinePage,
-    },
-    [Path.map]: {
-      _routerRoute: Path.map,
-      _exact: true,
-      component: MapPage,
     },
     [Path.exampleResource]: {
       _routerRoute: Path.exampleResource,
