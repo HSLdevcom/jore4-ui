@@ -1,14 +1,26 @@
-describe('Verify that login mocking works', () => {
+// We need to use regular function for 'this' to work
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable func-names */
+before(function () {
+  cy.fixture('users/e2e.json').then(function (userInfo) {
+    this.userInfo = userInfo;
+  });
+});
+
+describe('Verify that login mocking works', function () {
   it('User is not logged in by default', () => {
     cy.visit('/');
-    cy.getByTestId('main').should('contain', 'Please log in.');
+    // If login button is visible, user is logged out
+    cy.getByTestId('userNavMenu:loginButton');
   });
-  it('cy.mockLogin() logs user in', () => {
+
+  it('cy.mockLogin() logs user in', function () {
     cy.mockLogin();
     cy.visit('/');
-    cy.getByTestId('main').should(
+    // If dropdown contains user's name, they are logged in
+    cy.getByTestId('userNavMenu:toggleDropdown').should(
       'contain',
-      'You have the following permissions',
+      this.userInfo.givenName,
     );
   });
 });
