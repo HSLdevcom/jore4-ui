@@ -1,25 +1,40 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { LOGIN_URL } from '../api/user';
 import { useAppSelector } from '../hooks';
 import { selectUser } from '../redux';
+import { SimpleButton } from '../uiComponents';
 
 export const Main: React.FC = () => {
   const { userInfo } = useAppSelector(selectUser);
-  const permissions = userInfo?.permissions;
+  const { t } = useTranslation();
 
   return (
-    <div data-testid="main">
-      <h1>Welcome!</h1>
-      {!userInfo && <p>Please log in.</p>}
-      {permissions && (
-        <div>
-          <p>You have the following permissions:</p>
-          <ul>
-            {permissions.map((permission) => (
-              <li key={permission}>{permission}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+    <div data-testid="main" className="h-screen bg-brand bg-opacity-50 p-20">
+      <div className="mx-auto w-4/5 space-y-6 rounded-lg bg-white p-10 text-xl leading-8 shadow-2xl">
+        <h1 className="mb-10 text-center text-4xl font-bold">
+          {t('welcomePage.heading')}
+        </h1>
+        <h2 className="font-bold">{t('welcomePage.subheading1')}</h2>
+        <div>{t('welcomePage.paragraph1')}</div>
+        <h2 className="font-bold">{t('welcomePage.subheading2')}</h2>
+        <div>{t('welcomePage.paragraph2')}</div>
+
+        {!userInfo?.permissions && (
+          <SimpleButton
+            // Workaround, because SimpleButton href does not seem to
+            // work with urls that are proxied, because it uses React Router Link
+            // under the hood instead of native <a>
+            onClick={() => {
+              window.location.href = LOGIN_URL;
+            }}
+            containerClassName="w-full justify-center"
+            className="!px-6 !py-3 text-sm"
+          >
+            {t('welcomePage.login')}
+          </SimpleButton>
+        )}
+      </div>
     </div>
   );
 };

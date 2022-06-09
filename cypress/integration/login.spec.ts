@@ -1,15 +1,12 @@
 describe('Verify that login mocking works', () => {
   it('User is not logged in by default', () => {
     cy.visit('/');
-    cy.getByTestId('main').should('contain', 'Please log in.');
+    cy.getByTestId('userNavMenu:loginButton').should('contain', '');
   });
   it('cy.mockLogin() logs user in', () => {
     cy.mockLogin();
     cy.visit('/');
-    cy.getByTestId('main').should(
-      'contain',
-      'You have the following permissions',
-    );
+    cy.getByTestId('userNavMenu:toggleDropdown').should('contain', 'Test');
   });
 });
 
