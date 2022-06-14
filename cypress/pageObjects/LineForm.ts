@@ -1,4 +1,8 @@
+import { Toast } from './Toast';
+
 export class LineForm {
+  toast = new Toast();
+
   getLabelInput() {
     return cy.getByTestId('LinePropertiesForm:label');
   }
@@ -28,5 +32,12 @@ export class LineForm {
 
   cancel() {
     return cy.getByTestId('lineForm:cancelButton').click();
+  }
+
+  checkSubmitSuccess() {
+    this.toast
+      .getSuccessToast()
+      .contains('Linja tallennettu')
+      .should('be.visible');
   }
 }
