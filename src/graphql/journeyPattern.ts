@@ -2,13 +2,15 @@
 import { gql } from '@apollo/client';
 import { ServicePatternScheduledStopPoint } from '../generated/graphql';
 
-const SCHEDULED_STOP_POINT_IN_JOURNEY_PATTERN_DEFAULT_FIELDS = gql`
-  fragment scheduled_stop_point_in_journey_pattern_default_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
+const SCHEDULED_STOP_POINT_IN_JOURNEY_PATTERN_ALL_FIELDS = gql`
+  fragment scheduled_stop_point_in_journey_pattern_all_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
     journey_pattern_id
     scheduled_stop_point_label
     scheduled_stop_point_sequence
     is_timing_point
     is_via_point
+    via_point_name_i18n
+    via_point_short_name_i18n
   }
 `;
 
@@ -17,7 +19,7 @@ const JOURNEY_PATTERN_WITH_STOPS = gql`
     journey_pattern_id
     on_route_id
     scheduled_stop_point_in_journey_patterns {
-      ...scheduled_stop_point_in_journey_pattern_default_fields
+      ...scheduled_stop_point_in_journey_pattern_all_fields
       scheduled_stop_points {
         ...scheduled_stop_point_default_fields
       }
@@ -34,11 +36,13 @@ const UPDATE_ROUTE_JOURNEY_PATTERN = gql`
       where: { on_route_id: { _eq: $route_id } }
     ) {
       returning {
+        journey_pattern_id
         on_route_id
       }
     }
 
     insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
+      journey_pattern_id
       on_route_id
     }
   }
