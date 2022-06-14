@@ -1,0 +1,21 @@
+{
+  "name": "@hsl/jore4-cypress",
+  "version": "1.0.0",
+  "description": "Cypress for jore4 e2e testing",
+  "private": true,
+  "scripts": {
+    "cypress": "CYPRESS_BASE_URL=http://localhost:3300 cypress",
+    "ts:check": "yarn tsc --noEmit",
+    "ts:build": "yarn tsc --build",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier --check .",
+    "qa": "yarn --frozen-lockfile && yarn ts:check && yarn prettier:check"
+  },
+  "dependencies": {
+    "@hsl/jore4-test-db-manager": "1.0.0",
+    "cypress": "^10.1.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-cypress": "^2.12.1"
+  }
+}
