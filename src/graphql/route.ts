@@ -92,11 +92,15 @@ const ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
   fragment route_with_infrastructure_links on route_route {
     ...route_with_journey_pattern_stops
     route_line {
+      line_id
       label
     }
     infrastructure_links_along_route {
+      route_id
+      infrastructure_link_sequence
       infrastructure_link_id
       infrastructure_link {
+        infrastructure_link_id
         shape
       }
       is_traversal_forwards
@@ -188,12 +192,17 @@ const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
       line_routes {
         ...route_all_fields
         infrastructure_links_along_route {
+          route_id
+          infrastructure_link_id
+          infrastructure_link_sequence
           infrastructure_link {
+            infrastructure_link_id
             scheduled_stop_point_located_on_infrastructure_link {
               ...scheduled_stop_point_default_fields
               scheduled_stop_point_in_journey_patterns {
-                ...scheduled_stop_point_in_journey_pattern_default_fields
+                ...scheduled_stop_point_in_journey_pattern_all_fields
                 journey_pattern {
+                  journey_pattern_id
                   on_route_id
                 }
               }
@@ -220,14 +229,19 @@ const GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
       line_routes(where: $lineRouteFilters) {
         ...route_all_fields
         infrastructure_links_along_route {
+          route_id
+          infrastructure_link_id
+          infrastructure_link_sequence
           infrastructure_link {
+            infrastructure_link_id
             scheduled_stop_point_located_on_infrastructure_link(
               where: $routeStopFilters
             ) {
               ...scheduled_stop_point_default_fields
               scheduled_stop_point_in_journey_patterns {
-                ...scheduled_stop_point_in_journey_pattern_default_fields
+                ...scheduled_stop_point_in_journey_pattern_all_fields
                 journey_pattern {
+                  journey_pattern_id
                   on_route_id
                 }
               }
@@ -409,6 +423,8 @@ const UPDATE_ROUTE_GEOMETRY = gql`
       where: { route_id: { _eq: $route_id } }
     ) {
       returning {
+        infrastructure_link_id
+        infrastructure_link_sequence
         route_id
       }
     }
@@ -419,6 +435,7 @@ const UPDATE_ROUTE_GEOMETRY = gql`
       returning {
         route_id
         infrastructure_link_id
+        infrastructure_link_sequence
         infrastructure_link {
           shape
         }
@@ -430,11 +447,13 @@ const UPDATE_ROUTE_GEOMETRY = gql`
       where: { on_route_id: { _eq: $route_id } }
     ) {
       returning {
+        journey_pattern_id
         on_route_id
       }
     }
 
     insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
+      journey_pattern_id
       on_route_id
     }
   }
