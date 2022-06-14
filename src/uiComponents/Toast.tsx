@@ -49,7 +49,7 @@ export const Toast = ({
 }: Props): JSX.Element => {
   const { icon, textColor, bg, border, testId } = propsByType[type];
   return (
-    <div className={`rounded-md bg-white ${className}`} data-testId={testId}>
+    <div className={`rounded-md bg-white ${className}`} data-testid={testId}>
       <div className={`${bg} ${border} rounded-md border`}>
         <Row className="my-6 ml-16 mr-12 items-center">
           <i className={icon} />
