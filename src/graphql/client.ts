@@ -88,11 +88,26 @@ const buildConnectionLink = (isBrowser: boolean) => {
 const buildCacheDefinition = () => {
   const cacheDefinition = new InMemoryCache({
     typePolicies: {
+      route_line: {
+        keyFields: ['line_id'],
+      },
       route_route: {
         keyFields: ['route_id'],
       },
       service_pattern_scheduled_stop_point: {
         keyFields: ['scheduled_stop_point_id'],
+      },
+      journey_pattern_scheduled_stop_point_in_journey_pattern: {
+        keyFields: ['journey_pattern_id', 'scheduled_stop_point_sequence'],
+      },
+      journey_pattern_journey_pattern: {
+        keyFields: ['journey_pattern_id'],
+      },
+      route_infrastructure_link_along_route: {
+        keyFields: ['route_id', 'infrastructure_link_sequence'],
+      },
+      infrastructure_network_infrastructure_link: {
+        keyFields: ['infrastructure_link_id'],
       },
     },
   });
