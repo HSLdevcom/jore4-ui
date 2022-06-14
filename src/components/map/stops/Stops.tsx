@@ -12,6 +12,7 @@ import {
 import { useFilterStops } from '../../../hooks/useFilterStops';
 import {
   selectEditedStopData,
+  selectIsCreateStopModeEnabled,
   selectMapViewport,
   selectSelectedStopId,
   setEditedStopDataAction,
@@ -24,6 +25,7 @@ import {
   mapLngLatToPoint,
   mapToVariables,
 } from '../../../utils';
+import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
 
@@ -32,6 +34,7 @@ export const Stops = React.forwardRef((props, ref) => {
 
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const editedStopData = useAppSelector(selectEditedStopData);
+  const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
   const setEditedStopData = useAppAction(setEditedStopDataAction);
   const setIsCreateStopModeEnabled = useAppAction(
@@ -104,6 +107,8 @@ export const Stops = React.forwardRef((props, ref) => {
           onEditingFinished={onEditingFinished}
         />
       )}
+      {/* Display hovering bus stop while in create mode */}
+      {isCreateStopModeEnabled && <CreateStopMarker />}
     </>
   );
 });
