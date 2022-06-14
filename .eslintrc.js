@@ -13,7 +13,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:eslint-comments/recommended',
     'plugin:jest/recommended',
-    'plugin:cypress/recommended',
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
@@ -112,20 +111,4 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error', // enforce best practices with react hoooks
     'react-hooks/exhaustive-deps': 'error', // enforce best practices with react hoooks: https://github.com/facebook/create-react-app/issues/6880#issuecomment-485912528
   },
-  overrides: [
-    {
-      files: ['cypress/**'],
-      env: {
-        // cypress runs tests with mocha instead of jest
-        mocha: true,
-      },
-      rules: {
-        // this rule is annoying with "page object" pattern
-        'class-methods-use-this': 'off',
-        // cypress runs tests with mocha instead of jest, so jest-specific rules make no sense.
-        // TODO: rather disable whole 'plugin:jest/recommended' at once (but how?)
-        'jest/expect-expect': 'off',
-      },
-    },
-  ],
 };

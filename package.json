@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "ws:db": "yarn workspace @hsl/jore4-test-db-manager",
+    "ws:e2e": "yarn workspace @hsl/jore4-cypress",
     "predev": "yarn generate-theme",
     "dev": "node server.js",
     "prebuild": "yarn generate-theme",
@@ -13,10 +14,9 @@
     "prettier:check": "prettier --check .",
     "lint": "eslint './**/*.{ts,tsx}' --max-warnings=0",
     "test": "jest --ci",
-    "test:e2e": "yarn ws:db build && yarn cypress run",
-    "test:e2e:open": "yarn ws:db build && yarn cypress open",
+    "test:e2e": "yarn ws:db build && yarn ws:e2e cypress run",
+    "test:e2e:open": "yarn ws:db build && yarn ws:e2e cypress open",
     "qa": "yarn --frozen-lockfile && yarn ts:check && yarn prettier:check && yarn lint && yarn test && yarn test:e2e",
-    "cypress": "CYPRESS_BASE_URL=http://localhost:3300 cypress",
     "gql:generate-types": "TS_NODE_PROJECT=./tsconfig.codegen.json graphql-codegen --config codegen.js",
     "generate-theme": "./convert-theme-to-ts",
     "start": "next start"
@@ -69,7 +69,6 @@
     "@graphql-codegen/typescript-operations": "^2.2.0",
     "@graphql-codegen/typescript-react-apollo": "^3.2.1",
     "@graphql-codegen/visitor-plugin-common": "^2.7.4",
-    "@hsl/jore4-test-db-manager": "1.0.0",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/react-hooks": "^8.0.0",
@@ -84,13 +83,11 @@
     "@typescript-eslint/parser": "^4.31.1",
     "autoprefixer": "^10.4.2",
     "bufferutil": "^4.0.3",
-    "cypress": "^10.1.0",
     "encoding": "^0.1.13",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.5.0",
-    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jest": "^24.3.5",
@@ -110,6 +107,7 @@
     "utf-8-validate": "^5.0.5"
   },
   "workspaces": [
+    "cypress",
     "test-db-manager"
   ]
 }
