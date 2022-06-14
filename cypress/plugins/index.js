@@ -53,5 +53,9 @@ module.exports = (on, config) => {
       const db = getDbConnection();
       return truncateDb(db);
     },
+    async executeRawDbQuery({ query, bindings }) {
+      const db = getDbConnection();
+      return db.raw(query, bindings);
+    },
   });
 };
