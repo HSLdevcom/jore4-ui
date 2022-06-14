@@ -51,5 +51,8 @@ module.exports = (on, config) => {
     async truncateDb() {
       return truncateDb(db);
     },
+    async executeRawDbQuery(query) {
+      return db.raw(query);
+    },
   });
 };
