@@ -65,7 +65,8 @@ const DrawRouteLayerComponent = (
   const editorRef = useRef<ExplicitAny>(null);
 
   const dispatch = useAppDispatch();
-  const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
+  const { editedRouteData, creatingNewRoute, isRouteMetadataFormOpen } =
+    useAppSelector(selectMapEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
 
   const { templateRouteId } = editedRouteData;
@@ -241,6 +242,7 @@ const DrawRouteLayerComponent = (
   const keyDown = useCallback(
     (event) => {
       if (
+        !isRouteMetadataFormOpen &&
         routeFeatures &&
         routeFeatures.length > 0 &&
         (event.key === 'Backspace' || event.key === 'Delete')
@@ -269,7 +271,13 @@ const DrawRouteLayerComponent = (
         debouncedOnAddRoute(routeFeatures);
       }
     },
-    [routeFeatures, selectedSnapPoints, debouncedOnAddRoute, t],
+    [
+      isRouteMetadataFormOpen,
+      routeFeatures,
+      selectedSnapPoints,
+      debouncedOnAddRoute,
+      t,
+    ],
   );
 
   useEffect(() => {
