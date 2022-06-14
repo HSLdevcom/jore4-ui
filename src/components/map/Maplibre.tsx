@@ -1,16 +1,21 @@
 import distance from '@turf/distance';
 import { point, Units } from '@turf/helpers';
 import debounce from 'lodash/debounce';
-import { FunctionComponent, useMemo, useRef, useState } from 'react';
+import React, { FunctionComponent, useMemo, useRef, useState } from 'react';
 import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
-import { useAppDispatch } from '../../hooks';
+import { theme } from '../../generated/theme';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   HELSINKI_CITY_CENTER_COORDINATES,
+  selectIsCreateStopModeEnabled,
   setViewPortAction,
 } from '../../redux';
+import { getSvgComponentDataUrl } from '../../utils';
 import hslSimpleStyle from './hslSimpleStyle.json';
+import { Circle } from './markers';
 import rasterMapStyle from './rasterMapStyle.json';
 
+const { colors } = theme;
 interface Props {
   className?: string;
   // width and height are passed as params to `react-map-gl`.
@@ -48,6 +53,8 @@ export const Maplibre: FunctionComponent<Props> = ({
   });
 
   const dispatch = useAppDispatch();
+
+  const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
 
   const updateViewportDebounced = useMemo(
     () =>
@@ -104,6 +111,15 @@ export const Maplibre: FunctionComponent<Props> = ({
   }) => {
     if (isDragging) {
       return 'grabbing';
+    }
+    if (isCreateStopModeEnabled) {
+      // the '#' character cannot be used here as this is going to be a url
+      const borderColor = colors.hslRed.replace('#', '%23');
+      const stopMarkerDataUrl = getSvgComponentDataUrl(
+        <Circle centerDot borderColor={borderColor} />,
+      );
+      const cursorCss = `url('${stopMarkerDataUrl}'), crosshair`;
+      return cursorCss;
     }
     // TODO: seems like we never actually receive isHovering as true
     return isHovering ? 'pointer' : 'default';

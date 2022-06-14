@@ -18,7 +18,12 @@ const CircleComponent = ({
   onClick,
 }: Props): JSX.Element => {
   return (
-    <svg height={size} width={size} onClick={onClick}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height={size}
+      width={size}
+      onClick={onClick}
+    >
       <circle
         cx={size / 2}
         cy={size / 2}
