@@ -22,7 +22,7 @@ export const LanguageDropdown: FunctionComponent<Props> = ({ className }) => {
 
   return (
     <div
-      className={`z-10 self-stretch text-white hover:bg-brand-darker ${className}`}
+      className={`z-10 self-stretch py-5 text-white hover:bg-brand-darker ${className}`}
     >
       <DropdownMenu
         buttonContent={currentLanguageText}
