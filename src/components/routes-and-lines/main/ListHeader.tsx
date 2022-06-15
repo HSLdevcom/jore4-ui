@@ -1,7 +1,7 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row } from '../../../layoutComponents';
+import { Row, Visible } from '../../../layoutComponents';
 import { Switch, SwitchLabel, TextButton } from '../../../uiComponents';
 
 type Props = {
@@ -26,12 +26,15 @@ export const ListHeader = ({
   return (
     <Row className={`${className || ''} `}>
       <Row className="grow items-center">
-        <HuiSwitch.Group>
-          <SwitchLabel className="my-1 mr-2">
-            {t('routes.showOwnLines')}
-          </SwitchLabel>
-          <Switch checked={showOwnLines} onChange={onShowOwnChange} />
-        </HuiSwitch.Group>
+        {/** Hide until "own routes" can be selected */}
+        <Visible visible={false}>
+          <HuiSwitch.Group>
+            <SwitchLabel className="my-1 mr-2">
+              {t('routes.showOwnLines')}
+            </SwitchLabel>
+            <Switch checked={showOwnLines} onChange={onShowOwnChange} />
+          </HuiSwitch.Group>
+        </Visible>
       </Row>
       <Row className="items-center">
         <span>{t('routes.showLimit')}:</span>
