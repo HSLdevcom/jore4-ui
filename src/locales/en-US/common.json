@@ -131,7 +131,7 @@
   "confirmDeleteStopDialog": {
     "title": "Delete stop?",
     "description": "Are you sure you want to delete the stop? ({{ stopLabel }})",
-    "removedFromRoutes": "Removing the stop might remove the stop from the following routes: {{ routeLabels }}",
+    "removedFromRoutes": "Removing the stop affects the following routes: {{ routeLabels }}",
     "confirmText": "Delete"
   },
   "confirmEditStopDialog": {

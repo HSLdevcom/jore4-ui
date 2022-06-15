@@ -131,7 +131,7 @@
   "confirmDeleteStopDialog": {
     "title": "Poista pysäkki?",
     "description": "Oletko varma, että haluat poistaa pysäkin? ({{ stopLabel }})",
-    "removedFromRoutes": "Pysäkin poistaminen saattaa poistaa pysäkin seuraavilta reiteiltä: {{ routeLabels }}",
+    "removedFromRoutes": "Pysäkin poistaminen vaikuttaa reitteihin: {{ routeLabels }}",
     "confirmText": "Poista"
   },
   "confirmEditStopDialog": {
