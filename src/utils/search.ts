@@ -44,8 +44,8 @@ const setConfigurations = (queryParams: SearchConditions) => {
   return params;
 };
 
-const replaceStarCharacter = (str: string) => {
-  return str ? str.replaceAll('*', '%') : '%';
+export const mapToSqlLikeValue = (str: string) => {
+  return str.replaceAll('*', '%');
 };
 
 const transformToFilterAttribute = (
@@ -59,7 +59,7 @@ const transformToFilterAttribute = (
   return {
     [key]: {
       [values.operator]: values.replaceStar
-        ? replaceStarCharacter(values.value as string)
+        ? mapToSqlLikeValue(values.value as string) || '%'
         : values.value,
     },
   };

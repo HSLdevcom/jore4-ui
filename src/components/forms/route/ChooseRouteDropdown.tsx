@@ -1,16 +1,19 @@
+import debounce from 'lodash/debounce';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  RouteRoute,
-  useGetRouteDetailsByLabelWildcardQuery,
-} from '../../../generated/graphql';
-import { mapRoutesDetailsResult } from '../../../graphql';
+import { RouteRoute } from '../../../generated/graphql';
+import { useChooseRouteDropdown } from '../../../hooks';
 import { MAX_DATE, MIN_DATE } from '../../../time';
 import { Priority } from '../../../types/Priority';
-import { Combobox, ComboboxInputProps } from '../../../uiComponents';
-import { mapToVariables } from '../../../utils';
+import {
+  Combobox,
+  ComboboxEvent,
+  ComboboxInputProps,
+} from '../../../uiComponents';
 import { DateRange } from '../common/DateRange';
+
+const DEBOUNCE_DELAY_MS = 300;
 
 interface Props extends ComboboxInputProps {
   testId?: string;
@@ -51,27 +54,17 @@ export const ChooseRouteDropdown = ({
 
   const [query, setQuery] = useState('');
 
-  const routesResult = useGetRouteDetailsByLabelWildcardQuery(
-    mapToVariables({
-      label: `${query}%`,
-      date: date.toISO(),
-      priorities,
-    }),
-  );
-
-  const routes = mapRoutesDetailsResult(routesResult);
+  // Selected route details are shown on buttonContent by default
+  // But we want to hide it when typing new search
+  const [showButtonContent, setShowButtonContent] = useState(true);
+  const routes = useChooseRouteDropdown(query, date, priorities);
 
   const options = routes?.map(mapToOption) || [];
 
-  const selectedRoute = routes?.find(
-    (item) => item.route_id === value,
-  ) as RouteRoute;
+  const selectedRoute = routes?.find((item) => item.route_id === value);
 
-  // If no route is selected, show "Choose route"
   const mapToButtonContent = (displayedRoute?: RouteRoute) => {
-    // Headless UI Combobox component takes care of displaying query
-    if (query && !displayedRoute) return null;
-
+    // If no route is selected, show "Choose route"
     return (
       <div className="w-full">
         {displayedRoute
@@ -81,16 +74,34 @@ export const ChooseRouteDropdown = ({
     );
   };
 
+  const debouncedSetQuery = debounce((str) => setQuery(str), DEBOUNCE_DELAY_MS);
+
+  const onQueryChange = (str: string) => {
+    // If there is a searchword, do not show the buttonContent on top of input text
+    if (str !== '') {
+      setShowButtonContent(false);
+    }
+    debouncedSetQuery(str);
+  };
+
+  const onItemSelected = (e: ComboboxEvent) => {
+    setQuery('');
+    onChange(e);
+    setShowButtonContent(true);
+  };
+
   return (
     <Combobox
       id="choose-route-combobox"
       testId={testId}
-      buttonContent={mapToButtonContent(selectedRoute)}
+      buttonContent={
+        showButtonContent ? mapToButtonContent(selectedRoute) : null
+      }
       options={options}
       value={value}
-      onChange={onChange}
+      onChange={onItemSelected}
       onBlur={onBlur}
-      onQueryChange={setQuery}
+      onQueryChange={onQueryChange}
     />
   );
 };

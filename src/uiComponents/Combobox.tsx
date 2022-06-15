@@ -2,11 +2,11 @@ import { Combobox as HUICombobox, Transition } from '@headlessui/react';
 import { Fragment, ReactNode } from 'react';
 import { Noop } from 'react-hook-form';
 import { MdCheck, MdSearch } from 'react-icons/md';
-import { dropdownTransition, OptionRenderPropArg, ValueFn } from './Listbox';
+import { dropdownTransition, OptionRenderPropArg } from './Listbox';
 
 export interface ComboboxInputProps {
   value?: string;
-  onChange: ValueFn;
+  onChange: (e: ComboboxEvent) => void;
   onBlur?: Noop;
 }
 
@@ -24,6 +24,12 @@ interface Props extends ComboboxInputProps {
   onQueryChange: (query: string) => void;
 }
 
+export interface ComboboxEvent {
+  target: {
+    value: string;
+  };
+}
+
 export const Combobox = ({
   id,
   buttonContent,
@@ -35,7 +41,7 @@ export const Combobox = ({
   onQueryChange,
 }: Props): JSX.Element => {
   const onItemSelected = (val: string) => {
-    const event = { target: { value: val } };
+    const event: ComboboxEvent = { target: { value: val } };
     onChange(event);
   };
 
