@@ -335,6 +335,22 @@ const GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`
   }
 `;
 
+const GET_CURRENT_OR_FUTURE_LINES_BY_LABEL = gql`
+  query GetCurrentOrFutureLinesByLabel($label: String!, $date: timestamptz) {
+    route_line(
+      where: {
+        label: { _like: $label }
+        _or: [
+          { validity_end: { _gte: $date } }
+          { validity_end: { _is_null: true } }
+        ]
+      }
+    ) {
+      ...line_default_fields
+    }
+  }
+`;
+
 export const mapRouteDetailsResult = (
   result: ReturnType<typeof useGetRouteDetailsByIdsQuery>,
 ) => result.data?.route_route[0] as RouteRoute | undefined;
