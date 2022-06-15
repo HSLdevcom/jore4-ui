@@ -11,6 +11,7 @@ export * from './stops';
 export * from './ui';
 export * from './useAsyncQuery';
 export * from './useCheckValidityAndPriorityConflicts';
+export * from './useChooseLineDropdown';
 export * from './useChooseRouteDropdown';
 export * from './useExtractRouteFromFeature';
 export * from './useFilterStops';

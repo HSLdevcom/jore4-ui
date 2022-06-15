@@ -3,15 +3,169 @@
 exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 1`] = `
 <DocumentFragment>
   <div
-    class="relative"
-    id="listbox"
+    class="relative w-full"
+    data-testid="chooseLineDropdown1"
+    id="choose-line-combobox"
   >
+    <input
+      aria-activedescendant="headlessui-combobox-option-9"
+      aria-controls="headlessui-combobox-options-8"
+      aria-expanded="true"
+      class="input-element relative h-full w-full"
+      data-testid="chooseLineDropdown1-input"
+      id="headlessui-combobox-input-5"
+      role="combobox"
+      type="text"
+    />
+    <button
+      aria-controls="headlessui-combobox-options-8"
+      aria-expanded="true"
+      aria-haspopup="true"
+      class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      data-testid="chooseLineDropdown1-button"
+      id="headlessui-combobox-button-6"
+      tabindex="-1"
+      type="button"
+    >
+      <div
+        class="w-full"
+      >
+        1 (Line1 name)
+      </div>
+      <svg
+        class="mr-1 ml-auto text-2xl text-tweaked-brand"
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        stroke-width="0"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+        <path
+          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+        />
+      </svg>
+      <i
+        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out -rotate-180"
+        style="font-size: 10px;"
+      />
+    </button>
+    <ul
+      aria-activedescendant="headlessui-combobox-option-9"
+      aria-labelledby="headlessui-combobox-button-6"
+      class="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
+      id="headlessui-combobox-options-8"
+      role="listbox"
+    >
+      <li
+        aria-selected="true"
+        id="headlessui-combobox-option-9"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="bg-background flex group text-left pr-2 py-2 focus:outline-none items-center"
+        >
+          <svg
+            class="mx-1 text-2xl text-black"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 0h24v24H0z"
+              fill="none"
+            />
+            <path
+              d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+            />
+          </svg>
+          <div>
+            <span>
+              1 (Line1 name)
+            </span>
+            <div
+              class="text-sm"
+            >
+              13.2.2017 - 31.12.2050
+            </div>
+          </div>
+        </span>
+      </li>
+      <li
+        id="headlessui-combobox-option-10"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class=" flex group text-left pr-2 py-2 focus:outline-none items-center"
+        >
+          <svg
+            class="mx-1 text-2xl invisible"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 0h24v24H0z"
+              fill="none"
+            />
+            <path
+              d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+            />
+          </svg>
+          <div>
+            <span>
+              2 (Line2 name)
+            </span>
+            <div
+              class="text-sm"
+            >
+              13.2.2017 - 31.12.2050
+            </div>
+          </div>
+        </span>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselected line 1`] = `
+<DocumentFragment>
+  <div
+    class="relative w-full"
+    data-testid="chooseLineDropdown1"
+    id="choose-line-combobox"
+  >
+    <input
+      aria-expanded="false"
+      class="input-element relative h-full w-full"
+      data-testid="chooseLineDropdown1-input"
+      id="headlessui-combobox-input-1"
+      role="combobox"
+      type="text"
+    />
     <button
       aria-expanded="false"
       aria-haspopup="true"
-      class=" input-element flex w-full items-center text-left focus:outline-none"
-      data-testid="chooseLineDropdown1"
-      id="headlessui-listbox-button-1"
+      class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      data-testid="chooseLineDropdown1-button"
+      id="headlessui-combobox-button-2"
+      tabindex="-1"
       type="button"
     >
       <div
@@ -19,8 +173,26 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
       >
         Valitse linja
       </div>
+      <svg
+        class="mr-1 ml-auto text-2xl text-tweaked-brand"
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        stroke-width="0"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+        <path
+          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+        />
+      </svg>
       <i
-        class=" icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out rotate-0"
+        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -28,18 +200,28 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
 </DocumentFragment>
 `;
 
-exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 2`] = `
+exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselected line 2`] = `
 <DocumentFragment>
   <div
-    class="relative"
-    id="listbox"
+    class="relative w-full"
+    data-testid="chooseLineDropdown1"
+    id="choose-line-combobox"
   >
+    <input
+      aria-expanded="false"
+      class="input-element relative h-full w-full"
+      data-testid="chooseLineDropdown1-input"
+      id="headlessui-combobox-input-1"
+      role="combobox"
+      type="text"
+    />
     <button
       aria-expanded="false"
       aria-haspopup="true"
-      class=" input-element flex w-full items-center text-left focus:outline-none"
-      data-testid="chooseLineDropdown1"
-      id="headlessui-listbox-button-1"
+      class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      data-testid="chooseLineDropdown1-button"
+      id="headlessui-combobox-button-2"
+      tabindex="-1"
       type="button"
     >
       <div
@@ -47,8 +229,26 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
       >
         1 (Line1 name)
       </div>
+      <svg
+        class="mr-1 ml-auto text-2xl text-tweaked-brand"
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        stroke-width="0"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+        <path
+          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+        />
+      </svg>
       <i
-        class=" icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out rotate-0"
+        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -56,66 +256,114 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
 </DocumentFragment>
 `;
 
-exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 3`] = `
+exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-selected line 1`] = `
 <DocumentFragment>
   <div
-    class="relative"
-    id="listbox"
+    class="relative w-full"
+    data-testid="chooseLineDropdown1"
+    id="choose-line-combobox"
   >
+    <input
+      aria-expanded="false"
+      class="input-element relative h-full w-full"
+      data-testid="chooseLineDropdown1-input"
+      id="headlessui-combobox-input-3"
+      role="combobox"
+      type="text"
+    />
     <button
-      aria-controls="headlessui-listbox-options-3"
-      aria-expanded="true"
+      aria-expanded="false"
       aria-haspopup="true"
-      class=" input-element flex w-full items-center text-left focus:outline-none"
-      data-testid="chooseLineDropdown1"
-      id="headlessui-listbox-button-1"
+      class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      data-testid="chooseLineDropdown1-button"
+      id="headlessui-combobox-button-4"
+      tabindex="-1"
       type="button"
     >
       <div
         class="w-full"
       >
-        1 (Line1 name)
+        Valitse linja
       </div>
+      <svg
+        class="mr-1 ml-auto text-2xl text-tweaked-brand"
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        stroke-width="0"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+        <path
+          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+        />
+      </svg>
       <i
-        class=" icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out -rotate-180"
+        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out rotate-0"
         style="font-size: 10px;"
       />
     </button>
-    <ul
-      aria-activedescendant="headlessui-listbox-option-4"
-      aria-labelledby="headlessui-listbox-button-1"
-      aria-orientation="vertical"
-      class="absolute left-0 z-10 w-full rounded-b-md border border-grey bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
-      id="headlessui-listbox-options-3"
-      role="listbox"
-      tabindex="0"
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-selected line 2`] = `
+<DocumentFragment>
+  <div
+    class="relative w-full"
+    data-testid="chooseLineDropdown1"
+    id="choose-line-combobox"
+  >
+    <input
+      aria-expanded="false"
+      class="input-element relative h-full w-full"
+      data-testid="chooseLineDropdown1-input"
+      id="headlessui-combobox-input-3"
+      role="combobox"
+      type="text"
+    />
+    <button
+      aria-expanded="false"
+      aria-haspopup="true"
+      class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      data-testid="chooseLineDropdown1-button"
+      id="headlessui-combobox-button-4"
+      tabindex="-1"
+      type="button"
     >
-      <div>
-        <li
-          aria-selected="true"
-          id="headlessui-listbox-option-4"
-          role="option"
-          tabindex="-1"
-        >
-          <span
-            class="bg-background flex group text-left px-2 py-2 focus:outline-none border-b border-grey"
-          >
-            1 (Line1 name)
-          </span>
-        </li>
-        <li
-          id="headlessui-listbox-option-5"
-          role="option"
-          tabindex="-1"
-        >
-          <span
-            class=" flex group text-left px-2 py-2 focus:outline-none border-b border-grey"
-          >
-            2 (Line2 name)
-          </span>
-        </li>
+      <div
+        class="w-full"
+      >
+        Valitse linja
       </div>
-    </ul>
+      <svg
+        class="mr-1 ml-auto text-2xl text-tweaked-brand"
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        stroke-width="0"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+        <path
+          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+        />
+      </svg>
+      <i
+        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out rotate-0"
+        style="font-size: 10px;"
+      />
+    </button>
   </div>
 </DocumentFragment>
 `;
