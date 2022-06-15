@@ -16,6 +16,10 @@ const SCHEDULED_STOP_POINT_IN_JOURNEY_PATTERN_ALL_FIELDS = gql`
     is_via_point
     via_point_name_i18n
     via_point_short_name_i18n
+    journey_pattern {
+      journey_pattern_id
+      on_route_id
+    }
   }
 `;
 
@@ -47,8 +51,7 @@ const UPDATE_ROUTE_JOURNEY_PATTERN = gql`
     }
 
     insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
-      journey_pattern_id
-      on_route_id
+      ...journey_pattern_with_stops
     }
   }
 `;

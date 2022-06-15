@@ -6,7 +6,6 @@ import {
   useAppSelector,
   useDeleteRoute,
   useEditRouteGeometry,
-  useExtractRouteFromFeature,
 } from '../../../hooks';
 import { useCreateRoute } from '../../../hooks/routes/useCreateRoute';
 import {
@@ -71,15 +70,11 @@ const RouteEditorComponent = (
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
     useDeleteRoute();
 
-  const { mapRouteStopsToStopLabels } = useExtractRouteFromFeature();
-
   const editRoute = async (routeId: UUID) => {
-    const stopLabelsWithinRoute = mapRouteStopsToStopLabels(routeStops);
-
     const changes = await prepareEditGeometry({
       routeId,
       newGeometry: {
-        stopLabelsWithinRoute,
+        routeStops,
         infraLinksAlongRoute: infraLinks || [],
       },
     });
@@ -90,14 +85,12 @@ const RouteEditorComponent = (
   };
 
   const createRoute = async () => {
-    const stopLabelsWithinRoute = mapRouteStopsToStopLabels(routeStops);
-
     const changes = await prepareCreate({
       // At the point of saving a route, the form has been validated
       // and it contains all required values
       form: routeDetails as RouteFormState,
       routeGeometry: {
-        stopLabelsWithinRoute,
+        routeStops,
         infraLinksAlongRoute: infraLinks || [],
       },
     });

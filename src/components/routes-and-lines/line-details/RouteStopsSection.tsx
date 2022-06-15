@@ -26,8 +26,9 @@ export const RouteStopsSection = ({
 
   const {
     prepareAddStopToRoute,
-    mapAddStopToRouteChangesToVariables,
-    addStopToRouteMutation,
+    prepareDeleteStopFromRoute,
+    mapEditJourneyPatternChangesToVariables,
+    updateRouteGeometryMutation,
   } = useEditRouteJourneyPattern();
 
   const onToggle = () => {
@@ -50,9 +51,25 @@ export const RouteStopsSection = ({
         route,
       });
 
-      const variables = mapAddStopToRouteChangesToVariables(changes);
+      const variables = mapEditJourneyPatternChangesToVariables(changes);
 
-      await addStopToRouteMutation(variables);
+      await updateRouteGeometryMutation(variables);
+      showSuccessToast(t('routes.saveSuccess'));
+    } catch (err) {
+      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
+    }
+  };
+
+  const onDeleteFromRoute = async (stopLabel: string) => {
+    try {
+      const changes = prepareDeleteStopFromRoute({
+        stopPointLabel: stopLabel,
+        route,
+      });
+
+      const variables = mapEditJourneyPatternChangesToVariables(changes);
+
+      await updateRouteGeometryMutation(variables);
       showSuccessToast(t('routes.saveSuccess'));
     } catch (err) {
       showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
@@ -74,6 +91,7 @@ export const RouteStopsSection = ({
             stop={item}
             routeId={route.route_id}
             onAddToRoute={onAddToRoute}
+            onDeleteFromRoute={onDeleteFromRoute}
           />
         ))}
     </tbody>

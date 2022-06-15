@@ -10,6 +10,7 @@ import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
 } from '../../utils';
+import { mapRouteStopsToStopLabels } from '../useExtractRouteFromFeature';
 
 interface ValidityPeriodParams {
   // eslint-disable-next-line camelcase
@@ -27,13 +28,13 @@ export const useValidateRoute = () => {
    * Check that there are enoung stops on the route
    */
   const validateStopCount = ({
-    stopLabelsWithinRoute,
+    routeStops,
     infraLinksAlongRoute,
   }: RouteGeometry) => {
     if (
       !infraLinksAlongRoute ||
-      !stopLabelsWithinRoute ||
-      stopLabelsWithinRoute.length < 2
+      !routeStops ||
+      mapRouteStopsToStopLabels(routeStops).length < 2
     ) {
       throw new Error(t('routes.tooFewStops'));
     }

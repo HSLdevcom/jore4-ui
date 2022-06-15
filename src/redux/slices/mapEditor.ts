@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
-import { InfrastructureLinkAlongRoute } from '../../graphql';
+import { InfrastructureLinkAlongRoute, RouteStop } from '../../graphql';
 
 interface IState {
   /**
@@ -80,10 +80,6 @@ const initialState: IState = {
 export enum Mode {
   Draw,
   Edit,
-}
-export interface RouteStop {
-  label: string;
-  belongsToRoute: boolean;
 }
 
 const slice = createSlice({

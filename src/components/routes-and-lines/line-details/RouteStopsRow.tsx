@@ -16,6 +16,7 @@ interface Props {
   stop: ServicePatternScheduledStopPoint;
   routeId: UUID;
   onAddToRoute: (stopLabel: string) => void;
+  onDeleteFromRoute: (stopLabel: string) => void;
 }
 
 export const RouteStopsRow = ({
@@ -23,6 +24,7 @@ export const RouteStopsRow = ({
   stop,
   routeId,
   onAddToRoute,
+  onDeleteFromRoute,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
@@ -78,6 +80,7 @@ export const RouteStopsRow = ({
           routeId={routeId}
           stop={stop}
           onAddToRoute={onAddToRoute}
+          onDeleteFromRoute={onDeleteFromRoute}
         />
       </td>
     </tr>

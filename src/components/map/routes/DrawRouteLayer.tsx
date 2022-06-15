@@ -143,17 +143,20 @@ const DrawRouteLayerComponent = (
         oldStopLabels,
       );
 
-      const stopLabels =
-        // Extract list of the stops to be included in the route
-        extractScheduledStopPoints({
-          orderedInfraLinksWithStops,
-          infraLinks,
-          vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
-        }).map((stop) => stop.label);
+      // Extract list of the stops to be included in the route
+      const stops = extractScheduledStopPoints({
+        orderedInfraLinksWithStops,
+        infraLinks,
+        vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
+      });
 
-      const stops = getRouteStops(stopLabels, removedStopLabels || []);
+      const routeStops = getRouteStops(
+        stops,
+        removedStopLabels || [],
+        editedRouteData?.id,
+      );
 
-      dispatch(setDraftRouteGeometryAction({ stops, infraLinks }));
+      dispatch(setDraftRouteGeometryAction({ stops: routeStops, infraLinks }));
 
       if (geometry) {
         addRoute(map, routeId, geometry);

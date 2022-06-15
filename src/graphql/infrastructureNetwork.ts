@@ -109,6 +109,9 @@ const QUERY_MAP_EXTERNAL_LINK_IDS_TO_INFRA_LINKS_WITH_STOPS = gql`
       external_link_id
       scheduled_stop_point_located_on_infrastructure_link {
         ...scheduled_stop_point_all_fields
+        scheduled_stop_point_in_journey_patterns {
+          ...scheduled_stop_point_in_journey_pattern_all_fields
+        }
       }
       shape
     }

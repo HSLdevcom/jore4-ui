@@ -8,8 +8,10 @@ import {
   GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
   ListChangingRoutesQuery,
+  Maybe,
   RouteLine,
   RouteRoute,
+  ServicePatternScheduledStopPoint,
   useGetRouteDetailsByIdsQuery,
   useGetRouteDetailsByLabelWildcardQuery,
   useGetRoutesWithInfrastructureLinksQuery,
@@ -437,6 +439,7 @@ const UPDATE_ROUTE_GEOMETRY = gql`
         infrastructure_link_id
         infrastructure_link_sequence
         infrastructure_link {
+          infrastructure_link_id
           shape
         }
         is_traversal_forwards
@@ -453,8 +456,7 @@ const UPDATE_ROUTE_GEOMETRY = gql`
     }
 
     insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
-      journey_pattern_id
-      on_route_id
+      ...journey_pattern_with_stops
     }
   }
 `;
@@ -490,14 +492,67 @@ const DELETE_STOP_FROM_JOURNEY_PATTERN = gql`
     }
   }
 `;
+export const getStopsFromRoute = (route: RouteRoute) => {
+  return route.route_journey_patterns[0]
+    .scheduled_stop_point_in_journey_patterns;
+};
 
 export const getRouteStopLabels = (route: RouteRoute) => {
-  return route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns.map(
+  return getStopsFromRoute(route).map(
     (point) => point.scheduled_stop_point_label,
   );
 };
 
 export interface RouteGeometry {
-  stopLabelsWithinRoute: string[];
+  routeStops: RouteStop[];
   infraLinksAlongRoute: InfrastructureLinkAlongRoute[];
 }
+
+export interface RouteStop {
+  label: string;
+  belongsToRoute: boolean;
+  isViaPoint: boolean;
+  viaPointName: Maybe<LocalizedString> | undefined;
+  viaPointShortName: Maybe<LocalizedString> | undefined;
+  isTimingPoint: boolean;
+}
+
+const mapRouteStopToStopInSequence = (routeStop: RouteStop, index: number) => ({
+  scheduled_stop_point_label: routeStop.label,
+  scheduled_stop_point_sequence: index,
+  is_via_point: !!routeStop?.isViaPoint,
+  via_point_name_i18n: routeStop.viaPointName,
+  via_point_short_name_i18n: routeStop?.viaPointShortName,
+  is_timing_point: routeStop?.isTimingPoint,
+});
+
+export const mapRouteStopsToStopSequence = (stops: RouteStop[]) => {
+  return {
+    data: stops
+      .filter((routeStop) => routeStop.belongsToRoute)
+      .map(mapRouteStopToStopInSequence),
+  };
+};
+
+export const mapStopToRouteStop = (
+  stop: ServicePatternScheduledStopPoint,
+  routeId?: UUID,
+): RouteStop => {
+  const stopInJourneyPattern =
+    stop.scheduled_stop_point_in_journey_patterns?.find(
+      (stopInRoute) => stopInRoute.journey_pattern.on_route_id === routeId,
+    );
+
+  const metadata = {
+    isViaPoint: stopInJourneyPattern?.is_via_point || false,
+    viaPointName: stopInJourneyPattern?.via_point_name_i18n,
+    viaPointShortName: stopInJourneyPattern?.via_point_short_name_i18n,
+    isTimingPoint: stopInJourneyPattern?.is_timing_point || false,
+  };
+
+  return {
+    label: stop.label,
+    belongsToRoute: true,
+    ...metadata,
+  };
+};

@@ -19,9 +19,10 @@ import {
   mapGetStopsResult,
   mapGraphQLRouteToInfraLinks,
   mapInfraLinkWithStopsResult,
+  mapStopToRouteStop,
   orderInfraLinksByExternalLinkId,
+  RouteStop,
 } from '../graphql';
-import { RouteStop } from '../redux';
 import { mapGeoJSONtoFeature } from '../utils';
 import { useAsyncQuery } from './useAsyncQuery';
 import { useFilterStops } from './useFilterStops';
@@ -35,14 +36,18 @@ interface ExtractScheduledStopPointIdsParams {
 export type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
 
 export const getRouteStops = (
-  stopLabels: string[],
+  stops: ServicePatternScheduledStopPoint[],
   removedStopLabels?: string[],
+  routeId?: UUID,
 ): RouteStop[] => {
-  return stopLabels.map((item) => ({
-    label: item,
-    belongsToRoute: !removedStopLabels?.includes(item),
+  return stops.map((item) => ({
+    ...mapStopToRouteStop(item, routeId),
+    belongsToRoute: !removedStopLabels?.includes(item.label),
   }));
 };
+
+export const mapRouteStopsToStopLabels = (routeStops: RouteStop[]) =>
+  routeStops.filter((item) => item.belongsToRoute).map((item) => item.label);
 
 export const useExtractRouteFromFeature = () => {
   const [fetchInfraLinksWithStopsByExternalIds] = useAsyncQuery<
@@ -56,9 +61,6 @@ export const useExtractRouteFromFeature = () => {
   >(GetStopsAlongInfrastructureLinksDocument);
 
   const { filter } = useFilterStops();
-
-  const mapRouteStopsToStopLabels = (routeStops: RouteStop[]) =>
-    routeStops.filter((item) => item.belongsToRoute).map((item) => item.label);
 
   /**
    * Get stops that are along route geometry
