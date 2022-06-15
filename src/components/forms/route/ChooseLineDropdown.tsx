@@ -1,17 +1,32 @@
-import React from 'react';
+import { debounce } from 'lodash';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteLine, useListAllLinesQuery } from '../../../generated/graphql';
+import { RouteLine } from '../../../generated/graphql';
+import { useChooseLineDropdown } from '../../../hooks';
+import { MAX_DATE, MIN_DATE } from '../../../time';
 import {
+  Combobox,
+  ComboboxEvent,
   FormInputProps as ListboxInputProps,
-  Listbox,
 } from '../../../uiComponents';
+import { DateRange } from '../common';
+
+const DEBOUNCE_DELAY_MS = 300;
 
 interface Props extends ListboxInputProps {
   testId?: string;
 }
 
 const mapToOptionContent = (item: RouteLine) => (
-  <span>{`${item.label} (${item.name_i18n.fi_FI})`}</span>
+  <div>
+    <span>{`${item.label} (${item.name_i18n.fi_FI})`}</span>
+    <div className="text-sm">
+      <DateRange
+        startDate={item.validity_start || MIN_DATE}
+        endDate={item.validity_end || MAX_DATE}
+      />
+    </div>
+  </div>
 );
 
 const mapToOption = (item: RouteLine) => ({
@@ -26,33 +41,56 @@ export const ChooseLineDropdown = ({
   onChange,
   onBlur,
 }: Props): JSX.Element => {
-  const { data: lines } = useListAllLinesQuery();
   const { t } = useTranslation();
 
-  // @ts-expect-error typings are off?
-  const options = lines?.route_line.map(mapToOption) || [];
+  const [query, setQuery] = useState('');
+  const [showButtonContent, setShowButtonContent] = useState(true);
 
-  const selectedLine = lines?.route_line.find(
-    (item) => item.line_id === value,
-  ) as RouteLine;
+  const lines = useChooseLineDropdown(query);
 
-  // if no line is selected, show "Choose line"
-  const mapToButtonContent = (displayedLine?: RouteLine) => (
-    <div className="w-full">
-      {displayedLine
-        ? `${displayedLine.label} (${displayedLine.name_i18n.fi_FI})`
-        : t('routes.chooseLine')}
-    </div>
-  );
+  const options = lines?.map(mapToOption) || [];
+
+  const selectedLine = lines?.find((item) => item.line_id === value);
+
+  const mapToButtonContent = (displayedLine?: RouteLine) => {
+    // If no line is selected, show "Choose line"
+    return (
+      <div className="w-full">
+        {displayedLine
+          ? `${displayedLine?.label} (${displayedLine?.name_i18n.fi_FI})`
+          : t('routes.chooseLine')}
+      </div>
+    );
+  };
+
+  const debouncedSetQuery = debounce((str) => setQuery(str), DEBOUNCE_DELAY_MS);
+
+  const onQueryChange = (str: string) => {
+    // If there is a searchword, do not show the buttonContent on top of input text
+    if (str !== '') {
+      setShowButtonContent(false);
+    }
+    debouncedSetQuery(str);
+  };
+
+  const onItemSelected = (e: ComboboxEvent) => {
+    setQuery('');
+    onChange(e);
+    setShowButtonContent(true);
+  };
 
   return (
-    <Listbox
+    <Combobox
+      id="choose-line-combobox"
       testId={testId}
-      buttonContent={mapToButtonContent(selectedLine)}
+      buttonContent={
+        showButtonContent ? mapToButtonContent(selectedLine) : null
+      }
       options={options}
       value={value}
-      onChange={onChange}
+      onChange={onItemSelected}
       onBlur={onBlur}
+      onQueryChange={onQueryChange}
     />
   );
 };

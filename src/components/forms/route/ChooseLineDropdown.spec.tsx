@@ -3,9 +3,13 @@ import { act, fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import React from 'react';
 import {
-  ListAllLinesDocument,
-  ListAllLinesQuery,
+  GetCurrentOrFutureLinesByLabelDocument,
+  GetCurrentOrFutureLinesByLabelQuery,
+  HslRouteTransportTargetEnum,
+  ReusableComponentsVehicleModeEnum,
+  RouteTypeOfLineEnum,
 } from '../../../generated/graphql';
+import { Priority } from '../../../types/Priority';
 import { buildLocalizedString, render, sleep } from '../../../utils/test-utils';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
@@ -16,12 +20,13 @@ describe('<ChooseLineDropdown />', () => {
   const onBlur = () => {};
   const value = 'line1';
   const testId = 'chooseLineDropdown1';
+  const buttonTestId = `${testId}-button`;
 
-  const mocks: MockedResponse<ListAllLinesQuery>[] = [
+  const mocks: MockedResponse<GetCurrentOrFutureLinesByLabelQuery>[] = [
     {
       request: {
-        query: ListAllLinesDocument,
-        variables: {},
+        query: GetCurrentOrFutureLinesByLabelDocument,
+        variables: { label: '%', date: DateTime.now().toISO() },
       },
       result: {
         data: {
@@ -34,6 +39,11 @@ describe('<ChooseLineDropdown />', () => {
               short_name_i18n: buildLocalizedString('Line1'),
               validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
               validity_end: null,
+              priority: Priority.Standard,
+              primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+              transport_target:
+                HslRouteTransportTargetEnum.HelsinkiInternalTraffic,
+              type_of_line: RouteTypeOfLineEnum.RegionalBusService,
             },
             {
               __typename: 'route_line',
@@ -43,6 +53,11 @@ describe('<ChooseLineDropdown />', () => {
               short_name_i18n: buildLocalizedString('Line2'),
               validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
               validity_end: null,
+              priority: Priority.Standard,
+              primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+              transport_target:
+                HslRouteTransportTargetEnum.HelsinkiInternalTraffic,
+              type_of_line: RouteTypeOfLineEnum.RegionalBusService,
             },
           ],
         },
@@ -50,7 +65,7 @@ describe('<ChooseLineDropdown />', () => {
     },
   ];
 
-  test('Opens dropdown when clicked and shows all lines', async () => {
+  test('Shows correct texts when loading with preselected line', async () => {
     const { container, asFragment } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <ChooseLineDropdown
@@ -72,18 +87,64 @@ describe('<ChooseLineDropdown />', () => {
 
     // dropdown is collapsed, data is loaded and the pre-selected line1 is shown on the button
     expect(screen.getByTestId(testId)).toHaveTextContent('1 (Line1 name)');
+
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test('Shows correct texts when loading without pre-selected line', async () => {
+    const { container, asFragment } = render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <ChooseLineDropdown
+          testId={testId}
+          value={undefined}
+          onChange={onChange}
+          onBlur={onBlur}
+        />
+      </MockedProvider>,
+    );
+
+    // dropdown is collapsed, value is not yet bound to dropdown, 'Choose line' text shows
+    expect(screen.getByTestId(testId)).toHaveTextContent('Valitse linja');
     expect(container.querySelector('li')).toBeNull();
     expect(asFragment()).toMatchSnapshot();
 
+    // wait for the graphql call to execute
+    await act(() => sleep(0));
+
+    // dropdown is collapsed, data is loaded and there is no pre-selected line
+    expect(screen.getByTestId(testId)).toHaveTextContent('Valitse linja');
+
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test('Opens dropdown when clicked and shows all lines', async () => {
+    const { container, asFragment } = render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <ChooseLineDropdown
+          testId={testId}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+        />
+      </MockedProvider>,
+    );
+
+    // wait for the graphql call to execute
+    await act(() => sleep(0));
+
     // click dropdown to open it:
-    const openDropdownButton = screen.getByTestId(testId);
+    const openDropdownButton = screen.getByTestId(buttonTestId);
     fireEvent.click(openDropdownButton);
 
     // dropdown is open, both lines show
-    expect(screen.queryByText('routes.chooseLine')).toBeNull();
+    expect(screen.queryByText('Valitse linja')).toBeNull();
+
     const items = container.querySelectorAll('li');
-    expect(items[0].textContent).toBe('1 (Line1 name)');
-    expect(items[1].textContent).toBe('2 (Line2 name)');
+
+    expect(items.length).toBe(2);
+    expect(items[0].textContent).toBe('1 (Line1 name)13.2.2017 - 31.12.2050');
+    expect(items[1].textContent).toBe('2 (Line2 name)13.2.2017 - 31.12.2050');
+
     expect(asFragment()).toMatchSnapshot();
   });
 });
