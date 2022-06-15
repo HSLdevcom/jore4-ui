@@ -6968,11 +6968,6 @@ export type RouteWithJourneyPatternStopsFragment = { __typename?: 'route_route',
 
 export type RouteWithInfrastructureLinksFragment = { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', line_id: UUID, label: string } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', route_id: UUID, infrastructure_link_sequence: number, infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, shape: GeoJSON.Geometry } }>, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> }> };
 
-export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: LocalizedString, short_name_i18n: LocalizedString, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }> };
-
 export type SearchLinesAndRoutesQueryVariables = Exact<{
   lineFilter?: Maybe<RouteLineBoolExp>;
   routeFilter?: Maybe<RouteRouteBoolExp>;
@@ -7058,6 +7053,14 @@ export type GetRouteDetailsByLabelWildcardQueryVariables = Exact<{
 
 
 export type GetRouteDetailsByLabelWildcardQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum }> };
+
+export type GetCurrentOrFutureLinesByLabelQueryVariables = Exact<{
+  label: Scalars['String'];
+  date: Scalars['timestamptz'];
+}>;
+
+
+export type GetCurrentOrFutureLinesByLabelQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string }> };
 
 export type GetRoutesWithInfrastructureLinksQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
@@ -7671,40 +7674,6 @@ export function useGetScheduledStopPointWithViaInfoLazyQuery(baseOptions?: Apoll
 export type GetScheduledStopPointWithViaInfoQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithViaInfoQuery>;
 export type GetScheduledStopPointWithViaInfoLazyQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithViaInfoLazyQuery>;
 export type GetScheduledStopPointWithViaInfoQueryResult = Apollo.QueryResult<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>;
-export const ListAllLinesDocument = gql`
-    query ListAllLines {
-  route_line {
-    ...line_default_fields
-  }
-}
-    ${LineDefaultFieldsFragmentDoc}`;
-
-/**
- * __useListAllLinesQuery__
- *
- * To run a query within a React component, call `useListAllLinesQuery` and pass it any options that fit your needs.
- * When your component renders, `useListAllLinesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useListAllLinesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useListAllLinesQuery(baseOptions?: Apollo.QueryHookOptions<ListAllLinesQuery, ListAllLinesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument, options);
-      }
-export function useListAllLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListAllLinesQuery, ListAllLinesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument, options);
-        }
-export type ListAllLinesQueryHookResult = ReturnType<typeof useListAllLinesQuery>;
-export type ListAllLinesLazyQueryHookResult = ReturnType<typeof useListAllLinesLazyQuery>;
-export type ListAllLinesQueryResult = Apollo.QueryResult<ListAllLinesQuery, ListAllLinesQueryVariables>;
 export const SearchLinesAndRoutesDocument = gql`
     query SearchLinesAndRoutes($lineFilter: route_line_bool_exp, $routeFilter: route_route_bool_exp, $lineOrderBy: [route_line_order_by!], $routeOrderBy: [route_route_order_by!]) {
   route_line(where: $lineFilter, order_by: $lineOrderBy) {
@@ -8140,7 +8109,7 @@ export type GetRouteDetailsByLabelsQueryResult = Apollo.QueryResult<GetRouteDeta
 export const GetRouteDetailsByLabelWildcardDocument = gql`
     query GetRouteDetailsByLabelWildcard($label: String!, $date: timestamptz, $priorities: [Int!]) {
   route_route(
-    where: {label: {_like: $label}, validity_start: {_lte: $date}, _or: [{validity_end: {_gte: $date}}, {validity_end: {_is_null: true}}], priority: {_in: $priorities}}
+    where: {label: {_ilike: $label}, validity_start: {_lte: $date}, _or: [{validity_end: {_gte: $date}}, {validity_end: {_is_null: true}}], priority: {_in: $priorities}}
   ) {
     ...route_all_fields
   }
@@ -8176,6 +8145,45 @@ export function useGetRouteDetailsByLabelWildcardLazyQuery(baseOptions?: Apollo.
 export type GetRouteDetailsByLabelWildcardQueryHookResult = ReturnType<typeof useGetRouteDetailsByLabelWildcardQuery>;
 export type GetRouteDetailsByLabelWildcardLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByLabelWildcardLazyQuery>;
 export type GetRouteDetailsByLabelWildcardQueryResult = Apollo.QueryResult<GetRouteDetailsByLabelWildcardQuery, GetRouteDetailsByLabelWildcardQueryVariables>;
+export const GetCurrentOrFutureLinesByLabelDocument = gql`
+    query GetCurrentOrFutureLinesByLabel($label: String!, $date: timestamptz!) {
+  route_line(
+    where: {label: {_ilike: $label}, _or: [{validity_end: {_gte: $date}}, {validity_end: {_is_null: true}}]}
+    order_by: [{label: asc}, {validity_start: asc}]
+  ) {
+    ...line_all_fields
+  }
+}
+    ${LineAllFieldsFragmentDoc}`;
+
+/**
+ * __useGetCurrentOrFutureLinesByLabelQuery__
+ *
+ * To run a query within a React component, call `useGetCurrentOrFutureLinesByLabelQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCurrentOrFutureLinesByLabelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCurrentOrFutureLinesByLabelQuery({
+ *   variables: {
+ *      label: // value for 'label'
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useGetCurrentOrFutureLinesByLabelQuery(baseOptions: Apollo.QueryHookOptions<GetCurrentOrFutureLinesByLabelQuery, GetCurrentOrFutureLinesByLabelQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCurrentOrFutureLinesByLabelQuery, GetCurrentOrFutureLinesByLabelQueryVariables>(GetCurrentOrFutureLinesByLabelDocument, options);
+      }
+export function useGetCurrentOrFutureLinesByLabelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCurrentOrFutureLinesByLabelQuery, GetCurrentOrFutureLinesByLabelQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCurrentOrFutureLinesByLabelQuery, GetCurrentOrFutureLinesByLabelQueryVariables>(GetCurrentOrFutureLinesByLabelDocument, options);
+        }
+export type GetCurrentOrFutureLinesByLabelQueryHookResult = ReturnType<typeof useGetCurrentOrFutureLinesByLabelQuery>;
+export type GetCurrentOrFutureLinesByLabelLazyQueryHookResult = ReturnType<typeof useGetCurrentOrFutureLinesByLabelLazyQuery>;
+export type GetCurrentOrFutureLinesByLabelQueryResult = Apollo.QueryResult<GetCurrentOrFutureLinesByLabelQuery, GetCurrentOrFutureLinesByLabelQueryVariables>;
 export const GetRoutesWithInfrastructureLinksDocument = gql`
     query GetRoutesWithInfrastructureLinks($route_ids: [uuid!]) {
   route_route(where: {route_id: {_in: $route_ids}}) {
@@ -8917,10 +8925,6 @@ export function useGetScheduledStopPointWithViaInfoAsyncQuery() {
           return useAsyncQuery<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>(GetScheduledStopPointWithViaInfoDocument);
         }
 export type GetScheduledStopPointWithViaInfoAsyncQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithViaInfoAsyncQuery>;
-export function useListAllLinesAsyncQuery() {
-          return useAsyncQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument);
-        }
-export type ListAllLinesAsyncQueryHookResult = ReturnType<typeof useListAllLinesAsyncQuery>;
 export function useSearchLinesAndRoutesAsyncQuery() {
           return useAsyncQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument);
         }
@@ -8965,6 +8969,10 @@ export function useGetRouteDetailsByLabelWildcardAsyncQuery() {
           return useAsyncQuery<GetRouteDetailsByLabelWildcardQuery, GetRouteDetailsByLabelWildcardQueryVariables>(GetRouteDetailsByLabelWildcardDocument);
         }
 export type GetRouteDetailsByLabelWildcardAsyncQueryHookResult = ReturnType<typeof useGetRouteDetailsByLabelWildcardAsyncQuery>;
+export function useGetCurrentOrFutureLinesByLabelAsyncQuery() {
+          return useAsyncQuery<GetCurrentOrFutureLinesByLabelQuery, GetCurrentOrFutureLinesByLabelQueryVariables>(GetCurrentOrFutureLinesByLabelDocument);
+        }
+export type GetCurrentOrFutureLinesByLabelAsyncQueryHookResult = ReturnType<typeof useGetCurrentOrFutureLinesByLabelAsyncQuery>;
 export function useGetRoutesWithInfrastructureLinksAsyncQuery() {
           return useAsyncQuery<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>(GetRoutesWithInfrastructureLinksDocument);
         }
