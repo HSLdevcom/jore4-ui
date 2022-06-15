@@ -5,7 +5,11 @@ import {
   RouteRoute,
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
-import { mapInfraLinksAlongRouteToGraphQL, RouteGeometry } from '../../graphql';
+import {
+  mapInfraLinksAlongRouteToGraphQL,
+  mapRouteStopsToStopSequence,
+  RouteGeometry,
+} from '../../graphql';
 import { MIN_DATE } from '../../time';
 import {
   mapToObject,
@@ -26,16 +30,6 @@ interface CreateChanges {
   conflicts?: RouteRoute[];
 }
 
-const mapStopLabelToStopInSequence = (stopLabel: string, index: number) => ({
-  scheduled_stop_point_label: stopLabel,
-  scheduled_stop_point_sequence: index,
-});
-export const mapStopsToStopSequence = (stops: UUID[]) => {
-  return {
-    data: stops.map(mapStopLabelToStopInSequence),
-  };
-};
-
 export const useCreateRoute = () => {
   const { t } = useTranslation();
   const [mutateFunction] = useInsertRouteOneMutation();
@@ -47,7 +41,7 @@ export const useCreateRoute = () => {
   ): InsertRouteOneMutationVariables => {
     const { form, routeGeometry } = params;
 
-    const { stopLabelsWithinRoute, infraLinksAlongRoute } = routeGeometry;
+    const { routeStops, infraLinksAlongRoute } = routeGeometry;
 
     const input: InsertRouteOneMutationVariables = mapToObject({
       ...mapRouteFormToInput(form),
@@ -57,9 +51,8 @@ export const useCreateRoute = () => {
       },
       route_journey_patterns: {
         data: {
-          scheduled_stop_point_in_journey_patterns: mapStopsToStopSequence(
-            stopLabelsWithinRoute,
-          ),
+          scheduled_stop_point_in_journey_patterns:
+            mapRouteStopsToStopSequence(routeStops),
         },
       },
     });

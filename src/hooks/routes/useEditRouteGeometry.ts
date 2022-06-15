@@ -6,9 +6,12 @@ import {
   UpdateRouteGeometryMutationVariables,
   useUpdateRouteGeometryMutation,
 } from '../../generated/graphql';
-import { mapInfraLinksAlongRouteToGraphQL, RouteGeometry } from '../../graphql';
+import {
+  mapInfraLinksAlongRouteToGraphQL,
+  mapRouteStopsToStopSequence,
+  RouteGeometry,
+} from '../../graphql';
 import { showDangerToastWithError } from '../../utils';
-import { mapStopsToStopSequence } from './useCreateRoute';
 import { useValidateRoute } from './useValidateRoute';
 
 interface EditParams {
@@ -35,7 +38,7 @@ export const useEditRouteGeometry = () => {
   const prepareEdit = async ({ routeId, newGeometry }: EditParams) => {
     await validateGeometry(newGeometry);
 
-    const { stopLabelsWithinRoute, infraLinksAlongRoute } = newGeometry;
+    const { routeStops, infraLinksAlongRoute } = newGeometry;
 
     const changes: EditChanges = {
       routeId,
@@ -44,9 +47,8 @@ export const useEditRouteGeometry = () => {
       ).map((link) => ({ ...link, route_id: routeId })),
       newJourneyPattern: {
         on_route_id: routeId,
-        scheduled_stop_point_in_journey_patterns: mapStopsToStopSequence(
-          stopLabelsWithinRoute,
-        ),
+        scheduled_stop_point_in_journey_patterns:
+          mapRouteStopsToStopSequence(routeStops),
       },
     };
 
