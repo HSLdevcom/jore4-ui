@@ -7,9 +7,11 @@ import {
   GetLinesByLabelAndPriorityQuery,
   GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
+  JourneyPatternScheduledStopPointInJourneyPattern,
   ListChangingRoutesQuery,
   RouteLine,
   RouteRoute,
+  ServicePatternScheduledStopPoint,
   useGetRouteDetailsByIdsQuery,
   useGetRouteDetailsByLabelWildcardQuery,
   useGetRoutesWithInfrastructureLinksQuery,
@@ -437,6 +439,7 @@ const UPDATE_ROUTE_GEOMETRY = gql`
         infrastructure_link_id
         infrastructure_link_sequence
         infrastructure_link {
+          infrastructure_link_id
           shape
         }
         is_traversal_forwards
@@ -453,8 +456,7 @@ const UPDATE_ROUTE_GEOMETRY = gql`
     }
 
     insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
-      journey_pattern_id
-      on_route_id
+      ...journey_pattern_with_stops
     }
   }
 `;
@@ -490,14 +492,97 @@ const DELETE_STOP_FROM_JOURNEY_PATTERN = gql`
     }
   }
 `;
+export const getStopsFromRoute = (route: RouteRoute) => {
+  return route.route_journey_patterns[0]
+    .scheduled_stop_point_in_journey_patterns;
+};
 
 export const getRouteStopLabels = (route: RouteRoute) => {
-  return route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns.map(
+  return getStopsFromRoute(route).map(
     (point) => point.scheduled_stop_point_label,
   );
 };
 
 export interface RouteGeometry {
-  stopLabelsWithinRoute: string[];
+  routeStops: RouteStop[];
   infraLinksAlongRoute: InfrastructureLinkAlongRoute[];
 }
+
+/**
+ * An interface containing a stop along route's geometry.
+ * We need a type like this, because for example in route creation
+ * we want to have a list of all the stops that are along the route geometry
+ * with also the info if they are selected to the journey pattern or not.
+ */
+export interface RouteStop {
+  /**
+   * Label of the route
+   */
+  label: string;
+  /**
+   * Is this route selected to the route's journey pattern
+   */
+  belongsToJourneyPattern: boolean;
+  /**
+   * Metadata (e.g. via point informaiton) of the stop in journey pattern
+   */
+  stop?: JourneyPatternScheduledStopPointInJourneyPattern;
+}
+
+/**
+ * Maps a RouteStop object to a stop in journey pattern that can be used when
+ * creating/updating route's journey pattern in GraphQL
+ * @param routeStop A stop along route's geometry
+ * @param index Stop's index on journey pattern
+ * @returns Stop in journey pattern
+ */
+const mapRouteStopToStopInSequence = (routeStop: RouteStop, index: number) => {
+  const { stop } = routeStop;
+  return {
+    is_timing_point: stop?.is_timing_point || false,
+    is_via_point: stop?.is_via_point || false,
+    via_point_name_i18n: stop?.via_point_name_i18n,
+    via_point_short_name_i18n: stop?.via_point_short_name_i18n,
+    scheduled_stop_point_label: routeStop.label,
+    scheduled_stop_point_sequence: index,
+  };
+};
+
+/**
+ * Maps a list of RouteStop objects to a list of stops in journey pattern,
+ * can be used when creating/updating route's journey pattern in GraphQL
+ * @param stops Stops along route's geometry
+ * @returns Sequence of stops that belong to route's journey pattern
+ */
+export const mapRouteStopsToStopSequence = (stops: RouteStop[]) => {
+  return {
+    data: stops
+      .filter((routeStop) => routeStop.belongsToJourneyPattern)
+      .map(mapRouteStopToStopInSequence),
+  };
+};
+
+/**
+ * Maps a ServicePatternScheduledStopPoint to RouteStop.
+ * Gets metadata related to stop in journey pattern from the stop object.
+ * @param stop Stop to be mapped
+ * @param belongsToJourneyPattern Does the stop belong to the route's journey pattern
+ * @param routeId Id of the route in relation to which this stop is being handled
+ * @returns RouteStop
+ */
+export const mapStopToRouteStop = (
+  stop: ServicePatternScheduledStopPoint,
+  belongsToJourneyPattern: boolean,
+  routeId?: UUID,
+): RouteStop => {
+  const stopInJourneyPattern =
+    stop.scheduled_stop_point_in_journey_patterns?.find(
+      (stopInRoute) => stopInRoute.journey_pattern.on_route_id === routeId,
+    );
+
+  return {
+    label: stop.label,
+    belongsToJourneyPattern,
+    stop: stopInJourneyPattern,
+  };
+};
