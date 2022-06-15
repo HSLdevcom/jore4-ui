@@ -8,8 +8,12 @@ import {
 import { mapRoutesDetailsResult } from '../../../graphql';
 import { MAX_DATE, MIN_DATE } from '../../../time';
 import { Priority } from '../../../types/Priority';
-import { Combobox, ComboboxInputProps } from '../../../uiComponents';
-import { mapToVariables } from '../../../utils';
+import {
+  Combobox,
+  ComboboxEvent,
+  ComboboxInputProps,
+} from '../../../uiComponents';
+import { mapToVariables, replaceStarCharacter } from '../../../utils';
 import { DateRange } from '../common/DateRange';
 
 interface Props extends ComboboxInputProps {
@@ -61,7 +65,11 @@ export const ChooseRouteDropdown = ({
 
   const routes = mapRoutesDetailsResult(routesResult);
 
-  const options = routes?.map(mapToOption) || [];
+  const sortedRoutes = routes
+    ?.slice()
+    .sort((a, b) => (a.label > b.label ? 1 : -1));
+
+  const options = sortedRoutes?.map(mapToOption) || [];
 
   const selectedRoute = routes?.find(
     (item) => item.route_id === value,
@@ -70,7 +78,9 @@ export const ChooseRouteDropdown = ({
   // If no route is selected, show "Choose route"
   const mapToButtonContent = (displayedRoute?: RouteRoute) => {
     // Headless UI Combobox component takes care of displaying query
-    if (query && !displayedRoute) return null;
+    if (query !== '') {
+      return null;
+    }
 
     return (
       <div className="w-full">
@@ -81,6 +91,11 @@ export const ChooseRouteDropdown = ({
     );
   };
 
+  const onSelect = (e: ComboboxEvent) => {
+    setQuery('');
+    onChange(e);
+  };
+
   return (
     <Combobox
       id="choose-route-combobox"
@@ -88,9 +103,9 @@ export const ChooseRouteDropdown = ({
       buttonContent={mapToButtonContent(selectedRoute)}
       options={options}
       value={value}
-      onChange={onChange}
+      onChange={onSelect}
       onBlur={onBlur}
-      onQueryChange={setQuery}
+      onQueryChange={(str) => setQuery(replaceStarCharacter(str))}
     />
   );
 };
