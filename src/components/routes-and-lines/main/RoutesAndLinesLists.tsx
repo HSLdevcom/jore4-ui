@@ -33,9 +33,7 @@ export const RoutesAndLinesLists = (): JSX.Element => {
 
   return (
     <div>
-      <h2 className="text-bold mb-14 mt-12 text-4xl">
-        {t('routes.changingRoutes')}
-      </h2>
+      <h2 className="text-bold mb-14 mt-12 text-4xl">{t('lines.routes')}</h2>
       <ListHeader
         showOwnLines={showOwnChangingRoutes}
         limit={changingRoutesLimit}
@@ -45,7 +43,7 @@ export const RoutesAndLinesLists = (): JSX.Element => {
       />
       <RoutesList routes={changingRoutes} />
       <ListFooter onLimitChange={setChangingRoutesLimit} className="mt-8" />
-      <h2 className="text-bold mb-14 mt-12 text-4xl">{t('routes.ownLines')}</h2>
+      <h2 className="text-bold mb-14 mt-12 text-4xl">{t('lines.lines')}</h2>
       <LinesList lines={ownLines} />
     </div>
   );
