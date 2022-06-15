@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useGetRoutesWithInfrastructureLinksQuery } from '../../generated/graphql';
-import { getRouteStopLabels, mapRoutesDetailsResult } from '../../graphql';
+import { getStopsFromRoute, mapRoutesDetailsResult } from '../../graphql';
 import { getRouteStops, useAppDispatch, useAppSelector } from '../../hooks';
 import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import { Visible } from '../../layoutComponents';
@@ -82,15 +82,17 @@ export const RouteStopsOverlay = ({ className }: Props) => {
   const routeName =
     editedRouteData.metaData?.finnishName || selectedRoute?.name_i18n?.fi_FI;
 
-  const selectedRouteStopLabels = selectedRoute
-    ? getRouteStopLabels(selectedRoute)
+  const selectedRouteStops = selectedRoute
+    ? getStopsFromRoute(selectedRoute)
     : [];
 
   // If creating/editing a route, show edited route stops
   // otherwise show selected route's stops
   const routeStops = routeEditingInProgress
     ? editedRouteData.stops
-    : getRouteStops(selectedRouteStopLabels);
+    : getRouteStops(
+        selectedRouteStops.map((stop) => stop.scheduled_stop_points[0]),
+      );
 
   if (!routeMetadata) {
     return null;
@@ -127,7 +129,7 @@ export const RouteStopsOverlay = ({ className }: Props) => {
         <StopRow
           key={routeStop.label}
           label={routeStop.label}
-          onRoute={routeStop.belongsToRoute}
+          onRoute={routeStop.belongsToJourneyPattern}
           isReadOnly={!routeEditingInProgress}
         />
       ))}
