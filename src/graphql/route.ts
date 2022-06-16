@@ -471,27 +471,6 @@ const DELETE_ROUTE = gql`
   }
 `;
 
-const DELETE_STOP_FROM_JOURNEY_PATTERN = gql`
-  mutation DeleteStopFromJourneyPattern(
-    $route_id: uuid!
-    $scheduled_stop_point_label: String!
-  ) {
-    delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
-      where: {
-        _and: {
-          journey_pattern: { on_route_id: { _eq: $route_id } }
-          scheduled_stop_point_label: { _eq: $scheduled_stop_point_label }
-        }
-      }
-    ) {
-      returning {
-        journey_pattern {
-          ...journey_pattern_with_stops
-        }
-      }
-    }
-  }
-`;
 export const getStopsFromRoute = (route: RouteRoute) => {
   return route.route_journey_patterns[0]
     .scheduled_stop_point_in_journey_patterns;

@@ -7116,14 +7116,6 @@ export type DeleteRouteMutationVariables = Exact<{
 
 export type DeleteRouteMutation = { __typename?: 'mutation_root', delete_route_route?: { __typename?: 'route_route_mutation_response', returning: Array<{ __typename?: 'route_route', route_id: UUID }> } | null | undefined };
 
-export type DeleteStopFromJourneyPatternMutationVariables = Exact<{
-  route_id: Scalars['uuid'];
-  scheduled_stop_point_label: Scalars['String'];
-}>;
-
-
-export type DeleteStopFromJourneyPatternMutation = { __typename?: 'mutation_root', delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> } }> } | null | undefined };
-
 export type ScheduledStopPointDefaultFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined };
 
 export type ScheduledStopPointAllFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> };
@@ -8488,46 +8480,6 @@ export function useDeleteRouteMutation(baseOptions?: Apollo.MutationHookOptions<
 export type DeleteRouteMutationHookResult = ReturnType<typeof useDeleteRouteMutation>;
 export type DeleteRouteMutationResult = Apollo.MutationResult<DeleteRouteMutation>;
 export type DeleteRouteMutationOptions = Apollo.BaseMutationOptions<DeleteRouteMutation, DeleteRouteMutationVariables>;
-export const DeleteStopFromJourneyPatternDocument = gql`
-    mutation DeleteStopFromJourneyPattern($route_id: uuid!, $scheduled_stop_point_label: String!) {
-  delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
-    where: {_and: {journey_pattern: {on_route_id: {_eq: $route_id}}, scheduled_stop_point_label: {_eq: $scheduled_stop_point_label}}}
-  ) {
-    returning {
-      journey_pattern {
-        ...journey_pattern_with_stops
-      }
-    }
-  }
-}
-    ${JourneyPatternWithStopsFragmentDoc}`;
-export type DeleteStopFromJourneyPatternMutationFn = Apollo.MutationFunction<DeleteStopFromJourneyPatternMutation, DeleteStopFromJourneyPatternMutationVariables>;
-
-/**
- * __useDeleteStopFromJourneyPatternMutation__
- *
- * To run a mutation, you first call `useDeleteStopFromJourneyPatternMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteStopFromJourneyPatternMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteStopFromJourneyPatternMutation, { data, loading, error }] = useDeleteStopFromJourneyPatternMutation({
- *   variables: {
- *      route_id: // value for 'route_id'
- *      scheduled_stop_point_label: // value for 'scheduled_stop_point_label'
- *   },
- * });
- */
-export function useDeleteStopFromJourneyPatternMutation(baseOptions?: Apollo.MutationHookOptions<DeleteStopFromJourneyPatternMutation, DeleteStopFromJourneyPatternMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteStopFromJourneyPatternMutation, DeleteStopFromJourneyPatternMutationVariables>(DeleteStopFromJourneyPatternDocument, options);
-      }
-export type DeleteStopFromJourneyPatternMutationHookResult = ReturnType<typeof useDeleteStopFromJourneyPatternMutation>;
-export type DeleteStopFromJourneyPatternMutationResult = Apollo.MutationResult<DeleteStopFromJourneyPatternMutation>;
-export type DeleteStopFromJourneyPatternMutationOptions = Apollo.BaseMutationOptions<DeleteStopFromJourneyPatternMutation, DeleteStopFromJourneyPatternMutationVariables>;
 export const RemoveStopDocument = gql`
     mutation RemoveStop($stop_id: uuid!) {
   delete_service_pattern_scheduled_stop_point(
@@ -9014,7 +8966,6 @@ export function useGetRoutesByValidityAsyncQuery() {
           return useAsyncQuery<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>(GetRoutesByValidityDocument);
         }
 export type GetRoutesByValidityAsyncQueryHookResult = ReturnType<typeof useGetRoutesByValidityAsyncQuery>;
-
 
 
 

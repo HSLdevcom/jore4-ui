@@ -1,34 +1,27 @@
 import {
-  DeleteStopFromJourneyPatternMutationVariables,
   RouteRoute,
   UpdateRouteJourneyPatternMutationVariables,
-  useDeleteStopFromJourneyPatternMutation,
   useUpdateRouteJourneyPatternMutation,
 } from '../../generated/graphql';
 import {
   getStopsAlongRouteGeometry,
+  mapRouteStopsToStopSequence,
+  mapStopToRouteStop,
+  RouteStop,
   stopBelongsToJourneyPattern,
 } from '../../graphql';
-import { RouteStop } from '../../redux';
 import { removeFromApolloCache } from '../../utils';
-import { useExtractRouteFromFeature } from '../useExtractRouteFromFeature';
-import { mapStopsToStopSequence } from './useCreateRoute';
 
 interface DeleteStopParams {
-  routeId: UUID;
+  route: RouteRoute;
   stopPointLabel: UUID;
 }
 
-type DeleteStopChanges = DeleteStopParams;
+type AddStopParams = DeleteStopParams;
 
-interface AddStopParams {
-  stopPointLabel: string;
-  route: RouteRoute;
-}
-
-interface AddStopChanges {
+interface UpdateJourneyPatternChanges {
   routeId: UUID;
-  stopLabelsWithinRoute: UUID[];
+  routeStops: RouteStop[];
 }
 
 /**
@@ -37,70 +30,47 @@ interface AddStopChanges {
 export const useEditRouteJourneyPattern = () => {
   const [updateRouteJourneyPatternMutation] =
     useUpdateRouteJourneyPatternMutation();
-  const [deleteStopFromJourneyPatternMutation] =
-    useDeleteStopFromJourneyPatternMutation();
 
-  const { mapRouteStopsToStopLabels } = useExtractRouteFromFeature();
-
-  const prepareDeleteStopFromRoute = (params: DeleteStopParams) => {
-    const changes: DeleteStopChanges = params;
-
-    return changes;
-  };
-
-  const mapDeleteStopFromRouteChangesToVariables = (
-    changes: DeleteStopChanges,
-  ) => ({
-    route_id: changes.routeId,
-    scheduled_stop_point_label: changes.stopPointLabel,
-  });
-
-  const deleteStopFromRouteMutation = async (
-    variables: DeleteStopFromJourneyPatternMutationVariables,
+  const prepareUpdateJourneyPattern = (
+    params: AddStopParams | DeleteStopParams,
+    stopBelongsToRoute: boolean,
   ) => {
-    await deleteStopFromJourneyPatternMutation({
-      variables,
-      // remove scheduled stop point from cache after mutation
-      update(cache) {
-        removeFromApolloCache(cache, {
-          scheduled_stop_point_id: variables.route_id,
-          __typename: 'service_pattern_scheduled_stop_point',
-        });
-      },
-    });
-  };
-
-  const prepareAddStopToRoute = (params: AddStopParams) => {
     const { route, stopPointLabel } = params;
 
     const stopsAlongRoute = getStopsAlongRouteGeometry(route);
 
-    const routeStops: RouteStop[] = stopsAlongRoute.map((stop) => ({
-      label: stop.label,
-      belongsToRoute: stopBelongsToJourneyPattern(stop, route.route_id),
-    }));
+    // Map ServicePatternScheduledStopPoints to RouteStops
+    const routeStops: RouteStop[] = stopsAlongRoute.map((stop) => {
+      const isStopToEdit = stopPointLabel === stop.label;
 
-    const newRouteStops = routeStops.map((item) =>
-      item.label === stopPointLabel ? { ...item, belongsToRoute: true } : item,
-    );
+      const belongsToRoute = isStopToEdit
+        ? stopBelongsToRoute
+        : stopBelongsToJourneyPattern(stop, route.route_id);
 
-    const stopLabelsWithinRoute = mapRouteStopsToStopLabels(newRouteStops);
+      return mapStopToRouteStop(stop, belongsToRoute, route.route_id);
+    });
 
-    const changes: AddStopChanges = {
+    const changes: UpdateJourneyPatternChanges = {
       routeId: route.route_id,
-      stopLabelsWithinRoute,
+      routeStops,
     };
 
     return changes;
   };
 
-  const mapAddStopToRouteChangesToVariables = (changes: AddStopChanges) => {
+  const prepareDeleteStopFromRoute = (params: DeleteStopParams) => {
+    return prepareUpdateJourneyPattern(params, false);
+  };
+
+  const mapEditJourneyPatternChangesToVariables = (
+    changes: UpdateJourneyPatternChanges,
+  ) => {
     const variables: UpdateRouteJourneyPatternMutationVariables = {
       route_id: changes.routeId,
       new_journey_pattern: {
         on_route_id: changes.routeId,
-        scheduled_stop_point_in_journey_patterns: mapStopsToStopSequence(
-          changes.stopLabelsWithinRoute,
+        scheduled_stop_point_in_journey_patterns: mapRouteStopsToStopSequence(
+          changes.routeStops,
         ),
       },
     };
@@ -108,7 +78,11 @@ export const useEditRouteJourneyPattern = () => {
     return variables;
   };
 
-  const addStopToRouteMutation = async (
+  const prepareAddStopToRoute = (params: AddStopParams) => {
+    return prepareUpdateJourneyPattern(params, true);
+  };
+
+  const updateRouteGeometryMutation = async (
     variables: UpdateRouteJourneyPatternMutationVariables,
   ) => {
     await updateRouteJourneyPatternMutation({
@@ -125,10 +99,8 @@ export const useEditRouteJourneyPattern = () => {
 
   return {
     prepareDeleteStopFromRoute,
-    mapDeleteStopFromRouteChangesToVariables,
-    deleteStopFromRouteMutation,
     prepareAddStopToRoute,
-    mapAddStopToRouteChangesToVariables,
-    addStopToRouteMutation,
+    mapEditJourneyPatternChangesToVariables,
+    updateRouteGeometryMutation,
   };
 };
