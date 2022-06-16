@@ -6973,12 +6973,15 @@ export type ListAllLinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ListAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: LocalizedString, short_name_i18n: LocalizedString, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }> };
 
-export type SearchAllLinesQueryVariables = Exact<{
-  filter?: Maybe<RouteLineBoolExp>;
+export type SearchLinesAndRoutesQueryVariables = Exact<{
+  lineFilter?: Maybe<RouteLineBoolExp>;
+  routeFilter?: Maybe<RouteRouteBoolExp>;
+  lineOrderBy?: Maybe<Array<RouteLineOrderBy> | RouteLineOrderBy>;
+  routeOrderBy?: Maybe<Array<RouteRouteOrderBy> | RouteRouteOrderBy>;
 }>;
 
 
-export type SearchAllLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: LocalizedString, short_name_i18n: LocalizedString, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum }> }> };
+export type SearchLinesAndRoutesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string }>, route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum }> };
 
 export type ListOwnLinesQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
@@ -7702,45 +7705,48 @@ export function useListAllLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type ListAllLinesQueryHookResult = ReturnType<typeof useListAllLinesQuery>;
 export type ListAllLinesLazyQueryHookResult = ReturnType<typeof useListAllLinesLazyQuery>;
 export type ListAllLinesQueryResult = Apollo.QueryResult<ListAllLinesQuery, ListAllLinesQueryVariables>;
-export const SearchAllLinesDocument = gql`
-    query SearchAllLines($filter: route_line_bool_exp) {
-  route_line(where: $filter) {
-    ...line_default_fields
-    line_routes {
-      ...route_all_fields
-    }
+export const SearchLinesAndRoutesDocument = gql`
+    query SearchLinesAndRoutes($lineFilter: route_line_bool_exp, $routeFilter: route_route_bool_exp, $lineOrderBy: [route_line_order_by!], $routeOrderBy: [route_route_order_by!]) {
+  route_line(where: $lineFilter, order_by: $lineOrderBy) {
+    ...line_all_fields
+  }
+  route_route(where: $routeFilter, order_by: $routeOrderBy) {
+    ...route_all_fields
   }
 }
-    ${LineDefaultFieldsFragmentDoc}
+    ${LineAllFieldsFragmentDoc}
 ${RouteAllFieldsFragmentDoc}`;
 
 /**
- * __useSearchAllLinesQuery__
+ * __useSearchLinesAndRoutesQuery__
  *
- * To run a query within a React component, call `useSearchAllLinesQuery` and pass it any options that fit your needs.
- * When your component renders, `useSearchAllLinesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useSearchLinesAndRoutesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchLinesAndRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useSearchAllLinesQuery({
+ * const { data, loading, error } = useSearchLinesAndRoutesQuery({
  *   variables: {
- *      filter: // value for 'filter'
+ *      lineFilter: // value for 'lineFilter'
+ *      routeFilter: // value for 'routeFilter'
+ *      lineOrderBy: // value for 'lineOrderBy'
+ *      routeOrderBy: // value for 'routeOrderBy'
  *   },
  * });
  */
-export function useSearchAllLinesQuery(baseOptions?: Apollo.QueryHookOptions<SearchAllLinesQuery, SearchAllLinesQueryVariables>) {
+export function useSearchLinesAndRoutesQuery(baseOptions?: Apollo.QueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<SearchAllLinesQuery, SearchAllLinesQueryVariables>(SearchAllLinesDocument, options);
+        return Apollo.useQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument, options);
       }
-export function useSearchAllLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchAllLinesQuery, SearchAllLinesQueryVariables>) {
+export function useSearchLinesAndRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<SearchAllLinesQuery, SearchAllLinesQueryVariables>(SearchAllLinesDocument, options);
+          return Apollo.useLazyQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument, options);
         }
-export type SearchAllLinesQueryHookResult = ReturnType<typeof useSearchAllLinesQuery>;
-export type SearchAllLinesLazyQueryHookResult = ReturnType<typeof useSearchAllLinesLazyQuery>;
-export type SearchAllLinesQueryResult = Apollo.QueryResult<SearchAllLinesQuery, SearchAllLinesQueryVariables>;
+export type SearchLinesAndRoutesQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesQuery>;
+export type SearchLinesAndRoutesLazyQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesLazyQuery>;
+export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>;
 export const ListOwnLinesDocument = gql`
     query ListOwnLines($limit: Int = 10) {
   route_line(limit: $limit, order_by: [{label: asc}, {validity_start: asc}]) {
@@ -8915,10 +8921,10 @@ export function useListAllLinesAsyncQuery() {
           return useAsyncQuery<ListAllLinesQuery, ListAllLinesQueryVariables>(ListAllLinesDocument);
         }
 export type ListAllLinesAsyncQueryHookResult = ReturnType<typeof useListAllLinesAsyncQuery>;
-export function useSearchAllLinesAsyncQuery() {
-          return useAsyncQuery<SearchAllLinesQuery, SearchAllLinesQueryVariables>(SearchAllLinesDocument);
+export function useSearchLinesAndRoutesAsyncQuery() {
+          return useAsyncQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument);
         }
-export type SearchAllLinesAsyncQueryHookResult = ReturnType<typeof useSearchAllLinesAsyncQuery>;
+export type SearchLinesAndRoutesAsyncQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesAsyncQuery>;
 export function useListOwnLinesAsyncQuery() {
           return useAsyncQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument);
         }

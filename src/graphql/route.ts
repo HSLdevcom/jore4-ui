@@ -16,7 +16,7 @@ import {
   useGetRouteDetailsByLabelWildcardQuery,
   useGetRoutesWithInfrastructureLinksQuery,
   useListOwnLinesQuery,
-  useSearchAllLinesQuery,
+  useSearchLinesAndRoutesQuery,
 } from '../generated/graphql';
 import { InfrastructureLinkAlongRoute } from './infrastructureNetwork';
 import { GqlQueryResult } from './types';
@@ -118,19 +118,27 @@ const LIST_ALL_LINES = gql`
   }
 `;
 
-const SEARCH_ALL_LINES = gql`
-  query SearchAllLines($filter: route_line_bool_exp) {
-    route_line(where: $filter) {
-      ...line_default_fields
-      line_routes {
-        ...route_all_fields
-      }
+const SEARCH_LINES_AND_ROUTES = gql`
+  query SearchLinesAndRoutes(
+    $lineFilter: route_line_bool_exp
+    $routeFilter: route_route_bool_exp
+    $lineOrderBy: [route_line_order_by!]
+    $routeOrderBy: [route_route_order_by!]
+  ) {
+    route_line(where: $lineFilter, order_by: $lineOrderBy) {
+      ...line_all_fields
+    }
+    route_route(where: $routeFilter, order_by: $routeOrderBy) {
+      ...route_all_fields
     }
   }
 `;
-export const mapSearchAllLinesResult = (
-  result: ReturnType<typeof useSearchAllLinesQuery>,
-) => result.data?.route_line as RouteLine[];
+export const mapSearchLinesAndRoutesResult = (
+  result: ReturnType<typeof useSearchLinesAndRoutesQuery>,
+) => ({
+  lines: (result.data?.route_line || []) as RouteLine[],
+  routes: (result.data?.route_route || []) as RouteRoute[],
+});
 
 // TODO this is just listing all lines for now
 const LIST_OWN_LINES = gql`
