@@ -6988,7 +6988,7 @@ export type ListOwnLinesQueryVariables = Exact<{
 }>;
 
 
-export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, label: string, name_i18n: LocalizedString, short_name_i18n: LocalizedString, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, line_routes: Array<{ __typename?: 'route_route', route_id: UUID }> }> };
+export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID }> }> };
 
 export type ListChangingRoutesQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
@@ -7750,13 +7750,13 @@ export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<SearchLinesAndR
 export const ListOwnLinesDocument = gql`
     query ListOwnLines($limit: Int = 10) {
   route_line(limit: $limit, order_by: [{label: asc}, {validity_start: asc}]) {
-    ...line_default_fields
+    ...line_all_fields
     line_routes {
       route_id
     }
   }
 }
-    ${LineDefaultFieldsFragmentDoc}`;
+    ${LineAllFieldsFragmentDoc}`;
 
 /**
  * __useListOwnLinesQuery__

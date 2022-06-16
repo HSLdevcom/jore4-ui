@@ -147,7 +147,7 @@ const LIST_OWN_LINES = gql`
       limit: $limit
       order_by: [{ label: asc }, { validity_start: asc }]
     ) {
-      ...line_default_fields
+      ...line_all_fields
       line_routes {
         route_id
       }
