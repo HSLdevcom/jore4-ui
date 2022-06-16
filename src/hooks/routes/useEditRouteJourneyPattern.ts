@@ -11,6 +11,7 @@ import {
   stopBelongsToJourneyPattern,
 } from '../../graphql';
 import { removeFromApolloCache } from '../../utils';
+import { useValidateRoute } from './useValidateRoute';
 
 interface DeleteStopParams {
   route: RouteRoute;
@@ -30,6 +31,7 @@ interface UpdateJourneyPatternChanges {
 export const useEditRouteJourneyPattern = () => {
   const [updateRouteJourneyPatternMutation] =
     useUpdateRouteJourneyPatternMutation();
+  const { validateStopCount } = useValidateRoute();
 
   const prepareUpdateJourneyPattern = (
     params: AddStopParams | DeleteStopParams,
@@ -52,6 +54,8 @@ export const useEditRouteJourneyPattern = () => {
         belongsToRoute,
       };
     });
+
+    validateStopCount(routeStops);
 
     const changes: UpdateJourneyPatternChanges = {
       routeId: route.route_id,

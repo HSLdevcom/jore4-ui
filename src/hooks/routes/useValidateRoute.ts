@@ -5,7 +5,7 @@ import {
   Maybe,
   useGetLineDetailsByIdAsyncQuery,
 } from '../../generated/graphql';
-import { mapLineDetailsResult, RouteGeometry } from '../../graphql';
+import { mapLineDetailsResult, RouteGeometry, RouteStop } from '../../graphql';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
@@ -27,21 +27,14 @@ export const useValidateRoute = () => {
   /**
    * Check that there are enoung stops on the route
    */
-  const validateStopCount = ({
-    routeStops,
-    infraLinksAlongRoute,
-  }: RouteGeometry) => {
-    if (
-      !infraLinksAlongRoute ||
-      !routeStops ||
-      mapRouteStopsToStopLabels(routeStops).length < 2
-    ) {
+  const validateStopCount = (routeStops: RouteStop[]) => {
+    if (!routeStops || mapRouteStopsToStopLabels(routeStops).length < 2) {
       throw new Error(t('routes.tooFewStops'));
     }
   };
 
   const validateGeometry = async (routeGeometry: RouteGeometry) => {
-    validateStopCount(routeGeometry);
+    validateStopCount(routeGeometry.routeStops);
   };
 
   const checkIsRouteValidityInsideLineValidity = (
@@ -90,6 +83,7 @@ export const useValidateRoute = () => {
   };
 
   return {
+    validateStopCount,
     validateGeometry,
     validateMetadata,
     checkIsRouteValidityInsideLineValidity,
