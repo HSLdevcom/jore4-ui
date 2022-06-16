@@ -1,9 +1,9 @@
 import {
   RouteLine,
   RouteRoute,
-  useSearchAllLinesQuery,
+  useSearchLinesAndRoutesQuery,
 } from '../../generated/graphql';
-import { mapSearchAllLinesResult } from '../../graphql';
+import { mapSearchLinesAndRoutesResult } from '../../graphql';
 import { constructGqlFilterObject, mapToVariables } from '../../utils';
 import {
   DisplayedSearchResultType,
@@ -21,13 +21,8 @@ export const useSearchResults = (): {
     parsedQueryParameters.search,
   );
 
-  const linesResult = useSearchAllLinesQuery(mapToVariables(searchConditions));
-
-  const lines = mapSearchAllLinesResult(linesResult);
-
-  const routes = lines
-    ?.map((line) => line.line_routes)
-    ?.reduce((next, curr) => [...curr, ...next], []);
+  const result = useSearchLinesAndRoutesQuery(mapToVariables(searchConditions));
+  const { lines, routes } = mapSearchLinesAndRoutesResult(result);
 
   const getResultCount = () => {
     switch (parsedQueryParameters.filter.displayedData) {
