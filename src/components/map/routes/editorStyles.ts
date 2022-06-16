@@ -5,7 +5,7 @@ import { RENDER_STATE } from 'react-map-gl-draw';
 const RECT_STYLE = {
   x: -12,
   y: -12,
-  strokeWidth: 3,
+  strokeWidth: 4,
 };
 
 export const handleStyle =
@@ -14,7 +14,7 @@ export const handleStyle =
     if (state === RENDER_STATE.HOVERED) {
       return {
         ...RECT_STYLE,
-        stroke: 'green',
+        stroke: 'black',
       };
     }
     if (selectedSnapPoints.includes(index)) {
@@ -25,18 +25,18 @@ export const handleStyle =
     }
     return {
       ...RECT_STYLE,
-      stroke: 'green',
+      stroke: 'black',
       strokeDasharray: '4,2',
     };
   };
 
 // Feature styles
 
-const FEATURE_ACTIVE_COLOR = '#26b5f2'; // Light blue
-const FEATURE_INACTIVE_COLOR = '#bdbdbd'; // Grey
+const FEATURE_INACTIVE_COLOR = '#696969'; // Dark grey
+const FEATURE_ACTIVE_COLOR = FEATURE_INACTIVE_COLOR;
 
 const FEATURE_STYLE = {
-  strokeWidth: 4,
+  strokeWidth: 6,
   fill: 'none',
 };
 
@@ -48,7 +48,7 @@ const HOVERED_STYLE = { ...SELECTED_STYLE };
 
 const UNCOMMITTED_STYLE = {
   stroke: FEATURE_INACTIVE_COLOR,
-  strokeDasharray: '6,4',
+  strokeDasharray: '8,3',
 };
 
 const INACTIVE_STYLE = { ...UNCOMMITTED_STYLE };
