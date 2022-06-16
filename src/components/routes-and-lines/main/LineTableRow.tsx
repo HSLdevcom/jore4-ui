@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { RouteLine } from '../../../generated/graphql';
-import { useShowRoutesOnModal } from '../../../hooks';
+import { useAlertsAndHighLights, useShowRoutesOnModal } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../../time';
@@ -27,10 +27,16 @@ export const LineTableRow = ({ className = '', line }: Props): JSX.Element => {
     );
   };
 
+  const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
+  const alertStyle = getAlertStyle(getAlertLevel(line));
+
   return (
     <tbody>
       <tr className={`border border-light-grey ${className}`}>
-        <td className="border-l-12 border-hsl-dark-green py-4 pl-16 pr-4 ">
+        <td className={`${alertStyle.listItemBorder || ''} w-20 p-4 align-top`}>
+          {alertStyle.icon && <i className={`${alertStyle.icon} text-3xl`} />}
+        </td>
+        <td className="py-4">
           <Link to={routeDetails[Path.lineDetails].getLink(line.line_id)}>
             <Row className="items-center">
               <Column className="w-1/2 font-bold">
@@ -49,7 +55,7 @@ export const LineTableRow = ({ className = '', line }: Props): JSX.Element => {
             </Row>
           </Link>
         </td>
-        <td className="w-20 p-6">
+        <td className="w-20 p-6 align-middle">
           <LocatorButton
             onClick={showLineRoutes}
             testId="LineTableRow::showLineRoutes"

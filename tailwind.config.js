@@ -23,6 +23,7 @@ module.exports = {
         'city-bicycle-yellow': colors.cityBicycleYellow,
       },
       borderWidth: {
+        10: '10px',
         12: '12px',
       },
     },
