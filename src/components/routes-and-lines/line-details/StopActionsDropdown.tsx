@@ -1,20 +1,21 @@
 import { useTranslation } from 'react-i18next';
 import { ServicePatternScheduledStopPoint } from '../../../generated/graphql';
-import { useAppDispatch, useEditRouteJourneyPattern } from '../../../hooks';
+import { useAppDispatch } from '../../../hooks';
 import { openViaModalAction } from '../../../redux';
 import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
-import { showDangerToast, showSuccessToast } from '../../../utils';
 
 interface Props {
   stop: ServicePatternScheduledStopPoint;
   routeId: UUID;
   onAddToRoute: (stopLabel: string) => void;
+  onDeleteFromRoute: (stopLabel: string) => void;
 }
 
 export const StopActionsDropdown = ({
   stop,
   routeId,
   onAddToRoute,
+  onDeleteFromRoute,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -30,27 +31,6 @@ export const StopActionsDropdown = ({
 
   // is the stop via point on this route's journey pattern?
   const isViaPoint = scheduledStopPointInJourneyPattern?.is_via_point;
-
-  const {
-    prepareDeleteStopFromRoute,
-    mapDeleteStopFromRouteChangesToVariables,
-    deleteStopFromRouteMutation,
-  } = useEditRouteJourneyPattern();
-
-  const deleteFromJourneyPattern = async () => {
-    try {
-      const changes = prepareDeleteStopFromRoute({
-        routeId,
-        stopPointLabel: stop.label,
-      });
-      const variables = mapDeleteStopFromRouteChangesToVariables(changes);
-
-      await deleteStopFromRouteMutation(variables);
-      showSuccessToast(t('routes.saveSuccess'));
-    } catch (err) {
-      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
-    }
-  };
 
   const showViaModal = () => {
     const journeyPatternId =
@@ -72,7 +52,7 @@ export const StopActionsDropdown = ({
       testId="stop-row-action-menu"
     >
       {stopBelongsToJourneyPattern ? (
-        <button type="button" onClick={deleteFromJourneyPattern}>
+        <button type="button" onClick={() => onDeleteFromRoute(stop.label)}>
           {t('stops.removeFromRoute')}
         </button>
       ) : (
