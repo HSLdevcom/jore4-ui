@@ -50,8 +50,9 @@ export const EditStopLayer: React.FC<Props> = ({
   onEditingFinished,
 }) => {
   const [isStopDraggable, setIsStopDraggable] = useState(false);
-  const [deleteChanges, setDeleteChanges] = useState<DeleteChanges>();
+  const [createChanges, setCreateChanges] = useState<CreateChanges>();
   const [editChanges, setEditChanges] = useState<EditChanges>();
+  const [deleteChanges, setDeleteChanges] = useState<DeleteChanges>();
   const [displayedEditor, setDisplayedEditor] = useState<StopEditorViews>(
     StopEditorViews.None,
   );
@@ -99,12 +100,14 @@ export const EditStopLayer: React.FC<Props> = ({
   };
 
   const onCloseEditors = () => {
+    setCreateChanges(undefined);
     setSelectedStopId(undefined);
     setEditedStopData(undefined);
     setDisplayedEditor(StopEditorViews.None);
   };
 
   const onFinishEditing = () => {
+    setCreateChanges(undefined);
     setEditChanges(undefined);
     setDeleteChanges(undefined);
     onCloseEditors();
@@ -206,6 +209,10 @@ export const EditStopLayer: React.FC<Props> = ({
     }
   };
 
+  const createChangesValid = (changes: CreateChanges) => {
+    return !changes.conflicts?.length;
+  };
+
   const onStopFormSubmit = async (changes: EditChanges | CreateChanges) => {
     // for editing, it'll need to show a confirmation windows
     if (isEditChanges(changes)) {
@@ -213,8 +220,25 @@ export const EditStopLayer: React.FC<Props> = ({
       return;
     }
 
-    // for creating, it'll execute the creation immediately
-    await doCreateStop(changes);
+    setCreateChanges(changes);
+
+    if (createChangesValid(changes)) {
+      // for creating, it'll execute the creation if changes were valid
+      await doCreateStop(changes);
+    }
+  };
+
+  const getActiveChanges = () => {
+    if (createChanges && editChanges) {
+      throw new Error('Undefined state');
+    }
+    return createChanges || editChanges;
+  };
+
+  const getCurrentConflicts = () => {
+    const changes = getActiveChanges();
+
+    return changes?.conflicts;
   };
 
   const getVehicleMode = () =>
@@ -222,6 +246,7 @@ export const EditStopLayer: React.FC<Props> = ({
       ? getStopVehicleMode(editedStopData as StopWithVehicleMode)
       : undefined;
 
+  const currentConflicts = getCurrentConflicts();
   return (
     <>
       {/* Creates new <Stop> instance for both existing and draft stops */}
@@ -258,13 +283,16 @@ export const EditStopLayer: React.FC<Props> = ({
           onSubmit={onStopFormSubmit}
         />
       )}
-      {editChanges && editChanges.conflicts?.length && (
+      {currentConflicts?.length && (
         <ConflictResolverModal
-          onClose={() => setEditChanges(undefined)}
-          conflicts={editChanges.conflicts.map(mapStopToCommonConflictItem)}
+          onClose={() => {
+            setCreateChanges(undefined);
+            setEditChanges(undefined);
+          }}
+          conflicts={currentConflicts?.map(mapStopToCommonConflictItem)}
         />
       )}
-      {editChanges && !editChanges.conflicts?.length && (
+      {editChanges && !editChanges?.conflicts?.length && (
         <EditStopConfirmationDialog
           isOpen={!!editChanges}
           onCancel={() => setEditChanges(undefined)}
