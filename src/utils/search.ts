@@ -28,7 +28,7 @@ const defaultSearchParametersGqlConfig: SearchParametersGqlConfigurations = {
   label: {
     value: '',
     replaceStar: true,
-    operator: '_like',
+    operator: '_ilike',
   },
 };
 
@@ -73,10 +73,22 @@ export const constructGqlFilterObject = (params: SearchConditions) => {
     return transformToFilterAttribute(key, value);
   });
 
+  // Converting array [{key: value}, ...] into a single object {key: value, ...}
+  const filter = Object.assign({}, ...result);
+
+  // TODO: This will be changed to dynamic when the sorting feature is implemented
+  // but until then, we should have the sorting by label and validity_start hardcoded
+  const orderBy = [{ label: 'asc' }, { validity_start: 'asc' }];
+
   return {
-    filter: {
-      ...result.reduce((next, curr) => ({ ...curr, ...next })),
+    lineFilter: {
+      ...filter,
     },
+    routeFilter: {
+      ...filter,
+    },
+    lineOrderBy: orderBy,
+    routeOrderBy: orderBy,
   };
 };
 
