@@ -33,10 +33,10 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
     >
       <tbody>
         <tr
-          class="border border-white bg-background undefined"
+          class="border border-white bg-background undefined p-4"
         >
           <td
-            class="border-l-8 py-4 pl-16 pr-4 text-3xl font-bold"
+            class="border-l-10 border-hsl-dark-green p-4 pl-12"
           >
             <div
               class="flex flex-row items-center"
@@ -54,6 +54,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
                 />
               </span>
               <span
+                class="text-2xl font-bold"
                 data-testid="route-row-label"
               >
                 65 itään
@@ -61,50 +62,61 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
             </div>
           </td>
           <td
-            class="flex items-center py-4 text-3xl"
+            class="py-4"
           >
-            <span
-              data-testid="route-row-name"
-            >
-              Reitti A - B FI
-            </span>
-            <a
-              data-testid="edit-route-button"
-              href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
-            >
-              <div
-                class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
-              >
-                <svg
-                  class="text-2xl text-tweaked-brand"
-                  fill="currentColor"
-                  height="1em"
-                  stroke="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 24 24"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M0 0h24v24H0z"
-                    fill="none"
-                  />
-                  <path
-                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                  />
-                </svg>
-              </div>
-            </a>
-          </td>
-          <td
-            class="pr-16 text-right"
-            data-testid="route-row-validity-period"
-          >
-            Voimassa 1.1.2021 - 13.12.2023
-          </td>
-          <td>
             <div
               class="flex flex-row items-center"
+            >
+              <span
+                class="text-2xl"
+                data-testid="route-row-name"
+              >
+                Reitti A - B FI
+              </span>
+              <a
+                data-testid="edit-route-button"
+                href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
+              >
+                <div
+                  class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
+                >
+                  <svg
+                    class="text-2xl text-tweaked-brand"
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="p-4"
+            data-testid="route-row-validity-period"
+          >
+            <div
+              class="flex flex-row items-center justify-end"
+            >
+              Voimassa 1.1.2021 - 13.12.2023
+            </div>
+          </td>
+          <td
+            class="p-4"
+          >
+            <div
+              class="flex flex-row items-center justify-end"
             >
               <span
                 data-testid="route-row-last-edited"
@@ -223,10 +235,10 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
     >
       <tbody>
         <tr
-          class="border border-white bg-background undefined"
+          class="border border-white bg-background undefined p-4"
         >
           <td
-            class="border-l-8 py-4 pl-16 pr-4 text-3xl font-bold"
+            class="border-l-10 border-hsl-dark-green p-4 pl-12"
           >
             <div
               class="flex flex-row items-center"
@@ -244,6 +256,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 />
               </span>
               <span
+                class="text-2xl font-bold"
                 data-testid="route-row-label"
               >
                 65 itään
@@ -251,50 +264,61 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             </div>
           </td>
           <td
-            class="flex items-center py-4 text-3xl"
+            class="py-4"
           >
-            <span
-              data-testid="route-row-name"
-            >
-              Reitti A - B FI
-            </span>
-            <a
-              data-testid="edit-route-button"
-              href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
-            >
-              <div
-                class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
-              >
-                <svg
-                  class="text-2xl text-tweaked-brand"
-                  fill="currentColor"
-                  height="1em"
-                  stroke="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 24 24"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M0 0h24v24H0z"
-                    fill="none"
-                  />
-                  <path
-                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                  />
-                </svg>
-              </div>
-            </a>
-          </td>
-          <td
-            class="pr-16 text-right"
-            data-testid="route-row-validity-period"
-          >
-            Voimassa 1.1.2021 - 13.12.2023
-          </td>
-          <td>
             <div
               class="flex flex-row items-center"
+            >
+              <span
+                class="text-2xl"
+                data-testid="route-row-name"
+              >
+                Reitti A - B FI
+              </span>
+              <a
+                data-testid="edit-route-button"
+                href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
+              >
+                <div
+                  class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
+                >
+                  <svg
+                    class="text-2xl text-tweaked-brand"
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="p-4"
+            data-testid="route-row-validity-period"
+          >
+            <div
+              class="flex flex-row items-center justify-end"
+            >
+              Voimassa 1.1.2021 - 13.12.2023
+            </div>
+          </td>
+          <td
+            class="p-4"
+          >
+            <div
+              class="flex flex-row items-center justify-end"
             >
               <span
                 data-testid="route-row-last-edited"
@@ -378,12 +402,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           class="border border-l-8  undefined"
         >
           <td
-            class="py-4 pl-16 pr-4"
+            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
             data-testid="stop-row-label"
           >
             pysäkki A
           </td>
           <td
+            class="w-auto"
             data-testid="stop-row-name"
           >
             <div
@@ -395,14 +420,20 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             </div>
           </td>
           <td
-            class="pr-16 text-right"
+            class="p-4"
             data-testid="stop-row-validity-period"
           >
-            Voimassa 1.1.2000 - 13.12.2050
-          </td>
-          <td>
             <div
-              class="flex flex-row items-center"
+              class="flex flex-row items-center justify-end"
+            >
+              Voimassa 1.1.2000 - 13.12.2050
+            </div>
+          </td>
+          <td
+            class="p-4"
+          >
+            <div
+              class="flex flex-row items-center justify-end"
             >
               <span
                 data-testid="stop-row-last-edited"
@@ -470,12 +501,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           class="border border-l-8  undefined"
         >
           <td
-            class="py-4 pl-16 pr-4"
+            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
             data-testid="stop-row-label"
           >
             pysäkki C
           </td>
           <td
+            class="w-auto"
             data-testid="stop-row-name"
           >
             <div
@@ -487,14 +519,20 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             </div>
           </td>
           <td
-            class="pr-16 text-right"
+            class="p-4"
             data-testid="stop-row-validity-period"
           >
-            Voimassa 1.1.2000 - 13.12.2050
-          </td>
-          <td>
             <div
-              class="flex flex-row items-center"
+              class="flex flex-row items-center justify-end"
+            >
+              Voimassa 1.1.2000 - 13.12.2050
+            </div>
+          </td>
+          <td
+            class="p-4"
+          >
+            <div
+              class="flex flex-row items-center justify-end"
             >
               <span
                 data-testid="stop-row-last-edited"
@@ -597,10 +635,10 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
     >
       <tbody>
         <tr
-          class="border border-white bg-background undefined"
+          class="border border-white bg-background undefined p-4"
         >
           <td
-            class="border-l-8 py-4 pl-16 pr-4 text-3xl font-bold"
+            class="border-l-10 border-hsl-dark-green p-4 pl-12"
           >
             <div
               class="flex flex-row items-center"
@@ -618,6 +656,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 />
               </span>
               <span
+                class="text-2xl font-bold"
                 data-testid="route-row-label"
               >
                 65 itään
@@ -625,50 +664,61 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             </div>
           </td>
           <td
-            class="flex items-center py-4 text-3xl"
+            class="py-4"
           >
-            <span
-              data-testid="route-row-name"
-            >
-              Reitti A - B FI
-            </span>
-            <a
-              data-testid="edit-route-button"
-              href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
-            >
-              <div
-                class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
-              >
-                <svg
-                  class="text-2xl text-tweaked-brand"
-                  fill="currentColor"
-                  height="1em"
-                  stroke="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 24 24"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M0 0h24v24H0z"
-                    fill="none"
-                  />
-                  <path
-                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                  />
-                </svg>
-              </div>
-            </a>
-          </td>
-          <td
-            class="pr-16 text-right"
-            data-testid="route-row-validity-period"
-          >
-            Voimassa 1.1.2021 - 13.12.2023
-          </td>
-          <td>
             <div
               class="flex flex-row items-center"
+            >
+              <span
+                class="text-2xl"
+                data-testid="route-row-name"
+              >
+                Reitti A - B FI
+              </span>
+              <a
+                data-testid="edit-route-button"
+                href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
+              >
+                <div
+                  class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
+                >
+                  <svg
+                    class="text-2xl text-tweaked-brand"
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="p-4"
+            data-testid="route-row-validity-period"
+          >
+            <div
+              class="flex flex-row items-center justify-end"
+            >
+              Voimassa 1.1.2021 - 13.12.2023
+            </div>
+          </td>
+          <td
+            class="p-4"
+          >
+            <div
+              class="flex flex-row items-center justify-end"
             >
               <span
                 data-testid="route-row-last-edited"
@@ -752,12 +802,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           class="border border-l-8  undefined"
         >
           <td
-            class="py-4 pl-16 pr-4"
+            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
             data-testid="stop-row-label"
           >
             pysäkki A
           </td>
           <td
+            class="w-auto"
             data-testid="stop-row-name"
           >
             <div
@@ -769,14 +820,20 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             </div>
           </td>
           <td
-            class="pr-16 text-right"
+            class="p-4"
             data-testid="stop-row-validity-period"
           >
-            Voimassa 1.1.2000 - 13.12.2050
-          </td>
-          <td>
             <div
-              class="flex flex-row items-center"
+              class="flex flex-row items-center justify-end"
+            >
+              Voimassa 1.1.2000 - 13.12.2050
+            </div>
+          </td>
+          <td
+            class="p-4"
+          >
+            <div
+              class="flex flex-row items-center justify-end"
             >
               <span
                 data-testid="stop-row-last-edited"
@@ -844,12 +901,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           class="border border-l-8 bg-background text-dark-grey undefined"
         >
           <td
-            class="py-4 pl-16 pr-4"
+            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
             data-testid="stop-row-label"
           >
             pysäkki B
           </td>
           <td
+            class="w-auto"
             data-testid="stop-row-name"
           >
             <div
@@ -861,14 +919,20 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             </div>
           </td>
           <td
-            class="pr-16 text-right"
+            class="p-4"
             data-testid="stop-row-validity-period"
           >
-            Ei reitin käytössä
-          </td>
-          <td>
             <div
-              class="flex flex-row items-center"
+              class="flex flex-row items-center justify-end"
+            >
+              Ei reitin käytössä
+            </div>
+          </td>
+          <td
+            class="p-4"
+          >
+            <div
+              class="flex flex-row items-center justify-end"
             >
               <span
                 data-testid="stop-row-last-edited"
@@ -936,12 +1000,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           class="border border-l-8  undefined"
         >
           <td
-            class="py-4 pl-16 pr-4"
+            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
             data-testid="stop-row-label"
           >
             pysäkki C
           </td>
           <td
+            class="w-auto"
             data-testid="stop-row-name"
           >
             <div
@@ -953,14 +1018,20 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             </div>
           </td>
           <td
-            class="pr-16 text-right"
+            class="p-4"
             data-testid="stop-row-validity-period"
           >
-            Voimassa 1.1.2000 - 13.12.2050
-          </td>
-          <td>
             <div
-              class="flex flex-row items-center"
+              class="flex flex-row items-center justify-end"
+            >
+              Voimassa 1.1.2000 - 13.12.2050
+            </div>
+          </td>
+          <td
+            class="p-4"
+          >
+            <div
+              class="flex flex-row items-center justify-end"
             >
               <span
                 data-testid="stop-row-last-edited"
