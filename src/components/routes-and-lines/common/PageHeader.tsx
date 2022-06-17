@@ -4,10 +4,10 @@ interface Props {
   className?: string;
 }
 
-export const PageHeader: React.FC<Props> = ({ className, children }) => {
+export const PageHeader: React.FC<Props> = ({ className = '', children }) => {
   return (
-    <div className="bg-background">
-      <div className={`container mx-auto py-12 ${className}`}>{children}</div>
+    <div className={`border-b border-light-grey bg-background ${className}`}>
+      <div className="container mx-auto py-10">{children}</div>
     </div>
   );
 };
