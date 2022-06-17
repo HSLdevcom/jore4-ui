@@ -63,4 +63,6 @@
 .icon-metro:before { content: '\e83f'; } /* '' */
 .icon-via:before { content: '\e841'; } /* '' */
 .icon-time2-1:before { content: '\e87e'; } /* '' */
+.icon-temporary:before { content: '\e881'; } /* '' */
+.icon-temporary-outline:before { content: '\e882'; } /* '' */
 .icon-alert-filled:before { content: '\e8bf'; } /* '' */
