@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { MdOutlineHistory } from 'react-icons/md';
 import { RouteDirectionEnum, RouteRoute } from '../../../generated/graphql';
-import { useShowRoutesOnModal } from '../../../hooks';
+import { useAlertsAndHighLights, useShowRoutesOnModal } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import {
@@ -31,29 +31,45 @@ export const RouteStopsHeaderRow = ({
   const { t } = useTranslation();
   const { showRoutesOnModal } = useShowRoutesOnModal();
 
+  const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
+  const alertStyle = getAlertStyle(getAlertLevel(route));
+
   return (
-    <tr className={`border border-white bg-background ${className}`}>
-      <td className="border-l-8 py-4 pl-16 pr-4 text-3xl font-bold">
+    <tr className={`border border-white bg-background ${className} p-4`}>
+      <td className={`${alertStyle.listItemBorder || ''} p-4 pl-12`}>
         <Row className="items-center">
           <DirectionBadge direction={route.direction as RouteDirectionEnum} />
-          <span data-testid="route-row-label">{route.label}</span>
+          <span className="text-2xl font-bold" data-testid="route-row-label">
+            {route.label}
+          </span>
         </Row>
       </td>
-      <td className="flex items-center py-4 text-3xl">
-        <span data-testid="route-row-name">{route.name_i18n?.fi_FI}</span>
-        <EditButton
-          href={routeDetails[Path.editRoute].getLink(route.route_id)}
-          testId="edit-route-button"
-        />
-      </td>
-      <td className="pr-16 text-right" data-testid="route-row-validity-period">
-        {t('validity.validDuring', {
-          startDate: mapToShortDate(route.validity_start || MIN_DATE),
-          endDate: mapToShortDate(route.validity_end || MAX_DATE),
-        })}
-      </td>
-      <td>
+      <td className="py-4">
         <Row className="items-center">
+          <span className="text-2xl" data-testid="route-row-name">
+            {route.name_i18n?.fi_FI}
+          </span>
+          <EditButton
+            href={routeDetails[Path.editRoute].getLink(route.route_id)}
+            testId="edit-route-button"
+          />
+        </Row>
+      </td>
+      <td className="p-4" data-testid="route-row-validity-period">
+        <Row className="items-center justify-end">
+          {t('validity.validDuring', {
+            startDate: mapToShortDate(route.validity_start || MIN_DATE),
+            endDate: mapToShortDate(route.validity_end || MAX_DATE),
+          })}
+          {alertStyle.icon ? (
+            <i className={`${alertStyle.icon} ml-2 text-3xl`} />
+          ) : (
+            ''
+          )}
+        </Row>
+      </td>
+      <td className="p-4">
+        <Row className="items-center justify-end">
           <span data-testid="route-row-last-edited">
             !{mapToShortDateTime(DateTime.now())}
           </span>
