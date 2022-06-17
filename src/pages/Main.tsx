@@ -15,7 +15,7 @@ export const Main: React.FC = () => {
         <h1 className="mb-10 text-center text-4xl font-bold">
           {t('welcomePage.heading')}
         </h1>
-        <div className="space-y-6 text-xl">
+        <div className="mb-6 space-y-6 text-xl">
           <h2 className="font-bold">{t('welcomePage.subheading1')}</h2>
           <p>{t('welcomePage.paragraph1')}</p>
           <h2 className="font-bold">{t('welcomePage.subheading2')}</h2>
