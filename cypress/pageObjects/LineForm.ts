@@ -11,6 +11,18 @@ export class LineForm {
     return cy.getByTestId('LinePropertiesForm:finnishName');
   }
 
+  getSwedishNameInput() {
+    return cy.getByTestId('LinePropertiesForm:swedishName');
+  }
+
+  getFinnishShortNameInput() {
+    return cy.getByTestId('LinePropertiesForm:finnishShortName');
+  }
+
+  getSwedishShortNameInput() {
+    return cy.getByTestId('LinePropertiesForm:swedishShortName');
+  }
+
   selectTransportTarget(target: string) {
     cy.getByTestId('transport-target-input').click();
     cy.get('li').contains(target).click();

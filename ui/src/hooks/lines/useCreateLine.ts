@@ -26,8 +26,8 @@ interface CreateChanges {
 export const mapFormToInput = (state: FormState) => {
   const input = {
     label: state.label,
-    name_i18n: { fi_FI: state.finnishName },
-    short_name_i18n: { fi_FI: state.finnishName },
+    name_i18n: state.name,
+    short_name_i18n: state.shortName,
     primary_vehicle_mode:
       state.primaryVehicleMode as ReusableComponentsVehicleModeEnum,
     priority: state.priority,
