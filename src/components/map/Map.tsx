@@ -56,7 +56,7 @@ export const MapComponent = (
 
   const routeDisplayed = !!initiallyDisplayedRouteIds?.length;
 
-  const [showInfraLinks, setShowInfraLinks] = useState(!routeDisplayed);
+  const [showInfraLinks, setShowInfraLinks] = useState(false);
   const [showRoute, setShowRoute] = useState(routeDisplayed);
   const [showStops, setShowStops] = useState(true);
 
