@@ -20,7 +20,10 @@ describe('Verify that creating new line works', () => {
   });
   it('Creates new line as expected', () => {
     lineForm.getLabelInput().type(testLabel);
-    lineForm.getFinnishNameInput().type('Testilinja');
+    lineForm.getFinnishNameInput().type('Testilinja FI');
+    lineForm.getSwedishNameInput().type('Testilinja SV');
+    lineForm.getFinnishShortNameInput().type('Testilinja lyhyt FI');
+    lineForm.getSwedishShortNameInput().type('Testilinja lyhyt SV');
     lineForm.selectTransportTarget('Helsingin sisäinen liikenne');
     lineForm.selectVehicleType('Bussi');
     lineForm.selectLineType('Peruslinja');
