@@ -92,7 +92,7 @@ const slice = createSlice({
     /**
      * Start creating a new route. Start by opening metadata form.
      */
-    startRouteCreating: (state) => {
+    startRouteCreating: (state: IState) => {
       state.isRouteMetadataFormOpen = true;
       state.creatingNewRoute = true;
       state.selectedRouteId = undefined;
@@ -100,7 +100,7 @@ const slice = createSlice({
     /**
      * Quit route creation mode. Reset draw mode and metadata.
      */
-    resetRouteCreating: (state) => {
+    resetRouteCreating: (state: IState) => {
       state.drawingMode = initialState.drawingMode;
       state.creatingNewRoute = false;
       state.editedRouteData = initialState.editedRouteData;
@@ -108,7 +108,7 @@ const slice = createSlice({
     /**
      * Start editing route geometry. Could be existing route or freshly drawn draft route.
      */
-    startRouteEditing: (state) => {
+    startRouteEditing: (state: IState) => {
       const routeToEdit = state.creatingNewRoute
         ? undefined
         : state?.selectedRouteId;
@@ -122,7 +122,7 @@ const slice = createSlice({
     /**
      * Stop editing route geometry.
      */
-    stopRouteEditing: (state) => {
+    stopRouteEditing: (state: IState) => {
       state.drawingMode = undefined;
       if (!state.creatingNewRoute) {
         state.editedRouteData = initialState.editedRouteData;
@@ -131,22 +131,30 @@ const slice = createSlice({
     /**
      * Set template route to be used when drawing a new route.
      */
-    setTemplateRouteId: (state, action: PayloadAction<UUID | undefined>) => {
+    setTemplateRouteId: (
+      state: IState,
+      action: PayloadAction<UUID | undefined>,
+    ) => {
       state.editedRouteData.templateRouteId = action.payload;
     },
     /**
      * Set a stop to (not) belong to a route when creating / editing a route.
      */
     setStopOnRoute: (
-      state,
-      action: PayloadAction<{ stopLabel: string; belongsToRoute: boolean }>,
+      state: IState,
+      action: PayloadAction<{
+        stopLabel: string;
+        belongsToJourneyPattern: boolean;
+      }>,
     ) => {
-      const { stopLabel, belongsToRoute } = action.payload;
+      const { stopLabel, belongsToJourneyPattern } = action.payload;
 
       state.editedRouteData = {
         ...state.editedRouteData,
         stops: state.editedRouteData.stops?.map((item) =>
-          item.label === stopLabel ? { ...item, belongsToRoute } : item,
+          item.label === stopLabel
+            ? { ...item, belongsToJourneyPattern }
+            : item,
         ),
       };
     },
@@ -154,7 +162,7 @@ const slice = createSlice({
      * Set created / edited route metadata.
      */
     setRouteMetadata: (
-      state,
+      state: IState,
       action: PayloadAction<Partial<RouteFormState>>,
     ) => {
       state.editedRouteData.metaData = action.payload;
@@ -163,7 +171,7 @@ const slice = createSlice({
      * Finish editing route metadata form, store metadata in state and close form.
      */
     finishRouteMetadataEditing: (
-      state,
+      state: IState,
       action: PayloadAction<Partial<RouteFormState>>,
     ) => {
       state.editedRouteData = {
@@ -179,7 +187,10 @@ const slice = createSlice({
     /**
      * Initialize map editor state to show some routes.
      */
-    initializeMapEditorWithRoutes: (state, action: PayloadAction<UUID[]>) => {
+    initializeMapEditorWithRoutes: (
+      state: IState,
+      action: PayloadAction<UUID[]>,
+    ) => {
       return {
         ...initialState,
         initiallyDisplayedRouteIds: action.payload,
@@ -188,14 +199,14 @@ const slice = createSlice({
     /**
      * Set route instances to show in the map view.
      */
-    setDisplayedRouteIds: (state, action: PayloadAction<UUID[]>) => {
+    setDisplayedRouteIds: (state: IState, action: PayloadAction<UUID[]>) => {
       state.displayedRouteIds = action.payload;
     },
     /**
      * Store created / edited route geometry in state.
      */
     setDraftRouteGeometry: (
-      state,
+      state: IState,
       action: PayloadAction<{
         stops: RouteStop[];
         infraLinks: InfrastructureLinkAlongRoute[];
@@ -212,7 +223,7 @@ const slice = createSlice({
     /**
      * Reset created / edited route geometry in state.
      */
-    resetDraftRouteGeometry: (state) => {
+    resetDraftRouteGeometry: (state: IState) => {
       state.editedRouteData = {
         ...state.editedRouteData,
         stops: [],
@@ -222,13 +233,19 @@ const slice = createSlice({
     /**
      * Select a route by id.
      */
-    setSelectedRouteId: (state, action: PayloadAction<UUID | undefined>) => {
+    setSelectedRouteId: (
+      state: IState,
+      action: PayloadAction<UUID | undefined>,
+    ) => {
       state.selectedRouteId = action.payload;
     },
     /**
      * Set route metadata edit form open / closed.
      */
-    setRouteMetadataFormOpen: (state, action: PayloadAction<boolean>) => {
+    setRouteMetadataFormOpen: (
+      state: IState,
+      action: PayloadAction<boolean>,
+    ) => {
       state.isRouteMetadataFormOpen = action.payload;
     },
   },
