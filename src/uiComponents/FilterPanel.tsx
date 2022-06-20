@@ -51,7 +51,7 @@ export const FilterPanel = ({
   return (
     <div className={`inline-block ${className}`}>
       <Card className="flex-col rounded-b-none">
-        <h3 className={headingClassName}>{t('map.showRoutes')}</h3>
+        <h3 className={headingClassName}>{t('map.showNetwork')}</h3>
         <ToggleRow toggles={routes} />
       </Card>
       <Card className="flex-col rounded-t-none !border-t-0">
