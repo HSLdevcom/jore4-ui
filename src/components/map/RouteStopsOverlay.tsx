@@ -31,11 +31,11 @@ const StopRow = ({
 
   const dispatch = useAppDispatch();
 
-  const setOnRoute = (belongsToRoute: boolean) => {
+  const setOnRoute = (belongsToJourneyPattern: boolean) => {
     dispatch(
       setStopOnRouteAction({
         stopLabel: label,
-        belongsToRoute,
+        belongsToJourneyPattern,
       }),
     );
   };
