@@ -175,12 +175,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
             class="w-20"
           >
             <button
-              class="h-full w-full text-center"
+              class="text-center h-full w-full"
               data-testid="RouteStopsHeaderRow::toggleAccordion"
               type="button"
             >
               <svg
-                class="inline text-center text-3xl text-tweaked-brand"
+                class="text-3xl text-tweaked-brand inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -377,12 +377,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             class="w-20"
           >
             <button
-              class="h-full w-full text-center"
+              class="text-center h-full w-full"
               data-testid="RouteStopsHeaderRow::toggleAccordion"
               type="button"
             >
               <svg
-                class="inline text-center text-3xl text-tweaked-brand"
+                class="text-3xl text-tweaked-brand inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -777,12 +777,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             class="w-20"
           >
             <button
-              class="h-full w-full text-center"
+              class="text-center h-full w-full"
               data-testid="RouteStopsHeaderRow::toggleAccordion"
               type="button"
             >
               <svg
-                class="inline text-center text-3xl text-tweaked-brand"
+                class="text-3xl text-tweaked-brand inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
