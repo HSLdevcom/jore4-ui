@@ -60,7 +60,15 @@
     "saveSuccess": "Line saved",
     "properties": "Properties",
     "label": "Label",
-    "finnishName": "Name (Finnish)",
+    "showNameVersions": "Name versions",
+    "name": {
+      "fi_FI": "Line name",
+      "sv_FI": "Line name in Swedish"
+    },
+    "shortName": {
+      "fi_FI": "Line short name",
+      "sv_FI": "Line short name in Swedish"
+    },
     "primaryVehicleMode": "Primary vehicle mode",
     "chooseVehicleMode": "Choose vehicle mode",
     "line": "Line {{ label }}",

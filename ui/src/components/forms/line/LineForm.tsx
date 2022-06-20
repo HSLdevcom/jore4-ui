@@ -56,7 +56,7 @@ export const LineForm = ({ defaultValues, onSubmit }: Props): JSX.Element => {
       <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
         <Row className="mt-10">
           <FormContainer className="w-full p-6">
-            <LinePropertiesForm className="mb-2 ml-2" />
+            <LinePropertiesForm className="m-2" />
           </FormContainer>
         </Row>
         <Row className="mt-2">

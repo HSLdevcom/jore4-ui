@@ -7,16 +7,33 @@ import {
 } from '../../../generated/graphql';
 import { mapLineDetailsResult } from '../../../graphql';
 import { useEditLine } from '../../../hooks';
-import { Container, Row, Visible } from '../../../layoutComponents';
+import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToISODate } from '../../../time';
-import { mapToVariables, showSuccessToast } from '../../../utils';
+import {
+  defaultLocalizedString,
+  mapToVariables,
+  showSuccessToast,
+} from '../../../utils';
 import { FormState, LineForm } from '../../forms/line/LineForm';
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
 } from '../common/ConflictResolverModal';
 import { PageHeader } from '../common/PageHeader';
+
+const mapLineToFormState = (line: RouteLine): FormState => ({
+  label: line.label,
+  name: defaultLocalizedString(line.name_i18n),
+  shortName: defaultLocalizedString(line.short_name_i18n),
+  primaryVehicleMode: line.primary_vehicle_mode,
+  priority: line.priority,
+  transportTarget: line.transport_target,
+  typeOfLine: line.type_of_line,
+  validityStart: mapToISODate(line.validity_start) || '',
+  validityEnd: mapToISODate(line.validity_end) || '',
+  indefinite: !line.validity_end,
+});
 
 export const EditLinePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
@@ -34,18 +51,6 @@ export const EditLinePage = (): JSX.Element => {
   );
   const line = mapLineDetailsResult(lineDetailsResult);
   const { t } = useTranslation();
-
-  const defaultValues = {
-    label: line?.label,
-    finnishName: line?.name_i18n.fi_FI,
-    primaryVehicleMode: line?.primary_vehicle_mode,
-    priority: line?.priority,
-    transportTarget: line?.transport_target,
-    typeOfLine: line?.type_of_line,
-    validityStart: mapToISODate(line?.validity_start),
-    validityEnd: mapToISODate(line?.validity_end),
-    indefinite: !line?.validity_end,
-  };
 
   const onSubmit = async (form: FormState) => {
     try {
@@ -85,9 +90,12 @@ export const EditLinePage = (): JSX.Element => {
         </Row>
       </PageHeader>
       <Container>
-        <Visible visible={!!line}>
-          <LineForm onSubmit={onSubmit} defaultValues={defaultValues} />
-        </Visible>
+        {line && (
+          <LineForm
+            onSubmit={onSubmit}
+            defaultValues={mapLineToFormState(line)}
+          />
+        )}
       </Container>
     </div>
   );
