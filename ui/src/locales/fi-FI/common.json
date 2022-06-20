@@ -60,7 +60,15 @@
     "saveSuccess": "Linja tallennettu",
     "properties": "Oheistiedot",
     "label": "Tunnus",
-    "finnishName": "Nimi (Suomi)",
+    "showNameVersions": "Nimiversiot",
+    "name": {
+      "fi_FI": "Linjan nimi",
+      "sv_FI": "Linjan nimi ruotsiksi"
+    },
+    "shortName": {
+      "fi_FI": "Linjan lyhenne",
+      "sv_FI": "Linjan lyhenne ruotsiksi"
+    },
     "primaryVehicleMode": "Ensisijainen kulkumuoto",
     "chooseVehicleMode": "Valitse kulkumuoto",
     "line": "Linja {{ label }}",
