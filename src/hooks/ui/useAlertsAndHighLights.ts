@@ -21,9 +21,14 @@ export const useAlertsAndHighLights = () => {
     // TODO: this logic is actually pretty far from the desired functionality, but at least
     // will let us demo the different highlighting
 
-    // if there's less than 20 days until the validity end, it's "Important"
+    // if there's less than 20 days until the validity end and is currently valid, it's "Important"
     const validityEnd = parseDate(input.validity_end);
-    if (validityEnd && validityEnd < DateTime.now().plus({ days: 20 })) {
+    const now = DateTime.now();
+    if (
+      validityEnd && // has an end
+      validityEnd < now.plus({ days: 20 }) && // end is coming in 20 days
+      validityEnd > now // still active
+    ) {
       return AlertLevel.Important;
     }
 
