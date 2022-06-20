@@ -105,7 +105,7 @@
   "map": {
     "map": "Map",
     "open": "Open map",
-    "showRoutes": "Show routes",
+    "showNetwork": "Show network",
     "showStops": "Show stops",
     "joreMap": "Jore 4.0 map",
     "drawRoute": "Draw route",
