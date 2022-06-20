@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { MdOutlineHistory } from 'react-icons/md';
 import { RouteDirectionEnum, RouteRoute } from '../../../generated/graphql';
 import { useAlertsAndHighLights, useShowRoutesOnModal } from '../../../hooks';
@@ -12,7 +11,11 @@ import {
   MAX_DATE,
   MIN_DATE,
 } from '../../../time';
-import { EditButton, LocatorButton } from '../../../uiComponents';
+import {
+  AccordionButton,
+  EditButton,
+  LocatorButton,
+} from '../../../uiComponents';
 import { DirectionBadge } from './DirectionBadge';
 
 interface Props {
@@ -90,18 +93,13 @@ export const RouteStopsHeaderRow = ({
         />
       </td>
       <td className="w-20">
-        <button
-          type="button"
-          className="h-full w-full text-center"
-          onClick={onToggle}
-          data-testid="RouteStopsHeaderRow::toggleAccordion"
-        >
-          {isOpen ? (
-            <FaChevronUp className="inline text-center text-3xl text-tweaked-brand" />
-          ) : (
-            <FaChevronDown className="inline text-center text-3xl text-tweaked-brand" />
-          )}
-        </button>
+        <AccordionButton
+          className="h-full w-full"
+          iconClassName="text-5xl"
+          isOpen={isOpen}
+          onToggle={onToggle}
+          testId="RouteStopsHeaderRow::toggleAccordion"
+        />
       </td>
     </tr>
   );
