@@ -37,8 +37,8 @@ const mapRouteToFormState = (route: RouteRoute): RouteFormState => ({
   direction: route.direction as RouteDirection,
   priority: route.priority,
   validityStart: mapToISODate(route.validity_start) || '',
-  validityEnd: mapToISODate(route?.validity_end) || '',
-  indefinite: !route?.validity_end,
+  validityEnd: mapToISODate(route.validity_end) || '',
+  indefinite: !route.validity_end,
   origin: {
     name: defaultLocalizedString(route.origin_name_i18n),
     shortName: defaultLocalizedString(route.origin_short_name_i18n),
