@@ -10,7 +10,7 @@ const navMenuStyles = 'border-l border-black border-opacity-20';
 export const Navbar: FunctionComponent = () => {
   return (
     <nav className="flex flex-row items-center bg-brand">
-      <BrandLogo className="pr-5" style={{ marginLeft: 29 }} />
+      <BrandLogo className="my-3.5 pr-5" style={{ marginLeft: 29 }} />
       <LoggedIn>
         <NavLinks />
       </LoggedIn>
