@@ -125,7 +125,7 @@ export const useGetLineDetails = () => {
   const selectedDate = queryParams.selectedDate as string | undefined;
 
   const fetchLineDetails = async () => {
-    if (lineDetailsResult) {
+    if (lineDetailsResult?.data) {
       const lineDetails = mapLineDetailsWithRoutesResult(lineDetailsResult);
       const initialDate = getInitialDate(
         selectedDate,
