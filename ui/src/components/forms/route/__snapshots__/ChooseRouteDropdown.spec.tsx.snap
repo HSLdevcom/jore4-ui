@@ -163,12 +163,12 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
     </button>
     <ul
       aria-labelledby="headlessui-combobox-button-8"
-      class="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
+      class="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
       id="headlessui-combobox-options-10"
       role="listbox"
     >
       <li
-        id="headlessui-combobox-option-13"
+        id="headlessui-combobox-option-11"
         role="option"
         tabindex="-1"
       >

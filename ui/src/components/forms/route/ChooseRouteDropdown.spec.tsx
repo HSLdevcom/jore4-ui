@@ -185,18 +185,11 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
     expect(container.querySelector('li')).toBeNull();
     expect(asFragment()).toMatchSnapshot();
 
-    // write query
+    // write a query to the input textbox
     const input = screen.getByTestId(inputTestId);
-
-    // The input is debounced, so we need to use fake timers...
-    jest.useFakeTimers('modern');
     fireEvent.change(input, { target: { value: '1' } });
 
-    // ...and run the timers to get the debounced value
-    await act(async () => jest.runAllTimers());
-
     // To make sure that the query result is ready, we need to use real timers again
-    jest.useRealTimers();
     await act(async () => sleep(0));
 
     // dropdown is open, first line shows
