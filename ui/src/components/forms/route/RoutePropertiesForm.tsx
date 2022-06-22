@@ -22,6 +22,11 @@ export interface RouteFormProps {
   onSubmit: (state: RouteFormState) => void;
 }
 
+const testIds = {
+  directionDropdown: 'routePropertiesForm:direction-dropdown',
+  lineChoiceDropdown: 'routePropertiesForm:choose-line-dropdown',
+};
+
 const RoutePropertiesFormComponent = (
   { id, routeLabel, className, defaultValues, onSubmit }: RouteFormProps,
   ref: ExplicitAny,
@@ -65,7 +70,7 @@ const RoutePropertiesFormComponent = (
               {t('routes.route')} {routeLabel}
             </h2>
           </Row>
-        )}
+        )}  
         <Row className="mb-5 flex-wrap gap-2">
           <Column className="w-80 flex-auto">
             <label htmlFor="finnishName">{t('routes.name')}</label>
@@ -95,6 +100,7 @@ const RoutePropertiesFormComponent = (
               render={({ field: { onChange, onBlur, value } }) => (
                 <DirectionDropdown
                   value={value}
+                  testId={testIds.directionDropdown}
                   onChange={onChange}
                   onBlur={onBlur}
                 />
@@ -113,6 +119,7 @@ const RoutePropertiesFormComponent = (
               render={({ field: { onChange, onBlur, value } }) => (
                 <ChooseLineDropdown
                   value={value}
+                  testId={testIds.lineChoiceDropdown}
                   onChange={onChange}
                   onBlur={onBlur}
                 />
