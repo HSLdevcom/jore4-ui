@@ -18,15 +18,18 @@ export const MapOverlay: React.FC<MapOverlayProps> = ({
 
 interface MapOverlayHeaderProps {
   className?: string;
+  testId?: string;
 }
 
 export const MapOverlayHeader: React.FC<MapOverlayHeaderProps> = ({
   className = '',
   children,
+  testId,
 }) => {
   return (
     <Row
       className={`items-center space-x-1 border-b border-gray-200 bg-background p-3 ${className}`}
+      testId={testId}
     >
       {children}
     </Row>
