@@ -1,11 +1,11 @@
-.next
+ui/.next
 .vscode
-out
+ui/out
 
 # generated graphql schema
-graphql.schema.json
+ui/graphql.schema.json
 
-src/generated/*
+ui/src/generated/*
 
 # external docker dependencies
 docker

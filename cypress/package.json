@@ -7,8 +7,6 @@
     "cypress": "CYPRESS_BASE_URL=http://localhost:3300 cypress",
     "ts:check": "yarn tsc --noEmit",
     "ts:build": "yarn tsc --build",
-    "prettier": "prettier --write .",
-    "prettier:check": "prettier --check .",
     "qa": "yarn --frozen-lockfile && yarn ts:check && yarn prettier:check"
   },
   "dependencies": {
