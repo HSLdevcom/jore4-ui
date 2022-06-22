@@ -1,18 +1,18 @@
 export class ConfirmSaveForm {
-  setAsStandard() {
-    return cy.getByTestId('confirmSaveForm:standardPriorityButton').click();
+  setAsStandard(forceAction = false) {
+    return cy.getByTestId('confirmSaveForm:standardPriorityButton').click({ force: forceAction });
   }
 
-  setAsDraft() {
-    return cy.getByTestId('confirmSaveForm:draftPriorityButton').click();
+  setAsDraft(forceAction = false) {
+    return cy.getByTestId('confirmSaveForm:draftPriorityButton').click({ force: forceAction });
   }
 
-  setAsTemporary() {
-    return cy.getByTestId('confirmSaveForm:temporaryPriorityButton').click();
+  setAsTemporary(forceAction = false) {
+    return cy.getByTestId('confirmSaveForm:temporaryPriorityButton').click({ force: forceAction });
   }
 
-  setStartDate(isoDate: string) {
-    return cy.getByTestId('confirmSaveForm:startDateInput').type(isoDate);
+  setStartDate(isoDate: string, forceAction = false) {
+    return cy.getByTestId('confirmSaveForm:startDateInput').type(isoDate, { force: forceAction } );
   }
 
   setEndDate(isoDate: string) {
