@@ -236,9 +236,14 @@ export * from './EditButton';
 export * from './SimpleDropdownMenu';
 ```
 
-## Yarn workspaces
+## Yarn workspaces / monorepo structure
 
-Currently we have `cypress` and `test-db-manager` in separate yarn workspaces and jore-ui itself in "workspace root".
-Because of that we get `error Running this command will add the dependency to the workspace root rather than the workspace itself, which might not be what you want - if you really meant it, make it explicit by running this command again with the -W flag (or --ignore-workspace-root-check).` when trying to `yarn add` anything to the jore4-ui project itself.
-We can ignore that for now and use `-W` flag when adding dependencies.
-At some point we could consider moving workspaces to separate repositories or refactkrj g ui project itself to a separate workspace.
+This repository has currently three different yarn workspaces in following folders:
+
+- `ui` itself for the ui project
+- `cypress` for e2e tests
+- `test-db-manager` for handling db in tests (currently used only in `cypress` project)
+
+Workspaces-specific dependencies should be installed to workspaces themselfs and shared dependencies should be installed to workspace root.
+
+Prettier and eslint live currently on workspace root as that allows having same config for those for all workspaces.

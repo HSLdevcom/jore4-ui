@@ -10,8 +10,7 @@
     "build": "yarn clean && yarn rollup --config rollup.config.js",
     "clean": "rm -rf ts-dist && rm -rf dist && rm -f tsconfig.tsbuildinfo && rm -rf .rollup.cache",
     "ts:check": "yarn tsc --noEmit",
-    "ts:build": "yarn tsc --build",
-    "qa": "yarn --frozen-lockfile && yarn ts:check"
+    "ts:build": "yarn tsc --build"
   },
   "dependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",

@@ -32,7 +32,7 @@ module.exports = {
     },
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'jest'],
-  ignorePatterns: ['src/generated/*.tsx'],
+  ignorePatterns: ['ui/src/generated/*.tsx'],
   rules: {
     'arrow-body-style': 'off', // allow writing arrow functions like () => { return ...} instead of forcing those to be () => (...)
     'no-use-before-define': 'off', // note you must disable the base rule as it can report incorrect errors: https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-use-before-define.md#how-to-use

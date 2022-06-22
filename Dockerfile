@@ -1,16 +1,17 @@
 FROM node:16.13.2-alpine AS build
 WORKDIR /app
 COPY package.json yarn.lock ./
+COPY ./ui/package.json ./ui/
 RUN yarn install --frozen-lockfile
-COPY ./src ./src
-COPY ./public ./public
-COPY tsconfig.json next.config.js next-env.d.ts tailwind.config.js postcss.config.js convert-theme-to-ts theme.js graphql.schema.json ./
+COPY ./ui/src ./ui/src
+COPY ./ui/public ./ui/public
+COPY ./ui/tsconfig.json ./ui/next.config.js ./ui/next-env.d.ts ./ui/tailwind.config.js ./ui/postcss.config.js ./ui/convert-theme-to-ts ./ui/theme.js ./ui/graphql.schema.json ./ui/
 
 ARG NEXT_PUBLIC_GIT_HASH=unknown
-RUN yarn build
+RUN yarn ws:ui run build
 
 FROM nginx:1.19.6-alpine
 EXPOSE 80
 COPY default.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/out /usr/share/nginx/html
+COPY --from=build /app/ui/out /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
