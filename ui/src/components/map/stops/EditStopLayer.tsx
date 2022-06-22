@@ -262,9 +262,9 @@ export const EditStopLayer: React.FC<Props> = ({
       />
       {displayedEditor === StopEditorViews.Popup && (
         <StopPopup
+          stop={editedStopData}
           longitude={editedStopLocation.longitude}
           latitude={editedStopLocation.latitude}
-          label={editedStopData.label || ''}
           onEdit={() => {
             setDisplayedEditor(StopEditorViews.Modal);
           }}

@@ -1,21 +1,34 @@
+import { DateTime } from 'luxon';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { TFunction, useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl';
+import { StopWithLocation } from '../../../graphql';
 import { Column, Row } from '../../../layoutComponents';
+import { mapToShortDate } from '../../../time';
 import { Point } from '../../../types';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 
 interface Props extends Point {
-  label?: string;
+  stop: StopWithLocation;
   onEdit: () => void;
   onMove: () => void;
   onClose: () => void;
   onDelete: () => void;
 }
 
+const mapToValidityPeriod = (
+  t: TFunction,
+  validityStart?: DateTime | null,
+  validityEnd?: DateTime | null,
+) => {
+  return `${mapToShortDate(validityStart)} -  ${
+    mapToShortDate(validityEnd) || t('saveChangesModal.indefinite')
+  }`;
+};
+
 export const StopPopup = ({
-  label,
+  stop,
   latitude,
   longitude,
   onEdit,
@@ -24,6 +37,8 @@ export const StopPopup = ({
   onDelete,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
+  // eslint-disable-next-line camelcase
+  const { label, validity_start, validity_end } = stop;
   return (
     <Popup
       className="w-80"
@@ -47,6 +62,7 @@ export const StopPopup = ({
             </Row>
           </Column>
         </Row>
+        <Row>{mapToValidityPeriod(t, validity_start, validity_end)}</Row>
         <Row className="mt-16">
           <SimpleButton className="h-full !px-3" onClick={onDelete} inverted>
             <MdDelete aria-label={t('map.deleteRoute')} className="text-lg" />

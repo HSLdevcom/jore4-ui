@@ -49,6 +49,7 @@ export const formatDate = (
   return dateTime.setLocale(dateLocale).toLocaleString(format);
 };
 
+// "shortDate" means format DD.MM.YYYY
 export const mapToShortDate = (date?: DateLike | null, locale?: string) =>
   formatDate(DateTime.DATE_SHORT, date, locale);
 
