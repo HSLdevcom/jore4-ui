@@ -14,6 +14,10 @@ import { EditButton, SimpleDropdownMenu } from '../../uiComponents';
 import { mapToVariables } from '../../utils';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
 
+const testIds = {
+  mapOverlayHeader: 'RouteStopsOverlay:mapOverlayHeader',
+};
+
 interface Props {
   className?: string;
 }
@@ -100,7 +104,7 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
 
   return (
     <MapOverlay className={className}>
-      <MapOverlayHeader>
+      <MapOverlayHeader testId={testIds.mapOverlayHeader}>
         <i className="icon-bus-alt text-2xl text-tweaked-brand" />
         <div>
           <h2 className="text-2xl font-bold text-tweaked-brand">{routeName}</h2>

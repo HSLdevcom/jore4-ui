@@ -22,6 +22,13 @@ export interface RouteFormProps {
   onSubmit: (state: RouteFormState) => void;
 }
 
+const testIds = {
+  directionDropdown: 'routePropertiesForm:direction-dropdown',
+  lineChoiceDropdown: 'routePropertiesForm:choose-line-dropdown',
+  label: 'routePropertiesForm:label',
+  finnishName: 'routePropertiesForm:finnishName',
+};
+
 const RoutePropertiesFormComponent = (
   { id, routeLabel, className = '', defaultValues, onSubmit }: RouteFormProps,
   ref: ExplicitAny,
@@ -71,6 +78,7 @@ const RoutePropertiesFormComponent = (
             <label htmlFor="finnishName">{t('routes.name')}</label>
             <input
               id="finnishName"
+              data-testId={testIds.finnishName}
               type="text"
               {...register('finnishName', {})}
             />
@@ -81,7 +89,12 @@ const RoutePropertiesFormComponent = (
           </Column>
           <Column className="w-44 flex-auto">
             <label htmlFor="label">{t('routes.label')}</label>
-            <input id="label" type="text" {...register('label', {})} />
+            <input
+              id="label"
+              data-testId={testIds.label}
+              type="text"
+              {...register('label', {})}
+            />
             <p>
               {errors.label?.type === 'too_small' &&
                 t('formValidation.required')}
@@ -95,6 +108,7 @@ const RoutePropertiesFormComponent = (
               render={({ field: { onChange, onBlur, value } }) => (
                 <DirectionDropdown
                   value={value}
+                  testId={testIds.directionDropdown}
                   onChange={onChange}
                   onBlur={onBlur}
                 />
@@ -113,6 +127,7 @@ const RoutePropertiesFormComponent = (
               render={({ field: { onChange, onBlur, value } }) => (
                 <ChooseLineDropdown
                   value={value}
+                  testId={testIds.lineChoiceDropdown}
                   onChange={onChange}
                   onBlur={onBlur}
                 />
