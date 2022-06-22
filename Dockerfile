@@ -5,7 +5,7 @@ COPY ./ui/package.json ./ui/
 RUN yarn install --frozen-lockfile
 COPY ./ui/src ./ui/src
 COPY ./ui/public ./ui/public
-COPY ./ui/tsconfig.json ./ui/next.config.js ./ui/next-env.d.ts ./ui/tailwind.config.js ./ui/postcss.config.js ./ui/convert-theme-to-ts ./ui/theme.js ./ui/graphql.schema.json ./ui/
+COPY ./ui/tsconfig.json ./ui/next.config.js ./ui/next-env.d.ts ./ui/tailwind.config.js ./ui/postcss.config.js ./ui/convert-theme-to-ts.js ./ui/theme.js ./ui/graphql.schema.json ./ui/
 
 ARG NEXT_PUBLIC_GIT_HASH=unknown
 RUN yarn ws:ui run build
