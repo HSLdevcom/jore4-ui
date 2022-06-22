@@ -12,7 +12,7 @@
     "prettier:check": "prettier --check .",
     "test": "jest --ci",
     "gql:generate-types": "TS_NODE_PROJECT=./tsconfig.codegen.json graphql-codegen --config codegen.js",
-    "generate-theme": "./convert-theme-to-ts",
+    "generate-theme": "./convert-theme-to-ts.js",
     "start": "next start"
   },
   "dependencies": {
