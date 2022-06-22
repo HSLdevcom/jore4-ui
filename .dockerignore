@@ -9,9 +9,12 @@
 # next.js
 /.next/
 /out/
+/ui/.next/
+/ui/out/
 
 # production
 /build
+/ui/build
 
 # misc
 .DS_Store
@@ -28,3 +31,7 @@ yarn-error.log*
 .gitignore
 
 Dockerfile
+
+# non-related projects/workspaces
+cypress
+test-db-manager

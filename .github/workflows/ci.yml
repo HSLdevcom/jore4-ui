@@ -27,11 +27,8 @@ jobs:
       - name: Check that code matches linter's config
         run: yarn lint
 
-      - name: Check that test db manager is OK
-        run: yarn ws:db qa
-
       - name: Check that generated style file is up-to-date
-        run: cp src/generated/theme.ts src/generated/existing-theme-file.ts && rm src/generated/theme.ts && yarn generate-theme && cmp src/generated/theme.ts src/generated/existing-theme-file.ts
+        run: cp ui/src/generated/theme.ts ui/src/generated/existing-theme-file.ts && rm ui/src/generated/theme.ts && yarn ws:ui generate-theme && cmp ui/src/generated/theme.ts ui/src/generated/existing-theme-file.ts
 
       - name: Run tests
         run: yarn test

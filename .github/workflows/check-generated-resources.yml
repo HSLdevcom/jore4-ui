@@ -33,7 +33,7 @@ jobs:
           retries: 50
 
       - name: Regenerate schemas
-        run: yarn gql:generate-types
+        run: yarn ws:ui run gql:generate-types
 
       - name: Verify that generate command made no changes, so schema is up to date
         run: '[ -z "$(git status --porcelain)" ]'
