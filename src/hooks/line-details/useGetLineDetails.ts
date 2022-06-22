@@ -75,8 +75,7 @@ const getInitialDate = (
   }
 
   const isActiveToday =
-    validityStart &&
-    validityStart <= DateTime.now() &&
+    (!validityStart || validityStart <= DateTime.now()) &&
     (!validityEnd || validityEnd >= DateTime.now());
 
   if (isActiveToday) {
