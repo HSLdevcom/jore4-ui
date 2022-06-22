@@ -32,10 +32,6 @@ export const ActionsRow = ({
     const updatedUrlQuery = produce(queryParams, (draft) => {
       if (date.isValid) {
         draft.selectedDate = date.toISODate();
-        delete draft.showAll;
-      } else {
-        draft.showAll = true.toString();
-        delete draft.selectedDate;
       }
     });
 
@@ -54,7 +50,8 @@ export const ActionsRow = ({
         <Column className="w-1/4">
           <input
             type="date"
-            value={observationDate?.toISODate() || ''}
+            required
+            value={observationDate?.toISODate()}
             onChange={(e) => onDateChange(DateTime.fromISO(e.target.value))}
             className="flex-1"
           />

@@ -66,7 +66,7 @@ const filterLineDetailsByDate = (line: RouteLine) => {
 
 /** Returns the initial observation date depending on the parameters. */
 const getInitialDate = (
-  selectedISODate: string,
+  selectedISODate: string | undefined,
   validityStart?: DateTime | null,
   validityEnd?: DateTime | null,
 ) => {
@@ -80,8 +80,7 @@ const getInitialDate = (
     (!validityEnd || validityEnd >= DateTime.now());
 
   if (isActiveToday) {
-    // DateTime.now() triggers infinite re-renders, so need to doublecast it
-    return DateTime.fromISO(DateTime.now().toISODate());
+    return DateTime.now().startOf('day');
   }
 
   return validityStart;
@@ -122,50 +121,39 @@ export const useGetLineDetails = () => {
   const [getHighestPriorityLineDetails] =
     useGetHighestPriorityLineDetailsWithRoutesAsyncQuery();
   const [line, setLine] = useState<RouteLine>();
-  const [observationDate, setObservationDate] = useState<
-    DateTime | null | undefined
-  >();
+  const [observationDate, setObservationDate] = useState<DateTime>();
 
-  const [selectedDate, showAll] = [
-    queryParams.selectedDate as string,
-    queryParams.showAll === 'true',
-  ];
+  const selectedDate = queryParams.selectedDate as string | undefined;
 
   const fetchLineDetails = async () => {
     if (lineDetailsResult) {
       const lineDetails = mapLineDetailsWithRoutesResult(lineDetailsResult);
-      const initialDate = showAll
-        ? undefined
-        : getInitialDate(
-            selectedDate,
-            lineDetails?.validity_start,
-            lineDetails?.validity_end,
-          );
+      const initialDate = getInitialDate(
+        selectedDate,
+        lineDetails?.validity_start,
+        lineDetails?.validity_end,
+      );
 
-      if (showAll) {
-        setLine(lineDetails);
-      } else {
-        const lineByDateResult = await getHighestPriorityLineDetails(
-          constructLineDetailsGqlFilters(lineDetails, initialDate),
-        );
+      const lineByDateResult = await getHighestPriorityLineDetails(
+        constructLineDetailsGqlFilters(lineDetails, initialDate),
+      );
 
-        const lineByDate =
-          mapHighestPriorityLineDetailsWithRoutesResult(lineByDateResult);
+      const lineByDate =
+        mapHighestPriorityLineDetailsWithRoutesResult(lineByDateResult);
 
-        const filteredLine =
-          !showAll && lineByDate
-            ? filterLineDetailsByDate(lineByDate)
-            : undefined;
+      const filteredLine = lineByDate
+        ? filterLineDetailsByDate(lineByDate)
+        : undefined;
 
-        setLine(filteredLine);
-      }
-      setObservationDate(initialDate);
+      setLine(filteredLine);
+
+      setObservationDate(initialDate as DateTime);
     }
   };
   useEffect(() => {
     fetchLineDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, showAll, selectedDate, lineDetailsResult]);
+  }, [id, selectedDate, lineDetailsResult]);
 
   return {
     line,
