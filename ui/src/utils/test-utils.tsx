@@ -34,6 +34,9 @@ export const sleep = (timeout: number) =>
 // mock the current date to be static
 Date.now = jest.fn(() => 1487076708000);
 
+// mock the lodash debounce module to call the function immediately
+jest.mock('lodash/debounce', () => jest.fn((fn) => fn));
+
 export const buildLocalizedString = (str: string) => ({
   fi_FI: str,
   sv_FI: `${str} SV`,
