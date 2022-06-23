@@ -44,7 +44,7 @@ interface Props {
 export const FilterPanel = ({
   routes,
   stops,
-  className,
+  className = '',
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const headingClassName = 'text-base font-bold';

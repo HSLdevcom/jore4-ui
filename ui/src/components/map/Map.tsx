@@ -38,7 +38,12 @@ interface Props {
 }
 
 export const MapComponent = (
-  { drawable = false, className, width = '100vw', height = '100vh' }: Props,
+  {
+    drawable = false,
+    className = '',
+    width = '100vw',
+    height = '100vh',
+  }: Props,
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
   const routeEditorRef = useRef<ExplicitAny>(null);

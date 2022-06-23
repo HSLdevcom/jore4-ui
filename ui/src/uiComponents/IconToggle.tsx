@@ -10,8 +10,8 @@ interface Props {
 export const IconToggle = ({
   enabled,
   onToggle,
-  className,
-  iconClassName,
+  className = '',
+  iconClassName = '',
 }: Props): JSX.Element => {
   return (
     <button

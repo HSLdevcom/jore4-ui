@@ -26,7 +26,7 @@ interface Props {
 }
 
 export const RouteStopsHeaderRow = ({
-  className,
+  className = '',
   route,
   isOpen,
   onToggle,

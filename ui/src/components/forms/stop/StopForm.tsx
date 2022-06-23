@@ -69,7 +69,7 @@ interface Props {
 }
 
 const StopFormComponent = (
-  { className, defaultValues, onSubmit }: Props,
+  { className = '', defaultValues, onSubmit }: Props,
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();

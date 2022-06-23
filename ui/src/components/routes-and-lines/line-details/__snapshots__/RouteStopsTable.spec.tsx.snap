@@ -15,7 +15,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
       <button
         aria-checked="false"
         aria-labelledby="headlessui-label-1"
-        class="undefined border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
+        class=" border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
         data-testid="show-unused-stops-switch"
         id="headlessui-switch-2"
         role="switch"
@@ -31,9 +31,11 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
       class="h-1 w-full undefined"
       data-testid="routeStopsTable1"
     >
-      <tbody>
+      <tbody
+        class=""
+      >
         <tr
-          class="border border-white bg-background undefined p-4"
+          class="border border-white bg-background  p-4"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-12"
@@ -221,7 +223,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
       <button
         aria-checked="false"
         aria-labelledby="headlessui-label-1"
-        class="undefined border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
+        class=" border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
         data-testid="show-unused-stops-switch"
         id="headlessui-switch-2"
         role="switch"
@@ -237,9 +239,11 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
       class="h-1 w-full undefined"
       data-testid="routeStopsTable1"
     >
-      <tbody>
+      <tbody
+        class=""
+      >
         <tr
-          class="border border-white bg-background undefined p-4"
+          class="border border-white bg-background  p-4"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-12"
@@ -407,7 +411,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
         </tr>
         <tr
-          class="border border-l-8  undefined"
+          class="border border-l-8  "
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
@@ -506,7 +510,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
         </tr>
         <tr
-          class="border border-l-8  undefined"
+          class="border border-l-8  "
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
@@ -625,7 +629,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
       <button
         aria-checked="true"
         aria-labelledby="headlessui-label-1"
-        class="undefined border-brand bg-brand relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
+        class=" border-brand bg-brand relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
         data-testid="show-unused-stops-switch"
         id="headlessui-switch-2"
         role="switch"
@@ -641,9 +645,11 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
       class="h-1 w-full undefined"
       data-testid="routeStopsTable1"
     >
-      <tbody>
+      <tbody
+        class=""
+      >
         <tr
-          class="border border-white bg-background undefined p-4"
+          class="border border-white bg-background  p-4"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-12"
@@ -811,7 +817,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           </td>
         </tr>
         <tr
-          class="border border-l-8  undefined"
+          class="border border-l-8  "
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
@@ -910,7 +916,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           </td>
         </tr>
         <tr
-          class="border border-l-8 bg-background text-dark-grey undefined"
+          class="border border-l-8 bg-background text-dark-grey "
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
@@ -1009,7 +1015,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           </td>
         </tr>
         <tr
-          class="border border-l-8  undefined"
+          class="border border-l-8  "
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"

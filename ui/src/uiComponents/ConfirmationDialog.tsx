@@ -22,7 +22,7 @@ export const ConfirmationDialog: React.FC<Props> = ({
   description,
   confirmText,
   cancelText,
-  className,
+  className = '',
 }) => {
   const descHtml = { __html: description };
   return (

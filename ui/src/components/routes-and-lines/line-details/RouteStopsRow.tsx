@@ -21,7 +21,7 @@ interface Props {
 }
 
 export const RouteStopsRow = ({
-  className,
+  className = '',
   stop,
   routeId,
   onAddToRoute,

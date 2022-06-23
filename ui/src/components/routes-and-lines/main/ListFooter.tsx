@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const ListFooter = ({
-  className,
+  className = '',
   onLimitChange,
 }: Props): JSX.Element => {
   const { t } = useTranslation();

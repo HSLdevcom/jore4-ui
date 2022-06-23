@@ -16,7 +16,7 @@ export const EditStopConfirmationDialog: React.FC<Props> = ({
   isOpen,
   onConfirm,
   onCancel,
-  className,
+  className = '',
   editChanges,
 }) => {
   const { t } = useTranslation();

@@ -23,7 +23,7 @@ interface Props {
 }
 
 export const RouteStopsSection = ({
-  className,
+  className = '',
   route,
   showUnusedStops,
 }: Props) => {

@@ -11,7 +11,7 @@ interface Props {
 
 export const IconButton: React.FC<Props> = ({
   testId,
-  className,
+  className = '',
   disabled,
   icon,
   onClick,

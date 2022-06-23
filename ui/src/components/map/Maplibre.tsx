@@ -31,7 +31,7 @@ interface MaplibreViewport {
 }
 
 export const Maplibre: FunctionComponent<Props> = ({
-  className,
+  className = '',
   onClick,
   width = '100vw',
   height = '100vh',

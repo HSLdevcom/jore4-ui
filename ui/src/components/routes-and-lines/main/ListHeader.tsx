@@ -17,7 +17,7 @@ export const ListHeader = ({
   limit,
   onShowOwnChange,
   onLimitChange,
-  className,
+  className = '',
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 

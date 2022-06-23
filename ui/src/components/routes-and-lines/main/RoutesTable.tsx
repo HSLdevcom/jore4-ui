@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const RoutesTable: React.FC<Props> = ({
-  className,
+  className = '',
   testId,
   children,
 }) => {
