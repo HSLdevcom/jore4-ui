@@ -21,11 +21,11 @@ import { ObservationDateOverlay } from './ObservationDateOverlay';
 import {
   DrawRouteLayer,
   EditRouteMetadataLayer,
+  isRouteGeometryLayer,
   mapLayerIdToRouteId,
-  RouteLayer,
-  ROUTE_LAYER_ID_PREFIX,
+  RouteEditor,
+  RouteGeometryLayer,
 } from './routes';
-import { RouteEditor } from './routes/RouteEditor';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopFilterOverlay } from './StopFilterOverlay';
 import { Stops } from './stops';
@@ -107,7 +107,7 @@ export const MapComponent = (
 
     if (features?.length) {
       const routeFeatures = features.filter((feature) =>
-        feature.layer.id.includes(ROUTE_LAYER_ID_PREFIX),
+        isRouteGeometryLayer(feature.layer.id),
       );
 
       if (routeFeatures.length) {
@@ -206,7 +206,7 @@ export const MapComponent = (
       {showRoute &&
         routeDisplayed &&
         displayedRouteIds?.map((item) => (
-          <RouteLayer
+          <RouteGeometryLayer
             key={item}
             routeId={item}
             isSelected={selectedRouteId === item && !hasDraftRouteGeometry}

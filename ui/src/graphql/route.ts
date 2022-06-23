@@ -303,6 +303,19 @@ const GET_ROUTE_DETAILS_BY_IDS = gql`
   }
 `;
 
+const GET_ROUTE_RENDER_INFO_BY_ID = gql`
+  query GetRouteRenderInfoById($routeId: uuid!) {
+    route_route_by_pk(route_id: $routeId) {
+      route_id
+      route_shape
+      route_line {
+        line_id
+        primary_vehicle_mode
+      }
+    }
+  }
+`;
+
 const GET_ROUTE_DETAILS_BY_LABELS = gql`
   query GetRouteDetailsByLabels($labels: [String!], $date: timestamptz) {
     route_route(
