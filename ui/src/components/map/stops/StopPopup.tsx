@@ -6,10 +6,10 @@ import { Popup } from 'react-map-gl';
 import { StopWithLocation } from '../../../graphql';
 import { Column, Row } from '../../../layoutComponents';
 import { mapToShortDate } from '../../../time';
-import { Point } from '../../../types';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
+import { mapLngLatToPoint } from '../../../utils';
 
-interface Props extends Point {
+interface Props {
   stop: StopWithLocation;
   onEdit: () => void;
   onMove: () => void;
@@ -29,8 +29,6 @@ const mapToValidityPeriod = (
 
 export const StopPopup = ({
   stop,
-  latitude,
-  longitude,
   onEdit,
   onMove,
   onClose,
@@ -39,6 +37,7 @@ export const StopPopup = ({
   const { t } = useTranslation();
   // eslint-disable-next-line camelcase
   const { label, validity_start, validity_end } = stop;
+  const location = mapLngLatToPoint(stop.measured_location.coordinates);
   return (
     <Popup
       className="w-80"
@@ -46,8 +45,8 @@ export const StopPopup = ({
       offsetLeft={5}
       offsetTop={25}
       anchor="top"
-      longitude={longitude}
-      latitude={latitude}
+      longitude={location.longitude}
+      latitude={location.latitude}
       closeOnClick={false}
       closeButton={false}
     >
