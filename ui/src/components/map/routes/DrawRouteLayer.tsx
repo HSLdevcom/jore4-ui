@@ -1,6 +1,7 @@
 import { Feature } from '@nebula.gl/edit-modes';
 import composeRefs from '@seznam/compose-react-refs';
 import debounce from 'lodash/debounce';
+import isNil from 'lodash/isNil';
 import remove from 'lodash/remove';
 import React, {
   useCallback,
@@ -13,7 +14,12 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapContext } from 'react-map-gl';
-import { DrawLineStringMode, EditingMode, Editor } from 'react-map-gl-draw';
+import {
+  DrawLineStringMode,
+  EditingMode,
+  Editor,
+  SelectAction,
+} from 'react-map-gl-draw';
 import {
   ReusableComponentsVehicleModeEnum,
   useGetRoutesWithInfrastructureLinksQuery,
@@ -292,6 +298,22 @@ const DrawRouteLayerComponent = (
     };
   }, [keyDown]);
 
+  const onFeatureSelected = ({
+    selectedEditHandleIndex: selectedIndex,
+  }: SelectAction) => {
+    // only snap point features have a handle, not interested in other features
+    if (isNil(selectedIndex)) {
+      return;
+    }
+
+    // toggle selection when snap point is clicked
+    const newSelection = selectedSnapPoints.includes(selectedIndex)
+      ? selectedSnapPoints.filter((item) => item !== selectedIndex) // unselect
+      : [...selectedSnapPoints, selectedIndex]; // select
+
+    setSelectedSnapPoints(newSelection);
+  };
+
   return (
     <Editor
       style={{
@@ -307,28 +329,7 @@ const DrawRouteLayerComponent = (
       features={routeFeatures as Feature[]}
       featuresDraggable={false}
       selectable
-      onSelect={({
-        selectedEditHandleIndex,
-      }: {
-        selectedEditHandleIndex: number;
-      }) => {
-        if (selectedEditHandleIndex === null) {
-          return;
-        }
-
-        if (selectedSnapPoints.includes(selectedEditHandleIndex)) {
-          setSelectedSnapPoints(
-            selectedSnapPoints.filter(
-              (handle) => handle !== selectedEditHandleIndex,
-            ),
-          );
-        } else {
-          setSelectedSnapPoints([
-            ...selectedSnapPoints,
-            selectedEditHandleIndex,
-          ]);
-        }
-      }}
+      onSelect={onFeatureSelected}
       editHandleStyle={handleStyle(selectedSnapPoints)}
     />
   );
