@@ -25,7 +25,9 @@ const ModalFooter = ({ onCancel, onSave }: FooterProps): JSX.Element => {
         <SimpleButton containerClassName="ml-auto" onClick={onCancel} inverted>
           {t('cancel')}
         </SimpleButton>
-        <SimpleButton testId='modal:saveButton' onClick={onSave}>{t('save')}</SimpleButton>
+        <SimpleButton testId="modal:saveButton" onClick={onSave}>
+          {t('save')}
+        </SimpleButton>
       </Row>
     </HeaderFooterContainer>
   );

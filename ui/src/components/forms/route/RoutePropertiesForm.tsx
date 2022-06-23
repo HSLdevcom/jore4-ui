@@ -70,7 +70,7 @@ const RoutePropertiesFormComponent = (
               {t('routes.route')} {routeLabel}
             </h2>
           </Row>
-        )}  
+        )}
         <Row className="mb-5 flex-wrap gap-2">
           <Column className="w-80 flex-auto">
             <label htmlFor="finnishName">{t('routes.name')}</label>

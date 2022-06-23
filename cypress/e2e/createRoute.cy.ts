@@ -1,4 +1,10 @@
-import { ConfirmSaveForm, MapEditor, MapFooter, RoutePropertiesForm, TerminusNameInputs } from '../pageObjects';
+import {
+  ConfirmSaveForm,
+  MapEditor,
+  MapFooter,
+  RoutePropertiesForm,
+  TerminusNameInputs,
+} from '../pageObjects';
 
 describe('Verify that creating new route works', () => {
   let mapEditor: MapEditor;
@@ -15,42 +21,54 @@ describe('Verify that creating new route works', () => {
     cy.mockLogin();
     cy.visit('/routes?mapOpen=true');
   });
-  it('Creates new route as expected', { scrollBehavior: false }, () => {
-    mapFooter.createRoute();
+  it(
+    'Creates new route as expected',
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 6000 },
+    () => {
+      mapFooter.createRoute();
 
-    const routeName = 'Testilinja 1';
+      const routeName = 'Testilinja 1';
 
-    // Date input errenously inputs zoom out commands, these offset them
-    mapEditor.zoomIn();
-    mapEditor.zoomIn();
-    mapEditor.zoomIn();
+      routePropertiesForm.getLabelInput().type('T-Linja 1');
+      routePropertiesForm.getFinnishNameInput().type(routeName);
+      routePropertiesForm.selectDirection('1');
+      routePropertiesForm.selectLine('65');
 
-    routePropertiesForm.getLabelInput().type('T-Linja 1');
-    routePropertiesForm.getFinnishNameInput().type(routeName);
-    routePropertiesForm.selectDirection('1');
-    routePropertiesForm.selectLine('65');
+      // Force text inputs due to scrolling causing zoom out
+      terminusNameInputs
+        .getTerminusOriginFinnishNameInput()
+        .type('Lähtöpaikka');
+      terminusNameInputs.getTerminusOriginFinnishShortNameInput().type('LP');
+      terminusNameInputs.getTerminusOriginSwedishNameInput().type('Ursprung');
+      terminusNameInputs.getTerminusOriginSwedishShortNameInput().type('UP');
 
-    // Force text inputs due to scrolling causing zoom out
-    terminusNameInputs.getTerminusOriginFinnishNameInput().type("Lähtöpaikka", { force: true });
-    terminusNameInputs.getTerminusOriginFinnishShortNameInput().type("LP", { force: true });
-    terminusNameInputs.getTerminusOriginSwedishNameInput().type("Ursprung", { force: true });
-    terminusNameInputs.getTerminusOriginSwedishShortNameInput().type("UP", { force: true });
+      terminusNameInputs
+        .getTerminusDestinationFinnishNameInput()
+        .type('Määränpää');
+      terminusNameInputs
+        .getTerminusDestinationFinnishShortNameInput()
+        .type('MP');
+      terminusNameInputs
+        .getTerminusDestinationSwedishNameInput()
+        .type('Ändstation');
+      terminusNameInputs
+        .getTerminusDestinationSwedishShortNameInput()
+        .type('ÄS');
 
-    terminusNameInputs.getTerminusDestinationFinnishNameInput().type("Määränpää", { force: true });
-    terminusNameInputs.getTerminusDestinationFinnishShortNameInput().type("MP", { force: true });
-    terminusNameInputs.getTerminusDestinationSwedishNameInput().type("Ändstation", { force: true });
-    terminusNameInputs.getTerminusDestinationSwedishShortNameInput().type("ÄS", { force: true });
+      confirmSaveForm.setAsDraft();
+      confirmSaveForm.setStartDate('2022-01-01');
+      confirmSaveForm.getIndefiniteCheckbox().check();
 
-    confirmSaveForm.setAsDraft(true);
-    confirmSaveForm.setStartDate('2022-01-01', true);
-    confirmSaveForm.getIndefiniteCheckbox().check();
+      routePropertiesForm.save();
 
-    routePropertiesForm.save(true);
+      mapEditor.clickAtPositionFromNthMapMarker(-10, 25, 1);
+      mapEditor.clickAtPositionFromNthMapMarker(25, 5, 1);
+      mapEditor.clickNthCreatedRectangle(1);
 
-    mapEditor.clickAtPositionFromNthMapMarker(-10, 15, 1);
-    mapEditor.clickAtPositionFromNthMapMarker(20, 15, 1);
-    mapEditor.clickNthCreatedRectangle(1);
-
-    cy.getByTestId('mapOverlayHeader').get('div').contains(routeName).should('exist');    
-  });
+      cy.getByTestId('mapOverlayHeader')
+        .get('div')
+        .contains(routeName)
+        .should('exist');
+    },
+  );
 });
