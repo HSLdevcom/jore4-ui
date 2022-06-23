@@ -7044,6 +7044,13 @@ export type GetRouteDetailsByIdsQueryVariables = Exact<{
 
 export type GetRouteDetailsByIdsQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', line_id: UUID, label: string, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> }> }> };
 
+export type GetRouteRenderInfoByIdQueryVariables = Exact<{
+  routeId: Scalars['uuid'];
+}>;
+
+
+export type GetRouteRenderInfoByIdQuery = { __typename?: 'query_root', route_route_by_pk?: { __typename?: 'route_route', route_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, route_line?: { __typename?: 'route_line', line_id: UUID, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined } | null | undefined };
+
 export type GetRouteDetailsByLabelsQueryVariables = Exact<{
   labels?: Maybe<Array<Scalars['String']> | Scalars['String']>;
   date?: Maybe<Scalars['timestamptz']>;
@@ -8109,6 +8116,46 @@ export function useGetRouteDetailsByIdsLazyQuery(baseOptions?: Apollo.LazyQueryH
 export type GetRouteDetailsByIdsQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdsQuery>;
 export type GetRouteDetailsByIdsLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdsLazyQuery>;
 export type GetRouteDetailsByIdsQueryResult = Apollo.QueryResult<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>;
+export const GetRouteRenderInfoByIdDocument = gql`
+    query GetRouteRenderInfoById($routeId: uuid!) {
+  route_route_by_pk(route_id: $routeId) {
+    route_id
+    route_shape
+    route_line {
+      line_id
+      primary_vehicle_mode
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetRouteRenderInfoByIdQuery__
+ *
+ * To run a query within a React component, call `useGetRouteRenderInfoByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteRenderInfoByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRouteRenderInfoByIdQuery({
+ *   variables: {
+ *      routeId: // value for 'routeId'
+ *   },
+ * });
+ */
+export function useGetRouteRenderInfoByIdQuery(baseOptions: Apollo.QueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>(GetRouteRenderInfoByIdDocument, options);
+      }
+export function useGetRouteRenderInfoByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>(GetRouteRenderInfoByIdDocument, options);
+        }
+export type GetRouteRenderInfoByIdQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdQuery>;
+export type GetRouteRenderInfoByIdLazyQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdLazyQuery>;
+export type GetRouteRenderInfoByIdQueryResult = Apollo.QueryResult<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>;
 export const GetRouteDetailsByLabelsDocument = gql`
     query GetRouteDetailsByLabels($labels: [String!], $date: timestamptz) {
   route_route(
@@ -9011,6 +9058,10 @@ export function useGetRouteDetailsByIdsAsyncQuery() {
           return useAsyncQuery<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>(GetRouteDetailsByIdsDocument);
         }
 export type GetRouteDetailsByIdsAsyncQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdsAsyncQuery>;
+export function useGetRouteRenderInfoByIdAsyncQuery() {
+          return useAsyncQuery<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>(GetRouteRenderInfoByIdDocument);
+        }
+export type GetRouteRenderInfoByIdAsyncQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdAsyncQuery>;
 export function useGetRouteDetailsByLabelsAsyncQuery() {
           return useAsyncQuery<GetRouteDetailsByLabelsQuery, GetRouteDetailsByLabelsQueryVariables>(GetRouteDetailsByLabelsDocument);
         }
