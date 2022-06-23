@@ -1,10 +1,10 @@
 export class RoutePropertiesForm {
   getLabelInput() {
-    return cy.get('#label');
+    return cy.getByTestId('routePropertiesForm:label');
   }
 
   getFinnishNameInput() {
-    return cy.get('#finnishName');
+    return cy.getByTestId('routePropertiesForm:finnishName');
   }
 
   selectDirection(direction: string) {
@@ -17,7 +17,19 @@ export class RoutePropertiesForm {
     cy.get('li').contains(name).click();
   }
 
+  fillRouteProperties(values: {
+    label: string;
+    finnishName: string;
+    direction: string;
+    line: string;
+  }) {
+    this.getLabelInput().type(values.label);
+    this.getFinnishNameInput().type(values.finnishName);
+    this.selectDirection(values.direction);
+    this.selectLine(values.line);
+  }
+
   save(forceAction = false) {
-    return cy.getByTestId('modal:saveButton').click({ force: forceAction });
+    return cy.getByTestId('Modal:saveButton').click({ force: forceAction });
   }
 }

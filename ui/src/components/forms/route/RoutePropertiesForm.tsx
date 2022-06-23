@@ -25,6 +25,8 @@ export interface RouteFormProps {
 const testIds = {
   directionDropdown: 'routePropertiesForm:direction-dropdown',
   lineChoiceDropdown: 'routePropertiesForm:choose-line-dropdown',
+  label: 'routePropertiesForm:label',
+  finnishName: 'routePropertiesForm:finnishName',
 };
 
 const RoutePropertiesFormComponent = (
@@ -76,6 +78,7 @@ const RoutePropertiesFormComponent = (
             <label htmlFor="finnishName">{t('routes.name')}</label>
             <input
               id="finnishName"
+              data-testId={testIds.finnishName}
               type="text"
               {...register('finnishName', {})}
             />
@@ -86,7 +89,12 @@ const RoutePropertiesFormComponent = (
           </Column>
           <Column className="w-44 flex-auto">
             <label htmlFor="label">{t('routes.label')}</label>
-            <input id="label" type="text" {...register('label', {})} />
+            <input
+              id="label"
+              data-testId={testIds.label}
+              type="text"
+              {...register('label', {})}
+            />
             <p>
               {errors.label?.type === 'too_small' &&
                 t('formValidation.required')}

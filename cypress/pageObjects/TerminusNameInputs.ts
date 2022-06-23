@@ -1,3 +1,10 @@
+export interface TerminusValues {
+  finnishName: string;
+  finnishShortName: string;
+  swedishName: string;
+  swedishShortName: string;
+}
+
 export class TerminusNameInputs {
   getTerminusOriginFinnishNameInput() {
     return cy.getByTestId('terminusNamesForm:origin:finnishNameInput');
@@ -32,6 +39,25 @@ export class TerminusNameInputs {
   getTerminusDestinationSwedishShortNameInput() {
     return cy.getByTestId(
       'terminusNamesForm:destination:swedishShortNameInput',
+    );
+  }
+
+  fillTerminusNameInputsForm(
+    origin: TerminusValues,
+    destination: TerminusValues,
+  ) {
+    this.getTerminusOriginFinnishNameInput().type(origin.finnishName);
+    this.getTerminusOriginSwedishNameInput().type(origin.swedishName);
+    this.getTerminusOriginFinnishShortNameInput().type(origin.finnishShortName);
+    this.getTerminusOriginSwedishShortNameInput().type(origin.swedishShortName);
+
+    this.getTerminusDestinationFinnishNameInput().type(destination.finnishName);
+    this.getTerminusDestinationSwedishNameInput().type(destination.swedishName);
+    this.getTerminusDestinationFinnishShortNameInput().type(
+      destination.finnishShortName,
+    );
+    this.getTerminusDestinationSwedishShortNameInput().type(
+      destination.swedishShortName,
     );
   }
 }

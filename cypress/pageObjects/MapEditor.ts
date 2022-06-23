@@ -14,22 +14,26 @@ export class MapEditor {
     cy.get('.mapboxgl-ctrl-zoom-in').click();
   }
 
+  getNthMarker(markerNumber: number) {
+    return cy
+      .get(`.overlays>.mapboxgl-marker:nth-of-type(${markerNumber})`)
+      .first();
+  }
+
   // Uses css indexing which starts from 1
   clickAtPositionFromNthMapMarker(
     xpos: number,
     ypos: number,
     markerNumber: number,
   ) {
-    cy.get(`.overlays>.mapboxgl-marker:nth-of-type(${markerNumber})`).then(
-      (mark) => {
-        const position = positionStringToCoordinates(
-          mark[0].getAttribute('style'),
-        );
-        cy.get('#editor').click(position.x + xpos, position.y + ypos, {
-          force: true,
-        });
-      },
-    );
+    this.getNthMarker(markerNumber).then((mark) => {
+      const position = positionStringToCoordinates(
+        mark[0].getAttribute('style'),
+      );
+      cy.get('#editor').click(position.x + xpos, position.y + ypos, {
+        force: true,
+      });
+    });
   }
 
   clickNthCreatedRectangle(nth: number) {

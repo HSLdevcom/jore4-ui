@@ -29,31 +29,27 @@ describe('Verify that creating new route works', () => {
 
       const routeName = 'Testilinja 1';
 
-      routePropertiesForm.getLabelInput().type('T-Linja 1');
-      routePropertiesForm.getFinnishNameInput().type(routeName);
-      routePropertiesForm.selectDirection('1');
-      routePropertiesForm.selectLine('65');
+      routePropertiesForm.fillRouteProperties({
+        label: 'T-linja 1',
+        finnishName: routeName,
+        direction: '1',
+        line: '65',
+      });
 
-      // Force text inputs due to scrolling causing zoom out
-      terminusNameInputs
-        .getTerminusOriginFinnishNameInput()
-        .type('Lähtöpaikka');
-      terminusNameInputs.getTerminusOriginFinnishShortNameInput().type('LP');
-      terminusNameInputs.getTerminusOriginSwedishNameInput().type('Ursprung');
-      terminusNameInputs.getTerminusOriginSwedishShortNameInput().type('UP');
-
-      terminusNameInputs
-        .getTerminusDestinationFinnishNameInput()
-        .type('Määränpää');
-      terminusNameInputs
-        .getTerminusDestinationFinnishShortNameInput()
-        .type('MP');
-      terminusNameInputs
-        .getTerminusDestinationSwedishNameInput()
-        .type('Ändstation');
-      terminusNameInputs
-        .getTerminusDestinationSwedishShortNameInput()
-        .type('ÄS');
+      terminusNameInputs.fillTerminusNameInputsForm(
+        {
+          finnishName: 'Lähtöpaikka',
+          swedishName: 'Ursprung',
+          finnishShortName: 'LP',
+          swedishShortName: 'UP',
+        },
+        {
+          finnishName: 'Määränpää',
+          swedishName: 'Ändstation',
+          finnishShortName: 'MP',
+          swedishShortName: 'ÄS',
+        },
+      );
 
       confirmSaveForm.setAsDraft();
       confirmSaveForm.setStartDate('2022-01-01');
@@ -65,7 +61,7 @@ describe('Verify that creating new route works', () => {
       mapEditor.clickAtPositionFromNthMapMarker(25, 5, 1);
       mapEditor.clickNthCreatedRectangle(1);
 
-      cy.getByTestId('mapOverlayHeader')
+      cy.getByTestId('RouteStopsOverlay:mapOverlayHeader')
         .get('div')
         .contains(routeName)
         .should('exist');

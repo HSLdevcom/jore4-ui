@@ -4,6 +4,10 @@ import { Row } from '../../layoutComponents';
 import { SimpleButton } from '../../uiComponents';
 import { ModalHeader } from '../modal';
 
+const testIds = {
+  saveButton: 'Modal:saveButton',
+};
+
 const HeaderFooterContainer: FunctionComponent = ({ children }) => {
   return (
     <div className="border border-light-grey bg-background px-14 py-7">
@@ -25,7 +29,7 @@ const ModalFooter = ({ onCancel, onSave }: FooterProps): JSX.Element => {
         <SimpleButton containerClassName="ml-auto" onClick={onCancel} inverted>
           {t('cancel')}
         </SimpleButton>
-        <SimpleButton testId="modal:saveButton" onClick={onSave}>
+        <SimpleButton testId={testIds.saveButton} onClick={onSave}>
           {t('save')}
         </SimpleButton>
       </Row>
