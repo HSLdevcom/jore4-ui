@@ -10,7 +10,7 @@ export const TextButton: React.FC<Props> = ({
   active,
   onClick,
   children,
-  className,
+  className = '',
 }): JSX.Element => (
   <button
     onClick={onClick}

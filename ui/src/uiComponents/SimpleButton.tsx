@@ -29,12 +29,12 @@ const hoverStyle = `${commonHoverStyle} m-px hover:m-0`;
 export const SimpleButton: React.FC<Props> = (props) => {
   const {
     id,
-    className,
+    className = '',
     inverted,
     disabled,
     testId,
     children,
-    containerClassName,
+    containerClassName = '',
   } = props;
   const colorClassNames = inverted
     ? `text-brand bg-white border border-grey hover:border-brand active:border-brand ${hoverStyle}`

@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const FieldValue = ({
-  className,
+  className = '',
   fieldName,
   value,
   testId,

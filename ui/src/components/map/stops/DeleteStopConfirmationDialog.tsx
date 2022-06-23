@@ -16,7 +16,7 @@ export const DeleteStopConfirmationDialog: React.FC<Props> = ({
   isOpen,
   onConfirm,
   onCancel,
-  className,
+  className = '',
   deleteChanges,
 }) => {
   const { t } = useTranslation();

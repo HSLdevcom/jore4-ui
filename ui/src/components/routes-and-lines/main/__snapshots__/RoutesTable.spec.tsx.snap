@@ -3,7 +3,7 @@
 exports[`<RoutesTable /> Renders the table with line data 1`] = `
 <DocumentFragment>
   <table
-    class="h-1 w-full undefined"
+    class="h-1 w-full "
     data-testid="routesTable1"
   >
     <tbody>
@@ -305,7 +305,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
 exports[`<RoutesTable /> Renders the table with route data 1`] = `
 <DocumentFragment>
   <table
-    class="h-1 w-full undefined"
+    class="h-1 w-full "
     data-testid="routesTable1"
   >
     <tbody>

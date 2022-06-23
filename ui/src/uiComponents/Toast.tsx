@@ -45,7 +45,7 @@ const propsByType: Record<
 export const Toast = ({
   message,
   type = 'primary',
-  className,
+  className = '',
 }: Props): JSX.Element => {
   const { icon, textColor, bg, border, testId } = propsByType[type];
   return (

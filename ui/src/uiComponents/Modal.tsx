@@ -10,7 +10,7 @@ interface Props {
 export const Modal: React.FC<Props> = ({
   isOpen,
   onClose,
-  className,
+  className = '',
   children,
 }) => {
   return (

@@ -23,7 +23,7 @@ export interface RouteFormProps {
 }
 
 const RoutePropertiesFormComponent = (
-  { id, routeLabel, className, defaultValues, onSubmit }: RouteFormProps,
+  { id, routeLabel, className = '', defaultValues, onSubmit }: RouteFormProps,
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();

@@ -6,7 +6,7 @@ interface MapOverlayProps {
 }
 
 export const MapOverlay: React.FC<MapOverlayProps> = ({
-  className,
+  className = '',
   children,
 }) => {
   return (
@@ -21,7 +21,7 @@ interface MapOverlayHeaderProps {
 }
 
 export const MapOverlayHeader: React.FC<MapOverlayHeaderProps> = ({
-  className,
+  className = '',
   children,
 }) => {
   return (

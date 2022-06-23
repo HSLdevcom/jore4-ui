@@ -16,7 +16,10 @@ interface Props {
   line: RouteLine;
 }
 
-export const AdditionalInformation: React.FC<Props> = ({ className, line }) => {
+export const AdditionalInformation: React.FC<Props> = ({
+  className = '',
+  line,
+}) => {
   const { t } = useTranslation();
   return (
     <Column className={className}>

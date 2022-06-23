@@ -8,11 +8,11 @@ interface Props {
 
 export const CloseIconButton = ({
   onClick,
-  className,
+  className = '',
   label,
 }: Props): JSX.Element => {
   return (
-    <button className={className || ''} type="button" onClick={onClick}>
+    <button className={className} type="button" onClick={onClick}>
       {label}
       <i className="icon-close-large ml-4 text-lg" />
     </button>

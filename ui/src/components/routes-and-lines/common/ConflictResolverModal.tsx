@@ -100,7 +100,7 @@ const ConflictItemRow = ({
 
 export const ConflictResolverModal: React.FC<Props> = ({
   onClose,
-  className,
+  className = '',
   conflicts = [],
 }) => {
   const { t } = useTranslation();

@@ -8,7 +8,10 @@ interface Props {
   style?: React.CSSProperties;
 }
 
-export const BrandLogo: FunctionComponent<Props> = ({ className, style }) => {
+export const BrandLogo: FunctionComponent<Props> = ({
+  className = '',
+  style,
+}) => {
   const { t } = useTranslation();
   const target = routeDetails[Path.root];
   return (

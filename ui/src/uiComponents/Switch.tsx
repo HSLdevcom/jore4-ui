@@ -11,7 +11,7 @@ interface Props {
 // a pre-styled version of the Headless UI Switch component
 export const Switch: React.FC<Props> = ({
   testId,
-  className,
+  className = '',
   checked,
   onChange,
 }) => {
@@ -37,7 +37,10 @@ interface LabelProps {
   className?: string;
 }
 
-export const SwitchLabel: React.FC<LabelProps> = ({ className, children }) => {
+export const SwitchLabel: React.FC<LabelProps> = ({
+  className = '',
+  children,
+}) => {
   return (
     <HuiSwitch.Label className={`${className} font-normal`}>
       {children}
