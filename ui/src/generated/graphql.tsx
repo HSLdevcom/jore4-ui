@@ -6999,6 +6999,13 @@ export type GetLineDetailsByIdQueryVariables = Exact<{
 
 export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
 
+export type GetLineValidityPeriodByIdQueryVariables = Exact<{
+  line_id: Scalars['uuid'];
+}>;
+
+
+export type GetLineValidityPeriodByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined };
+
 export type GetLinesByValidityQueryVariables = Exact<{
   filter?: Maybe<RouteLineBoolExp>;
 }>;
@@ -7828,6 +7835,43 @@ export function useGetLineDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type GetLineDetailsByIdQueryHookResult = ReturnType<typeof useGetLineDetailsByIdQuery>;
 export type GetLineDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetLineDetailsByIdLazyQuery>;
 export type GetLineDetailsByIdQueryResult = Apollo.QueryResult<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>;
+export const GetLineValidityPeriodByIdDocument = gql`
+    query GetLineValidityPeriodById($line_id: uuid!) {
+  route_line_by_pk(line_id: $line_id) {
+    line_id
+    validity_start
+    validity_end
+  }
+}
+    `;
+
+/**
+ * __useGetLineValidityPeriodByIdQuery__
+ *
+ * To run a query within a React component, call `useGetLineValidityPeriodByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLineValidityPeriodByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLineValidityPeriodByIdQuery({
+ *   variables: {
+ *      line_id: // value for 'line_id'
+ *   },
+ * });
+ */
+export function useGetLineValidityPeriodByIdQuery(baseOptions: Apollo.QueryHookOptions<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>(GetLineValidityPeriodByIdDocument, options);
+      }
+export function useGetLineValidityPeriodByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>(GetLineValidityPeriodByIdDocument, options);
+        }
+export type GetLineValidityPeriodByIdQueryHookResult = ReturnType<typeof useGetLineValidityPeriodByIdQuery>;
+export type GetLineValidityPeriodByIdLazyQueryHookResult = ReturnType<typeof useGetLineValidityPeriodByIdLazyQuery>;
+export type GetLineValidityPeriodByIdQueryResult = Apollo.QueryResult<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>;
 export const GetLinesByValidityDocument = gql`
     query GetLinesByValidity($filter: route_line_bool_exp) {
   route_line(where: $filter) {
@@ -8941,6 +8985,10 @@ export function useGetLineDetailsByIdAsyncQuery() {
           return useAsyncQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument);
         }
 export type GetLineDetailsByIdAsyncQueryHookResult = ReturnType<typeof useGetLineDetailsByIdAsyncQuery>;
+export function useGetLineValidityPeriodByIdAsyncQuery() {
+          return useAsyncQuery<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>(GetLineValidityPeriodByIdDocument);
+        }
+export type GetLineValidityPeriodByIdAsyncQueryHookResult = ReturnType<typeof useGetLineValidityPeriodByIdAsyncQuery>;
 export function useGetLinesByValidityAsyncQuery() {
           return useAsyncQuery<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>(GetLinesByValidityDocument);
         }
