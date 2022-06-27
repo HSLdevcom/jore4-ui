@@ -6,6 +6,7 @@ import {
   GetLineDetailsByIdQuery,
   GetLineDetailsWithRoutesByIdQuery,
   GetLinesByLabelAndPriorityQuery,
+  GetLineValidityPeriodByIdQuery,
   GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
   JourneyPatternScheduledStopPointInJourneyPattern,
@@ -178,6 +179,20 @@ const GET_LINE_DETAILS_BY_ID = gql`
 `;
 export const mapLineDetailsResult = (
   result: GqlQueryResult<GetLineDetailsByIdQuery>,
+) => result.data?.route_line_by_pk as RouteLine | undefined;
+
+const GET_LINE_VALIDITY_PERIOD_BY_ID = gql`
+  query GetLineValidityPeriodById($line_id: uuid!) {
+    route_line_by_pk(line_id: $line_id) {
+      line_id
+      validity_start
+      validity_end
+    }
+  }
+`;
+
+export const mapLineValidityPeriod = (
+  result: GqlQueryResult<GetLineValidityPeriodByIdQuery>,
 ) => result.data?.route_line_by_pk as RouteLine | undefined;
 
 const GET_LINES_BY_VALIDITY = gql`
