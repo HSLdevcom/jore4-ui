@@ -1,7 +1,6 @@
 import produce from 'immer';
 import { DateTime } from 'luxon';
 import qs from 'qs';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { RouteLine } from '../../../generated/graphql';
@@ -31,7 +30,7 @@ export const ActionsRow = ({
   const onDateChange = (date: DateTime) => {
     const updatedUrlQuery = produce(queryParams, (draft) => {
       if (date.isValid) {
-        draft.selectedDate = date.toISODate();
+        draft.observationDate = date.toISODate();
       }
     });
 
@@ -51,7 +50,7 @@ export const ActionsRow = ({
           <input
             type="date"
             required
-            value={observationDate?.toISODate()}
+            value={observationDate?.toISODate() || ''}
             onChange={(e) => onDateChange(DateTime.fromISO(e.target.value))}
             className="flex-1"
           />

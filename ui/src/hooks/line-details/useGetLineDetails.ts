@@ -1,18 +1,21 @@
 import produce from 'immer';
 import { groupBy } from 'lodash';
 import { DateTime } from 'luxon';
+import qs from 'qs';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import {
   RouteDirectionEnum,
   RouteLine,
   RouteRoute,
   useGetHighestPriorityLineDetailsWithRoutesAsyncQuery,
   useGetLineDetailsWithRoutesByIdQuery,
+  useGetLineValidityPeriodByIdAsyncQuery,
 } from '../../generated/graphql';
 import {
   mapHighestPriorityLineDetailsWithRoutesResult,
   mapLineDetailsWithRoutesResult,
+  mapLineValidityPeriod,
 } from '../../graphql';
 import { parseDate } from '../../time';
 import {
@@ -66,22 +69,16 @@ const filterLineDetailsByDate = (line: RouteLine) => {
 
 /** Returns the initial observation date depending on the parameters. */
 const getInitialDate = (
-  selectedISODate: string | undefined,
   validityStart?: DateTime | null,
   validityEnd?: DateTime | null,
 ) => {
-  if (selectedISODate) {
-    return parseDate(selectedISODate);
-  }
-
   const isActiveToday =
-    (!validityStart || validityStart <= DateTime.now()) &&
-    (!validityEnd || validityEnd >= DateTime.now());
+    (!validityStart || validityStart <= DateTime.now().startOf('day')) &&
+    (!validityEnd || validityEnd >= DateTime.now().startOf('day'));
 
   if (isActiveToday) {
     return DateTime.now().startOf('day');
   }
-
   return validityStart;
 };
 
@@ -113,28 +110,55 @@ const constructLineDetailsGqlFilters = (
 export const useGetLineDetails = () => {
   const { id } = useParams<{ id: string }>();
   const queryParams = useUrlQuery();
+  const history = useHistory();
+
+  const [getLineValidityPeriodByIdQuery] =
+    useGetLineValidityPeriodByIdAsyncQuery();
+
+  const [getHighestPriorityLineDetails] =
+    useGetHighestPriorityLineDetailsWithRoutesAsyncQuery();
+
+  const [line, setLine] = useState<RouteLine>();
+
+  const dateQs = queryParams.observationDate as string | undefined;
+  const observationDate = dateQs ? DateTime.fromISO(dateQs) : null;
+
   const lineDetailsResult = useGetLineDetailsWithRoutesByIdQuery({
     variables: { line_id: id },
   });
 
-  const [getHighestPriorityLineDetails] =
-    useGetHighestPriorityLineDetailsWithRoutesAsyncQuery();
-  const [line, setLine] = useState<RouteLine>();
-  const [observationDate, setObservationDate] = useState<DateTime>();
+  /** Determines and sets date to query parameters if it's not there */
+  const initializeObservationDate = async () => {
+    const date = parseDate(dateQs);
+    if (!date) {
+      const result = await getLineValidityPeriodByIdQuery({ line_id: id });
+      const lineDetails = mapLineValidityPeriod(result);
+      if (lineDetails) {
+        const initialDate = getInitialDate(
+          lineDetails?.validity_start,
+          lineDetails?.validity_end,
+        );
+        const updatedUrlQuery = produce(queryParams, (draft) => {
+          if (initialDate?.isValid) {
+            draft.observationDate = initialDate.toISODate();
+          }
+        });
 
-  const selectedDate = queryParams.selectedDate as string | undefined;
+        const queryString = qs.stringify(updatedUrlQuery);
+        history.replace({
+          search: `?${queryString}`,
+        });
+      }
+    }
+  };
 
+  /** Fetches line details and filters results by observation date */
   const fetchLineDetails = async () => {
-    if (lineDetailsResult?.data) {
+    if (lineDetailsResult?.data && observationDate) {
       const lineDetails = mapLineDetailsWithRoutesResult(lineDetailsResult);
-      const initialDate = getInitialDate(
-        selectedDate,
-        lineDetails?.validity_start,
-        lineDetails?.validity_end,
-      );
 
       const lineByDateResult = await getHighestPriorityLineDetails(
-        constructLineDetailsGqlFilters(lineDetails, initialDate),
+        constructLineDetailsGqlFilters(lineDetails, observationDate),
       );
 
       const lineByDate =
@@ -145,14 +169,14 @@ export const useGetLineDetails = () => {
         : undefined;
 
       setLine(filteredLine);
-
-      setObservationDate(initialDate as DateTime);
     }
   };
+
   useEffect(() => {
+    initializeObservationDate();
     fetchLineDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, selectedDate, lineDetailsResult]);
+  }, [id, dateQs, lineDetailsResult]);
 
   return {
     line,
