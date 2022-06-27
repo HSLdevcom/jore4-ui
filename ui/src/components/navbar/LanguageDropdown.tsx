@@ -11,7 +11,9 @@ interface Props {
   className?: string;
 }
 
-export const LanguageDropdown: FunctionComponent<Props> = ({ className }) => {
+export const LanguageDropdown: FunctionComponent<Props> = ({
+  className = '',
+}) => {
   const { i18n } = useTranslation();
   const currentLanguage = i18n.language;
   // TODO: this is is naive implementation and won't work if we have more than 2 supported languages at some point

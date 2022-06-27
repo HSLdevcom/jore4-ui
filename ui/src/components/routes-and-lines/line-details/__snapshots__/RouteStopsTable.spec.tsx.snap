@@ -28,7 +28,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
       </button>
     </div>
     <table
-      class="h-1 w-full undefined"
+      class="h-1 w-full "
       data-testid="routeStopsTable1"
     >
       <tbody
@@ -236,7 +236,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
       </button>
     </div>
     <table
-      class="h-1 w-full undefined"
+      class="h-1 w-full "
       data-testid="routeStopsTable1"
     >
       <tbody
@@ -642,7 +642,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
       </button>
     </div>
     <table
-      class="h-1 w-full undefined"
+      class="h-1 w-full "
       data-testid="routeStopsTable1"
     >
       <tbody

@@ -16,7 +16,7 @@ interface Props {
   className?: string;
 }
 
-export const ObservationDateOverlay = ({ className }: Props) => {
+export const ObservationDateOverlay = ({ className = '' }: Props) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

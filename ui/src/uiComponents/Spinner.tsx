@@ -6,7 +6,10 @@ interface Props {
   className?: string;
 }
 
-export const Spinner = ({ showSpinner, className }: Props): JSX.Element => {
+export const Spinner = ({
+  showSpinner,
+  className = '',
+}: Props): JSX.Element => {
   return (
     <div className={className}>
       <ClipLoader loading={showSpinner} />

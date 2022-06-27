@@ -38,7 +38,7 @@ interface Props {
   className?: string;
 }
 
-export const ConfirmSaveForm = ({ className }: Props): JSX.Element => {
+export const ConfirmSaveForm = ({ className = '' }: Props): JSX.Element => {
   const { t } = useTranslation();
   const {
     register,
@@ -52,7 +52,7 @@ export const ConfirmSaveForm = ({ className }: Props): JSX.Element => {
   const setPriority = (value: Priority) => setValue('priority', value);
 
   return (
-    <div className={className || ''}>
+    <div className={className}>
       <h2 className="pb-6 text-xl font-bold">
         {t('saveChangesModal.validityPeriod')}
       </h2>

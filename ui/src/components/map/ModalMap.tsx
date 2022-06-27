@@ -15,7 +15,7 @@ interface Props {
 const mapHeaderHeight = 64;
 const mapFooterHeight = 82;
 
-export const ModalMap: React.FC<Props> = ({ className }) => {
+export const ModalMap: React.FC<Props> = ({ className = '' }) => {
   const mapRef = useRef<ExplicitAny>(null);
 
   const { isModalMapOpen, onCloseModalMap } = useIsModalMapOpen();
@@ -24,9 +24,7 @@ export const ModalMap: React.FC<Props> = ({ className }) => {
     <Modal
       isOpen={isModalMapOpen}
       onClose={onCloseModalMap}
-      className={`absolute left-0 top-0 z-10 h-full w-full !bg-background ${
-        className || ''
-      }`}
+      className={`absolute left-0 top-0 z-10 h-full w-full !bg-background ${className}`}
     >
       <MapHeader onClose={onCloseModalMap} />
       {/* Setting height of map component dynamically seems to be tricky as

@@ -46,7 +46,7 @@ interface Props {
   className?: string;
 }
 
-export const LinePropertiesForm = ({ className }: Props): JSX.Element => {
+export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
   const { t } = useTranslation();
   const { getValues } = useFormContext<FormState>();
 
@@ -61,7 +61,7 @@ export const LinePropertiesForm = ({ className }: Props): JSX.Element => {
   );
 
   return (
-    <div data-testId={testIds.form} className={className || ''}>
+    <div data-testId={testIds.form} className={className}>
       <Row>
         <h2 className="mb-8 text-2xl font-bold">{t('lines.properties')}</h2>
       </Row>

@@ -28,7 +28,7 @@ const FilterRow = ({ filter }: { filter: FilterItem }) => {
   );
 };
 
-export const StopFilterOverlay = ({ className }: Props) => {
+export const StopFilterOverlay = ({ className = '' }: Props) => {
   const { t } = useTranslation();
 
   const {
@@ -38,7 +38,7 @@ export const StopFilterOverlay = ({ className }: Props) => {
   } = useFilterStops();
 
   return (
-    <MapOverlay className={`${className} rounded-b`}>
+    <MapOverlay className={`rounded-b ${className}`}>
       <MapOverlayHeader>
         <h2 className="text-xl font-bold">{t('filters.title')}</h2>
       </MapOverlayHeader>

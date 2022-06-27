@@ -64,7 +64,7 @@ const StopRow = ({
   );
 };
 
-export const RouteStopsOverlay = ({ className }: Props) => {
+export const RouteStopsOverlay = ({ className = '' }: Props) => {
   const dispatch = useAppDispatch();
   const { editedRouteData, selectedRouteId, creatingNewRoute } =
     useAppSelector(selectMapEditor);
