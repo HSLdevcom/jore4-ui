@@ -58,7 +58,7 @@ app
 
     // Set up the proxy.
     Object.keys(devProxy).forEach((key) => {
-      const proxy = createProxyMiddleware(devProxy[key]);
+      const proxy = createProxyMiddleware(key, devProxy[key]);
       server.use(key, proxy);
     });
 
