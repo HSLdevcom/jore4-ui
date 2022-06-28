@@ -6,7 +6,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-
 # dev environment
 .vscode
 docker/*
@@ -17,3 +16,5 @@ docker/*
 pg_data
 mbtiles
 *.backup
+
+tsconfig.tsbuildinfo

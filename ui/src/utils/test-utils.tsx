@@ -28,8 +28,8 @@ export * from '@testing-library/react';
 // override render method
 export { customRender as render };
 
-export const sleep = (timeout: number) =>
-  new Promise((resolve) => setTimeout(resolve, timeout));
+export const sleep = <T,>(timeout: number) =>
+  new Promise<T>((resolve) => setTimeout(resolve, timeout));
 
 // mock the current date to be static
 Date.now = jest.fn(() => 1487076708000);
