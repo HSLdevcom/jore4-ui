@@ -213,6 +213,7 @@ const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
           route_id
           infrastructure_link_id
           infrastructure_link_sequence
+          is_traversal_forwards
           infrastructure_link {
             infrastructure_link_id
             scheduled_stop_point_located_on_infrastructure_link {
@@ -250,6 +251,7 @@ const GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
           route_id
           infrastructure_link_id
           infrastructure_link_sequence
+          is_traversal_forwards
           infrastructure_link {
             infrastructure_link_id
             scheduled_stop_point_located_on_infrastructure_link(

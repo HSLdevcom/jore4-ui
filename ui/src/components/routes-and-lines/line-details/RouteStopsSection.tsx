@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteRoute } from '../../../generated/graphql';
 import {
-  getStopsAlongRouteGeometry,
+  getEligibleStopsAlongRouteGeometry,
   stopBelongsToJourneyPattern,
 } from '../../../graphql';
 import {
@@ -43,7 +43,7 @@ export const RouteStopsSection = ({
 
   const { observationDate } = useGetLineDetails();
 
-  const stopsAlongRoute = getStopsAlongRouteGeometry(route);
+  const stopsAlongRoute = getEligibleStopsAlongRouteGeometry(route);
 
   // Fetch the stop with highest priority that is valid on observation date.
   // If route is draft, allow adding draft stops to it.
