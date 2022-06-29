@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { groupBy } from 'lodash';
+import groupBy from 'lodash/groupBy';
 import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useCallback, useEffect, useMemo, useState } from 'react';

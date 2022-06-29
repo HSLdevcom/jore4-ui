@@ -1,4 +1,4 @@
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteLine } from '../../../generated/graphql';
