@@ -1,5 +1,5 @@
 import React, { Ref, useImperativeHandle, useRef, useState } from 'react';
-import { HTMLOverlay, Layer, MapEvent } from 'react-map-gl';
+import { Layer, MapLayerMouseEvent } from 'react-map-gl';
 import {
   useAppDispatch,
   useAppSelector,
@@ -15,6 +15,7 @@ import {
   setSelectedRouteIdAction,
 } from '../../redux';
 import { FilterPanel, LoadingOverlay } from '../../uiComponents';
+import { CustomOverlay } from './CustomOverlay';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
@@ -32,18 +33,12 @@ import { Stops } from './stops';
 
 interface Props {
   drawable?: boolean;
-  className?: string;
   width?: string;
   height?: string;
 }
 
 export const MapComponent = (
-  {
-    drawable = false,
-    className = '',
-    width = '100vw',
-    height = '100vh',
-  }: Props,
+  { drawable = false, width = '100vw', height = '100vh' }: Props,
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
   const routeEditorRef = useRef<ExplicitAny>(null);
@@ -89,13 +84,13 @@ export const MapComponent = (
     },
   }));
 
-  const onCreateStop = (e: MapEvent) => {
+  const onCreateStop = (e: MapLayerMouseEvent) => {
     if (stopsRef.current && drawingMode === undefined) {
       stopsRef.current.onCreateStop(e);
     }
   };
 
-  const onClick = (e: MapEvent) => {
+  const onClick = (e: MapLayerMouseEvent) => {
     if (isCreateStopModeEnabled) {
       onCreateStop(e);
       return;
@@ -127,82 +122,53 @@ export const MapComponent = (
   };
 
   return (
-    <Maplibre
-      width={width}
-      height={height}
-      onClick={onClick}
-      className={className}
-    >
+    <Maplibre width={width} height={height} onClick={onClick}>
       {showStops && <Stops ref={stopsRef} />}
-      <HTMLOverlay
-        style={{
-          width: 'auto',
-          height: 'auto',
-        }}
-        redraw={() => (
-          <>
-            <Column className="items-start">
-              <FilterPanel
-                className="ml-8 mt-8"
-                routes={[
-                  {
-                    iconClassName: 'icon-bus',
-                    enabled: showInfraLinks,
-                    onToggle: setShowInfraLinks,
-                  },
-                  ...(routeDisplayed
-                    ? [
-                        {
-                          iconClassName: 'icon-route',
-                          enabled: showRoute,
-                          onToggle: setShowRoute,
-                        },
-                      ]
-                    : []),
-                ]}
-                stops={[
-                  {
-                    iconClassName: 'icon-bus',
-                    enabled: showStops,
-                    onToggle: setShowStops,
-                  },
-                ]}
-              />
-            </Column>
-            {(!!selectedRouteId || hasDraftRouteGeometry) && (
-              <Column>
-                <RouteStopsOverlay className="ml-8 mt-4" />
-              </Column>
-            )}
-          </>
-        )}
-        captureClick
-        captureDoubleClick
-        captureDrag
-        captureScroll
-      />
-      <HTMLOverlay
-        style={{
-          top: 'auto',
-          left: 'auto',
-          bottom: 0,
-          right: 0,
-          width: 'auto',
-          height: 'auto',
-        }}
-        redraw={() => (
-          <Column>
-            {showStopFilterOverlay && (
-              <StopFilterOverlay className="mr-12 mb-4" />
-            )}
-            <ObservationDateOverlay className="mr-12 mb-8" />
+      <CustomOverlay position="top-left">
+        <>
+          <Column className="items-start">
+            <FilterPanel
+              className="ml-8 mt-8"
+              routes={[
+                {
+                  iconClassName: 'icon-bus',
+                  enabled: showInfraLinks,
+                  onToggle: setShowInfraLinks,
+                },
+                ...(routeDisplayed
+                  ? [
+                      {
+                        iconClassName: 'icon-route',
+                        enabled: showRoute,
+                        onToggle: setShowRoute,
+                      },
+                    ]
+                  : []),
+              ]}
+              stops={[
+                {
+                  iconClassName: 'icon-bus',
+                  enabled: showStops,
+                  onToggle: setShowStops,
+                },
+              ]}
+            />
           </Column>
-        )}
-        captureClick
-        captureDoubleClick
-        captureDrag
-        captureScroll
-      />
+          {(!!selectedRouteId || hasDraftRouteGeometry) && (
+            <Column>
+              <RouteStopsOverlay className="ml-8 mt-4" />
+            </Column>
+          )}
+        </>
+      </CustomOverlay>
+      <CustomOverlay position="bottom-right">
+        <Column>
+          {showStopFilterOverlay && (
+            <StopFilterOverlay className="mr-12 mb-4" />
+          )}
+          <ObservationDateOverlay className="mr-12 mb-3" />
+        </Column>
+      </CustomOverlay>
       <EditRouteMetadataLayer />
       {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
       {showInfraLinks && <InfraLinksVectorLayer />}

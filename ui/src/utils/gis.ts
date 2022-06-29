@@ -1,4 +1,6 @@
+import { Position } from '@turf/helpers';
 import flow from 'lodash/flow';
+import { LngLat } from 'react-map-gl';
 import { Point } from '../types';
 
 export const mapPointToGeoJSON = ({
@@ -13,16 +15,24 @@ export const mapPointToGeoJSON = ({
   return geoJsonPoint;
 };
 
-export const mapLngLatToPoint = (lngLat: number[]) => {
-  if (lngLat.length < 2 || lngLat.length > 3) {
+export const mapPositionToPoint = (position: Position) => {
+  if (position.length < 2 || position.length > 3) {
     throw new Error(
-      `Expected lngLat to be like [number, number] or [number, number, number] but got ${lngLat}`,
+      `Expected position to be like [number, number] or [number, number, number] but got ${position}`,
     );
   }
   const point: Point = {
-    longitude: lngLat[0],
-    latitude: lngLat[1],
-    elevation: lngLat[2] || 0,
+    longitude: position[0],
+    latitude: position[1],
+    elevation: position[2] || 0,
+  };
+  return point;
+};
+
+export const mapLngLatToPoint = (lngLat: LngLat) => {
+  const point: Point = {
+    longitude: lngLat.lng,
+    latitude: lngLat.lat,
   };
   return point;
 };

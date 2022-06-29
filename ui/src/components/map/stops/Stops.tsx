@@ -1,5 +1,5 @@
 import React, { useImperativeHandle } from 'react';
-import { MapEvent } from 'react-map-gl';
+import { MapLayerMouseEvent } from 'react-map-gl';
 import { useGetStopsByLocationQuery } from '../../../generated/graphql';
 import { mapStopResultToStops, StopWithLocation } from '../../../graphql';
 import {
@@ -22,7 +22,7 @@ import {
 import {
   constructWithinViewportGqlFilter,
   mapLngLatToGeoJSON,
-  mapLngLatToPoint,
+  mapPositionToPoint,
   mapToVariables,
 } from '../../../utils';
 import { CreateStopMarker } from './CreateStopMarker';
@@ -63,7 +63,7 @@ export const Stops = React.forwardRef((props, ref) => {
   const { createDraftStop } = useCreateStop();
   const { defaultErrorHandler } = useEditStop();
   useImperativeHandle(ref, () => ({
-    onCreateStop: async (e: MapEvent) => {
+    onCreateStop: async (e: MapLayerMouseEvent) => {
       try {
         const stopLocation = mapLngLatToGeoJSON(e.lngLat);
         const draftStop = await createDraftStop(stopLocation);
@@ -86,7 +86,7 @@ export const Stops = React.forwardRef((props, ref) => {
     <>
       {/* Display existing stops */}
       {stops?.map((item) => {
-        const point = mapLngLatToPoint(item.measured_location.coordinates);
+        const point = mapPositionToPoint(item.measured_location.coordinates);
 
         return (
           <Stop

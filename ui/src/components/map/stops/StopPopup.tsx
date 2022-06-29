@@ -8,7 +8,7 @@ import { Column, Row } from '../../../layoutComponents';
 import { mapToShortDate } from '../../../time';
 import { Priority } from '../../../types/Priority';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
-import { mapLngLatToPoint } from '../../../utils';
+import { mapPositionToPoint } from '../../../utils';
 
 interface Props {
   stop: StopWithLocation;
@@ -54,12 +54,10 @@ export const StopPopup = ({
   const { t } = useTranslation();
   // eslint-disable-next-line camelcase
   const { label, priority, validity_start, validity_end } = stop;
-  const location = mapLngLatToPoint(stop.measured_location.coordinates);
+  const location = mapPositionToPoint(stop.measured_location.coordinates);
   return (
     <Popup
       className="w-80"
-      tipSize={10}
-      offsetTop={25}
       anchor="top"
       longitude={location.longitude}
       latitude={location.latitude}
