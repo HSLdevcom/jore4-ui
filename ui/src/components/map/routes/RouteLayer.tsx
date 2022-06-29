@@ -1,4 +1,4 @@
-import { LineLayout } from 'maplibre-gl';
+import { LineLayout } from 'mapbox-gl';
 import { Layer, Source } from 'react-map-gl';
 import { useGetRouteDetailsByIdsQuery } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';

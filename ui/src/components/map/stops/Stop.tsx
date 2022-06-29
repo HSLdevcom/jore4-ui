@@ -1,5 +1,4 @@
-import { Marker } from 'react-map-gl';
-import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
+import { Marker, MarkerDragEvent } from 'react-map-gl';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
 import { Point } from '../../../types';
@@ -11,7 +10,7 @@ interface Props extends Point {
   draggable?: boolean;
   selected?: boolean;
   onClick: () => void;
-  onDragEnd?: (event: CallbackEvent) => void;
+  onDragEnd?: (event: MarkerDragEvent) => void;
   onVehicleRoute?: ReusableComponentsVehicleModeEnum;
   isHighlighted?: boolean;
 }
@@ -43,8 +42,6 @@ export const Stop = ({
     <Marker
       longitude={longitude}
       latitude={latitude}
-      offsetTop={-1 * (iconSize / 2)}
-      offsetLeft={-1 * (iconSize / 2)}
       draggable={draggable}
       onDragEnd={onDragEnd}
     >

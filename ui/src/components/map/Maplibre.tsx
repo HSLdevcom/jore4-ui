@@ -2,7 +2,11 @@ import distance from '@turf/distance';
 import { point, Units } from '@turf/helpers';
 import debounce from 'lodash/debounce';
 import { FunctionComponent, useMemo, useRef, useState } from 'react';
-import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
+import MapGL, {
+  MapLayerMouseEvent,
+  MapRef,
+  NavigationControl,
+} from 'react-map-gl';
 import { useAppDispatch } from '../../hooks';
 import {
   HELSINKI_CITY_CENTER_COORDINATES,
@@ -12,13 +16,13 @@ import hslSimpleStyle from './hslSimpleStyle.json';
 import rasterMapStyle from './rasterMapStyle.json';
 
 interface Props {
-  className?: string;
   // width and height are passed as params to `react-map-gl`.
   // It seems to support certain css features, e.g. "100vh" or "100px",
-  // but in other hand "100%" doesn't seem to work...
+  // but in other hand "100%" doesn't seem to work...(Update: not sure
+  // about this with current react-map-gl v7)
   width?: string;
   height?: string;
-  onClick?: (e: MapEvent) => void;
+  onClick?: (e: MapLayerMouseEvent) => void;
   useVectorTilesAsBaseMap?: boolean;
 }
 
@@ -31,7 +35,6 @@ interface MaplibreViewport {
 }
 
 export const Maplibre: FunctionComponent<Props> = ({
-  className = '',
   onClick,
   width = '100vw',
   height = '100vh',
@@ -40,7 +43,8 @@ export const Maplibre: FunctionComponent<Props> = ({
 }) => {
   const mapRef = useRef<MapRef>(null);
 
-  const [viewport, setViewport] = useState<MaplibreViewport>({
+  // TODO: viewState seems to be saved here and to Redux state. Both could be combined at some point...
+  const [viewState, setViewState] = useState<MaplibreViewport>({
     ...HELSINKI_CITY_CENTER_COORDINATES,
     zoom: 13,
     bearing: 0,
@@ -65,8 +69,8 @@ export const Maplibre: FunctionComponent<Props> = ({
     [dispatch],
   );
 
-  const onViewportChange = (newViewport: MaplibreViewport) => {
-    setViewport(newViewport);
+  const onViewStateChange = (newViewport: MaplibreViewport) => {
+    setViewState(newViewport);
 
     if (mapRef.current) {
       const mapGL = mapRef.current.getMap();
@@ -74,8 +78,7 @@ export const Maplibre: FunctionComponent<Props> = ({
       const bounds = mapGL.getBounds();
 
       const from = point([newViewport.longitude, newViewport.latitude]);
-      // eslint-disable-next-line no-underscore-dangle
-      const to = point([bounds._sw.lng, bounds._sw.lat]);
+      const to = point([bounds.getSouthWest().lng, bounds.getSouthWest().lat]);
       const options = { units: 'meters' as Units };
 
       const radius = distance(from, to, options);
@@ -86,27 +89,6 @@ export const Maplibre: FunctionComponent<Props> = ({
         radius,
       );
     }
-  };
-
-  const navStyle = {
-    bottom: 72,
-    right: 0,
-    padding: '10px',
-  };
-
-  const getCursor = ({
-    isHovering,
-    isDragging,
-  }: {
-    isLoaded: boolean;
-    isDragging: boolean;
-    isHovering: boolean;
-  }) => {
-    if (isDragging) {
-      return 'grabbing';
-    }
-    // TODO: seems like we never actually receive isHovering as true
-    return isHovering ? 'pointer' : 'default';
   };
 
   const transformRequest = (url: string) => {
@@ -120,7 +102,7 @@ export const Maplibre: FunctionComponent<Props> = ({
         url: newUrl,
       };
     }
-    return undefined;
+    return { url };
   };
 
   const mapStyle = useVectorTilesAsBaseMap ? hslSimpleStyle : rasterMapStyle;
@@ -128,20 +110,33 @@ export const Maplibre: FunctionComponent<Props> = ({
   return (
     <MapGL
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...viewport}
-      width={width}
-      height={height}
-      onViewportChange={onViewportChange}
+      {...viewState}
+      style={{
+        width,
+        height,
+      }}
+      onMove={(event) => onViewStateChange(event.viewState)}
       onClick={onClick}
-      className={className}
-      mapStyle={mapStyle}
-      getCursor={getCursor}
+      // TODO: something is wrong with typings of mapStyle, thus casting to any.
+      // Anyway, it seems to work so probably not worth investigating further.
+      mapStyle={mapStyle as ExplicitAny}
+      // TODO: cursor handling with `cursor` prop? https://visgl.github.io/react-map-gl/docs/upgrade-guide#map
       transformRequest={transformRequest}
       doubleClickZoom={false}
       ref={mapRef}
     >
       {children}
-      <NavigationControl style={navStyle} showCompass={false} />
+      <NavigationControl
+        showCompass={false}
+        position="bottom-right"
+        style={{
+          marginLeft: '10px',
+          marginRight: '10px',
+          bottom: 105,
+          right: 0,
+          position: 'fixed',
+        }}
+      />
     </MapGL>
   );
 };

@@ -19,8 +19,8 @@ import { RequiredKeys } from '../../../types';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
-  mapLngLatToPoint,
   mapPointToGeoJSON,
+  mapPositionToPoint,
 } from '../../../utils';
 import {
   ConfirmSaveForm,
@@ -45,7 +45,7 @@ export const mapStopDataToFormState = (
     'measured_location'
   >,
 ) => {
-  const { latitude, longitude } = mapLngLatToPoint(
+  const { latitude, longitude } = mapPositionToPoint(
     stop.measured_location.coordinates,
   );
   const formState: Partial<FormState> = {

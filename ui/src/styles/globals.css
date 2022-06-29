@@ -20,3 +20,23 @@ label {
   size: 14px;
   margin-bottom: 4px;
 }
+
+
+/* Reset default styles from maplibre to make positioning map
+ elements less annoying */
+.maplibregl-ctrl {
+  margin: 0 0 0 0;
+}
+/* Reset default maplibre font. Otherwise all fonts on map
+overlays get messed up. */
+.maplibregl-map {
+  font-style: initial;
+  font-variant: initial;
+  font-weight: initial;
+  font-size: initial;
+  line-height: initial;
+}
+/* retaint default style of OpenStreetMap copyright text */
+.mapboxgl-ctrl-attrib-inner {
+  font: 12px/20px Helvetica Neue,Arial,Helvetica,sans-serif;
+}

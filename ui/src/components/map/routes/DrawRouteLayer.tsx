@@ -5,7 +5,6 @@ import isNil from 'lodash/isNil';
 import remove from 'lodash/remove';
 import React, {
   useCallback,
-  useContext,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -13,7 +12,7 @@ import React, {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapContext } from 'react-map-gl';
+import { useMap } from 'react-map-gl';
 import {
   DrawLineStringMode,
   EditingMode,
@@ -67,7 +66,7 @@ const DrawRouteLayerComponent = (
   { mode }: Props,
   externalRef: ExplicitAny,
 ): JSX.Element => {
-  const { map } = useContext(MapContext);
+  const { current: map } = useMap();
   const editorRef = useRef<ExplicitAny>(null);
 
   const dispatch = useAppDispatch();

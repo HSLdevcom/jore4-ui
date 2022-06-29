@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
+import { MarkerDragEvent } from 'react-map-gl';
 import { ScheduledStopPointSetInput, StopWithLocation } from '../../../graphql';
 import {
   CreateChanges,
@@ -20,7 +20,7 @@ import {
 } from '../../../redux';
 import {
   mapLngLatToGeoJSON,
-  mapLngLatToPoint,
+  mapPositionToPoint,
   showSuccessToast,
 } from '../../../utils';
 import { mapStopDataToFormState } from '../../forms/stop/StopForm';
@@ -83,7 +83,7 @@ export const EditStopLayer: React.FC<Props> = ({
   const defaultDisplayedEditor = isDraftStop
     ? StopEditorViews.Modal
     : StopEditorViews.Popup;
-  const editedStopLocation = mapLngLatToPoint(
+  const editedStopLocation = mapPositionToPoint(
     editedStopData.measured_location.coordinates,
   );
 
@@ -144,7 +144,7 @@ export const EditStopLayer: React.FC<Props> = ({
     }
   };
 
-  const onStopDragEnd = async (event: CallbackEvent) => {
+  const onStopDragEnd = async (event: MarkerDragEvent) => {
     const stopId = editedStopData.scheduled_stop_point_id;
     if (stopId) {
       // if this is a stop existing on the backend, also prepare the changes to be confirmed
