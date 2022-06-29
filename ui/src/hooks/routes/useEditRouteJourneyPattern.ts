@@ -4,7 +4,7 @@ import {
   useUpdateRouteJourneyPatternMutation,
 } from '../../generated/graphql';
 import {
-  getStopsAlongRouteGeometry,
+  getEligibleStopsAlongRouteGeometry,
   mapRouteStopsToStopSequence,
   mapStopToRouteStop,
   RouteStop,
@@ -39,7 +39,7 @@ export const useEditRouteJourneyPattern = () => {
   ) => {
     const { route, stopPointLabel } = params;
 
-    const stopsAlongRoute = getStopsAlongRouteGeometry(route);
+    const stopsAlongRoute = getEligibleStopsAlongRouteGeometry(route);
 
     // Map ServicePatternScheduledStopPoints to RouteStops
     const routeStops: RouteStop[] = stopsAlongRoute.map((stop) => {
