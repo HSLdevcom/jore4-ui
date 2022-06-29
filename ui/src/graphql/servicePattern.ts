@@ -5,6 +5,8 @@ import {
   GetStopByIdQuery,
   GetStopsAlongInfrastructureLinksQuery,
   GetStopWithRouteGraphDataByIdQuery,
+  InfrastructureNetworkDirectionEnum,
+  RouteDirectionEnum,
   RouteRoute,
   ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointSetInput,
@@ -18,6 +20,7 @@ import {
   StoreType,
 } from '../redux/utils/mappers';
 import { NonNullableKeys, RequiredKeys } from '../types';
+import { sortStopsOnInfraLink } from '../utils';
 import { GqlQueryResult } from './types';
 
 export type StopWithLocation = RequiredKeys<
@@ -161,12 +164,35 @@ const INSERT_STOP = gql`
   }
 `;
 
-export const getStopsAlongRouteGeometry = (route: RouteRoute) => {
-  return route.infrastructure_links_along_route.flatMap(
-    (infraLink) =>
+// TODO: This should also check that vehicleMode of route matches stop
+// TODO: This should be combined with useExctractRouteFromFeature.ts business logics
+const filterEligibleStopsOnRoute = (
+  stopPoints: ServicePatternScheduledStopPoint[],
+  routeDirection: RouteDirectionEnum,
+) =>
+  stopPoints.filter(
+    (stop) =>
+      (stop.direction === InfrastructureNetworkDirectionEnum.Backward &&
+        routeDirection === RouteDirectionEnum.Inbound) ||
+      (stop.direction === InfrastructureNetworkDirectionEnum.Forward &&
+        routeDirection === RouteDirectionEnum.Outbound) ||
+      stop.direction === InfrastructureNetworkDirectionEnum.Bidirectional, // &&
+  );
+
+export const getEligibleStopsAlongRouteGeometry = (route: RouteRoute) => {
+  return route.infrastructure_links_along_route.flatMap((infraLink) => {
+    const eligibleStops = filterEligibleStopsOnRoute(
       infraLink.infrastructure_link
         .scheduled_stop_point_located_on_infrastructure_link,
-  );
+      route.direction,
+    );
+    const sortedEligibleStops = sortStopsOnInfraLink(
+      eligibleStops,
+      infraLink.is_traversal_forwards,
+    );
+
+    return sortedEligibleStops;
+  });
 };
 
 const EDIT_STOP = gql`

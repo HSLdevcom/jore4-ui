@@ -23,7 +23,7 @@ import {
   orderInfraLinksByExternalLinkId,
   RouteStop,
 } from '../graphql';
-import { mapGeoJSONtoFeature } from '../utils';
+import { mapGeoJSONtoFeature, sortStopsOnInfraLink } from '../utils';
 import { useAsyncQuery } from './useAsyncQuery';
 import { useFilterStops } from './useFilterStops';
 
@@ -112,7 +112,7 @@ export const useExtractRouteFromFeature = () => {
       return orderedInfraLinksWithStops.flatMap((infraLinkWithStops, index) => {
         const isLinkTraversalForwards = infraLinks[index].isTraversalForwards;
 
-        return (
+        const eligibleStops =
           infraLinkWithStops.scheduled_stop_point_located_on_infrastructure_link
             // only include the ids of the stops
             // - suitable for the given vehicle mode AND
@@ -143,16 +143,14 @@ export const useExtractRouteFromFeature = () => {
                 matchingDirection &&
                 visibleAfterFiltering
               );
-            })
-            // sort the stops on the same link according to the link traversal direction
-            .sort((stop1, stop2) =>
-              isLinkTraversalForwards
-                ? stop1.relative_distance_from_infrastructure_link_start -
-                  stop2.relative_distance_from_infrastructure_link_start
-                : stop2.relative_distance_from_infrastructure_link_start -
-                  stop1.relative_distance_from_infrastructure_link_start,
-            )
+            });
+
+        const sortedEligibleStops = sortStopsOnInfraLink(
+          eligibleStops,
+          isLinkTraversalForwards,
         );
+
+        return sortedEligibleStops;
       });
     },
     [getFilteredStopIdsAlongRouteGeometry],

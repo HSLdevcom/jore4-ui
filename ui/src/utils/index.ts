@@ -7,5 +7,6 @@ export * from './gql';
 export * from './graphql';
 export * from './localizedString';
 export * from './search';
+export * from './stops';
 export * from './toastService';
 export * from './url';

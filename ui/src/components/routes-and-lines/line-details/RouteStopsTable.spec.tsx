@@ -1,6 +1,9 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import { GetLineDetailsWithRoutesByIdQuery } from '../../../generated/graphql';
+import {
+  GetLineDetailsWithRoutesByIdQuery,
+  InfrastructureNetworkDirectionEnum,
+} from '../../../generated/graphql';
 import {
   GqlQueryResult,
   mapLineDetailsWithRoutesResult,
@@ -73,6 +76,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                 route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
                 infrastructure_link_id: 'c63b749f-5060-4710-8b07-ec9ac017cb5f',
                 infrastructure_link_sequence: 0,
+                is_traversal_forwards: true,
                 infrastructure_link: {
                   infrastructure_link_id:
                     'c63b749f-5060-4710-8b07-ec9ac017cb5f',
@@ -89,6 +93,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         '2050-12-13T00:00:00+00:00',
                       ),
                       __typename: 'service_pattern_scheduled_stop_point',
+                      direction: InfrastructureNetworkDirectionEnum.Forward,
                       scheduled_stop_point_in_journey_patterns: [
                         {
                           journey_pattern_id:
@@ -114,6 +119,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                 route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
                 infrastructure_link_id: '2feba2ae-c7af-4034-a299-9e592e67358f',
                 infrastructure_link_sequence: 0,
+                is_traversal_forwards: true,
                 infrastructure_link: {
                   infrastructure_link_id:
                     '2feba2ae-c7af-4034-a299-9e592e67358f',
@@ -130,6 +136,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         '2050-12-13T00:00:00+00:00',
                       ),
                       __typename: 'service_pattern_scheduled_stop_point',
+                      direction: InfrastructureNetworkDirectionEnum.Forward,
                       scheduled_stop_point_in_journey_patterns: [],
                     },
                   ],
@@ -141,6 +148,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                 route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
                 infrastructure_link_id: 'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
                 infrastructure_link_sequence: 0,
+                is_traversal_forwards: true,
                 infrastructure_link: {
                   infrastructure_link_id:
                     'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
@@ -157,6 +165,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         '2050-12-13T00:00:00+00:00',
                       ),
                       __typename: 'service_pattern_scheduled_stop_point',
+                      direction: InfrastructureNetworkDirectionEnum.Forward,
                       scheduled_stop_point_in_journey_patterns: [
                         {
                           journey_pattern_id:
