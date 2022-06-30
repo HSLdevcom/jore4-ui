@@ -58,6 +58,10 @@ export const StopPopup = ({
   return (
     <Popup
       className="w-80"
+      // TODO: These seem to be deprecated, do we still need these?
+      // tipSize={10}
+      // offsetLeft={5}
+      // offsetTop={25}
       anchor="top"
       longitude={location.longitude}
       latitude={location.latitude}

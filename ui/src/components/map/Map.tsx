@@ -167,7 +167,10 @@ export const MapComponent = (
         </Column>
       </CustomOverlay>
       <EditRouteMetadataLayer />
-      {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
+      {/* TODO: route drawing doest not yet compile */}
+      {false && drawable && (
+        <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />
+      )}
       {showInfraLinks && <InfraLinksVectorLayer />}
       {showRoute &&
         routeDisplayed &&

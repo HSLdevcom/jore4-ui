@@ -42,6 +42,9 @@ export const Stop = ({
     <Marker
       longitude={longitude}
       latitude={latitude}
+      // TODO: do we have to specify offsets?
+      // offsetTop={-1 * (iconSize / 2)}
+      // offsetLeft={-1 * (iconSize / 2)}
       draggable={draggable}
       onDragEnd={onDragEnd}
     >

@@ -49,7 +49,9 @@ export const FilterPanel = ({
   const { t } = useTranslation();
   const headingClassName = 'text-base font-bold';
   return (
-    <div className={`inline-block ${className}`}>
+    // TODO: inline-block class not needed?
+    // <div className={`inline-block ${className}`}>
+    <div className={className}>
       <Card className="flex-col rounded-b-none">
         <h3 className={headingClassName}>{t('map.showNetwork')}</h3>
         <ToggleRow toggles={routes} />

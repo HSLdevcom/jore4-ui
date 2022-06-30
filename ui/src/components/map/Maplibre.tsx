@@ -78,6 +78,7 @@ export const Maplibre: FunctionComponent<Props> = ({
       const bounds = mapGL.getBounds();
 
       const from = point([newViewport.longitude, newViewport.latitude]);
+      // TODO: is this correct? Not sure why we are calling getSouthWest and not e.g. getCenter
       const to = point([bounds.getSouthWest().lng, bounds.getSouthWest().lat]);
       const options = { units: 'meters' as Units };
 
