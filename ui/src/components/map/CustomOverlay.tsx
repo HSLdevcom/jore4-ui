@@ -17,9 +17,17 @@ class OverlayControl implements IControl {
 
   _position: ControlPosition;
 
-  constructor(redraw: () => void, position: ControlPosition) {
+  _className: string;
+
+  // TODO: remove position prop as it wont work
+  constructor(
+    redraw: () => void,
+    position: ControlPosition,
+    className: string,
+  ) {
     this._redraw = redraw;
     this._position = position;
+    this._className = className;
   }
 
   onAdd(map: MapboxMap) {
@@ -28,7 +36,13 @@ class OverlayControl implements IControl {
     /* global document */
     this._container = document.createElement('div');
     this._container.className =
-      'pointer-events-auto translate-x-0 translate-y-0';
+      // 'absolute' class name needed to be able to somehow position this overlay
+      // over the map
+      // 'flex max-h-full' class names needed in order to enable scrollbars
+      // to content that would otherwise overflow from map
+      // TODO: rather pass 'absolute flex max-h-full' classnames from outside
+      // of this overlay?
+      `pointer-events-auto translate-x-0 translate-y-0 absolute flex max-h-full ${this._className}`;
     this._redraw();
     return this._container;
   }
@@ -62,15 +76,17 @@ class OverlayControl implements IControl {
 const CustomOverlayComponent = ({
   children,
   position = 'top-left',
+  className = '',
 }: {
   children: React.ReactElement;
-  position: ControlPosition;
+  position?: ControlPosition;
+  className?: string;
 }) => {
   const [, setVersion] = useState(0);
 
   const ctrl = useControl<OverlayControl>(() => {
     const forceUpdate = () => setVersion((v) => v + 1);
-    return new OverlayControl(forceUpdate, position);
+    return new OverlayControl(forceUpdate, position, className);
   });
 
   const map = ctrl.getMap();

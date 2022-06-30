@@ -46,9 +46,17 @@ export const Stop = ({
     <Marker
       longitude={longitude}
       latitude={latitude}
+      // TODO: do we have to specify offsets? If yes, why?
+      offset={[
+        -1 * ((selected ? selectedIconSize : iconSize) / 2),
+        -1 * ((selected ? selectedIconSize : iconSize) / 2),
+      ]}
+      // offsetTop={-1 * ((selected ? selectedIconSize : iconSize) / 2)}
+      // offsetLeft={-1 * ((selected ? selectedIconSize : iconSize) / 2)}
+      // TODO: className
+      // className={`${testId} rounded-full`} // the Marker component does not have testid property, neither does data-testid work, so have to use className
       draggable={draggable}
       onDragEnd={onDragEnd}
-      className={`${testId} rounded-full`} // the Marker component does not have testid property, neither does data-testid work, so have to use className
     >
       <Circle
         size={selected ? selectedIconSize : iconSize}

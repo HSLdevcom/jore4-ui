@@ -26,20 +26,42 @@ export const CreateStopMarker = (): JSX.Element => {
     // hide marker if the mouse leaves from the map area
     setMouseCoords(undefined);
   };
+  const onClick = (event: MouseEvent) => {
+    const syntheticClickEvent = new MouseEvent('click', {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+      clientX: event.pageX,
+      clientY: event.pageY,
+    });
+    const mapElement = document
+      .getElementsByClassName('maplibregl-canvas')
+      .item(0);
+
+    if (mapElement) {
+      mapElement.dispatchEvent(syntheticClickEvent);
+    } else {
+      console.log('TODO: meaningful error message');
+      // TODO: fix zooming while adding stop
+    }
+  };
 
   return (
     <div
       id="create-stop-marker"
-      className="h-full w-full"
+      className="absolute h-full w-full"
       onMouseMove={onMouseMove}
       onMouseEnter={onMouseMove}
       onMouseLeave={onMouseLeave}
+      // onScrollCapture={(event) => console.log(event)}
+      onClick={onClick}
     >
       {/* Display hovering bus stop while in create mode */}
       {mouseCoords && (
         <div
+          className="absolute"
           style={{
-            position: 'absolute',
+            // position: 'absolute',
             left: mouseCoords.x - createStopMarkerSize / 2,
             top: mouseCoords.y - createStopMarkerSize / 2,
           }}

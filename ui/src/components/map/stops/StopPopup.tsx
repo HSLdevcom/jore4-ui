@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-import React from 'react';
 import { TFunction, useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl';
@@ -58,6 +57,12 @@ export const StopPopup = ({
   return (
     <Popup
       className="w-80"
+      // TODO: These seem to be deprecated, do we still need these?
+      // tipSize={10}
+      // offsetTop={25}
+      offset={{
+        top: [0, 25],
+      }}
       anchor="top"
       longitude={location.longitude}
       latitude={location.latitude}

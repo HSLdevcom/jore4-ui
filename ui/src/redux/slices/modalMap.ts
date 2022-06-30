@@ -6,6 +6,11 @@ export const HELSINKI_CITY_CENTER_COORDINATES = {
   longitude: 24.9409,
 };
 
+// TODO: It would make more sense to read this from the map itself
+// or then just default this to a non-magic value such as 0.
+// Default stops to be shown on map are fetched according to this value.
+const DEFAULT_VIEWPORT_RADIUS = 3800;
+
 interface IState {
   isOpen: boolean;
   viewport: Viewport;
@@ -13,7 +18,10 @@ interface IState {
 
 const initialState: IState = {
   isOpen: false,
-  viewport: { ...HELSINKI_CITY_CENTER_COORDINATES, radius: 0 },
+  viewport: {
+    ...HELSINKI_CITY_CENTER_COORDINATES,
+    radius: DEFAULT_VIEWPORT_RADIUS,
+  },
 };
 
 const slice = createSlice({

@@ -161,7 +161,7 @@ export const MapComponent = (
           )}
         </>
       </CustomOverlay>
-      <CustomOverlay position="bottom-right">
+      <CustomOverlay position="top-left" className="right-0 bottom-0">
         <Column>
           {showStopFilterOverlay && (
             <StopFilterOverlay className="mr-12 mb-4" />
@@ -170,7 +170,11 @@ export const MapComponent = (
         </Column>
       </CustomOverlay>
       <EditRouteMetadataLayer />
-      {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
+      {/* TODO: route drawing does not currently work with react-map-gl v7.
+      See https://github.com/uber/nebula.gl/issues/769 and https://github.com/visgl/react-map-gl/issues/1892 for more details. The problem seems to be that ModeHandler depends on MapContext that has been removed. */}
+      {false && drawable && (
+        <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />
+      )}
       {showInfraLinks && <InfraLinksVectorLayer />}
       {showRoute &&
         routeDisplayed &&
