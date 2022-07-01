@@ -21,6 +21,7 @@ import {
 import {
   mapLngLatToGeoJSON,
   mapLngLatToPoint,
+  removeFromApolloCache,
   showSuccessToast,
 } from '../../../utils';
 import { mapStopDataToFormState } from '../../forms/stop/StopForm';
@@ -175,7 +176,7 @@ export const EditStopLayer: React.FC<Props> = ({
   const doCreateStop = async (changes: CreateChanges) => {
     try {
       const variables = mapCreateChangesToVariables(changes);
-      await insertStopMutation({ variables });
+      await insertStopMutation(variables);
 
       showSuccessToast(t('stops.saveSuccess'));
       onFinishEditing();
@@ -187,7 +188,17 @@ export const EditStopLayer: React.FC<Props> = ({
   const doEditStop = async (changes: EditChanges) => {
     try {
       const variables = mapEditChangesToVariables(changes);
-      await editStopMutation({ variables });
+
+      await editStopMutation({
+        variables,
+        update(cache) {
+          removeFromApolloCache(cache, {
+            infrastructure_link_id:
+              variables.stop_patch.located_on_infrastructure_link_id,
+            __typename: 'infrastructure_network_infrastructure_link',
+          });
+        },
+      });
 
       showSuccessToast(t('stops.editSuccess'));
       onFinishEditing();
