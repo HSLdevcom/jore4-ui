@@ -7,7 +7,10 @@ import {
 } from '../../generated/graphql';
 import { StopWithLocation } from '../../graphql';
 import { OptionalKeys } from '../../types';
-import { IncompatibleWithExistingRoutesError } from '../../utils';
+import {
+  IncompatibleWithExistingRoutesError,
+  removeFromApolloCache,
+} from '../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { BrokenRouteCheckParams, useEditStop } from './useEditStop';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
@@ -27,10 +30,23 @@ export interface CreateChanges {
 }
 
 export const useCreateStop = () => {
-  const [insertStopMutation] = useInsertStopMutation();
+  const [mutateFunction] = useInsertStopMutation();
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
   const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
   const { getRoutesBrokenByStopChange } = useEditStop();
+
+  const insertStopMutation = async (variables: InsertStopMutationVariables) => {
+    return mutateFunction({
+      variables,
+      update(cache) {
+        removeFromApolloCache(cache, {
+          infrastructure_link_id:
+            variables.object.located_on_infrastructure_link_id,
+          __typename: 'infrastructure_network_infrastructure_link',
+        });
+      },
+    });
+  };
 
   // pre-fills and pre-validates a few fields for the draft stop
   // throws exceptions in case or error

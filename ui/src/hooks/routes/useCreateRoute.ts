@@ -13,7 +13,7 @@ import {
 import { MIN_DATE } from '../../time';
 import {
   mapToObject,
-  mapToVariables,
+  removeFromApolloCache,
   showDangerToastWithError,
 } from '../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
@@ -35,6 +35,20 @@ export const useCreateRoute = () => {
   const [mutateFunction] = useInsertRouteOneMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
   const { validateGeometry, validateMetadata } = useValidateRoute();
+
+  const insertRouteMutation = async (
+    variables: InsertRouteOneMutationVariables,
+  ) => {
+    return mutateFunction({
+      variables,
+      update(cache) {
+        removeFromApolloCache(cache, {
+          line_id: variables.object.on_line_id,
+          __typename: 'route_line',
+        });
+      },
+    });
+  };
 
   const mapRouteDetailsToInsertMutationVariables = (
     params: CreateParams,
@@ -83,8 +97,10 @@ export const useCreateRoute = () => {
     return changes;
   };
 
-  const mapCreateChangesToVariables = (changes: CreateChanges) =>
-    mapToVariables(changes.input);
+  const mapCreateChangesToVariables = (changes: CreateChanges) => {
+    const variables: InsertRouteOneMutationVariables = { ...changes.input };
+    return variables;
+  };
 
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown
@@ -95,7 +111,7 @@ export const useCreateRoute = () => {
   return {
     prepareCreate,
     mapCreateChangesToVariables,
-    insertRouteMutation: mutateFunction,
+    insertRouteMutation,
     defaultErrorHandler,
   };
 };
