@@ -26,7 +26,7 @@ import {
 } from '../../../generated/graphql';
 import {
   mapGraphQLRouteToInfraLinks,
-  mapRoutesDetailsResult,
+  mapRouteResultToRoutes,
 } from '../../../graphql';
 import {
   getRouteStops,
@@ -123,7 +123,7 @@ const DrawRouteLayerComponent = (
     variables: { route_ids: baseGeometryRouteId ? [baseGeometryRouteId] : [] },
   });
 
-  const routes = mapRoutesDetailsResult(routesResult);
+  const routes = mapRouteResultToRoutes(routesResult);
 
   const onUpdateRouteGeometry = useCallback(
     async (newFeatures: LineStringFeature[]) => {

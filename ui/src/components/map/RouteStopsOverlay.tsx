@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useGetRoutesWithInfrastructureLinksQuery } from '../../generated/graphql';
-import { getStopsFromRoute, mapRoutesDetailsResult } from '../../graphql';
+import { getStopsFromRoute, mapRouteResultToRoutes } from '../../graphql';
 import { getRouteStops, useAppDispatch, useAppSelector } from '../../hooks';
 import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import { Visible } from '../../layoutComponents';
@@ -74,7 +74,7 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
     mapToVariables({ route_ids: [selectedRouteId] }),
   );
 
-  const routes = mapRoutesDetailsResult(routesResult);
+  const routes = mapRouteResultToRoutes(routesResult);
   const selectedRoute = routes?.[0];
 
   // FIXME: the typings are off, shouldn't compare editedRouteData.metaData with selectedRoute
