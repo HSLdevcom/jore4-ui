@@ -47,6 +47,8 @@ import { showToast } from '../../../utils';
 import { addRoute, removeRoute } from '../mapUtils';
 import { featureStyle, handleStyle } from './editorStyles';
 
+const SNAPPING_LINE_LAYER_ID = 'snapping-line';
+
 interface Props {
   mode?: Mode;
 }
@@ -84,7 +86,6 @@ const DrawRouteLayerComponent = (
 
   const {
     extractScheduledStopPoints,
-    extractCoordinatesFromSnappingLine,
     getInfraLinksWithStopsForCoordinates,
     mapInfraLinksToFeature,
     getRemovedStopLabels,
@@ -133,8 +134,7 @@ const DrawRouteLayerComponent = (
         return;
       }
 
-      const { coordinates, routeId } =
-        extractCoordinatesFromSnappingLine(snappingLineFeature);
+      const { coordinates } = snappingLineFeature.geometry;
 
       const { infraLinks, orderedInfraLinksWithStops, geometry } =
         await getInfraLinksWithStopsForCoordinates(coordinates);
@@ -167,12 +167,12 @@ const DrawRouteLayerComponent = (
       dispatch(setDraftRouteGeometryAction({ stops: routeStops, infraLinks }));
 
       if (geometry) {
-        addRoute(map, routeId, geometry);
+        addRoute(map, SNAPPING_LINE_LAYER_ID, geometry);
       } else {
         // map matching backend didn't returned valid route. -> remove
         // also drawn route. Maybe we should show notification to the user
         // when this happens?
-        onDelete(routeId);
+        onDelete(SNAPPING_LINE_LAYER_ID);
       }
     },
     [
@@ -181,7 +181,6 @@ const DrawRouteLayerComponent = (
       editedRouteData.stops,
       editedRouteData.infraLinks,
       creatingNewRoute,
-      extractCoordinatesFromSnappingLine,
       getInfraLinksWithStopsForCoordinates,
       getOldRouteGeometryVariables,
       templateRouteId,
