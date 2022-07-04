@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ApolloQueryResult, FetchResult, gql } from '@apollo/client';
+import { FetchResult, gql } from '@apollo/client';
 import {
   GetCurrentOrFutureLinesByLabelQuery,
   GetHighestPriorityLineDetailsWithRoutesQuery,
@@ -7,16 +7,11 @@ import {
   GetLineDetailsWithRoutesByIdQuery,
   GetLinesByLabelAndPriorityQuery,
   GetLineValidityPeriodByIdQuery,
-  GetRouteDetailsByIdsQuery,
   InsertLineOneMutation,
   JourneyPatternScheduledStopPointInJourneyPattern,
-  ListChangingRoutesQuery,
   RouteLine,
   RouteRoute,
   ServicePatternScheduledStopPoint,
-  useGetRouteDetailsByIdsQuery,
-  useGetRouteDetailsByLabelWildcardQuery,
-  useGetRoutesWithInfrastructureLinksQuery,
   useListOwnLinesQuery,
   useSearchLinesAndRoutesQuery,
 } from '../generated/graphql';
@@ -166,9 +161,6 @@ const LIST_CHANGING_ROUTES = gql`
     }
   }
 `;
-export const mapListChangingRoutesResult = (
-  result: GqlQueryResult<ListChangingRoutesQuery>,
-) => result.data?.route_route as RouteRoute[] | undefined;
 
 const GET_LINE_DETAILS_BY_ID = gql`
   query GetLineDetailsById($line_id: uuid!) {
@@ -375,18 +367,6 @@ const GET_CURRENT_OR_FUTURE_LINES_BY_LABEL = gql`
 export const mapCurrentOrFutureLinesResult = (
   result: GqlQueryResult<GetCurrentOrFutureLinesByLabelQuery>,
 ) => result.data?.route_line as RouteLine[] | undefined;
-
-export const mapRouteDetailsResult = (
-  result: ReturnType<typeof useGetRouteDetailsByIdsQuery>,
-) => result.data?.route_route[0] as RouteRoute | undefined;
-
-export const mapRoutesDetailsResult = (
-  result:
-    | ApolloQueryResult<GetRouteDetailsByIdsQuery>
-    | ReturnType<typeof useGetRoutesWithInfrastructureLinksQuery>
-    | ReturnType<typeof useGetRouteDetailsByLabelWildcardQuery>
-    | ReturnType<typeof useGetRouteDetailsByIdsQuery>,
-) => result.data?.route_route as RouteRoute[] | [];
 
 const GET_ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
   query GetRoutesWithInfrastructureLinks($route_ids: [uuid!]) {
