@@ -77,12 +77,14 @@ const DrawRouteLayerComponent = (
 
   const { templateRouteId } = editedRouteData;
 
-  const [routeFeatures, setRouteFeatures] = useState<LineStringFeature[]>([]);
+  // the geojson for the grey line that is used for snapping the draft route to the infra network
+  const [snappingLine, setSnappingLine] = useState<LineStringFeature>();
+
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
 
   const {
     extractScheduledStopPoints,
-    extractCoordinatesFromFeatures,
+    extractCoordinatesFromSnappingLine,
     getInfraLinksWithStopsForCoordinates,
     mapInfraLinksToFeature,
     getRemovedStopLabels,
@@ -93,7 +95,7 @@ const DrawRouteLayerComponent = (
 
   const onDelete = useCallback(
     (routeId: string) => {
-      setRouteFeatures([]);
+      setSnappingLine(undefined);
       removeRoute(map, routeId);
       dispatch(resetDraftRouteGeometryAction());
     },
@@ -126,13 +128,13 @@ const DrawRouteLayerComponent = (
   const routes = mapRouteResultToRoutes(routesResult);
 
   const onUpdateRouteGeometry = useCallback(
-    async (newFeatures: LineStringFeature[]) => {
+    async (snappingLineFeature: LineStringFeature) => {
       if ((!routes || editedRouteData.id === undefined) && !creatingNewRoute) {
         return;
       }
 
       const { coordinates, routeId } =
-        extractCoordinatesFromFeatures(newFeatures);
+        extractCoordinatesFromSnappingLine(snappingLineFeature);
 
       const { infraLinks, orderedInfraLinksWithStops, geometry } =
         await getInfraLinksWithStopsForCoordinates(coordinates);
@@ -179,7 +181,7 @@ const DrawRouteLayerComponent = (
       editedRouteData.stops,
       editedRouteData.infraLinks,
       creatingNewRoute,
-      extractCoordinatesFromFeatures,
+      extractCoordinatesFromSnappingLine,
       getInfraLinksWithStopsForCoordinates,
       getOldRouteGeometryVariables,
       templateRouteId,
@@ -191,24 +193,24 @@ const DrawRouteLayerComponent = (
     ],
   );
 
-  // Update features if needed
+  // Initializing snapping line
   useEffect(() => {
-    // If creating new route (without a template) or features already exist,
-    // no need to get new features
-    if ((creatingNewRoute && !templateRouteId) || routeFeatures?.length !== 0) {
+    // If creating new route (without a template) or snapping line already exists,
+    // no need to initialize snapping line
+    if ((creatingNewRoute && !templateRouteId) || snappingLine) {
       return;
     }
 
     if (mode === Mode.Edit && routes && routes[0]) {
-      // Starting to edit a route, generate features from infra links
+      // Starting to edit a route, generate snapping line from infra links
       const infraLinks = mapGraphQLRouteToInfraLinks(routes[0]);
-      const newFeatures = [mapInfraLinksToFeature(infraLinks)];
+      const infraSnappingLine = mapInfraLinksToFeature(infraLinks);
 
-      setRouteFeatures(newFeatures);
-      onUpdateRouteGeometry(newFeatures);
+      setSnappingLine(infraSnappingLine);
+      onUpdateRouteGeometry(infraSnappingLine);
     } else {
-      // If not drawing or editing, clear features
-      setRouteFeatures([]);
+      // If not drawing or editing, clear snapping line
+      setSnappingLine(undefined);
     }
   }, [
     mapInfraLinksToFeature,
@@ -217,7 +219,7 @@ const DrawRouteLayerComponent = (
     creatingNewRoute,
     dispatch,
     routes,
-    routeFeatures?.length,
+    snappingLine,
     templateRouteId,
   ]);
 
@@ -227,10 +229,16 @@ const DrawRouteLayerComponent = (
   );
 
   const onUpdate = (e: EditorCallback) => {
-    setRouteFeatures(e.data);
+    if (!e.data || e.data.length !== 1) {
+      // we are still in the middle of creating the snapping line
+      return;
+    }
+    const snappingLineFeature = e.data[0] as LineStringFeature;
+
+    setSnappingLine(snappingLineFeature);
     if (e.editType === 'addFeature' || e.editType === 'movePosition') {
       // Editor calls onUpdate callback million times when route is being edited. That's why we want to debounce onAddRoute event.
-      debouncedOnAddRoute(e.data);
+      debouncedOnAddRoute(snappingLineFeature);
 
       if (e.editType === 'addFeature') {
         dispatch(stopRouteEditingAction());
@@ -253,12 +261,11 @@ const DrawRouteLayerComponent = (
     (event) => {
       if (
         !isRouteMetadataFormOpen &&
-        routeFeatures &&
-        routeFeatures.length > 0 &&
+        snappingLine &&
         (event.key === 'Backspace' || event.key === 'Delete')
       ) {
-        const feature = routeFeatures[0];
-        const coordinates = feature.geometry.coordinates as GeoJSON.Position[];
+        const coordinates = snappingLine.geometry
+          .coordinates as GeoJSON.Position[];
 
         if (coordinates.length - selectedSnapPoints.length < 2) {
           showToast({
@@ -273,17 +280,18 @@ const DrawRouteLayerComponent = (
           selectedSnapPoints.includes(index),
         );
 
-        setRouteFeatures([
-          { ...feature, geometry: { type: 'LineString', coordinates } },
-        ]);
+        setSnappingLine({
+          ...snappingLine,
+          geometry: { type: 'LineString', coordinates },
+        });
         setSelectedSnapPoints([]);
 
-        debouncedOnAddRoute(routeFeatures);
+        debouncedOnAddRoute(snappingLine);
       }
     },
     [
       isRouteMetadataFormOpen,
-      routeFeatures,
+      snappingLine,
       selectedSnapPoints,
       debouncedOnAddRoute,
       t,
@@ -314,6 +322,11 @@ const DrawRouteLayerComponent = (
     setSelectedSnapPoints(newSelection);
   };
 
+  const mapSnappingLineToRenderedFeatures = (snapLine?: LineStringFeature) =>
+    // the GeoJSON and react-map-gl-draw Feature types are not fully compatible
+    (snapLine ? [snapLine] : []) as Feature[];
+
+  // this renders the grey snapping line + snapping points that appear when creating or editing a route
   return (
     <Editor
       style={{
@@ -326,7 +339,7 @@ const DrawRouteLayerComponent = (
       clickRadius={24}
       mode={modeHandler}
       onUpdate={onUpdate}
-      features={routeFeatures as Feature[]}
+      features={mapSnappingLineToRenderedFeatures(snappingLine)}
       featuresDraggable={false}
       selectable
       onSelect={onFeatureSelected}
