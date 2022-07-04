@@ -6,7 +6,6 @@ import {
   GetStopsAlongInfrastructureLinksQuery,
   GetStopWithRouteGraphDataByIdQuery,
   InfrastructureNetworkDirectionEnum,
-  RouteDirectionEnum,
   RouteRoute,
   ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointSetInput,
@@ -168,27 +167,29 @@ const INSERT_STOP = gql`
 // TODO: This should be combined with useExctractRouteFromFeature.ts business logics
 const filterEligibleStopsOnRoute = (
   stopPoints: ServicePatternScheduledStopPoint[],
-  routeDirection: RouteDirectionEnum,
+  isLinkTraversalForwards: boolean,
 ) =>
   stopPoints.filter(
     (stop) =>
-      (stop.direction === InfrastructureNetworkDirectionEnum.Backward &&
-        routeDirection === RouteDirectionEnum.Inbound) ||
-      (stop.direction === InfrastructureNetworkDirectionEnum.Forward &&
-        routeDirection === RouteDirectionEnum.Outbound) ||
-      stop.direction === InfrastructureNetworkDirectionEnum.Bidirectional, // &&
+      stop.direction === InfrastructureNetworkDirectionEnum.Bidirectional ||
+      (isLinkTraversalForwards &&
+        stop.direction === InfrastructureNetworkDirectionEnum.Forward) ||
+      (!isLinkTraversalForwards &&
+        stop.direction === InfrastructureNetworkDirectionEnum.Backward),
   );
 
 export const getEligibleStopsAlongRouteGeometry = (route: RouteRoute) => {
-  return route.infrastructure_links_along_route.flatMap((infraLink) => {
+  return route.infrastructure_links_along_route.flatMap((infraLink, index) => {
+    const isLinkTraversalForwards =
+      route.infrastructure_links_along_route[index].is_traversal_forwards;
     const eligibleStops = filterEligibleStopsOnRoute(
       infraLink.infrastructure_link
         .scheduled_stop_point_located_on_infrastructure_link,
-      route.direction,
+      isLinkTraversalForwards,
     );
     const sortedEligibleStops = sortStopsOnInfraLink(
       eligibleStops,
-      infraLink.is_traversal_forwards,
+      isLinkTraversalForwards,
     );
 
     return sortedEligibleStops;
