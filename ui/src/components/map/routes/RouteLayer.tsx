@@ -2,7 +2,7 @@ import { LineLayout } from 'maplibre-gl';
 import { Layer, Source } from 'react-map-gl';
 import { useGetRouteDetailsByIdsQuery } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
-import { mapRouteDetailsResult } from '../../../graphql';
+import { mapRouteResultToRoute } from '../../../graphql';
 import { mapGeoJSONtoFeature, mapToVariables } from '../../../utils';
 
 const { colors } = theme;
@@ -23,7 +23,7 @@ export const RouteLayer = ({ routeId, isSelected }: Props) => {
   const routeDetailsResult = useGetRouteDetailsByIdsQuery(
     mapToVariables({ route_ids: [routeId] }),
   );
-  const routeDetails = mapRouteDetailsResult(routeDetailsResult);
+  const routeDetails = mapRouteResultToRoute(routeDetailsResult);
 
   // do not render anything before data is received
   if (!routeDetails?.route_shape || !routeDetails.route_line) {

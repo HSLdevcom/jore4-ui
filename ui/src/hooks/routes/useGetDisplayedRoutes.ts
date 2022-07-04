@@ -7,7 +7,7 @@ import {
   GetRouteDetailsByLabelsQuery,
   GetRouteDetailsByLabelsQueryVariables,
 } from '../../generated/graphql';
-import { mapRoutesDetailsResult } from '../../graphql';
+import { mapRouteResultToRoutes } from '../../graphql';
 import {
   selectMapEditor,
   selectMapObservationDate,
@@ -41,7 +41,7 @@ export const useGetDisplayedRoutes = () => {
       const routeDetailsResult = await getRouteDetailsByIds({
         route_ids: initiallyDisplayedRouteIds,
       });
-      const routeDetails = mapRoutesDetailsResult(routeDetailsResult);
+      const routeDetails = mapRouteResultToRoutes(routeDetailsResult);
 
       if (!routeDetails.length) {
         return [];
@@ -54,7 +54,7 @@ export const useGetDisplayedRoutes = () => {
         date: observationDate,
       });
 
-      const displayedRouteDetails = mapRoutesDetailsResult(
+      const displayedRouteDetails = mapRouteResultToRoutes(
         displayedRouteDetailsResult,
       );
 

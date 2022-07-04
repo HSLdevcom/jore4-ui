@@ -5,8 +5,8 @@ import {
   useListOwnLinesQuery,
 } from '../../../generated/graphql';
 import {
-  mapListChangingRoutesResult,
   mapListOwnLinesResult,
+  mapRouteResultToRoutes,
 } from '../../../graphql';
 import { LinesList } from './LinesList';
 import { ListFooter } from './ListFooter';
@@ -25,7 +25,7 @@ export const RoutesAndLinesLists = (): JSX.Element => {
   const changingRoutesResult = useListChangingRoutesQuery({
     variables: { limit: changingRoutesLimit },
   });
-  const changingRoutes = mapListChangingRoutesResult(changingRoutesResult);
+  const changingRoutes = mapRouteResultToRoutes(changingRoutesResult);
 
   // own lines
   const ownLinesResult = useListOwnLinesQuery();

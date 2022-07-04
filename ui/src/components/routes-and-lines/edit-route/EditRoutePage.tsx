@@ -5,7 +5,7 @@ import {
   RouteRoute,
   useGetRouteDetailsByIdsQuery,
 } from '../../../generated/graphql';
-import { mapRouteDetailsResult } from '../../../graphql';
+import { mapRouteResultToRoute } from '../../../graphql';
 import { useDeleteRoute, useEditRouteMetadata } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -68,7 +68,7 @@ export const EditRoutePage = (): JSX.Element => {
   const routeDetailsResult = useGetRouteDetailsByIdsQuery({
     ...mapToVariables({ route_ids: [id] }),
   });
-  const route = mapRouteDetailsResult(routeDetailsResult);
+  const route = mapRouteResultToRoute(routeDetailsResult);
   const { t } = useTranslation();
 
   const onSave = () => {

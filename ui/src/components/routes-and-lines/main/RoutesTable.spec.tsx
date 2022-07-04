@@ -8,8 +8,8 @@ import {
 } from '../../../generated/graphql';
 import {
   GqlQueryResult,
-  mapListChangingRoutesResult,
   mapListOwnLinesResult,
+  mapRouteResultToRoutes,
 } from '../../../graphql';
 import {
   buildLocalizedString,
@@ -54,7 +54,7 @@ describe(`<${RoutesTable.name} />`, () => {
 
   test('Renders the table with route data', async () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const routes = mapListChangingRoutesResult(routesResponseMock)!;
+    const routes = mapRouteResultToRoutes(routesResponseMock)!;
     const { asFragment } = render(
       <RoutesTable testId={testId}>
         {routes.map((item: RouteRoute) => (
