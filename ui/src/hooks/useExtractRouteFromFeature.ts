@@ -156,11 +156,10 @@ export const useExtractRouteFromFeature = () => {
     [getFilteredStopIdsAlongRouteGeometry],
   );
 
-  const extractCoordinatesFromFeatures = useCallback(
-    (features: LineStringFeature[]) => {
-      const addedFeatureIndex = features.length - 1;
-      const routeId = String(addedFeatureIndex);
-      const { coordinates } = features[addedFeatureIndex].geometry;
+  const extractCoordinatesFromSnappingLine = useCallback(
+    (snappingLineFeature: LineStringFeature) => {
+      const routeId = String(0);
+      const { coordinates } = snappingLineFeature.geometry;
 
       return { routeId, coordinates };
     },
@@ -301,7 +300,7 @@ export const useExtractRouteFromFeature = () => {
   return {
     extractScheduledStopPoints,
     mapInfraLinksToFeature,
-    extractCoordinatesFromFeatures,
+    extractCoordinatesFromSnappingLine,
     getInfraLinksWithStopsForCoordinates,
     getRemovedStopLabels,
     getRouteStops,
