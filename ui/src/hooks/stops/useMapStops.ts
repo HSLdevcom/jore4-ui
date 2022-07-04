@@ -8,7 +8,7 @@ import {
 import {
   getRouteStopLabels,
   mapGetStopsResult,
-  mapRoutesDetailsResult,
+  mapResultToRoutes,
 } from '../../graphql';
 import {
   selectHasChangesInProgress,
@@ -36,7 +36,7 @@ export const useMapStops = () => {
   const selectedRoutesResult = useGetRoutesWithInfrastructureLinksQuery(
     mapToVariables({ route_ids: selectedRouteId ? [selectedRouteId] : [] }),
   );
-  const selectedRoutes = mapRoutesDetailsResult(selectedRoutesResult);
+  const selectedRoutes = mapResultToRoutes(selectedRoutesResult);
   const selectedRouteStopsResult = useGetStopsByLabelsQuery(
     mapToVariables({
       stopLabels:
@@ -50,7 +50,7 @@ export const useMapStops = () => {
   const displayedRoutesResult = useGetRoutesWithInfrastructureLinksQuery(
     mapToVariables({ route_ids: displayedRouteIds }),
   );
-  const displayedRoutes = mapRoutesDetailsResult(displayedRoutesResult);
+  const displayedRoutes = mapResultToRoutes(displayedRoutesResult);
 
   const stopLabelsOnEditedRoute = mapRouteStopsToStopLabels(
     editedRouteData.stops,
