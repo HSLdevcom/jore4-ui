@@ -89,6 +89,9 @@ export const RouteStopsHeaderRow = ({
               route.validity_end,
             )
           }
+          disabled={
+            !route.route_shape /* some routes imported from jore3 are missing the geometry */
+          }
           testId="RouteStopsHeaderRow::showRoute"
         />
       </td>
