@@ -259,8 +259,7 @@ export const useExtractRouteFromFeature = () => {
     (
       stateStops: RouteStop[],
       stateInfraLinks: InfrastructureLinkAlongRoute[] | undefined,
-      routes: RouteRoute[],
-      extractFromExistingRoute: boolean,
+      baseRoute?: RouteRoute,
     ) => {
       const previouslyEditedRouteStops = mapRouteStopsToStopLabels(stateStops);
       const previouslyEditedRouteInfrastructureLinks = stateInfraLinks || [];
@@ -270,11 +269,11 @@ export const useExtractRouteFromFeature = () => {
       if (
         (!previouslyEditedRouteStops.length ||
           !previouslyEditedRouteInfrastructureLinks.length) &&
-        extractFromExistingRoute
+        baseRoute
       ) {
         return {
-          oldStopLabels: routes.flatMap((route) => getRouteStopLabels(route)),
-          oldInfraLinks: mapGraphQLRouteToInfraLinks(routes[0]),
+          oldStopLabels: getRouteStopLabels(baseRoute),
+          oldInfraLinks: mapGraphQLRouteToInfraLinks(baseRoute),
         };
       }
 

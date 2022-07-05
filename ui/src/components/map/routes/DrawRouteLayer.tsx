@@ -26,7 +26,7 @@ import {
 } from '../../../generated/graphql';
 import {
   mapGraphQLRouteToInfraLinks,
-  mapRouteResultToRoutes,
+  mapRouteResultToRoute,
 } from '../../../graphql';
 import {
   getRouteStops,
@@ -117,33 +117,35 @@ const DrawRouteLayerComponent = (
     return modeDetails ? new modeDetails.handler() : undefined;
   }, [mode]);
 
-  const baseGeometryRouteId = editedRouteData.id || templateRouteId;
-
-  // Fetch existing route's geometry in case editing existing route
+  // Fetch existing route's stops and geometry in case editing existing route
   // or creating a new route based on a template route
-  const routesResult = useGetRoutesWithInfrastructureLinksQuery({
-    skip: !baseGeometryRouteId,
-    variables: { route_ids: baseGeometryRouteId ? [baseGeometryRouteId] : [] },
+  const baseRouteId = editedRouteData.id || templateRouteId;
+  const baseRouteResult = useGetRoutesWithInfrastructureLinksQuery({
+    skip: !baseRouteId,
+    variables: { route_ids: baseRouteId ? [baseRouteId] : [] },
   });
-
-  const routes = mapRouteResultToRoutes(routesResult);
+  const baseRoute = mapRouteResultToRoute(baseRouteResult);
 
   const onUpdateRouteGeometry = useCallback(
     async (snappingLineFeature: LineStringFeature) => {
-      if ((!routes || editedRouteData.id === undefined) && !creatingNewRoute) {
+      // we are editing an existing or a template route, but haven't yet received the graphql
+      // response with its data -> return early
+      if (!baseRoute && !creatingNewRoute) {
         return;
       }
 
+      // retrieve infra links for snapping ling from mapmatching service
+      // AND all the related stops nearby
       const { coordinates } = snappingLineFeature.geometry;
-
       const { infraLinks, orderedInfraLinksWithStops, geometry } =
         await getInfraLinksWithStopsForCoordinates(coordinates);
 
+      // retrieve stop and infra link data from base route if we don't yet have edited data
+      // TODO: this should happen only once, not every time the snapping line is updated
       const { oldStopLabels, oldInfraLinks } = getOldRouteGeometryVariables(
         editedRouteData.stops,
         editedRouteData.infraLinks,
-        routes,
-        !creatingNewRoute || !!templateRouteId,
+        baseRoute,
       );
 
       const removedStopLabels = await getRemovedStopLabels(
@@ -176,14 +178,13 @@ const DrawRouteLayerComponent = (
       }
     },
     [
-      routes,
+      baseRoute,
       editedRouteData.id,
       editedRouteData.stops,
       editedRouteData.infraLinks,
       creatingNewRoute,
       getInfraLinksWithStopsForCoordinates,
       getOldRouteGeometryVariables,
-      templateRouteId,
       getRemovedStopLabels,
       extractScheduledStopPoints,
       dispatch,
@@ -200,9 +201,9 @@ const DrawRouteLayerComponent = (
       return;
     }
 
-    if (mode === Mode.Edit && routes && routes[0]) {
+    if (mode === Mode.Edit && baseRoute) {
       // Starting to edit a route, generate snapping line from infra links
-      const infraLinks = mapGraphQLRouteToInfraLinks(routes[0]);
+      const infraLinks = mapGraphQLRouteToInfraLinks(baseRoute);
       const infraSnappingLine = mapInfraLinksToFeature(infraLinks);
 
       setSnappingLine(infraSnappingLine);
@@ -217,7 +218,7 @@ const DrawRouteLayerComponent = (
     mode,
     creatingNewRoute,
     dispatch,
-    routes,
+    baseRoute,
     snappingLine,
     templateRouteId,
   ]);
