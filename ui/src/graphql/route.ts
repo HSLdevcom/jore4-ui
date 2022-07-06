@@ -15,7 +15,7 @@ import {
   useListOwnLinesQuery,
   useSearchLinesAndRoutesQuery,
 } from '../generated/graphql';
-import { InfrastructureLinkAlongRoute } from './infrastructureNetwork';
+import { RouteInfraLink } from './infrastructureNetwork';
 import { GqlQueryResult } from './types';
 
 const LINE_DEFAULT_FIELDS = gql`
@@ -516,7 +516,7 @@ export const getRouteStopLabels = (route: RouteRoute) => {
 
 export interface RouteGeometry {
   routeStops: RouteStop[];
-  infraLinksAlongRoute: InfrastructureLinkAlongRoute[];
+  infraLinksAlongRoute: RouteInfraLink[];
 }
 
 /**
