@@ -1,16 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ApolloQueryResult, gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 import {
   GetRoutesBrokenByStopChangeQuery,
-  GetStopsAlongInfrastructureLinksQuery,
-  GetStopWithRouteGraphDataByIdQuery,
   InfrastructureNetworkDirectionEnum,
   RouteRoute,
   ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointSetInput,
-  useGetStopsByIdsQuery,
-  useGetStopsByLabelsQuery,
-  useGetStopsByLocationQuery,
 } from '../generated/graphql';
 import {
   mapFromStoreType,
@@ -87,16 +82,6 @@ const QUERY_GET_STOPS_BY_LOCATION = gql`
     }
   }
 `;
-export const mapGetStopsResult = (
-  result:
-    | ReturnType<typeof useGetStopsByLocationQuery>
-    | ReturnType<typeof useGetStopsByIdsQuery>
-    | ReturnType<typeof useGetStopsByLabelsQuery>
-    | ApolloQueryResult<GetStopsAlongInfrastructureLinksQuery>,
-) =>
-  result.data?.service_pattern_scheduled_stop_point as
-    | ServicePatternScheduledStopPoint[]
-    | undefined;
 
 const GET_STOPS_BY_VALIDITY = gql`
   query GetStopsByValidity(
@@ -234,13 +219,6 @@ const GET_STOP_WITH_ROUTE_GRAPH_DATA_BY_ID = gql`
     }
   }
 `;
-
-export const mapGetStopWithRouteGraphDataByIdResult = (
-  result: GqlQueryResult<GetStopWithRouteGraphDataByIdQuery>,
-) =>
-  result.data?.service_pattern_scheduled_stop_point?.[0] as
-    | ServicePatternScheduledStopPoint
-    | undefined;
 
 export const mapStopToStoreStop = (
   stop: StopWithLocation,

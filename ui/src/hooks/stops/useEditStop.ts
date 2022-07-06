@@ -14,7 +14,7 @@ import {
 } from '../../generated/graphql';
 import {
   mapGetRoutesBrokenByStopChangeResult,
-  mapGetStopWithRouteGraphDataByIdResult,
+  mapStopResultToStop,
   ScheduledStopPointSetInput,
 } from '../../graphql';
 import {
@@ -142,8 +142,7 @@ export const useEditStop = () => {
   // try to produce a changeset that can be displayed on an explanatory UI
   const prepareEdit = async ({ stopId, patch }: EditParams) => {
     const stopWithRoutesResult = await getStopWithRouteGraphData({ stopId });
-    const stopWithRouteGraphData =
-      mapGetStopWithRouteGraphDataByIdResult(stopWithRoutesResult);
+    const stopWithRouteGraphData = mapStopResultToStop(stopWithRoutesResult);
 
     // data model and form validation should ensure that
     // label always exists

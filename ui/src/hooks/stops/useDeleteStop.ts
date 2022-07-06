@@ -8,7 +8,7 @@ import {
   ServicePatternScheduledStopPoint,
   useRemoveStopMutation,
 } from '../../generated/graphql';
-import { mapGetStopWithRouteGraphDataByIdResult } from '../../graphql';
+import { mapStopResultToStop } from '../../graphql';
 import {
   EditRouteTerminalStopsError,
   InternalError,
@@ -54,8 +54,7 @@ export const useDeleteStop = () => {
   const prepareDelete = async ({ stopId }: DeleteParams) => {
     // check if we tried to delete the starting or ending stop of an existing route
     const stopWithRoutesResult = await getStopWithRouteGraphData({ stopId });
-    const stopWithRouteGraphData =
-      mapGetStopWithRouteGraphDataByIdResult(stopWithRoutesResult);
+    const stopWithRouteGraphData = mapStopResultToStop(stopWithRoutesResult);
 
     if (!stopWithRouteGraphData) {
       throw new InternalError(`Could not find stop with id ${stopId}`);

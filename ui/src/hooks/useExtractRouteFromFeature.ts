@@ -14,8 +14,8 @@ import {
 } from '../generated/graphql';
 import {
   InfrastructureLinkAlongRoute,
-  mapGetStopsResult,
   mapInfraLinkWithStopsResult,
+  mapStopResultToStops,
   mapStopToRouteStop,
   orderInfraLinksByExternalLinkId,
   RouteStop,
@@ -244,8 +244,8 @@ export const useExtractRouteFromFeature = () => {
         infrastructure_link_ids: infrastructureLinkIds,
       });
 
-      return mapGetStopsResult(stopsResult)
-        ?.map((item) => item.label)
+      return mapStopResultToStops(stopsResult)
+        .map((item) => item.label)
         .filter((stop) => !currentStopLabels.includes(stop));
     },
 
