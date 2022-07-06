@@ -2,7 +2,6 @@
 import { ApolloQueryResult, gql } from '@apollo/client';
 import {
   GetRoutesBrokenByStopChangeQuery,
-  GetStopByIdQuery,
   GetStopsAlongInfrastructureLinksQuery,
   GetStopWithRouteGraphDataByIdQuery,
   InfrastructureNetworkDirectionEnum,
@@ -109,16 +108,6 @@ const GET_STOPS_BY_VALIDITY = gql`
   }
 `;
 
-const GET_STOP_BY_ID = gql`
-  query GetStopById($stopId: uuid!) {
-    service_pattern_scheduled_stop_point(
-      where: { scheduled_stop_point_id: { _eq: $stopId } }
-    ) {
-      ...scheduled_stop_point_all_fields
-    }
-  }
-`;
-
 const GET_STOPS_BY_IDS = gql`
   query GetStopsByIds($stopIds: [uuid!]) {
     service_pattern_scheduled_stop_point(
@@ -138,13 +127,6 @@ const GET_STOPS_BY_LABELS = gql`
     }
   }
 `;
-
-export const mapGetStopByIdResult = (
-  result: GqlQueryResult<GetStopByIdQuery>,
-) =>
-  result.data?.service_pattern_scheduled_stop_point[0] as
-    | ServicePatternScheduledStopPoint
-    | undefined;
 
 const INSERT_STOP = gql`
   mutation InsertStop(
