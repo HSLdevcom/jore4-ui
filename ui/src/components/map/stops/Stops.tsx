@@ -1,7 +1,7 @@
 import React, { useImperativeHandle } from 'react';
 import { MapEvent } from 'react-map-gl';
 import { useGetStopsByLocationQuery } from '../../../generated/graphql';
-import { mapGetStopsResult, StopWithLocation } from '../../../graphql';
+import { mapStopResultToStops, StopWithLocation } from '../../../graphql';
 import {
   useAppAction,
   useAppSelector,
@@ -51,8 +51,8 @@ export const Stops = React.forwardRef((props, ref) => {
     }),
   );
 
-  const unfilteredStops = mapGetStopsResult(stopsResult);
-  const stops = filter(unfilteredStops || []);
+  const unfilteredStops = mapStopResultToStops(stopsResult);
+  const stops = filter(unfilteredStops);
 
   // can be used for triggering the edit for both existing and draft stops
   const onEditStop = (stop: StopWithLocation) => {

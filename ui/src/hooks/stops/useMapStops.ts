@@ -7,8 +7,8 @@ import {
 } from '../../generated/graphql';
 import {
   getRouteStopLabels,
-  mapGetStopsResult,
   mapRouteResultToRoutes,
+  mapStopResultToStops,
 } from '../../graphql';
 import {
   selectHasChangesInProgress,
@@ -43,9 +43,9 @@ export const useMapStops = () => {
         selectedRoutes?.flatMap((route) => getRouteStopLabels(route)) || [],
     }),
   );
-  const stopsIdsOnSelectedRoute = mapGetStopsResult(
+  const stopsIdsOnSelectedRoute = mapStopResultToStops(
     selectedRouteStopsResult,
-  )?.map((stop) => stop.scheduled_stop_point_id);
+  ).map((stop) => stop.scheduled_stop_point_id);
 
   const displayedRoutesResult = useGetRoutesWithInfrastructureLinksQuery(
     mapToVariables({ route_ids: displayedRouteIds }),
@@ -62,9 +62,9 @@ export const useMapStops = () => {
     }),
   );
 
-  const stopsIdsOnEditedRoute = mapGetStopsResult(editedRouteStopsResult)?.map(
-    (stop) => stop.scheduled_stop_point_id,
-  );
+  const stopsIdsOnEditedRoute = mapStopResultToStops(
+    editedRouteStopsResult,
+  ).map((stop) => stop.scheduled_stop_point_id);
 
   const getStopVehicleMode = useCallback(
     (
