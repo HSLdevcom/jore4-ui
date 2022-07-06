@@ -14,6 +14,7 @@
     "test": "yarn ws:ui test",
     "test:e2e": "yarn ws:db build && yarn ws:e2e cypress run",
     "test:e2e:open": "yarn ws:db build && yarn ws:e2e cypress open",
+    "test:e2e:all": "yarn ws:db build && CYPRESS_RUN_MAP_TESTS=true yarn ws:e2e cypress run",
     "qa": "yarn --frozen-lockfile && yarn ts:check && yarn prettier:check && yarn lint && yarn test && yarn test:e2e"
   },
   "dependencies": {},
