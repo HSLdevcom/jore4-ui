@@ -1,4 +1,5 @@
 import { ServicePatternScheduledStopPoint } from '../generated/graphql';
+import { RouteStop } from '../graphql/route';
 
 const sortStopsByTraversalForwards = (
   stop1: ServicePatternScheduledStopPoint,
@@ -24,3 +25,10 @@ export const sortStopsOnInfraLink = (
       ? sortStopsByTraversalForwards
       : sortStopsByTraversalBackwards,
   );
+
+/** Removes all duplicate labeled consecutive stops from the list
+ * This is used for example removing different versions of stops from the
+ * journey pattern list where only the labels are shown
+ */
+export const filterDistinctConsecutiveRouteStops = (stops: RouteStop[]) =>
+  stops.filter((route, index) => stops[index - 1]?.label !== route.label);
