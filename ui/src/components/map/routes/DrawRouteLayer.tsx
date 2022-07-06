@@ -43,7 +43,7 @@ import {
   setDraftRouteGeometryAction,
   stopRouteEditingAction,
 } from '../../../redux';
-import { showToast } from '../../../utils';
+import { filterDistinctConsecutiveRouteStops, showToast } from '../../../utils';
 import { addRoute, removeRoute } from '../mapUtils';
 import { featureStyle, handleStyle } from './editorStyles';
 
@@ -166,7 +166,12 @@ const DrawRouteLayerComponent = (
         editedRouteData?.id,
       );
 
-      dispatch(setDraftRouteGeometryAction({ stops: routeStops, infraLinks }));
+      dispatch(
+        setDraftRouteGeometryAction({
+          stops: filterDistinctConsecutiveRouteStops(routeStops),
+          infraLinks,
+        }),
+      );
 
       if (geometry) {
         addRoute(map, SNAPPING_LINE_LAYER_ID, geometry);
@@ -179,7 +184,7 @@ const DrawRouteLayerComponent = (
     },
     [
       baseRoute,
-      editedRouteData.id,
+      editedRouteData?.id,
       editedRouteData.stops,
       editedRouteData.infraLinks,
       creatingNewRoute,
