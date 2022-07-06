@@ -108,7 +108,7 @@ const DrawRouteLayerComponent = (
   useImperativeHandle(externalRef, () => ({
     onDeleteRoute: () => {
       // currently user can draw only one route, so id of it will always be '0'
-      const routeId = '0';
+      const routeId = SNAPPING_LINE_LAYER_ID;
       onDelete(routeId);
     },
   }));
