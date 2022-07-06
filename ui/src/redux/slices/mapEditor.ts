@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
-import { InfrastructureLinkAlongRoute, RouteStop } from '../../graphql';
+import { RouteInfraLink, RouteStop } from '../../graphql';
 
 interface IState {
   /**
@@ -45,7 +45,7 @@ interface IState {
     /**
      * Array of infrastructure links along the created / edited route
      */
-    infraLinks?: InfrastructureLinkAlongRoute[];
+    infraLinks?: RouteInfraLink[];
     /**
      * Id of the route used as a template route, when creating a new route
      */
@@ -205,21 +205,40 @@ const slice = createSlice({
     /**
      * Store created / edited route geometry in state.
      */
-    setDraftRouteGeometry: (
-      state: IState,
-      action: PayloadAction<{
-        stops: RouteStop[];
-        infraLinks: InfrastructureLinkAlongRoute[];
-      }>,
-    ) => {
-      const { stops, infraLinks } = action.payload;
+    setDraftRouteGeometry: {
+      reducer: (
+        state: IState,
+        action: PayloadAction<{
+          stops: RouteStop[];
+          infraLinks: RouteInfraLink[];
+        }>,
+      ) => {
+        const { stops, infraLinks } = action.payload;
 
-      state.editedRouteData = {
-        ...state.editedRouteData,
+        state.editedRouteData = {
+          ...state.editedRouteData,
+          stops,
+          infraLinks,
+        };
+      },
+      prepare: ({
         stops,
         infraLinks,
-      };
+      }: {
+        stops: RouteStop[];
+        infraLinks: RouteInfraLink[];
+      }) => ({
+        payload: {
+          stops,
+          // remove unnecessary, nonserializable stops from infra link data
+          infraLinks: infraLinks.map((item) => ({
+            ...item,
+            scheduled_stop_point_located_on_infrastructure_link: [],
+          })),
+        },
+      }),
     },
+
     /**
      * Reset created / edited route geometry in state.
      */
