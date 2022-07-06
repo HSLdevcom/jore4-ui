@@ -25,8 +25,8 @@ import {
   useGetRoutesWithInfrastructureLinksQuery,
 } from '../../../generated/graphql';
 import {
-  mapGraphQLRouteToInfraLinks,
   mapRouteResultToRoute,
+  mapRouteToInfraLinksAlongRoute,
 } from '../../../graphql';
 import {
   getRouteStops,
@@ -134,10 +134,10 @@ const DrawRouteLayerComponent = (
         return;
       }
 
-      // retrieve infra links for snapping ling from mapmatching service
+      // retrieve infra links with stops for snapping line from mapmatching service
       // AND all the related stops nearby
       const { coordinates } = snappingLineFeature.geometry;
-      const { infraLinks, orderedInfraLinksWithStops, geometry } =
+      const { infraLinksWithStops, routeGeometry } =
         await getInfraLinksWithStopsForCoordinates(coordinates);
 
       // retrieve stop and infra link data from base route if we don't yet have edited data
@@ -149,16 +149,15 @@ const DrawRouteLayerComponent = (
       );
 
       const removedStopLabels = await getRemovedStopLabels(
-        oldInfraLinks.map((link) => link.infrastructureLinkId),
+        oldInfraLinks.map((link) => link.infrastructure_link_id),
         oldStopLabels,
       );
 
       // Extract list of the stops to be included in the route
-      const stops = extractScheduledStopPoints({
-        orderedInfraLinksWithStops,
-        infraLinks,
-        vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
-      });
+      const stops = extractScheduledStopPoints(
+        infraLinksWithStops,
+        ReusableComponentsVehicleModeEnum.Bus,
+      );
 
       const routeStops = getRouteStops(
         stops,
@@ -169,12 +168,12 @@ const DrawRouteLayerComponent = (
       dispatch(
         setDraftRouteGeometryAction({
           stops: filterDistinctConsecutiveRouteStops(routeStops),
-          infraLinks,
+          infraLinks: infraLinksWithStops,
         }),
       );
 
-      if (geometry) {
-        addRoute(map, SNAPPING_LINE_LAYER_ID, geometry);
+      if (routeGeometry) {
+        addRoute(map, SNAPPING_LINE_LAYER_ID, routeGeometry);
       } else {
         // map matching backend didn't returned valid route. -> remove
         // also drawn route. Maybe we should show notification to the user
@@ -208,7 +207,7 @@ const DrawRouteLayerComponent = (
 
     if (mode === Mode.Edit && baseRoute) {
       // Starting to edit a route, generate snapping line from infra links
-      const infraLinks = mapGraphQLRouteToInfraLinks(baseRoute);
+      const infraLinks = mapRouteToInfraLinksAlongRoute(baseRoute);
       const infraSnappingLine = mapInfraLinksToFeature(infraLinks);
 
       setSnappingLine(infraSnappingLine);

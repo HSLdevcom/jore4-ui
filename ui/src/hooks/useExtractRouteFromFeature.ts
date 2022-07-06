@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import { getBusRoute } from '../api/routing';
 import {
   InfrastructureNetworkDirectionEnum,
-  InfrastructureNetworkInfrastructureLink,
   ReusableComponentsVehicleModeEnum,
   RouteRoute,
   ServicePatternScheduledStopPoint,
@@ -11,22 +10,16 @@ import {
 } from '../generated/graphql';
 import {
   getRouteStopLabels,
-  InfrastructureLinkAlongRoute,
-  mapGraphQLRouteToInfraLinks,
   mapInfraLinkWithStopsResult,
+  mapRouteToInfraLinksAlongRoute,
   mapStopResultToStops,
   mapStopToRouteStop,
   orderInfraLinksByExternalLinkId,
+  RouteInfraLink,
   RouteStop,
 } from '../graphql';
 import { mapGeoJSONtoFeature, sortStopsOnInfraLink } from '../utils';
 import { useFilterStops } from './useFilterStops';
-
-interface ExtractScheduledStopPointIdsParams {
-  orderedInfraLinksWithStops: InfrastructureNetworkInfrastructureLink[];
-  infraLinks: InfrastructureLinkAlongRoute[];
-  vehicleMode: ReusableComponentsVehicleModeEnum;
-}
 
 export type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
 
@@ -55,7 +48,7 @@ export const mapRouteStopsToStopLabels = (routeStops: RouteStop[]) =>
     .map((item) => item.label);
 
 export const useExtractRouteFromFeature = () => {
-  const [fetchInfraLinksWithStopsByExternalIds] =
+  const [mapExternalLinkIdsToInfraLinksWithStops] =
     useMapExternalLinkIdsToInfraLinksWithStopsAsyncQuery();
   const [fetchStopsAlongInfrastructureLinks] =
     useGetStopsAlongInfrastructureLinksAsyncQuery();
@@ -67,8 +60,8 @@ export const useExtractRouteFromFeature = () => {
    * and are visible to user (filtered by stop filters in map view)
    */
   const getFilteredStopIdsAlongRouteGeometry = useCallback(
-    (orderedInfraLinksWithStops: InfrastructureNetworkInfrastructureLink[]) => {
-      const unfilteredStops = orderedInfraLinksWithStops.flatMap(
+    (infraLinksWithStops: RouteInfraLink[]) => {
+      const unfilteredStops = infraLinksWithStops.flatMap(
         (link) => link.scheduled_stop_point_located_on_infrastructure_link,
       ) as ServicePatternScheduledStopPoint[];
 
@@ -84,23 +77,22 @@ export const useExtractRouteFromFeature = () => {
    * from a MapExternalLinkIdsToInfraLinksWithStops query result.
    */
   const extractScheduledStopPoints = useCallback(
-    ({
-      orderedInfraLinksWithStops,
-      infraLinks,
-      vehicleMode,
-    }: ExtractScheduledStopPointIdsParams) => {
+    (
+      infraLinksWithStops: RouteInfraLink[],
+      vehicleMode: ReusableComponentsVehicleModeEnum,
+    ) => {
       // We need to filter all stops at once instead of filtering them
       // for each infrastructure link separately, because for example
       // separate versions of a stop might be on different infrastructure links,
       // and we only want all but the hightest priority instance to be filtered out.
       // Filtering for infra links separately could result in the same stop being
       // multiple times in the result set.
-      const filteredStopIds = getFilteredStopIdsAlongRouteGeometry(
-        orderedInfraLinksWithStops,
-      );
+      const filteredStopIds =
+        getFilteredStopIdsAlongRouteGeometry(infraLinksWithStops);
 
-      return orderedInfraLinksWithStops.flatMap((infraLinkWithStops, index) => {
-        const isLinkTraversalForwards = infraLinks[index].isTraversalForwards;
+      return infraLinksWithStops.flatMap((infraLinkWithStops) => {
+        const isLinkTraversalForwards =
+          infraLinkWithStops.is_traversal_forwards;
 
         const eligibleStops =
           infraLinkWithStops.scheduled_stop_point_located_on_infrastructure_link
@@ -147,7 +139,7 @@ export const useExtractRouteFromFeature = () => {
   );
 
   const mapInfraLinksToFeature = useCallback(
-    (infraLinks: InfrastructureLinkAlongRoute[]): LineStringFeature => {
+    (infraLinks: RouteInfraLink[]): LineStringFeature => {
       const coordinates: GeoJSON.Position[] = infraLinks.flatMap(
         (link, index) => {
           const isFirst = index === 0;
@@ -156,7 +148,7 @@ export const useExtractRouteFromFeature = () => {
           // Order coordinates properly
 
           const shouldReverseCoordinates =
-            linkCoordinates.length && !link.isTraversalForwards;
+            linkCoordinates.length && !link.is_traversal_forwards;
 
           // TODO: Could be optimized since only first and last coordinates are being used
           const featureCoordinates = shouldReverseCoordinates
@@ -183,51 +175,61 @@ export const useExtractRouteFromFeature = () => {
     [],
   );
 
-  const getInfraLinksWithStopsForCoordinates = useCallback(
-    async (coordinates: GeoJSON.Position[]) => {
-      const routeResponse = await getBusRoute(coordinates);
-
-      const externalLinkIds = routeResponse.routes[0]?.paths?.map(
-        (item) => item.externalLinkRef.externalLinkId,
-      );
-
+  const fetchInfraLinksWithStopsByExternalIds = useCallback(
+    async (externalLinkIds: string[]) => {
       // Retrieve the infra links from the external link ids returned by map-matching.
       // This will return the links in arbitrary order.
       const infraLinksWithStopsResponse =
-        await fetchInfraLinksWithStopsByExternalIds({
+        await mapExternalLinkIdsToInfraLinksWithStops({
           externalLinkIds,
         });
-
-      const infraLinksWithStops = mapInfraLinkWithStopsResult(
+      const unorderedInfraLinksWithStops = mapInfraLinkWithStopsResult(
         infraLinksWithStopsResponse,
       );
-
-      if (!infraLinksWithStops) {
+      if (!unorderedInfraLinksWithStops) {
         throw new Error("could not fetch route's infra links");
       }
 
       // Order the infra links to match the order of the route returned by map-matching
       const orderedInfraLinksWithStops = orderInfraLinksByExternalLinkId(
-        infraLinksWithStops,
+        unorderedInfraLinksWithStops,
         externalLinkIds,
       );
 
-      // Create the list of links used for route creation
-      const infraLinks: InfrastructureLinkAlongRoute[] =
+      return orderedInfraLinksWithStops;
+    },
+    [mapExternalLinkIdsToInfraLinksWithStops],
+  );
+
+  const getInfraLinksWithStopsForCoordinates = useCallback(
+    async (coordinates: GeoJSON.Position[]) => {
+      // Do map-matching for the given coordinates (based on the snapping line)
+      const mapMatchingResult = await getBusRoute(coordinates);
+      const matchedRoute = mapMatchingResult.routes[0];
+
+      // Collect all the infra links' external ids, in order
+      const externalLinkIds = matchedRoute?.paths?.map(
+        (item) => item.externalLinkRef.externalLinkId,
+      );
+
+      // Retrieve the infra links from the external link ids returned by map-matching.
+      // This returns the infra links in order
+      const orderedInfraLinksWithStops =
+        await fetchInfraLinksWithStopsByExternalIds(externalLinkIds);
+
+      // Enrich the infra link with some routing data
+      const infraLinksWithStops: RouteInfraLink[] =
         orderedInfraLinksWithStops.map((item, index) => ({
-          infrastructureLinkId: item.infrastructure_link_id,
-          isTraversalForwards:
-            routeResponse.routes[0]?.paths[index]?.isTraversalForwards,
-          shape: item.shape,
+          ...item,
+          is_traversal_forwards:
+            mapMatchingResult.routes[0]?.paths[index]?.isTraversalForwards,
         }));
 
       return {
-        infraLinks,
-        orderedInfraLinksWithStops,
-        geometry: routeResponse?.routes?.[0]?.geometry,
+        infraLinksWithStops,
+        routeGeometry: matchedRoute?.geometry,
       };
     },
-
     [fetchInfraLinksWithStopsByExternalIds],
   );
 
@@ -248,7 +250,7 @@ export const useExtractRouteFromFeature = () => {
   const getOldRouteGeometryVariables = useCallback(
     (
       stateStops: RouteStop[],
-      stateInfraLinks: InfrastructureLinkAlongRoute[] | undefined,
+      stateInfraLinks: RouteInfraLink[] | undefined,
       baseRoute?: RouteRoute,
     ) => {
       const previouslyEditedRouteStops = mapRouteStopsToStopLabels(stateStops);
@@ -263,7 +265,7 @@ export const useExtractRouteFromFeature = () => {
       ) {
         return {
           oldStopLabels: getRouteStopLabels(baseRoute),
-          oldInfraLinks: mapGraphQLRouteToInfraLinks(baseRoute),
+          oldInfraLinks: mapRouteToInfraLinksAlongRoute(baseRoute),
         };
       }
 
