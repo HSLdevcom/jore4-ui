@@ -2,7 +2,6 @@
 import { ApolloQueryResult, gql } from '@apollo/client';
 import {
   GetRoutesBrokenByStopChangeQuery,
-  GetStopByIdQuery,
   GetStopsAlongInfrastructureLinksQuery,
   GetStopWithRouteGraphDataByIdQuery,
   InfrastructureNetworkDirectionEnum,
@@ -104,16 +103,6 @@ const GET_STOPS_BY_VALIDITY = gql`
     $filter: service_pattern_scheduled_stop_point_bool_exp
   ) {
     service_pattern_scheduled_stop_point(where: $filter) {
-      ...scheduled_stop_point_all_fields
-    }
-  }
-`;
-
-const GET_STOP_BY_ID = gql`
-  query GetStopById($stopId: uuid!) {
-    service_pattern_scheduled_stop_point(
-      where: { scheduled_stop_point_id: { _eq: $stopId } }
-    ) {
       ...scheduled_stop_point_all_fields
     }
   }
