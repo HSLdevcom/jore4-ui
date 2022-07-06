@@ -538,6 +538,7 @@ export interface RouteStop {
    * Metadata (e.g. via point informaiton) of the stop in journey pattern
    */
   stop?: JourneyPatternScheduledStopPointInJourneyPattern;
+  scheduledStopPointId?: UUID;
 }
 
 /**
@@ -595,5 +596,6 @@ export const mapStopToRouteStop = (
     label: stop.label,
     belongsToJourneyPattern,
     stop: stopInJourneyPattern,
+    scheduledStopPointId: stop.scheduled_stop_point_id,
   };
 };
