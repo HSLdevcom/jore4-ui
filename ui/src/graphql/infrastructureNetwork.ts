@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { gql } from '@apollo/client';
-import { Geometry } from '../components/map/mapUtils';
 import {
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
@@ -11,19 +10,20 @@ import {
 } from '../generated/graphql';
 import { GqlQueryResult } from './types';
 
-export type InfrastructureLinkAlongRoute = {
-  infrastructureLinkId: string;
-  isTraversalForwards: boolean;
-  shape: Geometry;
-};
+// an extended version of the infra link model that also contains information about the route
+export interface RouteInfraLink
+  extends InfrastructureNetworkInfrastructureLink {
+  // eslint-disable-next-line camelcase
+  is_traversal_forwards: boolean;
+}
 
 export const mapInfraLinksAlongRouteToGraphQL = (
-  infraLinks: InfrastructureLinkAlongRoute[],
+  infraLinks: RouteInfraLink[],
 ) =>
   infraLinks.map((link, index) => ({
-    infrastructure_link_id: link.infrastructureLinkId,
+    infrastructure_link_id: link.infrastructure_link_id,
     infrastructure_link_sequence: index,
-    is_traversal_forwards: link.isTraversalForwards,
+    is_traversal_forwards: link.is_traversal_forwards,
   }));
 
 // Order the given infra links to match the order of the given external ids. Throws if there is no infra link
@@ -137,10 +137,11 @@ const GET_STOPS_ALONG_INFRASTRUCTURE_LINKS = gql`
   }
 `;
 
-export const mapGraphQLRouteToInfraLinks = (route: RouteRoute) => {
-  return route.infrastructure_links_along_route.map((link) => ({
-    infrastructureLinkId: link.infrastructure_link_id,
-    isTraversalForwards: link.is_traversal_forwards,
-    shape: link.infrastructure_link.shape,
+export const mapRouteToInfraLinksAlongRoute = (
+  route: RouteRoute,
+): RouteInfraLink[] => {
+  return route.infrastructure_links_along_route.map((item) => ({
+    ...item.infrastructure_link,
+    is_traversal_forwards: item.is_traversal_forwards,
   }));
 };
