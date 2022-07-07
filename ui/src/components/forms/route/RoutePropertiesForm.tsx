@@ -78,7 +78,7 @@ const RoutePropertiesFormComponent = (
             <label htmlFor="finnishName">{t('routes.name')}</label>
             <input
               id="finnishName"
-              data-testId={testIds.finnishName}
+              data-testid={testIds.finnishName}
               type="text"
               {...register('finnishName', {})}
             />
@@ -91,7 +91,7 @@ const RoutePropertiesFormComponent = (
             <label htmlFor="label">{t('routes.label')}</label>
             <input
               id="label"
-              data-testId={testIds.label}
+              data-testid={testIds.label}
               type="text"
               {...register('label', {})}
             />
