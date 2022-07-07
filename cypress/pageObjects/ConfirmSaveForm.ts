@@ -12,7 +12,10 @@ export class ConfirmSaveForm {
   }
 
   setStartDate(isoDate: string) {
-    return cy.getByTestId('confirmSaveForm:startDateInput').type(isoDate);
+    return cy
+      .getByTestId('confirmSaveForm:startDateInput')
+      .invoke('removeAttr', 'type')
+      .type(isoDate);
   }
 
   setEndDate(isoDate: string) {

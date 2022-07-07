@@ -22,6 +22,13 @@ interface Props {
   onSave: () => void;
 }
 
+const testIds = {
+  drawRouteButton: 'mapFooter:drawRouteButton',
+  editRouteButton: 'mapFooter:editRouteButton',
+  saveButton: 'mapFooter:saveButton',
+  cancelButton: 'mapFooter:cancelButton',
+};
+
 export const MapFooter: React.FC<Props> = ({
   onDrawRoute,
   onEditRoute,
@@ -50,6 +57,7 @@ export const MapFooter: React.FC<Props> = ({
   return (
     <Row className="space-x-4 bg-white px-10 py-5">
       <SimpleButton
+        testId={testIds.drawRouteButton}
         onClick={onDrawRoute}
         disabled={!isInViewMode || creatingNewRoute}
         inverted={drawingMode !== Mode.Draw}
@@ -57,6 +65,7 @@ export const MapFooter: React.FC<Props> = ({
         {t('map.drawRoute')}
       </SimpleButton>
       <SimpleButton
+        testId={testIds.editRouteButton}
         onClick={onEditRoute}
         disabled={!(creatingNewRoute || selectedRouteId)}
         inverted={drawingMode !== Mode.Edit}
@@ -82,6 +91,7 @@ export const MapFooter: React.FC<Props> = ({
           containerClassName="!ml-auto"
           onClick={onCancel}
           disabled={!hasChangesInProgress}
+          testId={testIds.cancelButton}
           inverted
         >
           {t('cancel')}
@@ -89,6 +99,7 @@ export const MapFooter: React.FC<Props> = ({
         <SimpleButton
           onClick={onSave}
           disabled={!(hasChangesInProgress && hasDraftRouteGeometry)}
+          testId={testIds.saveButton}
         >
           {t('routes.save')}
         </SimpleButton>
