@@ -179,9 +179,12 @@ const slice = createSlice({
         metaData: action.payload,
       };
 
-      state.drawingMode = state.editedRouteData.templateRouteId
-        ? Mode.Edit
-        : Mode.Draw;
+      if (state.editedRouteData.infraLinks?.length === 0) {
+        state.drawingMode = state.editedRouteData.templateRouteId
+          ? Mode.Edit
+          : Mode.Draw;
+      }
+
       state.isRouteMetadataFormOpen = false;
     },
     /**
