@@ -108,6 +108,10 @@ const hasuraOverrideTypeDefs = gql`
     via_point_name_i18n: localized_string
     via_point_short_name_i18n: localized_string
   }
+
+  type infrastructure_network_infrastructure_link {
+    shape: geography_linestring! # fix the geography type
+  }
 `;
 
 // Note: if want to make custom directives for the schema, here are some examples on how to do so:
