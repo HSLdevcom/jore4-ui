@@ -1,11 +1,7 @@
 import { useEffect } from 'react';
 import {
-  GetRouteDetailsByIdsDocument,
-  GetRouteDetailsByIdsQuery,
-  GetRouteDetailsByIdsQueryVariables,
-  GetRouteDetailsByLabelsDocument,
-  GetRouteDetailsByLabelsQuery,
-  GetRouteDetailsByLabelsQueryVariables,
+  useGetRouteDetailsByIdsAsyncQuery,
+  useGetRouteDetailsByLabelsAsyncQuery,
 } from '../../generated/graphql';
 import { mapRouteResultToRoutes } from '../../graphql';
 import {
@@ -14,18 +10,10 @@ import {
   setDisplayedRouteIdsAction,
 } from '../../redux';
 import { useAppDispatch, useAppSelector } from '../redux';
-import { useAsyncQuery } from '../useAsyncQuery';
 
 export const useGetDisplayedRoutes = () => {
-  const [getRouteDetailsByLabels] = useAsyncQuery<
-    GetRouteDetailsByLabelsQuery,
-    GetRouteDetailsByLabelsQueryVariables
-  >(GetRouteDetailsByLabelsDocument);
-
-  const [getRouteDetailsByIds] = useAsyncQuery<
-    GetRouteDetailsByIdsQuery,
-    GetRouteDetailsByIdsQueryVariables
-  >(GetRouteDetailsByIdsDocument);
+  const [getRouteDetailsByLabels] = useGetRouteDetailsByLabelsAsyncQuery();
+  const [getRouteDetailsByIds] = useGetRouteDetailsByIdsAsyncQuery();
 
   const observationDate = useAppSelector(selectMapObservationDate);
 
