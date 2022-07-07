@@ -11,7 +11,7 @@ export const Row: React.FC<Props> = ({
   testId = null,
 }) => {
   return (
-    <div className={`flex flex-row ${className}`} data-testId={testId}>
+    <div className={`flex flex-row ${className}`} data-testid={testId}>
       {children}
     </div>
   );
