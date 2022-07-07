@@ -179,9 +179,13 @@ const slice = createSlice({
         metaData: action.payload,
       };
 
-      state.drawingMode = state.editedRouteData.templateRouteId
-        ? Mode.Edit
-        : Mode.Draw;
+      // Start drawing mode only if a route has not been drawn already
+      if (state.editedRouteData.infraLinks?.length === 0) {
+        state.drawingMode = state.editedRouteData.templateRouteId
+          ? Mode.Edit
+          : Mode.Draw;
+      }
+
       state.isRouteMetadataFormOpen = false;
     },
     /**
