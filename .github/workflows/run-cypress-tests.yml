@@ -40,7 +40,7 @@ jobs:
         run: yarn cypress install
 
       - name: Run cypress tests
-        run: yarn test:e2e
+        run: yarn test:e2e:skip-map
 
       - name: Upload test results as an artifact
         if: ${{ always() }}
