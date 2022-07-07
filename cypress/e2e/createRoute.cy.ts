@@ -6,7 +6,7 @@ import {
   TerminusNameInputs,
 } from '../pageObjects';
 
-if (Cypress.env('RUN_MAP_TESTS')) {
+if (!Cypress.env('SKIP_MAP_TESTS')) {
   describe('Verify that creating new route works', () => {
     let mapEditor: MapEditor;
     let mapFooter: MapFooter;
