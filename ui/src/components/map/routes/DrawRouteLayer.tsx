@@ -25,15 +25,12 @@ import {
   useGetRoutesWithInfrastructureLinksQuery,
 } from '../../../generated/graphql';
 import {
-  getStopsFromRoute,
   mapGraphQLRouteToInfraLinks,
   mapRouteResultToRoute,
-  RouteStop,
 } from '../../../graphql';
 import {
   getRouteStops,
   LineStringFeature,
-  mapRouteStopsToStopLabels,
   useAppDispatch,
   useAppSelector,
   useExtractRouteFromFeature,
@@ -92,6 +89,7 @@ const DrawRouteLayerComponent = (
     getInfraLinksWithStopsForCoordinates,
     mapInfraLinksToFeature,
     getRemovedStopLabels,
+    getOldRouteGeometryVariables,
   } = useExtractRouteFromFeature();
 
   const { t } = useTranslation();
@@ -142,11 +140,14 @@ const DrawRouteLayerComponent = (
       const { infraLinks, orderedInfraLinksWithStops, geometry } =
         await getInfraLinksWithStopsForCoordinates(coordinates);
 
-      // get previous edited state's stops and infra links, to compare journey patterns
-      const oldStopLabels = mapRouteStopsToStopLabels(editedRouteData.stops);
-      const oldInfraLinks = editedRouteData.infraLinks || [];
+      // retrieve stop and infra link data from base route if we don't yet have edited data
+      // TODO: this should happen only once, not every time the snapping line is updated
+      const { oldStopLabels, oldInfraLinks } = getOldRouteGeometryVariables(
+        editedRouteData.stops,
+        editedRouteData.infraLinks,
+        baseRoute,
+      );
 
-      // get the list of stops which have been removed from the journey pattern in previous edits
       const removedStopLabels = await getRemovedStopLabels(
         oldInfraLinks.map((link) => link.infrastructureLinkId),
         oldStopLabels,
@@ -183,6 +184,7 @@ const DrawRouteLayerComponent = (
       editedRouteData.infraLinks,
       creatingNewRoute,
       getInfraLinksWithStopsForCoordinates,
+      getOldRouteGeometryVariables,
       getRemovedStopLabels,
       extractScheduledStopPoints,
       dispatch,
@@ -303,22 +305,6 @@ const DrawRouteLayerComponent = (
       document.removeEventListener('keydown', keyDown, false);
     };
   }, [keyDown]);
-
-  // initialize stop and infra link data from base route if we don't yet have edited data
-  useEffect(() => {
-    if ((!editedRouteData.stops || !editedRouteData.infraLinks) && baseRoute) {
-      const stopsInJourneyPattern = getStopsFromRoute(baseRoute);
-      const infraLinks = mapGraphQLRouteToInfraLinks(baseRoute);
-
-      const routeStops: RouteStop[] = stopsInJourneyPattern.map((item) => ({
-        label: item.scheduled_stop_point_label,
-        belongsToJourneyPattern: true,
-        stop: item,
-      }));
-
-      dispatch(setDraftRouteGeometryAction({ stops: routeStops, infraLinks }));
-    }
-  }, [dispatch, editedRouteData.stops, editedRouteData.infraLinks, baseRoute]);
 
   const onFeatureSelected = ({
     selectedEditHandleIndex: selectedIndex,

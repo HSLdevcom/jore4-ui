@@ -10,10 +10,13 @@ import {
   MapExternalLinkIdsToInfraLinksWithStopsQuery,
   MapExternalLinkIdsToInfraLinksWithStopsQueryVariables,
   ReusableComponentsVehicleModeEnum,
+  RouteRoute,
   ServicePatternScheduledStopPoint,
 } from '../generated/graphql';
 import {
+  getRouteStopLabels,
   InfrastructureLinkAlongRoute,
+  mapGraphQLRouteToInfraLinks,
   mapInfraLinkWithStopsResult,
   mapStopResultToStops,
   mapStopToRouteStop,
@@ -252,12 +255,44 @@ export const useExtractRouteFromFeature = () => {
     [fetchStopsAlongInfrastructureLinks],
   );
 
+  const getOldRouteGeometryVariables = useCallback(
+    (
+      stateStops: RouteStop[],
+      stateInfraLinks: InfrastructureLinkAlongRoute[] | undefined,
+      baseRoute?: RouteRoute,
+    ) => {
+      const previouslyEditedRouteStops = mapRouteStopsToStopLabels(stateStops);
+      const previouslyEditedRouteInfrastructureLinks = stateInfraLinks || [];
+
+      // If we are editing existing route and it has not been edited yet,
+      // extract and return stops and infra links from the original route
+      if (
+        (!previouslyEditedRouteStops.length ||
+          !previouslyEditedRouteInfrastructureLinks.length) &&
+        baseRoute
+      ) {
+        return {
+          oldStopLabels: getRouteStopLabels(baseRoute),
+          oldInfraLinks: mapGraphQLRouteToInfraLinks(baseRoute),
+        };
+      }
+
+      // If route has been edited, return edited route's stops and infra links
+      return {
+        oldStopLabels: previouslyEditedRouteStops,
+        oldInfraLinks: previouslyEditedRouteInfrastructureLinks,
+      };
+    },
+    [],
+  );
+
   return {
     extractScheduledStopPoints,
     mapInfraLinksToFeature,
     getInfraLinksWithStopsForCoordinates,
     getRemovedStopLabels,
     getRouteStops,
+    getOldRouteGeometryVariables,
     mapRouteStopsToStopLabels,
     getFilteredStopIdsAlongRouteGeometry,
   };
