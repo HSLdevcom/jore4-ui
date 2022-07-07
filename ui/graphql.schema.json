@@ -5497,7 +5497,7 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "geography",
+                "name": "geography_linestring",
                 "ofType": null
               }
             },
