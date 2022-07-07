@@ -1,17 +1,13 @@
 import { useCallback } from 'react';
 import { getBusRoute } from '../api/routing';
 import {
-  GetStopsAlongInfrastructureLinksDocument,
-  GetStopsAlongInfrastructureLinksQuery,
-  GetStopsAlongInfrastructureLinksQueryVariables,
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
-  MapExternalLinkIdsToInfraLinksWithStopsDocument,
-  MapExternalLinkIdsToInfraLinksWithStopsQuery,
-  MapExternalLinkIdsToInfraLinksWithStopsQueryVariables,
   ReusableComponentsVehicleModeEnum,
   RouteRoute,
   ServicePatternScheduledStopPoint,
+  useGetStopsAlongInfrastructureLinksAsyncQuery,
+  useMapExternalLinkIdsToInfraLinksWithStopsAsyncQuery,
 } from '../generated/graphql';
 import {
   getRouteStopLabels,
@@ -24,7 +20,6 @@ import {
   RouteStop,
 } from '../graphql';
 import { mapGeoJSONtoFeature, sortStopsOnInfraLink } from '../utils';
-import { useAsyncQuery } from './useAsyncQuery';
 import { useFilterStops } from './useFilterStops';
 
 interface ExtractScheduledStopPointIdsParams {
@@ -60,15 +55,10 @@ export const mapRouteStopsToStopLabels = (routeStops: RouteStop[]) =>
     .map((item) => item.label);
 
 export const useExtractRouteFromFeature = () => {
-  const [fetchInfraLinksWithStopsByExternalIds] = useAsyncQuery<
-    MapExternalLinkIdsToInfraLinksWithStopsQuery,
-    MapExternalLinkIdsToInfraLinksWithStopsQueryVariables
-  >(MapExternalLinkIdsToInfraLinksWithStopsDocument);
-
-  const [fetchStopsAlongInfrastructureLinks] = useAsyncQuery<
-    GetStopsAlongInfrastructureLinksQuery,
-    GetStopsAlongInfrastructureLinksQueryVariables
-  >(GetStopsAlongInfrastructureLinksDocument);
+  const [fetchInfraLinksWithStopsByExternalIds] =
+    useMapExternalLinkIdsToInfraLinksWithStopsAsyncQuery();
+  const [fetchStopsAlongInfrastructureLinks] =
+    useGetStopsAlongInfrastructureLinksAsyncQuery();
 
   const { filter } = useFilterStops();
 

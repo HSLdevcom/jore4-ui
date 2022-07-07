@@ -1,11 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import {
-  GetStopWithRouteGraphDataByIdDocument,
-  GetStopWithRouteGraphDataByIdQuery,
-  GetStopWithRouteGraphDataByIdQueryVariables,
   RemoveStopMutationVariables,
   RouteRoute,
   ServicePatternScheduledStopPoint,
+  useGetStopWithRouteGraphDataByIdAsyncQuery,
   useRemoveStopMutation,
 } from '../../generated/graphql';
 import { mapStopResultToStop } from '../../graphql';
@@ -16,7 +14,6 @@ import {
   showDangerToast,
   showDangerToastWithError,
 } from '../../utils';
-import { useAsyncQuery } from '../useAsyncQuery';
 import { getRoutesOfJourneyPatterns } from './utils';
 
 interface DeleteParams {
@@ -31,10 +28,8 @@ export interface DeleteChanges extends DeleteParams {
 export const useDeleteStop = () => {
   const { t } = useTranslation();
   const [removeStopMutation] = useRemoveStopMutation();
-  const [getStopWithRouteGraphData] = useAsyncQuery<
-    GetStopWithRouteGraphDataByIdQuery,
-    GetStopWithRouteGraphDataByIdQueryVariables
-  >(GetStopWithRouteGraphDataByIdDocument);
+  const [getStopWithRouteGraphData] =
+    useGetStopWithRouteGraphDataByIdAsyncQuery();
 
   // find all journey patterns from which this stop will be removed
   const getJourneyPatternsToDeleteStopFrom = (
