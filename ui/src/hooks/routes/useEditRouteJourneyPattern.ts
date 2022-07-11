@@ -10,7 +10,10 @@ import {
   RouteStop,
   stopBelongsToJourneyPattern,
 } from '../../graphql';
-import { removeFromApolloCache } from '../../utils';
+import {
+  filterDistinctConsecutiveRouteStops,
+  removeFromApolloCache,
+} from '../../utils';
 import { useValidateRoute } from './useValidateRoute';
 
 interface DeleteStopParams {
@@ -52,11 +55,16 @@ export const useEditRouteJourneyPattern = () => {
       return mapStopToRouteStop(stop, belongsToRoute, route.route_id);
     });
 
-    validateStopCount(routeStops);
+    // If multiple versions of one stop is active, they are in the list, but
+    // only one version should be added to the journey pattern
+    const distinctConsecutiveRouteStops =
+      filterDistinctConsecutiveRouteStops(routeStops);
+
+    validateStopCount(distinctConsecutiveRouteStops);
 
     const changes: UpdateJourneyPatternChanges = {
       routeId: route.route_id,
-      routeStops,
+      routeStops: distinctConsecutiveRouteStops,
     };
 
     return changes;
