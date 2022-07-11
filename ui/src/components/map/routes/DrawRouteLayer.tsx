@@ -86,7 +86,7 @@ const DrawRouteLayerComponent = (
 
   const {
     extractScheduledStopPoints,
-    getInfraLinksWithStopsForCoordinates,
+    getInfraLinksWithStopsForGeometry,
     mapInfraLinksToFeature,
     getRemovedStopLabels,
     getOldRouteGeometryVariables,
@@ -135,9 +135,9 @@ const DrawRouteLayerComponent = (
       }
 
       // retrieve infra links with stops for snapping line from mapmatching service
-      const { coordinates } = snappingLineFeature.geometry;
-      const { infraLinksWithStops, routeGeometry } =
-        await getInfraLinksWithStopsForCoordinates(coordinates);
+      const { geometry } = snappingLineFeature;
+      const { infraLinksWithStops, matchedGeometry } =
+        await getInfraLinksWithStopsForGeometry(geometry);
 
       // retrieve stop and infra link data from base route if we don't yet have edited data
       // TODO: this should happen only once, not every time the snapping line is updated
@@ -171,8 +171,8 @@ const DrawRouteLayerComponent = (
         }),
       );
 
-      if (routeGeometry) {
-        addRoute(map, SNAPPING_LINE_LAYER_ID, routeGeometry);
+      if (matchedGeometry) {
+        addRoute(map, SNAPPING_LINE_LAYER_ID, matchedGeometry);
       } else {
         // map matching backend didn't returned valid route. -> remove
         // also drawn route. Maybe we should show notification to the user
@@ -186,7 +186,7 @@ const DrawRouteLayerComponent = (
       editedRouteData.stops,
       editedRouteData.infraLinks,
       creatingNewRoute,
-      getInfraLinksWithStopsForCoordinates,
+      getInfraLinksWithStopsForGeometry,
       getOldRouteGeometryVariables,
       getRemovedStopLabels,
       extractScheduledStopPoints,
