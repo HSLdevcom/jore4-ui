@@ -111,9 +111,12 @@ export const RouteStopsSection = ({
         onToggle={onToggle}
       />
       {isOpen &&
-        displayedStops.map((item) => (
+        displayedStops.map((item, index) => (
           <RouteStopsRow
-            key={item.scheduled_stop_point_id}
+            // This list is recreated every time when changes happen, so we can
+            // use index as key here
+            // eslint-disable-next-line react/no-array-index-key
+            key={`${item.label}_${index}`}
             stop={item}
             routeId={route.route_id}
             onAddToRoute={onAddToRoute}
