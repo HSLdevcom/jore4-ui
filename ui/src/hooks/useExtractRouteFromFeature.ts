@@ -206,10 +206,10 @@ export const useExtractRouteFromFeature = () => {
    * @param coordinates the list of coordinates in order along the line geometry. E.g. coordinates
    * of the snapping line.
    */
-  const getInfraLinksWithStopsForCoordinates = useCallback(
-    async (coordinates: GeoJSON.Position[]) => {
-      // Do map-matching for the given coordinates
-      const mapMatchingResult = await getBusRoute(coordinates);
+  const getInfraLinksWithStopsForGeometry = useCallback(
+    async (geometry: GeoJSON.LineString) => {
+      // Do map-matching for the given geometry
+      const mapMatchingResult = await getBusRoute(geometry.coordinates);
       const matchedRoute = mapMatchingResult.routes[0];
 
       // Collect all the infra links' external ids, in order
@@ -232,7 +232,7 @@ export const useExtractRouteFromFeature = () => {
 
       return {
         infraLinksWithStops,
-        routeGeometry: matchedRoute?.geometry,
+        matchedGeometry: matchedRoute?.geometry,
       };
     },
     [fetchInfraLinksWithStopsByExternalIds],
@@ -286,7 +286,7 @@ export const useExtractRouteFromFeature = () => {
   return {
     extractScheduledStopPoints,
     mapInfraLinksToFeature,
-    getInfraLinksWithStopsForCoordinates,
+    getInfraLinksWithStopsForGeometry,
     getRemovedStopLabels,
     getRouteStops,
     getOldRouteGeometryVariables,
