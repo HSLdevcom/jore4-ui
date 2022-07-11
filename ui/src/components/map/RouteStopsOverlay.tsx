@@ -129,9 +129,12 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
           </div>
         </div>
       </div>
-      {routeStops?.map((routeStop) => (
+      {routeStops?.map((routeStop, index) => (
         <StopRow
-          key={routeStop.label}
+          // This list is recreated every time when changes happen, so we can
+          // use index as key here
+          // eslint-disable-next-line react/no-array-index-key
+          key={`${routeStop.label}_${index}`}
           label={routeStop.label}
           onRoute={routeStop.belongsToJourneyPattern}
           isReadOnly={!routeEditingInProgress}

@@ -1088,7 +1088,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 aria-haspopup="true"
                 class="mx-auto flex items-center px-3 focus:outline-none"
                 data-testid="stop-row-action-menu"
-                id="headlessui-menu-button-4"
+                id="headlessui-menu-button-6"
                 type="button"
               >
                 <svg
