@@ -5,8 +5,8 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteRoute,
   ServicePatternScheduledStopPoint,
+  useGetLinksWithStopsByExternalLinkIdsAsyncQuery,
   useGetStopsAlongInfrastructureLinksAsyncQuery,
-  useMapExternalLinkIdsToInfraLinksWithStopsAsyncQuery,
 } from '../generated/graphql';
 import {
   getRouteStopLabels,
@@ -48,8 +48,8 @@ export const mapRouteStopsToStopLabels = (routeStops: RouteStop[]) =>
     .map((item) => item.label);
 
 export const useExtractRouteFromFeature = () => {
-  const [mapExternalLinkIdsToInfraLinksWithStops] =
-    useMapExternalLinkIdsToInfraLinksWithStopsAsyncQuery();
+  const [fetchLinksWithStopsByExternalLinkIds] =
+    useGetLinksWithStopsByExternalLinkIdsAsyncQuery();
   const [fetchStopsAlongInfrastructureLinks] =
     useGetStopsAlongInfrastructureLinksAsyncQuery();
 
@@ -180,7 +180,7 @@ export const useExtractRouteFromFeature = () => {
       // Retrieve the infra links from the external link ids returned by map-matching.
       // This will return the links in arbitrary order.
       const infraLinksWithStopsResponse =
-        await mapExternalLinkIdsToInfraLinksWithStops({
+        await fetchLinksWithStopsByExternalLinkIds({
           externalLinkIds,
         });
       const unorderedInfraLinksWithStops = mapInfraLinkWithStopsResult(
@@ -198,12 +198,17 @@ export const useExtractRouteFromFeature = () => {
 
       return orderedInfraLinksWithStops;
     },
-    [mapExternalLinkIdsToInfraLinksWithStops],
+    [fetchLinksWithStopsByExternalLinkIds],
   );
 
+  /**
+   * Gets the infra links and the nearby stops that are along a line geometry
+   * @param coordinates the list of coordinates in order along the line geometry. E.g. coordinates
+   * of the snapping line.
+   */
   const getInfraLinksWithStopsForCoordinates = useCallback(
     async (coordinates: GeoJSON.Position[]) => {
-      // Do map-matching for the given coordinates (based on the snapping line)
+      // Do map-matching for the given coordinates
       const mapMatchingResult = await getBusRoute(coordinates);
       const matchedRoute = mapMatchingResult.routes[0];
 

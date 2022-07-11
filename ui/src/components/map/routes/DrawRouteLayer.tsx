@@ -135,7 +135,6 @@ const DrawRouteLayerComponent = (
       }
 
       // retrieve infra links with stops for snapping line from mapmatching service
-      // AND all the related stops nearby
       const { coordinates } = snappingLineFeature.geometry;
       const { infraLinksWithStops, routeGeometry } =
         await getInfraLinksWithStopsForCoordinates(coordinates);

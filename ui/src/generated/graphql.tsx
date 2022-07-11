@@ -6905,12 +6905,12 @@ export type QueryPointDirectionOnLinkQueryVariables = Exact<{
 
 export type QueryPointDirectionOnLinkQuery = { __typename?: 'query_root', infrastructure_network_find_point_direction_on_link: Array<{ __typename?: 'infrastructure_network_direction', value: InfrastructureNetworkDirectionEnum }> };
 
-export type MapExternalLinkIdsToInfraLinksWithStopsQueryVariables = Exact<{
+export type GetLinksWithStopsByExternalLinkIdsQueryVariables = Exact<{
   externalLinkIds?: Maybe<Array<Scalars['String']> | Scalars['String']>;
 }>;
 
 
-export type MapExternalLinkIdsToInfraLinksWithStopsQuery = { __typename?: 'query_root', infrastructure_network_infrastructure_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, external_link_id: string, shape: GeoJSON.LineString, scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }>, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> }> };
+export type GetLinksWithStopsByExternalLinkIdsQuery = { __typename?: 'query_root', infrastructure_network_infrastructure_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, external_link_id: string, shape: GeoJSON.LineString, scheduled_stop_point_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start?: any | null | undefined, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }>, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> }> };
 
 export type GetStopsAlongInfrastructureLinksQueryVariables = Exact<{
   infrastructure_link_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
@@ -7434,8 +7434,8 @@ export function useQueryPointDirectionOnLinkLazyQuery(baseOptions?: Apollo.LazyQ
 export type QueryPointDirectionOnLinkQueryHookResult = ReturnType<typeof useQueryPointDirectionOnLinkQuery>;
 export type QueryPointDirectionOnLinkLazyQueryHookResult = ReturnType<typeof useQueryPointDirectionOnLinkLazyQuery>;
 export type QueryPointDirectionOnLinkQueryResult = Apollo.QueryResult<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>;
-export const MapExternalLinkIdsToInfraLinksWithStopsDocument = gql`
-    query MapExternalLinkIdsToInfraLinksWithStops($externalLinkIds: [String!]) {
+export const GetLinksWithStopsByExternalLinkIdsDocument = gql`
+    query GetLinksWithStopsByExternalLinkIds($externalLinkIds: [String!]) {
   infrastructure_network_infrastructure_link(
     where: {external_link_id: {_in: $externalLinkIds}}
   ) {
@@ -7454,32 +7454,32 @@ export const MapExternalLinkIdsToInfraLinksWithStopsDocument = gql`
 ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}`;
 
 /**
- * __useMapExternalLinkIdsToInfraLinksWithStopsQuery__
+ * __useGetLinksWithStopsByExternalLinkIdsQuery__
  *
- * To run a query within a React component, call `useMapExternalLinkIdsToInfraLinksWithStopsQuery` and pass it any options that fit your needs.
- * When your component renders, `useMapExternalLinkIdsToInfraLinksWithStopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetLinksWithStopsByExternalLinkIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLinksWithStopsByExternalLinkIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useMapExternalLinkIdsToInfraLinksWithStopsQuery({
+ * const { data, loading, error } = useGetLinksWithStopsByExternalLinkIdsQuery({
  *   variables: {
  *      externalLinkIds: // value for 'externalLinkIds'
  *   },
  * });
  */
-export function useMapExternalLinkIdsToInfraLinksWithStopsQuery(baseOptions?: Apollo.QueryHookOptions<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>) {
+export function useGetLinksWithStopsByExternalLinkIdsQuery(baseOptions?: Apollo.QueryHookOptions<GetLinksWithStopsByExternalLinkIdsQuery, GetLinksWithStopsByExternalLinkIdsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>(MapExternalLinkIdsToInfraLinksWithStopsDocument, options);
+        return Apollo.useQuery<GetLinksWithStopsByExternalLinkIdsQuery, GetLinksWithStopsByExternalLinkIdsQueryVariables>(GetLinksWithStopsByExternalLinkIdsDocument, options);
       }
-export function useMapExternalLinkIdsToInfraLinksWithStopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>) {
+export function useGetLinksWithStopsByExternalLinkIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLinksWithStopsByExternalLinkIdsQuery, GetLinksWithStopsByExternalLinkIdsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>(MapExternalLinkIdsToInfraLinksWithStopsDocument, options);
+          return Apollo.useLazyQuery<GetLinksWithStopsByExternalLinkIdsQuery, GetLinksWithStopsByExternalLinkIdsQueryVariables>(GetLinksWithStopsByExternalLinkIdsDocument, options);
         }
-export type MapExternalLinkIdsToInfraLinksWithStopsQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinksWithStopsQuery>;
-export type MapExternalLinkIdsToInfraLinksWithStopsLazyQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinksWithStopsLazyQuery>;
-export type MapExternalLinkIdsToInfraLinksWithStopsQueryResult = Apollo.QueryResult<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>;
+export type GetLinksWithStopsByExternalLinkIdsQueryHookResult = ReturnType<typeof useGetLinksWithStopsByExternalLinkIdsQuery>;
+export type GetLinksWithStopsByExternalLinkIdsLazyQueryHookResult = ReturnType<typeof useGetLinksWithStopsByExternalLinkIdsLazyQuery>;
+export type GetLinksWithStopsByExternalLinkIdsQueryResult = Apollo.QueryResult<GetLinksWithStopsByExternalLinkIdsQuery, GetLinksWithStopsByExternalLinkIdsQueryVariables>;
 export const GetStopsAlongInfrastructureLinksDocument = gql`
     query GetStopsAlongInfrastructureLinks($infrastructure_link_ids: [uuid!]) {
   service_pattern_scheduled_stop_point(
@@ -8959,10 +8959,10 @@ export function useQueryPointDirectionOnLinkAsyncQuery() {
           return useAsyncQuery<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>(QueryPointDirectionOnLinkDocument);
         }
 export type QueryPointDirectionOnLinkAsyncQueryHookResult = ReturnType<typeof useQueryPointDirectionOnLinkAsyncQuery>;
-export function useMapExternalLinkIdsToInfraLinksWithStopsAsyncQuery() {
-          return useAsyncQuery<MapExternalLinkIdsToInfraLinksWithStopsQuery, MapExternalLinkIdsToInfraLinksWithStopsQueryVariables>(MapExternalLinkIdsToInfraLinksWithStopsDocument);
+export function useGetLinksWithStopsByExternalLinkIdsAsyncQuery() {
+          return useAsyncQuery<GetLinksWithStopsByExternalLinkIdsQuery, GetLinksWithStopsByExternalLinkIdsQueryVariables>(GetLinksWithStopsByExternalLinkIdsDocument);
         }
-export type MapExternalLinkIdsToInfraLinksWithStopsAsyncQueryHookResult = ReturnType<typeof useMapExternalLinkIdsToInfraLinksWithStopsAsyncQuery>;
+export type GetLinksWithStopsByExternalLinkIdsAsyncQueryHookResult = ReturnType<typeof useGetLinksWithStopsByExternalLinkIdsAsyncQuery>;
 export function useGetStopsAlongInfrastructureLinksAsyncQuery() {
           return useAsyncQuery<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>(GetStopsAlongInfrastructureLinksDocument);
         }

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { gql } from '@apollo/client';
 import {
+  GetLinksWithStopsByExternalLinkIdsQuery,
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
-  MapExternalLinkIdsToInfraLinksWithStopsQuery,
   QueryClosestLinkQuery,
   QueryPointDirectionOnLinkQuery,
   RouteRoute,
@@ -100,8 +100,8 @@ export const mapGetPointDirectionOnLinkResult = (
   result.data?.infrastructure_network_find_point_direction_on_link?.[0]
     ?.value as InfrastructureNetworkDirectionEnum | undefined;
 
-const QUERY_MAP_EXTERNAL_LINK_IDS_TO_INFRA_LINKS_WITH_STOPS = gql`
-  query MapExternalLinkIdsToInfraLinksWithStops($externalLinkIds: [String!]) {
+const GET_LINKS_WITH_STOPS_BY_EXTERNAL_LINK_IDS = gql`
+  query GetLinksWithStopsByExternalLinkIds($externalLinkIds: [String!]) {
     infrastructure_network_infrastructure_link(
       where: { external_link_id: { _in: $externalLinkIds } }
     ) {
@@ -119,7 +119,7 @@ const QUERY_MAP_EXTERNAL_LINK_IDS_TO_INFRA_LINKS_WITH_STOPS = gql`
 `;
 
 export const mapInfraLinkWithStopsResult = (
-  result: GqlQueryResult<MapExternalLinkIdsToInfraLinksWithStopsQuery>,
+  result: GqlQueryResult<GetLinksWithStopsByExternalLinkIdsQuery>,
 ) =>
   result.data?.infrastructure_network_infrastructure_link as
     | InfrastructureNetworkInfrastructureLink[]
