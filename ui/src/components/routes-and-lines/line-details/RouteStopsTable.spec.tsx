@@ -198,7 +198,11 @@ describe(`<${RouteStopsTable.name} />`, () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const line = mapLineDetailsWithRoutesResult(mockResponse)!;
     const { container, asFragment } = render(
-      <RouteStopsTable testId={testId} routes={line.line_routes} />,
+      <RouteStopsTable
+        observationDate={DateTime.fromISO('2022-01-01')}
+        testId={testId}
+        routes={line.line_routes}
+      />,
     );
 
     // the stops don't show as the accordion is not open
