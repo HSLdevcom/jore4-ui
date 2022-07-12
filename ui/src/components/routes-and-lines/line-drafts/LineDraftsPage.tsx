@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router';
 import { RouteLine } from '../../../generated/graphql';
@@ -15,13 +14,13 @@ export const LineDraftsPage = (): JSX.Element => {
   const { t } = useTranslation();
   const history = useHistory();
   const { label } = useParams<{ label: string }>();
-  const { returnTo } = useUrlQuery();
+  const queryParams = useUrlQuery();
   const { lines } = useGetLineDraftDetails();
 
   const onClose = () => {
     // If there is no returnTo set, we return to 'routes and lines' page
-    const pathname = returnTo
-      ? routeDetails[Path.lineDetails].getLink(returnTo as string)
+    const pathname = queryParams.returnTo
+      ? routeDetails[Path.lineDetails].getLink(queryParams.returnTo as string)
       : routeDetails[Path.routes].getLink();
 
     history.push({

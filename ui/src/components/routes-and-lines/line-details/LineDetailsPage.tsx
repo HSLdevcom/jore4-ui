@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import {
@@ -6,6 +5,7 @@ import {
   useAppSelector,
   useGetLineDetails,
   useMapUrlQuery,
+  useObservationDateQueryParam,
 } from '../../../hooks';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import {
@@ -31,7 +31,8 @@ export const LineDetailsPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { addMapOpenQueryParameter } = useMapUrlQuery();
 
-  const { line, observationDate } = useGetLineDetails();
+  const { line } = useGetLineDetails();
+  const { observationDate } = useObservationDateQueryParam();
 
   const onCreateRoute = () => {
     dispatch(resetMapEditorStateAction());
@@ -73,10 +74,10 @@ export const LineDetailsPage = (): JSX.Element => {
                 <h1 className="mt-8 text-3xl font-semibold">
                   {t('lines.routes')}
                 </h1>
-                {line.line_routes?.length > 0 ? (
+                {line.line_routes?.length > 0 && observationDate ? (
                   <RouteStopsTable
                     routes={line.line_routes}
-                    observationDate={observationDate ?? DateTime.now()}
+                    observationDate={observationDate}
                   />
                 ) : (
                   <CreateRouteBox onCreateRoute={onCreateRoute} />

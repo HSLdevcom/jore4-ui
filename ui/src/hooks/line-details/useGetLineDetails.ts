@@ -1,9 +1,8 @@
 import produce from 'immer';
 import groupBy from 'lodash/groupBy';
 import { DateTime } from 'luxon';
-import qs from 'qs';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   RouteDirectionEnum,
   RouteLine,
@@ -17,13 +16,12 @@ import {
   mapLineDetailsWithRoutesResult,
   mapLineValidityPeriod,
 } from '../../graphql';
-import { parseDate } from '../../time';
 import {
   constructActiveDateGqlFilter,
   constructDraftPriorityGqlFilter,
   constructLabelGqlFilter,
 } from '../../utils';
-import { useUrlQuery } from '../useUrlQuery';
+import { useObservationDateQueryParam } from '../useObservationDateQueryParam';
 
 const findHighestPriorityRoute = (routes: RouteRoute[]) =>
   routes.reduce((prev, curr) => (prev.priority > curr.priority ? prev : curr));
@@ -109,8 +107,9 @@ const constructLineDetailsGqlFilters = (
 /** Gets the line details depending on query parameters. */
 export const useGetLineDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const queryParams = useUrlQuery();
-  const history = useHistory();
+
+  const { observationDate, setObservationDateToUrl } =
+    useObservationDateQueryParam();
 
   const [getLineValidityPeriodByIdQuery] =
     useGetLineValidityPeriodByIdAsyncQuery();
@@ -119,11 +118,6 @@ export const useGetLineDetails = () => {
     useGetHighestPriorityLineDetailsWithRoutesAsyncQuery();
 
   const [line, setLine] = useState<RouteLine>();
-
-  const observationDate = useMemo(
-    () => parseDate(queryParams.observationDate as string | undefined),
-    [queryParams.observationDate],
-  );
 
   const lineDetailsResult = useGetLineDetailsWithRoutesByIdQuery({
     variables: { line_id: id },
@@ -139,24 +133,17 @@ export const useGetLineDetails = () => {
           lineDetails?.validity_start,
           lineDetails?.validity_end,
         );
-        const updatedUrlQuery = produce(queryParams, (draft) => {
-          if (initialDate?.isValid) {
-            draft.observationDate = initialDate.toISODate();
-          }
-        });
 
-        const queryString = qs.stringify(updatedUrlQuery);
-        history.replace({
-          search: `?${queryString}`,
-        });
+        if (initialDate?.isValid) {
+          setObservationDateToUrl(initialDate.toISODate(), true);
+        }
       }
     }
   }, [
     getLineValidityPeriodByIdQuery,
-    history,
     id,
     observationDate,
-    queryParams,
+    setObservationDateToUrl,
   ]);
 
   /** Fetches line details and filters results by observation date */
@@ -189,6 +176,5 @@ export const useGetLineDetails = () => {
 
   return {
     line,
-    observationDate,
   };
 };
