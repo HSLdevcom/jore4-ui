@@ -39,7 +39,7 @@ describe(`${hookForNames.result.current.getPaginatedData}`, () => {
   test('should show paginated data for page 1', () => {
     const data = [1, 2, 3, 4, 5];
     const itemsPerPage = 2;
-    urlQueryMock.mockReturnValueOnce({ page: 1 });
+    urlQueryMock.mockReturnValueOnce({ queryParams: { page: 1 } });
 
     const { result } = renderHook(usePagination);
 
@@ -49,7 +49,7 @@ describe(`${hookForNames.result.current.getPaginatedData}`, () => {
   });
 
   test('should show paginated data for page 2', () => {
-    urlQueryMock.mockReturnValueOnce({ page: 2 });
+    urlQueryMock.mockReturnValueOnce({ queryParams: { page: 2 } });
     const { result } = renderHook(usePagination);
     const data = [1, 2, 3, 4, 5];
     const itemsPerPage = 2;
@@ -60,7 +60,7 @@ describe(`${hookForNames.result.current.getPaginatedData}`, () => {
   });
 
   test('should show paginated data for page 3', () => {
-    urlQueryMock.mockReturnValueOnce({ page: 3 });
+    urlQueryMock.mockReturnValueOnce({ queryParams: { page: 3 } });
     const { result } = renderHook(usePagination);
     const data = [1, 2, 3, 4, 5];
     const itemsPerPage = 2;
@@ -71,7 +71,7 @@ describe(`${hookForNames.result.current.getPaginatedData}`, () => {
   });
 
   test('should not crash with empty data', () => {
-    urlQueryMock.mockReturnValueOnce({ page: 1 });
+    urlQueryMock.mockReturnValueOnce({ queryParams: { page: 1 } });
     const { result } = renderHook(usePagination);
     const data: number[] = [];
     const itemsPerPage = 2;
@@ -82,7 +82,7 @@ describe(`${hookForNames.result.current.getPaginatedData}`, () => {
   });
 
   test('should paginate to page 1 if page query parameter is not given', () => {
-    urlQueryMock.mockReturnValueOnce({});
+    urlQueryMock.mockReturnValueOnce({ queryParams: {} });
     const { result } = renderHook(usePagination);
     const data: number[] = [1, 2, 3, 4, 5];
     const itemsPerPage = 2;
@@ -95,6 +95,7 @@ describe(`${hookForNames.result.current.getPaginatedData}`, () => {
 
 describe(`${hookForNames.result.current.setPage.name}`, () => {
   test('should call history with page=5', () => {
+    urlQueryMock.mockReturnValueOnce({ queryParams: {} });
     const { result } = renderHook(usePagination);
 
     result.current.setPage(5);
@@ -103,7 +104,7 @@ describe(`${hookForNames.result.current.setPage.name}`, () => {
   });
 
   test('should overwrite existing page query parameter', () => {
-    urlQueryMock.mockReturnValueOnce({ page: '5' });
+    urlQueryMock.mockReturnValueOnce({ queryParams: { page: '5' } });
     const { result } = renderHook(usePagination);
     result.current.setPage(10);
 
@@ -113,7 +114,9 @@ describe(`${hookForNames.result.current.setPage.name}`, () => {
   });
 
   test('should not remove existing query parameters', () => {
-    urlQueryMock.mockReturnValueOnce({ name: 'TestName', line: 'TestLine' });
+    urlQueryMock.mockReturnValueOnce({
+      queryParams: { name: 'TestName', line: 'TestLine' },
+    });
     const { result } = renderHook(usePagination);
     result.current.setPage(10);
 
@@ -237,7 +240,7 @@ describe(`${hookForNames.result.current.currentPage}`, () => {
   });
 
   test('should return correct currentPage', () => {
-    urlQueryMock.mockReturnValueOnce({ page: 3 });
+    urlQueryMock.mockReturnValueOnce({ queryParams: { page: 3 } });
     const { result } = renderHook(usePagination);
     expect(result.current.currentPage).toBe(3);
   });
