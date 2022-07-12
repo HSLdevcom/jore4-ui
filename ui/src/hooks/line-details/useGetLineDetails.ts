@@ -109,7 +109,7 @@ const constructLineDetailsGqlFilters = (
 /** Gets the line details depending on query parameters. */
 export const useGetLineDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const queryParams = useUrlQuery();
+  const { queryParams } = useUrlQuery();
   const history = useHistory();
 
   const [getLineValidityPeriodByIdQuery] =

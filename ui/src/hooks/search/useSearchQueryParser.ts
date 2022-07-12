@@ -104,7 +104,7 @@ const deserializeParameters = (
 };
 
 export const useSearchQueryParser = () => {
-  const queryStringObject = useUrlQuery();
+  const { queryParams } = useUrlQuery();
 
-  return deserializeParameters(queryStringObject as QueryStringParameters);
+  return deserializeParameters(queryParams as QueryStringParameters);
 };
