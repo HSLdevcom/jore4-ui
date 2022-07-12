@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import {
@@ -31,7 +30,7 @@ export const LineDetailsPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { addMapOpenQueryParameter } = useMapUrlQuery();
 
-  const { line } = useGetLineDetails();
+  const { line, observationDate } = useGetLineDetails();
 
   const onCreateRoute = () => {
     dispatch(resetMapEditorStateAction());
@@ -74,7 +73,10 @@ export const LineDetailsPage = (): JSX.Element => {
                   {t('lines.routes')}
                 </h1>
                 {line.line_routes?.length > 0 ? (
-                  <RouteStopsTable routes={line.line_routes} />
+                  <RouteStopsTable
+                    routes={line.line_routes}
+                    observationDate={observationDate}
+                  />
                 ) : (
                   <CreateRouteBox onCreateRoute={onCreateRoute} />
                 )}
