@@ -1,9 +1,8 @@
 import produce from 'immer';
 import groupBy from 'lodash/groupBy';
 import { DateTime } from 'luxon';
-import qs from 'qs';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
   RouteDirectionEnum,
   RouteLine,
@@ -23,6 +22,7 @@ import {
   constructDraftPriorityGqlFilter,
   constructLabelGqlFilter,
 } from '../../utils';
+import { useSetObservationDateToUrl } from '../useSetObservationDateToUrl';
 import { useUrlQuery } from '../useUrlQuery';
 
 const findHighestPriorityRoute = (routes: RouteRoute[]) =>
@@ -110,7 +110,8 @@ const constructLineDetailsGqlFilters = (
 export const useGetLineDetails = () => {
   const { id } = useParams<{ id: string }>();
   const queryParams = useUrlQuery();
-  const history = useHistory();
+
+  const setObservationDateToUrl = useSetObservationDateToUrl();
 
   const [getLineValidityPeriodByIdQuery] =
     useGetLineValidityPeriodByIdAsyncQuery();
@@ -139,24 +140,17 @@ export const useGetLineDetails = () => {
           lineDetails?.validity_start,
           lineDetails?.validity_end,
         );
-        const updatedUrlQuery = produce(queryParams, (draft) => {
-          if (initialDate?.isValid) {
-            draft.observationDate = initialDate.toISODate();
-          }
-        });
 
-        const queryString = qs.stringify(updatedUrlQuery);
-        history.replace({
-          search: `?${queryString}`,
-        });
+        if (initialDate?.isValid) {
+          setObservationDateToUrl(initialDate.toISODate(), true);
+        }
       }
     }
   }, [
     getLineValidityPeriodByIdQuery,
-    history,
     id,
     observationDate,
-    queryParams,
+    setObservationDateToUrl,
   ]);
 
   /** Fetches line details and filters results by observation date */

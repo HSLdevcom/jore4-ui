@@ -16,6 +16,8 @@ export * from './useChooseRouteDropdown';
 export * from './useExtractRouteFromFeature';
 export * from './useFilterStops';
 export * from './useMapUrlQuery';
+export * from './useSetObservationDateToUrl';
+export * from './useSetToUrlQuery';
 export * from './useShowRoutesOnModal';
 export * from './useUrlQuery';
 export * from './via';
