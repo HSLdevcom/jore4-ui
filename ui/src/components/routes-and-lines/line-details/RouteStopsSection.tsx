@@ -9,7 +9,6 @@ import {
 import {
   filterHighestPriorityCurrentStops,
   useEditRouteJourneyPattern,
-  useGetLineDetails,
 } from '../../../hooks';
 import { Priority } from '../../../types/Priority';
 import { showDangerToast, showSuccessToast } from '../../../utils';
@@ -19,12 +18,14 @@ import { RouteStopsRow } from './RouteStopsRow';
 interface Props {
   className?: string;
   route: RouteRoute;
+  observationDate: DateTime;
   showUnusedStops: boolean;
 }
 
 export const RouteStopsSection = ({
   className = '',
   route,
+  observationDate,
   showUnusedStops,
 }: Props) => {
   const [isOpen, setOpen] = useState(false);
@@ -40,8 +41,6 @@ export const RouteStopsSection = ({
   const onToggle = () => {
     setOpen(!isOpen);
   };
-
-  const { observationDate } = useGetLineDetails();
 
   const stopsAlongRoute = getEligibleStopsAlongRouteGeometry(route);
 
