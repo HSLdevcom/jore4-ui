@@ -1,10 +1,24 @@
 import axios from 'axios';
 
+interface LatLng {
+  readonly lat: number;
+  readonly lng: number;
+}
+
+interface RouteBody {
+  readonly routePoints: LatLng[];
+  readonly linkSearchRadius?: number;
+}
+
+const positionToLatLng = (pos: GeoJSON.Position): LatLng => {
+  return { lng: pos[0], lat: pos[1] };
+};
+
 const apiClient = axios.create({
   baseURL: '/api/mapmatching/api/route/v1',
 });
 
-const getBus = (coordinates: string) => apiClient.get(`/bus/${coordinates}`);
+const getBus = (coordinates: RouteBody) => apiClient.post('/bus/', coordinates);
 
 export interface BusRouteResponse {
   code: 'Ok';
@@ -31,6 +45,9 @@ export interface BusRouteResponse {
 }
 
 export const getBusRoute = async (coordinates: GeoJSON.Position[]) => {
-  const response = await getBus(coordinates.join('~'));
+  const request: RouteBody = {
+    routePoints: coordinates.map(positionToLatLng),
+  };
+  const response = await getBus(request);
   return response.data as BusRouteResponse;
 };
