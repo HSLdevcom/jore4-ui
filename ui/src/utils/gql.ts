@@ -32,9 +32,21 @@ export const constructDraftPriorityGqlFilter = (priority?: Priority) => ({
   },
 });
 
+/** Constructs an object for gql to filter out all but the given priority */
+export const constructPriorityEqualGqlFilter = (priority: Priority) => ({
+  priority: {
+    _eq: priority,
+  },
+});
+
 /** Constructs an object for gql to filter by label */
 export const constructLabelGqlFilter = (label?: string) => ({
   label: { _eq: label },
+});
+
+/** Constructs an object for gql to filter route by line label */
+export const constructRouteLineLabelGqlFilter = (label: string) => ({
+  route_line: constructLabelGqlFilter(label),
 });
 
 export const constructWithinViewportGqlFilter = (
