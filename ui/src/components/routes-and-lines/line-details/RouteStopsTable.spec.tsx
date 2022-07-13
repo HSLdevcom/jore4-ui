@@ -80,7 +80,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                 infrastructure_link: {
                   infrastructure_link_id:
                     'c63b749f-5060-4710-8b07-ec9ac017cb5f',
-                  scheduled_stop_point_located_on_infrastructure_link: [
+                  scheduled_stop_points_located_on_infrastructure_link: [
                     {
                       priority: 10,
                       scheduled_stop_point_id:
@@ -123,7 +123,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                 infrastructure_link: {
                   infrastructure_link_id:
                     '2feba2ae-c7af-4034-a299-9e592e67358f',
-                  scheduled_stop_point_located_on_infrastructure_link: [
+                  scheduled_stop_points_located_on_infrastructure_link: [
                     {
                       priority: 10,
                       scheduled_stop_point_id:
@@ -152,7 +152,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                 infrastructure_link: {
                   infrastructure_link_id:
                     'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
-                  scheduled_stop_point_located_on_infrastructure_link: [
+                  scheduled_stop_points_located_on_infrastructure_link: [
                     {
                       priority: 10,
                       scheduled_stop_point_id:

@@ -151,7 +151,7 @@ export const getEligibleStopsAlongRouteGeometry = (route: RouteRoute) => {
       route.infrastructure_links_along_route[index].is_traversal_forwards;
     const eligibleStops = filterEligibleStopsOnRoute(
       infraLink.infrastructure_link
-        .scheduled_stop_point_located_on_infrastructure_link,
+        .scheduled_stop_points_located_on_infrastructure_link,
       isLinkTraversalForwards,
     );
     const sortedEligibleStops = sortStopsOnInfraLink(

@@ -107,7 +107,7 @@ const GET_LINKS_WITH_STOPS_BY_EXTERNAL_LINK_IDS = gql`
     ) {
       infrastructure_link_id
       external_link_id
-      scheduled_stop_point_located_on_infrastructure_link {
+      scheduled_stop_points_located_on_infrastructure_link {
         ...scheduled_stop_point_all_fields
         scheduled_stop_point_in_journey_patterns {
           ...scheduled_stop_point_in_journey_pattern_all_fields

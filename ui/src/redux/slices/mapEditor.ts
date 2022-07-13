@@ -233,7 +233,7 @@ const slice = createSlice({
           // remove unnecessary, nonserializable stops from infra link data
           infraLinks: infraLinks.map((item) => ({
             ...item,
-            scheduled_stop_point_located_on_infrastructure_link: [],
+            scheduled_stop_points_located_on_infrastructure_link: [],
           })),
         },
       }),

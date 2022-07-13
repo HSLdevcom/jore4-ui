@@ -62,7 +62,7 @@ export const useExtractRouteFromFeature = () => {
   const getFilteredStopIdsAlongRouteGeometry = useCallback(
     (infraLinksWithStops: RouteInfraLink[]) => {
       const unfilteredStops = infraLinksWithStops.flatMap(
-        (link) => link.scheduled_stop_point_located_on_infrastructure_link,
+        (link) => link.scheduled_stop_points_located_on_infrastructure_link,
       ) as ServicePatternScheduledStopPoint[];
 
       const stops = filter(unfilteredStops || []);
@@ -95,7 +95,7 @@ export const useExtractRouteFromFeature = () => {
           infraLinkWithStops.is_traversal_forwards;
 
         const eligibleStops =
-          infraLinkWithStops.scheduled_stop_point_located_on_infrastructure_link
+          infraLinkWithStops.scheduled_stop_points_located_on_infrastructure_link
             // only include the ids of the stops
             // - suitable for the given vehicle mode AND
             // - traversable in the direction in which the route is going AND
