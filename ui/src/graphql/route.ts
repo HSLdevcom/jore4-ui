@@ -44,6 +44,25 @@ const LINE_ALL_FIELDS = gql`
   }
 `;
 
+const ROUTE_VALIDITY = gql`
+  fragment route_validity on route_route {
+    route_id
+    validity_start
+    validity_end
+  }
+`;
+
+const ROUTE_DEFAULT_FIELDS_WITH_LINE = gql`
+  fragment route_default_fields_with_line on route_route {
+    route_id
+    ...route_default_fields
+    route_line {
+      line_id
+      primary_vehicle_mode
+    }
+  }
+`;
+
 const ROUTE_ALL_FIELDS = gql`
   fragment route_all_fields on route_route {
     route_id
@@ -91,8 +110,7 @@ const ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
   fragment route_with_infrastructure_links on route_route {
     ...route_with_journey_pattern_stops
     route_line {
-      line_id
-      label
+      ...line_all_fields
     }
     infrastructure_links_along_route {
       route_id

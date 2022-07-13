@@ -112,6 +112,9 @@ const GET_LINKS_WITH_STOPS_BY_EXTERNAL_LINK_IDS = gql`
         scheduled_stop_point_in_journey_patterns {
           ...scheduled_stop_point_in_journey_pattern_all_fields
         }
+        other_label_instances {
+          ...scheduled_stop_point_default_fields
+        }
       }
       shape
     }

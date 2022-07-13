@@ -10,15 +10,13 @@ import {
   RouteStop,
   stopBelongsToJourneyPattern,
 } from '../../graphql';
-import {
-  filterDistinctConsecutiveRouteStops,
-  removeFromApolloCache,
-} from '../../utils';
+import { removeFromApolloCache } from '../../utils';
+import { useExtractRouteFromFeature } from '../useExtractRouteFromFeature';
 import { useValidateRoute } from './useValidateRoute';
 
 interface DeleteStopParams {
   route: RouteRoute;
-  stopPointLabel: UUID;
+  stopPointLabel: string;
 }
 
 type AddStopParams = DeleteStopParams;
@@ -35,6 +33,7 @@ export const useEditRouteJourneyPattern = () => {
   const [updateRouteJourneyPatternMutation] =
     useUpdateRouteJourneyPatternMutation();
   const { validateStopCount } = useValidateRoute();
+  const { filterDistinctConsecutiveRouteStops } = useExtractRouteFromFeature();
 
   const prepareUpdateJourneyPattern = (
     params: AddStopParams | DeleteStopParams,

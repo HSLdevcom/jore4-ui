@@ -1,9 +1,14 @@
+import { partialRight } from 'lodash';
+import flow from 'lodash/flow';
 import { useCallback } from 'react';
 import { getBusRoute } from '../api/routing';
 import {
   InfrastructureNetworkDirectionEnum,
+  InfrastructureNetworkInfrastructureLink,
   ReusableComponentsVehicleModeEnum,
+  RouteDefaultFieldsWithLineFragment,
   RouteRoute,
+  RouteValidityFragment,
   ServicePatternScheduledStopPoint,
   useGetLinksWithStopsByExternalLinkIdsAsyncQuery,
   useGetStopsAlongInfrastructureLinksAsyncQuery,
@@ -18,7 +23,9 @@ import {
   RouteInfraLink,
   RouteStop,
 } from '../graphql';
-import { mapGeoJSONtoFeature, sortStopsOnInfraLink } from '../utils';
+import { doValiditiesOverlap } from '../time';
+import { Priority } from '../types/Priority';
+import { mapGeoJSONtoFeature } from '../utils';
 import { useFilterStops } from './useFilterStops';
 
 export type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
@@ -70,72 +77,6 @@ export const useExtractRouteFromFeature = () => {
       return stops.map((stop) => stop.scheduled_stop_point_id);
     },
     [filter],
-  );
-
-  /**
-   * Sort and filter the stop points
-   * from a MapExternalLinkIdsToInfraLinksWithStops query result.
-   */
-  const extractScheduledStopPoints = useCallback(
-    (
-      infraLinksWithStops: RouteInfraLink[],
-      vehicleMode: ReusableComponentsVehicleModeEnum,
-    ) => {
-      // We need to filter all stops at once instead of filtering them
-      // for each infrastructure link separately, because for example
-      // separate versions of a stop might be on different infrastructure links,
-      // and we only want all but the hightest priority instance to be filtered out.
-      // Filtering for infra links separately could result in the same stop being
-      // multiple times in the result set.
-      const filteredStopIds =
-        getFilteredStopIdsAlongRouteGeometry(infraLinksWithStops);
-
-      return infraLinksWithStops.flatMap((infraLinkWithStops) => {
-        const isLinkTraversalForwards =
-          infraLinkWithStops.is_traversal_forwards;
-
-        const eligibleStops =
-          infraLinkWithStops.scheduled_stop_points_located_on_infrastructure_link
-            // only include the ids of the stops
-            // - suitable for the given vehicle mode AND
-            // - traversable in the direction in which the route is going AND
-            // - visible to the user after applying filters
-            .filter((stop) => {
-              const suitableForVehicleMode =
-                !!stop.vehicle_mode_on_scheduled_stop_point.find(
-                  (item) => item.vehicle_mode === vehicleMode,
-                );
-
-              const matchingDirection =
-                stop.direction ===
-                  InfrastructureNetworkDirectionEnum.Bidirectional ||
-                (isLinkTraversalForwards &&
-                  stop.direction ===
-                    InfrastructureNetworkDirectionEnum.Forward) ||
-                (!isLinkTraversalForwards &&
-                  stop.direction ===
-                    InfrastructureNetworkDirectionEnum.Backward);
-
-              const visibleAfterFiltering = filteredStopIds.includes(
-                stop.scheduled_stop_point_id,
-              );
-
-              return (
-                suitableForVehicleMode &&
-                matchingDirection &&
-                visibleAfterFiltering
-              );
-            });
-
-        const sortedEligibleStops = sortStopsOnInfraLink(
-          eligibleStops,
-          isLinkTraversalForwards,
-        );
-
-        return sortedEligibleStops;
-      });
-    },
-    [getFilteredStopIdsAlongRouteGeometry],
   );
 
   const mapInfraLinksToFeature = useCallback(
@@ -283,8 +224,174 @@ export const useExtractRouteFromFeature = () => {
     [],
   );
 
+  /**
+   * Filters stops that are on the correct side of the road for the route
+   * @param stops list of stops on a single infra link
+   * @param isTraversalForwards the traversal direction of the route along the link
+   */
+  const filterStopsByTraversalCompatibility = useCallback(
+    (
+      stops: ServicePatternScheduledStopPoint[],
+      isTraversalForwards: boolean,
+    ) => {
+      return stops.filter((stop) => {
+        return (
+          stop.direction === InfrastructureNetworkDirectionEnum.Bidirectional ||
+          (isTraversalForwards &&
+            stop.direction === InfrastructureNetworkDirectionEnum.Forward) ||
+          (!isTraversalForwards &&
+            stop.direction === InfrastructureNetworkDirectionEnum.Backward)
+        );
+      });
+    },
+
+    [],
+  );
+
+  /**
+   * Filters stops that are compatible with the route's vehicle mode
+   * @param stops list of stops
+   * @param vehicleMode the vehicle mode of the route
+   */
+  const filterStopsByVehicleMode = (
+    stops: ServicePatternScheduledStopPoint[],
+    vehicleMode: ReusableComponentsVehicleModeEnum,
+  ) => {
+    return stops.filter((stop) => {
+      return stop.vehicle_mode_on_scheduled_stop_point.some(
+        (item) => item.vehicle_mode === vehicleMode,
+      );
+    });
+  };
+
+  /**
+   * Filters stops that have an overlapping validity period with the route
+   * @param stops list of stops
+   * @param routeValidity the validity period of the route
+   */
+  const filterStopsByValidityPeriod = (
+    stops: ServicePatternScheduledStopPoint[],
+    routeValidity: RouteValidityFragment,
+  ) => {
+    return stops.filter((stop) => {
+      return doValiditiesOverlap(routeValidity, stop);
+    });
+  };
+
+  /**
+   * Checks whether a stop instance is along a route's geometry
+   * @param stop stop instance
+   * @param routeInfraLinks all the infra links along the route
+   */
+  const isStopAlongInfraLinks = (
+    stop: ServicePatternScheduledStopPoint,
+    routeInfraLinks: InfrastructureNetworkInfrastructureLink[],
+  ) =>
+    routeInfraLinks.some(
+      (link) =>
+        link.infrastructure_link_id === stop.located_on_infrastructure_link_id,
+    );
+
+  /**
+   * Filters stops that only have same-label instances along the route.
+   * We don't allow stops that may have active instances outside or the route geometry
+   * @param stops list of stops
+   * @param routeValidity the validity period of the route
+   * @param routeInfraLinks all the infra links along the route
+   */
+  const filterStopsByInstancesAlongGeometry = (
+    stops: ServicePatternScheduledStopPoint[],
+    routeValidity: RouteValidityFragment,
+    routeInfraLinks: InfrastructureNetworkInfrastructureLink[],
+  ) => {
+    return stops.filter((stop) => {
+      // We always allow draft stops along routes, no integrity checks are done
+      if (stop.priority === Priority.Draft) {
+        return true;
+      }
+
+      const stopInstances = stop.other_label_instances;
+      return stopInstances.every((instance) => {
+        // For the stop instance itself, no integrity checks are done
+        if (instance.scheduled_stop_point_id === stop.scheduled_stop_point_id) {
+          return true;
+        }
+
+        // For the stop's other instances that are drafts, no integrity checks are done
+        if (instance.priority === Priority.Draft) {
+          return true;
+        }
+
+        // For the stop's other instances that are not valid during the route's validity period,
+        // no integrity checks are done
+        if (!doValiditiesOverlap(routeValidity, instance)) {
+          return true;
+        }
+
+        // For other, non-draft instances we verify that they are also along the same route
+        return isStopAlongInfraLinks(instance, routeInfraLinks);
+      });
+    });
+  };
+
+  /**
+   * Removes all duplicate labeled consecutive stops from the list
+   * This is used for example removing different versions of stops from the
+   * journey pattern list where only the labels are shown
+   */
+  const filterDistinctConsecutiveRouteStops = (stops: RouteStop[]) =>
+    stops.filter((route, index) => stops[index - 1]?.label !== route.label);
+
+  /**
+   * Finds all the stops along a route's geometry that are eligible to be part of the journey pattern
+   * - only keeps stops that are on the correct side of the road
+   * - only keeps stops that are compatible with the route's vehicle mode
+   * - only keeps stops that are valid during the route's validity period
+   * - for draft routes, no journey pattern integrity checks are done
+   * - for non-draft routes, we verify that all stops' other instances are also along the same route
+   * We don't check/filter however that:
+   * - there are consecutive duplicate instances of the same stop along the route geometry (e.g. A-B1-B2-C)
+   *   -> these could be filtered out in the lists. However probably they should all be marker somehow on the map
+   * - there are stops that have non-neighboring instances along the route geometry (e.g. A-B1-C-B2-D)
+   *   -> this journey pattern would actually be valid if "C" is excluded from it. So either "B" or
+   *      "C" stops should be excluded from the journey pattern, but the choise is up to the user
+   * - we don't check whether the result stops are actually showing up on the map.
+   *   -> the stops visible on the map are controlled by the user and should not affect the list of eligible stops
+   * @param infraLinksWithStops: list of infra links (in order) with the stops on them
+   * @param routeMetadata: metadata about the edited route (e.g. vehicle mode, validity period)
+   */
+  const extractJourneyPatternCandidateStops = (
+    infraLinksWithStops: RouteInfraLink[],
+    routeMetadata: RouteDefaultFieldsWithLineFragment,
+  ) => {
+    // getting the (ordered) list of all the stops that are along the infra links,
+    // prefiltered by route compatibility
+    const filteredStops = infraLinksWithStops.flatMap((infraLinkWithStops) => {
+      const isTraversalForwards = infraLinkWithStops.is_traversal_forwards;
+      const linkStops =
+        infraLinkWithStops.scheduled_stop_points_located_on_infrastructure_link;
+      const vehicleMode = routeMetadata.route_line.primary_vehicle_mode;
+      return flow(
+        partialRight(filterStopsByTraversalCompatibility, isTraversalForwards),
+        partialRight(filterStopsByVehicleMode, vehicleMode),
+        partialRight(filterStopsByValidityPeriod, routeMetadata),
+        partialRight(sortStopsOnInfraLink, isTraversalForwards),
+      )(linkStops);
+    });
+
+    // for draft routes, we don't check the integrity of the journey pattern
+    // e.g. are all the stop instances along the route and in the correct order
+    if (routeMetadata.priority === Priority.Draft) {
+      return filteredStops;
+    }
+
+    // checking the integrity of the journey pattern
+    return flow(
+      partialRight(filterStopsByInstancesAlongGeometry, infraLinksWithStops),
+    )(filteredStops);
+  };
+
   return {
-    extractScheduledStopPoints,
     mapInfraLinksToFeature,
     getInfraLinksWithStopsForGeometry,
     getRemovedStopLabels,
@@ -292,5 +399,7 @@ export const useExtractRouteFromFeature = () => {
     getOldRouteGeometryVariables,
     mapRouteStopsToStopLabels,
     getFilteredStopIdsAlongRouteGeometry,
+    extractJourneyPatternCandidateStops,
+    filterDistinctConsecutiveRouteStops,
   };
 };

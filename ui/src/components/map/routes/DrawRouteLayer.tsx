@@ -20,10 +20,7 @@ import {
   Editor,
   SelectAction,
 } from 'react-map-gl-draw';
-import {
-  ReusableComponentsVehicleModeEnum,
-  useGetRoutesWithInfrastructureLinksQuery,
-} from '../../../generated/graphql';
+import { useGetRoutesWithInfrastructureLinksQuery } from '../../../generated/graphql';
 import {
   mapRouteResultToRoute,
   mapRouteToInfraLinksAlongRoute,
@@ -43,7 +40,7 @@ import {
   setDraftRouteGeometryAction,
   stopRouteEditingAction,
 } from '../../../redux';
-import { filterDistinctConsecutiveRouteStops, showToast } from '../../../utils';
+import { showToast } from '../../../utils';
 import { addRoute, removeRoute } from '../mapUtils';
 import { featureStyle, handleStyle } from './editorStyles';
 
@@ -85,11 +82,12 @@ const DrawRouteLayerComponent = (
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
 
   const {
-    extractScheduledStopPoints,
+    filterDistinctConsecutiveRouteStops,
     getInfraLinksWithStopsForGeometry,
     mapInfraLinksToFeature,
     getRemovedStopLabels,
     getOldRouteGeometryVariables,
+    extractJourneyPatternCandidateStops,
   } = useExtractRouteFromFeature();
 
   const { t } = useTranslation();
@@ -134,6 +132,12 @@ const DrawRouteLayerComponent = (
         return;
       }
 
+      // we can only find the stops belonging to the route its metadata is available
+      // (when editing, fetch it from graphql; when creating, filled in through form)
+      if (!editedRouteData.metaData) {
+        return;
+      }
+
       // retrieve infra links with stops for snapping line from mapmatching service
       const { geometry } = snappingLineFeature;
       const { infraLinksWithStops, matchedGeometry } =
@@ -152,14 +156,14 @@ const DrawRouteLayerComponent = (
         oldStopLabels,
       );
 
-      // Extract list of the stops to be included in the route
-      const stops = extractScheduledStopPoints(
+      // Extract list of the stops that are eligible to be included in route's journey pattern
+      const journeyPatternCandidateStops = extractJourneyPatternCandidateStops(
         infraLinksWithStops,
-        ReusableComponentsVehicleModeEnum.Bus,
+        editedRouteData.metaData,
       );
 
       const routeStops = getRouteStops(
-        stops,
+        journeyPatternCandidateStops,
         removedStopLabels || [],
         editedRouteData?.id,
       );

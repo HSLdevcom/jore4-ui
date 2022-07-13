@@ -1,5 +1,5 @@
+import flip from 'lodash/flip';
 import { ServicePatternScheduledStopPoint } from '../generated/graphql';
-import { RouteStop } from '../graphql/route';
 
 const sortStopsByTraversalForwards = (
   stop1: ServicePatternScheduledStopPoint,
@@ -8,27 +8,18 @@ const sortStopsByTraversalForwards = (
   stop1.relative_distance_from_infrastructure_link_start -
   stop2.relative_distance_from_infrastructure_link_start;
 
-const sortStopsByTraversalBackwards = (
-  stop1: ServicePatternScheduledStopPoint,
-  stop2: ServicePatternScheduledStopPoint,
-) =>
-  stop2.relative_distance_from_infrastructure_link_start -
-  stop1.relative_distance_from_infrastructure_link_start;
-
-/** Sort the stops on the same link according to the link traversal direction */
+/**
+ * Sort the stops on the same link according to the link traversal direction based on the
+ * distance from the link start
+ * @param stops list of stops on a single infra link
+ * @param isTraversalForwards the traversal direction of the route along the link
+ */
 export const sortStopsOnInfraLink = (
-  stopPoints: ServicePatternScheduledStopPoint[],
+  stops: ServicePatternScheduledStopPoint[],
   isTraversalForwards: boolean,
 ) =>
-  stopPoints.sort(
+  stops.sort(
     isTraversalForwards
       ? sortStopsByTraversalForwards
-      : sortStopsByTraversalBackwards,
+      : flip(sortStopsByTraversalForwards),
   );
-
-/** Removes all duplicate labeled consecutive stops from the list
- * This is used for example removing different versions of stops from the
- * journey pattern list where only the labels are shown
- */
-export const filterDistinctConsecutiveRouteStops = (stops: RouteStop[]) =>
-  stops.filter((route, index) => stops[index - 1]?.label !== route.label);
