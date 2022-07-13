@@ -67,7 +67,7 @@ export const MapFooter: React.FC<Props> = ({
       <SimpleButton
         testId={testIds.editRouteButton}
         onClick={onEditRoute}
-        disabled={!(creatingNewRoute || selectedRouteId)}
+        disabled={!(hasDraftRouteGeometry || selectedRouteId)}
         inverted={drawingMode !== Mode.Edit}
       >
         {t('map.editRoute')}
