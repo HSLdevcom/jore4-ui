@@ -67,6 +67,7 @@ const hasuraOverrideTypeDefs = gql`
     direction: infrastructure_network_direction_enum!
     label: String!
     priority: Int!
+    relative_distance_from_infrastructure_link_start: Float!
   }
 
   # settings fields for service_pattern.scheduled_stop_point update (patch) object

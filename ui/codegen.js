@@ -43,6 +43,7 @@ module.exports = {
           geography_linestring: 'GeoJSON.LineString',
           localized_string: 'LocalizedString',
           timestamptz: 'luxon.DateTime',
+          float8: 'number',
         },
       },
     },
