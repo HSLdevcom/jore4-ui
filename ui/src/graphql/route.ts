@@ -208,7 +208,7 @@ const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
           is_traversal_forwards
           infrastructure_link {
             infrastructure_link_id
-            scheduled_stop_point_located_on_infrastructure_link {
+            scheduled_stop_points_located_on_infrastructure_link {
               ...scheduled_stop_point_all_fields
               scheduled_stop_point_in_journey_patterns {
                 ...scheduled_stop_point_in_journey_pattern_all_fields
@@ -246,7 +246,7 @@ const GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
           is_traversal_forwards
           infrastructure_link {
             infrastructure_link_id
-            scheduled_stop_point_located_on_infrastructure_link(
+            scheduled_stop_points_located_on_infrastructure_link(
               where: $routeStopFilters
             ) {
               ...scheduled_stop_point_all_fields
