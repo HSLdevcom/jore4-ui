@@ -5,7 +5,6 @@ import {
   GetHighestPriorityLineDetailsWithRoutesQuery,
   GetLineDetailsByIdQuery,
   GetLineDetailsWithRoutesByIdQuery,
-  GetLinesByLabelAndPriorityQuery,
   GetLineValidityPeriodByIdQuery,
   InsertLineOneMutation,
   JourneyPatternScheduledStopPointInJourneyPattern,
@@ -273,22 +272,35 @@ export const mapHighestPriorityLineDetailsWithRoutesResult = (
     ? (result.data?.route_line[0] as RouteLine)
     : undefined;
 
-const GET_LINES_BY_LABEL = gql`
-  query GetLinesByLabelAndPriority($label: String!, $priority: Int!) {
-    route_line(
-      where: { label: { _eq: $label }, priority: { _eq: $priority } }
-    ) {
-      ...line_all_fields
-      line_routes {
-        ...route_all_fields
+const GET_ROUTES_WITH_STOPS = gql`
+  query GetRoutesWithStops($routeFilters: route_route_bool_exp) {
+    route_route(where: $routeFilters) {
+      ...route_all_fields
+      route_line {
+        line_id
+      }
+      infrastructure_links_along_route {
+        route_id
+        infrastructure_link_id
+        infrastructure_link_sequence
+        is_traversal_forwards
+        infrastructure_link {
+          infrastructure_link_id
+          scheduled_stop_points_located_on_infrastructure_link {
+            ...scheduled_stop_point_all_fields
+            scheduled_stop_point_in_journey_patterns {
+              ...scheduled_stop_point_in_journey_pattern_all_fields
+              journey_pattern {
+                journey_pattern_id
+                on_route_id
+              }
+            }
+          }
+        }
       }
     }
   }
 `;
-
-export const mapLinesByLabelAndPriorityResult = (
-  result: GqlQueryResult<GetLinesByLabelAndPriorityQuery>,
-) => result.data?.route_line as RouteLine[];
 
 const GET_ROUTE_DETAILS_BY_IDS = gql`
   query GetRouteDetailsByIds($route_ids: [uuid!]) {
