@@ -8745,6 +8745,18 @@
             "deprecationReason": null
           },
           {
+            "name": "new_priority",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "new_validity_end",
             "description": null,
             "type": {

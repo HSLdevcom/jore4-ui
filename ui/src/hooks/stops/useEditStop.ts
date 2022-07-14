@@ -50,6 +50,7 @@ export interface BrokenRouteCheckParams {
   newDirection: InfrastructureNetworkDirectionEnum;
   newStop: ScheduledStopPointSetInput;
   label: string;
+  priority: number;
   stopId: UUID | null;
 }
 
@@ -73,6 +74,7 @@ export const useEditStop = () => {
     newDirection,
     newStop,
     label,
+    priority,
     stopId,
   }: BrokenRouteCheckParams) => {
     // if a stop is moved away from the route geometry, remove it from its journey patterns
@@ -82,6 +84,7 @@ export const useEditStop = () => {
       new_label: label,
       new_validity_start: newStop.validity_start,
       new_validity_end: newStop.validity_end,
+      new_priority: priority,
       replace_scheduled_stop_point_id: stopId,
       // data model and form validation should ensure that
       // measured_location always exists
@@ -123,6 +126,7 @@ export const useEditStop = () => {
       newDirection: direction,
       newStop,
       label: newStop.label || oldStop.label,
+      priority: newStop.priority || oldStop.priority,
       stopId,
     });
 

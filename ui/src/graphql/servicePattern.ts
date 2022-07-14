@@ -237,6 +237,7 @@ const GET_ROUTES_BROKEN_BY_STOP_CHANGE = gql`
     $new_label: String!
     $new_validity_start: timestamptz
     $new_validity_end: timestamptz
+    $new_priority: Int!
     $new_measured_location: geography!
     $replace_scheduled_stop_point_id: uuid
   ) {
@@ -248,6 +249,7 @@ const GET_ROUTES_BROKEN_BY_STOP_CHANGE = gql`
         new_label: $new_label
         new_validity_start: $new_validity_start
         new_validity_end: $new_validity_end
+        new_priority: $new_priority
         new_measured_location: $new_measured_location
       }
     ) {

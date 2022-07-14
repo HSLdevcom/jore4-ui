@@ -1354,6 +1354,7 @@ export type JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs = 
   new_label?: Maybe<Scalars['String']>;
   new_located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
   new_measured_location?: Maybe<Scalars['geography']>;
+  new_priority?: Maybe<Scalars['Int']>;
   new_validity_end?: Maybe<Scalars['timestamptz']>;
   new_validity_start?: Maybe<Scalars['timestamptz']>;
   replace_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
@@ -7244,6 +7245,7 @@ export type GetRoutesBrokenByStopChangeQueryVariables = Exact<{
   new_label: Scalars['String'];
   new_validity_start?: Maybe<Scalars['timestamptz']>;
   new_validity_end?: Maybe<Scalars['timestamptz']>;
+  new_priority: Scalars['Int'];
   new_measured_location: Scalars['geography'];
   replace_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
 }>;
@@ -8944,9 +8946,9 @@ export type GetStopWithRouteGraphDataByIdQueryHookResult = ReturnType<typeof use
 export type GetStopWithRouteGraphDataByIdLazyQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdLazyQuery>;
 export type GetStopWithRouteGraphDataByIdQueryResult = Apollo.QueryResult<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>;
 export const GetRoutesBrokenByStopChangeDocument = gql`
-    query GetRoutesBrokenByStopChange($new_located_on_infrastructure_link_id: uuid!, $new_direction: String!, $new_label: String!, $new_validity_start: timestamptz, $new_validity_end: timestamptz, $new_measured_location: geography!, $replace_scheduled_stop_point_id: uuid) {
+    query GetRoutesBrokenByStopChange($new_located_on_infrastructure_link_id: uuid!, $new_direction: String!, $new_label: String!, $new_validity_start: timestamptz, $new_validity_end: timestamptz, $new_priority: Int!, $new_measured_location: geography!, $replace_scheduled_stop_point_id: uuid) {
   journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point(
-    args: {replace_scheduled_stop_point_id: $replace_scheduled_stop_point_id, new_located_on_infrastructure_link_id: $new_located_on_infrastructure_link_id, new_direction: $new_direction, new_label: $new_label, new_validity_start: $new_validity_start, new_validity_end: $new_validity_end, new_measured_location: $new_measured_location}
+    args: {replace_scheduled_stop_point_id: $replace_scheduled_stop_point_id, new_located_on_infrastructure_link_id: $new_located_on_infrastructure_link_id, new_direction: $new_direction, new_label: $new_label, new_validity_start: $new_validity_start, new_validity_end: $new_validity_end, new_priority: $new_priority, new_measured_location: $new_measured_location}
   ) {
     journey_pattern_id
     journey_pattern_route {
@@ -8973,6 +8975,7 @@ export const GetRoutesBrokenByStopChangeDocument = gql`
  *      new_label: // value for 'new_label'
  *      new_validity_start: // value for 'new_validity_start'
  *      new_validity_end: // value for 'new_validity_end'
+ *      new_priority: // value for 'new_priority'
  *      new_measured_location: // value for 'new_measured_location'
  *      replace_scheduled_stop_point_id: // value for 'replace_scheduled_stop_point_id'
  *   },
