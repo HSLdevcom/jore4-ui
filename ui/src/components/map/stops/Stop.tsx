@@ -8,6 +8,7 @@ import { Circle } from '../markers';
 const { colors } = theme;
 
 interface Props extends Point {
+  testId?: string;
   draggable?: boolean;
   selected?: boolean;
   onClick: () => void;
@@ -17,6 +18,7 @@ interface Props extends Point {
 }
 
 export const Stop = ({
+  testId,
   latitude,
   longitude,
   onClick,
@@ -49,6 +51,7 @@ export const Stop = ({
       onDragEnd={onDragEnd}
     >
       <Circle
+        testId={testId}
         size={iconSize}
         onClick={onClick}
         borderColor={iconBorderColor}

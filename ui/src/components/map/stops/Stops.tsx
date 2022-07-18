@@ -90,6 +90,7 @@ export const Stops = React.forwardRef((props, ref) => {
 
         return (
           <Stop
+            testId={`${item.label}_${item.priority}`}
             key={item.scheduled_stop_point_id}
             selected={item.scheduled_stop_point_id === selectedStopId}
             longitude={point.longitude}
