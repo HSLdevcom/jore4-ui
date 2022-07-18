@@ -18,7 +18,7 @@ export const usePagination = (): {
   ) => number[];
 } => {
   const history = useHistory();
-  const queryParams = useUrlQuery();
+  const { queryParams } = useUrlQuery();
   const initialPage = parseInt(queryParams.page as string, 10) || 1;
 
   const getPaginatedData = <T>(data: Array<T>, itemsPerPage: number) => {

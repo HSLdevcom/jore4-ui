@@ -1,8 +1,6 @@
-import produce from 'immer';
 import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
 import { RouteLine } from '../../../generated/graphql';
 import { useGetLineDetails, useUrlQuery } from '../../../hooks';
 import { Column, Container, Row } from '../../../layoutComponents';
@@ -22,23 +20,10 @@ export const ActionsRow = ({
   className?: string;
 }): JSX.Element => {
   const { t } = useTranslation();
-  const history = useHistory();
-  const queryParams = useUrlQuery();
+
+  const { setObservationDate } = useUrlQuery();
 
   const { line, observationDate } = useGetLineDetails();
-
-  const onDateChange = (date: DateTime) => {
-    const updatedUrlQuery = produce(queryParams, (draft) => {
-      if (date.isValid) {
-        draft.observationDate = date.toISODate();
-      }
-    });
-
-    const queryString = qs.stringify(updatedUrlQuery);
-    history.push({
-      search: `?${queryString}`,
-    });
-  };
 
   return (
     <Container className={className}>
@@ -51,7 +36,9 @@ export const ActionsRow = ({
             type="date"
             required
             value={observationDate?.toISODate() || ''}
-            onChange={(e) => onDateChange(DateTime.fromISO(e.target.value))}
+            onChange={(e) =>
+              setObservationDate(DateTime.fromISO(e.target.value))
+            }
             className="flex-1"
           />
         </Column>
