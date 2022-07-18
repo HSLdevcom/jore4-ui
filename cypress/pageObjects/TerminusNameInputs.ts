@@ -47,15 +47,15 @@ export class TerminusNameInputs {
     destination: TerminusValues,
   ) {
     this.getTerminusOriginFinnishNameInput().type(origin.finnishName);
-    this.getTerminusOriginSwedishNameInput().type(origin.swedishName);
     this.getTerminusOriginFinnishShortNameInput().type(origin.finnishShortName);
+    this.getTerminusOriginSwedishNameInput().type(origin.swedishName);
     this.getTerminusOriginSwedishShortNameInput().type(origin.swedishShortName);
 
     this.getTerminusDestinationFinnishNameInput().type(destination.finnishName);
-    this.getTerminusDestinationSwedishNameInput().type(destination.swedishName);
     this.getTerminusDestinationFinnishShortNameInput().type(
       destination.finnishShortName,
     );
+    this.getTerminusDestinationSwedishNameInput().type(destination.swedishName);
     this.getTerminusDestinationSwedishShortNameInput().type(
       destination.swedishShortName,
     );
