@@ -1,4 +1,4 @@
-import { ConfirmSaveForm, LineForm } from '../pageObjects';
+import { ConfirmSaveForm, LineForm, Toast } from '../pageObjects';
 
 const deleteLineByLabel = (label: string) => {
   const query = 'DELETE FROM "route"."line" WHERE label=?';
@@ -9,9 +9,11 @@ const testLabel = '7327';
 describe('Verify that creating new line works', () => {
   let lineForm: LineForm;
   let confirmSaveForm: ConfirmSaveForm;
+  let toast: Toast;
   beforeEach(() => {
     lineForm = new LineForm();
     confirmSaveForm = new ConfirmSaveForm();
+    toast = new Toast();
     cy.mockLogin();
     cy.visit('/lines/create');
     // delete label we are about to create (if exists) to avoid
@@ -33,6 +35,6 @@ describe('Verify that creating new line works', () => {
     confirmSaveForm.setEndDate('2022-12-31');
 
     lineForm.save();
-    lineForm.checkSubmitSuccess();
+    toast.checkLineSubmitSuccess();
   });
 });
