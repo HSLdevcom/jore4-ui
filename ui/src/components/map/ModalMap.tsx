@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useMapOpenQueryParam } from '../../hooks';
+import { useMapQueryParams } from '../../hooks';
 import { Modal } from '../../uiComponents';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
@@ -18,10 +18,10 @@ const mapFooterHeight = 82;
 export const ModalMap: React.FC<Props> = ({ className = '' }) => {
   const mapRef = useRef<ExplicitAny>(null);
 
-  const { isMapOpen, deleteMapOpenQueryParameter } = useMapOpenQueryParam();
+  const { isMapOpen, deleteMapQueryParameters } = useMapQueryParams();
 
   const onCloseModalMap = () => {
-    deleteMapOpenQueryParameter();
+    deleteMapQueryParameters();
   };
 
   return (

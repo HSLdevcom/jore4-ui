@@ -1,4 +1,6 @@
 import produce from 'immer';
+import isBoolean from 'lodash/isBoolean';
+import isNumber from 'lodash/isNumber';
 import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useCallback, useMemo } from 'react';
@@ -16,6 +18,19 @@ export const useUrlQuery = () => {
   );
 
   const history = useHistory();
+
+  const setQueryString = useCallback(
+    (queryString: string, replace: boolean) => {
+      replace
+        ? history.replace({
+            search: `?${queryString}`,
+          })
+        : history.push({
+            search: `?${queryString}`,
+          });
+    },
+    [history],
+  );
 
   /** Sets parameter to URL query
    * replace flag can be given to replace the earlier url query instead
@@ -38,26 +53,7 @@ export const useUrlQuery = () => {
 
     const queryString = qs.stringify(updatedUrlQuery);
 
-    replace
-      ? history.replace({
-          search: `?${queryString}`,
-        })
-      : history.push({
-          search: `?${queryString}`,
-        });
-  };
-
-  /** Sets DateTime parameter to URL query as ISO Date
-   * replace flag can be given to replace the earlier url query instead
-   * of pushing it. This affects how the back button or history.back() works.
-   * If the history is replaced, it means that back button will not go to the
-   * url which was replaced, but rather the one before it.
-   */
-  const setDateTimeToUrlQuery = (
-    { paramName, value }: QueryParameter<DateTime>,
-    { replace }: ParameterWriteOptions = {},
-  ) => {
-    setToUrlQuery({ paramName, value: value.toISODate(), replace });
+    setQueryString(queryString, replace);
   };
 
   /** Sets boolean parameter to URL query
@@ -73,6 +69,56 @@ export const useUrlQuery = () => {
     setToUrlQuery({ paramName, value: value.toString(), replace });
   };
 
+  /** Sets DateTime parameter to URL query as ISO Date
+   * replace flag can be given to replace the earlier url query instead
+   * of pushing it. This affects how the back button or history.back() works.
+   * If the history is replaced, it means that back button will not go to the
+   * url which was replaced, but rather the one before it.
+   */
+  const setDateTimeToUrlQuery = (
+    { paramName, value }: QueryParameter<DateTime>,
+    { replace }: ParameterWriteOptions = {},
+  ) => {
+    setToUrlQuery({ paramName, value: value.toISODate(), replace });
+  };
+
+  /** Sets multiple parameters to URL query
+   * Converts booleans, DateTimes and numbers in to string format
+   * replace flag can be given to replace the earlier url query instead
+   * of pushing it. This affects how the back button or history.back() works.
+   * If the history is replaced, it means that back button will not go to the
+   * url which was replaced, but rather the one before it.
+   */
+  const setMultipleParametersToUrlQuery = useCallback(
+    ({
+      parameters,
+      replace = false,
+    }: {
+      parameters: QueryParameter<string | boolean | DateTime | number>[];
+      replace?: boolean;
+      debounced?: boolean;
+    }) => {
+      const updatedUrlQuery = produce(queryParams, (draft) => {
+        parameters.forEach((parameter) => {
+          // Convert based on the type of the value
+          if (isBoolean(parameter.value)) {
+            draft[parameter.paramName] = parameter.value.toString();
+          } else if (DateTime.isDateTime(parameter.value)) {
+            draft[parameter.paramName] = parameter.value.toISODate();
+          } else if (isNumber(parameter.value)) {
+            draft[parameter.paramName] = parameter.value.toString();
+          } else {
+            draft[parameter.paramName] = parameter.value;
+          }
+        });
+      });
+      const queryString = qs.stringify(updatedUrlQuery);
+
+      setQueryString(queryString, replace);
+    },
+    [queryParams, setQueryString],
+  );
+
   /** Returns a query parameter in boolean type */
   const getBooleanParamFromUrlQuery = (paramName: string) => {
     return queryParams[paramName] === 'true';
@@ -87,6 +133,12 @@ export const useUrlQuery = () => {
     },
     [queryParams],
   );
+  /** Returns float query parameter if exists, otherwise returns null */
+  const getFloatParamFromUrlQuery = (paramName: string) => {
+    return queryParams[paramName]
+      ? parseFloat(queryParams[paramName] as string)
+      : null;
+  };
 
   /** Deletes parameter from URL query
    * replace flag can be given to replace the earlier url query instead
@@ -107,13 +159,31 @@ export const useUrlQuery = () => {
 
     const queryString = qs.stringify(updatedUrlQuery);
 
-    replace
-      ? history.replace({
-          search: `?${queryString}`,
-        })
-      : history.push({
-          search: `?${queryString}`,
-        });
+    setQueryString(queryString, replace);
+  };
+
+  /** Deletes multiple parameters from URL query
+   * replace flag can be given to replace the earlier url query instead
+   * of pushing it. This affects how the back button or history.back() works.
+   * If the history is replaced, it means that back button will not go to the
+   * url which was replaced, but rather the one before it.
+   */
+  const deleteMultipleFromUrlQuery = ({
+    paramNames,
+    replace = false,
+  }: {
+    paramNames: string[];
+    replace?: boolean;
+  }) => {
+    const updatedUrlQuery = produce(queryParams, (draft) => {
+      paramNames.forEach((paramName) => {
+        delete draft[paramName];
+      });
+    });
+
+    const queryString = qs.stringify(updatedUrlQuery);
+
+    setQueryString(queryString, replace);
   };
 
   return {
@@ -123,6 +193,9 @@ export const useUrlQuery = () => {
     setDateTimeToUrlQuery,
     getBooleanParamFromUrlQuery,
     getDateTimeFromUrlQuery,
+    getFloatParamFromUrlQuery,
+    setMultipleParametersToUrlQuery,
     deleteFromUrlQuery,
+    deleteMultipleFromUrlQuery,
   };
 };
