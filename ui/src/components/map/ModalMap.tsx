@@ -28,6 +28,7 @@ export const ModalMap: React.FC<Props> = ({ className = '' }) => {
     <Modal
       isOpen={isMapOpen}
       onClose={onCloseModalMap}
+      testId="modalMap"
       className={`absolute left-0 top-0 z-10 h-full w-full !bg-background ${className}`}
     >
       <MapHeader onClose={onCloseModalMap} />

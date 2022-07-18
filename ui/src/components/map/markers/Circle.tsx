@@ -1,6 +1,7 @@
 import { memo, useState } from 'react';
 
 interface Props {
+  testId?: string;
   size?: number;
   borderWidth?: number;
   fillColor?: string;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const CircleComponent = ({
+  testId,
   size = 20,
   borderWidth = 2,
   fillColor = 'white',
@@ -30,6 +32,7 @@ const CircleComponent = ({
       onMouseLeave={() => setIsMouseHovering(false)}
     >
       <circle
+        data-testid={testId}
         cx={size / 2}
         cy={size / 2}
         r={size / 2 - borderWidth}

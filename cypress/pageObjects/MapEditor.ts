@@ -14,18 +14,18 @@ export class MapEditor {
       .first();
   }
 
-  // Uses css indexing which starts from 1
-  clickAtPositionFromNthMapMarker(
-    xpos: number,
-    ypos: number,
-    markerNumber: number,
+  /** Clicks position relative to stopMarker. So this uses given stopMarker
+   * as origin and then adds 'right' to x coordinate and 'down' to y coordinates
+   * and clicks that position. You can go left and up by giving negative numbers. */
+  clickAtPositionFromMapMarkerByTestId(
+    testId: string,
+    right: number,
+    down: number,
   ) {
-    this.getNthMarker(markerNumber).then((marker) => {
-      // returns the coords of the top-left corner within the parent #editor element
-      const position = marker.position();
-      cy.get('#editor').click(position.left + xpos, position.top + ypos, {
-        force: true,
-      });
+    cy.getByTestId(testId).then((mark) => {
+      const { x } = mark[0].getBoundingClientRect();
+      const { y } = mark[0].getBoundingClientRect();
+      cy.getByTestId('modalMap').click(x + right, y + down);
     });
   }
 

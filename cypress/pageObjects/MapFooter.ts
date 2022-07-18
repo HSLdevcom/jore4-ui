@@ -1,4 +1,8 @@
+import { Toast } from './Toast';
+
 export class MapFooter {
+  toast = new Toast();
+
   createRoute() {
     return cy.getByTestId('mapFooter:drawRouteButton').click();
   }
