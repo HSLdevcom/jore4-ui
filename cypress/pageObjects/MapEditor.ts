@@ -14,17 +14,23 @@ export class MapEditor {
       .first();
   }
 
-  // Uses css indexing which starts from 1
-  clickAtPositionFromNthMapMarker(
+  clickAtPositionFromMapMarkerByTestId(
     xpos: number,
     ypos: number,
-    markerNumber: number,
+    testId: string,
   ) {
-    this.getNthMarker(markerNumber).then((marker) => {
-      // returns the coords of the top-left corner within the parent #editor element
-      const position = marker.position();
-      cy.get('#editor').click(position.left + xpos, position.top + ypos, {
-        force: true,
+    cy.get('#editor').then((editor) => {
+      cy.getByTestId(testId).then((mark) => {
+        // Because we are clicking the editor, we need to subtract the editors coordinates
+        // from the markers coordinates to get the correct coordinate
+        const x =
+          mark[0].getBoundingClientRect().x -
+          editor[0].getBoundingClientRect().x;
+        const y =
+          mark[0].getBoundingClientRect().y -
+          editor[0].getBoundingClientRect().y;
+
+        cy.get('#editor').click(x + xpos, y + ypos, { force: true });
       });
     });
   }

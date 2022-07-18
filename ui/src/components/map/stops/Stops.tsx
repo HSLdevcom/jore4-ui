@@ -19,6 +19,7 @@ import {
   setIsCreateStopModeEnabledAction,
   setSelectedStopIdAction,
 } from '../../../redux';
+import { Priority } from '../../../types/Priority';
 import {
   constructWithinViewportGqlFilter,
   mapLngLatToGeoJSON,
@@ -90,7 +91,7 @@ export const Stops = React.forwardRef((props, ref) => {
 
         return (
           <Stop
-            testId={`map:stopMarker:${item.scheduled_stop_point_id}`}
+            testId={`map::stopMarker::${item.label}_${Priority[item.priority]}`}
             key={item.scheduled_stop_point_id}
             selected={item.scheduled_stop_point_id === selectedStopId}
             longitude={point.longitude}
