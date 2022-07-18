@@ -3,11 +3,8 @@ import { point, Units } from '@turf/helpers';
 import debounce from 'lodash/debounce';
 import { FunctionComponent, useMemo, useRef, useState } from 'react';
 import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
-import { useAppDispatch } from '../../hooks';
-import {
-  HELSINKI_CITY_CENTER_COORDINATES,
-  setViewPortAction,
-} from '../../redux';
+import { useAppDispatch, useMapQueryParams } from '../../hooks';
+import { setViewPortAction } from '../../redux';
 import hslSimpleStyle from './hslSimpleStyle.json';
 import rasterMapStyle from './rasterMapStyle.json';
 
@@ -40,29 +37,29 @@ export const Maplibre: FunctionComponent<Props> = ({
 }) => {
   const mapRef = useRef<MapRef>(null);
 
+  const { mapPosition, setMapPosition } = useMapQueryParams();
+
   const [viewport, setViewport] = useState<MaplibreViewport>({
-    ...HELSINKI_CITY_CENTER_COORDINATES,
-    zoom: 13,
+    ...mapPosition,
     bearing: 0,
     pitch: 0,
   });
 
   const dispatch = useAppDispatch();
 
-  const updateViewportDebounced = useMemo(
+  const updateMapDetailsDebounced = useMemo(
     () =>
-      debounce(
-        (latitude, longitude, radius) =>
-          dispatch(
-            setViewPortAction({
-              latitude,
-              longitude,
-              radius,
-            }),
-          ),
-        500,
-      ),
-    [dispatch],
+      debounce((latitude, longitude, zoom, radius) => {
+        dispatch(
+          setViewPortAction({
+            latitude,
+            longitude,
+            radius,
+          }),
+        );
+        setMapPosition(latitude, longitude, zoom);
+      }, 500),
+    [dispatch, setMapPosition],
   );
 
   const onViewportChange = (newViewport: MaplibreViewport) => {
@@ -80,9 +77,12 @@ export const Maplibre: FunctionComponent<Props> = ({
 
       const radius = distance(from, to, options);
 
-      updateViewportDebounced(
+      // Update map details with a debounce to avoid hundreds of updates while
+      // user is changing map position
+      updateMapDetailsDebounced(
         newViewport.latitude,
         newViewport.longitude,
+        newViewport.zoom,
         radius,
       );
     }

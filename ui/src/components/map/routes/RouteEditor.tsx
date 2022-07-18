@@ -10,7 +10,7 @@ import {
   useAppSelector,
   useDeleteRoute,
   useEditRouteGeometry,
-  useMapOpenQueryParam,
+  useMapQueryParams,
 } from '../../../hooks';
 import { useCreateRoute } from '../../../hooks/routes/useCreateRoute';
 import {
@@ -56,7 +56,7 @@ const RouteEditorComponent = (
   const observationDate = useAppSelector(selectMapObservationDate);
   const drawingMode = useAppSelector(selectDrawingMode);
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
-  const { deleteMapOpenQueryParameter } = useMapOpenQueryParam();
+  const { deleteMapQueryParameters } = useMapQueryParams();
 
   const {
     id: editedRouteId,
@@ -247,7 +247,7 @@ const RouteEditorComponent = (
       showSuccessToast(t('routes.deleteSuccess'));
 
       setIsDeleting(false);
-      deleteMapOpenQueryParameter();
+      deleteMapQueryParameters();
     } catch (err) {
       defaultDeleteErrorHandler(err);
     }
