@@ -20,7 +20,9 @@ if (!Cypress.env('SKIP_MAP_TESTS')) {
       terminusNameInputs = new TerminusNameInputs();
       confirmSaveForm = new ConfirmSaveForm();
       cy.mockLogin();
-      cy.visit('/routes?mapOpen=true');
+      cy.visit(
+        '/routes?mapOpen=true&lng=24.93021804533524&lat=60.164074274478054&z=15',
+      );
       mapEditor.waitForMapToLoad();
     });
     it(
