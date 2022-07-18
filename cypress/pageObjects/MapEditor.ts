@@ -1,13 +1,5 @@
-function positionStringToCoordinates(value: string | null) {
-  const matcher = /translate\((\d+)px, (\d+)px\)/;
-  if (value) {
-    const position = value.match(matcher)?.slice(1);
-    if (position != null && position.length > 1) {
-      return { x: +position[0], y: +position[1] };
-    }
-  }
-  return { x: 0, y: 0 };
-}
+// This comes from ModalMap.tsx
+const MAP_HEADER_HEIGHT = 64;
 
 export class MapEditor {
   zoomIn() {
@@ -25,20 +17,25 @@ export class MapEditor {
       .first();
   }
 
-  // Uses css indexing which starts from 1
-  clickAtPositionFromNthMapMarker(
+  clickAtPositionFromMapMarkerByTestId(
     xpos: number,
     ypos: number,
-    markerNumber: number,
+    testId: string,
   ) {
-    this.getNthMarker(markerNumber).then((mark) => {
-      const position = positionStringToCoordinates(
-        mark[0].getAttribute('style'),
-      );
-      cy.get('#editor').click(position.x + xpos, position.y + ypos, {
-        force: true,
+    cy.getByTestId(testId)
+      .parent()
+      .then((mark) => {
+        const x = mark.position().left;
+
+        // Map header heigth needs to be subtracted from the y coordinate
+        // because we use the editors "internal" coordinates for the click
+        // which does not include the header
+        const y = mark.position().top - MAP_HEADER_HEIGHT;
+
+        cy.get('#editor').click(x + xpos, y + ypos, {
+          force: true,
+        });
       });
-    });
   }
 
   clickNthCreatedRectangle(nth: number) {

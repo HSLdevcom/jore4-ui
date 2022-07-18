@@ -19,7 +19,10 @@ export class ConfirmSaveForm {
   }
 
   setEndDate(isoDate: string) {
-    return cy.getByTestId('confirmSaveForm:endDateInput').type(isoDate);
+    return cy
+      .getByTestId('confirmSaveForm:endDateInput')
+      .invoke('removeAttr', 'type')
+      .type(isoDate);
   }
 
   getIndefiniteCheckbox() {
