@@ -99,6 +99,7 @@ export const useCreateStop = () => {
       newDirection: direction,
       newStop: input,
       label: input.label,
+      priority: input.priority,
       stopId: null,
     });
 
