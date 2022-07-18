@@ -23,8 +23,8 @@ export class RoutePropertiesForm {
     direction: string;
     line: string;
   }) {
-    this.getLabelInput().type(values.label);
     this.getFinnishNameInput().type(values.finnishName);
+    this.getLabelInput().type(values.label);
     this.selectDirection(values.direction);
     this.selectLine(values.line);
   }

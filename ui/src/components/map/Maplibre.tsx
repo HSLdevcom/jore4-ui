@@ -3,11 +3,8 @@ import { point, Units } from '@turf/helpers';
 import debounce from 'lodash/debounce';
 import { FunctionComponent, useMemo, useRef, useState } from 'react';
 import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
-import { useAppDispatch } from '../../hooks';
-import {
-  HELSINKI_CITY_CENTER_COORDINATES,
-  setViewPortAction,
-} from '../../redux';
+import { useAppDispatch, useMapUrlQuery } from '../../hooks';
+import { setViewPortAction } from '../../redux';
 import hslSimpleStyle from './hslSimpleStyle.json';
 import rasterMapStyle from './rasterMapStyle.json';
 
@@ -40,9 +37,11 @@ export const Maplibre: FunctionComponent<Props> = ({
 }) => {
   const mapRef = useRef<MapRef>(null);
 
+  const { mapPosition, setMapPositionQueryParametersDebounced } =
+    useMapUrlQuery();
+
   const [viewport, setViewport] = useState<MaplibreViewport>({
-    ...HELSINKI_CITY_CENTER_COORDINATES,
-    zoom: 13,
+    ...mapPosition,
     bearing: 0,
     pitch: 0,
   });
@@ -80,6 +79,11 @@ export const Maplibre: FunctionComponent<Props> = ({
 
       const radius = distance(from, to, options);
 
+      setMapPositionQueryParametersDebounced(
+        newViewport.latitude,
+        newViewport.longitude,
+        newViewport.zoom,
+      );
       updateViewportDebounced(
         newViewport.latitude,
         newViewport.longitude,
