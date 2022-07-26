@@ -59,7 +59,6 @@ export const StopPopup = ({
     <Popup
       className="w-80"
       tipSize={10}
-      offsetLeft={5}
       offsetTop={25}
       anchor="top"
       longitude={location.longitude}
