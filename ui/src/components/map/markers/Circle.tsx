@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { memo, useState } from 'react';
 
 interface Props {
   size?: number;
@@ -6,6 +6,7 @@ interface Props {
   fillColor?: string;
   borderColor?: string;
   centerDot?: boolean;
+  centerDotSize?: number;
   onClick?: () => void;
 }
 
@@ -15,10 +16,19 @@ const CircleComponent = ({
   fillColor = 'white',
   borderColor = 'black',
   centerDot = false,
+  centerDotSize = 2,
   onClick,
 }: Props): JSX.Element => {
+  const [isMouseHovering, setIsMouseHovering] = useState(false);
   return (
-    <svg height={size} width={size} onClick={onClick}>
+    <svg
+      height={size}
+      width={size}
+      onClick={onClick}
+      className="rounded-full"
+      onMouseEnter={() => setIsMouseHovering(true)}
+      onMouseLeave={() => setIsMouseHovering(false)}
+    >
       <circle
         cx={size / 2}
         cy={size / 2}
@@ -27,14 +37,12 @@ const CircleComponent = ({
         strokeWidth={borderWidth}
         fill={fillColor}
       />
-      {centerDot && (
+      {(centerDot || isMouseHovering) && (
         <circle
           cx={size / 2}
           cy={size / 2}
-          r={1}
-          stroke={borderColor}
-          strokeWidth={borderWidth}
-          fill={fillColor}
+          r={centerDotSize}
+          fill={borderColor}
         />
       )}
     </svg>
@@ -43,4 +51,4 @@ const CircleComponent = ({
 
 // Official examples used React.memo, see e.g.
 // https://github.com/visgl/react-map-gl/blob/6.1-release/examples/controls/src/pins.js
-export const Circle = React.memo(CircleComponent);
+export const Circle = memo(CircleComponent);
