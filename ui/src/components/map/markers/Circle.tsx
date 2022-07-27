@@ -6,6 +6,7 @@ interface Props {
   fillColor?: string;
   borderColor?: string;
   centerDot?: boolean;
+  centerDotSize?: number;
   onClick?: () => void;
 }
 
@@ -15,10 +16,17 @@ const CircleComponent = ({
   fillColor = 'white',
   borderColor = 'black',
   centerDot = false,
+  centerDotSize = 2,
   onClick,
 }: Props): JSX.Element => {
   return (
-    <svg height={size} width={size} onClick={onClick}>
+    <svg
+      height={size}
+      width={size}
+      onClick={onClick}
+      className="group rounded-full"
+      fill={borderColor} // Fill color for center dot to inherit via css
+    >
       <circle
         cx={size / 2}
         cy={size / 2}
@@ -27,16 +35,13 @@ const CircleComponent = ({
         strokeWidth={borderWidth}
         fill={fillColor}
       />
-      {centerDot && (
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={1}
-          stroke={borderColor}
-          strokeWidth={borderWidth}
-          fill={fillColor}
-        />
-      )}
+      <circle
+        className="group-hover:fill-inherit"
+        cx={size / 2}
+        cy={size / 2}
+        r={centerDotSize}
+        fill={centerDot ? borderColor : 'transparent'} // Show dot by default only when specified
+      />
     </svg>
   );
 };
