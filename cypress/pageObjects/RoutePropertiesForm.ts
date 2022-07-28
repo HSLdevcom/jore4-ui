@@ -30,6 +30,6 @@ export class RoutePropertiesForm {
   }
 
   save(forceAction = false) {
-    return cy.getByTestId('Modal:saveButton').click({ force: forceAction });
+    return cy.getByTestId('modal::saveButton').click({ force: forceAction });
   }
 }

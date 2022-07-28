@@ -7,6 +7,10 @@ export class MapFooter {
     return cy.getByTestId('mapFooter:drawRouteButton').click();
   }
 
+  addStop() {
+    return cy.getByTestId('mapFooter:addStopButton').click();
+  }
+
   editRoute() {
     return cy.getByTestId('mapFooter:editRouteButton').click();
   }

@@ -28,6 +28,12 @@ import {
   schema as confirmSaveFormSchema,
 } from '../common/ConfirmSaveForm';
 
+const testIds = {
+  label: 'stopForm::label',
+  longitude: 'stopForm::longitude',
+  latitude: 'stopForm::latitude',
+};
+
 const schema = z
   .object({
     stopId: z.string().uuid().optional(), // for stops that are edited
@@ -158,7 +164,11 @@ const StopFormComponent = (
               <h3 className="text-lg font-bold">{t('stops.nameAddress')}</h3>
               <Column>
                 <label htmlFor="label">{t('stops.label')}</label>
-                <input type="text" {...register('label', {})} />
+                <input
+                  data-testid={testIds.label}
+                  type="text"
+                  {...register('label', {})}
+                />
                 <p>
                   {errors.label?.type === 'too_small' &&
                     t('formValidation.required')}
@@ -171,6 +181,7 @@ const StopFormComponent = (
                 <Column>
                   <label htmlFor="latitude">{t('map.latitude')}</label>
                   <input
+                    data-testid={testIds.latitude}
                     type="number"
                     {...register('latitude', {
                       valueAsNumber: true,
@@ -182,6 +193,7 @@ const StopFormComponent = (
                 <Column>
                   <label htmlFor="longitude">{t('map.longitude')}</label>
                   <input
+                    data-testid={testIds.longitude}
                     type="number"
                     {...register('longitude', {
                       valueAsNumber: true,

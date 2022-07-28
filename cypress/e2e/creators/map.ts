@@ -13,6 +13,12 @@ interface StopPoint {
   stopTestId: string;
 }
 
+interface StopFormInfo {
+  label: string;
+  longitude?: string;
+  latitude?: string;
+}
+
 export enum Priority {
   Standard = 'Standard',
   Draft = 'Draft',
@@ -22,6 +28,14 @@ export enum Priority {
 export enum Direction {
   AwayFromCity = '1',
   TowardsCity = '2',
+}
+
+interface CreateStopParameters {
+  stopFormInfo: StopFormInfo;
+  stopPoint: StopPoint;
+  priority?: Priority;
+  startDate: string;
+  endDate?: string;
 }
 
 interface RouteFormInfo {
@@ -69,6 +83,31 @@ export class MapCreator {
     endDate
       ? this.confirmSaveForm.setEndDate(endDate)
       : this.confirmSaveForm.setAsIndefinite();
+  };
+
+  createStop = ({
+    stopFormInfo,
+    stopPoint,
+    priority,
+    startDate,
+    endDate,
+  }: CreateStopParameters) => {
+    this.mapFooter.addStop();
+
+    this.mapEditor.clickAtPositionFromMapMarkerByTestId(
+      stopPoint.x,
+      stopPoint.y,
+      stopPoint.stopTestId,
+    );
+
+    this.stopForm.fillStopForm(stopFormInfo);
+
+    this.setPriority(priority);
+
+    this.confirmSaveForm.setStartDate(startDate);
+    this.setEndDate(endDate);
+
+    this.stopForm.save();
   };
 
   createRoute = ({
