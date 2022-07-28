@@ -1,4 +1,4 @@
-// This comes from ModalMap.tsx
+// This constant comes from ModalMap.tsx
 const MAP_HEADER_HEIGHT = 64;
 
 export class MapEditor {
@@ -17,7 +17,12 @@ export class MapEditor {
       .first();
   }
 
-  clickAtPositionFromMapMarkerByTestId(
+  /** This will click the route editor on a point that has
+   *  given StopMarker as origin and then the xpos and ypos are added
+   *
+   *  This only works for route editing
+   */
+  clickAtPositionOnRouteEditorFromMapMarkerByTestId(
     xpos: number,
     ypos: number,
     testId: string,

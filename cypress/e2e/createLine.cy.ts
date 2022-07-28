@@ -1,16 +1,14 @@
-import { ConfirmSaveForm, LineForm } from '../pageObjects';
-
-const deleteLineByLabel = (label: string) => {
-  const query = 'DELETE FROM "route"."line" WHERE label=?';
-  cy.task('executeRawDbQuery', { query, bindings: label });
-};
+import { ConfirmSaveForm, LineForm, Toast } from '../pageObjects';
+import { deleteLineByLabel } from './test-utils';
 
 const testLabel = '7327';
 describe('Verify that creating new line works', () => {
   let lineForm: LineForm;
+  let toast: Toast;
   let confirmSaveForm: ConfirmSaveForm;
   beforeEach(() => {
     lineForm = new LineForm();
+    toast = new Toast();
     confirmSaveForm = new ConfirmSaveForm();
     cy.mockLogin();
     cy.visit('/lines/create');
@@ -33,6 +31,6 @@ describe('Verify that creating new line works', () => {
     confirmSaveForm.setEndDate('2022-12-31');
 
     lineForm.save();
-    lineForm.checkSubmitSuccess();
+    toast.checkLineSubmitSuccess();
   });
 });

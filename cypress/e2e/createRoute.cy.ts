@@ -1,30 +1,17 @@
-import {
-  ConfirmSaveForm,
-  MapEditor,
-  MapFooter,
-  RoutePropertiesForm,
-  TerminusNameInputs,
-} from '../pageObjects';
-
-const deleteRouteByLabel = (label: string) => {
-  const query = 'DELETE FROM "route"."route" WHERE label=?';
-  cy.task('executeRawDbQuery', { query, bindings: label });
-};
+import { MapEditor, Toast } from '../pageObjects';
+import { Direction, MapCreator } from './creators/map';
+import { deleteRouteByLabel } from './test-utils';
 
 if (!Cypress.env('SKIP_MAP_TESTS')) {
   describe('Verify that creating new route works', () => {
     let mapEditor: MapEditor;
-    let mapFooter: MapFooter;
-    let routePropertiesForm: RoutePropertiesForm;
-    let terminusNameInputs: TerminusNameInputs;
-    let confirmSaveForm: ConfirmSaveForm;
+    let mapCreator: MapCreator;
+    let toast: Toast;
 
     beforeEach(() => {
       mapEditor = new MapEditor();
-      mapFooter = new MapFooter();
-      routePropertiesForm = new RoutePropertiesForm();
-      terminusNameInputs = new TerminusNameInputs();
-      confirmSaveForm = new ConfirmSaveForm();
+      mapCreator = new MapCreator();
+      toast = new Toast();
 
       cy.mockLogin();
       cy.visit(
@@ -46,44 +33,23 @@ if (!Cypress.env('SKIP_MAP_TESTS')) {
       'Creates new route as expected',
       { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
       () => {
-        mapFooter.createRoute();
-
         const routeName = 'Testireitti 1';
-
-        routePropertiesForm.fillRouteProperties({
-          label: testRouteLabel,
-          finnishName: routeName,
-          direction: '1',
-          line: '65',
+        mapCreator.createRoute({
+          routeFormInfo: {
+            finnishName: routeName,
+            label: testRouteLabel,
+            direction: Direction.AwayFromCity,
+            line: '65',
+          },
+          startDate: '2022-01-01',
+          endDate: '2022-12-01',
+          routePoints: [
+            { x: -10, y: 25, stopTestId: 'H1234_10' },
+            { x: 25, y: 5, stopTestId: 'H1236_10' },
+          ],
         });
 
-        terminusNameInputs.fillTerminusNameInputsForm(
-          {
-            finnishName: 'Lähtöpaikka',
-            swedishName: 'Ursprung',
-            finnishShortName: 'LP',
-            swedishShortName: 'UP',
-          },
-          {
-            finnishName: 'Määränpää',
-            swedishName: 'Ändstation',
-            finnishShortName: 'MP',
-            swedishShortName: 'ÄS',
-          },
-        );
-
-        confirmSaveForm.setAsStandard();
-        confirmSaveForm.setStartDate('2022-01-01');
-        confirmSaveForm.setEndDate('2022-12-01');
-
-        routePropertiesForm.save();
-
-        mapEditor.clickAtPositionFromMapMarkerByTestId(-10, 25, 'H1234_10');
-        mapEditor.clickAtPositionFromMapMarkerByTestId(25, 5, 'H1236_10');
-
-        mapEditor.clickNthCreatedRectangle(1);
-        mapFooter.save();
-        mapFooter.checkSubmitSuccess();
+        toast.checkRouteSubmitSuccess();
 
         cy.getByTestId('RouteStopsOverlay:mapOverlayHeader')
           .get('div')
