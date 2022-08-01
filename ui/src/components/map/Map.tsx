@@ -101,23 +101,26 @@ export const MapComponent = (
       return;
     }
 
-    // Check if route feature has been clicked
-    // If so, extract route id from the layer
+    // Retrieve all rendered features on the map
     const { features } = e;
 
+    // If the clicked feature was a route, select it
     if (features?.length) {
       const routeFeatures = features.filter((feature) =>
         isRouteGeometryLayer(feature.layer.id),
       );
 
       if (routeFeatures.length) {
-        const clickedFeatureId = mapLayerIdToRouteId(routeFeatures[0].layer.id);
-        dispatch(setSelectedRouteIdAction(clickedFeatureId));
+        const routeId = mapLayerIdToRouteId(routeFeatures[0].layer.id);
+
+        // set clicked route as selected
+        dispatch(setSelectedRouteIdAction(routeId));
 
         return;
       }
     }
 
+    // If clicked away, unselect route (if any)
     if (selectedRouteId) {
       dispatch(setSelectedRouteIdAction(undefined));
     }

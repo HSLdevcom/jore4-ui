@@ -7076,6 +7076,13 @@ export type GetLinesByLabelAndPriorityQueryVariables = Exact<{
 
 export type GetLinesByLabelAndPriorityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum }> }> };
 
+export type GetRouteDetailsByIdQueryVariables = Exact<{
+  routeId: Scalars['uuid'];
+}>;
+
+
+export type GetRouteDetailsByIdQuery = { __typename?: 'query_root', route_route_by_pk?: { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> }> } | null | undefined };
+
 export type GetRouteDetailsByIdsQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
@@ -8108,6 +8115,45 @@ export function useGetLinesByLabelAndPriorityLazyQuery(baseOptions?: Apollo.Lazy
 export type GetLinesByLabelAndPriorityQueryHookResult = ReturnType<typeof useGetLinesByLabelAndPriorityQuery>;
 export type GetLinesByLabelAndPriorityLazyQueryHookResult = ReturnType<typeof useGetLinesByLabelAndPriorityLazyQuery>;
 export type GetLinesByLabelAndPriorityQueryResult = Apollo.QueryResult<GetLinesByLabelAndPriorityQuery, GetLinesByLabelAndPriorityQueryVariables>;
+export const GetRouteDetailsByIdDocument = gql`
+    query GetRouteDetailsById($routeId: uuid!) {
+  route_route_by_pk(route_id: $routeId) {
+    ...route_with_journey_pattern_stops
+    route_line {
+      ...line_all_fields
+    }
+  }
+}
+    ${RouteWithJourneyPatternStopsFragmentDoc}
+${LineAllFieldsFragmentDoc}`;
+
+/**
+ * __useGetRouteDetailsByIdQuery__
+ *
+ * To run a query within a React component, call `useGetRouteDetailsByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRouteDetailsByIdQuery({
+ *   variables: {
+ *      routeId: // value for 'routeId'
+ *   },
+ * });
+ */
+export function useGetRouteDetailsByIdQuery(baseOptions: Apollo.QueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
+      }
+export function useGetRouteDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
+        }
+export type GetRouteDetailsByIdQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdQuery>;
+export type GetRouteDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdLazyQuery>;
+export type GetRouteDetailsByIdQueryResult = Apollo.QueryResult<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>;
 export const GetRouteDetailsByIdsDocument = gql`
     query GetRouteDetailsByIds($route_ids: [uuid!]) {
   route_route(where: {route_id: {_in: $route_ids}}) {
@@ -9049,6 +9095,10 @@ export function useGetLinesByLabelAndPriorityAsyncQuery() {
           return useAsyncQuery<GetLinesByLabelAndPriorityQuery, GetLinesByLabelAndPriorityQueryVariables>(GetLinesByLabelAndPriorityDocument);
         }
 export type GetLinesByLabelAndPriorityAsyncQueryHookResult = ReturnType<typeof useGetLinesByLabelAndPriorityAsyncQuery>;
+export function useGetRouteDetailsByIdAsyncQuery() {
+          return useAsyncQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument);
+        }
+export type GetRouteDetailsByIdAsyncQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdAsyncQuery>;
 export function useGetRouteDetailsByIdsAsyncQuery() {
           return useAsyncQuery<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>(GetRouteDetailsByIdsDocument);
         }
