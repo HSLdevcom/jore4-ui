@@ -14,6 +14,7 @@ import {
   selectMapEditor,
   selectMapObservationDate,
   setIsModalMapOpenAction,
+  setMapEditorLoadingAction,
   setMapObservationDateAction,
   setSelectedRouteIdAction,
   toggleDrawRouteAction,
@@ -83,6 +84,9 @@ const RouteEditorComponent = (
 
     await editRouteGeometryMutation(variables);
   };
+
+  const setIsLoading = (loading: boolean) =>
+    dispatch(setMapEditorLoadingAction(loading));
 
   const createRoute = async () => {
     const changes = await prepareCreate({
@@ -161,6 +165,8 @@ const RouteEditorComponent = (
 
   const onSave = async () => {
     try {
+      setIsLoading(true);
+
       if (editedRouteId) {
         await editRoute(editedRouteId);
         showSuccessToast(t('routes.saveSuccess'));
@@ -175,6 +181,7 @@ const RouteEditorComponent = (
     } catch (err) {
       defaultInsertRouteErrorHandler(err);
     }
+    setIsLoading(false);
   };
 
   const onDeleteConfirm = async () => {
@@ -182,6 +189,7 @@ const RouteEditorComponent = (
       return;
     }
 
+    setIsLoading(true);
     try {
       // delete the route from the backend
       await deleteRoute(editedRouteId);
@@ -192,6 +200,7 @@ const RouteEditorComponent = (
     } catch (err) {
       defaultDeleteErrorHandler(err);
     }
+    setIsLoading(false);
   };
 
   const onDeleteRoute = async () => {
