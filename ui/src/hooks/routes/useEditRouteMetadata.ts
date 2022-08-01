@@ -2,11 +2,13 @@ import { useTranslation } from 'react-i18next';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
   PatchRouteMutationVariables,
+  RouteAllFieldsFragment,
   RouteRoute,
   RouteRouteSetInput,
   usePatchRouteMutation,
 } from '../../generated/graphql';
-import { MIN_DATE } from '../../time';
+import { mapToISODate, MIN_DATE } from '../../time';
+import { RouteDirection } from '../../types/RouteDirection';
 import {
   defaultLocalizedString,
   mapDateInputToValidityEnd,
@@ -48,6 +50,27 @@ export const mapRouteFormToInput = (
   };
   return mutation;
 };
+
+export const mapRouteToFormState = (
+  route: RouteAllFieldsFragment,
+): RouteFormState => ({
+  finnishName: route.name_i18n?.fi_FI || '',
+  label: route.label,
+  on_line_id: route.on_line_id,
+  direction: route.direction as RouteDirection,
+  priority: route.priority,
+  validityStart: mapToISODate(route.validity_start) || '',
+  validityEnd: mapToISODate(route.validity_end) || '',
+  indefinite: !route.validity_end,
+  origin: {
+    name: defaultLocalizedString(route.origin_name_i18n),
+    shortName: defaultLocalizedString(route.origin_short_name_i18n),
+  },
+  destination: {
+    name: defaultLocalizedString(route.destination_name_i18n),
+    shortName: defaultLocalizedString(route.destination_short_name_i18n),
+  },
+});
 
 /**
  * Hook for editing route's metadata.
