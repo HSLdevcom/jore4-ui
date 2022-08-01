@@ -6,18 +6,19 @@ import {
   useGetRouteDetailsByIdsQuery,
 } from '../../../generated/graphql';
 import { mapRouteResultToRoute } from '../../../graphql';
-import { useDeleteRoute, useEditRouteMetadata } from '../../../hooks';
+import {
+  mapRouteToFormState,
+  useDeleteRoute,
+  useEditRouteMetadata,
+} from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { mapToISODate } from '../../../time';
-import { RouteDirection } from '../../../types/RouteDirection';
 import {
   ConfirmationDialog,
   FormContainer,
   SimpleButton,
 } from '../../../uiComponents';
 import {
-  defaultLocalizedString,
   mapToVariables,
   showSuccessToast,
   submitFormByRef,
@@ -29,25 +30,6 @@ import {
   mapRouteToCommonConflictItem,
 } from '../common/ConflictResolverModal';
 import { PageHeader } from '../common/PageHeader';
-
-const mapRouteToFormState = (route: RouteRoute): RouteFormState => ({
-  finnishName: route.name_i18n?.fi_FI || '',
-  label: route.label,
-  on_line_id: route.on_line_id,
-  direction: route.direction as RouteDirection,
-  priority: route.priority,
-  validityStart: mapToISODate(route.validity_start) || '',
-  validityEnd: mapToISODate(route.validity_end) || '',
-  indefinite: !route.validity_end,
-  origin: {
-    name: defaultLocalizedString(route.origin_name_i18n),
-    shortName: defaultLocalizedString(route.origin_short_name_i18n),
-  },
-  destination: {
-    name: defaultLocalizedString(route.destination_name_i18n),
-    shortName: defaultLocalizedString(route.destination_short_name_i18n),
-  },
-});
 
 export const EditRoutePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
