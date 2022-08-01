@@ -11,6 +11,13 @@ interface Props {
   onDeleteFromRoute: (stopLabel: string) => void;
 }
 
+const testIds = {
+  menu: (label: string) => `stopActionsDropdown::${label}`,
+  remove: 'stopActionsDropdown::remove',
+  add: 'stopActionsDropdown::add',
+  openViaModal: 'stopActionsDropdown::openViaModal',
+};
+
 export const StopActionsDropdown = ({
   stop,
   routeId,
@@ -49,23 +56,36 @@ export const StopActionsDropdown = ({
   return (
     <SimpleDropdownMenu
       alignItems={AlignDirection.Left}
-      testId="stop-row-action-menu"
+      testId={testIds.menu(stop.label)}
     >
       {stopBelongsToJourneyPattern ? (
-        <button type="button" onClick={() => onDeleteFromRoute(stop.label)}>
+        <button
+          data-testid={testIds.remove}
+          type="button"
+          onClick={() => onDeleteFromRoute(stop.label)}
+        >
           {t('stops.removeFromRoute')}
         </button>
       ) : (
-        <button type="button" onClick={() => onAddToRoute(stop.label)}>
+        <button
+          data-testid={testIds.add}
+          type="button"
+          onClick={() => onAddToRoute(stop.label)}
+        >
           {t('stops.addToRoute')}
         </button>
       )}
       {isViaPoint ? (
-        <button type="button" onClick={showViaModal}>
+        <button
+          data-testid={testIds.openViaModal}
+          type="button"
+          onClick={showViaModal}
+        >
           {t('viaModal.editViaPoint')}
         </button>
       ) : (
         <button
+          data-testid={testIds.openViaModal}
           disabled={!stopBelongsToJourneyPattern}
           className={`${
             !stopBelongsToJourneyPattern ? 'bg-background text-dark-grey' : ''

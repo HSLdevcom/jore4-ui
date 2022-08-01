@@ -26,10 +26,12 @@ interface Props {
 }
 
 const testIds = {
-  finnishName: 'ViaForm:finnishName',
-  swedishName: 'ViaForm:swedishName',
-  finnishShortName: 'ViaForm:finnishShortName',
-  swedishShortName: 'ViaForm:swedishShortName',
+  finnishName: 'viaForm::finnishName',
+  swedishName: 'viaForm::swedishName',
+  finnishShortName: 'viaForm::finnishShortName',
+  swedishShortName: 'viaForm::swedishShortName',
+  save: 'viaForm::save',
+  remove: 'viaForm::remove',
 };
 
 export const mapStopJourneyPatternToFormState = (
@@ -111,13 +113,14 @@ export const ViaForm = ({
           </SimpleButton>
           <SimpleButton
             disabled={!defaultValues?.isViaPoint}
+            testId={testIds.remove}
             className="ml-auto"
             onClick={onRemove}
             inverted
           >
             {t('viaModal.removeViaInfo')}
           </SimpleButton>
-          <SimpleButton onClick={onSave}>
+          <SimpleButton testId={testIds.save} onClick={onSave}>
             {t('viaModal.setViaInfo')}
           </SimpleButton>
         </Row>

@@ -22,4 +22,18 @@ export class Toast {
   checkStopSubmitSuccess() {
     this.getSuccessToast().contains('Pysäkki luotu').should('be.visible');
   }
+
+  checkViaInformationSubmitSuccess() {
+    this.getSuccessToast().contains('Via-tieto asetettu').should('be.visible');
+  }
+
+  checkViaInformationRemoveSuccess() {
+    this.getSuccessToast().contains('Via-tieto poistettu').should('be.visible');
+  }
+
+  checkAtLeastTwoStopsOnRouteErrorMessage() {
+    this.getDangerToast().contains(
+      'Error: Reitillä on oltava ainakin kaksi pysäkkiä.',
+    );
+  }
 }

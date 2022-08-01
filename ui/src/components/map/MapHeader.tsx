@@ -13,6 +13,7 @@ export const MapHeader: React.FC<Props> = ({ onClose }) => {
     <Row className="bg-white px-11 py-4">
       <h2 className="text-2xl font-bold">{t('map.joreMap')}</h2>
       <CloseIconButton
+        testId="mapHeader::close"
         className="ml-auto font-bold text-brand"
         label={t('close')}
         onClick={onClose}

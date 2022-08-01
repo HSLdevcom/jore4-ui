@@ -20,6 +20,11 @@ interface Props {
   onDeleteFromRoute: (stopLabel: string) => void;
 }
 
+const testIds = {
+  viaIcon: (label: string) => `routeStopsRow::viaIcon::${label}`,
+  label: 'routeStopsRow::label',
+};
+
 export const RouteStopsRow = ({
   className = '',
   stop,
@@ -52,7 +57,7 @@ export const RouteStopsRow = ({
     >
       <td
         className={`${alertStyle.listItemBorder || ''} p-4 pl-16 text-3xl`}
-        data-testid="stop-row-label"
+        data-testid={testIds.label}
       >
         {stop.label}
       </td>
@@ -60,7 +65,10 @@ export const RouteStopsRow = ({
         <Row className="items-center">
           <span>!Pysäkki X</span>
           <Visible visible={isViaPoint}>
-            <i className="icon-via text-4xl text-hsl-dark-green" />
+            <i
+              data-testid={testIds.viaIcon(stop.label)}
+              className="icon-via text-4xl text-hsl-dark-green"
+            />
           </Visible>
         </Row>
       </td>

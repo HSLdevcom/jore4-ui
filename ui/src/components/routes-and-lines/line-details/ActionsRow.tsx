@@ -58,6 +58,7 @@ export const ActionsRow = ({
 
         {line && (
           <SimpleButton
+            testId="actionsRow::showDrafts"
             containerClassName="ml-auto"
             inverted
             href={getDraftsUrlWithReturnToQueryString(line)}

@@ -206,7 +206,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
     expect(asFragment()).toMatchSnapshot();
 
     const accordionButton = screen.getByTestId(
-      'RouteStopsHeaderRow::toggleAccordion',
+      'routeStopsHeaderRow::toggleAccordion::outbound::65 itään',
     );
     fireEvent.click(accordionButton);
 
