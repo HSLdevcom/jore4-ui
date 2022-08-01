@@ -41,6 +41,7 @@ import {
   selectHasDraftRouteGeometry,
   selectMapEditor,
   setDraftRouteGeometryAction,
+  setMapEditorLoadingAction,
   stopRouteEditingAction,
 } from '../../../redux';
 import { filterDistinctConsecutiveRouteStops, showToast } from '../../../utils';
@@ -136,8 +137,13 @@ const DrawRouteLayerComponent = (
 
       // retrieve infra links with stops for snapping line from mapmatching service
       const { geometry } = snappingLineFeature;
+
+      dispatch(setMapEditorLoadingAction(true));
+
       const { infraLinksWithStops, matchedGeometry } =
         await getInfraLinksWithStopsForGeometry(geometry);
+
+      dispatch(setMapEditorLoadingAction(false));
 
       // retrieve stop and infra link data from base route if we don't yet have edited data
       // TODO: this should happen only once, not every time the snapping line is updated
