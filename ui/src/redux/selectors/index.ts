@@ -55,6 +55,11 @@ export const selectSelectedRouteId = createSelector(
   (mapEditor) => mapEditor.selectedRouteId,
 );
 
+export const selectDrawingMode = createSelector(
+  selectMapEditor,
+  (mapEditor) => mapEditor.drawingMode,
+);
+
 export const selectMapObservationDate = createSelector(
   selectMapFilter,
   (mapFilter) => DateTime.fromISO(mapFilter.observationDate),

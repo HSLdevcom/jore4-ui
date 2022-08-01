@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import omit from 'lodash/omit';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
+import { LineAllFieldsFragment, RouteLine } from '../../generated/graphql';
 import { RouteInfraLink, RouteStop } from '../../graphql';
+import { mapToStoreType, StoreType } from '../utils/mappers';
 
 interface IState {
   /**
@@ -36,7 +39,12 @@ interface IState {
     /**
      * Metadata of the created / edited route
      */
-    metaData?: Partial<RouteFormState>;
+    metaData?: RouteFormState;
+    /**
+     * Metadata of the line to which the route belongs
+     * Used e.g. for determining the vehicle mode
+     */
+    lineInfo?: StoreType<LineAllFieldsFragment>;
     /**
      * Array of stops along the route geometry with
      * information whether or not the stops belongs to the route (journey pattern)
@@ -69,6 +77,7 @@ const initialState: IState = {
   editedRouteData: {
     id: undefined,
     metaData: undefined,
+    lineInfo: undefined,
     stops: [],
     infraLinks: [],
     templateRouteId: undefined,
@@ -111,7 +120,7 @@ const slice = createSlice({
     startRouteEditing: (state: IState) => {
       const routeToEdit = state.creatingNewRoute
         ? undefined
-        : state?.selectedRouteId;
+        : state.selectedRouteId;
 
       state.drawingMode = Mode.Edit;
       state.editedRouteData = {
@@ -163,7 +172,7 @@ const slice = createSlice({
      */
     setRouteMetadata: (
       state: IState,
-      action: PayloadAction<Partial<RouteFormState>>,
+      action: PayloadAction<RouteFormState>,
     ) => {
       state.editedRouteData.metaData = action.payload;
     },
@@ -172,7 +181,7 @@ const slice = createSlice({
      */
     finishRouteMetadataEditing: (
       state: IState,
-      action: PayloadAction<Partial<RouteFormState>>,
+      action: PayloadAction<RouteFormState>,
     ) => {
       state.editedRouteData = {
         ...state.editedRouteData,
@@ -188,6 +197,28 @@ const slice = createSlice({
 
       state.isRouteMetadataFormOpen = false;
     },
+    /**
+     * Set the line info to which the created / edited route belongs.
+     */
+    setLineInfo: {
+      reducer: (
+        state,
+        action: PayloadAction<StoreType<LineAllFieldsFragment>>,
+      ) => {
+        state.editedRouteData.lineInfo = action.payload;
+      },
+      prepare: (line: RouteLine | LineAllFieldsFragment) => {
+        // remove unused, nonserializable data from relations
+        const plainLine = omit(line, ['line_routes']) as LineAllFieldsFragment;
+        // serialize datetime fields
+        const payload = mapToStoreType(plainLine, [
+          'validity_start',
+          'validity_end',
+        ]);
+        return { payload };
+      },
+    },
+
     /**
      * Initialize map editor state to show some routes.
      */
@@ -284,6 +315,7 @@ export const {
   setStopOnRoute: setStopOnRouteAction,
   setRouteMetadata: setRouteMetadataAction,
   finishRouteMetadataEditing: finishRouteMetadataEditingAction,
+  setLineInfo: setLineInfoAction,
   initializeMapEditorWithRoutes: initializeMapEditorWithRoutesAction,
   setDisplayedRouteIds: setDisplayedRouteIdsAction,
   setDraftRouteGeometry: setDraftRouteGeometryAction,

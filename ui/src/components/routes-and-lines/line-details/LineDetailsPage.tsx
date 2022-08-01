@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { LineAllFieldsFragment } from '../../../generated/graphql';
 import {
   useAppDispatch,
   useAppSelector,
@@ -12,7 +12,7 @@ import {
   resetMapEditorStateAction,
   selectIsViaModalOpen,
   setIsModalMapOpenAction,
-  setRouteMetadataAction,
+  setLineInfoAction,
 } from '../../../redux';
 import { Priority } from '../../../types/Priority';
 import { PageHeader } from '../common/PageHeader';
@@ -26,16 +26,15 @@ import { RouteStopsTable } from './RouteStopsTable';
 
 export const LineDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const { id } = useParams<{ id: string }>();
 
   const dispatch = useAppDispatch();
   const { addMapOpenQueryParameter } = useMapUrlQuery();
 
   const { line } = useGetLineDetails();
 
-  const onCreateRoute = () => {
+  const onCreateRoute = (routeLine: LineAllFieldsFragment) => {
     dispatch(resetMapEditorStateAction());
-    dispatch(setRouteMetadataAction({ on_line_id: id }));
+    dispatch(setLineInfoAction(routeLine));
     dispatch(setIsModalMapOpenAction(true));
     addMapOpenQueryParameter();
   };
@@ -57,7 +56,9 @@ export const LineDetailsPage = (): JSX.Element => {
       <PageHeader className={getHeaderBorderClassName()}>
         <Row>
           <i className="icon-bus-alt text-5xl text-tweaked-brand" />
-          {line && <LineTitle line={line} onCreateRoute={onCreateRoute} />}
+          {line && (
+            <LineTitle line={line} onCreateRoute={() => onCreateRoute(line)} />
+          )}
         </Row>
       </PageHeader>
       <ActionsRow className="!pt-4 !pb-0" />
@@ -76,7 +77,7 @@ export const LineDetailsPage = (): JSX.Element => {
                 {line.line_routes?.length > 0 ? (
                   <RouteStopsTable routes={line.line_routes} />
                 ) : (
-                  <CreateRouteBox onCreateRoute={onCreateRoute} />
+                  <CreateRouteBox onCreateRoute={() => onCreateRoute(line)} />
                 )}
               </Column>
             </Row>
