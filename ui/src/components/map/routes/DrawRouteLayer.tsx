@@ -20,10 +20,7 @@ import {
   Editor,
   SelectAction,
 } from 'react-map-gl-draw';
-import {
-  ReusableComponentsVehicleModeEnum,
-  useGetRoutesWithInfrastructureLinksQuery,
-} from '../../../generated/graphql';
+import { useGetRoutesWithInfrastructureLinksQuery } from '../../../generated/graphql';
 import {
   mapRouteResultToRoute,
   mapRouteToInfraLinksAlongRoute,
@@ -129,9 +126,22 @@ const DrawRouteLayerComponent = (
 
   const onUpdateRouteGeometry = useCallback(
     async (snappingLineFeature: LineStringFeature) => {
-      // we are editing an existing or a template route, but haven't yet received the graphql
+      // we are editing an existing or a template route, but haven't (yet) received the graphql
       // response with its data -> return early
       if (!baseRoute && !creatingNewRoute) {
+        // eslint-disable-next-line no-console
+        console.debug(
+          'Trying to edit an existing route but could not find a base route (yet)',
+        );
+        return;
+      }
+
+      // check if we already have the line info available or is it yet to come
+      if (!editedRouteData?.lineInfo) {
+        // eslint-disable-next-line no-console
+        console.debug(
+          'Trying to update route geometry but line info is not (yet) available',
+        );
         return;
       }
 
@@ -161,7 +171,7 @@ const DrawRouteLayerComponent = (
       // Extract list of the stops to be included in the route
       const stops = extractScheduledStopPoints(
         infraLinksWithStops,
-        ReusableComponentsVehicleModeEnum.Bus,
+        editedRouteData.lineInfo.primary_vehicle_mode,
       );
 
       const routeStops = getRouteStops(
@@ -189,6 +199,7 @@ const DrawRouteLayerComponent = (
     [
       baseRoute,
       editedRouteData?.id,
+      editedRouteData.lineInfo,
       editedRouteData.stops,
       editedRouteData.infraLinks,
       creatingNewRoute,

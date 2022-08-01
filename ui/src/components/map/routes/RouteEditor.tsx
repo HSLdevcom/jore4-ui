@@ -1,7 +1,11 @@
 import React, { Ref, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteRoute } from '../../../generated/graphql';
 import {
+  RouteRoute,
+  useGetRouteDetailsByIdAsyncQuery,
+} from '../../../generated/graphql';
+import {
+  mapRouteToFormState,
   useAppDispatch,
   useAppSelector,
   useDeleteRoute,
@@ -10,15 +14,21 @@ import {
 import { useCreateRoute } from '../../../hooks/routes/useCreateRoute';
 import {
   initializeMapEditorWithRoutesAction,
+  Mode,
   resetRouteCreatingAction,
+  selectDrawingMode,
   selectMapEditor,
   selectMapObservationDate,
+  selectSelectedRouteId,
   setIsModalMapOpenAction,
+  setLineInfoAction,
   setMapEditorLoadingAction,
   setMapObservationDateAction,
+  setRouteMetadataAction,
   setSelectedRouteIdAction,
-  toggleDrawRouteAction,
-  toggleEditRouteAction,
+  startRouteCreatingAction,
+  startRouteEditingAction,
+  stopRouteEditingAction,
 } from '../../../redux';
 import { isDateInRange } from '../../../time';
 import { RequiredKeys } from '../../../types';
@@ -44,6 +54,8 @@ const RouteEditorComponent = (
   const { editedRouteData, creatingNewRoute, initiallyDisplayedRouteIds } =
     useAppSelector(selectMapEditor);
   const observationDate = useAppSelector(selectMapObservationDate);
+  const drawingMode = useAppSelector(selectDrawingMode);
+  const selectedRouteId = useAppSelector(selectSelectedRouteId);
 
   const {
     id: editedRouteId,
@@ -54,6 +66,8 @@ const RouteEditorComponent = (
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [conflicts, setConflicts] = useState<RouteRoute[]>([]);
+
+  const [getRouteDetailsById] = useGetRouteDetailsByIdAsyncQuery();
 
   const {
     prepareCreate,
@@ -145,16 +159,52 @@ const RouteEditorComponent = (
     onDeleteDrawnRoute();
   };
 
+  // The "Draw Route" button has been clicked/toggled -> start drawing a new route OR cancel existing drawing
   const onDrawRoute = () => {
     onDeleteDrawnRoute();
-    dispatch(toggleDrawRouteAction());
+    if (drawingMode === Mode.Draw) {
+      dispatch(resetRouteCreatingAction());
+    } else {
+      dispatch(startRouteCreatingAction());
+    }
   };
 
-  const onEditRoute = () => {
+  // The "Edit Route" button has been clicked/toggled ->
+  // - start editing the selected route OR
+  // - start editing the just created route OR
+  // - cancel the current edit changes
+  const onEditRoute = async () => {
     if (!creatingNewRoute) {
       onDeleteDrawnRoute();
     }
-    dispatch(toggleEditRouteAction());
+
+    if (drawingMode === Mode.Edit) {
+      dispatch(stopRouteEditingAction());
+    } else {
+      // start editing mode
+      dispatch(startRouteEditingAction());
+
+      // if editing a route that is just being created, we should already have the line info and the route metadata available
+      if (!selectedRouteId) {
+        return;
+      }
+
+      // if editing an existing route, find the route's metadata and line information, store it in editedRouteData
+      const routeDetailsResult = await getRouteDetailsById({
+        routeId: selectedRouteId,
+      });
+      if (!routeDetailsResult.data?.route_route_by_pk?.route_line)
+        throw new Error("Can't find route and line details");
+
+      dispatch(
+        setLineInfoAction(routeDetailsResult.data.route_route_by_pk.route_line),
+      );
+      dispatch(
+        setRouteMetadataAction(
+          mapRouteToFormState(routeDetailsResult.data.route_route_by_pk),
+        ),
+      );
+    }
   };
 
   const onCancel = () => {

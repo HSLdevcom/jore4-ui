@@ -302,6 +302,17 @@ const GET_ROUTES_WITH_STOPS = gql`
   }
 `;
 
+const GET_ROUTE_DETAILS_BY_ID = gql`
+  query GetRouteDetailsById($routeId: uuid!) {
+    route_route_by_pk(route_id: $routeId) {
+      ...route_with_journey_pattern_stops
+      route_line {
+        ...line_all_fields
+      }
+    }
+  }
+`;
+
 const GET_ROUTE_DETAILS_BY_IDS = gql`
   query GetRouteDetailsByIds($route_ids: [uuid!]) {
     route_route(where: { route_id: { _in: $route_ids } }) {

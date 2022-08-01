@@ -17,7 +17,7 @@ export const isRouteGeometryLayer = (layerId: string) =>
 export const mapRouteIdToLayerId = (routeId: UUID) =>
   `${ROUTE_LAYER_ID_PREFIX}${routeId}`;
 export const mapLayerIdToRouteId = (layerId: string) =>
-  layerId.substring(ROUTE_LAYER_ID_PREFIX.length);
+  layerId.substring(ROUTE_LAYER_ID_PREFIX.length) as UUID;
 
 interface RouteGeometryLayerProps {
   routeId: string;
