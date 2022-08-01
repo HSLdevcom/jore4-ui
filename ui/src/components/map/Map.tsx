@@ -14,7 +14,7 @@ import {
   selectSelectedRouteId,
   setSelectedRouteIdAction,
 } from '../../redux';
-import { FilterPanel } from '../../uiComponents';
+import { FilterPanel, LoadingOverlay } from '../../uiComponents';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
@@ -48,7 +48,7 @@ export const MapComponent = (
 ): JSX.Element => {
   const routeEditorRef = useRef<ExplicitAny>(null);
 
-  const { drawingMode, initiallyDisplayedRouteIds } =
+  const { drawingMode, initiallyDisplayedRouteIds, isLoading } =
     useAppSelector(selectMapEditor);
 
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
@@ -226,6 +226,7 @@ export const MapComponent = (
         onDeleteDrawnRoute={() => editorLayerRef.current?.onDeleteRoute()}
         ref={routeEditorRef}
       />
+      <LoadingOverlay visible={isLoading} />
     </Maplibre>
   );
 };
