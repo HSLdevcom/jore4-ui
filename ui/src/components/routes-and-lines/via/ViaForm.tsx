@@ -83,8 +83,8 @@ export const ViaForm = ({
             className="flex-1"
             type="text"
             translationPrefix="viaModal"
-            fieldPath="viaPointName.sv_FI"
-            testId={testIds.swedishName}
+            fieldPath="viaPointShortName.fi_FI"
+            testId={testIds.finnishShortName}
           />
         </Row>
         <Row className="mb-5 space-x-10">
@@ -92,8 +92,8 @@ export const ViaForm = ({
             className="flex-1"
             type="text"
             translationPrefix="viaModal"
-            fieldPath="viaPointShortName.fi_FI"
-            testId={testIds.finnishShortName}
+            fieldPath="viaPointName.sv_FI"
+            testId={testIds.swedishName}
           />
         </Row>
         <Row className="mb-5 space-x-10">
