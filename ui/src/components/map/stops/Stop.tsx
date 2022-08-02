@@ -43,6 +43,7 @@ export const Stop = ({
 
   return (
     <Marker
+      className="stop-marker" // the Marker component does not have testid property, neither does data-testid work
       longitude={longitude}
       latitude={latitude}
       offsetTop={-1 * ((selected ? selectedIconSize : iconSize) / 2)}
