@@ -60,8 +60,8 @@ if (!Cypress.env('SKIP_MAP_TESTS')) {
         routePropertiesForm.save();
 
         mapEditor.clickAtPositionFromNthMapMarker(-10, 25, 1);
-        mapEditor.clickAtPositionFromNthMapMarker(25, 5, 1);
-        mapEditor.clickNthCreatedRectangle(1);
+        mapEditor.clickAtPositionFromNthMapMarker(25, 5, 3);
+        mapEditor.clickNthSnappingPointHandle(1);
 
         cy.getByTestId('RouteStopsOverlay:mapOverlayHeader')
           .get('div')

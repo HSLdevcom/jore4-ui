@@ -1,9 +1,11 @@
 function positionStringToCoordinates(value: string | null) {
-  const matcher = /translate\((\d+)px, (\d+)px\)/;
+  // have to handle float values for coordinates
+  const matcher =
+    /translate\((?<posx>[+-]?\d+(\.\d+)?)px,\s*(?<posy>[+-]?\d+(\.\d+)?)px\)/;
   if (value) {
-    const position = value.match(matcher)?.slice(1);
-    if (position != null && position.length > 1) {
-      return { x: +position[0], y: +position[1] };
+    const position = value.match(matcher)?.groups;
+    if (position?.posx && position?.posy) {
+      return { x: Number(position.posx), y: Number(position.posy) };
     }
   }
   return { x: 0, y: 0 };
@@ -41,7 +43,7 @@ export class MapEditor {
     });
   }
 
-  clickNthCreatedRectangle(nth: number) {
+  clickNthSnappingPointHandle(nth: number) {
     cy.get(`rect[data-index="${nth}"]`).first().click({ force: true });
   }
 }
