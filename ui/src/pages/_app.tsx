@@ -9,6 +9,7 @@ import '../i18n';
 import { ReduxProvider } from '../redux';
 import { Router } from '../router/Router';
 import '../styles/globals.css';
+import '../styles/loading-indicator.css';
 import { Toaster } from '../uiComponents/Toaster';
 
 function SafeHydrate({ children }: { children: JSX.Element }) {

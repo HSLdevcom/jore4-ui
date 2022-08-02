@@ -9,6 +9,8 @@ export * from './FormContainer';
 export * from './IconButton';
 export * from './IconToggle';
 export * from './Listbox';
+export * from './LoadingIndicator';
+export * from './LoadingOverlay';
 export * from './LocatorButton';
 export * from './Modal';
 export * from './Pagination';

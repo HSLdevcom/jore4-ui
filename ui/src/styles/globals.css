@@ -20,3 +20,9 @@ label {
   size: 14px;
   margin-bottom: 4px;
 }
+
+.center-in-view {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
