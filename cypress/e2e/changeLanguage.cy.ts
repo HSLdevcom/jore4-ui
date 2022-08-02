@@ -1,6 +1,6 @@
 import { Navbar } from '../pageObjects';
 
-describe('Verify that language chancing works', () => {
+describe('Verify that language changing works', () => {
   let navbar: Navbar;
   beforeEach(() => {
     navbar = new Navbar();
