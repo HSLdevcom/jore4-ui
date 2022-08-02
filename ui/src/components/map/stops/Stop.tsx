@@ -8,6 +8,7 @@ import { Circle } from '../markers';
 const { colors } = theme;
 
 interface Props extends Point {
+  testId: string;
   draggable?: boolean;
   selected?: boolean;
   onClick: () => void;
@@ -17,6 +18,7 @@ interface Props extends Point {
 }
 
 export const Stop = ({
+  testId,
   latitude,
   longitude,
   onClick,
@@ -49,7 +51,7 @@ export const Stop = ({
       offsetLeft={-1 * ((selected ? selectedIconSize : iconSize) / 2)}
       draggable={draggable}
       onDragEnd={onDragEnd}
-      className="rounded-full"
+      className={`${testId} rounded-full`} // the Marker component does not have testid property, neither does data-testid work, so have to use className
     >
       <Circle
         size={selected ? selectedIconSize : iconSize}
