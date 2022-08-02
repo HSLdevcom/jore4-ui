@@ -64,8 +64,11 @@ export const MAX_DATE = DateTime.fromISO('2050-12-31').endOf('day');
 
 export const isDateInRange = (
   date: DateTime,
-  startDate: DateTime,
+  startDate?: Maybe<DateTime>,
   endDate?: Maybe<DateTime>,
 ) => {
-  return date >= startDate && (!endDate?.isValid || date <= endDate);
+  return (
+    (!startDate?.isValid || date >= startDate) &&
+    (!endDate?.isValid || date <= endDate)
+  );
 };
