@@ -262,6 +262,7 @@ export const EditStopLayer: React.FC<Props> = ({
     <>
       {/* Creates new <Stop> instance for both existing and draft stops */}
       <Stop
+        testId="map:stopMarker:editedStop"
         selected
         longitude={editedStopLocation.longitude}
         latitude={editedStopLocation.latitude}
