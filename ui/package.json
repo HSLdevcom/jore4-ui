@@ -51,7 +51,7 @@
     "react-map-gl-draw": "^1.0.3",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.2.0",
-    "react-spinners": "^0.11.0",
+    "react-spinners": "^0.13.4",
     "redux-logger": "^3.0.6",
     "zod": "^3.11.6"
   },
