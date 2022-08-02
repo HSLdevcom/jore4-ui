@@ -138,12 +138,14 @@ export const MapComponent = (
         style={{
           width: 'auto',
           height: 'auto',
+          maxHeight: '100%',
+          display: 'flex',
+          flexDirection: 'column',
         }}
         redraw={() => (
           <>
-            <Column className="items-start">
+            <Column className="items-start overflow-hidden p-8">
               <FilterPanel
-                className="ml-8 mt-8"
                 routes={[
                   {
                     iconClassName: 'icon-bus',
@@ -168,12 +170,10 @@ export const MapComponent = (
                   },
                 ]}
               />
+              {(!!selectedRouteId || hasDraftRouteGeometry) && (
+                <RouteStopsOverlay className="mt-4 overflow-hidden" />
+              )}
             </Column>
-            {(!!selectedRouteId || hasDraftRouteGeometry) && (
-              <Column>
-                <RouteStopsOverlay className="ml-8 mt-4" />
-              </Column>
-            )}
           </>
         )}
         captureClick
