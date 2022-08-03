@@ -200,7 +200,9 @@
     "transverse_regional": "Alueiden välinen"
   },
   "formValidation": {
-    "required": "Kenttä vaaditaan"
+    "required": "Kenttä vaaditaan",
+    "tooSmall": "Arvo on liian pieni",
+    "tooBig": "Arvo on liian suuri"
   },
   "errors": {
     "saveFailed": "Tallennus epäonnistui",
