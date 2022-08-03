@@ -200,7 +200,9 @@
     "transverse_regional": "Transverse regional"
   },
   "formValidation": {
-    "required": "Field is required"
+    "required": "Field is required",
+    "tooSmall": "Value is too small",
+    "tooBig": "Value is too big"
   },
   "errors": {
     "saveFailed": "Something went wrong",
