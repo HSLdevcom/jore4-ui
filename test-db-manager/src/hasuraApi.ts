@@ -6,12 +6,11 @@ export const hasuraApi = async (jsonPayload: unknown) => {
     body: JSON.stringify(jsonPayload),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
-      'x-hasura-admin-secret':
-        process.env.HASURA_GRAPHQL_ADMIN_SECRET || 'hasura',
+      'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET || 'hasura',
     },
   };
   return fetch(
-    process.env.GRAPHQL_API_URL || 'http://localhost:3201/v1/graphql',
+    process.env.HASURA_API_URL || 'http://localhost:3201/v1/graphql',
     req,
   ).then((response) => response.json());
 };

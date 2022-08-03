@@ -132,6 +132,8 @@ describe('Line details page', () => {
   });
   beforeEach(() => {
     lineDetailsPage = new LineDetailsPage();
+
+    cy.setupTests();
     cy.mockLogin();
     lineDetailsPage.visit(lines[0].line_id);
   });

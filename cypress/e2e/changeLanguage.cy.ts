@@ -4,6 +4,8 @@ describe('Verify that language changing works', () => {
   let navbar: Navbar;
   beforeEach(() => {
     navbar = new Navbar();
+
+    cy.setupTests();
     cy.mockLogin();
     cy.visit('/');
   });

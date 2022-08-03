@@ -1,0 +1,29 @@
+services:
+  # running cypress against the locally running (yarn dev) instance of the UI
+  jore4-cypress:
+    image: 'hsldevcom/jore4-cypress:local'
+    build:
+      context: ..
+      dockerfile: Dockerfile.cypress
+    container_name: cypress
+    restart: unless-stopped
+    environment:
+      CYPRESS_BASE_URL: http://jore4-proxy:80
+      CYPRESS_DISABLE_MAP_TILES: 'true'
+      HASURA_API_URL: http://jore4-hasura:8080/v1/graphql
+      POSTGRES_HOST: jore4-testdb
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: jore4e2e
+      POSTGRES_USER: dbadmin
+      POSTGRES_PASSWORD: adminpassword
+    networks:
+      - docker_jore4
+    # increase the default /dev/shm size from 64mb to support Chrome
+    shm_size: '2gb'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+# joining the jore4 network defined in another compose file
+networks:
+  docker_jore4:
+    external: true

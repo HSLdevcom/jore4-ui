@@ -4,13 +4,14 @@ export class Map {
   }
 
   // Wait for a map marker to appear on the map
+  // This might take long as we need many HTTP requests to initialize the map view
   waitForMapToLoad() {
-    this.getNthMarker(1);
+    this.getNthMarker(1, { timeout: 20000 });
   }
 
-  getNthMarker(markerNumber: number) {
+  getNthMarker(markerNumber: number, options?: Partial<Cypress.Timeoutable>) {
     return cy
-      .get(`.overlays>.mapboxgl-marker:nth-of-type(${markerNumber})`)
+      .get(`.overlays>.mapboxgl-marker:nth-of-type(${markerNumber})`, options)
       .first();
   }
 
