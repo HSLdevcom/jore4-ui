@@ -22,6 +22,7 @@ import {
   mapLngLatToPoint,
   mapPointToGeoJSON,
 } from '../../../utils';
+import { InputField } from '../common';
 import {
   ConfirmSaveForm,
   FormState as ConfirmSaveFormState,
@@ -36,6 +37,12 @@ const schema = z
     longitude: z.number().min(-180).max(180),
   })
   .merge(confirmSaveFormSchema);
+
+const testIds = {
+  label: 'stopForm:label',
+  latitude: 'stopForm:latitude',
+  longitude: 'stopForm:longitude',
+};
 
 export type FormState = z.infer<typeof schema> & ConfirmSaveFormState;
 
@@ -78,11 +85,7 @@ const StopFormComponent = (
     defaultValues,
     resolver: zodResolver(schema),
   });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = methods;
+  const { handleSubmit } = methods;
 
   const { prepareEdit, defaultErrorHandler } = useEditStop();
   const { prepareCreate } = useCreateStop();
@@ -157,38 +160,34 @@ const StopFormComponent = (
             <Column className="space-y-2">
               <h3 className="text-lg font-bold">{t('stops.nameAddress')}</h3>
               <Column>
-                <label htmlFor="label">{t('stops.label')}</label>
-                <input type="text" {...register('label', {})} />
-                <p>
-                  {errors.label?.type === 'too_small' &&
-                    t('formValidation.required')}
-                </p>
+                <InputField<FormState>
+                  type="text"
+                  translationPrefix="stops"
+                  fieldPath="label"
+                  testId={testIds.label}
+                />
               </Column>
             </Column>
             <Column className="space-y-2">
               <h3 className="text-lg font-bold">{t('map.location')}</h3>
               <Row className="space-x-5">
                 <Column>
-                  <label htmlFor="latitude">{t('map.latitude')}</label>
-                  <input
+                  <InputField<FormState>
                     type="number"
-                    {...register('latitude', {
-                      valueAsNumber: true,
-                    })}
+                    translationPrefix="map"
+                    fieldPath="latitude"
+                    testId={testIds.latitude}
                     step="any"
                   />
-                  <p>{errors.latitude?.message}</p>
                 </Column>
                 <Column>
-                  <label htmlFor="longitude">{t('map.longitude')}</label>
-                  <input
+                  <InputField<FormState>
                     type="number"
-                    {...register('longitude', {
-                      valueAsNumber: true,
-                    })}
+                    translationPrefix="map"
+                    fieldPath="longitude"
+                    testId={testIds.longitude}
                     step="any"
                   />
-                  <p>{errors.longitude?.message}</p>
                 </Column>
               </Row>
             </Column>

@@ -1,4 +1,4 @@
-import React, { HTMLInputTypeAttribute } from 'react';
+import React, { HTMLInputTypeAttribute, InputHTMLAttributes } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
 import { TranslationKeys } from '../../../i18n';
 import { Column } from '../../../layoutComponents';
@@ -21,7 +21,7 @@ interface ControlledInputProps {
   inputElementRenderer: (props: InputElementRenderProps) => React.ReactElement;
   type?: never;
 }
-interface HTMLInputProps {
+interface HTMLInputProps extends InputHTMLAttributes<Element> {
   inputElementRenderer?: never;
   type: HTMLInputTypeAttribute;
 }
@@ -36,6 +36,7 @@ export const InputField = <FormState extends FieldValues>({
   testId,
   type,
   inputElementRenderer,
+  ...inputHTMLAttributes
 }: Props<FormState>): JSX.Element => {
   if ((!inputElementRenderer && !type) || (inputElementRenderer && type)) {
     throw new Error(
@@ -66,6 +67,8 @@ export const InputField = <FormState extends FieldValues>({
           fieldPath={fieldPath}
           id={id}
           testId={testId}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...inputHTMLAttributes}
         />
       )}
       <ValidationErrorList fieldPath={fieldPath} />
