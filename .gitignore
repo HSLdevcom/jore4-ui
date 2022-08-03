@@ -9,6 +9,7 @@ yarn-error.log*
 # dev environment
 .vscode
 docker/*
+!docker/docker-compose.cypress.yml
 !docker/docker-compose.custom.yml
 !docker/docker-compose.testdb-volume.yml
 !docker/docker-compose.local-ui.yml

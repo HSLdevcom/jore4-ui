@@ -28,21 +28,47 @@ Cypress.Commands.add('getByTestId', (selector, ...args) => {
   return cy.get(`[data-testid="${selector}"]`, ...args);
 });
 
-// @ts-expect-error "Argument of type '() => Cypress.Chainable<null>' is not assignable to parameter of type 'CommandFn<"mockLogin">'."
 Cypress.Commands.add('mockLogin', () => {
   cy.fixture('users/e2e.json').then((userInfo) => {
+    // return a mock user info instead of going for the auth backend
     cy.intercept('GET', '/api/auth/public/v1/userInfo', {
       statusCode: 200,
       body: userInfo,
-    });
-  });
+    }).as('userInfo');
 
-  // TODO: we should match only '/api/graphql' requests, but for some
-  // reason that doesn't seem to work. (Could be because our graphql
-  // requests use ws:// protocol?)
-  return cy.intercept('*', (req) => {
-    // eslint-disable-next-line no-param-reassign
-    req.headers['x-hasura-admin-secret'] = 'hasura';
+    // intercept calls to hasura and log in as admin (to avoid it going to auth backend)
+    // TODO: we should match only '/api/graphql' requests, but for some
+    // reason that doesn't seem to work. (Could be because our graphql
+    // requests use ws:// protocol?)
+    cy.intercept('**', (req) => {
+      // eslint-disable-next-line no-param-reassign
+      req.headers['x-hasura-admin-secret'] = 'hasura';
+    }).as('hasuraAuth');
+  });
+});
+
+Cypress.Commands.add('setupTests', () => {
+  // In CI, the tests run faster and more reliably if we don't show the map tiles.
+  // However the map tiles might come handy when running these tests locally.
+  if (Cypress.env('DISABLE_MAP_TILES')) {
+    Cypress.log({ message: 'Disabling map tile rendering' });
+    cy.intercept('https://api.digitransit.fi/**', {
+      statusCode: 404,
+      body: '404 Not Found!',
+    }).as('blockDigitransit');
+    cy.intercept('https://digitransit-dev-cdn-origin.azureedge.net/**', {
+      statusCode: 404,
+      body: '404 Not Found!',
+    }).as('blockDigitransit');
+  }
+
+  // label all graphql calls that they can be expected in tests
+  // e.g. GetAllLines query can be waited as cy.wait('@gqlGetAllLines')
+  cy.intercept('POST', '/api/graphql/**', (req) => {
+    if (req.body && req.body.operationName) {
+      // eslint-disable-next-line no-param-reassign
+      req.alias = `gql${req.body.operationName}`;
+    }
   });
 });
 

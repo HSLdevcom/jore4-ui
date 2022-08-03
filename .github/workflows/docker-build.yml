@@ -57,9 +57,7 @@ jobs:
       ROBOT_HSLID_EMAIL: ${{ secrets.ROBOT_HSLID_EMAIL }}
       ROBOT_HSLID_PASSWORD: ${{ secrets.ROBOT_HSLID_PASSWORD }}
 
-  run_cypress_tests:
-    needs: push_to_registry
-    uses: ./.github/workflows/run-cypress-tests.yml
-    secrets:
-      ROBOT_HSLID_EMAIL: ${{ secrets.ROBOT_HSLID_EMAIL }}
-      ROBOT_HSLID_PASSWORD: ${{ secrets.ROBOT_HSLID_PASSWORD }}
+  # when the e2e workflow will use pre-built docker images, this is where we could call the downstream job
+  # run_cypress_tests:
+  #   needs: push_to_registry
+  #   uses: ./.github/workflows/run-cypress-tests.yml

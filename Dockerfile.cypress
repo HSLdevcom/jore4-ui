@@ -1,0 +1,18 @@
+FROM cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
+WORKDIR /e2e
+
+# for dependent modules, copy and build them
+# for cypress module, only download the node_module dependencies
+COPY --chown=node:node ./test-db-manager  ./test-db-manager
+COPY --chown=node:node ./cypress/package.json ./cypress/package.json
+COPY --chown=node:node ./package.json ./yarn.lock tsconfig.json ./
+
+# download the dependencies + build the dependent modules
+RUN yarn install --frozen-lockfile \
+  && yarn ws:db build
+
+# copy the cypress test files from host
+COPY --chown=node:node ./cypress ./cypress
+
+# make sure cypress works
+RUN yarn ws:e2e cypress --version
