@@ -7,8 +7,9 @@ export default defineConfig({
     supportFile: 'support/e2e.{js,jsx,ts,tsx}',
     specPattern: 'e2e/**/*.cy.{js,jsx,ts,tsx}',
     fixturesFolder: 'fixtures',
-    screenshotsFolder: 'screenshots',
-    videosFolder: 'videos',
+    screenshotsFolder: 'reports/screenshots',
+    videosFolder: 'reports/videos',
+    defaultCommandTimeout: 10000,
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {

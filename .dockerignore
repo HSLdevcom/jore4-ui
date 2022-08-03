@@ -31,7 +31,3 @@ yarn-error.log*
 .gitignore
 
 Dockerfile
-
-# non-related projects/workspaces
-cypress
-test-db-manager

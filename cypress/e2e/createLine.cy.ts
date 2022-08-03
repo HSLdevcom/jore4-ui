@@ -14,6 +14,8 @@ describe('Verify that creating new line works', () => {
     lineForm = new LineForm();
     confirmSaveForm = new ConfirmSaveForm();
     toast = new Toast();
+
+    cy.setupTests();
     cy.mockLogin();
     cy.visit('/lines/create');
     // delete label we are about to create (if exists) to avoid

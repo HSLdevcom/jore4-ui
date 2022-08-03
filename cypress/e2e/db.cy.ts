@@ -5,6 +5,8 @@ describe('Example test suite that demonstrates how to access db in tests', () =>
 
   beforeEach(() => {
     lineForm = new LineForm();
+
+    cy.setupTests();
     cy.task('checkDbConnection');
     // Uncomment to truncate db. Please note that e2e tests use same db as dev enrionment does, so
     // truncating db truncates also dev db.

@@ -51,6 +51,8 @@ Tests can be run with `yarn test`.
 - In order to run e2e tests, you need to have ui and all the dependencies running.
 - To open cypress with browser for developing tests locally: `yarn test:e2e:open`
 - To run all cypress tests without browser: `yarn test:e2e`
+- To run all cypress tests from within a docker container: `./run-cypress-tests.sh`. This command
+  assumes that the UI is run from `yarn dev`.
 
 Failed tests ran without browser can be investigated visually by looking at videos at `./cypress/videos` and photos at `./cypress/screenshots`.
 Anyway, debugging is generally easier when cypress is opened with browser as then you can poke around with browsers devtools.
