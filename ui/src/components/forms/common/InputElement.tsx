@@ -1,8 +1,8 @@
 import get from 'lodash/get';
-import React, { HTMLInputTypeAttribute } from 'react';
+import { HTMLInputTypeAttribute, InputHTMLAttributes } from 'react';
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
 
-export interface InputElementDefaultProps {
+export interface InputElementDefaultProps extends InputHTMLAttributes<Element> {
   className?: string;
   id: string;
   testId: string;
@@ -23,6 +23,7 @@ export const InputElement = <FormState extends FieldValues>({
   fieldPath,
   testId,
   type,
+  ...inputHTMLAttributes
 }: Props<FormState>): JSX.Element => {
   const {
     register,
@@ -37,7 +38,8 @@ export const InputElement = <FormState extends FieldValues>({
       id={id}
       data-testid={testId}
       type={type}
-      {...register(fieldPath, {})}
+      {...register(fieldPath, { valueAsNumber: type === 'number' })}
+      {...inputHTMLAttributes}
     />
   );
 };
