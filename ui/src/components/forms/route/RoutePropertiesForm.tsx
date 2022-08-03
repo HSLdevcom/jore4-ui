@@ -120,9 +120,9 @@ const RoutePropertiesFormComponent = (
             </p>
           </Column>
           <Column className="w-80 flex-auto">
-            <label htmlFor="on_line_id">{t('routes.addToLine')}</label>
+            <label htmlFor="onLineId">{t('routes.addToLine')}</label>
             <Controller
-              name="on_line_id"
+              name="onLineId"
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <ChooseLineDropdown
@@ -134,7 +134,7 @@ const RoutePropertiesFormComponent = (
               )}
             />
             <p>
-              {errors.on_line_id?.type === 'invalid_type' &&
+              {errors.onLineId?.type === 'invalid_type' &&
                 t('formValidation.required')}
             </p>
           </Column>
