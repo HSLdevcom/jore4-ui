@@ -50,16 +50,16 @@ jobs:
           docker push $IMAGE_NAME:builder
           docker push $IMAGE_NAME:latest
 
-  run_robot_tests:
-    needs: push_to_registry
-    uses: ./.github/workflows/run-robot-tests.yml
-    secrets:
-      ROBOT_HSLID_EMAIL: ${{ secrets.ROBOT_HSLID_EMAIL }}
-      ROBOT_HSLID_PASSWORD: ${{ secrets.ROBOT_HSLID_PASSWORD }}
+  # run_robot_tests:
+  #   needs: push_to_registry
+  #   uses: ./.github/workflows/run-robot-tests.yml
+  #   secrets:
+  #     ROBOT_HSLID_EMAIL: ${{ secrets.ROBOT_HSLID_EMAIL }}
+  #     ROBOT_HSLID_PASSWORD: ${{ secrets.ROBOT_HSLID_PASSWORD }}
 
-  run_cypress_tests:
-    needs: push_to_registry
-    uses: ./.github/workflows/run-cypress-tests.yml
-    secrets:
-      ROBOT_HSLID_EMAIL: ${{ secrets.ROBOT_HSLID_EMAIL }}
-      ROBOT_HSLID_PASSWORD: ${{ secrets.ROBOT_HSLID_PASSWORD }}
+  # run_cypress_tests:
+  #   needs: push_to_registry
+  #   uses: ./.github/workflows/run-cypress-tests.yml
+  #   secrets:
+  #     ROBOT_HSLID_EMAIL: ${{ secrets.ROBOT_HSLID_EMAIL }}
+  #     ROBOT_HSLID_PASSWORD: ${{ secrets.ROBOT_HSLID_PASSWORD }}

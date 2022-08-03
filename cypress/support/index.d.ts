@@ -15,6 +15,6 @@ declare namespace Cypress {
      * Does not support logging it with given credentials or roles so far.
      * @example cy.mockLogin()
      */
-    mockLogin(): Chainable<Element>;
+    mockLogin(): Chainable<void>;
   }
 }

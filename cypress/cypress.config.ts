@@ -9,6 +9,7 @@ export default defineConfig({
     fixturesFolder: 'fixtures',
     screenshotsFolder: 'screenshots',
     videosFolder: 'videos',
+    defaultCommandTimeout: 10000,
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {

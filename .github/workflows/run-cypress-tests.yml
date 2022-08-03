@@ -1,14 +1,18 @@
 name: Run cypress tests
 
 on:
-  # this workflow is only called by others, won't be executed on itself
-  # as it uses the pre-built docker image that is produced in the upstream job
-  workflow_call:
-    secrets:
-      ROBOT_HSLID_EMAIL:
-        required: true
-      ROBOT_HSLID_PASSWORD:
-        required: true
+  # when this workflow will use pre-built docker images, it will only be called by an upstream job,
+  # it won't be executed directly.
+  # workflow_call:
+  #   secrets:
+  #     ROBOT_HSLID_EMAIL:
+  #       required: true
+  #     ROBOT_HSLID_PASSWORD:
+  #       required: true
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   run_cypress_tests:
@@ -22,10 +26,25 @@ jobs:
       - name: Extract metadata to env variables
         uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
 
-      - name: start e2e env
-        uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
+      # TODO: this should be replaced with the setup-e2e-environment-v1 action when
+      # we don't need to rely on hasura seed data anymore for the e2e tests.
+      # For now however, we don't have a way to reliably choose a seed-data version of the hasura
+      # image that is certainly compatible with the tested UI image
+      # Note: we don't start jore3importer and mssqltestdb to save memory for the github runner
+      - name: Start e2e env
+        run: |
+          curl -L https://github.com/HSLdevcom/jore4-flux/releases/download/e2e-docker-compose/e2e-docker-compose.tar.gz --silent | tar -xzf - -C ./docker/
+          docker-compose \
+           -f ./docker/docker-compose.yml \
+           -f ./docker/docker-compose.custom.yml \
+           -f ./docker/docker-compose.local-ui.yml \
+           up --build -d \
+           jore4-auth jore4-testdb jore4-hasura jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching jore4-ui jore4-proxy
+
+      - name: Verify that all services are up and running
+        uses: HSLdevcom/jore4-tools/github-actions/healthcheck@healthcheck-v1
         with:
-          ui_version: $IMAGE_NAME:$COMMIT_ID
+          command: '[ -z "$(docker ps -q --filter health=unhealthy --filter health=starting)" ]'
 
       - name: Setup caching for node_modules
         uses: actions/cache@v3
@@ -39,14 +58,99 @@ jobs:
       - name: Fix the missing cypress binary in case it did not get retrieved from cache
         run: yarn cypress install
 
+      - name: Debug before
+        if: ${{ always() }}
+        run: |
+          docker ps
+          docker logs hasura
+          vmstat -a
+          PGPASSWORD=adminpassword psql -h localhost -p 6432 -U dbadmin -d jore4e2e -c "SELECT * FROM service_pattern.scheduled_stop_point WHERE label LIKE 'H12%'"
+
       - name: Run cypress tests
-        run: yarn test:e2e:skip-map
+        run: |
+          yarn test:e2e
+
+      - name: Debug after
+        if: ${{ always() }}
+        run: |
+          docker logs hasura
 
       - name: Upload test results as an artifact
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:
-          name: reports
+          name: cypress-yarn-reports
+          path: |
+            ${{ github.workspace }}/cypress/videos
+            ${{ github.workspace }}/cypress/screenshots
+
+  # Note: this is a temporary solution for now. Should replace this with image from docker hub
+  # when we have the jore4-cypress repository created
+  run_cypress_docker:
+    name: Run cypress e2e tests locally with docker
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Extract metadata to env variables
+        uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
+
+      # TODO: this should be replaced with the setup-e2e-environment-v1 action when
+      # we don't need to rely on hasura seed data anymore for the e2e tests.
+      # For now however, we don't have a way to reliably choose a seed-data version of the hasura
+      # image that is certainly compatible with the tested UI image
+      # Note: we don't start jore3importer and mssqltestdb to save memory for the github runner
+      - name: Start e2e env
+        run: |
+          curl -L https://github.com/HSLdevcom/jore4-flux/releases/download/e2e-docker-compose/e2e-docker-compose.tar.gz --silent | tar -xzf - -C ./docker/
+          docker-compose \
+           -f ./docker/docker-compose.yml \
+           -f ./docker/docker-compose.custom.yml \
+           -f ./docker/docker-compose.local-ui.yml \
+           up --build -d \
+           jore4-auth jore4-testdb jore4-hasura jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching jore4-ui jore4-proxy
+
+      - name: Verify that all services are up and running
+        uses: HSLdevcom/jore4-tools/github-actions/healthcheck@healthcheck-v1
+        with:
+          command: '[ -z "$(docker ps -q --filter health=unhealthy --filter health=starting)" ]'
+
+      - name: Debug before
+        if: ${{ always() }}
+        run: |
+          docker ps
+          docker logs hasura
+          vmstat -a
+          PGPASSWORD=adminpassword psql -h localhost -p 6432 -U dbadmin -d jore4e2e -c "SELECT * FROM service_pattern.scheduled_stop_point WHERE label LIKE 'H12%'"
+
+      # Note: this is storing the test reports in ./cypress/videos and ./cypress/snapshots folders for now
+      - name: Build and run the the docker image containing the cypress tests
+        run: |
+          PGPASSWORD=adminpassword psql -h localhost -p 6432 -U dbadmin -d jore4e2e -c "SELECT * FROM service_pattern.scheduled_stop_point WHERE label LIKE 'H12%'"
+          export DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.cypress.yml"
+
+          # build the cypress docker image and include all e2e tests
+          $DOCKER_COMPOSE_CMD build jore4-cypress
+          $DOCKER_COMPOSE_CMD run --name cypress jore4-cypress yarn test:e2e
+
+      - name: Debug after
+        if: ${{ always() }}
+        run: |
+          docker logs hasura
+
+      - name: Retrieve test results from container
+        if: ${{ always() }}
+        run: |
+          docker cp cypress:/e2e/cypress/videos ${{ github.workspace }}/cypress/
+          docker cp cypress:/e2e/cypress/screenshots ${{ github.workspace }}/cypress/
+
+      - name: Upload test results as an artifact
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-docker-reports
           path: |
             ${{ github.workspace }}/cypress/videos
             ${{ github.workspace }}/cypress/screenshots
