@@ -14,7 +14,7 @@
     "saveSuccess": "Reitti tallennettu",
     "deleteSuccess": "Reitti poistettu",
     "enterRouteData": "Anna reitin tiedot",
-    "name": "Reitin nimi",
+    "finnishName": "Reitin nimi",
     "label": "Tunnus",
     "origin": {
       "title": "Lähtöpaikka",
@@ -39,7 +39,7 @@
       }
     },
     "addToLine": "Yhdistä linjaan",
-    "chooseLine": "Valitse linja",
+    "onLineId": "Valitse linja",
     "changingRoutes": "Muuttuvat reitit",
     "ownLines": "Omat linjat",
     "showOwnLines": "Näytä vain omat linjat",

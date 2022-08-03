@@ -72,7 +72,9 @@ const initialState: IState = {
   drawingMode: undefined,
   editedRouteData: {
     id: undefined,
-    metaData: undefined,
+    metaData: {
+      onLineId: '',
+    },
     stops: [],
     infraLinks: [],
     templateRouteId: undefined,
