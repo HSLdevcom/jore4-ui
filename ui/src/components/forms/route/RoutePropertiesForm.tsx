@@ -1,16 +1,20 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { selectMapEditor, setTemplateRouteIdAction } from '../../../redux';
 import { Switch, SwitchLabel } from '../../../uiComponents';
+import { InputField } from '../common';
 import { ConfirmSaveForm } from '../common/ConfirmSaveForm';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';
-import { routeFormSchema, RouteFormState } from './RoutePropertiesForm.types';
+import {
+  routeFormSchema,
+  RouteFormState as FormState,
+} from './RoutePropertiesForm.types';
 import { TemplateRouteSelector } from './TemplateRouteSelector';
 import { TerminusNameInputs } from './TerminusNameInputs';
 
@@ -18,8 +22,8 @@ export interface RouteFormProps {
   id?: string;
   routeLabel?: string | null;
   className?: string;
-  defaultValues: Partial<RouteFormState>;
-  onSubmit: (state: RouteFormState) => void;
+  defaultValues: Partial<FormState>;
+  onSubmit: (state: FormState) => void;
 }
 
 const testIds = {
@@ -38,7 +42,7 @@ const RoutePropertiesFormComponent = (
 
   const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
 
-  const methods = useForm<RouteFormState>({
+  const methods = useForm<FormState>({
     defaultValues,
     resolver: zodResolver(routeFormSchema),
   });
@@ -46,12 +50,7 @@ const RoutePropertiesFormComponent = (
   const [showTemplateRouteSelector, setShowTemplateRouteSelector] =
     useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = methods;
+  const { handleSubmit } = methods;
 
   const setTemplateRoute = (uuid?: UUID) => {
     dispatch(setTemplateRouteIdAction(uuid));
@@ -75,68 +74,46 @@ const RoutePropertiesFormComponent = (
         )}
         <Row className="mb-5 flex-wrap gap-2">
           <Column className="w-80 flex-auto">
-            <label htmlFor="finnishName">{t('routes.name')}</label>
-            <input
-              id="finnishName"
-              data-testid={testIds.finnishName}
+            <InputField<FormState>
               type="text"
-              {...register('finnishName', {})}
+              translationPrefix="routes"
+              fieldPath="finnishName"
+              testId={testIds.finnishName}
             />
-            <p>
-              {errors.finnishName?.type === 'too_small' &&
-                t('formValidation.required')}
-            </p>
           </Column>
           <Column className="w-44 flex-auto">
-            <label htmlFor="label">{t('routes.label')}</label>
-            <input
-              id="label"
-              data-testid={testIds.label}
+            <InputField<FormState>
               type="text"
-              {...register('label', {})}
+              translationPrefix="routes"
+              fieldPath="label"
+              testId={testIds.label}
             />
-            <p>
-              {errors.label?.type === 'too_small' &&
-                t('formValidation.required')}
-            </p>
           </Column>
           <Column className="w-44 flex-auto">
-            <label htmlFor="direction">{t('routes.direction')}</label>
-            <Controller
-              name="direction"
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
+            <InputField<FormState>
+              translationPrefix="routes"
+              fieldPath="direction"
+              testId={testIds.directionDropdown}
+              inputElementRenderer={(props) => (
                 <DirectionDropdown
-                  value={value}
-                  testId={testIds.directionDropdown}
-                  onChange={onChange}
-                  onBlur={onBlur}
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
                 />
               )}
             />
-            <p>
-              {errors.direction?.type === 'invalid_enum_value' &&
-                t('formValidation.required')}
-            </p>
           </Column>
           <Column className="w-80 flex-auto">
-            <label htmlFor="onLineId">{t('routes.addToLine')}</label>
-            <Controller
-              name="onLineId"
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
+            <InputField<FormState>
+              translationPrefix="routes"
+              fieldPath="onLineId"
+              testId={testIds.lineChoiceDropdown}
+              inputElementRenderer={(props) => (
                 <ChooseLineDropdown
-                  value={value}
-                  testId={testIds.lineChoiceDropdown}
-                  onChange={onChange}
-                  onBlur={onBlur}
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
                 />
               )}
             />
-            <p>
-              {errors.onLineId?.type === 'invalid_type' &&
-                t('formValidation.required')}
-            </p>
           </Column>
           <TerminusNameInputs />
           {creatingNewRoute && (

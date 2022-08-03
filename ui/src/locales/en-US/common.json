@@ -14,7 +14,7 @@
     "saveSuccess": "Route saved",
     "deleteSuccess": "Route deleted",
     "enterRouteData": "Enter route data",
-    "name": "Name of the route",
+    "finnishName": "Name of the route",
     "label": "Label",
     "origin": {
       "title": "Origin",
@@ -39,7 +39,7 @@
       }
     },
     "addToLine": "Add to line",
-    "chooseLine": "Choose line",
+    "onLineId": "Choose line",
     "changingRoutes": "Changing routes",
     "ownLines": "Own lines",
     "showOwnLines": "Only show own lines",
