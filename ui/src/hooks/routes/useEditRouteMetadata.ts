@@ -34,7 +34,7 @@ export const mapRouteFormToInput = (
   const mutation: RouteRouteSetInput = {
     name_i18n: { fi_FI: state.finnishName },
     label,
-    on_line_id: state.on_line_id,
+    on_line_id: state.onLineId,
     direction: state.direction,
     priority,
     validity_start: mapDateInputToValidityStart(validityStart),

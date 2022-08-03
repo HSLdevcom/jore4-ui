@@ -63,7 +63,7 @@ export const useValidateRoute = () => {
     // Check route's validity period is inside line's validity period
 
     const lineResult = await getLineById({
-      line_id: routeMetadata.on_line_id,
+      line_id: routeMetadata.onLineId,
     });
     const line = mapLineDetailsResult(lineResult);
 

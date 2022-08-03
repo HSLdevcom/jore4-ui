@@ -33,7 +33,7 @@ import { PageHeader } from '../common/PageHeader';
 const mapRouteToFormState = (route: RouteRoute): RouteFormState => ({
   finnishName: route.name_i18n?.fi_FI || '',
   label: route.label,
-  on_line_id: route.on_line_id,
+  onLineId: route.on_line_id,
   direction: route.direction as RouteDirection,
   priority: route.priority,
   validityStart: mapToISODate(route.validity_start) || '',
