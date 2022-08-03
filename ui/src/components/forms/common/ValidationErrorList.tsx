@@ -1,5 +1,4 @@
 import get from 'lodash/get';
-import React from 'react';
 import { FieldError, FieldValues, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
@@ -39,11 +38,24 @@ export const ValidationErrorList = <FormState extends FieldValues>({
 
   const mapErrorToMessage = (err: FieldError) => {
     const { type, message } = err;
-    switch (type) {
-      // TODO: currently too_small is the error that is thrown for required text fields
-      // we should be prepared to handle numeric field errors
-      case 'too_small':
+
+    // Mapping error to message by the original error message is a little hacky,
+    // but mapping by type works neither as same error type has multiple different messages to show.
+    // TODO: Figure out a better way to do this.
+    switch (message) {
+      case 'Should be at least 1 characters':
+      case 'Expected number, received nan':
+      case 'Invalid uuid':
         return t('formValidation.required');
+      default:
+        break;
+    }
+
+    switch (type) {
+      case 'too_small':
+        return t('formValidation.tooSmall');
+      case 'too_big':
+        return t('formValidation.tooBig');
       case 'invalid_enum_value':
         return t('formValidation.required');
       default:
