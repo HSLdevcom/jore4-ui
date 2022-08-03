@@ -40,7 +40,7 @@ export const EditRouteMetadataLayer: React.FC = () => {
 
   const onSuccess = async (formData: RouteFormState) => {
     // The line might have been changed by the user, so have to refresh its data in the redux store
-    const results = await getLineDetailsById({ line_id: formData.on_line_id });
+    const results = await getLineDetailsById({ line_id: formData.onLineId });
     if (!results?.data?.route_line_by_pk) {
       throw new Error("Couldn't get line details!");
     }
@@ -53,7 +53,7 @@ export const EditRouteMetadataLayer: React.FC = () => {
   // have it
   const defaultValues: Partial<RouteFormState> = {
     ...editedRouteData.metaData,
-    on_line_id: editedRouteData.lineInfo?.line_id,
+    onLineId: editedRouteData.lineInfo?.line_id,
   };
 
   if (!isRouteMetadataFormOpen) {
