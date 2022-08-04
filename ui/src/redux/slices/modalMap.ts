@@ -20,18 +20,12 @@ const slice = createSlice({
   name: 'modalMap',
   initialState,
   reducers: {
-    setIsOpen: (state, action: PayloadAction<boolean>) => {
-      state.isOpen = action.payload;
-    },
     setViewPort: (state, action: PayloadAction<Viewport>) => {
       state.viewport = action.payload;
     },
   },
 });
 
-export const {
-  setIsOpen: setIsModalMapOpenAction,
-  setViewPort: setViewPortAction,
-} = slice.actions;
+export const { setViewPort: setViewPortAction } = slice.actions;
 
 export const modalMapReducer = slice.reducer;
