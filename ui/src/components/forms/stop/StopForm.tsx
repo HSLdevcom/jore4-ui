@@ -22,7 +22,7 @@ import {
   mapLngLatToPoint,
   mapPointToGeoJSON,
 } from '../../../utils';
-import { InputField } from '../common';
+import { InputField, requiredNumber, requiredString } from '../common';
 import {
   ConfirmSaveForm,
   FormState as ConfirmSaveFormState,
@@ -32,9 +32,9 @@ import {
 const schema = z
   .object({
     stopId: z.string().uuid().optional(), // for stops that are edited
-    label: z.string().min(1),
-    latitude: z.number().min(-90).max(90),
-    longitude: z.number().min(-180).max(180),
+    label: requiredString,
+    latitude: requiredNumber.min(-180).max(180),
+    longitude: requiredNumber.min(-180).max(180),
   })
   .merge(confirmSaveFormSchema);
 

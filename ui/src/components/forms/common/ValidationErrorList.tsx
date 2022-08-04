@@ -3,6 +3,7 @@ import { FieldError, FieldValues, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { Column, Row } from '../../../layoutComponents';
+import { REQUIRED_FIELD_ERROR_MESSAGE } from './customZodSchemas';
 
 interface ErrorProps {
   className?: string;
@@ -39,16 +40,11 @@ export const ValidationErrorList = <FormState extends FieldValues>({
   const mapErrorToMessage = (err: FieldError) => {
     const { type, message } = err;
 
-    // Mapping error to message by the original error message is a little hacky,
-    // but mapping by type works neither as same error type has multiple different messages to show.
-    // TODO: Figure out a better way to do this.
-    switch (message) {
-      case 'Should be at least 1 characters':
-      case 'Expected number, received nan':
-      case 'Invalid uuid':
-        return t('formValidation.required');
-      default:
-        break;
+    // To keep zod types correct, the only option seems to be mapping
+    // invalid type error messages to 'required' and then map them
+    // to error messages here
+    if (message === REQUIRED_FIELD_ERROR_MESSAGE) {
+      return t(`formValidation.required`);
     }
 
     switch (type) {
@@ -56,8 +52,8 @@ export const ValidationErrorList = <FormState extends FieldValues>({
         return t('formValidation.tooSmall');
       case 'too_big':
         return t('formValidation.tooBig');
-      case 'invalid_enum_value':
-        return t('formValidation.required');
+      case 'custom':
+        return t(`formValidation.${message}`);
       default:
         return `${type}: ${message}`;
     }
