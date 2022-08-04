@@ -1,17 +1,17 @@
-import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { Column, Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/Priority';
 import { SimpleButton } from '../../../uiComponents';
+import { REQUIRED_FIELD_ERROR_MESSAGE } from './customZodSchemas';
 import { InputField } from './InputField';
 
 export const schema = z.object({
   priority: z.nativeEnum(Priority),
   validityStart: z
     .string()
-    .min(1)
+    .min(1, REQUIRED_FIELD_ERROR_MESSAGE)
     .regex(/[0-9]{4}-[0-9]{2}-[0-9]{2}/),
   // TODO: also validityEnd could/should be validated against regex
   // but only when "indefinite" is set to false. Anyway, seems like zod

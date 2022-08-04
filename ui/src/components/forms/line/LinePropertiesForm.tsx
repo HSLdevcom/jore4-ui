@@ -14,13 +14,14 @@ import {
   FormRow,
   InputField,
   localizedStringRequired,
+  requiredString,
 } from '../common';
 import { LineTypeDropdown } from './LineTypeDropdown';
 import { TransportTargetDropdown } from './TransportTargetDropdown';
 import { VehicleModeDropdown } from './VehicleModeDropdown';
 
 export const schema = z.object({
-  label: z.string().min(1),
+  label: requiredString,
   name: localizedStringRequired,
   shortName: localizedStringRequired,
   transportTarget: z.nativeEnum(HslRouteTransportTargetEnum),
