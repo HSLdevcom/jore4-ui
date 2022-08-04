@@ -59,8 +59,11 @@ if (!Cypress.env('SKIP_MAP_TESTS')) {
 
         routePropertiesForm.save();
 
-        mapEditor.clickAtPositionFromNthMapMarker(-10, 25, 1);
-        mapEditor.clickAtPositionFromNthMapMarker(25, 5, 3);
+        // wait until the route properties form is closed, otherwise the clicks are not registered for the map
+        routePropertiesForm.getForm().should('not.exist');
+
+        mapEditor.clickAtPositionFromNthMapMarker(-10, 30, 1);
+        mapEditor.clickAtPositionFromNthMapMarker(35, 5, 3);
         mapEditor.clickNthSnappingPointHandle(1);
 
         cy.getByTestId('RouteStopsOverlay:mapOverlayHeader')
