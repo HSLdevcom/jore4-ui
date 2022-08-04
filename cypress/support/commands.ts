@@ -24,7 +24,6 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-// @ts-expect-error not sure what is wrong here, something with cypress typings? "Argument of type '(this: Context, selector: string) => Chainable<JQuery<HTMLElement>>' is not assignable to parameter of type 'CommandFn<"getByTestId">', ..."
 Cypress.Commands.add('getByTestId', (selector, ...args) => {
   return cy.get(`[data-testid="${selector}"]`, ...args);
 });
@@ -46,3 +45,6 @@ Cypress.Commands.add('mockLogin', () => {
     req.headers['x-hasura-admin-secret'] = 'hasura';
   });
 });
+
+// workaround for 'commands.ts' cannot be compiled under '--isolatedModules' because it is considered a global script file. Add an import, export, or an empty 'export {}' statement to make it a module.ts(1208)
+export {};
