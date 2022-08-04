@@ -11,7 +11,6 @@ import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import {
   resetMapEditorStateAction,
   selectIsViaModalOpen,
-  setIsModalMapOpenAction,
   setLineInfoAction,
 } from '../../../redux';
 import { Priority } from '../../../types/Priority';
@@ -36,7 +35,6 @@ export const LineDetailsPage = (): JSX.Element => {
   const onCreateRoute = (routeLine: LineAllFieldsFragment) => {
     dispatch(resetMapEditorStateAction());
     dispatch(setLineInfoAction(routeLine));
-    dispatch(setIsModalMapOpenAction(true));
     addMapOpenQueryParameter();
   };
 
