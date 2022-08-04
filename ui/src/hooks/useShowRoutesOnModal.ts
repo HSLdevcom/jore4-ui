@@ -7,11 +7,11 @@ import {
 } from '../redux';
 import { isDateInRange } from '../time';
 import { useAppDispatch } from './redux';
-import { useMapUrlQuery } from './useMapUrlQuery';
+import { useMapOpenQueryParam } from './useMapOpenQueryParam';
 
 export const useShowRoutesOnModal = () => {
   const dispatch = useAppDispatch();
-  const { addMapOpenQueryParameter } = useMapUrlQuery();
+  const { addMapOpenQueryParameter } = useMapOpenQueryParam();
 
   const showRoutesOnModalById = (routeIds: UUID[]) => {
     dispatch(initializeMapEditorWithRoutesAction(routeIds));
