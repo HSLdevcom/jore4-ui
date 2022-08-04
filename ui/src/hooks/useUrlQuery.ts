@@ -38,6 +38,12 @@ export const useUrlQuery = () => {
         });
   };
 
+  /** Deletes parameter from URL query
+   * replace flag can be given to replace the earlier url query instead
+   * of pushing it. This affects how the back button or history.back() works.
+   * If the history is replaced, it means that back button will not go to the
+   * url which was replaced, but rather the one before it.
+   */
   const deleteFromUrlQuery = ({
     paramName,
     replace = false,
