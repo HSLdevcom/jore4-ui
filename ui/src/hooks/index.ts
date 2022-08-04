@@ -1,6 +1,5 @@
 export * from './line-details';
 export * from './lines';
-export * from './map';
 export * from './mutationHook';
 export * from './redux';
 export * from './routes';

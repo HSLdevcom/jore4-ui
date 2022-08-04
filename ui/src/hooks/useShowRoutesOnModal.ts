@@ -2,7 +2,6 @@ import { DateTime } from 'luxon';
 import { Maybe } from '../generated/graphql';
 import {
   initializeMapEditorWithRoutesAction,
-  setIsModalMapOpenAction,
   setMapObservationDateAction,
 } from '../redux';
 import { isDateInRange } from '../time';
@@ -16,7 +15,6 @@ export const useShowRoutesOnModal = () => {
   const showRoutesOnModalById = (routeIds: UUID[]) => {
     dispatch(initializeMapEditorWithRoutesAction(routeIds));
 
-    dispatch(setIsModalMapOpenAction(true));
     addMapOpenQueryParameter();
   };
 
