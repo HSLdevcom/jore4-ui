@@ -20,7 +20,6 @@ import {
   selectMapEditor,
   selectMapObservationDate,
   selectSelectedRouteId,
-  setIsModalMapOpenAction,
   setLineInfoAction,
   setMapEditorLoadingAction,
   setMapObservationDateAction,
@@ -246,7 +245,6 @@ const RouteEditorComponent = (
       showSuccessToast(t('routes.deleteSuccess'));
 
       setIsDeleting(false);
-      dispatch(setIsModalMapOpenAction(false));
     } catch (err) {
       defaultDeleteErrorHandler(err);
     }

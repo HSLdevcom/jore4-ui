@@ -24,11 +24,6 @@ export const selectIsCreateStopModeEnabled = createSelector(
   (map) => map.isCreateStopModeEnabled,
 );
 
-export const selectIsModalMapOpen = createSelector(
-  selectModalMap,
-  (modalMap) => modalMap.isOpen,
-);
-
 export const selectMapViewport = createSelector(
   selectModalMap,
   (modalMap) => modalMap.viewport,

@@ -1,7 +1,7 @@
 import { useUrlQuery } from './useUrlQuery';
 
 export const useMapOpenQueryParam = () => {
-  const queryParameterNameMapOpen = 'mapOpen' as const;
+  const queryParameterNameMapOpen = 'isMapOpen' as const;
   const { queryParams, setToUrlQuery, deleteFromUrlQuery } = useUrlQuery();
 
   const addMapOpenQueryParameter = () => {
@@ -12,11 +12,14 @@ export const useMapOpenQueryParam = () => {
     deleteFromUrlQuery({ paramName: queryParameterNameMapOpen });
   };
 
+  const setIsMapOpen = (value: boolean) => {
+    value ? addMapOpenQueryParameter() : deleteMapOpenQueryParameter();
+  };
+
   const isMapOpen = queryParams.mapOpen === 'true';
 
   return {
-    addMapOpenQueryParameter,
-    deleteMapOpenQueryParameter,
+    setIsMapOpen,
     isMapOpen,
   };
 };
