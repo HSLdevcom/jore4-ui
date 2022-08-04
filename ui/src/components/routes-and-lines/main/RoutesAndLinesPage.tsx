@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useMapUrlQuery } from '../../../hooks';
+import { useAppDispatch, useMapOpenQueryParam } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import {
   resetMapEditorStateAction,
@@ -13,7 +13,7 @@ import { RoutesAndLinesLists } from './RoutesAndLinesLists';
 export const RoutesAndLinesPage = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { addMapOpenQueryParameter } = useMapUrlQuery();
+  const { addMapOpenQueryParameter } = useMapOpenQueryParam();
   const createLineReactRoute = routeDetails[Path.createLine];
   const onOpenModalMap = () => {
     dispatch(setIsModalMapOpenAction(true));
