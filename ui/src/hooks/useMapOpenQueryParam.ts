@@ -12,11 +12,14 @@ export const useMapOpenQueryParam = () => {
     deleteFromUrlQuery({ paramName: queryParameterNameMapOpen });
   };
 
+  const setIsMapOpen = (value: boolean) => {
+    value ? addMapOpenQueryParameter() : deleteMapOpenQueryParameter();
+  };
+
   const isMapOpen = queryParams[queryParameterNameMapOpen] === 'true';
 
   return {
-    addMapOpenQueryParameter,
-    deleteMapOpenQueryParameter,
+    setIsMapOpen,
     isMapOpen,
   };
 };
