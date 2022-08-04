@@ -21,6 +21,7 @@ export class MapEditor {
     markerNumber: number,
   ) {
     this.getNthMarker(markerNumber).then((marker) => {
+      // returns the coords of the top-left corner within the parent #editor element
       const position = marker.position();
       cy.get('#editor').click(position.left + xpos, position.top + ypos, {
         force: true,

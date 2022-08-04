@@ -1,4 +1,8 @@
 export class RoutePropertiesForm {
+  getForm() {
+    return cy.get('#route-properties-form');
+  }
+
   getLabelInput() {
     return cy.getByTestId('routePropertiesForm:label');
   }
