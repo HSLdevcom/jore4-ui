@@ -6,16 +6,16 @@ import {
   setIsModalMapOpenAction,
 } from '../../redux';
 import { useAppDispatch, useAppSelector } from '../redux';
-import { useMapUrlQuery } from '../useMapUrlQuery';
+import { useMapOpenQueryParam } from '../useMapOpenQueryParam';
 
 export const useIsModalMapOpen = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const isModalMapOpen = useAppSelector(selectIsModalMapOpen);
-  const { deleteMapOpenQueryParameter, isMapOpen } = useMapUrlQuery();
+  const { deleteMapOpenQueryParameter, isMapOpen } = useMapOpenQueryParam();
 
   const syncIsModalMapStateWithMapOpenQueryParam = () => {
-    const mapOpen = isMapOpen();
+    const mapOpen = isMapOpen;
     dispatch(setIsModalMapOpenAction(mapOpen));
   };
 

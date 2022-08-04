@@ -4,7 +4,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useGetLineDetails,
-  useMapUrlQuery,
+  useMapOpenQueryParam,
   useObservationDateQueryParam,
 } from '../../../hooks';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
@@ -28,7 +28,7 @@ export const LineDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
-  const { addMapOpenQueryParameter } = useMapUrlQuery();
+  const { addMapOpenQueryParameter } = useMapOpenQueryParam();
 
   const { line } = useGetLineDetails();
   const { observationDate } = useObservationDateQueryParam();

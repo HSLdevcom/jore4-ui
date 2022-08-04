@@ -38,5 +38,27 @@ export const useUrlQuery = () => {
         });
   };
 
-  return { queryParams, setToUrlQuery };
+  const deleteFromUrlQuery = ({
+    paramName,
+    replace = false,
+  }: {
+    paramName: string;
+    replace?: boolean;
+  }) => {
+    const updatedUrlQuery = produce(queryParams, (draft) => {
+      delete draft[paramName];
+    });
+
+    const queryString = qs.stringify(updatedUrlQuery);
+
+    replace
+      ? history.replace({
+          search: `?${queryString}`,
+        })
+      : history.push({
+          search: `?${queryString}`,
+        });
+  };
+
+  return { queryParams, setToUrlQuery, deleteFromUrlQuery };
 };
