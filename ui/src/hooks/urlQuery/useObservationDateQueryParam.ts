@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { parseDate } from '../time';
+import { parseDate } from '../../time';
 import { useUrlQuery } from './useUrlQuery';
 
 export const useObservationDateQueryParam = () => {

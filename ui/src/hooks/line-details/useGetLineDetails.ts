@@ -21,7 +21,7 @@ import {
   constructDraftPriorityGqlFilter,
   constructLabelGqlFilter,
 } from '../../utils';
-import { useObservationDateQueryParam } from '../useObservationDateQueryParam';
+import { useObservationDateQueryParam } from '../urlQuery';
 
 const findHighestPriorityRoute = (routes: RouteRoute[]) =>
   routes.reduce((prev, curr) => (prev.priority > curr.priority ? prev : curr));

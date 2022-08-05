@@ -1,5 +1,5 @@
 import { Priority } from '../../types/Priority';
-import { useUrlQuery } from '../useUrlQuery';
+import { useUrlQuery } from '../urlQuery';
 
 export type SearchConditions = {
   priorities: Priority[];
