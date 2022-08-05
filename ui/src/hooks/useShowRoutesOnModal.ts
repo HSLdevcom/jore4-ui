@@ -6,7 +6,7 @@ import {
 } from '../redux';
 import { isDateInRange } from '../time';
 import { useAppDispatch } from './redux';
-import { useMapOpenQueryParam } from './useMapOpenQueryParam';
+import { useMapOpenQueryParam } from './urlQuery';
 
 export const useShowRoutesOnModal = () => {
   const dispatch = useAppDispatch();
