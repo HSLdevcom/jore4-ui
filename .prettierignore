@@ -6,6 +6,7 @@ ui/out
 ui/graphql.schema.json
 
 ui/src/generated/*
+!ui/src/generated/graphql.tsx
 
 # external docker dependencies
 docker
