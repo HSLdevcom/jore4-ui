@@ -11,7 +11,7 @@ module.exports = {
       },
     },
   ],
-  documents: ['./src/graphql/**/*.tsx', './src/graphql/**/*.ts'],
+  documents: ['./src/**/*.tsx', './src/**/*.ts'],
   overwrite: true,
   generates: {
     './src/generated/graphql.tsx': {
