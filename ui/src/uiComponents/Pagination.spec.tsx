@@ -3,7 +3,7 @@ import { useUrlQuery } from '../hooks';
 import { render } from '../utils/test-utils';
 import { Pagination } from './Pagination';
 
-jest.mock('../hooks/useUrlQuery', () => ({
+jest.mock('../hooks/urlQuery/useUrlQuery', () => ({
   useUrlQuery: jest.fn().mockReturnValue({}),
 }));
 const urlQueryMock = useUrlQuery as jest.Mock;

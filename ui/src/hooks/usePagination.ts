@@ -2,7 +2,7 @@ import produce from 'immer';
 import range from 'lodash/range';
 import qs from 'qs';
 import { useHistory } from 'react-router';
-import { useUrlQuery } from './useUrlQuery';
+import { useUrlQuery } from './urlQuery';
 
 const ADDITIONAL_BUTTON_AMOUNT = 2;
 
