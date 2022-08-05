@@ -3,10 +3,16 @@ import { useAsyncQuery } from '../hooks/useAsyncQuery';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+const defaultOptions = {};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -173,7 +179,6 @@ export type HslRouteTransportTarget = {
   transport_target: Scalars['String'];
 };
 
-
 /**
  * Transport target, can be used e.g. for cost sharing.
  *
@@ -188,7 +193,6 @@ export type HslRouteTransportTargetLinesArgs = {
   order_by?: Maybe<Array<RouteLineOrderBy>>;
   where?: Maybe<RouteLineBoolExp>;
 };
-
 
 /**
  * Transport target, can be used e.g. for cost sharing.
@@ -220,7 +224,6 @@ export type HslRouteTransportTargetAggregateFields = {
   min?: Maybe<HslRouteTransportTargetMinFields>;
 };
 
-
 /** aggregate fields of "hsl_route.transport_target" */
 export type HslRouteTransportTargetAggregateFieldsCountArgs = {
   columns?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
@@ -239,7 +242,7 @@ export type HslRouteTransportTargetBoolExp = {
 /** unique or primary key constraints on table "hsl_route.transport_target" */
 export enum HslRouteTransportTargetConstraint {
   /** unique or primary key constraint */
-  TransportTargetPkey = 'transport_target_pkey'
+  TransportTargetPkey = 'transport_target_pkey',
 }
 
 export enum HslRouteTransportTargetEnum {
@@ -257,7 +260,7 @@ export enum HslRouteTransportTargetEnum {
   TuusulaInternalTraffic = 'tuusula_internal_traffic',
   TuusulaRegionalTraffic = 'tuusula_regional_traffic',
   VantaaInternalTraffic = 'vantaa_internal_traffic',
-  VantaaRegionalTraffic = 'vantaa_regional_traffic'
+  VantaaRegionalTraffic = 'vantaa_regional_traffic',
 }
 
 /** Boolean expression to compare columns of type "hsl_route_transport_target_enum". All fields are combined with logical 'AND'. */
@@ -317,7 +320,7 @@ export type HslRouteTransportTargetPkColumnsInput = {
 /** select columns of table "hsl_route.transport_target" */
 export enum HslRouteTransportTargetSelectColumn {
   /** column name */
-  TransportTarget = 'transport_target'
+  TransportTarget = 'transport_target',
 }
 
 /** input type for updating data in table "hsl_route.transport_target" */
@@ -328,7 +331,7 @@ export type HslRouteTransportTargetSetInput = {
 /** update columns of table "hsl_route.transport_target" */
 export enum HslRouteTransportTargetUpdateColumn {
   /** column name */
-  TransportTarget = 'transport_target'
+  TransportTarget = 'transport_target',
 }
 
 /**
@@ -347,7 +350,6 @@ export type InfrastructureNetworkDirection = {
   value: InfrastructureNetworkDirectionEnum;
 };
 
-
 /**
  * The direction in which an e.g. infrastructure link can be traversed
  *
@@ -356,13 +358,14 @@ export type InfrastructureNetworkDirection = {
  *
  */
 export type InfrastructureNetworkDirectionInfrastructureLinksArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
+  distinct_on?: Maybe<
+    Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+  >;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
   where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
-
 
 /**
  * The direction in which an e.g. infrastructure link can be traversed
@@ -372,7 +375,9 @@ export type InfrastructureNetworkDirectionInfrastructureLinksArgs = {
  *
  */
 export type InfrastructureNetworkDirectionInfrastructureLinksAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
+  distinct_on?: Maybe<
+    Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+  >;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
@@ -394,7 +399,6 @@ export type InfrastructureNetworkDirectionAggregateFields = {
   min?: Maybe<InfrastructureNetworkDirectionMinFields>;
 };
 
-
 /** aggregate fields of "infrastructure_network.direction" */
 export type InfrastructureNetworkDirectionAggregateFieldsCountArgs = {
   columns?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
@@ -413,13 +417,13 @@ export type InfrastructureNetworkDirectionBoolExp = {
 /** unique or primary key constraints on table "infrastructure_network.direction" */
 export enum InfrastructureNetworkDirectionConstraint {
   /** unique or primary key constraint */
-  DirectionPkey = 'direction_pkey'
+  DirectionPkey = 'direction_pkey',
 }
 
 export enum InfrastructureNetworkDirectionEnum {
   Backward = 'backward',
   Bidirectional = 'bidirectional',
-  Forward = 'forward'
+  Forward = 'forward',
 }
 
 /** Boolean expression to compare columns of type "infrastructure_network_direction_enum". All fields are combined with logical 'AND'. */
@@ -486,7 +490,7 @@ export type InfrastructureNetworkDirectionPkColumnsInput = {
 /** select columns of table "infrastructure_network.direction" */
 export enum InfrastructureNetworkDirectionSelectColumn {
   /** column name */
-  Value = 'value'
+  Value = 'value',
 }
 
 /** input type for updating data in table "infrastructure_network.direction" */
@@ -497,7 +501,7 @@ export type InfrastructureNetworkDirectionSetInput = {
 /** update columns of table "infrastructure_network.direction" */
 export enum InfrastructureNetworkDirectionUpdateColumn {
   /** column name */
-  Value = 'value'
+  Value = 'value',
 }
 
 /**
@@ -516,7 +520,6 @@ export type InfrastructureNetworkExternalSource = {
   value: Scalars['String'];
 };
 
-
 /**
  * An external source from which infrastructure network parts are imported
  *
@@ -525,13 +528,14 @@ export type InfrastructureNetworkExternalSource = {
  *
  */
 export type InfrastructureNetworkExternalSourceInfrastructureLinksArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
+  distinct_on?: Maybe<
+    Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+  >;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
   where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
-
 
 /**
  * An external source from which infrastructure network parts are imported
@@ -540,13 +544,16 @@ export type InfrastructureNetworkExternalSourceInfrastructureLinksArgs = {
  * columns and relationships of "infrastructure_network.external_source"
  *
  */
-export type InfrastructureNetworkExternalSourceInfrastructureLinksAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
-};
+export type InfrastructureNetworkExternalSourceInfrastructureLinksAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+    where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  };
 
 /** aggregated selection of "infrastructure_network.external_source" */
 export type InfrastructureNetworkExternalSourceAggregate = {
@@ -562,7 +569,6 @@ export type InfrastructureNetworkExternalSourceAggregateFields = {
   max?: Maybe<InfrastructureNetworkExternalSourceMaxFields>;
   min?: Maybe<InfrastructureNetworkExternalSourceMinFields>;
 };
-
 
 /** aggregate fields of "infrastructure_network.external_source" */
 export type InfrastructureNetworkExternalSourceAggregateFieldsCountArgs = {
@@ -582,12 +588,12 @@ export type InfrastructureNetworkExternalSourceBoolExp = {
 /** unique or primary key constraints on table "infrastructure_network.external_source" */
 export enum InfrastructureNetworkExternalSourceConstraint {
   /** unique or primary key constraint */
-  ExternalSourcePkey = 'external_source_pkey'
+  ExternalSourcePkey = 'external_source_pkey',
 }
 
 export enum InfrastructureNetworkExternalSourceEnum {
   DigiroadR = 'digiroad_r',
-  Fixup = 'fixup'
+  Fixup = 'fixup',
 }
 
 /** Boolean expression to compare columns of type "infrastructure_network_external_source_enum". All fields are combined with logical 'AND'. */
@@ -654,7 +660,7 @@ export type InfrastructureNetworkExternalSourcePkColumnsInput = {
 /** select columns of table "infrastructure_network.external_source" */
 export enum InfrastructureNetworkExternalSourceSelectColumn {
   /** column name */
-  Value = 'value'
+  Value = 'value',
 }
 
 /** input type for updating data in table "infrastructure_network.external_source" */
@@ -665,7 +671,7 @@ export type InfrastructureNetworkExternalSourceSetInput = {
 /** update columns of table "infrastructure_network.external_source" */
 export enum InfrastructureNetworkExternalSourceUpdateColumn {
   /** column name */
-  Value = 'value'
+  Value = 'value',
 }
 
 export type InfrastructureNetworkFindPointDirectionOnLinkArgs = {
@@ -715,6 +721,21 @@ export type InfrastructureNetworkInfrastructureLink = {
   vehicle_submode_on_infrastructure_links_aggregate: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate;
 };
 
+/**
+ * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
+ *
+ *
+ * columns and relationships of "infrastructure_network.infrastructure_link"
+ *
+ */
+export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutesArgs =
+  {
+    distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+    where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  };
 
 /**
  * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
@@ -723,30 +744,14 @@ export type InfrastructureNetworkInfrastructureLink = {
  * columns and relationships of "infrastructure_network.infrastructure_link"
  *
  */
-export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutesArgs = {
-  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
-  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
-};
-
-
-/**
- * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
- *
- *
- * columns and relationships of "infrastructure_network.infrastructure_link"
- *
- */
-export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutesAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
-  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
-};
-
+export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutesAggregateArgs =
+  {
+    distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+    where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  };
 
 /**
  * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
@@ -755,30 +760,14 @@ export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutes
  * columns and relationships of "infrastructure_network.infrastructure_link"
  *
  */
-export type InfrastructureNetworkInfrastructureLinkScheduledStopPointsLocatedOnInfrastructureLinkArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
-};
-
-
-/**
- * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
- *
- *
- * columns and relationships of "infrastructure_network.infrastructure_link"
- *
- */
-export type InfrastructureNetworkInfrastructureLinkScheduledStopPointsLocatedOnInfrastructureLinkAggregateArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
-};
-
+export type InfrastructureNetworkInfrastructureLinkScheduledStopPointsLocatedOnInfrastructureLinkArgs =
+  {
+    distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+    where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  };
 
 /**
  * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
@@ -787,30 +776,14 @@ export type InfrastructureNetworkInfrastructureLinkScheduledStopPointsLocatedOnI
  * columns and relationships of "infrastructure_network.infrastructure_link"
  *
  */
-export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinkArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-};
-
-
-/**
- * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
- *
- *
- * columns and relationships of "infrastructure_network.infrastructure_link"
- *
- */
-export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinkAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-};
-
+export type InfrastructureNetworkInfrastructureLinkScheduledStopPointsLocatedOnInfrastructureLinkAggregateArgs =
+  {
+    distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+    where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  };
 
 /**
  * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
@@ -819,14 +792,18 @@ export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructur
  * columns and relationships of "infrastructure_network.infrastructure_link"
  *
  */
-export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinksArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-};
-
+export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinkArgs =
+  {
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
+    >;
+    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  };
 
 /**
  * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
@@ -835,13 +812,58 @@ export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructur
  * columns and relationships of "infrastructure_network.infrastructure_link"
  *
  */
-export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinksAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-};
+export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinkAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
+    >;
+    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  };
+
+/**
+ * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
+ *
+ *
+ * columns and relationships of "infrastructure_network.infrastructure_link"
+ *
+ */
+export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinksArgs =
+  {
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
+    >;
+    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  };
+
+/**
+ * The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453
+ *
+ *
+ * columns and relationships of "infrastructure_network.infrastructure_link"
+ *
+ */
+export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinksAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
+    >;
+    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  };
 
 /** aggregated selection of "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkAggregate = {
@@ -865,7 +887,6 @@ export type InfrastructureNetworkInfrastructureLinkAggregateFields = {
   var_samp?: Maybe<InfrastructureNetworkInfrastructureLinkVarSampFields>;
   variance?: Maybe<InfrastructureNetworkInfrastructureLinkVarianceFields>;
 };
-
 
 /** aggregate fields of "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkAggregateFieldsCountArgs = {
@@ -932,7 +953,7 @@ export enum InfrastructureNetworkInfrastructureLinkConstraint {
   /** unique or primary key constraint */
   InfrastructureLinkExternalLinkIdExternalLinkSourceIdx = 'infrastructure_link_external_link_id_external_link_source_idx',
   /** unique or primary key constraint */
-  InfrastructureLinkPkey = 'infrastructure_link_pkey'
+  InfrastructureLinkPkey = 'infrastructure_link_pkey',
 }
 
 /** input type for incrementing numeric columns in table "infrastructure_network.infrastructure_link" */
@@ -1057,7 +1078,7 @@ export enum InfrastructureNetworkInfrastructureLinkSelectColumn {
   /** column name */
   InfrastructureLinkId = 'infrastructure_link_id',
   /** column name */
-  Shape = 'shape'
+  Shape = 'shape',
 }
 
 /** input type for updating data in table "infrastructure_network.infrastructure_link" */
@@ -1139,7 +1160,7 @@ export enum InfrastructureNetworkInfrastructureLinkUpdateColumn {
   /** column name */
   InfrastructureLinkId = 'infrastructure_link_id',
   /** column name */
-  Shape = 'shape'
+  Shape = 'shape',
 }
 
 /** aggregate var_pop on columns */
@@ -1212,39 +1233,48 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate = {
 };
 
 /** aggregate fields of "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateFields = {
-  __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate_fields';
-  count: Scalars['Int'];
-  max?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxFields>;
-  min?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinFields>;
-};
-
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateFields =
+  {
+    __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_aggregate_fields';
+    count: Scalars['Int'];
+    max?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxFields>;
+    min?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinFields>;
+  };
 
 /** aggregate fields of "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateFieldsCountArgs =
+  {
+    columns?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
+    >;
+    distinct?: Maybe<Scalars['Boolean']>;
+  };
 
 /** order by aggregate values of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy = {
-  count?: Maybe<OrderBy>;
-  max?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxOrderBy>;
-  min?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinOrderBy>;
-};
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy =
+  {
+    count?: Maybe<OrderBy>;
+    max?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxOrderBy>;
+    min?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinOrderBy>;
+  };
 
 /** input type for inserting array relation for remote table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput = {
-  data: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput>;
-  /** on conflict condition */
-  on_conflict?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
-};
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput =
+  {
+    data: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput>;
+    /** on conflict condition */
+    on_conflict?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
+  };
 
 /** Boolean expression to filter rows from the table "infrastructure_network.vehicle_submode_on_infrastructure_link". All fields are combined with a logical 'AND'. */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp = {
-  _and?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>>;
+  _and?: Maybe<
+    Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>
+  >;
   _not?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-  _or?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>>;
+  _or?: Maybe<
+    Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>
+  >;
   infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   infrastructure_link_id?: Maybe<UuidComparisonExp>;
   vehicleSubmodeByVehicleSubmode?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
@@ -1254,18 +1284,19 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp = {
 /** unique or primary key constraints on table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
 export enum InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkConstraint {
   /** unique or primary key constraint */
-  VehicleSubmodeOnInfrastructureLinkPkey = 'vehicle_submode_on_infrastructure_link_pkey'
+  VehicleSubmodeOnInfrastructureLinkPkey = 'vehicle_submode_on_infrastructure_link_pkey',
 }
 
 /** input type for inserting data into table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput = {
-  infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
-  infrastructure_link_id?: Maybe<Scalars['uuid']>;
-  vehicleSubmodeByVehicleSubmode?: Maybe<ReusableComponentsVehicleSubmodeObjRelInsertInput>;
-  /** The vehicle submode that can safely traverse the infrastructure link. */
-  vehicle_submode?: Maybe<ReusableComponentsVehicleSubmodeEnum>;
-};
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput =
+  {
+    infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
+    /** The infrastructure link that can be safely traversed by the vehicle submode. */
+    infrastructure_link_id?: Maybe<Scalars['uuid']>;
+    vehicleSubmodeByVehicleSubmode?: Maybe<ReusableComponentsVehicleSubmodeObjRelInsertInput>;
+    /** The vehicle submode that can safely traverse the infrastructure link. */
+    vehicle_submode?: Maybe<ReusableComponentsVehicleSubmodeEnum>;
+  };
 
 /** aggregate max on columns */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxFields = {
@@ -1275,10 +1306,11 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxFields = {
 };
 
 /** order by max() on columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxOrderBy = {
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
-  infrastructure_link_id?: Maybe<OrderBy>;
-};
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxOrderBy =
+  {
+    /** The infrastructure link that can be safely traversed by the vehicle submode. */
+    infrastructure_link_id?: Maybe<OrderBy>;
+  };
 
 /** aggregate min on columns */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinFields = {
@@ -1288,26 +1320,29 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinFields = {
 };
 
 /** order by min() on columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinOrderBy = {
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
-  infrastructure_link_id?: Maybe<OrderBy>;
-};
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinOrderBy =
+  {
+    /** The infrastructure link that can be safely traversed by the vehicle submode. */
+    infrastructure_link_id?: Maybe<OrderBy>;
+  };
 
 /** response of any mutation on the table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMutationResponse = {
-  __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data from the rows affected by the mutation */
-  returning: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
-};
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMutationResponse =
+  {
+    __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_mutation_response';
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int'];
+    /** data from the rows affected by the mutation */
+    returning: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
+  };
 
 /** on conflict condition type for table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
-export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict = {
-  constraint: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkConstraint;
-  update_columns?: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkUpdateColumn>;
-  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-};
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict =
+  {
+    constraint: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkConstraint;
+    update_columns?: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkUpdateColumn>;
+    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  };
 
 /** Ordering options when selecting data from "infrastructure_network.vehicle_submode_on_infrastructure_link". */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy = {
@@ -1318,19 +1353,20 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy = {
 };
 
 /** primary key columns input for table: infrastructure_network_vehicle_submode_on_infrastructure_link */
-export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkPkColumnsInput = {
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
-  infrastructure_link_id: Scalars['uuid'];
-  /** The vehicle submode that can safely traverse the infrastructure link. */
-  vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
-};
+export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkPkColumnsInput =
+  {
+    /** The infrastructure link that can be safely traversed by the vehicle submode. */
+    infrastructure_link_id: Scalars['uuid'];
+    /** The vehicle submode that can safely traverse the infrastructure link. */
+    vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
+  };
 
 /** select columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
 export enum InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn {
   /** column name */
   InfrastructureLinkId = 'infrastructure_link_id',
   /** column name */
-  VehicleSubmode = 'vehicle_submode'
+  VehicleSubmode = 'vehicle_submode',
 }
 
 /** input type for updating data in table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
@@ -1346,18 +1382,19 @@ export enum InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkUpdateColumn 
   /** column name */
   InfrastructureLinkId = 'infrastructure_link_id',
   /** column name */
-  VehicleSubmode = 'vehicle_submode'
+  VehicleSubmode = 'vehicle_submode',
 }
 
-export type JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs = {
-  new_direction?: Maybe<Scalars['String']>;
-  new_label?: Maybe<Scalars['String']>;
-  new_located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
-  new_measured_location?: Maybe<Scalars['geography']>;
-  new_validity_end?: Maybe<Scalars['timestamptz']>;
-  new_validity_start?: Maybe<Scalars['timestamptz']>;
-  replace_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-};
+export type JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs =
+  {
+    new_direction?: Maybe<Scalars['String']>;
+    new_label?: Maybe<Scalars['String']>;
+    new_located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
+    new_measured_location?: Maybe<Scalars['geography']>;
+    new_validity_end?: Maybe<Scalars['timestamptz']>;
+    new_validity_start?: Maybe<Scalars['timestamptz']>;
+    replace_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  };
 
 /**
  * The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813
@@ -1380,6 +1417,25 @@ export type JourneyPatternJourneyPattern = {
   scheduled_stop_point_in_journey_patterns_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
 };
 
+/**
+ * The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813
+ *
+ *
+ * columns and relationships of "journey_pattern.journey_pattern"
+ *
+ */
+export type JourneyPatternJourneyPatternScheduledStopPointInJourneyPatternsArgs =
+  {
+    distinct_on?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
+    >;
+    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  };
 
 /**
  * The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813
@@ -1388,29 +1444,18 @@ export type JourneyPatternJourneyPattern = {
  * columns and relationships of "journey_pattern.journey_pattern"
  *
  */
-export type JourneyPatternJourneyPatternScheduledStopPointInJourneyPatternsArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
-};
-
-
-/**
- * The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813
- *
- *
- * columns and relationships of "journey_pattern.journey_pattern"
- *
- */
-export type JourneyPatternJourneyPatternScheduledStopPointInJourneyPatternsAggregateArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
-};
+export type JourneyPatternJourneyPatternScheduledStopPointInJourneyPatternsAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
+    >;
+    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  };
 
 /** aggregated selection of "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternAggregate = {
@@ -1426,7 +1471,6 @@ export type JourneyPatternJourneyPatternAggregateFields = {
   max?: Maybe<JourneyPatternJourneyPatternMaxFields>;
   min?: Maybe<JourneyPatternJourneyPatternMinFields>;
 };
-
 
 /** aggregate fields of "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternAggregateFieldsCountArgs = {
@@ -1464,7 +1508,7 @@ export enum JourneyPatternJourneyPatternConstraint {
   /** unique or primary key constraint */
   JourneyPatternOnRouteIdIdx = 'journey_pattern_on_route_id_idx',
   /** unique or primary key constraint */
-  JourneyPatternPkey = 'journey_pattern_pkey'
+  JourneyPatternPkey = 'journey_pattern_pkey',
 }
 
 /** input type for inserting data into table "journey_pattern.journey_pattern" */
@@ -1553,7 +1597,7 @@ export enum JourneyPatternJourneyPatternSelectColumn {
   /** column name */
   JourneyPatternId = 'journey_pattern_id',
   /** column name */
-  OnRouteId = 'on_route_id'
+  OnRouteId = 'on_route_id',
 }
 
 /** input type for updating data in table "journey_pattern.journey_pattern" */
@@ -1569,7 +1613,7 @@ export enum JourneyPatternJourneyPatternUpdateColumn {
   /** column name */
   JourneyPatternId = 'journey_pattern_id',
   /** column name */
-  OnRouteId = 'on_route_id'
+  OnRouteId = 'on_route_id',
 }
 
 /**
@@ -1600,6 +1644,21 @@ export type JourneyPatternScheduledStopPointInJourneyPattern = {
   via_point_short_name_i18n?: Maybe<Scalars['localized_string']>;
 };
 
+/**
+ * The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern.
+ *
+ *
+ * columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern"
+ *
+ */
+export type JourneyPatternScheduledStopPointInJourneyPatternScheduledStopPointsArgs =
+  {
+    distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+    where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  };
 
 /**
  * The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern.
@@ -1608,30 +1667,14 @@ export type JourneyPatternScheduledStopPointInJourneyPattern = {
  * columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern"
  *
  */
-export type JourneyPatternScheduledStopPointInJourneyPatternScheduledStopPointsArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
-};
-
-
-/**
- * The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern.
- *
- *
- * columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern"
- *
- */
-export type JourneyPatternScheduledStopPointInJourneyPatternScheduledStopPointsAggregateArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
-};
-
+export type JourneyPatternScheduledStopPointInJourneyPatternScheduledStopPointsAggregateArgs =
+  {
+    distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+    where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  };
 
 /**
  * The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern.
@@ -1640,10 +1683,10 @@ export type JourneyPatternScheduledStopPointInJourneyPatternScheduledStopPointsA
  * columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern"
  *
  */
-export type JourneyPatternScheduledStopPointInJourneyPatternViaPointNameI18nArgs = {
-  path?: Maybe<Scalars['String']>;
-};
-
+export type JourneyPatternScheduledStopPointInJourneyPatternViaPointNameI18nArgs =
+  {
+    path?: Maybe<Scalars['String']>;
+  };
 
 /**
  * The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern.
@@ -1652,9 +1695,10 @@ export type JourneyPatternScheduledStopPointInJourneyPatternViaPointNameI18nArgs
  * columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern"
  *
  */
-export type JourneyPatternScheduledStopPointInJourneyPatternViaPointShortNameI18nArgs = {
-  path?: Maybe<Scalars['String']>;
-};
+export type JourneyPatternScheduledStopPointInJourneyPatternViaPointShortNameI18nArgs =
+  {
+    path?: Maybe<Scalars['String']>;
+  };
 
 /** aggregated selection of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternAggregate = {
@@ -1679,12 +1723,14 @@ export type JourneyPatternScheduledStopPointInJourneyPatternAggregateFields = {
   variance?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarianceFields>;
 };
 
-
 /** aggregate fields of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type JourneyPatternScheduledStopPointInJourneyPatternAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
+export type JourneyPatternScheduledStopPointInJourneyPatternAggregateFieldsCountArgs =
+  {
+    columns?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
+    >;
+    distinct?: Maybe<Scalars['Boolean']>;
+  };
 
 /** order by aggregate values of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy = {
@@ -1708,11 +1754,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternAppendInput = {
 };
 
 /** input type for inserting array relation for remote table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput = {
-  data: Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
-  /** on conflict condition */
-  on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
-};
+export type JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput =
+  {
+    data: Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
+    /** on conflict condition */
+    on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
+  };
 
 /** aggregate avg on columns */
 export type JourneyPatternScheduledStopPointInJourneyPatternAvgFields = {
@@ -1746,14 +1793,15 @@ export type JourneyPatternScheduledStopPointInJourneyPatternBoolExp = {
 /** unique or primary key constraints on table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternConstraint {
   /** unique or primary key constraint */
-  ScheduledStopPointInJourneyPatternPkey = 'scheduled_stop_point_in_journey_pattern_pkey'
+  ScheduledStopPointInJourneyPatternPkey = 'scheduled_stop_point_in_journey_pattern_pkey',
 }
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-export type JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput = {
-  via_point_name_i18n?: Maybe<Array<Scalars['String']>>;
-  via_point_short_name_i18n?: Maybe<Array<Scalars['String']>>;
-};
+export type JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput =
+  {
+    via_point_name_i18n?: Maybe<Array<Scalars['String']>>;
+    via_point_short_name_i18n?: Maybe<Array<Scalars['String']>>;
+  };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput = {
@@ -1886,7 +1934,7 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumn {
   /** column name */
   ViaPointNameI18n = 'via_point_name_i18n',
   /** column name */
-  ViaPointShortNameI18n = 'via_point_short_name_i18n'
+  ViaPointShortNameI18n = 'via_point_short_name_i18n',
 }
 
 /** input type for updating data in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1938,10 +1986,11 @@ export type JourneyPatternScheduledStopPointInJourneyPatternStddevSampFields = {
 };
 
 /** order by stddev_samp() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
-export type JourneyPatternScheduledStopPointInJourneyPatternStddevSampOrderBy = {
-  /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<OrderBy>;
-};
+export type JourneyPatternScheduledStopPointInJourneyPatternStddevSampOrderBy =
+  {
+    /** The order of the scheduled stop point within the journey pattern. */
+    scheduled_stop_point_sequence?: Maybe<OrderBy>;
+  };
 
 /** aggregate sum on columns */
 export type JourneyPatternScheduledStopPointInJourneyPatternSumFields = {
@@ -1971,7 +2020,7 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternUpdateColumn {
   /** column name */
   ViaPointNameI18n = 'via_point_name_i18n',
   /** column name */
-  ViaPointShortNameI18n = 'via_point_short_name_i18n'
+  ViaPointShortNameI18n = 'via_point_short_name_i18n',
 }
 
 /** aggregate var_pop on columns */
@@ -2229,134 +2278,117 @@ export type MutationRoot = {
   update_service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteHslRouteTransportTargetArgs = {
   where: HslRouteTransportTargetBoolExp;
 };
-
 
 /** mutation root */
 export type MutationRootDeleteHslRouteTransportTargetByPkArgs = {
   transport_target: Scalars['String'];
 };
 
-
 /** mutation root */
 export type MutationRootDeleteInfrastructureNetworkDirectionArgs = {
   where: InfrastructureNetworkDirectionBoolExp;
 };
-
 
 /** mutation root */
 export type MutationRootDeleteInfrastructureNetworkDirectionByPkArgs = {
   value: Scalars['String'];
 };
 
-
 /** mutation root */
 export type MutationRootDeleteInfrastructureNetworkExternalSourceArgs = {
   where: InfrastructureNetworkExternalSourceBoolExp;
 };
-
 
 /** mutation root */
 export type MutationRootDeleteInfrastructureNetworkExternalSourceByPkArgs = {
   value: Scalars['String'];
 };
 
-
 /** mutation root */
 export type MutationRootDeleteInfrastructureNetworkInfrastructureLinkArgs = {
   where: InfrastructureNetworkInfrastructureLinkBoolExp;
 };
 
+/** mutation root */
+export type MutationRootDeleteInfrastructureNetworkInfrastructureLinkByPkArgs =
+  {
+    infrastructure_link_id: Scalars['uuid'];
+  };
 
 /** mutation root */
-export type MutationRootDeleteInfrastructureNetworkInfrastructureLinkByPkArgs = {
-  infrastructure_link_id: Scalars['uuid'];
-};
-
-
-/** mutation root */
-export type MutationRootDeleteInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs = {
-  where: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp;
-};
-
+export type MutationRootDeleteInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs =
+  {
+    where: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp;
+  };
 
 /** mutation root */
-export type MutationRootDeleteInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs = {
-  infrastructure_link_id: Scalars['uuid'];
-  vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
-};
-
+export type MutationRootDeleteInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs =
+  {
+    infrastructure_link_id: Scalars['uuid'];
+    vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
+  };
 
 /** mutation root */
 export type MutationRootDeleteJourneyPatternJourneyPatternArgs = {
   where: JourneyPatternJourneyPatternBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteJourneyPatternJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid'];
 };
 
+/** mutation root */
+export type MutationRootDeleteJourneyPatternScheduledStopPointInJourneyPatternArgs =
+  {
+    where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
+  };
 
 /** mutation root */
-export type MutationRootDeleteJourneyPatternScheduledStopPointInJourneyPatternArgs = {
-  where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
-};
-
-
-/** mutation root */
-export type MutationRootDeleteJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
-  journey_pattern_id: Scalars['uuid'];
-  scheduled_stop_point_sequence: Scalars['Int'];
-};
-
+export type MutationRootDeleteJourneyPatternScheduledStopPointInJourneyPatternByPkArgs =
+  {
+    journey_pattern_id: Scalars['uuid'];
+    scheduled_stop_point_sequence: Scalars['Int'];
+  };
 
 /** mutation root */
 export type MutationRootDeleteReusableComponentsVehicleModeArgs = {
   where: ReusableComponentsVehicleModeBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteReusableComponentsVehicleModeByPkArgs = {
   vehicle_mode: Scalars['String'];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteReusableComponentsVehicleSubmodeArgs = {
   where: ReusableComponentsVehicleSubmodeBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteReusableComponentsVehicleSubmodeByPkArgs = {
   vehicle_submode: Scalars['String'];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteRouteDirectionArgs = {
   where: RouteDirectionBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteRouteDirectionByPkArgs = {
   direction: Scalars['String'];
 };
 
-
 /** mutation root */
 export type MutationRootDeleteRouteInfrastructureLinkAlongRouteArgs = {
   where: RouteInfrastructureLinkAlongRouteBoolExp;
 };
-
 
 /** mutation root */
 export type MutationRootDeleteRouteInfrastructureLinkAlongRouteByPkArgs = {
@@ -2364,61 +2396,53 @@ export type MutationRootDeleteRouteInfrastructureLinkAlongRouteByPkArgs = {
   route_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type MutationRootDeleteRouteLineArgs = {
   where: RouteLineBoolExp;
 };
-
 
 /** mutation root */
 export type MutationRootDeleteRouteLineByPkArgs = {
   line_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type MutationRootDeleteRouteRouteArgs = {
   where: RouteRouteBoolExp;
 };
-
 
 /** mutation root */
 export type MutationRootDeleteRouteRouteByPkArgs = {
   route_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type MutationRootDeleteRouteTypeOfLineArgs = {
   where: RouteTypeOfLineBoolExp;
 };
-
 
 /** mutation root */
 export type MutationRootDeleteRouteTypeOfLineByPkArgs = {
   type_of_line: Scalars['String'];
 };
 
-
 /** mutation root */
 export type MutationRootDeleteServicePatternScheduledStopPointArgs = {
   where: ServicePatternScheduledStopPointBoolExp;
 };
 
+/** mutation root */
+export type MutationRootDeleteServicePatternVehicleModeOnScheduledStopPointArgs =
+  {
+    where: ServicePatternVehicleModeOnScheduledStopPointBoolExp;
+  };
 
 /** mutation root */
-export type MutationRootDeleteServicePatternVehicleModeOnScheduledStopPointArgs = {
-  where: ServicePatternVehicleModeOnScheduledStopPointBoolExp;
-};
-
-
-/** mutation root */
-export type MutationRootDeleteServicePatternVehicleModeOnScheduledStopPointByPkArgs = {
-  scheduled_stop_point_id: Scalars['uuid'];
-  vehicle_mode: ReusableComponentsVehicleModeEnum;
-};
-
+export type MutationRootDeleteServicePatternVehicleModeOnScheduledStopPointByPkArgs =
+  {
+    scheduled_stop_point_id: Scalars['uuid'];
+    vehicle_mode: ReusableComponentsVehicleModeEnum;
+  };
 
 /** mutation root */
 export type MutationRootInsertHslRouteTransportTargetArgs = {
@@ -2426,13 +2450,11 @@ export type MutationRootInsertHslRouteTransportTargetArgs = {
   on_conflict?: Maybe<HslRouteTransportTargetOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertHslRouteTransportTargetOneArgs = {
   object: HslRouteTransportTargetInsertInput;
   on_conflict?: Maybe<HslRouteTransportTargetOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkDirectionArgs = {
@@ -2440,13 +2462,11 @@ export type MutationRootInsertInfrastructureNetworkDirectionArgs = {
   on_conflict?: Maybe<InfrastructureNetworkDirectionOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkDirectionOneArgs = {
   object: InfrastructureNetworkDirectionInsertInput;
   on_conflict?: Maybe<InfrastructureNetworkDirectionOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkExternalSourceArgs = {
@@ -2454,13 +2474,11 @@ export type MutationRootInsertInfrastructureNetworkExternalSourceArgs = {
   on_conflict?: Maybe<InfrastructureNetworkExternalSourceOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkExternalSourceOneArgs = {
   object: InfrastructureNetworkExternalSourceInsertInput;
   on_conflict?: Maybe<InfrastructureNetworkExternalSourceOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkInfrastructureLinkArgs = {
@@ -2468,27 +2486,25 @@ export type MutationRootInsertInfrastructureNetworkInfrastructureLinkArgs = {
   on_conflict?: Maybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkInfrastructureLinkOneArgs = {
   object: InfrastructureNetworkInfrastructureLinkInsertInput;
   on_conflict?: Maybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
 };
 
+/** mutation root */
+export type MutationRootInsertInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs =
+  {
+    objects: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput>;
+    on_conflict?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
+  };
 
 /** mutation root */
-export type MutationRootInsertInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs = {
-  objects: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput>;
-  on_conflict?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
-};
-
-
-/** mutation root */
-export type MutationRootInsertInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOneArgs = {
-  object: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput;
-  on_conflict?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
-};
-
+export type MutationRootInsertInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOneArgs =
+  {
+    object: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput;
+    on_conflict?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
+  };
 
 /** mutation root */
 export type MutationRootInsertJourneyPatternJourneyPatternArgs = {
@@ -2496,27 +2512,25 @@ export type MutationRootInsertJourneyPatternJourneyPatternArgs = {
   on_conflict?: Maybe<JourneyPatternJourneyPatternOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertJourneyPatternJourneyPatternOneArgs = {
   object: JourneyPatternJourneyPatternInsertInput;
   on_conflict?: Maybe<JourneyPatternJourneyPatternOnConflict>;
 };
 
+/** mutation root */
+export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternArgs =
+  {
+    objects: Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
+    on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
+  };
 
 /** mutation root */
-export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternArgs = {
-  objects: Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
-  on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
-};
-
-
-/** mutation root */
-export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternOneArgs = {
-  object: JourneyPatternScheduledStopPointInJourneyPatternInsertInput;
-  on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
-};
-
+export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternOneArgs =
+  {
+    object: JourneyPatternScheduledStopPointInJourneyPatternInsertInput;
+    on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
+  };
 
 /** mutation root */
 export type MutationRootInsertReusableComponentsVehicleModeArgs = {
@@ -2524,13 +2538,11 @@ export type MutationRootInsertReusableComponentsVehicleModeArgs = {
   on_conflict?: Maybe<ReusableComponentsVehicleModeOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertReusableComponentsVehicleModeOneArgs = {
   object: ReusableComponentsVehicleModeInsertInput;
   on_conflict?: Maybe<ReusableComponentsVehicleModeOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertReusableComponentsVehicleSubmodeArgs = {
@@ -2538,13 +2550,11 @@ export type MutationRootInsertReusableComponentsVehicleSubmodeArgs = {
   on_conflict?: Maybe<ReusableComponentsVehicleSubmodeOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertReusableComponentsVehicleSubmodeOneArgs = {
   object: ReusableComponentsVehicleSubmodeInsertInput;
   on_conflict?: Maybe<ReusableComponentsVehicleSubmodeOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertRouteDirectionArgs = {
@@ -2552,13 +2562,11 @@ export type MutationRootInsertRouteDirectionArgs = {
   on_conflict?: Maybe<RouteDirectionOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertRouteDirectionOneArgs = {
   object: RouteDirectionInsertInput;
   on_conflict?: Maybe<RouteDirectionOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertRouteInfrastructureLinkAlongRouteArgs = {
@@ -2566,13 +2574,11 @@ export type MutationRootInsertRouteInfrastructureLinkAlongRouteArgs = {
   on_conflict?: Maybe<RouteInfrastructureLinkAlongRouteOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertRouteInfrastructureLinkAlongRouteOneArgs = {
   object: RouteInfrastructureLinkAlongRouteInsertInput;
   on_conflict?: Maybe<RouteInfrastructureLinkAlongRouteOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertRouteLineArgs = {
@@ -2580,13 +2586,11 @@ export type MutationRootInsertRouteLineArgs = {
   on_conflict?: Maybe<RouteLineOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertRouteLineOneArgs = {
   object: RouteLineInsertInput;
   on_conflict?: Maybe<RouteLineOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertRouteRouteArgs = {
@@ -2594,13 +2598,11 @@ export type MutationRootInsertRouteRouteArgs = {
   on_conflict?: Maybe<RouteRouteOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertRouteRouteOneArgs = {
   object: RouteRouteInsertInput;
   on_conflict?: Maybe<RouteRouteOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertRouteTypeOfLineArgs = {
@@ -2608,39 +2610,35 @@ export type MutationRootInsertRouteTypeOfLineArgs = {
   on_conflict?: Maybe<RouteTypeOfLineOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertRouteTypeOfLineOneArgs = {
   object: RouteTypeOfLineInsertInput;
   on_conflict?: Maybe<RouteTypeOfLineOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertServicePatternScheduledStopPointArgs = {
   objects: Array<ServicePatternScheduledStopPointInsertInput>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertServicePatternScheduledStopPointOneArgs = {
   object: ServicePatternScheduledStopPointInsertInput;
 };
 
+/** mutation root */
+export type MutationRootInsertServicePatternVehicleModeOnScheduledStopPointArgs =
+  {
+    objects: Array<ServicePatternVehicleModeOnScheduledStopPointInsertInput>;
+    on_conflict?: Maybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
+  };
 
 /** mutation root */
-export type MutationRootInsertServicePatternVehicleModeOnScheduledStopPointArgs = {
-  objects: Array<ServicePatternVehicleModeOnScheduledStopPointInsertInput>;
-  on_conflict?: Maybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
-};
-
-
-/** mutation root */
-export type MutationRootInsertServicePatternVehicleModeOnScheduledStopPointOneArgs = {
-  object: ServicePatternVehicleModeOnScheduledStopPointInsertInput;
-  on_conflict?: Maybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
-};
-
+export type MutationRootInsertServicePatternVehicleModeOnScheduledStopPointOneArgs =
+  {
+    object: ServicePatternVehicleModeOnScheduledStopPointInsertInput;
+    on_conflict?: Maybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
+  };
 
 /** mutation root */
 export type MutationRootUpdateHslRouteTransportTargetArgs = {
@@ -2648,13 +2646,11 @@ export type MutationRootUpdateHslRouteTransportTargetArgs = {
   where: HslRouteTransportTargetBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateHslRouteTransportTargetByPkArgs = {
   _set?: Maybe<HslRouteTransportTargetSetInput>;
   pk_columns: HslRouteTransportTargetPkColumnsInput;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkDirectionArgs = {
@@ -2662,13 +2658,11 @@ export type MutationRootUpdateInfrastructureNetworkDirectionArgs = {
   where: InfrastructureNetworkDirectionBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkDirectionByPkArgs = {
   _set?: Maybe<InfrastructureNetworkDirectionSetInput>;
   pk_columns: InfrastructureNetworkDirectionPkColumnsInput;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkExternalSourceArgs = {
@@ -2676,13 +2670,11 @@ export type MutationRootUpdateInfrastructureNetworkExternalSourceArgs = {
   where: InfrastructureNetworkExternalSourceBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkExternalSourceByPkArgs = {
   _set?: Maybe<InfrastructureNetworkExternalSourceSetInput>;
   pk_columns: InfrastructureNetworkExternalSourcePkColumnsInput;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkInfrastructureLinkArgs = {
@@ -2691,28 +2683,27 @@ export type MutationRootUpdateInfrastructureNetworkInfrastructureLinkArgs = {
   where: InfrastructureNetworkInfrastructureLinkBoolExp;
 };
 
+/** mutation root */
+export type MutationRootUpdateInfrastructureNetworkInfrastructureLinkByPkArgs =
+  {
+    _inc?: Maybe<InfrastructureNetworkInfrastructureLinkIncInput>;
+    _set?: Maybe<InfrastructureNetworkInfrastructureLinkSetInput>;
+    pk_columns: InfrastructureNetworkInfrastructureLinkPkColumnsInput;
+  };
 
 /** mutation root */
-export type MutationRootUpdateInfrastructureNetworkInfrastructureLinkByPkArgs = {
-  _inc?: Maybe<InfrastructureNetworkInfrastructureLinkIncInput>;
-  _set?: Maybe<InfrastructureNetworkInfrastructureLinkSetInput>;
-  pk_columns: InfrastructureNetworkInfrastructureLinkPkColumnsInput;
-};
-
-
-/** mutation root */
-export type MutationRootUpdateInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs = {
-  _set?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput>;
-  where: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp;
-};
-
+export type MutationRootUpdateInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs =
+  {
+    _set?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput>;
+    where: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp;
+  };
 
 /** mutation root */
-export type MutationRootUpdateInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs = {
-  _set?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput>;
-  pk_columns: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkPkColumnsInput;
-};
-
+export type MutationRootUpdateInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs =
+  {
+    _set?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput>;
+    pk_columns: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkPkColumnsInput;
+  };
 
 /** mutation root */
 export type MutationRootUpdateJourneyPatternJourneyPatternArgs = {
@@ -2720,39 +2711,37 @@ export type MutationRootUpdateJourneyPatternJourneyPatternArgs = {
   where: JourneyPatternJourneyPatternBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateJourneyPatternJourneyPatternByPkArgs = {
   _set?: Maybe<JourneyPatternJourneyPatternSetInput>;
   pk_columns: JourneyPatternJourneyPatternPkColumnsInput;
 };
 
+/** mutation root */
+export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternArgs =
+  {
+    _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
+    _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
+    _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
+    _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
+    _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+    _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
+    _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
+    where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
+  };
 
 /** mutation root */
-export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternArgs = {
-  _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
-  _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
-  _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
-  _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
-  _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
-  _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
-  _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
-  where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
-};
-
-
-/** mutation root */
-export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
-  _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
-  _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
-  _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
-  _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
-  _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
-  _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
-  _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
-  pk_columns: JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput;
-};
-
+export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternByPkArgs =
+  {
+    _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
+    _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
+    _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
+    _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
+    _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+    _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
+    _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
+    pk_columns: JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput;
+  };
 
 /** mutation root */
 export type MutationRootUpdateReusableComponentsVehicleModeArgs = {
@@ -2760,13 +2749,11 @@ export type MutationRootUpdateReusableComponentsVehicleModeArgs = {
   where: ReusableComponentsVehicleModeBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateReusableComponentsVehicleModeByPkArgs = {
   _set?: Maybe<ReusableComponentsVehicleModeSetInput>;
   pk_columns: ReusableComponentsVehicleModePkColumnsInput;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateReusableComponentsVehicleSubmodeArgs = {
@@ -2774,13 +2761,11 @@ export type MutationRootUpdateReusableComponentsVehicleSubmodeArgs = {
   where: ReusableComponentsVehicleSubmodeBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateReusableComponentsVehicleSubmodeByPkArgs = {
   _set?: Maybe<ReusableComponentsVehicleSubmodeSetInput>;
   pk_columns: ReusableComponentsVehicleSubmodePkColumnsInput;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateRouteDirectionArgs = {
@@ -2788,13 +2773,11 @@ export type MutationRootUpdateRouteDirectionArgs = {
   where: RouteDirectionBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateRouteDirectionByPkArgs = {
   _set?: Maybe<RouteDirectionSetInput>;
   pk_columns: RouteDirectionPkColumnsInput;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateRouteInfrastructureLinkAlongRouteArgs = {
@@ -2803,14 +2786,12 @@ export type MutationRootUpdateRouteInfrastructureLinkAlongRouteArgs = {
   where: RouteInfrastructureLinkAlongRouteBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateRouteInfrastructureLinkAlongRouteByPkArgs = {
   _inc?: Maybe<RouteInfrastructureLinkAlongRouteIncInput>;
   _set?: Maybe<RouteInfrastructureLinkAlongRouteSetInput>;
   pk_columns: RouteInfrastructureLinkAlongRoutePkColumnsInput;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateRouteLineArgs = {
@@ -2824,7 +2805,6 @@ export type MutationRootUpdateRouteLineArgs = {
   where: RouteLineBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateRouteLineByPkArgs = {
   _append?: Maybe<RouteLineAppendInput>;
@@ -2836,7 +2816,6 @@ export type MutationRootUpdateRouteLineByPkArgs = {
   _set?: Maybe<RouteLineSetInput>;
   pk_columns: RouteLinePkColumnsInput;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateRouteRouteArgs = {
@@ -2850,7 +2829,6 @@ export type MutationRootUpdateRouteRouteArgs = {
   where: RouteRouteBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateRouteRouteByPkArgs = {
   _append?: Maybe<RouteRouteAppendInput>;
@@ -2863,20 +2841,17 @@ export type MutationRootUpdateRouteRouteByPkArgs = {
   pk_columns: RouteRoutePkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateRouteTypeOfLineArgs = {
   _set?: Maybe<RouteTypeOfLineSetInput>;
   where: RouteTypeOfLineBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateRouteTypeOfLineByPkArgs = {
   _set?: Maybe<RouteTypeOfLineSetInput>;
   pk_columns: RouteTypeOfLinePkColumnsInput;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateServicePatternScheduledStopPointArgs = {
@@ -2885,19 +2860,19 @@ export type MutationRootUpdateServicePatternScheduledStopPointArgs = {
   where: ServicePatternScheduledStopPointBoolExp;
 };
 
+/** mutation root */
+export type MutationRootUpdateServicePatternVehicleModeOnScheduledStopPointArgs =
+  {
+    _set?: Maybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
+    where: ServicePatternVehicleModeOnScheduledStopPointBoolExp;
+  };
 
 /** mutation root */
-export type MutationRootUpdateServicePatternVehicleModeOnScheduledStopPointArgs = {
-  _set?: Maybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
-  where: ServicePatternVehicleModeOnScheduledStopPointBoolExp;
-};
-
-
-/** mutation root */
-export type MutationRootUpdateServicePatternVehicleModeOnScheduledStopPointByPkArgs = {
-  _set?: Maybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
-  pk_columns: ServicePatternVehicleModeOnScheduledStopPointPkColumnsInput;
-};
+export type MutationRootUpdateServicePatternVehicleModeOnScheduledStopPointByPkArgs =
+  {
+    _set?: Maybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
+    pk_columns: ServicePatternVehicleModeOnScheduledStopPointPkColumnsInput;
+  };
 
 /** column ordering options */
 export enum OrderBy {
@@ -2912,7 +2887,7 @@ export enum OrderBy {
   /** in descending order, nulls first */
   DescNullsFirst = 'desc_nulls_first',
   /** in descending order, nulls last */
-  DescNullsLast = 'desc_nulls_last'
+  DescNullsLast = 'desc_nulls_last',
 }
 
 export type QueryRoot = {
@@ -3025,7 +3000,6 @@ export type QueryRoot = {
   service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
 };
 
-
 export type QueryRootHslRouteTransportTargetArgs = {
   distinct_on?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3033,7 +3007,6 @@ export type QueryRootHslRouteTransportTargetArgs = {
   order_by?: Maybe<Array<HslRouteTransportTargetOrderBy>>;
   where?: Maybe<HslRouteTransportTargetBoolExp>;
 };
-
 
 export type QueryRootHslRouteTransportTargetAggregateArgs = {
   distinct_on?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
@@ -3043,11 +3016,9 @@ export type QueryRootHslRouteTransportTargetAggregateArgs = {
   where?: Maybe<HslRouteTransportTargetBoolExp>;
 };
 
-
 export type QueryRootHslRouteTransportTargetByPkArgs = {
   transport_target: Scalars['String'];
 };
-
 
 export type QueryRootInfrastructureNetworkDirectionArgs = {
   distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
@@ -3057,7 +3028,6 @@ export type QueryRootInfrastructureNetworkDirectionArgs = {
   where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
-
 export type QueryRootInfrastructureNetworkDirectionAggregateArgs = {
   distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3066,11 +3036,9 @@ export type QueryRootInfrastructureNetworkDirectionAggregateArgs = {
   where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
-
 export type QueryRootInfrastructureNetworkDirectionByPkArgs = {
   value: Scalars['String'];
 };
-
 
 export type QueryRootInfrastructureNetworkExternalSourceArgs = {
   distinct_on?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
@@ -3080,7 +3048,6 @@ export type QueryRootInfrastructureNetworkExternalSourceArgs = {
   where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
-
 export type QueryRootInfrastructureNetworkExternalSourceAggregateArgs = {
   distinct_on?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3089,11 +3056,9 @@ export type QueryRootInfrastructureNetworkExternalSourceAggregateArgs = {
   where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
-
 export type QueryRootInfrastructureNetworkExternalSourceByPkArgs = {
   value: Scalars['String'];
 };
-
 
 export type QueryRootInfrastructureNetworkFindPointDirectionOnLinkArgs = {
   args: InfrastructureNetworkFindPointDirectionOnLinkArgs;
@@ -3104,103 +3069,114 @@ export type QueryRootInfrastructureNetworkFindPointDirectionOnLinkArgs = {
   where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
-
-export type QueryRootInfrastructureNetworkFindPointDirectionOnLinkAggregateArgs = {
-  args: InfrastructureNetworkFindPointDirectionOnLinkArgs;
-  distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
-  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
-};
-
+export type QueryRootInfrastructureNetworkFindPointDirectionOnLinkAggregateArgs =
+  {
+    args: InfrastructureNetworkFindPointDirectionOnLinkArgs;
+    distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+    where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+  };
 
 export type QueryRootInfrastructureNetworkInfrastructureLinkArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
+  distinct_on?: Maybe<
+    Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+  >;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
   where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
-
 
 export type QueryRootInfrastructureNetworkInfrastructureLinkAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
+  distinct_on?: Maybe<
+    Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+  >;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
   where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
-
 
 export type QueryRootInfrastructureNetworkInfrastructureLinkByPkArgs = {
   infrastructure_link_id: Scalars['uuid'];
 };
 
-
 export type QueryRootInfrastructureNetworkResolvePointToClosestLinkArgs = {
   args: InfrastructureNetworkResolvePointToClosestLinkArgs;
-  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
+  distinct_on?: Maybe<
+    Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+  >;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
   where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
+export type QueryRootInfrastructureNetworkResolvePointToClosestLinkAggregateArgs =
+  {
+    args: InfrastructureNetworkResolvePointToClosestLinkArgs;
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+    where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  };
 
-export type QueryRootInfrastructureNetworkResolvePointToClosestLinkAggregateArgs = {
-  args: InfrastructureNetworkResolvePointToClosestLinkArgs;
-  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
-};
+export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs =
+  {
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
+    >;
+    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  };
 
+export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
+    >;
+    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  };
 
-export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-};
+export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs =
+  {
+    infrastructure_link_id: Scalars['uuid'];
+    vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
+  };
 
+export type QueryRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs =
+  {
+    args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
+    distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+    where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  };
 
-export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-};
-
-
-export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs = {
-  infrastructure_link_id: Scalars['uuid'];
-  vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
-};
-
-
-export type QueryRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs = {
-  args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
-  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
-};
-
-
-export type QueryRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointAggregateArgs = {
-  args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
-  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
-};
-
+export type QueryRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointAggregateArgs =
+  {
+    args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
+    distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+    where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  };
 
 export type QueryRootJourneyPatternJourneyPatternArgs = {
   distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
@@ -3210,7 +3186,6 @@ export type QueryRootJourneyPatternJourneyPatternArgs = {
   where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
-
 export type QueryRootJourneyPatternJourneyPatternAggregateArgs = {
   distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3219,35 +3194,40 @@ export type QueryRootJourneyPatternJourneyPatternAggregateArgs = {
   where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
-
 export type QueryRootJourneyPatternJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid'];
 };
 
-
 export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
+  distinct_on?: Maybe<
+    Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
+  >;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
+  order_by?: Maybe<
+    Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
+  >;
   where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
 };
 
+export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
+    >;
+    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  };
 
-export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternAggregateArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
-};
-
-
-export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
-  journey_pattern_id: Scalars['uuid'];
-  scheduled_stop_point_sequence: Scalars['Int'];
-};
-
+export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs =
+  {
+    journey_pattern_id: Scalars['uuid'];
+    scheduled_stop_point_sequence: Scalars['Int'];
+  };
 
 export type QueryRootReusableComponentsVehicleModeArgs = {
   distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
@@ -3257,7 +3237,6 @@ export type QueryRootReusableComponentsVehicleModeArgs = {
   where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
-
 export type QueryRootReusableComponentsVehicleModeAggregateArgs = {
   distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3266,11 +3245,9 @@ export type QueryRootReusableComponentsVehicleModeAggregateArgs = {
   where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
-
 export type QueryRootReusableComponentsVehicleModeByPkArgs = {
   vehicle_mode: Scalars['String'];
 };
-
 
 export type QueryRootReusableComponentsVehicleSubmodeArgs = {
   distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
@@ -3280,7 +3257,6 @@ export type QueryRootReusableComponentsVehicleSubmodeArgs = {
   where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
-
 export type QueryRootReusableComponentsVehicleSubmodeAggregateArgs = {
   distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3289,11 +3265,9 @@ export type QueryRootReusableComponentsVehicleSubmodeAggregateArgs = {
   where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
-
 export type QueryRootReusableComponentsVehicleSubmodeByPkArgs = {
   vehicle_submode: Scalars['String'];
 };
-
 
 export type QueryRootRouteDirectionArgs = {
   distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
@@ -3303,7 +3277,6 @@ export type QueryRootRouteDirectionArgs = {
   where?: Maybe<RouteDirectionBoolExp>;
 };
 
-
 export type QueryRootRouteDirectionAggregateArgs = {
   distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3312,11 +3285,9 @@ export type QueryRootRouteDirectionAggregateArgs = {
   where?: Maybe<RouteDirectionBoolExp>;
 };
 
-
 export type QueryRootRouteDirectionByPkArgs = {
   direction: Scalars['String'];
 };
-
 
 export type QueryRootRouteInfrastructureLinkAlongRouteArgs = {
   distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
@@ -3326,7 +3297,6 @@ export type QueryRootRouteInfrastructureLinkAlongRouteArgs = {
   where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
-
 export type QueryRootRouteInfrastructureLinkAlongRouteAggregateArgs = {
   distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3335,12 +3305,10 @@ export type QueryRootRouteInfrastructureLinkAlongRouteAggregateArgs = {
   where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
-
 export type QueryRootRouteInfrastructureLinkAlongRouteByPkArgs = {
   infrastructure_link_sequence: Scalars['Int'];
   route_id: Scalars['uuid'];
 };
-
 
 export type QueryRootRouteLineArgs = {
   distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
@@ -3350,7 +3318,6 @@ export type QueryRootRouteLineArgs = {
   where?: Maybe<RouteLineBoolExp>;
 };
 
-
 export type QueryRootRouteLineAggregateArgs = {
   distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3359,11 +3326,9 @@ export type QueryRootRouteLineAggregateArgs = {
   where?: Maybe<RouteLineBoolExp>;
 };
 
-
 export type QueryRootRouteLineByPkArgs = {
   line_id: Scalars['uuid'];
 };
-
 
 export type QueryRootRouteRouteArgs = {
   distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
@@ -3373,7 +3338,6 @@ export type QueryRootRouteRouteArgs = {
   where?: Maybe<RouteRouteBoolExp>;
 };
 
-
 export type QueryRootRouteRouteAggregateArgs = {
   distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3382,11 +3346,9 @@ export type QueryRootRouteRouteAggregateArgs = {
   where?: Maybe<RouteRouteBoolExp>;
 };
 
-
 export type QueryRootRouteRouteByPkArgs = {
   route_id: Scalars['uuid'];
 };
-
 
 export type QueryRootRouteTypeOfLineArgs = {
   distinct_on?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
@@ -3396,7 +3358,6 @@ export type QueryRootRouteTypeOfLineArgs = {
   where?: Maybe<RouteTypeOfLineBoolExp>;
 };
 
-
 export type QueryRootRouteTypeOfLineAggregateArgs = {
   distinct_on?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3405,11 +3366,9 @@ export type QueryRootRouteTypeOfLineAggregateArgs = {
   where?: Maybe<RouteTypeOfLineBoolExp>;
 };
 
-
 export type QueryRootRouteTypeOfLineByPkArgs = {
   type_of_line: Scalars['String'];
 };
-
 
 export type QueryRootServicePatternScheduledStopPointArgs = {
   distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
@@ -3419,7 +3378,6 @@ export type QueryRootServicePatternScheduledStopPointArgs = {
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
-
 export type QueryRootServicePatternScheduledStopPointAggregateArgs = {
   distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -3428,24 +3386,28 @@ export type QueryRootServicePatternScheduledStopPointAggregateArgs = {
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
-
 export type QueryRootServicePatternVehicleModeOnScheduledStopPointArgs = {
-  distinct_on?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
+  distinct_on?: Maybe<
+    Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
+  >;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
   where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
 };
 
-
-export type QueryRootServicePatternVehicleModeOnScheduledStopPointAggregateArgs = {
-  distinct_on?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
-};
-
+export type QueryRootServicePatternVehicleModeOnScheduledStopPointAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>
+    >;
+    where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+  };
 
 export type QueryRootServicePatternVehicleModeOnScheduledStopPointByPkArgs = {
   scheduled_stop_point_id: Scalars['uuid'];
@@ -3469,7 +3431,6 @@ export type ReusableComponentsVehicleMode = {
   vehicle_submodes_aggregate: ReusableComponentsVehicleSubmodeAggregate;
 };
 
-
 /**
  * The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283
  *
@@ -3484,7 +3445,6 @@ export type ReusableComponentsVehicleModeVehicleSubmodesArgs = {
   order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
   where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
-
 
 /**
  * The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283
@@ -3516,7 +3476,6 @@ export type ReusableComponentsVehicleModeAggregateFields = {
   min?: Maybe<ReusableComponentsVehicleModeMinFields>;
 };
 
-
 /** aggregate fields of "reusable_components.vehicle_mode" */
 export type ReusableComponentsVehicleModeAggregateFieldsCountArgs = {
   columns?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
@@ -3535,7 +3494,7 @@ export type ReusableComponentsVehicleModeBoolExp = {
 /** unique or primary key constraints on table "reusable_components.vehicle_mode" */
 export enum ReusableComponentsVehicleModeConstraint {
   /** unique or primary key constraint */
-  VehicleModePkey = 'vehicle_mode_pkey'
+  VehicleModePkey = 'vehicle_mode_pkey',
 }
 
 export enum ReusableComponentsVehicleModeEnum {
@@ -3543,7 +3502,7 @@ export enum ReusableComponentsVehicleModeEnum {
   Ferry = 'ferry',
   Metro = 'metro',
   Train = 'train',
-  Tram = 'tram'
+  Tram = 'tram',
 }
 
 /** Boolean expression to compare columns of type "reusable_components_vehicle_mode_enum". All fields are combined with logical 'AND'. */
@@ -3614,7 +3573,7 @@ export type ReusableComponentsVehicleModePkColumnsInput = {
 /** select columns of table "reusable_components.vehicle_mode" */
 export enum ReusableComponentsVehicleModeSelectColumn {
   /** column name */
-  VehicleMode = 'vehicle_mode'
+  VehicleMode = 'vehicle_mode',
 }
 
 /** input type for updating data in table "reusable_components.vehicle_mode" */
@@ -3626,7 +3585,7 @@ export type ReusableComponentsVehicleModeSetInput = {
 /** update columns of table "reusable_components.vehicle_mode" */
 export enum ReusableComponentsVehicleModeUpdateColumn {
   /** column name */
-  VehicleMode = 'vehicle_mode'
+  VehicleMode = 'vehicle_mode',
 }
 
 /**
@@ -3650,6 +3609,25 @@ export type ReusableComponentsVehicleSubmode = {
   vehicle_submode_on_infrastructure_links_aggregate: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate;
 };
 
+/**
+ * The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse
+ *
+ *
+ * columns and relationships of "reusable_components.vehicle_submode"
+ *
+ */
+export type ReusableComponentsVehicleSubmodeVehicleSubmodeOnInfrastructureLinksArgs =
+  {
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
+    >;
+    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  };
 
 /**
  * The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse
@@ -3658,29 +3636,18 @@ export type ReusableComponentsVehicleSubmode = {
  * columns and relationships of "reusable_components.vehicle_submode"
  *
  */
-export type ReusableComponentsVehicleSubmodeVehicleSubmodeOnInfrastructureLinksArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-};
-
-
-/**
- * The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse
- *
- *
- * columns and relationships of "reusable_components.vehicle_submode"
- *
- */
-export type ReusableComponentsVehicleSubmodeVehicleSubmodeOnInfrastructureLinksAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-};
+export type ReusableComponentsVehicleSubmodeVehicleSubmodeOnInfrastructureLinksAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
+    >;
+    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  };
 
 /** aggregated selection of "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeAggregate = {
@@ -3696,7 +3663,6 @@ export type ReusableComponentsVehicleSubmodeAggregateFields = {
   max?: Maybe<ReusableComponentsVehicleSubmodeMaxFields>;
   min?: Maybe<ReusableComponentsVehicleSubmodeMinFields>;
 };
-
 
 /** aggregate fields of "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeAggregateFieldsCountArgs = {
@@ -3732,7 +3698,7 @@ export type ReusableComponentsVehicleSubmodeBoolExp = {
 /** unique or primary key constraints on table "reusable_components.vehicle_submode" */
 export enum ReusableComponentsVehicleSubmodeConstraint {
   /** unique or primary key constraint */
-  VehicleSubmodePkey = 'vehicle_submode_pkey'
+  VehicleSubmodePkey = 'vehicle_submode_pkey',
 }
 
 export enum ReusableComponentsVehicleSubmodeEnum {
@@ -3747,7 +3713,7 @@ export enum ReusableComponentsVehicleSubmodeEnum {
   /** tram */
   GenericTram = 'generic_tram',
   /** bus */
-  TallElectricBus = 'tall_electric_bus'
+  TallElectricBus = 'tall_electric_bus',
 }
 
 /** Boolean expression to compare columns of type "reusable_components_vehicle_submode_enum". All fields are combined with logical 'AND'. */
@@ -3837,7 +3803,7 @@ export enum ReusableComponentsVehicleSubmodeSelectColumn {
   /** column name */
   BelongingToVehicleMode = 'belonging_to_vehicle_mode',
   /** column name */
-  VehicleSubmode = 'vehicle_submode'
+  VehicleSubmode = 'vehicle_submode',
 }
 
 /** input type for updating data in table "reusable_components.vehicle_submode" */
@@ -3853,7 +3819,7 @@ export enum ReusableComponentsVehicleSubmodeUpdateColumn {
   /** column name */
   BelongingToVehicleMode = 'belonging_to_vehicle_mode',
   /** column name */
-  VehicleSubmode = 'vehicle_submode'
+  VehicleSubmode = 'vehicle_submode',
 }
 
 /**
@@ -3877,7 +3843,6 @@ export type RouteDirection = {
   the_opposite_of_direction?: Maybe<RouteDirectionEnum>;
 };
 
-
 /**
  * The route directions from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:480
  *
@@ -3892,7 +3857,6 @@ export type RouteDirectionDirectionsArgs = {
   order_by?: Maybe<Array<RouteDirectionOrderBy>>;
   where?: Maybe<RouteDirectionBoolExp>;
 };
-
 
 /**
  * The route directions from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:480
@@ -3923,7 +3887,6 @@ export type RouteDirectionAggregateFields = {
   max?: Maybe<RouteDirectionMaxFields>;
   min?: Maybe<RouteDirectionMinFields>;
 };
-
 
 /** aggregate fields of "route.direction" */
 export type RouteDirectionAggregateFieldsCountArgs = {
@@ -3959,7 +3922,7 @@ export type RouteDirectionBoolExp = {
 /** unique or primary key constraints on table "route.direction" */
 export enum RouteDirectionConstraint {
   /** unique or primary key constraint */
-  DirectionPkey = 'direction_pkey'
+  DirectionPkey = 'direction_pkey',
 }
 
 export enum RouteDirectionEnum {
@@ -3978,7 +3941,7 @@ export enum RouteDirectionEnum {
   /** northbound */
   Southbound = 'southbound',
   /** eastbound */
-  Westbound = 'westbound'
+  Westbound = 'westbound',
 }
 
 /** Boolean expression to compare columns of type "route_direction_enum". All fields are combined with logical 'AND'. */
@@ -4068,7 +4031,7 @@ export enum RouteDirectionSelectColumn {
   /** column name */
   Direction = 'direction',
   /** column name */
-  TheOppositeOfDirection = 'the_opposite_of_direction'
+  TheOppositeOfDirection = 'the_opposite_of_direction',
 }
 
 /** input type for updating data in table "route.direction" */
@@ -4084,7 +4047,7 @@ export enum RouteDirectionUpdateColumn {
   /** column name */
   Direction = 'direction',
   /** column name */
-  TheOppositeOfDirection = 'the_opposite_of_direction'
+  TheOppositeOfDirection = 'the_opposite_of_direction',
 }
 
 /**
@@ -4130,7 +4093,6 @@ export type RouteInfrastructureLinkAlongRouteAggregateFields = {
   var_samp?: Maybe<RouteInfrastructureLinkAlongRouteVarSampFields>;
   variance?: Maybe<RouteInfrastructureLinkAlongRouteVarianceFields>;
 };
-
 
 /** aggregate fields of "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteAggregateFieldsCountArgs = {
@@ -4188,7 +4150,7 @@ export type RouteInfrastructureLinkAlongRouteBoolExp = {
 /** unique or primary key constraints on table "route.infrastructure_link_along_route" */
 export enum RouteInfrastructureLinkAlongRouteConstraint {
   /** unique or primary key constraint */
-  InfrastructureLinkAlongRoutePkey = 'infrastructure_link_along_route_pkey'
+  InfrastructureLinkAlongRoutePkey = 'infrastructure_link_along_route_pkey',
 }
 
 /** input type for incrementing numeric columns in table "route.infrastructure_link_along_route" */
@@ -4294,7 +4256,7 @@ export enum RouteInfrastructureLinkAlongRouteSelectColumn {
   /** column name */
   IsTraversalForwards = 'is_traversal_forwards',
   /** column name */
-  RouteId = 'route_id'
+  RouteId = 'route_id',
 }
 
 /** input type for updating data in table "route.infrastructure_link_along_route" */
@@ -4370,7 +4332,7 @@ export enum RouteInfrastructureLinkAlongRouteUpdateColumn {
   /** column name */
   IsTraversalForwards = 'is_traversal_forwards',
   /** column name */
-  RouteId = 'route_id'
+  RouteId = 'route_id',
 }
 
 /** aggregate var_pop on columns */
@@ -4450,7 +4412,6 @@ export type RouteLine = {
   vehicle_mode: ReusableComponentsVehicleMode;
 };
 
-
 /**
  * The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487
  *
@@ -4465,7 +4426,6 @@ export type RouteLineLineRoutesArgs = {
   order_by?: Maybe<Array<RouteRouteOrderBy>>;
   where?: Maybe<RouteRouteBoolExp>;
 };
-
 
 /**
  * The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487
@@ -4482,7 +4442,6 @@ export type RouteLineLineRoutesAggregateArgs = {
   where?: Maybe<RouteRouteBoolExp>;
 };
 
-
 /**
  * The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487
  *
@@ -4493,7 +4452,6 @@ export type RouteLineLineRoutesAggregateArgs = {
 export type RouteLineNameI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
-
 
 /**
  * The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487
@@ -4528,7 +4486,6 @@ export type RouteLineAggregateFields = {
   var_samp?: Maybe<RouteLineVarSampFields>;
   variance?: Maybe<RouteLineVarianceFields>;
 };
-
 
 /** aggregate fields of "route.line" */
 export type RouteLineAggregateFieldsCountArgs = {
@@ -4602,7 +4559,7 @@ export type RouteLineBoolExp = {
 /** unique or primary key constraints on table "route.line" */
 export enum RouteLineConstraint {
   /** unique or primary key constraint */
-  LinePkey = 'line_pkey'
+  LinePkey = 'line_pkey',
 }
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
@@ -4794,7 +4751,7 @@ export enum RouteLineSelectColumn {
   /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
-  ValidityStart = 'validity_start'
+  ValidityStart = 'validity_start',
 }
 
 /** input type for updating data in table "route.line" */
@@ -4893,7 +4850,7 @@ export enum RouteLineUpdateColumn {
   /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
-  ValidityStart = 'validity_start'
+  ValidityStart = 'validity_start',
 }
 
 /** aggregate var_pop on columns */
@@ -4965,24 +4922,20 @@ export type RouteRoute = {
   validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
-
 /** columns and relationships of "route.route" */
 export type RouteRouteDescriptionI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
-
 
 /** columns and relationships of "route.route" */
 export type RouteRouteDestinationNameI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
 
-
 /** columns and relationships of "route.route" */
 export type RouteRouteDestinationShortNameI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
-
 
 /** columns and relationships of "route.route" */
 export type RouteRouteInfrastructureLinksAlongRouteArgs = {
@@ -4993,7 +4946,6 @@ export type RouteRouteInfrastructureLinksAlongRouteArgs = {
   where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
-
 /** columns and relationships of "route.route" */
 export type RouteRouteInfrastructureLinksAlongRouteAggregateArgs = {
   distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
@@ -5003,24 +4955,20 @@ export type RouteRouteInfrastructureLinksAlongRouteAggregateArgs = {
   where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
-
 /** columns and relationships of "route.route" */
 export type RouteRouteNameI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
-
 
 /** columns and relationships of "route.route" */
 export type RouteRouteOriginNameI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
 
-
 /** columns and relationships of "route.route" */
 export type RouteRouteOriginShortNameI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
-
 
 /** columns and relationships of "route.route" */
 export type RouteRouteRouteJourneyPatternsArgs = {
@@ -5030,7 +4978,6 @@ export type RouteRouteRouteJourneyPatternsArgs = {
   order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
   where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
-
 
 /** columns and relationships of "route.route" */
 export type RouteRouteRouteJourneyPatternsAggregateArgs = {
@@ -5063,7 +5010,6 @@ export type RouteRouteAggregateFields = {
   var_samp?: Maybe<RouteRouteVarSampFields>;
   variance?: Maybe<RouteRouteVarianceFields>;
 };
-
 
 /** aggregate fields of "route.route" */
 export type RouteRouteAggregateFieldsCountArgs = {
@@ -5141,7 +5087,7 @@ export type RouteRouteBoolExp = {
 /** unique or primary key constraints on table "route.route" */
 export enum RouteRouteConstraint {
   /** unique or primary key constraint */
-  RoutePkey = 'route_pkey'
+  RoutePkey = 'route_pkey',
 }
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
@@ -5327,7 +5273,7 @@ export enum RouteRouteSelectColumn {
   /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
-  ValidityStart = 'validity_start'
+  ValidityStart = 'validity_start',
 }
 
 /** input type for updating data in table "route.route" */
@@ -5418,7 +5364,7 @@ export enum RouteRouteUpdateColumn {
   /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
-  ValidityStart = 'validity_start'
+  ValidityStart = 'validity_start',
 }
 
 /** aggregate var_pop on columns */
@@ -5474,7 +5420,6 @@ export type RouteTypeOfLine = {
   vehicle_mode: ReusableComponentsVehicleMode;
 };
 
-
 /**
  * Type of line. https://www.transmodel-cen.eu/model/EARoot/EA2/EA1/EA3/EA491.htm
  *
@@ -5489,7 +5434,6 @@ export type RouteTypeOfLineLinesArgs = {
   order_by?: Maybe<Array<RouteLineOrderBy>>;
   where?: Maybe<RouteLineBoolExp>;
 };
-
 
 /**
  * Type of line. https://www.transmodel-cen.eu/model/EARoot/EA2/EA1/EA3/EA491.htm
@@ -5521,7 +5465,6 @@ export type RouteTypeOfLineAggregateFields = {
   min?: Maybe<RouteTypeOfLineMinFields>;
 };
 
-
 /** aggregate fields of "route.type_of_line" */
 export type RouteTypeOfLineAggregateFieldsCountArgs = {
   columns?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
@@ -5542,7 +5485,7 @@ export type RouteTypeOfLineBoolExp = {
 /** unique or primary key constraints on table "route.type_of_line" */
 export enum RouteTypeOfLineConstraint {
   /** unique or primary key constraint */
-  TypeOfLinePkey = 'type_of_line_pkey'
+  TypeOfLinePkey = 'type_of_line_pkey',
 }
 
 export enum RouteTypeOfLineEnum {
@@ -5567,7 +5510,7 @@ export enum RouteTypeOfLineEnum {
   /** bus */
   StoppingBusService = 'stopping_bus_service',
   /** train */
-  SuburbanRailway = 'suburban_railway'
+  SuburbanRailway = 'suburban_railway',
 }
 
 /** Boolean expression to compare columns of type "route_type_of_line_enum". All fields are combined with logical 'AND'. */
@@ -5644,7 +5587,7 @@ export enum RouteTypeOfLineSelectColumn {
   /** column name */
   BelongingToVehicleMode = 'belonging_to_vehicle_mode',
   /** column name */
-  TypeOfLine = 'type_of_line'
+  TypeOfLine = 'type_of_line',
 }
 
 /** input type for updating data in table "route.type_of_line" */
@@ -5659,7 +5602,7 @@ export enum RouteTypeOfLineUpdateColumn {
   /** column name */
   BelongingToVehicleMode = 'belonging_to_vehicle_mode',
   /** column name */
-  TypeOfLine = 'type_of_line'
+  TypeOfLine = 'type_of_line',
 }
 
 /**
@@ -5705,7 +5648,6 @@ export type ServicePatternScheduledStopPoint = {
   vehicle_mode_on_scheduled_stop_point_aggregate: ServicePatternVehicleModeOnScheduledStopPointAggregate;
 };
 
-
 /**
  * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
  *
@@ -5720,7 +5662,6 @@ export type ServicePatternScheduledStopPointOtherLabelInstancesArgs = {
   order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
-
 
 /**
  * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
@@ -5737,6 +5678,25 @@ export type ServicePatternScheduledStopPointOtherLabelInstancesAggregateArgs = {
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
+/**
+ * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
+ *
+ *
+ * columns and relationships of "service_pattern.scheduled_stop_point"
+ *
+ */
+export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsArgs =
+  {
+    distinct_on?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
+    >;
+    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  };
 
 /**
  * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
@@ -5745,30 +5705,18 @@ export type ServicePatternScheduledStopPointOtherLabelInstancesAggregateArgs = {
  * columns and relationships of "service_pattern.scheduled_stop_point"
  *
  */
-export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
-};
-
-
-/**
- * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
- *
- *
- * columns and relationships of "service_pattern.scheduled_stop_point"
- *
- */
-export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsAggregateArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
-};
-
+export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
+    >;
+    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  };
 
 /**
  * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
@@ -5777,14 +5725,18 @@ export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsA
  * columns and relationships of "service_pattern.scheduled_stop_point"
  *
  */
-export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointArgs = {
-  distinct_on?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
-};
-
+export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointArgs =
+  {
+    distinct_on?: Maybe<
+      Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>
+    >;
+    where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+  };
 
 /**
  * The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.
@@ -5793,13 +5745,18 @@ export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointArgs 
  * columns and relationships of "service_pattern.scheduled_stop_point"
  *
  */
-export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointAggregateArgs = {
-  distinct_on?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
-};
+export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>
+    >;
+    where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+  };
 
 /** aggregated selection of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointAggregate = {
@@ -5823,7 +5780,6 @@ export type ServicePatternScheduledStopPointAggregateFields = {
   var_samp?: Maybe<ServicePatternScheduledStopPointVarSampFields>;
   variance?: Maybe<ServicePatternScheduledStopPointVarianceFields>;
 };
-
 
 /** aggregate fields of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointAggregateFieldsCountArgs = {
@@ -6052,7 +6008,7 @@ export enum ServicePatternScheduledStopPointSelectColumn {
   /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
-  ValidityStart = 'validity_start'
+  ValidityStart = 'validity_start',
 }
 
 /** input type for updating data in table "service_pattern.scheduled_stop_point" */
@@ -6228,12 +6184,14 @@ export type ServicePatternVehicleModeOnScheduledStopPointAggregateFields = {
   min?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMinFields>;
 };
 
-
 /** aggregate fields of "service_pattern.vehicle_mode_on_scheduled_stop_point" */
-export type ServicePatternVehicleModeOnScheduledStopPointAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
+export type ServicePatternVehicleModeOnScheduledStopPointAggregateFieldsCountArgs =
+  {
+    columns?: Maybe<
+      Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
+    >;
+    distinct?: Maybe<Scalars['Boolean']>;
+  };
 
 /** order by aggregate values of table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPointAggregateOrderBy = {
@@ -6261,7 +6219,7 @@ export type ServicePatternVehicleModeOnScheduledStopPointBoolExp = {
 /** unique or primary key constraints on table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export enum ServicePatternVehicleModeOnScheduledStopPointConstraint {
   /** unique or primary key constraint */
-  ScheduledStopPointServicedByVehicleModePkey = 'scheduled_stop_point_serviced_by_vehicle_mode_pkey'
+  ScheduledStopPointServicedByVehicleModePkey = 'scheduled_stop_point_serviced_by_vehicle_mode_pkey',
 }
 
 /** input type for inserting data into table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
@@ -6333,7 +6291,7 @@ export enum ServicePatternVehicleModeOnScheduledStopPointSelectColumn {
   /** column name */
   ScheduledStopPointId = 'scheduled_stop_point_id',
   /** column name */
-  VehicleMode = 'vehicle_mode'
+  VehicleMode = 'vehicle_mode',
 }
 
 /** input type for updating data in table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
@@ -6349,7 +6307,7 @@ export enum ServicePatternVehicleModeOnScheduledStopPointUpdateColumn {
   /** column name */
   ScheduledStopPointId = 'scheduled_stop_point_id',
   /** column name */
-  VehicleMode = 'vehicle_mode'
+  VehicleMode = 'vehicle_mode',
 }
 
 export type StDWithinGeographyInput = {
@@ -6473,7 +6431,6 @@ export type SubscriptionRoot = {
   service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
 };
 
-
 export type SubscriptionRootHslRouteTransportTargetArgs = {
   distinct_on?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6481,7 +6438,6 @@ export type SubscriptionRootHslRouteTransportTargetArgs = {
   order_by?: Maybe<Array<HslRouteTransportTargetOrderBy>>;
   where?: Maybe<HslRouteTransportTargetBoolExp>;
 };
-
 
 export type SubscriptionRootHslRouteTransportTargetAggregateArgs = {
   distinct_on?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
@@ -6491,11 +6447,9 @@ export type SubscriptionRootHslRouteTransportTargetAggregateArgs = {
   where?: Maybe<HslRouteTransportTargetBoolExp>;
 };
 
-
 export type SubscriptionRootHslRouteTransportTargetByPkArgs = {
   transport_target: Scalars['String'];
 };
-
 
 export type SubscriptionRootInfrastructureNetworkDirectionArgs = {
   distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
@@ -6505,7 +6459,6 @@ export type SubscriptionRootInfrastructureNetworkDirectionArgs = {
   where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
-
 export type SubscriptionRootInfrastructureNetworkDirectionAggregateArgs = {
   distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6514,11 +6467,9 @@ export type SubscriptionRootInfrastructureNetworkDirectionAggregateArgs = {
   where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
-
 export type SubscriptionRootInfrastructureNetworkDirectionByPkArgs = {
   value: Scalars['String'];
 };
-
 
 export type SubscriptionRootInfrastructureNetworkExternalSourceArgs = {
   distinct_on?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
@@ -6528,7 +6479,6 @@ export type SubscriptionRootInfrastructureNetworkExternalSourceArgs = {
   where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
-
 export type SubscriptionRootInfrastructureNetworkExternalSourceAggregateArgs = {
   distinct_on?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6537,118 +6487,130 @@ export type SubscriptionRootInfrastructureNetworkExternalSourceAggregateArgs = {
   where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
-
 export type SubscriptionRootInfrastructureNetworkExternalSourceByPkArgs = {
   value: Scalars['String'];
 };
 
+export type SubscriptionRootInfrastructureNetworkFindPointDirectionOnLinkArgs =
+  {
+    args: InfrastructureNetworkFindPointDirectionOnLinkArgs;
+    distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+    where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+  };
 
-export type SubscriptionRootInfrastructureNetworkFindPointDirectionOnLinkArgs = {
-  args: InfrastructureNetworkFindPointDirectionOnLinkArgs;
-  distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
-  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
-};
-
-
-export type SubscriptionRootInfrastructureNetworkFindPointDirectionOnLinkAggregateArgs = {
-  args: InfrastructureNetworkFindPointDirectionOnLinkArgs;
-  distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
-  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
-};
-
+export type SubscriptionRootInfrastructureNetworkFindPointDirectionOnLinkAggregateArgs =
+  {
+    args: InfrastructureNetworkFindPointDirectionOnLinkArgs;
+    distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+    where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+  };
 
 export type SubscriptionRootInfrastructureNetworkInfrastructureLinkArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
+  distinct_on?: Maybe<
+    Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+  >;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
   where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
-
-export type SubscriptionRootInfrastructureNetworkInfrastructureLinkAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
-};
-
+export type SubscriptionRootInfrastructureNetworkInfrastructureLinkAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+    where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  };
 
 export type SubscriptionRootInfrastructureNetworkInfrastructureLinkByPkArgs = {
   infrastructure_link_id: Scalars['uuid'];
 };
 
+export type SubscriptionRootInfrastructureNetworkResolvePointToClosestLinkArgs =
+  {
+    args: InfrastructureNetworkResolvePointToClosestLinkArgs;
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+    where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  };
 
-export type SubscriptionRootInfrastructureNetworkResolvePointToClosestLinkArgs = {
-  args: InfrastructureNetworkResolvePointToClosestLinkArgs;
-  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
-};
+export type SubscriptionRootInfrastructureNetworkResolvePointToClosestLinkAggregateArgs =
+  {
+    args: InfrastructureNetworkResolvePointToClosestLinkArgs;
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+    where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  };
 
+export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs =
+  {
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
+    >;
+    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  };
 
-export type SubscriptionRootInfrastructureNetworkResolvePointToClosestLinkAggregateArgs = {
-  args: InfrastructureNetworkResolvePointToClosestLinkArgs;
-  distinct_on?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
-};
+export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
+    >;
+    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  };
 
+export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs =
+  {
+    infrastructure_link_id: Scalars['uuid'];
+    vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
+  };
 
-export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-};
+export type SubscriptionRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs =
+  {
+    args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
+    distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+    where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  };
 
-
-export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-};
-
-
-export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs = {
-  infrastructure_link_id: Scalars['uuid'];
-  vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
-};
-
-
-export type SubscriptionRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs = {
-  args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
-  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
-};
-
-
-export type SubscriptionRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointAggregateArgs = {
-  args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
-  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
-};
-
+export type SubscriptionRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointAggregateArgs =
+  {
+    args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
+    distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+    where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  };
 
 export type SubscriptionRootJourneyPatternJourneyPatternArgs = {
   distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
@@ -6658,7 +6620,6 @@ export type SubscriptionRootJourneyPatternJourneyPatternArgs = {
   where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
-
 export type SubscriptionRootJourneyPatternJourneyPatternAggregateArgs = {
   distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6667,35 +6628,41 @@ export type SubscriptionRootJourneyPatternJourneyPatternAggregateArgs = {
   where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
-
 export type SubscriptionRootJourneyPatternJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid'];
 };
 
+export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternArgs =
+  {
+    distinct_on?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
+    >;
+    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  };
 
-export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
-};
+export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
+    >;
+    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  };
 
-
-export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternAggregateArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
-};
-
-
-export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
-  journey_pattern_id: Scalars['uuid'];
-  scheduled_stop_point_sequence: Scalars['Int'];
-};
-
+export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs =
+  {
+    journey_pattern_id: Scalars['uuid'];
+    scheduled_stop_point_sequence: Scalars['Int'];
+  };
 
 export type SubscriptionRootReusableComponentsVehicleModeArgs = {
   distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
@@ -6705,7 +6672,6 @@ export type SubscriptionRootReusableComponentsVehicleModeArgs = {
   where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
-
 export type SubscriptionRootReusableComponentsVehicleModeAggregateArgs = {
   distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6714,11 +6680,9 @@ export type SubscriptionRootReusableComponentsVehicleModeAggregateArgs = {
   where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
-
 export type SubscriptionRootReusableComponentsVehicleModeByPkArgs = {
   vehicle_mode: Scalars['String'];
 };
-
 
 export type SubscriptionRootReusableComponentsVehicleSubmodeArgs = {
   distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
@@ -6728,7 +6692,6 @@ export type SubscriptionRootReusableComponentsVehicleSubmodeArgs = {
   where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
-
 export type SubscriptionRootReusableComponentsVehicleSubmodeAggregateArgs = {
   distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6737,11 +6700,9 @@ export type SubscriptionRootReusableComponentsVehicleSubmodeAggregateArgs = {
   where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
-
 export type SubscriptionRootReusableComponentsVehicleSubmodeByPkArgs = {
   vehicle_submode: Scalars['String'];
 };
-
 
 export type SubscriptionRootRouteDirectionArgs = {
   distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
@@ -6751,7 +6712,6 @@ export type SubscriptionRootRouteDirectionArgs = {
   where?: Maybe<RouteDirectionBoolExp>;
 };
 
-
 export type SubscriptionRootRouteDirectionAggregateArgs = {
   distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6760,11 +6720,9 @@ export type SubscriptionRootRouteDirectionAggregateArgs = {
   where?: Maybe<RouteDirectionBoolExp>;
 };
 
-
 export type SubscriptionRootRouteDirectionByPkArgs = {
   direction: Scalars['String'];
 };
-
 
 export type SubscriptionRootRouteInfrastructureLinkAlongRouteArgs = {
   distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
@@ -6774,7 +6732,6 @@ export type SubscriptionRootRouteInfrastructureLinkAlongRouteArgs = {
   where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
-
 export type SubscriptionRootRouteInfrastructureLinkAlongRouteAggregateArgs = {
   distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6783,12 +6740,10 @@ export type SubscriptionRootRouteInfrastructureLinkAlongRouteAggregateArgs = {
   where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
-
 export type SubscriptionRootRouteInfrastructureLinkAlongRouteByPkArgs = {
   infrastructure_link_sequence: Scalars['Int'];
   route_id: Scalars['uuid'];
 };
-
 
 export type SubscriptionRootRouteLineArgs = {
   distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
@@ -6798,7 +6753,6 @@ export type SubscriptionRootRouteLineArgs = {
   where?: Maybe<RouteLineBoolExp>;
 };
 
-
 export type SubscriptionRootRouteLineAggregateArgs = {
   distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6807,11 +6761,9 @@ export type SubscriptionRootRouteLineAggregateArgs = {
   where?: Maybe<RouteLineBoolExp>;
 };
 
-
 export type SubscriptionRootRouteLineByPkArgs = {
   line_id: Scalars['uuid'];
 };
-
 
 export type SubscriptionRootRouteRouteArgs = {
   distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
@@ -6821,7 +6773,6 @@ export type SubscriptionRootRouteRouteArgs = {
   where?: Maybe<RouteRouteBoolExp>;
 };
 
-
 export type SubscriptionRootRouteRouteAggregateArgs = {
   distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6830,11 +6781,9 @@ export type SubscriptionRootRouteRouteAggregateArgs = {
   where?: Maybe<RouteRouteBoolExp>;
 };
 
-
 export type SubscriptionRootRouteRouteByPkArgs = {
   route_id: Scalars['uuid'];
 };
-
 
 export type SubscriptionRootRouteTypeOfLineArgs = {
   distinct_on?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
@@ -6844,7 +6793,6 @@ export type SubscriptionRootRouteTypeOfLineArgs = {
   where?: Maybe<RouteTypeOfLineBoolExp>;
 };
 
-
 export type SubscriptionRootRouteTypeOfLineAggregateArgs = {
   distinct_on?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6853,11 +6801,9 @@ export type SubscriptionRootRouteTypeOfLineAggregateArgs = {
   where?: Maybe<RouteTypeOfLineBoolExp>;
 };
 
-
 export type SubscriptionRootRouteTypeOfLineByPkArgs = {
   type_of_line: Scalars['String'];
 };
-
 
 export type SubscriptionRootServicePatternScheduledStopPointArgs = {
   distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
@@ -6867,7 +6813,6 @@ export type SubscriptionRootServicePatternScheduledStopPointArgs = {
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
-
 export type SubscriptionRootServicePatternScheduledStopPointAggregateArgs = {
   distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6876,29 +6821,37 @@ export type SubscriptionRootServicePatternScheduledStopPointAggregateArgs = {
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
+export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointArgs =
+  {
+    distinct_on?: Maybe<
+      Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>
+    >;
+    where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+  };
 
-export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointArgs = {
-  distinct_on?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
-};
+export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>
+    >;
+    where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+  };
 
-
-export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointAggregateArgs = {
-  distinct_on?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
-};
-
-
-export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointByPkArgs = {
-  scheduled_stop_point_id: Scalars['uuid'];
-  vehicle_mode: ReusableComponentsVehicleModeEnum;
-};
+export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointByPkArgs =
+  {
+    scheduled_stop_point_id: Scalars['uuid'];
+    vehicle_mode: ReusableComponentsVehicleModeEnum;
+  };
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type TimestamptzComparisonExp = {
@@ -6926,14 +6879,32 @@ export type UuidComparisonExp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
-export type InfrastructureLinkAllFieldsFragment = { __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, shape: GeoJSON.LineString, estimated_length_in_metres?: number | null | undefined, external_link_id: string, external_link_source: InfrastructureNetworkExternalSourceEnum };
+export type InfrastructureLinkAllFieldsFragment = {
+  __typename?: 'infrastructure_network_infrastructure_link';
+  infrastructure_link_id: UUID;
+  direction: InfrastructureNetworkDirectionEnum;
+  shape: GeoJSON.LineString;
+  estimated_length_in_metres?: number | null | undefined;
+  external_link_id: string;
+  external_link_source: InfrastructureNetworkExternalSourceEnum;
+};
 
 export type QueryClosestLinkQueryVariables = Exact<{
   point?: Maybe<Scalars['geography']>;
 }>;
 
-
-export type QueryClosestLinkQuery = { __typename?: 'query_root', infrastructure_network_resolve_point_to_closest_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, shape: GeoJSON.LineString, estimated_length_in_metres?: number | null | undefined, external_link_id: string, external_link_source: InfrastructureNetworkExternalSourceEnum }> };
+export type QueryClosestLinkQuery = {
+  __typename?: 'query_root';
+  infrastructure_network_resolve_point_to_closest_link: Array<{
+    __typename?: 'infrastructure_network_infrastructure_link';
+    infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    shape: GeoJSON.LineString;
+    estimated_length_in_metres?: number | null | undefined;
+    external_link_id: string;
+    external_link_source: InfrastructureNetworkExternalSourceEnum;
+  }>;
+};
 
 export type QueryPointDirectionOnLinkQueryVariables = Exact<{
   point_of_interest?: Maybe<Scalars['geography']>;
@@ -6941,34 +6912,183 @@ export type QueryPointDirectionOnLinkQueryVariables = Exact<{
   point_max_distance_in_meters?: Maybe<Scalars['float8']>;
 }>;
 
-
-export type QueryPointDirectionOnLinkQuery = { __typename?: 'query_root', infrastructure_network_find_point_direction_on_link: Array<{ __typename?: 'infrastructure_network_direction', value: InfrastructureNetworkDirectionEnum }> };
+export type QueryPointDirectionOnLinkQuery = {
+  __typename?: 'query_root';
+  infrastructure_network_find_point_direction_on_link: Array<{
+    __typename?: 'infrastructure_network_direction';
+    value: InfrastructureNetworkDirectionEnum;
+  }>;
+};
 
 export type GetLinksWithStopsByExternalLinkIdsQueryVariables = Exact<{
   externalLinkIds?: Maybe<Array<Scalars['String']> | Scalars['String']>;
 }>;
 
-
-export type GetLinksWithStopsByExternalLinkIdsQuery = { __typename?: 'query_root', infrastructure_network_infrastructure_link: Array<{ __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, external_link_id: string, shape: GeoJSON.LineString, scheduled_stop_points_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start: number, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }>, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> }> };
+export type GetLinksWithStopsByExternalLinkIdsQuery = {
+  __typename?: 'query_root';
+  infrastructure_network_infrastructure_link: Array<{
+    __typename?: 'infrastructure_network_infrastructure_link';
+    infrastructure_link_id: UUID;
+    external_link_id: string;
+    shape: GeoJSON.LineString;
+    scheduled_stop_points_located_on_infrastructure_link: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point';
+      scheduled_stop_point_id: UUID;
+      label: string;
+      measured_location: GeoJSON.Point;
+      located_on_infrastructure_link_id: UUID;
+      direction: InfrastructureNetworkDirectionEnum;
+      relative_distance_from_infrastructure_link_start: number;
+      closest_point_on_infrastructure_link?:
+        | GeoJSON.Geometry
+        | null
+        | undefined;
+      validity_start?: luxon.DateTime | null | undefined;
+      validity_end?: luxon.DateTime | null | undefined;
+      priority: number;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_label: string;
+        scheduled_stop_point_sequence: number;
+        is_timing_point: boolean;
+        is_via_point: boolean;
+        via_point_name_i18n?: LocalizedString | null | undefined;
+        via_point_short_name_i18n?: LocalizedString | null | undefined;
+        journey_pattern: {
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+        };
+      }>;
+      vehicle_mode_on_scheduled_stop_point: Array<{
+        __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+        vehicle_mode: ReusableComponentsVehicleModeEnum;
+      }>;
+    }>;
+  }>;
+};
 
 export type GetStopsAlongInfrastructureLinksQueryVariables = Exact<{
   infrastructure_link_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
 
+export type GetStopsAlongInfrastructureLinksQuery = {
+  __typename?: 'query_root';
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    measured_location: GeoJSON.Point;
+    located_on_infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    relative_distance_from_infrastructure_link_start: number;
+    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
+  }>;
+};
 
-export type GetStopsAlongInfrastructureLinksQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start: number, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
+export type ScheduledStopPointInJourneyPatternAllFieldsFragment = {
+  __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+  journey_pattern_id: UUID;
+  scheduled_stop_point_label: string;
+  scheduled_stop_point_sequence: number;
+  is_timing_point: boolean;
+  is_via_point: boolean;
+  via_point_name_i18n?: LocalizedString | null | undefined;
+  via_point_short_name_i18n?: LocalizedString | null | undefined;
+  journey_pattern: {
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+    on_route_id: UUID;
+  };
+};
 
-export type ScheduledStopPointInJourneyPatternAllFieldsFragment = { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } };
-
-export type JourneyPatternWithStopsFragment = { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> };
+export type JourneyPatternWithStopsFragment = {
+  __typename?: 'journey_pattern_journey_pattern';
+  journey_pattern_id: UUID;
+  on_route_id: UUID;
+  scheduled_stop_point_in_journey_patterns: Array<{
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+    journey_pattern_id: UUID;
+    scheduled_stop_point_label: string;
+    scheduled_stop_point_sequence: number;
+    is_timing_point: boolean;
+    is_via_point: boolean;
+    via_point_name_i18n?: LocalizedString | null | undefined;
+    via_point_short_name_i18n?: LocalizedString | null | undefined;
+    scheduled_stop_points: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point';
+      priority: number;
+      scheduled_stop_point_id: UUID;
+      label: string;
+      validity_start?: luxon.DateTime | null | undefined;
+      validity_end?: luxon.DateTime | null | undefined;
+    }>;
+    journey_pattern: {
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+    };
+  }>;
+};
 
 export type UpdateRouteJourneyPatternMutationVariables = Exact<{
   route_id: Scalars['uuid'];
   new_journey_pattern: JourneyPatternJourneyPatternInsertInput;
 }>;
 
-
-export type UpdateRouteJourneyPatternMutation = { __typename?: 'mutation_root', delete_journey_pattern_journey_pattern?: { __typename?: 'journey_pattern_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID }> } | null | undefined, insert_journey_pattern_journey_pattern_one?: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> } | null | undefined };
+export type UpdateRouteJourneyPatternMutation = {
+  __typename?: 'mutation_root';
+  delete_journey_pattern_journey_pattern?:
+    | {
+        __typename?: 'journey_pattern_journey_pattern_mutation_response';
+        returning: Array<{
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+        }>;
+      }
+    | null
+    | undefined;
+  insert_journey_pattern_journey_pattern_one?:
+    | {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+        scheduled_stop_point_in_journey_patterns: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          journey_pattern_id: UUID;
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+          is_timing_point: boolean;
+          is_via_point: boolean;
+          via_point_name_i18n?: LocalizedString | null | undefined;
+          via_point_short_name_i18n?: LocalizedString | null | undefined;
+          scheduled_stop_points: Array<{
+            __typename?: 'service_pattern_scheduled_stop_point';
+            priority: number;
+            scheduled_stop_point_id: UUID;
+            label: string;
+            validity_start?: luxon.DateTime | null | undefined;
+            validity_end?: luxon.DateTime | null | undefined;
+          }>;
+          journey_pattern: {
+            __typename?: 'journey_pattern_journey_pattern';
+            journey_pattern_id: UUID;
+            on_route_id: UUID;
+          };
+        }>;
+      }
+    | null
+    | undefined;
+};
 
 export type PatchScheduledStopPointViaInfoMutationVariables = Exact<{
   stopLabel: Scalars['String'];
@@ -6976,36 +7096,252 @@ export type PatchScheduledStopPointViaInfoMutationVariables = Exact<{
   patch: JourneyPatternScheduledStopPointInJourneyPatternSetInput;
 }>;
 
-
-export type PatchScheduledStopPointViaInfoMutation = { __typename?: 'mutation_root', update_journey_pattern_scheduled_stop_point_in_journey_pattern?: { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> } | null | undefined };
+export type PatchScheduledStopPointViaInfoMutation = {
+  __typename?: 'mutation_root';
+  update_journey_pattern_scheduled_stop_point_in_journey_pattern?:
+    | {
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+        returning: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          journey_pattern_id: UUID;
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+          is_timing_point: boolean;
+          is_via_point: boolean;
+          via_point_name_i18n?: LocalizedString | null | undefined;
+          via_point_short_name_i18n?: LocalizedString | null | undefined;
+          journey_pattern: {
+            __typename?: 'journey_pattern_journey_pattern';
+            journey_pattern_id: UUID;
+            on_route_id: UUID;
+          };
+        }>;
+      }
+    | null
+    | undefined;
+};
 
 export type RemoveScheduledStopPointViaInfoMutationVariables = Exact<{
   stopLabel: Scalars['String'];
   journeyPatternId: Scalars['uuid'];
 }>;
 
-
-export type RemoveScheduledStopPointViaInfoMutation = { __typename?: 'mutation_root', update_journey_pattern_scheduled_stop_point_in_journey_pattern?: { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> } | null | undefined };
+export type RemoveScheduledStopPointViaInfoMutation = {
+  __typename?: 'mutation_root';
+  update_journey_pattern_scheduled_stop_point_in_journey_pattern?:
+    | {
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+        returning: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          journey_pattern_id: UUID;
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+          is_timing_point: boolean;
+          is_via_point: boolean;
+          via_point_name_i18n?: LocalizedString | null | undefined;
+          via_point_short_name_i18n?: LocalizedString | null | undefined;
+          journey_pattern: {
+            __typename?: 'journey_pattern_journey_pattern';
+            journey_pattern_id: UUID;
+            on_route_id: UUID;
+          };
+        }>;
+      }
+    | null
+    | undefined;
+};
 
 export type GetScheduledStopPointWithViaInfoQueryVariables = Exact<{
   journeyPatternId: Scalars['uuid'];
   stopLabel: Scalars['String'];
 }>;
 
+export type GetScheduledStopPointWithViaInfoQuery = {
+  __typename?: 'query_root';
+  journey_pattern_scheduled_stop_point_in_journey_pattern: Array<{
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+    journey_pattern_id: UUID;
+    scheduled_stop_point_label: string;
+    scheduled_stop_point_sequence: number;
+    is_timing_point: boolean;
+    is_via_point: boolean;
+    via_point_name_i18n?: LocalizedString | null | undefined;
+    via_point_short_name_i18n?: LocalizedString | null | undefined;
+    journey_pattern: {
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      journey_pattern_route?:
+        | { __typename?: 'route_route'; route_id: UUID; label: string }
+        | null
+        | undefined;
+    };
+  }>;
+};
 
-export type GetScheduledStopPointWithViaInfoQuery = { __typename?: 'query_root', journey_pattern_scheduled_stop_point_in_journey_pattern: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, journey_pattern_route?: { __typename?: 'route_route', route_id: UUID, label: string } | null | undefined } }> };
+export type LineDefaultFieldsFragment = {
+  __typename?: 'route_line';
+  line_id: UUID;
+  label: string;
+  name_i18n: LocalizedString;
+  short_name_i18n: LocalizedString;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+};
 
-export type LineDefaultFieldsFragment = { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: LocalizedString, short_name_i18n: LocalizedString, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined };
+export type LineAllFieldsFragment = {
+  __typename?: 'route_line';
+  line_id: UUID;
+  name_i18n: LocalizedString;
+  short_name_i18n: LocalizedString;
+  primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+  type_of_line: RouteTypeOfLineEnum;
+  transport_target: HslRouteTransportTargetEnum;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  priority: number;
+  label: string;
+};
 
-export type LineAllFieldsFragment = { __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string };
+export type RouteAllFieldsFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  name_i18n: LocalizedString;
+  description_i18n?: LocalizedString | null | undefined;
+  origin_name_i18n: LocalizedString;
+  origin_short_name_i18n: LocalizedString;
+  destination_name_i18n: LocalizedString;
+  destination_short_name_i18n: LocalizedString;
+  route_shape?: GeoJSON.LineString | null | undefined;
+  on_line_id: UUID;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  priority: number;
+  label: string;
+  direction: RouteDirectionEnum;
+};
 
-export type RouteAllFieldsFragment = { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum };
+export type RouteDefaultFieldsFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  name_i18n: LocalizedString;
+  description_i18n?: LocalizedString | null | undefined;
+  origin_name_i18n: LocalizedString;
+  origin_short_name_i18n: LocalizedString;
+  destination_name_i18n: LocalizedString;
+  destination_short_name_i18n: LocalizedString;
+  on_line_id: UUID;
+  label: string;
+  priority: number;
+};
 
-export type RouteDefaultFieldsFragment = { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, on_line_id: UUID, label: string, priority: number };
+export type RouteWithJourneyPatternStopsFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  name_i18n: LocalizedString;
+  description_i18n?: LocalizedString | null | undefined;
+  origin_name_i18n: LocalizedString;
+  origin_short_name_i18n: LocalizedString;
+  destination_name_i18n: LocalizedString;
+  destination_short_name_i18n: LocalizedString;
+  route_shape?: GeoJSON.LineString | null | undefined;
+  on_line_id: UUID;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  priority: number;
+  label: string;
+  direction: RouteDirectionEnum;
+  route_journey_patterns: Array<{
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+    on_route_id: UUID;
+    scheduled_stop_point_in_journey_patterns: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      is_timing_point: boolean;
+      is_via_point: boolean;
+      via_point_name_i18n?: LocalizedString | null | undefined;
+      via_point_short_name_i18n?: LocalizedString | null | undefined;
+      scheduled_stop_points: Array<{
+        __typename?: 'service_pattern_scheduled_stop_point';
+        priority: number;
+        scheduled_stop_point_id: UUID;
+        label: string;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+      }>;
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+      };
+    }>;
+  }>;
+};
 
-export type RouteWithJourneyPatternStopsFragment = { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> }> };
-
-export type RouteWithInfrastructureLinksFragment = { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', line_id: UUID, label: string } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', route_id: UUID, infrastructure_link_sequence: number, infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, shape: GeoJSON.LineString } }>, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> }> };
+export type RouteWithInfrastructureLinksFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  name_i18n: LocalizedString;
+  description_i18n?: LocalizedString | null | undefined;
+  origin_name_i18n: LocalizedString;
+  origin_short_name_i18n: LocalizedString;
+  destination_name_i18n: LocalizedString;
+  destination_short_name_i18n: LocalizedString;
+  route_shape?: GeoJSON.LineString | null | undefined;
+  on_line_id: UUID;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  priority: number;
+  label: string;
+  direction: RouteDirectionEnum;
+  route_line?:
+    | { __typename?: 'route_line'; line_id: UUID; label: string }
+    | null
+    | undefined;
+  infrastructure_links_along_route: Array<{
+    __typename?: 'route_infrastructure_link_along_route';
+    route_id: UUID;
+    infrastructure_link_sequence: number;
+    infrastructure_link_id: UUID;
+    is_traversal_forwards: boolean;
+    infrastructure_link: {
+      __typename?: 'infrastructure_network_infrastructure_link';
+      infrastructure_link_id: UUID;
+      shape: GeoJSON.LineString;
+    };
+  }>;
+  route_journey_patterns: Array<{
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+    on_route_id: UUID;
+    scheduled_stop_point_in_journey_patterns: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      is_timing_point: boolean;
+      is_via_point: boolean;
+      via_point_name_i18n?: LocalizedString | null | undefined;
+      via_point_short_name_i18n?: LocalizedString | null | undefined;
+      scheduled_stop_points: Array<{
+        __typename?: 'service_pattern_scheduled_stop_point';
+        priority: number;
+        scheduled_stop_point_id: UUID;
+        label: string;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+      }>;
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+      };
+    }>;
+  }>;
+};
 
 export type SearchLinesAndRoutesQueryVariables = Exact<{
   lineFilter?: Maybe<RouteLineBoolExp>;
@@ -7014,50 +7350,250 @@ export type SearchLinesAndRoutesQueryVariables = Exact<{
   routeOrderBy?: Maybe<Array<RouteRouteOrderBy> | RouteRouteOrderBy>;
 }>;
 
-
-export type SearchLinesAndRoutesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string }>, route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum }> };
+export type SearchLinesAndRoutesQuery = {
+  __typename?: 'query_root';
+  route_line: Array<{
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    type_of_line: RouteTypeOfLineEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+  }>;
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null | undefined;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null | undefined;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+    direction: RouteDirectionEnum;
+  }>;
+};
 
 export type ListOwnLinesQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
 }>;
 
-
-export type ListOwnLinesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID }> }> };
+export type ListOwnLinesQuery = {
+  __typename?: 'query_root';
+  route_line: Array<{
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    type_of_line: RouteTypeOfLineEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+    line_routes: Array<{ __typename?: 'route_route'; route_id: UUID }>;
+  }>;
+};
 
 export type ListChangingRoutesQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
 }>;
 
-
-export type ListChangingRoutesQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', line_id: UUID, label: string, name_i18n: LocalizedString, short_name_i18n: LocalizedString, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined }> };
+export type ListChangingRoutesQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null | undefined;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null | undefined;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+    direction: RouteDirectionEnum;
+    route_line?:
+      | {
+          __typename?: 'route_line';
+          line_id: UUID;
+          label: string;
+          name_i18n: LocalizedString;
+          short_name_i18n: LocalizedString;
+          validity_start?: luxon.DateTime | null | undefined;
+          validity_end?: luxon.DateTime | null | undefined;
+        }
+      | null
+      | undefined;
+  }>;
+};
 
 export type GetLineDetailsByIdQueryVariables = Exact<{
   line_id: Scalars['uuid'];
 }>;
 
-
-export type GetLineDetailsByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
+export type GetLineDetailsByIdQuery = {
+  __typename?: 'query_root';
+  route_line_by_pk?:
+    | {
+        __typename?: 'route_line';
+        line_id: UUID;
+        name_i18n: LocalizedString;
+        short_name_i18n: LocalizedString;
+        primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+        type_of_line: RouteTypeOfLineEnum;
+        transport_target: HslRouteTransportTargetEnum;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+        priority: number;
+        label: string;
+      }
+    | null
+    | undefined;
+};
 
 export type GetLineValidityPeriodByIdQueryVariables = Exact<{
   line_id: Scalars['uuid'];
 }>;
 
-
-export type GetLineValidityPeriodByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined };
+export type GetLineValidityPeriodByIdQuery = {
+  __typename?: 'query_root';
+  route_line_by_pk?:
+    | {
+        __typename?: 'route_line';
+        line_id: UUID;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+      }
+    | null
+    | undefined;
+};
 
 export type GetLinesByValidityQueryVariables = Exact<{
   filter?: Maybe<RouteLineBoolExp>;
 }>;
 
-
-export type GetLinesByValidityQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string }> };
+export type GetLinesByValidityQuery = {
+  __typename?: 'query_root';
+  route_line: Array<{
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    type_of_line: RouteTypeOfLineEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+  }>;
+};
 
 export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
   line_id: Scalars['uuid'];
 }>;
 
-
-export type GetLineDetailsWithRoutesByIdQuery = { __typename?: 'query_root', route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', route_id: UUID, infrastructure_link_id: UUID, infrastructure_link_sequence: number, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, scheduled_stop_points_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start: number, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }>, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> } }> }> } | null | undefined };
+export type GetLineDetailsWithRoutesByIdQuery = {
+  __typename?: 'query_root';
+  route_line_by_pk?:
+    | {
+        __typename?: 'route_line';
+        line_id: UUID;
+        name_i18n: LocalizedString;
+        short_name_i18n: LocalizedString;
+        primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+        type_of_line: RouteTypeOfLineEnum;
+        transport_target: HslRouteTransportTargetEnum;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+        priority: number;
+        label: string;
+        line_routes: Array<{
+          __typename?: 'route_route';
+          route_id: UUID;
+          name_i18n: LocalizedString;
+          description_i18n?: LocalizedString | null | undefined;
+          origin_name_i18n: LocalizedString;
+          origin_short_name_i18n: LocalizedString;
+          destination_name_i18n: LocalizedString;
+          destination_short_name_i18n: LocalizedString;
+          route_shape?: GeoJSON.LineString | null | undefined;
+          on_line_id: UUID;
+          validity_start?: luxon.DateTime | null | undefined;
+          validity_end?: luxon.DateTime | null | undefined;
+          priority: number;
+          label: string;
+          direction: RouteDirectionEnum;
+          infrastructure_links_along_route: Array<{
+            __typename?: 'route_infrastructure_link_along_route';
+            route_id: UUID;
+            infrastructure_link_id: UUID;
+            infrastructure_link_sequence: number;
+            is_traversal_forwards: boolean;
+            infrastructure_link: {
+              __typename?: 'infrastructure_network_infrastructure_link';
+              infrastructure_link_id: UUID;
+              scheduled_stop_points_located_on_infrastructure_link: Array<{
+                __typename?: 'service_pattern_scheduled_stop_point';
+                scheduled_stop_point_id: UUID;
+                label: string;
+                measured_location: GeoJSON.Point;
+                located_on_infrastructure_link_id: UUID;
+                direction: InfrastructureNetworkDirectionEnum;
+                relative_distance_from_infrastructure_link_start: number;
+                closest_point_on_infrastructure_link?:
+                  | GeoJSON.Geometry
+                  | null
+                  | undefined;
+                validity_start?: luxon.DateTime | null | undefined;
+                validity_end?: luxon.DateTime | null | undefined;
+                priority: number;
+                scheduled_stop_point_in_journey_patterns: Array<{
+                  __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+                  journey_pattern_id: UUID;
+                  scheduled_stop_point_label: string;
+                  scheduled_stop_point_sequence: number;
+                  is_timing_point: boolean;
+                  is_via_point: boolean;
+                  via_point_name_i18n?: LocalizedString | null | undefined;
+                  via_point_short_name_i18n?:
+                    | LocalizedString
+                    | null
+                    | undefined;
+                  journey_pattern: {
+                    __typename?: 'journey_pattern_journey_pattern';
+                    journey_pattern_id: UUID;
+                    on_route_id: UUID;
+                  };
+                }>;
+                vehicle_mode_on_scheduled_stop_point: Array<{
+                  __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+                  vehicle_mode: ReusableComponentsVehicleModeEnum;
+                }>;
+              }>;
+            };
+          }>;
+        }>;
+      }
+    | null
+    | undefined;
+};
 
 export type GetHighestPriorityLineDetailsWithRoutesQueryVariables = Exact<{
   lineFilters?: Maybe<RouteLineBoolExp>;
@@ -7065,44 +7601,381 @@ export type GetHighestPriorityLineDetailsWithRoutesQueryVariables = Exact<{
   routeStopFilters?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 }>;
 
-
-export type GetHighestPriorityLineDetailsWithRoutesQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, line_routes: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', route_id: UUID, infrastructure_link_id: UUID, infrastructure_link_sequence: number, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, scheduled_stop_points_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start: number, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }>, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> } }> }> }> };
+export type GetHighestPriorityLineDetailsWithRoutesQuery = {
+  __typename?: 'query_root';
+  route_line: Array<{
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    type_of_line: RouteTypeOfLineEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+    line_routes: Array<{
+      __typename?: 'route_route';
+      route_id: UUID;
+      name_i18n: LocalizedString;
+      description_i18n?: LocalizedString | null | undefined;
+      origin_name_i18n: LocalizedString;
+      origin_short_name_i18n: LocalizedString;
+      destination_name_i18n: LocalizedString;
+      destination_short_name_i18n: LocalizedString;
+      route_shape?: GeoJSON.LineString | null | undefined;
+      on_line_id: UUID;
+      validity_start?: luxon.DateTime | null | undefined;
+      validity_end?: luxon.DateTime | null | undefined;
+      priority: number;
+      label: string;
+      direction: RouteDirectionEnum;
+      infrastructure_links_along_route: Array<{
+        __typename?: 'route_infrastructure_link_along_route';
+        route_id: UUID;
+        infrastructure_link_id: UUID;
+        infrastructure_link_sequence: number;
+        is_traversal_forwards: boolean;
+        infrastructure_link: {
+          __typename?: 'infrastructure_network_infrastructure_link';
+          infrastructure_link_id: UUID;
+          scheduled_stop_points_located_on_infrastructure_link: Array<{
+            __typename?: 'service_pattern_scheduled_stop_point';
+            scheduled_stop_point_id: UUID;
+            label: string;
+            measured_location: GeoJSON.Point;
+            located_on_infrastructure_link_id: UUID;
+            direction: InfrastructureNetworkDirectionEnum;
+            relative_distance_from_infrastructure_link_start: number;
+            closest_point_on_infrastructure_link?:
+              | GeoJSON.Geometry
+              | null
+              | undefined;
+            validity_start?: luxon.DateTime | null | undefined;
+            validity_end?: luxon.DateTime | null | undefined;
+            priority: number;
+            scheduled_stop_point_in_journey_patterns: Array<{
+              __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+              journey_pattern_id: UUID;
+              scheduled_stop_point_label: string;
+              scheduled_stop_point_sequence: number;
+              is_timing_point: boolean;
+              is_via_point: boolean;
+              via_point_name_i18n?: LocalizedString | null | undefined;
+              via_point_short_name_i18n?: LocalizedString | null | undefined;
+              journey_pattern: {
+                __typename?: 'journey_pattern_journey_pattern';
+                journey_pattern_id: UUID;
+                on_route_id: UUID;
+              };
+            }>;
+            vehicle_mode_on_scheduled_stop_point: Array<{
+              __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+              vehicle_mode: ReusableComponentsVehicleModeEnum;
+            }>;
+          }>;
+        };
+      }>;
+    }>;
+  }>;
+};
 
 export type GetRoutesWithStopsQueryVariables = Exact<{
   routeFilters?: Maybe<RouteRouteBoolExp>;
 }>;
 
-
-export type GetRoutesWithStopsQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', line_id: UUID } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', route_id: UUID, infrastructure_link_id: UUID, infrastructure_link_sequence: number, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, scheduled_stop_points_located_on_infrastructure_link: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start: number, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }>, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> } }> }> };
+export type GetRoutesWithStopsQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null | undefined;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null | undefined;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+    direction: RouteDirectionEnum;
+    route_line?:
+      | { __typename?: 'route_line'; line_id: UUID }
+      | null
+      | undefined;
+    infrastructure_links_along_route: Array<{
+      __typename?: 'route_infrastructure_link_along_route';
+      route_id: UUID;
+      infrastructure_link_id: UUID;
+      infrastructure_link_sequence: number;
+      is_traversal_forwards: boolean;
+      infrastructure_link: {
+        __typename?: 'infrastructure_network_infrastructure_link';
+        infrastructure_link_id: UUID;
+        scheduled_stop_points_located_on_infrastructure_link: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          scheduled_stop_point_id: UUID;
+          label: string;
+          measured_location: GeoJSON.Point;
+          located_on_infrastructure_link_id: UUID;
+          direction: InfrastructureNetworkDirectionEnum;
+          relative_distance_from_infrastructure_link_start: number;
+          closest_point_on_infrastructure_link?:
+            | GeoJSON.Geometry
+            | null
+            | undefined;
+          validity_start?: luxon.DateTime | null | undefined;
+          validity_end?: luxon.DateTime | null | undefined;
+          priority: number;
+          scheduled_stop_point_in_journey_patterns: Array<{
+            __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+            journey_pattern_id: UUID;
+            scheduled_stop_point_label: string;
+            scheduled_stop_point_sequence: number;
+            is_timing_point: boolean;
+            is_via_point: boolean;
+            via_point_name_i18n?: LocalizedString | null | undefined;
+            via_point_short_name_i18n?: LocalizedString | null | undefined;
+            journey_pattern: {
+              __typename?: 'journey_pattern_journey_pattern';
+              journey_pattern_id: UUID;
+              on_route_id: UUID;
+            };
+          }>;
+          vehicle_mode_on_scheduled_stop_point: Array<{
+            __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+            vehicle_mode: ReusableComponentsVehicleModeEnum;
+          }>;
+        }>;
+      };
+    }>;
+  }>;
+};
 
 export type GetRouteDetailsByIdQueryVariables = Exact<{
   routeId: Scalars['uuid'];
 }>;
 
-
-export type GetRouteDetailsByIdQuery = { __typename?: 'query_root', route_route_by_pk?: { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> }> } | null | undefined };
+export type GetRouteDetailsByIdQuery = {
+  __typename?: 'query_root';
+  route_route_by_pk?:
+    | {
+        __typename?: 'route_route';
+        route_id: UUID;
+        name_i18n: LocalizedString;
+        description_i18n?: LocalizedString | null | undefined;
+        origin_name_i18n: LocalizedString;
+        origin_short_name_i18n: LocalizedString;
+        destination_name_i18n: LocalizedString;
+        destination_short_name_i18n: LocalizedString;
+        route_shape?: GeoJSON.LineString | null | undefined;
+        on_line_id: UUID;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+        priority: number;
+        label: string;
+        direction: RouteDirectionEnum;
+        route_line?:
+          | {
+              __typename?: 'route_line';
+              line_id: UUID;
+              name_i18n: LocalizedString;
+              short_name_i18n: LocalizedString;
+              primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+              type_of_line: RouteTypeOfLineEnum;
+              transport_target: HslRouteTransportTargetEnum;
+              validity_start?: luxon.DateTime | null | undefined;
+              validity_end?: luxon.DateTime | null | undefined;
+              priority: number;
+              label: string;
+            }
+          | null
+          | undefined;
+        route_journey_patterns: Array<{
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+          scheduled_stop_point_in_journey_patterns: Array<{
+            __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+            journey_pattern_id: UUID;
+            scheduled_stop_point_label: string;
+            scheduled_stop_point_sequence: number;
+            is_timing_point: boolean;
+            is_via_point: boolean;
+            via_point_name_i18n?: LocalizedString | null | undefined;
+            via_point_short_name_i18n?: LocalizedString | null | undefined;
+            scheduled_stop_points: Array<{
+              __typename?: 'service_pattern_scheduled_stop_point';
+              priority: number;
+              scheduled_stop_point_id: UUID;
+              label: string;
+              validity_start?: luxon.DateTime | null | undefined;
+              validity_end?: luxon.DateTime | null | undefined;
+            }>;
+            journey_pattern: {
+              __typename?: 'journey_pattern_journey_pattern';
+              journey_pattern_id: UUID;
+              on_route_id: UUID;
+            };
+          }>;
+        }>;
+      }
+    | null
+    | undefined;
+};
 
 export type GetRouteDetailsByIdsQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
 
-
-export type GetRouteDetailsByIdsQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', line_id: UUID, label: string, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> }> }> };
+export type GetRouteDetailsByIdsQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null | undefined;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null | undefined;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+    direction: RouteDirectionEnum;
+    route_line?:
+      | {
+          __typename?: 'route_line';
+          line_id: UUID;
+          label: string;
+          primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+        }
+      | null
+      | undefined;
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_label: string;
+        scheduled_stop_point_sequence: number;
+        is_timing_point: boolean;
+        is_via_point: boolean;
+        via_point_name_i18n?: LocalizedString | null | undefined;
+        via_point_short_name_i18n?: LocalizedString | null | undefined;
+        scheduled_stop_points: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          priority: number;
+          scheduled_stop_point_id: UUID;
+          label: string;
+          validity_start?: luxon.DateTime | null | undefined;
+          validity_end?: luxon.DateTime | null | undefined;
+        }>;
+        journey_pattern: {
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+        };
+      }>;
+    }>;
+  }>;
+};
 
 export type GetRouteRenderInfoByIdQueryVariables = Exact<{
   routeId: Scalars['uuid'];
 }>;
 
-
-export type GetRouteRenderInfoByIdQuery = { __typename?: 'query_root', route_route_by_pk?: { __typename?: 'route_route', route_id: UUID, route_shape?: GeoJSON.LineString | null | undefined, route_line?: { __typename?: 'route_line', line_id: UUID, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined } | null | undefined };
+export type GetRouteRenderInfoByIdQuery = {
+  __typename?: 'query_root';
+  route_route_by_pk?:
+    | {
+        __typename?: 'route_route';
+        route_id: UUID;
+        route_shape?: GeoJSON.LineString | null | undefined;
+        route_line?:
+          | {
+              __typename?: 'route_line';
+              line_id: UUID;
+              primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
 
 export type GetRouteDetailsByLabelsQueryVariables = Exact<{
   labels?: Maybe<Array<Scalars['String']> | Scalars['String']>;
   date?: Maybe<Scalars['timestamptz']>;
 }>;
 
-
-export type GetRouteDetailsByLabelsQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', line_id: UUID, label: string, primary_vehicle_mode: ReusableComponentsVehicleModeEnum } | null | undefined, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> }> }> };
+export type GetRouteDetailsByLabelsQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null | undefined;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null | undefined;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+    direction: RouteDirectionEnum;
+    route_line?:
+      | {
+          __typename?: 'route_line';
+          line_id: UUID;
+          label: string;
+          primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+        }
+      | null
+      | undefined;
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_label: string;
+        scheduled_stop_point_sequence: number;
+        is_timing_point: boolean;
+        is_via_point: boolean;
+        via_point_name_i18n?: LocalizedString | null | undefined;
+        via_point_short_name_i18n?: LocalizedString | null | undefined;
+        scheduled_stop_points: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          priority: number;
+          scheduled_stop_point_id: UUID;
+          label: string;
+          validity_start?: luxon.DateTime | null | undefined;
+          validity_end?: luxon.DateTime | null | undefined;
+        }>;
+        journey_pattern: {
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+        };
+      }>;
+    }>;
+  }>;
+};
 
 export type GetRouteDetailsByLabelWildcardQueryVariables = Exact<{
   label: Scalars['String'];
@@ -7110,122 +7983,512 @@ export type GetRouteDetailsByLabelWildcardQueryVariables = Exact<{
   priorities?: Maybe<Array<Scalars['Int']> | Scalars['Int']>;
 }>;
 
-
-export type GetRouteDetailsByLabelWildcardQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum }> };
+export type GetRouteDetailsByLabelWildcardQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null | undefined;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null | undefined;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+    direction: RouteDirectionEnum;
+  }>;
+};
 
 export type GetCurrentOrFutureLinesByLabelQueryVariables = Exact<{
   label: Scalars['String'];
   date: Scalars['timestamptz'];
 }>;
 
-
-export type GetCurrentOrFutureLinesByLabelQuery = { __typename?: 'query_root', route_line: Array<{ __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string }> };
+export type GetCurrentOrFutureLinesByLabelQuery = {
+  __typename?: 'query_root';
+  route_line: Array<{
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    type_of_line: RouteTypeOfLineEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+  }>;
+};
 
 export type GetRoutesWithInfrastructureLinksQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
 
-
-export type GetRoutesWithInfrastructureLinksQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum, route_line?: { __typename?: 'route_line', line_id: UUID, label: string } | null | undefined, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', route_id: UUID, infrastructure_link_sequence: number, infrastructure_link_id: UUID, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, shape: GeoJSON.LineString } }>, route_journey_patterns: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> }> }> };
+export type GetRoutesWithInfrastructureLinksQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null | undefined;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null | undefined;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+    direction: RouteDirectionEnum;
+    route_line?:
+      | { __typename?: 'route_line'; line_id: UUID; label: string }
+      | null
+      | undefined;
+    infrastructure_links_along_route: Array<{
+      __typename?: 'route_infrastructure_link_along_route';
+      route_id: UUID;
+      infrastructure_link_sequence: number;
+      infrastructure_link_id: UUID;
+      is_traversal_forwards: boolean;
+      infrastructure_link: {
+        __typename?: 'infrastructure_network_infrastructure_link';
+        infrastructure_link_id: UUID;
+        shape: GeoJSON.LineString;
+      };
+    }>;
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_label: string;
+        scheduled_stop_point_sequence: number;
+        is_timing_point: boolean;
+        is_via_point: boolean;
+        via_point_name_i18n?: LocalizedString | null | undefined;
+        via_point_short_name_i18n?: LocalizedString | null | undefined;
+        scheduled_stop_points: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          priority: number;
+          scheduled_stop_point_id: UUID;
+          label: string;
+          validity_start?: luxon.DateTime | null | undefined;
+          validity_end?: luxon.DateTime | null | undefined;
+        }>;
+        journey_pattern: {
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+        };
+      }>;
+    }>;
+  }>;
+};
 
 export type GetRoutesByValidityQueryVariables = Exact<{
   filter?: Maybe<RouteRouteBoolExp>;
 }>;
 
-
-export type GetRoutesByValidityQuery = { __typename?: 'query_root', route_route: Array<{ __typename?: 'route_route', validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, on_line_id: UUID, label: string, priority: number }> };
+export type GetRoutesByValidityQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null | undefined;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    on_line_id: UUID;
+    label: string;
+    priority: number;
+  }>;
+};
 
 export type InsertLineOneMutationVariables = Exact<{
   object: RouteLineInsertInput;
 }>;
 
-
-export type InsertLineOneMutation = { __typename?: 'mutation_root', insert_route_line_one?: { __typename?: 'route_line', line_id: UUID, label: string, priority: number, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined };
+export type InsertLineOneMutation = {
+  __typename?: 'mutation_root';
+  insert_route_line_one?:
+    | {
+        __typename?: 'route_line';
+        line_id: UUID;
+        label: string;
+        priority: number;
+        primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+        transport_target: HslRouteTransportTargetEnum;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+      }
+    | null
+    | undefined;
+};
 
 export type PatchLineMutationVariables = Exact<{
   line_id: Scalars['uuid'];
   object: RouteLineSetInput;
 }>;
 
-
-export type PatchLineMutation = { __typename?: 'mutation_root', update_route_line_by_pk?: { __typename?: 'route_line', line_id: UUID, name_i18n: LocalizedString, short_name_i18n: LocalizedString, primary_vehicle_mode: ReusableComponentsVehicleModeEnum, type_of_line: RouteTypeOfLineEnum, transport_target: HslRouteTransportTargetEnum, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string } | null | undefined };
+export type PatchLineMutation = {
+  __typename?: 'mutation_root';
+  update_route_line_by_pk?:
+    | {
+        __typename?: 'route_line';
+        line_id: UUID;
+        name_i18n: LocalizedString;
+        short_name_i18n: LocalizedString;
+        primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+        type_of_line: RouteTypeOfLineEnum;
+        transport_target: HslRouteTransportTargetEnum;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+        priority: number;
+        label: string;
+      }
+    | null
+    | undefined;
+};
 
 export type InsertRouteOneMutationVariables = Exact<{
   object: RouteRouteInsertInput;
 }>;
 
-
-export type InsertRouteOneMutation = { __typename?: 'mutation_root', insert_route_route_one?: { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum } | null | undefined };
+export type InsertRouteOneMutation = {
+  __typename?: 'mutation_root';
+  insert_route_route_one?:
+    | {
+        __typename?: 'route_route';
+        route_id: UUID;
+        name_i18n: LocalizedString;
+        description_i18n?: LocalizedString | null | undefined;
+        origin_name_i18n: LocalizedString;
+        origin_short_name_i18n: LocalizedString;
+        destination_name_i18n: LocalizedString;
+        destination_short_name_i18n: LocalizedString;
+        route_shape?: GeoJSON.LineString | null | undefined;
+        on_line_id: UUID;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+        priority: number;
+        label: string;
+        direction: RouteDirectionEnum;
+      }
+    | null
+    | undefined;
+};
 
 export type PatchRouteMutationVariables = Exact<{
   route_id: Scalars['uuid'];
   object: RouteRouteSetInput;
 }>;
 
-
-export type PatchRouteMutation = { __typename?: 'mutation_root', update_route_route?: { __typename?: 'route_route_mutation_response', returning: Array<{ __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum }> } | null | undefined };
+export type PatchRouteMutation = {
+  __typename?: 'mutation_root';
+  update_route_route?:
+    | {
+        __typename?: 'route_route_mutation_response';
+        returning: Array<{
+          __typename?: 'route_route';
+          route_id: UUID;
+          name_i18n: LocalizedString;
+          description_i18n?: LocalizedString | null | undefined;
+          origin_name_i18n: LocalizedString;
+          origin_short_name_i18n: LocalizedString;
+          destination_name_i18n: LocalizedString;
+          destination_short_name_i18n: LocalizedString;
+          route_shape?: GeoJSON.LineString | null | undefined;
+          on_line_id: UUID;
+          validity_start?: luxon.DateTime | null | undefined;
+          validity_end?: luxon.DateTime | null | undefined;
+          priority: number;
+          label: string;
+          direction: RouteDirectionEnum;
+        }>;
+      }
+    | null
+    | undefined;
+};
 
 export type UpdateRouteGeometryMutationVariables = Exact<{
   route_id: Scalars['uuid'];
-  new_infrastructure_links: Array<RouteInfrastructureLinkAlongRouteInsertInput> | RouteInfrastructureLinkAlongRouteInsertInput;
+  new_infrastructure_links:
+    | Array<RouteInfrastructureLinkAlongRouteInsertInput>
+    | RouteInfrastructureLinkAlongRouteInsertInput;
   new_journey_pattern: JourneyPatternJourneyPatternInsertInput;
 }>;
 
-
-export type UpdateRouteGeometryMutation = { __typename?: 'mutation_root', delete_route_infrastructure_link_along_route?: { __typename?: 'route_infrastructure_link_along_route_mutation_response', returning: Array<{ __typename?: 'route_infrastructure_link_along_route', infrastructure_link_id: UUID, infrastructure_link_sequence: number, route_id: UUID }> } | null | undefined, insert_route_infrastructure_link_along_route?: { __typename?: 'route_infrastructure_link_along_route_mutation_response', returning: Array<{ __typename?: 'route_infrastructure_link_along_route', route_id: UUID, infrastructure_link_id: UUID, infrastructure_link_sequence: number, is_traversal_forwards: boolean, infrastructure_link: { __typename?: 'infrastructure_network_infrastructure_link', infrastructure_link_id: UUID, shape: GeoJSON.LineString } }> } | null | undefined, delete_journey_pattern_journey_pattern?: { __typename?: 'journey_pattern_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID }> } | null | undefined, insert_journey_pattern_journey_pattern_one?: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, scheduled_stop_points: Array<{ __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined }>, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> } | null | undefined };
+export type UpdateRouteGeometryMutation = {
+  __typename?: 'mutation_root';
+  delete_route_infrastructure_link_along_route?:
+    | {
+        __typename?: 'route_infrastructure_link_along_route_mutation_response';
+        returning: Array<{
+          __typename?: 'route_infrastructure_link_along_route';
+          infrastructure_link_id: UUID;
+          infrastructure_link_sequence: number;
+          route_id: UUID;
+        }>;
+      }
+    | null
+    | undefined;
+  insert_route_infrastructure_link_along_route?:
+    | {
+        __typename?: 'route_infrastructure_link_along_route_mutation_response';
+        returning: Array<{
+          __typename?: 'route_infrastructure_link_along_route';
+          route_id: UUID;
+          infrastructure_link_id: UUID;
+          infrastructure_link_sequence: number;
+          is_traversal_forwards: boolean;
+          infrastructure_link: {
+            __typename?: 'infrastructure_network_infrastructure_link';
+            infrastructure_link_id: UUID;
+            shape: GeoJSON.LineString;
+          };
+        }>;
+      }
+    | null
+    | undefined;
+  delete_journey_pattern_journey_pattern?:
+    | {
+        __typename?: 'journey_pattern_journey_pattern_mutation_response';
+        returning: Array<{
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+        }>;
+      }
+    | null
+    | undefined;
+  insert_journey_pattern_journey_pattern_one?:
+    | {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+        scheduled_stop_point_in_journey_patterns: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          journey_pattern_id: UUID;
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+          is_timing_point: boolean;
+          is_via_point: boolean;
+          via_point_name_i18n?: LocalizedString | null | undefined;
+          via_point_short_name_i18n?: LocalizedString | null | undefined;
+          scheduled_stop_points: Array<{
+            __typename?: 'service_pattern_scheduled_stop_point';
+            priority: number;
+            scheduled_stop_point_id: UUID;
+            label: string;
+            validity_start?: luxon.DateTime | null | undefined;
+            validity_end?: luxon.DateTime | null | undefined;
+          }>;
+          journey_pattern: {
+            __typename?: 'journey_pattern_journey_pattern';
+            journey_pattern_id: UUID;
+            on_route_id: UUID;
+          };
+        }>;
+      }
+    | null
+    | undefined;
+};
 
 export type DeleteRouteMutationVariables = Exact<{
   route_id: Scalars['uuid'];
 }>;
 
+export type DeleteRouteMutation = {
+  __typename?: 'mutation_root';
+  delete_route_route?:
+    | {
+        __typename?: 'route_route_mutation_response';
+        returning: Array<{ __typename?: 'route_route'; route_id: UUID }>;
+      }
+    | null
+    | undefined;
+};
 
-export type DeleteRouteMutation = { __typename?: 'mutation_root', delete_route_route?: { __typename?: 'route_route_mutation_response', returning: Array<{ __typename?: 'route_route', route_id: UUID }> } | null | undefined };
+export type ScheduledStopPointDefaultFieldsFragment = {
+  __typename?: 'service_pattern_scheduled_stop_point';
+  priority: number;
+  scheduled_stop_point_id: UUID;
+  label: string;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+};
 
-export type ScheduledStopPointDefaultFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', priority: number, scheduled_stop_point_id: UUID, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined };
-
-export type ScheduledStopPointAllFieldsFragment = { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start: number, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> };
+export type ScheduledStopPointAllFieldsFragment = {
+  __typename?: 'service_pattern_scheduled_stop_point';
+  scheduled_stop_point_id: UUID;
+  label: string;
+  measured_location: GeoJSON.Point;
+  located_on_infrastructure_link_id: UUID;
+  direction: InfrastructureNetworkDirectionEnum;
+  relative_distance_from_infrastructure_link_start: number;
+  closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  priority: number;
+  vehicle_mode_on_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+    vehicle_mode: ReusableComponentsVehicleModeEnum;
+  }>;
+};
 
 export type RemoveStopMutationVariables = Exact<{
   stop_id: Scalars['uuid'];
 }>;
 
-
-export type RemoveStopMutation = { __typename?: 'mutation_root', delete_service_pattern_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point_mutation_response', returning: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID }> } | null | undefined };
+export type RemoveStopMutation = {
+  __typename?: 'mutation_root';
+  delete_service_pattern_scheduled_stop_point?:
+    | {
+        __typename?: 'service_pattern_scheduled_stop_point_mutation_response';
+        returning: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          scheduled_stop_point_id: UUID;
+        }>;
+      }
+    | null
+    | undefined;
+};
 
 export type GetStopsByLocationQueryVariables = Exact<{
   measured_location_filter?: Maybe<GeographyComparisonExp>;
 }>;
 
-
-export type GetStopsByLocationQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start: number, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
+export type GetStopsByLocationQuery = {
+  __typename?: 'query_root';
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    measured_location: GeoJSON.Point;
+    located_on_infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    relative_distance_from_infrastructure_link_start: number;
+    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
+  }>;
+};
 
 export type GetStopsByValidityQueryVariables = Exact<{
   filter?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 }>;
 
-
-export type GetStopsByValidityQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start: number, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
+export type GetStopsByValidityQuery = {
+  __typename?: 'query_root';
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    measured_location: GeoJSON.Point;
+    located_on_infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    relative_distance_from_infrastructure_link_start: number;
+    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
+  }>;
+};
 
 export type GetStopsByIdsQueryVariables = Exact<{
   stopIds?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
 
-
-export type GetStopsByIdsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start: number, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
+export type GetStopsByIdsQuery = {
+  __typename?: 'query_root';
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    measured_location: GeoJSON.Point;
+    located_on_infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    relative_distance_from_infrastructure_link_start: number;
+    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
+  }>;
+};
 
 export type GetStopsByLabelsQueryVariables = Exact<{
   stopLabels?: Maybe<Array<Scalars['String']> | Scalars['String']>;
 }>;
 
-
-export type GetStopsByLabelsQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start: number, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
+export type GetStopsByLabelsQuery = {
+  __typename?: 'query_root';
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    measured_location: GeoJSON.Point;
+    located_on_infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    relative_distance_from_infrastructure_link_start: number;
+    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
+  }>;
+};
 
 export type InsertStopMutationVariables = Exact<{
   object: ServicePatternScheduledStopPointInsertInput;
 }>;
 
-
-export type InsertStopMutation = { __typename?: 'mutation_root', insert_service_pattern_scheduled_stop_point_one?: { __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, priority: number, measured_location: GeoJSON.Point, label: string, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined } | null | undefined };
+export type InsertStopMutation = {
+  __typename?: 'mutation_root';
+  insert_service_pattern_scheduled_stop_point_one?:
+    | {
+        __typename?: 'service_pattern_scheduled_stop_point';
+        scheduled_stop_point_id: UUID;
+        located_on_infrastructure_link_id: UUID;
+        direction: InfrastructureNetworkDirectionEnum;
+        priority: number;
+        measured_location: GeoJSON.Point;
+        label: string;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+      }
+    | null
+    | undefined;
+};
 
 export type EditStopMutationVariables = Exact<{
   stop_id: Scalars['uuid'];
@@ -7234,15 +8497,118 @@ export type EditStopMutationVariables = Exact<{
   delete_from_journey_pattern_ids: Array<Scalars['uuid']> | Scalars['uuid'];
 }>;
 
-
-export type EditStopMutation = { __typename?: 'mutation_root', update_service_pattern_scheduled_stop_point?: { __typename?: 'service_pattern_scheduled_stop_point_mutation_response', returning: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start: number, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> } | null | undefined, delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: { __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response', returning: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID } }> } | null | undefined };
+export type EditStopMutation = {
+  __typename?: 'mutation_root';
+  update_service_pattern_scheduled_stop_point?:
+    | {
+        __typename?: 'service_pattern_scheduled_stop_point_mutation_response';
+        returning: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          scheduled_stop_point_id: UUID;
+          label: string;
+          measured_location: GeoJSON.Point;
+          located_on_infrastructure_link_id: UUID;
+          direction: InfrastructureNetworkDirectionEnum;
+          relative_distance_from_infrastructure_link_start: number;
+          closest_point_on_infrastructure_link?:
+            | GeoJSON.Geometry
+            | null
+            | undefined;
+          validity_start?: luxon.DateTime | null | undefined;
+          validity_end?: luxon.DateTime | null | undefined;
+          priority: number;
+          vehicle_mode_on_scheduled_stop_point: Array<{
+            __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+            vehicle_mode: ReusableComponentsVehicleModeEnum;
+          }>;
+        }>;
+      }
+    | null
+    | undefined;
+  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?:
+    | {
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+        returning: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          journey_pattern_id: UUID;
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+          is_timing_point: boolean;
+          is_via_point: boolean;
+          via_point_name_i18n?: LocalizedString | null | undefined;
+          via_point_short_name_i18n?: LocalizedString | null | undefined;
+          journey_pattern: {
+            __typename?: 'journey_pattern_journey_pattern';
+            journey_pattern_id: UUID;
+            on_route_id: UUID;
+          };
+        }>;
+      }
+    | null
+    | undefined;
+};
 
 export type GetStopWithRouteGraphDataByIdQueryVariables = Exact<{
   stopId: Scalars['uuid'];
 }>;
 
-
-export type GetStopWithRouteGraphDataByIdQuery = { __typename?: 'query_root', service_pattern_scheduled_stop_point: Array<{ __typename?: 'service_pattern_scheduled_stop_point', scheduled_stop_point_id: UUID, label: string, measured_location: GeoJSON.Point, located_on_infrastructure_link_id: UUID, direction: InfrastructureNetworkDirectionEnum, relative_distance_from_infrastructure_link_start: number, closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, scheduled_stop_point_in_journey_patterns: Array<{ __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern', journey_pattern_id: UUID, scheduled_stop_point_label: string, scheduled_stop_point_sequence: number, is_timing_point: boolean, is_via_point: boolean, via_point_name_i18n?: LocalizedString | null | undefined, via_point_short_name_i18n?: LocalizedString | null | undefined, journey_pattern: { __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, on_route_id: UUID, journey_pattern_route?: { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, on_line_id: UUID, label: string, priority: number, infrastructure_links_along_route: Array<{ __typename?: 'route_infrastructure_link_along_route', route_id: UUID, infrastructure_link_id: UUID, infrastructure_link_sequence: number }> } | null | undefined } }>, vehicle_mode_on_scheduled_stop_point: Array<{ __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point', vehicle_mode: ReusableComponentsVehicleModeEnum }> }> };
+export type GetStopWithRouteGraphDataByIdQuery = {
+  __typename?: 'query_root';
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    measured_location: GeoJSON.Point;
+    located_on_infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    relative_distance_from_infrastructure_link_start: number;
+    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    scheduled_stop_point_in_journey_patterns: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      is_timing_point: boolean;
+      is_via_point: boolean;
+      via_point_name_i18n?: LocalizedString | null | undefined;
+      via_point_short_name_i18n?: LocalizedString | null | undefined;
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+        journey_pattern_route?:
+          | {
+              __typename?: 'route_route';
+              route_id: UUID;
+              name_i18n: LocalizedString;
+              description_i18n?: LocalizedString | null | undefined;
+              origin_name_i18n: LocalizedString;
+              origin_short_name_i18n: LocalizedString;
+              destination_name_i18n: LocalizedString;
+              destination_short_name_i18n: LocalizedString;
+              on_line_id: UUID;
+              label: string;
+              priority: number;
+              infrastructure_links_along_route: Array<{
+                __typename?: 'route_infrastructure_link_along_route';
+                route_id: UUID;
+                infrastructure_link_id: UUID;
+                infrastructure_link_sequence: number;
+              }>;
+            }
+          | null
+          | undefined;
+      };
+    }>;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
+  }>;
+};
 
 export type GetRoutesBrokenByStopChangeQueryVariables = Exact<{
   new_located_on_infrastructure_link_id: Scalars['uuid'];
@@ -7254,164 +8620,195 @@ export type GetRoutesBrokenByStopChangeQueryVariables = Exact<{
   replace_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
 }>;
 
-
-export type GetRoutesBrokenByStopChangeQuery = { __typename?: 'query_root', journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point: Array<{ __typename?: 'journey_pattern_journey_pattern', journey_pattern_id: UUID, journey_pattern_route?: { __typename?: 'route_route', route_id: UUID, name_i18n: LocalizedString, description_i18n?: LocalizedString | null | undefined, origin_name_i18n: LocalizedString, origin_short_name_i18n: LocalizedString, destination_name_i18n: LocalizedString, destination_short_name_i18n: LocalizedString, route_shape?: GeoJSON.LineString | null | undefined, on_line_id: UUID, validity_start?: luxon.DateTime | null | undefined, validity_end?: luxon.DateTime | null | undefined, priority: number, label: string, direction: RouteDirectionEnum } | null | undefined }> };
+export type GetRoutesBrokenByStopChangeQuery = {
+  __typename?: 'query_root';
+  journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point: Array<{
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+    journey_pattern_route?:
+      | {
+          __typename?: 'route_route';
+          route_id: UUID;
+          name_i18n: LocalizedString;
+          description_i18n?: LocalizedString | null | undefined;
+          origin_name_i18n: LocalizedString;
+          origin_short_name_i18n: LocalizedString;
+          destination_name_i18n: LocalizedString;
+          destination_short_name_i18n: LocalizedString;
+          route_shape?: GeoJSON.LineString | null | undefined;
+          on_line_id: UUID;
+          validity_start?: luxon.DateTime | null | undefined;
+          validity_end?: luxon.DateTime | null | undefined;
+          priority: number;
+          label: string;
+          direction: RouteDirectionEnum;
+        }
+      | null
+      | undefined;
+  }>;
+};
 
 export const InfrastructureLinkAllFieldsFragmentDoc = gql`
-    fragment infrastructure_link_all_fields on infrastructure_network_infrastructure_link {
-  infrastructure_link_id
-  direction
-  shape
-  estimated_length_in_metres
-  external_link_id
-  external_link_source
-}
-    `;
+  fragment infrastructure_link_all_fields on infrastructure_network_infrastructure_link {
+    infrastructure_link_id
+    direction
+    shape
+    estimated_length_in_metres
+    external_link_id
+    external_link_source
+  }
+`;
 export const LineDefaultFieldsFragmentDoc = gql`
-    fragment line_default_fields on route_line {
-  line_id
-  label
-  name_i18n
-  short_name_i18n
-  validity_start
-  validity_end
-}
-    `;
-export const LineAllFieldsFragmentDoc = gql`
-    fragment line_all_fields on route_line {
-  line_id
-  name_i18n
-  short_name_i18n
-  primary_vehicle_mode
-  type_of_line
-  transport_target
-  validity_start
-  validity_end
-  priority
-  label
-}
-    `;
-export const RouteDefaultFieldsFragmentDoc = gql`
-    fragment route_default_fields on route_route {
-  route_id
-  name_i18n
-  description_i18n
-  origin_name_i18n
-  origin_short_name_i18n
-  destination_name_i18n
-  destination_short_name_i18n
-  on_line_id
-  label
-  priority
-}
-    `;
-export const RouteAllFieldsFragmentDoc = gql`
-    fragment route_all_fields on route_route {
-  route_id
-  name_i18n
-  description_i18n
-  origin_name_i18n
-  origin_short_name_i18n
-  destination_name_i18n
-  destination_short_name_i18n
-  route_shape
-  on_line_id
-  validity_start
-  validity_end
-  priority
-  label
-  direction
-}
-    `;
-export const ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc = gql`
-    fragment scheduled_stop_point_in_journey_pattern_all_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
-  journey_pattern_id
-  scheduled_stop_point_label
-  scheduled_stop_point_sequence
-  is_timing_point
-  is_via_point
-  via_point_name_i18n
-  via_point_short_name_i18n
-  journey_pattern {
-    journey_pattern_id
-    on_route_id
-  }
-}
-    `;
-export const ScheduledStopPointDefaultFieldsFragmentDoc = gql`
-    fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {
-  priority
-  scheduled_stop_point_id
-  label
-  validity_start
-  validity_end
-}
-    `;
-export const JourneyPatternWithStopsFragmentDoc = gql`
-    fragment journey_pattern_with_stops on journey_pattern_journey_pattern {
-  journey_pattern_id
-  on_route_id
-  scheduled_stop_point_in_journey_patterns {
-    ...scheduled_stop_point_in_journey_pattern_all_fields
-    scheduled_stop_points {
-      ...scheduled_stop_point_default_fields
-    }
-  }
-}
-    ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
-${ScheduledStopPointDefaultFieldsFragmentDoc}`;
-export const RouteWithJourneyPatternStopsFragmentDoc = gql`
-    fragment route_with_journey_pattern_stops on route_route {
-  ...route_all_fields
-  route_journey_patterns {
-    ...journey_pattern_with_stops
-  }
-}
-    ${RouteAllFieldsFragmentDoc}
-${JourneyPatternWithStopsFragmentDoc}`;
-export const RouteWithInfrastructureLinksFragmentDoc = gql`
-    fragment route_with_infrastructure_links on route_route {
-  ...route_with_journey_pattern_stops
-  route_line {
+  fragment line_default_fields on route_line {
     line_id
     label
+    name_i18n
+    short_name_i18n
+    validity_start
+    validity_end
   }
-  infrastructure_links_along_route {
+`;
+export const LineAllFieldsFragmentDoc = gql`
+  fragment line_all_fields on route_line {
+    line_id
+    name_i18n
+    short_name_i18n
+    primary_vehicle_mode
+    type_of_line
+    transport_target
+    validity_start
+    validity_end
+    priority
+    label
+  }
+`;
+export const RouteDefaultFieldsFragmentDoc = gql`
+  fragment route_default_fields on route_route {
     route_id
-    infrastructure_link_sequence
-    infrastructure_link_id
-    infrastructure_link {
-      infrastructure_link_id
-      shape
+    name_i18n
+    description_i18n
+    origin_name_i18n
+    origin_short_name_i18n
+    destination_name_i18n
+    destination_short_name_i18n
+    on_line_id
+    label
+    priority
+  }
+`;
+export const RouteAllFieldsFragmentDoc = gql`
+  fragment route_all_fields on route_route {
+    route_id
+    name_i18n
+    description_i18n
+    origin_name_i18n
+    origin_short_name_i18n
+    destination_name_i18n
+    destination_short_name_i18n
+    route_shape
+    on_line_id
+    validity_start
+    validity_end
+    priority
+    label
+    direction
+  }
+`;
+export const ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc = gql`
+  fragment scheduled_stop_point_in_journey_pattern_all_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
+    journey_pattern_id
+    scheduled_stop_point_label
+    scheduled_stop_point_sequence
+    is_timing_point
+    is_via_point
+    via_point_name_i18n
+    via_point_short_name_i18n
+    journey_pattern {
+      journey_pattern_id
+      on_route_id
     }
-    is_traversal_forwards
   }
-}
-    ${RouteWithJourneyPatternStopsFragmentDoc}`;
+`;
+export const ScheduledStopPointDefaultFieldsFragmentDoc = gql`
+  fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {
+    priority
+    scheduled_stop_point_id
+    label
+    validity_start
+    validity_end
+  }
+`;
+export const JourneyPatternWithStopsFragmentDoc = gql`
+  fragment journey_pattern_with_stops on journey_pattern_journey_pattern {
+    journey_pattern_id
+    on_route_id
+    scheduled_stop_point_in_journey_patterns {
+      ...scheduled_stop_point_in_journey_pattern_all_fields
+      scheduled_stop_points {
+        ...scheduled_stop_point_default_fields
+      }
+    }
+  }
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+  ${ScheduledStopPointDefaultFieldsFragmentDoc}
+`;
+export const RouteWithJourneyPatternStopsFragmentDoc = gql`
+  fragment route_with_journey_pattern_stops on route_route {
+    ...route_all_fields
+    route_journey_patterns {
+      ...journey_pattern_with_stops
+    }
+  }
+  ${RouteAllFieldsFragmentDoc}
+  ${JourneyPatternWithStopsFragmentDoc}
+`;
+export const RouteWithInfrastructureLinksFragmentDoc = gql`
+  fragment route_with_infrastructure_links on route_route {
+    ...route_with_journey_pattern_stops
+    route_line {
+      line_id
+      label
+    }
+    infrastructure_links_along_route {
+      route_id
+      infrastructure_link_sequence
+      infrastructure_link_id
+      infrastructure_link {
+        infrastructure_link_id
+        shape
+      }
+      is_traversal_forwards
+    }
+  }
+  ${RouteWithJourneyPatternStopsFragmentDoc}
+`;
 export const ScheduledStopPointAllFieldsFragmentDoc = gql`
-    fragment scheduled_stop_point_all_fields on service_pattern_scheduled_stop_point {
-  scheduled_stop_point_id
-  label
-  measured_location
-  located_on_infrastructure_link_id
-  direction
-  relative_distance_from_infrastructure_link_start
-  closest_point_on_infrastructure_link
-  validity_start
-  validity_end
-  priority
-  vehicle_mode_on_scheduled_stop_point {
-    vehicle_mode
+  fragment scheduled_stop_point_all_fields on service_pattern_scheduled_stop_point {
+    scheduled_stop_point_id
+    label
+    measured_location
+    located_on_infrastructure_link_id
+    direction
+    relative_distance_from_infrastructure_link_start
+    closest_point_on_infrastructure_link
+    validity_start
+    validity_end
+    priority
+    vehicle_mode_on_scheduled_stop_point {
+      vehicle_mode
+    }
   }
-}
-    `;
+`;
 export const QueryClosestLinkDocument = gql`
-    query QueryClosestLink($point: geography) {
-  infrastructure_network_resolve_point_to_closest_link(args: {geog: $point}) {
-    ...infrastructure_link_all_fields
+  query QueryClosestLink($point: geography) {
+    infrastructure_network_resolve_point_to_closest_link(
+      args: { geog: $point }
+    ) {
+      ...infrastructure_link_all_fields
+    }
   }
-}
-    ${InfrastructureLinkAllFieldsFragmentDoc}`;
+  ${InfrastructureLinkAllFieldsFragmentDoc}
+`;
 
 /**
  * __useQueryClosestLinkQuery__
@@ -7429,26 +8826,57 @@ export const QueryClosestLinkDocument = gql`
  *   },
  * });
  */
-export function useQueryClosestLinkQuery(baseOptions?: Apollo.QueryHookOptions<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(QueryClosestLinkDocument, options);
-      }
-export function useQueryClosestLinkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(QueryClosestLinkDocument, options);
-        }
-export type QueryClosestLinkQueryHookResult = ReturnType<typeof useQueryClosestLinkQuery>;
-export type QueryClosestLinkLazyQueryHookResult = ReturnType<typeof useQueryClosestLinkLazyQuery>;
-export type QueryClosestLinkQueryResult = Apollo.QueryResult<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>;
-export const QueryPointDirectionOnLinkDocument = gql`
-    query QueryPointDirectionOnLink($point_of_interest: geography, $infrastructure_link_uuid: uuid, $point_max_distance_in_meters: float8) {
-  infrastructure_network_find_point_direction_on_link(
-    args: {point_of_interest: $point_of_interest, infrastructure_link_uuid: $infrastructure_link_uuid, point_max_distance_in_meters: $point_max_distance_in_meters}
-  ) {
-    value
-  }
+export function useQueryClosestLinkQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    QueryClosestLinkQuery,
+    QueryClosestLinkQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(
+    QueryClosestLinkDocument,
+    options,
+  );
 }
-    `;
+export function useQueryClosestLinkLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    QueryClosestLinkQuery,
+    QueryClosestLinkQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    QueryClosestLinkQuery,
+    QueryClosestLinkQueryVariables
+  >(QueryClosestLinkDocument, options);
+}
+export type QueryClosestLinkQueryHookResult = ReturnType<
+  typeof useQueryClosestLinkQuery
+>;
+export type QueryClosestLinkLazyQueryHookResult = ReturnType<
+  typeof useQueryClosestLinkLazyQuery
+>;
+export type QueryClosestLinkQueryResult = Apollo.QueryResult<
+  QueryClosestLinkQuery,
+  QueryClosestLinkQueryVariables
+>;
+export const QueryPointDirectionOnLinkDocument = gql`
+  query QueryPointDirectionOnLink(
+    $point_of_interest: geography
+    $infrastructure_link_uuid: uuid
+    $point_max_distance_in_meters: float8
+  ) {
+    infrastructure_network_find_point_direction_on_link(
+      args: {
+        point_of_interest: $point_of_interest
+        infrastructure_link_uuid: $infrastructure_link_uuid
+        point_max_distance_in_meters: $point_max_distance_in_meters
+      }
+    ) {
+      value
+    }
+  }
+`;
 
 /**
  * __useQueryPointDirectionOnLinkQuery__
@@ -7468,35 +8896,59 @@ export const QueryPointDirectionOnLinkDocument = gql`
  *   },
  * });
  */
-export function useQueryPointDirectionOnLinkQuery(baseOptions?: Apollo.QueryHookOptions<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>(QueryPointDirectionOnLinkDocument, options);
-      }
-export function useQueryPointDirectionOnLinkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>(QueryPointDirectionOnLinkDocument, options);
-        }
-export type QueryPointDirectionOnLinkQueryHookResult = ReturnType<typeof useQueryPointDirectionOnLinkQuery>;
-export type QueryPointDirectionOnLinkLazyQueryHookResult = ReturnType<typeof useQueryPointDirectionOnLinkLazyQuery>;
-export type QueryPointDirectionOnLinkQueryResult = Apollo.QueryResult<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>;
-export const GetLinksWithStopsByExternalLinkIdsDocument = gql`
-    query GetLinksWithStopsByExternalLinkIds($externalLinkIds: [String!]) {
-  infrastructure_network_infrastructure_link(
-    where: {external_link_id: {_in: $externalLinkIds}}
-  ) {
-    infrastructure_link_id
-    external_link_id
-    scheduled_stop_points_located_on_infrastructure_link {
-      ...scheduled_stop_point_all_fields
-      scheduled_stop_point_in_journey_patterns {
-        ...scheduled_stop_point_in_journey_pattern_all_fields
-      }
-    }
-    shape
-  }
+export function useQueryPointDirectionOnLinkQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    QueryPointDirectionOnLinkQuery,
+    QueryPointDirectionOnLinkQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    QueryPointDirectionOnLinkQuery,
+    QueryPointDirectionOnLinkQueryVariables
+  >(QueryPointDirectionOnLinkDocument, options);
 }
-    ${ScheduledStopPointAllFieldsFragmentDoc}
-${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}`;
+export function useQueryPointDirectionOnLinkLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    QueryPointDirectionOnLinkQuery,
+    QueryPointDirectionOnLinkQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    QueryPointDirectionOnLinkQuery,
+    QueryPointDirectionOnLinkQueryVariables
+  >(QueryPointDirectionOnLinkDocument, options);
+}
+export type QueryPointDirectionOnLinkQueryHookResult = ReturnType<
+  typeof useQueryPointDirectionOnLinkQuery
+>;
+export type QueryPointDirectionOnLinkLazyQueryHookResult = ReturnType<
+  typeof useQueryPointDirectionOnLinkLazyQuery
+>;
+export type QueryPointDirectionOnLinkQueryResult = Apollo.QueryResult<
+  QueryPointDirectionOnLinkQuery,
+  QueryPointDirectionOnLinkQueryVariables
+>;
+export const GetLinksWithStopsByExternalLinkIdsDocument = gql`
+  query GetLinksWithStopsByExternalLinkIds($externalLinkIds: [String!]) {
+    infrastructure_network_infrastructure_link(
+      where: { external_link_id: { _in: $externalLinkIds } }
+    ) {
+      infrastructure_link_id
+      external_link_id
+      scheduled_stop_points_located_on_infrastructure_link {
+        ...scheduled_stop_point_all_fields
+        scheduled_stop_point_in_journey_patterns {
+          ...scheduled_stop_point_in_journey_pattern_all_fields
+        }
+      }
+      shape
+    }
+  }
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetLinksWithStopsByExternalLinkIdsQuery__
@@ -7514,26 +8966,52 @@ ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}`;
  *   },
  * });
  */
-export function useGetLinksWithStopsByExternalLinkIdsQuery(baseOptions?: Apollo.QueryHookOptions<GetLinksWithStopsByExternalLinkIdsQuery, GetLinksWithStopsByExternalLinkIdsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLinksWithStopsByExternalLinkIdsQuery, GetLinksWithStopsByExternalLinkIdsQueryVariables>(GetLinksWithStopsByExternalLinkIdsDocument, options);
-      }
-export function useGetLinksWithStopsByExternalLinkIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLinksWithStopsByExternalLinkIdsQuery, GetLinksWithStopsByExternalLinkIdsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLinksWithStopsByExternalLinkIdsQuery, GetLinksWithStopsByExternalLinkIdsQueryVariables>(GetLinksWithStopsByExternalLinkIdsDocument, options);
-        }
-export type GetLinksWithStopsByExternalLinkIdsQueryHookResult = ReturnType<typeof useGetLinksWithStopsByExternalLinkIdsQuery>;
-export type GetLinksWithStopsByExternalLinkIdsLazyQueryHookResult = ReturnType<typeof useGetLinksWithStopsByExternalLinkIdsLazyQuery>;
-export type GetLinksWithStopsByExternalLinkIdsQueryResult = Apollo.QueryResult<GetLinksWithStopsByExternalLinkIdsQuery, GetLinksWithStopsByExternalLinkIdsQueryVariables>;
-export const GetStopsAlongInfrastructureLinksDocument = gql`
-    query GetStopsAlongInfrastructureLinks($infrastructure_link_ids: [uuid!]) {
-  service_pattern_scheduled_stop_point(
-    where: {located_on_infrastructure_link_id: {_in: $infrastructure_link_ids}}
-  ) {
-    ...scheduled_stop_point_all_fields
-  }
+export function useGetLinksWithStopsByExternalLinkIdsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetLinksWithStopsByExternalLinkIdsQuery,
+    GetLinksWithStopsByExternalLinkIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetLinksWithStopsByExternalLinkIdsQuery,
+    GetLinksWithStopsByExternalLinkIdsQueryVariables
+  >(GetLinksWithStopsByExternalLinkIdsDocument, options);
 }
-    ${ScheduledStopPointAllFieldsFragmentDoc}`;
+export function useGetLinksWithStopsByExternalLinkIdsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLinksWithStopsByExternalLinkIdsQuery,
+    GetLinksWithStopsByExternalLinkIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetLinksWithStopsByExternalLinkIdsQuery,
+    GetLinksWithStopsByExternalLinkIdsQueryVariables
+  >(GetLinksWithStopsByExternalLinkIdsDocument, options);
+}
+export type GetLinksWithStopsByExternalLinkIdsQueryHookResult = ReturnType<
+  typeof useGetLinksWithStopsByExternalLinkIdsQuery
+>;
+export type GetLinksWithStopsByExternalLinkIdsLazyQueryHookResult = ReturnType<
+  typeof useGetLinksWithStopsByExternalLinkIdsLazyQuery
+>;
+export type GetLinksWithStopsByExternalLinkIdsQueryResult = Apollo.QueryResult<
+  GetLinksWithStopsByExternalLinkIdsQuery,
+  GetLinksWithStopsByExternalLinkIdsQueryVariables
+>;
+export const GetStopsAlongInfrastructureLinksDocument = gql`
+  query GetStopsAlongInfrastructureLinks($infrastructure_link_ids: [uuid!]) {
+    service_pattern_scheduled_stop_point(
+      where: {
+        located_on_infrastructure_link_id: { _in: $infrastructure_link_ids }
+      }
+    ) {
+      ...scheduled_stop_point_all_fields
+    }
+  }
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetStopsAlongInfrastructureLinksQuery__
@@ -7551,31 +9029,63 @@ export const GetStopsAlongInfrastructureLinksDocument = gql`
  *   },
  * });
  */
-export function useGetStopsAlongInfrastructureLinksQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>(GetStopsAlongInfrastructureLinksDocument, options);
-      }
-export function useGetStopsAlongInfrastructureLinksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>(GetStopsAlongInfrastructureLinksDocument, options);
-        }
-export type GetStopsAlongInfrastructureLinksQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksQuery>;
-export type GetStopsAlongInfrastructureLinksLazyQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksLazyQuery>;
-export type GetStopsAlongInfrastructureLinksQueryResult = Apollo.QueryResult<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>;
+export function useGetStopsAlongInfrastructureLinksQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetStopsAlongInfrastructureLinksQuery,
+    GetStopsAlongInfrastructureLinksQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetStopsAlongInfrastructureLinksQuery,
+    GetStopsAlongInfrastructureLinksQueryVariables
+  >(GetStopsAlongInfrastructureLinksDocument, options);
+}
+export function useGetStopsAlongInfrastructureLinksLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopsAlongInfrastructureLinksQuery,
+    GetStopsAlongInfrastructureLinksQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopsAlongInfrastructureLinksQuery,
+    GetStopsAlongInfrastructureLinksQueryVariables
+  >(GetStopsAlongInfrastructureLinksDocument, options);
+}
+export type GetStopsAlongInfrastructureLinksQueryHookResult = ReturnType<
+  typeof useGetStopsAlongInfrastructureLinksQuery
+>;
+export type GetStopsAlongInfrastructureLinksLazyQueryHookResult = ReturnType<
+  typeof useGetStopsAlongInfrastructureLinksLazyQuery
+>;
+export type GetStopsAlongInfrastructureLinksQueryResult = Apollo.QueryResult<
+  GetStopsAlongInfrastructureLinksQuery,
+  GetStopsAlongInfrastructureLinksQueryVariables
+>;
 export const UpdateRouteJourneyPatternDocument = gql`
-    mutation UpdateRouteJourneyPattern($route_id: uuid!, $new_journey_pattern: journey_pattern_journey_pattern_insert_input!) {
-  delete_journey_pattern_journey_pattern(where: {on_route_id: {_eq: $route_id}}) {
-    returning {
-      journey_pattern_id
-      on_route_id
+  mutation UpdateRouteJourneyPattern(
+    $route_id: uuid!
+    $new_journey_pattern: journey_pattern_journey_pattern_insert_input!
+  ) {
+    delete_journey_pattern_journey_pattern(
+      where: { on_route_id: { _eq: $route_id } }
+    ) {
+      returning {
+        journey_pattern_id
+        on_route_id
+      }
+    }
+    insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
+      ...journey_pattern_with_stops
     }
   }
-  insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
-    ...journey_pattern_with_stops
-  }
-}
-    ${JourneyPatternWithStopsFragmentDoc}`;
-export type UpdateRouteJourneyPatternMutationFn = Apollo.MutationFunction<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>;
+  ${JourneyPatternWithStopsFragmentDoc}
+`;
+export type UpdateRouteJourneyPatternMutationFn = Apollo.MutationFunction<
+  UpdateRouteJourneyPatternMutation,
+  UpdateRouteJourneyPatternMutationVariables
+>;
 
 /**
  * __useUpdateRouteJourneyPatternMutation__
@@ -7595,26 +9105,52 @@ export type UpdateRouteJourneyPatternMutationFn = Apollo.MutationFunction<Update
  *   },
  * });
  */
-export function useUpdateRouteJourneyPatternMutation(baseOptions?: Apollo.MutationHookOptions<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>(UpdateRouteJourneyPatternDocument, options);
-      }
-export type UpdateRouteJourneyPatternMutationHookResult = ReturnType<typeof useUpdateRouteJourneyPatternMutation>;
-export type UpdateRouteJourneyPatternMutationResult = Apollo.MutationResult<UpdateRouteJourneyPatternMutation>;
-export type UpdateRouteJourneyPatternMutationOptions = Apollo.BaseMutationOptions<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>;
+export function useUpdateRouteJourneyPatternMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateRouteJourneyPatternMutation,
+    UpdateRouteJourneyPatternMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateRouteJourneyPatternMutation,
+    UpdateRouteJourneyPatternMutationVariables
+  >(UpdateRouteJourneyPatternDocument, options);
+}
+export type UpdateRouteJourneyPatternMutationHookResult = ReturnType<
+  typeof useUpdateRouteJourneyPatternMutation
+>;
+export type UpdateRouteJourneyPatternMutationResult =
+  Apollo.MutationResult<UpdateRouteJourneyPatternMutation>;
+export type UpdateRouteJourneyPatternMutationOptions =
+  Apollo.BaseMutationOptions<
+    UpdateRouteJourneyPatternMutation,
+    UpdateRouteJourneyPatternMutationVariables
+  >;
 export const PatchScheduledStopPointViaInfoDocument = gql`
-    mutation PatchScheduledStopPointViaInfo($stopLabel: String!, $journeyPatternId: uuid!, $patch: journey_pattern_scheduled_stop_point_in_journey_pattern_set_input!) {
-  update_journey_pattern_scheduled_stop_point_in_journey_pattern(
-    where: {scheduled_stop_point_label: {_eq: $stopLabel}, journey_pattern_id: {_eq: $journeyPatternId}}
-    _set: $patch
+  mutation PatchScheduledStopPointViaInfo(
+    $stopLabel: String!
+    $journeyPatternId: uuid!
+    $patch: journey_pattern_scheduled_stop_point_in_journey_pattern_set_input!
   ) {
-    returning {
-      ...scheduled_stop_point_in_journey_pattern_all_fields
+    update_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        scheduled_stop_point_label: { _eq: $stopLabel }
+        journey_pattern_id: { _eq: $journeyPatternId }
+      }
+      _set: $patch
+    ) {
+      returning {
+        ...scheduled_stop_point_in_journey_pattern_all_fields
+      }
     }
   }
-}
-    ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}`;
-export type PatchScheduledStopPointViaInfoMutationFn = Apollo.MutationFunction<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>;
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+`;
+export type PatchScheduledStopPointViaInfoMutationFn = Apollo.MutationFunction<
+  PatchScheduledStopPointViaInfoMutation,
+  PatchScheduledStopPointViaInfoMutationVariables
+>;
 
 /**
  * __usePatchScheduledStopPointViaInfoMutation__
@@ -7635,26 +9171,55 @@ export type PatchScheduledStopPointViaInfoMutationFn = Apollo.MutationFunction<P
  *   },
  * });
  */
-export function usePatchScheduledStopPointViaInfoMutation(baseOptions?: Apollo.MutationHookOptions<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>(PatchScheduledStopPointViaInfoDocument, options);
-      }
-export type PatchScheduledStopPointViaInfoMutationHookResult = ReturnType<typeof usePatchScheduledStopPointViaInfoMutation>;
-export type PatchScheduledStopPointViaInfoMutationResult = Apollo.MutationResult<PatchScheduledStopPointViaInfoMutation>;
-export type PatchScheduledStopPointViaInfoMutationOptions = Apollo.BaseMutationOptions<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>;
+export function usePatchScheduledStopPointViaInfoMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    PatchScheduledStopPointViaInfoMutation,
+    PatchScheduledStopPointViaInfoMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    PatchScheduledStopPointViaInfoMutation,
+    PatchScheduledStopPointViaInfoMutationVariables
+  >(PatchScheduledStopPointViaInfoDocument, options);
+}
+export type PatchScheduledStopPointViaInfoMutationHookResult = ReturnType<
+  typeof usePatchScheduledStopPointViaInfoMutation
+>;
+export type PatchScheduledStopPointViaInfoMutationResult =
+  Apollo.MutationResult<PatchScheduledStopPointViaInfoMutation>;
+export type PatchScheduledStopPointViaInfoMutationOptions =
+  Apollo.BaseMutationOptions<
+    PatchScheduledStopPointViaInfoMutation,
+    PatchScheduledStopPointViaInfoMutationVariables
+  >;
 export const RemoveScheduledStopPointViaInfoDocument = gql`
-    mutation RemoveScheduledStopPointViaInfo($stopLabel: String!, $journeyPatternId: uuid!) {
-  update_journey_pattern_scheduled_stop_point_in_journey_pattern(
-    where: {scheduled_stop_point_label: {_eq: $stopLabel}, journey_pattern_id: {_eq: $journeyPatternId}}
-    _set: {is_via_point: false, via_point_name_i18n: null, via_point_short_name_i18n: null}
+  mutation RemoveScheduledStopPointViaInfo(
+    $stopLabel: String!
+    $journeyPatternId: uuid!
   ) {
-    returning {
-      ...scheduled_stop_point_in_journey_pattern_all_fields
+    update_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        scheduled_stop_point_label: { _eq: $stopLabel }
+        journey_pattern_id: { _eq: $journeyPatternId }
+      }
+      _set: {
+        is_via_point: false
+        via_point_name_i18n: null
+        via_point_short_name_i18n: null
+      }
+    ) {
+      returning {
+        ...scheduled_stop_point_in_journey_pattern_all_fields
+      }
     }
   }
-}
-    ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}`;
-export type RemoveScheduledStopPointViaInfoMutationFn = Apollo.MutationFunction<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>;
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+`;
+export type RemoveScheduledStopPointViaInfoMutationFn = Apollo.MutationFunction<
+  RemoveScheduledStopPointViaInfoMutation,
+  RemoveScheduledStopPointViaInfoMutationVariables
+>;
 
 /**
  * __useRemoveScheduledStopPointViaInfoMutation__
@@ -7674,29 +9239,51 @@ export type RemoveScheduledStopPointViaInfoMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useRemoveScheduledStopPointViaInfoMutation(baseOptions?: Apollo.MutationHookOptions<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>(RemoveScheduledStopPointViaInfoDocument, options);
-      }
-export type RemoveScheduledStopPointViaInfoMutationHookResult = ReturnType<typeof useRemoveScheduledStopPointViaInfoMutation>;
-export type RemoveScheduledStopPointViaInfoMutationResult = Apollo.MutationResult<RemoveScheduledStopPointViaInfoMutation>;
-export type RemoveScheduledStopPointViaInfoMutationOptions = Apollo.BaseMutationOptions<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>;
+export function useRemoveScheduledStopPointViaInfoMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemoveScheduledStopPointViaInfoMutation,
+    RemoveScheduledStopPointViaInfoMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    RemoveScheduledStopPointViaInfoMutation,
+    RemoveScheduledStopPointViaInfoMutationVariables
+  >(RemoveScheduledStopPointViaInfoDocument, options);
+}
+export type RemoveScheduledStopPointViaInfoMutationHookResult = ReturnType<
+  typeof useRemoveScheduledStopPointViaInfoMutation
+>;
+export type RemoveScheduledStopPointViaInfoMutationResult =
+  Apollo.MutationResult<RemoveScheduledStopPointViaInfoMutation>;
+export type RemoveScheduledStopPointViaInfoMutationOptions =
+  Apollo.BaseMutationOptions<
+    RemoveScheduledStopPointViaInfoMutation,
+    RemoveScheduledStopPointViaInfoMutationVariables
+  >;
 export const GetScheduledStopPointWithViaInfoDocument = gql`
-    query GetScheduledStopPointWithViaInfo($journeyPatternId: uuid!, $stopLabel: String!) {
-  journey_pattern_scheduled_stop_point_in_journey_pattern(
-    where: {journey_pattern_id: {_eq: $journeyPatternId}, scheduled_stop_point_label: {_eq: $stopLabel}}
+  query GetScheduledStopPointWithViaInfo(
+    $journeyPatternId: uuid!
+    $stopLabel: String!
   ) {
-    ...scheduled_stop_point_in_journey_pattern_all_fields
-    journey_pattern {
-      journey_pattern_id
-      journey_pattern_route {
-        route_id
-        label
+    journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        journey_pattern_id: { _eq: $journeyPatternId }
+        scheduled_stop_point_label: { _eq: $stopLabel }
+      }
+    ) {
+      ...scheduled_stop_point_in_journey_pattern_all_fields
+      journey_pattern {
+        journey_pattern_id
+        journey_pattern_route {
+          route_id
+          label
+        }
       }
     }
   }
-}
-    ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}`;
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetScheduledStopPointWithViaInfoQuery__
@@ -7715,28 +9302,57 @@ export const GetScheduledStopPointWithViaInfoDocument = gql`
  *   },
  * });
  */
-export function useGetScheduledStopPointWithViaInfoQuery(baseOptions: Apollo.QueryHookOptions<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>(GetScheduledStopPointWithViaInfoDocument, options);
-      }
-export function useGetScheduledStopPointWithViaInfoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>(GetScheduledStopPointWithViaInfoDocument, options);
-        }
-export type GetScheduledStopPointWithViaInfoQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithViaInfoQuery>;
-export type GetScheduledStopPointWithViaInfoLazyQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithViaInfoLazyQuery>;
-export type GetScheduledStopPointWithViaInfoQueryResult = Apollo.QueryResult<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>;
-export const SearchLinesAndRoutesDocument = gql`
-    query SearchLinesAndRoutes($lineFilter: route_line_bool_exp, $routeFilter: route_route_bool_exp, $lineOrderBy: [route_line_order_by!], $routeOrderBy: [route_route_order_by!]) {
-  route_line(where: $lineFilter, order_by: $lineOrderBy) {
-    ...line_all_fields
-  }
-  route_route(where: $routeFilter, order_by: $routeOrderBy) {
-    ...route_all_fields
-  }
+export function useGetScheduledStopPointWithViaInfoQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetScheduledStopPointWithViaInfoQuery,
+    GetScheduledStopPointWithViaInfoQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetScheduledStopPointWithViaInfoQuery,
+    GetScheduledStopPointWithViaInfoQueryVariables
+  >(GetScheduledStopPointWithViaInfoDocument, options);
 }
-    ${LineAllFieldsFragmentDoc}
-${RouteAllFieldsFragmentDoc}`;
+export function useGetScheduledStopPointWithViaInfoLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetScheduledStopPointWithViaInfoQuery,
+    GetScheduledStopPointWithViaInfoQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetScheduledStopPointWithViaInfoQuery,
+    GetScheduledStopPointWithViaInfoQueryVariables
+  >(GetScheduledStopPointWithViaInfoDocument, options);
+}
+export type GetScheduledStopPointWithViaInfoQueryHookResult = ReturnType<
+  typeof useGetScheduledStopPointWithViaInfoQuery
+>;
+export type GetScheduledStopPointWithViaInfoLazyQueryHookResult = ReturnType<
+  typeof useGetScheduledStopPointWithViaInfoLazyQuery
+>;
+export type GetScheduledStopPointWithViaInfoQueryResult = Apollo.QueryResult<
+  GetScheduledStopPointWithViaInfoQuery,
+  GetScheduledStopPointWithViaInfoQueryVariables
+>;
+export const SearchLinesAndRoutesDocument = gql`
+  query SearchLinesAndRoutes(
+    $lineFilter: route_line_bool_exp
+    $routeFilter: route_route_bool_exp
+    $lineOrderBy: [route_line_order_by!]
+    $routeOrderBy: [route_route_order_by!]
+  ) {
+    route_line(where: $lineFilter, order_by: $lineOrderBy) {
+      ...line_all_fields
+    }
+    route_route(where: $routeFilter, order_by: $routeOrderBy) {
+      ...route_all_fields
+    }
+  }
+  ${LineAllFieldsFragmentDoc}
+  ${RouteAllFieldsFragmentDoc}
+`;
 
 /**
  * __useSearchLinesAndRoutesQuery__
@@ -7757,27 +9373,54 @@ ${RouteAllFieldsFragmentDoc}`;
  *   },
  * });
  */
-export function useSearchLinesAndRoutesQuery(baseOptions?: Apollo.QueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument, options);
-      }
-export function useSearchLinesAndRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument, options);
-        }
-export type SearchLinesAndRoutesQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesQuery>;
-export type SearchLinesAndRoutesLazyQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesLazyQuery>;
-export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>;
+export function useSearchLinesAndRoutesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    SearchLinesAndRoutesQuery,
+    SearchLinesAndRoutesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    SearchLinesAndRoutesQuery,
+    SearchLinesAndRoutesQueryVariables
+  >(SearchLinesAndRoutesDocument, options);
+}
+export function useSearchLinesAndRoutesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SearchLinesAndRoutesQuery,
+    SearchLinesAndRoutesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    SearchLinesAndRoutesQuery,
+    SearchLinesAndRoutesQueryVariables
+  >(SearchLinesAndRoutesDocument, options);
+}
+export type SearchLinesAndRoutesQueryHookResult = ReturnType<
+  typeof useSearchLinesAndRoutesQuery
+>;
+export type SearchLinesAndRoutesLazyQueryHookResult = ReturnType<
+  typeof useSearchLinesAndRoutesLazyQuery
+>;
+export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<
+  SearchLinesAndRoutesQuery,
+  SearchLinesAndRoutesQueryVariables
+>;
 export const ListOwnLinesDocument = gql`
-    query ListOwnLines($limit: Int = 10) {
-  route_line(limit: $limit, order_by: [{label: asc}, {validity_start: asc}]) {
-    ...line_all_fields
-    line_routes {
-      route_id
+  query ListOwnLines($limit: Int = 10) {
+    route_line(
+      limit: $limit
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
+      ...line_all_fields
+      line_routes {
+        route_id
+      }
     }
   }
-}
-    ${LineAllFieldsFragmentDoc}`;
+  ${LineAllFieldsFragmentDoc}
+`;
 
 /**
  * __useListOwnLinesQuery__
@@ -7795,28 +9438,55 @@ export const ListOwnLinesDocument = gql`
  *   },
  * });
  */
-export function useListOwnLinesQuery(baseOptions?: Apollo.QueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument, options);
-      }
-export function useListOwnLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument, options);
-        }
-export type ListOwnLinesQueryHookResult = ReturnType<typeof useListOwnLinesQuery>;
-export type ListOwnLinesLazyQueryHookResult = ReturnType<typeof useListOwnLinesLazyQuery>;
-export type ListOwnLinesQueryResult = Apollo.QueryResult<ListOwnLinesQuery, ListOwnLinesQueryVariables>;
+export function useListOwnLinesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ListOwnLinesQuery,
+    ListOwnLinesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(
+    ListOwnLinesDocument,
+    options,
+  );
+}
+export function useListOwnLinesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ListOwnLinesQuery,
+    ListOwnLinesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(
+    ListOwnLinesDocument,
+    options,
+  );
+}
+export type ListOwnLinesQueryHookResult = ReturnType<
+  typeof useListOwnLinesQuery
+>;
+export type ListOwnLinesLazyQueryHookResult = ReturnType<
+  typeof useListOwnLinesLazyQuery
+>;
+export type ListOwnLinesQueryResult = Apollo.QueryResult<
+  ListOwnLinesQuery,
+  ListOwnLinesQueryVariables
+>;
 export const ListChangingRoutesDocument = gql`
-    query ListChangingRoutes($limit: Int) {
-  route_route(limit: $limit, order_by: [{label: asc}, {validity_start: asc}]) {
-    ...route_all_fields
-    route_line {
-      ...line_default_fields
+  query ListChangingRoutes($limit: Int) {
+    route_route(
+      limit: $limit
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
+      ...route_all_fields
+      route_line {
+        ...line_default_fields
+      }
     }
   }
-}
-    ${RouteAllFieldsFragmentDoc}
-${LineDefaultFieldsFragmentDoc}`;
+  ${RouteAllFieldsFragmentDoc}
+  ${LineDefaultFieldsFragmentDoc}
+`;
 
 /**
  * __useListChangingRoutesQuery__
@@ -7834,24 +9504,48 @@ ${LineDefaultFieldsFragmentDoc}`;
  *   },
  * });
  */
-export function useListChangingRoutesQuery(baseOptions?: Apollo.QueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>(ListChangingRoutesDocument, options);
-      }
-export function useListChangingRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>(ListChangingRoutesDocument, options);
-        }
-export type ListChangingRoutesQueryHookResult = ReturnType<typeof useListChangingRoutesQuery>;
-export type ListChangingRoutesLazyQueryHookResult = ReturnType<typeof useListChangingRoutesLazyQuery>;
-export type ListChangingRoutesQueryResult = Apollo.QueryResult<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>;
-export const GetLineDetailsByIdDocument = gql`
-    query GetLineDetailsById($line_id: uuid!) {
-  route_line_by_pk(line_id: $line_id) {
-    ...line_all_fields
-  }
+export function useListChangingRoutesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ListChangingRoutesQuery,
+    ListChangingRoutesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ListChangingRoutesQuery,
+    ListChangingRoutesQueryVariables
+  >(ListChangingRoutesDocument, options);
 }
-    ${LineAllFieldsFragmentDoc}`;
+export function useListChangingRoutesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ListChangingRoutesQuery,
+    ListChangingRoutesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ListChangingRoutesQuery,
+    ListChangingRoutesQueryVariables
+  >(ListChangingRoutesDocument, options);
+}
+export type ListChangingRoutesQueryHookResult = ReturnType<
+  typeof useListChangingRoutesQuery
+>;
+export type ListChangingRoutesLazyQueryHookResult = ReturnType<
+  typeof useListChangingRoutesLazyQuery
+>;
+export type ListChangingRoutesQueryResult = Apollo.QueryResult<
+  ListChangingRoutesQuery,
+  ListChangingRoutesQueryVariables
+>;
+export const GetLineDetailsByIdDocument = gql`
+  query GetLineDetailsById($line_id: uuid!) {
+    route_line_by_pk(line_id: $line_id) {
+      ...line_all_fields
+    }
+  }
+  ${LineAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetLineDetailsByIdQuery__
@@ -7869,26 +9563,49 @@ export const GetLineDetailsByIdDocument = gql`
  *   },
  * });
  */
-export function useGetLineDetailsByIdQuery(baseOptions: Apollo.QueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument, options);
-      }
-export function useGetLineDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument, options);
-        }
-export type GetLineDetailsByIdQueryHookResult = ReturnType<typeof useGetLineDetailsByIdQuery>;
-export type GetLineDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetLineDetailsByIdLazyQuery>;
-export type GetLineDetailsByIdQueryResult = Apollo.QueryResult<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>;
-export const GetLineValidityPeriodByIdDocument = gql`
-    query GetLineValidityPeriodById($line_id: uuid!) {
-  route_line_by_pk(line_id: $line_id) {
-    line_id
-    validity_start
-    validity_end
-  }
+export function useGetLineDetailsByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetLineDetailsByIdQuery,
+    GetLineDetailsByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetLineDetailsByIdQuery,
+    GetLineDetailsByIdQueryVariables
+  >(GetLineDetailsByIdDocument, options);
 }
-    `;
+export function useGetLineDetailsByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLineDetailsByIdQuery,
+    GetLineDetailsByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetLineDetailsByIdQuery,
+    GetLineDetailsByIdQueryVariables
+  >(GetLineDetailsByIdDocument, options);
+}
+export type GetLineDetailsByIdQueryHookResult = ReturnType<
+  typeof useGetLineDetailsByIdQuery
+>;
+export type GetLineDetailsByIdLazyQueryHookResult = ReturnType<
+  typeof useGetLineDetailsByIdLazyQuery
+>;
+export type GetLineDetailsByIdQueryResult = Apollo.QueryResult<
+  GetLineDetailsByIdQuery,
+  GetLineDetailsByIdQueryVariables
+>;
+export const GetLineValidityPeriodByIdDocument = gql`
+  query GetLineValidityPeriodById($line_id: uuid!) {
+    route_line_by_pk(line_id: $line_id) {
+      line_id
+      validity_start
+      validity_end
+    }
+  }
+`;
 
 /**
  * __useGetLineValidityPeriodByIdQuery__
@@ -7906,24 +9623,48 @@ export const GetLineValidityPeriodByIdDocument = gql`
  *   },
  * });
  */
-export function useGetLineValidityPeriodByIdQuery(baseOptions: Apollo.QueryHookOptions<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>(GetLineValidityPeriodByIdDocument, options);
-      }
-export function useGetLineValidityPeriodByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>(GetLineValidityPeriodByIdDocument, options);
-        }
-export type GetLineValidityPeriodByIdQueryHookResult = ReturnType<typeof useGetLineValidityPeriodByIdQuery>;
-export type GetLineValidityPeriodByIdLazyQueryHookResult = ReturnType<typeof useGetLineValidityPeriodByIdLazyQuery>;
-export type GetLineValidityPeriodByIdQueryResult = Apollo.QueryResult<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>;
-export const GetLinesByValidityDocument = gql`
-    query GetLinesByValidity($filter: route_line_bool_exp) {
-  route_line(where: $filter) {
-    ...line_all_fields
-  }
+export function useGetLineValidityPeriodByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetLineValidityPeriodByIdQuery,
+    GetLineValidityPeriodByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetLineValidityPeriodByIdQuery,
+    GetLineValidityPeriodByIdQueryVariables
+  >(GetLineValidityPeriodByIdDocument, options);
 }
-    ${LineAllFieldsFragmentDoc}`;
+export function useGetLineValidityPeriodByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLineValidityPeriodByIdQuery,
+    GetLineValidityPeriodByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetLineValidityPeriodByIdQuery,
+    GetLineValidityPeriodByIdQueryVariables
+  >(GetLineValidityPeriodByIdDocument, options);
+}
+export type GetLineValidityPeriodByIdQueryHookResult = ReturnType<
+  typeof useGetLineValidityPeriodByIdQuery
+>;
+export type GetLineValidityPeriodByIdLazyQueryHookResult = ReturnType<
+  typeof useGetLineValidityPeriodByIdLazyQuery
+>;
+export type GetLineValidityPeriodByIdQueryResult = Apollo.QueryResult<
+  GetLineValidityPeriodByIdQuery,
+  GetLineValidityPeriodByIdQueryVariables
+>;
+export const GetLinesByValidityDocument = gql`
+  query GetLinesByValidity($filter: route_line_bool_exp) {
+    route_line(where: $filter) {
+      ...line_all_fields
+    }
+  }
+  ${LineAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetLinesByValidityQuery__
@@ -7941,23 +9682,223 @@ export const GetLinesByValidityDocument = gql`
  *   },
  * });
  */
-export function useGetLinesByValidityQuery(baseOptions?: Apollo.QueryHookOptions<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>(GetLinesByValidityDocument, options);
-      }
-export function useGetLinesByValidityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>(GetLinesByValidityDocument, options);
-        }
-export type GetLinesByValidityQueryHookResult = ReturnType<typeof useGetLinesByValidityQuery>;
-export type GetLinesByValidityLazyQueryHookResult = ReturnType<typeof useGetLinesByValidityLazyQuery>;
-export type GetLinesByValidityQueryResult = Apollo.QueryResult<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>;
+export function useGetLinesByValidityQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetLinesByValidityQuery,
+    GetLinesByValidityQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetLinesByValidityQuery,
+    GetLinesByValidityQueryVariables
+  >(GetLinesByValidityDocument, options);
+}
+export function useGetLinesByValidityLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLinesByValidityQuery,
+    GetLinesByValidityQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetLinesByValidityQuery,
+    GetLinesByValidityQueryVariables
+  >(GetLinesByValidityDocument, options);
+}
+export type GetLinesByValidityQueryHookResult = ReturnType<
+  typeof useGetLinesByValidityQuery
+>;
+export type GetLinesByValidityLazyQueryHookResult = ReturnType<
+  typeof useGetLinesByValidityLazyQuery
+>;
+export type GetLinesByValidityQueryResult = Apollo.QueryResult<
+  GetLinesByValidityQuery,
+  GetLinesByValidityQueryVariables
+>;
 export const GetLineDetailsWithRoutesByIdDocument = gql`
-    query GetLineDetailsWithRoutesById($line_id: uuid!) {
-  route_line_by_pk(line_id: $line_id) {
-    ...line_all_fields
-    line_routes {
+  query GetLineDetailsWithRoutesById($line_id: uuid!) {
+    route_line_by_pk(line_id: $line_id) {
+      ...line_all_fields
+      line_routes {
+        ...route_all_fields
+        infrastructure_links_along_route {
+          route_id
+          infrastructure_link_id
+          infrastructure_link_sequence
+          is_traversal_forwards
+          infrastructure_link {
+            infrastructure_link_id
+            scheduled_stop_points_located_on_infrastructure_link {
+              ...scheduled_stop_point_all_fields
+              scheduled_stop_point_in_journey_patterns {
+                ...scheduled_stop_point_in_journey_pattern_all_fields
+                journey_pattern {
+                  journey_pattern_id
+                  on_route_id
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  ${LineAllFieldsFragmentDoc}
+  ${RouteAllFieldsFragmentDoc}
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+`;
+
+/**
+ * __useGetLineDetailsWithRoutesByIdQuery__
+ *
+ * To run a query within a React component, call `useGetLineDetailsWithRoutesByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLineDetailsWithRoutesByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLineDetailsWithRoutesByIdQuery({
+ *   variables: {
+ *      line_id: // value for 'line_id'
+ *   },
+ * });
+ */
+export function useGetLineDetailsWithRoutesByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetLineDetailsWithRoutesByIdQuery,
+    GetLineDetailsWithRoutesByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetLineDetailsWithRoutesByIdQuery,
+    GetLineDetailsWithRoutesByIdQueryVariables
+  >(GetLineDetailsWithRoutesByIdDocument, options);
+}
+export function useGetLineDetailsWithRoutesByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLineDetailsWithRoutesByIdQuery,
+    GetLineDetailsWithRoutesByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetLineDetailsWithRoutesByIdQuery,
+    GetLineDetailsWithRoutesByIdQueryVariables
+  >(GetLineDetailsWithRoutesByIdDocument, options);
+}
+export type GetLineDetailsWithRoutesByIdQueryHookResult = ReturnType<
+  typeof useGetLineDetailsWithRoutesByIdQuery
+>;
+export type GetLineDetailsWithRoutesByIdLazyQueryHookResult = ReturnType<
+  typeof useGetLineDetailsWithRoutesByIdLazyQuery
+>;
+export type GetLineDetailsWithRoutesByIdQueryResult = Apollo.QueryResult<
+  GetLineDetailsWithRoutesByIdQuery,
+  GetLineDetailsWithRoutesByIdQueryVariables
+>;
+export const GetHighestPriorityLineDetailsWithRoutesDocument = gql`
+  query GetHighestPriorityLineDetailsWithRoutes(
+    $lineFilters: route_line_bool_exp
+    $lineRouteFilters: route_route_bool_exp
+    $routeStopFilters: service_pattern_scheduled_stop_point_bool_exp
+  ) {
+    route_line(where: $lineFilters, order_by: { priority: desc }, limit: 1) {
+      ...line_all_fields
+      line_routes(where: $lineRouteFilters) {
+        ...route_all_fields
+        infrastructure_links_along_route {
+          route_id
+          infrastructure_link_id
+          infrastructure_link_sequence
+          is_traversal_forwards
+          infrastructure_link {
+            infrastructure_link_id
+            scheduled_stop_points_located_on_infrastructure_link(
+              where: $routeStopFilters
+            ) {
+              ...scheduled_stop_point_all_fields
+              scheduled_stop_point_in_journey_patterns {
+                ...scheduled_stop_point_in_journey_pattern_all_fields
+                journey_pattern {
+                  journey_pattern_id
+                  on_route_id
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  ${LineAllFieldsFragmentDoc}
+  ${RouteAllFieldsFragmentDoc}
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+`;
+
+/**
+ * __useGetHighestPriorityLineDetailsWithRoutesQuery__
+ *
+ * To run a query within a React component, call `useGetHighestPriorityLineDetailsWithRoutesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHighestPriorityLineDetailsWithRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHighestPriorityLineDetailsWithRoutesQuery({
+ *   variables: {
+ *      lineFilters: // value for 'lineFilters'
+ *      lineRouteFilters: // value for 'lineRouteFilters'
+ *      routeStopFilters: // value for 'routeStopFilters'
+ *   },
+ * });
+ */
+export function useGetHighestPriorityLineDetailsWithRoutesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetHighestPriorityLineDetailsWithRoutesQuery,
+    GetHighestPriorityLineDetailsWithRoutesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetHighestPriorityLineDetailsWithRoutesQuery,
+    GetHighestPriorityLineDetailsWithRoutesQueryVariables
+  >(GetHighestPriorityLineDetailsWithRoutesDocument, options);
+}
+export function useGetHighestPriorityLineDetailsWithRoutesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetHighestPriorityLineDetailsWithRoutesQuery,
+    GetHighestPriorityLineDetailsWithRoutesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetHighestPriorityLineDetailsWithRoutesQuery,
+    GetHighestPriorityLineDetailsWithRoutesQueryVariables
+  >(GetHighestPriorityLineDetailsWithRoutesDocument, options);
+}
+export type GetHighestPriorityLineDetailsWithRoutesQueryHookResult = ReturnType<
+  typeof useGetHighestPriorityLineDetailsWithRoutesQuery
+>;
+export type GetHighestPriorityLineDetailsWithRoutesLazyQueryHookResult =
+  ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesLazyQuery>;
+export type GetHighestPriorityLineDetailsWithRoutesQueryResult =
+  Apollo.QueryResult<
+    GetHighestPriorityLineDetailsWithRoutesQuery,
+    GetHighestPriorityLineDetailsWithRoutesQueryVariables
+  >;
+export const GetRoutesWithStopsDocument = gql`
+  query GetRoutesWithStops($routeFilters: route_route_bool_exp) {
+    route_route(where: $routeFilters) {
       ...route_all_fields
+      route_line {
+        line_id
+      }
       infrastructure_links_along_route {
         route_id
         infrastructure_link_id
@@ -7979,132 +9920,10 @@ export const GetLineDetailsWithRoutesByIdDocument = gql`
       }
     }
   }
-}
-    ${LineAllFieldsFragmentDoc}
-${RouteAllFieldsFragmentDoc}
-${ScheduledStopPointAllFieldsFragmentDoc}
-${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}`;
-
-/**
- * __useGetLineDetailsWithRoutesByIdQuery__
- *
- * To run a query within a React component, call `useGetLineDetailsWithRoutesByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLineDetailsWithRoutesByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetLineDetailsWithRoutesByIdQuery({
- *   variables: {
- *      line_id: // value for 'line_id'
- *   },
- * });
- */
-export function useGetLineDetailsWithRoutesByIdQuery(baseOptions: Apollo.QueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>(GetLineDetailsWithRoutesByIdDocument, options);
-      }
-export function useGetLineDetailsWithRoutesByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>(GetLineDetailsWithRoutesByIdDocument, options);
-        }
-export type GetLineDetailsWithRoutesByIdQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdQuery>;
-export type GetLineDetailsWithRoutesByIdLazyQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdLazyQuery>;
-export type GetLineDetailsWithRoutesByIdQueryResult = Apollo.QueryResult<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>;
-export const GetHighestPriorityLineDetailsWithRoutesDocument = gql`
-    query GetHighestPriorityLineDetailsWithRoutes($lineFilters: route_line_bool_exp, $lineRouteFilters: route_route_bool_exp, $routeStopFilters: service_pattern_scheduled_stop_point_bool_exp) {
-  route_line(where: $lineFilters, order_by: {priority: desc}, limit: 1) {
-    ...line_all_fields
-    line_routes(where: $lineRouteFilters) {
-      ...route_all_fields
-      infrastructure_links_along_route {
-        route_id
-        infrastructure_link_id
-        infrastructure_link_sequence
-        is_traversal_forwards
-        infrastructure_link {
-          infrastructure_link_id
-          scheduled_stop_points_located_on_infrastructure_link(where: $routeStopFilters) {
-            ...scheduled_stop_point_all_fields
-            scheduled_stop_point_in_journey_patterns {
-              ...scheduled_stop_point_in_journey_pattern_all_fields
-              journey_pattern {
-                journey_pattern_id
-                on_route_id
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-    ${LineAllFieldsFragmentDoc}
-${RouteAllFieldsFragmentDoc}
-${ScheduledStopPointAllFieldsFragmentDoc}
-${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}`;
-
-/**
- * __useGetHighestPriorityLineDetailsWithRoutesQuery__
- *
- * To run a query within a React component, call `useGetHighestPriorityLineDetailsWithRoutesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetHighestPriorityLineDetailsWithRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetHighestPriorityLineDetailsWithRoutesQuery({
- *   variables: {
- *      lineFilters: // value for 'lineFilters'
- *      lineRouteFilters: // value for 'lineRouteFilters'
- *      routeStopFilters: // value for 'routeStopFilters'
- *   },
- * });
- */
-export function useGetHighestPriorityLineDetailsWithRoutesQuery(baseOptions?: Apollo.QueryHookOptions<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>(GetHighestPriorityLineDetailsWithRoutesDocument, options);
-      }
-export function useGetHighestPriorityLineDetailsWithRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>(GetHighestPriorityLineDetailsWithRoutesDocument, options);
-        }
-export type GetHighestPriorityLineDetailsWithRoutesQueryHookResult = ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesQuery>;
-export type GetHighestPriorityLineDetailsWithRoutesLazyQueryHookResult = ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesLazyQuery>;
-export type GetHighestPriorityLineDetailsWithRoutesQueryResult = Apollo.QueryResult<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>;
-export const GetRoutesWithStopsDocument = gql`
-    query GetRoutesWithStops($routeFilters: route_route_bool_exp) {
-  route_route(where: $routeFilters) {
-    ...route_all_fields
-    route_line {
-      line_id
-    }
-    infrastructure_links_along_route {
-      route_id
-      infrastructure_link_id
-      infrastructure_link_sequence
-      is_traversal_forwards
-      infrastructure_link {
-        infrastructure_link_id
-        scheduled_stop_points_located_on_infrastructure_link {
-          ...scheduled_stop_point_all_fields
-          scheduled_stop_point_in_journey_patterns {
-            ...scheduled_stop_point_in_journey_pattern_all_fields
-            journey_pattern {
-              journey_pattern_id
-              on_route_id
-            }
-          }
-        }
-      }
-    }
-  }
-}
-    ${RouteAllFieldsFragmentDoc}
-${ScheduledStopPointAllFieldsFragmentDoc}
-${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}`;
+  ${RouteAllFieldsFragmentDoc}
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetRoutesWithStopsQuery__
@@ -8122,28 +9941,52 @@ ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}`;
  *   },
  * });
  */
-export function useGetRoutesWithStopsQuery(baseOptions?: Apollo.QueryHookOptions<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>(GetRoutesWithStopsDocument, options);
-      }
-export function useGetRoutesWithStopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>(GetRoutesWithStopsDocument, options);
-        }
-export type GetRoutesWithStopsQueryHookResult = ReturnType<typeof useGetRoutesWithStopsQuery>;
-export type GetRoutesWithStopsLazyQueryHookResult = ReturnType<typeof useGetRoutesWithStopsLazyQuery>;
-export type GetRoutesWithStopsQueryResult = Apollo.QueryResult<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>;
+export function useGetRoutesWithStopsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetRoutesWithStopsQuery,
+    GetRoutesWithStopsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRoutesWithStopsQuery,
+    GetRoutesWithStopsQueryVariables
+  >(GetRoutesWithStopsDocument, options);
+}
+export function useGetRoutesWithStopsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRoutesWithStopsQuery,
+    GetRoutesWithStopsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRoutesWithStopsQuery,
+    GetRoutesWithStopsQueryVariables
+  >(GetRoutesWithStopsDocument, options);
+}
+export type GetRoutesWithStopsQueryHookResult = ReturnType<
+  typeof useGetRoutesWithStopsQuery
+>;
+export type GetRoutesWithStopsLazyQueryHookResult = ReturnType<
+  typeof useGetRoutesWithStopsLazyQuery
+>;
+export type GetRoutesWithStopsQueryResult = Apollo.QueryResult<
+  GetRoutesWithStopsQuery,
+  GetRoutesWithStopsQueryVariables
+>;
 export const GetRouteDetailsByIdDocument = gql`
-    query GetRouteDetailsById($routeId: uuid!) {
-  route_route_by_pk(route_id: $routeId) {
-    ...route_with_journey_pattern_stops
-    route_line {
-      ...line_all_fields
+  query GetRouteDetailsById($routeId: uuid!) {
+    route_route_by_pk(route_id: $routeId) {
+      ...route_with_journey_pattern_stops
+      route_line {
+        ...line_all_fields
+      }
     }
   }
-}
-    ${RouteWithJourneyPatternStopsFragmentDoc}
-${LineAllFieldsFragmentDoc}`;
+  ${RouteWithJourneyPatternStopsFragmentDoc}
+  ${LineAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetRouteDetailsByIdQuery__
@@ -8161,29 +10004,53 @@ ${LineAllFieldsFragmentDoc}`;
  *   },
  * });
  */
-export function useGetRouteDetailsByIdQuery(baseOptions: Apollo.QueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
-      }
-export function useGetRouteDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
-        }
-export type GetRouteDetailsByIdQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdQuery>;
-export type GetRouteDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdLazyQuery>;
-export type GetRouteDetailsByIdQueryResult = Apollo.QueryResult<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>;
+export function useGetRouteDetailsByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetRouteDetailsByIdQuery,
+    GetRouteDetailsByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRouteDetailsByIdQuery,
+    GetRouteDetailsByIdQueryVariables
+  >(GetRouteDetailsByIdDocument, options);
+}
+export function useGetRouteDetailsByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRouteDetailsByIdQuery,
+    GetRouteDetailsByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRouteDetailsByIdQuery,
+    GetRouteDetailsByIdQueryVariables
+  >(GetRouteDetailsByIdDocument, options);
+}
+export type GetRouteDetailsByIdQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByIdQuery
+>;
+export type GetRouteDetailsByIdLazyQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByIdLazyQuery
+>;
+export type GetRouteDetailsByIdQueryResult = Apollo.QueryResult<
+  GetRouteDetailsByIdQuery,
+  GetRouteDetailsByIdQueryVariables
+>;
 export const GetRouteDetailsByIdsDocument = gql`
-    query GetRouteDetailsByIds($route_ids: [uuid!]) {
-  route_route(where: {route_id: {_in: $route_ids}}) {
-    ...route_with_journey_pattern_stops
-    route_line {
-      line_id
-      label
-      primary_vehicle_mode
+  query GetRouteDetailsByIds($route_ids: [uuid!]) {
+    route_route(where: { route_id: { _in: $route_ids } }) {
+      ...route_with_journey_pattern_stops
+      route_line {
+        line_id
+        label
+        primary_vehicle_mode
+      }
     }
   }
-}
-    ${RouteWithJourneyPatternStopsFragmentDoc}`;
+  ${RouteWithJourneyPatternStopsFragmentDoc}
+`;
 
 /**
  * __useGetRouteDetailsByIdsQuery__
@@ -8201,29 +10068,52 @@ export const GetRouteDetailsByIdsDocument = gql`
  *   },
  * });
  */
-export function useGetRouteDetailsByIdsQuery(baseOptions?: Apollo.QueryHookOptions<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>(GetRouteDetailsByIdsDocument, options);
-      }
-export function useGetRouteDetailsByIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>(GetRouteDetailsByIdsDocument, options);
-        }
-export type GetRouteDetailsByIdsQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdsQuery>;
-export type GetRouteDetailsByIdsLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdsLazyQuery>;
-export type GetRouteDetailsByIdsQueryResult = Apollo.QueryResult<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>;
+export function useGetRouteDetailsByIdsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetRouteDetailsByIdsQuery,
+    GetRouteDetailsByIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRouteDetailsByIdsQuery,
+    GetRouteDetailsByIdsQueryVariables
+  >(GetRouteDetailsByIdsDocument, options);
+}
+export function useGetRouteDetailsByIdsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRouteDetailsByIdsQuery,
+    GetRouteDetailsByIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRouteDetailsByIdsQuery,
+    GetRouteDetailsByIdsQueryVariables
+  >(GetRouteDetailsByIdsDocument, options);
+}
+export type GetRouteDetailsByIdsQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByIdsQuery
+>;
+export type GetRouteDetailsByIdsLazyQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByIdsLazyQuery
+>;
+export type GetRouteDetailsByIdsQueryResult = Apollo.QueryResult<
+  GetRouteDetailsByIdsQuery,
+  GetRouteDetailsByIdsQueryVariables
+>;
 export const GetRouteRenderInfoByIdDocument = gql`
-    query GetRouteRenderInfoById($routeId: uuid!) {
-  route_route_by_pk(route_id: $routeId) {
-    route_id
-    route_shape
-    route_line {
-      line_id
-      primary_vehicle_mode
+  query GetRouteRenderInfoById($routeId: uuid!) {
+    route_route_by_pk(route_id: $routeId) {
+      route_id
+      route_shape
+      route_line {
+        line_id
+        primary_vehicle_mode
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetRouteRenderInfoByIdQuery__
@@ -8241,31 +10131,62 @@ export const GetRouteRenderInfoByIdDocument = gql`
  *   },
  * });
  */
-export function useGetRouteRenderInfoByIdQuery(baseOptions: Apollo.QueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>(GetRouteRenderInfoByIdDocument, options);
-      }
-export function useGetRouteRenderInfoByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>(GetRouteRenderInfoByIdDocument, options);
-        }
-export type GetRouteRenderInfoByIdQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdQuery>;
-export type GetRouteRenderInfoByIdLazyQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdLazyQuery>;
-export type GetRouteRenderInfoByIdQueryResult = Apollo.QueryResult<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>;
+export function useGetRouteRenderInfoByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetRouteRenderInfoByIdQuery,
+    GetRouteRenderInfoByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRouteRenderInfoByIdQuery,
+    GetRouteRenderInfoByIdQueryVariables
+  >(GetRouteRenderInfoByIdDocument, options);
+}
+export function useGetRouteRenderInfoByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRouteRenderInfoByIdQuery,
+    GetRouteRenderInfoByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRouteRenderInfoByIdQuery,
+    GetRouteRenderInfoByIdQueryVariables
+  >(GetRouteRenderInfoByIdDocument, options);
+}
+export type GetRouteRenderInfoByIdQueryHookResult = ReturnType<
+  typeof useGetRouteRenderInfoByIdQuery
+>;
+export type GetRouteRenderInfoByIdLazyQueryHookResult = ReturnType<
+  typeof useGetRouteRenderInfoByIdLazyQuery
+>;
+export type GetRouteRenderInfoByIdQueryResult = Apollo.QueryResult<
+  GetRouteRenderInfoByIdQuery,
+  GetRouteRenderInfoByIdQueryVariables
+>;
 export const GetRouteDetailsByLabelsDocument = gql`
-    query GetRouteDetailsByLabels($labels: [String!], $date: timestamptz) {
-  route_route(
-    where: {label: {_in: $labels}, validity_start: {_lte: $date}, _or: [{validity_end: {_gte: $date}}, {validity_end: {_is_null: true}}]}
-  ) {
-    ...route_with_journey_pattern_stops
-    route_line {
-      line_id
-      label
-      primary_vehicle_mode
+  query GetRouteDetailsByLabels($labels: [String!], $date: timestamptz) {
+    route_route(
+      where: {
+        label: { _in: $labels }
+        validity_start: { _lte: $date }
+        _or: [
+          { validity_end: { _gte: $date } }
+          { validity_end: { _is_null: true } }
+        ]
+      }
+    ) {
+      ...route_with_journey_pattern_stops
+      route_line {
+        line_id
+        label
+        primary_vehicle_mode
+      }
     }
   }
-}
-    ${RouteWithJourneyPatternStopsFragmentDoc}`;
+  ${RouteWithJourneyPatternStopsFragmentDoc}
+`;
 
 /**
  * __useGetRouteDetailsByLabelsQuery__
@@ -8284,26 +10205,62 @@ export const GetRouteDetailsByLabelsDocument = gql`
  *   },
  * });
  */
-export function useGetRouteDetailsByLabelsQuery(baseOptions?: Apollo.QueryHookOptions<GetRouteDetailsByLabelsQuery, GetRouteDetailsByLabelsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteDetailsByLabelsQuery, GetRouteDetailsByLabelsQueryVariables>(GetRouteDetailsByLabelsDocument, options);
-      }
-export function useGetRouteDetailsByLabelsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteDetailsByLabelsQuery, GetRouteDetailsByLabelsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteDetailsByLabelsQuery, GetRouteDetailsByLabelsQueryVariables>(GetRouteDetailsByLabelsDocument, options);
-        }
-export type GetRouteDetailsByLabelsQueryHookResult = ReturnType<typeof useGetRouteDetailsByLabelsQuery>;
-export type GetRouteDetailsByLabelsLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByLabelsLazyQuery>;
-export type GetRouteDetailsByLabelsQueryResult = Apollo.QueryResult<GetRouteDetailsByLabelsQuery, GetRouteDetailsByLabelsQueryVariables>;
-export const GetRouteDetailsByLabelWildcardDocument = gql`
-    query GetRouteDetailsByLabelWildcard($label: String!, $date: timestamptz, $priorities: [Int!]) {
-  route_route(
-    where: {label: {_ilike: $label}, validity_start: {_lte: $date}, _or: [{validity_end: {_gte: $date}}, {validity_end: {_is_null: true}}], priority: {_in: $priorities}}
-  ) {
-    ...route_all_fields
-  }
+export function useGetRouteDetailsByLabelsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetRouteDetailsByLabelsQuery,
+    GetRouteDetailsByLabelsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRouteDetailsByLabelsQuery,
+    GetRouteDetailsByLabelsQueryVariables
+  >(GetRouteDetailsByLabelsDocument, options);
 }
-    ${RouteAllFieldsFragmentDoc}`;
+export function useGetRouteDetailsByLabelsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRouteDetailsByLabelsQuery,
+    GetRouteDetailsByLabelsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRouteDetailsByLabelsQuery,
+    GetRouteDetailsByLabelsQueryVariables
+  >(GetRouteDetailsByLabelsDocument, options);
+}
+export type GetRouteDetailsByLabelsQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByLabelsQuery
+>;
+export type GetRouteDetailsByLabelsLazyQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByLabelsLazyQuery
+>;
+export type GetRouteDetailsByLabelsQueryResult = Apollo.QueryResult<
+  GetRouteDetailsByLabelsQuery,
+  GetRouteDetailsByLabelsQueryVariables
+>;
+export const GetRouteDetailsByLabelWildcardDocument = gql`
+  query GetRouteDetailsByLabelWildcard(
+    $label: String!
+    $date: timestamptz
+    $priorities: [Int!]
+  ) {
+    route_route(
+      where: {
+        label: { _ilike: $label }
+        validity_start: { _lte: $date }
+        _or: [
+          { validity_end: { _gte: $date } }
+          { validity_end: { _is_null: true } }
+        ]
+        priority: { _in: $priorities }
+      }
+    ) {
+      ...route_all_fields
+    }
+  }
+  ${RouteAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetRouteDetailsByLabelWildcardQuery__
@@ -8323,27 +10280,57 @@ export const GetRouteDetailsByLabelWildcardDocument = gql`
  *   },
  * });
  */
-export function useGetRouteDetailsByLabelWildcardQuery(baseOptions: Apollo.QueryHookOptions<GetRouteDetailsByLabelWildcardQuery, GetRouteDetailsByLabelWildcardQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteDetailsByLabelWildcardQuery, GetRouteDetailsByLabelWildcardQueryVariables>(GetRouteDetailsByLabelWildcardDocument, options);
-      }
-export function useGetRouteDetailsByLabelWildcardLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteDetailsByLabelWildcardQuery, GetRouteDetailsByLabelWildcardQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteDetailsByLabelWildcardQuery, GetRouteDetailsByLabelWildcardQueryVariables>(GetRouteDetailsByLabelWildcardDocument, options);
-        }
-export type GetRouteDetailsByLabelWildcardQueryHookResult = ReturnType<typeof useGetRouteDetailsByLabelWildcardQuery>;
-export type GetRouteDetailsByLabelWildcardLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByLabelWildcardLazyQuery>;
-export type GetRouteDetailsByLabelWildcardQueryResult = Apollo.QueryResult<GetRouteDetailsByLabelWildcardQuery, GetRouteDetailsByLabelWildcardQueryVariables>;
-export const GetCurrentOrFutureLinesByLabelDocument = gql`
-    query GetCurrentOrFutureLinesByLabel($label: String!, $date: timestamptz!) {
-  route_line(
-    where: {label: {_ilike: $label}, _or: [{validity_end: {_gte: $date}}, {validity_end: {_is_null: true}}]}
-    order_by: [{label: asc}, {validity_start: asc}]
-  ) {
-    ...line_all_fields
-  }
+export function useGetRouteDetailsByLabelWildcardQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetRouteDetailsByLabelWildcardQuery,
+    GetRouteDetailsByLabelWildcardQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRouteDetailsByLabelWildcardQuery,
+    GetRouteDetailsByLabelWildcardQueryVariables
+  >(GetRouteDetailsByLabelWildcardDocument, options);
 }
-    ${LineAllFieldsFragmentDoc}`;
+export function useGetRouteDetailsByLabelWildcardLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRouteDetailsByLabelWildcardQuery,
+    GetRouteDetailsByLabelWildcardQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRouteDetailsByLabelWildcardQuery,
+    GetRouteDetailsByLabelWildcardQueryVariables
+  >(GetRouteDetailsByLabelWildcardDocument, options);
+}
+export type GetRouteDetailsByLabelWildcardQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByLabelWildcardQuery
+>;
+export type GetRouteDetailsByLabelWildcardLazyQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByLabelWildcardLazyQuery
+>;
+export type GetRouteDetailsByLabelWildcardQueryResult = Apollo.QueryResult<
+  GetRouteDetailsByLabelWildcardQuery,
+  GetRouteDetailsByLabelWildcardQueryVariables
+>;
+export const GetCurrentOrFutureLinesByLabelDocument = gql`
+  query GetCurrentOrFutureLinesByLabel($label: String!, $date: timestamptz!) {
+    route_line(
+      where: {
+        label: { _ilike: $label }
+        _or: [
+          { validity_end: { _gte: $date } }
+          { validity_end: { _is_null: true } }
+        ]
+      }
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
+      ...line_all_fields
+    }
+  }
+  ${LineAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetCurrentOrFutureLinesByLabelQuery__
@@ -8362,24 +10349,48 @@ export const GetCurrentOrFutureLinesByLabelDocument = gql`
  *   },
  * });
  */
-export function useGetCurrentOrFutureLinesByLabelQuery(baseOptions: Apollo.QueryHookOptions<GetCurrentOrFutureLinesByLabelQuery, GetCurrentOrFutureLinesByLabelQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCurrentOrFutureLinesByLabelQuery, GetCurrentOrFutureLinesByLabelQueryVariables>(GetCurrentOrFutureLinesByLabelDocument, options);
-      }
-export function useGetCurrentOrFutureLinesByLabelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCurrentOrFutureLinesByLabelQuery, GetCurrentOrFutureLinesByLabelQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCurrentOrFutureLinesByLabelQuery, GetCurrentOrFutureLinesByLabelQueryVariables>(GetCurrentOrFutureLinesByLabelDocument, options);
-        }
-export type GetCurrentOrFutureLinesByLabelQueryHookResult = ReturnType<typeof useGetCurrentOrFutureLinesByLabelQuery>;
-export type GetCurrentOrFutureLinesByLabelLazyQueryHookResult = ReturnType<typeof useGetCurrentOrFutureLinesByLabelLazyQuery>;
-export type GetCurrentOrFutureLinesByLabelQueryResult = Apollo.QueryResult<GetCurrentOrFutureLinesByLabelQuery, GetCurrentOrFutureLinesByLabelQueryVariables>;
-export const GetRoutesWithInfrastructureLinksDocument = gql`
-    query GetRoutesWithInfrastructureLinks($route_ids: [uuid!]) {
-  route_route(where: {route_id: {_in: $route_ids}}) {
-    ...route_with_infrastructure_links
-  }
+export function useGetCurrentOrFutureLinesByLabelQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetCurrentOrFutureLinesByLabelQuery,
+    GetCurrentOrFutureLinesByLabelQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetCurrentOrFutureLinesByLabelQuery,
+    GetCurrentOrFutureLinesByLabelQueryVariables
+  >(GetCurrentOrFutureLinesByLabelDocument, options);
 }
-    ${RouteWithInfrastructureLinksFragmentDoc}`;
+export function useGetCurrentOrFutureLinesByLabelLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCurrentOrFutureLinesByLabelQuery,
+    GetCurrentOrFutureLinesByLabelQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetCurrentOrFutureLinesByLabelQuery,
+    GetCurrentOrFutureLinesByLabelQueryVariables
+  >(GetCurrentOrFutureLinesByLabelDocument, options);
+}
+export type GetCurrentOrFutureLinesByLabelQueryHookResult = ReturnType<
+  typeof useGetCurrentOrFutureLinesByLabelQuery
+>;
+export type GetCurrentOrFutureLinesByLabelLazyQueryHookResult = ReturnType<
+  typeof useGetCurrentOrFutureLinesByLabelLazyQuery
+>;
+export type GetCurrentOrFutureLinesByLabelQueryResult = Apollo.QueryResult<
+  GetCurrentOrFutureLinesByLabelQuery,
+  GetCurrentOrFutureLinesByLabelQueryVariables
+>;
+export const GetRoutesWithInfrastructureLinksDocument = gql`
+  query GetRoutesWithInfrastructureLinks($route_ids: [uuid!]) {
+    route_route(where: { route_id: { _in: $route_ids } }) {
+      ...route_with_infrastructure_links
+    }
+  }
+  ${RouteWithInfrastructureLinksFragmentDoc}
+`;
 
 /**
  * __useGetRoutesWithInfrastructureLinksQuery__
@@ -8397,26 +10408,50 @@ export const GetRoutesWithInfrastructureLinksDocument = gql`
  *   },
  * });
  */
-export function useGetRoutesWithInfrastructureLinksQuery(baseOptions?: Apollo.QueryHookOptions<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>(GetRoutesWithInfrastructureLinksDocument, options);
-      }
-export function useGetRoutesWithInfrastructureLinksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>(GetRoutesWithInfrastructureLinksDocument, options);
-        }
-export type GetRoutesWithInfrastructureLinksQueryHookResult = ReturnType<typeof useGetRoutesWithInfrastructureLinksQuery>;
-export type GetRoutesWithInfrastructureLinksLazyQueryHookResult = ReturnType<typeof useGetRoutesWithInfrastructureLinksLazyQuery>;
-export type GetRoutesWithInfrastructureLinksQueryResult = Apollo.QueryResult<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>;
-export const GetRoutesByValidityDocument = gql`
-    query GetRoutesByValidity($filter: route_route_bool_exp) {
-  route_route(where: $filter) {
-    ...route_default_fields
-    validity_start
-    validity_end
-  }
+export function useGetRoutesWithInfrastructureLinksQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetRoutesWithInfrastructureLinksQuery,
+    GetRoutesWithInfrastructureLinksQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRoutesWithInfrastructureLinksQuery,
+    GetRoutesWithInfrastructureLinksQueryVariables
+  >(GetRoutesWithInfrastructureLinksDocument, options);
 }
-    ${RouteDefaultFieldsFragmentDoc}`;
+export function useGetRoutesWithInfrastructureLinksLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRoutesWithInfrastructureLinksQuery,
+    GetRoutesWithInfrastructureLinksQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRoutesWithInfrastructureLinksQuery,
+    GetRoutesWithInfrastructureLinksQueryVariables
+  >(GetRoutesWithInfrastructureLinksDocument, options);
+}
+export type GetRoutesWithInfrastructureLinksQueryHookResult = ReturnType<
+  typeof useGetRoutesWithInfrastructureLinksQuery
+>;
+export type GetRoutesWithInfrastructureLinksLazyQueryHookResult = ReturnType<
+  typeof useGetRoutesWithInfrastructureLinksLazyQuery
+>;
+export type GetRoutesWithInfrastructureLinksQueryResult = Apollo.QueryResult<
+  GetRoutesWithInfrastructureLinksQuery,
+  GetRoutesWithInfrastructureLinksQueryVariables
+>;
+export const GetRoutesByValidityDocument = gql`
+  query GetRoutesByValidity($filter: route_route_bool_exp) {
+    route_route(where: $filter) {
+      ...route_default_fields
+      validity_start
+      validity_end
+    }
+  }
+  ${RouteDefaultFieldsFragmentDoc}
+`;
 
 /**
  * __useGetRoutesByValidityQuery__
@@ -8434,31 +10469,57 @@ export const GetRoutesByValidityDocument = gql`
  *   },
  * });
  */
-export function useGetRoutesByValidityQuery(baseOptions?: Apollo.QueryHookOptions<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>(GetRoutesByValidityDocument, options);
-      }
-export function useGetRoutesByValidityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>(GetRoutesByValidityDocument, options);
-        }
-export type GetRoutesByValidityQueryHookResult = ReturnType<typeof useGetRoutesByValidityQuery>;
-export type GetRoutesByValidityLazyQueryHookResult = ReturnType<typeof useGetRoutesByValidityLazyQuery>;
-export type GetRoutesByValidityQueryResult = Apollo.QueryResult<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>;
-export const InsertLineOneDocument = gql`
-    mutation InsertLineOne($object: route_line_insert_input!) {
-  insert_route_line_one(object: $object) {
-    line_id
-    label
-    priority
-    primary_vehicle_mode
-    transport_target
-    validity_start
-    validity_end
-  }
+export function useGetRoutesByValidityQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetRoutesByValidityQuery,
+    GetRoutesByValidityQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRoutesByValidityQuery,
+    GetRoutesByValidityQueryVariables
+  >(GetRoutesByValidityDocument, options);
 }
-    `;
-export type InsertLineOneMutationFn = Apollo.MutationFunction<InsertLineOneMutation, InsertLineOneMutationVariables>;
+export function useGetRoutesByValidityLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRoutesByValidityQuery,
+    GetRoutesByValidityQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRoutesByValidityQuery,
+    GetRoutesByValidityQueryVariables
+  >(GetRoutesByValidityDocument, options);
+}
+export type GetRoutesByValidityQueryHookResult = ReturnType<
+  typeof useGetRoutesByValidityQuery
+>;
+export type GetRoutesByValidityLazyQueryHookResult = ReturnType<
+  typeof useGetRoutesByValidityLazyQuery
+>;
+export type GetRoutesByValidityQueryResult = Apollo.QueryResult<
+  GetRoutesByValidityQuery,
+  GetRoutesByValidityQueryVariables
+>;
+export const InsertLineOneDocument = gql`
+  mutation InsertLineOne($object: route_line_insert_input!) {
+    insert_route_line_one(object: $object) {
+      line_id
+      label
+      priority
+      primary_vehicle_mode
+      transport_target
+      validity_start
+      validity_end
+    }
+  }
+`;
+export type InsertLineOneMutationFn = Apollo.MutationFunction<
+  InsertLineOneMutation,
+  InsertLineOneMutationVariables
+>;
 
 /**
  * __useInsertLineOneMutation__
@@ -8477,21 +10538,39 @@ export type InsertLineOneMutationFn = Apollo.MutationFunction<InsertLineOneMutat
  *   },
  * });
  */
-export function useInsertLineOneMutation(baseOptions?: Apollo.MutationHookOptions<InsertLineOneMutation, InsertLineOneMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertLineOneMutation, InsertLineOneMutationVariables>(InsertLineOneDocument, options);
-      }
-export type InsertLineOneMutationHookResult = ReturnType<typeof useInsertLineOneMutation>;
-export type InsertLineOneMutationResult = Apollo.MutationResult<InsertLineOneMutation>;
-export type InsertLineOneMutationOptions = Apollo.BaseMutationOptions<InsertLineOneMutation, InsertLineOneMutationVariables>;
-export const PatchLineDocument = gql`
-    mutation PatchLine($line_id: uuid!, $object: route_line_set_input!) {
-  update_route_line_by_pk(pk_columns: {line_id: $line_id}, _set: $object) {
-    ...line_all_fields
-  }
+export function useInsertLineOneMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    InsertLineOneMutation,
+    InsertLineOneMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    InsertLineOneMutation,
+    InsertLineOneMutationVariables
+  >(InsertLineOneDocument, options);
 }
-    ${LineAllFieldsFragmentDoc}`;
-export type PatchLineMutationFn = Apollo.MutationFunction<PatchLineMutation, PatchLineMutationVariables>;
+export type InsertLineOneMutationHookResult = ReturnType<
+  typeof useInsertLineOneMutation
+>;
+export type InsertLineOneMutationResult =
+  Apollo.MutationResult<InsertLineOneMutation>;
+export type InsertLineOneMutationOptions = Apollo.BaseMutationOptions<
+  InsertLineOneMutation,
+  InsertLineOneMutationVariables
+>;
+export const PatchLineDocument = gql`
+  mutation PatchLine($line_id: uuid!, $object: route_line_set_input!) {
+    update_route_line_by_pk(pk_columns: { line_id: $line_id }, _set: $object) {
+      ...line_all_fields
+    }
+  }
+  ${LineAllFieldsFragmentDoc}
+`;
+export type PatchLineMutationFn = Apollo.MutationFunction<
+  PatchLineMutation,
+  PatchLineMutationVariables
+>;
 
 /**
  * __usePatchLineMutation__
@@ -8511,21 +10590,38 @@ export type PatchLineMutationFn = Apollo.MutationFunction<PatchLineMutation, Pat
  *   },
  * });
  */
-export function usePatchLineMutation(baseOptions?: Apollo.MutationHookOptions<PatchLineMutation, PatchLineMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<PatchLineMutation, PatchLineMutationVariables>(PatchLineDocument, options);
-      }
-export type PatchLineMutationHookResult = ReturnType<typeof usePatchLineMutation>;
-export type PatchLineMutationResult = Apollo.MutationResult<PatchLineMutation>;
-export type PatchLineMutationOptions = Apollo.BaseMutationOptions<PatchLineMutation, PatchLineMutationVariables>;
-export const InsertRouteOneDocument = gql`
-    mutation InsertRouteOne($object: route_route_insert_input!) {
-  insert_route_route_one(object: $object) {
-    ...route_all_fields
-  }
+export function usePatchLineMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    PatchLineMutation,
+    PatchLineMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<PatchLineMutation, PatchLineMutationVariables>(
+    PatchLineDocument,
+    options,
+  );
 }
-    ${RouteAllFieldsFragmentDoc}`;
-export type InsertRouteOneMutationFn = Apollo.MutationFunction<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
+export type PatchLineMutationHookResult = ReturnType<
+  typeof usePatchLineMutation
+>;
+export type PatchLineMutationResult = Apollo.MutationResult<PatchLineMutation>;
+export type PatchLineMutationOptions = Apollo.BaseMutationOptions<
+  PatchLineMutation,
+  PatchLineMutationVariables
+>;
+export const InsertRouteOneDocument = gql`
+  mutation InsertRouteOne($object: route_route_insert_input!) {
+    insert_route_route_one(object: $object) {
+      ...route_all_fields
+    }
+  }
+  ${RouteAllFieldsFragmentDoc}
+`;
+export type InsertRouteOneMutationFn = Apollo.MutationFunction<
+  InsertRouteOneMutation,
+  InsertRouteOneMutationVariables
+>;
 
 /**
  * __useInsertRouteOneMutation__
@@ -8544,23 +10640,41 @@ export type InsertRouteOneMutationFn = Apollo.MutationFunction<InsertRouteOneMut
  *   },
  * });
  */
-export function useInsertRouteOneMutation(baseOptions?: Apollo.MutationHookOptions<InsertRouteOneMutation, InsertRouteOneMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertRouteOneMutation, InsertRouteOneMutationVariables>(InsertRouteOneDocument, options);
-      }
-export type InsertRouteOneMutationHookResult = ReturnType<typeof useInsertRouteOneMutation>;
-export type InsertRouteOneMutationResult = Apollo.MutationResult<InsertRouteOneMutation>;
-export type InsertRouteOneMutationOptions = Apollo.BaseMutationOptions<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
+export function useInsertRouteOneMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    InsertRouteOneMutation,
+    InsertRouteOneMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    InsertRouteOneMutation,
+    InsertRouteOneMutationVariables
+  >(InsertRouteOneDocument, options);
+}
+export type InsertRouteOneMutationHookResult = ReturnType<
+  typeof useInsertRouteOneMutation
+>;
+export type InsertRouteOneMutationResult =
+  Apollo.MutationResult<InsertRouteOneMutation>;
+export type InsertRouteOneMutationOptions = Apollo.BaseMutationOptions<
+  InsertRouteOneMutation,
+  InsertRouteOneMutationVariables
+>;
 export const PatchRouteDocument = gql`
-    mutation PatchRoute($route_id: uuid!, $object: route_route_set_input!) {
-  update_route_route(where: {route_id: {_eq: $route_id}}, _set: $object) {
-    returning {
-      ...route_all_fields
+  mutation PatchRoute($route_id: uuid!, $object: route_route_set_input!) {
+    update_route_route(where: { route_id: { _eq: $route_id } }, _set: $object) {
+      returning {
+        ...route_all_fields
+      }
     }
   }
-}
-    ${RouteAllFieldsFragmentDoc}`;
-export type PatchRouteMutationFn = Apollo.MutationFunction<PatchRouteMutation, PatchRouteMutationVariables>;
+  ${RouteAllFieldsFragmentDoc}
+`;
+export type PatchRouteMutationFn = Apollo.MutationFunction<
+  PatchRouteMutation,
+  PatchRouteMutationVariables
+>;
 
 /**
  * __usePatchRouteMutation__
@@ -8580,48 +10694,74 @@ export type PatchRouteMutationFn = Apollo.MutationFunction<PatchRouteMutation, P
  *   },
  * });
  */
-export function usePatchRouteMutation(baseOptions?: Apollo.MutationHookOptions<PatchRouteMutation, PatchRouteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<PatchRouteMutation, PatchRouteMutationVariables>(PatchRouteDocument, options);
-      }
-export type PatchRouteMutationHookResult = ReturnType<typeof usePatchRouteMutation>;
-export type PatchRouteMutationResult = Apollo.MutationResult<PatchRouteMutation>;
-export type PatchRouteMutationOptions = Apollo.BaseMutationOptions<PatchRouteMutation, PatchRouteMutationVariables>;
-export const UpdateRouteGeometryDocument = gql`
-    mutation UpdateRouteGeometry($route_id: uuid!, $new_infrastructure_links: [route_infrastructure_link_along_route_insert_input!]!, $new_journey_pattern: journey_pattern_journey_pattern_insert_input!) {
-  delete_route_infrastructure_link_along_route(
-    where: {route_id: {_eq: $route_id}}
-  ) {
-    returning {
-      infrastructure_link_id
-      infrastructure_link_sequence
-      route_id
-    }
-  }
-  insert_route_infrastructure_link_along_route(objects: $new_infrastructure_links) {
-    returning {
-      route_id
-      infrastructure_link_id
-      infrastructure_link_sequence
-      infrastructure_link {
-        infrastructure_link_id
-        shape
-      }
-      is_traversal_forwards
-    }
-  }
-  delete_journey_pattern_journey_pattern(where: {on_route_id: {_eq: $route_id}}) {
-    returning {
-      journey_pattern_id
-      on_route_id
-    }
-  }
-  insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
-    ...journey_pattern_with_stops
-  }
+export function usePatchRouteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    PatchRouteMutation,
+    PatchRouteMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<PatchRouteMutation, PatchRouteMutationVariables>(
+    PatchRouteDocument,
+    options,
+  );
 }
-    ${JourneyPatternWithStopsFragmentDoc}`;
-export type UpdateRouteGeometryMutationFn = Apollo.MutationFunction<UpdateRouteGeometryMutation, UpdateRouteGeometryMutationVariables>;
+export type PatchRouteMutationHookResult = ReturnType<
+  typeof usePatchRouteMutation
+>;
+export type PatchRouteMutationResult =
+  Apollo.MutationResult<PatchRouteMutation>;
+export type PatchRouteMutationOptions = Apollo.BaseMutationOptions<
+  PatchRouteMutation,
+  PatchRouteMutationVariables
+>;
+export const UpdateRouteGeometryDocument = gql`
+  mutation UpdateRouteGeometry(
+    $route_id: uuid!
+    $new_infrastructure_links: [route_infrastructure_link_along_route_insert_input!]!
+    $new_journey_pattern: journey_pattern_journey_pattern_insert_input!
+  ) {
+    delete_route_infrastructure_link_along_route(
+      where: { route_id: { _eq: $route_id } }
+    ) {
+      returning {
+        infrastructure_link_id
+        infrastructure_link_sequence
+        route_id
+      }
+    }
+    insert_route_infrastructure_link_along_route(
+      objects: $new_infrastructure_links
+    ) {
+      returning {
+        route_id
+        infrastructure_link_id
+        infrastructure_link_sequence
+        infrastructure_link {
+          infrastructure_link_id
+          shape
+        }
+        is_traversal_forwards
+      }
+    }
+    delete_journey_pattern_journey_pattern(
+      where: { on_route_id: { _eq: $route_id } }
+    ) {
+      returning {
+        journey_pattern_id
+        on_route_id
+      }
+    }
+    insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
+      ...journey_pattern_with_stops
+    }
+  }
+  ${JourneyPatternWithStopsFragmentDoc}
+`;
+export type UpdateRouteGeometryMutationFn = Apollo.MutationFunction<
+  UpdateRouteGeometryMutation,
+  UpdateRouteGeometryMutationVariables
+>;
 
 /**
  * __useUpdateRouteGeometryMutation__
@@ -8642,23 +10782,40 @@ export type UpdateRouteGeometryMutationFn = Apollo.MutationFunction<UpdateRouteG
  *   },
  * });
  */
-export function useUpdateRouteGeometryMutation(baseOptions?: Apollo.MutationHookOptions<UpdateRouteGeometryMutation, UpdateRouteGeometryMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateRouteGeometryMutation, UpdateRouteGeometryMutationVariables>(UpdateRouteGeometryDocument, options);
-      }
-export type UpdateRouteGeometryMutationHookResult = ReturnType<typeof useUpdateRouteGeometryMutation>;
-export type UpdateRouteGeometryMutationResult = Apollo.MutationResult<UpdateRouteGeometryMutation>;
-export type UpdateRouteGeometryMutationOptions = Apollo.BaseMutationOptions<UpdateRouteGeometryMutation, UpdateRouteGeometryMutationVariables>;
+export function useUpdateRouteGeometryMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateRouteGeometryMutation,
+    UpdateRouteGeometryMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateRouteGeometryMutation,
+    UpdateRouteGeometryMutationVariables
+  >(UpdateRouteGeometryDocument, options);
+}
+export type UpdateRouteGeometryMutationHookResult = ReturnType<
+  typeof useUpdateRouteGeometryMutation
+>;
+export type UpdateRouteGeometryMutationResult =
+  Apollo.MutationResult<UpdateRouteGeometryMutation>;
+export type UpdateRouteGeometryMutationOptions = Apollo.BaseMutationOptions<
+  UpdateRouteGeometryMutation,
+  UpdateRouteGeometryMutationVariables
+>;
 export const DeleteRouteDocument = gql`
-    mutation DeleteRoute($route_id: uuid!) {
-  delete_route_route(where: {route_id: {_eq: $route_id}}) {
-    returning {
-      route_id
+  mutation DeleteRoute($route_id: uuid!) {
+    delete_route_route(where: { route_id: { _eq: $route_id } }) {
+      returning {
+        route_id
+      }
     }
   }
-}
-    `;
-export type DeleteRouteMutationFn = Apollo.MutationFunction<DeleteRouteMutation, DeleteRouteMutationVariables>;
+`;
+export type DeleteRouteMutationFn = Apollo.MutationFunction<
+  DeleteRouteMutation,
+  DeleteRouteMutationVariables
+>;
 
 /**
  * __useDeleteRouteMutation__
@@ -8677,25 +10834,42 @@ export type DeleteRouteMutationFn = Apollo.MutationFunction<DeleteRouteMutation,
  *   },
  * });
  */
-export function useDeleteRouteMutation(baseOptions?: Apollo.MutationHookOptions<DeleteRouteMutation, DeleteRouteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteRouteMutation, DeleteRouteMutationVariables>(DeleteRouteDocument, options);
-      }
-export type DeleteRouteMutationHookResult = ReturnType<typeof useDeleteRouteMutation>;
-export type DeleteRouteMutationResult = Apollo.MutationResult<DeleteRouteMutation>;
-export type DeleteRouteMutationOptions = Apollo.BaseMutationOptions<DeleteRouteMutation, DeleteRouteMutationVariables>;
+export function useDeleteRouteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteRouteMutation,
+    DeleteRouteMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<DeleteRouteMutation, DeleteRouteMutationVariables>(
+    DeleteRouteDocument,
+    options,
+  );
+}
+export type DeleteRouteMutationHookResult = ReturnType<
+  typeof useDeleteRouteMutation
+>;
+export type DeleteRouteMutationResult =
+  Apollo.MutationResult<DeleteRouteMutation>;
+export type DeleteRouteMutationOptions = Apollo.BaseMutationOptions<
+  DeleteRouteMutation,
+  DeleteRouteMutationVariables
+>;
 export const RemoveStopDocument = gql`
-    mutation RemoveStop($stop_id: uuid!) {
-  delete_service_pattern_scheduled_stop_point(
-    where: {scheduled_stop_point_id: {_eq: $stop_id}}
-  ) {
-    returning {
-      scheduled_stop_point_id
+  mutation RemoveStop($stop_id: uuid!) {
+    delete_service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _eq: $stop_id } }
+    ) {
+      returning {
+        scheduled_stop_point_id
+      }
     }
   }
-}
-    `;
-export type RemoveStopMutationFn = Apollo.MutationFunction<RemoveStopMutation, RemoveStopMutationVariables>;
+`;
+export type RemoveStopMutationFn = Apollo.MutationFunction<
+  RemoveStopMutation,
+  RemoveStopMutationVariables
+>;
 
 /**
  * __useRemoveStopMutation__
@@ -8714,22 +10888,39 @@ export type RemoveStopMutationFn = Apollo.MutationFunction<RemoveStopMutation, R
  *   },
  * });
  */
-export function useRemoveStopMutation(baseOptions?: Apollo.MutationHookOptions<RemoveStopMutation, RemoveStopMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveStopMutation, RemoveStopMutationVariables>(RemoveStopDocument, options);
-      }
-export type RemoveStopMutationHookResult = ReturnType<typeof useRemoveStopMutation>;
-export type RemoveStopMutationResult = Apollo.MutationResult<RemoveStopMutation>;
-export type RemoveStopMutationOptions = Apollo.BaseMutationOptions<RemoveStopMutation, RemoveStopMutationVariables>;
-export const GetStopsByLocationDocument = gql`
-    query GetStopsByLocation($measured_location_filter: geography_comparison_exp) {
-  service_pattern_scheduled_stop_point(
-    where: {measured_location: $measured_location_filter}
-  ) {
-    ...scheduled_stop_point_all_fields
-  }
+export function useRemoveStopMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemoveStopMutation,
+    RemoveStopMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<RemoveStopMutation, RemoveStopMutationVariables>(
+    RemoveStopDocument,
+    options,
+  );
 }
-    ${ScheduledStopPointAllFieldsFragmentDoc}`;
+export type RemoveStopMutationHookResult = ReturnType<
+  typeof useRemoveStopMutation
+>;
+export type RemoveStopMutationResult =
+  Apollo.MutationResult<RemoveStopMutation>;
+export type RemoveStopMutationOptions = Apollo.BaseMutationOptions<
+  RemoveStopMutation,
+  RemoveStopMutationVariables
+>;
+export const GetStopsByLocationDocument = gql`
+  query GetStopsByLocation(
+    $measured_location_filter: geography_comparison_exp
+  ) {
+    service_pattern_scheduled_stop_point(
+      where: { measured_location: $measured_location_filter }
+    ) {
+      ...scheduled_stop_point_all_fields
+    }
+  }
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetStopsByLocationQuery__
@@ -8747,24 +10938,50 @@ export const GetStopsByLocationDocument = gql`
  *   },
  * });
  */
-export function useGetStopsByLocationQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>(GetStopsByLocationDocument, options);
-      }
-export function useGetStopsByLocationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>(GetStopsByLocationDocument, options);
-        }
-export type GetStopsByLocationQueryHookResult = ReturnType<typeof useGetStopsByLocationQuery>;
-export type GetStopsByLocationLazyQueryHookResult = ReturnType<typeof useGetStopsByLocationLazyQuery>;
-export type GetStopsByLocationQueryResult = Apollo.QueryResult<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>;
-export const GetStopsByValidityDocument = gql`
-    query GetStopsByValidity($filter: service_pattern_scheduled_stop_point_bool_exp) {
-  service_pattern_scheduled_stop_point(where: $filter) {
-    ...scheduled_stop_point_all_fields
-  }
+export function useGetStopsByLocationQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetStopsByLocationQuery,
+    GetStopsByLocationQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetStopsByLocationQuery,
+    GetStopsByLocationQueryVariables
+  >(GetStopsByLocationDocument, options);
 }
-    ${ScheduledStopPointAllFieldsFragmentDoc}`;
+export function useGetStopsByLocationLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopsByLocationQuery,
+    GetStopsByLocationQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopsByLocationQuery,
+    GetStopsByLocationQueryVariables
+  >(GetStopsByLocationDocument, options);
+}
+export type GetStopsByLocationQueryHookResult = ReturnType<
+  typeof useGetStopsByLocationQuery
+>;
+export type GetStopsByLocationLazyQueryHookResult = ReturnType<
+  typeof useGetStopsByLocationLazyQuery
+>;
+export type GetStopsByLocationQueryResult = Apollo.QueryResult<
+  GetStopsByLocationQuery,
+  GetStopsByLocationQueryVariables
+>;
+export const GetStopsByValidityDocument = gql`
+  query GetStopsByValidity(
+    $filter: service_pattern_scheduled_stop_point_bool_exp
+  ) {
+    service_pattern_scheduled_stop_point(where: $filter) {
+      ...scheduled_stop_point_all_fields
+    }
+  }
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetStopsByValidityQuery__
@@ -8782,26 +10999,50 @@ export const GetStopsByValidityDocument = gql`
  *   },
  * });
  */
-export function useGetStopsByValidityQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsByValidityQuery, GetStopsByValidityQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopsByValidityQuery, GetStopsByValidityQueryVariables>(GetStopsByValidityDocument, options);
-      }
-export function useGetStopsByValidityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsByValidityQuery, GetStopsByValidityQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopsByValidityQuery, GetStopsByValidityQueryVariables>(GetStopsByValidityDocument, options);
-        }
-export type GetStopsByValidityQueryHookResult = ReturnType<typeof useGetStopsByValidityQuery>;
-export type GetStopsByValidityLazyQueryHookResult = ReturnType<typeof useGetStopsByValidityLazyQuery>;
-export type GetStopsByValidityQueryResult = Apollo.QueryResult<GetStopsByValidityQuery, GetStopsByValidityQueryVariables>;
-export const GetStopsByIdsDocument = gql`
-    query GetStopsByIds($stopIds: [uuid!]) {
-  service_pattern_scheduled_stop_point(
-    where: {scheduled_stop_point_id: {_in: $stopIds}}
-  ) {
-    ...scheduled_stop_point_all_fields
-  }
+export function useGetStopsByValidityQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetStopsByValidityQuery,
+    GetStopsByValidityQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetStopsByValidityQuery,
+    GetStopsByValidityQueryVariables
+  >(GetStopsByValidityDocument, options);
 }
-    ${ScheduledStopPointAllFieldsFragmentDoc}`;
+export function useGetStopsByValidityLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopsByValidityQuery,
+    GetStopsByValidityQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopsByValidityQuery,
+    GetStopsByValidityQueryVariables
+  >(GetStopsByValidityDocument, options);
+}
+export type GetStopsByValidityQueryHookResult = ReturnType<
+  typeof useGetStopsByValidityQuery
+>;
+export type GetStopsByValidityLazyQueryHookResult = ReturnType<
+  typeof useGetStopsByValidityLazyQuery
+>;
+export type GetStopsByValidityQueryResult = Apollo.QueryResult<
+  GetStopsByValidityQuery,
+  GetStopsByValidityQueryVariables
+>;
+export const GetStopsByIdsDocument = gql`
+  query GetStopsByIds($stopIds: [uuid!]) {
+    service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _in: $stopIds } }
+    ) {
+      ...scheduled_stop_point_all_fields
+    }
+  }
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetStopsByIdsQuery__
@@ -8819,24 +11060,50 @@ export const GetStopsByIdsDocument = gql`
  *   },
  * });
  */
-export function useGetStopsByIdsQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>(GetStopsByIdsDocument, options);
-      }
-export function useGetStopsByIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>(GetStopsByIdsDocument, options);
-        }
-export type GetStopsByIdsQueryHookResult = ReturnType<typeof useGetStopsByIdsQuery>;
-export type GetStopsByIdsLazyQueryHookResult = ReturnType<typeof useGetStopsByIdsLazyQuery>;
-export type GetStopsByIdsQueryResult = Apollo.QueryResult<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>;
-export const GetStopsByLabelsDocument = gql`
-    query GetStopsByLabels($stopLabels: [String!]) {
-  service_pattern_scheduled_stop_point(where: {label: {_in: $stopLabels}}) {
-    ...scheduled_stop_point_all_fields
-  }
+export function useGetStopsByIdsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetStopsByIdsQuery,
+    GetStopsByIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>(
+    GetStopsByIdsDocument,
+    options,
+  );
 }
-    ${ScheduledStopPointAllFieldsFragmentDoc}`;
+export function useGetStopsByIdsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopsByIdsQuery,
+    GetStopsByIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>(
+    GetStopsByIdsDocument,
+    options,
+  );
+}
+export type GetStopsByIdsQueryHookResult = ReturnType<
+  typeof useGetStopsByIdsQuery
+>;
+export type GetStopsByIdsLazyQueryHookResult = ReturnType<
+  typeof useGetStopsByIdsLazyQuery
+>;
+export type GetStopsByIdsQueryResult = Apollo.QueryResult<
+  GetStopsByIdsQuery,
+  GetStopsByIdsQueryVariables
+>;
+export const GetStopsByLabelsDocument = gql`
+  query GetStopsByLabels($stopLabels: [String!]) {
+    service_pattern_scheduled_stop_point(
+      where: { label: { _in: $stopLabels } }
+    ) {
+      ...scheduled_stop_point_all_fields
+    }
+  }
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetStopsByLabelsQuery__
@@ -8854,32 +11121,60 @@ export const GetStopsByLabelsDocument = gql`
  *   },
  * });
  */
-export function useGetStopsByLabelsQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsByLabelsQuery, GetStopsByLabelsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopsByLabelsQuery, GetStopsByLabelsQueryVariables>(GetStopsByLabelsDocument, options);
-      }
-export function useGetStopsByLabelsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsByLabelsQuery, GetStopsByLabelsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopsByLabelsQuery, GetStopsByLabelsQueryVariables>(GetStopsByLabelsDocument, options);
-        }
-export type GetStopsByLabelsQueryHookResult = ReturnType<typeof useGetStopsByLabelsQuery>;
-export type GetStopsByLabelsLazyQueryHookResult = ReturnType<typeof useGetStopsByLabelsLazyQuery>;
-export type GetStopsByLabelsQueryResult = Apollo.QueryResult<GetStopsByLabelsQuery, GetStopsByLabelsQueryVariables>;
-export const InsertStopDocument = gql`
-    mutation InsertStop($object: service_pattern_scheduled_stop_point_insert_input!) {
-  insert_service_pattern_scheduled_stop_point_one(object: $object) {
-    scheduled_stop_point_id
-    located_on_infrastructure_link_id
-    direction
-    priority
-    measured_location
-    label
-    validity_start
-    validity_end
-  }
+export function useGetStopsByLabelsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetStopsByLabelsQuery,
+    GetStopsByLabelsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetStopsByLabelsQuery, GetStopsByLabelsQueryVariables>(
+    GetStopsByLabelsDocument,
+    options,
+  );
 }
-    `;
-export type InsertStopMutationFn = Apollo.MutationFunction<InsertStopMutation, InsertStopMutationVariables>;
+export function useGetStopsByLabelsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopsByLabelsQuery,
+    GetStopsByLabelsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopsByLabelsQuery,
+    GetStopsByLabelsQueryVariables
+  >(GetStopsByLabelsDocument, options);
+}
+export type GetStopsByLabelsQueryHookResult = ReturnType<
+  typeof useGetStopsByLabelsQuery
+>;
+export type GetStopsByLabelsLazyQueryHookResult = ReturnType<
+  typeof useGetStopsByLabelsLazyQuery
+>;
+export type GetStopsByLabelsQueryResult = Apollo.QueryResult<
+  GetStopsByLabelsQuery,
+  GetStopsByLabelsQueryVariables
+>;
+export const InsertStopDocument = gql`
+  mutation InsertStop(
+    $object: service_pattern_scheduled_stop_point_insert_input!
+  ) {
+    insert_service_pattern_scheduled_stop_point_one(object: $object) {
+      scheduled_stop_point_id
+      located_on_infrastructure_link_id
+      direction
+      priority
+      measured_location
+      label
+      validity_start
+      validity_end
+    }
+  }
+`;
+export type InsertStopMutationFn = Apollo.MutationFunction<
+  InsertStopMutation,
+  InsertStopMutationVariables
+>;
 
 /**
  * __useInsertStopMutation__
@@ -8898,34 +11193,62 @@ export type InsertStopMutationFn = Apollo.MutationFunction<InsertStopMutation, I
  *   },
  * });
  */
-export function useInsertStopMutation(baseOptions?: Apollo.MutationHookOptions<InsertStopMutation, InsertStopMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertStopMutation, InsertStopMutationVariables>(InsertStopDocument, options);
-      }
-export type InsertStopMutationHookResult = ReturnType<typeof useInsertStopMutation>;
-export type InsertStopMutationResult = Apollo.MutationResult<InsertStopMutation>;
-export type InsertStopMutationOptions = Apollo.BaseMutationOptions<InsertStopMutation, InsertStopMutationVariables>;
-export const EditStopDocument = gql`
-    mutation EditStop($stop_id: uuid!, $stop_label: String!, $stop_patch: service_pattern_scheduled_stop_point_set_input!, $delete_from_journey_pattern_ids: [uuid!]!) {
-  update_service_pattern_scheduled_stop_point(
-    where: {scheduled_stop_point_id: {_eq: $stop_id}}
-    _set: $stop_patch
-  ) {
-    returning {
-      ...scheduled_stop_point_all_fields
-    }
-  }
-  delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
-    where: {_and: {scheduled_stop_point_label: {_eq: $stop_label}, journey_pattern_id: {_in: $delete_from_journey_pattern_ids}}}
-  ) {
-    returning {
-      ...scheduled_stop_point_in_journey_pattern_all_fields
-    }
-  }
+export function useInsertStopMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    InsertStopMutation,
+    InsertStopMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<InsertStopMutation, InsertStopMutationVariables>(
+    InsertStopDocument,
+    options,
+  );
 }
-    ${ScheduledStopPointAllFieldsFragmentDoc}
-${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}`;
-export type EditStopMutationFn = Apollo.MutationFunction<EditStopMutation, EditStopMutationVariables>;
+export type InsertStopMutationHookResult = ReturnType<
+  typeof useInsertStopMutation
+>;
+export type InsertStopMutationResult =
+  Apollo.MutationResult<InsertStopMutation>;
+export type InsertStopMutationOptions = Apollo.BaseMutationOptions<
+  InsertStopMutation,
+  InsertStopMutationVariables
+>;
+export const EditStopDocument = gql`
+  mutation EditStop(
+    $stop_id: uuid!
+    $stop_label: String!
+    $stop_patch: service_pattern_scheduled_stop_point_set_input!
+    $delete_from_journey_pattern_ids: [uuid!]!
+  ) {
+    update_service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _eq: $stop_id } }
+      _set: $stop_patch
+    ) {
+      returning {
+        ...scheduled_stop_point_all_fields
+      }
+    }
+    delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        _and: {
+          scheduled_stop_point_label: { _eq: $stop_label }
+          journey_pattern_id: { _in: $delete_from_journey_pattern_ids }
+        }
+      }
+    ) {
+      returning {
+        ...scheduled_stop_point_in_journey_pattern_all_fields
+      }
+    }
+  }
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+`;
+export type EditStopMutationFn = Apollo.MutationFunction<
+  EditStopMutation,
+  EditStopMutationVariables
+>;
 
 /**
  * __useEditStopMutation__
@@ -8947,38 +11270,50 @@ export type EditStopMutationFn = Apollo.MutationFunction<EditStopMutation, EditS
  *   },
  * });
  */
-export function useEditStopMutation(baseOptions?: Apollo.MutationHookOptions<EditStopMutation, EditStopMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<EditStopMutation, EditStopMutationVariables>(EditStopDocument, options);
-      }
+export function useEditStopMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditStopMutation,
+    EditStopMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<EditStopMutation, EditStopMutationVariables>(
+    EditStopDocument,
+    options,
+  );
+}
 export type EditStopMutationHookResult = ReturnType<typeof useEditStopMutation>;
 export type EditStopMutationResult = Apollo.MutationResult<EditStopMutation>;
-export type EditStopMutationOptions = Apollo.BaseMutationOptions<EditStopMutation, EditStopMutationVariables>;
+export type EditStopMutationOptions = Apollo.BaseMutationOptions<
+  EditStopMutation,
+  EditStopMutationVariables
+>;
 export const GetStopWithRouteGraphDataByIdDocument = gql`
-    query GetStopWithRouteGraphDataById($stopId: uuid!) {
-  service_pattern_scheduled_stop_point(
-    where: {scheduled_stop_point_id: {_eq: $stopId}}
-  ) {
-    ...scheduled_stop_point_all_fields
-    scheduled_stop_point_in_journey_patterns {
-      ...scheduled_stop_point_in_journey_pattern_all_fields
-      journey_pattern {
-        journey_pattern_id
-        journey_pattern_route {
-          ...route_default_fields
-          infrastructure_links_along_route {
-            route_id
-            infrastructure_link_id
-            infrastructure_link_sequence
+  query GetStopWithRouteGraphDataById($stopId: uuid!) {
+    service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _eq: $stopId } }
+    ) {
+      ...scheduled_stop_point_all_fields
+      scheduled_stop_point_in_journey_patterns {
+        ...scheduled_stop_point_in_journey_pattern_all_fields
+        journey_pattern {
+          journey_pattern_id
+          journey_pattern_route {
+            ...route_default_fields
+            infrastructure_links_along_route {
+              route_id
+              infrastructure_link_id
+              infrastructure_link_sequence
+            }
           }
         }
       }
     }
   }
-}
-    ${ScheduledStopPointAllFieldsFragmentDoc}
-${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
-${RouteDefaultFieldsFragmentDoc}`;
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+  ${RouteDefaultFieldsFragmentDoc}
+`;
 
 /**
  * __useGetStopWithRouteGraphDataByIdQuery__
@@ -8996,29 +11331,69 @@ ${RouteDefaultFieldsFragmentDoc}`;
  *   },
  * });
  */
-export function useGetStopWithRouteGraphDataByIdQuery(baseOptions: Apollo.QueryHookOptions<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>(GetStopWithRouteGraphDataByIdDocument, options);
-      }
-export function useGetStopWithRouteGraphDataByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>(GetStopWithRouteGraphDataByIdDocument, options);
-        }
-export type GetStopWithRouteGraphDataByIdQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdQuery>;
-export type GetStopWithRouteGraphDataByIdLazyQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdLazyQuery>;
-export type GetStopWithRouteGraphDataByIdQueryResult = Apollo.QueryResult<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>;
+export function useGetStopWithRouteGraphDataByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetStopWithRouteGraphDataByIdQuery,
+    GetStopWithRouteGraphDataByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetStopWithRouteGraphDataByIdQuery,
+    GetStopWithRouteGraphDataByIdQueryVariables
+  >(GetStopWithRouteGraphDataByIdDocument, options);
+}
+export function useGetStopWithRouteGraphDataByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopWithRouteGraphDataByIdQuery,
+    GetStopWithRouteGraphDataByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopWithRouteGraphDataByIdQuery,
+    GetStopWithRouteGraphDataByIdQueryVariables
+  >(GetStopWithRouteGraphDataByIdDocument, options);
+}
+export type GetStopWithRouteGraphDataByIdQueryHookResult = ReturnType<
+  typeof useGetStopWithRouteGraphDataByIdQuery
+>;
+export type GetStopWithRouteGraphDataByIdLazyQueryHookResult = ReturnType<
+  typeof useGetStopWithRouteGraphDataByIdLazyQuery
+>;
+export type GetStopWithRouteGraphDataByIdQueryResult = Apollo.QueryResult<
+  GetStopWithRouteGraphDataByIdQuery,
+  GetStopWithRouteGraphDataByIdQueryVariables
+>;
 export const GetRoutesBrokenByStopChangeDocument = gql`
-    query GetRoutesBrokenByStopChange($new_located_on_infrastructure_link_id: uuid!, $new_direction: String!, $new_label: String!, $new_validity_start: timestamptz, $new_validity_end: timestamptz, $new_measured_location: geography!, $replace_scheduled_stop_point_id: uuid) {
-  journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point(
-    args: {replace_scheduled_stop_point_id: $replace_scheduled_stop_point_id, new_located_on_infrastructure_link_id: $new_located_on_infrastructure_link_id, new_direction: $new_direction, new_label: $new_label, new_validity_start: $new_validity_start, new_validity_end: $new_validity_end, new_measured_location: $new_measured_location}
+  query GetRoutesBrokenByStopChange(
+    $new_located_on_infrastructure_link_id: uuid!
+    $new_direction: String!
+    $new_label: String!
+    $new_validity_start: timestamptz
+    $new_validity_end: timestamptz
+    $new_measured_location: geography!
+    $replace_scheduled_stop_point_id: uuid
   ) {
-    journey_pattern_id
-    journey_pattern_route {
-      ...route_all_fields
+    journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point(
+      args: {
+        replace_scheduled_stop_point_id: $replace_scheduled_stop_point_id
+        new_located_on_infrastructure_link_id: $new_located_on_infrastructure_link_id
+        new_direction: $new_direction
+        new_label: $new_label
+        new_validity_start: $new_validity_start
+        new_validity_end: $new_validity_end
+        new_measured_location: $new_measured_location
+      }
+    ) {
+      journey_pattern_id
+      journey_pattern_route {
+        ...route_all_fields
+      }
     }
   }
-}
-    ${RouteAllFieldsFragmentDoc}`;
+  ${RouteAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetRoutesBrokenByStopChangeQuery__
@@ -9042,139 +11417,288 @@ export const GetRoutesBrokenByStopChangeDocument = gql`
  *   },
  * });
  */
-export function useGetRoutesBrokenByStopChangeQuery(baseOptions: Apollo.QueryHookOptions<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>(GetRoutesBrokenByStopChangeDocument, options);
-      }
-export function useGetRoutesBrokenByStopChangeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>(GetRoutesBrokenByStopChangeDocument, options);
-        }
-export type GetRoutesBrokenByStopChangeQueryHookResult = ReturnType<typeof useGetRoutesBrokenByStopChangeQuery>;
-export type GetRoutesBrokenByStopChangeLazyQueryHookResult = ReturnType<typeof useGetRoutesBrokenByStopChangeLazyQuery>;
-export type GetRoutesBrokenByStopChangeQueryResult = Apollo.QueryResult<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>;
+export function useGetRoutesBrokenByStopChangeQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  >(GetRoutesBrokenByStopChangeDocument, options);
+}
+export function useGetRoutesBrokenByStopChangeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  >(GetRoutesBrokenByStopChangeDocument, options);
+}
+export type GetRoutesBrokenByStopChangeQueryHookResult = ReturnType<
+  typeof useGetRoutesBrokenByStopChangeQuery
+>;
+export type GetRoutesBrokenByStopChangeLazyQueryHookResult = ReturnType<
+  typeof useGetRoutesBrokenByStopChangeLazyQuery
+>;
+export type GetRoutesBrokenByStopChangeQueryResult = Apollo.QueryResult<
+  GetRoutesBrokenByStopChangeQuery,
+  GetRoutesBrokenByStopChangeQueryVariables
+>;
 
 export function useQueryClosestLinkAsyncQuery() {
-          return useAsyncQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(QueryClosestLinkDocument);
-        }
-export type QueryClosestLinkAsyncQueryHookResult = ReturnType<typeof useQueryClosestLinkAsyncQuery>;
+  return useAsyncQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(
+    QueryClosestLinkDocument,
+  );
+}
+export type QueryClosestLinkAsyncQueryHookResult = ReturnType<
+  typeof useQueryClosestLinkAsyncQuery
+>;
 export function useQueryPointDirectionOnLinkAsyncQuery() {
-          return useAsyncQuery<QueryPointDirectionOnLinkQuery, QueryPointDirectionOnLinkQueryVariables>(QueryPointDirectionOnLinkDocument);
-        }
-export type QueryPointDirectionOnLinkAsyncQueryHookResult = ReturnType<typeof useQueryPointDirectionOnLinkAsyncQuery>;
+  return useAsyncQuery<
+    QueryPointDirectionOnLinkQuery,
+    QueryPointDirectionOnLinkQueryVariables
+  >(QueryPointDirectionOnLinkDocument);
+}
+export type QueryPointDirectionOnLinkAsyncQueryHookResult = ReturnType<
+  typeof useQueryPointDirectionOnLinkAsyncQuery
+>;
 export function useGetLinksWithStopsByExternalLinkIdsAsyncQuery() {
-          return useAsyncQuery<GetLinksWithStopsByExternalLinkIdsQuery, GetLinksWithStopsByExternalLinkIdsQueryVariables>(GetLinksWithStopsByExternalLinkIdsDocument);
-        }
-export type GetLinksWithStopsByExternalLinkIdsAsyncQueryHookResult = ReturnType<typeof useGetLinksWithStopsByExternalLinkIdsAsyncQuery>;
+  return useAsyncQuery<
+    GetLinksWithStopsByExternalLinkIdsQuery,
+    GetLinksWithStopsByExternalLinkIdsQueryVariables
+  >(GetLinksWithStopsByExternalLinkIdsDocument);
+}
+export type GetLinksWithStopsByExternalLinkIdsAsyncQueryHookResult = ReturnType<
+  typeof useGetLinksWithStopsByExternalLinkIdsAsyncQuery
+>;
 export function useGetStopsAlongInfrastructureLinksAsyncQuery() {
-          return useAsyncQuery<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>(GetStopsAlongInfrastructureLinksDocument);
-        }
-export type GetStopsAlongInfrastructureLinksAsyncQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksAsyncQuery>;
-
-
+  return useAsyncQuery<
+    GetStopsAlongInfrastructureLinksQuery,
+    GetStopsAlongInfrastructureLinksQueryVariables
+  >(GetStopsAlongInfrastructureLinksDocument);
+}
+export type GetStopsAlongInfrastructureLinksAsyncQueryHookResult = ReturnType<
+  typeof useGetStopsAlongInfrastructureLinksAsyncQuery
+>;
 
 export function useGetScheduledStopPointWithViaInfoAsyncQuery() {
-          return useAsyncQuery<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>(GetScheduledStopPointWithViaInfoDocument);
-        }
-export type GetScheduledStopPointWithViaInfoAsyncQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithViaInfoAsyncQuery>;
+  return useAsyncQuery<
+    GetScheduledStopPointWithViaInfoQuery,
+    GetScheduledStopPointWithViaInfoQueryVariables
+  >(GetScheduledStopPointWithViaInfoDocument);
+}
+export type GetScheduledStopPointWithViaInfoAsyncQueryHookResult = ReturnType<
+  typeof useGetScheduledStopPointWithViaInfoAsyncQuery
+>;
 export function useSearchLinesAndRoutesAsyncQuery() {
-          return useAsyncQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument);
-        }
-export type SearchLinesAndRoutesAsyncQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesAsyncQuery>;
+  return useAsyncQuery<
+    SearchLinesAndRoutesQuery,
+    SearchLinesAndRoutesQueryVariables
+  >(SearchLinesAndRoutesDocument);
+}
+export type SearchLinesAndRoutesAsyncQueryHookResult = ReturnType<
+  typeof useSearchLinesAndRoutesAsyncQuery
+>;
 export function useListOwnLinesAsyncQuery() {
-          return useAsyncQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument);
-        }
-export type ListOwnLinesAsyncQueryHookResult = ReturnType<typeof useListOwnLinesAsyncQuery>;
+  return useAsyncQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(
+    ListOwnLinesDocument,
+  );
+}
+export type ListOwnLinesAsyncQueryHookResult = ReturnType<
+  typeof useListOwnLinesAsyncQuery
+>;
 export function useListChangingRoutesAsyncQuery() {
-          return useAsyncQuery<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>(ListChangingRoutesDocument);
-        }
-export type ListChangingRoutesAsyncQueryHookResult = ReturnType<typeof useListChangingRoutesAsyncQuery>;
+  return useAsyncQuery<
+    ListChangingRoutesQuery,
+    ListChangingRoutesQueryVariables
+  >(ListChangingRoutesDocument);
+}
+export type ListChangingRoutesAsyncQueryHookResult = ReturnType<
+  typeof useListChangingRoutesAsyncQuery
+>;
 export function useGetLineDetailsByIdAsyncQuery() {
-          return useAsyncQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument);
-        }
-export type GetLineDetailsByIdAsyncQueryHookResult = ReturnType<typeof useGetLineDetailsByIdAsyncQuery>;
+  return useAsyncQuery<
+    GetLineDetailsByIdQuery,
+    GetLineDetailsByIdQueryVariables
+  >(GetLineDetailsByIdDocument);
+}
+export type GetLineDetailsByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetLineDetailsByIdAsyncQuery
+>;
 export function useGetLineValidityPeriodByIdAsyncQuery() {
-          return useAsyncQuery<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>(GetLineValidityPeriodByIdDocument);
-        }
-export type GetLineValidityPeriodByIdAsyncQueryHookResult = ReturnType<typeof useGetLineValidityPeriodByIdAsyncQuery>;
+  return useAsyncQuery<
+    GetLineValidityPeriodByIdQuery,
+    GetLineValidityPeriodByIdQueryVariables
+  >(GetLineValidityPeriodByIdDocument);
+}
+export type GetLineValidityPeriodByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetLineValidityPeriodByIdAsyncQuery
+>;
 export function useGetLinesByValidityAsyncQuery() {
-          return useAsyncQuery<GetLinesByValidityQuery, GetLinesByValidityQueryVariables>(GetLinesByValidityDocument);
-        }
-export type GetLinesByValidityAsyncQueryHookResult = ReturnType<typeof useGetLinesByValidityAsyncQuery>;
+  return useAsyncQuery<
+    GetLinesByValidityQuery,
+    GetLinesByValidityQueryVariables
+  >(GetLinesByValidityDocument);
+}
+export type GetLinesByValidityAsyncQueryHookResult = ReturnType<
+  typeof useGetLinesByValidityAsyncQuery
+>;
 export function useGetLineDetailsWithRoutesByIdAsyncQuery() {
-          return useAsyncQuery<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>(GetLineDetailsWithRoutesByIdDocument);
-        }
-export type GetLineDetailsWithRoutesByIdAsyncQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdAsyncQuery>;
+  return useAsyncQuery<
+    GetLineDetailsWithRoutesByIdQuery,
+    GetLineDetailsWithRoutesByIdQueryVariables
+  >(GetLineDetailsWithRoutesByIdDocument);
+}
+export type GetLineDetailsWithRoutesByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetLineDetailsWithRoutesByIdAsyncQuery
+>;
 export function useGetHighestPriorityLineDetailsWithRoutesAsyncQuery() {
-          return useAsyncQuery<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>(GetHighestPriorityLineDetailsWithRoutesDocument);
-        }
-export type GetHighestPriorityLineDetailsWithRoutesAsyncQueryHookResult = ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesAsyncQuery>;
+  return useAsyncQuery<
+    GetHighestPriorityLineDetailsWithRoutesQuery,
+    GetHighestPriorityLineDetailsWithRoutesQueryVariables
+  >(GetHighestPriorityLineDetailsWithRoutesDocument);
+}
+export type GetHighestPriorityLineDetailsWithRoutesAsyncQueryHookResult =
+  ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesAsyncQuery>;
 export function useGetRoutesWithStopsAsyncQuery() {
-          return useAsyncQuery<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>(GetRoutesWithStopsDocument);
-        }
-export type GetRoutesWithStopsAsyncQueryHookResult = ReturnType<typeof useGetRoutesWithStopsAsyncQuery>;
+  return useAsyncQuery<
+    GetRoutesWithStopsQuery,
+    GetRoutesWithStopsQueryVariables
+  >(GetRoutesWithStopsDocument);
+}
+export type GetRoutesWithStopsAsyncQueryHookResult = ReturnType<
+  typeof useGetRoutesWithStopsAsyncQuery
+>;
 export function useGetRouteDetailsByIdAsyncQuery() {
-          return useAsyncQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument);
-        }
-export type GetRouteDetailsByIdAsyncQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdAsyncQuery>;
+  return useAsyncQuery<
+    GetRouteDetailsByIdQuery,
+    GetRouteDetailsByIdQueryVariables
+  >(GetRouteDetailsByIdDocument);
+}
+export type GetRouteDetailsByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByIdAsyncQuery
+>;
 export function useGetRouteDetailsByIdsAsyncQuery() {
-          return useAsyncQuery<GetRouteDetailsByIdsQuery, GetRouteDetailsByIdsQueryVariables>(GetRouteDetailsByIdsDocument);
-        }
-export type GetRouteDetailsByIdsAsyncQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdsAsyncQuery>;
+  return useAsyncQuery<
+    GetRouteDetailsByIdsQuery,
+    GetRouteDetailsByIdsQueryVariables
+  >(GetRouteDetailsByIdsDocument);
+}
+export type GetRouteDetailsByIdsAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByIdsAsyncQuery
+>;
 export function useGetRouteRenderInfoByIdAsyncQuery() {
-          return useAsyncQuery<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>(GetRouteRenderInfoByIdDocument);
-        }
-export type GetRouteRenderInfoByIdAsyncQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdAsyncQuery>;
+  return useAsyncQuery<
+    GetRouteRenderInfoByIdQuery,
+    GetRouteRenderInfoByIdQueryVariables
+  >(GetRouteRenderInfoByIdDocument);
+}
+export type GetRouteRenderInfoByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteRenderInfoByIdAsyncQuery
+>;
 export function useGetRouteDetailsByLabelsAsyncQuery() {
-          return useAsyncQuery<GetRouteDetailsByLabelsQuery, GetRouteDetailsByLabelsQueryVariables>(GetRouteDetailsByLabelsDocument);
-        }
-export type GetRouteDetailsByLabelsAsyncQueryHookResult = ReturnType<typeof useGetRouteDetailsByLabelsAsyncQuery>;
+  return useAsyncQuery<
+    GetRouteDetailsByLabelsQuery,
+    GetRouteDetailsByLabelsQueryVariables
+  >(GetRouteDetailsByLabelsDocument);
+}
+export type GetRouteDetailsByLabelsAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByLabelsAsyncQuery
+>;
 export function useGetRouteDetailsByLabelWildcardAsyncQuery() {
-          return useAsyncQuery<GetRouteDetailsByLabelWildcardQuery, GetRouteDetailsByLabelWildcardQueryVariables>(GetRouteDetailsByLabelWildcardDocument);
-        }
-export type GetRouteDetailsByLabelWildcardAsyncQueryHookResult = ReturnType<typeof useGetRouteDetailsByLabelWildcardAsyncQuery>;
+  return useAsyncQuery<
+    GetRouteDetailsByLabelWildcardQuery,
+    GetRouteDetailsByLabelWildcardQueryVariables
+  >(GetRouteDetailsByLabelWildcardDocument);
+}
+export type GetRouteDetailsByLabelWildcardAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByLabelWildcardAsyncQuery
+>;
 export function useGetCurrentOrFutureLinesByLabelAsyncQuery() {
-          return useAsyncQuery<GetCurrentOrFutureLinesByLabelQuery, GetCurrentOrFutureLinesByLabelQueryVariables>(GetCurrentOrFutureLinesByLabelDocument);
-        }
-export type GetCurrentOrFutureLinesByLabelAsyncQueryHookResult = ReturnType<typeof useGetCurrentOrFutureLinesByLabelAsyncQuery>;
+  return useAsyncQuery<
+    GetCurrentOrFutureLinesByLabelQuery,
+    GetCurrentOrFutureLinesByLabelQueryVariables
+  >(GetCurrentOrFutureLinesByLabelDocument);
+}
+export type GetCurrentOrFutureLinesByLabelAsyncQueryHookResult = ReturnType<
+  typeof useGetCurrentOrFutureLinesByLabelAsyncQuery
+>;
 export function useGetRoutesWithInfrastructureLinksAsyncQuery() {
-          return useAsyncQuery<GetRoutesWithInfrastructureLinksQuery, GetRoutesWithInfrastructureLinksQueryVariables>(GetRoutesWithInfrastructureLinksDocument);
-        }
-export type GetRoutesWithInfrastructureLinksAsyncQueryHookResult = ReturnType<typeof useGetRoutesWithInfrastructureLinksAsyncQuery>;
+  return useAsyncQuery<
+    GetRoutesWithInfrastructureLinksQuery,
+    GetRoutesWithInfrastructureLinksQueryVariables
+  >(GetRoutesWithInfrastructureLinksDocument);
+}
+export type GetRoutesWithInfrastructureLinksAsyncQueryHookResult = ReturnType<
+  typeof useGetRoutesWithInfrastructureLinksAsyncQuery
+>;
 export function useGetRoutesByValidityAsyncQuery() {
-          return useAsyncQuery<GetRoutesByValidityQuery, GetRoutesByValidityQueryVariables>(GetRoutesByValidityDocument);
-        }
-export type GetRoutesByValidityAsyncQueryHookResult = ReturnType<typeof useGetRoutesByValidityAsyncQuery>;
-
-
-
-
-
-
+  return useAsyncQuery<
+    GetRoutesByValidityQuery,
+    GetRoutesByValidityQueryVariables
+  >(GetRoutesByValidityDocument);
+}
+export type GetRoutesByValidityAsyncQueryHookResult = ReturnType<
+  typeof useGetRoutesByValidityAsyncQuery
+>;
 
 export function useGetStopsByLocationAsyncQuery() {
-          return useAsyncQuery<GetStopsByLocationQuery, GetStopsByLocationQueryVariables>(GetStopsByLocationDocument);
-        }
-export type GetStopsByLocationAsyncQueryHookResult = ReturnType<typeof useGetStopsByLocationAsyncQuery>;
+  return useAsyncQuery<
+    GetStopsByLocationQuery,
+    GetStopsByLocationQueryVariables
+  >(GetStopsByLocationDocument);
+}
+export type GetStopsByLocationAsyncQueryHookResult = ReturnType<
+  typeof useGetStopsByLocationAsyncQuery
+>;
 export function useGetStopsByValidityAsyncQuery() {
-          return useAsyncQuery<GetStopsByValidityQuery, GetStopsByValidityQueryVariables>(GetStopsByValidityDocument);
-        }
-export type GetStopsByValidityAsyncQueryHookResult = ReturnType<typeof useGetStopsByValidityAsyncQuery>;
+  return useAsyncQuery<
+    GetStopsByValidityQuery,
+    GetStopsByValidityQueryVariables
+  >(GetStopsByValidityDocument);
+}
+export type GetStopsByValidityAsyncQueryHookResult = ReturnType<
+  typeof useGetStopsByValidityAsyncQuery
+>;
 export function useGetStopsByIdsAsyncQuery() {
-          return useAsyncQuery<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>(GetStopsByIdsDocument);
-        }
-export type GetStopsByIdsAsyncQueryHookResult = ReturnType<typeof useGetStopsByIdsAsyncQuery>;
+  return useAsyncQuery<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>(
+    GetStopsByIdsDocument,
+  );
+}
+export type GetStopsByIdsAsyncQueryHookResult = ReturnType<
+  typeof useGetStopsByIdsAsyncQuery
+>;
 export function useGetStopsByLabelsAsyncQuery() {
-          return useAsyncQuery<GetStopsByLabelsQuery, GetStopsByLabelsQueryVariables>(GetStopsByLabelsDocument);
-        }
-export type GetStopsByLabelsAsyncQueryHookResult = ReturnType<typeof useGetStopsByLabelsAsyncQuery>;
-
+  return useAsyncQuery<GetStopsByLabelsQuery, GetStopsByLabelsQueryVariables>(
+    GetStopsByLabelsDocument,
+  );
+}
+export type GetStopsByLabelsAsyncQueryHookResult = ReturnType<
+  typeof useGetStopsByLabelsAsyncQuery
+>;
 
 export function useGetStopWithRouteGraphDataByIdAsyncQuery() {
-          return useAsyncQuery<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>(GetStopWithRouteGraphDataByIdDocument);
-        }
-export type GetStopWithRouteGraphDataByIdAsyncQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdAsyncQuery>;
+  return useAsyncQuery<
+    GetStopWithRouteGraphDataByIdQuery,
+    GetStopWithRouteGraphDataByIdQueryVariables
+  >(GetStopWithRouteGraphDataByIdDocument);
+}
+export type GetStopWithRouteGraphDataByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetStopWithRouteGraphDataByIdAsyncQuery
+>;
 export function useGetRoutesBrokenByStopChangeAsyncQuery() {
-          return useAsyncQuery<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>(GetRoutesBrokenByStopChangeDocument);
-        }
-export type GetRoutesBrokenByStopChangeAsyncQueryHookResult = ReturnType<typeof useGetRoutesBrokenByStopChangeAsyncQuery>;
+  return useAsyncQuery<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  >(GetRoutesBrokenByStopChangeDocument);
+}
+export type GetRoutesBrokenByStopChangeAsyncQueryHookResult = ReturnType<
+  typeof useGetRoutesBrokenByStopChangeAsyncQuery
+>;

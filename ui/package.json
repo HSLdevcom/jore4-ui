@@ -11,7 +11,7 @@
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "test": "jest --ci",
-    "gql:generate-types": "TS_NODE_PROJECT=./tsconfig.codegen.json graphql-codegen --config codegen.js",
+    "gql:generate-types": "TS_NODE_PROJECT=./tsconfig.codegen.json graphql-codegen --config codegen.js && prettier --write src/generated/graphql.tsx",
     "generate-theme": "./convert-theme-to-ts.js",
     "start": "next start"
   },
