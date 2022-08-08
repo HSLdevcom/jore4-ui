@@ -29364,9 +29364,13 @@
             "description": "An object relationship",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "route_line",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "route_line",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
