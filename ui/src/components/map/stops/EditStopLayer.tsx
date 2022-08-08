@@ -47,11 +47,13 @@ enum StopEditorViews {
 interface Props {
   editedStopData: StopWithLocation;
   onEditingFinished?: () => void;
+  onPopupClose?: () => void;
 }
 
 export const EditStopLayer: React.FC<Props> = ({
   editedStopData,
   onEditingFinished,
+  onPopupClose,
 }) => {
   const [isStopDraggable, setIsStopDraggable] = useState(false);
   const [createChanges, setCreateChanges] = useState<CreateChanges>();
@@ -112,6 +114,7 @@ export const EditStopLayer: React.FC<Props> = ({
     setSelectedStopId(undefined);
     setEditedStopData(undefined);
     setDisplayedEditor(StopEditorViews.None);
+    onPopupClose?.();
   };
 
   const onFinishEditing = () => {

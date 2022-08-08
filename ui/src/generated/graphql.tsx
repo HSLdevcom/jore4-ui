@@ -5616,7 +5616,7 @@ export enum RouteTypeOfLineUpdateColumn {
 export type ServicePatternScheduledStopPoint = {
   __typename?: 'service_pattern_scheduled_stop_point';
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
-  closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
+  closest_point_on_infrastructure_link?: Maybe<Scalars['geography_point']>;
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   direction: InfrastructureNetworkDirectionEnum;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
@@ -6924,7 +6924,7 @@ export type RouteInfraLinkFieldsFragment = {
     located_on_infrastructure_link_id: UUID;
     direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
@@ -7022,7 +7022,7 @@ export type GetStopsAlongInfrastructureLinksQuery = {
     located_on_infrastructure_link_id: UUID;
     direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
@@ -7570,7 +7570,7 @@ export type GetLineDetailsWithRoutesByIdQuery = {
                 direction: InfrastructureNetworkDirectionEnum;
                 relative_distance_from_infrastructure_link_start: number;
                 closest_point_on_infrastructure_link?:
-                  | GeoJSON.Geometry
+                  | GeoJSON.Point
                   | null
                   | undefined;
                 validity_start?: luxon.DateTime | null | undefined;
@@ -7661,7 +7661,7 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
             direction: InfrastructureNetworkDirectionEnum;
             relative_distance_from_infrastructure_link_start: number;
             closest_point_on_infrastructure_link?:
-              | GeoJSON.Geometry
+              | GeoJSON.Point
               | null
               | undefined;
             validity_start?: luxon.DateTime | null | undefined;
@@ -7734,7 +7734,7 @@ export type GetRoutesWithStopsQuery = {
           direction: InfrastructureNetworkDirectionEnum;
           relative_distance_from_infrastructure_link_start: number;
           closest_point_on_infrastructure_link?:
-            | GeoJSON.Geometry
+            | GeoJSON.Point
             | null
             | undefined;
           validity_start?: luxon.DateTime | null | undefined;
@@ -8309,7 +8309,7 @@ export type ScheduledStopPointAllFieldsFragment = {
   located_on_infrastructure_link_id: UUID;
   direction: InfrastructureNetworkDirectionEnum;
   relative_distance_from_infrastructure_link_start: number;
-  closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+  closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
   validity_start?: luxon.DateTime | null | undefined;
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
@@ -8327,7 +8327,7 @@ export type StopWithJourneyPatternFieldsFragment = {
   located_on_infrastructure_link_id: UUID;
   direction: InfrastructureNetworkDirectionEnum;
   relative_distance_from_infrastructure_link_start: number;
-  closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+  closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
   validity_start?: luxon.DateTime | null | undefined;
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
@@ -8360,7 +8360,7 @@ export type RouteStopFieldsFragment = {
   located_on_infrastructure_link_id: UUID;
   direction: InfrastructureNetworkDirectionEnum;
   relative_distance_from_infrastructure_link_start: number;
-  closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+  closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
   validity_start?: luxon.DateTime | null | undefined;
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
@@ -8427,7 +8427,7 @@ export type GetStopsByLocationQuery = {
     located_on_infrastructure_link_id: UUID;
     direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
@@ -8452,7 +8452,7 @@ export type GetStopsByValidityQuery = {
     located_on_infrastructure_link_id: UUID;
     direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
@@ -8477,7 +8477,7 @@ export type GetStopsByIdsQuery = {
     located_on_infrastructure_link_id: UUID;
     direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
@@ -8502,7 +8502,7 @@ export type GetStopsByLabelsQuery = {
     located_on_infrastructure_link_id: UUID;
     direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
@@ -8556,7 +8556,7 @@ export type EditStopMutation = {
           direction: InfrastructureNetworkDirectionEnum;
           relative_distance_from_infrastructure_link_start: number;
           closest_point_on_infrastructure_link?:
-            | GeoJSON.Geometry
+            | GeoJSON.Point
             | null
             | undefined;
           validity_start?: luxon.DateTime | null | undefined;
@@ -8607,7 +8607,7 @@ export type GetStopWithRouteGraphDataByIdQuery = {
     located_on_infrastructure_link_id: UUID;
     direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Geometry | null | undefined;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
@@ -8713,10 +8713,7 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
       located_on_infrastructure_link_id: UUID;
       direction: InfrastructureNetworkDirectionEnum;
       relative_distance_from_infrastructure_link_start: number;
-      closest_point_on_infrastructure_link?:
-        | GeoJSON.Geometry
-        | null
-        | undefined;
+      closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
       validity_start?: luxon.DateTime | null | undefined;
       validity_end?: luxon.DateTime | null | undefined;
       priority: number;

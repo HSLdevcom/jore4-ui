@@ -1,5 +1,5 @@
-import React, { useEffect, useImperativeHandle } from 'react';
-import { MapEvent } from 'react-map-gl';
+import React, { useEffect, useImperativeHandle, useContext } from 'react';
+import { MapEvent, MapContext } from 'react-map-gl';
 import {
   ServicePatternScheduledStopPoint,
   useGetStopsByLocationQuery,
@@ -31,9 +31,14 @@ import {
   mapLngLatToPoint,
   mapToVariables,
 } from '../../../utils';
+import { geometryLineBetweenPoints } from '../mapUtils';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
+import {
+  addStopToInfraConnection,
+  removeStopToInfraConnection,
+} from './StopToInfraConnection';
 
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
@@ -42,6 +47,7 @@ const testIds = {
 
 export const Stops = React.forwardRef((props, ref) => {
   const { filter } = useFilterStops();
+  const { map } = useContext(MapContext);
 
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const editedStopData = useAppSelector(selectEditedStopData);
@@ -84,6 +90,14 @@ export const Stops = React.forwardRef((props, ref) => {
 
   // can be used for triggering the edit for both existing and draft stops
   const onEditStop = (stop: StopWithLocation) => {
+    if (stop.closest_point_on_infrastructure_link) {
+      const nearestRoad = geometryLineBetweenPoints(
+        stop.measured_location.coordinates,
+        stop.closest_point_on_infrastructure_link.coordinates,
+      );
+      addStopToInfraConnection(map, nearestRoad);
+    }
+
     setSelectedStopId(stop.scheduled_stop_point_id || undefined);
     setEditedStopData(stop);
   };
@@ -117,7 +131,6 @@ export const Stops = React.forwardRef((props, ref) => {
       {/* Display existing stops */}
       {stops?.map((item) => {
         const point = mapLngLatToPoint(item.measured_location.coordinates);
-
         return (
           <Stop
             testId={testIds.stopMarker(item.label, item.priority)}
@@ -136,6 +149,7 @@ export const Stops = React.forwardRef((props, ref) => {
         <EditStopLayer
           editedStopData={editedStopData}
           onEditingFinished={onEditingFinished}
+          onPopupClose={() => removeStopToInfraConnection(map)}
         />
       )}
       {/* Display hovering bus stop while in create mode */}
