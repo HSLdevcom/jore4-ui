@@ -126,5 +126,9 @@ module.exports = {
     'react/react-in-jsx-scope': 'off', // not needed with next.js: https://stackoverflow.com/a/61160875
     'react-hooks/rules-of-hooks': 'error', // enforce best practices with react hoooks
     'react-hooks/exhaustive-deps': 'error', // enforce best practices with react hoooks: https://github.com/facebook/create-react-app/issues/6880#issuecomment-485912528
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { varsIgnorePattern: '^GQL' },
+    ], // ignore graphql query/mutation/fragment definitions
   },
 };

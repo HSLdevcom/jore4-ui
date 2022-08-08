@@ -2,17 +2,28 @@
 import { gql } from '@apollo/client';
 import {
   GetLinksWithStopsByExternalLinkIdsQuery,
+  InfraLinkMatchingFieldsFragment,
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
   QueryClosestLinkQuery,
   QueryPointDirectionOnLinkQuery,
+  RouteInfraLinkFieldsFragment,
   RouteRoute,
 } from '../generated/graphql';
 import { GqlQueryResult } from './types';
 
+// specific type for handling infra links of a route
+const ROUTE_INFRA_LINK_FIELDS = gql`
+  fragment route_infra_link_fields on infrastructure_network_infrastructure_link {
+    ...infra_link_matching_fields
+    scheduled_stop_points_located_on_infrastructure_link {
+      ...route_stop_fields
+    }
+  }
+`;
+
 // an extended version of the infra link model that also contains information about the route
-export interface RouteInfraLink
-  extends InfrastructureNetworkInfrastructureLink {
+export interface RouteInfraLink extends RouteInfraLinkFieldsFragment {
   // eslint-disable-next-line camelcase
   is_traversal_forwards: boolean;
 }
@@ -30,8 +41,10 @@ export const mapInfraLinksAlongRouteToGraphQL = (
 // present for a given external link id.
 // NB: We cannot use sort on the infra link array, because some links might be traversed multiple times and thus
 // have to be duplicated.
-export const orderInfraLinksByExternalLinkId = (
-  infraLinksWithStops: InfrastructureNetworkInfrastructureLink[],
+export const orderInfraLinksByExternalLinkId = <
+  TLink extends InfraLinkMatchingFieldsFragment,
+>(
+  infraLinksWithStops: TLink[],
   externalLinkIds: string[],
 ) =>
   externalLinkIds.map((externalLinkId) => {
@@ -56,6 +69,14 @@ const INFRASTRUCTURE_LINK_ALL_FIELDS = gql`
     estimated_length_in_metres
     external_link_id
     external_link_source
+  }
+`;
+
+const INFRA_LINK_MATCHING_FIELDS = gql`
+  fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
+    external_link_id
+    infrastructure_link_id
+    shape
   }
 `;
 
@@ -99,24 +120,6 @@ export const mapGetPointDirectionOnLinkResult = (
 ) =>
   result.data?.infrastructure_network_find_point_direction_on_link?.[0]
     ?.value as InfrastructureNetworkDirectionEnum | undefined;
-
-const GET_LINKS_WITH_STOPS_BY_EXTERNAL_LINK_IDS = gql`
-  query GetLinksWithStopsByExternalLinkIds($externalLinkIds: [String!]) {
-    infrastructure_network_infrastructure_link(
-      where: { external_link_id: { _in: $externalLinkIds } }
-    ) {
-      infrastructure_link_id
-      external_link_id
-      scheduled_stop_points_located_on_infrastructure_link {
-        ...scheduled_stop_point_all_fields
-        scheduled_stop_point_in_journey_patterns {
-          ...scheduled_stop_point_in_journey_pattern_all_fields
-        }
-      }
-      shape
-    }
-  }
-`;
 
 export const mapInfraLinkWithStopsResult = (
   result: GqlQueryResult<GetLinksWithStopsByExternalLinkIdsQuery>,
