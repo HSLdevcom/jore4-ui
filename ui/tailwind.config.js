@@ -47,4 +47,11 @@ module.exports = {
       });
     }),
   ],
+  safelist: [
+    {
+      // these classes are referenced dynamically by a template string, so have to remove them from tree-shaking
+      pattern: /^grid/,
+      variants: ['md'],
+    },
+  ],
 };
