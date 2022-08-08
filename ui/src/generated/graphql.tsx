@@ -4916,7 +4916,7 @@ export type RouteRoute = {
   /** An aggregate relationship */
   route_journey_patterns_aggregate: JourneyPatternJourneyPatternAggregate;
   /** An object relationship */
-  route_line?: Maybe<RouteLine>;
+  route_line: RouteLine;
   /** A computed field, executes function "route.route_shape" */
   route_shape?: Maybe<Scalars['geography_linestring']>;
   validity_end?: Maybe<Scalars['timestamptz']>;
@@ -7298,10 +7298,7 @@ export type RouteWithInfrastructureLinksFragment = {
   priority: number;
   label: string;
   direction: RouteDirectionEnum;
-  route_line?:
-    | { __typename?: 'route_line'; line_id: UUID; label: string }
-    | null
-    | undefined;
+  route_line: { __typename?: 'route_line'; line_id: UUID; label: string };
   infrastructure_links_along_route: Array<{
     __typename?: 'route_infrastructure_link_along_route';
     route_id: UUID;
@@ -7429,18 +7426,15 @@ export type ListChangingRoutesQuery = {
     priority: number;
     label: string;
     direction: RouteDirectionEnum;
-    route_line?:
-      | {
-          __typename?: 'route_line';
-          line_id: UUID;
-          label: string;
-          name_i18n: LocalizedString;
-          short_name_i18n: LocalizedString;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
-        }
-      | null
-      | undefined;
+    route_line: {
+      __typename?: 'route_line';
+      line_id: UUID;
+      label: string;
+      name_i18n: LocalizedString;
+      short_name_i18n: LocalizedString;
+      validity_start?: luxon.DateTime | null | undefined;
+      validity_end?: luxon.DateTime | null | undefined;
+    };
   }>;
 };
 
@@ -7704,10 +7698,7 @@ export type GetRoutesWithStopsQuery = {
     priority: number;
     label: string;
     direction: RouteDirectionEnum;
-    route_line?:
-      | { __typename?: 'route_line'; line_id: UUID }
-      | null
-      | undefined;
+    route_line: { __typename?: 'route_line'; line_id: UUID };
     infrastructure_links_along_route: Array<{
       __typename?: 'route_infrastructure_link_along_route';
       route_id: UUID;
@@ -7780,22 +7771,19 @@ export type GetRouteDetailsByIdQuery = {
         priority: number;
         label: string;
         direction: RouteDirectionEnum;
-        route_line?:
-          | {
-              __typename?: 'route_line';
-              line_id: UUID;
-              name_i18n: LocalizedString;
-              short_name_i18n: LocalizedString;
-              primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-              type_of_line: RouteTypeOfLineEnum;
-              transport_target: HslRouteTransportTargetEnum;
-              validity_start?: luxon.DateTime | null | undefined;
-              validity_end?: luxon.DateTime | null | undefined;
-              priority: number;
-              label: string;
-            }
-          | null
-          | undefined;
+        route_line: {
+          __typename?: 'route_line';
+          line_id: UUID;
+          name_i18n: LocalizedString;
+          short_name_i18n: LocalizedString;
+          primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+          type_of_line: RouteTypeOfLineEnum;
+          transport_target: HslRouteTransportTargetEnum;
+          validity_start?: luxon.DateTime | null | undefined;
+          validity_end?: luxon.DateTime | null | undefined;
+          priority: number;
+          label: string;
+        };
         route_journey_patterns: Array<{
           __typename?: 'journey_pattern_journey_pattern';
           journey_pattern_id: UUID;
@@ -7851,15 +7839,12 @@ export type GetRouteDetailsByIdsQuery = {
     priority: number;
     label: string;
     direction: RouteDirectionEnum;
-    route_line?:
-      | {
-          __typename?: 'route_line';
-          line_id: UUID;
-          label: string;
-          primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-        }
-      | null
-      | undefined;
+    route_line: {
+      __typename?: 'route_line';
+      line_id: UUID;
+      label: string;
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    };
     route_journey_patterns: Array<{
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
@@ -7902,14 +7887,11 @@ export type GetRouteRenderInfoByIdQuery = {
         __typename?: 'route_route';
         route_id: UUID;
         route_shape?: GeoJSON.LineString | null | undefined;
-        route_line?:
-          | {
-              __typename?: 'route_line';
-              line_id: UUID;
-              primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-            }
-          | null
-          | undefined;
+        route_line: {
+          __typename?: 'route_line';
+          line_id: UUID;
+          primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+        };
       }
     | null
     | undefined;
@@ -7938,15 +7920,12 @@ export type GetRouteDetailsByLabelsQuery = {
     priority: number;
     label: string;
     direction: RouteDirectionEnum;
-    route_line?:
-      | {
-          __typename?: 'route_line';
-          line_id: UUID;
-          label: string;
-          primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-        }
-      | null
-      | undefined;
+    route_line: {
+      __typename?: 'route_line';
+      line_id: UUID;
+      label: string;
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    };
     route_journey_patterns: Array<{
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
@@ -8049,10 +8028,7 @@ export type GetRoutesWithInfrastructureLinksQuery = {
     priority: number;
     label: string;
     direction: RouteDirectionEnum;
-    route_line?:
-      | { __typename?: 'route_line'; line_id: UUID; label: string }
-      | null
-      | undefined;
+    route_line: { __typename?: 'route_line'; line_id: UUID; label: string };
     infrastructure_links_along_route: Array<{
       __typename?: 'route_infrastructure_link_along_route';
       route_id: UUID;
