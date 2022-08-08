@@ -4,7 +4,7 @@ import { theme } from '../../generated/theme';
 export type MaplibreGLMap = any; // eslint-disable-line @typescript-eslint/no-explicit-any
 export type Geometry = any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-export const removeRoute = (map: MaplibreGLMap, id: string) => {
+export const removeLayer = (map: MaplibreGLMap, id: string) => {
   if (map.getLayer(id)) {
     map.removeLayer(id);
   }
@@ -14,6 +14,10 @@ export const removeRoute = (map: MaplibreGLMap, id: string) => {
   if (map.getSource(id)) {
     map.removeSource(id);
   }
+};
+
+export const removeRoute = (map: MaplibreGLMap, id: string) => {
+  removeLayer(map, id);
 };
 
 export const addRoute = (
@@ -45,4 +49,14 @@ export const addRoute = (
       'line-offset': 6,
     },
   });
+};
+
+export const geometryLineBetweenPoints = (
+  first: number[],
+  second: number[],
+): GeoJSON.LineString => {
+  return {
+    type: 'LineString',
+    coordinates: [first, second],
+  };
 };

@@ -64,6 +64,7 @@ const hasuraOverrideTypeDefs = gql`
   type service_pattern_scheduled_stop_point {
     scheduled_stop_point_id: uuid!
     measured_location: geography_point!
+    closest_point_on_infrastructure_link: geography_point
     located_on_infrastructure_link_id: uuid!
     direction: infrastructure_network_direction_enum!
     label: String!

@@ -33379,7 +33379,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "geography",
+              "name": "geography_point",
               "ofType": null
             },
             "isDeprecated": false,
