@@ -18,7 +18,7 @@ import { useValidateRoute } from './useValidateRoute';
 
 interface DeleteStopParams {
   route: RouteRoute;
-  stopPointLabel: UUID;
+  stopPointLabel: string;
 }
 
 type AddStopParams = DeleteStopParams;
