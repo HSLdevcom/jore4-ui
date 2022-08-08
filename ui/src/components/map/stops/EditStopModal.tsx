@@ -32,7 +32,7 @@ export const EditStopModal = ({
     <HTMLOverlay
       style={{ zIndex: 10 }}
       redraw={() => (
-        <div className="flex max-h-full py-5 pl-5">
+        <div className="flex max-h-full py-5 px-5">
           <Modal
             onSave={onSave}
             onCancel={onCancel}
