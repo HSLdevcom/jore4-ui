@@ -22,7 +22,13 @@ import {
   mapLngLatToPoint,
   mapPointToGeoJSON,
 } from '../../../utils';
-import { InputField, requiredNumber, requiredString } from '../common';
+import {
+  FormColumn,
+  FormRow,
+  InputField,
+  requiredNumber,
+  requiredString,
+} from '../common';
 import {
   ConfirmSaveForm,
   FormState as ConfirmSaveFormState,
@@ -156,10 +162,10 @@ const StopFormComponent = (
       >
         <div className="mx-12">
           <h2 className="pb-6 text-xl font-bold">{t('stops.stop')}</h2>
-          <Row className="space-x-10">
-            <Column className="space-y-2">
-              <h3 className="text-lg font-bold">{t('stops.nameAddress')}</h3>
+          <FormColumn>
+            <FormRow columns={2}>
               <Column>
+                <h3 className="text-lg font-bold">{t('stops.nameAddress')}</h3>
                 <InputField<FormState>
                   type="text"
                   translationPrefix="stops"
@@ -167,11 +173,9 @@ const StopFormComponent = (
                   testId={testIds.label}
                 />
               </Column>
-            </Column>
-            <Column className="space-y-2">
-              <h3 className="text-lg font-bold">{t('map.location')}</h3>
-              <Row className="space-x-5">
-                <Column>
+              <Column>
+                <h3 className="text-lg font-bold">{t('map.location')}</h3>
+                <FormRow columns={2}>
                   <InputField<FormState>
                     type="number"
                     translationPrefix="map"
@@ -179,8 +183,6 @@ const StopFormComponent = (
                     testId={testIds.latitude}
                     step="any"
                   />
-                </Column>
-                <Column>
                   <InputField<FormState>
                     type="number"
                     translationPrefix="map"
@@ -188,10 +190,10 @@ const StopFormComponent = (
                     testId={testIds.longitude}
                     step="any"
                   />
-                </Column>
-              </Row>
-            </Column>
-          </Row>
+                </FormRow>
+              </Column>
+            </FormRow>
+          </FormColumn>
         </div>
         <Row className="mt-7 border-t border-light-grey px-12">
           <ConfirmSaveForm className="mt-5" />
