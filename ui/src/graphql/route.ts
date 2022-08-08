@@ -7,10 +7,10 @@ import {
   GetLineDetailsWithRoutesByIdQuery,
   GetLineValidityPeriodByIdQuery,
   InsertLineOneMutation,
-  JourneyPatternScheduledStopPointInJourneyPattern,
   RouteLine,
   RouteRoute,
-  ServicePatternScheduledStopPoint,
+  ScheduledStopPointInJourneyPatternAllFieldsFragment,
+  StopWithJourneyPatternFieldsFragment,
   useListOwnLinesQuery,
   useSearchLinesAndRoutesQuery,
 } from '../generated/graphql';
@@ -90,8 +90,7 @@ const ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
   fragment route_with_infrastructure_links on route_route {
     ...route_with_journey_pattern_stops
     route_line {
-      line_id
-      label
+      ...line_all_fields
     }
     infrastructure_links_along_route {
       route_id
@@ -560,7 +559,7 @@ export interface RouteStop {
   /**
    * Metadata (e.g. via point informaiton) of the stop in journey pattern
    */
-  stop?: JourneyPatternScheduledStopPointInJourneyPattern;
+  stop?: ScheduledStopPointInJourneyPatternAllFieldsFragment;
   scheduledStopPointId?: UUID;
 }
 
@@ -605,8 +604,10 @@ export const mapRouteStopsToStopSequence = (stops: RouteStop[]) => {
  * @param routeId Id of the route in relation to which this stop is being handled
  * @returns RouteStop
  */
-export const mapStopToRouteStop = (
-  stop: ServicePatternScheduledStopPoint,
+export const mapStopToRouteStop = <
+  TStop extends StopWithJourneyPatternFieldsFragment,
+>(
+  stop: TStop,
   belongsToJourneyPattern: boolean,
   routeId?: UUID,
 ): RouteStop => {

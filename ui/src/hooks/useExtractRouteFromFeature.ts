@@ -1,3 +1,4 @@
+import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 import { getBusRoute } from '../api/routing';
 import {
@@ -5,12 +6,12 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteRoute,
   ServicePatternScheduledStopPoint,
+  StopWithJourneyPatternFieldsFragment,
   useGetLinksWithStopsByExternalLinkIdsAsyncQuery,
   useGetStopsAlongInfrastructureLinksAsyncQuery,
 } from '../generated/graphql';
 import {
   getRouteStopLabels,
-  mapInfraLinkWithStopsResult,
   mapRouteToInfraLinksAlongRoute,
   mapStopResultToStops,
   mapStopToRouteStop,
@@ -23,6 +24,16 @@ import { useFilterStops } from './useFilterStops';
 
 export type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
 
+const GQL_GET_LINKS_WITH_STOPS_BY_EXTERNAL_LINK_IDS = gql`
+  query GetLinksWithStopsByExternalLinkIds($externalLinkIds: [String!]) {
+    infrastructure_network_infrastructure_link(
+      where: { external_link_id: { _in: $externalLinkIds } }
+    ) {
+      ...route_infra_link_fields
+    }
+  }
+`;
+
 /**
  * Get RouteStops for stops along route geometry
  * @param stops List of stops along route geometry
@@ -30,8 +41,10 @@ export type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
  * @param routeId Id of the route which has this stop along it's route geometry
  * @returns List of RouteStops
  */
-export const getRouteStops = (
-  stops: ServicePatternScheduledStopPoint[],
+export const getRouteStops = <
+  TStop extends StopWithJourneyPatternFieldsFragment,
+>(
+  stops: TStop[],
   removedStopLabels?: string[],
   routeId?: UUID,
 ): RouteStop[] => {
@@ -183,9 +196,9 @@ export const useExtractRouteFromFeature = () => {
         await fetchLinksWithStopsByExternalLinkIds({
           externalLinkIds,
         });
-      const unorderedInfraLinksWithStops = mapInfraLinkWithStopsResult(
-        infraLinksWithStopsResponse,
-      );
+      const unorderedInfraLinksWithStops =
+        infraLinksWithStopsResponse.data
+          .infrastructure_network_infrastructure_link;
       if (!unorderedInfraLinksWithStops) {
         throw new Error("could not fetch route's infra links");
       }

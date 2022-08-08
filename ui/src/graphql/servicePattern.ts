@@ -34,10 +34,12 @@ export type ScheduledStopPointSetInput = NonNullableKeys<
 const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
   fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {
     priority
+    direction
     scheduled_stop_point_id
     label
     validity_start
     validity_end
+    located_on_infrastructure_link_id
   }
 `;
 
@@ -55,6 +57,24 @@ const SCHEDULED_STOP_POINT_ALL_FIELDS = gql`
     priority
     vehicle_mode_on_scheduled_stop_point {
       vehicle_mode
+    }
+  }
+`;
+
+const STOP_WITH_JOURNEY_PATTERN_FIELDS = gql`
+  fragment stop_with_journey_pattern_fields on service_pattern_scheduled_stop_point {
+    ...scheduled_stop_point_all_fields
+    scheduled_stop_point_in_journey_patterns {
+      ...scheduled_stop_point_in_journey_pattern_all_fields
+    }
+  }
+`;
+
+const ROUTE_STOP_FIELDS = gql`
+  fragment route_stop_fields on service_pattern_scheduled_stop_point {
+    ...stop_with_journey_pattern_fields
+    other_label_instances {
+      ...scheduled_stop_point_default_fields
     }
   }
 `;
