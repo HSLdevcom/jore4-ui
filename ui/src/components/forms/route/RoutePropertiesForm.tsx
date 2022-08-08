@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { Column, Row } from '../../../layoutComponents';
+import { Row } from '../../../layoutComponents';
 import { selectMapEditor, setTemplateRouteIdAction } from '../../../redux';
 import { Switch, SwitchLabel } from '../../../uiComponents';
-import { InputField } from '../common';
+import { FormColumn, FormRow, InputField } from '../common';
 import { ConfirmSaveForm } from '../common/ConfirmSaveForm';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';
@@ -72,24 +72,22 @@ const RoutePropertiesFormComponent = (
             </h2>
           </Row>
         )}
-        <Row className="mb-5 flex-wrap gap-2">
-          <Column className="w-80 flex-auto">
+        <FormColumn>
+          <FormRow columns={3} className="sm:grid-cols-2">
             <InputField<FormState>
               type="text"
               translationPrefix="routes"
               fieldPath="finnishName"
               testId={testIds.finnishName}
+              className="sm:col-span-2"
             />
-          </Column>
-          <Column className="w-44 flex-auto">
             <InputField<FormState>
               type="text"
               translationPrefix="routes"
               fieldPath="label"
               testId={testIds.label}
+              className="col-span-1"
             />
-          </Column>
-          <Column className="w-44 flex-auto">
             <InputField<FormState>
               translationPrefix="routes"
               fieldPath="direction"
@@ -100,9 +98,8 @@ const RoutePropertiesFormComponent = (
                   {...props}
                 />
               )}
+              className="col-span-1"
             />
-          </Column>
-          <Column className="w-80 flex-auto">
             <InputField<FormState>
               translationPrefix="routes"
               fieldPath="onLineId"
@@ -113,37 +110,38 @@ const RoutePropertiesFormComponent = (
                   {...props}
                 />
               )}
+              className="sm:col-span-2"
             />
-          </Column>
-          <TerminusNameInputs />
-          {creatingNewRoute && (
-            <>
-              <Row className="flex-auto items-center">
-                <HuiSwitch.Group>
-                  <SwitchLabel className="my-1 mr-2">
-                    {t('routes.useTemplateRoute')}
-                  </SwitchLabel>
-                  <Switch
-                    checked={showTemplateRouteSelector}
-                    onChange={(enabled: boolean) => {
-                      setShowTemplateRouteSelector(enabled);
+          </FormRow>
+        </FormColumn>
+        <TerminusNameInputs />
+        {creatingNewRoute && (
+          <>
+            <Row className="my-4 flex-auto items-center">
+              <HuiSwitch.Group>
+                <SwitchLabel className="my-1 mr-2">
+                  {t('routes.useTemplateRoute')}
+                </SwitchLabel>
+                <Switch
+                  checked={showTemplateRouteSelector}
+                  onChange={(enabled: boolean) => {
+                    setShowTemplateRouteSelector(enabled);
 
-                      if (!enabled) {
-                        setTemplateRoute(undefined);
-                      }
-                    }}
-                  />
-                </HuiSwitch.Group>
-              </Row>
-              {showTemplateRouteSelector && (
-                <TemplateRouteSelector
-                  value={editedRouteData.templateRouteId}
-                  onChange={(e) => setTemplateRoute(e.target.value)}
+                    if (!enabled) {
+                      setTemplateRoute(undefined);
+                    }
+                  }}
                 />
-              )}
-            </>
-          )}
-        </Row>
+              </HuiSwitch.Group>
+            </Row>
+            {showTemplateRouteSelector && (
+              <TemplateRouteSelector
+                value={editedRouteData.templateRouteId}
+                onChange={(e) => setTemplateRoute(e.target.value)}
+              />
+            )}
+          </>
+        )}
         <Row className="mt-7 border-t">
           <ConfirmSaveForm className="mt-5" />
         </Row>
