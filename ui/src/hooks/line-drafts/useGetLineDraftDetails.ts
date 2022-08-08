@@ -48,7 +48,7 @@ export const useGetLineDraftDetails = () => {
   /** Determines and sets date to query parameters if it's not there */
   const initializeObservationDate = useCallback(async () => {
     if (!queryParams.observationDate) {
-      setObservationDateToUrl(DateTime.now().toISODate(), true);
+      setObservationDateToUrl(DateTime.now().startOf('day'), true);
     }
   }, [queryParams.observationDate, setObservationDateToUrl]);
 

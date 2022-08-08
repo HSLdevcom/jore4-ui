@@ -1,13 +1,19 @@
 import produce from 'immer';
+import { DateTime } from 'luxon';
 import qs from 'qs';
+import { useCallback, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { parseDate } from '../../time';
 
 type QueryParameter<TType> = { paramName: string; value: TType };
 type ParameterWriteOptions = { replace?: boolean };
 
 export const useUrlQuery = () => {
   const query = useLocation().search;
-  const queryParams = qs.parse(query, { ignoreQueryPrefix: true });
+  const queryParams = useMemo(
+    () => qs.parse(query, { ignoreQueryPrefix: true }),
+    [query],
+  );
 
   const history = useHistory();
 
@@ -41,6 +47,19 @@ export const useUrlQuery = () => {
         });
   };
 
+  /** Sets DateTime parameter to URL query as ISO Date
+   * replace flag can be given to replace the earlier url query instead
+   * of pushing it. This affects how the back button or history.back() works.
+   * If the history is replaced, it means that back button will not go to the
+   * url which was replaced, but rather the one before it.
+   */
+  const setDateTimeToUrlQuery = (
+    { paramName, value }: QueryParameter<DateTime>,
+    { replace }: ParameterWriteOptions = {},
+  ) => {
+    setToUrlQuery({ paramName, value: value.toISODate(), replace });
+  };
+
   /** Sets boolean parameter to URL query
    * replace flag can be given to replace the earlier url query instead
    * of pushing it. This affects how the back button or history.back() works.
@@ -58,6 +77,16 @@ export const useUrlQuery = () => {
   const getBooleanParamFromUrlQuery = (paramName: string) => {
     return queryParams[paramName] === 'true';
   };
+
+  /** Returns DateTime query parameter if exists, otherwise returns undefined */
+  const getDateTimeFromUrlQuery = useCallback(
+    (paramName: string) => {
+      return queryParams[paramName]
+        ? parseDate(queryParams[paramName] as string)
+        : undefined;
+    },
+    [queryParams],
+  );
 
   /** Deletes parameter from URL query
    * replace flag can be given to replace the earlier url query instead
@@ -91,7 +120,9 @@ export const useUrlQuery = () => {
     queryParams,
     setToUrlQuery,
     setBooleanToUrlQuery,
+    setDateTimeToUrlQuery,
     getBooleanParamFromUrlQuery,
+    getDateTimeFromUrlQuery,
     deleteFromUrlQuery,
   };
 };

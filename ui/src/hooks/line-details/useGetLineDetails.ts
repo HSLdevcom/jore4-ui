@@ -135,7 +135,7 @@ export const useGetLineDetails = () => {
         );
 
         if (initialDate?.isValid) {
-          setObservationDateToUrl(initialDate.toISODate(), true);
+          setObservationDateToUrl(initialDate, true);
         }
       }
     }
