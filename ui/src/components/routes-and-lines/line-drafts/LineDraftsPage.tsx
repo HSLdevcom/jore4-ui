@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router';
 import { useObservationDateQueryParam, useUrlQuery } from '../../../hooks';
@@ -28,7 +29,7 @@ export const LineDraftsPage = (): JSX.Element => {
   };
 
   const onDateChange = (value: string) => {
-    setObservationDateToUrl(value);
+    setObservationDateToUrl(DateTime.fromISO(value));
   };
 
   return (

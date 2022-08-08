@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useTranslation } from 'react-i18next';
 import { RouteLine } from '../../../generated/graphql';
@@ -29,7 +30,7 @@ export const ActionsRow = ({
     useObservationDateQueryParam();
 
   const onDateChange = (value: string) => {
-    setObservationDateToUrl(value);
+    setObservationDateToUrl(DateTime.fromISO(value));
   };
 
   return (

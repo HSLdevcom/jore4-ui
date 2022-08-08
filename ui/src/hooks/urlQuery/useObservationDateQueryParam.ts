@@ -1,14 +1,14 @@
+import { DateTime } from 'luxon';
 import { useMemo } from 'react';
-import { parseDate } from '../../time';
 import { useUrlQuery } from './useUrlQuery';
 
 export const useObservationDateQueryParam = () => {
-  const { queryParams, setToUrlQuery } = useUrlQuery();
+  const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery } = useUrlQuery();
 
   // Memoize the actual value to prevent unnecessary updates
   const observationDate = useMemo(
-    () => parseDate(queryParams.observationDate as string),
-    [queryParams.observationDate],
+    () => getDateTimeFromUrlQuery('observationDate'),
+    [getDateTimeFromUrlQuery],
   );
 
   /** Sets observationDate to URL query
@@ -17,8 +17,11 @@ export const useObservationDateQueryParam = () => {
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
-  const setObservationDateToUrl = (date: string, replace = false) => {
-    setToUrlQuery({ paramName: 'observationDate', value: date, replace });
+  const setObservationDateToUrl = (date: DateTime, replace = false) => {
+    setDateTimeToUrlQuery(
+      { paramName: 'observationDate', value: date },
+      { replace },
+    );
   };
 
   return { observationDate, setObservationDateToUrl };
