@@ -34,7 +34,7 @@ module.exports = {
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'jest'],
   ignorePatterns: ['ui/src/generated/*.tsx'],
   rules: {
-    'arrow-body-style': 'off', // allow writing arrow functions like () => { return ...} instead of forcing those to be () => (...)
+    'arrow-body-style': 'off', // allow writing arrow functions like () => { return ... } instead of forcing those to be () => (...)
     'no-use-before-define': 'off', // note you must disable the base rule as it can report incorrect errors: https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-use-before-define.md#how-to-use
     '@typescript-eslint/no-use-before-define': 'error', // require variables to be used before defined
     'import/prefer-default-export': 'off', // default exports are bad, prefer named exports: https://basarat.gitbook.io/typescript/main-1/defaultisbad
@@ -47,11 +47,13 @@ module.exports = {
       { props: true, ignorePropertyModificationsFor: ['draft', 'state'] },
     ],
     'no-shadow': 'off', // this might report false positives with TS: https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-shadow.md#how-to-use
+    '@typescript-eslint/no-shadow': ['error'], //
     'no-unused-expressions': ['error', { allowTernary: true }], // allow expressions like `booleanValue ? doSomething() : doSomethingElse()`
     'react/forbid-component-props': [
       'warn',
       {
         forbid: [
+          // catch common misspelling that can cause errors
           { propName: 'data-testId', message: 'Should be "data-testid"' },
         ],
       },
@@ -64,7 +66,6 @@ module.exports = {
         ],
       },
     ],
-    '@typescript-eslint/no-shadow': ['error'],
     'react/require-default-props': 'off', // default props are going to be deprecated in function components (https://github.com/reactjs/rfcs/pull/107) so it doesn't make sense to enforce them. Use e.g. default values instead.
     'react/prop-types': 'off', // not needed with TypeScript as it checks type compatability already on compile time based
     'react/jsx-filename-extension': [
