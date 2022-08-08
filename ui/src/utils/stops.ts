@@ -1,34 +1,49 @@
-import { ServicePatternScheduledStopPoint } from '../generated/graphql';
-import { RouteStop } from '../graphql/route';
+import flip from 'lodash/flip';
+import {
+  ScheduledStopPointAllFieldsFragment,
+  ServicePatternScheduledStopPoint,
+} from '../generated/graphql';
 
-const sortStopsByTraversalForwards = (
-  stop1: ServicePatternScheduledStopPoint,
-  stop2: ServicePatternScheduledStopPoint,
+const sortStopsByTraversalForwards = <
+  TStop extends ScheduledStopPointAllFieldsFragment,
+>(
+  stop1: TStop,
+  stop2: TStop,
 ) =>
   stop1.relative_distance_from_infrastructure_link_start -
   stop2.relative_distance_from_infrastructure_link_start;
 
-const sortStopsByTraversalBackwards = (
-  stop1: ServicePatternScheduledStopPoint,
-  stop2: ServicePatternScheduledStopPoint,
-) =>
-  stop2.relative_distance_from_infrastructure_link_start -
-  stop1.relative_distance_from_infrastructure_link_start;
+/**
+ * Comparator for sorting stops of the same link based on the distance from the link start.
+ * Note that the distances need to be inverted when the link is traversed backwards.
+ * @param stops list of stops on a single infra link
+ * @param isTraversalForwards the traversal direction of the route along the link
+ */
+export const sortStopsOnInfraLinkComparator = (isTraversalForwards: boolean) =>
+  isTraversalForwards
+    ? sortStopsByTraversalForwards
+    : flip(sortStopsByTraversalForwards);
 
-/** Sort the stops on the same link according to the link traversal direction */
-export const sortStopsOnInfraLink = (
-  stopPoints: ServicePatternScheduledStopPoint[],
+/**
+ * Sort the stops on the same link according to the link traversal direction based on the
+ * distance from the link start
+ * @param stops list of stops on a single infra link
+ * @param isTraversalForwards the traversal direction of the route along the link
+ */
+export const sortStopsOnInfraLink = <
+  TStop extends ScheduledStopPointAllFieldsFragment,
+>(
+  stops: TStop[],
   isTraversalForwards: boolean,
-) =>
-  stopPoints.sort(
-    isTraversalForwards
-      ? sortStopsByTraversalForwards
-      : sortStopsByTraversalBackwards,
-  );
+) => stops.sort(sortStopsOnInfraLinkComparator(isTraversalForwards));
 
-/** Removes all duplicate labeled consecutive stops from the list
+/**
+ * Removes all duplicate labeled consecutive stops from the list
  * This is used for example removing different versions of stops from the
  * journey pattern list where only the labels are shown
  */
-export const filterDistinctConsecutiveRouteStops = (stops: RouteStop[]) =>
-  stops.filter((route, index) => stops[index - 1]?.label !== route.label);
+export const filterDistinctConsecutiveRouteStops = <
+  TStop extends Pick<ServicePatternScheduledStopPoint, 'label'>,
+>(
+  stops: TStop[],
+) => stops.filter((route, index) => stops[index - 1]?.label !== route.label);
