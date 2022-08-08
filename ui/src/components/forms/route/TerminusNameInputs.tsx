@@ -1,7 +1,5 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Column, Row } from '../../../layoutComponents';
-import { InputField } from '../common';
+import { FormColumn, FormRow, InputField } from '../common';
 import { RouteFormState } from './RoutePropertiesForm.types';
 
 const testIds = {
@@ -28,81 +26,65 @@ export const TerminusNameInputs = ({ className = '' }: Props): JSX.Element => {
       <h2 className="w-full pt-1 text-xl font-bold">
         {t('routes.origin.title')}
       </h2>
-      <Row className="mt-5 flex-wrap gap-2">
-        <Column className="w-80 flex-auto">
+      <FormColumn>
+        <FormRow columns={2}>
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="origin.name.fi_FI"
             testId={testIds.originFinnishNameInput}
           />
-        </Column>
-        <Column className="w-80 flex-auto">
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="origin.shortName.fi_FI"
             testId={testIds.originFinnishShortNameInput}
           />
-        </Column>
-      </Row>
-      <Row className="mt-5 flex-wrap gap-2">
-        <Column className="w-80 flex-auto">
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="origin.name.sv_FI"
             testId={testIds.originSwedishNameInput}
           />
-        </Column>
-        <Column className="w-80 flex-auto">
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="origin.shortName.sv_FI"
             testId={testIds.originSwedishShortNameInput}
           />
-        </Column>
-      </Row>
+        </FormRow>
+      </FormColumn>
       <h2 className="w-full pt-1 text-xl font-bold">
         {t('routes.destination.title')}
       </h2>
-      <Row className="mt-5 flex-wrap gap-2">
-        <Column className="w-80 flex-auto">
+      <FormColumn>
+        <FormRow columns={2}>
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="destination.name.fi_FI"
             testId={testIds.destinationFinnishNameInput}
           />
-        </Column>
-        <Column className="w-80 flex-auto">
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="destination.shortName.fi_FI"
             testId={testIds.destinationFinnishShortNameInput}
           />
-        </Column>
-      </Row>
-      <Row className="mt-5 flex-wrap gap-2">
-        <Column className="w-80 flex-auto">
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="destination.name.sv_FI"
             testId={testIds.destinationSwedishNameInput}
           />
-        </Column>
-        <Column className="w-80 flex-auto">
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="destination.shortName.sv_FI"
             testId={testIds.destinationSwedishShortNameInput}
           />
-        </Column>
-      </Row>
+        </FormRow>
+      </FormColumn>
     </div>
   );
 };

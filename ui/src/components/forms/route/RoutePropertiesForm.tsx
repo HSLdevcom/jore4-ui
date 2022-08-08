@@ -72,7 +72,7 @@ const RoutePropertiesFormComponent = (
             </h2>
           </Row>
         )}
-        <Row className="mb-5 flex-wrap gap-2">
+        <Row className="mb-5 grid-cols-1 flex-wrap gap-y-5 md:gap-x-8">
           <Column className="w-80 flex-auto">
             <InputField<FormState>
               type="text"
