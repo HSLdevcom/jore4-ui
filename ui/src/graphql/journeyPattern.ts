@@ -27,7 +27,9 @@ const JOURNEY_PATTERN_WITH_STOPS = gql`
   fragment journey_pattern_with_stops on journey_pattern_journey_pattern {
     journey_pattern_id
     on_route_id
-    scheduled_stop_point_in_journey_patterns {
+    scheduled_stop_point_in_journey_patterns(
+      order_by: { scheduled_stop_point_sequence: asc }
+    ) {
       ...scheduled_stop_point_in_journey_pattern_all_fields
       scheduled_stop_points {
         ...scheduled_stop_point_default_fields
