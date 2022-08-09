@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FetchResult, gql } from '@apollo/client';
+import sortBy from 'lodash/sortBy';
 import {
   GetCurrentOrFutureLinesByLabelQuery,
   GetHighestPriorityLineDetailsWithRoutesQuery,
@@ -526,8 +527,10 @@ const DELETE_ROUTE = gql`
 `;
 
 export const getStopsFromRoute = (route: RouteRoute) => {
-  return route.route_journey_patterns[0]
-    .scheduled_stop_point_in_journey_patterns;
+  return sortBy(
+    route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns,
+    'scheduled_stop_point_sequence',
+  );
 };
 
 export const getRouteStopLabels = (route: RouteRoute) => {
