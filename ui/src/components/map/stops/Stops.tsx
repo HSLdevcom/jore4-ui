@@ -1,7 +1,10 @@
 import React, { useImperativeHandle } from 'react';
 import { MapEvent } from 'react-map-gl';
-import { useGetStopsByLocationQuery } from '../../../generated/graphql';
-import { mapStopResultToStops, StopWithLocation } from '../../../graphql';
+import {
+  ServicePatternScheduledStopPoint,
+  useGetStopsByLocationQuery,
+} from '../../../generated/graphql';
+import { StopWithLocation } from '../../../graphql';
 import {
   useAppAction,
   useAppSelector,
@@ -51,8 +54,14 @@ export const Stops = React.forwardRef((props, ref) => {
     }),
   );
 
-  const unfilteredStops = mapStopResultToStops(stopsResult);
-  const stops = filter(unfilteredStops);
+  // When stops are loading, show previously loaded stops to avoid stops
+  // disappearing and flickering on every map move / zoom
+  const unfilteredStops = (
+    stopsResult.loading
+      ? stopsResult.previousData?.service_pattern_scheduled_stop_point
+      : stopsResult.data?.service_pattern_scheduled_stop_point
+  ) as ServicePatternScheduledStopPoint[];
+  const stops = filter(unfilteredStops || []);
 
   // can be used for triggering the edit for both existing and draft stops
   const onEditStop = (stop: StopWithLocation) => {
