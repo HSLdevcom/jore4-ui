@@ -5,6 +5,8 @@ import { Column, Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/Priority';
 import { SimpleButton } from '../../../uiComponents';
 import { requiredString } from './customZodSchemas';
+import { FormColumn } from './FormColumn';
+import { FormRow } from './FormRow';
 import { InputField } from './InputField';
 
 export const schema = z.object({
@@ -58,7 +60,7 @@ export const ConfirmSaveForm = ({ className = '' }: Props): JSX.Element => {
         <Column>
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>{t('priority.label')}</label>
-          <Row className="space-x-2">
+          <Row className="flex-wrap gap-2">
             <SimpleButton
               onClick={() => setPriority(Priority.Standard)}
               inverted={priority !== Priority.Standard}
@@ -84,21 +86,23 @@ export const ConfirmSaveForm = ({ className = '' }: Props): JSX.Element => {
           <p>{errors.priority && t('formValidation.required')}</p>
         </Column>
       </Row>
-      <Row className="space-x-4">
-        <InputField<FormState>
-          type="date"
-          translationPrefix="validityPeriod"
-          fieldPath="validityStart"
-          testId={testIds.startDateInput}
-        />
-        <InputField<FormState>
-          className={indefinite ? 'hidden' : ''}
-          type="date"
-          translationPrefix="validityPeriod"
-          fieldPath="validityEnd"
-          testId={testIds.endDateInput}
-        />
-      </Row>
+      <FormColumn>
+        <FormRow columns={2}>
+          <InputField<FormState>
+            type="date"
+            translationPrefix="validityPeriod"
+            fieldPath="validityStart"
+            testId={testIds.startDateInput}
+          />
+          <InputField<FormState>
+            className={indefinite ? 'hidden' : ''}
+            type="date"
+            translationPrefix="validityPeriod"
+            fieldPath="validityEnd"
+            testId={testIds.endDateInput}
+          />
+        </FormRow>
+      </FormColumn>
       <Row>
         <input
           type="checkbox"
