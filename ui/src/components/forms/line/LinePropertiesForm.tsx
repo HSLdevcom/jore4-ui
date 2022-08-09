@@ -67,7 +67,7 @@ export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
         <h2 className="mb-8 text-2xl font-bold">{t('lines.properties')}</h2>
       </Row>
       <FormColumn>
-        <FormRow columns={3}>
+        <FormRow mdColumns={3}>
           <InputField<FormState>
             type="text"
             translationPrefix="lines"
@@ -75,7 +75,7 @@ export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
             testId={testIds.label}
           />
         </FormRow>
-        <FormRow columns={3}>
+        <FormRow mdColumns={3}>
           <InputField<FormState>
             type="text"
             className="col-span-2"
@@ -95,7 +95,7 @@ export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
         </Row>
         {showNameVersions && (
           <FormColumn>
-            <FormRow columns={3}>
+            <FormRow mdColumns={3}>
               <InputField<FormState>
                 type="text"
                 className="col-span-2"
@@ -104,7 +104,7 @@ export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
                 testId={testIds.swedishName}
               />
             </FormRow>
-            <FormRow columns={3}>
+            <FormRow mdColumns={3}>
               <InputField<FormState>
                 type="text"
                 className="col-span-2"
@@ -113,7 +113,7 @@ export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
                 testId={testIds.finnishShortName}
               />
             </FormRow>
-            <FormRow columns={3}>
+            <FormRow mdColumns={3}>
               <InputField<FormState>
                 type="text"
                 className="col-span-2"
@@ -124,7 +124,7 @@ export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
             </FormRow>
           </FormColumn>
         )}
-        <FormRow columns={3}>
+        <FormRow mdColumns={3}>
           <InputField<FormState>
             translationPrefix="lines"
             fieldPath="transportTarget"
