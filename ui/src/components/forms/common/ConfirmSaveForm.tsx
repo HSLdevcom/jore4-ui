@@ -87,7 +87,7 @@ export const ConfirmSaveForm = ({ className = '' }: Props): JSX.Element => {
         </Column>
       </Row>
       <FormColumn>
-        <FormRow columns={2}>
+        <FormRow mdColumns={2}>
           <InputField<FormState>
             type="date"
             translationPrefix="validityPeriod"

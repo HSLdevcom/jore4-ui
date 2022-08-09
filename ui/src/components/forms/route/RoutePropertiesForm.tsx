@@ -73,7 +73,7 @@ const RoutePropertiesFormComponent = (
           </Row>
         )}
         <FormColumn>
-          <FormRow columns={3} className="sm:grid-cols-2">
+          <FormRow mdColumns={3} smColumns={2}>
             <InputField<FormState>
               type="text"
               translationPrefix="routes"

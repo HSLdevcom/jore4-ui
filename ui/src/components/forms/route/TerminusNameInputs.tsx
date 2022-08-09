@@ -27,7 +27,7 @@ export const TerminusNameInputs = ({ className = '' }: Props): JSX.Element => {
         {t('routes.origin.title')}
       </h2>
       <FormColumn>
-        <FormRow columns={2}>
+        <FormRow mdColumns={2}>
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
@@ -58,7 +58,7 @@ export const TerminusNameInputs = ({ className = '' }: Props): JSX.Element => {
         {t('routes.destination.title')}
       </h2>
       <FormColumn>
-        <FormRow columns={2}>
+        <FormRow mdColumns={2}>
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"

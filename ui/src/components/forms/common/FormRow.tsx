@@ -2,18 +2,23 @@ import React from 'react';
 
 interface Props {
   className?: string;
-  columns?: number;
+  mdColumns?: number;
+  smColumns?: number;
 }
 
 export const FormRow: React.FC<Props> = ({
   className = '',
-  columns = 1,
+  mdColumns = 1,
+  smColumns = mdColumns,
   children,
 }) => {
-  const narrowClassName = 'grid grid-cols-1 gap-y-5';
-  const wideClassName = `md:grid-cols-${columns} md:gap-x-8`;
+  const baseClassName = 'grid grid-cols-1 gap-y-5';
+  const mdClassName = `md:grid-cols-${mdColumns} md:gap-x-8`;
+  const smClassName = `sm:grid-cols-${smColumns} sm:gap-x-4`;
   return (
-    <div className={`${className} ${narrowClassName} ${wideClassName}`}>
+    <div
+      className={`${className} ${baseClassName} ${mdClassName} ${smClassName}`}
+    >
       {children}
     </div>
   );
