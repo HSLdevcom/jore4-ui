@@ -11,6 +11,7 @@ import {
   selectIsCreateStopModeEnabled,
   selectMapEditor,
   selectMapFilter,
+  selectModalMap,
   selectSelectedRouteId,
   setSelectedRouteIdAction,
 } from '../../redux';
@@ -48,8 +49,12 @@ export const MapComponent = (
 ): JSX.Element => {
   const routeEditorRef = useRef<ExplicitAny>(null);
 
-  const { drawingMode, initiallyDisplayedRouteIds, isLoading } =
-    useAppSelector(selectMapEditor);
+  const {
+    drawingMode,
+    initiallyDisplayedRouteIds,
+    isLoading: isMapEditorLoading,
+  } = useAppSelector(selectMapEditor);
+  const { isLoading: isModalMapLoading } = useAppSelector(selectModalMap);
 
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
   const { showStopFilterOverlay } = useAppSelector(selectMapFilter);
@@ -229,7 +234,7 @@ export const MapComponent = (
         onDeleteDrawnRoute={() => editorLayerRef.current?.onDeleteRoute()}
         ref={routeEditorRef}
       />
-      <LoadingOverlay visible={isLoading} />
+      <LoadingOverlay visible={isMapEditorLoading || isModalMapLoading} />
     </Maplibre>
   );
 };
