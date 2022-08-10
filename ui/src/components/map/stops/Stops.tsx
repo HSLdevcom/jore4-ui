@@ -20,6 +20,7 @@ import {
   selectSelectedStopId,
   setEditedStopDataAction,
   setIsCreateStopModeEnabledAction,
+  setMapEditorLoadingAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import {
@@ -43,6 +44,7 @@ export const Stops = React.forwardRef((props, ref) => {
   const setIsCreateStopModeEnabled = useAppAction(
     setIsCreateStopModeEnabledAction,
   );
+  const setIsLoading = useAppAction(setMapEditorLoadingAction);
 
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
 
@@ -73,6 +75,7 @@ export const Stops = React.forwardRef((props, ref) => {
   const { defaultErrorHandler } = useEditStop();
   useImperativeHandle(ref, () => ({
     onCreateStop: async (e: MapEvent) => {
+      setIsLoading(true);
       try {
         const stopLocation = mapLngLatToGeoJSON(e.lngLat);
         const draftStop = await createDraftStop(stopLocation);
@@ -81,6 +84,7 @@ export const Stops = React.forwardRef((props, ref) => {
       } catch (err) {
         defaultErrorHandler(err as Error);
       }
+      setIsLoading(false);
     },
   }));
 
