@@ -10,7 +10,11 @@ import {
   setRouteMetadataFormOpenAction,
   setStopOnRouteAction,
 } from '../../redux';
-import { EditButton, SimpleDropdownMenu } from '../../uiComponents';
+import {
+  AlignDirection,
+  EditButton,
+  SimpleDropdownMenu,
+} from '../../uiComponents';
 import { mapToVariables } from '../../utils';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
 
@@ -57,7 +61,7 @@ const StopRow = ({
       </div>
       {!isReadOnly && (
         <div className="text-tweaked-brand">
-          <SimpleDropdownMenu>
+          <SimpleDropdownMenu alignItems={AlignDirection.Left}>
             <button type="button" onClick={() => setOnRoute(!onRoute)}>
               {onRoute ? t('stops.removeFromRoute') : t('stops.addToRoute')}
             </button>
