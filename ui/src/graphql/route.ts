@@ -15,7 +15,7 @@ import {
   useSearchLinesAndRoutesQuery,
 } from '../generated/graphql';
 import { RouteInfraLink } from './infrastructureNetwork';
-import { GqlQueryResult } from './types';
+import { GqlQueryResult, isGqlEntity } from './types';
 
 const LINE_DEFAULT_FIELDS = gql`
   fragment line_default_fields on route_line {
@@ -622,4 +622,14 @@ export const mapStopToRouteStop = <
     stop: stopInJourneyPattern,
     scheduledStopPointId: stop.scheduled_stop_point_id,
   };
+};
+
+export const isRoute = (input: unknown): input is RouteRoute => {
+  // eslint-disable-next-line no-underscore-dangle
+  return isGqlEntity(input) && input.__typename === 'route_route';
+};
+
+export const isLine = (input: unknown): input is RouteLine => {
+  // eslint-disable-next-line no-underscore-dangle
+  return isGqlEntity(input) && input.__typename === 'route_line';
 };

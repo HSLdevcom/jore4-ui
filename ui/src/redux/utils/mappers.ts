@@ -1,47 +1,151 @@
+import isArray from 'lodash/isArray';
 import { DateTime } from 'luxon';
+import { isLine, isRoute, isStop } from '../../graphql';
 import { isDateLike, parseDate } from '../../time';
+import { getObjectStringKeys, isPlainObject, PlainObject } from '../../utils';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type StoreType<T extends object> = {
-  [Property in keyof T]: T[Property] extends DateTime ? string : T[Property];
+// types that must be serialized
+type SerializedTypes = DateTime;
+
+// recusively replaces DateTime property types with strings within the input type
+export type StoreType<T extends PlainObject> = {
+  [Property in keyof T]: T[Property] extends PlainObject // object property -> recurse
+    ? StoreType<T[Property]>
+    : T[Property] extends Array<infer U> // array property -> must check inner type
+    ? U extends PlainObject // array of objects -> recurse
+      ? Array<StoreType<U>>
+      : Array<U>
+    : T[Property] extends SerializedTypes // serializable property -> convert to string
+    ? string
+    : T[Property]; // other scalar type -> leave as is
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function mapToStoreType<T extends object>(
+export type SerializerFunction<
+  T extends PlainObject = PlainObject,
+  TValue = ValueOf<T>,
+> = (key: StringKeyOf<T>, value: TValue, parentObject: T) => TValue | string;
+
+export type DeserializerFunction<
+  T extends PlainObject = PlainObject,
+  TValue = ValueOf<T>,
+> = (
+  key: StringKeyOf<T>,
+  value: TValue,
+  parentObject: T,
+) => TValue | SerializedTypes;
+
+const defaultSerializer: SerializerFunction = <
+  T extends PlainObject = PlainObject,
+  TValue = ValueOf<T>,
+>(
+  key: StringKeyOf<T>,
+  value: TValue,
+  parentObject: T,
+) => {
+  if (
+    (isStop(parentObject) || isRoute(parentObject) || isLine(parentObject)) &&
+    ['validity_start', 'validity_end'].includes(key) &&
+    DateTime.isDateTime(value)
+  ) {
+    return value.toISO();
+  }
+
+  return value;
+};
+
+const defaultDeserializer: DeserializerFunction = <
+  T extends PlainObject = PlainObject,
+  TValue = ValueOf<T>,
+>(
+  key: StringKeyOf<T>,
+  value: TValue,
+  parentObject: T,
+) => {
+  if (
+    (isStop(parentObject) || isRoute(parentObject) || isLine(parentObject)) &&
+    ['validity_start', 'validity_end'].includes(key) &&
+    isDateLike(value)
+  ) {
+    return parseDate(value);
+  }
+
+  return value;
+};
+
+export function mapToStoreType<T extends PlainObject>(
   input: T,
-  replaceFields: (keyof T)[],
+  serializerFunc: SerializerFunction = defaultSerializer,
 ): StoreType<T> {
-  return Object.keys(input).reduce<StoreType<T>>((result, objectKey) => {
-    const key = objectKey as keyof T;
+  return getObjectStringKeys(input).reduce<StoreType<T>>((result, key) => {
+    const value = input[key];
 
-    const value =
-      replaceFields.includes(key) && DateTime.isDateTime(input[key])
-        ? (input[key] as unknown as DateTime)?.toISO()
-        : input[key];
+    // serialize the attribute value
+    // Note: this has to be done first, so that object-like values like DateTime are serialized
+    // and we wouldn't recurse into them
+    const serializedValue = serializerFunc(key, value, input);
 
+    // value is an array
+    if (isArray(serializedValue)) {
+      return {
+        ...result,
+        [key]: serializedValue.map((item) =>
+          // array item is an object -> recurse
+          isPlainObject(item) ? mapToStoreType(item, serializerFunc) : item,
+        ),
+      };
+    }
+
+    // the value is an object -> recurse
+    if (isPlainObject(serializedValue)) {
+      return {
+        ...result,
+        [key]: mapToStoreType(serializedValue, serializerFunc),
+      };
+    }
+
+    // other scalar value -> return as is
     return {
       ...result,
-      [key]: value,
+      [key]: serializedValue,
     };
   }, {} as StoreType<T>);
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function mapFromStoreType<T extends object>(
+export function mapFromStoreType<T extends PlainObject>(
   input: StoreType<T>,
-  replaceFields: (keyof T)[],
+  deserializerFunc: DeserializerFunction = defaultDeserializer,
 ): T {
-  return Object.keys(input).reduce<T>((result, objectKey) => {
-    const key = objectKey as keyof StoreType<T>;
+  return getObjectStringKeys(input).reduce<T>((result, key) => {
+    const value = input[key];
 
-    const value =
-      replaceFields.includes(key) && isDateLike(input[key])
-        ? parseDate(input[key] as string)
-        : input[key];
+    // value is an array
+    if (isArray(value)) {
+      return {
+        ...result,
+        [key]: value.map((item) =>
+          // array item is an object -> recurse
+          isPlainObject(item) ? mapFromStoreType(item, deserializerFunc) : item,
+        ),
+      };
+    }
 
+    // the value is an object -> recurse
+    if (isPlainObject(value)) {
+      return {
+        ...result,
+        [key]: mapFromStoreType(value, deserializerFunc),
+      };
+    }
+
+    // serialize the attribute value
+    // Note: this has to be done last, so that object-like values like DateTime are deserialized
+    // only afterwards and we wouldn't recurse into them
+    const deserializedValue = deserializerFunc(key, value, input);
+
+    // other scalar value -> return as is
     return {
       ...result,
-      [key]: value,
+      [key]: deserializedValue,
     };
   }, {} as T);
 }

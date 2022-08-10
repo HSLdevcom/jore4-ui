@@ -40,3 +40,8 @@ type Paths<T, D extends number = 10> = [D] extends [never]
         : never;
     }[keyof T]
   : '';
+
+// by default keyof T can be string | number | symbol
+// but most times we know that the keys can only be strings
+type StringKeyOf<T> = Extract<keyof T, string>;
+type ValueOf<T> = T[keyof T];
