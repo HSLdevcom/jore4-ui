@@ -68,6 +68,10 @@ export const Maplibre: FunctionComponent<Props> = ({
     if (mapRef.current) {
       const mapGL = mapRef.current.getMap();
 
+      // Viewport change event can be fired before map is completely loaded
+      // resulting in stops to be loaded for incorrect view
+      if (!mapGL.loaded()) return;
+
       const bounds = mapGL.getBounds();
 
       const from = point([newViewport.longitude, newViewport.latitude]);
@@ -139,6 +143,9 @@ export const Maplibre: FunctionComponent<Props> = ({
       transformRequest={transformRequest}
       doubleClickZoom={false}
       ref={mapRef}
+      onLoad={() => {
+        onViewportChange(viewport);
+      }}
     >
       {children}
       <NavigationControl style={navStyle} showCompass={false} />
