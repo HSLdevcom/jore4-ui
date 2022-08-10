@@ -6,6 +6,7 @@ export * from './gis';
 export * from './gql';
 export * from './graphql';
 export * from './localizedString';
+export * from './object';
 export * from './search';
 export * from './stops';
 export * from './toastService';

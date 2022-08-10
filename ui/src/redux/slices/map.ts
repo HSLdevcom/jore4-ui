@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { mapStopToStoreStop, StopWithLocation } from '../../graphql';
-import { StoreType } from '../utils/mappers';
+import { StopWithLocation } from '../../graphql';
+import { mapToStoreType, StoreType } from '../utils/mappers';
 
 interface IState {
   selectedStopId?: UUID;
@@ -32,7 +32,7 @@ const slice = createSlice({
         state.editedStopData = action.payload;
       },
       prepare: (stop: StopWithLocation | undefined) => ({
-        payload: stop ? mapStopToStoreStop(stop) : undefined,
+        payload: stop ? mapToStoreType(stop) : undefined,
       }),
     },
   },
