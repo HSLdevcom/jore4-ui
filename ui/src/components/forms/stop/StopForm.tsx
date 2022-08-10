@@ -10,10 +10,12 @@ import {
 import {
   CreateChanges,
   EditChanges,
+  useAppAction,
   useCreateStop,
   useEditStop,
 } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
+import { setMapEditorLoadingAction } from '../../../redux';
 import { mapToISODate } from '../../../time';
 import { RequiredKeys } from '../../../types';
 import {
@@ -95,6 +97,7 @@ const StopFormComponent = (
 
   const { prepareEdit, defaultErrorHandler } = useEditStop();
   const { prepareCreate } = useCreateStop();
+  const setIsLoading = useAppAction(setMapEditorLoadingAction);
 
   const mapFormStateToInput = (state: FormState) => {
     const input = {
@@ -142,12 +145,15 @@ const StopFormComponent = (
   };
 
   const onFormSubmit = async (state: FormState) => {
+    setIsLoading(true);
     try {
       const changes = state.stopId
         ? await onEdit(state)
         : await onCreate(state);
+      setIsLoading(false);
       return onSubmit(changes);
     } catch (err) {
+      setIsLoading(false);
       return defaultErrorHandler(err as Error);
     }
   };

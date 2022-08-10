@@ -16,6 +16,7 @@ import {
 } from '../../../hooks';
 import {
   setEditedStopDataAction,
+  setMapEditorLoadingAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import {
@@ -62,6 +63,7 @@ export const EditStopLayer: React.FC<Props> = ({
 
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
   const setEditedStopData = useAppAction(setEditedStopDataAction);
+  const setIsLoading = useAppAction(setMapEditorLoadingAction);
 
   const { mapCreateChangesToVariables, insertStopMutation } = useCreateStop();
   const {
@@ -137,8 +139,10 @@ export const EditStopLayer: React.FC<Props> = ({
 
   const onRemoveStop = async (stopId?: UUID) => {
     if (stopId) {
+      setIsLoading(true);
       // we are removing stop that is already stored to backend
       await onPrepareDelete(stopId);
+      setIsLoading(false);
     } else {
       // we are removing a draft stop
       await onRemoveDraftStop();
@@ -152,6 +156,7 @@ export const EditStopLayer: React.FC<Props> = ({
       const patch: ScheduledStopPointSetInput = {
         measured_location: mapLngLatToGeoJSON(event.lngLat),
       };
+      setIsLoading(true);
       try {
         const changes = await prepareEdit({
           stopId,
@@ -161,6 +166,7 @@ export const EditStopLayer: React.FC<Props> = ({
       } catch (err) {
         defaultErrorHandler(err as Error);
       }
+      setIsLoading(false);
     } else {
       // for draft stops, just update the edited stop data
       setEditedStopData({
@@ -174,6 +180,7 @@ export const EditStopLayer: React.FC<Props> = ({
   };
 
   const doCreateStop = async (changes: CreateChanges) => {
+    setIsLoading(true);
     try {
       const variables = mapCreateChangesToVariables(changes);
       await insertStopMutation(variables);
@@ -183,9 +190,11 @@ export const EditStopLayer: React.FC<Props> = ({
     } catch (err) {
       defaultErrorHandler(err as Error);
     }
+    setIsLoading(false);
   };
 
   const doEditStop = async (changes: EditChanges) => {
+    setIsLoading(true);
     try {
       const variables = mapEditChangesToVariables(changes);
 
@@ -205,6 +214,7 @@ export const EditStopLayer: React.FC<Props> = ({
     } catch (err) {
       defaultErrorHandler(err as Error);
     }
+    setIsLoading(false);
   };
 
   // we are removing stop that is already stored to backend
