@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
-import { mapStoreStopToStop } from '../../graphql';
 import { RootState } from '../store';
+import { mapFromStoreType } from '../utils/mappers';
 
 export const selectMap = (state: RootState) => state.map;
 export const selectMapEditor = (state: RootState) => state.mapEditor;
@@ -16,7 +16,7 @@ export const selectSelectedStopId = createSelector(
 );
 
 export const selectEditedStopData = createSelector(selectMap, (map) =>
-  map.editedStopData ? mapStoreStopToStop(map.editedStopData) : undefined,
+  map.editedStopData ? mapFromStoreType(map.editedStopData) : undefined,
 );
 
 export const selectIsCreateStopModeEnabled = createSelector(

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`redux object de/serializing mapFromStoreType should recursively serialize DateTime fields defined by the replacer function 1`] = `
+Object {
+  "arrOfObjects": Array [
+    Object {
+      "dat": "2022-08-11T07:39:39.766+03:00",
+    },
+  ],
+  "dat": "2022-08-11T09:39:39.766+03:00",
+  "dat2": "2022-08-11T10:39:39.766+03:00",
+  "func": [Function],
+  "num": 3,
+  "obj": Object {
+    "attr": "value",
+    "dat": "2022-08-11T11:39:39.766+03:00",
+  },
+  "str": "2022-08-11T03:39:39.766Z",
+}
+`;
+
+exports[`redux object de/serializing mapToStoreType should recursively serialize DateTime fields defined by the replacer function 1`] = `
+Object {
+  "arrOfObjects": Array [
+    Object {
+      "dat": "2022-08-11T07:39:39.766+03:00",
+    },
+  ],
+  "dat": "2022-08-11T09:39:39.766+03:00",
+  "dat2": "2022-08-11T10:39:39.766+03:00",
+  "func": [Function],
+  "num": 3,
+  "obj": Object {
+    "attr": "value",
+    "dat": "2022-08-11T11:39:39.766+03:00",
+  },
+  "str": "2022-08-11T03:39:39.766Z",
+}
+`;
