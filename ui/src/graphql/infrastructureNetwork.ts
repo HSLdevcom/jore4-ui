@@ -23,10 +23,10 @@ const ROUTE_INFRA_LINK_FIELDS = gql`
 `;
 
 // an extended version of the infra link model that also contains information about the route
-export interface RouteInfraLink extends RouteInfraLinkFieldsFragment {
+export type RouteInfraLink = RouteInfraLinkFieldsFragment & {
   // eslint-disable-next-line camelcase
   is_traversal_forwards: boolean;
-}
+};
 
 export const mapInfraLinksAlongRouteToGraphQL = (
   infraLinks: RouteInfraLink[],

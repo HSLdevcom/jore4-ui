@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import omit from 'lodash/omit';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
-import { LineAllFieldsFragment, RouteLine } from '../../generated/graphql';
+import { LineAllFieldsFragment } from '../../generated/graphql';
 import { RouteInfraLink, RouteStop } from '../../graphql';
 import { mapToStoreType, StoreType } from '../utils/mappers';
 
@@ -53,7 +52,7 @@ interface IState {
     /**
      * Array of infrastructure links along the created / edited route
      */
-    infraLinks?: RouteInfraLink[];
+    infraLinks?: StoreType<RouteInfraLink>[];
     /**
      * Id of the route used as a template route, when creating a new route
      */
@@ -212,15 +211,8 @@ const slice = createSlice({
       ) => {
         state.editedRouteData.lineInfo = action.payload;
       },
-      prepare: (line: RouteLine | LineAllFieldsFragment) => {
-        // remove unused, nonserializable data from relations
-        const plainLine = omit(line, ['line_routes']) as LineAllFieldsFragment;
-        // serialize datetime fields
-        const payload = mapToStoreType(plainLine, [
-          'validity_start',
-          'validity_end',
-        ]);
-        return { payload };
+      prepare: (line: LineAllFieldsFragment) => {
+        return { payload: mapToStoreType(line) };
       },
     },
 
@@ -268,14 +260,10 @@ const slice = createSlice({
         stops: RouteStop[];
         infraLinks: RouteInfraLink[];
       }) => ({
-        payload: {
+        payload: mapToStoreType({
           stops,
-          // remove unnecessary, nonserializable stops from infra link data
-          infraLinks: infraLinks.map((item) => ({
-            ...item,
-            scheduled_stop_points_located_on_infrastructure_link: [],
-          })),
-        },
+          infraLinks,
+        }),
       }),
     },
 

@@ -7,14 +7,9 @@ import {
   ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointSetInput,
 } from '../generated/graphql';
-import {
-  mapFromStoreType,
-  mapToStoreType,
-  StoreType,
-} from '../redux/utils/mappers';
 import { NonNullableKeys, RequiredKeys } from '../types';
 import { sortStopsOnInfraLink } from '../utils';
-import { GqlQueryResult } from './types';
+import { GqlQueryResult, isGqlEntity } from './types';
 
 export type StopWithLocation = RequiredKeys<
   Partial<ServicePatternScheduledStopPoint>,
@@ -240,16 +235,6 @@ const GET_STOP_WITH_ROUTE_GRAPH_DATA_BY_ID = gql`
   }
 `;
 
-export const mapStopToStoreStop = (
-  stop: StopWithLocation,
-): StoreType<StopWithLocation> =>
-  mapToStoreType(stop, ['validity_start', 'validity_end']);
-
-export const mapStoreStopToStop = (
-  stop: StoreType<StopWithLocation>,
-): StopWithLocation =>
-  mapFromStoreType(stop, ['validity_start', 'validity_end']);
-
 const GET_ROUTES_BROKEN_BY_STOP_CHANGE = gql`
   query GetRoutesBrokenByStopChange(
     $new_located_on_infrastructure_link_id: uuid!
@@ -286,3 +271,13 @@ export const mapGetRoutesBrokenByStopChangeResult = (
 ) =>
   result.data
     ?.journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point;
+
+export const isStop = (
+  input: unknown,
+): input is ServicePatternScheduledStopPoint => {
+  return (
+    isGqlEntity(input) &&
+    // eslint-disable-next-line no-underscore-dangle
+    input.__typename === 'service_pattern_scheduled_stop_point'
+  );
+};
