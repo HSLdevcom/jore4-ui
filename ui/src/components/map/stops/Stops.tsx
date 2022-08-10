@@ -1,4 +1,4 @@
-import React, { useImperativeHandle } from 'react';
+import React, { useEffect, useImperativeHandle } from 'react';
 import { MapEvent } from 'react-map-gl';
 import {
   ServicePatternScheduledStopPoint,
@@ -20,7 +20,7 @@ import {
   selectSelectedStopId,
   setEditedStopDataAction,
   setIsCreateStopModeEnabledAction,
-  setMapEditorLoadingAction,
+  setModalMapLoadingAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import { Priority } from '../../../types/Priority';
@@ -45,7 +45,7 @@ export const Stops = React.forwardRef((props, ref) => {
   const setIsCreateStopModeEnabled = useAppAction(
     setIsCreateStopModeEnabledAction,
   );
-  const setIsLoading = useAppAction(setMapEditorLoadingAction);
+  const setIsLoading = useAppAction(setModalMapLoadingAction);
 
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
 
@@ -56,6 +56,10 @@ export const Stops = React.forwardRef((props, ref) => {
       measured_location_filter: constructWithinViewportGqlFilter(viewport),
     }),
   );
+
+  useEffect(() => {
+    setIsLoading(stopsResult.loading);
+  }, [setIsLoading, stopsResult.loading]);
 
   // When stops are loading, show previously loaded stops to avoid stops
   // disappearing and flickering on every map move / zoom
