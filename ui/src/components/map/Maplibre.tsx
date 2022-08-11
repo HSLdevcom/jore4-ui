@@ -3,8 +3,8 @@ import { point, Units } from '@turf/helpers';
 import debounce from 'lodash/debounce';
 import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
-import { useAppAction, useAppDispatch, useMapQueryParams } from '../../hooks';
-import { setModalMapLoadingAction, setViewPortAction } from '../../redux';
+import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
+import { Operation, setViewPortAction } from '../../redux';
 import hslSimpleStyle from './hslSimpleStyle.json';
 import rasterMapStyle from './rasterMapStyle.json';
 
@@ -46,7 +46,7 @@ export const Maplibre: FunctionComponent<Props> = ({
   });
 
   const dispatch = useAppDispatch();
-  const setIsLoading = useAppAction(setModalMapLoadingAction);
+  const { setIsLoading } = useLoader(Operation.LoadMap);
 
   useEffect(() => {
     setIsLoading(true);

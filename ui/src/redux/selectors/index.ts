@@ -9,6 +9,7 @@ export const selectMapFilter = (state: RootState) => state.mapFilter;
 export const selectModalMap = (state: RootState) => state.modalMap;
 export const selectUser = (state: RootState) => state.user;
 export const selectModals = (state: RootState) => state.modals;
+export const selectLoader = (state: RootState) => state.loader;
 
 export const selectSelectedStopId = createSelector(
   selectMap,
@@ -68,4 +69,8 @@ export const selectViaModal = createSelector(
 export const selectIsViaModalOpen = createSelector(
   selectModals,
   (modals) => modals.viaModal.isOpen,
+);
+
+export const selectIsLoading = createSelector(selectLoader, (loaders) =>
+  Object.values(loaders).some((loader) => loader),
 );

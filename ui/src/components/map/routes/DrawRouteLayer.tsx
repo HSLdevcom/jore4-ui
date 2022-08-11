@@ -31,14 +31,15 @@ import {
   useAppDispatch,
   useAppSelector,
   useExtractRouteFromFeature,
+  useLoader,
 } from '../../../hooks';
 import {
   Mode,
+  Operation,
   resetDraftRouteGeometryAction,
   selectHasDraftRouteGeometry,
   selectMapEditor,
   setDraftRouteGeometryAction,
-  setMapEditorLoadingAction,
   stopRouteEditingAction,
 } from '../../../redux';
 import { filterDistinctConsecutiveRouteStops, showToast } from '../../../utils';
@@ -89,6 +90,8 @@ const DrawRouteLayerComponent = (
     getRemovedStopLabels,
     getOldRouteGeometryVariables,
   } = useExtractRouteFromFeature();
+
+  const { setIsLoading } = useLoader(Operation.MatchRoute);
 
   const { t } = useTranslation();
 
@@ -148,12 +151,12 @@ const DrawRouteLayerComponent = (
       // retrieve infra links with stops for snapping line from mapmatching service
       const { geometry } = snappingLineFeature;
 
-      dispatch(setMapEditorLoadingAction(true));
+      setIsLoading(true);
 
       const { infraLinksWithStops, matchedGeometry } =
         await getInfraLinksWithStopsForGeometry(geometry);
 
-      dispatch(setMapEditorLoadingAction(false));
+      setIsLoading(false);
 
       // retrieve stop and infra link data from base route if we don't yet have edited data
       // TODO: this should happen only once, not every time the snapping line is updated
@@ -210,6 +213,7 @@ const DrawRouteLayerComponent = (
       dispatch,
       map,
       onDelete,
+      setIsLoading,
     ],
   );
 

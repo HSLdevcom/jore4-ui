@@ -10,12 +10,12 @@ import {
 import {
   CreateChanges,
   EditChanges,
-  useAppAction,
   useCreateStop,
   useEditStop,
+  useLoader,
 } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
-import { setMapEditorLoadingAction } from '../../../redux';
+import { Operation } from '../../../redux';
 import { mapToISODate } from '../../../time';
 import { RequiredKeys } from '../../../types';
 import {
@@ -97,7 +97,7 @@ const StopFormComponent = (
 
   const { prepareEdit, defaultErrorHandler } = useEditStop();
   const { prepareCreate } = useCreateStop();
-  const setIsLoading = useAppAction(setMapEditorLoadingAction);
+  const { setIsLoading } = useLoader(Operation.SaveStop);
 
   const mapFormStateToInput = (state: FormState) => {
     const input = {
