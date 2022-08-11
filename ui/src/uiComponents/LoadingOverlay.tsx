@@ -14,7 +14,7 @@ export const LoadingOverlay: React.FC<Props> = ({ visible, testId = '' }) => {
 
   return (
     <div
-      className="fixed top-1/2 left-1/2 z-50 flex h-32 -translate-y-1/2 -translate-x-1/2 cursor-wait border border-light-grey bg-background px-20 shadow-lg"
+      className="fixed top-1/2 left-1/2 z-50 flex h-32 -translate-y-1/2 -translate-x-1/2 cursor-wait rounded border border-light-grey bg-background px-20 shadow-lg"
       data-testid={testId}
     >
       <PulseLoader
