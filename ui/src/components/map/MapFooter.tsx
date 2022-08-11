@@ -38,7 +38,7 @@ export const MapFooter: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { drawingMode, creatingNewRoute, selectedRouteId, isLoading } =
+  const { drawingMode, creatingNewRoute, selectedRouteId } =
     useAppSelector(selectMapEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
 
@@ -98,9 +98,7 @@ export const MapFooter: React.FC<Props> = ({
         </SimpleButton>
         <SimpleButton
           onClick={onSave}
-          disabled={
-            !(hasChangesInProgress && hasDraftRouteGeometry) || isLoading
-          }
+          disabled={!(hasChangesInProgress && hasDraftRouteGeometry)}
           testId={testIds.saveButton}
         >
           {t('routes.save')}

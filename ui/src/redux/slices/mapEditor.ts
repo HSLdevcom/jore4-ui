@@ -67,10 +67,6 @@ interface IState {
    * Id of the route that has been selected in the map view
    */
   selectedRouteId?: UUID;
-  /**
-   * Is map editor loading
-   */
-  isLoading: boolean;
 }
 
 const initialState: IState = {
@@ -88,7 +84,6 @@ const initialState: IState = {
   },
   isRouteMetadataFormOpen: false,
   selectedRouteId: undefined,
-  isLoading: false,
 };
 
 export enum Mode {
@@ -307,12 +302,6 @@ const slice = createSlice({
     ) => {
       state.isRouteMetadataFormOpen = action.payload;
     },
-    /**
-     * Set map editor loading state
-     */
-    setLoading: (state: IState, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
-    },
   },
 });
 
@@ -333,7 +322,6 @@ export const {
   resetDraftRouteGeometry: resetDraftRouteGeometryAction,
   setSelectedRouteId: setSelectedRouteIdAction,
   setRouteMetadataFormOpen: setRouteMetadataFormOpenAction,
-  setLoading: setMapEditorLoadingAction,
 } = slice.actions;
 
 export const mapEditorReducer = slice.reducer;

@@ -1,10 +1,10 @@
 import distance from '@turf/distance';
 import { point, Units } from '@turf/helpers';
 import debounce from 'lodash/debounce';
-import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
+import { FunctionComponent, useMemo, useRef, useState } from 'react';
 import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
-import { useAppAction, useAppDispatch, useMapQueryParams } from '../../hooks';
-import { setModalMapLoadingAction, setViewPortAction } from '../../redux';
+import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
+import { Operation, setViewPortAction } from '../../redux';
 import hslSimpleStyle from './hslSimpleStyle.json';
 import rasterMapStyle from './rasterMapStyle.json';
 
@@ -46,12 +46,9 @@ export const Maplibre: FunctionComponent<Props> = ({
   });
 
   const dispatch = useAppDispatch();
-  const setIsLoading = useAppAction(setModalMapLoadingAction);
-
-  useEffect(() => {
-    setIsLoading(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { setIsLoading } = useLoader(Operation.LoadMap, {
+    immediatelyOn: true,
+  });
 
   const updateMapDetailsDebounced = useMemo(
     () =>

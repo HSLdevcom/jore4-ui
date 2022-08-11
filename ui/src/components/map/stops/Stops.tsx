@@ -10,17 +10,18 @@ import {
   useAppSelector,
   useCreateStop,
   useEditStop,
+  useLoader,
   useMapStops,
 } from '../../../hooks';
 import { useFilterStops } from '../../../hooks/useFilterStops';
 import {
+  Operation,
   selectEditedStopData,
   selectIsCreateStopModeEnabled,
   selectMapViewport,
   selectSelectedStopId,
   setEditedStopDataAction,
   setIsCreateStopModeEnabledAction,
-  setModalMapLoadingAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import { Priority } from '../../../types/Priority';
@@ -45,7 +46,7 @@ export const Stops = React.forwardRef((props, ref) => {
   const setIsCreateStopModeEnabled = useAppAction(
     setIsCreateStopModeEnabledAction,
   );
-  const setIsLoading = useAppAction(setModalMapLoadingAction);
+  const { setIsLoading } = useLoader(Operation.FetchStops);
 
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
 
