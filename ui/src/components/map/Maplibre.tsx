@@ -64,7 +64,7 @@ export const Maplibre: FunctionComponent<Props> = ({
           }),
         );
         setMapPosition(latitude, longitude, zoom);
-      }, 500),
+      }, 800),
     [dispatch, setMapPosition],
   );
 
