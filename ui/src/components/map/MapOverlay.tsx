@@ -10,7 +10,7 @@ export const MapOverlay: React.FC<MapOverlayProps> = ({
   children,
 }) => {
   return (
-    <Column className={`w-72 bg-white shadow-md ${className}`}>
+    <Column className={`w-72 rounded bg-white shadow-md ${className}`}>
       {children}
     </Column>
   );
