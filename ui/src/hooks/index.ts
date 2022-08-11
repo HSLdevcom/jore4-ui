@@ -15,6 +15,7 @@ export * from './useChooseLineDropdown';
 export * from './useChooseRouteDropdown';
 export * from './useExtractRouteFromFeature';
 export * from './useFilterStops';
+export * from './useLoader';
 export * from './usePagination';
 export * from './useShowRoutesOnModal';
 export * from './via';
