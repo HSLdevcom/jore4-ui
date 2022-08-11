@@ -9,13 +9,11 @@ export const HELSINKI_CITY_CENTER_COORDINATES = {
 interface IState {
   isOpen: boolean;
   viewport: Viewport;
-  isLoading: boolean;
 }
 
 const initialState: IState = {
   isOpen: false,
   viewport: { ...HELSINKI_CITY_CENTER_COORDINATES, radius: 0 },
-  isLoading: false,
 };
 
 const slice = createSlice({
@@ -28,16 +26,10 @@ const slice = createSlice({
     reset: () => {
       return initialState;
     },
-    setLoading: (state: IState, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
-    },
   },
 });
 
-export const {
-  setViewPort: setViewPortAction,
-  reset: resetModalMapAction,
-  setLoading: setModalMapLoadingAction,
-} = slice.actions;
+export const { setViewPort: setViewPortAction, reset: resetModalMapAction } =
+  slice.actions;
 
 export const modalMapReducer = slice.reducer;

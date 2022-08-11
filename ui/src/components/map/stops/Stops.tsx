@@ -11,16 +11,17 @@ import {
   useCreateStop,
   useEditStop,
   useFilterStops,
+  useLoader,
   useMapStops,
 } from '../../../hooks';
 import {
+  Operation,
   selectEditedStopData,
   selectIsCreateStopModeEnabled,
   selectMapViewport,
   selectSelectedStopId,
   setEditedStopDataAction,
   setIsCreateStopModeEnabledAction,
-  setModalMapLoadingAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import { Priority } from '../../../types/Priority';
@@ -45,7 +46,7 @@ export const Stops = React.forwardRef((props, ref) => {
   const setIsCreateStopModeEnabled = useAppAction(
     setIsCreateStopModeEnabledAction,
   );
-  const setIsLoading = useAppAction(setModalMapLoadingAction);
+  const { setIsLoading } = useLoader(Operation.FetchStops);
 
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
 
@@ -58,6 +59,12 @@ export const Stops = React.forwardRef((props, ref) => {
   );
 
   useEffect(() => {
+    /**
+     * Here we sync getStopsByLocation query loading state with useLoader hook state.
+     *
+     * We could also use useLoader's immediatelyOn option instead of useEffect,
+     * but using options to dynamically control loading state feels semantically wrong.
+     */
     setIsLoading(stopsResult.loading);
   }, [setIsLoading, stopsResult.loading]);
 
