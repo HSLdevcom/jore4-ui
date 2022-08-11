@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
+import { mapOperations, Operation } from '../slices/loader';
 import { RootState } from '../store';
 import { mapFromStoreType } from '../utils/mappers';
 
@@ -9,6 +10,7 @@ export const selectMapFilter = (state: RootState) => state.mapFilter;
 export const selectModalMap = (state: RootState) => state.modalMap;
 export const selectUser = (state: RootState) => state.user;
 export const selectModals = (state: RootState) => state.modals;
+export const selectLoader = (state: RootState) => state.loader;
 
 export const selectSelectedStopId = createSelector(
   selectMap,
@@ -68,4 +70,12 @@ export const selectViaModal = createSelector(
 export const selectIsViaModalOpen = createSelector(
   selectModals,
   (modals) => modals.viaModal.isOpen,
+);
+
+export const selectIsMapOperationLoading = createSelector(
+  selectLoader,
+  (loaders) =>
+    Object.entries(loaders)
+      .filter(([operation]) => mapOperations.includes(operation as Operation))
+      .some(([, isLoading]) => isLoading),
 );

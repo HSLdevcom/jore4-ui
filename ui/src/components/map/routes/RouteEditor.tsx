@@ -11,18 +11,19 @@ import {
   useCreateRoute,
   useDeleteRoute,
   useEditRouteGeometry,
+  useLoader,
   useMapQueryParams,
 } from '../../../hooks';
 import {
   initializeMapEditorWithRoutesAction,
   Mode,
+  Operation,
   resetRouteCreatingAction,
   selectDrawingMode,
   selectMapEditor,
   selectMapObservationDate,
   selectSelectedRouteId,
   setLineInfoAction,
-  setMapEditorLoadingAction,
   setMapObservationDateAction,
   setRouteMetadataAction,
   setSelectedRouteIdAction,
@@ -100,8 +101,7 @@ const RouteEditorComponent = (
     await editRouteGeometryMutation(variables);
   };
 
-  const setIsLoading = (loading: boolean) =>
-    dispatch(setMapEditorLoadingAction(loading));
+  const { setIsLoading } = useLoader(Operation.SaveRoute);
 
   const createRoute = async () => {
     const changes = await prepareCreate({

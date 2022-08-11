@@ -1,5 +1,6 @@
 export * from './ReduxProvider';
 export * from './selectors';
+export * from './slices/loader';
 export * from './slices/map';
 export * from './slices/mapEditor';
 export * from './slices/mapFilter';
