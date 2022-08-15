@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
-import { LineAllFieldsFragment } from '../../generated/graphql';
+import {
+  LineAllFieldsFragment,
+  RouteStopFieldsFragment,
+} from '../../generated/graphql';
 import { RouteInfraLink, RouteStop } from '../../graphql';
 import { mapToStoreType, StoreType } from '../utils/mappers';
 
@@ -50,6 +53,13 @@ interface IState {
      */
     stops: RouteStop[];
     /**
+     * Array of stops that are eligible to be added to the journey pattern
+     *
+     * TODO: should start using this instead of the "stops" variable above
+     * For now, everything is way too tightly coupled, so cannot get rid of the other one
+     */
+    stopsEligibleForJourneyPattern: StoreType<RouteStopFieldsFragment>[];
+    /**
      * Array of infrastructure links along the created / edited route
      */
     infraLinks?: StoreType<RouteInfraLink>[];
@@ -75,9 +85,10 @@ const initialState: IState = {
   drawingMode: undefined,
   editedRouteData: {
     id: undefined,
-    metaData: undefined,
     lineInfo: undefined,
+    metaData: undefined,
     stops: [],
+    stopsEligibleForJourneyPattern: [],
     infraLinks: [],
     templateRouteId: undefined,
   },
@@ -237,26 +248,32 @@ const slice = createSlice({
         state: IState,
         action: PayloadAction<{
           stops: RouteStop[];
+          stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
           infraLinks: RouteInfraLink[];
         }>,
       ) => {
-        const { stops, infraLinks } = action.payload;
+        const { stops, stopsEligibleForJourneyPattern, infraLinks } =
+          action.payload;
 
         state.editedRouteData = {
           ...state.editedRouteData,
           stops,
+          stopsEligibleForJourneyPattern,
           infraLinks,
         };
       },
       prepare: ({
         stops,
+        stopsEligibleForJourneyPattern,
         infraLinks,
       }: {
         stops: RouteStop[];
+        stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
         infraLinks: RouteInfraLink[];
       }) => ({
         payload: mapToStoreType({
           stops,
+          stopsEligibleForJourneyPattern,
           infraLinks,
         }),
       }),

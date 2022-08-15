@@ -7215,6 +7215,13 @@ export type LineAllFieldsFragment = {
   label: string;
 };
 
+export type RouteValidityFragment = {
+  __typename?: 'route_route';
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  priority: number;
+};
+
 export type RouteAllFieldsFragment = {
   __typename?: 'route_route';
   route_id: UUID;
@@ -8910,6 +8917,13 @@ export const LineDefaultFieldsFragmentDoc = gql`
     short_name_i18n
     validity_start
     validity_end
+  }
+`;
+export const RouteValidityFragmentDoc = gql`
+  fragment route_validity on route_route {
+    validity_start
+    validity_end
+    priority
   }
 `;
 export const RouteDefaultFieldsFragmentDoc = gql`
