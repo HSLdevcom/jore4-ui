@@ -10,9 +10,9 @@ import {
   useAppSelector,
   useCreateStop,
   useEditStop,
+  useFilterStops,
   useMapStops,
 } from '../../../hooks';
-import { useFilterStops } from '../../../hooks/useFilterStops';
 import {
   selectEditedStopData,
   selectIsCreateStopModeEnabled,

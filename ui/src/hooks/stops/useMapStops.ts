@@ -17,9 +17,9 @@ import { RequiredKeys } from '../../types';
 import { Priority } from '../../types/Priority';
 import { mapToVariables } from '../../utils';
 import { useAppSelector } from '../redux';
+import { useExtractRouteFromFeature } from '../routes/useExtractRouteFromFeature';
 import { useGetDisplayedRoutes } from '../routes/useGetDisplayedRoutes';
-import { useExtractRouteFromFeature } from '../useExtractRouteFromFeature';
-import { filterHighestPriorityCurrentStops } from '../useFilterStops';
+import { filterHighestPriorityCurrentStops } from './useFilterStops';
 
 export type StopWithVehicleMode = RequiredKeys<
   Partial<ServicePatternScheduledStopPoint>,
