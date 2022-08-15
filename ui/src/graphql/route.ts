@@ -41,6 +41,14 @@ const LINE_ALL_FIELDS = gql`
   }
 `;
 
+const ROUTE_VALIDITY = gql`
+  fragment route_validity on route_route {
+    validity_start
+    validity_end
+    priority
+  }
+`;
+
 const ROUTE_ALL_FIELDS = gql`
   fragment route_all_fields on route_route {
     route_id
