@@ -16,8 +16,7 @@ import { RequiredKeys } from '../../types';
 import { Priority } from '../../types/Priority';
 import { mapToVariables } from '../../utils';
 import { useAppSelector } from '../redux';
-import { useExtractRouteFromFeature } from '../routes/useExtractRouteFromFeature';
-import { useGetDisplayedRoutes } from '../routes/useGetDisplayedRoutes';
+import { mapRouteStopsToStopLabels, useGetDisplayedRoutes } from '../routes';
 import { useObservationDateQueryParam } from '../urlQuery';
 import { filterHighestPriorityCurrentStops } from './useFilterStops';
 
@@ -49,7 +48,6 @@ export const useMapStops = () => {
   const { observationDate } = useObservationDateQueryParam();
   const { displayedRouteIds } = useGetDisplayedRoutes();
   const selectedStopId = useAppSelector(selectSelectedStopId);
-  const { mapRouteStopsToStopLabels } = useExtractRouteFromFeature();
 
   const displayedRoutesResult = useGetRoutesWithInfrastructureLinksQuery(
     mapToVariables({ route_ids: displayedRouteIds }),
