@@ -86,6 +86,17 @@ export const useExtractRouteFromFeature = () => {
   );
 
   /**
+   * Removes all duplicate labeled consecutive stops from the list
+   * This is used for example removing different versions of stops from the
+   * journey pattern list where only the labels are shown
+   */
+  const filterDistinctConsecutiveRouteStops = <
+    TStop extends Pick<ServicePatternScheduledStopPoint, 'label'>,
+  >(
+    stops: TStop[],
+  ) => stops.filter((stop, index) => stops[index - 1]?.label !== stop.label);
+
+  /**
    * Sort and filter the stop points
    * from a MapExternalLinkIdsToInfraLinksWithStops query result.
    */
@@ -305,5 +316,6 @@ export const useExtractRouteFromFeature = () => {
     getOldRouteGeometryVariables,
     mapRouteStopsToStopLabels,
     getFilteredStopIdsAlongRouteGeometry,
+    filterDistinctConsecutiveRouteStops,
   };
 };
