@@ -42,7 +42,7 @@ import {
   setDraftRouteGeometryAction,
   stopRouteEditingAction,
 } from '../../../redux';
-import { filterDistinctConsecutiveRouteStops, showToast } from '../../../utils';
+import { showToast } from '../../../utils';
 import { addRoute, removeRoute } from '../mapUtils';
 import { featureStyle, handleStyle } from './editorStyles';
 
@@ -89,6 +89,7 @@ const DrawRouteLayerComponent = (
     mapInfraLinksToFeature,
     getRemovedStopLabels,
     getOldRouteGeometryVariables,
+    filterDistinctConsecutiveRouteStops,
   } = useExtractRouteFromFeature();
 
   const { setIsLoading } = useLoader(Operation.MatchRoute);
@@ -201,16 +202,17 @@ const DrawRouteLayerComponent = (
     },
     [
       baseRoute,
+      creatingNewRoute,
+      dispatch,
       editedRouteData?.id,
+      editedRouteData.infraLinks,
       editedRouteData.lineInfo,
       editedRouteData.stops,
-      editedRouteData.infraLinks,
-      creatingNewRoute,
+      extractScheduledStopPoints,
+      filterDistinctConsecutiveRouteStops,
       getInfraLinksWithStopsForGeometry,
       getOldRouteGeometryVariables,
       getRemovedStopLabels,
-      extractScheduledStopPoints,
-      dispatch,
       map,
       onDelete,
       setIsLoading,

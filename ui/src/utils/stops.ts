@@ -1,8 +1,5 @@
 import flip from 'lodash/flip';
-import {
-  ScheduledStopPointAllFieldsFragment,
-  ServicePatternScheduledStopPoint,
-} from '../generated/graphql';
+import { ScheduledStopPointAllFieldsFragment } from '../generated/graphql';
 
 const sortStopsByTraversalForwards = <
   TStop extends ScheduledStopPointAllFieldsFragment,
@@ -36,14 +33,3 @@ export const sortStopsOnInfraLink = <
   stops: TStop[],
   isTraversalForwards: boolean,
 ) => stops.sort(sortStopsOnInfraLinkComparator(isTraversalForwards));
-
-/**
- * Removes all duplicate labeled consecutive stops from the list
- * This is used for example removing different versions of stops from the
- * journey pattern list where only the labels are shown
- */
-export const filterDistinctConsecutiveRouteStops = <
-  TStop extends Pick<ServicePatternScheduledStopPoint, 'label'>,
->(
-  stops: TStop[],
-) => stops.filter((route, index) => stops[index - 1]?.label !== route.label);
