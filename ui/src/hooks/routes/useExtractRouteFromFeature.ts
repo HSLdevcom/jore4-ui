@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
-import { getBusRoute } from '../api/routing';
+import { getBusRoute } from '../../api/routing';
 import {
   InfrastructureNetworkDirectionEnum,
   ReusableComponentsVehicleModeEnum,
@@ -9,7 +9,7 @@ import {
   StopWithJourneyPatternFieldsFragment,
   useGetLinksWithStopsByExternalLinkIdsAsyncQuery,
   useGetStopsAlongInfrastructureLinksAsyncQuery,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import {
   getRouteStopLabels,
   mapRouteToInfraLinksAlongRoute,
@@ -18,9 +18,9 @@ import {
   orderInfraLinksByExternalLinkId,
   RouteInfraLink,
   RouteStop,
-} from '../graphql';
-import { mapGeoJSONtoFeature, sortStopsOnInfraLink } from '../utils';
-import { useFilterStops } from './useFilterStops';
+} from '../../graphql';
+import { mapGeoJSONtoFeature, sortStopsOnInfraLink } from '../../utils';
+import { useFilterStops } from '../stops/useFilterStops';
 
 export type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
 

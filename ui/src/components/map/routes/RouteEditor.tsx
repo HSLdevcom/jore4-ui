@@ -8,11 +8,11 @@ import {
   mapRouteToFormState,
   useAppDispatch,
   useAppSelector,
+  useCreateRoute,
   useDeleteRoute,
   useEditRouteGeometry,
   useMapQueryParams,
 } from '../../../hooks';
-import { useCreateRoute } from '../../../hooks/routes/useCreateRoute';
 import {
   initializeMapEditorWithRoutesAction,
   Mode,

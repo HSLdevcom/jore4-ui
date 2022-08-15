@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
-import { useGetRouteDetailsByLabelWildcardQuery } from '../generated/graphql';
-import { mapRouteResultToRoutes } from '../graphql';
-import { Priority } from '../types/Priority';
-import { mapToSqlLikeValue, mapToVariables } from '../utils';
+import { useGetRouteDetailsByLabelWildcardQuery } from '../../generated/graphql';
+import { mapRouteResultToRoutes } from '../../graphql';
+import { Priority } from '../../types/Priority';
+import { mapToSqlLikeValue, mapToVariables } from '../../utils';
 
 export const useChooseRouteDropdown = (
   query: string,

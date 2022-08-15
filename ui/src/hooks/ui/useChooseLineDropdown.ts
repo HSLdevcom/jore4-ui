@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
 import { useState } from 'react';
-import { useGetCurrentOrFutureLinesByLabelQuery } from '../generated/graphql';
-import { mapCurrentOrFutureLinesResult } from '../graphql';
-import { mapToSqlLikeValue, mapToVariables } from '../utils';
+import { useGetCurrentOrFutureLinesByLabelQuery } from '../../generated/graphql';
+import { mapCurrentOrFutureLinesResult } from '../../graphql';
+import { mapToSqlLikeValue, mapToVariables } from '../../utils';
 
 export const useChooseLineDropdown = (
   query: string,

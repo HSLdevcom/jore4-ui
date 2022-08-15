@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { FilterItem, useFilterStops } from '../../hooks/useFilterStops';
+import { FilterItem, useFilterStops } from '../../hooks';
 import { Row } from '../../layoutComponents';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
 

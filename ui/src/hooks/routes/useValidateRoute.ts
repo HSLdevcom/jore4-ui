@@ -10,7 +10,7 @@ import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
 } from '../../utils';
-import { mapRouteStopsToStopLabels } from '../useExtractRouteFromFeature';
+import { mapRouteStopsToStopLabels } from './useExtractRouteFromFeature';
 
 interface ValidityPeriodParams {
   // eslint-disable-next-line camelcase

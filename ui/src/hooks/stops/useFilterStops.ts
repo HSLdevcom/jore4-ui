@@ -4,16 +4,16 @@ import partial from 'lodash/partial';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ServicePatternScheduledStopPoint } from '../generated/graphql';
+import { ServicePatternScheduledStopPoint } from '../../generated/graphql';
 import {
   FilterType,
   selectMapFilter,
   selectMapObservationDate,
   setShowStopFilterOverlayAction,
   setStopFilterAction,
-} from '../redux';
-import { Priority } from '../types/Priority';
-import { useAppDispatch, useAppSelector } from './redux';
+} from '../../redux';
+import { Priority } from '../../types/Priority';
+import { useAppDispatch, useAppSelector } from '../redux';
 
 type StopFilterFunction = (stop: ServicePatternScheduledStopPoint) => boolean;
 
