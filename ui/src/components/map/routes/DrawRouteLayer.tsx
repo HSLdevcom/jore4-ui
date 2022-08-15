@@ -26,11 +26,16 @@ import {
   mapRouteToInfraLinksAlongRoute,
 } from '../../../graphql';
 import {
+  extractJourneyPatternCandidateStops,
+  filterDistinctConsecutiveRouteStops,
+  getOldRouteGeometryVariables,
   getRouteStops,
   LineStringFeature,
+  mapInfraLinksToFeature,
   useAppDispatch,
   useAppSelector,
   useExtractRouteFromFeature,
+  useFilterStops,
   useLoader,
 } from '../../../hooks';
 import {
@@ -42,7 +47,8 @@ import {
   setDraftRouteGeometryAction,
   stopRouteEditingAction,
 } from '../../../redux';
-import { showToast } from '../../../utils';
+import { parseDate } from '../../../time';
+import { log, showToast } from '../../../utils';
 import { addRoute, removeRoute } from '../../../utils/map';
 import { featureStyle, handleStyle } from './editorStyles';
 
@@ -83,14 +89,9 @@ const DrawRouteLayerComponent = (
 
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
 
-  const {
-    extractScheduledStopPoints,
-    getInfraLinksWithStopsForGeometry,
-    mapInfraLinksToFeature,
-    getRemovedStopLabels,
-    getOldRouteGeometryVariables,
-    filterDistinctConsecutiveRouteStops,
-  } = useExtractRouteFromFeature();
+  const { getInfraLinksWithStopsForGeometry, getRemovedStopLabels } =
+    useExtractRouteFromFeature();
+  const { filter } = useFilterStops();
 
   const { setIsLoading } = useLoader(Operation.MatchRoute);
 
@@ -133,18 +134,22 @@ const DrawRouteLayerComponent = (
       // we are editing an existing or a template route, but haven't (yet) received the graphql
       // response with its data -> return early
       if (!baseRoute && !creatingNewRoute) {
-        // eslint-disable-next-line no-console
-        console.debug(
+        log.error(
           'Trying to edit an existing route but could not find a base route (yet)',
         );
         return;
       }
 
-      // check if we already have the line info available or is it yet to come
-      if (!editedRouteData?.lineInfo) {
-        // eslint-disable-next-line no-console
-        console.debug(
-          'Trying to update route geometry but line info is not (yet) available',
+      // we can only find the stops belonging to the route if its metadata is available
+      // (when editing, fetch it from graphql; when creating, filled in through form)
+      if (
+        !editedRouteData.metaData ||
+        !editedRouteData.metaData.validityStart ||
+        !editedRouteData.metaData.validityEnd ||
+        !editedRouteData.metaData.priority
+      ) {
+        log.error(
+          'Trying to update route geometry but route metadata is not (yet) available',
         );
         return;
       }
@@ -172,14 +177,23 @@ const DrawRouteLayerComponent = (
         oldStopLabels,
       );
 
-      // Extract list of the stops to be included in the route
-      const stops = extractScheduledStopPoints(
-        infraLinksWithStops,
-        editedRouteData.lineInfo.primary_vehicle_mode,
+      // Extract list of the stops that are eligible to be included in route's journey pattern
+      const routeMetadata = {
+        validity_start: parseDate(editedRouteData.metaData.validityStart),
+        validity_end: parseDate(editedRouteData.metaData.validityEnd),
+        priority: editedRouteData.metaData.priority,
+      };
+      const stopsEligibleForJourneyPattern =
+        extractJourneyPatternCandidateStops(infraLinksWithStops, routeMetadata);
+
+      // FIXME. We shouldn't filter stops by being visible on the map as it might rule
+      // out some of the possibly eligible stops from the journey pattern.
+      const visibleStopsEligibleForJourneyPattern = filter(
+        stopsEligibleForJourneyPattern,
       );
 
       const routeStops = getRouteStops(
-        stops,
+        visibleStopsEligibleForJourneyPattern,
         removedStopLabels || [],
         editedRouteData?.id,
       );
@@ -187,6 +201,7 @@ const DrawRouteLayerComponent = (
       dispatch(
         setDraftRouteGeometryAction({
           stops: filterDistinctConsecutiveRouteStops(routeStops),
+          stopsEligibleForJourneyPattern,
           infraLinks: infraLinksWithStops,
         }),
       );
@@ -206,12 +221,10 @@ const DrawRouteLayerComponent = (
       dispatch,
       editedRouteData?.id,
       editedRouteData.infraLinks,
-      editedRouteData.lineInfo,
+      editedRouteData.metaData,
       editedRouteData.stops,
-      extractScheduledStopPoints,
-      filterDistinctConsecutiveRouteStops,
+      filter,
       getInfraLinksWithStopsForGeometry,
-      getOldRouteGeometryVariables,
       getRemovedStopLabels,
       map,
       onDelete,
@@ -239,7 +252,6 @@ const DrawRouteLayerComponent = (
       setSnappingLine(undefined);
     }
   }, [
-    mapInfraLinksToFeature,
     onUpdateRouteGeometry,
     mode,
     creatingNewRoute,

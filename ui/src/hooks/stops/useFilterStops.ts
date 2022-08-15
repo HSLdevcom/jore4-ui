@@ -4,7 +4,7 @@ import partial from 'lodash/partial';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ServicePatternScheduledStopPoint } from '../../generated/graphql';
+import { ScheduledStopPointDefaultFieldsFragment } from '../../generated/graphql';
 import {
   FilterType,
   selectMapFilter,
@@ -15,12 +15,18 @@ import { Priority } from '../../types/Priority';
 import { useAppDispatch, useAppSelector } from '../redux';
 import { useObservationDateQueryParam } from '../urlQuery';
 
-type StopFilterFunction = (stop: ServicePatternScheduledStopPoint) => boolean;
+type StopFilterFunction = <
+  TStop extends ScheduledStopPointDefaultFieldsFragment,
+>(
+  stop: TStop,
+) => boolean;
 
 interface Filter {
   type: FilterType;
   label: string;
-  filterFunction: (stop: ServicePatternScheduledStopPoint) => boolean;
+  filterFunction: <TStop extends ScheduledStopPointDefaultFieldsFragment>(
+    stop: TStop,
+  ) => boolean;
 }
 
 export interface FilterItem {
@@ -32,9 +38,9 @@ export interface FilterItem {
   disabled: boolean;
 }
 
-const isFutureStop = (
+const isFutureStop = <TStop extends ScheduledStopPointDefaultFieldsFragment>(
   observationDate: DateTime,
-  stop: ServicePatternScheduledStopPoint,
+  stop: TStop,
 ) => {
   // if stop has been valid indefinitely from the start, it can never be a future stop
   if (!stop.validity_start) {
@@ -45,9 +51,9 @@ const isFutureStop = (
   return stop.validity_start > observationDate;
 };
 
-const isPastStop = (
+const isPastStop = <TStop extends ScheduledStopPointDefaultFieldsFragment>(
   observationDate: DateTime,
-  stop: ServicePatternScheduledStopPoint,
+  stop: TStop,
 ) => {
   // if stop is valid indefinitely, it can never be a past stop
   if (!stop.validity_end) {
@@ -58,9 +64,9 @@ const isPastStop = (
   return stop.validity_end < observationDate;
 };
 
-const isCurrentStop = (
+const isCurrentStop = <TStop extends ScheduledStopPointDefaultFieldsFragment>(
   observationDate: DateTime,
-  stop: ServicePatternScheduledStopPoint,
+  stop: TStop,
 ) => {
   return (
     !isPastStop(observationDate, stop) && !isFutureStop(observationDate, stop)
@@ -72,19 +78,21 @@ const mapFilterItemsToFilterFunctions = (filterItems: FilterItem[]) =>
     .filter((item) => item.isActive)
     .map((item) => item.filterFunction);
 
-const hasPriority = (
+const hasPriority = <TStop extends ScheduledStopPointDefaultFieldsFragment>(
   priority: Priority,
-  stop: ServicePatternScheduledStopPoint,
+  stop: TStop,
 ) => stop.priority === priority;
 
-export const filterHighestPriorityCurrentStops = (
-  stops: ServicePatternScheduledStopPoint[],
+export const filterHighestPriorityCurrentStops = <
+  TStop extends ScheduledStopPointDefaultFieldsFragment,
+>(
+  stops: TStop[],
   observationDate: DateTime,
   allowDrafts = false,
 ) => {
   // Get all current stops
   const currentStops = stops.filter(
-    (stop: ServicePatternScheduledStopPoint) =>
+    (stop: TStop) =>
       isCurrentStop(observationDate, stop) &&
       (allowDrafts || !hasPriority(Priority.Draft, stop)),
   );
@@ -93,9 +101,11 @@ export const filterHighestPriorityCurrentStops = (
   const groupedCurrentStops = groupBy(currentStops, 'label');
 
   // Pick stop instance with the highest priority for each stop label
-  return Object.values(groupedCurrentStops).flatMap(
-    (stopInstances) =>
-      maxBy(stopInstances, 'priority') as ServicePatternScheduledStopPoint,
+  return (
+    Object.values(groupedCurrentStops)
+      .flatMap((stopInstances) => maxBy(stopInstances, 'priority'))
+      // if for some reason the given group is empty, filter out the undefined values
+      .filter((stop) => !!stop) as TStop[]
   );
 };
 
@@ -112,7 +122,9 @@ export const useFilterStops = () => {
       type: FilterType.ShowHighestPriorityCurrentStops,
       label: t('filters.highestPriorityCurrent'),
       // Current stops that are not drafts
-      filterFunction: (stop: ServicePatternScheduledStopPoint) =>
+      filterFunction: <TStop extends ScheduledStopPointDefaultFieldsFragment>(
+        stop: TStop,
+      ) =>
         isCurrentStop(observationDate, stop) &&
         !hasPriority(Priority.Draft, stop),
     }),
@@ -210,7 +222,7 @@ export const useFilterStops = () => {
   );
 
   const filter = useCallback(
-    (stops: ServicePatternScheduledStopPoint[]) => {
+    <TStop extends ScheduledStopPointDefaultFieldsFragment>(stops: TStop[]) => {
       // If "Show situation on the selected date" filter is selected,
       // ignore other filters
       if (isFilterActive(FilterType.ShowHighestPriorityCurrentStops)) {

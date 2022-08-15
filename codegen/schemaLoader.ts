@@ -116,6 +116,11 @@ const hasuraOverrideTypeDefs = gql`
   type infrastructure_network_infrastructure_link {
     shape: geography_linestring! # fix the geography type
   }
+
+  interface validity_period {
+    validity_start: timestamptz
+    validity_end: timestamptz
+  }
 `;
 
 // Note: if want to make custom directives for the schema, here are some examples on how to do so:

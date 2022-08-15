@@ -5,8 +5,10 @@ import {
   InfraLinkMatchingFieldsFragment,
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
+  InfrastructureNetworkInfrastructureLinkInsertInput,
   QueryClosestLinkQuery,
   QueryPointDirectionOnLinkQuery,
+  ReusableComponentsVehicleSubmodeEnum,
   RouteInfraLinkFieldsFragment,
   RouteRoute,
 } from '../generated/graphql';
@@ -60,6 +62,16 @@ export const orderInfraLinksByExternalLinkId = <
 
     return infraLinkWithStop;
   });
+
+const input: InfrastructureNetworkInfrastructureLinkInsertInput = {
+  vehicle_submode_on_infrastructure_link: {
+    data: [
+      {
+        vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
+      },
+    ],
+  },
+};
 
 const INFRASTRUCTURE_LINK_ALL_FIELDS = gql`
   fragment infrastructure_link_all_fields on infrastructure_network_infrastructure_link {
