@@ -4,7 +4,7 @@ import {
   useGetLineDetailsWithRoutesByIdAsyncQuery,
 } from '../../generated/graphql';
 import { mapLineDetailsWithRoutesResult } from '../../graphql';
-import { useValidateRoute } from '../routes';
+import { useValidateRoute } from '../routes/useValidateRoute';
 
 interface ValidateParams {
   lineId: UUID;

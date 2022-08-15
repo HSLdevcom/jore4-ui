@@ -6876,6 +6876,11 @@ export type UuidComparisonExp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
+export type ValidityPeriod = {
+  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['timestamptz']>;
+};
+
 export type InsertLinesMutationVariables = Exact<{
   objects: Array<RouteLineInsertInput> | RouteLineInsertInput;
 }>;

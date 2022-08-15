@@ -6880,6 +6880,11 @@ export type UuidComparisonExp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
+export type ValidityPeriod = {
+  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['timestamptz']>;
+};
+
 export type StopPopupInfoFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
   label: string;
@@ -7244,6 +7249,13 @@ export type LineAllFieldsFragment = {
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
   label: string;
+};
+
+export type RouteValidityFragment = {
+  __typename?: 'route_route';
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  priority: number;
 };
 
 export type RouteAllFieldsFragment = {
@@ -9110,6 +9122,13 @@ export const LineDefaultFieldsFragmentDoc = gql`
     short_name_i18n
     validity_start
     validity_end
+  }
+`;
+export const RouteValidityFragmentDoc = gql`
+  fragment route_validity on route_route {
+    validity_start
+    validity_end
+    priority
   }
 `;
 export const RouteDefaultFieldsFragmentDoc = gql`
