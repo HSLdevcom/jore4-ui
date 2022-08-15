@@ -31,6 +31,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useExtractRouteFromFeature,
+  useFilterStops,
   useLoader,
 } from '../../../hooks';
 import {
@@ -42,6 +43,7 @@ import {
   setDraftRouteGeometryAction,
   stopRouteEditingAction,
 } from '../../../redux';
+import { parseDate } from '../../../time';
 import { showToast } from '../../../utils';
 import { addRoute, removeRoute } from '../mapUtils';
 import { featureStyle, handleStyle } from './editorStyles';
@@ -84,13 +86,14 @@ const DrawRouteLayerComponent = (
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
 
   const {
-    extractScheduledStopPoints,
+    extractJourneyPatternCandidateStops,
     getInfraLinksWithStopsForGeometry,
     mapInfraLinksToFeature,
     getRemovedStopLabels,
     getOldRouteGeometryVariables,
     filterDistinctConsecutiveRouteStops,
   } = useExtractRouteFromFeature();
+  const { filter } = useFilterStops();
 
   const { setIsLoading } = useLoader(Operation.MatchRoute);
 
@@ -149,6 +152,21 @@ const DrawRouteLayerComponent = (
         return;
       }
 
+      // we can only find the stops belonging to the route its metadata is available
+      // (when editing, fetch it from graphql; when creating, filled in through form)
+      if (
+        !editedRouteData.metaData ||
+        !editedRouteData.metaData.validityStart ||
+        !editedRouteData.metaData.validityEnd ||
+        !editedRouteData.metaData.priority
+      ) {
+        // eslint-disable-next-line no-console
+        console.debug(
+          'Trying to update route geometry but route metadata is not (yet) available',
+        );
+        return;
+      }
+
       // retrieve infra links with stops for snapping line from mapmatching service
       const { geometry } = snappingLineFeature;
 
@@ -172,14 +190,26 @@ const DrawRouteLayerComponent = (
         oldStopLabels,
       );
 
-      // Extract list of the stops to be included in the route
-      const stops = extractScheduledStopPoints(
+      // Extract list of the stops that are eligible to be included in route's journey pattern
+      const routeMetadata = {
+        validity_start: parseDate(editedRouteData.metaData.validityStart),
+        validity_end: parseDate(editedRouteData.metaData.validityEnd),
+        priority: editedRouteData.metaData.priority,
+      };
+      const journeyPatternCandidateStops = extractJourneyPatternCandidateStops(
         infraLinksWithStops,
-        editedRouteData.lineInfo.primary_vehicle_mode,
+        routeMetadata,
+        editedRouteData.lineInfo,
+      );
+
+      // FIXME. We shouldn't filter stops by being visible on the map as it might rule
+      // out some of the possibly eligible stops from the journey pattern.
+      const visibleJourneyPatternCandidateStops = filter(
+        journeyPatternCandidateStops,
       );
 
       const routeStops = getRouteStops(
-        stops,
+        visibleJourneyPatternCandidateStops,
         removedStopLabels || [],
         editedRouteData?.id,
       );
@@ -187,6 +217,7 @@ const DrawRouteLayerComponent = (
       dispatch(
         setDraftRouteGeometryAction({
           stops: filterDistinctConsecutiveRouteStops(routeStops),
+          stopsEligibleForJourneyPattern: journeyPatternCandidateStops,
           infraLinks: infraLinksWithStops,
         }),
       );
@@ -207,8 +238,10 @@ const DrawRouteLayerComponent = (
       editedRouteData?.id,
       editedRouteData.infraLinks,
       editedRouteData.lineInfo,
+      editedRouteData.metaData,
       editedRouteData.stops,
-      extractScheduledStopPoints,
+      extractJourneyPatternCandidateStops,
+      filter,
       filterDistinctConsecutiveRouteStops,
       getInfraLinksWithStopsForGeometry,
       getOldRouteGeometryVariables,

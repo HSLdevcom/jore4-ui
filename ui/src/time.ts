@@ -1,5 +1,5 @@
 import isString from 'lodash/isString';
-import { DateTime, Settings } from 'luxon';
+import { DateTime, Interval, Settings } from 'luxon';
 import { Maybe } from './generated/graphql';
 import { i18n } from './i18n';
 
@@ -72,3 +72,22 @@ export const isDateInRange = (
     (!endDate?.isValid || date <= endDate)
   );
 };
+
+export type EntityWithValidity = {
+  // eslint-disable-next-line camelcase
+  validity_start?: DateTime | null;
+  // eslint-disable-next-line camelcase
+  validity_end?: DateTime | null;
+};
+
+// The luxon Interval does not handle infinite start/end, so using MIN_DATE and MAX_DATE instead
+export const mapValidityToInterval = (entity: EntityWithValidity) =>
+  Interval.fromDateTimes(
+    entity.validity_start || MIN_DATE,
+    entity.validity_end || MAX_DATE,
+  );
+
+export const doValiditiesOverlap = (
+  entity1: EntityWithValidity,
+  entity2: EntityWithValidity,
+) => mapValidityToInterval(entity1).overlaps(mapValidityToInterval(entity2));
