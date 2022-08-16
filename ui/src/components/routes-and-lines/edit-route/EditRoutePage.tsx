@@ -41,8 +41,10 @@ export const EditRoutePage = (): JSX.Element => {
     editRouteMetadataMutation,
     defaultErrorHandler,
   } = useEditRouteMetadata();
-  const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
-    useDeleteRoute();
+  const {
+    deleteRouteMutation,
+    defaultErrorHandler: defaultDeleteErrorHandler,
+  } = useDeleteRoute();
   const [conflicts, setConflicts] = useState<RouteRoute[]>([]);
   const formRef = useRef<ExplicitAny>(null);
   const { id } = useParams<{ id: string }>();
@@ -69,7 +71,7 @@ export const EditRoutePage = (): JSX.Element => {
         return;
       }
       const variables = mapEditMetadataChangesToVariables(changes);
-      await editRouteMetadataMutation({ variables });
+      await editRouteMetadataMutation(variables);
       setHasFinishedEditing(true);
     } catch (err) {
       defaultErrorHandler(err);
@@ -78,7 +80,7 @@ export const EditRoutePage = (): JSX.Element => {
 
   const onDelete = async () => {
     try {
-      await deleteRoute(route?.route_id);
+      await deleteRouteMutation(route?.route_id);
       showSuccessToast(t('routes.deleteSuccess'));
       setHasFinishedEditing(true);
     } catch (err) {

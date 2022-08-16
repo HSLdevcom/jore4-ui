@@ -84,8 +84,10 @@ const RouteEditorComponent = (
     editRouteGeometryMutation,
   } = useEditRouteGeometry();
 
-  const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
-    useDeleteRoute();
+  const {
+    deleteRouteMutation,
+    defaultErrorHandler: defaultDeleteErrorHandler,
+  } = useDeleteRoute();
 
   const editRoute = async (routeId: UUID) => {
     const changes = await prepareEditGeometry({
@@ -243,7 +245,7 @@ const RouteEditorComponent = (
     setIsLoading(true);
     try {
       // delete the route from the backend
-      await deleteRoute(editedRouteId);
+      await deleteRouteMutation(editedRouteId);
       showSuccessToast(t('routes.deleteSuccess'));
 
       setIsDeleting(false);
