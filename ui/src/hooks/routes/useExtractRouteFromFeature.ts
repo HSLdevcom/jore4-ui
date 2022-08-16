@@ -90,11 +90,12 @@ export const useExtractRouteFromFeature = () => {
    * This is used for example removing different versions of stops from the
    * journey pattern list where only the labels are shown
    */
-  const filterDistinctConsecutiveRouteStops = <
-    TStop extends Pick<ServicePatternScheduledStopPoint, 'label'>,
-  >(
-    stops: TStop[],
-  ) => stops.filter((stop, index) => stops[index - 1]?.label !== stop.label);
+  const filterDistinctConsecutiveRouteStops = useCallback(
+    <TStop extends Pick<ServicePatternScheduledStopPoint, 'label'>>(
+      stops: TStop[],
+    ) => stops.filter((stop, index) => stops[index - 1]?.label !== stop.label),
+    [],
+  );
 
   /**
    * Sort and filter the stop points
