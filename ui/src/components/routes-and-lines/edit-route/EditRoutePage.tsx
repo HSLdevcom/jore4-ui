@@ -38,7 +38,7 @@ export const EditRoutePage = (): JSX.Element => {
   const {
     prepareEditMetadata,
     mapEditMetadataChangesToVariables,
-    editRouteMetadataMutation,
+    editRoute,
     defaultErrorHandler,
   } = useEditRouteMetadata();
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
@@ -69,7 +69,7 @@ export const EditRoutePage = (): JSX.Element => {
         return;
       }
       const variables = mapEditMetadataChangesToVariables(changes);
-      await editRouteMetadataMutation({ variables });
+      await editRoute(variables);
       setHasFinishedEditing(true);
     } catch (err) {
       defaultErrorHandler(err);
