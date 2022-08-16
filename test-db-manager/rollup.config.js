@@ -9,6 +9,8 @@ import dts from 'rollup-plugin-dts';
 const config = [
   {
     input: 'src/index.ts',
+    // had to define cross-fetch as external to get rid of rollup build error.
+    external: ['cross-fetch', 'cross-fetch/polyfill'],
     output: [
       // es output from ts build (ts-dist) is needed for including
       // TS types (.d.ts files) to output
@@ -31,7 +33,9 @@ const config = [
     ],
     plugins: [
       nodeResolve(),
-      commonjs({ include: ['./index.js', 'node_modules/**'] }),
+      commonjs({
+        include: ['./index.js', /node_modules/],
+      }),
       typescript({
         tsconfig: './tsconfig.json',
         compilerOptions: { declarationDir: './types' },
