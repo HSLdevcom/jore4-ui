@@ -36,6 +36,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
       >
         <tr
           class="border border-white bg-background  p-4"
+          data-testid="RouteStopsHeaderRow::03d55414-e5cf-4cce-9faf-d86ccb7e5f98"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-12"
@@ -244,6 +245,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
       >
         <tr
           class="border border-white bg-background  p-4"
+          data-testid="RouteStopsHeaderRow::03d55414-e5cf-4cce-9faf-d86ccb7e5f98"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-12"
@@ -412,6 +414,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         </tr>
         <tr
           class="border border-l-8  "
+          data-testid="RouteStopsRow::e3528755-711f-4e4f-9461-7931a2c4bc6d"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
@@ -511,6 +514,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         </tr>
         <tr
           class="border border-l-8  "
+          data-testid="RouteStopsRow::f8eace87-7901-4438-bfee-bb6f24f1c4c4"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
@@ -650,6 +654,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
       >
         <tr
           class="border border-white bg-background  p-4"
+          data-testid="RouteStopsHeaderRow::03d55414-e5cf-4cce-9faf-d86ccb7e5f98"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-12"
@@ -818,6 +823,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         </tr>
         <tr
           class="border border-l-8  "
+          data-testid="RouteStopsRow::e3528755-711f-4e4f-9461-7931a2c4bc6d"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
@@ -917,6 +923,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         </tr>
         <tr
           class="border border-l-8 bg-background text-dark-grey "
+          data-testid="RouteStopsRow::4d294d62-df17-46ff-9248-23f66f17fa87"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
@@ -1016,6 +1023,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         </tr>
         <tr
           class="border border-l-8  "
+          data-testid="RouteStopsRow::f8eace87-7901-4438-bfee-bb6f24f1c4c4"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
