@@ -36,9 +36,9 @@ export const EditRoutePage = (): JSX.Element => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const {
-    prepareEditMetadata,
-    mapEditMetadataChangesToVariables,
-    editRouteMetadataMutation,
+    prepareEditRouteMetadata,
+    mapEditRouteMetadataChangesToVariables,
+    editRouteMetadata,
     defaultErrorHandler,
   } = useEditRouteMetadata();
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
@@ -63,13 +63,13 @@ export const EditRoutePage = (): JSX.Element => {
 
   const onSubmit = async (form: RouteFormState) => {
     try {
-      const changes = await prepareEditMetadata({ routeId: id, form });
+      const changes = await prepareEditRouteMetadata({ routeId: id, form });
       if (changes.conflicts?.length) {
         setConflicts(changes.conflicts);
         return;
       }
-      const variables = mapEditMetadataChangesToVariables(changes);
-      await editRouteMetadataMutation({ variables });
+      const variables = mapEditRouteMetadataChangesToVariables(changes);
+      await editRouteMetadata(variables);
       setHasFinishedEditing(true);
     } catch (err) {
       defaultErrorHandler(err);

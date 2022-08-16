@@ -13,6 +13,7 @@ import {
   defaultLocalizedString,
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
+  removeFromApolloCache,
   showDangerToastWithError,
 } from '../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
@@ -114,6 +115,18 @@ export const useEditRouteMetadata = () => {
     object: changes.patch,
   });
 
+  const editRouteMetadata = (variables: PatchRouteMutationVariables) => {
+    return mutateFunction({
+      variables,
+      update(cache) {
+        removeFromApolloCache(cache, {
+          route_id: variables.route_id,
+          __typename: 'route_route',
+        });
+      },
+    });
+  };
+
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown
   const defaultErrorHandler = (err: unknown) => {
@@ -121,9 +134,9 @@ export const useEditRouteMetadata = () => {
   };
 
   return {
-    prepareEditMetadata: prepareEdit,
-    mapEditMetadataChangesToVariables: mapEditChangesToVariables,
-    editRouteMetadataMutation: mutateFunction,
+    prepareEditRouteMetadata: prepareEdit,
+    mapEditRouteMetadataChangesToVariables: mapEditChangesToVariables,
+    editRouteMetadata,
     defaultErrorHandler,
   };
 };
