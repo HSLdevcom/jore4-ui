@@ -5,5 +5,5 @@ It is implemented as separate package so that it can be used in different situat
 
 ## Getting started
 
-- Run `yarn build` for building the project.
+- Run `yarn build` for building the project. Add `--watch` flag to build automatically when something changes.
 - Run `yarn qa` for running the same checks that CI does.

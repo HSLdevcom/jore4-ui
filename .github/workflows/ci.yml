@@ -22,6 +22,9 @@ jobs:
       - name: Install dependencies && check that lockfile is up-to-date
         run: yarn --frozen-lockfile
 
+      - name: Build test db manager module
+        run: yarn ws:db build
+
       - name: Check ts syntax
         run: yarn ts:check
 
@@ -30,9 +33,6 @@ jobs:
 
       - name: Check that code matches linter's config
         run: yarn lint
-
-      - name: Check that test db manager can be build
-        run: yarn ws:db build
 
       - name: Check that generated style file is up-to-date
         run: cp ui/src/generated/theme.ts ui/src/generated/existing-theme-file.ts && rm ui/src/generated/theme.ts && yarn ws:ui generate-theme && cmp ui/src/generated/theme.ts ui/src/generated/existing-theme-file.ts

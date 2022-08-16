@@ -44,6 +44,8 @@ const filterRoutesByHighestPriorityAndDirection = (
 };
 
 const filterRoutesByHighestPriority = (lineRoutes: RouteRoute[]) => {
+  // TODO: what if RouteDirectionEnum is not Inbound or Outbound?
+  // In that case we are currently just filtering those routes out!
   const filteredOutboundRoutes = filterRoutesByHighestPriorityAndDirection(
     RouteDirectionEnum.Outbound,
     lineRoutes,

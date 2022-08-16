@@ -24,6 +24,7 @@ In order to actually do something with the UI, see instructions below for starti
 ### TypeScript
 
 TypeScript's type checking can be run with `yarn ts:check`.
+Please note that `test-db-manager` module has to be build before ts checks can pass as `cypress` module depends on the types that are generated on build.
 
 ### Code formatting
 

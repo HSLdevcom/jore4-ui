@@ -14,7 +14,13 @@
 // import statements are not supported for some reason.
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const { getDbConnection, truncateDb } = require('@hsl/jore4-test-db-manager');
+const {
+  getDbConnection,
+  truncateDb,
+  hasuraApi,
+  insertVehicleSubmodeOnInfraLink,
+  removeVehicleSubmodeOnInfraLink,
+} = require('@hsl/jore4-test-db-manager');
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
@@ -56,6 +62,20 @@ module.exports = (on, config) => {
     async executeRawDbQuery({ query, bindings }) {
       const db = getDbConnection();
       return db.raw(query, bindings);
+    },
+    async hasuraApi(request) {
+      return hasuraApi(request);
+    },
+    // Note: next 2 functions exists only because name of table
+    // 'infrastructure_network.vehicle_submode_on_infrastructure_link'
+    // is too long for hasura to handle. Generally db
+    // should be accessed through "hasuraApi" function and this kind
+    // of specific functions should be avoided.
+    async insertVehicleSubmodOnInfraLinks(request) {
+      return insertVehicleSubmodeOnInfraLink(request);
+    },
+    async removeVehicleSubmodOnInfraLinks(request) {
+      return removeVehicleSubmodeOnInfraLink(request);
     },
   });
 };

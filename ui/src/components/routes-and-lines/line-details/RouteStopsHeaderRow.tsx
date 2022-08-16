@@ -56,7 +56,10 @@ export const RouteStopsHeaderRow = ({
   };
 
   return (
-    <tr className={`border border-white bg-background ${className} p-4`}>
+    <tr
+      className={`border border-white bg-background ${className} p-4`}
+      data-testid={`RouteStopsHeaderRow::${route.route_id}`}
+    >
       <td className={`${alertStyle.listItemBorder || ''} p-4 pl-12`}>
         <Row className="items-center">
           <DirectionBadge direction={route.direction as RouteDirectionEnum} />
