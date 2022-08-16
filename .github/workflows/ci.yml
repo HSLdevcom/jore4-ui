@@ -22,6 +22,9 @@ jobs:
       - name: Install dependencies && check that lockfile is up-to-date
         run: yarn --frozen-lockfile
 
+      - name: Build common modules
+        run: yarn ws:db build
+
       - name: Check ts syntax
         run: yarn ts:check
 
