@@ -1,7 +1,7 @@
 import distance from '@turf/distance';
 import { point, Units } from '@turf/helpers';
 import debounce from 'lodash/debounce';
-import { FunctionComponent, useMemo, useRef, useState } from 'react';
+import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
 import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
 import { Operation, setViewPortAction } from '../../redux';
@@ -136,6 +136,13 @@ export const Maplibre: FunctionComponent<Props> = ({
     setIsLoading(false);
     onViewportChange(viewport);
   };
+
+  useEffect(() => {
+    // Cancel the debounced update if the map is going to be closed.
+    return () => {
+      updateMapDetailsDebounced.cancel();
+    };
+  }, [updateMapDetailsDebounced]);
 
   return (
     <MapGL
