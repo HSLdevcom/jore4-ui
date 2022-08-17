@@ -1,15 +1,7 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import React from 'react';
-import {
-  GetCurrentOrFutureLinesByLabelDocument,
-  GetCurrentOrFutureLinesByLabelQuery,
-  HslRouteTransportTargetEnum,
-  ReusableComponentsVehicleModeEnum,
-  RouteTypeOfLineEnum,
-} from '../../../generated/graphql';
-import { Priority } from '../../../types/Priority';
+import { GetLinesForComboboxDocument } from '../../../generated/graphql';
 import { buildLocalizedString, render, sleep } from '../../../utils/test-utils';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
@@ -22,11 +14,11 @@ describe('<ChooseLineDropdown />', () => {
   const testId = 'chooseLineDropdown1';
   const buttonTestId = `${testId}-button`;
 
-  const mocks: MockedResponse<GetCurrentOrFutureLinesByLabelQuery>[] = [
+  const mocks: MockedResponse[] = [
     {
       request: {
-        query: GetCurrentOrFutureLinesByLabelDocument,
-        variables: { label: '%', date: DateTime.now().toISO() },
+        query: GetLinesForComboboxDocument,
+        variables: { labelPattern: '%', date: DateTime.now().toISO() },
       },
       result: {
         data: {
@@ -36,28 +28,16 @@ describe('<ChooseLineDropdown />', () => {
               line_id: 'line1',
               label: '1',
               name_i18n: buildLocalizedString('Line1 name'),
-              short_name_i18n: buildLocalizedString('Line1'),
               validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
               validity_end: null,
-              priority: Priority.Standard,
-              primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
-              transport_target:
-                HslRouteTransportTargetEnum.HelsinkiInternalTraffic,
-              type_of_line: RouteTypeOfLineEnum.RegionalBusService,
             },
             {
               __typename: 'route_line',
               line_id: 'line2',
               label: '2',
               name_i18n: buildLocalizedString('Line2 name'),
-              short_name_i18n: buildLocalizedString('Line2'),
               validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
               validity_end: null,
-              priority: Priority.Standard,
-              primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
-              transport_target:
-                HslRouteTransportTargetEnum.HelsinkiInternalTraffic,
-              type_of_line: RouteTypeOfLineEnum.RegionalBusService,
             },
           ],
         },
