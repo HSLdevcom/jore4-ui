@@ -1,21 +1,90 @@
+import { gql } from '@apollo/client';
+import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
-import { useGetCurrentOrFutureLinesByLabelQuery } from '../../generated/graphql';
-import { mapCurrentOrFutureLinesResult } from '../../graphql';
+import {
+  LineForComboboxFragment,
+  useGetLinesForComboboxQuery,
+  useGetSelectedLineDetailsByIdQuery,
+} from '../../generated/graphql';
 import { mapToSqlLikeValue, mapToVariables } from '../../utils';
+
+const GQL_GET_LINES_FOR_COMBOBOX = gql`
+  query GetLinesForCombobox($labelPattern: String!, $date: timestamptz!) {
+    route_line(
+      limit: 10
+      where: {
+        label: { _ilike: $labelPattern }
+        _or: [
+          { validity_end: { _gte: $date } }
+          { validity_end: { _is_null: true } }
+        ]
+      }
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
+      ...line_for_combobox
+    }
+  }
+`;
+
+const GQL_GET_SELECTED_LINE_DETAILS_BY_ID = gql`
+  query GetSelectedLineDetailsById($line_id: uuid!) {
+    route_line_by_pk(line_id: $line_id) {
+      ...line_for_combobox
+    }
+  }
+`;
+
+const GQL_LINE_FOR_COMBOBOX = gql`
+  fragment line_for_combobox on route_line {
+    line_id
+    name_i18n
+    label
+    validity_start
+    validity_end
+  }
+`;
 
 export const useChooseLineDropdown = (
   query: string,
+  lineId?: string,
   observationDate?: DateTime,
-) => {
+): { lines: LineForComboboxFragment[] } => {
   const [today] = useState(DateTime.now());
-  const linesResult = useGetCurrentOrFutureLinesByLabelQuery(
+
+  const linesResult = useGetLinesForComboboxQuery(
     mapToVariables({
-      label: `${mapToSqlLikeValue(query)}%`,
+      labelPattern: `${mapToSqlLikeValue(query)}%`,
       date: observationDate || today.toISO(),
     }),
   );
-  const lines = mapCurrentOrFutureLinesResult(linesResult);
 
-  return lines;
+  // It is possible that the selected line is not in the line search results,
+  // fetch it separately by id here.
+  const selectedLineResult = useGetSelectedLineDetailsByIdQuery({
+    skip: !lineId,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    variables: { line_id: lineId! },
+  });
+
+  const selectedLine = selectedLineResult.data?.route_line_by_pk as
+    | LineForComboboxFragment
+    | undefined;
+
+  const queriedLines = (linesResult.data?.route_line ||
+    []) as LineForComboboxFragment[];
+
+  const selectedLineIndex = queriedLines.findIndex(
+    (item) => item.line_id === lineId,
+  );
+
+  // If no line is selected or selected line already is in the search results,
+  // just return the search results.
+  // Otherwise append selected line to search results.
+  const lines =
+    !selectedLine || selectedLineIndex !== -1
+      ? queriedLines
+      : [selectedLine, ...queriedLines];
+
+  return { lines: orderBy(lines, ['label', 'validity_start'], ['asc', 'asc']) };
 };
