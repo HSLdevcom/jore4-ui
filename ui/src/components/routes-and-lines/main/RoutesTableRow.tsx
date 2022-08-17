@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { RouteRoute } from '../../../generated/graphql';
+import { RouteAllFieldsFragment } from '../../../generated/graphql';
 import { useAlertsAndHighLights, useShowRoutesOnModal } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -9,7 +9,7 @@ import { LocatorButton } from '../../../uiComponents';
 
 interface Props {
   className?: string;
-  route: RouteRoute;
+  route: RouteAllFieldsFragment;
 }
 
 export const RoutesTableRow = ({

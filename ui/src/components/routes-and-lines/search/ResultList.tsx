@@ -1,11 +1,14 @@
-import { RouteLine, RouteRoute } from '../../../generated/graphql';
+import {
+  LineTableRowFragment,
+  RouteAllFieldsFragment,
+} from '../../../generated/graphql';
 import { DisplayedSearchResultType } from '../../../hooks';
 import { LinesList } from '../main/LinesList';
 import { RoutesList } from '../main/RoutesList';
 
 interface Props {
-  lines?: RouteLine[];
-  routes?: RouteRoute[];
+  lines?: LineTableRowFragment[];
+  routes?: RouteAllFieldsFragment[];
   displayedData: DisplayedSearchResultType;
 }
 

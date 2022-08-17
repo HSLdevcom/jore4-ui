@@ -1,15 +1,14 @@
-import React from 'react';
-import { RouteLine } from '../../../generated/graphql';
+import { LineTableRowFragment } from '../../../generated/graphql';
 import { LineTableRow } from './LineTableRow';
 import { RoutesTable } from './RoutesTable';
 
 type Props = {
-  lines?: RouteLine[];
+  lines?: LineTableRowFragment[];
 };
 
 export const LinesList = ({ lines }: Props): JSX.Element => (
   <RoutesTable>
-    {lines?.map((item: RouteLine) => (
+    {lines?.map((item: LineTableRowFragment) => (
       <LineTableRow key={item.line_id} line={item} />
     ))}
   </RoutesTable>

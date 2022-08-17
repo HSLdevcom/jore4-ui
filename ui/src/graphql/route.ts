@@ -12,7 +12,6 @@ import {
   ScheduledStopPointInJourneyPatternAllFieldsFragment,
   StopWithJourneyPatternFieldsFragment,
   useListOwnLinesQuery,
-  useSearchLinesAndRoutesQuery,
 } from '../generated/graphql';
 import { RouteInfraLink } from './infrastructureNetwork';
 import { GqlQueryResult, isGqlEntity } from './types';
@@ -104,28 +103,6 @@ const ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
     }
   }
 `;
-
-const SEARCH_LINES_AND_ROUTES = gql`
-  query SearchLinesAndRoutes(
-    $lineFilter: route_line_bool_exp
-    $routeFilter: route_route_bool_exp
-    $lineOrderBy: [route_line_order_by!]
-    $routeOrderBy: [route_route_order_by!]
-  ) {
-    route_line(where: $lineFilter, order_by: $lineOrderBy) {
-      ...line_all_fields
-    }
-    route_route(where: $routeFilter, order_by: $routeOrderBy) {
-      ...route_all_fields
-    }
-  }
-`;
-export const mapSearchLinesAndRoutesResult = (
-  result: ReturnType<typeof useSearchLinesAndRoutesQuery>,
-) => ({
-  lines: (result.data?.route_line || []) as RouteLine[],
-  routes: (result.data?.route_route || []) as RouteRoute[],
-});
 
 // TODO this is just listing all lines for now
 const LIST_OWN_LINES = gql`
