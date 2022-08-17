@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FetchResult, gql } from '@apollo/client';
 import {
-  GetCurrentOrFutureLinesByLabelQuery,
   GetHighestPriorityLineDetailsWithRoutesQuery,
   GetLineDetailsByIdQuery,
   GetLineDetailsWithRoutesByIdQuery,
@@ -358,27 +357,6 @@ const GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`
     }
   }
 `;
-
-const GET_CURRENT_OR_FUTURE_LINES_BY_LABEL = gql`
-  query GetCurrentOrFutureLinesByLabel($label: String!, $date: timestamptz!) {
-    route_line(
-      where: {
-        label: { _ilike: $label }
-        _or: [
-          { validity_end: { _gte: $date } }
-          { validity_end: { _is_null: true } }
-        ]
-      }
-      order_by: [{ label: asc }, { validity_start: asc }]
-    ) {
-      ...line_all_fields
-    }
-  }
-`;
-
-export const mapCurrentOrFutureLinesResult = (
-  result: GqlQueryResult<GetCurrentOrFutureLinesByLabelQuery>,
-) => result.data?.route_line as RouteLine[] | undefined;
 
 const GET_ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
   query GetRoutesWithInfrastructureLinks($route_ids: [uuid!]) {
