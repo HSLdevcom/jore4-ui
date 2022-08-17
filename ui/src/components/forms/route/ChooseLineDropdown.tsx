@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteLine } from '../../../generated/graphql';
+import { LineForComboboxFragment } from '../../../generated/graphql';
 import { useChooseLineDropdown } from '../../../hooks';
 import { MAX_DATE, MIN_DATE } from '../../../time';
 import {
@@ -17,7 +17,7 @@ interface Props extends ListboxInputProps {
   testId?: string;
 }
 
-const mapToOptionContent = (item: RouteLine) => (
+const mapToOptionContent = (item: LineForComboboxFragment) => (
   <div>
     <span>{`${item.label} (${item.name_i18n.fi_FI})`}</span>
     <div className="text-sm">
@@ -29,7 +29,7 @@ const mapToOptionContent = (item: RouteLine) => (
   </div>
 );
 
-const mapToOption = (item: RouteLine) => ({
+const mapToOption = (item: LineForComboboxFragment) => ({
   key: item.line_id,
   value: item.line_id,
   render: () => mapToOptionContent(item),
@@ -46,13 +46,13 @@ export const ChooseLineDropdown = ({
   const [query, setQuery] = useState('');
   const [showButtonContent, setShowButtonContent] = useState(true);
 
-  const lines = useChooseLineDropdown(query);
+  const { lines } = useChooseLineDropdown(query, value);
 
   const options = lines?.map(mapToOption) || [];
 
   const selectedLine = lines?.find((item) => item.line_id === value);
 
-  const mapToButtonContent = (displayedLine?: RouteLine) => {
+  const mapToButtonContent = (displayedLine?: LineForComboboxFragment) => {
     // If no line is selected, show "Choose line"
     return (
       <div className="w-full">
@@ -74,7 +74,6 @@ export const ChooseLineDropdown = ({
   };
 
   const onItemSelected = (e: ComboboxEvent) => {
-    setQuery('');
     onChange(e);
     setShowButtonContent(true);
   };

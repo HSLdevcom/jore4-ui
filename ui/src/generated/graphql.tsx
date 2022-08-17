@@ -8017,28 +8017,6 @@ export type GetRouteDetailsByLabelWildcardQuery = {
   }>;
 };
 
-export type GetCurrentOrFutureLinesByLabelQueryVariables = Exact<{
-  label: Scalars['String'];
-  date: Scalars['timestamptz'];
-}>;
-
-export type GetCurrentOrFutureLinesByLabelQuery = {
-  __typename?: 'query_root';
-  route_line: Array<{
-    __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
-    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-    type_of_line: RouteTypeOfLineEnum;
-    transport_target: HslRouteTransportTargetEnum;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    label: string;
-  }>;
-};
-
 export type GetRoutesWithInfrastructureLinksQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
@@ -8812,6 +8790,51 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
   }>;
 };
 
+export type GetLinesForComboboxQueryVariables = Exact<{
+  labelPattern: Scalars['String'];
+  date: Scalars['timestamptz'];
+}>;
+
+export type GetLinesForComboboxQuery = {
+  __typename?: 'query_root';
+  route_line: Array<{
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    label: string;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+  }>;
+};
+
+export type GetSelectedLineDetailsByIdQueryVariables = Exact<{
+  line_id: Scalars['uuid'];
+}>;
+
+export type GetSelectedLineDetailsByIdQuery = {
+  __typename?: 'query_root';
+  route_line_by_pk?:
+    | {
+        __typename?: 'route_line';
+        line_id: UUID;
+        name_i18n: LocalizedString;
+        label: string;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type LineForComboboxFragment = {
+  __typename?: 'route_line';
+  line_id: UUID;
+  name_i18n: LocalizedString;
+  label: string;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+};
+
 export const InfraLinkMatchingFieldsFragmentDoc = gql`
   fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
     external_link_id
@@ -9003,6 +9026,15 @@ export const RouteWithInfrastructureLinksFragmentDoc = gql`
   }
   ${RouteWithJourneyPatternStopsFragmentDoc}
   ${LineAllFieldsFragmentDoc}
+`;
+export const LineForComboboxFragmentDoc = gql`
+  fragment line_for_combobox on route_line {
+    line_id
+    name_i18n
+    label
+    validity_start
+    validity_end
+  }
 `;
 export const QueryClosestLinkDocument = gql`
   query QueryClosestLink($point: geography) {
@@ -10449,75 +10481,6 @@ export type GetRouteDetailsByLabelWildcardQueryResult = Apollo.QueryResult<
   GetRouteDetailsByLabelWildcardQuery,
   GetRouteDetailsByLabelWildcardQueryVariables
 >;
-export const GetCurrentOrFutureLinesByLabelDocument = gql`
-  query GetCurrentOrFutureLinesByLabel($label: String!, $date: timestamptz!) {
-    route_line(
-      where: {
-        label: { _ilike: $label }
-        _or: [
-          { validity_end: { _gte: $date } }
-          { validity_end: { _is_null: true } }
-        ]
-      }
-      order_by: [{ label: asc }, { validity_start: asc }]
-    ) {
-      ...line_all_fields
-    }
-  }
-  ${LineAllFieldsFragmentDoc}
-`;
-
-/**
- * __useGetCurrentOrFutureLinesByLabelQuery__
- *
- * To run a query within a React component, call `useGetCurrentOrFutureLinesByLabelQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCurrentOrFutureLinesByLabelQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCurrentOrFutureLinesByLabelQuery({
- *   variables: {
- *      label: // value for 'label'
- *      date: // value for 'date'
- *   },
- * });
- */
-export function useGetCurrentOrFutureLinesByLabelQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetCurrentOrFutureLinesByLabelQuery,
-    GetCurrentOrFutureLinesByLabelQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GetCurrentOrFutureLinesByLabelQuery,
-    GetCurrentOrFutureLinesByLabelQueryVariables
-  >(GetCurrentOrFutureLinesByLabelDocument, options);
-}
-export function useGetCurrentOrFutureLinesByLabelLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetCurrentOrFutureLinesByLabelQuery,
-    GetCurrentOrFutureLinesByLabelQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetCurrentOrFutureLinesByLabelQuery,
-    GetCurrentOrFutureLinesByLabelQueryVariables
-  >(GetCurrentOrFutureLinesByLabelDocument, options);
-}
-export type GetCurrentOrFutureLinesByLabelQueryHookResult = ReturnType<
-  typeof useGetCurrentOrFutureLinesByLabelQuery
->;
-export type GetCurrentOrFutureLinesByLabelLazyQueryHookResult = ReturnType<
-  typeof useGetCurrentOrFutureLinesByLabelLazyQuery
->;
-export type GetCurrentOrFutureLinesByLabelQueryResult = Apollo.QueryResult<
-  GetCurrentOrFutureLinesByLabelQuery,
-  GetCurrentOrFutureLinesByLabelQueryVariables
->;
 export const GetRoutesWithInfrastructureLinksDocument = gql`
   query GetRoutesWithInfrastructureLinks($route_ids: [uuid!]) {
     route_route(where: { route_id: { _in: $route_ids } }) {
@@ -11650,6 +11613,135 @@ export type GetLinksWithStopsByExternalLinkIdsQueryResult = Apollo.QueryResult<
   GetLinksWithStopsByExternalLinkIdsQuery,
   GetLinksWithStopsByExternalLinkIdsQueryVariables
 >;
+export const GetLinesForComboboxDocument = gql`
+  query GetLinesForCombobox($labelPattern: String!, $date: timestamptz!) {
+    route_line(
+      limit: 10
+      where: {
+        label: { _ilike: $labelPattern }
+        _or: [
+          { validity_end: { _gte: $date } }
+          { validity_end: { _is_null: true } }
+        ]
+      }
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
+      ...line_for_combobox
+    }
+  }
+  ${LineForComboboxFragmentDoc}
+`;
+
+/**
+ * __useGetLinesForComboboxQuery__
+ *
+ * To run a query within a React component, call `useGetLinesForComboboxQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLinesForComboboxQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLinesForComboboxQuery({
+ *   variables: {
+ *      labelPattern: // value for 'labelPattern'
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useGetLinesForComboboxQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetLinesForComboboxQuery,
+    GetLinesForComboboxQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetLinesForComboboxQuery,
+    GetLinesForComboboxQueryVariables
+  >(GetLinesForComboboxDocument, options);
+}
+export function useGetLinesForComboboxLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLinesForComboboxQuery,
+    GetLinesForComboboxQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetLinesForComboboxQuery,
+    GetLinesForComboboxQueryVariables
+  >(GetLinesForComboboxDocument, options);
+}
+export type GetLinesForComboboxQueryHookResult = ReturnType<
+  typeof useGetLinesForComboboxQuery
+>;
+export type GetLinesForComboboxLazyQueryHookResult = ReturnType<
+  typeof useGetLinesForComboboxLazyQuery
+>;
+export type GetLinesForComboboxQueryResult = Apollo.QueryResult<
+  GetLinesForComboboxQuery,
+  GetLinesForComboboxQueryVariables
+>;
+export const GetSelectedLineDetailsByIdDocument = gql`
+  query GetSelectedLineDetailsById($line_id: uuid!) {
+    route_line_by_pk(line_id: $line_id) {
+      ...line_for_combobox
+    }
+  }
+  ${LineForComboboxFragmentDoc}
+`;
+
+/**
+ * __useGetSelectedLineDetailsByIdQuery__
+ *
+ * To run a query within a React component, call `useGetSelectedLineDetailsByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSelectedLineDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSelectedLineDetailsByIdQuery({
+ *   variables: {
+ *      line_id: // value for 'line_id'
+ *   },
+ * });
+ */
+export function useGetSelectedLineDetailsByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetSelectedLineDetailsByIdQuery,
+    GetSelectedLineDetailsByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetSelectedLineDetailsByIdQuery,
+    GetSelectedLineDetailsByIdQueryVariables
+  >(GetSelectedLineDetailsByIdDocument, options);
+}
+export function useGetSelectedLineDetailsByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetSelectedLineDetailsByIdQuery,
+    GetSelectedLineDetailsByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetSelectedLineDetailsByIdQuery,
+    GetSelectedLineDetailsByIdQueryVariables
+  >(GetSelectedLineDetailsByIdDocument, options);
+}
+export type GetSelectedLineDetailsByIdQueryHookResult = ReturnType<
+  typeof useGetSelectedLineDetailsByIdQuery
+>;
+export type GetSelectedLineDetailsByIdLazyQueryHookResult = ReturnType<
+  typeof useGetSelectedLineDetailsByIdLazyQuery
+>;
+export type GetSelectedLineDetailsByIdQueryResult = Apollo.QueryResult<
+  GetSelectedLineDetailsByIdQuery,
+  GetSelectedLineDetailsByIdQueryVariables
+>;
 
 export function useQueryClosestLinkAsyncQuery() {
   return useAsyncQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(
@@ -11811,15 +11903,6 @@ export function useGetRouteDetailsByLabelWildcardAsyncQuery() {
 export type GetRouteDetailsByLabelWildcardAsyncQueryHookResult = ReturnType<
   typeof useGetRouteDetailsByLabelWildcardAsyncQuery
 >;
-export function useGetCurrentOrFutureLinesByLabelAsyncQuery() {
-  return useAsyncQuery<
-    GetCurrentOrFutureLinesByLabelQuery,
-    GetCurrentOrFutureLinesByLabelQueryVariables
-  >(GetCurrentOrFutureLinesByLabelDocument);
-}
-export type GetCurrentOrFutureLinesByLabelAsyncQueryHookResult = ReturnType<
-  typeof useGetCurrentOrFutureLinesByLabelAsyncQuery
->;
 export function useGetRoutesWithInfrastructureLinksAsyncQuery() {
   return useAsyncQuery<
     GetRoutesWithInfrastructureLinksQuery,
@@ -11900,4 +11983,22 @@ export function useGetLinksWithStopsByExternalLinkIdsAsyncQuery() {
 }
 export type GetLinksWithStopsByExternalLinkIdsAsyncQueryHookResult = ReturnType<
   typeof useGetLinksWithStopsByExternalLinkIdsAsyncQuery
+>;
+export function useGetLinesForComboboxAsyncQuery() {
+  return useAsyncQuery<
+    GetLinesForComboboxQuery,
+    GetLinesForComboboxQueryVariables
+  >(GetLinesForComboboxDocument);
+}
+export type GetLinesForComboboxAsyncQueryHookResult = ReturnType<
+  typeof useGetLinesForComboboxAsyncQuery
+>;
+export function useGetSelectedLineDetailsByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetSelectedLineDetailsByIdQuery,
+    GetSelectedLineDetailsByIdQueryVariables
+  >(GetSelectedLineDetailsByIdDocument);
+}
+export type GetSelectedLineDetailsByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetSelectedLineDetailsByIdAsyncQuery
 >;
