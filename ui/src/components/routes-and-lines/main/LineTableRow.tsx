@@ -1,6 +1,7 @@
+import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { RouteLine } from '../../../generated/graphql';
+import { LineTableRowFragment } from '../../../generated/graphql';
 import { useAlertsAndHighLights, useShowRoutesOnModal } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -9,8 +10,17 @@ import { LocatorButton } from '../../../uiComponents';
 
 interface Props {
   className?: string;
-  line: RouteLine;
+  line: LineTableRowFragment;
 }
+
+const GQL_LINE_TABLE_ROW = gql`
+  fragment line_table_row on route_line {
+    ...line_all_fields
+    line_routes {
+      route_id
+    }
+  }
+`;
 
 export const LineTableRow = ({ className = '', line }: Props): JSX.Element => {
   const { t } = useTranslation();

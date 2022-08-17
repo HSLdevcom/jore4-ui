@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import {
-  RouteLine,
-  RouteRoute,
+  LineAllFieldsFragment,
+  RouteAllFieldsFragment,
   ServicePatternScheduledStopPoint,
 } from '../../generated/graphql';
 import { parseDate } from '../../time';
@@ -16,7 +16,10 @@ enum AlertLevel {
 
 export const useAlertsAndHighLights = () => {
   const getAlertLevel = (
-    input: RouteRoute | RouteLine | ServicePatternScheduledStopPoint,
+    input:
+      | RouteAllFieldsFragment
+      | LineAllFieldsFragment
+      | ServicePatternScheduledStopPoint,
   ): AlertLevel => {
     // TODO: this logic is actually pretty far from the desired functionality, but at least
     // will let us demo the different highlighting
