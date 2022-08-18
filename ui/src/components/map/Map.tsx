@@ -9,13 +9,12 @@ import { Column } from '../../layoutComponents';
 import {
   selectHasDraftRouteGeometry,
   selectIsCreateStopModeEnabled,
-  selectIsMapOperationLoading,
   selectMapEditor,
   selectMapFilter,
   selectSelectedRouteId,
   setSelectedRouteIdAction,
 } from '../../redux';
-import { FilterPanel, LoadingOverlay } from '../../uiComponents';
+import { FilterPanel } from '../../uiComponents';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
@@ -51,7 +50,6 @@ export const MapComponent = (
 
   const { drawingMode, initiallyDisplayedRouteIds } =
     useAppSelector(selectMapEditor);
-  const isLoading = useAppSelector(selectIsMapOperationLoading);
 
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
   const { showStopFilterOverlay } = useAppSelector(selectMapFilter);
@@ -231,7 +229,6 @@ export const MapComponent = (
         onDeleteDrawnRoute={() => editorLayerRef.current?.onDeleteRoute()}
         ref={routeEditorRef}
       />
-      <LoadingOverlay visible={isLoading} />
     </Maplibre>
   );
 };
