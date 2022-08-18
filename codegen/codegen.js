@@ -11,10 +11,10 @@ module.exports = {
       },
     },
   ],
-  documents: ['./src/**/*.tsx', './src/**/*.ts'],
+  documents: ['../ui/src/**/*.tsx', '../ui/src/**/*.ts'],
   overwrite: true,
   generates: {
-    './src/generated/graphql.tsx': {
+    '../ui/src/generated/graphql.tsx': {
       plugins: [
         {
           // importing luxon to be able to use its DateTime type
@@ -25,7 +25,7 @@ module.exports = {
         'typescript',
         'typescript-operations',
         'typescript-react-apollo',
-        './codegen/asyncQueryPlugin/index.ts',
+        './asyncQueryPlugin/index.ts',
       ],
       config: {
         skipTypename: false,
@@ -47,7 +47,7 @@ module.exports = {
         },
       },
     },
-    './graphql.schema.json': {
+    '../ui/graphql.schema.json': {
       plugins: ['introspection'],
     },
   },

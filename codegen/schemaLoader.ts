@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client';
 import { loadSchema, LoadSchemaOptions } from '@graphql-tools/load';
 import { mergeTypeDefs } from '@graphql-tools/merge';
 import { makeExecutableSchema } from '@graphql-tools/schema';
+import { gql } from 'graphql-tag';
 
 /**
  * merges custom definitions into the schema defined by hasura, overwriting some types (e.g. making them not nullable)
