@@ -11,10 +11,10 @@ module.exports = {
       },
     },
   ],
-  documents: ['./src/**/*.tsx', './src/**/*.ts'],
+  documents: ['../ui/src/**/*.tsx', '../ui/src/**/*.ts'],
   overwrite: true,
   generates: {
-    './src/generated/graphql.tsx': {
+    '../ui/src/generated/graphql.tsx': {
       plugins: [
         {
           // importing luxon to be able to use its DateTime type
@@ -47,7 +47,7 @@ module.exports = {
         },
       },
     },
-    './graphql.schema.json': {
+    '../ui/graphql.schema.json': {
       plugins: ['introspection'],
     },
   },
