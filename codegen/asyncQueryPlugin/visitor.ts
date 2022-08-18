@@ -1,4 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import { pascalCase } from 'change-case-all';
+import { GraphQLSchema, OperationDefinitionNode } from 'graphql';
 import { Types } from '@graphql-codegen/plugin-helpers';
 import {
   ClientSideBasePluginConfig,
@@ -7,8 +9,6 @@ import {
   LoadedFragment,
   RawClientSideBasePluginConfig,
 } from '@graphql-codegen/visitor-plugin-common';
-import { pascalCase } from 'change-case-all';
-import { GraphQLSchema, OperationDefinitionNode } from 'graphql';
 
 // no need to extend the base plugin config types for now
 export type AsyncQueryRawPluginConfig = RawClientSideBasePluginConfig;

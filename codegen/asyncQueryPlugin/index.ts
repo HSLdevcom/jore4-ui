@@ -1,16 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import {
-  oldVisit,
-  PluginFunction,
-  Types,
-} from '@graphql-codegen/plugin-helpers';
-import { LoadedFragment } from '@graphql-codegen/visitor-plugin-common';
-import {
   concatAST,
   FragmentDefinitionNode,
   GraphQLSchema,
   Kind,
 } from 'graphql';
+import {
+  oldVisit,
+  PluginFunction,
+  Types,
+} from '@graphql-codegen/plugin-helpers';
+import { LoadedFragment } from '@graphql-codegen/visitor-plugin-common';
 import { AsyncQueryRawPluginConfig, ReactApolloVisitor } from './visitor';
 
 // based on https://github.com/dotansimha/graphql-code-generator/tree/master/packages/plugins/typescript/react-apollo
