@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "ws:codegen": "yarn workspace @hsl/jore4-codegen",
     "ws:db": "yarn workspace @hsl/jore4-test-db-manager",
     "ws:ui": "yarn workspace @hsl/jore4-ui",
     "ws:e2e": "yarn workspace @hsl/jore4-cypress",
@@ -38,8 +39,9 @@
     "typescript": "^4.4.3"
   },
   "workspaces": [
-    "ui",
+    "codegen",
     "cypress",
-    "test-db-manager"
+    "test-db-manager",
+    "ui"
   ]
 }
