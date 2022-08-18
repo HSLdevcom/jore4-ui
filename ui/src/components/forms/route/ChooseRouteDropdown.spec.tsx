@@ -30,7 +30,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
       request: {
         query: GetRouteDetailsByLabelWildcardDocument,
         variables: {
-          label: '%',
+          labelPattern: '%',
           date: '2022-03-23T00:00:00.000+02:00',
           priorities: [10],
         },
@@ -72,7 +72,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
       request: {
         query: GetRouteDetailsByLabelWildcardDocument,
         variables: {
-          label: '1%',
+          labelPattern: '1%',
           date: '2022-03-23T00:00:00.000+02:00',
           priorities: [10],
         },

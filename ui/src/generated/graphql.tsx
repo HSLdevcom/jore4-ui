@@ -7964,33 +7964,6 @@ export type GetRouteDetailsByLabelsQuery = {
   }>;
 };
 
-export type GetRouteDetailsByLabelWildcardQueryVariables = Exact<{
-  label: Scalars['String'];
-  date?: Maybe<Scalars['timestamptz']>;
-  priorities?: Maybe<Array<Scalars['Int']> | Scalars['Int']>;
-}>;
-
-export type GetRouteDetailsByLabelWildcardQuery = {
-  __typename?: 'query_root';
-  route_route: Array<{
-    __typename?: 'route_route';
-    route_id: UUID;
-    name_i18n: LocalizedString;
-    description_i18n?: LocalizedString | null | undefined;
-    origin_name_i18n: LocalizedString;
-    origin_short_name_i18n: LocalizedString;
-    destination_name_i18n: LocalizedString;
-    destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null | undefined;
-    on_line_id: UUID;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    label: string;
-    direction: RouteDirectionEnum;
-  }>;
-};
-
 export type GetRoutesWithInfrastructureLinksQueryVariables = Exact<{
   route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
@@ -8849,6 +8822,61 @@ export type LineForComboboxFragment = {
   label: string;
   validity_start?: luxon.DateTime | null | undefined;
   validity_end?: luxon.DateTime | null | undefined;
+};
+
+export type GetRouteDetailsByLabelWildcardQueryVariables = Exact<{
+  labelPattern: Scalars['String'];
+  date?: Maybe<Scalars['timestamptz']>;
+  priorities?: Maybe<Array<Scalars['Int']> | Scalars['Int']>;
+}>;
+
+export type GetRouteDetailsByLabelWildcardQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null | undefined;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null | undefined;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    label: string;
+    direction: RouteDirectionEnum;
+  }>;
+};
+
+export type GetSelectedRouteDetailsByIdQueryVariables = Exact<{
+  routeId: Scalars['uuid'];
+}>;
+
+export type GetSelectedRouteDetailsByIdQuery = {
+  __typename?: 'query_root';
+  route_route_by_pk?:
+    | {
+        __typename?: 'route_route';
+        route_id: UUID;
+        name_i18n: LocalizedString;
+        description_i18n?: LocalizedString | null | undefined;
+        origin_name_i18n: LocalizedString;
+        origin_short_name_i18n: LocalizedString;
+        destination_name_i18n: LocalizedString;
+        destination_short_name_i18n: LocalizedString;
+        route_shape?: GeoJSON.LineString | null | undefined;
+        on_line_id: UUID;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+        priority: number;
+        label: string;
+        direction: RouteDirectionEnum;
+      }
+    | null
+    | undefined;
 };
 
 export const LineAllFieldsFragmentDoc = gql`
@@ -10360,81 +10388,6 @@ export type GetRouteDetailsByLabelsQueryResult = Apollo.QueryResult<
   GetRouteDetailsByLabelsQuery,
   GetRouteDetailsByLabelsQueryVariables
 >;
-export const GetRouteDetailsByLabelWildcardDocument = gql`
-  query GetRouteDetailsByLabelWildcard(
-    $label: String!
-    $date: timestamptz
-    $priorities: [Int!]
-  ) {
-    route_route(
-      where: {
-        label: { _ilike: $label }
-        validity_start: { _lte: $date }
-        _or: [
-          { validity_end: { _gte: $date } }
-          { validity_end: { _is_null: true } }
-        ]
-        priority: { _in: $priorities }
-      }
-    ) {
-      ...route_all_fields
-    }
-  }
-  ${RouteAllFieldsFragmentDoc}
-`;
-
-/**
- * __useGetRouteDetailsByLabelWildcardQuery__
- *
- * To run a query within a React component, call `useGetRouteDetailsByLabelWildcardQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRouteDetailsByLabelWildcardQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetRouteDetailsByLabelWildcardQuery({
- *   variables: {
- *      label: // value for 'label'
- *      date: // value for 'date'
- *      priorities: // value for 'priorities'
- *   },
- * });
- */
-export function useGetRouteDetailsByLabelWildcardQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetRouteDetailsByLabelWildcardQuery,
-    GetRouteDetailsByLabelWildcardQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GetRouteDetailsByLabelWildcardQuery,
-    GetRouteDetailsByLabelWildcardQueryVariables
-  >(GetRouteDetailsByLabelWildcardDocument, options);
-}
-export function useGetRouteDetailsByLabelWildcardLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetRouteDetailsByLabelWildcardQuery,
-    GetRouteDetailsByLabelWildcardQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetRouteDetailsByLabelWildcardQuery,
-    GetRouteDetailsByLabelWildcardQueryVariables
-  >(GetRouteDetailsByLabelWildcardDocument, options);
-}
-export type GetRouteDetailsByLabelWildcardQueryHookResult = ReturnType<
-  typeof useGetRouteDetailsByLabelWildcardQuery
->;
-export type GetRouteDetailsByLabelWildcardLazyQueryHookResult = ReturnType<
-  typeof useGetRouteDetailsByLabelWildcardLazyQuery
->;
-export type GetRouteDetailsByLabelWildcardQueryResult = Apollo.QueryResult<
-  GetRouteDetailsByLabelWildcardQuery,
-  GetRouteDetailsByLabelWildcardQueryVariables
->;
 export const GetRoutesWithInfrastructureLinksDocument = gql`
   query GetRoutesWithInfrastructureLinks($route_ids: [uuid!]) {
     route_route(where: { route_id: { _in: $route_ids } }) {
@@ -11767,6 +11720,141 @@ export type GetSelectedLineDetailsByIdQueryResult = Apollo.QueryResult<
   GetSelectedLineDetailsByIdQuery,
   GetSelectedLineDetailsByIdQueryVariables
 >;
+export const GetRouteDetailsByLabelWildcardDocument = gql`
+  query GetRouteDetailsByLabelWildcard(
+    $labelPattern: String!
+    $date: timestamptz
+    $priorities: [Int!]
+  ) {
+    route_route(
+      limit: 7
+      where: {
+        label: { _ilike: $labelPattern }
+        validity_start: { _lte: $date }
+        _or: [
+          { validity_end: { _gte: $date } }
+          { validity_end: { _is_null: true } }
+        ]
+        priority: { _in: $priorities }
+      }
+    ) {
+      ...route_all_fields
+    }
+  }
+  ${RouteAllFieldsFragmentDoc}
+`;
+
+/**
+ * __useGetRouteDetailsByLabelWildcardQuery__
+ *
+ * To run a query within a React component, call `useGetRouteDetailsByLabelWildcardQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteDetailsByLabelWildcardQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRouteDetailsByLabelWildcardQuery({
+ *   variables: {
+ *      labelPattern: // value for 'labelPattern'
+ *      date: // value for 'date'
+ *      priorities: // value for 'priorities'
+ *   },
+ * });
+ */
+export function useGetRouteDetailsByLabelWildcardQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetRouteDetailsByLabelWildcardQuery,
+    GetRouteDetailsByLabelWildcardQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRouteDetailsByLabelWildcardQuery,
+    GetRouteDetailsByLabelWildcardQueryVariables
+  >(GetRouteDetailsByLabelWildcardDocument, options);
+}
+export function useGetRouteDetailsByLabelWildcardLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRouteDetailsByLabelWildcardQuery,
+    GetRouteDetailsByLabelWildcardQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRouteDetailsByLabelWildcardQuery,
+    GetRouteDetailsByLabelWildcardQueryVariables
+  >(GetRouteDetailsByLabelWildcardDocument, options);
+}
+export type GetRouteDetailsByLabelWildcardQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByLabelWildcardQuery
+>;
+export type GetRouteDetailsByLabelWildcardLazyQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByLabelWildcardLazyQuery
+>;
+export type GetRouteDetailsByLabelWildcardQueryResult = Apollo.QueryResult<
+  GetRouteDetailsByLabelWildcardQuery,
+  GetRouteDetailsByLabelWildcardQueryVariables
+>;
+export const GetSelectedRouteDetailsByIdDocument = gql`
+  query GetSelectedRouteDetailsById($routeId: uuid!) {
+    route_route_by_pk(route_id: $routeId) {
+      ...route_all_fields
+    }
+  }
+  ${RouteAllFieldsFragmentDoc}
+`;
+
+/**
+ * __useGetSelectedRouteDetailsByIdQuery__
+ *
+ * To run a query within a React component, call `useGetSelectedRouteDetailsByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSelectedRouteDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSelectedRouteDetailsByIdQuery({
+ *   variables: {
+ *      routeId: // value for 'routeId'
+ *   },
+ * });
+ */
+export function useGetSelectedRouteDetailsByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetSelectedRouteDetailsByIdQuery,
+    GetSelectedRouteDetailsByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetSelectedRouteDetailsByIdQuery,
+    GetSelectedRouteDetailsByIdQueryVariables
+  >(GetSelectedRouteDetailsByIdDocument, options);
+}
+export function useGetSelectedRouteDetailsByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetSelectedRouteDetailsByIdQuery,
+    GetSelectedRouteDetailsByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetSelectedRouteDetailsByIdQuery,
+    GetSelectedRouteDetailsByIdQueryVariables
+  >(GetSelectedRouteDetailsByIdDocument, options);
+}
+export type GetSelectedRouteDetailsByIdQueryHookResult = ReturnType<
+  typeof useGetSelectedRouteDetailsByIdQuery
+>;
+export type GetSelectedRouteDetailsByIdLazyQueryHookResult = ReturnType<
+  typeof useGetSelectedRouteDetailsByIdLazyQuery
+>;
+export type GetSelectedRouteDetailsByIdQueryResult = Apollo.QueryResult<
+  GetSelectedRouteDetailsByIdQuery,
+  GetSelectedRouteDetailsByIdQueryVariables
+>;
 
 export function useQueryClosestLinkAsyncQuery() {
   return useAsyncQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(
@@ -11910,15 +11998,6 @@ export function useGetRouteDetailsByLabelsAsyncQuery() {
 export type GetRouteDetailsByLabelsAsyncQueryHookResult = ReturnType<
   typeof useGetRouteDetailsByLabelsAsyncQuery
 >;
-export function useGetRouteDetailsByLabelWildcardAsyncQuery() {
-  return useAsyncQuery<
-    GetRouteDetailsByLabelWildcardQuery,
-    GetRouteDetailsByLabelWildcardQueryVariables
-  >(GetRouteDetailsByLabelWildcardDocument);
-}
-export type GetRouteDetailsByLabelWildcardAsyncQueryHookResult = ReturnType<
-  typeof useGetRouteDetailsByLabelWildcardAsyncQuery
->;
 export function useGetRoutesWithInfrastructureLinksAsyncQuery() {
   return useAsyncQuery<
     GetRoutesWithInfrastructureLinksQuery,
@@ -12026,4 +12105,22 @@ export function useGetSelectedLineDetailsByIdAsyncQuery() {
 }
 export type GetSelectedLineDetailsByIdAsyncQueryHookResult = ReturnType<
   typeof useGetSelectedLineDetailsByIdAsyncQuery
+>;
+export function useGetRouteDetailsByLabelWildcardAsyncQuery() {
+  return useAsyncQuery<
+    GetRouteDetailsByLabelWildcardQuery,
+    GetRouteDetailsByLabelWildcardQueryVariables
+  >(GetRouteDetailsByLabelWildcardDocument);
+}
+export type GetRouteDetailsByLabelWildcardAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByLabelWildcardAsyncQuery
+>;
+export function useGetSelectedRouteDetailsByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetSelectedRouteDetailsByIdQuery,
+    GetSelectedRouteDetailsByIdQueryVariables
+  >(GetSelectedRouteDetailsByIdDocument);
+}
+export type GetSelectedRouteDetailsByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetSelectedRouteDetailsByIdAsyncQuery
 >;
