@@ -13,7 +13,7 @@ Then, install dependencies and start the development server:
 
 ```bash
 yarn install
-yarn dev
+yarn ws:ui dev
 ```
 
 Open [http://localhost:3300](http://localhost:3300) with your browser to see the result.
