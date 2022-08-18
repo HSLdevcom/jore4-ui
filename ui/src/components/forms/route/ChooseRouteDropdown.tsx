@@ -2,7 +2,7 @@ import debounce from 'lodash/debounce';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteRoute } from '../../../generated/graphql';
+import { RouteAllFieldsFragment } from '../../../generated/graphql';
 import { useChooseRouteDropdown } from '../../../hooks';
 import { MAX_DATE, MIN_DATE } from '../../../time';
 import { Priority } from '../../../types/Priority';
@@ -21,7 +21,7 @@ interface Props extends ComboboxInputProps {
   priorities: Priority[];
 }
 
-const mapToOptionContent = (item: RouteRoute) => (
+const mapToOptionContent = (item: RouteAllFieldsFragment) => (
   <div className="flex flex-col">
     <div>
       <span className="font-bold">{item.label}</span>
@@ -36,7 +36,7 @@ const mapToOptionContent = (item: RouteRoute) => (
   </div>
 );
 
-const mapToOption = (item: RouteRoute) => ({
+const mapToOption = (item: RouteAllFieldsFragment) => ({
   key: item.route_id,
   value: item.route_id,
   render: () => mapToOptionContent(item),
@@ -57,13 +57,18 @@ export const ChooseRouteDropdown = ({
   // Selected route details are shown on buttonContent by default
   // But we want to hide it when typing new search
   const [showButtonContent, setShowButtonContent] = useState(true);
-  const routes = useChooseRouteDropdown(query, date, priorities);
+  const { routes } = useChooseRouteDropdown({
+    query,
+    observationDate: date,
+    priorities,
+    routeId: value,
+  });
 
   const options = routes?.map(mapToOption) || [];
 
   const selectedRoute = routes?.find((item) => item.route_id === value);
 
-  const mapToButtonContent = (displayedRoute?: RouteRoute) => {
+  const mapToButtonContent = (displayedRoute?: RouteAllFieldsFragment) => {
     // If no route is selected, show "Choose route"
     return (
       <div className="w-full">
@@ -85,7 +90,6 @@ export const ChooseRouteDropdown = ({
   };
 
   const onItemSelected = (e: ComboboxEvent) => {
-    setQuery('');
     onChange(e);
     setShowButtonContent(true);
   };

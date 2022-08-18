@@ -336,28 +336,6 @@ const GET_ROUTE_DETAILS_BY_LABELS = gql`
   }
 `;
 
-const GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`
-  query GetRouteDetailsByLabelWildcard(
-    $label: String!
-    $date: timestamptz
-    $priorities: [Int!]
-  ) {
-    route_route(
-      where: {
-        label: { _ilike: $label }
-        validity_start: { _lte: $date }
-        _or: [
-          { validity_end: { _gte: $date } }
-          { validity_end: { _is_null: true } }
-        ]
-        priority: { _in: $priorities }
-      }
-    ) {
-      ...route_all_fields
-    }
-  }
-`;
-
 const GET_ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
   query GetRoutesWithInfrastructureLinks($route_ids: [uuid!]) {
     route_route(where: { route_id: { _in: $route_ids } }) {
