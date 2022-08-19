@@ -63,6 +63,7 @@ module.exports = {
     //     luxonImportPlugin,
     //     'typescript',
     //     'typescript-operations',
+    //     './writeDocumentsPlugin/index.ts',
     //   ],
     //   config: {
     //     ...defaultConfig,
