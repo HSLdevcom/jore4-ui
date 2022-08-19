@@ -1,5 +1,33 @@
 // https://hasura.io/learn/graphql/typescript-react-apollo/codegen/
 
+const scalars = {
+  uuid: 'UUID',
+  geography: 'GeoJSON.Geometry',
+  geometry: 'GeoJSON.Geometry',
+  geography_point: 'GeoJSON.Point',
+  geography_linestring: 'GeoJSON.LineString',
+  localized_string: 'LocalizedString',
+  timestamptz: 'luxon.DateTime',
+  float8: 'number',
+};
+
+const defaultConfig = {
+  skipTypename: false,
+  withHOC: false,
+  withComponent: false,
+  namingConvention: {
+    transformUnderscore: true,
+  },
+}
+
+const luxonImportPlugin = {
+  // importing luxon to be able to use its DateTime type
+  // using the "add" plugin to inject text to the beginning of the generated file
+  add: {
+    content: "import * as luxon from 'luxon';",
+  },
+}
+
 module.exports = {
   schema: [
     {
@@ -11,42 +39,37 @@ module.exports = {
       },
     },
   ],
-  documents: ['../ui/src/**/*.tsx', '../ui/src/**/*.ts'],
-  overwrite: true,
   generates: {
     '../ui/src/generated/graphql.tsx': {
+      documents: ['../ui/src/**/*.tsx', '../ui/src/**/*.ts'],
+      overwrite: true,
       plugins: [
-        {
-          // importing luxon to be able to use its DateTime type
-          add: {
-            content: "import * as luxon from 'luxon';",
-          },
-        },
+        luxonImportPlugin,
         'typescript',
         'typescript-operations',
         'typescript-react-apollo',
-        './codegen/asyncQueryPlugin/index.ts',
+        './asyncQueryPlugin/index.ts',
       ],
       config: {
-        skipTypename: false,
+        ...defaultConfig,
         withHooks: true,
-        withHOC: false,
-        withComponent: false,
-        namingConvention: {
-          transformUnderscore: true,
-        },
-        scalars: {
-          uuid: 'UUID',
-          geography: 'GeoJSON.Geometry',
-          geometry: 'GeoJSON.Geometry',
-          geography_point: 'GeoJSON.Point',
-          geography_linestring: 'GeoJSON.LineString',
-          localized_string: 'LocalizedString',
-          timestamptz: 'luxon.DateTime',
-          float8: 'number',
-        },
+        scalars,
       },
     },
+    // '../test-db-manager/src/generated/graphql.tsx': {
+    //   documents: ['../test-db-manager/src/**/*.tsx', '../test-db-manager/src/**/*.ts'],
+    //   overwrite: true,
+    //   plugins: [
+    //     luxonImportPlugin,
+    //     'typescript',
+    //     'typescript-operations',
+    //   ],
+    //   config: {
+    //     ...defaultConfig,
+    //     withHooks: false,
+    //     scalars,
+    //   },
+    // },
     '../ui/graphql.schema.json': {
       plugins: ['introspection'],
     },

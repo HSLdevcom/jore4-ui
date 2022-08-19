@@ -6,8 +6,8 @@
     "ws:db": "yarn workspace @hsl/jore4-test-db-manager",
     "ws:ui": "yarn workspace @hsl/jore4-ui",
     "ws:e2e": "yarn workspace @hsl/jore4-cypress",
+    "ws:codegen": "yarn workspace @hsl/jore4-codegen",
     "dev": "yarn ws:ui run dev",
-    "gql:generate-types": "TS_NODE_PROJECT=ui/tsconfig.codegen.json graphql-codegen --config codegen/codegen.js && prettier --write ui/src/generated/graphql.tsx",
     "ts:check": "yarn workspaces run ts:check",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
@@ -18,22 +18,8 @@
     "test:e2e:skip-map": "yarn ws:db build && CYPRESS_SKIP_MAP_TESTS=true yarn ws:e2e cypress run",
     "qa": "yarn --frozen-lockfile && yarn ts:check && yarn prettier:check && yarn lint && yarn test && yarn test:e2e"
   },
-  "dependencies": {
-    "@graphql-tools/load": "^7.5.1",
-    "@graphql-tools/merge": "^8.2.2",
-    "@graphql-tools/schema": "^8.3.6",
-    "@graphql-typed-document-node/core": "^3.1.0",
-    "graphql-tag": "^2.12.6"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@graphql-codegen/add": "^3.1.1",
-    "@graphql-codegen/cli": "^2.2.2",
-    "@graphql-codegen/introspection": "^2.1.0",
-    "@graphql-codegen/plugin-helpers": "^2.4.2",
-    "@graphql-codegen/typescript": "^2.3.1",
-    "@graphql-codegen/typescript-operations": "^2.2.0",
-    "@graphql-codegen/typescript-react-apollo": "^3.2.1",
-    "@graphql-codegen/visitor-plugin-common": "^2.7.4",
     "@types/jest": "^26.0.22",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -55,6 +41,7 @@
   "workspaces": [
     "ui",
     "cypress",
-    "test-db-manager"
+    "test-db-manager",
+    "codegen"
   ]
 }
