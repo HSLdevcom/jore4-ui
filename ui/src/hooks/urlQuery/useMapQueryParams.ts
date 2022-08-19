@@ -21,6 +21,31 @@ export const useMapQueryParams = () => {
     setBooleanToUrlQuery({ paramName: queryParameterNameMapOpen, value: true });
   };
 
+  /** Sets latitude, longitude, zoom and mapOpen queryparameters which will
+   * open the map and set the map to desired position. This function might change
+   * after react-map-gl v7 is updated.
+   */
+  const openMapInPosition = (
+    latitude?: number,
+    longitude?: number,
+    zoom?: number,
+  ) => {
+    setMultipleParametersToUrlQuery({
+      parameters: [
+        {
+          paramName: 'lat',
+          value: latitude || HELSINKI_CITY_CENTER_COORDINATES.latitude,
+        },
+        {
+          paramName: 'lng',
+          value: longitude || HELSINKI_CITY_CENTER_COORDINATES.longitude,
+        },
+        { paramName: 'z', value: zoom || DEFAULT_ZOOM },
+        { paramName: 'mapOpen', value: true },
+      ],
+    });
+  };
+
   const deleteMapQueryParameters = () => {
     deleteMultipleFromUrlQuery({
       paramNames: [
@@ -66,6 +91,7 @@ export const useMapQueryParams = () => {
     isMapOpen,
     mapPosition,
     setMapPosition,
+    openMapInPosition,
     deleteMapQueryParameters,
   };
 };
