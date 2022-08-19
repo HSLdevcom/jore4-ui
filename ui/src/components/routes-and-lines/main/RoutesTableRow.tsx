@@ -22,6 +22,15 @@ export const RoutesTableRow = ({
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
   const alertStyle = getAlertStyle(getAlertLevel(route));
 
+  const onClickShowRouteOnMap = () => {
+    showRoutesOnModal(
+      [route],
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      route.validity_start!,
+      route.validity_end,
+    );
+  };
+
   return (
     <tbody>
       <tr className={`border border-light-grey ${className}`}>
@@ -49,14 +58,7 @@ export const RoutesTableRow = ({
         </td>
         <td className="w-20 p-6 align-middle">
           <LocatorButton
-            onClick={() =>
-              showRoutesOnModal(
-                [route.route_id],
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                route.validity_start!,
-                route.validity_end,
-              )
-            }
+            onClick={onClickShowRouteOnMap}
             disabled={
               !route.route_shape /* some routes imported from jore3 are missing the geometry */
             }
