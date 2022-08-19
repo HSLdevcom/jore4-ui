@@ -17,7 +17,7 @@ const GQL_LINE_TABLE_ROW = gql`
   fragment line_table_row on route_line {
     ...line_all_fields
     line_routes {
-      route_id
+      ...route_information_for_map
     }
   }
 `;
@@ -27,10 +27,8 @@ export const LineTableRow = ({ className = '', line }: Props): JSX.Element => {
   const { showRoutesOnModal } = useShowRoutesOnModal();
 
   const showLineRoutes = () => {
-    const lineRouteIds = line.line_routes?.map((item) => item.route_id);
-
     showRoutesOnModal(
-      lineRouteIds,
+      line.line_routes,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       line.validity_start!,
       line.validity_end,

@@ -6892,7 +6892,11 @@ export type LineTableRowFragment = {
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
   label: string;
-  line_routes: Array<{ __typename?: 'route_route'; route_id: UUID }>;
+  line_routes: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null | undefined;
+  }>;
 };
 
 export type RouteInfraLinkFieldsFragment = {
@@ -8758,7 +8762,11 @@ export type SearchLinesAndRoutesQuery = {
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
     label: string;
-    line_routes: Array<{ __typename?: 'route_route'; route_id: UUID }>;
+    line_routes: Array<{
+      __typename?: 'route_route';
+      route_id: UUID;
+      route_shape?: GeoJSON.LineString | null | undefined;
+    }>;
   }>;
   route_route: Array<{
     __typename?: 'route_route';
@@ -8879,6 +8887,12 @@ export type GetSelectedRouteDetailsByIdQuery = {
     | undefined;
 };
 
+export type RouteInformationForMapFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  route_shape?: GeoJSON.LineString | null | undefined;
+};
+
 export const LineAllFieldsFragmentDoc = gql`
   fragment line_all_fields on route_line {
     line_id
@@ -8893,14 +8907,21 @@ export const LineAllFieldsFragmentDoc = gql`
     label
   }
 `;
+export const RouteInformationForMapFragmentDoc = gql`
+  fragment route_information_for_map on route_route {
+    route_id
+    route_shape
+  }
+`;
 export const LineTableRowFragmentDoc = gql`
   fragment line_table_row on route_line {
     ...line_all_fields
     line_routes {
-      route_id
+      ...route_information_for_map
     }
   }
   ${LineAllFieldsFragmentDoc}
+  ${RouteInformationForMapFragmentDoc}
 `;
 export const InfraLinkMatchingFieldsFragmentDoc = gql`
   fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
