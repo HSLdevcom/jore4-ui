@@ -6892,7 +6892,11 @@ export type LineTableRowFragment = {
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
   label: string;
-  line_routes: Array<{ __typename?: 'route_route'; route_id: UUID }>;
+  line_routes: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null | undefined;
+  }>;
 };
 
 export type RouteInfraLinkFieldsFragment = {
@@ -8758,7 +8762,11 @@ export type SearchLinesAndRoutesQuery = {
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
     label: string;
-    line_routes: Array<{ __typename?: 'route_route'; route_id: UUID }>;
+    line_routes: Array<{
+      __typename?: 'route_route';
+      route_id: UUID;
+      route_shape?: GeoJSON.LineString | null | undefined;
+    }>;
   }>;
   route_route: Array<{
     __typename?: 'route_route';
@@ -8898,6 +8906,7 @@ export const LineTableRowFragmentDoc = gql`
     ...line_all_fields
     line_routes {
       route_id
+      route_shape
     }
   }
   ${LineAllFieldsFragmentDoc}

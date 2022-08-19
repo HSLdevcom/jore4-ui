@@ -6,6 +6,7 @@ import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../../time';
 import { LocatorButton } from '../../../uiComponents';
+import { getRouteShapeFirstCoordinates } from '../../../utils';
 
 interface Props {
   className?: string;
@@ -21,6 +22,23 @@ export const RoutesTableRow = ({
 
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
   const alertStyle = getAlertStyle(getAlertLevel(route));
+
+  const onClickShowRouteOnMap = () => {
+    // This is a temporary solution to position the map on opened route
+    // After react-map-gl v7 we should have a trivial way of centering the map
+    const { latitude, longitude } = getRouteShapeFirstCoordinates(
+      route.route_shape,
+    );
+
+    showRoutesOnModal(
+      [route.route_id],
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      route.validity_start!,
+      route.validity_end,
+      latitude,
+      longitude,
+    );
+  };
 
   return (
     <tbody>
@@ -49,14 +67,7 @@ export const RoutesTableRow = ({
         </td>
         <td className="w-20 p-6 align-middle">
           <LocatorButton
-            onClick={() =>
-              showRoutesOnModal(
-                [route.route_id],
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                route.validity_start!,
-                route.validity_end,
-              )
-            }
+            onClick={onClickShowRouteOnMap}
             disabled={
               !route.route_shape /* some routes imported from jore3 are missing the geometry */
             }

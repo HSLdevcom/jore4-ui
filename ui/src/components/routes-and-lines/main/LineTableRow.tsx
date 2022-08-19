@@ -7,6 +7,7 @@ import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../../time';
 import { LocatorButton } from '../../../uiComponents';
+import { getRouteShapeFirstCoordinates } from '../../../utils';
 
 interface Props {
   className?: string;
@@ -18,6 +19,7 @@ const GQL_LINE_TABLE_ROW = gql`
     ...line_all_fields
     line_routes {
       route_id
+      route_shape
     }
   }
 `;
@@ -29,11 +31,19 @@ export const LineTableRow = ({ className = '', line }: Props): JSX.Element => {
   const showLineRoutes = () => {
     const lineRouteIds = line.line_routes?.map((item) => item.route_id);
 
+    // This is a temporary solution to position the map on opened route (or line)
+    // After react-map-gl v7 we should have a trivial way of centering the map
+    const { latitude, longitude } = getRouteShapeFirstCoordinates(
+      line.line_routes[0]?.route_shape,
+    );
+
     showRoutesOnModal(
       lineRouteIds,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       line.validity_start!,
       line.validity_end,
+      latitude,
+      longitude,
     );
   };
 

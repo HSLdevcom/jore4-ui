@@ -16,6 +16,7 @@ import {
   EditButton,
   LocatorButton,
 } from '../../../uiComponents';
+import { getRouteShapeFirstCoordinates } from '../../../utils';
 import { DirectionBadge } from './DirectionBadge';
 
 interface Props {
@@ -36,6 +37,23 @@ export const RouteStopsHeaderRow = ({
 
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
   const alertStyle = getAlertStyle(getAlertLevel(route));
+
+  const onClickShowRouteOnMap = () => {
+    // This is a temporary solution to position the map on opened route
+    // After react-map-gl v7 we should have a trivial way of centering the map
+    const { latitude, longitude } = getRouteShapeFirstCoordinates(
+      route.route_shape,
+    );
+
+    showRoutesOnModal(
+      [route.route_id],
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      route.validity_start!,
+      route.validity_end,
+      latitude,
+      longitude,
+    );
+  };
 
   return (
     <tr className={`border border-white bg-background ${className} p-4`}>
@@ -81,14 +99,7 @@ export const RouteStopsHeaderRow = ({
       </td>
       <td className="w-20 border-l-4 border-r-4 border-white text-center">
         <LocatorButton
-          onClick={() =>
-            showRoutesOnModal(
-              [route.route_id],
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              route.validity_start!,
-              route.validity_end,
-            )
-          }
+          onClick={onClickShowRouteOnMap}
           disabled={
             !route.route_shape /* some routes imported from jore3 are missing the geometry */
           }

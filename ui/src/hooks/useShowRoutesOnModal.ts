@@ -10,18 +10,14 @@ import { useMapQueryParams } from './urlQuery';
 
 export const useShowRoutesOnModal = () => {
   const dispatch = useAppDispatch();
-  const { addMapOpenQueryParameter } = useMapQueryParams();
-
-  const showRoutesOnModalById = (routeIds: UUID[]) => {
-    dispatch(initializeMapEditorWithRoutesAction(routeIds));
-
-    addMapOpenQueryParameter();
-  };
+  const { openMapAndSetMapPosition } = useMapQueryParams();
 
   const showRoutesOnModal = (
     routeIds: UUID[],
     validityStart: DateTime,
     validityEnd?: Maybe<DateTime>,
+    latitude?: number,
+    longitude?: number,
   ) => {
     const newObservationDate = isDateInRange(
       DateTime.now(),
@@ -32,7 +28,8 @@ export const useShowRoutesOnModal = () => {
       : validityStart;
 
     dispatch(setMapObservationDateAction(newObservationDate));
-    showRoutesOnModalById(routeIds);
+    dispatch(initializeMapEditorWithRoutesAction(routeIds));
+    openMapAndSetMapPosition(latitude, longitude);
   };
 
   return { showRoutesOnModal };
