@@ -46,6 +46,15 @@ export const RouteStopsHeaderRow = ({
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
   const alertStyle = getAlertStyle(getAlertLevel(route));
 
+  const onClickShowRouteOnMap = () => {
+    showRoutesOnModal(
+      [route],
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      route.validity_start!,
+      route.validity_end,
+    );
+  };
+
   return (
     <tr className={`border border-white bg-background ${className} p-4`}>
       <td className={`${alertStyle.listItemBorder || ''} p-4 pl-12`}>
@@ -90,14 +99,7 @@ export const RouteStopsHeaderRow = ({
       </td>
       <td className="w-20 border-l-4 border-r-4 border-white text-center">
         <LocatorButton
-          onClick={() =>
-            showRoutesOnModal(
-              [route.route_id],
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              route.validity_start!,
-              route.validity_end,
-            )
-          }
+          onClick={onClickShowRouteOnMap}
           disabled={
             !route.route_shape /* some routes imported from jore3 are missing the geometry */
           }
