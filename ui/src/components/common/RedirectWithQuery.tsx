@@ -5,13 +5,13 @@ import { useUrlQuery } from '../../hooks';
 
 export const RedirectWithQuery = (props: RedirectProps) => {
   const { queryParams } = useUrlQuery();
+  const { to, ...propsWithoutTo } = props;
   return (
     <Redirect
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
+      {...propsWithoutTo}
       to={{
-        // eslint-disable-next-line react/destructuring-assignment
-        ...(typeof props.to === 'object' ? props.to : {}),
+        ...(typeof to === 'object' ? to : { pathname: to }),
         search: qs.stringify(queryParams),
       }}
     />

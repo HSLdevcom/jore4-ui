@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 export enum Path {
   root = '/',
   routes = '/routes',
@@ -34,7 +36,10 @@ export const routeDetails: Record<Path, RouteDetail> = {
     includeInNav: false,
   },
   [Path.editRoute]: {
-    getLink: (id: string) => Path.editRoute.replace(':id', id),
+    getLink: (id: string, observationIsoDate: string) =>
+      `${Path.editRoute.replace(':id', id)}?${qs.stringify({
+        observationDate: observationIsoDate,
+      })}`,
     translationKey: 'routes.editRoute',
     includeInNav: false,
   },

@@ -78,7 +78,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               </span>
               <a
                 data-testid="edit-route-button"
-                href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
+                href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
               >
                 <div
                   class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
@@ -287,7 +287,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               </span>
               <a
                 data-testid="edit-route-button"
-                href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
+                href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
               >
                 <div
                   class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
@@ -696,7 +696,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               </span>
               <a
                 data-testid="edit-route-button"
-                href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit"
+                href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
               >
                 <div
                   class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
