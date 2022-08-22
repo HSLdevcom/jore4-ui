@@ -21,6 +21,7 @@ import { DirectionBadge } from './DirectionBadge';
 interface Props {
   className?: string;
   route: RouteRoute;
+  observationDate: DateTime;
   isOpen: boolean;
   onToggle: () => void;
 }
@@ -28,6 +29,7 @@ interface Props {
 export const RouteStopsHeaderRow = ({
   className = '',
   route,
+  observationDate,
   isOpen,
   onToggle,
 }: Props): JSX.Element => {
@@ -53,7 +55,9 @@ export const RouteStopsHeaderRow = ({
             {route.name_i18n?.fi_FI}
           </span>
           <EditButton
-            href={routeDetails[Path.editRoute].getLink(route.route_id)}
+            href={`${routeDetails[Path.editRoute].getLink(
+              route.route_id,
+            )}?observationDate=${observationDate.toISODate()}`}
             testId="edit-route-button"
           />
         </Row>

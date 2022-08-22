@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Redirect, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
   RouteRoute,
   useGetRouteDetailsByIdsQuery,
@@ -23,6 +23,7 @@ import {
   showSuccessToast,
   submitFormByRef,
 } from '../../../utils';
+import { RedirectWithQuery } from '../../common/RedirectWithQuery';
 import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
@@ -89,7 +90,7 @@ export const EditRoutePage = (): JSX.Element => {
   if (hasFinishedEditing) {
     // if route was successfully edited, redirect to its line's page
     return (
-      <Redirect
+      <RedirectWithQuery
         to={{
           pathname: route
             ? routeDetails[Path.lineDetails].getLink(route?.on_line_id)
