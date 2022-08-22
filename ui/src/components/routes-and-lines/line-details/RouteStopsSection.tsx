@@ -106,6 +106,7 @@ export const RouteStopsSection = ({
       <RouteStopsHeaderRow
         key={route.route_id}
         route={route}
+        observationDate={observationDate}
         isOpen={isOpen}
         onToggle={onToggle}
       />
