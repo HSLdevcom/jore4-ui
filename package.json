@@ -2,6 +2,9 @@
   "name": "jore4-ui",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "ws:db": "yarn workspace @hsl/jore4-test-db-manager",
     "ws:ui": "yarn workspace @hsl/jore4-ui",
