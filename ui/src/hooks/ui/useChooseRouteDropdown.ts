@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import {
   RouteAllFieldsFragment,
@@ -26,6 +25,7 @@ const GQL_GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`
         ]
         priority: { _in: $priorities }
       }
+      order_by: { label: asc }
     ) {
       ...route_all_fields
     }
@@ -73,20 +73,8 @@ export const useChooseRouteDropdown = ({
     | RouteAllFieldsFragment
     | undefined;
 
-  const queriedRoutes = (routesResult.data?.route_route ||
+  const routes = (routesResult.data?.route_route ||
     []) as RouteAllFieldsFragment[];
 
-  const selectedRouteIndex = queriedRoutes.findIndex(
-    (item) => item.route_id === routeId,
-  );
-
-  // If no route is selected or selected route already is in the search results,
-  // just return the search results.
-  // Otherwise append selected route to search results.
-  const routes =
-    !selectedRoute || selectedRouteIndex !== -1
-      ? queriedRoutes
-      : [selectedRoute, ...queriedRoutes];
-
-  return { routes: sortBy(routes, 'label') };
+  return { routes, selectedRoute };
 };

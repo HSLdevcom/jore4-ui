@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
 import {
@@ -49,7 +48,10 @@ export const useChooseLineDropdown = (
   query: string,
   lineId?: string,
   observationDate?: DateTime,
-): { lines: LineForComboboxFragment[] } => {
+): {
+  lines: LineForComboboxFragment[];
+  selectedLine?: LineForComboboxFragment;
+} => {
   const [today] = useState(DateTime.now());
 
   const linesResult = useGetLinesForComboboxQuery(
@@ -71,20 +73,11 @@ export const useChooseLineDropdown = (
     | LineForComboboxFragment
     | undefined;
 
-  const queriedLines = (linesResult.data?.route_line ||
+  const lines = (linesResult.data?.route_line ||
     []) as LineForComboboxFragment[];
 
-  const selectedLineIndex = queriedLines.findIndex(
-    (item) => item.line_id === lineId,
-  );
-
-  // If no line is selected or selected line already is in the search results,
-  // just return the search results.
-  // Otherwise append selected line to search results.
-  const lines =
-    !selectedLine || selectedLineIndex !== -1
-      ? queriedLines
-      : [selectedLine, ...queriedLines];
-
-  return { lines: orderBy(lines, ['label', 'validity_start'], ['asc', 'asc']) };
+  return {
+    lines,
+    selectedLine,
+  };
 };
