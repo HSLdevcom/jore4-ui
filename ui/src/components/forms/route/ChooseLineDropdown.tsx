@@ -18,7 +18,7 @@ interface Props extends ListboxInputProps {
 }
 
 const mapToOptionContent = (item: LineForComboboxFragment) => (
-  <div>
+  <div data-testid={`chooseLineDropdown::option::${item.label}`}>
     <span>{`${item.label} (${item.name_i18n.fi_FI})`}</span>
     <div className="text-sm">
       <DateRange

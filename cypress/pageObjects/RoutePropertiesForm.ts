@@ -17,8 +17,13 @@ export class RoutePropertiesForm {
   }
 
   selectLine(name: string) {
-    cy.getByTestId('routePropertiesForm:choose-line-dropdown').click();
-    cy.get('li').contains(name).click();
+    cy.getByTestId('routePropertiesForm:choose-line-dropdown')
+      .click()
+      .type(name);
+
+    cy.getByTestId(`chooseLineDropdown::option::${name}`)
+      .contains(name)
+      .click();
   }
 
   fillRouteProperties(values: {
