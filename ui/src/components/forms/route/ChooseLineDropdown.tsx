@@ -46,11 +46,9 @@ export const ChooseLineDropdown = ({
   const [query, setQuery] = useState('');
   const [showButtonContent, setShowButtonContent] = useState(true);
 
-  const { lines } = useChooseLineDropdown(query, value);
+  const { lines, selectedLine } = useChooseLineDropdown(query, value);
 
   const options = lines?.map(mapToOption) || [];
-
-  const selectedLine = lines?.find((item) => item.line_id === value);
 
   const mapToButtonContent = (displayedLine?: LineForComboboxFragment) => {
     // If no line is selected, show "Choose line"

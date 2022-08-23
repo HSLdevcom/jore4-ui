@@ -1,7 +1,10 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import { GetLinesForComboboxDocument } from '../../../generated/graphql';
+import {
+  GetLinesForComboboxDocument,
+  GetSelectedLineDetailsByIdDocument,
+} from '../../../generated/graphql';
 import { buildLocalizedString, render, sleep } from '../../../utils/test-utils';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
@@ -40,6 +43,24 @@ describe('<ChooseLineDropdown />', () => {
               validity_end: null,
             },
           ],
+        },
+      },
+    },
+    {
+      request: {
+        query: GetSelectedLineDetailsByIdDocument,
+        variables: { line_id: 'line1' },
+      },
+      result: {
+        data: {
+          route_line_by_pk: {
+            __typename: 'route_line',
+            line_id: 'line1',
+            label: '1',
+            name_i18n: buildLocalizedString('Line1 name'),
+            validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
+            validity_end: null,
+          },
         },
       },
     },

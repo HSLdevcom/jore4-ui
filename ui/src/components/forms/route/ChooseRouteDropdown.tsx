@@ -57,7 +57,7 @@ export const ChooseRouteDropdown = ({
   // Selected route details are shown on buttonContent by default
   // But we want to hide it when typing new search
   const [showButtonContent, setShowButtonContent] = useState(true);
-  const { routes } = useChooseRouteDropdown({
+  const { routes, selectedRoute } = useChooseRouteDropdown({
     query,
     observationDate: date,
     priorities,
@@ -65,8 +65,6 @@ export const ChooseRouteDropdown = ({
   });
 
   const options = routes?.map(mapToOption) || [];
-
-  const selectedRoute = routes?.find((item) => item.route_id === value);
 
   const mapToButtonContent = (displayedRoute?: RouteAllFieldsFragment) => {
     // If no route is selected, show "Choose route"

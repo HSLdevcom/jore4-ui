@@ -11737,6 +11737,7 @@ export const GetRouteDetailsByLabelWildcardDocument = gql`
         ]
         priority: { _in: $priorities }
       }
+      order_by: { label: asc }
     ) {
       ...route_all_fields
     }
