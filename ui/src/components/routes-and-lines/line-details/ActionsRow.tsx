@@ -43,7 +43,7 @@ export const ActionsRow = ({
           <input
             type="date"
             required
-            value={observationDate?.toISODate() || ''}
+            value={observationDate.toISODate()}
             onChange={(e) => onDateChange(e.target.value)}
             className="flex-1"
           />

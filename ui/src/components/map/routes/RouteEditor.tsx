@@ -13,6 +13,7 @@ import {
   useEditRouteGeometry,
   useLoader,
   useMapQueryParams,
+  useObservationDateQueryParam,
 } from '../../../hooks';
 import {
   initializeMapEditorWithRoutesAction,
@@ -21,10 +22,8 @@ import {
   resetRouteCreatingAction,
   selectDrawingMode,
   selectMapEditor,
-  selectMapObservationDate,
   selectSelectedRouteId,
   setLineInfoAction,
-  setMapObservationDateAction,
   setRouteMetadataAction,
   setSelectedRouteIdAction,
   startRouteCreatingAction,
@@ -54,10 +53,11 @@ const RouteEditorComponent = (
 
   const { editedRouteData, creatingNewRoute, initiallyDisplayedRouteIds } =
     useAppSelector(selectMapEditor);
-  const observationDate = useAppSelector(selectMapObservationDate);
   const drawingMode = useAppSelector(selectDrawingMode);
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
   const { deleteMapQueryParameters } = useMapQueryParams();
+  const { observationDate, setObservationDateToUrl } =
+    useObservationDateQueryParam();
 
   const {
     id: editedRouteId,
@@ -148,7 +148,7 @@ const RouteEditorComponent = (
     if (
       !isDateInRange(observationDate, validityStart, newRoute?.validity_end)
     ) {
-      dispatch(setMapObservationDateAction(validityStart));
+      setObservationDateToUrl(validityStart);
       showSuccessToast(t('filters.observationDateAdjusted'));
     }
 

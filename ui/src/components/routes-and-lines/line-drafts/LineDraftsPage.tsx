@@ -52,15 +52,15 @@ export const LineDraftsPage = (): JSX.Element => {
           <input
             type="date"
             required
-            value={observationDate?.toISODate() || ''}
+            value={observationDate.toISODate() || ''}
             onChange={(e) => onDateChange(e.target.value)}
             className="flex-1"
           />
         </Column>
       </Row>
 
-      {routes?.length && observationDate ? (
-        <RouteStopsTable routes={routes} observationDate={observationDate} />
+      {routes?.length ? (
+        <RouteStopsTable routes={routes} />
       ) : (
         <Row className="py-20">
           <p className="mx-auto flex text-2xl font-bold">
