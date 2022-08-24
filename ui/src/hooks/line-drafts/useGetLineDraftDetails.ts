@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon';
-import { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useObservationDateQueryParam, useUrlQuery } from '..';
+import { useObservationDateQueryParam } from '..';
 import {
   RouteRoute,
   useGetRoutesWithStopsQuery,
@@ -23,9 +22,7 @@ const isRouteActiveOnObservationDate = (
 export const useGetLineDraftDetails = () => {
   const { label } = useParams<{ label: string }>();
 
-  const { queryParams } = useUrlQuery();
-  const { observationDate, setObservationDateToUrl } =
-    useObservationDateQueryParam();
+  const { observationDate } = useObservationDateQueryParam();
 
   // Get all draft routes by line label
   const routeFilters = {
@@ -44,17 +41,6 @@ export const useGetLineDraftDetails = () => {
         isRouteActiveOnObservationDate(route, observationDate),
       )
     : [];
-
-  /** Determines and sets date to query parameters if it's not there */
-  const initializeObservationDate = useCallback(async () => {
-    if (!queryParams.observationDate) {
-      setObservationDateToUrl(DateTime.now().startOf('day'), true);
-    }
-  }, [queryParams.observationDate, setObservationDateToUrl]);
-
-  useEffect(() => {
-    initializeObservationDate();
-  }, [initializeObservationDate]);
 
   return { routes: filteredRoutes };
 };

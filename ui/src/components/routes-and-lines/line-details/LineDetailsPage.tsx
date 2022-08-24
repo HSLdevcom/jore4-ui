@@ -5,7 +5,6 @@ import {
   useAppSelector,
   useGetLineDetails,
   useMapQueryParams,
-  useObservationDateQueryParam,
 } from '../../../hooks';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import {
@@ -30,7 +29,6 @@ export const LineDetailsPage = (): JSX.Element => {
   const { addMapOpenQueryParameter } = useMapQueryParams();
 
   const { line } = useGetLineDetails();
-  const { observationDate } = useObservationDateQueryParam();
 
   const onCreateRoute = (routeLine: LineAllFieldsFragment) => {
     dispatch(resetMapEditorStateAction());
@@ -73,11 +71,8 @@ export const LineDetailsPage = (): JSX.Element => {
                 <h1 className="mt-8 text-3xl font-semibold">
                   {t('lines.routes')}
                 </h1>
-                {line.line_routes?.length > 0 && observationDate ? (
-                  <RouteStopsTable
-                    routes={line.line_routes}
-                    observationDate={observationDate}
-                  />
+                {line.line_routes?.length > 0 ? (
+                  <RouteStopsTable routes={line.line_routes} />
                 ) : (
                   <CreateRouteBox onCreateRoute={() => onCreateRoute(line)} />
                 )}
