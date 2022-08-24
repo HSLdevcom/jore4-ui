@@ -8,12 +8,12 @@ import { ServicePatternScheduledStopPoint } from '../../generated/graphql';
 import {
   FilterType,
   selectMapFilter,
-  selectMapObservationDate,
   setShowStopFilterOverlayAction,
   setStopFilterAction,
 } from '../../redux';
 import { Priority } from '../../types/Priority';
 import { useAppDispatch, useAppSelector } from '../redux';
+import { useObservationDateQueryParam } from '../urlQuery';
 
 type StopFilterFunction = (stop: ServicePatternScheduledStopPoint) => boolean;
 
@@ -105,7 +105,7 @@ export const useFilterStops = () => {
 
   const { stopFilters, showStopFilterOverlay } =
     useAppSelector(selectMapFilter);
-  const observationDate = useAppSelector(selectMapObservationDate);
+  const { observationDate } = useObservationDateQueryParam();
 
   const highestPriorityCurrentFilter = useMemo(
     () => ({

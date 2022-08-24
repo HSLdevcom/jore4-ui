@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DateTime } from 'luxon';
 
 export enum FilterType {
   ShowFutureStops = 'show-future-stops',
@@ -16,7 +15,6 @@ export interface IState {
   stopFilters: {
     [key in FilterType]: boolean;
   };
-  observationDate: string;
 }
 
 const initialState: IState = {
@@ -30,30 +28,24 @@ const initialState: IState = {
     [FilterType.ShowDraftStops]: false,
     [FilterType.ShowHighestPriorityCurrentStops]: true,
   },
-  observationDate: DateTime.now().toISO(),
 };
 
 const slice = createSlice({
   name: 'mapFilter',
   initialState,
   reducers: {
-    setShowStopFilterOverlay: (state, action: PayloadAction<boolean>) => {
+    setShowStopFilterOverlay: (
+      state: IState,
+      action: PayloadAction<boolean>,
+    ) => {
       state.showStopFilterOverlay = action.payload;
     },
     setStopFilter: (
-      state,
+      state: IState,
       action: PayloadAction<{ filterType: FilterType; isActive: boolean }>,
     ) => {
       const { filterType, isActive } = action.payload;
       state.stopFilters[filterType] = isActive;
-    },
-    setMapObservationDate: {
-      reducer: (state, action: PayloadAction<string>) => {
-        state.observationDate = action.payload;
-      },
-      prepare: (date: DateTime) => ({
-        payload: date.toISO(),
-      }),
     },
   },
 });
@@ -61,7 +53,6 @@ const slice = createSlice({
 export const {
   setShowStopFilterOverlay: setShowStopFilterOverlayAction,
   setStopFilter: setStopFilterAction,
-  setMapObservationDate: setMapObservationDateAction,
 } = slice.actions;
 
 export const mapFilterReducer = slice.reducer;

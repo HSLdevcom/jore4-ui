@@ -10,7 +10,6 @@ import { getRouteStopLabels, mapRouteResultToRoutes } from '../../graphql';
 import {
   selectHasChangesInProgress,
   selectMapEditor,
-  selectMapObservationDate,
   selectSelectedStopId,
 } from '../../redux';
 import { RequiredKeys } from '../../types';
@@ -19,6 +18,7 @@ import { mapToVariables } from '../../utils';
 import { useAppSelector } from '../redux';
 import { useExtractRouteFromFeature } from '../routes/useExtractRouteFromFeature';
 import { useGetDisplayedRoutes } from '../routes/useGetDisplayedRoutes';
+import { useObservationDateQueryParam } from '../urlQuery';
 import { filterHighestPriorityCurrentStops } from './useFilterStops';
 
 export type StopWithVehicleMode = RequiredKeys<
@@ -46,7 +46,7 @@ const extractHighestPriorityStopsFromRoute = (
 export const useMapStops = () => {
   const { editedRouteData, selectedRouteId } = useAppSelector(selectMapEditor);
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
-  const observationDate = useAppSelector(selectMapObservationDate);
+  const { observationDate } = useObservationDateQueryParam();
   const { displayedRouteIds } = useGetDisplayedRoutes();
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const { mapRouteStopsToStopLabels } = useExtractRouteFromFeature();

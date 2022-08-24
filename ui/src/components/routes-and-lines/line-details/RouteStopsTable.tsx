@@ -1,6 +1,5 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
 import orderBy from 'lodash/orderBy';
-import { DateTime } from 'luxon/src/datetime';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteRoute } from '../../../generated/graphql';
@@ -10,16 +9,10 @@ import { RouteStopsSection } from './RouteStopsSection';
 interface Props {
   className?: string;
   routes: RouteRoute[];
-  observationDate: DateTime;
   testId?: string;
 }
 
-export const RouteStopsTable = ({
-  className = '',
-  routes,
-  observationDate,
-  testId,
-}: Props) => {
+export const RouteStopsTable = ({ className = '', routes, testId }: Props) => {
   const { t } = useTranslation();
   const [showUnusedStops, setShowUnusedStops] = useState(false);
   const sortedRoutes = orderBy(routes, ['label', 'direction'], ['asc', 'desc']);
@@ -45,7 +38,6 @@ export const RouteStopsTable = ({
             <RouteStopsSection
               key={item.route_id}
               route={item}
-              observationDate={observationDate}
               showUnusedStops={showUnusedStops}
             />
           );

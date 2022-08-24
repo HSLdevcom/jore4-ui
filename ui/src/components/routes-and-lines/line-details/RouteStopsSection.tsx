@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteRoute } from '../../../generated/graphql';
@@ -9,6 +8,7 @@ import {
 import {
   filterHighestPriorityCurrentStops,
   useEditRouteJourneyPattern,
+  useObservationDateQueryParam,
 } from '../../../hooks';
 import { Priority } from '../../../types/Priority';
 import { showDangerToast, showSuccessToast } from '../../../utils';
@@ -18,14 +18,12 @@ import { RouteStopsRow } from './RouteStopsRow';
 interface Props {
   className?: string;
   route: RouteRoute;
-  observationDate: DateTime;
   showUnusedStops: boolean;
 }
 
 export const RouteStopsSection = ({
   className = '',
   route,
-  observationDate,
   showUnusedStops,
 }: Props) => {
   const [isOpen, setOpen] = useState(false);
@@ -42,13 +40,15 @@ export const RouteStopsSection = ({
     setOpen(!isOpen);
   };
 
+  const { observationDate } = useObservationDateQueryParam();
+
   const stopsAlongRoute = getEligibleStopsAlongRouteGeometry(route);
 
   // Fetch the stop with highest priority that is valid on observation date.
   // If route is draft, allow adding draft stops to it.
   const highestPriorityStopInstances = filterHighestPriorityCurrentStops(
     stopsAlongRoute,
-    observationDate || DateTime.now(),
+    observationDate,
     route.priority === Priority.Draft,
   );
 

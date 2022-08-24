@@ -1,15 +1,12 @@
 import { DateTime } from 'luxon';
-import { useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useUrlQuery } from './useUrlQuery';
 
 export const useObservationDateQueryParam = () => {
-  const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery } = useUrlQuery();
+  const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery, queryParams } =
+    useUrlQuery();
 
-  // Memoize the actual value to prevent unnecessary updates
-  const observationDate = useMemo(
-    () => getDateTimeFromUrlQuery('observationDate'),
-    [getDateTimeFromUrlQuery],
-  );
+  const [defaultDate] = useState(DateTime.now().startOf('day'));
 
   /** Sets observationDate to URL query
    * replace flag can be given to replace the earlier url query instead
@@ -23,6 +20,30 @@ export const useObservationDateQueryParam = () => {
       { replace },
     );
   };
+
+  // Memoize the actual value to prevent unnecessary updates
+  const observationDate = useMemo(() => {
+    try {
+      return getDateTimeFromUrlQuery('observationDate') || defaultDate;
+    } catch {
+      // If parsing date fails, set default date
+      setObservationDateToUrl(defaultDate, true);
+      return defaultDate;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultDate, getDateTimeFromUrlQuery]);
+
+  /** Determines and sets date to query parameters if it's not there */
+  const initializeObservationDate = useCallback(async () => {
+    if (!queryParams.observationDate || !observationDate) {
+      setObservationDateToUrl(defaultDate, true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultDate, observationDate, queryParams.observationDate]);
+
+  useEffect(() => {
+    initializeObservationDate();
+  }, [initializeObservationDate]);
 
   return { observationDate, setObservationDateToUrl };
 };
