@@ -1,11 +1,14 @@
+import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import { HELSINKI_CITY_CENTER_COORDINATES } from '../../redux';
+import { useObservationDateQueryParam } from './useObservationDateQueryParam';
 import { useUrlQuery } from './useUrlQuery';
 
 const queryParameterNameMapOpen = 'mapOpen' as const;
 const queryParameterNameLongitude = 'lng' as const;
 const queryParameterNameLatitude = 'lat' as const;
 const queryParameterNameZoom = 'z' as const;
+const queryParameterNameObservationDate = 'observationDate' as const;
 const DEFAULT_ZOOM = 13 as const;
 
 export const useMapQueryParams = () => {
@@ -17,6 +20,11 @@ export const useMapQueryParams = () => {
     setMultipleParametersToUrlQuery,
   } = useUrlQuery();
 
+  const {
+    observationDate: queryParamObservationDate,
+    setObservationDateToUrl,
+  } = useObservationDateQueryParam();
+
   const addMapOpenQueryParameter = () => {
     setBooleanToUrlQuery({ paramName: queryParameterNameMapOpen, value: true });
   };
@@ -25,11 +33,17 @@ export const useMapQueryParams = () => {
    * open the map and set the map to desired position. This function might change
    * after react-map-gl v7 is updated.
    */
-  const openMapInPosition = (
-    latitude?: number,
-    longitude?: number,
-    zoom?: number,
-  ) => {
+  const openMapInPosition = ({
+    latitude,
+    longitude,
+    zoom,
+    observationDate,
+  }: {
+    latitude?: number;
+    longitude?: number;
+    zoom?: number;
+    observationDate: DateTime;
+  }) => {
     setMultipleParametersToUrlQuery({
       parameters: [
         {
@@ -42,6 +56,10 @@ export const useMapQueryParams = () => {
         },
         { paramName: queryParameterNameZoom, value: zoom || DEFAULT_ZOOM },
         { paramName: queryParameterNameMapOpen, value: true },
+        {
+          paramName: queryParameterNameObservationDate,
+          value: observationDate,
+        },
       ],
     });
   };
@@ -69,6 +87,8 @@ export const useMapQueryParams = () => {
     zoom: getFloatParamFromUrlQuery(queryParameterNameZoom) ?? DEFAULT_ZOOM,
   };
 
+  const observationDate = queryParamObservationDate || DateTime.now();
+
   const setMapPosition = useCallback(
     (latitude: number, longitude: number, zoom: number) => {
       setMultipleParametersToUrlQuery({
@@ -91,6 +111,8 @@ export const useMapQueryParams = () => {
     isMapOpen,
     mapPosition,
     setMapPosition,
+    observationDate,
+    setObservationDate: setObservationDateToUrl,
     openMapInPosition,
     deleteMapQueryParameters,
   };

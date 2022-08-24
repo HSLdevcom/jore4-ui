@@ -4,18 +4,15 @@ import {
   useGetRouteDetailsByLabelsAsyncQuery,
 } from '../../generated/graphql';
 import { mapRouteResultToRoutes } from '../../graphql';
-import {
-  selectMapEditor,
-  selectMapObservationDate,
-  setDisplayedRouteIdsAction,
-} from '../../redux';
+import { selectMapEditor, setDisplayedRouteIdsAction } from '../../redux';
 import { useAppDispatch, useAppSelector } from '../redux';
+import { useMapQueryParams } from '../urlQuery';
 
 export const useGetDisplayedRoutes = () => {
   const [getRouteDetailsByLabels] = useGetRouteDetailsByLabelsAsyncQuery();
   const [getRouteDetailsByIds] = useGetRouteDetailsByIdsAsyncQuery();
 
-  const observationDate = useAppSelector(selectMapObservationDate);
+  const { observationDate } = useMapQueryParams();
 
   const dispatch = useAppDispatch();
   const { displayedRouteIds, initiallyDisplayedRouteIds } =

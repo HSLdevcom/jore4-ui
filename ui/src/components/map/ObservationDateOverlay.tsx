@@ -2,13 +2,9 @@ import { DateTime } from 'luxon';
 import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdLayers } from 'react-icons/md';
-import { useAppDispatch, useAppSelector, useFilterStops } from '../../hooks';
+import { useAppSelector, useFilterStops, useMapQueryParams } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
-import {
-  selectHasChangesInProgress,
-  selectMapObservationDate,
-  setMapObservationDateAction,
-} from '../../redux';
+import { selectHasChangesInProgress } from '../../redux';
 import { IconButton } from '../../uiComponents';
 import { MapOverlay } from './MapOverlay';
 
@@ -18,9 +14,8 @@ interface Props {
 
 export const ObservationDateOverlay = ({ className = '' }: Props) => {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
 
-  const observationDate = useAppSelector(selectMapObservationDate);
+  const { observationDate, setObservationDate } = useMapQueryParams();
 
   const { toggleShowFilters } = useFilterStops();
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
@@ -33,7 +28,7 @@ export const ObservationDateOverlay = ({ className = '' }: Props) => {
       return;
     }
 
-    dispatch(setMapObservationDateAction(DateTime.fromISO(value)));
+    setObservationDate(DateTime.fromISO(value));
   };
 
   return (
