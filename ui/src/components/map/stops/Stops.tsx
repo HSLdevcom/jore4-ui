@@ -35,6 +35,11 @@ import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
 
+const testIds = {
+  stopMarker: (label: string, priority: Priority) =>
+    `Map::Stops::stopMarker::${label}_${Priority[priority]}`,
+};
+
 export const Stops = React.forwardRef((props, ref) => {
   const { filter } = useFilterStops();
 
@@ -115,7 +120,7 @@ export const Stops = React.forwardRef((props, ref) => {
 
         return (
           <Stop
-            testId={`map::stopMarker::${item.label}_${Priority[item.priority]}`}
+            testId={testIds.stopMarker(item.label, item.priority)}
             key={item.scheduled_stop_point_id}
             selected={item.scheduled_stop_point_id === selectedStopId}
             longitude={point.longitude}

@@ -23,10 +23,10 @@ interface Props {
 }
 
 const testIds = {
-  drawRouteButton: 'mapFooter:drawRouteButton',
-  editRouteButton: 'mapFooter:editRouteButton',
-  saveButton: 'mapFooter:saveButton',
-  cancelButton: 'mapFooter:cancelButton',
+  drawRouteButton: 'MapFooter::drawRouteButton',
+  editRouteButton: 'MapFooter::editRouteButton',
+  saveButton: 'MapFooter::saveButton',
+  cancelButton: 'MapFooter::cancelButton',
 };
 
 export const MapFooter: React.FC<Props> = ({

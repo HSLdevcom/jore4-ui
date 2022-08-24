@@ -4,6 +4,10 @@ import { useAppDispatch } from '../../../hooks';
 import { openViaModalAction } from '../../../redux';
 import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
 
+const testIds = {
+  menu: 'StopActionsDrowdown::menu',
+};
+
 interface Props {
   stop: ServicePatternScheduledStopPoint;
   routeId: UUID;
@@ -47,10 +51,7 @@ export const StopActionsDropdown = ({
   };
 
   return (
-    <SimpleDropdownMenu
-      alignItems={AlignDirection.Left}
-      testId="stop-row-action-menu"
-    >
+    <SimpleDropdownMenu alignItems={AlignDirection.Left} testId={testIds.menu}>
       {stopBelongsToJourneyPattern ? (
         <button type="button" onClick={() => onDeleteFromRoute(stop.label)}>
           {t('stops.removeFromRoute')}

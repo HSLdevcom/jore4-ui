@@ -20,8 +20,8 @@ import {
 export type FormState = LinePropertiesFormState & ConfirmSaveFormState;
 
 const testIds = {
-  saveButton: 'lineForm:saveButton',
-  cancelButton: 'lineForm:cancelButton',
+  saveButton: 'LineForm::saveButton',
+  cancelButton: 'LineForm::cancelButton',
 };
 
 interface Props {

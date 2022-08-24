@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { DropdownMenu } from './DropdownMenu';
 
 export const testIds = {
-  toggleDropdown: 'languageDropdown:toggleDropdown',
-  toggleLanguage: 'languageDropdown:toggleLanguage',
+  toggleDropdown: 'LanguageDropdown::toggleDropdown',
+  toggleLanguage: 'LanguageDropdown::toggleLanguage',
 };
 
 interface Props {

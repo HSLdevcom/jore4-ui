@@ -1,21 +1,21 @@
 export class ConfirmSaveForm {
   setAsStandard() {
-    return cy.getByTestId('confirmSaveForm:standardPriorityButton').click();
+    return cy.getByTestId('ConfirmSaveForm::standardPriorityButton').click();
   }
 
   setAsDraft() {
-    return cy.getByTestId('confirmSaveForm:draftPriorityButton').click();
+    return cy.getByTestId('ConfirmSaveForm::draftPriorityButton').click();
   }
 
   setAsTemporary() {
-    return cy.getByTestId('confirmSaveForm:temporaryPriorityButton').click();
+    return cy.getByTestId('ConfirmSaveForm::temporaryPriorityButton').click();
   }
 
   setStartDate(isoDate: string) {
     // This invoke is a workaround to
     // prevent map from zooming out when typing '-' value to the date input
     return cy
-      .getByTestId('confirmSaveForm:startDateInput')
+      .getByTestId('ConfirmSaveForm::startDateInput')
       .invoke('removeAttr', 'type')
       .type(isoDate);
   }
@@ -24,13 +24,13 @@ export class ConfirmSaveForm {
     // This invoke is a workaround to
     // prevent map from zooming out when typing '-' value to the date input
     return cy
-      .getByTestId('confirmSaveForm:endDateInput')
+      .getByTestId('ConfirmSaveForm::endDateInput')
       .invoke('removeAttr', 'type')
       .type(isoDate);
   }
 
   getIndefiniteCheckbox() {
-    return cy.getByTestId('confirmSaveForm:indefiniteCheckbox');
+    return cy.getByTestId('ConfirmSaveForm::indefiniteCheckbox');
   }
 
   setAsIndefinite(indefinite = true) {

@@ -18,6 +18,15 @@ import {
 } from '../../../uiComponents';
 import { DirectionBadge } from './DirectionBadge';
 
+const testIds = {
+  label: 'RouteStopsHeaderRow::label',
+  name: 'RouteStopsHeaderRow::name',
+  validityPeriod: 'RouteStopsHeaderRow::validityPeriod',
+  lastEdited: 'RouteStopsHeaderRow::lastEdited',
+  showRouteButton: 'RouteStopsHeaderRow::showRouteButton',
+  toggleAccordion: 'RouteStopsHeaderRow::toggleAccordion',
+};
+
 interface Props {
   className?: string;
   route: RouteRoute;
@@ -42,14 +51,14 @@ export const RouteStopsHeaderRow = ({
       <td className={`${alertStyle.listItemBorder || ''} p-4 pl-12`}>
         <Row className="items-center">
           <DirectionBadge direction={route.direction as RouteDirectionEnum} />
-          <span className="text-2xl font-bold" data-testid="route-row-label">
+          <span className="text-2xl font-bold" data-testid={testIds.label}>
             {route.label}
           </span>
         </Row>
       </td>
       <td className="py-4">
         <Row className="items-center">
-          <span className="text-2xl" data-testid="route-row-name">
+          <span className="text-2xl" data-testid={testIds.name}>
             {route.name_i18n?.fi_FI}
           </span>
           <EditButton
@@ -58,7 +67,7 @@ export const RouteStopsHeaderRow = ({
           />
         </Row>
       </td>
-      <td className="p-4" data-testid="route-row-validity-period">
+      <td className="p-4" data-testid={testIds.validityPeriod}>
         <Row className="items-center justify-end">
           {t('validity.validDuring', {
             startDate: mapToShortDate(route.validity_start || MIN_DATE),
@@ -73,7 +82,7 @@ export const RouteStopsHeaderRow = ({
       </td>
       <td className="p-4">
         <Row className="items-center justify-end">
-          <span data-testid="route-row-last-edited">
+          <span data-testid={testIds.lastEdited}>
             !{mapToShortDateTime(DateTime.now())}
           </span>
           <MdOutlineHistory className="ml-2 inline text-xl text-tweaked-brand" />
@@ -92,7 +101,7 @@ export const RouteStopsHeaderRow = ({
           disabled={
             !route.route_shape /* some routes imported from jore3 are missing the geometry */
           }
-          testId="RouteStopsHeaderRow::showRoute"
+          testId={testIds.showRouteButton}
         />
       </td>
       <td className="w-20">
@@ -101,7 +110,7 @@ export const RouteStopsHeaderRow = ({
           iconClassName="text-5xl"
           isOpen={isOpen}
           onToggle={onToggle}
-          testId="RouteStopsHeaderRow::toggleAccordion"
+          testId={testIds.toggleAccordion}
         />
       </td>
     </tr>

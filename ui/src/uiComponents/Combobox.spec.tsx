@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { render } from '../utils/test-utils';
-import { Combobox } from './Combobox';
+import { Combobox, testIds } from './Combobox';
 
 describe('<Combobox />', () => {
   const testId = 'combobox1';
@@ -30,7 +30,7 @@ describe('<Combobox />', () => {
     expect(screen.queryByText('label1')).toBeNull();
 
     // click dropdown to open it:
-    const openDropdownButton = screen.getByTestId(`${testId}-button`);
+    const openDropdownButton = screen.getByTestId(testIds.button(testId));
     fireEvent.click(openDropdownButton);
 
     // dropdown is open:
@@ -49,7 +49,7 @@ describe('<Combobox />', () => {
       />,
     );
 
-    const input = screen.getByTestId(`${testId}-input`);
+    const input = screen.getByTestId(testIds.input(testId));
     fireEvent.change(input, { target: { value: 'test' } });
     expect((input as HTMLInputElement).value).toBe('test');
   });
