@@ -4,18 +4,18 @@ export class MapFooter {
   toast = new Toast();
 
   createRoute() {
-    return cy.getByTestId('mapFooter:drawRouteButton').click();
+    return cy.getByTestId('MapFooter::drawRouteButton').click();
   }
 
   editRoute() {
-    return cy.getByTestId('mapFooter:editRouteButton').click();
+    return cy.getByTestId('MapFooter::editRouteButton').click();
   }
 
   save() {
-    return cy.getByTestId('mapFooter:saveButton').click();
+    return cy.getByTestId('MapFooter::saveButton').click();
   }
 
   cancel() {
-    return cy.getByTestId('mapFooter:cancelButton').click();
+    return cy.getByTestId('MapFooter::cancelButton').click();
   }
 }

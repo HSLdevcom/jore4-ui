@@ -1,10 +1,10 @@
 export class Navbar {
   getMainPageLink() {
-    return cy.getByTestId('routes.root');
+    return cy.getByTestId('NavLinks::routes.root');
   }
 
   getLanguageDropdown() {
-    return cy.getByTestId('languageDropdown:toggleDropdown');
+    return cy.getByTestId('LanguageDropdown::toggleDropdown');
   }
 
   toggleLanguage() {
@@ -12,7 +12,7 @@ export class Navbar {
     // dropdown was when this is called
     return this.getLanguageDropdown()
       .click()
-      .getByTestId('languageDropdown:toggleLanguage')
+      .getByTestId('LanguageDropdown::toggleLanguage')
       .click();
   }
 }

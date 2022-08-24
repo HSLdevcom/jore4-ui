@@ -27,10 +27,10 @@ export interface RouteFormProps {
 }
 
 const testIds = {
-  directionDropdown: 'routePropertiesForm:direction-dropdown',
-  lineChoiceDropdown: 'routePropertiesForm:choose-line-dropdown',
-  label: 'routePropertiesForm:label',
-  finnishName: 'routePropertiesForm:finnishName',
+  directionDropdown: 'RoutePropertiesFormComponent::directionDropdown',
+  lineChoiceDropdown: 'RoutePropertiesFormComponent::chooseLineDropdown',
+  label: 'RoutePropertiesFormComponent::label',
+  finnishName: 'RoutePropertiesFormComponent::finnishName',
 };
 
 const RoutePropertiesFormComponent = (

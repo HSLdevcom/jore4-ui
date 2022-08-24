@@ -3,16 +3,20 @@ import { FormColumn, FormRow, InputField } from '../common';
 import { RouteFormState } from './RoutePropertiesForm.types';
 
 const testIds = {
-  originFinnishNameInput: 'terminusNamesForm:origin:finnishNameInput',
-  originFinnishShortNameInput: 'terminusNamesForm:origin:finnishShortNameInput',
-  originSwedishNameInput: 'terminusNamesForm:origin:swedishNameInput',
-  originSwedishShortNameInput: 'terminusNamesForm:origin:swedishShortNameInput',
-  destinationFinnishNameInput: 'terminusNamesForm:destination:finnishNameInput',
+  originFinnishNameInput: 'TerminusNameInputs::origin::finnishNameInput',
+  originFinnishShortNameInput:
+    'TerminusNameInputs::origin::finnishShortNameInput',
+  originSwedishNameInput: 'TerminusNameInputs::origin::swedishNameInput',
+  originSwedishShortNameInput:
+    'TerminusNameInputs::origin::swedishShortNameInput',
+  destinationFinnishNameInput:
+    'TerminusNameInputs::destination::finnishNameInput',
   destinationFinnishShortNameInput:
-    'terminusNamesForm:destination:finnishShortNameInput',
-  destinationSwedishNameInput: 'terminusNamesForm:destination:swedishNameInput',
+    'TerminusNameInputs::destination::finnishShortNameInput',
+  destinationSwedishNameInput:
+    'TerminusNameInputs::destination::swedishNameInput',
   destinationSwedishShortNameInput:
-    'terminusNamesForm:destination:swedishShortNameInput',
+    'TerminusNameInputs::destination::swedishShortNameInput',
 };
 
 interface Props {

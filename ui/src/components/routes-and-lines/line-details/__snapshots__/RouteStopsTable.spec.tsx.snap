@@ -47,7 +47,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
                 class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-white"
               >
                 <span
-                  data-testid="direction-value"
+                  data-testid="DirectionBadge::value"
                 >
                   1
                 </span>
@@ -57,7 +57,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               </span>
               <span
                 class="text-2xl font-bold"
-                data-testid="route-row-label"
+                data-testid="RouteStopsHeaderRow::label"
               >
                 65 itään
               </span>
@@ -71,7 +71,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
             >
               <span
                 class="text-2xl"
-                data-testid="route-row-name"
+                data-testid="RouteStopsHeaderRow::name"
               >
                 Reitti A - B FI
               </span>
@@ -106,7 +106,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
           </td>
           <td
             class="p-4"
-            data-testid="route-row-validity-period"
+            data-testid="RouteStopsHeaderRow::validityPeriod"
           >
             <div
               class="flex flex-row items-center justify-end"
@@ -121,7 +121,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               class="flex flex-row items-center justify-end"
             >
               <span
-                data-testid="route-row-last-edited"
+                data-testid="RouteStopsHeaderRow::lastEdited"
               >
                 !14.2.2017 klo 14.51
               </span>
@@ -150,7 +150,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
           >
             <button
               class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-              data-testid="RouteStopsHeaderRow::showRoute"
+              data-testid="RouteStopsHeaderRow::showRouteButton"
               type="button"
             >
               <svg
@@ -255,7 +255,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-white"
               >
                 <span
-                  data-testid="direction-value"
+                  data-testid="DirectionBadge::value"
                 >
                   1
                 </span>
@@ -265,7 +265,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               </span>
               <span
                 class="text-2xl font-bold"
-                data-testid="route-row-label"
+                data-testid="RouteStopsHeaderRow::label"
               >
                 65 itään
               </span>
@@ -279,7 +279,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             >
               <span
                 class="text-2xl"
-                data-testid="route-row-name"
+                data-testid="RouteStopsHeaderRow::name"
               >
                 Reitti A - B FI
               </span>
@@ -314,7 +314,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
           <td
             class="p-4"
-            data-testid="route-row-validity-period"
+            data-testid="RouteStopsHeaderRow::validityPeriod"
           >
             <div
               class="flex flex-row items-center justify-end"
@@ -329,7 +329,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               class="flex flex-row items-center justify-end"
             >
               <span
-                data-testid="route-row-last-edited"
+                data-testid="RouteStopsHeaderRow::lastEdited"
               >
                 !14.2.2017 klo 14.51
               </span>
@@ -358,7 +358,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <button
               class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-              data-testid="RouteStopsHeaderRow::showRoute"
+              data-testid="RouteStopsHeaderRow::showRouteButton"
               type="button"
             >
               <svg
@@ -415,13 +415,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
-            data-testid="stop-row-label"
+            data-testid="RouteStopsRow::label"
           >
             pysäkki A
           </td>
           <td
             class="w-auto"
-            data-testid="stop-row-name"
+            data-testid="RouteStopsRow::name"
           >
             <div
               class="flex flex-row items-center"
@@ -433,7 +433,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
           <td
             class="p-4"
-            data-testid="stop-row-validity-period"
+            data-testid="RouteStopsRow::validityPeriod"
           >
             <div
               class="flex flex-row items-center justify-end"
@@ -448,7 +448,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               class="flex flex-row items-center justify-end"
             >
               <span
-                data-testid="stop-row-last-edited"
+                data-testid="RouteStopsRow::lastEdited"
               >
                 !14.2.2017 klo 14.51
               </span>
@@ -483,7 +483,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 aria-expanded="false"
                 aria-haspopup="true"
                 class="mx-auto flex items-center px-3 focus:outline-none"
-                data-testid="stop-row-action-menu"
+                data-testid="StopActionsDrowdown::menu"
                 id="headlessui-menu-button-3"
                 type="button"
               >
@@ -514,13 +514,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
-            data-testid="stop-row-label"
+            data-testid="RouteStopsRow::label"
           >
             pysäkki C
           </td>
           <td
             class="w-auto"
-            data-testid="stop-row-name"
+            data-testid="RouteStopsRow::name"
           >
             <div
               class="flex flex-row items-center"
@@ -532,7 +532,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
           <td
             class="p-4"
-            data-testid="stop-row-validity-period"
+            data-testid="RouteStopsRow::validityPeriod"
           >
             <div
               class="flex flex-row items-center justify-end"
@@ -547,7 +547,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               class="flex flex-row items-center justify-end"
             >
               <span
-                data-testid="stop-row-last-edited"
+                data-testid="RouteStopsRow::lastEdited"
               >
                 !14.2.2017 klo 14.51
               </span>
@@ -582,7 +582,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 aria-expanded="false"
                 aria-haspopup="true"
                 class="mx-auto flex items-center px-3 focus:outline-none"
-                data-testid="stop-row-action-menu"
+                data-testid="StopActionsDrowdown::menu"
                 id="headlessui-menu-button-4"
                 type="button"
               >
@@ -661,7 +661,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-white"
               >
                 <span
-                  data-testid="direction-value"
+                  data-testid="DirectionBadge::value"
                 >
                   1
                 </span>
@@ -671,7 +671,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               </span>
               <span
                 class="text-2xl font-bold"
-                data-testid="route-row-label"
+                data-testid="RouteStopsHeaderRow::label"
               >
                 65 itään
               </span>
@@ -685,7 +685,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             >
               <span
                 class="text-2xl"
-                data-testid="route-row-name"
+                data-testid="RouteStopsHeaderRow::name"
               >
                 Reitti A - B FI
               </span>
@@ -720,7 +720,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           </td>
           <td
             class="p-4"
-            data-testid="route-row-validity-period"
+            data-testid="RouteStopsHeaderRow::validityPeriod"
           >
             <div
               class="flex flex-row items-center justify-end"
@@ -735,7 +735,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               class="flex flex-row items-center justify-end"
             >
               <span
-                data-testid="route-row-last-edited"
+                data-testid="RouteStopsHeaderRow::lastEdited"
               >
                 !14.2.2017 klo 14.51
               </span>
@@ -764,7 +764,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <button
               class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-              data-testid="RouteStopsHeaderRow::showRoute"
+              data-testid="RouteStopsHeaderRow::showRouteButton"
               type="button"
             >
               <svg
@@ -821,13 +821,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
-            data-testid="stop-row-label"
+            data-testid="RouteStopsRow::label"
           >
             pysäkki A
           </td>
           <td
             class="w-auto"
-            data-testid="stop-row-name"
+            data-testid="RouteStopsRow::name"
           >
             <div
               class="flex flex-row items-center"
@@ -839,7 +839,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           </td>
           <td
             class="p-4"
-            data-testid="stop-row-validity-period"
+            data-testid="RouteStopsRow::validityPeriod"
           >
             <div
               class="flex flex-row items-center justify-end"
@@ -854,7 +854,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               class="flex flex-row items-center justify-end"
             >
               <span
-                data-testid="stop-row-last-edited"
+                data-testid="RouteStopsRow::lastEdited"
               >
                 !14.2.2017 klo 14.51
               </span>
@@ -889,7 +889,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 aria-expanded="false"
                 aria-haspopup="true"
                 class="mx-auto flex items-center px-3 focus:outline-none"
-                data-testid="stop-row-action-menu"
+                data-testid="StopActionsDrowdown::menu"
                 id="headlessui-menu-button-3"
                 type="button"
               >
@@ -920,13 +920,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
-            data-testid="stop-row-label"
+            data-testid="RouteStopsRow::label"
           >
             pysäkki B
           </td>
           <td
             class="w-auto"
-            data-testid="stop-row-name"
+            data-testid="RouteStopsRow::name"
           >
             <div
               class="flex flex-row items-center"
@@ -938,7 +938,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           </td>
           <td
             class="p-4"
-            data-testid="stop-row-validity-period"
+            data-testid="RouteStopsRow::validityPeriod"
           >
             <div
               class="flex flex-row items-center justify-end"
@@ -953,7 +953,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               class="flex flex-row items-center justify-end"
             >
               <span
-                data-testid="stop-row-last-edited"
+                data-testid="RouteStopsRow::lastEdited"
               >
                 !14.2.2017 klo 14.51
               </span>
@@ -988,7 +988,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 aria-expanded="false"
                 aria-haspopup="true"
                 class="mx-auto flex items-center px-3 focus:outline-none"
-                data-testid="stop-row-action-menu"
+                data-testid="StopActionsDrowdown::menu"
                 id="headlessui-menu-button-5"
                 type="button"
               >
@@ -1019,13 +1019,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
-            data-testid="stop-row-label"
+            data-testid="RouteStopsRow::label"
           >
             pysäkki C
           </td>
           <td
             class="w-auto"
-            data-testid="stop-row-name"
+            data-testid="RouteStopsRow::name"
           >
             <div
               class="flex flex-row items-center"
@@ -1037,7 +1037,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           </td>
           <td
             class="p-4"
-            data-testid="stop-row-validity-period"
+            data-testid="RouteStopsRow::validityPeriod"
           >
             <div
               class="flex flex-row items-center justify-end"
@@ -1052,7 +1052,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               class="flex flex-row items-center justify-end"
             >
               <span
-                data-testid="stop-row-last-edited"
+                data-testid="RouteStopsRow::lastEdited"
               >
                 !14.2.2017 klo 14.51
               </span>
@@ -1087,7 +1087,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 aria-expanded="false"
                 aria-haspopup="true"
                 class="mx-auto flex items-center px-3 focus:outline-none"
-                data-testid="stop-row-action-menu"
+                data-testid="StopActionsDrowdown::menu"
                 id="headlessui-menu-button-6"
                 type="button"
               >

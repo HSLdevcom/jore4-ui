@@ -47,9 +47,9 @@ const schema = z
   .merge(confirmSaveFormSchema);
 
 const testIds = {
-  label: 'stopForm:label',
-  latitude: 'stopForm:latitude',
-  longitude: 'stopForm:longitude',
+  label: 'StopFormComponent::label',
+  latitude: 'StopFormComponent::latitude',
+  longitude: 'StopFormComponent::longitude',
 };
 
 export type FormState = z.infer<typeof schema> & ConfirmSaveFormState;

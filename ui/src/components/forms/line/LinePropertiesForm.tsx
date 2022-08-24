@@ -33,15 +33,15 @@ export type FormState = z.infer<typeof schema>;
 
 const testIds = {
   form: 'LinePropertiesForm',
-  label: 'LinePropertiesForm:label',
-  showNameVersionsButton: 'LinePropertiesForm:showNameVersionsButton',
-  finnishName: 'LinePropertiesForm:finnishName',
-  swedishName: 'LinePropertiesForm:swedishName',
-  finnishShortName: 'LinePropertiesForm:finnishShortName',
-  swedishShortName: 'LinePropertiesForm:swedishShortName',
-  transportTargetDropdown: 'transport-target-input',
-  vehicleModeDropdown: 'primary-vehicle-mode-input',
-  lineTypeDropdown: 'type-of-line-input',
+  label: 'LinePropertiesForm::label',
+  showNameVersionsButton: 'LinePropertiesForm::showNameVersionsButton',
+  finnishName: 'LinePropertiesForm::finnishName',
+  swedishName: 'LinePropertiesForm::swedishName',
+  finnishShortName: 'LinePropertiesForm::finnishShortName',
+  swedishShortName: 'LinePropertiesForm::swedishShortName',
+  transportTargetDropdown: 'LinePropertiesForm::transportTargetInput',
+  vehicleModeDropdown: 'LinePropertiesForm::primaryVehicleModeInput',
+  lineTypeDropdown: 'LinePropertiesForm::typeOfLineInput',
 };
 interface Props {
   className?: string;

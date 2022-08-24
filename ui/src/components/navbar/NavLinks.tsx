@@ -1,7 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { routeDetails } from '../../router/routeDetails';
+
+const testIds = {
+  navLink: (translationKey?: string) => `NavLinks::${translationKey}`,
+};
 
 export const NavLinks: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -15,7 +19,7 @@ export const NavLinks: FunctionComponent = () => {
               to={getLink()}
               className="mx-5 border-b-4 border-transparent py-5 text-white hover:border-white"
               activeClassName="!border-white"
-              data-testid={translationKey}
+              data-testid={testIds.navLink(translationKey)}
               exact
             >
               {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}

@@ -10,9 +10,9 @@ interface Props {
 }
 
 export const testIds = {
-  toggleDropdown: 'userNavMenu:toggleDropdown',
-  loginButton: 'userNavMenu:loginButton',
-  logoutButton: 'userNavMenu:logoutButton',
+  toggleDropdown: 'UserNavMenu::toggleDropdown',
+  loginButton: 'UserNavMenu::loginButton',
+  logoutButton: 'UserNavMenu::logoutButton',
 };
 
 export const UserNavMenu = ({ className = '' }: Props): JSX.Element => {

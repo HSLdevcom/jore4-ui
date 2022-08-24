@@ -236,6 +236,48 @@ export * from './EditButton';
 export * from './SimpleDropdownMenu';
 ```
 
+### Test ids
+
+Example:
+`ConfirmSaveForm::startDateInput`
+When giving test ids to elements, follow these guidelines.
+
+- Use capital letters with component names eg. `ConfirmSaveForm`
+  - Otherwise use camelCase eg. `startdateInput`
+- Use double colon `::` separating the different parts of the test id eg. `ConfirmSaveForm::startDateInput`
+
+Also use a `const testIds = {...}` object on top of the file to define the test ids instead of defining them inline.
+
+**Bad**
+
+```
+export const ConfirmSaveForm = (...):  {
+  ...
+  <
+    ...
+    testId="ConfirmSaveForm::startDateInput"
+    ...
+  />
+}
+```
+
+**Good**
+
+```
+const testIds = {
+  startDateInput: 'ConfirmSaveForm::startDateInput'
+}
+
+export const ConfirmSaveForm = (...):  {
+  ...
+  <
+    ...
+    testId={testIds.startDateInput}
+    ...
+  />
+}
+```
+
 ## Yarn workspaces / monorepo structure
 
 This repository has currently yarn workspaces in following folders:

@@ -19,7 +19,7 @@ import { mapToVariables } from '../../utils';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
 
 const testIds = {
-  mapOverlayHeader: 'RouteStopsOverlay:mapOverlayHeader',
+  mapOverlayHeader: 'RouteStopsOverlay::mapOverlayHeader',
 };
 
 interface Props {

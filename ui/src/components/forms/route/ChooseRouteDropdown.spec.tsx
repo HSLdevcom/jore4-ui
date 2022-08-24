@@ -22,8 +22,8 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
   const onBlur = () => {};
   const value = '';
   const testId = 'ChooseRouteDropdown1';
-  const buttonTestId = `${testId}-button`;
-  const inputTestId = `${testId}-input`;
+  const buttonTestId = `${testId}::button`;
+  const inputTestId = `${testId}::input`;
 
   const mocks: MockedResponse<GetRouteDetailsByLabelWildcardQuery>[] = [
     {

@@ -7,6 +7,10 @@ import { SimpleButton } from '../../../uiComponents';
 import { SearchContainer } from '../search/conditions/SearchContainer';
 import { RoutesAndLinesLists } from './RoutesAndLinesLists';
 
+const testIds = {
+  createLineButton: 'RoutesAndLinesPage::createLineButton',
+};
+
 export const RoutesAndLinesPage = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -27,7 +31,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
         </SimpleButton>
         <SimpleButton
           id="create-line-button"
-          data-testid="create-line-button"
+          data-testid={testIds.createLineButton}
           containerClassName="ml-3"
           href={createLineReactRoute.getLink()}
         >

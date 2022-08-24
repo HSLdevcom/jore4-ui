@@ -11,6 +11,16 @@ import { Path, routeDetails } from '../../../router/routeDetails';
 import { EditButton } from '../../../uiComponents';
 import { FieldValue } from './FieldValue';
 
+const testIds = {
+  editLineButton: 'LineDetailsPage::AdditionalInformation::editLineButton',
+  name: 'LineDetailsPage::AdditionalInformation::name',
+  primaryVehicleMode:
+    'LineDetailsPage::AdditionalInformation::primaryVehicleMode',
+  label: 'LineDetailsPage::AdditionalInformation::label',
+  typeOfLine: 'LineDetailsPage::AdditionalInformation::typeOfLine',
+  transportTarget: 'LineDetailsPage::AdditionalInformation::transportTarget',
+};
+
 interface Props {
   className?: string;
   line: RouteLine;
@@ -27,7 +37,7 @@ export const AdditionalInformation: React.FC<Props> = ({
         {t('lines.additionalInformation')}
         <EditButton
           href={routeDetails[Path.editLine].getLink(line.line_id)}
-          testId="edit-line-button"
+          testId={testIds.editLineButton}
         />
       </Row>
       <Row className="mb-5">
@@ -35,13 +45,13 @@ export const AdditionalInformation: React.FC<Props> = ({
           className="w-1/2"
           fieldName={t('lines.linesName')}
           value={line.name_i18n.fi_FI}
-          testId="line-details-name"
+          testId={testIds.name}
         />
         <FieldValue
           className="w-1/2"
           fieldName={t('lines.primaryVehicleMode')}
           value={mapVehicleModeToUiName(line.primary_vehicle_mode)}
-          testId="line-details-primary-vehicle-mode"
+          testId={testIds.primaryVehicleMode}
         />
       </Row>
       <Row className="mb-5">
@@ -49,19 +59,19 @@ export const AdditionalInformation: React.FC<Props> = ({
           className="w-1/4"
           fieldName={t('lines.label')}
           value={line.label}
-          testId="line-details-label"
+          testId={testIds.label}
         />
         <FieldValue
           className="w-1/4"
           fieldName={t('lines.typeOfLine')}
           value={mapLineTypeToUiName(line.type_of_line)}
-          testId="line-details-type-of-line"
+          testId={testIds.typeOfLine}
         />
         <FieldValue
           className="w-1/2"
           fieldName={t('lines.transportTarget')}
           value={mapTransportTargetToUiName(line.transport_target)}
-          testId="line-details-transport-target"
+          testId={testIds.transportTarget}
         />
       </Row>
     </Column>

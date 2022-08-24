@@ -25,12 +25,12 @@ export const schema = z.object({
 export type FormState = z.infer<typeof schema>;
 
 const testIds = {
-  standardPriorityButton: 'confirmSaveForm:standardPriorityButton',
-  draftPriorityButton: 'confirmSaveForm:draftPriorityButton',
-  temporaryPriorityButton: 'confirmSaveForm:temporaryPriorityButton',
-  startDateInput: 'confirmSaveForm:startDateInput',
-  endDateInput: 'confirmSaveForm:endDateInput',
-  indefiniteCheckbox: 'confirmSaveForm:indefiniteCheckbox',
+  standardPriorityButton: 'ConfirmSaveForm::standardPriorityButton',
+  draftPriorityButton: 'ConfirmSaveForm::draftPriorityButton',
+  temporaryPriorityButton: 'ConfirmSaveForm::temporaryPriorityButton',
+  startDateInput: 'ConfirmSaveForm::startDateInput',
+  endDateInput: 'ConfirmSaveForm::endDateInput',
+  indefiniteCheckbox: 'ConfirmSaveForm::indefiniteCheckbox',
 };
 
 interface Props {

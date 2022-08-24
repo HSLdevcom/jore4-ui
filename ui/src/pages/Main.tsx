@@ -5,13 +5,17 @@ import { useAppSelector } from '../hooks';
 import { selectUser } from '../redux';
 import { SimpleButton } from '../uiComponents';
 
+const testIds = {
+  main: 'Main',
+};
+
 export const Main: React.FC = () => {
   const { userInfo } = useAppSelector(selectUser);
   const { t } = useTranslation();
 
   return (
     <div
-      data-testid="main"
+      data-testid={testIds.main}
       className="min-h-screen bg-brand bg-opacity-50 p-20"
     >
       <div className="mx-auto w-4/5 rounded-lg bg-white p-10 leading-8 shadow-2xl">

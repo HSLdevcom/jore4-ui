@@ -26,10 +26,10 @@ interface Props {
 }
 
 const testIds = {
-  finnishName: 'ViaForm:finnishName',
-  swedishName: 'ViaForm:swedishName',
-  finnishShortName: 'ViaForm:finnishShortName',
-  swedishShortName: 'ViaForm:swedishShortName',
+  finnishName: 'ViaForm::finnishName',
+  swedishName: 'ViaForm::swedishName',
+  finnishShortName: 'ViaForm::finnishShortName',
+  swedishShortName: 'ViaForm::swedishShortName',
 };
 
 export const mapStopJourneyPatternToFormState = (

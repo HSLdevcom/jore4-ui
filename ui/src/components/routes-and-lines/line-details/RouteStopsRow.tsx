@@ -12,6 +12,13 @@ import {
 } from '../../../time';
 import { StopActionsDropdown } from './StopActionsDropdown';
 
+const testIds = {
+  label: 'RouteStopsRow::label',
+  name: 'RouteStopsRow::name',
+  validityPeriod: 'RouteStopsRow::validityPeriod',
+  lastEdited: 'RouteStopsRow::lastEdited',
+};
+
 interface Props {
   className?: string;
   stop: ServicePatternScheduledStopPoint;
@@ -52,11 +59,11 @@ export const RouteStopsRow = ({
     >
       <td
         className={`${alertStyle.listItemBorder || ''} p-4 pl-16 text-3xl`}
-        data-testid="stop-row-label"
+        data-testid={testIds.label}
       >
         {stop.label}
       </td>
-      <td className="w-auto" data-testid="stop-row-name">
+      <td className="w-auto" data-testid={testIds.name}>
         <Row className="items-center">
           <span>!Pysäkki X</span>
           <Visible visible={isViaPoint}>
@@ -64,7 +71,7 @@ export const RouteStopsRow = ({
           </Visible>
         </Row>
       </td>
-      <td className="p-4" data-testid="stop-row-validity-period">
+      <td className="p-4" data-testid={testIds.validityPeriod}>
         <Row className="items-center justify-end">
           {stopBelongsToJourneyPattern
             ? t('validity.validDuring', {
@@ -79,7 +86,7 @@ export const RouteStopsRow = ({
       </td>
       <td className="p-4">
         <Row className="items-center justify-end">
-          <span data-testid="stop-row-last-edited">
+          <span data-testid={testIds.lastEdited}>
             !{mapToShortDateTime(DateTime.now())}
           </span>
           <MdOutlineHistory className="ml-2 inline text-xl text-tweaked-brand" />

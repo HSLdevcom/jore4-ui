@@ -7,38 +7,38 @@ export interface TerminusValues {
 
 export class TerminusNameInputs {
   getTerminusOriginFinnishNameInput() {
-    return cy.getByTestId('terminusNamesForm:origin:finnishNameInput');
+    return cy.getByTestId('TerminusNameInputs::origin::finnishNameInput');
   }
 
   getTerminusOriginSwedishNameInput() {
-    return cy.getByTestId('terminusNamesForm:origin:swedishNameInput');
+    return cy.getByTestId('TerminusNameInputs::origin::swedishNameInput');
   }
 
   getTerminusOriginFinnishShortNameInput() {
-    return cy.getByTestId('terminusNamesForm:origin:finnishShortNameInput');
+    return cy.getByTestId('TerminusNameInputs::origin::finnishShortNameInput');
   }
 
   getTerminusOriginSwedishShortNameInput() {
-    return cy.getByTestId('terminusNamesForm:origin:swedishShortNameInput');
+    return cy.getByTestId('TerminusNameInputs::origin::swedishShortNameInput');
   }
 
   getTerminusDestinationFinnishNameInput() {
-    return cy.getByTestId('terminusNamesForm:destination:finnishNameInput');
+    return cy.getByTestId('TerminusNameInputs::destination::finnishNameInput');
   }
 
   getTerminusDestinationSwedishNameInput() {
-    return cy.getByTestId('terminusNamesForm:destination:swedishNameInput');
+    return cy.getByTestId('TerminusNameInputs::destination::swedishNameInput');
   }
 
   getTerminusDestinationFinnishShortNameInput() {
     return cy.getByTestId(
-      'terminusNamesForm:destination:finnishShortNameInput',
+      'TerminusNameInputs::destination::finnishShortNameInput',
     );
   }
 
   getTerminusDestinationSwedishShortNameInput() {
     return cy.getByTestId(
-      'terminusNamesForm:destination:swedishShortNameInput',
+      'TerminusNameInputs::destination::swedishShortNameInput',
     );
   }
 

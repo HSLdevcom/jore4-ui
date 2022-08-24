@@ -5,6 +5,10 @@ import { Row } from '../../../layoutComponents';
 import { DateLike, mapToShortDate } from '../../../time';
 import { Priority } from '../../../types/Priority';
 
+const testIds = {
+  validityPeriod: 'LineValidityPeriod::validityPeriod',
+};
+
 interface Props {
   className?: string;
   line: RouteLine;
@@ -35,7 +39,7 @@ export const LineValidityPeriod: React.FC<Props> = ({
           <span className="mx-1">|</span>
         </>
       )}
-      <span data-testid="line-header-validity-period">
+      <span data-testid={testIds.validityPeriod}>
         {buildValidityPeriod(line.validity_start, line.validity_end)}
       </span>
     </Row>

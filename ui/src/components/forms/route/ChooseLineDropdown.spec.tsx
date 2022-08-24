@@ -15,7 +15,7 @@ describe('<ChooseLineDropdown />', () => {
   const onBlur = () => {};
   const value = 'line1';
   const testId = 'chooseLineDropdown1';
-  const buttonTestId = `${testId}-button`;
+  const buttonTestId = `${testId}::button`;
 
   const mocks: MockedResponse[] = [
     {

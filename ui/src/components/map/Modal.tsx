@@ -5,7 +5,7 @@ import { SimpleButton } from '../../uiComponents';
 import { ModalHeader } from '../modal';
 
 const testIds = {
-  saveButton: 'Modal:saveButton',
+  saveButton: 'Modal::saveButton',
 };
 
 const HeaderFooterContainer: FunctionComponent = ({ children }) => {
