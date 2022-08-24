@@ -6,6 +6,12 @@ import { Column, Row } from '../../../layoutComponents';
 import { IconButton, SimpleButton } from '../../../uiComponents';
 import { LineValidityPeriod } from './LineValidityPeriod';
 
+const testIds = {
+  heading: 'LineTitle::heading',
+  createRouteButton: 'LineTitle::createRouteButton',
+  name: 'LineTitle::name',
+};
+
 interface Props {
   className?: string;
   line: RouteLine;
@@ -27,10 +33,7 @@ export const LineTitle: React.FC<Props> = ({
   return (
     <Column>
       <Row className={`items-center ${className}`}>
-        <span
-          className="mr-4 text-4xl font-bold"
-          data-testid="line-page-heading"
-        >
+        <span className="mr-4 text-4xl font-bold" data-testid={testIds.heading}>
           {t('lines.line', { label: line.label })}
         </span>
         <span>
@@ -47,13 +50,13 @@ export const LineTitle: React.FC<Props> = ({
             ))}
         </span>
         <IconButton
-          testId="LineTitle:createRouteButton"
+          testId={testIds.createRouteButton}
           icon={<AiFillPlusCircle className="text-3xl text-brand" />}
           onClick={onCreateRoute}
         />
       </Row>
       <Row>
-        <span className="font-bold" data-testid="line-header-name">
+        <span className="font-bold" data-testid={testIds.name}>
           {line.name_i18n.fi_FI || ''}
         </span>
         {line.name_i18n.sv_FI && (

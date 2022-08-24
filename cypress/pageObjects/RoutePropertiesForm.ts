@@ -4,20 +4,20 @@ export class RoutePropertiesForm {
   }
 
   getLabelInput() {
-    return cy.getByTestId('routePropertiesForm:label');
+    return cy.getByTestId('RoutePropertiesFormComponent::label');
   }
 
   getFinnishNameInput() {
-    return cy.getByTestId('routePropertiesForm:finnishName');
+    return cy.getByTestId('RoutePropertiesFormComponent::finnishName');
   }
 
   selectDirection(direction: string) {
-    cy.getByTestId('routePropertiesForm:direction-dropdown').click();
+    cy.getByTestId('RoutePropertiesFormComponent::directionDropdown').click();
     cy.get('li').contains(direction).click();
   }
 
   selectLine(name: string) {
-    cy.getByTestId('routePropertiesForm:choose-line-dropdown').click();
+    cy.getByTestId('RoutePropertiesFormComponent::chooseLineDropdown').click();
     cy.get('li').contains(name).click();
   }
 
@@ -34,6 +34,6 @@ export class RoutePropertiesForm {
   }
 
   save(forceAction = false) {
-    return cy.getByTestId('Modal:saveButton').click({ force: forceAction });
+    return cy.getByTestId('Modal::saveButton').click({ force: forceAction });
   }
 }

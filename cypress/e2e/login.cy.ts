@@ -10,14 +10,14 @@ describe('Verify that login mocking works', () => {
   it('User is not logged in by default', () => {
     cy.visit('/');
     // If login button is visible, user is logged out
-    cy.getByTestId('userNavMenu:loginButton');
+    cy.getByTestId('UserNavMenu::loginButton');
   });
 
   it('cy.mockLogin() logs user in', () => {
     cy.mockLogin();
     cy.visit('/');
     // If dropdown contains user's name, they are logged in
-    cy.getByTestId('userNavMenu:toggleDropdown').should(
+    cy.getByTestId('UserNavMenu::toggleDropdown').should(
       'contain',
       userInfo.givenName,
     );

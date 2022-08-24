@@ -4,45 +4,45 @@ export class LineForm {
   toast = new Toast();
 
   getLabelInput() {
-    return cy.getByTestId('LinePropertiesForm:label');
+    return cy.getByTestId('LinePropertiesForm::label');
   }
 
   getFinnishNameInput() {
-    return cy.getByTestId('LinePropertiesForm:finnishName');
+    return cy.getByTestId('LinePropertiesForm::finnishName');
   }
 
   getSwedishNameInput() {
-    return cy.getByTestId('LinePropertiesForm:swedishName');
+    return cy.getByTestId('LinePropertiesForm::swedishName');
   }
 
   getFinnishShortNameInput() {
-    return cy.getByTestId('LinePropertiesForm:finnishShortName');
+    return cy.getByTestId('LinePropertiesForm::finnishShortName');
   }
 
   getSwedishShortNameInput() {
-    return cy.getByTestId('LinePropertiesForm:swedishShortName');
+    return cy.getByTestId('LinePropertiesForm::swedishShortName');
   }
 
   selectTransportTarget(target: string) {
-    cy.getByTestId('transport-target-input').click();
+    cy.getByTestId('LinePropertiesForm::transportTargetInput').click();
     cy.get('li').contains(target).click();
   }
 
   selectVehicleType(type: string) {
-    cy.getByTestId('primary-vehicle-mode-input').click();
+    cy.getByTestId('LinePropertiesForm::primaryVehicleModeInput').click();
     cy.get('li').contains(type).click();
   }
 
   selectLineType(type: string) {
-    cy.getByTestId('type-of-line-input').click();
+    cy.getByTestId('LinePropertiesForm::typeOfLineInput').click();
     cy.get('li').contains(type).click();
   }
 
   save() {
-    return cy.getByTestId('lineForm:saveButton').click();
+    return cy.getByTestId('LineForm::saveButton').click();
   }
 
   cancel() {
-    return cy.getByTestId('lineForm:cancelButton').click();
+    return cy.getByTestId('LineForm::cancelButton').click();
   }
 }

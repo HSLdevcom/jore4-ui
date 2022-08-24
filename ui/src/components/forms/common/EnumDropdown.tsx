@@ -1,6 +1,10 @@
 import { FormInputProps, Listbox } from '../../../uiComponents';
 import { getEnumValues } from '../../../utils';
 
+const testIds = {
+  enumDropdown: 'EnumDropdown::button',
+};
+
 // It seems to be impossible to process enumerations in the way done here in a type safe way,
 // at least without using 'as' in many places (which in itself isn't type safe). Therefore,
 // this was implemented by processing the Enum values as strings.
@@ -42,7 +46,7 @@ export function EnumDropdown<TEnum extends Object>({
 
   return (
     <Listbox
-      testId={testId || 'enum-dropdown'}
+      testId={testId || testIds.enumDropdown}
       buttonContent={
         value ? uiNameMapper(value as unknown as TEnum) : placeholder
       }

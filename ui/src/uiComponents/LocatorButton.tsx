@@ -2,6 +2,10 @@ import { MdPinDrop } from 'react-icons/md';
 import { IconButton } from './IconButton';
 import { commonHoverStyle } from './SimpleButton';
 
+const testIds = {
+  button: 'LocatorButton::button',
+};
+
 interface Props {
   testId?: string;
   disabled?: boolean;
@@ -24,7 +28,7 @@ export const LocatorButton = ({
       onClick={onClick}
       disabled={disabled}
       icon={<MdPinDrop className="text-2xl" />}
-      testId={testId || 'locator-button'}
+      testId={testId || testIds.button}
     />
   );
 };

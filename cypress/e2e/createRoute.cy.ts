@@ -82,12 +82,12 @@ if (!Cypress.env('SKIP_MAP_TESTS')) {
         routePropertiesForm.save();
 
         map.clickAtPositionFromMapMarkerByTestId(
-          'map::stopMarker::H1234_Standard',
+          'Map::Stops::stopMarker::H1234_Standard',
           -10,
           25,
         );
         map.clickAtPositionFromMapMarkerByTestId(
-          'map::stopMarker::H1236_Standard',
+          'Map::Stops::stopMarker::H1236_Standard',
           35,
           -20,
         );
@@ -96,7 +96,7 @@ if (!Cypress.env('SKIP_MAP_TESTS')) {
         mapFooter.save();
         toast.checkRouteSubmitSuccess();
 
-        cy.getByTestId('RouteStopsOverlay:mapOverlayHeader')
+        cy.getByTestId('RouteStopsOverlay::mapOverlayHeader')
           .get('div')
           .contains(routeName)
           .should('exist');

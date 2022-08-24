@@ -4,7 +4,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
 <DocumentFragment>
   <div
     class="relative w-full"
-    data-testid="chooseLineDropdown1"
+    data-testid="ChooseLineDropdown1"
     id="choose-line-combobox"
   >
     <input
@@ -12,7 +12,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
       aria-controls="headlessui-combobox-options-8"
       aria-expanded="true"
       class="input-element relative h-full w-full"
-      data-testid="chooseLineDropdown1-input"
+      data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-5"
       role="combobox"
       type="text"
@@ -22,7 +22,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
       aria-expanded="true"
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
-      data-testid="chooseLineDropdown1-button"
+      data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-6"
       tabindex="-1"
       type="button"
@@ -148,13 +148,13 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
 <DocumentFragment>
   <div
     class="relative w-full"
-    data-testid="chooseLineDropdown1"
+    data-testid="ChooseLineDropdown1"
     id="choose-line-combobox"
   >
     <input
       aria-expanded="false"
       class="input-element relative h-full w-full"
-      data-testid="chooseLineDropdown1-input"
+      data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-1"
       role="combobox"
       type="text"
@@ -163,7 +163,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
       aria-expanded="false"
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
-      data-testid="chooseLineDropdown1-button"
+      data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-2"
       tabindex="-1"
       type="button"
@@ -204,13 +204,13 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
 <DocumentFragment>
   <div
     class="relative w-full"
-    data-testid="chooseLineDropdown1"
+    data-testid="ChooseLineDropdown1"
     id="choose-line-combobox"
   >
     <input
       aria-expanded="false"
       class="input-element relative h-full w-full"
-      data-testid="chooseLineDropdown1-input"
+      data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-1"
       role="combobox"
       type="text"
@@ -219,7 +219,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
       aria-expanded="false"
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
-      data-testid="chooseLineDropdown1-button"
+      data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-2"
       tabindex="-1"
       type="button"
@@ -260,13 +260,13 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
 <DocumentFragment>
   <div
     class="relative w-full"
-    data-testid="chooseLineDropdown1"
+    data-testid="ChooseLineDropdown1"
     id="choose-line-combobox"
   >
     <input
       aria-expanded="false"
       class="input-element relative h-full w-full"
-      data-testid="chooseLineDropdown1-input"
+      data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-3"
       role="combobox"
       type="text"
@@ -275,7 +275,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
       aria-expanded="false"
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
-      data-testid="chooseLineDropdown1-button"
+      data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-4"
       tabindex="-1"
       type="button"
@@ -316,13 +316,13 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
 <DocumentFragment>
   <div
     class="relative w-full"
-    data-testid="chooseLineDropdown1"
+    data-testid="ChooseLineDropdown1"
     id="choose-line-combobox"
   >
     <input
       aria-expanded="false"
       class="input-element relative h-full w-full"
-      data-testid="chooseLineDropdown1-input"
+      data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-3"
       role="combobox"
       type="text"
@@ -331,7 +331,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
       aria-expanded="false"
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
-      data-testid="chooseLineDropdown1-button"
+      data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-4"
       tabindex="-1"
       type="button"

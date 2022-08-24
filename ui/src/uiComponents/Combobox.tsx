@@ -4,6 +4,11 @@ import { Noop } from 'react-hook-form';
 import { MdCheck, MdSearch } from 'react-icons/md';
 import { dropdownTransition, OptionRenderPropArg } from './Listbox';
 
+export const testIds = {
+  input: (testId: string) => `${testId}::input`,
+  button: (testId: string) => `${testId}::button`,
+};
+
 export interface ComboboxInputProps {
   value?: string;
   onChange: (e: ComboboxEvent) => void;
@@ -60,12 +65,12 @@ export const Combobox = ({
           <HUICombobox.Input
             onChange={(event) => onQueryChange(event.target.value)}
             displayValue={() => ''}
-            data-testid={`${testId}-input`}
+            data-testid={testId ? testIds.input(testId) : undefined}
             className="input-element relative h-full w-full"
           />
           <HUICombobox.Button
             className="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
-            data-testid={`${testId}-button`}
+            data-testid={testId ? testIds.button(testId) : undefined}
           >
             {buttonContent}
             <MdSearch className="mr-1 ml-auto text-2xl text-tweaked-brand" />
