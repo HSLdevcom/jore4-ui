@@ -1,5 +1,4 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { DateTime } from 'luxon';
 import { mapOperations, Operation } from '../slices/loader';
 import { RootState } from '../store';
 import { mapFromStoreType } from '../utils/mappers';
@@ -55,11 +54,6 @@ export const selectSelectedRouteId = createSelector(
 export const selectDrawingMode = createSelector(
   selectMapEditor,
   (mapEditor) => mapEditor.drawingMode,
-);
-
-export const selectMapObservationDate = createSelector(
-  selectMapFilter,
-  (mapFilter) => DateTime.fromISO(mapFilter.observationDate),
 );
 
 export const selectViaModal = createSelector(

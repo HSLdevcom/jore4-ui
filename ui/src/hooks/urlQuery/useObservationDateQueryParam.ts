@@ -1,15 +1,12 @@
 import { DateTime } from 'luxon';
-import { useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useUrlQuery } from './useUrlQuery';
 
 export const useObservationDateQueryParam = () => {
-  const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery } = useUrlQuery();
+  const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery, queryParams } =
+    useUrlQuery();
 
-  // Memoize the actual value to prevent unnecessary updates
-  const observationDate = useMemo(
-    () => getDateTimeFromUrlQuery('observationDate'),
-    [getDateTimeFromUrlQuery],
-  );
+  const [defaultDate] = useState(DateTime.now().startOf('day'));
 
   /** Sets observationDate to URL query
    * replace flag can be given to replace the earlier url query instead
@@ -17,12 +14,42 @@ export const useObservationDateQueryParam = () => {
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
-  const setObservationDateToUrl = (date: DateTime, replace = false) => {
-    setDateTimeToUrlQuery(
-      { paramName: 'observationDate', value: date },
-      { replace },
-    );
-  };
+  const setObservationDateToUrl = useCallback(
+    (date: DateTime, replace = false) => {
+      setDateTimeToUrlQuery(
+        { paramName: 'observationDate', value: date },
+        { replace },
+      );
+    },
+    [setDateTimeToUrlQuery],
+  );
+
+  // Memoize the actual value to prevent unnecessary updates
+  const observationDate = useMemo(() => {
+    try {
+      return getDateTimeFromUrlQuery('observationDate') || defaultDate;
+    } catch {
+      // If parsing date fails, set default date
+      setObservationDateToUrl(defaultDate, true);
+      return defaultDate;
+    }
+  }, [defaultDate, getDateTimeFromUrlQuery, setObservationDateToUrl]);
+
+  /** Determines and sets date to query parameters if it's not there */
+  const initializeObservationDate = useCallback(async () => {
+    if (!queryParams.observationDate || !observationDate) {
+      setObservationDateToUrl(defaultDate, true);
+    }
+  }, [
+    defaultDate,
+    observationDate,
+    queryParams.observationDate,
+    setObservationDateToUrl,
+  ]);
+
+  useEffect(() => {
+    initializeObservationDate();
+  }, [initializeObservationDate]);
 
   return { observationDate, setObservationDateToUrl };
 };

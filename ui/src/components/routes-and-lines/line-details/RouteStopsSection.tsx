@@ -48,7 +48,7 @@ export const RouteStopsSection = ({
   // If route is draft, allow adding draft stops to it.
   const highestPriorityStopInstances = filterHighestPriorityCurrentStops(
     stopsAlongRoute,
-    observationDate || DateTime.now(),
+    observationDate,
     route.priority === Priority.Draft,
   );
 

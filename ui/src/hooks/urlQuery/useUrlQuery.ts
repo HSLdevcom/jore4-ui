@@ -38,23 +38,26 @@ export const useUrlQuery = () => {
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
-  const setToUrlQuery = ({
-    paramName,
-    value,
-    replace = false,
-  }: {
-    paramName: string;
-    value: string;
-    replace?: boolean;
-  }) => {
-    const updatedUrlQuery = produce(queryParams, (draft) => {
-      draft[paramName] = value;
-    });
+  const setToUrlQuery = useCallback(
+    ({
+      paramName,
+      value,
+      replace = false,
+    }: {
+      paramName: string;
+      value: string;
+      replace?: boolean;
+    }) => {
+      const updatedUrlQuery = produce(queryParams, (draft) => {
+        draft[paramName] = value;
+      });
 
-    const queryString = qs.stringify(updatedUrlQuery);
+      const queryString = qs.stringify(updatedUrlQuery);
 
-    setQueryString(queryString, replace);
-  };
+      setQueryString(queryString, replace);
+    },
+    [queryParams, setQueryString],
+  );
 
   /** Sets boolean parameter to URL query
    * replace flag can be given to replace the earlier url query instead
@@ -75,12 +78,15 @@ export const useUrlQuery = () => {
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
-  const setDateTimeToUrlQuery = (
-    { paramName, value }: QueryParameter<DateTime>,
-    { replace }: ParameterWriteOptions = {},
-  ) => {
-    setToUrlQuery({ paramName, value: value.toISODate(), replace });
-  };
+  const setDateTimeToUrlQuery = useCallback(
+    (
+      { paramName, value }: QueryParameter<DateTime>,
+      { replace }: ParameterWriteOptions = {},
+    ) => {
+      setToUrlQuery({ paramName, value: value.toISODate(), replace });
+    },
+    [setToUrlQuery],
+  );
 
   /** Sets multiple parameters to URL query
    * Converts booleans, DateTimes and numbers in to string format
