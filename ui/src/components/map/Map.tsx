@@ -206,15 +206,6 @@ export const MapComponent = (
       <EditRouteMetadataLayer />
       {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
       {showInfraLinks && <InfraLinksVectorLayer />}
-      {showRoute &&
-        routeDisplayed &&
-        displayedRouteIds?.map((item) => (
-          <RouteGeometryLayer
-            key={item}
-            routeId={item}
-            isSelected={selectedRouteId === item && !hasDraftRouteGeometry}
-          />
-        ))}
       {/**
        * Empty layer for dynamically ordering route layers
        * https://github.com/visgl/react-map-gl/issues/939#issuecomment-625290200
@@ -225,6 +216,15 @@ export const MapComponent = (
         layout={{ visibility: 'none' }}
         paint={{}}
       />
+      {showRoute &&
+        routeDisplayed &&
+        displayedRouteIds?.map((item) => (
+          <RouteGeometryLayer
+            key={item}
+            routeId={item}
+            isSelected={selectedRouteId === item && !hasDraftRouteGeometry}
+          />
+        ))}
       <RouteEditor
         onDeleteDrawnRoute={() => editorLayerRef.current?.onDeleteRoute()}
         ref={routeEditorRef}
