@@ -6,20 +6,6 @@ import { mapToStoreType, StoreType } from '../utils/mappers';
 
 interface IState {
   /**
-   * Array of route ids that have been selected to be shown on the map.
-   * Because observation date can be selected, not all routes to be displayed
-   * will be valid for given observation date. Therefore, displayedRouteIds
-   * contains an array of route ids that are valid for the selected observation date.
-   */
-  initiallyDisplayedRouteIds?: UUID[];
-  /**
-   * Array of route ids to be displayed in the map.
-   * Calculated dynamically based on initiallyDisplayedRouteIds and selected observation date.
-   * Contains an array of route instances' ids based on initiallyDisplayedRouteIds,
-   * that are valid for selected observation date.
-   */
-  displayedRouteIds?: UUID[];
-  /**
    * Is new route creation in progress
    */
   creatingNewRoute: boolean;
@@ -69,8 +55,6 @@ interface IState {
 }
 
 const initialState: IState = {
-  initiallyDisplayedRouteIds: undefined,
-  displayedRouteIds: undefined,
   creatingNewRoute: false,
   drawingMode: undefined,
   editedRouteData: {
@@ -201,7 +185,7 @@ const slice = createSlice({
      */
     setLineInfo: {
       reducer: (
-        state,
+        state: IState,
         action: PayloadAction<StoreType<LineAllFieldsFragment>>,
       ) => {
         state.editedRouteData.lineInfo = action.payload;
@@ -209,25 +193,6 @@ const slice = createSlice({
       prepare: (line: LineAllFieldsFragment) => {
         return { payload: mapToStoreType(line) };
       },
-    },
-
-    /**
-     * Initialize map editor state to show some routes.
-     */
-    initializeMapEditorWithRoutes: (
-      state: IState,
-      action: PayloadAction<UUID[]>,
-    ) => {
-      return {
-        ...initialState,
-        initiallyDisplayedRouteIds: action.payload,
-      };
-    },
-    /**
-     * Set route instances to show in the map view.
-     */
-    setDisplayedRouteIds: (state: IState, action: PayloadAction<UUID[]>) => {
-      state.displayedRouteIds = action.payload;
     },
     /**
      * Store created / edited route geometry in state.
@@ -304,8 +269,6 @@ export const {
   setRouteMetadata: setRouteMetadataAction,
   finishRouteMetadataEditing: finishRouteMetadataEditingAction,
   setLineInfo: setLineInfoAction,
-  initializeMapEditorWithRoutes: initializeMapEditorWithRoutesAction,
-  setDisplayedRouteIds: setDisplayedRouteIdsAction,
   setDraftRouteGeometry: setDraftRouteGeometryAction,
   resetDraftRouteGeometry: resetDraftRouteGeometryAction,
   setSelectedRouteId: setSelectedRouteIdAction,

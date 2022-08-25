@@ -16,7 +16,6 @@ import {
   useObservationDateQueryParam,
 } from '../../../hooks';
 import {
-  initializeMapEditorWithRoutesAction,
   Mode,
   Operation,
   resetRouteCreatingAction,
@@ -51,8 +50,7 @@ const RouteEditorComponent = (
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const { editedRouteData, creatingNewRoute, initiallyDisplayedRouteIds } =
-    useAppSelector(selectMapEditor);
+  const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
   const drawingMode = useAppSelector(selectDrawingMode);
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
   const { deleteMapQueryParameters } = useMapQueryParams();
@@ -127,14 +125,6 @@ const RouteEditorComponent = (
   const onRouteCreated = (
     newRoute: RequiredKeys<Partial<RouteRoute>, 'route_id'>,
   ) => {
-    // Add created route to displayed routes
-    dispatch(
-      initializeMapEditorWithRoutesAction([
-        ...(initiallyDisplayedRouteIds || []),
-        newRoute.route_id,
-      ]),
-    );
-
     // Select created route
     dispatch(setSelectedRouteIdAction(newRoute.route_id));
 

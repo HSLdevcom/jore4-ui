@@ -1,65 +1,80 @@
-import { useEffect } from 'react';
+import { gql } from '@apollo/client';
 import {
-  useGetRouteDetailsByIdsAsyncQuery,
-  useGetRouteDetailsByLabelsAsyncQuery,
+  useGetLineRoutesByLabelQuery,
+  useGetRouteDetailsByLabelsQuery,
 } from '../../generated/graphql';
-import { mapRouteResultToRoutes } from '../../graphql';
-import { selectMapEditor, setDisplayedRouteIdsAction } from '../../redux';
-import { useAppDispatch, useAppSelector } from '../redux';
-import { useObservationDateQueryParam } from '../urlQuery';
+import {
+  constructActiveDateGqlFilter,
+  constructLabelGqlFilter,
+} from '../../utils';
+import { filterRoutesByHighestPriority } from '../line-details';
+import { useMapQueryParams, useObservationDateQueryParam } from '../urlQuery';
+
+const GQL_GET_LINE_ROUTES_BY_LABEL = gql`
+  query GetLineRoutesByLabel(
+    $lineFilters: route_line_bool_exp
+    $lineRouteFilters: route_route_bool_exp
+  ) {
+    route_line(where: $lineFilters) {
+      line_id
+      line_routes(where: $lineRouteFilters) {
+        ...displayed_route
+      }
+    }
+  }
+`;
+
+const GQL_DISPLAYED_ROUTE = gql`
+  fragment displayed_route on route_route {
+    route_id
+    label
+    validity_start
+    validity_end
+    priority
+    direction
+  }
+`;
 
 export const useGetDisplayedRoutes = () => {
-  const [getRouteDetailsByLabels] = useGetRouteDetailsByLabelsAsyncQuery();
-  const [getRouteDetailsByIds] = useGetRouteDetailsByIdsAsyncQuery();
+  const { routeLabel, lineLabel } = useMapQueryParams();
 
   const { observationDate } = useObservationDateQueryParam();
 
-  const dispatch = useAppDispatch();
-  const { displayedRouteIds, initiallyDisplayedRouteIds } =
-    useAppSelector(selectMapEditor);
+  const routesByRouteLabelResult = useGetRouteDetailsByLabelsQuery({
+    variables: {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      labels: [routeLabel!],
+      date: observationDate,
+    },
+    skip: !routeLabel,
+  });
 
-  useEffect(() => {
-    const updateDisplayedRoutes = async () => {
-      if (!initiallyDisplayedRouteIds) {
-        return [];
-      }
-      const routeDetailsResult = await getRouteDetailsByIds({
-        route_ids: initiallyDisplayedRouteIds,
-      });
-      const routeDetails = mapRouteResultToRoutes(routeDetailsResult);
+  const routesByRouteLabel = routesByRouteLabelResult.data?.route_route || [];
 
-      if (!routeDetails.length) {
-        return [];
-      }
+  const lineFilters = {
+    ...constructLabelGqlFilter(lineLabel),
+  };
 
-      const labels = routeDetails?.map((route) => route.label);
+  const lineRouteFilters = {
+    ...constructActiveDateGqlFilter(observationDate),
+  };
 
-      const displayedRouteDetailsResult = await getRouteDetailsByLabels({
-        labels,
-        date: observationDate,
-      });
+  const routesByLineLabelResult = useGetLineRoutesByLabelQuery({
+    variables: {
+      lineFilters,
+      lineRouteFilters,
+    },
+    skip: !lineLabel,
+  });
 
-      const displayedRouteDetails = mapRouteResultToRoutes(
-        displayedRouteDetailsResult,
-      );
+  const routesByLineLabel =
+    routesByLineLabelResult?.data?.route_line[0].line_routes || [];
 
-      dispatch(
-        setDisplayedRouteIdsAction(
-          displayedRouteDetails.map((route) => route.route_id),
-        ),
-      );
+  const routes = [...routesByRouteLabel, ...routesByLineLabel];
 
-      return displayedRouteDetails;
-    };
+  const displayedRoutes = filterRoutesByHighestPriority(routes);
 
-    updateDisplayedRoutes();
-  }, [
-    getRouteDetailsByLabels,
-    observationDate,
-    dispatch,
-    getRouteDetailsByIds,
-    initiallyDisplayedRouteIds,
-  ]);
-
-  return { displayedRouteIds };
+  return {
+    displayedRouteIds: displayedRoutes.map((route) => route.route_id),
+  };
 };

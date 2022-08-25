@@ -24,15 +24,10 @@ const GQL_LINE_TABLE_ROW = gql`
 
 export const LineTableRow = ({ className = '', line }: Props): JSX.Element => {
   const { t } = useTranslation();
-  const { showRoutesOnModal } = useShowRoutesOnModal();
+  const { showRouteInMapByLineLabel } = useShowRoutesOnModal();
 
   const showLineRoutes = () => {
-    showRoutesOnModal(
-      line.line_routes,
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      line.validity_start!,
-      line.validity_end,
-    );
+    showRouteInMapByLineLabel(line);
   };
 
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();

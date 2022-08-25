@@ -48,8 +48,7 @@ export const MapComponent = (
 ): JSX.Element => {
   const routeEditorRef = useRef<ExplicitAny>(null);
 
-  const { drawingMode, initiallyDisplayedRouteIds } =
-    useAppSelector(selectMapEditor);
+  const { drawingMode } = useAppSelector(selectMapEditor);
 
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
   const { showStopFilterOverlay } = useAppSelector(selectMapFilter);
@@ -59,7 +58,7 @@ export const MapComponent = (
 
   const { displayedRouteIds } = useGetDisplayedRoutes();
 
-  const routeDisplayed = !!initiallyDisplayedRouteIds?.length;
+  const routeDisplayed = !!displayedRouteIds?.length;
 
   const [showInfraLinks, setShowInfraLinks] = useState(false);
   const [showRoute, setShowRoute] = useState(true);

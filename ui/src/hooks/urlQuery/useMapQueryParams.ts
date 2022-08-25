@@ -8,11 +8,14 @@ const queryParameterNameLongitude = 'lng' as const;
 const queryParameterNameLatitude = 'lat' as const;
 const queryParameterNameZoom = 'z' as const;
 const queryParameterNameObservationDate = 'observationDate' as const;
+const queryParameterNameRouteLabel = 'routeLabel' as const;
+const queryParameterNameLineLabel = 'lineLabel' as const;
 const DEFAULT_ZOOM = 13 as const;
 
 export const useMapQueryParams = () => {
   const {
     setBooleanToUrlQuery,
+    getStringParamFromUrlQuery,
     getBooleanParamFromUrlQuery,
     getFloatParamFromUrlQuery,
     deleteMultipleFromUrlQuery,
@@ -32,11 +35,15 @@ export const useMapQueryParams = () => {
     longitude,
     zoom,
     observationDate,
+    routeLabel,
+    lineLabel,
   }: {
     latitude?: number;
     longitude?: number;
     zoom?: number;
     observationDate: DateTime;
+    routeLabel?: string;
+    lineLabel?: string;
   }) => {
     setMultipleParametersToUrlQuery({
       parameters: [
@@ -54,6 +61,14 @@ export const useMapQueryParams = () => {
           paramName: queryParameterNameObservationDate,
           value: observationDate,
         },
+        {
+          paramName: queryParameterNameRouteLabel,
+          value: routeLabel,
+        },
+        {
+          paramName: queryParameterNameLineLabel,
+          value: lineLabel,
+        },
       ],
     });
   };
@@ -65,6 +80,8 @@ export const useMapQueryParams = () => {
         queryParameterNameLongitude,
         queryParameterNameLatitude,
         queryParameterNameZoom,
+        queryParameterNameRouteLabel,
+        queryParameterNameLineLabel,
       ],
     });
   };
@@ -80,6 +97,9 @@ export const useMapQueryParams = () => {
       HELSINKI_CITY_CENTER_COORDINATES.latitude,
     zoom: getFloatParamFromUrlQuery(queryParameterNameZoom) ?? DEFAULT_ZOOM,
   };
+
+  const routeLabel = getStringParamFromUrlQuery(queryParameterNameRouteLabel);
+  const lineLabel = getStringParamFromUrlQuery(queryParameterNameLineLabel);
 
   const setMapPosition = useCallback(
     (latitude: number, longitude: number, zoom: number) => {
@@ -102,6 +122,8 @@ export const useMapQueryParams = () => {
     addMapOpenQueryParameter,
     isMapOpen,
     mapPosition,
+    routeLabel,
+    lineLabel,
     setMapPosition,
     openMapInPosition,
     deleteMapQueryParameters,
