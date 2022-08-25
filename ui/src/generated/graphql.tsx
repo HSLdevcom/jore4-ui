@@ -6895,7 +6895,10 @@ export type LineTableRowFragment = {
   line_routes: Array<{
     __typename?: 'route_route';
     route_id: UUID;
+    label: string;
     route_shape?: GeoJSON.LineString | null | undefined;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
   }>;
 };
 
@@ -8741,6 +8744,38 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
   }>;
 };
 
+export type GetLineRoutesByLabelQueryVariables = Exact<{
+  lineFilters?: Maybe<RouteLineBoolExp>;
+  lineRouteFilters?: Maybe<RouteRouteBoolExp>;
+}>;
+
+export type GetLineRoutesByLabelQuery = {
+  __typename?: 'query_root';
+  route_line: Array<{
+    __typename?: 'route_line';
+    line_id: UUID;
+    line_routes: Array<{
+      __typename?: 'route_route';
+      route_id: UUID;
+      label: string;
+      validity_start?: luxon.DateTime | null | undefined;
+      validity_end?: luxon.DateTime | null | undefined;
+      priority: number;
+      direction: RouteDirectionEnum;
+    }>;
+  }>;
+};
+
+export type DisplayedRouteFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  label: string;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  priority: number;
+  direction: RouteDirectionEnum;
+};
+
 export type SearchLinesAndRoutesQueryVariables = Exact<{
   lineFilter?: Maybe<RouteLineBoolExp>;
   routeFilter?: Maybe<RouteRouteBoolExp>;
@@ -8765,7 +8800,10 @@ export type SearchLinesAndRoutesQuery = {
     line_routes: Array<{
       __typename?: 'route_route';
       route_id: UUID;
+      label: string;
       route_shape?: GeoJSON.LineString | null | undefined;
+      validity_start?: luxon.DateTime | null | undefined;
+      validity_end?: luxon.DateTime | null | undefined;
     }>;
   }>;
   route_route: Array<{
@@ -8890,7 +8928,23 @@ export type GetSelectedRouteDetailsByIdQuery = {
 export type RouteInformationForMapFragment = {
   __typename?: 'route_route';
   route_id: UUID;
+  label: string;
   route_shape?: GeoJSON.LineString | null | undefined;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+};
+
+export type LineInformationForMapFragment = {
+  __typename?: 'route_line';
+  line_id: UUID;
+  label: string;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  line_routes: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null | undefined;
+  }>;
 };
 
 export const LineAllFieldsFragmentDoc = gql`
@@ -8910,7 +8964,10 @@ export const LineAllFieldsFragmentDoc = gql`
 export const RouteInformationForMapFragmentDoc = gql`
   fragment route_information_for_map on route_route {
     route_id
+    label
     route_shape
+    validity_start
+    validity_end
   }
 `;
 export const LineTableRowFragmentDoc = gql`
@@ -9101,6 +9158,16 @@ export const RouteWithInfrastructureLinksFragmentDoc = gql`
   ${RouteWithJourneyPatternStopsFragmentDoc}
   ${LineAllFieldsFragmentDoc}
 `;
+export const DisplayedRouteFragmentDoc = gql`
+  fragment displayed_route on route_route {
+    route_id
+    label
+    validity_start
+    validity_end
+    priority
+    direction
+  }
+`;
 export const LineForComboboxFragmentDoc = gql`
   fragment line_for_combobox on route_line {
     line_id
@@ -9108,6 +9175,18 @@ export const LineForComboboxFragmentDoc = gql`
     label
     validity_start
     validity_end
+  }
+`;
+export const LineInformationForMapFragmentDoc = gql`
+  fragment line_information_for_map on route_line {
+    line_id
+    label
+    validity_start
+    validity_end
+    line_routes {
+      route_id
+      route_shape
+    }
   }
 `;
 export const QueryClosestLinkDocument = gql`
@@ -11541,6 +11620,72 @@ export type GetLinksWithStopsByExternalLinkIdsQueryResult = Apollo.QueryResult<
   GetLinksWithStopsByExternalLinkIdsQuery,
   GetLinksWithStopsByExternalLinkIdsQueryVariables
 >;
+export const GetLineRoutesByLabelDocument = gql`
+  query GetLineRoutesByLabel(
+    $lineFilters: route_line_bool_exp
+    $lineRouteFilters: route_route_bool_exp
+  ) {
+    route_line(where: $lineFilters) {
+      line_id
+      line_routes(where: $lineRouteFilters) {
+        ...displayed_route
+      }
+    }
+  }
+  ${DisplayedRouteFragmentDoc}
+`;
+
+/**
+ * __useGetLineRoutesByLabelQuery__
+ *
+ * To run a query within a React component, call `useGetLineRoutesByLabelQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLineRoutesByLabelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLineRoutesByLabelQuery({
+ *   variables: {
+ *      lineFilters: // value for 'lineFilters'
+ *      lineRouteFilters: // value for 'lineRouteFilters'
+ *   },
+ * });
+ */
+export function useGetLineRoutesByLabelQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetLineRoutesByLabelQuery,
+    GetLineRoutesByLabelQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetLineRoutesByLabelQuery,
+    GetLineRoutesByLabelQueryVariables
+  >(GetLineRoutesByLabelDocument, options);
+}
+export function useGetLineRoutesByLabelLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLineRoutesByLabelQuery,
+    GetLineRoutesByLabelQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetLineRoutesByLabelQuery,
+    GetLineRoutesByLabelQueryVariables
+  >(GetLineRoutesByLabelDocument, options);
+}
+export type GetLineRoutesByLabelQueryHookResult = ReturnType<
+  typeof useGetLineRoutesByLabelQuery
+>;
+export type GetLineRoutesByLabelLazyQueryHookResult = ReturnType<
+  typeof useGetLineRoutesByLabelLazyQuery
+>;
+export type GetLineRoutesByLabelQueryResult = Apollo.QueryResult<
+  GetLineRoutesByLabelQuery,
+  GetLineRoutesByLabelQueryVariables
+>;
 export const SearchLinesAndRoutesDocument = gql`
   query SearchLinesAndRoutes(
     $lineFilter: route_line_bool_exp
@@ -12100,6 +12245,15 @@ export function useGetLinksWithStopsByExternalLinkIdsAsyncQuery() {
 }
 export type GetLinksWithStopsByExternalLinkIdsAsyncQueryHookResult = ReturnType<
   typeof useGetLinksWithStopsByExternalLinkIdsAsyncQuery
+>;
+export function useGetLineRoutesByLabelAsyncQuery() {
+  return useAsyncQuery<
+    GetLineRoutesByLabelQuery,
+    GetLineRoutesByLabelQueryVariables
+  >(GetLineRoutesByLabelDocument);
+}
+export type GetLineRoutesByLabelAsyncQueryHookResult = ReturnType<
+  typeof useGetLineRoutesByLabelAsyncQuery
 >;
 export function useSearchLinesAndRoutesAsyncQuery() {
   return useAsyncQuery<

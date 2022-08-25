@@ -17,18 +17,13 @@ export const RoutesTableRow = ({
   route,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
-  const { showRoutesOnModal } = useShowRoutesOnModal();
+  const { showRouteOnMapByLabel } = useShowRoutesOnModal();
 
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
   const alertStyle = getAlertStyle(getAlertLevel(route));
 
   const onClickShowRouteOnMap = () => {
-    showRoutesOnModal(
-      [route],
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      route.validity_start!,
-      route.validity_end,
-    );
+    showRouteOnMapByLabel(route);
   };
 
   return (
