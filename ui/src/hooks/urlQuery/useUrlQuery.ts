@@ -94,12 +94,18 @@ export const useUrlQuery = () => {
       parameters,
       replace = false,
     }: {
-      parameters: QueryParameter<string | boolean | DateTime | number>[];
+      parameters: QueryParameter<
+        string | boolean | DateTime | number | undefined
+      >[];
       replace?: boolean;
       debounced?: boolean;
     }) => {
       const updatedUrlQuery = produce(queryParams, (draft) => {
         parameters.forEach((parameter) => {
+          if (parameter.value === undefined) {
+            return;
+          }
+
           // Convert based on the type of the value
           if (isBoolean(parameter.value)) {
             draft[parameter.paramName] = parameter.value.toString();
@@ -118,6 +124,11 @@ export const useUrlQuery = () => {
     },
     [queryParams, setQueryString],
   );
+
+  /** Returns a query parameter in boolean type */
+  const getStringParamFromUrlQuery = (paramName: string) => {
+    return (queryParams[paramName] as string) || undefined;
+  };
 
   /** Returns a query parameter in boolean type */
   const getBooleanParamFromUrlQuery = (paramName: string) => {
@@ -191,6 +202,7 @@ export const useUrlQuery = () => {
     setToUrlQuery,
     setBooleanToUrlQuery,
     setDateTimeToUrlQuery,
+    getStringParamFromUrlQuery,
     getBooleanParamFromUrlQuery,
     getDateTimeFromUrlQuery,
     getFloatParamFromUrlQuery,

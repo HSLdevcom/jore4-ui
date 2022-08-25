@@ -4,9 +4,9 @@ import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
+  DisplayedRouteFragment,
   RouteDirectionEnum,
   RouteLine,
-  RouteRoute,
   useGetHighestPriorityLineDetailsWithRoutesAsyncQuery,
   useGetLineDetailsWithRoutesByIdQuery,
   useGetLineValidityPeriodByIdAsyncQuery,
@@ -23,13 +23,13 @@ import {
 } from '../../utils';
 import { useObservationDateQueryParam } from '../urlQuery';
 
-const findHighestPriorityRoute = (routes: RouteRoute[]) =>
+const findHighestPriorityRoute = (routes: DisplayedRouteFragment[]) =>
   routes.reduce((prev, curr) => (prev.priority > curr.priority ? prev : curr));
 
 /** Returns highest priority routes filtered by given direction */
 const filterRoutesByHighestPriorityAndDirection = (
   direction: RouteDirectionEnum,
-  routes: RouteRoute[],
+  routes: DisplayedRouteFragment[],
 ) => {
   const routesFilteredByDirection = routes.filter(
     (route) => route.direction === direction,
@@ -43,7 +43,9 @@ const filterRoutesByHighestPriorityAndDirection = (
   return highestPriorityRoutes;
 };
 
-const filterRoutesByHighestPriority = (lineRoutes: RouteRoute[]) => {
+export const filterRoutesByHighestPriority = (
+  lineRoutes: DisplayedRouteFragment[],
+) => {
   // TODO: what if RouteDirectionEnum is not Inbound or Outbound?
   // In that case we are currently just filtering those routes out!
   const filteredOutboundRoutes = filterRoutesByHighestPriorityAndDirection(
