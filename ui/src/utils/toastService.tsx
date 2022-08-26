@@ -1,5 +1,7 @@
+import { ApolloError } from '@apollo/client';
 import { toast } from 'react-hot-toast';
 import { Toast, ToastTransition, ToastType } from '../uiComponents';
+import { getApolloErrorMessage } from './apolloErrors';
 
 interface ToastOptions {
   message: string;
@@ -22,11 +24,17 @@ export const showDangerToast = (message: string) => {
   });
 };
 
-export const showDangerToastWithError = (message: string, err: unknown) => {
-  if (err instanceof Error) {
-    return showDangerToast(`${message}: ${err.message}`);
+export const showDangerToastWithError = (
+  messageSubject: string,
+  err: unknown,
+) => {
+  if (err instanceof ApolloError) {
+    return showDangerToast(`${messageSubject}: ${getApolloErrorMessage(err)}`);
   }
-  return showDangerToast(message);
+  if (err instanceof Error) {
+    return showDangerToast(`${messageSubject}: ${err.message}`);
+  }
+  return showDangerToast(messageSubject);
 };
 
 export const showSuccessToast = (message: string) => {
