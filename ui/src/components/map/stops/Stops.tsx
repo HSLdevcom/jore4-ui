@@ -24,6 +24,7 @@ import {
   setIsCreateStopModeEnabledAction,
   setSelectedStopIdAction,
 } from '../../../redux';
+import { Coords } from '../../../types';
 import { Priority } from '../../../types/Priority';
 import {
   constructWithinViewportGqlFilter,
@@ -31,14 +32,15 @@ import {
   mapLngLatToPoint,
   mapToVariables,
 } from '../../../utils';
-import { geometryLineBetweenPoints } from '../mapUtils';
+import {
+  addStopToInfraConnection,
+  drawConnectionToClosestRoad,
+  geometryLineBetweenPoints,
+  removeStopToInfraConnection,
+} from '../../../utils/map';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
-import {
-  addStopToInfraConnection,
-  removeStopToInfraConnection,
-} from './StopToInfraConnection';
 
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
@@ -153,7 +155,13 @@ export const Stops = React.forwardRef((props, ref) => {
         />
       )}
       {/* Display hovering bus stop while in create mode */}
-      {isCreateStopModeEnabled && <CreateStopMarker />}
+      {isCreateStopModeEnabled && (
+        <CreateStopMarker
+          onCursorMove={(coords: Coords) =>
+            drawConnectionToClosestRoad(map, coords)
+          }
+        />
+      )}
     </>
   );
 });
