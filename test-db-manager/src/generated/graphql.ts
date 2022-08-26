@@ -5612,7 +5612,7 @@ export enum RouteTypeOfLineUpdateColumn {
 export type ServicePatternScheduledStopPoint = {
   __typename?: 'service_pattern_scheduled_stop_point';
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
-  closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
+  closest_point_on_infrastructure_link?: Maybe<Scalars['geography_point']>;
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   direction: InfrastructureNetworkDirectionEnum;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */

@@ -1,12 +1,14 @@
 import React from 'react';
 import { theme } from '../../../generated/theme';
+import { Coords } from '../../../types';
 import { Circle } from '../markers';
 
 const { colors } = theme;
 
-type Coords = { x: number; y: number };
-
-export const CreateStopMarker = (): JSX.Element => {
+interface Props {
+  onCursorMove?: (coords: Coords) => void;
+}
+export const CreateStopMarker = ({ onCursorMove }: Props): JSX.Element => {
   const [mouseCoords, setMouseCoords] = React.useState<Coords>();
 
   const createStopMarkerSize = 20;
@@ -18,6 +20,8 @@ export const CreateStopMarker = (): JSX.Element => {
       ?.getBoundingClientRect();
     const x = e.clientX - (containerBoundingBox?.left || 0);
     const y = e.clientY - (containerBoundingBox?.top || 0);
+
+    onCursorMove?.({ x, y });
 
     setMouseCoords({ x, y });
   };

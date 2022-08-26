@@ -43,7 +43,7 @@ import {
   stopRouteEditingAction,
 } from '../../../redux';
 import { showToast } from '../../../utils';
-import { addRoute, removeRoute } from '../mapUtils';
+import { addRoute, removeRoute } from '../../../utils/map';
 import { featureStyle, handleStyle } from './editorStyles';
 
 const SNAPPING_LINE_LAYER_ID = 'snapping-line';
