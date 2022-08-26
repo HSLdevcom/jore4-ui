@@ -8,9 +8,9 @@ export const removeLayer = (map: MaplibreGLMap, id: string) => {
   if (map.getLayer(id)) {
     map.removeLayer(id);
   }
-  // when route is created with map.addLayer, corresponding
+  // when a layer is created with map.addLayer, corresponding
   // source seems to be also created and we have to remove
-  // also it before we can create new route with same id
+  // also it before we can create new layer with same id
   if (map.getSource(id)) {
     map.removeSource(id);
   }
@@ -51,9 +51,9 @@ export const addRoute = (
   });
 };
 
-export const geometryLineBetweenPoints = (
-  first: number[],
-  second: number[],
+export const createGeometryLineBetweenPoints = (
+  first: GeoJSON.Position,
+  second: GeoJSON.Position,
 ): GeoJSON.LineString => {
   return {
     type: 'LineString',

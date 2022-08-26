@@ -24,6 +24,7 @@ import {
   setIsCreateStopModeEnabledAction,
   setSelectedStopIdAction,
 } from '../../../redux';
+import { Coords } from '../../../types';
 import { Priority } from '../../../types/Priority';
 import {
   constructWithinViewportGqlFilter,
@@ -31,14 +32,15 @@ import {
   mapLngLatToPoint,
   mapToVariables,
 } from '../../../utils';
-import { geometryLineBetweenPoints } from '../mapUtils';
+import {
+  addLineFromStopToInfraLink,
+  drawLineToClosestRoad,
+  createGeometryLineBetweenPoints,
+  removeLineFromStopToInfraLink,
+} from '../../../utils/map';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
-import {
-  addStopToInfraConnection,
-  removeStopToInfraConnection,
-} from './StopToInfraConnection';
 
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
@@ -91,11 +93,11 @@ export const Stops = React.forwardRef((props, ref) => {
   // can be used for triggering the edit for both existing and draft stops
   const onEditStop = (stop: StopWithLocation) => {
     if (stop.closest_point_on_infrastructure_link) {
-      const nearestRoad = geometryLineBetweenPoints(
+      const nearestRoad = createGeometryLineBetweenPoints(
         stop.measured_location.coordinates,
         stop.closest_point_on_infrastructure_link.coordinates,
       );
-      addStopToInfraConnection(map, nearestRoad);
+      addLineFromStopToInfraLink(map, nearestRoad);
     }
 
     setSelectedStopId(stop.scheduled_stop_point_id || undefined);
@@ -149,11 +151,15 @@ export const Stops = React.forwardRef((props, ref) => {
         <EditStopLayer
           editedStopData={editedStopData}
           onEditingFinished={onEditingFinished}
-          onPopupClose={() => removeStopToInfraConnection(map)}
+          onPopupClose={() => removeLineFromStopToInfraLink(map)}
         />
       )}
       {/* Display hovering bus stop while in create mode */}
-      {isCreateStopModeEnabled && <CreateStopMarker />}
+      {isCreateStopModeEnabled && (
+        <CreateStopMarker
+          onCursorMove={(coords: Coords) => drawLineToClosestRoad(map, coords)}
+        />
+      )}
     </>
   );
 });
