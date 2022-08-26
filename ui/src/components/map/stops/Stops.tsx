@@ -37,6 +37,7 @@ import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
 import {
   addStopToInfraConnection,
+  drawConnectionToClosestRoad,
   removeStopToInfraConnection,
 } from './StopToInfraConnection';
 
@@ -153,7 +154,13 @@ export const Stops = React.forwardRef((props, ref) => {
         />
       )}
       {/* Display hovering bus stop while in create mode */}
-      {isCreateStopModeEnabled && <CreateStopMarker />}
+      {isCreateStopModeEnabled && (
+        <CreateStopMarker
+          cursorLocation={(x: number, y: number) =>
+            drawConnectionToClosestRoad(map, x, y)
+          }
+        />
+      )}
     </>
   );
 });
