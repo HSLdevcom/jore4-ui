@@ -11,6 +11,7 @@ import {
   MAX_DATE,
   MIN_DATE,
 } from '../../../time';
+import { Priority } from '../../../types/Priority';
 import {
   AccordionButton,
   EditButton,
@@ -41,13 +42,18 @@ export const RouteStopsHeaderRow = ({
   onToggle,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
-  const { showRouteOnMapByLabel } = useShowRoutesOnModal();
+  const { showRouteOnMapByLabel, showRouteOnMapById } = useShowRoutesOnModal();
 
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
   const alertStyle = getAlertStyle(getAlertLevel(route));
 
   const onClickShowRouteOnMap = () => {
-    showRouteOnMapByLabel(route);
+    // When viewing a draft route, we want to show the specific route instance by id
+    if (route.priority === Priority.Draft) {
+      showRouteOnMapById(route);
+    } else {
+      showRouteOnMapByLabel(route);
+    }
   };
 
   return (

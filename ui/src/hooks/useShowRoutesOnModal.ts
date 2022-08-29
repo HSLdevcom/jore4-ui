@@ -43,6 +43,7 @@ export const useShowRoutesOnModal = () => {
   const showRoutesOnModal = ({
     routeLabel,
     lineLabel,
+    routeId,
     validityStart,
     validityEnd,
     latitude,
@@ -50,6 +51,7 @@ export const useShowRoutesOnModal = () => {
   }: {
     routeLabel?: string;
     lineLabel?: string;
+    routeId?: UUID;
     validityStart: DateTime;
     validityEnd: Maybe<DateTime> | undefined;
     latitude?: number;
@@ -70,6 +72,7 @@ export const useShowRoutesOnModal = () => {
     openMapInPosition({
       routeLabel,
       lineLabel,
+      routeId,
       latitude,
       longitude,
       observationDate: newObservationDate,
@@ -77,8 +80,6 @@ export const useShowRoutesOnModal = () => {
   };
 
   const showRouteOnMapByLabel = (route: RouteInformationForMapFragment) => {
-    // This is a temporary solution to position the map on opened route
-    // After react-map-gl v7 we should have a trivial way of centering the map
     const { latitude, longitude } = getRouteShapeFirstCoordinates(
       route.route_shape,
     );
@@ -94,8 +95,6 @@ export const useShowRoutesOnModal = () => {
   };
 
   const showRouteOnMapByLineLabel = (line: LineInformationForMapFragment) => {
-    // This is a temporary solution to position the map on opened route
-    // After react-map-gl v7 we should have a trivial way of centering the map
     const { latitude, longitude } = getRouteShapeFirstCoordinates(
       line.line_routes[0]?.route_shape,
     );
@@ -110,5 +109,24 @@ export const useShowRoutesOnModal = () => {
     });
   };
 
-  return { showRouteOnMapByLabel, showRouteOnMapByLineLabel };
+  const showRouteOnMapById = (route: RouteInformationForMapFragment) => {
+    const { latitude, longitude } = getRouteShapeFirstCoordinates(
+      route.route_shape,
+    );
+
+    showRoutesOnModal({
+      routeId: route.route_id,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      validityStart: route.validity_start!,
+      validityEnd: route.validity_end,
+      latitude,
+      longitude,
+    });
+  };
+
+  return {
+    showRouteOnMapByLabel,
+    showRouteOnMapByLineLabel,
+    showRouteOnMapById,
+  };
 };
