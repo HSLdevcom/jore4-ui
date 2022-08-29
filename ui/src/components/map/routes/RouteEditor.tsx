@@ -53,9 +53,10 @@ const RouteEditorComponent = (
   const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
   const drawingMode = useAppSelector(selectDrawingMode);
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
-  const { deleteMapQueryParameters } = useMapQueryParams();
+
   const { observationDate, setObservationDateToUrl } =
     useObservationDateQueryParam();
+  const { deleteMapQueryParameters, setRouteId } = useMapQueryParams();
 
   const {
     id: editedRouteId,
@@ -128,6 +129,7 @@ const RouteEditorComponent = (
     // Select created route
     dispatch(setSelectedRouteIdAction(newRoute.route_id));
 
+    setRouteId(newRoute.route_id);
     // If created route is not valid at the selected observation date,
     // change observation date to created route's validity start date
     // so the user can see the freshly created route

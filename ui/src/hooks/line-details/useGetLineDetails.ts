@@ -23,14 +23,18 @@ import {
 } from '../../utils';
 import { useObservationDateQueryParam } from '../urlQuery';
 
-const findHighestPriorityRoute = (routes: DisplayedRouteFragment[]) =>
+const findHighestPriorityRoute = <TRoute extends DisplayedRouteFragment>(
+  routes: TRoute[],
+) =>
   routes.reduce((prev, curr) => (prev.priority > curr.priority ? prev : curr));
 
 /** Returns highest priority routes filtered by given direction */
-const filterRoutesByHighestPriorityAndDirection = (
+const filterRoutesByHighestPriorityAndDirection = <
+  TRoute extends DisplayedRouteFragment,
+>(
   direction: RouteDirectionEnum,
-  routes: DisplayedRouteFragment[],
-) => {
+  routes: TRoute[],
+): TRoute[] => {
   const routesFilteredByDirection = routes.filter(
     (route) => route.direction === direction,
   );
@@ -43,9 +47,11 @@ const filterRoutesByHighestPriorityAndDirection = (
   return highestPriorityRoutes;
 };
 
-export const filterRoutesByHighestPriority = (
-  lineRoutes: DisplayedRouteFragment[],
-) => {
+export const filterRoutesByHighestPriority = <
+  TRoute extends DisplayedRouteFragment,
+>(
+  lineRoutes: TRoute[],
+): TRoute[] => {
   // TODO: what if RouteDirectionEnum is not Inbound or Outbound?
   // In that case we are currently just filtering those routes out!
   const filteredOutboundRoutes = filterRoutesByHighestPriorityAndDirection(

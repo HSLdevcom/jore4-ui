@@ -10,6 +10,7 @@ const queryParameterNameZoom = 'z' as const;
 const queryParameterNameObservationDate = 'observationDate' as const;
 const queryParameterNameRouteLabel = 'routeLabel' as const;
 const queryParameterNameLineLabel = 'lineLabel' as const;
+const queryParameterNameRouteId = 'routeId' as const;
 const DEFAULT_ZOOM = 13 as const;
 
 export const useMapQueryParams = () => {
@@ -20,6 +21,7 @@ export const useMapQueryParams = () => {
     getFloatParamFromUrlQuery,
     deleteMultipleFromUrlQuery,
     setMultipleParametersToUrlQuery,
+    setToUrlQuery,
   } = useUrlQuery();
 
   const addMapOpenQueryParameter = () => {
@@ -37,6 +39,7 @@ export const useMapQueryParams = () => {
     observationDate,
     routeLabel,
     lineLabel,
+    routeId,
   }: {
     latitude?: number;
     longitude?: number;
@@ -44,6 +47,7 @@ export const useMapQueryParams = () => {
     observationDate: DateTime;
     routeLabel?: string;
     lineLabel?: string;
+    routeId?: UUID;
   }) => {
     setMultipleParametersToUrlQuery({
       parameters: [
@@ -68,6 +72,10 @@ export const useMapQueryParams = () => {
         {
           paramName: queryParameterNameLineLabel,
           value: lineLabel,
+        },
+        {
+          paramName: queryParameterNameRouteId,
+          value: routeId,
         },
       ],
     });
@@ -100,6 +108,15 @@ export const useMapQueryParams = () => {
 
   const routeLabel = getStringParamFromUrlQuery(queryParameterNameRouteLabel);
   const lineLabel = getStringParamFromUrlQuery(queryParameterNameLineLabel);
+  const routeId = getStringParamFromUrlQuery(queryParameterNameRouteId);
+
+  const setRouteId = (id: UUID) => {
+    setToUrlQuery({
+      paramName: queryParameterNameRouteId,
+      value: id,
+      replace: true,
+    });
+  };
 
   const setMapPosition = useCallback(
     (latitude: number, longitude: number, zoom: number) => {
@@ -124,6 +141,8 @@ export const useMapQueryParams = () => {
     mapPosition,
     routeLabel,
     lineLabel,
+    routeId,
+    setRouteId,
     setMapPosition,
     openMapInPosition,
     deleteMapQueryParameters,
