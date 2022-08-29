@@ -30,7 +30,8 @@ jobs:
       # we don't need to rely on hasura seed data anymore for the e2e tests.
       # For now however, we don't have a way to reliably choose a seed-data version of the hasura
       # image that is certainly compatible with the tested UI image
-      # Note: we don't start jore3importer and mssqltestdb to save memory for the github runner
+      # Note: we don't start mbtiles, jore3importer and mssqltestdb to save memory for the github runner
+      # Note: we don't start auth backend as we have to mock the login
       - name: Start e2e env
         run: |
           curl -L https://github.com/HSLdevcom/jore4-flux/releases/download/e2e-docker-compose/e2e-docker-compose.tar.gz --silent | tar -xzf - -C ./docker/
@@ -39,7 +40,7 @@ jobs:
            -f ./docker/docker-compose.custom.yml \
            -f ./docker/docker-compose.local-ui.yml \
            up --build -d \
-           jore4-auth jore4-testdb jore4-hasura jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching jore4-ui jore4-proxy
+           jore4-testdb jore4-hasura jore4-mapmatchingdb jore4-mapmatching jore4-ui jore4-proxy
 
       - name: Verify that all services are up and running
         uses: HSLdevcom/jore4-tools/github-actions/healthcheck@healthcheck-v1
@@ -101,7 +102,8 @@ jobs:
       # we don't need to rely on hasura seed data anymore for the e2e tests.
       # For now however, we don't have a way to reliably choose a seed-data version of the hasura
       # image that is certainly compatible with the tested UI image
-      # Note: we don't start jore3importer and mssqltestdb to save memory for the github runner
+      # Note: we don't start mbtiles, jore3importer and mssqltestdb to save memory for the github runner
+      # Note: we don't start auth backend as we have to mock the login
       - name: Start e2e env
         run: |
           curl -L https://github.com/HSLdevcom/jore4-flux/releases/download/e2e-docker-compose/e2e-docker-compose.tar.gz --silent | tar -xzf - -C ./docker/
@@ -110,7 +112,7 @@ jobs:
            -f ./docker/docker-compose.custom.yml \
            -f ./docker/docker-compose.local-ui.yml \
            up --build -d \
-           jore4-auth jore4-testdb jore4-hasura jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching jore4-ui jore4-proxy
+           jore4-testdb jore4-hasura jore4-mapmatchingdb jore4-mapmatching jore4-ui jore4-proxy
 
       - name: Verify that all services are up and running
         uses: HSLdevcom/jore4-tools/github-actions/healthcheck@healthcheck-v1
