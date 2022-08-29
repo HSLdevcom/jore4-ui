@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export enum Operation {
   LoadMap = 'loadMap',
   FetchStops = 'fetchStops',
+  FetchRoutes = 'fetchRoutes',
   SaveStop = 'saveStop',
   SaveRoute = 'saveRoute',
   MatchRoute = 'matchRoute',
@@ -12,6 +13,7 @@ export enum Operation {
 export const mapOperations = [
   Operation.LoadMap,
   Operation.FetchStops,
+  Operation.FetchRoutes,
   Operation.SaveStop,
   Operation.SaveRoute,
   Operation.MatchRoute,
@@ -25,6 +27,7 @@ type IState = {
 const initialState: IState = {
   [Operation.LoadMap]: false,
   [Operation.FetchStops]: false,
+  [Operation.FetchRoutes]: false,
   [Operation.SaveStop]: false,
   [Operation.SaveRoute]: false,
   [Operation.MatchRoute]: false,
