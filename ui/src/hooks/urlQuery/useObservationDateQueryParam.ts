@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { QueryParameterName } from './useMapQueryParams';
 import { useUrlQuery } from './useUrlQuery';
 
 export const useObservationDateQueryParam = () => {
@@ -16,7 +17,7 @@ export const useObservationDateQueryParam = () => {
    */
   const setObservationDateToUrl = (date: DateTime, replace = false) => {
     setDateTimeToUrlQuery(
-      { paramName: 'observationDate', value: date },
+      { paramName: QueryParameterName.ObservationDate, value: date },
       { replace },
     );
   };
@@ -24,7 +25,10 @@ export const useObservationDateQueryParam = () => {
   // Memoize the actual value to prevent unnecessary updates
   const observationDate = useMemo(() => {
     try {
-      return getDateTimeFromUrlQuery('observationDate') || defaultDate;
+      return (
+        getDateTimeFromUrlQuery(QueryParameterName.ObservationDate) ||
+        defaultDate
+      );
     } catch {
       // If parsing date fails, set default date
       setObservationDateToUrl(defaultDate, true);
