@@ -80,10 +80,9 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:
-          name: cypress-yarn-reports
+          name: cypress-local-reports
           path: |
-            ${{ github.workspace }}/cypress/videos
-            ${{ github.workspace }}/cypress/screenshots
+            ${{ github.workspace }}/cypress/reports
 
   # Note: this is a temporary solution for now. Should replace this with image from docker hub
   # when we have the jore4-cypress repository created
@@ -145,8 +144,7 @@ jobs:
       - name: Retrieve test results from container
         if: ${{ always() }}
         run: |
-          docker cp cypress:/e2e/cypress/videos ${{ github.workspace }}/cypress/
-          docker cp cypress:/e2e/cypress/screenshots ${{ github.workspace }}/cypress/
+          docker cp cypress:/e2e/cypress/reports ${{ github.workspace }}/cypress/
 
       - name: Upload test results as an artifact
         if: ${{ always() }}
@@ -154,5 +152,4 @@ jobs:
         with:
           name: cypress-docker-reports
           path: |
-            ${{ github.workspace }}/cypress/videos
-            ${{ github.workspace }}/cypress/screenshots
+            ${{ github.workspace }}/cypress/reports
