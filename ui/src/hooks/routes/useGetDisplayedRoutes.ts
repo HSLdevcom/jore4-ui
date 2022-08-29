@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import {
   useGetLineRoutesByLabelQuery,
+  useGetRouteByIdQuery,
   useGetRouteDetailsByLabelsQuery,
 } from '../../generated/graphql';
 import {
@@ -24,6 +25,14 @@ const GQL_GET_LINE_ROUTES_BY_LABEL = gql`
   }
 `;
 
+const GQL_GET_ROUTE_BY_ID = gql`
+  query GetRouteById($routeId: uuid!) {
+    route_route_by_pk(route_id: $routeId) {
+      ...displayed_route
+    }
+  }
+`;
+
 const GQL_DISPLAYED_ROUTE = gql`
   fragment displayed_route on route_route {
     route_id
@@ -36,9 +45,10 @@ const GQL_DISPLAYED_ROUTE = gql`
 `;
 
 export const useGetDisplayedRoutes = () => {
-  const { routeLabel, lineLabel } = useMapQueryParams();
-
   const { observationDate } = useObservationDateQueryParam();
+  const { routeLabel, lineLabel, routeId } = useMapQueryParams();
+
+  // Get routes by ROUTE LABEL
 
   const routesByRouteLabelResult = useGetRouteDetailsByLabelsQuery({
     variables: {
@@ -50,6 +60,8 @@ export const useGetDisplayedRoutes = () => {
   });
 
   const routesByRouteLabel = routesByRouteLabelResult.data?.route_route || [];
+
+  // Get routes by LINE LABEL
 
   const lineFilters = {
     ...constructLabelGqlFilter(lineLabel),
@@ -70,7 +82,24 @@ export const useGetDisplayedRoutes = () => {
   const routesByLineLabel =
     routesByLineLabelResult?.data?.route_line[0].line_routes || [];
 
-  const routes = [...routesByRouteLabel, ...routesByLineLabel];
+  // Get routes by ROUTE ID
+
+  const routesByRouteIdResult = useGetRouteByIdQuery({
+    variables: {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      routeId: routeId!,
+    },
+    skip: !routeId,
+  });
+
+  const routeByRouteId = routesByRouteIdResult.data?.route_route_by_pk;
+  const routesByRouteId = routeByRouteId ? [routeByRouteId] : [];
+
+  const routes = [
+    ...routesByRouteLabel,
+    ...routesByLineLabel,
+    ...routesByRouteId,
+  ];
 
   const displayedRoutes = filterRoutesByHighestPriority(routes);
 
