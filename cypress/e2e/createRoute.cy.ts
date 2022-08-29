@@ -28,6 +28,7 @@ describe('Verify that creating new route works', () => {
     confirmSaveForm = new ConfirmSaveForm();
     toast = new Toast();
 
+    cy.setupTests();
     cy.mockLogin();
     cy.visit(
       '/routes?mapOpen=true&lng=24.93021804533524&lat=60.164074274478054&z=15',
@@ -93,6 +94,9 @@ describe('Verify that creating new route works', () => {
 
       map.clickNthSnappingPointHandle(1);
       mapFooter.save();
+      cy.wait('@gqlInsertRouteOne')
+        .its('response.statusCode')
+        .should('equal', 200);
       toast.checkRouteSubmitSuccess();
 
       cy.getByTestId('RouteStopsOverlay::mapOverlayHeader')

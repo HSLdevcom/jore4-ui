@@ -30,15 +30,38 @@ Cypress.Commands.add('getByTestId', (selector, ...args) => {
 
 Cypress.Commands.add('mockLogin', () => {
   cy.fixture('users/e2e.json').then((userInfo) => {
+    // return a mock user info instead of going for the auth backend
     cy.intercept('GET', '/api/auth/public/v1/userInfo', {
       statusCode: 200,
       body: userInfo,
     }).as('userInfo');
 
+    // intercept calls to hasura and log in as admin (to avoid it going to auth backend)
     cy.intercept('**', (req) => {
       // eslint-disable-next-line no-param-reassign
       req.headers['x-hasura-admin-secret'] = 'hasura';
     }).as('hasuraAuth');
+  });
+});
+
+Cypress.Commands.add('setupTests', () => {
+  // no need to display map tiles
+  cy.intercept('https://dev-api.digitransit.fi/**', {
+    statusCode: 404,
+    body: '404 Not Found!',
+  }).as('blockDigitransit');
+  cy.intercept('https://digitransit-dev-cdn-origin.azureedge.net/**', {
+    statusCode: 404,
+    body: '404 Not Found!',
+  }).as('blockDigitransit');
+
+  // label all graphql calls that they can be expected in tests
+  // e.g. GetAllLines query can be waited as cy.wait('@gqlGetAllLines')
+  cy.intercept('POST', '/api/graphql/**', (req) => {
+    if (req.body && req.body.operationName) {
+      // eslint-disable-next-line no-param-reassign
+      req.alias = `gql${req.body.operationName}`;
+    }
   });
 });
 

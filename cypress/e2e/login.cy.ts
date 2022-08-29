@@ -6,6 +6,9 @@ describe('Verify that login mocking works', () => {
       userInfo = user;
     });
   });
+  beforeEach(() => {
+    cy.setupTests();
+  });
 
   it('User is not logged in by default', () => {
     cy.visit('/');

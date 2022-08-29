@@ -16,5 +16,11 @@ declare namespace Cypress {
      * @example cy.mockLogin()
      */
     mockLogin(): Chainable<void>;
+
+    /**
+     * Sets up default configurations for every test.
+     * @example cy.setupTests()
+     */
+    setupTests(): Chainable<void>;
   }
 }
