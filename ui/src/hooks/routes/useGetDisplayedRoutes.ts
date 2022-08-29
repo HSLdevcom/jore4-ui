@@ -1,14 +1,17 @@
 import { gql } from '@apollo/client';
+import { useEffect } from 'react';
 import {
   useGetLineRoutesByLabelQuery,
   useGetRouteByIdQuery,
   useGetRouteDetailsByLabelsQuery,
 } from '../../generated/graphql';
+import { Operation } from '../../redux';
 import {
   constructActiveDateGqlFilter,
   constructLabelGqlFilter,
 } from '../../utils';
 import { filterRoutesByHighestPriority } from '../line-details';
+import { useLoader } from '../ui';
 import { useMapQueryParams, useObservationDateQueryParam } from '../urlQuery';
 
 const GQL_GET_LINE_ROUTES_BY_LABEL = gql`
@@ -47,6 +50,8 @@ const GQL_DISPLAYED_ROUTE = gql`
 export const useGetDisplayedRoutes = () => {
   const { observationDate } = useObservationDateQueryParam();
   const { routeLabel, lineLabel, routeId } = useMapQueryParams();
+
+  const { setIsLoading } = useLoader(Operation.FetchRoutes);
 
   // Get routes by ROUTE LABEL
 
@@ -102,6 +107,21 @@ export const useGetDisplayedRoutes = () => {
   ];
 
   const displayedRoutes = filterRoutesByHighestPriority(routes);
+
+  const isLoading =
+    routesByRouteLabelResult.loading ||
+    routesByLineLabelResult.loading ||
+    routesByRouteIdResult.loading;
+
+  useEffect(() => {
+    /**
+     * Here we sync route fetch query loading state with useLoader hook state.
+     *
+     * We could also use useLoader's immediatelyOn option instead of useEffect,
+     * but using options to dynamically control loading state feels semantically wrong.
+     */
+    setIsLoading(isLoading);
+  }, [setIsLoading, isLoading]);
 
   return {
     displayedRouteIds: displayedRoutes.map((route) => route.route_id),
