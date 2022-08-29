@@ -3,14 +3,17 @@ import { useCallback } from 'react';
 import { HELSINKI_CITY_CENTER_COORDINATES } from '../../redux';
 import { useUrlQuery } from './useUrlQuery';
 
-const queryParameterNameMapOpen = 'mapOpen' as const;
-const queryParameterNameLongitude = 'lng' as const;
-const queryParameterNameLatitude = 'lat' as const;
-const queryParameterNameZoom = 'z' as const;
-const queryParameterNameObservationDate = 'observationDate' as const;
-const queryParameterNameRouteLabel = 'routeLabel' as const;
-const queryParameterNameLineLabel = 'lineLabel' as const;
-const queryParameterNameRouteId = 'routeId' as const;
+export enum QueryParameterName {
+  MapOpen = 'mapOpen',
+  Longitude = 'lng',
+  Latitude = 'lat',
+  Zoom = 'z',
+  ObservationDate = 'observationDate',
+  RouteLabel = 'routeLabel',
+  LineLabel = 'lineLabel',
+  RouteId = 'routeId',
+}
+
 const DEFAULT_ZOOM = 13 as const;
 
 export const useMapQueryParams = () => {
@@ -25,7 +28,10 @@ export const useMapQueryParams = () => {
   } = useUrlQuery();
 
   const addMapOpenQueryParameter = () => {
-    setBooleanToUrlQuery({ paramName: queryParameterNameMapOpen, value: true });
+    setBooleanToUrlQuery({
+      paramName: QueryParameterName.MapOpen,
+      value: true,
+    });
   };
 
   /** Sets latitude, longitude, zoom and mapOpen queryparameters which will
@@ -52,29 +58,29 @@ export const useMapQueryParams = () => {
     setMultipleParametersToUrlQuery({
       parameters: [
         {
-          paramName: queryParameterNameLatitude,
+          paramName: QueryParameterName.Latitude,
           value: latitude || HELSINKI_CITY_CENTER_COORDINATES.latitude,
         },
         {
-          paramName: queryParameterNameLongitude,
+          paramName: QueryParameterName.Longitude,
           value: longitude || HELSINKI_CITY_CENTER_COORDINATES.longitude,
         },
-        { paramName: queryParameterNameZoom, value: zoom || DEFAULT_ZOOM },
-        { paramName: queryParameterNameMapOpen, value: true },
+        { paramName: QueryParameterName.Zoom, value: zoom || DEFAULT_ZOOM },
+        { paramName: QueryParameterName.MapOpen, value: true },
         {
-          paramName: queryParameterNameObservationDate,
+          paramName: QueryParameterName.ObservationDate,
           value: observationDate,
         },
         {
-          paramName: queryParameterNameRouteLabel,
+          paramName: QueryParameterName.RouteLabel,
           value: routeLabel,
         },
         {
-          paramName: queryParameterNameLineLabel,
+          paramName: QueryParameterName.LineLabel,
           value: lineLabel,
         },
         {
-          paramName: queryParameterNameRouteId,
+          paramName: QueryParameterName.RouteId,
           value: routeId,
         },
       ],
@@ -84,35 +90,36 @@ export const useMapQueryParams = () => {
   const deleteMapQueryParameters = () => {
     deleteMultipleFromUrlQuery({
       paramNames: [
-        queryParameterNameMapOpen,
-        queryParameterNameLongitude,
-        queryParameterNameLatitude,
-        queryParameterNameZoom,
-        queryParameterNameRouteLabel,
-        queryParameterNameLineLabel,
+        QueryParameterName.MapOpen,
+        QueryParameterName.Longitude,
+        QueryParameterName.Latitude,
+        QueryParameterName.Zoom,
+        QueryParameterName.RouteLabel,
+        QueryParameterName.LineLabel,
+        QueryParameterName.RouteId,
       ],
     });
   };
 
-  const isMapOpen = getBooleanParamFromUrlQuery(queryParameterNameMapOpen);
+  const isMapOpen = getBooleanParamFromUrlQuery(QueryParameterName.MapOpen);
 
   const mapPosition = {
     longitude:
-      getFloatParamFromUrlQuery(queryParameterNameLongitude) ??
+      getFloatParamFromUrlQuery(QueryParameterName.Longitude) ??
       HELSINKI_CITY_CENTER_COORDINATES.longitude,
     latitude:
-      getFloatParamFromUrlQuery(queryParameterNameLatitude) ??
+      getFloatParamFromUrlQuery(QueryParameterName.Latitude) ??
       HELSINKI_CITY_CENTER_COORDINATES.latitude,
-    zoom: getFloatParamFromUrlQuery(queryParameterNameZoom) ?? DEFAULT_ZOOM,
+    zoom: getFloatParamFromUrlQuery(QueryParameterName.Zoom) ?? DEFAULT_ZOOM,
   };
 
-  const routeLabel = getStringParamFromUrlQuery(queryParameterNameRouteLabel);
-  const lineLabel = getStringParamFromUrlQuery(queryParameterNameLineLabel);
-  const routeId = getStringParamFromUrlQuery(queryParameterNameRouteId);
+  const routeLabel = getStringParamFromUrlQuery(QueryParameterName.RouteLabel);
+  const lineLabel = getStringParamFromUrlQuery(QueryParameterName.LineLabel);
+  const routeId = getStringParamFromUrlQuery(QueryParameterName.RouteId);
 
   const setRouteId = (id: UUID) => {
     setToUrlQuery({
-      paramName: queryParameterNameRouteId,
+      paramName: QueryParameterName.RouteId,
       value: id,
       replace: true,
     });
@@ -122,12 +129,12 @@ export const useMapQueryParams = () => {
     (latitude: number, longitude: number, zoom: number) => {
       setMultipleParametersToUrlQuery({
         parameters: [
-          { paramName: queryParameterNameLatitude, value: latitude },
+          { paramName: QueryParameterName.Latitude, value: latitude },
           {
-            paramName: queryParameterNameLongitude,
+            paramName: QueryParameterName.Longitude,
             value: longitude,
           },
-          { paramName: queryParameterNameZoom, value: zoom },
+          { paramName: QueryParameterName.Zoom, value: zoom },
         ],
         replace: true,
       });
