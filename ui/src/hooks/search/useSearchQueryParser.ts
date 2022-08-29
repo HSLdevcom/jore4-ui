@@ -49,7 +49,7 @@ export type DeserializedQueryStringParameters = {
  * exsiting type of {Priority}
  * @param priorities Priorities array in string format (csv).
  */
-const parseAndValidatePriorities = (priorities: string) =>
+export const parseAndValidatePriorities = (priorities: string) =>
   priorities
     .split(',')
     .map((p) => parseInt(p, 10))
