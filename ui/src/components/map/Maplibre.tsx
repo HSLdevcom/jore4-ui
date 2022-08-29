@@ -1,12 +1,11 @@
 import distance from '@turf/distance';
 import { point, Units } from '@turf/helpers';
+import { generateStyle } from 'hsl-map-style';
 import debounce from 'lodash/debounce';
 import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
 import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
 import { Operation, setViewPortAction } from '../../redux';
-import hslSimpleStyle from './hslSimpleStyle.json';
-import rasterMapStyle from './rasterMapStyle.json';
 
 interface Props {
   className?: string;
@@ -27,12 +26,13 @@ interface MaplibreViewport {
   pitch: number;
 }
 
+const style = generateStyle();
+
 export const Maplibre: FunctionComponent<Props> = ({
   className = '',
   onClick,
   width = '100vw',
   height = '100vh',
-  useVectorTilesAsBaseMap = true,
   children,
 }) => {
   const mapRef = useRef<MapRef>(null);
@@ -130,8 +130,6 @@ export const Maplibre: FunctionComponent<Props> = ({
     return undefined;
   };
 
-  const mapStyle = useVectorTilesAsBaseMap ? hslSimpleStyle : rasterMapStyle;
-
   const onLoad = () => {
     setIsLoading(false);
     onViewportChange(viewport);
@@ -153,7 +151,7 @@ export const Maplibre: FunctionComponent<Props> = ({
       onViewportChange={onViewportChange}
       onClick={onClick}
       className={className}
-      mapStyle={mapStyle}
+      mapStyle={style}
       getCursor={getCursor}
       transformRequest={transformRequest}
       doubleClickZoom={false}
