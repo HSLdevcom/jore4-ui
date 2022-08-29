@@ -30,6 +30,7 @@
     "apollo-link-scalars": "^4.0.1",
     "axios": "0.21.1",
     "graphql": "^15.5.3",
+    "hsl-map-style": "HSLdevcom/hsl-map-style",
     "i18next": "^20.2.1",
     "immer": "^9.0.5",
     "lodash": "^4.17.21",
