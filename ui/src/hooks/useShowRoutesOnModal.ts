@@ -7,6 +7,7 @@ import {
 } from '../generated/graphql';
 import { resetMapEditorStateAction } from '../redux';
 import { isDateInRange } from '../time';
+import { Priority } from '../types/Priority';
 import { getRouteShapeFirstCoordinates } from '../utils/routeShape';
 import { useAppDispatch } from './redux';
 import { useMapQueryParams, useObservationDateQueryParam } from './urlQuery';
@@ -48,6 +49,8 @@ export const useShowRoutesOnModal = () => {
     validityEnd,
     latitude,
     longitude,
+    showSelectedDaySituation = true,
+    priorities = [Priority.Standard, Priority.Temporary],
   }: {
     routeLabel?: string;
     lineLabel?: string;
@@ -56,6 +59,8 @@ export const useShowRoutesOnModal = () => {
     validityEnd: Maybe<DateTime> | undefined;
     latitude?: number;
     longitude?: number;
+    showSelectedDaySituation?: boolean;
+    priorities?: Priority[];
   }) => {
     // Use observation date from list view by default. If observation date
     // is outside validity, make observation validity start date, so map is not empty.
@@ -76,6 +81,8 @@ export const useShowRoutesOnModal = () => {
       latitude,
       longitude,
       observationDate: newObservationDate,
+      showSelectedDaySituation,
+      priorities,
     });
   };
 
@@ -121,6 +128,8 @@ export const useShowRoutesOnModal = () => {
       validityEnd: route.validity_end,
       latitude,
       longitude,
+      showSelectedDaySituation: false,
+      priorities: [Priority.Standard, Priority.Temporary, Priority.Draft],
     });
   };
 

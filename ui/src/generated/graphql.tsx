@@ -8766,24 +8766,21 @@ export type GetLineRoutesByLabelQuery = {
   }>;
 };
 
-export type GetRouteByIdQueryVariables = Exact<{
-  routeId: Scalars['uuid'];
+export type GetRouteByFiltersQueryVariables = Exact<{
+  routeFilters?: Maybe<RouteRouteBoolExp>;
 }>;
 
-export type GetRouteByIdQuery = {
+export type GetRouteByFiltersQuery = {
   __typename?: 'query_root';
-  route_route_by_pk?:
-    | {
-        __typename?: 'route_route';
-        route_id: UUID;
-        label: string;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-        priority: number;
-        direction: RouteDirectionEnum;
-      }
-    | null
-    | undefined;
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    label: string;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    priority: number;
+    direction: RouteDirectionEnum;
+  }>;
 };
 
 export type DisplayedRouteFragment = {
@@ -11706,9 +11703,9 @@ export type GetLineRoutesByLabelQueryResult = Apollo.QueryResult<
   GetLineRoutesByLabelQuery,
   GetLineRoutesByLabelQueryVariables
 >;
-export const GetRouteByIdDocument = gql`
-  query GetRouteById($routeId: uuid!) {
-    route_route_by_pk(route_id: $routeId) {
+export const GetRouteByFiltersDocument = gql`
+  query GetRouteByFilters($routeFilters: route_route_bool_exp) {
+    route_route(where: $routeFilters) {
       ...displayed_route
     }
   }
@@ -11716,54 +11713,54 @@ export const GetRouteByIdDocument = gql`
 `;
 
 /**
- * __useGetRouteByIdQuery__
+ * __useGetRouteByFiltersQuery__
  *
- * To run a query within a React component, call `useGetRouteByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRouteByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetRouteByFiltersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteByFiltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetRouteByIdQuery({
+ * const { data, loading, error } = useGetRouteByFiltersQuery({
  *   variables: {
- *      routeId: // value for 'routeId'
+ *      routeFilters: // value for 'routeFilters'
  *   },
  * });
  */
-export function useGetRouteByIdQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetRouteByIdQuery,
-    GetRouteByIdQueryVariables
+export function useGetRouteByFiltersQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetRouteByFiltersQuery,
+    GetRouteByFiltersQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetRouteByIdQuery, GetRouteByIdQueryVariables>(
-    GetRouteByIdDocument,
-    options,
-  );
+  return Apollo.useQuery<
+    GetRouteByFiltersQuery,
+    GetRouteByFiltersQueryVariables
+  >(GetRouteByFiltersDocument, options);
 }
-export function useGetRouteByIdLazyQuery(
+export function useGetRouteByFiltersLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetRouteByIdQuery,
-    GetRouteByIdQueryVariables
+    GetRouteByFiltersQuery,
+    GetRouteByFiltersQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetRouteByIdQuery, GetRouteByIdQueryVariables>(
-    GetRouteByIdDocument,
-    options,
-  );
+  return Apollo.useLazyQuery<
+    GetRouteByFiltersQuery,
+    GetRouteByFiltersQueryVariables
+  >(GetRouteByFiltersDocument, options);
 }
-export type GetRouteByIdQueryHookResult = ReturnType<
-  typeof useGetRouteByIdQuery
+export type GetRouteByFiltersQueryHookResult = ReturnType<
+  typeof useGetRouteByFiltersQuery
 >;
-export type GetRouteByIdLazyQueryHookResult = ReturnType<
-  typeof useGetRouteByIdLazyQuery
+export type GetRouteByFiltersLazyQueryHookResult = ReturnType<
+  typeof useGetRouteByFiltersLazyQuery
 >;
-export type GetRouteByIdQueryResult = Apollo.QueryResult<
-  GetRouteByIdQuery,
-  GetRouteByIdQueryVariables
+export type GetRouteByFiltersQueryResult = Apollo.QueryResult<
+  GetRouteByFiltersQuery,
+  GetRouteByFiltersQueryVariables
 >;
 export const SearchLinesAndRoutesDocument = gql`
   query SearchLinesAndRoutes(
@@ -12334,13 +12331,13 @@ export function useGetLineRoutesByLabelAsyncQuery() {
 export type GetLineRoutesByLabelAsyncQueryHookResult = ReturnType<
   typeof useGetLineRoutesByLabelAsyncQuery
 >;
-export function useGetRouteByIdAsyncQuery() {
-  return useAsyncQuery<GetRouteByIdQuery, GetRouteByIdQueryVariables>(
-    GetRouteByIdDocument,
+export function useGetRouteByFiltersAsyncQuery() {
+  return useAsyncQuery<GetRouteByFiltersQuery, GetRouteByFiltersQueryVariables>(
+    GetRouteByFiltersDocument,
   );
 }
-export type GetRouteByIdAsyncQueryHookResult = ReturnType<
-  typeof useGetRouteByIdAsyncQuery
+export type GetRouteByFiltersAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteByFiltersAsyncQuery
 >;
 export function useSearchLinesAndRoutesAsyncQuery() {
   return useAsyncQuery<
