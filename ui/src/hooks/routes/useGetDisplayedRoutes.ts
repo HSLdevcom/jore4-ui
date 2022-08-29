@@ -1,14 +1,15 @@
 import { gql } from '@apollo/client';
 import { useEffect } from 'react';
 import {
+  RouteRouteBoolExp,
   useGetLineRoutesByLabelQuery,
-  useGetRouteByIdQuery,
-  useGetRouteDetailsByLabelsQuery,
+  useGetRouteByFiltersQuery,
 } from '../../generated/graphql';
 import { Operation } from '../../redux';
 import {
   constructActiveDateGqlFilter,
   constructLabelGqlFilter,
+  constructPriorityInGqlFilter,
 } from '../../utils';
 import { filterRoutesByHighestPriority } from '../line-details';
 import { useLoader } from '../ui';
@@ -28,9 +29,9 @@ const GQL_GET_LINE_ROUTES_BY_LABEL = gql`
   }
 `;
 
-const GQL_GET_ROUTE_BY_ID = gql`
-  query GetRouteById($routeId: uuid!) {
-    route_route_by_pk(route_id: $routeId) {
+const GQL_GET_ROUTE_BY_FILTERS = gql`
+  query GetRouteByFilters($routeFilters: route_route_bool_exp) {
+    route_route(where: $routeFilters) {
       ...displayed_route
     }
   }
@@ -49,22 +50,42 @@ const GQL_DISPLAYED_ROUTE = gql`
 
 export const useGetDisplayedRoutes = () => {
   const { observationDate } = useObservationDateQueryParam();
-  const { routeLabel, lineLabel, routeId } = useMapQueryParams();
+  const {
+    routeLabel,
+    lineLabel,
+    routeId,
+    showSelectedDaySituation,
+    priorities,
+  } = useMapQueryParams();
 
   const { setIsLoading } = useLoader(Operation.FetchRoutes);
 
-  // Get routes by ROUTE LABEL
+  const routeFilters = {
+    ...constructActiveDateGqlFilter(observationDate),
+    ...constructPriorityInGqlFilter(priorities),
+  };
 
-  const routesByRouteLabelResult = useGetRouteDetailsByLabelsQuery({
+  // Get routes by ROUTE LABEL OR ID
+
+  const routesByRouteInfoResult = useGetRouteByFiltersQuery({
     variables: {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      labels: [routeLabel!],
-      date: observationDate,
+      routeFilters: {
+        _and: [
+          {
+            _or: [
+              routeLabel && constructLabelGqlFilter(routeLabel),
+              routeId && { route_id: { _eq: routeId } },
+              // Remove undefined instances with filter
+            ].filter((i) => i) as RouteRouteBoolExp[],
+          },
+          routeFilters,
+        ],
+      },
     },
-    skip: !routeLabel,
+    skip: !routeLabel && !routeId,
   });
 
-  const routesByRouteLabel = routesByRouteLabelResult.data?.route_route || [];
+  const routesByRouteInfo = routesByRouteInfoResult.data?.route_route || [];
 
   // Get routes by LINE LABEL
 
@@ -72,46 +93,31 @@ export const useGetDisplayedRoutes = () => {
     ...constructLabelGqlFilter(lineLabel),
   };
 
-  const lineRouteFilters = {
-    ...constructActiveDateGqlFilter(observationDate),
-  };
-
   const routesByLineLabelResult = useGetLineRoutesByLabelQuery({
     variables: {
       lineFilters,
-      lineRouteFilters,
+      lineRouteFilters: routeFilters,
     },
     skip: !lineLabel,
   });
 
   const routesByLineLabel =
-    routesByLineLabelResult?.data?.route_line[0].line_routes || [];
+    routesByLineLabelResult?.data?.route_line.flatMap(
+      (line) => line.line_routes,
+    ) || [];
 
-  // Get routes by ROUTE ID
+  const routes = [...routesByRouteInfo, ...routesByLineLabel];
 
-  const routesByRouteIdResult = useGetRouteByIdQuery({
-    variables: {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      routeId: routeId!,
-    },
-    skip: !routeId,
-  });
-
-  const routeByRouteId = routesByRouteIdResult.data?.route_route_by_pk;
-  const routesByRouteId = routeByRouteId ? [routeByRouteId] : [];
-
-  const routes = [
-    ...routesByRouteLabel,
-    ...routesByLineLabel,
-    ...routesByRouteId,
-  ];
-
-  const displayedRoutes = filterRoutesByHighestPriority(routes);
+  /*
+   * If we choose not to show the situation on selected day,
+   * do not filter routes
+   */
+  const displayedRoutes = showSelectedDaySituation
+    ? filterRoutesByHighestPriority(routes)
+    : routes;
 
   const isLoading =
-    routesByRouteLabelResult.loading ||
-    routesByLineLabelResult.loading ||
-    routesByRouteIdResult.loading;
+    routesByRouteInfoResult.loading || routesByLineLabelResult.loading;
 
   useEffect(() => {
     /**

@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import { HELSINKI_CITY_CENTER_COORDINATES } from '../../redux';
+import { Priority } from '../../types/Priority';
+import { parseAndValidatePriorities } from '../search';
 import { useUrlQuery } from './useUrlQuery';
 
 export enum QueryParameterName {
@@ -12,6 +14,8 @@ export enum QueryParameterName {
   RouteLabel = 'routeLabel',
   LineLabel = 'lineLabel',
   RouteId = 'routeId',
+  ShowSelectedDaySituation = 'showSelectedDaySituation',
+  Priorities = 'routePriorities',
 }
 
 const DEFAULT_ZOOM = 13 as const;
@@ -46,6 +50,8 @@ export const useMapQueryParams = () => {
     routeLabel,
     lineLabel,
     routeId,
+    showSelectedDaySituation = true,
+    priorities,
   }: {
     latitude?: number;
     longitude?: number;
@@ -54,6 +60,8 @@ export const useMapQueryParams = () => {
     routeLabel?: string;
     lineLabel?: string;
     routeId?: UUID;
+    showSelectedDaySituation?: boolean;
+    priorities: Priority[];
   }) => {
     setMultipleParametersToUrlQuery({
       parameters: [
@@ -83,6 +91,14 @@ export const useMapQueryParams = () => {
           paramName: QueryParameterName.RouteId,
           value: routeId,
         },
+        {
+          paramName: QueryParameterName.ShowSelectedDaySituation,
+          value: showSelectedDaySituation,
+        },
+        {
+          paramName: QueryParameterName.Priorities,
+          value: priorities,
+        },
       ],
     });
   };
@@ -97,6 +113,8 @@ export const useMapQueryParams = () => {
         QueryParameterName.RouteLabel,
         QueryParameterName.LineLabel,
         QueryParameterName.RouteId,
+        QueryParameterName.ShowSelectedDaySituation,
+        QueryParameterName.Priorities,
       ],
     });
   };
@@ -116,6 +134,12 @@ export const useMapQueryParams = () => {
   const routeLabel = getStringParamFromUrlQuery(QueryParameterName.RouteLabel);
   const lineLabel = getStringParamFromUrlQuery(QueryParameterName.LineLabel);
   const routeId = getStringParamFromUrlQuery(QueryParameterName.RouteId);
+  const showSelectedDaySituation = getBooleanParamFromUrlQuery(
+    QueryParameterName.ShowSelectedDaySituation,
+  );
+  const priorities = parseAndValidatePriorities(
+    getStringParamFromUrlQuery(QueryParameterName.Priorities) || '',
+  );
 
   const setRouteId = (id: UUID) => {
     setToUrlQuery({
@@ -149,6 +173,8 @@ export const useMapQueryParams = () => {
     routeLabel,
     lineLabel,
     routeId,
+    showSelectedDaySituation,
+    priorities,
     setRouteId,
     setMapPosition,
     openMapInPosition,

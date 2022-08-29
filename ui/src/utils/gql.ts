@@ -39,6 +39,13 @@ export const constructPriorityEqualGqlFilter = (priority: Priority) => ({
   },
 });
 
+/** Constructs an object for gql to filter out all but the given priority */
+export const constructPriorityInGqlFilter = (priorities: Priority[]) => ({
+  priority: {
+    _in: priorities,
+  },
+});
+
 /** Constructs an object for gql to filter by label */
 export const constructLabelGqlFilter = (label?: string) => ({
   label: { _eq: label },

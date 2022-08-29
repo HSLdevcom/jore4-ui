@@ -1,4 +1,5 @@
 import produce from 'immer';
+import isArray from 'lodash/isArray';
 import isBoolean from 'lodash/isBoolean';
 import isNumber from 'lodash/isNumber';
 import { DateTime } from 'luxon';
@@ -95,7 +96,7 @@ export const useUrlQuery = () => {
       replace = false,
     }: {
       parameters: QueryParameter<
-        string | boolean | DateTime | number | undefined
+        string | boolean | DateTime | number | undefined | number[]
       >[];
       replace?: boolean;
       debounced?: boolean;
@@ -113,6 +114,8 @@ export const useUrlQuery = () => {
             draft[parameter.paramName] = parameter.value.toISODate();
           } else if (isNumber(parameter.value)) {
             draft[parameter.paramName] = parameter.value.toString();
+          } else if (isArray(parameter.value)) {
+            draft[parameter.paramName] = parameter.value.join(',');
           } else {
             draft[parameter.paramName] = parameter.value;
           }
@@ -124,6 +127,19 @@ export const useUrlQuery = () => {
     },
     [queryParams, setQueryString],
   );
+
+  /** Sets array parameter to URL query
+   * replace flag can be given to replace the earlier url query instead
+   * of pushing it. This affects how the back button or history.back() works.
+   * If the history is replaced, it means that back button will not go to the
+   * url which was replaced, but rather the one before it.
+   */
+  const setArrayToUrlQuery = <T>(
+    { paramName, value }: QueryParameter<T[]>,
+    { replace }: ParameterWriteOptions = {},
+  ) => {
+    setToUrlQuery({ paramName, value: value.join(','), replace });
+  };
 
   /** Returns a query parameter in boolean type */
   const getStringParamFromUrlQuery = (paramName: string) => {
@@ -202,6 +218,7 @@ export const useUrlQuery = () => {
     setToUrlQuery,
     setBooleanToUrlQuery,
     setDateTimeToUrlQuery,
+    setArrayToUrlQuery,
     getStringParamFromUrlQuery,
     getBooleanParamFromUrlQuery,
     getDateTimeFromUrlQuery,
