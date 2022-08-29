@@ -31,7 +31,7 @@ jobs:
       # For now however, we don't have a way to reliably choose a seed-data version of the hasura
       # image that is certainly compatible with the tested UI image
       # Note: we don't start mbtiles, jore3importer and mssqltestdb to save memory for the github runner
-      # Note: we don't start auth backend as we have to mock the login
+      # Note: we don't start auth backend as we anyway mock the login
       - name: Start e2e env
         run: |
           curl -L https://github.com/HSLdevcom/jore4-flux/releases/download/e2e-docker-compose/e2e-docker-compose.tar.gz --silent | tar -xzf - -C ./docker/
@@ -59,22 +59,9 @@ jobs:
       - name: Fix the missing cypress binary in case it did not get retrieved from cache
         run: yarn cypress install
 
-      - name: Debug before
-        if: ${{ always() }}
-        run: |
-          docker ps
-          docker logs hasura
-          vmstat -a
-          PGPASSWORD=adminpassword psql -h localhost -p 6432 -U dbadmin -d jore4e2e -c "SELECT * FROM service_pattern.scheduled_stop_point WHERE label LIKE 'H12%'"
-
       - name: Run cypress tests
         run: |
           yarn test:e2e
-
-      - name: Debug after
-        if: ${{ always() }}
-        run: |
-          docker logs hasura
 
       - name: Upload test results as an artifact
         if: ${{ always() }}
@@ -102,7 +89,7 @@ jobs:
       # For now however, we don't have a way to reliably choose a seed-data version of the hasura
       # image that is certainly compatible with the tested UI image
       # Note: we don't start mbtiles, jore3importer and mssqltestdb to save memory for the github runner
-      # Note: we don't start auth backend as we have to mock the login
+      # Note: we don't start auth backend as we anyway mock the login
       - name: Start e2e env
         run: |
           curl -L https://github.com/HSLdevcom/jore4-flux/releases/download/e2e-docker-compose/e2e-docker-compose.tar.gz --silent | tar -xzf - -C ./docker/
@@ -118,28 +105,13 @@ jobs:
         with:
           command: '[ -z "$(docker ps -q --filter health=unhealthy --filter health=starting)" ]'
 
-      - name: Debug before
-        if: ${{ always() }}
-        run: |
-          docker ps
-          docker logs hasura
-          vmstat -a
-          PGPASSWORD=adminpassword psql -h localhost -p 6432 -U dbadmin -d jore4e2e -c "SELECT * FROM service_pattern.scheduled_stop_point WHERE label LIKE 'H12%'"
-
-      # Note: this is storing the test reports in ./cypress/videos and ./cypress/snapshots folders for now
       - name: Build and run the the docker image containing the cypress tests
         run: |
-          PGPASSWORD=adminpassword psql -h localhost -p 6432 -U dbadmin -d jore4e2e -c "SELECT * FROM service_pattern.scheduled_stop_point WHERE label LIKE 'H12%'"
           export DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.cypress.yml"
 
           # build the cypress docker image and include all e2e tests
           $DOCKER_COMPOSE_CMD build jore4-cypress
           $DOCKER_COMPOSE_CMD run --name cypress jore4-cypress yarn test:e2e
-
-      - name: Debug after
-        if: ${{ always() }}
-        run: |
-          docker logs hasura
 
       - name: Retrieve test results from container
         if: ${{ always() }}

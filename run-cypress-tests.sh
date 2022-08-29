@@ -20,7 +20,6 @@ $DOCKER_COMPOSE_CMD run \
   jore4-cypress yarn test:e2e
 
 # copy the test results to the host machine
-# note: this is copying it to the ./cypress/videos, ./cypress/screenshots folders, the same place
+# note: this is copying it to the ./cypress/reports folder, the same place
 # to where the local runs' reports are placed
-docker cp cypress:/e2e/cypress/videos ./cypress/
-docker cp cypress:/e2e/cypress/screenshots ./cypress/
+docker cp cypress:/e2e/cypress/reports ./cypress/
