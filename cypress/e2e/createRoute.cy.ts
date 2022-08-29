@@ -4,7 +4,6 @@ import {
   MapFooter,
   RoutePropertiesForm,
   TerminusNameInputs,
-  Toast,
 } from '../pageObjects';
 
 const deleteRouteByLabel = (label: string) => {
@@ -18,7 +17,6 @@ describe('Verify that creating new route works', () => {
   let routePropertiesForm: RoutePropertiesForm;
   let terminusNameInputs: TerminusNameInputs;
   let confirmSaveForm: ConfirmSaveForm;
-  let toast: Toast;
 
   beforeEach(() => {
     map = new Map();
@@ -26,7 +24,6 @@ describe('Verify that creating new route works', () => {
     routePropertiesForm = new RoutePropertiesForm();
     terminusNameInputs = new TerminusNameInputs();
     confirmSaveForm = new ConfirmSaveForm();
-    toast = new Toast();
 
     cy.setupTests();
     cy.mockLogin();
@@ -94,10 +91,11 @@ describe('Verify that creating new route works', () => {
 
       map.clickNthSnappingPointHandle(1);
       mapFooter.save();
+
+      // waiting for the success toast is not reliable, thus waiting for the graphql request success instead
       cy.wait('@gqlInsertRouteOne')
         .its('response.statusCode')
         .should('equal', 200);
-      // toast.checkRouteSubmitSuccess();
 
       cy.getByTestId('RouteStopsOverlay::mapOverlayHeader')
         .get('div')
