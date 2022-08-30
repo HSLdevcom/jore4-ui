@@ -27,6 +27,11 @@ jobs:
         with:
           ui_version: $IMAGE_NAME:$COMMIT_ID
 
+      - name: Make sure that the correct NodeJS version is used
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - name: Setup caching for node_modules
         uses: actions/cache@v3
         with:

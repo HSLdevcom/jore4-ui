@@ -15,9 +15,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v3
+      - name: Make sure that the correct NodeJS version is used
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install dependencies && check that lockfile is up-to-date
         run: yarn --frozen-lockfile

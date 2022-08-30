@@ -4,7 +4,7 @@
   "description": "Cypress for jore4 e2e testing",
   "private": true,
   "scripts": {
-    "cypress": "CYPRESS_BASE_URL=http://localhost:3300 cypress",
+    "cypress": "CYPRESS_BASE_URL=http://127.0.0.1:3300 cypress",
     "ts:check": "yarn tsc --noEmit",
     "ts:build": "yarn tsc --build",
     "qa": "yarn --frozen-lockfile && yarn ts:check && yarn prettier:check"

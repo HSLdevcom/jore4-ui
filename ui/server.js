@@ -6,6 +6,10 @@
 // relative url to local dev server
 // based on https://github.com/vercel/next.js/blob/master/examples/with-custom-reverse-proxy/server.js
 
+// Note: in NodeJS 17 the DNS lookup logic has changed (https://github.com/nodejs/node/issues/40702#issuecomment-1103623246)
+// Now it doesn't use the default 127.0.0.1 but uses the entries from /etc/hosts, including the IPv6 ::1 entry. This breaks all http
+// requests done in NodeJS. Have to explicitly use 127.0.0.1 for now, before all services are prepared to use IPv6.
+
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const next = require('next');
@@ -15,7 +19,7 @@ const devProxy = {
     pathRewrite: {
       '^/api/graphql': '', // remove path.
     },
-    target: 'http://localhost:3201',
+    target: 'http://127.0.0.1:3201',
     changeOrigin: true,
     ws: true,
   },
@@ -24,21 +28,21 @@ const devProxy = {
     pathRewrite: {
       '^/api/auth': '', // remove path.
     },
-    target: 'http://localhost:3200',
+    target: 'http://127.0.0.1:3200',
   },
   '/api/mbtiles': {
     // Proxy mbtiles requests to mbtiles server
     pathRewrite: {
       '^/api/mbtiles': '', // remove path.
     },
-    target: 'http://localhost:3203',
+    target: 'http://127.0.0.1:3203',
   },
   '/api/mapmatching': {
     // Proxy map routing requests to routing service
     pathRewrite: {
       '^/api/mapmatching': '', // remove path.
     },
-    target: 'http://localhost:3005',
+    target: 'http://127.0.0.1:3005',
   },
 };
 
