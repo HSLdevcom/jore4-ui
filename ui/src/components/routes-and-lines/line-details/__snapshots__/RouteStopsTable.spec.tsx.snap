@@ -123,7 +123,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               <span
                 data-testid="RouteStopsHeaderRow::lastEdited"
               >
-                !14.2.2017 klo 14.51
+                !14.2.2017 14.51
               </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"
@@ -331,7 +331,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               <span
                 data-testid="RouteStopsHeaderRow::lastEdited"
               >
-                !14.2.2017 klo 14.51
+                !14.2.2017 14.51
               </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"
@@ -450,7 +450,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               <span
                 data-testid="RouteStopsRow::lastEdited"
               >
-                !14.2.2017 klo 14.51
+                !14.2.2017 14.51
               </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"
@@ -549,7 +549,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               <span
                 data-testid="RouteStopsRow::lastEdited"
               >
-                !14.2.2017 klo 14.51
+                !14.2.2017 14.51
               </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"
@@ -737,7 +737,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               <span
                 data-testid="RouteStopsHeaderRow::lastEdited"
               >
-                !14.2.2017 klo 14.51
+                !14.2.2017 14.51
               </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"
@@ -856,7 +856,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               <span
                 data-testid="RouteStopsRow::lastEdited"
               >
-                !14.2.2017 klo 14.51
+                !14.2.2017 14.51
               </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"
@@ -955,7 +955,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               <span
                 data-testid="RouteStopsRow::lastEdited"
               >
-                !14.2.2017 klo 14.51
+                !14.2.2017 14.51
               </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"
@@ -1054,7 +1054,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               <span
                 data-testid="RouteStopsRow::lastEdited"
               >
-                !14.2.2017 klo 14.51
+                !14.2.2017 14.51
               </span>
               <svg
                 class="ml-2 inline text-xl text-tweaked-brand"

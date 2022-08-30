@@ -34,7 +34,7 @@ export const parseDate = (date?: DateLike | null) => {
 
 // date formats known by luxon: https://moment.github.io/luxon/#/formatting?id=presets
 export const formatDate = (
-  format: Intl.DateTimeFormatOptions,
+  format: string,
   date?: DateLike | null,
   locale?: string,
 ) => {
@@ -46,15 +46,15 @@ export const formatDate = (
   // if not explicitly defined, the i18n locale is used
   const dateLocale = locale || i18n.language;
 
-  return dateTime.setLocale(dateLocale).toLocaleString(format);
+  return dateTime.setLocale(dateLocale).toFormat(format);
 };
 
 // "shortDate" means format DD.MM.YYYY
 export const mapToShortDate = (date?: DateLike | null, locale?: string) =>
-  formatDate(DateTime.DATE_SHORT, date, locale);
+  formatDate('d.L.yyyy', date, locale);
 
 export const mapToShortDateTime = (date?: DateLike | null, locale?: string) =>
-  formatDate(DateTime.DATETIME_SHORT, date, locale);
+  formatDate('d.L.yyyy t', date, locale);
 
 export const mapToISODate = (date?: DateLike | null) =>
   parseDate(date)?.toISODate();
