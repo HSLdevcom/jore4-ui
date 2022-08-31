@@ -80,7 +80,7 @@ export const MapFooter: React.FC<Props> = ({
         {t('map.addStop')}
       </SimpleButton>
       <SimpleButton
-        className="h-full !px-3"
+        className="h-full !px-3 text-xl"
         onClick={onDeleteRoute}
         disabled={!hasChangesInProgress}
       >

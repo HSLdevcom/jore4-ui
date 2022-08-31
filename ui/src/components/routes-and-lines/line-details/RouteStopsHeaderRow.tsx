@@ -63,14 +63,14 @@ export const RouteStopsHeaderRow = ({
       <td className={`${alertStyle.listItemBorder || ''} p-4 pl-12`}>
         <Row className="items-center">
           <DirectionBadge direction={route.direction as RouteDirectionEnum} />
-          <span className="text-2xl font-bold" data-testid={testIds.label}>
+          <span className="text-xl font-bold" data-testid={testIds.label}>
             {route.label}
           </span>
         </Row>
       </td>
       <td className="py-4">
         <Row className="items-center">
-          <span className="text-2xl" data-testid={testIds.name}>
+          <span className="text-xl" data-testid={testIds.name}>
             {route.name_i18n?.fi_FI}
           </span>
           <EditButton
@@ -112,7 +112,7 @@ export const RouteStopsHeaderRow = ({
       <td className="w-20">
         <AccordionButton
           className="h-full w-full"
-          iconClassName="text-5xl"
+          iconClassName="text-3xl"
           isOpen={isOpen}
           onToggle={onToggle}
           testId={testIds.toggleAccordion}

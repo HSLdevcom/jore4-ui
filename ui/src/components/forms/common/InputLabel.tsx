@@ -1,5 +1,4 @@
 import get from 'lodash/get';
-import React from 'react';
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKeys } from '../../../i18n';
@@ -23,7 +22,10 @@ export const InputLabel = <FormState extends FieldValues>({
   const hasError = !!get(errors, fieldPath);
 
   return (
-    <label className={className} htmlFor={`${translationPrefix}.${fieldPath}`}>
+    <label
+      className={`text-sm ${className}`}
+      htmlFor={`${translationPrefix}.${fieldPath}`}
+    >
       {t(`${translationPrefix}.${fieldPath}`)}
       {hasError && <span className="ml-1 text-hsl-red">*</span>}
     </label>

@@ -41,7 +41,7 @@ export const RoutesTableRow = ({
           <Link to={routeDetails[Path.lineDetails].getLink(route.on_line_id)}>
             <Row className="items-center">
               <Column className="w-1/2 font-bold">
-                <p className="text-3xl">{route.label}</p>
+                <p className="text-2xl">{route.label}</p>
                 <p>{route.name_i18n?.fi_FI}</p>
               </Column>
               <Column className="w-1/2 text-right">

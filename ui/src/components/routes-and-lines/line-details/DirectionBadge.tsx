@@ -11,7 +11,7 @@ type Props = {
 
 export const DirectionBadge = ({ direction }: Props) => {
   return (
-    <span className="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-white">
+    <span className="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-2xl font-bold text-white">
       <span data-testid={testIds.value}>
         {mapDirectionToShortUiName(direction)}
       </span>

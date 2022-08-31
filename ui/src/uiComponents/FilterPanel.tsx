@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row } from '../layoutComponents';
 import { Card } from './Card';
@@ -25,7 +24,7 @@ const ToggleRow = ({ toggles }: ToggleRowProps): JSX.Element => {
             // This shouldn't matter as this array isn't dynamic.
             key={index} // eslint-disable-line react/no-array-index-key
             iconClassName={iconClassName}
-            className="mr-2"
+            className="mr-2 mt-2"
             enabled={enabled}
             onToggle={onToggle}
           />
@@ -47,7 +46,7 @@ export const FilterPanel = ({
   className = '',
 }: Props): JSX.Element => {
   const { t } = useTranslation();
-  const headingClassName = 'text-base font-bold';
+  const headingClassName = 'text-sm font-bold';
   return (
     <div className={`inline-block ${className}`}>
       <Card className="flex-col rounded-b-none">

@@ -42,7 +42,7 @@ export const LineTitle: React.FC<Props> = ({
               <SimpleButton
                 key={item.route_id}
                 containerClassName="mr-2"
-                className="w-20 !rounded bg-tweaked-brand !px-0 !py-0 !text-sm !font-light text-white"
+                className="w-20 !rounded bg-tweaked-brand !px-0 !py-0 !text-sm !font-normal text-white"
                 onClick={onToggleRoute}
               >
                 {item.label}

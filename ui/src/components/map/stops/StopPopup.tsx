@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-import React from 'react';
 import { TFunction, useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl';
@@ -85,7 +84,7 @@ export const StopPopup = ({
         </Row>
         <Row className="mt-16">
           <SimpleButton className="h-full !px-3" onClick={onDelete} inverted>
-            <MdDelete aria-label={t('map.deleteRoute')} className="text-lg" />
+            <MdDelete aria-label={t('map.deleteRoute')} className="text-xl" />
           </SimpleButton>
           <SimpleButton containerClassName="ml-auto" onClick={onMove}>
             {t('move')}

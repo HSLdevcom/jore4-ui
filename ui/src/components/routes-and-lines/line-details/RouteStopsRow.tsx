@@ -60,7 +60,7 @@ export const RouteStopsRow = ({
       data-testid={testIds.container(stop.scheduled_stop_point_id)}
     >
       <td
-        className={`${alertStyle.listItemBorder || ''} p-4 pl-16 text-3xl`}
+        className={`${alertStyle.listItemBorder || ''} p-4 pl-16 text-2xl`}
         data-testid={testIds.label}
       >
         {stop.label}

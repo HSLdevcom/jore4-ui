@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-var-requires */
+const defaultTheme = require('tailwindcss/defaultTheme');
 const plugin = require('tailwindcss/plugin');
 const theme = require('./theme.js');
 
@@ -25,6 +26,15 @@ module.exports = {
       borderWidth: {
         10: '10px',
         12: '12px',
+      },
+      fontFamily: {
+        sans: ['Arial', ...defaultTheme.fontFamily.sans],
+      },
+
+      fontSize: {
+        xl: '1.375rem', // 22px
+        '2xl': '1.625rem', // 26px
+        '3xl': '2rem', // 32px
       },
     },
   },

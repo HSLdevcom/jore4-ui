@@ -45,7 +45,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               class="flex flex-row items-center"
             >
               <span
-                class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-white"
+                class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-2xl font-bold text-white"
               >
                 <span
                   data-testid="DirectionBadge::value"
@@ -57,7 +57,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
                 />
               </span>
               <span
-                class="text-2xl font-bold"
+                class="text-xl font-bold"
                 data-testid="RouteStopsHeaderRow::label"
               >
                 65 itään
@@ -71,7 +71,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               class="flex flex-row items-center"
             >
               <span
-                class="text-2xl"
+                class="text-xl"
                 data-testid="RouteStopsHeaderRow::name"
               >
                 Reitti A - B FI
@@ -183,7 +183,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               type="button"
             >
               <svg
-                class="text-5xl text-3xl text-tweaked-brand inline text-center"
+                class="text-3xl text-3xl text-tweaked-brand inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -254,7 +254,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               class="flex flex-row items-center"
             >
               <span
-                class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-white"
+                class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-2xl font-bold text-white"
               >
                 <span
                   data-testid="DirectionBadge::value"
@@ -266,7 +266,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 />
               </span>
               <span
-                class="text-2xl font-bold"
+                class="text-xl font-bold"
                 data-testid="RouteStopsHeaderRow::label"
               >
                 65 itään
@@ -280,7 +280,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               class="flex flex-row items-center"
             >
               <span
-                class="text-2xl"
+                class="text-xl"
                 data-testid="RouteStopsHeaderRow::name"
               >
                 Reitti A - B FI
@@ -392,7 +392,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               type="button"
             >
               <svg
-                class="text-5xl text-3xl text-tweaked-brand inline text-center"
+                class="text-3xl text-3xl text-tweaked-brand inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -417,7 +417,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           data-testid="RouteStopsRow::e3528755-711f-4e4f-9461-7931a2c4bc6d"
         >
           <td
-            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
+            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
             data-testid="RouteStopsRow::label"
           >
             pysäkki A
@@ -517,7 +517,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           data-testid="RouteStopsRow::f8eace87-7901-4438-bfee-bb6f24f1c4c4"
         >
           <td
-            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
+            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
             data-testid="RouteStopsRow::label"
           >
             pysäkki C
@@ -663,7 +663,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               class="flex flex-row items-center"
             >
               <span
-                class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-white"
+                class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-2xl font-bold text-white"
               >
                 <span
                   data-testid="DirectionBadge::value"
@@ -675,7 +675,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 />
               </span>
               <span
-                class="text-2xl font-bold"
+                class="text-xl font-bold"
                 data-testid="RouteStopsHeaderRow::label"
               >
                 65 itään
@@ -689,7 +689,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               class="flex flex-row items-center"
             >
               <span
-                class="text-2xl"
+                class="text-xl"
                 data-testid="RouteStopsHeaderRow::name"
               >
                 Reitti A - B FI
@@ -801,7 +801,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               type="button"
             >
               <svg
-                class="text-5xl text-3xl text-tweaked-brand inline text-center"
+                class="text-3xl text-3xl text-tweaked-brand inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -826,7 +826,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           data-testid="RouteStopsRow::e3528755-711f-4e4f-9461-7931a2c4bc6d"
         >
           <td
-            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
+            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
             data-testid="RouteStopsRow::label"
           >
             pysäkki A
@@ -926,7 +926,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           data-testid="RouteStopsRow::4d294d62-df17-46ff-9248-23f66f17fa87"
         >
           <td
-            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
+            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
             data-testid="RouteStopsRow::label"
           >
             pysäkki B
@@ -1026,7 +1026,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           data-testid="RouteStopsRow::f8eace87-7901-4438-bfee-bb6f24f1c4c4"
         >
           <td
-            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-3xl"
+            class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
             data-testid="RouteStopsRow::label"
           >
             pysäkki C

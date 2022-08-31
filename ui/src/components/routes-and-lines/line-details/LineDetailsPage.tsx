@@ -54,7 +54,7 @@ export const LineDetailsPage = (): JSX.Element => {
     <div>
       <PageHeader className={getHeaderBorderClassName()}>
         <Row>
-          <i className="icon-bus-alt text-5xl text-tweaked-brand" />
+          <i className="icon-bus-alt text-6xl text-tweaked-brand" />
           {line && (
             <LineTitle line={line} onCreateRoute={() => onCreateRoute(line)} />
           )}
