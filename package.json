@@ -11,7 +11,7 @@
     "ws:db": "yarn workspace @hsl/jore4-test-db-manager",
     "ws:ui": "yarn workspace @hsl/jore4-ui",
     "ws:e2e": "yarn workspace @hsl/jore4-cypress",
-    "dev": "yarn ws:ui run dev",
+    "dev": "concurrently -p \"[{name}]\" -n \"UI,DB,GQL\" -c \"bgGreen.bold,bgMagenta.bold,bgBlue.bold\" \"yarn ws:ui dev\" \"yarn ws:db build --watch\" \"yarn ws:codegen generate --watch\"",
     "ts:check": "yarn workspaces run ts:check",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
@@ -24,6 +24,7 @@
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.22",
+    "concurrently": "^7.3.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
