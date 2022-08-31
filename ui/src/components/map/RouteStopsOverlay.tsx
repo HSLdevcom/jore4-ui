@@ -1,22 +1,28 @@
 import { useTranslation } from 'react-i18next';
-import { useGetRoutesWithInfrastructureLinksQuery } from '../../generated/graphql';
+import {
+  RouteRoute,
+  useGetRoutesWithInfrastructureLinksQuery,
+} from '../../generated/graphql';
 import { getStopsFromRoute, mapRouteResultToRoutes } from '../../graphql';
 import { getRouteStops, useAppDispatch, useAppSelector } from '../../hooks';
 import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
-import { Visible } from '../../layoutComponents';
+import { Row, Visible } from '../../layoutComponents';
 import {
   selectHasChangesInProgress,
   selectMapEditor,
   setRouteMetadataFormOpenAction,
   setStopOnRouteAction,
 } from '../../redux';
+import { parseDate } from '../../time';
 import {
   AlignDirection,
   EditButton,
   SimpleDropdownMenu,
 } from '../../uiComponents';
 import { mapToVariables } from '../../utils';
+import { RouteFormState } from '../forms/route/RoutePropertiesForm.types';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
+import { PriorityBadge } from './PriorityBadge';
 
 const testIds = {
   mapOverlayHeader: 'RouteStopsOverlay::mapOverlayHeader',
@@ -102,6 +108,13 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
         selectedRouteStops.map((stop) => stop.scheduled_stop_points[0]),
       );
 
+  const validityStart = routeEditingInProgress
+    ? parseDate((routeMetadata as RouteFormState)?.validityStart)
+    : (routeMetadata as RouteRoute)?.validity_start;
+  const validityEnd = routeEditingInProgress
+    ? parseDate((routeMetadata as RouteFormState)?.validityEnd)
+    : (routeMetadata as RouteRoute)?.validity_end;
+
   if (!routeMetadata) {
     return null;
   }
@@ -111,10 +124,10 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
       <MapOverlayHeader testId={testIds.mapOverlayHeader}>
         <i className="icon-bus-alt text-2xl text-tweaked-brand" />
         <div>
-          <h2 className="text-2xl font-bold text-tweaked-brand">{routeName}</h2>
-          <div className="text-light text-xs text-gray-500">
+          <h2 className="text-2xl font-bold text-tweaked-brand">
             {routeMetadata.label}
-          </div>
+          </h2>
+          <div className="text-light text-xs text-gray-500">{routeName}</div>
         </div>
         <Visible visible={creatingNewRoute}>
           <EditButton
@@ -122,15 +135,22 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
           />
         </Visible>
       </MapOverlayHeader>
-      <div className="flex items-center border-b py-2 px-3">
-        <div className="ml-1 flex h-6 w-6 items-center justify-center rounded-sm bg-brand font-bold text-white">
+      <div className="flex items-start border-b py-2 px-3">
+        <div className="ml-1 mt-1 flex h-6 w-6 items-center justify-center rounded-sm bg-brand font-bold text-white">
           {mapDirectionToShortUiName(routeMetadata.direction)}
         </div>
         <div className="ml-2 flex flex-col">
-          <h2 className="text-base font-bold text-black">{routeName}</h2>
-          <div className="text-light text-xs text-gray-500">
-            {routeMetadata.label}
-          </div>
+          <Row className="items-center gap-2">
+            <h2 className="text-base font-bold text-black">
+              {routeMetadata.label}
+            </h2>
+            <PriorityBadge
+              priority={routeMetadata.priority}
+              validityStart={validityStart}
+              validityEnd={validityEnd}
+            />
+          </Row>
+          <div className="text-light text-xs text-gray-500">{routeName}</div>
         </div>
       </div>
       <div className="overflow-y-auto">

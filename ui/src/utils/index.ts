@@ -12,3 +12,4 @@ export * from './search';
 export * from './stops';
 export * from './toastService';
 export * from './url';
+export * from './validity';

@@ -1,47 +1,30 @@
-import { DateTime } from 'luxon';
-import { TFunction, useTranslation } from 'react-i18next';
+import { gql } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl';
-import { StopWithLocation } from '../../../graphql';
+import { StopPopupInfoFragment } from '../../../generated/graphql';
 import { Column, Row } from '../../../layoutComponents';
-import { mapToShortDate } from '../../../time';
-import { Priority } from '../../../types/Priority';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
-import { mapLngLatToPoint } from '../../../utils';
+import { mapLngLatToPoint, mapToValidityPeriod } from '../../../utils';
+import { PriorityBadge } from '../PriorityBadge';
 
 interface Props {
-  stop: StopWithLocation;
+  stop: StopPopupInfoFragment;
   onEdit: () => void;
   onMove: () => void;
   onClose: () => void;
   onDelete: () => void;
 }
 
-const mapToValidityPeriod = (
-  t: TFunction,
-  validityStart?: DateTime | null,
-  validityEnd?: DateTime | null,
-) => {
-  return `${mapToShortDate(validityStart)} -  ${
-    mapToShortDate(validityEnd) || t('saveChangesModal.indefinite')
-  }`;
-};
-
-const mapPriorityToPresentation = (
-  t: TFunction,
-  priority: Priority = Priority.Standard,
-) => {
-  const presentations: Record<Priority, JSX.Element | null> = {
-    [Priority.Standard]: null,
-    [Priority.Temporary]: (
-      <i className="icon-temporary mr-1.5 text-lg text-city-bicycle-yellow" />
-    ),
-    [Priority.Draft]: (
-      <span className="font-bold">{t('priority.draft')} | </span>
-    ),
-  };
-  return presentations[priority];
-};
+const GQL_STOP_POPUP_INFO = gql`
+  fragment stop_popup_info on service_pattern_scheduled_stop_point {
+    label
+    priority
+    validity_start
+    validity_end
+    measured_location
+  }
+`;
 
 export const StopPopup = ({
   stop,
@@ -77,10 +60,16 @@ export const StopPopup = ({
           </Column>
         </Row>
         <Row>
-          <span className="text-sm">
-            {mapPriorityToPresentation(t, priority)}
+          <Row className="items-center gap-1.5 text-sm">
+            <PriorityBadge
+              priority={priority}
+              // eslint-disable-next-line camelcase
+              validityStart={validity_start}
+              // eslint-disable-next-line camelcase
+              validityEnd={validity_end}
+            />
             {mapToValidityPeriod(t, validity_start, validity_end)}
-          </span>
+          </Row>
         </Row>
         <Row className="mt-16">
           <SimpleButton className="h-full !px-3" onClick={onDelete} inverted>
