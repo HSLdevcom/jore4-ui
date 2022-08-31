@@ -6880,6 +6880,15 @@ export type UuidComparisonExp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
+export type StopPopupInfoFragment = {
+  __typename?: 'service_pattern_scheduled_stop_point';
+  label: string;
+  priority: number;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  measured_location: GeoJSON.Point;
+};
+
 export type LineTableRowFragment = {
   __typename?: 'route_line';
   line_id: UUID;
@@ -8964,6 +8973,15 @@ export type LineInformationForMapFragment = {
   }>;
 };
 
+export const StopPopupInfoFragmentDoc = gql`
+  fragment stop_popup_info on service_pattern_scheduled_stop_point {
+    label
+    priority
+    validity_start
+    validity_end
+    measured_location
+  }
+`;
 export const LineAllFieldsFragmentDoc = gql`
   fragment line_all_fields on route_line {
     line_id

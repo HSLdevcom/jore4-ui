@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
+import { StopPopupInfoFragment } from '../../../generated/graphql';
 import { ScheduledStopPointSetInput, StopWithLocation } from '../../../graphql';
 import {
   CreateChanges,
@@ -288,7 +289,9 @@ export const EditStopLayer: React.FC<Props> = ({
       />
       {displayedEditor === StopEditorViews.Popup && (
         <StopPopup
-          stop={editedStopData}
+          // If displaying popup, editedStopData contains all StopPopupInfoFragment fields
+          // StopWithLocation type has many fields (e.g. label) optional, so need to cast here.
+          stop={editedStopData as StopPopupInfoFragment}
           onEdit={() => {
             setDisplayedEditor(StopEditorViews.Modal);
           }}
