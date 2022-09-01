@@ -27,6 +27,7 @@ const testIds = {
   editRouteButton: 'MapFooter::editRouteButton',
   saveButton: 'MapFooter::saveButton',
   cancelButton: 'MapFooter::cancelButton',
+  addStopButton: 'MapFooter:addStopButton',
 };
 
 export const MapFooter: React.FC<Props> = ({
@@ -76,6 +77,7 @@ export const MapFooter: React.FC<Props> = ({
         onClick={onAddStops}
         disabled={drawingMode !== undefined}
         inverted={!isCreateStopModeEnabled}
+        testId={testIds.addStopButton}
       >
         {t('map.addStop')}
       </SimpleButton>
