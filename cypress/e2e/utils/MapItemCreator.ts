@@ -5,9 +5,11 @@ import {
   MapFooter,
   RouteFormInfo,
   RoutePropertiesForm,
+  StopForm,
+  StopFormInfo,
   TerminusNameInputs,
 } from '../../pageObjects';
-import { ClickPointNearMapMarker } from '../../types';
+import { ClickPointNearMapMarker, Coordinates } from '../../types';
 
 export class MapItemCreator {
   map = new Map();
@@ -19,6 +21,8 @@ export class MapItemCreator {
   terminusNameInputs = new TerminusNameInputs();
 
   confirmSaveForm = new ConfirmSaveForm();
+
+  stopForm = new StopForm();
 
   setPriority = (priority: Priority) => {
     switch (priority) {
@@ -39,6 +43,69 @@ export class MapItemCreator {
     isoDate
       ? this.confirmSaveForm.setEndDate(isoDate)
       : this.confirmSaveForm.setAsIndefinite();
+  };
+
+  /**
+   * Creates stop using ClickPointNear stop.
+   * This means that you give a stop testId as the origin of the click
+   * and then 'right' and 'down' values of where you want to click
+   * related to that stop.
+   */
+  createStopNextToAnotherStop = ({
+    stopFormInfo,
+    stopPoint,
+    priority = Priority.Standard,
+    startISODate,
+    endISODate,
+  }: {
+    stopFormInfo: StopFormInfo;
+    stopPoint: ClickPointNearMapMarker;
+    priority?: Priority;
+    startISODate: string;
+    endISODate?: string;
+  }) => {
+    this.mapFooter.addStop();
+
+    this.map.clickAtPositionFromMapMarkerByTestId(stopPoint);
+
+    this.stopForm.fillStopForm(stopFormInfo);
+
+    this.setPriority(priority);
+
+    this.confirmSaveForm.setStartDate(startISODate);
+    this.setEndDate(endISODate);
+
+    this.stopForm.save();
+  };
+
+  /**
+   * This creates stop to a location pointed out with x and y coordinate.
+   */
+  createStopAtLocation = ({
+    stopFormInfo,
+    clickCoordinates,
+    priority = Priority.Standard,
+    startISODate,
+    endISODate,
+  }: {
+    stopFormInfo: StopFormInfo;
+    clickCoordinates: Coordinates;
+    priority?: Priority;
+    startISODate: string;
+    endISODate?: string;
+  }) => {
+    this.mapFooter.addStop();
+
+    this.map.clickAtPosition(clickCoordinates.x, clickCoordinates.y);
+
+    this.stopForm.fillStopForm(stopFormInfo);
+
+    this.setPriority(priority);
+
+    this.confirmSaveForm.setStartDate(startISODate);
+    this.setEndDate(endISODate);
+
+    this.stopForm.save();
   };
 
   /**
