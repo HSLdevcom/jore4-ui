@@ -1,10 +1,14 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HTMLOverlay } from 'react-map-gl';
 import { CreateChanges, EditChanges } from '../../../hooks';
 import { submitFormByRef } from '../../../utils';
 import { FormState, StopForm } from '../../forms/stop/StopForm';
 import { Modal } from '../Modal';
+
+const testIds = {
+  modal: 'EditStopModal',
+};
 
 interface Props {
   defaultValues: Partial<FormState>;
@@ -34,6 +38,7 @@ export const EditStopModal = ({
       redraw={() => (
         <div className="flex max-h-full py-5 px-5">
           <Modal
+            testId={testIds.modal}
             onSave={onSave}
             onCancel={onCancel}
             onClose={onClose}

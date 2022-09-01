@@ -38,6 +38,7 @@ const ModalFooter = ({ onCancel, onSave }: FooterProps): JSX.Element => {
 };
 
 interface Props {
+  testId?: string;
   heading: string;
   onClose: () => void;
   onCancel: () => void;
@@ -45,6 +46,7 @@ interface Props {
 }
 
 export const Modal: FunctionComponent<Props> = ({
+  testId,
   heading,
   onClose,
   onCancel,
@@ -52,7 +54,7 @@ export const Modal: FunctionComponent<Props> = ({
   children,
 }) => {
   return (
-    <div className="overflow-auto bg-white">
+    <div data-testid={testId} className="overflow-auto bg-white">
       <ModalHeader onClose={onClose} heading={heading} />
       {children}
       <ModalFooter onCancel={onCancel} onSave={onSave} />
