@@ -1,3 +1,11 @@
+import { Priority } from '@hsl/jore4-test-db-manager';
+
+export interface ConfirmSaveFormInfo {
+  startISODate: string;
+  endISODate?: string;
+  priority?: Priority;
+}
+
 export class ConfirmSaveForm {
   setAsStandard() {
     return cy.getByTestId('ConfirmSaveForm::standardPriorityButton').click();
