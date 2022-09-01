@@ -1,9 +1,5 @@
 import { ConfirmSaveForm, LineForm, Toast } from '../pageObjects';
-
-const deleteLineByLabel = (label: string) => {
-  const query = 'DELETE FROM "route"."line" WHERE label=?';
-  cy.task('executeRawDbQuery', { query, bindings: label });
-};
+import { deleteLineByLabel } from './utils/db-utils';
 
 const testLabel = '7327';
 describe('Verify that creating new line works', () => {

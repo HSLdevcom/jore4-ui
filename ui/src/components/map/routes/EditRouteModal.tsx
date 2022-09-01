@@ -6,6 +6,10 @@ import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import { Modal } from '../Modal';
 
+const testIds = {
+  modal: 'EditRouteModal',
+};
+
 interface Props {
   defaultValues: Partial<RouteFormState>;
   onSuccess: (data: RouteFormState) => void;
@@ -31,6 +35,7 @@ export const EditRouteModal = ({
       redraw={() => (
         <div className="flex max-h-full justify-center py-5">
           <Modal
+            testId={testIds.modal}
             onSave={onModalSave}
             onCancel={onCancel}
             onClose={onClose}
