@@ -28,6 +28,16 @@ Cypress.Commands.add('getByTestId', (selector, ...args) => {
   return cy.get(`[data-testid="${selector}"]`, ...args);
 });
 
+Cypress.Commands.add(
+  'findByTestId',
+  { prevSubject: true },
+  (subject, selector) => {
+    // NOTE: `find` is "child" command and thus has to be defined differently than
+    // "parent" commands. See cypress docs for more info: https://docs.cypress.io/api/cypress-api/custom-commands#Child-Commands
+    return cy.wrap(subject).find(`[data-testid="${selector}"]`);
+  },
+);
+
 // @ts-expect-error "Argument of type '() => Cypress.Chainable<null>' is not assignable to parameter of type 'CommandFn<"mockLogin">'."
 Cypress.Commands.add('mockLogin', () => {
   cy.fixture('users/e2e.json').then((userInfo) => {
