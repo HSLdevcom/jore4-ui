@@ -5,7 +5,8 @@ import { SimpleButton } from '../../uiComponents';
 import { ModalHeader } from '../modal';
 
 const testIds = {
-  saveButton: 'Modal::saveButton',
+  saveButton: (testId?: string) =>
+    testId ? `${testId}::saveButton` : 'Modal::saveButton',
 };
 
 const HeaderFooterContainer: FunctionComponent = ({ children }) => {
@@ -19,9 +20,14 @@ const HeaderFooterContainer: FunctionComponent = ({ children }) => {
 interface FooterProps {
   onCancel: () => void;
   onSave: () => void;
+  testId?: string;
 }
 
-const ModalFooter = ({ onCancel, onSave }: FooterProps): JSX.Element => {
+const ModalFooter = ({
+  onCancel,
+  onSave,
+  testId,
+}: FooterProps): JSX.Element => {
   const { t } = useTranslation();
   return (
     <HeaderFooterContainer>
@@ -29,7 +35,7 @@ const ModalFooter = ({ onCancel, onSave }: FooterProps): JSX.Element => {
         <SimpleButton containerClassName="ml-auto" onClick={onCancel} inverted>
           {t('cancel')}
         </SimpleButton>
-        <SimpleButton testId={testIds.saveButton} onClick={onSave}>
+        <SimpleButton testId={testIds.saveButton(testId)} onClick={onSave}>
           {t('save')}
         </SimpleButton>
       </Row>
@@ -38,6 +44,7 @@ const ModalFooter = ({ onCancel, onSave }: FooterProps): JSX.Element => {
 };
 
 interface Props {
+  testId?: string;
   heading: string;
   onClose: () => void;
   onCancel: () => void;
@@ -45,6 +52,7 @@ interface Props {
 }
 
 export const Modal: FunctionComponent<Props> = ({
+  testId,
   heading,
   onClose,
   onCancel,
@@ -52,10 +60,10 @@ export const Modal: FunctionComponent<Props> = ({
   children,
 }) => {
   return (
-    <div className="overflow-auto bg-white">
+    <div data-testid={testId} className="overflow-auto bg-white">
       <ModalHeader onClose={onClose} heading={heading} />
       {children}
-      <ModalFooter onCancel={onCancel} onSave={onSave} />
+      <ModalFooter testId={testId} onCancel={onCancel} onSave={onSave} />
     </div>
   );
 };
