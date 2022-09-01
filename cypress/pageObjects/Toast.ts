@@ -18,4 +18,8 @@ export class Toast {
   checkRouteSubmitSuccess() {
     this.getSuccessToast().contains('Reitti tallennettu').should('be.visible');
   }
+
+  checkStopSubmitSuccess() {
+    this.getSuccessToast().contains('Pysäkki luotu').should('be.visible');
+  }
 }
