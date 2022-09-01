@@ -6,6 +6,8 @@ import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
 
 const testIds = {
   menu: 'StopActionsDrowdown::menu',
+  addStop: 'StopActionsDrowdown::addStopToRouteButton',
+  removeStop: 'StopActionsDrowdown::removeStopFromRouteButton',
 };
 
 interface Props {
@@ -53,11 +55,19 @@ export const StopActionsDropdown = ({
   return (
     <SimpleDropdownMenu alignItems={AlignDirection.Left} testId={testIds.menu}>
       {stopBelongsToJourneyPattern ? (
-        <button type="button" onClick={() => onDeleteFromRoute(stop.label)}>
+        <button
+          type="button"
+          onClick={() => onDeleteFromRoute(stop.label)}
+          data-testid={testIds.removeStop}
+        >
           {t('stops.removeFromRoute')}
         </button>
       ) : (
-        <button type="button" onClick={() => onAddToRoute(stop.label)}>
+        <button
+          type="button"
+          onClick={() => onAddToRoute(stop.label)}
+          data-testid={testIds.addStop}
+        >
           {t('stops.addToRoute')}
         </button>
       )}
