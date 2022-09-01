@@ -1,3 +1,9 @@
+export interface ClickPointNearMapMarker {
+  mapMarkerTestId: string;
+  rightOffset: number;
+  downOffset: number;
+}
+
 export class Map {
   zoomIn() {
     cy.get('.mapboxgl-ctrl-zoom-in').click();
@@ -18,15 +24,14 @@ export class Map {
   /** Clicks position relative to stopMarker. So this uses given stopMarker
    * as origin and then adds 'right' to x coordinate and 'down' to y coordinates
    * and clicks that position. You can go left and up by giving negative numbers. */
-  clickAtPositionFromMapMarkerByTestId(
-    testId: string,
-    right: number,
-    down: number,
-  ) {
-    cy.getByTestId(testId).then((mark) => {
+  clickAtPositionFromMapMarkerByTestId(clickPoint: ClickPointNearMapMarker) {
+    cy.getByTestId(clickPoint.mapMarkerTestId).then((mark) => {
       const { x } = mark[0].getBoundingClientRect();
       const { y } = mark[0].getBoundingClientRect();
-      cy.getByTestId('modalMap').click(x + right, y + down);
+      cy.getByTestId('modalMap').click(
+        x + clickPoint.rightOffset,
+        y + clickPoint.downOffset,
+      );
     });
   }
 
