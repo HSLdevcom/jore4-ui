@@ -35,6 +35,10 @@ export class Map {
     });
   }
 
+  clickAtPosition(x: number, y: number) {
+    cy.getByTestId('modalMap').click(x, y);
+  }
+
   clickNthSnappingPointHandle(nth: number) {
     cy.get(`rect[data-index="${nth}"]`).first().click({ force: true });
   }

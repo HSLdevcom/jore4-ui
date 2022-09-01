@@ -1,8 +1,10 @@
 import { Priority } from '@hsl/jore4-test-db-manager';
+import { Coordinates } from '../types';
 import { ConfirmSaveForm } from './ConfirmSaveForm';
 import { ClickPointNearMapMarker, Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { RouteFormInfo, RoutePropertiesForm } from './RoutePropertiesForm';
+import { StopForm, StopFormInfo } from './StopForm';
 import { TerminusNameInputs } from './TerminusNameInputs';
 
 export class MapItemCreator {
@@ -15,6 +17,8 @@ export class MapItemCreator {
   terminusNameInputs = new TerminusNameInputs();
 
   confirmSaveForm = new ConfirmSaveForm();
+
+  stopForm = new StopForm();
 
   setPriority = (priority: Priority) => {
     switch (priority) {
@@ -35,6 +39,69 @@ export class MapItemCreator {
     isoDate
       ? this.confirmSaveForm.setEndDate(isoDate)
       : this.confirmSaveForm.setAsIndefinite();
+  };
+
+  /**
+   * Creates stop using ClickPointNear stop.
+   * This means that you give a stop testId as the origin of the click
+   * and then 'right' and 'down' values of where you want to click
+   * related to that stop.
+   */
+  createStopNextToAnotherStop = ({
+    stopFormInfo,
+    stopPoint,
+    priority = Priority.Standard,
+    validityStartISODate,
+    validityEndISODate,
+  }: {
+    stopFormInfo: StopFormInfo;
+    stopPoint: ClickPointNearMapMarker;
+    priority?: Priority;
+    validityStartISODate: string;
+    validityEndISODate?: string;
+  }) => {
+    this.mapFooter.addStop();
+
+    this.map.clickAtPositionFromMapMarkerByTestId(stopPoint);
+
+    this.stopForm.fillStopForm(stopFormInfo);
+
+    this.setPriority(priority);
+
+    this.confirmSaveForm.setStartDate(validityStartISODate);
+    this.setEndDate(validityEndISODate);
+
+    this.stopForm.save();
+  };
+
+  /**
+   * This creates stop to a location pointed out with x and y coordinate.
+   */
+  createStopAtLocation = ({
+    stopFormInfo,
+    clickCoordinates,
+    priority = Priority.Standard,
+    validityStartISODate,
+    validityEndISODate,
+  }: {
+    stopFormInfo: StopFormInfo;
+    clickCoordinates: Coordinates;
+    priority?: Priority;
+    validityStartISODate: string;
+    validityEndISODate?: string;
+  }) => {
+    this.mapFooter.addStop();
+
+    this.map.clickAtPosition(clickCoordinates.x, clickCoordinates.y);
+
+    this.stopForm.fillStopForm(stopFormInfo);
+
+    this.setPriority(priority);
+
+    this.confirmSaveForm.setStartDate(validityStartISODate);
+    this.setEndDate(validityEndISODate);
+
+    this.stopForm.save();
   };
 
   /**

@@ -26,6 +26,7 @@ import { PriorityBadge } from './PriorityBadge';
 
 const testIds = {
   mapOverlayHeader: 'RouteStopsOverlay::mapOverlayHeader',
+  stopRow: (label: string) => `StopRow::${label}`,
 };
 
 interface Props {
@@ -36,10 +37,12 @@ const StopRow = ({
   label,
   onRoute,
   isReadOnly,
+  testId,
 }: {
   label: string;
   onRoute: boolean;
   isReadOnly?: boolean;
+  testId?: string;
 }) => {
   const { t } = useTranslation();
 
@@ -55,7 +58,10 @@ const StopRow = ({
   };
 
   return (
-    <div className="flex items-center justify-between border-b p-2">
+    <div
+      data-testid={testId}
+      className="flex items-center justify-between border-b p-2"
+    >
       <div className="flex flex-col pl-10">
         <div
           className={`text-sm font-bold ${
@@ -160,6 +166,7 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
             // use index as key here
             // eslint-disable-next-line react/no-array-index-key
             key={`${routeStop.label}_${index}`}
+            testId={testIds.stopRow(routeStop.label)}
             label={routeStop.label}
             onRoute={routeStop.belongsToJourneyPattern}
             isReadOnly={!routeEditingInProgress}
