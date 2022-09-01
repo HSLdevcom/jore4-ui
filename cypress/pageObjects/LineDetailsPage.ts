@@ -22,4 +22,22 @@ export class LineDetailsPage {
   getStopRow(stopId: UUID) {
     return cy.getByTestId(`RouteStopsRow::${stopId}`);
   }
+
+  getStopDropdown(stopId: UUID) {
+    return this.getStopRow(stopId).findByTestId('StopActionsDrowdown::menu');
+  }
+
+  addStopToRoute(stopId: UUID) {
+    return this.getStopDropdown(stopId)
+      .click()
+      .getByTestId('StopActionsDrowdown::addStopToRouteButton')
+      .click();
+  }
+
+  removeStopFromRoute(stopId: UUID) {
+    return this.getStopDropdown(stopId)
+      .click()
+      .getByTestId('StopActionsDrowdown::removeStopFromRouteButton')
+      .click();
+  }
 }

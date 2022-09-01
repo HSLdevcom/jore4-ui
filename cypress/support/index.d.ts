@@ -10,6 +10,14 @@ declare namespace Cypress {
     getByTestId(value: string): Chainable<JQuery<HTMLElement>>;
 
     /**
+     * Custom command to select DOM element by data-testid attribute.
+     * @example cy.findByTestId('exampleTestid')
+     * Difference of "get" vs "find" is explained in cypress docs:
+     * https://docs.cypress.io/api/commands/get#Get-vs-Find
+     */
+    findByTestId(value: string): Chainable<JQuery<HTMLElement>>;
+
+    /**
      * Mimics admin login by mocking auth backend response and authenticating
      * graphql calls with secret admin headers.
      * Does not support logging it with given credentials or roles so far.

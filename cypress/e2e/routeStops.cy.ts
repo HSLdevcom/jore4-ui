@@ -43,6 +43,7 @@ const lines: LineInsertInput[] = [
 ];
 
 const stops: StopInsertInput[] = [
+  // included on route
   {
     ...buildStop({
       label: 'E2E001',
@@ -50,6 +51,7 @@ const stops: StopInsertInput[] = [
     }),
     scheduled_stop_point_id: '0f6254d9-dc60-4626-a777-ce4d4381d38a',
   },
+  // included on route
   {
     ...buildStop({
       label: 'E2E002',
@@ -57,6 +59,7 @@ const stops: StopInsertInput[] = [
     }),
     scheduled_stop_point_id: '7e97247d-7750-4d72-b02e-bd4e886357b7',
   },
+  // not included on route
   {
     ...buildStop({
       label: 'E2E003',
@@ -124,7 +127,7 @@ const deleteCreatedResources = () => {
   removeFromDbHelper(dbResources);
 };
 
-describe('Line details page', () => {
+describe('Line details page: stops on route', () => {
   let lineDetailsPage: LineDetailsPage;
   before(() => {
     deleteCreatedResources();
@@ -161,5 +164,34 @@ describe('Line details page', () => {
     lineDetailsPage
       .getStopRow(stops[2].scheduled_stop_point_id)
       .contains(stops[2].label);
+  });
+  it('User can add stops to route and remove those', () => {
+    lineDetailsPage.toggleRouteSection(routes[0].route_id);
+
+    lineDetailsPage.toggleUnusedStops();
+
+    lineDetailsPage.addStopToRoute(stops[2].scheduled_stop_point_id);
+    cy.wait('@gqlUpdateRouteJourneyPattern')
+      .its('response.statusCode')
+      .should('equal', 200);
+
+    // Unluckily we have to wait just a little bit after stop is added to the route
+    // so that apollo has time to update its cache (?) so that we don't get error
+    // stating that "route has to have at least 2 stops" when removing
+    // third stop from route.
+    // 50ms of waiting was enough locally -> 750ms is probably more than enough
+    // even on slow ci runners.
+    // Yes, it would be more elegant to split this test into 2, but running
+    // two test cases instead of one would take more than wait time here. :)
+    cy.wait(750); // eslint-disable-line cypress/no-unnecessary-waiting
+
+    lineDetailsPage.removeStopFromRoute(stops[1].scheduled_stop_point_id);
+    cy.wait('@gqlUpdateRouteJourneyPattern')
+      .its('response.statusCode')
+      .should('equal', 200);
+
+    lineDetailsPage
+      .getStopRow(stops[1].scheduled_stop_point_id)
+      .contains('Ei reitin käytössä');
   });
 });
