@@ -5,5 +5,6 @@ export * from './Map';
 export * from './MapFooter';
 export * from './Navbar';
 export * from './RoutePropertiesForm';
+export * from './StopForm';
 export * from './TerminusNameInputs';
 export * from './Toast';
