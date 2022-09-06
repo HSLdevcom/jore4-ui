@@ -5,11 +5,11 @@ import {
   RouteRoute,
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
+import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
 import {
-  mapInfraLinksAlongRouteToGraphQL,
   mapRouteStopsToStopSequence,
   RouteGeometry,
-} from '../../graphql';
+} from '../../redux/types/mapEditor';
 import { MIN_DATE } from '../../time';
 import {
   mapToObject,

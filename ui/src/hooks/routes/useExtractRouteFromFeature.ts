@@ -14,11 +14,10 @@ import {
   getRouteStopLabels,
   mapRouteToInfraLinksAlongRoute,
   mapStopResultToStops,
-  mapStopToRouteStop,
   orderInfraLinksByExternalLinkId,
   RouteInfraLink,
-  RouteStop,
 } from '../../graphql';
+import { mapStopToRouteStop, RouteStop } from '../../redux/types/mapEditor';
 import { mapGeoJSONtoFeature, sortStopsOnInfraLink } from '../../utils';
 import { useFilterStops } from '../stops/useFilterStops';
 

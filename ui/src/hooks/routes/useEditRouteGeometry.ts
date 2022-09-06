@@ -6,11 +6,11 @@ import {
   UpdateRouteGeometryMutationVariables,
   useUpdateRouteGeometryMutation,
 } from '../../generated/graphql';
+import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
 import {
-  mapInfraLinksAlongRouteToGraphQL,
   mapRouteStopsToStopSequence,
   RouteGeometry,
-} from '../../graphql';
+} from '../../redux/types/mapEditor';
 import { removeFromApolloCache, showDangerToastWithError } from '../../utils';
 import { useValidateRoute } from './useValidateRoute';
 

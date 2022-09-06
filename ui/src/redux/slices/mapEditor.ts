@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import { LineAllFieldsFragment } from '../../generated/graphql';
-import { RouteInfraLink, RouteStop } from '../../graphql';
+import { RouteInfraLink } from '../../graphql';
+import { RouteStop } from '../types/mapEditor';
 import { mapToStoreType, StoreType } from '../utils/mappers';
 
 interface IState {

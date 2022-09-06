@@ -4,15 +4,23 @@ import {
   useGetRoutesWithInfrastructureLinksQuery,
 } from '../../generated/graphql';
 import { getStopsFromRoute, mapRouteResultToRoutes } from '../../graphql';
-import { getRouteStops, useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  filterHighestPriorityCurrentStops,
+  getRouteStops,
+  useAppDispatch,
+  useAppSelector,
+  useObservationDateQueryParam,
+} from '../../hooks';
 import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import { Row, Visible } from '../../layoutComponents';
 import {
+  mapFromStoreType,
   selectHasChangesInProgress,
   selectMapEditor,
   setRouteMetadataFormOpenAction,
   setStopOnRouteAction,
 } from '../../redux';
+import { RouteStop } from '../../redux/types/mapEditor';
 import { parseDate } from '../../time';
 import {
   AlignDirection,
@@ -33,16 +41,15 @@ interface Props {
 }
 
 const StopRow = ({
-  label,
-  onRoute,
+  routeStop: { label, belongsToJourneyPattern: onRoute, stopInstance },
   isReadOnly,
 }: {
-  label: string;
-  onRoute: boolean;
+  routeStop: RouteStop;
   isReadOnly?: boolean;
 }) => {
   const { t } = useTranslation();
 
+  const stop = mapFromStoreType(stopInstance);
   const dispatch = useAppDispatch();
 
   const setOnRoute = (belongsToJourneyPattern: boolean) => {
@@ -55,8 +62,15 @@ const StopRow = ({
   };
 
   return (
-    <div className="flex items-center justify-between border-b p-2">
-      <div className="flex flex-col pl-10">
+    <div className="flex h-10 items-center justify-between border-b p-2">
+      <div className="flex items-center">
+        <div className="w-10">
+          <PriorityBadge
+            priority={stop.priority}
+            validityStart={stop.validity_start}
+            validityEnd={stop.validity_end}
+          />
+        </div>
         <div
           className={`text-sm font-bold ${
             onRoute ? 'text-black' : 'text-gray-300'
@@ -88,6 +102,8 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
     mapToVariables({ route_ids: [selectedRouteId] }),
   );
 
+  const { observationDate } = useObservationDateQueryParam();
+
   const routes = mapRouteResultToRoutes(routesResult);
   const selectedRoute = routes?.[0];
 
@@ -105,7 +121,13 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
   const routeStops = routeEditingInProgress
     ? editedRouteData.stops
     : getRouteStops(
-        selectedRouteStops.map((stop) => stop.scheduled_stop_points[0]),
+        selectedRouteStops.flatMap((stop) =>
+          filterHighestPriorityCurrentStops(
+            stop.scheduled_stop_points,
+            observationDate,
+            true,
+          ),
+        ),
       );
 
   const validityStart = routeEditingInProgress
@@ -160,8 +182,7 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
             // use index as key here
             // eslint-disable-next-line react/no-array-index-key
             key={`${routeStop.label}_${index}`}
-            label={routeStop.label}
-            onRoute={routeStop.belongsToJourneyPattern}
+            routeStop={routeStop}
             isReadOnly={!routeEditingInProgress}
           />
         ))}
