@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { theme } from '../../../generated/theme';
+import { resetEnabledModesAction } from '../../../redux';
 import { Coords } from '../../../types';
 import { Circle } from '../markers';
 
@@ -10,6 +12,7 @@ interface Props {
 }
 export const CreateStopMarker = ({ onCursorMove }: Props): JSX.Element => {
   const [mouseCoords, setMouseCoords] = React.useState<Coords>();
+  const dispatch = useDispatch();
 
   const createStopMarkerSize = 20;
 
@@ -30,6 +33,17 @@ export const CreateStopMarker = ({ onCursorMove }: Props): JSX.Element => {
     // hide marker if the mouse leaves from the map area
     setMouseCoords(undefined);
   };
+
+  const detectKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      dispatch(resetEnabledModesAction());
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', detectKeyDown, true);
+    return () => document.removeEventListener('keydown', detectKeyDown, true);
+  });
 
   return (
     <div

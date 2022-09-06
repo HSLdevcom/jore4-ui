@@ -1,5 +1,10 @@
-import React, { useEffect, useImperativeHandle, useContext } from 'react';
-import { MapEvent, MapContext } from 'react-map-gl';
+import React, {
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
+import { MapContext, MapEvent } from 'react-map-gl';
 import {
   ServicePatternScheduledStopPoint,
   useGetStopsByLocationQuery,
@@ -18,6 +23,7 @@ import {
   Operation,
   selectEditedStopData,
   selectIsCreateStopModeEnabled,
+  selectIsMoveStopModeEnabled,
   selectMapViewport,
   selectSelectedStopId,
   setEditedStopDataAction,
@@ -34,8 +40,8 @@ import {
 } from '../../../utils';
 import {
   addLineFromStopToInfraLink,
-  drawLineToClosestRoad,
   createGeometryLineBetweenPoints,
+  drawLineToClosestRoad,
   removeLineFromStopToInfraLink,
 } from '../../../utils/map';
 import { CreateStopMarker } from './CreateStopMarker';
@@ -54,11 +60,15 @@ export const Stops = React.forwardRef((props, ref) => {
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const editedStopData = useAppSelector(selectEditedStopData);
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
+  const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
   const setEditedStopData = useAppAction(setEditedStopDataAction);
   const setIsCreateStopModeEnabled = useAppAction(
     setIsCreateStopModeEnabledAction,
   );
+
+  const editStopLayerRef = useRef<ExplicitAny>(null);
+
   const { setIsLoading } = useLoader(Operation.FetchStops);
 
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
@@ -119,6 +129,9 @@ export const Stops = React.forwardRef((props, ref) => {
       }
       setIsLoading(false);
     },
+    onMoveStop: (e: MapEvent) => {
+      editStopLayerRef.current.onMoveStop(e);
+    },
   }));
 
   const onEditingFinished = async () => {
@@ -149,13 +162,14 @@ export const Stops = React.forwardRef((props, ref) => {
       {/* Display edited stop + its editor components */}
       {editedStopData && (
         <EditStopLayer
+          ref={editStopLayerRef}
           editedStopData={editedStopData}
           onEditingFinished={onEditingFinished}
           onPopupClose={() => removeLineFromStopToInfraLink(map)}
         />
       )}
       {/* Display hovering bus stop while in create mode */}
-      {isCreateStopModeEnabled && (
+      {(isCreateStopModeEnabled || isMoveStopModeEnabled) && (
         <CreateStopMarker
           onCursorMove={(coords: Coords) => drawLineToClosestRoad(map, coords)}
         />

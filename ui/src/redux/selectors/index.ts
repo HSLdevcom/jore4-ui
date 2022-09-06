@@ -25,6 +25,11 @@ export const selectIsCreateStopModeEnabled = createSelector(
   (map) => map.isCreateStopModeEnabled,
 );
 
+export const selectIsMoveStopModeEnabled = createSelector(
+  selectMap,
+  (map) => map.isMoveStopModeEnabled,
+);
+
 export const selectMapViewport = createSelector(
   selectModalMap,
   (modalMap) => modalMap.viewport,

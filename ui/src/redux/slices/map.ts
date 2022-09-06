@@ -6,12 +6,14 @@ interface IState {
   selectedStopId?: UUID;
   editedStopData?: StoreType<StopWithLocation>;
   isCreateStopModeEnabled: boolean;
+  isMoveStopModeEnabled: boolean;
 }
 
 const initialState: IState = {
   selectedStopId: undefined,
   editedStopData: undefined,
   isCreateStopModeEnabled: false,
+  isMoveStopModeEnabled: false,
 };
 
 const slice = createSlice({
@@ -23,6 +25,13 @@ const slice = createSlice({
     },
     setIsCreateStopModeEnabled: (state, action: PayloadAction<boolean>) => {
       state.isCreateStopModeEnabled = action.payload;
+    },
+    setIsMoveStopModeEnabled: (state, action: PayloadAction<boolean>) => {
+      state.isMoveStopModeEnabled = action.payload;
+    },
+    resetEnabledModes: (state) => {
+      state.isMoveStopModeEnabled = false;
+      state.isCreateStopModeEnabled = false;
     },
     setEditedStopData: {
       reducer: (
@@ -41,6 +50,8 @@ const slice = createSlice({
 export const {
   setSelectedStopId: setSelectedStopIdAction,
   setIsCreateStopModeEnabled: setIsCreateStopModeEnabledAction,
+  setIsMoveStopModeEnabled: setIsMoveStopModeEnabledAction,
+  resetEnabledModes: resetEnabledModesAction,
   setEditedStopData: setEditedStopDataAction,
 } = slice.actions;
 
