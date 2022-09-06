@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import { MapEvent } from 'react-map-gl';
 import {
   ServicePatternScheduledStopPoint,
@@ -18,6 +18,7 @@ import {
   Operation,
   selectEditedStopData,
   selectIsCreateStopModeEnabled,
+  selectIsMoveStopModeEnabled,
   selectMapViewport,
   selectSelectedStopId,
   setEditedStopDataAction,
@@ -46,11 +47,15 @@ export const Stops = React.forwardRef((props, ref) => {
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const editedStopData = useAppSelector(selectEditedStopData);
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
+  const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
   const setEditedStopData = useAppAction(setEditedStopDataAction);
   const setIsCreateStopModeEnabled = useAppAction(
     setIsCreateStopModeEnabledAction,
   );
+
+  const editStopLayerRef = useRef<ExplicitAny>(null);
+
   const { setIsLoading } = useLoader(Operation.FetchStops);
 
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
@@ -103,6 +108,9 @@ export const Stops = React.forwardRef((props, ref) => {
       }
       setIsLoading(false);
     },
+    onMoveStop: async (e: MapEvent) => {
+      editStopLayerRef.current.onMoveStop(e);
+    },
   }));
 
   const onEditingFinished = async () => {
@@ -134,12 +142,15 @@ export const Stops = React.forwardRef((props, ref) => {
       {/* Display edited stop + its editor components */}
       {editedStopData && (
         <EditStopLayer
+          ref={editStopLayerRef}
           editedStopData={editedStopData}
           onEditingFinished={onEditingFinished}
         />
       )}
       {/* Display hovering bus stop while in create mode */}
-      {isCreateStopModeEnabled && <CreateStopMarker />}
+      {(isCreateStopModeEnabled || isMoveStopModeEnabled) && (
+        <CreateStopMarker />
+      )}
     </>
   );
 });
