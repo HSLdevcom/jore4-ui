@@ -6,6 +6,7 @@ interface Props {
   borderWidth?: number;
   fillColor?: string;
   borderColor?: string;
+  strokeDashArray?: number;
   centerDot?: boolean;
   centerDotSize?: number;
   onClick?: () => void;
@@ -17,6 +18,7 @@ const CircleComponent = ({
   borderWidth = 2,
   fillColor = 'white',
   borderColor = 'black',
+  strokeDashArray = 0,
   centerDot = false,
   centerDotSize = 2,
   onClick,
@@ -37,6 +39,7 @@ const CircleComponent = ({
         cy={size / 2}
         r={size / 2 - borderWidth}
         stroke={borderColor}
+        strokeDasharray={strokeDashArray}
         strokeWidth={borderWidth}
         fill={fillColor}
       />
