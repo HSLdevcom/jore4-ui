@@ -1,11 +1,16 @@
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Maybe } from '../../generated/graphql';
+import { isDateInRange } from '../../time';
+import { showWarningToast } from '../../utils';
 import { QueryParameterName } from './useMapQueryParams';
 import { useUrlQuery } from './useUrlQuery';
 
 export const useObservationDateQueryParam = () => {
   const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery, queryParams } =
     useUrlQuery();
+  const { t } = useTranslation();
 
   const [defaultDate] = useState(DateTime.now().startOf('day'));
 
@@ -37,6 +42,24 @@ export const useObservationDateQueryParam = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultDate, getDateTimeFromUrlQuery]);
 
+  const ensureVisibilityByValidityPeriod = ({
+    // eslint-disable-next-line camelcase
+    validity_start,
+    // eslint-disable-next-line camelcase
+    validity_end,
+  }: {
+    // eslint-disable-next-line camelcase
+    validity_start?: Maybe<DateTime> | undefined;
+    // eslint-disable-next-line camelcase
+    validity_end?: Maybe<DateTime> | undefined;
+  }) => {
+    if (!isDateInRange(observationDate, validity_start, validity_end)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, camelcase
+      setObservationDateToUrl(validity_start!);
+      showWarningToast(t('filters.observationDateAdjusted'));
+    }
+  };
+
   /** Determines and sets date to query parameters if it's not there */
   const initializeObservationDate = useCallback(async () => {
     if (!queryParams.observationDate || !observationDate) {
@@ -49,5 +72,9 @@ export const useObservationDateQueryParam = () => {
     initializeObservationDate();
   }, [initializeObservationDate]);
 
-  return { observationDate, setObservationDateToUrl };
+  return {
+    observationDate,
+    setObservationDateToUrl,
+    ensureVisibilityByValidityPeriod,
+  };
 };
