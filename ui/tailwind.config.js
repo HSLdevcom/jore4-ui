@@ -22,6 +22,7 @@ module.exports = {
         'hsl-dark-green': colors.hslDarkGreen,
         'hsl-red': colors.hslRed,
         'city-bicycle-yellow': colors.cityBicycleYellow,
+        'hsl-warning-yellow': colors.hslWarningYellow,
       },
       borderWidth: {
         10: '10px',

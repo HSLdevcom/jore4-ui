@@ -11,6 +11,7 @@ const theme = {
     hslDarkGreen: '#3B7F00',
     hslRed: '#DC0451',
     cityBicycleYellow: '#FCBC19',
+    hslWarningYellow: '#FED100',
     routes: {
       bus: '#0074BF',
       ferry: '#333333',
