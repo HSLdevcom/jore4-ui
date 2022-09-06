@@ -85,7 +85,7 @@ export const RouteStopsSection = ({
     }
   };
 
-  const onDeleteFromRoute = async (stopLabel: string) => {
+  const onRemoveFromRoute = async (stopLabel: string) => {
     try {
       const changes = prepareDeleteStopFromRoute({
         stopPointLabel: stopLabel,
@@ -119,7 +119,7 @@ export const RouteStopsSection = ({
             stop={item}
             routeId={route.route_id}
             onAddToRoute={onAddToRoute}
-            onDeleteFromRoute={onDeleteFromRoute}
+            onRemoveFromRoute={onRemoveFromRoute}
           />
         ))}
     </tbody>

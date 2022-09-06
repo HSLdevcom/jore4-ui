@@ -14,14 +14,14 @@ interface Props {
   stop: ServicePatternScheduledStopPoint;
   routeId: UUID;
   onAddToRoute: (stopLabel: string) => void;
-  onDeleteFromRoute: (stopLabel: string) => void;
+  onRemoveFromRoute: (stopLabel: string) => void;
 }
 
 export const StopActionsDropdown = ({
   stop,
   routeId,
   onAddToRoute,
-  onDeleteFromRoute,
+  onRemoveFromRoute,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -57,7 +57,7 @@ export const StopActionsDropdown = ({
       {stopBelongsToJourneyPattern ? (
         <button
           type="button"
-          onClick={() => onDeleteFromRoute(stop.label)}
+          onClick={() => onRemoveFromRoute(stop.label)}
           data-testid={testIds.removeStop}
         >
           {t('stops.removeFromRoute')}
