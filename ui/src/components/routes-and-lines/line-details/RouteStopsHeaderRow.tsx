@@ -19,6 +19,7 @@ import {
 import { DirectionBadge } from './DirectionBadge';
 
 const testIds = {
+  container: (routeLabel: string) => `RouteStopsHeaderRow::${routeLabel}`,
   label: 'RouteStopsHeaderRow::label',
   name: 'RouteStopsHeaderRow::name',
   validityPeriod: 'RouteStopsHeaderRow::validityPeriod',
@@ -58,7 +59,7 @@ export const RouteStopsHeaderRow = ({
   return (
     <tr
       className={`border border-white bg-background ${className} p-4`}
-      data-testid={`RouteStopsHeaderRow::${route.route_id}`}
+      data-testid={testIds.container(route.label)}
     >
       <td className={`${alertStyle.listItemBorder || ''} p-4 pl-12`}>
         <Row className="items-center">
