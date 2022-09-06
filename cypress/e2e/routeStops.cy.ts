@@ -12,7 +12,7 @@ import {
   vehicleSubmodeOnInfrastructureLink,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
-import { LineDetailsPage } from '../pageObjects';
+import { LineDetailsPage, Toast } from '../pageObjects';
 import {
   InfraLinkInsertInput,
   LineInsertInput,
@@ -129,12 +129,14 @@ const deleteCreatedResources = () => {
 
 describe('Line details page: stops on route', () => {
   let lineDetailsPage: LineDetailsPage;
+  let toast: Toast;
   before(() => {
     deleteCreatedResources();
     insertToDbHelper(dbResources);
   });
   beforeEach(() => {
     lineDetailsPage = new LineDetailsPage();
+    toast = new Toast();
 
     cy.setupTests();
     cy.mockLogin();
@@ -181,5 +183,15 @@ describe('Line details page: stops on route', () => {
       .should('equal', 200);
 
     lineDetailsPage.getStopRow(stops[1].label).contains('Ei reitin käytössä');
+  });
+  it('User cannot delete too many stops from route', () => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    lineDetailsPage.toggleRouteSection(routes[0].label!);
+    // Route has only 2 stops so user shouldn't be able to remove either of those
+    lineDetailsPage.removeStopFromRoute(stops[0].label);
+    toast
+      .getDangerToast()
+      .contains('Reitillä on oltava ainakin kaksi pysäkkiä.')
+      .should('be.visible');
   });
 });
