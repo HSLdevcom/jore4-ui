@@ -9,33 +9,33 @@ export class LineDetailsPage {
     return cy.getByTestId('show-unused-stops-switch').click();
   }
 
-  getRouteSection(routeId: UUID) {
-    return cy.getByTestId(`RouteStopsHeaderRow::${routeId}`);
+  getRouteSection(routeLabel: string) {
+    return cy.getByTestId(`RouteStopsHeaderRow::${routeLabel}`);
   }
 
-  toggleRouteSection(routeId: UUID) {
-    return this.getRouteSection(routeId)
+  toggleRouteSection(routeLabel: string) {
+    return this.getRouteSection(routeLabel)
       .getByTestId('RouteStopsHeaderRow::toggleAccordion')
       .click();
   }
 
-  getStopRow(stopId: UUID) {
-    return cy.getByTestId(`RouteStopsRow::${stopId}`);
+  getStopRow(stopLabel: string) {
+    return cy.getByTestId(`RouteStopsRow::${stopLabel}`);
   }
 
-  getStopDropdown(stopId: UUID) {
-    return this.getStopRow(stopId).findByTestId('StopActionsDrowdown::menu');
+  getStopDropdown(stopLabel: string) {
+    return this.getStopRow(stopLabel).findByTestId('StopActionsDrowdown::menu');
   }
 
-  addStopToRoute(stopId: UUID) {
-    return this.getStopDropdown(stopId)
+  addStopToRoute(stopLabel: string) {
+    return this.getStopDropdown(stopLabel)
       .click()
       .getByTestId('StopActionsDrowdown::addStopToRouteButton')
       .click();
   }
 
-  removeStopFromRoute(stopId: UUID) {
-    return this.getStopDropdown(stopId)
+  removeStopFromRoute(stopLabel: string) {
+    return this.getStopDropdown(stopLabel)
       .click()
       .getByTestId('StopActionsDrowdown::removeStopFromRouteButton')
       .click();

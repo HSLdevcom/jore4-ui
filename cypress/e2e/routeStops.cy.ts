@@ -144,33 +144,27 @@ describe('Line details page: stops on route', () => {
     deleteCreatedResources();
   });
   it('Verify that stops of route are shown on its list view', () => {
-    lineDetailsPage.toggleRouteSection(routes[0].route_id);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    lineDetailsPage.toggleRouteSection(routes[0].label!);
 
     // verify that stops 0 and 1 are included on route
-    lineDetailsPage
-      .getStopRow(stops[0].scheduled_stop_point_id)
-      .contains(stops[0].label);
-    lineDetailsPage
-      .getStopRow(stops[1].scheduled_stop_point_id)
-      .contains(stops[1].label);
+    lineDetailsPage.getStopRow(stops[0].label).contains(stops[0].label);
+    lineDetailsPage.getStopRow(stops[1].label).contains(stops[1].label);
 
     // stop 2 is not included on route and thus not shown by default
-    lineDetailsPage
-      .getStopRow(stops[2].scheduled_stop_point_id)
-      .should('not.exist');
+    lineDetailsPage.getStopRow(stops[2].label).should('not.exist');
 
     // stop 2 can be shown after toggling unused stops to be visible
     lineDetailsPage.toggleUnusedStops();
-    lineDetailsPage
-      .getStopRow(stops[2].scheduled_stop_point_id)
-      .contains(stops[2].label);
+    lineDetailsPage.getStopRow(stops[2].label).contains(stops[2].label);
   });
   it('User can add stops to route and remove those', () => {
-    lineDetailsPage.toggleRouteSection(routes[0].route_id);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    lineDetailsPage.toggleRouteSection(routes[0].label!);
 
     lineDetailsPage.toggleUnusedStops();
 
-    lineDetailsPage.addStopToRoute(stops[2].scheduled_stop_point_id);
+    lineDetailsPage.addStopToRoute(stops[2].label);
     cy.wait('@gqlUpdateRouteJourneyPattern')
       .its('response.statusCode')
       .should('equal', 200);
@@ -181,13 +175,11 @@ describe('Line details page: stops on route', () => {
       .contains('Ei reitin käytössä')
       .should('not.exist');
 
-    lineDetailsPage.removeStopFromRoute(stops[1].scheduled_stop_point_id);
+    lineDetailsPage.removeStopFromRoute(stops[1].label);
     cy.wait('@gqlUpdateRouteJourneyPattern')
       .its('response.statusCode')
       .should('equal', 200);
 
-    lineDetailsPage
-      .getStopRow(stops[1].scheduled_stop_point_id)
-      .contains('Ei reitin käytössä');
+    lineDetailsPage.getStopRow(stops[1].label).contains('Ei reitin käytössä');
   });
 });

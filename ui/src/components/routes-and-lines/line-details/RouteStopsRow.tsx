@@ -13,7 +13,7 @@ import {
 import { StopActionsDropdown } from './StopActionsDropdown';
 
 const testIds = {
-  container: (stopId: UUID) => `RouteStopsRow::${stopId}`,
+  container: (stopLabel: string) => `RouteStopsRow::${stopLabel}`,
   label: 'RouteStopsRow::label',
   name: 'RouteStopsRow::name',
   validityPeriod: 'RouteStopsRow::validityPeriod',
@@ -57,7 +57,7 @@ export const RouteStopsRow = ({
       className={`border border-l-8 ${
         stopBelongsToJourneyPattern ? '' : 'bg-background text-dark-grey'
       } ${className}`}
-      data-testid={testIds.container(stop.scheduled_stop_point_id)}
+      data-testid={testIds.container(stop.label)}
     >
       <td
         className={`${alertStyle.listItemBorder || ''} p-4 pl-16 text-2xl`}
