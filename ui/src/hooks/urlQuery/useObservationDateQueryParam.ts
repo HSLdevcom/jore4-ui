@@ -1,11 +1,16 @@
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { ValidityPeriod } from '../../generated/graphql';
+import { isDateInRange } from '../../time';
+import { showWarningToast } from '../../utils';
 import { QueryParameterName } from './useMapQueryParams';
 import { useUrlQuery } from './useUrlQuery';
 
 export const useObservationDateQueryParam = () => {
   const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery, queryParams } =
     useUrlQuery();
+  const { t } = useTranslation();
 
   const [defaultDate] = useState(DateTime.now().startOf('day'));
 
@@ -37,6 +42,23 @@ export const useObservationDateQueryParam = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultDate, getDateTimeFromUrlQuery]);
 
+  const updateObservationDateByValidityPeriodIfNeeded = ({
+    validity_start, // eslint-disable-line camelcase
+    validity_end, // eslint-disable-line camelcase
+    showToast = true,
+  }: ValidityPeriod & { showToast?: boolean }) => {
+    if (!isDateInRange(observationDate, validity_start, validity_end)) {
+      // If validity_start is undefined, validity_end is defined,
+      // otherwise observationDate would be within the validity period
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, camelcase
+      setObservationDateToUrl(validity_start || validity_end!);
+
+      if (showToast) {
+        showWarningToast(t('filters.observationDateAdjusted'));
+      }
+    }
+  };
+
   /** Determines and sets date to query parameters if it's not there */
   const initializeObservationDate = useCallback(async () => {
     if (!queryParams.observationDate || !observationDate) {
@@ -49,5 +71,9 @@ export const useObservationDateQueryParam = () => {
     initializeObservationDate();
   }, [initializeObservationDate]);
 
-  return { observationDate, setObservationDateToUrl };
+  return {
+    observationDate,
+    setObservationDateToUrl,
+    updateObservationDateByValidityPeriodIfNeeded,
+  };
 };

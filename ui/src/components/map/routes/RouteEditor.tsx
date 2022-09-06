@@ -29,10 +29,9 @@ import {
   startRouteEditingAction,
   stopRouteEditingAction,
 } from '../../../redux';
-import { isDateInRange } from '../../../time';
 import { RequiredKeys } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
-import { showSuccessToast, showWarningToast } from '../../../utils';
+import { showSuccessToast } from '../../../utils';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
   ConflictResolverModal,
@@ -54,7 +53,7 @@ const RouteEditorComponent = (
   const drawingMode = useAppSelector(selectDrawingMode);
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
 
-  const { observationDate, setObservationDateToUrl } =
+  const { updateObservationDateByValidityPeriodIfNeeded } =
     useObservationDateQueryParam();
   const { deleteMapQueryParameters, setRouteId } = useMapQueryParams();
 
@@ -134,15 +133,7 @@ const RouteEditorComponent = (
     // change observation date to created route's validity start date
     // so the user can see the freshly created route
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const validityStart = newRoute.validity_start!;
-
-    if (
-      !isDateInRange(observationDate, validityStart, newRoute?.validity_end)
-    ) {
-      setObservationDateToUrl(validityStart);
-      showWarningToast(t('filters.observationDateAdjusted'));
-    }
+    updateObservationDateByValidityPeriodIfNeeded(newRoute);
 
     // Reset map editor drap mode and remove draft route
     // as it is now saved
