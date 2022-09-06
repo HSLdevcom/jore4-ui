@@ -9,6 +9,7 @@ import {
   selectHasDraftRouteGeometry,
   selectIsCreateStopModeEnabled,
   selectIsInViewMode,
+  selectIsMoveStopModeEnabled,
   selectMapEditor,
   setIsCreateStopModeEnabledAction,
 } from '../../redux';
@@ -39,14 +40,19 @@ export const MapFooter: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { drawingMode, creatingNewRoute, selectedRouteId } =
-    useAppSelector(selectMapEditor);
+  const {
+    drawingMode,
+    creatingNewRoute,
+    isRouteMetadataFormOpen,
+    selectedRouteId,
+  } = useAppSelector(selectMapEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
 
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
   const isInViewMode = useAppSelector(selectIsInViewMode);
 
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
+  const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
   const setIsCreateStopModeEnabled = useAppAction(
     setIsCreateStopModeEnabledAction,
   );
@@ -60,7 +66,12 @@ export const MapFooter: React.FC<Props> = ({
       <SimpleButton
         testId={testIds.drawRouteButton}
         onClick={onDrawRoute}
-        disabled={!isInViewMode || creatingNewRoute}
+        disabled={
+          !isInViewMode ||
+          creatingNewRoute ||
+          isCreateStopModeEnabled ||
+          isMoveStopModeEnabled
+        }
         inverted={drawingMode !== Mode.Draw}
       >
         {t('map.drawRoute')}
@@ -75,7 +86,7 @@ export const MapFooter: React.FC<Props> = ({
       </SimpleButton>
       <SimpleButton
         onClick={onAddStops}
-        disabled={drawingMode !== undefined}
+        disabled={drawingMode !== undefined || creatingNewRoute}
         inverted={!isCreateStopModeEnabled}
         testId={testIds.addStopButton}
       >
@@ -84,11 +95,11 @@ export const MapFooter: React.FC<Props> = ({
       <SimpleButton
         className="h-full !px-3 text-xl"
         onClick={onDeleteRoute}
-        disabled={!hasChangesInProgress}
+        disabled={!hasChangesInProgress || isRouteMetadataFormOpen}
       >
         <MdDelete aria-label={t('map.deleteRoute')} />
       </SimpleButton>
-      <Visible visible={hasChangesInProgress}>
+      <Visible visible={hasChangesInProgress && !isRouteMetadataFormOpen}>
         <SimpleButton
           containerClassName="!ml-auto"
           onClick={onCancel}

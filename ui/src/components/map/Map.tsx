@@ -9,6 +9,7 @@ import { Column } from '../../layoutComponents';
 import {
   selectHasDraftRouteGeometry,
   selectIsCreateStopModeEnabled,
+  selectIsMoveStopModeEnabled,
   selectMapEditor,
   selectMapFilter,
   selectSelectedRouteId,
@@ -65,6 +66,7 @@ export const MapComponent = (
   const [showStops, setShowStops] = useState(true);
 
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
+  const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
 
   // TODO: avoid any type
   const editorLayerRef = useRef<ExplicitAny>(null);
@@ -94,10 +96,19 @@ export const MapComponent = (
     }
   };
 
+  const onMoveStop = (e: MapEvent) => {
+    if (!drawingMode) {
+      stopsRef.current?.onMoveStop(e);
+    }
+  };
+
   const onClick = (e: MapEvent) => {
     if (isCreateStopModeEnabled) {
       onCreateStop(e);
       return;
+    }
+    if (isMoveStopModeEnabled) {
+      onMoveStop(e);
     }
 
     // Retrieve all rendered features on the map
