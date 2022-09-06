@@ -32,7 +32,7 @@ import {
 import { isDateInRange } from '../../../time';
 import { RequiredKeys } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
-import { showSuccessToast } from '../../../utils';
+import { showSuccessToast, showWarningToast } from '../../../utils';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
   ConflictResolverModal,
@@ -141,7 +141,7 @@ const RouteEditorComponent = (
       !isDateInRange(observationDate, validityStart, newRoute?.validity_end)
     ) {
       setObservationDateToUrl(validityStart);
-      showSuccessToast(t('filters.observationDateAdjusted'));
+      showWarningToast(t('filters.observationDateAdjusted'));
     }
 
     // Reset map editor drap mode and remove draft route
