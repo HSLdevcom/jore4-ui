@@ -14,6 +14,7 @@ import {
   useEditStop,
   useLoader,
   useMapStops,
+  useObservationDateQueryParam,
 } from '../../../hooks';
 import {
   Operation,
@@ -67,8 +68,9 @@ export const EditStopLayer: React.FC<Props> = ({
   const { setIsLoading: setIsLoadingBrokenRoutes } = useLoader(
     Operation.CheckBrokenRoutes,
   );
-  const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
 
+  const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
+  const { ensureVisibilityByValidityPeriod } = useObservationDateQueryParam();
   const { mapCreateChangesToVariables, insertStopMutation } = useCreateStop();
   const {
     prepareEdit,
@@ -190,6 +192,7 @@ export const EditStopLayer: React.FC<Props> = ({
       await insertStopMutation(variables);
 
       showSuccessToast(t('stops.saveSuccess'));
+      ensureVisibilityByValidityPeriod(changes.stopToCreate);
       onFinishEditing();
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -214,6 +217,7 @@ export const EditStopLayer: React.FC<Props> = ({
       });
 
       showSuccessToast(t('stops.editSuccess'));
+      ensureVisibilityByValidityPeriod(changes.editedStop);
       onFinishEditing();
     } catch (err) {
       defaultErrorHandler(err as Error);
