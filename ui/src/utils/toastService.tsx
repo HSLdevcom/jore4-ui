@@ -35,3 +35,10 @@ export const showSuccessToast = (message: string) => {
     type: 'success',
   });
 };
+
+export const showWarningToast = (message: string) => {
+  return showToast({
+    message,
+    type: 'warning',
+  });
+};

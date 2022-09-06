@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row } from '../layoutComponents';
 
-export type ToastType = 'primary' | 'success' | 'danger';
+export type ToastType = 'primary' | 'success' | 'danger' | 'warning';
 
 interface Props {
   message: string;
@@ -39,6 +39,13 @@ const propsByType: Record<
     bg: 'bg-hsl-red bg-opacity-25',
     border: ' border-hsl-red',
     testId: 'danger-toast',
+  },
+  warning: {
+    icon: 'icon-alert-filled text-hsl-warning-yellow text-3xl',
+    textColor: 'text-black',
+    bg: 'bg-hsl-warning-yellow bg-opacity-25',
+    border: ' border-hsl-warning-yellow',
+    testId: 'warning-toast',
   },
 };
 
