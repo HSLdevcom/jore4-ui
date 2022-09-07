@@ -146,8 +146,7 @@ describe('Line details page: stops on route', () => {
     deleteCreatedResources();
   });
   it('Verify that stops of route are shown on its list view', () => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    lineDetailsPage.toggleRouteSection(routes[0].label!);
+    lineDetailsPage.toggleRouteSection(routes[0].label);
 
     // verify that stops 0 and 1 are included on route
     lineDetailsPage.getStopRow(stops[0].label).contains(stops[0].label);
@@ -161,8 +160,7 @@ describe('Line details page: stops on route', () => {
     lineDetailsPage.getStopRow(stops[2].label).contains(stops[2].label);
   });
   it('User can add stops to route and remove those', () => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    lineDetailsPage.toggleRouteSection(routes[0].label!);
+    lineDetailsPage.toggleRouteSection(routes[0].label);
 
     lineDetailsPage.toggleUnusedStops();
 
@@ -185,8 +183,7 @@ describe('Line details page: stops on route', () => {
     lineDetailsPage.getStopRow(stops[1].label).contains('Ei reitin käytössä');
   });
   it('User cannot delete too many stops from route', () => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    lineDetailsPage.toggleRouteSection(routes[0].label!);
+    lineDetailsPage.toggleRouteSection(routes[0].label);
     // Route has only 2 stops so user shouldn't be able to remove either of those
     lineDetailsPage.removeStopFromRoute(stops[0].label);
     toast

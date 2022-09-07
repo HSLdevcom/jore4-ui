@@ -38,6 +38,7 @@ const hasuraOverrideTypeDefs = gql`
     destination_short_name_i18n: localized_string
   }
   type route_route_insert_input {
+    label: String!
     name_i18n: localized_string!
     description_i18n: localized_string
     origin_name_i18n: localized_string!

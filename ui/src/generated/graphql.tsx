@@ -5133,7 +5133,7 @@ export type RouteRouteInsertInput = {
   destination_short_name_i18n: Scalars['localized_string'];
   direction?: Maybe<RouteDirectionEnum>;
   infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   name_i18n: Scalars['localized_string'];
   on_line_id?: Maybe<Scalars['uuid']>;
   origin_name_i18n: Scalars['localized_string'];
