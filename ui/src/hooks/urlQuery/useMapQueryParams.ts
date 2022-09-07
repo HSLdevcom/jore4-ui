@@ -20,6 +20,26 @@ export enum QueryParameterName {
 
 const DEFAULT_ZOOM = 13 as const;
 
+export interface ViewPortParams {
+  latitude?: number;
+  longitude?: number;
+  zoom?: number;
+}
+
+export interface DisplayedRouteParams {
+  routeLabel?: string;
+  lineLabel?: string;
+  routeId?: UUID;
+  showSelectedDaySituation?: boolean;
+  priorities?: Priority[];
+}
+
+export interface OpenMapParams {
+  viewPortParams: ViewPortParams;
+  displayedRouteParams: DisplayedRouteParams;
+  observationDate: DateTime;
+}
+
 export const useMapQueryParams = () => {
   const {
     setBooleanToUrlQuery,
@@ -38,31 +58,21 @@ export const useMapQueryParams = () => {
     });
   };
 
-  /** Sets latitude, longitude, zoom and mapOpen queryparameters which will
-   * open the map and set the map to desired position. This function might change
-   * after react-map-gl v7 is updated.
+  /**
+   * Open map with provided query parameters. Map position, zoom level,
+   * observation date and parameters related to displayed routes are accepted.
    */
-  const openMapInPosition = ({
-    latitude,
-    longitude,
-    zoom,
+  const openMapWithParameters = ({
+    viewPortParams: { latitude, longitude, zoom },
     observationDate,
-    routeLabel,
-    lineLabel,
-    routeId,
-    showSelectedDaySituation = true,
-    priorities,
-  }: {
-    latitude?: number;
-    longitude?: number;
-    zoom?: number;
-    observationDate: DateTime;
-    routeLabel?: string;
-    lineLabel?: string;
-    routeId?: UUID;
-    showSelectedDaySituation?: boolean;
-    priorities: Priority[];
-  }) => {
+    displayedRouteParams: {
+      routeLabel,
+      lineLabel,
+      routeId,
+      showSelectedDaySituation = true,
+      priorities,
+    },
+  }: OpenMapParams) => {
     setMultipleParametersToUrlQuery({
       parameters: [
         {
@@ -177,7 +187,7 @@ export const useMapQueryParams = () => {
     priorities,
     setRouteId,
     setMapPosition,
-    openMapInPosition,
+    openMapWithParameters,
     deleteMapQueryParameters,
   };
 };
