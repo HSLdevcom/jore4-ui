@@ -9,12 +9,12 @@ export class LineDetailsPage {
     return cy.getByTestId('show-unused-stops-switch').click();
   }
 
-  getRouteSection(routeLabel: string) {
+  getRouteHeaderRow(routeLabel: string) {
     return cy.getByTestId(`RouteStopsHeaderRow::${routeLabel}`);
   }
 
   toggleRouteSection(routeLabel: string) {
-    return this.getRouteSection(routeLabel)
+    return this.getRouteHeaderRow(routeLabel)
       .getByTestId('RouteStopsHeaderRow::toggleAccordion')
       .click();
   }
