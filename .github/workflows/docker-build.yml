@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  push_to_registry:
-    name: Build & Push docker image to dockerhub
+  build_ui_image:
+    name: Build & Push UI docker image to dockerhub
     runs-on: ubuntu-20.04
 
     steps:
@@ -50,14 +50,58 @@ jobs:
           docker push $IMAGE_NAME:builder
           docker push $IMAGE_NAME:latest
 
+  build_cypress_image:
+    name: Build & Push cypress docker image to dockerhub
+    runs-on: ubuntu-20.04
+    env:
+      CYPRESS_IMAGE_NAME: hsldevcom/jore4-cypress
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Extract metadata to env variables
+        uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
+
+      - name: Pull previous image to support caching
+        run: docker pull $CYPRESS_IMAGE_NAME:latest || echo "Previous image not found"
+
+      - name: Build docker images
+        run: |
+          docker build \
+             --cache-from=$CYPRESS_IMAGE_NAME:latest \
+             -t $CYPRESS_IMAGE_NAME:latest \
+             -t $CYPRESS_IMAGE_NAME:$COMMIT_ID \
+             -t $CYPRESS_IMAGE_NAME:$BRANCH_NAME \
+             --file Dockerfile.cypress \
+             .
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.JORE4_DOCKERHUB_USER }}
+          password: ${{ secrets.JORE4_DOCKERHUB_TOKEN }}
+
+      - name: Push intermediate docker images to Docker Hub
+        run: |
+          docker push $CYPRESS_IMAGE_NAME:$COMMIT_ID
+          docker push $CYPRESS_IMAGE_NAME:$BRANCH_NAME
+
+      - name: Push the distribution image to Docker Hub
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          docker push $CYPRESS_IMAGE_NAME:latest
+
   run_robot_tests:
-    needs: push_to_registry
+    needs:
+      - build_ui_image
     uses: ./.github/workflows/run-robot-tests.yml
     secrets:
       ROBOT_HSLID_EMAIL: ${{ secrets.ROBOT_HSLID_EMAIL }}
       ROBOT_HSLID_PASSWORD: ${{ secrets.ROBOT_HSLID_PASSWORD }}
 
-  # when the e2e workflow will use pre-built docker images, this is where we could call the downstream job
-  # run_cypress_tests:
-  #   needs: push_to_registry
-  #   uses: ./.github/workflows/run-cypress-tests.yml
+  run_cypress_tests:
+    needs:
+      - build_ui_image
+      - build_cypress_image
+    uses: ./.github/workflows/run-cypress-tests.yml

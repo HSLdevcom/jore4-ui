@@ -52,8 +52,6 @@ Tests can be run with `yarn test`.
 - In order to run e2e tests, you need to have ui and all the dependencies running.
 - To open cypress with browser for developing tests locally: `yarn test:e2e:open`
 - To run all cypress tests without browser: `yarn test:e2e`
-- To run all cypress tests from within a docker container: `./run-cypress-tests.sh`. This command
-  assumes that the UI is run from `yarn dev`.
 - To disable map tile rendering (e.g. to speed up tests or improve reliability in CI), set the `CYPRESS_DISABLE_MAP_TILES=true` environment variable
 
 Failed tests ran without browser can be investigated visually by looking at videos and screenshots at `./cypress/reports`.
