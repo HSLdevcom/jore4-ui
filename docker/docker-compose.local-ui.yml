@@ -1,5 +1,0 @@
-services:
-  # run the current version of UI in a docker container
-  jore4-ui:
-    build:
-      context: ..
