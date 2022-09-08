@@ -1,12 +1,12 @@
-import { point, Feature, LineString } from '@turf/helpers';
+import { Feature, LineString, point } from '@turf/helpers';
 import nearestPointOnLine from '@turf/nearest-point-on-line';
 import pointToLineDistance from '@turf/point-to-line-distance';
 import { Coords } from '../../types';
 import {
-  removeLayer,
-  MaplibreGLMap,
-  Geometry,
   createGeometryLineBetweenPoints,
+  Geometry,
+  MaplibreGLMap,
+  removeLayer,
 } from './mapUtils';
 
 interface FeatureAndDistance {
@@ -88,7 +88,7 @@ export const drawLineToClosestRoad = (map: MaplibreGLMap, coords: Coords) => {
     SEARCH_RADIUS_IN_PIXELS,
   );
 
-  if (features) {
+  if (features && features.length > 0) {
     // convert cursor location from pixel coordinates to lat/lng
     const cursorLocation = point(map.unproject(coords).toArray());
 
