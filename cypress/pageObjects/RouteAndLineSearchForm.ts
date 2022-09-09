@@ -1,15 +1,13 @@
 export class RouteAndLineSearchForm {
-
   getRouteSearchFormSearchField() {
-    return cy.getByTestId('SearchContainer::SearchInput')
+    return cy.getByTestId('SearchContainer::SearchInput');
   }
 
   getRouteSearchResultTable() {
-    return cy.getByTestId('RoutesTable')
+    return cy.getByTestId('RoutesTable');
   }
 
   getLineSearchResultTable() {
-    return cy.getByTestId('LinesTable')
+    return cy.getByTestId('LinesTable');
   }
-
 }
