@@ -5,12 +5,14 @@ type Props = {
   value?: string;
   onChange: (value: string) => void;
   onSearch: () => void;
+  testId?: string;
 };
 
 export const SearchInput = ({
   value,
   onChange,
   onSearch,
+  testId,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const onKeyPress = (e: React.KeyboardEvent) => {
@@ -20,6 +22,7 @@ export const SearchInput = ({
   };
   return (
     <input
+      data-testid={testId}
       className="flex-1"
       type="text"
       value={value}
