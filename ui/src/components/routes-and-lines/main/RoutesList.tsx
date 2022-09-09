@@ -6,8 +6,12 @@ type Props = {
   routes?: RouteAllFieldsFragment[];
 };
 
+const testIds = {
+  table: 'RoutesList::table',
+};
+
 export const RoutesList = ({ routes }: Props): JSX.Element => (
-  <RoutesTable>
+  <RoutesTable testId={testIds.table}>
     {routes?.map((item: RouteAllFieldsFragment) => (
       <RoutesTableRow key={item.route_id} route={item} />
     ))}
