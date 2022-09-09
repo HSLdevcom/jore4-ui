@@ -14,14 +14,24 @@ interface Props extends Point {
   selected?: boolean;
   onClick: () => void;
   onDragEnd?: (event: CallbackEvent) => void;
-  onVehicleRoute?: ReusableComponentsVehicleModeEnum;
+  vehicleMode?: ReusableComponentsVehicleModeEnum;
   isHighlighted?: boolean;
 }
 
-const getBorderColor = (
+/** Stop map markers border color is determined in this function. There are
+ * different aspects which are affecting this determination. These are
+ * * Is Placeholder: when moving a stop we haev a  placeholder for the stop's
+ * original location.
+ * * isHilighted: if the stop is selected, or we are hilighting the stop because
+ * it belongs to a currently selected route selected.
+ * * stopVehicleMode: If neither of the above applies and vehicleMode is given,
+ * we use the vehicleMode color defined in colors theme.
+ * * If none of the above apply, we use 'black' as the border color
+ */
+const determineBorderColor = (
   isHilighted: boolean,
   isPlaceholder: boolean,
-  onVehicleRoute?: ReusableComponentsVehicleModeEnum,
+  stopVehicleMode?: ReusableComponentsVehicleModeEnum,
 ) => {
   if (isPlaceholder) {
     return colors.grey;
@@ -29,11 +39,11 @@ const getBorderColor = (
   if (isHilighted) {
     return colors.selectedMapItem;
   }
-  const vehicleStopColor = onVehicleRoute
-    ? colors.stops[onVehicleRoute]
-    : 'black';
+  if (stopVehicleMode) {
+    return colors.stops[stopVehicleMode] || 'black';
+  }
 
-  return vehicleStopColor;
+  return 'black';
 };
 
 export const Stop = ({
@@ -43,7 +53,7 @@ export const Stop = ({
   onClick,
   onDragEnd,
   selected = false,
-  onVehicleRoute = undefined,
+  vehicleMode = undefined,
   isHighlighted = false,
 }: Props): JSX.Element => {
   const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
@@ -52,13 +62,13 @@ export const Stop = ({
   // If the stop is being moved, we use different styles for the stop
   // to indicate the placeholder of the old location
   const isPlaceholder = selected && isMoveStopModeEnabled;
-  const iconBorderColor = getBorderColor(
+  const iconBorderColor = determineBorderColor(
     isHighlighted,
     isPlaceholder,
-    onVehicleRoute,
+    vehicleMode,
   );
 
-  const iconFillColor = onVehicleRoute || selected ? 'white' : colors.lightGrey;
+  const iconFillColor = vehicleMode || selected ? 'white' : colors.lightGrey;
 
   const iconBorderWidth = 3;
   const centerDotSize = 3;
