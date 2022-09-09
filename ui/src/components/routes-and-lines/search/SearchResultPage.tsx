@@ -20,8 +20,12 @@ export const SearchResultPage = (): JSX.Element => {
   const displayedRoutes = getPaginatedData(routes, itemsPerPage);
   const { queryParameters } = useSearch();
 
+  const testIds = {
+    container: 'SearchResultsPage::Container',
+  };
+
   return (
-    <Container>
+    <Container testId={testIds.container}>
       <Row>
         <h1 className="text-2xl font-bold">
           {`${t('search.searchResultsTitle')} | ${t('routes.routes')}`}
