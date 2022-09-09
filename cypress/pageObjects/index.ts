@@ -8,3 +8,5 @@ export * from './RoutePropertiesForm';
 export * from './StopForm';
 export * from './TerminusNameInputs';
 export * from './Toast';
+export * from './SearchResultsPage';
+export * from './RoutesAndLinesPage';
