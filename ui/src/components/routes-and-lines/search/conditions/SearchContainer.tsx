@@ -13,6 +13,9 @@ export const SearchContainer = (): JSX.Element => {
   const { t } = useTranslation();
 
   const [isExpanded, toggleIsExpanded] = useToggle();
+  const testIds = {
+    searchInput: 'SearchContainer::SearchInput',
+  };
 
   return (
     <Container className="py-10">
@@ -23,6 +26,7 @@ export const SearchContainer = (): JSX.Element => {
           </Row>
           <Row className="space-x-4">
             <SearchInput
+              testId={testIds.searchInput}
               value={searchConditions.label}
               onSearch={handleSearch}
               onChange={(value) => setSearchCondition('label', value)}
