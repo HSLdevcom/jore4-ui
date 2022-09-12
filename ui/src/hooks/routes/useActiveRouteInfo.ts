@@ -1,0 +1,59 @@
+import flow from 'lodash/flow';
+import {
+  RouteMetadataFragment,
+  useGetRoutesWithInfrastructureLinksQuery,
+} from '../../generated/graphql';
+import { getStopsFromRoute, mapRouteResultToRoutes } from '../../graphql';
+import { selectHasChangesInProgress, selectMapEditor } from '../../redux';
+import { useAppSelector } from '../redux';
+import { filterHighestPriorityCurrentStops } from '../stops';
+import { useObservationDateQueryParam } from '../urlQuery';
+import { mapRouteFormToInput } from './useEditRouteMetadata';
+import { getRouteStops } from './useExtractRouteFromFeature';
+
+export const useActiveRouteInfo = () => {
+  const { observationDate } = useObservationDateQueryParam();
+  const { editedRouteData, selectedRouteId, creatingNewRoute } =
+    useAppSelector(selectMapEditor);
+  const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
+
+  // Get selected route data
+  const routesResult = useGetRoutesWithInfrastructureLinksQuery({
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    variables: { route_ids: [selectedRouteId!] },
+    skip: !selectedRouteId,
+  });
+  const routes = mapRouteResultToRoutes(routesResult);
+  const selectedRoute = routes?.[0];
+
+  const routeMetadata: RouteMetadataFragment = creatingNewRoute
+    ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      mapRouteFormToInput(editedRouteData.metaData!)
+    : selectedRoute;
+
+  /*
+   * Get array of route's RouteStops
+   * Select the highest priority stop instances that are valid
+   * at selected observation date
+   */
+  const getHighestPriorityRouteStops = flow(
+    getStopsFromRoute,
+    (stops) => stops.flatMap((stop) => stop.scheduled_stop_points),
+    (stops) => filterHighestPriorityCurrentStops(stops, observationDate, true),
+    getRouteStops,
+  );
+
+  // If selectedRoute is not yet loaded or no route is selected,
+  // do not try to get stops from route
+  const selectedRouteStops = selectedRoute
+    ? getHighestPriorityRouteStops(selectedRoute)
+    : [];
+
+  // If creating/editing a route, show edited route stops
+  // otherwise show selected route's stops
+  const routeStops = routeEditingInProgress
+    ? editedRouteData.stops
+    : selectedRouteStops;
+
+  return { routeMetadata, routeStops };
+};
