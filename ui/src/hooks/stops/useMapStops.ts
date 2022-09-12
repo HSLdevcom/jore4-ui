@@ -68,7 +68,7 @@ export const useMapStops = () => {
 
   const editedRouteStopIds = editedRouteData.stops
     .filter((stop) => stop.belongsToJourneyPattern)
-    .flatMap((stop) => stop.scheduledStopPointId);
+    .flatMap((stop) => stop.stop.scheduled_stop_point_id);
 
   const editedRouteStopLabels = mapRouteStopsToStopLabels(
     editedRouteData.stops,
@@ -95,7 +95,7 @@ export const useMapStops = () => {
     (id: UUID): boolean => {
       // If editing a route, highlight stops on edited route
       // Otherwise highlight stops belonging to selected route
-      // Also hilight selectedRoute stops until editedRouteData is loaded
+      // Also highlight selectedRoute stops until editedRouteData is loaded
       const highlightedStopIds =
         routeEditingInProgress && editedRouteData.stops.length > 0
           ? editedRouteStopIds
