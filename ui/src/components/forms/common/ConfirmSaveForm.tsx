@@ -108,7 +108,7 @@ export const ConfirmSaveForm = ({ className = '' }: Props): JSX.Element => {
           type="checkbox"
           id="indefinite"
           {...register('indefinite', {})}
-          className="mr-2 "
+          className="mr-2"
           data-testid={testIds.indefiniteCheckbox}
         />
         <label htmlFor="indefinite" className="self-center font-normal">
