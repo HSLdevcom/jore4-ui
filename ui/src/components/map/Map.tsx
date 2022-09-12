@@ -159,26 +159,22 @@ export const MapComponent = (
                 routes={[
                   {
                     iconClassName: 'icon-bus',
-                    enabled: showInfraLinks,
-                    onToggle: setShowInfraLinks,
+                    active: showRoute,
+                    onToggle: setShowRoute,
+                    disabled: !routeDisplayed,
                   },
-                  ...(routeDisplayed
-                    ? [
-                        {
-                          iconClassName: 'icon-route',
-                          enabled: showRoute,
-                          onToggle: setShowRoute,
-                        },
-                      ]
-                    : []),
                 ]}
                 stops={[
                   {
                     iconClassName: 'icon-bus',
-                    enabled: showStops,
+                    active: showStops,
                     onToggle: setShowStops,
                   },
                 ]}
+                infraLinks={{
+                  active: showInfraLinks,
+                  onToggle: setShowInfraLinks,
+                }}
               />
               {(!!selectedRouteId || hasDraftRouteGeometry) && (
                 <RouteStopsOverlay className="mt-4 overflow-hidden" />

@@ -1,23 +1,31 @@
 interface Props {
-  enabled: boolean;
-  onToggle: (enabled: boolean) => void;
+  active: boolean;
+  onToggle: (active: boolean) => void;
+  disabled?: boolean;
   className?: string;
   iconClassName: string;
 }
 
 export const IconToggle = ({
-  enabled,
+  active,
   onToggle,
+  disabled = false,
   className = '',
   iconClassName = '',
 }: Props): JSX.Element => {
+  const colorClassNames = active
+    ? 'bg-tweaked-brand text-white'
+    : 'bg-white text-tweaked-brand';
+  const disabledClassNames = disabled ? 'text-white bg-light-grey' : '';
   return (
     <button
       type="button"
-      className={`rounded border border-gray-300 ${
-        enabled ? 'bg-tweaked-brand text-white' : 'bg-white text-tweaked-brand'
-      } ${className}`}
-      onClick={() => onToggle(!enabled)}
+      disabled={disabled}
+      className={`rounded border border-gray-300
+        ${colorClassNames}
+        ${disabledClassNames}
+        ${className}`}
+      onClick={() => onToggle(!active)}
     >
       <i
         className={`text-5xl ${iconClassName}`}
