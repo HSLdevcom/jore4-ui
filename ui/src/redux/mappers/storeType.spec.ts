@@ -6,7 +6,7 @@ import {
   DeserializerFunction,
   mapFromStoreType,
   mapToStoreType,
-} from './mappers';
+} from './storeType';
 
 const expectDateTimeToBeSerialized = (input: unknown, output: unknown) => {
   expect(input).toBeInstanceOf(DateTime);

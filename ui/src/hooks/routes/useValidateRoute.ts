@@ -5,7 +5,8 @@ import {
   Maybe,
   useGetLineDetailsByIdAsyncQuery,
 } from '../../generated/graphql';
-import { mapLineDetailsResult, RouteGeometry, RouteStop } from '../../graphql';
+import { mapLineDetailsResult } from '../../graphql';
+import { RouteGeometry, RouteStop } from '../../redux/types';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,

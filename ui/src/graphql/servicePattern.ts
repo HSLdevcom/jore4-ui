@@ -8,7 +8,7 @@ import {
   ServicePatternScheduledStopPointSetInput,
 } from '../generated/graphql';
 import { NonNullableKeys, RequiredKeys } from '../types';
-import { sortStopsOnInfraLink } from '../utils';
+import { sortStopsOnInfraLink } from '../utils/stops';
 import { GqlQueryResult, isGqlEntity } from './types';
 
 export type StopWithLocation = RequiredKeys<

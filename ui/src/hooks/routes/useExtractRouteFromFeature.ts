@@ -16,11 +16,11 @@ import {
   getRouteStopLabels,
   mapRouteToInfraLinksAlongRoute,
   mapStopResultToStops,
-  mapStopToRouteStop,
   orderInfraLinksByExternalLinkId,
   RouteInfraLink,
-  RouteStop,
 } from '../../graphql';
+import { buildRouteStop } from '../../redux';
+import { RouteStop } from '../../redux/types';
 import { areValidityPeriodsOverlapping } from '../../time';
 import { Priority } from '../../types/Priority';
 import {
@@ -57,7 +57,7 @@ export const getRouteStops = <
   return stops.map((item) => {
     const belongsToRoute = !removedStopLabels?.includes(item.label);
 
-    return mapStopToRouteStop(item, belongsToRoute, routeId);
+    return buildRouteStop(item, belongsToRoute, routeId);
   });
 };
 

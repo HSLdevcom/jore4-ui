@@ -5,11 +5,10 @@ import {
 } from '../../generated/graphql';
 import {
   getEligibleStopsAlongRouteGeometry,
-  mapRouteStopsToStopSequence,
-  mapStopToRouteStop,
-  RouteStop,
   stopBelongsToJourneyPattern,
 } from '../../graphql';
+import { buildRouteStop, buildStopSequenceFromRouteStops } from '../../redux';
+import { RouteStop } from '../../redux/types';
 import { removeFromApolloCache } from '../../utils';
 import { filterDistinctConsecutiveRouteStops } from './useExtractRouteFromFeature';
 import { useValidateRoute } from './useValidateRoute';
@@ -50,7 +49,7 @@ export const useEditRouteJourneyPattern = () => {
         ? stopBelongsToRoute
         : stopBelongsToJourneyPattern(stop, route.route_id);
 
-      return mapStopToRouteStop(stop, belongsToRoute, route.route_id);
+      return buildRouteStop(stop, belongsToRoute, route.route_id);
     });
 
     // If multiple versions of one stop is active, they are in the list, but
@@ -79,9 +78,8 @@ export const useEditRouteJourneyPattern = () => {
       route_id: changes.routeId,
       new_journey_pattern: {
         on_route_id: changes.routeId,
-        scheduled_stop_point_in_journey_patterns: mapRouteStopsToStopSequence(
-          changes.routeStops,
-        ),
+        scheduled_stop_point_in_journey_patterns:
+          buildStopSequenceFromRouteStops(changes.routeStops),
       },
     };
 
