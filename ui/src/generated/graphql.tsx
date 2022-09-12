@@ -6885,6 +6885,16 @@ export type ValidityPeriod = {
   validity_start?: Maybe<Scalars['timestamptz']>;
 };
 
+export type RouteMetadataFragment = {
+  __typename?: 'route_route';
+  name_i18n: LocalizedString;
+  label: string;
+  priority: number;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  direction: RouteDirectionEnum;
+};
+
 export type StopPopupInfoFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
   label: string;
@@ -8982,6 +8992,16 @@ export type LineInformationForMapFragment = {
   }>;
 };
 
+export const RouteMetadataFragmentDoc = gql`
+  fragment route_metadata on route_route {
+    name_i18n
+    label
+    priority
+    validity_start
+    validity_end
+    direction
+  }
+`;
 export const StopPopupInfoFragmentDoc = gql`
   fragment stop_popup_info on service_pattern_scheduled_stop_point {
     label

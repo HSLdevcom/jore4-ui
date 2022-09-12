@@ -1,16 +1,7 @@
+import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
-import {
-  RouteRoute,
-  useGetRoutesWithInfrastructureLinksQuery,
-} from '../../generated/graphql';
-import { getStopsFromRoute, mapRouteResultToRoutes } from '../../graphql';
-import {
-  filterHighestPriorityCurrentStops,
-  getRouteStops,
-  useAppDispatch,
-  useAppSelector,
-  useObservationDateQueryParam,
-} from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useActiveRouteInfo } from '../../hooks/routes/useActiveRouteInfo';
 import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import { Row, Visible } from '../../layoutComponents';
 import {
@@ -21,14 +12,11 @@ import {
   setStopOnRouteAction,
 } from '../../redux';
 import { RouteStop } from '../../redux/types/mapEditor';
-import { parseDate } from '../../time';
 import {
   AlignDirection,
   EditButton,
   SimpleDropdownMenu,
 } from '../../uiComponents';
-import { mapToVariables } from '../../utils';
-import { RouteFormState } from '../forms/route/RoutePropertiesForm.types';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
 import { PriorityBadge } from './PriorityBadge';
 
@@ -103,50 +91,23 @@ const StopRow = ({
   );
 };
 
+const GQL_ROUTE_METADATA = gql`
+  fragment route_metadata on route_route {
+    name_i18n
+    label
+    priority
+    validity_start
+    validity_end
+    direction
+  }
+`;
+
 export const RouteStopsOverlay = ({ className = '' }: Props) => {
   const dispatch = useAppDispatch();
-  const { editedRouteData, selectedRouteId, creatingNewRoute } =
-    useAppSelector(selectMapEditor);
+  const { creatingNewRoute } = useAppSelector(selectMapEditor);
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
 
-  const routesResult = useGetRoutesWithInfrastructureLinksQuery(
-    mapToVariables({ route_ids: [selectedRouteId] }),
-  );
-
-  const { observationDate } = useObservationDateQueryParam();
-
-  const routes = mapRouteResultToRoutes(routesResult);
-  const selectedRoute = routes?.[0];
-
-  // FIXME: the typings are off, shouldn't compare editedRouteData.metaData with selectedRoute
-  const routeMetadata = editedRouteData.metaData || selectedRoute;
-  const routeName =
-    editedRouteData.metaData?.finnishName || selectedRoute?.name_i18n?.fi_FI;
-
-  const selectedRouteStops = selectedRoute
-    ? getStopsFromRoute(selectedRoute)
-    : [];
-
-  // If creating/editing a route, show edited route stops
-  // otherwise show selected route's stops
-  const routeStops = routeEditingInProgress
-    ? editedRouteData.stops
-    : getRouteStops(
-        selectedRouteStops.flatMap((stop) =>
-          filterHighestPriorityCurrentStops(
-            stop.scheduled_stop_points,
-            observationDate,
-            true,
-          ),
-        ),
-      );
-
-  const validityStart = routeEditingInProgress
-    ? parseDate((routeMetadata as RouteFormState)?.validityStart)
-    : (routeMetadata as RouteRoute)?.validity_start;
-  const validityEnd = routeEditingInProgress
-    ? parseDate((routeMetadata as RouteFormState)?.validityEnd)
-    : (routeMetadata as RouteRoute)?.validity_end;
+  const { routeMetadata, routeStops } = useActiveRouteInfo();
 
   if (!routeMetadata) {
     return null;
@@ -160,7 +121,9 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
           <h2 className="text-2xl font-bold text-tweaked-brand">
             {routeMetadata.label}
           </h2>
-          <div className="text-light text-xs text-gray-500">{routeName}</div>
+          <div className="text-light text-xs text-gray-500">
+            {routeMetadata?.name_i18n.fi_FI}
+          </div>
         </div>
         <Visible visible={creatingNewRoute}>
           <EditButton
@@ -179,11 +142,13 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
             </h2>
             <PriorityBadge
               priority={routeMetadata.priority}
-              validityStart={validityStart}
-              validityEnd={validityEnd}
+              validityStart={routeMetadata.validity_start}
+              validityEnd={routeMetadata.validity_end}
             />
           </Row>
-          <div className="text-light text-xs text-gray-500">{routeName}</div>
+          <div className="text-light text-xs text-gray-500">
+            {routeMetadata.name_i18n.fi_FI}
+          </div>
         </div>
       </div>
       <div className="overflow-y-auto">

@@ -30,11 +30,9 @@ interface EditChanges {
   conflicts?: RouteRoute[];
 }
 
-export const mapRouteFormToInput = (
-  state: RouteFormState,
-): RouteRouteSetInput => {
+export const mapRouteFormToInput = (state: RouteFormState) => {
   const { label, priority, validityStart, validityEnd, indefinite } = state;
-  const mutation: RouteRouteSetInput = {
+  const mutation = {
     name_i18n: { fi_FI: state.finnishName },
     label,
     on_line_id: state.onLineId,
