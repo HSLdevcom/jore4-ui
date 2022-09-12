@@ -5,11 +5,9 @@ import {
   RouteRoute,
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
-import {
-  mapInfraLinksAlongRouteToGraphQL,
-  mapRouteStopsToStopSequence,
-  RouteGeometry,
-} from '../../graphql';
+import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
+import { mapRouteStopsToStopSequence } from '../../redux';
+import { RouteGeometry } from '../../redux/types';
 import { MIN_DATE } from '../../time';
 import {
   mapToObject,

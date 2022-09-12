@@ -5,11 +5,10 @@ import {
 } from '../../generated/graphql';
 import {
   getEligibleStopsAlongRouteGeometry,
-  mapRouteStopsToStopSequence,
-  mapStopToRouteStop,
-  RouteStop,
   stopBelongsToJourneyPattern,
 } from '../../graphql';
+import { mapRouteStopsToStopSequence, mapStopToRouteStop } from '../../redux';
+import { RouteStop } from '../../redux/types';
 import { removeFromApolloCache } from '../../utils';
 import { filterDistinctConsecutiveRouteStops } from './useExtractRouteFromFeature';
 import { useValidateRoute } from './useValidateRoute';

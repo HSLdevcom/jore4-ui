@@ -16,11 +16,11 @@ import {
   getRouteStopLabels,
   mapRouteToInfraLinksAlongRoute,
   mapStopResultToStops,
-  mapStopToRouteStop,
   orderInfraLinksByExternalLinkId,
   RouteInfraLink,
-  RouteStop,
 } from '../../graphql';
+import { mapStopToRouteStop } from '../../redux';
+import { RouteStop } from '../../redux/types';
 import { areValidityPeriodsOverlapping } from '../../time';
 import { Priority } from '../../types/Priority';
 import {
