@@ -30,7 +30,7 @@ interface Props {
 }
 
 const StopRow = ({
-  routeStop: { label, belongsToJourneyPattern, stopInstance },
+  routeStop: { belongsToJourneyPattern, stop },
   isReadOnly,
   testId,
 }: {
@@ -40,13 +40,13 @@ const StopRow = ({
 }) => {
   const { t } = useTranslation();
 
-  const stop = mapFromStoreType(stopInstance);
+  const stopMetadata = mapFromStoreType(stop);
   const dispatch = useAppDispatch();
 
   const setOnRoute = (onRoute: boolean) => {
     dispatch(
       setStopOnRouteAction({
-        stopLabel: label,
+        stopLabel: stopMetadata.label,
         belongsToJourneyPattern: onRoute,
       }),
     );
@@ -70,7 +70,7 @@ const StopRow = ({
             belongsToJourneyPattern ? 'text-black' : 'text-gray-300'
           }`}
         >
-          {label}
+          {stopMetadata.label}
         </div>
       </div>
       {!isReadOnly && (
@@ -157,8 +157,8 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
             // This list is recreated every time when changes happen, so we can
             // use index as key here
             // eslint-disable-next-line react/no-array-index-key
-            key={`${routeStop.label}_${index}`}
-            testId={testIds.stopRow(routeStop.label)}
+            key={`${routeStop.stop.label}_${index}`}
+            testId={testIds.stopRow(routeStop.stop.label)}
             routeStop={routeStop}
             isReadOnly={!routeEditingInProgress}
           />

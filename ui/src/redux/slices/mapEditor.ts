@@ -156,7 +156,7 @@ const slice = createSlice({
       state.editedRouteData = {
         ...state.editedRouteData,
         stops: state.editedRouteData.stops?.map((item) =>
-          item.label === stopLabel
+          item.stop.label === stopLabel
             ? { ...item, belongsToJourneyPattern }
             : item,
         ),

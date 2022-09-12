@@ -18,20 +18,15 @@ export interface RouteGeometry {
  */
 export interface RouteStop {
   /**
-   * Label of the route
-   */
-  label: string;
-  /**
    * Is this route selected to the route's journey pattern
    */
   belongsToJourneyPattern: boolean;
   /**
    * Metadata (e.g. via point informaiton) of the stop in journey pattern
    */
-  stop?: ScheduledStopPointInJourneyPatternAllFieldsFragment;
-  scheduledStopPointId?: UUID;
+  stopInJourneyPattern?: ScheduledStopPointInJourneyPatternAllFieldsFragment;
   /**
    * Current stop instance attached to the route (journey pattern)
    */
-  stopInstance: StoreType<ScheduledStopPointAllFieldsFragment>;
+  stop: StoreType<ScheduledStopPointAllFieldsFragment>;
 }

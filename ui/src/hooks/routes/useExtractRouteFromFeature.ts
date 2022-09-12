@@ -7,7 +7,6 @@ import {
   RouteStopFieldsFragment,
   RouteValidityFragment,
   ScheduledStopPointDefaultFieldsFragment,
-  ServicePatternScheduledStopPoint,
   StopWithJourneyPatternFieldsFragment,
   useGetLinksWithStopsByExternalLinkIdsAsyncQuery,
   useGetStopsAlongInfrastructureLinksAsyncQuery,
@@ -64,7 +63,7 @@ export const getRouteStops = <
 export const mapRouteStopsToStopLabels = (routeStops: RouteStop[]) =>
   routeStops
     .filter((item) => item.belongsToJourneyPattern)
-    .map((item) => item.label);
+    .map((item) => item.stop.label);
 
 /**
  * Verifies that stop is on the correct side of the road for the route
@@ -158,11 +157,10 @@ const validateStopInstancesAlongGeometry = (
  * This is used for example removing different versions of stops from the
  * journey pattern list where only the labels are shown
  */
-export const filterDistinctConsecutiveRouteStops = <
-  TStop extends Pick<ServicePatternScheduledStopPoint, 'label'>,
->(
-  stops: TStop[],
-) => stops.filter((stop, index) => stops[index - 1]?.label !== stop.label);
+export const filterDistinctConsecutiveRouteStops = (stops: RouteStop[]) =>
+  stops.filter(
+    (stop, index) => stops[index - 1]?.stop.label !== stop.stop.label,
+  );
 
 /**
  * Finds all the stops along a route's geometry that are eligible to be part of the journey pattern
