@@ -12,7 +12,7 @@ import { buildClientSchema, IntrospectionQuery } from 'graphql';
 import { DateTime } from 'luxon';
 import introspectionResult from '../../graphql.schema.json';
 import { isDateLike, parseDate } from '../time';
-import { mapHttpToWs } from '../utils';
+import { mapHttpToWs } from '../utils/url';
 import { authRoleMiddleware } from './auth';
 
 const buildScalarMappingLink = () => {

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Viewport } from '../types/modalMap';
+import { Viewport } from '../types';
 
 export const HELSINKI_CITY_CENTER_COORDINATES = {
   latitude: 60.1716,

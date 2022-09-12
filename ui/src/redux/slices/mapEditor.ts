@@ -4,8 +4,9 @@ import {
   LineAllFieldsFragment,
   RouteStopFieldsFragment,
 } from '../../generated/graphql';
-import { RouteInfraLink, RouteStop } from '../../graphql';
-import { mapToStoreType, StoreType } from '../utils/mappers';
+import { RouteInfraLink } from '../../graphql';
+import { mapToStoreType, StoreType } from '../mappers/storeType';
+import { RouteStop } from '../types';
 
 interface IState {
   /**
