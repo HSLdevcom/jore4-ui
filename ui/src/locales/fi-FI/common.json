@@ -113,6 +113,7 @@
   "map": {
     "map": "Kartta",
     "open": "Avaa kartta",
+    "showRoutes": "Näytä reitit",
     "showNetwork": "Näytä verkko",
     "showStops": "Näytä pysäkit",
     "joreMap": "Jore 4.0 kartta",
