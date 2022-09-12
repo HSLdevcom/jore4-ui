@@ -1,3 +1,4 @@
+export * from './mappers';
 export * from './ReduxProvider';
 export * from './selectors';
 export * from './slices/loader';
@@ -8,4 +9,3 @@ export * from './slices/modalMap';
 export * from './slices/modals';
 export * from './slices/user';
 export * from './store';
-export * from './utils/mappers';

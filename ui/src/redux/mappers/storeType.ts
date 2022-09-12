@@ -2,7 +2,11 @@ import isArray from 'lodash/isArray';
 import { DateTime } from 'luxon';
 import { isLine, isRoute, isStop } from '../../graphql';
 import { isDateLike, parseDate } from '../../time';
-import { getObjectStringKeys, isPlainObject, PlainObject } from '../../utils';
+import {
+  getObjectStringKeys,
+  isPlainObject,
+  PlainObject,
+} from '../../utils/object';
 
 // types that must be serialized
 type SerializedTypes = DateTime;

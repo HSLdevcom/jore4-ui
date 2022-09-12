@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { mapFromStoreType } from '../mappers/storeType';
 import { mapOperations, Operation } from '../slices/loader';
 import { RootState } from '../store';
-import { mapFromStoreType } from '../utils/mappers';
 
 export const selectMap = (state: RootState) => state.map;
 export const selectMapEditor = (state: RootState) => state.mapEditor;
