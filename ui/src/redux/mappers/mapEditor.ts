@@ -10,13 +10,13 @@ import { mapToStoreType } from './storeType';
  * @returns Stop in journey pattern
  */
 const mapRouteStopToStopInSequence = (routeStop: RouteStop, index: number) => {
-  const { stop } = routeStop;
+  const { stopInJourneyPattern } = routeStop;
   return {
-    is_timing_point: stop?.is_timing_point || false,
-    is_via_point: stop?.is_via_point || false,
-    via_point_name_i18n: stop?.via_point_name_i18n,
-    via_point_short_name_i18n: stop?.via_point_short_name_i18n,
-    scheduled_stop_point_label: routeStop.label,
+    is_timing_point: stopInJourneyPattern?.is_timing_point || false,
+    is_via_point: stopInJourneyPattern?.is_via_point || false,
+    via_point_name_i18n: stopInJourneyPattern?.via_point_name_i18n,
+    via_point_short_name_i18n: stopInJourneyPattern?.via_point_short_name_i18n,
+    scheduled_stop_point_label: routeStop.stop.label,
     scheduled_stop_point_sequence: index,
   };
 };
@@ -56,10 +56,8 @@ export const buildRouteStop = <
     );
 
   return {
-    label: stop.label,
     belongsToJourneyPattern,
-    stop: stopInJourneyPattern,
-    scheduledStopPointId: stop.scheduled_stop_point_id,
-    stopInstance: mapToStoreType(stop),
+    stopInJourneyPattern,
+    stop: mapToStoreType(stop),
   };
 };
