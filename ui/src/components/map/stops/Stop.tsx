@@ -20,7 +20,7 @@ interface Props extends Point {
 
 /** Stop map markers border color is determined in this function. There are
  * different aspects which are affecting this determination. These are
- * * Is Placeholder: when moving a stop we haev a  placeholder for the stop's
+ * * isPlaceholder: when moving a stop we have a placeholder for the stop's
  * original location.
  * * isHilighted: if the stop is selected, or we are hilighting the stop because
  * it belongs to a currently selected route selected.
