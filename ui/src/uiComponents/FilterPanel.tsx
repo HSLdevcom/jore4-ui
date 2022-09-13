@@ -42,6 +42,36 @@ const ToggleRow = ({ toggles }: ToggleRowProps): JSX.Element => {
   );
 };
 
+const noop = () => null;
+// placeholder toggles of unimplemented features that can be used
+// for visual purposes.
+export const placeholderToggles: IconToggle[] = [
+  {
+    iconClassName: 'icon-tram',
+    active: false,
+    onToggle: noop,
+    disabled: true,
+  },
+  {
+    iconClassName: 'icon-train',
+    active: false,
+    onToggle: noop,
+    disabled: true,
+  },
+  {
+    iconClassName: 'icon-ferry',
+    active: false,
+    onToggle: noop,
+    disabled: true,
+  },
+  {
+    iconClassName: 'icon-metro',
+    active: false,
+    onToggle: noop,
+    disabled: true,
+  },
+];
+
 interface Props {
   routes: IconToggle[];
   stops: IconToggle[];
