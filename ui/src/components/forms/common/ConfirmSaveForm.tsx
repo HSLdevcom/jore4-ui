@@ -104,14 +104,14 @@ export const ConfirmSaveForm = ({ className = '' }: Props): JSX.Element => {
         </FormRow>
       </FormColumn>
       <Row>
-        <input
-          type="checkbox"
-          id="indefinite"
-          {...register('indefinite', {})}
-          className="mr-2"
-          data-testid={testIds.indefiniteCheckbox}
-        />
-        <label htmlFor="indefinite" className="self-center font-normal">
+        <label htmlFor="indefinite" className="mt-3.5 inline-flex font-normal">
+          <input
+            type="checkbox"
+            id="indefinite"
+            {...register('indefinite', {})}
+            className="mr-3.5 h-6 w-6"
+            data-testid={testIds.indefiniteCheckbox}
+          />
           {t('saveChangesModal.indefinite')}
         </label>
       </Row>
