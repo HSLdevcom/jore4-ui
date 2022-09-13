@@ -48,7 +48,12 @@ import {
   stopRouteEditingAction,
 } from '../../../redux';
 import { parseDate } from '../../../time';
-import { log, showToast } from '../../../utils';
+import {
+  log,
+  MapMatchingNoSegmentError,
+  showDangerToast,
+  showToast,
+} from '../../../utils';
 import { addRoute, removeRoute } from '../../../utils/map';
 import { featureStyle, handleStyle } from './editorStyles';
 
@@ -131,88 +136,99 @@ const DrawRouteLayerComponent = (
 
   const onUpdateRouteGeometry = useCallback(
     async (snappingLineFeature: LineStringFeature) => {
-      // we are editing an existing or a template route, but haven't (yet) received the graphql
-      // response with its data -> return early
-      if (!baseRoute && !creatingNewRoute) {
-        log.error(
-          'Trying to edit an existing route but could not find a base route (yet)',
+      try {
+        // we are editing an existing or a template route, but haven't (yet) received the graphql
+        // response with its data -> return early
+        if (!baseRoute && !creatingNewRoute) {
+          log.error(
+            'Trying to edit an existing route but could not find a base route (yet)',
+          );
+          return;
+        }
+
+        // we can only find the stops belonging to the route if its metadata is available
+        // (when editing, fetch it from graphql; when creating, filled in through form)
+        if (
+          !editedRouteData.metaData ||
+          !editedRouteData.metaData.validityStart ||
+          !editedRouteData.metaData.validityEnd ||
+          !editedRouteData.metaData.priority
+        ) {
+          log.error(
+            'Trying to update route geometry but route metadata is not (yet) available',
+          );
+          return;
+        }
+
+        // retrieve infra links with stops for snapping line from mapmatching service
+        const { geometry } = snappingLineFeature;
+
+        setIsLoading(true);
+
+        const { infraLinksWithStops, matchedGeometry } =
+          await getInfraLinksWithStopsForGeometry(geometry);
+
+        setIsLoading(false);
+
+        // retrieve stop and infra link data from base route if we don't yet have edited data
+        // TODO: this should happen only once, not every time the snapping line is updated
+        const { oldStopLabels, oldInfraLinks } = getOldRouteGeometryVariables(
+          editedRouteData.stops,
+          editedRouteData.infraLinks,
+          baseRoute,
         );
-        return;
-      }
 
-      // we can only find the stops belonging to the route if its metadata is available
-      // (when editing, fetch it from graphql; when creating, filled in through form)
-      if (
-        !editedRouteData.metaData ||
-        !editedRouteData.metaData.validityStart ||
-        !editedRouteData.metaData.validityEnd ||
-        !editedRouteData.metaData.priority
-      ) {
-        log.error(
-          'Trying to update route geometry but route metadata is not (yet) available',
+        const removedStopLabels = await getRemovedStopLabels(
+          oldInfraLinks.map((link) => link.infrastructure_link_id),
+          oldStopLabels,
         );
-        return;
-      }
 
-      // retrieve infra links with stops for snapping line from mapmatching service
-      const { geometry } = snappingLineFeature;
+        // Extract list of the stops that are eligible to be included in route's journey pattern
+        const routeMetadata = {
+          validity_start: parseDate(editedRouteData.metaData.validityStart),
+          validity_end: parseDate(editedRouteData.metaData.validityEnd),
+          priority: editedRouteData.metaData.priority,
+        };
+        const stopsEligibleForJourneyPattern =
+          extractJourneyPatternCandidateStops(
+            infraLinksWithStops,
+            routeMetadata,
+          );
 
-      setIsLoading(true);
-
-      const { infraLinksWithStops, matchedGeometry } =
-        await getInfraLinksWithStopsForGeometry(geometry);
-
-      setIsLoading(false);
-
-      // retrieve stop and infra link data from base route if we don't yet have edited data
-      // TODO: this should happen only once, not every time the snapping line is updated
-      const { oldStopLabels, oldInfraLinks } = getOldRouteGeometryVariables(
-        editedRouteData.stops,
-        editedRouteData.infraLinks,
-        baseRoute,
-      );
-
-      const removedStopLabels = await getRemovedStopLabels(
-        oldInfraLinks.map((link) => link.infrastructure_link_id),
-        oldStopLabels,
-      );
-
-      // Extract list of the stops that are eligible to be included in route's journey pattern
-      const routeMetadata = {
-        validity_start: parseDate(editedRouteData.metaData.validityStart),
-        validity_end: parseDate(editedRouteData.metaData.validityEnd),
-        priority: editedRouteData.metaData.priority,
-      };
-      const stopsEligibleForJourneyPattern =
-        extractJourneyPatternCandidateStops(infraLinksWithStops, routeMetadata);
-
-      // FIXME. We shouldn't filter stops by being visible on the map as it might rule
-      // out some of the possibly eligible stops from the journey pattern.
-      const visibleStopsEligibleForJourneyPattern = filter(
-        stopsEligibleForJourneyPattern,
-      );
-
-      const routeStops = getRouteStops(
-        visibleStopsEligibleForJourneyPattern,
-        removedStopLabels || [],
-        editedRouteData?.id,
-      );
-
-      dispatch(
-        setDraftRouteGeometryAction({
-          stops: filterDistinctConsecutiveRouteStops(routeStops),
+        // FIXME. We shouldn't filter stops by being visible on the map as it might rule
+        // out some of the possibly eligible stops from the journey pattern.
+        const visibleStopsEligibleForJourneyPattern = filter(
           stopsEligibleForJourneyPattern,
-          infraLinks: infraLinksWithStops,
-        }),
-      );
+        );
 
-      if (matchedGeometry) {
-        addRoute(map, SNAPPING_LINE_LAYER_ID, matchedGeometry);
-      } else {
-        // map matching backend didn't returned valid route. -> remove
-        // also drawn route. Maybe we should show notification to the user
-        // when this happens?
-        onDelete(SNAPPING_LINE_LAYER_ID);
+        const routeStops = getRouteStops(
+          visibleStopsEligibleForJourneyPattern,
+          removedStopLabels || [],
+          editedRouteData?.id,
+        );
+
+        dispatch(
+          setDraftRouteGeometryAction({
+            stops: filterDistinctConsecutiveRouteStops(routeStops),
+            stopsEligibleForJourneyPattern,
+            infraLinks: infraLinksWithStops,
+          }),
+        );
+
+        if (matchedGeometry) {
+          addRoute(map, SNAPPING_LINE_LAYER_ID, matchedGeometry);
+        } else {
+          // map matching backend didn't returned valid route. -> remove
+          // also drawn route. Maybe we should show notification to the user
+          // when this happens?
+          onDelete(SNAPPING_LINE_LAYER_ID);
+        }
+      } catch (err) {
+        setIsLoading(false);
+
+        if (err instanceof MapMatchingNoSegmentError) {
+          showDangerToast(t('errors.tooFarFromInfrastructureLink'));
+        }
       }
     },
     [
@@ -229,6 +245,7 @@ const DrawRouteLayerComponent = (
       map,
       onDelete,
       setIsLoading,
+      t,
     ],
   );
 

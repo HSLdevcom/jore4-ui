@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { MapMatchingNoSegmentError } from '../utils';
 
 interface LatLng {
   readonly lat: number;
@@ -49,5 +50,10 @@ export const getBusRoute = async (coordinates: GeoJSON.Position[]) => {
     routePoints: coordinates.map(positionToLatLng),
   };
   const response = await getBus(request);
+
+  if (response.data.code === 'NoSegment') {
+    throw new MapMatchingNoSegmentError(response.data.message);
+  }
+
   return response.data as BusRouteResponse;
 };
