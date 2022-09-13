@@ -1,9 +1,9 @@
-import { DateTime } from 'luxon';
 import {
   HslRouteTransportTargetEnum,
   InfrastructureNetworkDirectionEnum,
   JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
   ReusableComponentsVehicleModeEnum,
+  RouteDirectionEnum,
   RouteLineInsertInput,
   RouteRouteInsertInput,
   RouteTypeOfLineEnum,
@@ -29,6 +29,8 @@ export const buildRoute = (
     destination_short_name_i18n: buildLocalizedString(
       `destination short ${label}`,
     ),
+    priority: Priority.Standard,
+    direction: RouteDirectionEnum.Inbound,
     ...requiredFields,
   };
 };
@@ -44,7 +46,7 @@ export const buildLine = (
     priority: Priority.Standard,
     transport_target: HslRouteTransportTargetEnum.HelsinkiInternalTraffic,
     type_of_line: RouteTypeOfLineEnum.RegionalBusService,
-    validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+03:00'),
+    validity_start: null,
     validity_end: null,
     ...requiredFields,
   };
