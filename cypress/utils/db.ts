@@ -41,7 +41,7 @@ interface SupportedResources {
   routes?: RouteInsertInput[];
   infraLinksAlongRoute?: RouteInfrastructureLinkAlongRouteInsertInput[];
   journeyPatterns?: JourneyPatternJourneyPatternInsertInput[];
-  stopsInJourneyPattern: JourneyPatternScheduledStopPointInJourneyPatternInsertInput[];
+  stopsInJourneyPattern?: JourneyPatternScheduledStopPointInJourneyPatternInsertInput[];
 }
 
 export const insertToDbHelper = ({
