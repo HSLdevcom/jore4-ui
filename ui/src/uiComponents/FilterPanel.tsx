@@ -42,6 +42,36 @@ const ToggleRow = ({ toggles }: ToggleRowProps): JSX.Element => {
   );
 };
 
+const noop = () => null;
+// we want to show placeholder toggles of unimplemented
+// features for visual purposes
+const placeholderToggles: IconToggle[] = [
+  {
+    iconClassName: 'icon-tram',
+    active: false,
+    onToggle: noop,
+    disabled: true,
+  },
+  {
+    iconClassName: 'icon-train',
+    active: false,
+    onToggle: noop,
+    disabled: true,
+  },
+  {
+    iconClassName: 'icon-ferry',
+    active: false,
+    onToggle: noop,
+    disabled: true,
+  },
+  {
+    iconClassName: 'icon-metro',
+    active: false,
+    onToggle: noop,
+    disabled: true,
+  },
+];
+
 interface Props {
   routes: IconToggle[];
   stops: IconToggle[];
@@ -61,11 +91,11 @@ export const FilterPanel = ({
     <div className={`inline-block ${className}`}>
       <Card className="flex-col rounded-b-none">
         <h3 className={headingClassName}>{t('map.showRoutes')}</h3>
-        <ToggleRow toggles={routes} />
+        <ToggleRow toggles={[...routes, ...placeholderToggles]} />
       </Card>
       <Card className="flex-col rounded-none !border-t-0">
         <h3 className={headingClassName}>{t('map.showStops')}</h3>
-        <ToggleRow toggles={stops} />
+        <ToggleRow toggles={[...stops, ...placeholderToggles]} />
       </Card>
       <Card className="flex-col rounded-t-none !py-2.5 !px-5">
         <label htmlFor="show-network" className="inline-flex font-normal">
