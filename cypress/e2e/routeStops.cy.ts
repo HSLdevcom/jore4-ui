@@ -6,8 +6,6 @@ import {
   infrastructureLinkAlongRoute,
   infrastructureLinks,
   journeyPatterns,
-  Priority,
-  RouteDirectionEnum,
   RouteInfrastructureLinkAlongRouteInsertInput,
   vehicleSubmodeOnInfrastructureLink,
 } from '@hsl/jore4-test-db-manager';
@@ -37,8 +35,6 @@ const lines: LineInsertInput[] = [
   {
     ...buildLine({ label: '1' }),
     line_id: '5dfa82f1-b3f7-4e26-b31d-0d7bd78da0bf',
-    validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+03:00'),
-    validity_end: DateTime.fromISO('2023-08-11T13:08:43.315+03:00'),
   },
 ];
 
@@ -74,8 +70,6 @@ const routes: RouteInsertInput[] = [
     ...buildRoute({ label: '1' }),
     route_id: '61bef596-84a0-40ea-b818-423d6b9b1fcf',
     on_line_id: lines[0].line_id,
-    direction: RouteDirectionEnum.Inbound,
-    priority: Priority.Standard,
     validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+03:00'),
     validity_end: DateTime.fromISO('2023-08-11T13:08:43.315+03:00'),
   },
