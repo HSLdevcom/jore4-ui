@@ -86,3 +86,12 @@ export class IncompatibleWithExistingRoutesError extends ExtendableError {
     Object.setPrototypeOf(this, IncompatibleWithExistingRoutesError.prototype);
   }
 }
+
+export class MapMatchingNoSegmentError extends ExtendableError {
+  constructor(errorMessage?: string) {
+    super(errorMessage);
+
+    // Set the prototype explicitly.
+    Object.setPrototypeOf(this, MapMatchingNoSegmentError.prototype);
+  }
+}

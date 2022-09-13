@@ -48,7 +48,12 @@ import {
   stopRouteEditingAction,
 } from '../../../redux';
 import { parseDate } from '../../../time';
-import { log, showToast } from '../../../utils';
+import {
+  log,
+  MapMatchingNoSegmentError,
+  showDangerToast,
+  showToast,
+} from '../../../utils';
 import { addRoute, removeRoute } from '../../../utils/map';
 import { featureStyle, handleStyle } from './editorStyles';
 
@@ -158,11 +163,21 @@ const DrawRouteLayerComponent = (
       const { geometry } = snappingLineFeature;
 
       setIsLoading(true);
+      let infraLinksWithStops;
+      let matchedGeometry;
+      try {
+        const response = await getInfraLinksWithStopsForGeometry(geometry);
+        infraLinksWithStops = response.infraLinksWithStops;
+        matchedGeometry = response.matchedGeometry;
+      } catch (err) {
+        if (err instanceof MapMatchingNoSegmentError) {
+          showDangerToast(t('errors.tooFarFromInfrastructureLink'));
+        }
+      } finally {
+        setIsLoading(false);
+      }
 
-      const { infraLinksWithStops, matchedGeometry } =
-        await getInfraLinksWithStopsForGeometry(geometry);
-
-      setIsLoading(false);
+      if (!infraLinksWithStops) return;
 
       // retrieve stop and infra link data from base route if we don't yet have edited data
       // TODO: this should happen only once, not every time the snapping line is updated
@@ -229,6 +244,7 @@ const DrawRouteLayerComponent = (
       map,
       onDelete,
       setIsLoading,
+      t,
     ],
   );
 
