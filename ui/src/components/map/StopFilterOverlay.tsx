@@ -1,22 +1,28 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FilterItem, useFilterStops } from '../../hooks';
-import { Row } from '../../layoutComponents';
+import { Column, Row } from '../../layoutComponents';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
 
 interface Props {
   className?: string;
 }
 
-const FilterRow = ({ filter }: { filter: FilterItem }) => {
+const FilterRow = ({
+  filter,
+  className = '',
+}: {
+  filter: FilterItem;
+  className?: string;
+}): JSX.Element => {
   const { id, isActive, label, toggleFunction, disabled } = filter;
 
   return (
-    <Row key={id}>
+    <Row key={id} className={className}>
       <label htmlFor={id} className="mb-0 inline-flex font-normal">
         <input
           type="checkbox"
-          id={id}
-          className="mr-3.5 mb-2 h-6 w-6"
+          className="mr-3.5 h-6 w-6"
           onChange={(e) => toggleFunction(e.target.checked)}
           // If filter is disaled, make it appear as not checked
           checked={isActive}
@@ -27,6 +33,10 @@ const FilterRow = ({ filter }: { filter: FilterItem }) => {
     </Row>
   );
 };
+
+const Section: FC = ({ children }) => (
+  <Column className="space-y-2 border-t pb-4 pt-4">{children}</Column>
+);
 
 export const StopFilterOverlay = ({ className = '' }: Props) => {
   const { t } = useTranslation();
@@ -42,17 +52,19 @@ export const StopFilterOverlay = ({ className = '' }: Props) => {
       <MapOverlayHeader>
         <h2 className="text-xl font-bold">{t('filters.title')}</h2>
       </MapOverlayHeader>
-      <div className="p-4">
-        <div className="mb-3.5 font-bold ">{t('stops.stops')}</div>
-        <FilterRow filter={highestPriorityCurrentFilterItem} />
-        <div className="mb-3.5 mt-2 border" />
-        {timeBasedFilterItems.map((filter) => (
-          <FilterRow key={filter.id} filter={filter} />
-        ))}
-        <div className="mb-3.5 mt-2 border" />
-        {priorityFilterItems.map((filter) => (
-          <FilterRow key={filter.id} filter={filter} />
-        ))}
+      <div className="px-4 pt-4 pb-2">
+        <h4 className="mb-3.5 font-bold">{t('stops.stops')}</h4>
+        <FilterRow className="mb-4" filter={highestPriorityCurrentFilterItem} />
+        <Section>
+          {timeBasedFilterItems.map((filter) => (
+            <FilterRow key={filter.id} filter={filter} />
+          ))}
+        </Section>
+        <Section>
+          {priorityFilterItems.map((filter) => (
+            <FilterRow key={filter.id} filter={filter} />
+          ))}
+        </Section>
       </div>
     </MapOverlay>
   );
