@@ -48,7 +48,12 @@ import {
   stopRouteEditingAction,
 } from '../../../redux';
 import { parseDate } from '../../../time';
-import { log, showToast } from '../../../utils';
+import {
+  log,
+  MapMatchingNoSegmentError,
+  showDangerToast,
+  showToast,
+} from '../../../utils';
 import { addRoute, removeRoute } from '../../../utils/map';
 import { featureStyle, handleStyle } from './editorStyles';
 
@@ -158,9 +163,21 @@ const DrawRouteLayerComponent = (
       const { geometry } = snappingLineFeature;
 
       setIsLoading(true);
+      let infraLinksWithStops;
+      let matchedGeometry;
+      try {
+        const response = await getInfraLinksWithStopsForGeometry(geometry);
+        infraLinksWithStops = response.infraLinksWithStops;
+        matchedGeometry = response.matchedGeometry;
+      } catch (err) {
+        setIsLoading(false);
 
-      const { infraLinksWithStops, matchedGeometry } =
-        await getInfraLinksWithStopsForGeometry(geometry);
+        if (err instanceof MapMatchingNoSegmentError) {
+          showDangerToast(t('errors.tooFarFromInfrastructureLink'));
+        }
+      }
+
+      if (!infraLinksWithStops) return;
 
       setIsLoading(false);
 
@@ -229,6 +246,7 @@ const DrawRouteLayerComponent = (
       map,
       onDelete,
       setIsLoading,
+      t,
     ],
   );
 

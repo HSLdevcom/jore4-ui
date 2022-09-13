@@ -207,7 +207,8 @@
   },
   "errors": {
     "saveFailed": "Tallennus epäonnistui",
-    "leaveMultipleHandles": "Pisteitä ei voida poistaa! Jätä vähintään kaksi pistettä."
+    "leaveMultipleHandles": "Pisteitä ei voida poistaa! Jätä vähintään kaksi pistettä.",
+    "tooFarFromInfrastructureLink": "Piirrä reitti joka osaltaan riittävän lähelle haluttua tieverkkoa. Tarkista tarvittaessa tieverkon kattavuus reitin alueella."
   },
   "filters": {
     "title": "Suodata näkymää",
