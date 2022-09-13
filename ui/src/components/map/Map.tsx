@@ -15,7 +15,8 @@ import {
   selectSelectedRouteId,
   setSelectedRouteIdAction,
 } from '../../redux';
-import { FilterPanel } from '../../uiComponents';
+import { FilterPanel, placeholderToggles } from '../../uiComponents';
+
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
@@ -163,6 +164,8 @@ export const MapComponent = (
                     onToggle: setShowRoute,
                     disabled: !routeDisplayed,
                   },
+                  // We want to show placeholder toggles of unimplemented features for visual purposes
+                  ...placeholderToggles,
                 ]}
                 stops={[
                   {
@@ -170,6 +173,7 @@ export const MapComponent = (
                     active: showStops,
                     onToggle: setShowStops,
                   },
+                  ...placeholderToggles,
                 ]}
                 infraLinks={{
                   active: showInfraLinks,
