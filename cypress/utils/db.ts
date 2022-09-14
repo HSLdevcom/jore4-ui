@@ -1,7 +1,9 @@
 import {
+  InfraLinkInsertInput,
   InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput,
   JourneyPatternJourneyPatternInsertInput,
   JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
+  LineInsertInput,
   mapToCreateInfraLinkAlongRouteMutation,
   mapToCreateInfraLinksMutation,
   mapToCreateJourneyPatternsMutation,
@@ -17,13 +19,9 @@ import {
   mapToDeleteStopsInJourneyPatternMutation,
   mapToDeleteStopsMutation,
   RouteInfrastructureLinkAlongRouteInsertInput,
-} from '@hsl/jore4-test-db-manager';
-import {
-  InfraLinkInsertInput,
-  LineInsertInput,
   RouteInsertInput,
   StopInsertInput,
-} from '../types';
+} from '@hsl/jore4-test-db-manager';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const responseLogger = (message: string, res: any) => {

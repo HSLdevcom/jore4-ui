@@ -1,6 +1,5 @@
-import { buildLine } from '@hsl/jore4-test-db-manager';
+import { buildLine, LineInsertInput } from '@hsl/jore4-test-db-manager';
 import { RoutesAndLinesPage, SearchResultsPage } from '../pageObjects';
-import { LineInsertInput } from '../types';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 
 const lines: LineInsertInput[] = [

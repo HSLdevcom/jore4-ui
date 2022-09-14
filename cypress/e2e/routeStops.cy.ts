@@ -3,20 +3,18 @@ import {
   buildRoute,
   buildStop,
   buildStopsInJourneyPattern,
+  InfraLinkInsertInput,
   infrastructureLinkAlongRoute,
   infrastructureLinks,
   journeyPatterns,
+  LineInsertInput,
   RouteInfrastructureLinkAlongRouteInsertInput,
+  RouteInsertInput,
+  StopInsertInput,
   vehicleSubmodeOnInfrastructureLink,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { LineDetailsPage, Toast } from '../pageObjects';
-import {
-  InfraLinkInsertInput,
-  LineInsertInput,
-  RouteInsertInput,
-  StopInsertInput,
-} from '../types';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 
 const infraLinks: InfraLinkInsertInput[] = [

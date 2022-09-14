@@ -3,8 +3,8 @@ import {
   RouteLineInsertInput,
   RouteRouteInsertInput,
   ServicePatternScheduledStopPointInsertInput,
-} from '@hsl/jore4-test-db-manager';
-import { RequiredKeys } from './types';
+} from '../generated/graphql';
+import { RequiredKeys } from './common';
 
 export type StopInsertInput = RequiredKeys<
   ServicePatternScheduledStopPointInsertInput,
