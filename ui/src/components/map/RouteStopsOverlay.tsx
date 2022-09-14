@@ -1,95 +1,25 @@
 import { gql } from '@apollo/client';
-import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useActiveRouteInfo } from '../../hooks/routes/useActiveRouteInfo';
 import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import { Row, Visible } from '../../layoutComponents';
 import {
-  mapFromStoreType,
   selectHasChangesInProgress,
   selectMapEditor,
   setRouteMetadataFormOpenAction,
-  setStopOnRouteAction,
 } from '../../redux';
-import { RouteStop } from '../../redux/types/mapEditor';
-import {
-  AlignDirection,
-  EditButton,
-  SimpleDropdownMenu,
-} from '../../uiComponents';
+import { EditButton } from '../../uiComponents';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
 import { PriorityBadge } from './PriorityBadge';
+import { RouteStopsOverlayRow } from './RouteStopsOverlayRow';
 
 const testIds = {
   mapOverlayHeader: 'RouteStopsOverlay::mapOverlayHeader',
-  stopRow: (label: string) => `StopRow::${label}`,
 };
 
 interface Props {
   className?: string;
 }
-
-const StopRow = ({
-  routeStop: { belongsToJourneyPattern, stop },
-  isReadOnly,
-  testId,
-}: {
-  routeStop: RouteStop;
-  isReadOnly?: boolean;
-  testId?: string;
-}) => {
-  const { t } = useTranslation();
-
-  const stopMetadata = mapFromStoreType(stop);
-  const dispatch = useAppDispatch();
-
-  const setOnRoute = (onRoute: boolean) => {
-    dispatch(
-      setStopOnRouteAction({
-        stopLabel: stopMetadata.label,
-        belongsToJourneyPattern: onRoute,
-      }),
-    );
-  };
-
-  return (
-    <div
-      className="flex h-10 items-center justify-between border-b p-2"
-      data-testid={testId}
-    >
-      <div className="flex items-center">
-        <div className="w-10">
-          <PriorityBadge
-            priority={stop.priority}
-            validityStart={stop.validity_start}
-            validityEnd={stop.validity_end}
-          />
-        </div>
-        <div
-          className={`text-sm font-bold ${
-            belongsToJourneyPattern ? 'text-black' : 'text-gray-300'
-          }`}
-        >
-          {stopMetadata.label}
-        </div>
-      </div>
-      {!isReadOnly && (
-        <div className="text-tweaked-brand">
-          <SimpleDropdownMenu alignItems={AlignDirection.Left}>
-            <button
-              type="button"
-              onClick={() => setOnRoute(!belongsToJourneyPattern)}
-            >
-              {belongsToJourneyPattern
-                ? t('stops.removeFromRoute')
-                : t('stops.addToRoute')}
-            </button>
-          </SimpleDropdownMenu>
-        </div>
-      )}
-    </div>
-  );
-};
 
 const GQL_ROUTE_METADATA = gql`
   fragment route_metadata on route_route {
@@ -153,12 +83,11 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
       </div>
       <div className="overflow-y-auto">
         {routeStops?.map((routeStop, index) => (
-          <StopRow
+          <RouteStopsOverlayRow
             // This list is recreated every time when changes happen, so we can
             // use index as key here
             // eslint-disable-next-line react/no-array-index-key
             key={`${routeStop.stop.label}_${index}`}
-            testId={testIds.stopRow(routeStop.stop.label)}
             routeStop={routeStop}
             isReadOnly={!routeEditingInProgress}
           />
