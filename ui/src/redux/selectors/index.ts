@@ -83,3 +83,11 @@ export const selectIsMapOperationLoading = createSelector(
       .filter(([operation]) => mapOperations.includes(operation as Operation))
       .some(([, isLoading]) => isLoading),
 );
+
+export const selectEditedRouteIncludedStops = createSelector(
+  selectMapEditor,
+  ({ editedRouteData }) =>
+    editedRouteData.stopsEligibleForJourneyPattern.filter((stop) =>
+      editedRouteData.includedStopLabels.includes(stop.label),
+    ),
+);

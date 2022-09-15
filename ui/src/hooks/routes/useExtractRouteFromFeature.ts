@@ -18,8 +18,6 @@ import {
   orderInfraLinksByExternalLinkId,
   RouteInfraLink,
 } from '../../graphql';
-import { buildRouteStop } from '../../redux';
-import { RouteStop } from '../../redux/types';
 import { areValidityPeriodsOverlapping } from '../../time';
 import { Priority } from '../../types/Priority';
 import {
@@ -46,24 +44,15 @@ const GQL_GET_LINKS_WITH_STOPS_BY_EXTERNAL_LINK_IDS = gql`
  * @param routeId Id of the route which has this stop along it's route geometry
  * @returns List of RouteStops
  */
-export const getRouteStops = <
+export const getStopLabelsIncludedInRoute = <
   TStop extends StopWithJourneyPatternFieldsFragment,
 >(
   stops: TStop[],
   removedStopLabels?: string[],
-  routeId?: UUID,
-): RouteStop[] => {
-  return stops.map((item) => {
-    const belongsToRoute = !removedStopLabels?.includes(item.label);
-
-    return buildRouteStop(item, belongsToRoute, routeId);
-  });
-};
-
-export const mapRouteStopsToStopLabels = (routeStops: RouteStop[]) =>
-  routeStops
-    .filter((item) => item.belongsToJourneyPattern)
-    .map((item) => item.stop.label);
+): string[] =>
+  stops
+    .filter((item) => !removedStopLabels?.includes(item.label))
+    .map((item) => item.label);
 
 /**
  * Verifies that stop is on the correct side of the road for the route
@@ -157,10 +146,9 @@ const validateStopInstancesAlongGeometry = (
  * This is used for example removing different versions of stops from the
  * journey pattern list where only the labels are shown
  */
-export const filterDistinctConsecutiveRouteStops = (stops: RouteStop[]) =>
-  stops.filter(
-    (stop, index) => stops[index - 1]?.stop.label !== stop.stop.label,
-  );
+export const filterDistinctConsecutiveStops = <TStop extends { label: string }>(
+  stops: TStop[],
+) => stops.filter((stop, index) => stops[index - 1]?.label !== stop.label);
 
 /**
  * Finds all the stops along a route's geometry that are eligible to be part of the journey pattern
@@ -255,17 +243,16 @@ export const mapInfraLinksToFeature = (
 };
 
 export const getOldRouteGeometryVariables = (
-  stateStops: RouteStop[],
+  previouslyEditedStopLabels: string[],
   stateInfraLinks: RouteInfraLink[] | undefined,
   baseRoute?: RouteRoute,
 ) => {
-  const previouslyEditedRouteStops = mapRouteStopsToStopLabels(stateStops);
   const previouslyEditedRouteInfrastructureLinks = stateInfraLinks || [];
 
   // If we are editing existing route and it has not been edited yet,
   // extract and return stops and infra links from the original route
   if (
-    (!previouslyEditedRouteStops.length ||
+    (!previouslyEditedStopLabels.length ||
       !previouslyEditedRouteInfrastructureLinks.length) &&
     baseRoute
   ) {
@@ -277,7 +264,7 @@ export const getOldRouteGeometryVariables = (
 
   // If route has been edited, return edited route's stops and infra links
   return {
-    oldStopLabels: previouslyEditedRouteStops,
+    oldStopLabels: previouslyEditedStopLabels,
     oldInfraLinks: previouslyEditedRouteInfrastructureLinks,
   };
 };
@@ -336,12 +323,13 @@ export const useExtractRouteFromFeature = () => {
         await fetchInfraLinksWithStopsByExternalIds(externalLinkIds);
 
       // Enrich the infra link with some routing data
-      const infraLinksWithStops: RouteInfraLink[] =
-        orderedInfraLinksWithStops.map((item, index) => ({
+      const infraLinksWithStops = orderedInfraLinksWithStops.map(
+        (item, index) => ({
           ...item,
           is_traversal_forwards:
             mapMatchingResult.routes[0]?.paths[index]?.isTraversalForwards,
-        }));
+        }),
+      );
 
       return {
         infraLinksWithStops,
