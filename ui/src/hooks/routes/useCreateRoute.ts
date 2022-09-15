@@ -6,7 +6,7 @@ import {
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
 import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
-import { buildStopSequenceFromRouteStops } from '../../redux';
+import { buildStopSequence } from '../../redux';
 import { RouteGeometry } from '../../redux/types';
 import { MIN_DATE } from '../../time';
 import {
@@ -53,7 +53,7 @@ export const useCreateRoute = () => {
   ): InsertRouteOneMutationVariables => {
     const { form, routeGeometry } = params;
 
-    const { routeStops, infraLinksAlongRoute } = routeGeometry;
+    const { infraLinksAlongRoute } = routeGeometry;
 
     const input: InsertRouteOneMutationVariables = mapToObject({
       ...mapRouteFormToInput(form),
@@ -64,7 +64,7 @@ export const useCreateRoute = () => {
       route_journey_patterns: {
         data: {
           scheduled_stop_point_in_journey_patterns:
-            buildStopSequenceFromRouteStops(routeStops),
+            buildStopSequence(routeGeometry),
         },
       },
     });
