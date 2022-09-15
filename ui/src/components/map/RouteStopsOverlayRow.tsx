@@ -1,12 +1,13 @@
 import { useTranslation } from 'react-i18next';
+import { RouteStopFieldsFragment } from '../../generated/graphql';
 import { useAppDispatch } from '../../hooks';
 import { mapFromStoreType, setStopOnRouteAction } from '../../redux';
-import { RouteStop } from '../../redux/types';
 import { AlignDirection, SimpleDropdownMenu } from '../../uiComponents';
 import { PriorityBadge } from './PriorityBadge';
 
 interface Props {
-  routeStop: RouteStop;
+  belongsToJourneyPattern: boolean;
+  stop: RouteStopFieldsFragment;
   isReadOnly?: boolean;
 }
 
@@ -15,7 +16,8 @@ const testId = {
 };
 
 export const RouteStopsOverlayRow = ({
-  routeStop: { belongsToJourneyPattern, stop },
+  belongsToJourneyPattern,
+  stop,
   isReadOnly,
 }: Props) => {
   const { t } = useTranslation();

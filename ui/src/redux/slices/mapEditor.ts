@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
+  JourneyPatternStopFragment,
   LineAllFieldsFragment,
   RouteStopFieldsFragment,
 } from '../../generated/graphql';
 import { RouteInfraLink } from '../../graphql';
 import { mapToStoreType, StoreType } from '../mappers/storeType';
-import { RouteStop } from '../types';
 
 interface IState {
   /**
@@ -35,15 +35,15 @@ interface IState {
      */
     lineInfo?: StoreType<LineAllFieldsFragment>;
     /**
-     * Array of stops along the route geometry with
-     * information whether or not the stops belongs to the route (journey pattern)
+     * Array of stop labels that are included in the edited route
      */
-    stops: RouteStop[];
+    includedStopLabels: string[];
+    /**
+     * Array of metadata about a stop in journey pattern (including but not limited to via info)
+     */
+    journeyPatternStops: JourneyPatternStopFragment[];
     /**
      * Array of stops that are eligible to be added to the journey pattern
-     *
-     * TODO: should start using this instead of the "stops" variable above
-     * For now, everything is way too tightly coupled, so cannot get rid of the other one
      */
     stopsEligibleForJourneyPattern: StoreType<RouteStopFieldsFragment>[];
     /**
@@ -72,7 +72,8 @@ const initialState: IState = {
     id: undefined,
     lineInfo: undefined,
     metaData: undefined,
-    stops: [],
+    includedStopLabels: [],
+    journeyPatternStops: [],
     stopsEligibleForJourneyPattern: [],
     infraLinks: [],
     templateRouteId: undefined,
@@ -153,13 +154,15 @@ const slice = createSlice({
     ) => {
       const { stopLabel, belongsToJourneyPattern } = action.payload;
 
+      const oldIncludedStopLabels = state.editedRouteData.includedStopLabels;
+
+      const includedStopLabels = belongsToJourneyPattern
+        ? [...oldIncludedStopLabels, stopLabel]
+        : oldIncludedStopLabels.filter((label) => label !== stopLabel);
+
       state.editedRouteData = {
         ...state.editedRouteData,
-        stops: state.editedRouteData.stops?.map((item) =>
-          item.stop.label === stopLabel
-            ? { ...item, belongsToJourneyPattern }
-            : item,
-        ),
+        includedStopLabels,
       };
     },
     /**
@@ -213,45 +216,63 @@ const slice = createSlice({
       reducer: (
         state: IState,
         action: PayloadAction<{
-          stops: RouteStop[];
+          includedStopLabels: string[];
           stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
           infraLinks: RouteInfraLink[];
         }>,
       ) => {
-        const { stops, stopsEligibleForJourneyPattern, infraLinks } =
-          action.payload;
+        const {
+          includedStopLabels,
+          stopsEligibleForJourneyPattern,
+          infraLinks,
+        } = action.payload;
 
         state.editedRouteData = {
           ...state.editedRouteData,
-          stops,
+          includedStopLabels,
           stopsEligibleForJourneyPattern,
           infraLinks,
         };
       },
       prepare: ({
-        stops,
+        includedStopLabels,
         stopsEligibleForJourneyPattern,
         infraLinks,
       }: {
-        stops: RouteStop[];
+        includedStopLabels: string[];
         stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
         infraLinks: RouteInfraLink[];
       }) => ({
         payload: mapToStoreType({
-          stops,
+          includedStopLabels,
           stopsEligibleForJourneyPattern,
           infraLinks,
         }),
       }),
     },
-
+    /**
+     * Set draft route journey pattern stops
+     */
+    setDraftRouteJourneyPatternStops: {
+      reducer: (
+        state: IState,
+        action: PayloadAction<StoreType<JourneyPatternStopFragment>[]>,
+      ) => {
+        state.editedRouteData.journeyPatternStops = action.payload;
+      },
+      prepare: (payload: JourneyPatternStopFragment[]) => ({
+        ...mapToStoreType({ payload }),
+      }),
+    },
     /**
      * Reset created / edited route geometry in state.
      */
     resetDraftRouteGeometry: (state: IState) => {
       state.editedRouteData = {
         ...state.editedRouteData,
-        stops: [],
+        includedStopLabels: [],
+        journeyPatternStops: [],
+        stopsEligibleForJourneyPattern: [],
         infraLinks: [],
       };
     },
@@ -291,6 +312,7 @@ export const {
   resetDraftRouteGeometry: resetDraftRouteGeometryAction,
   setSelectedRouteId: setSelectedRouteIdAction,
   setRouteMetadataFormOpen: setRouteMetadataFormOpenAction,
+  setDraftRouteJourneyPatternStops: setDraftRouteJourneyPatternStopsAction,
 } = slice.actions;
 
 export const mapEditorReducer = slice.reducer;
