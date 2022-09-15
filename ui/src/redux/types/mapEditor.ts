@@ -1,31 +1,25 @@
+import { gql } from '@apollo/client';
 import {
-  ScheduledStopPointAllFieldsFragment,
-  ScheduledStopPointInJourneyPatternAllFieldsFragment,
+  JourneyPatternStopFragment,
+  RouteStopFieldsFragment,
 } from '../../generated/graphql';
 import { RouteInfraLink } from '../../graphql';
+import { StoreType } from '../mappers';
 
 export interface RouteGeometry {
-  routeStops: RouteStop[];
+  stopsEligibleForJourneyPattern: StoreType<RouteStopFieldsFragment>[];
+  includedStopLabels: string[];
+  journeyPatternStops: JourneyPatternStopFragment[];
   infraLinksAlongRoute: RouteInfraLink[];
 }
 
-/**
- * An interface containing a stop along route's geometry.
- * We need a type like this, because for example in route creation
- * we want to have a list of all the stops that are along the route geometry
- * with also the info if they are selected to the journey pattern or not.
- */
-export interface RouteStop {
-  /**
-   * Is this route selected to the route's journey pattern
-   */
-  belongsToJourneyPattern: boolean;
-  /**
-   * Metadata (e.g. via point informaiton) of the stop in journey pattern
-   */
-  stopInJourneyPattern?: ScheduledStopPointInJourneyPatternAllFieldsFragment;
-  /**
-   * Current stop instance attached to the route (journey pattern)
-   */
-  stop: ScheduledStopPointAllFieldsFragment;
-}
+export const GQL_JOURNEY_PATTERN_STOP = gql`
+  fragment journey_pattern_stop on journey_pattern_scheduled_stop_point_in_journey_pattern {
+    scheduled_stop_point_label
+    scheduled_stop_point_sequence
+    is_timing_point
+    is_via_point
+    via_point_name_i18n
+    via_point_short_name_i18n
+  }
+`;

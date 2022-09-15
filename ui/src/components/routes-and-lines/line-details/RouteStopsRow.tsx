@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineHistory } from 'react-icons/md';
-import { ServicePatternScheduledStopPoint } from '../../../generated/graphql';
+import { RouteStopFieldsFragment } from '../../../generated/graphql';
 import { useAlertsAndHighLights } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
 import {
@@ -22,7 +22,7 @@ const testIds = {
 
 interface Props {
   className?: string;
-  stop: ServicePatternScheduledStopPoint;
+  stop: RouteStopFieldsFragment;
   routeId: UUID;
   onAddToRoute: (stopLabel: string) => void;
   onRemoveFromRoute: (stopLabel: string) => void;
