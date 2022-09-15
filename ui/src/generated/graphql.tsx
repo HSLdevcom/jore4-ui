@@ -8821,6 +8821,125 @@ export type DisplayedRouteFragment = {
   direction: RouteDirectionEnum;
 };
 
+export type InfraLinkAlongRouteWithStopsFragment = {
+  __typename?: 'route_infrastructure_link_along_route';
+  route_id: UUID;
+  infrastructure_link_sequence: number;
+  infrastructure_link_id: UUID;
+  is_traversal_forwards: boolean;
+  infrastructure_link: {
+    __typename?: 'infrastructure_network_infrastructure_link';
+    external_link_id: string;
+    infrastructure_link_id: UUID;
+    shape: GeoJSON.LineString;
+    scheduled_stop_points_located_on_infrastructure_link: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point';
+      scheduled_stop_point_id: UUID;
+      label: string;
+      measured_location: GeoJSON.Point;
+      located_on_infrastructure_link_id: UUID;
+      direction: InfrastructureNetworkDirectionEnum;
+      relative_distance_from_infrastructure_link_start: number;
+      closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
+      validity_start?: luxon.DateTime | null | undefined;
+      validity_end?: luxon.DateTime | null | undefined;
+      priority: number;
+      other_label_instances: Array<{
+        __typename?: 'service_pattern_scheduled_stop_point';
+        priority: number;
+        direction: InfrastructureNetworkDirectionEnum;
+        scheduled_stop_point_id: UUID;
+        label: string;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+        located_on_infrastructure_link_id: UUID;
+      }>;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_label: string;
+        scheduled_stop_point_sequence: number;
+        is_timing_point: boolean;
+        is_via_point: boolean;
+        via_point_name_i18n?: LocalizedString | null | undefined;
+        via_point_short_name_i18n?: LocalizedString | null | undefined;
+        journey_pattern: {
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+        };
+      }>;
+      vehicle_mode_on_scheduled_stop_point: Array<{
+        __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+        vehicle_mode: ReusableComponentsVehicleModeEnum;
+      }>;
+    }>;
+  };
+};
+
+export type GetLinksWithStopsByRouteIdQueryVariables = Exact<{
+  routeId: Scalars['uuid'];
+}>;
+
+export type GetLinksWithStopsByRouteIdQuery = {
+  __typename?: 'query_root';
+  route_infrastructure_link_along_route: Array<{
+    __typename?: 'route_infrastructure_link_along_route';
+    route_id: UUID;
+    infrastructure_link_sequence: number;
+    infrastructure_link_id: UUID;
+    is_traversal_forwards: boolean;
+    infrastructure_link: {
+      __typename?: 'infrastructure_network_infrastructure_link';
+      external_link_id: string;
+      infrastructure_link_id: UUID;
+      shape: GeoJSON.LineString;
+      scheduled_stop_points_located_on_infrastructure_link: Array<{
+        __typename?: 'service_pattern_scheduled_stop_point';
+        scheduled_stop_point_id: UUID;
+        label: string;
+        measured_location: GeoJSON.Point;
+        located_on_infrastructure_link_id: UUID;
+        direction: InfrastructureNetworkDirectionEnum;
+        relative_distance_from_infrastructure_link_start: number;
+        closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+        priority: number;
+        other_label_instances: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
+          validity_start?: luxon.DateTime | null | undefined;
+          validity_end?: luxon.DateTime | null | undefined;
+          located_on_infrastructure_link_id: UUID;
+        }>;
+        scheduled_stop_point_in_journey_patterns: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          journey_pattern_id: UUID;
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+          is_timing_point: boolean;
+          is_via_point: boolean;
+          via_point_name_i18n?: LocalizedString | null | undefined;
+          via_point_short_name_i18n?: LocalizedString | null | undefined;
+          journey_pattern: {
+            __typename?: 'journey_pattern_journey_pattern';
+            journey_pattern_id: UUID;
+            on_route_id: UUID;
+          };
+        }>;
+        vehicle_mode_on_scheduled_stop_point: Array<{
+          __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+          vehicle_mode: ReusableComponentsVehicleModeEnum;
+        }>;
+      }>;
+    };
+  }>;
+};
+
 export type SearchLinesAndRoutesQueryVariables = Exact<{
   lineFilter?: Maybe<RouteLineBoolExp>;
   routeFilter?: Maybe<RouteRouteBoolExp>;
@@ -8990,6 +9109,16 @@ export type LineInformationForMapFragment = {
     route_id: UUID;
     route_shape?: GeoJSON.LineString | null | undefined;
   }>;
+};
+
+export type JourneyPatternStopFragment = {
+  __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+  scheduled_stop_point_label: string;
+  scheduled_stop_point_sequence: number;
+  is_timing_point: boolean;
+  is_via_point: boolean;
+  via_point_name_i18n?: LocalizedString | null | undefined;
+  via_point_short_name_i18n?: LocalizedString | null | undefined;
 };
 
 export const RouteMetadataFragmentDoc = gql`
@@ -9239,6 +9368,22 @@ export const DisplayedRouteFragmentDoc = gql`
     direction
   }
 `;
+export const InfraLinkAlongRouteWithStopsFragmentDoc = gql`
+  fragment infra_link_along_route_with_stops on route_infrastructure_link_along_route {
+    route_id
+    infrastructure_link_sequence
+    infrastructure_link_id
+    infrastructure_link {
+      ...infra_link_matching_fields
+      scheduled_stop_points_located_on_infrastructure_link {
+        ...route_stop_fields
+      }
+    }
+    is_traversal_forwards
+  }
+  ${InfraLinkMatchingFieldsFragmentDoc}
+  ${RouteStopFieldsFragmentDoc}
+`;
 export const LineForComboboxFragmentDoc = gql`
   fragment line_for_combobox on route_line {
     line_id
@@ -9258,6 +9403,16 @@ export const LineInformationForMapFragmentDoc = gql`
       route_id
       route_shape
     }
+  }
+`;
+export const JourneyPatternStopFragmentDoc = gql`
+  fragment journey_pattern_stop on journey_pattern_scheduled_stop_point_in_journey_pattern {
+    scheduled_stop_point_label
+    scheduled_stop_point_sequence
+    is_timing_point
+    is_via_point
+    via_point_name_i18n
+    via_point_short_name_i18n
   }
 `;
 export const QueryClosestLinkDocument = gql`
@@ -11816,6 +11971,67 @@ export type GetRouteByFiltersQueryResult = Apollo.QueryResult<
   GetRouteByFiltersQuery,
   GetRouteByFiltersQueryVariables
 >;
+export const GetLinksWithStopsByRouteIdDocument = gql`
+  query GetLinksWithStopsByRouteId($routeId: uuid!) {
+    route_infrastructure_link_along_route(
+      where: { route_id: { _eq: $routeId } }
+    ) {
+      ...infra_link_along_route_with_stops
+    }
+  }
+  ${InfraLinkAlongRouteWithStopsFragmentDoc}
+`;
+
+/**
+ * __useGetLinksWithStopsByRouteIdQuery__
+ *
+ * To run a query within a React component, call `useGetLinksWithStopsByRouteIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLinksWithStopsByRouteIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLinksWithStopsByRouteIdQuery({
+ *   variables: {
+ *      routeId: // value for 'routeId'
+ *   },
+ * });
+ */
+export function useGetLinksWithStopsByRouteIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetLinksWithStopsByRouteIdQuery,
+    GetLinksWithStopsByRouteIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetLinksWithStopsByRouteIdQuery,
+    GetLinksWithStopsByRouteIdQueryVariables
+  >(GetLinksWithStopsByRouteIdDocument, options);
+}
+export function useGetLinksWithStopsByRouteIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLinksWithStopsByRouteIdQuery,
+    GetLinksWithStopsByRouteIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetLinksWithStopsByRouteIdQuery,
+    GetLinksWithStopsByRouteIdQueryVariables
+  >(GetLinksWithStopsByRouteIdDocument, options);
+}
+export type GetLinksWithStopsByRouteIdQueryHookResult = ReturnType<
+  typeof useGetLinksWithStopsByRouteIdQuery
+>;
+export type GetLinksWithStopsByRouteIdLazyQueryHookResult = ReturnType<
+  typeof useGetLinksWithStopsByRouteIdLazyQuery
+>;
+export type GetLinksWithStopsByRouteIdQueryResult = Apollo.QueryResult<
+  GetLinksWithStopsByRouteIdQuery,
+  GetLinksWithStopsByRouteIdQueryVariables
+>;
 export const SearchLinesAndRoutesDocument = gql`
   query SearchLinesAndRoutes(
     $lineFilter: route_line_bool_exp
@@ -12392,6 +12608,15 @@ export function useGetRouteByFiltersAsyncQuery() {
 }
 export type GetRouteByFiltersAsyncQueryHookResult = ReturnType<
   typeof useGetRouteByFiltersAsyncQuery
+>;
+export function useGetLinksWithStopsByRouteIdAsyncQuery() {
+  return useAsyncQuery<
+    GetLinksWithStopsByRouteIdQuery,
+    GetLinksWithStopsByRouteIdQueryVariables
+  >(GetLinksWithStopsByRouteIdDocument);
+}
+export type GetLinksWithStopsByRouteIdAsyncQueryHookResult = ReturnType<
+  typeof useGetLinksWithStopsByRouteIdAsyncQuery
 >;
 export function useSearchLinesAndRoutesAsyncQuery() {
   return useAsyncQuery<

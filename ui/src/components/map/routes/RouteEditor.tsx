@@ -60,7 +60,9 @@ const RouteEditorComponent = (
   const {
     id: editedRouteId,
     infraLinks,
-    stops: routeStops,
+    stopsEligibleForJourneyPattern,
+    includedStopLabels,
+    journeyPatternStops,
     metaData: routeDetails,
   } = editedRouteData;
 
@@ -89,7 +91,9 @@ const RouteEditorComponent = (
     const changes = await prepareEditGeometry({
       routeId,
       newGeometry: {
-        routeStops,
+        stopsEligibleForJourneyPattern,
+        includedStopLabels,
+        journeyPatternStops,
         infraLinksAlongRoute: infraLinks || [],
       },
     });
@@ -107,7 +111,9 @@ const RouteEditorComponent = (
       // and it contains all required values
       form: routeDetails as RouteFormState,
       routeGeometry: {
-        routeStops,
+        stopsEligibleForJourneyPattern,
+        includedStopLabels,
+        journeyPatternStops,
         infraLinksAlongRoute: infraLinks || [],
       },
     });

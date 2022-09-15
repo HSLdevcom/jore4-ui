@@ -8,7 +8,7 @@ import {
 } from '../../generated/graphql';
 import { getRouteStopLabels, mapRouteResultToRoutes } from '../../graphql';
 import {
-  selectHasChangesInProgress,
+  selectEditedRouteIncludedStops,
   selectMapEditor,
   selectSelectedStopId,
 } from '../../redux';
@@ -16,7 +16,7 @@ import { RequiredKeys } from '../../types';
 import { Priority } from '../../types/Priority';
 import { mapToVariables } from '../../utils';
 import { useAppSelector } from '../redux';
-import { mapRouteStopsToStopLabels, useGetDisplayedRoutes } from '../routes';
+import { useGetDisplayedRoutes } from '../routes';
 import { useObservationDateQueryParam } from '../urlQuery';
 import { filterHighestPriorityCurrentStops } from './useFilterStops';
 
@@ -43,11 +43,15 @@ const extractHighestPriorityStopsFromRoute = (
 };
 
 export const useMapStops = () => {
-  const { editedRouteData, selectedRouteId } = useAppSelector(selectMapEditor);
-  const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
+  const { selectedRouteId } = useAppSelector(selectMapEditor);
   const { observationDate } = useObservationDateQueryParam();
   const { displayedRouteIds } = useGetDisplayedRoutes();
   const selectedStopId = useAppSelector(selectSelectedStopId);
+  const editedRouteIncludedStops = useAppSelector(
+    selectEditedRouteIncludedStops,
+  );
+  const { editedRouteData } = useAppSelector(selectMapEditor);
+  const editedRouteStopLabels = editedRouteData.includedStopLabels;
 
   const displayedRoutesResult = useGetRoutesWithInfrastructureLinksQuery(
     mapToVariables({ route_ids: displayedRouteIds }),
@@ -66,12 +70,8 @@ export const useMapStops = () => {
     (stop) => stop.scheduled_stop_point_id,
   );
 
-  const editedRouteStopIds = editedRouteData.stops
-    .filter((stop) => stop.belongsToJourneyPattern)
-    .flatMap((stop) => stop.stop.scheduled_stop_point_id);
-
-  const editedRouteStopLabels = mapRouteStopsToStopLabels(
-    editedRouteData.stops,
+  const editedRouteStopIds = editedRouteIncludedStops.map(
+    (stop) => stop.scheduled_stop_point_id,
   );
 
   const getStopVehicleMode = useCallback(
@@ -97,15 +97,14 @@ export const useMapStops = () => {
       // Otherwise highlight stops belonging to selected route
       // Also highlight selectedRoute stops until editedRouteData is loaded
       const highlightedStopIds =
-        routeEditingInProgress && editedRouteData.stops.length > 0
+        editedRouteIncludedStops.length > 0
           ? editedRouteStopIds
           : selectedRouteActiveStopIds;
 
       return highlightedStopIds?.includes(id) || selectedStopId === id;
     },
     [
-      routeEditingInProgress,
-      editedRouteData.stops.length,
+      editedRouteIncludedStops.length,
       editedRouteStopIds,
       selectedRouteActiveStopIds,
       selectedStopId,

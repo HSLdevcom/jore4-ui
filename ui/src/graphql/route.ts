@@ -8,6 +8,7 @@ import {
   InsertLineOneMutation,
   RouteLine,
   RouteRoute,
+  RouteWithJourneyPatternStopsFragment,
   useListOwnLinesQuery,
 } from '../generated/graphql';
 import { GqlQueryResult, isGqlEntity } from './types';
@@ -463,13 +464,10 @@ const DELETE_ROUTE = gql`
   }
 `;
 
-export const getStopsFromRoute = (route: RouteRoute) => {
-  return route.route_journey_patterns[0]
-    .scheduled_stop_point_in_journey_patterns;
-};
-
-export const getRouteStopLabels = (route: RouteRoute) => {
-  return getStopsFromRoute(route).map(
+export const getRouteStopLabels = (
+  route: RouteWithJourneyPatternStopsFragment,
+) => {
+  return route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns.map(
     (point) => point.scheduled_stop_point_label,
   );
 };
