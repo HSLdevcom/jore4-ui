@@ -6,12 +6,11 @@ import {
   useGetLineDetailsByIdAsyncQuery,
 } from '../../generated/graphql';
 import { mapLineDetailsResult } from '../../graphql';
-import { RouteGeometry, RouteStop } from '../../redux/types';
+import { RouteGeometry } from '../../redux/types';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
 } from '../../utils';
-import { mapRouteStopsToStopLabels } from './useExtractRouteFromFeature';
 
 interface ValidityPeriodParams {
   // eslint-disable-next-line camelcase
@@ -28,14 +27,14 @@ export const useValidateRoute = () => {
   /**
    * Check that there are enoung stops on the route
    */
-  const validateStopCount = (routeStops: RouteStop[]) => {
-    if (!routeStops || mapRouteStopsToStopLabels(routeStops).length < 2) {
+  const validateStopCount = (includedStopLabels: string[]) => {
+    if (includedStopLabels.length < 2) {
       throw new Error(t('routes.tooFewStops'));
     }
   };
 
   const validateGeometry = async (routeGeometry: RouteGeometry) => {
-    validateStopCount(routeGeometry.routeStops);
+    validateStopCount(routeGeometry.includedStopLabels);
   };
 
   const checkIsRouteValidityInsideLineValidity = (

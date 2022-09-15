@@ -27,24 +27,24 @@ import {
 } from '../../../graphql';
 import {
   extractJourneyPatternCandidateStops,
-  filterDistinctConsecutiveRouteStops,
   getOldRouteGeometryVariables,
-  getRouteStops,
+  getStopLabelsIncludedInRoute,
   LineStringFeature,
   mapInfraLinksToFeature,
   useAppDispatch,
   useAppSelector,
   useExtractRouteFromFeature,
-  useFilterStops,
   useLoader,
 } from '../../../hooks';
 import {
+  mapRouteStopsToJourneyPatternStops,
   Mode,
   Operation,
   resetDraftRouteGeometryAction,
   selectHasDraftRouteGeometry,
   selectMapEditor,
   setDraftRouteGeometryAction,
+  setDraftRouteJourneyPatternStopsAction,
   stopRouteEditingAction,
 } from '../../../redux';
 import { parseDate } from '../../../time';
@@ -96,7 +96,6 @@ const DrawRouteLayerComponent = (
 
   const { getInfraLinksWithStopsForGeometry, getRemovedStopLabels } =
     useExtractRouteFromFeature();
-  const { filter } = useFilterStops();
 
   const { setIsLoading } = useLoader(Operation.MatchRoute);
 
@@ -182,7 +181,7 @@ const DrawRouteLayerComponent = (
       // retrieve stop and infra link data from base route if we don't yet have edited data
       // TODO: this should happen only once, not every time the snapping line is updated
       const { oldStopLabels, oldInfraLinks } = getOldRouteGeometryVariables(
-        editedRouteData.stops,
+        editedRouteData.includedStopLabels,
         editedRouteData.infraLinks,
         baseRoute,
       );
@@ -198,24 +197,18 @@ const DrawRouteLayerComponent = (
         validity_end: parseDate(editedRouteData.metaData.validityEnd),
         priority: editedRouteData.metaData.priority,
       };
+
       const stopsEligibleForJourneyPattern =
         extractJourneyPatternCandidateStops(infraLinksWithStops, routeMetadata);
 
-      // FIXME. We shouldn't filter stops by being visible on the map as it might rule
-      // out some of the possibly eligible stops from the journey pattern.
-      const visibleStopsEligibleForJourneyPattern = filter(
+      const includedStopLabels = getStopLabelsIncludedInRoute(
         stopsEligibleForJourneyPattern,
-      );
-
-      const routeStops = getRouteStops(
-        visibleStopsEligibleForJourneyPattern,
-        removedStopLabels || [],
-        editedRouteData?.id,
+        removedStopLabels,
       );
 
       dispatch(
         setDraftRouteGeometryAction({
-          stops: filterDistinctConsecutiveRouteStops(routeStops),
+          includedStopLabels,
           stopsEligibleForJourneyPattern,
           infraLinks: infraLinksWithStops,
         }),
@@ -234,11 +227,9 @@ const DrawRouteLayerComponent = (
       baseRoute,
       creatingNewRoute,
       dispatch,
-      editedRouteData?.id,
+      editedRouteData.includedStopLabels,
       editedRouteData.infraLinks,
       editedRouteData.metaData,
-      editedRouteData.stops,
-      filter,
       getInfraLinksWithStopsForGeometry,
       getRemovedStopLabels,
       map,
@@ -254,6 +245,18 @@ const DrawRouteLayerComponent = (
     // no need to initialize snapping line
     if ((creatingNewRoute && !templateRouteId) || snappingLine) {
       return;
+    }
+
+    /**
+     * Preserve journey pattern stop metadata (e.g. via info)
+     * if editing a route or using template route for created route
+     */
+    if (baseRoute) {
+      const journeyPatternStops =
+        baseRoute.route_journey_patterns[0]
+          .scheduled_stop_point_in_journey_patterns;
+
+      dispatch(setDraftRouteJourneyPatternStopsAction(journeyPatternStops));
     }
 
     if (mode === Mode.Edit && baseRoute) {

@@ -1,5 +1,7 @@
 import {
+  JourneyPatternStopFragment,
   RouteRoute,
+  RouteStopFieldsFragment,
   UpdateRouteJourneyPatternMutationVariables,
   useUpdateRouteJourneyPatternMutation,
 } from '../../generated/graphql';
@@ -7,10 +9,13 @@ import {
   getEligibleStopsAlongRouteGeometry,
   stopBelongsToJourneyPattern,
 } from '../../graphql';
-import { buildRouteStop, buildStopSequenceFromRouteStops } from '../../redux';
-import { RouteStop } from '../../redux/types';
+import {
+  buildStopSequence,
+  mapRouteStopsToJourneyPatternStops,
+  StoreType,
+} from '../../redux';
 import { removeFromApolloCache } from '../../utils';
-import { filterDistinctConsecutiveRouteStops } from './useExtractRouteFromFeature';
+import { filterDistinctConsecutiveStops } from './useExtractRouteFromFeature';
 import { useValidateRoute } from './useValidateRoute';
 
 interface DeleteStopParams {
@@ -22,7 +27,9 @@ type AddStopParams = DeleteStopParams;
 
 interface UpdateJourneyPatternChanges {
   routeId: UUID;
-  routeStops: RouteStop[];
+  stopsEligibleForJourneyPattern: StoreType<RouteStopFieldsFragment>[];
+  includedStopLabels: string[];
+  journeyPatternStops: JourneyPatternStopFragment[];
 }
 
 /**
@@ -38,30 +45,37 @@ export const useEditRouteJourneyPattern = () => {
     stopBelongsToRoute: boolean,
   ) => {
     const { route, stopPointLabel } = params;
-
     const stopsAlongRoute = getEligibleStopsAlongRouteGeometry(route);
 
-    // Map ServicePatternScheduledStopPoints to RouteStops
-    const routeStops: RouteStop[] = stopsAlongRoute.map((stop) => {
+    const routeStops = stopsAlongRoute.filter((stop) => {
       const isStopToEdit = stopPointLabel === stop.label;
 
       const belongsToRoute = isStopToEdit
         ? stopBelongsToRoute
         : stopBelongsToJourneyPattern(stop, route.route_id);
 
-      return buildRouteStop(stop, belongsToRoute, route.route_id);
+      return belongsToRoute;
     });
 
     // If multiple versions of one stop is active, they are in the list, but
     // only one version should be added to the journey pattern
     const distinctConsecutiveRouteStops =
-      filterDistinctConsecutiveRouteStops(routeStops);
+      filterDistinctConsecutiveStops(routeStops);
 
     validateStopCount(distinctConsecutiveRouteStops);
 
+    const journeyPatternStops = mapRouteStopsToJourneyPatternStops(
+      routeStops,
+      route.route_id,
+    );
+
     const changes: UpdateJourneyPatternChanges = {
       routeId: route.route_id,
-      routeStops: distinctConsecutiveRouteStops,
+      stopsEligibleForJourneyPattern: routeStops,
+      includedStopLabels: distinctConsecutiveRouteStops.map(
+        (stop) => stop.label,
+      ),
+      journeyPatternStops,
     };
 
     return changes;
@@ -78,8 +92,7 @@ export const useEditRouteJourneyPattern = () => {
       route_id: changes.routeId,
       new_journey_pattern: {
         on_route_id: changes.routeId,
-        scheduled_stop_point_in_journey_patterns:
-          buildStopSequenceFromRouteStops(changes.routeStops),
+        scheduled_stop_point_in_journey_patterns: buildStopSequence(changes),
       },
     };
 

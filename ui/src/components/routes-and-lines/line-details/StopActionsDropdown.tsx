@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { ServicePatternScheduledStopPoint } from '../../../generated/graphql';
+import { RouteStopFieldsFragment } from '../../../generated/graphql';
 import { useAppDispatch } from '../../../hooks';
 import { openViaModalAction } from '../../../redux';
 import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
@@ -11,7 +11,7 @@ const testIds = {
 };
 
 interface Props {
-  stop: ServicePatternScheduledStopPoint;
+  stop: RouteStopFieldsFragment;
   routeId: UUID;
   onAddToRoute: (stopLabel: string) => void;
   onRemoveFromRoute: (stopLabel: string) => void;

@@ -1,6 +1,10 @@
 import { gql } from '@apollo/client';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useActiveRouteInfo } from '../../hooks/routes/useActiveRouteInfo';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useObservationDateQueryParam,
+} from '../../hooks';
+import { useRouteInfo } from '../../hooks/routes/useRouteInfo';
 import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import { Row, Visible } from '../../layoutComponents';
 import {
@@ -34,14 +38,26 @@ const GQL_ROUTE_METADATA = gql`
 
 export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
   const dispatch = useAppDispatch();
-  const { creatingNewRoute } = useAppSelector(selectMapEditor);
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
+  const { observationDate } = useObservationDateQueryParam();
+  const { selectedRouteId, creatingNewRoute } = useAppSelector(selectMapEditor);
 
-  const { routeMetadata, routeStops } = useActiveRouteInfo();
+  const {
+    routeMetadata,
+    highestPriorityStopsEligibleForJourneyPattern,
+    belongsToJourneyPattern,
+  } = useRouteInfo(
+    creatingNewRoute ? undefined : selectedRouteId,
+    observationDate,
+  );
 
   if (!routeMetadata) {
     return <></>;
   }
+
+  const stopsToShow = highestPriorityStopsEligibleForJourneyPattern.filter(
+    (stop) => routeEditingInProgress || belongsToJourneyPattern(stop),
+  );
 
   return (
     <MapOverlay className={className}>
@@ -80,14 +96,15 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
         </div>
       </div>
       <div className="overflow-y-auto">
-        {routeStops?.map((routeStop, index) => (
+        {stopsToShow?.map((stop, index) => (
           <RouteStopsOverlayRow
             // This list is recreated every time when changes happen, so we can
             // use index as key here
             // eslint-disable-next-line react/no-array-index-key
-            key={`${routeStop.stop.label}_${index}`}
-            routeStop={routeStop}
+            key={`${stop.label}_${index}`}
+            stop={stop}
             isReadOnly={!routeEditingInProgress}
+            belongsToJourneyPattern={belongsToJourneyPattern(stop)}
           />
         ))}
       </div>
