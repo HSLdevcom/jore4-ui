@@ -1,8 +1,8 @@
+import { VehicleSubmodeOnInfraLinkInsertInput } from '../builders';
 import {
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkExternalSourceEnum,
   InfrastructureNetworkInfrastructureLinkInsertInput,
-  InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput,
   ReusableComponentsVehicleSubmodeEnum,
 } from '../generated/graphql';
 
@@ -53,20 +53,18 @@ export const infrastructureLinks: InfrastructureNetworkInfrastructureLinkInsertI
     },
   ];
 
-export const vehicleSubmodeOnInfrastructureLink: Pick<
-  InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput,
-  'infrastructure_link_id' | 'vehicle_submode'
->[] = [
-  {
-    infrastructure_link_id: infrastructureLinks[0].infrastructure_link_id,
-    vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-  },
-  {
-    infrastructure_link_id: infrastructureLinks[1].infrastructure_link_id,
-    vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-  },
-  {
-    infrastructure_link_id: infrastructureLinks[2].infrastructure_link_id,
-    vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-  },
-];
+export const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[] =
+  [
+    {
+      infrastructure_link_id: infrastructureLinks[0].infrastructure_link_id,
+      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
+    },
+    {
+      infrastructure_link_id: infrastructureLinks[1].infrastructure_link_id,
+      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
+    },
+    {
+      infrastructure_link_id: infrastructureLinks[2].infrastructure_link_id,
+      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
+    },
+  ];

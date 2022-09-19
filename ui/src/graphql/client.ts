@@ -15,6 +15,8 @@ import { isDateLike, parseDate } from '../time';
 import { mapHttpToWs } from '../utils/url';
 import { authRoleMiddleware } from './auth';
 
+const isTesting = process.env.NODE_ENV === 'test';
+
 const buildScalarMappingLink = () => {
   const typesMap = {
     // automatically (de)serializing between graphql timestamptz <-> luxon.DateTime types
@@ -45,12 +47,29 @@ const buildScalarMappingLink = () => {
   return withScalars({ schema, typesMap });
 };
 
-const buildConnectionLink = (isBrowser: boolean) => {
-  const graphqlServerUrl = '/api/graphql/v1/graphql';
+const getGraphqlServerUrl = () => {
+  const domain = isTesting ? 'http://localhost:3300' : '';
+  return `${domain}/api/graphql/v1/graphql`;
+};
 
-  const httpLink = new HttpLink({
-    uri: graphqlServerUrl,
-  });
+const getHttpLinkOptions = (uri: string) => {
+  const testingOptions = isTesting
+    ? {
+        // `fetch` is not available in test context so we have to provide it
+        // eslint-disable-next-line global-require, import/no-extraneous-dependencies
+        fetch: require('cross-fetch'),
+        headers: { 'x-hasura-admin-secret': 'hasura' },
+      }
+    : {};
+  return {
+    uri,
+    ...testingOptions,
+  };
+};
+
+const buildConnectionLink = (isBrowser: boolean) => {
+  const graphqlServerUrl = getGraphqlServerUrl();
+  const httpLink = new HttpLink(getHttpLinkOptions(graphqlServerUrl));
 
   // because next.js might run this on server-side and websockets aren't
   // supported there, we have to check if we are on browser before
