@@ -1,6 +1,5 @@
 import {
   InfraLinkInsertInput,
-  InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput,
   JourneyPatternJourneyPatternInsertInput,
   JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
   LineInsertInput,
@@ -21,6 +20,7 @@ import {
   RouteInfrastructureLinkAlongRouteInsertInput,
   RouteInsertInput,
   StopInsertInput,
+  VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,7 +33,7 @@ const responseLogger = (message: string, res: any) => {
 
 interface SupportedResources {
   infraLinks?: InfraLinkInsertInput[];
-  vehicleSubmodeOnInfrastructureLink?: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput[];
+  vehicleSubmodeOnInfrastructureLink?: VehicleSubmodeOnInfraLinkInsertInput[];
   lines?: LineInsertInput[];
   stops?: StopInsertInput[];
   routes?: RouteInsertInput[];

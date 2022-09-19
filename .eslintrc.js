@@ -99,7 +99,13 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       // allow importing dev dependencies in test files
-      { devDependencies: ['**/*.spec.ts', '**/*.spec.tsx'] },
+      {
+        devDependencies: [
+          '**/*.spec.ts',
+          '**/*.spec.tsx',
+          './ui/src/utils/test-utils/**',
+        ],
+      },
     ],
     'import/order': [
       // require imports to be sorted like vscode automatically does with its "organize imports" feature.

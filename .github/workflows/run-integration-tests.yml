@@ -1,0 +1,28 @@
+name: Run integration tests
+
+on:
+  pull_request:
+
+jobs:
+  run_integration_tests:
+    name: Run ui's integration tests against docker-compose environment
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies && check that lockfile is up-to-date
+        run: yarn --frozen-lockfile
+
+      - name: Extract metadata to env variables
+        uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
+
+      - name: start e2e env
+        uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
+
+      - name: Build test db manager module
+        run: yarn ws:db build
+
+      - name: Run integration tests
+        run: yarn test:integration
