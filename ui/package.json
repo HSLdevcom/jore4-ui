@@ -11,6 +11,8 @@
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "test": "jest --ci",
+    "test:unit": "yarn test --testRegex='^(?!.*\\.integration\\.spec\\.tsx?$).*\\.spec\\.tsx?$'",
+    "test:integration": "yarn test --testRegex='\\.integration\\.spec\\.tsx?$'",
     "generate-theme": "./convert-theme-to-ts.js",
     "start": "next start"
   },
@@ -19,7 +21,6 @@
     "@graphql-typed-document-node/core": "^3.1.0",
     "@headlessui/react": "^1.5.0",
     "@hookform/resolvers": "^2.8.3",
-    "@hsl/jore4-test-db-manager": "1.0.0",
     "@nebula.gl/edit-modes": "0.23.8",
     "@reduxjs/toolkit": "^1.8.0",
     "@seznam/compose-react-refs": "^1.0.6",
@@ -57,6 +58,7 @@
     "zod": "^3.17.10"
   },
   "devDependencies": {
+    "@hsl/jore4-test-db-manager": "1.0.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@types/lodash": "^4.14.175",
@@ -69,6 +71,7 @@
     "@typescript-eslint/parser": "^4.31.1",
     "autoprefixer": "^10.4.2",
     "bufferutil": "^4.0.3",
+    "cross-fetch": "^3.1.5",
     "encoding": "^0.1.13",
     "express": "^4.17.1",
     "http-proxy-middleware": "^2.0.6",
