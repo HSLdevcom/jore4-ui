@@ -13,7 +13,7 @@ import {
 } from '../generated/graphql';
 import { Priority } from '../types/Priority';
 
-interface CommonParams {
+export interface CommonParams {
   label: string;
   priority: Priority;
   validityStart?: DateTime;

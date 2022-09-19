@@ -47,6 +47,14 @@ Ts-jest was chosen over `@babel/preset-typescript` as it has [certain advantages
 `@testing-library/react` is used with jest as it provides ways to interact with DOM.
 Tests can be run with `yarn test`.
 
+### "Integration" tests / "react hook e2e tests"
+
+We also have integration tests for ui side that are run with `jest`.
+We have those because sometimes there is need to do e.g. complex graphql queries on UI side, and those are impossible to test without running tests against real hasura instance.
+
+- In order to run integration tests, you need to have hasura instance running. That is the case if you have docker-compose environment running.
+- To run tests: `yarn test:integration`
+
 ### Cypress (e2e) tests
 
 - In order to run e2e tests, you need to have ui and all the dependencies running.

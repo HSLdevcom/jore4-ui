@@ -45,44 +45,56 @@ const buildScalarMappingLink = () => {
   return withScalars({ schema, typesMap });
 };
 
-const buildConnectionLink = (isBrowser: boolean) => {
-  const graphqlServerUrl = '/api/graphql/v1/graphql';
-
-  const httpLink = new HttpLink({
-    uri: graphqlServerUrl,
+const buildWebSocketLink = (graphqlUrlPath: string) => {
+  return new WebSocketLink({
+    // WebSocketLink doesn't work with relative url's, so we have to
+    // turn relative url into absolute.
+    uri: `${mapHttpToWs(window.location.origin)}${graphqlUrlPath}`,
+    options: {
+      reconnect: true,
+    },
   });
+};
+
+const buildHttpLink = (graphqlUrlPath: string, isTesting: boolean) => {
+  const httpLinkConfig = isTesting
+    ? {
+        // `fetch` is not available in test context (with jest) so we have to provide it
+        // eslint-disable-next-line global-require, import/no-extraneous-dependencies
+        fetch: require('cross-fetch'),
+        // logging in directly as admin, only works in e2e environment
+        headers: { 'x-hasura-admin-secret': 'hasura' },
+        uri: `http://localhost:3300${graphqlUrlPath}`,
+      }
+    : {
+        uri: graphqlUrlPath,
+      };
+  return new HttpLink(httpLinkConfig);
+};
+
+const buildConnectionLink = (isBrowser: boolean, isTesting: boolean) => {
+  const graphqlUrlPath = '/api/graphql/v1/graphql';
 
   // because next.js might run this on server-side and websockets aren't
   // supported there, we have to check if we are on browser before
   // initializing WebSocket link
-  const wsLink = isBrowser
-    ? new WebSocketLink({
-        // WebSocketLink doesn't work with relative url's, so we have to
-        // turn relative url into absolute.
-        uri: `${mapHttpToWs(window.location.origin)}${graphqlServerUrl}`,
-        options: {
-          reconnect: true,
-        },
-      })
-    : undefined;
-
-  const connectionLink = isBrowser
-    ? split(
-        // if running a subscription query, prefer to use wsLink
-        ({ query }) => {
-          const definition = getMainDefinition(query);
-          const isSubscription =
-            definition.kind === 'OperationDefinition' &&
-            definition.operation === 'subscription';
-          return isSubscription;
-        },
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        wsLink!,
-        httpLink,
-      )
-    : httpLink;
-
-  return connectionLink;
+  const httpLink = buildHttpLink(graphqlUrlPath, isTesting);
+  if (isTesting || !isBrowser) {
+    return httpLink;
+  }
+  const wsLink = buildWebSocketLink(graphqlUrlPath);
+  return split(
+    // if running a subscription query, prefer to use wsLink
+    ({ query }) => {
+      const definition = getMainDefinition(query);
+      const isSubscription =
+        definition.kind === 'OperationDefinition' &&
+        definition.operation === 'subscription';
+      return isSubscription;
+    },
+    wsLink,
+    httpLink,
+  );
 };
 
 const buildCacheDefinition = () => {
@@ -116,8 +128,11 @@ const buildCacheDefinition = () => {
 };
 
 export const createGraphqlClient = () => {
+  // jest and most testing frameworks set NODE_ENV to 'test' automatically
+  const isTesting = process.env.NODE_ENV === 'test';
+
   const scalarMappingLink = buildScalarMappingLink();
-  const connectionLink = buildConnectionLink(!!process.browser);
+  const connectionLink = buildConnectionLink(!!process.browser, isTesting);
   const link = from([scalarMappingLink, authRoleMiddleware, connectionLink]);
 
   const cache = buildCacheDefinition();
