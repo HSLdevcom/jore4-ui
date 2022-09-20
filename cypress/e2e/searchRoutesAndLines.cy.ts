@@ -30,21 +30,23 @@ describe('Verify that route and line search works', () => {
   let routesAndLinesPage: RoutesAndLinesPage;
 
   before(() => {
-    cy.visit('/routes');
-  });
-
-  beforeEach(() => {
     searchResultsPage = new SearchResultsPage();
     routesAndLinesPage = new RoutesAndLinesPage();
     deleteCreatedResources();
     insertToDbHelper(dbResources);
+    cy.visit('/routes');
+  });
+
+  after(() => {
+    deleteCreatedResources();
+  });
+
+  beforeEach(() => {
     cy.setupTests();
     cy.mockLogin();
     routesAndLinesPage.getRoutesAndLinesSearchInput().clear();
   });
-  afterEach(() => {
-    deleteCreatedResources();
-  });
+
   it('Searches line with exact ID', () => {
     routesAndLinesPage.getRoutesAndLinesSearchInput().type('1666{enter}');
     cy.wait('@gqlSearchLinesAndRoutes');
