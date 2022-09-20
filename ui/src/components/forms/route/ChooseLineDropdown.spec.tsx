@@ -1,11 +1,12 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { buildLocalizedString } from '@hsl/jore4-test-db-manager';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import {
   GetLinesForComboboxDocument,
   GetSelectedLineDetailsByIdDocument,
 } from '../../../generated/graphql';
-import { buildLocalizedString, render, sleep } from '../../../utils/test-utils';
+import { render, sleep } from '../../../utils/test-utils';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
 describe('<ChooseLineDropdown />', () => {

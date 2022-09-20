@@ -202,7 +202,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
               >
                 123
               </span>
-               | route 1
+               | route 123
             </div>
             <div
               class="text-sm"
@@ -424,7 +424,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
               >
                 123
               </span>
-               | route 1
+               | route 123
             </div>
             <div
               class="text-sm"
@@ -469,7 +469,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
               >
                 456
               </span>
-               | route 2
+               | route 456
             </div>
             <div
               class="text-sm"
