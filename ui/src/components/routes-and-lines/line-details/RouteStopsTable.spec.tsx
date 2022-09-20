@@ -1,3 +1,4 @@
+import { buildLocalizedString } from '@hsl/jore4-test-db-manager';
 import { fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import {
@@ -8,7 +9,7 @@ import {
   GqlQueryResult,
   mapLineDetailsWithRoutesResult,
 } from '../../../graphql';
-import { buildLocalizedString, render } from '../../../utils/test-utils';
+import { render } from '../../../utils/test-utils';
 import { RouteStopsTable } from './RouteStopsTable';
 
 describe(`<${RouteStopsTable.name} />`, () => {

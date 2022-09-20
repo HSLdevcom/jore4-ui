@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { buildRoute } from '@hsl/jore4-test-db-manager';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import {
@@ -7,12 +8,7 @@ import {
   RouteDirectionEnum,
 } from '../../../generated/graphql';
 import { Priority } from '../../../types/Priority';
-import {
-  buildLocalizedString,
-  buildRoute,
-  render,
-  sleep,
-} from '../../../utils/test-utils';
+import { render, sleep } from '../../../utils/test-utils';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 describe(`<${ChooseRouteDropdown.name} />`, () => {
@@ -39,9 +35,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
         data: {
           route_route: [
             {
-              ...buildRoute('1'),
-              description_i18n: buildLocalizedString('Route 1'),
-              label: '123',
+              ...buildRoute({ label: '123' }),
               __typename: 'route_route',
               route_id: 'route1',
               validity_start: DateTime.fromISO('2022-03-20T22:00:00+00:00'),
@@ -52,9 +46,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
               on_line_id: 'line_id',
             },
             {
-              ...buildRoute('2'),
-              description_i18n: buildLocalizedString('Route 2'),
-              label: '456',
+              ...buildRoute({ label: '456' }),
               __typename: 'route_route',
               route_id: 'route2',
               validity_start: DateTime.fromISO('2021-01-01T22:00:00+00:00'),
@@ -81,8 +73,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
         data: {
           route_route: [
             {
-              ...buildRoute('1'),
-              description_i18n: buildLocalizedString('Route 1'),
+              ...buildRoute({ label: '123' }),
               label: '123',
               __typename: 'route_route',
               route_id: 'route1',
@@ -138,13 +129,13 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
     const items = container.querySelectorAll('li');
 
     expect(items[0].querySelectorAll('div > div')[0].textContent).toBe(
-      `123 | route 1`,
+      `123 | route 123`,
     );
     expect(items[0].querySelectorAll('div > div')[1].textContent).toBe(
       `21.3.2022 - 29.3.2022`,
     );
     expect(items[1].querySelectorAll('div > div')[0].textContent).toBe(
-      `456 | route 2`,
+      `456 | route 456`,
     );
     expect(items[1].querySelectorAll('div > div')[1].textContent).toBe(
       `2.1.2021 - 31.12.2022`,
@@ -196,7 +187,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
     const items = container.querySelectorAll('li');
 
     expect(items[0].querySelectorAll('div > div')[0].textContent).toBe(
-      `123 | route 1`,
+      `123 | route 123`,
     );
     expect(items[0].querySelectorAll('div > div')[1].textContent).toBe(
       `21.3.2022 - 29.3.2022`,

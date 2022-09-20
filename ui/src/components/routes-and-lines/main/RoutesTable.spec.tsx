@@ -1,4 +1,4 @@
-import React from 'react';
+import { buildLocalizedString, buildRoute } from '@hsl/jore4-test-db-manager';
 import {
   ListChangingRoutesQuery,
   RouteDirectionEnum,
@@ -11,11 +11,7 @@ import {
   mapListOwnLinesResult,
   mapRouteResultToRoutes,
 } from '../../../graphql';
-import {
-  buildLocalizedString,
-  buildRoute,
-  render,
-} from '../../../utils/test-utils';
+import { render } from '../../../utils/test-utils';
 import { LineTableRow } from './LineTableRow';
 import { RoutesTable } from './RoutesTable';
 import { RoutesTableRow } from './RoutesTableRow';
@@ -31,7 +27,7 @@ describe(`<${RoutesTable.name} />`, () => {
       route_route: [
         {
           __typename: 'route_route',
-          ...buildRoute('1'),
+          ...buildRoute({ label: '1' }),
           route_id: route1Id,
           on_line_id: lineId,
           priority: 10,
