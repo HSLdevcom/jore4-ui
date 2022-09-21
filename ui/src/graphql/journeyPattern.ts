@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import {
   GetScheduledStopPointWithViaInfoQuery,
   JourneyPatternScheduledStopPointInJourneyPattern,
-  ServicePatternScheduledStopPoint,
+  StopWithJourneyPatternFieldsFragment,
 } from '../generated/graphql';
 import { GqlQueryResult } from './types';
 
@@ -60,7 +60,7 @@ const UPDATE_ROUTE_JOURNEY_PATTERN = gql`
 
 // check if the stop belongs to any of the current route's journey patterns
 export const stopBelongsToJourneyPattern = (
-  stop: ServicePatternScheduledStopPoint,
+  stop: StopWithJourneyPatternFieldsFragment,
   routeId: UUID,
 ) =>
   stop.scheduled_stop_point_in_journey_patterns.some(

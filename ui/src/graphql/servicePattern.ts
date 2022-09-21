@@ -2,13 +2,10 @@
 import { gql } from '@apollo/client';
 import {
   GetRoutesBrokenByStopChangeQuery,
-  InfrastructureNetworkDirectionEnum,
-  RouteRoute,
   ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointSetInput,
 } from '../generated/graphql';
 import { NonNullableKeys, RequiredKeys } from '../types';
-import { sortStopsOnInfraLink } from '../utils/stops';
 import { GqlQueryResult, isGqlEntity } from './types';
 
 export type StopWithLocation = RequiredKeys<
@@ -144,39 +141,6 @@ const INSERT_STOP = gql`
     }
   }
 `;
-
-// TODO: This should also check that vehicleMode of route matches stop
-// TODO: This should be combined with useExctractRouteFromFeature.ts business logics
-const filterEligibleStopsOnRoute = (
-  stopPoints: ServicePatternScheduledStopPoint[],
-  isLinkTraversalForwards: boolean,
-) =>
-  stopPoints.filter(
-    (stop) =>
-      stop.direction === InfrastructureNetworkDirectionEnum.Bidirectional ||
-      (isLinkTraversalForwards &&
-        stop.direction === InfrastructureNetworkDirectionEnum.Forward) ||
-      (!isLinkTraversalForwards &&
-        stop.direction === InfrastructureNetworkDirectionEnum.Backward),
-  );
-
-export const getEligibleStopsAlongRouteGeometry = (route: RouteRoute) => {
-  return route.infrastructure_links_along_route.flatMap((infraLink, index) => {
-    const isLinkTraversalForwards =
-      route.infrastructure_links_along_route[index].is_traversal_forwards;
-    const eligibleStops = filterEligibleStopsOnRoute(
-      infraLink.infrastructure_link
-        .scheduled_stop_points_located_on_infrastructure_link,
-      isLinkTraversalForwards,
-    );
-    const sortedEligibleStops = sortStopsOnInfraLink(
-      eligibleStops,
-      isLinkTraversalForwards,
-    );
-
-    return sortedEligibleStops;
-  });
-};
 
 const EDIT_STOP = gql`
   mutation EditStop(
