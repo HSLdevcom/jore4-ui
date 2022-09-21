@@ -54,6 +54,7 @@
     "react-router-dom": "^5.2.0",
     "react-spinners": "^0.13.4",
     "redux-logger": "^3.0.6",
+    "remeda": "^1.1.0",
     "subscriptions-transport-ws": "^0.11.0",
     "zod": "^3.17.10"
   },
