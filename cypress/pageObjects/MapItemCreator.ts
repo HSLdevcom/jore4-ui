@@ -1,5 +1,4 @@
 import { Priority } from '@hsl/jore4-test-db-manager';
-import { Coordinates } from '../types';
 import { ConfirmSaveForm } from './ConfirmSaveForm';
 import { ClickPointNearMapMarker, Map } from './Map';
 import { MapFooter } from './MapFooter';
@@ -75,24 +74,28 @@ export class MapItemCreator {
   };
 
   /**
-   * This creates stop to a location pointed out with x and y coordinate.
+   * This creates stop at a location that is specified by percentages of the viewport'sg width and height.
    */
+
   createStopAtLocation = ({
     stopFormInfo,
-    clickCoordinates,
+    clickRelativePoint,
     priority = Priority.Standard,
     validityStartISODate,
     validityEndISODate,
   }: {
     stopFormInfo: StopFormInfo;
-    clickCoordinates: Coordinates;
+    clickRelativePoint: { xPercentage: number; yPercentage: number };
     priority?: Priority;
     validityStartISODate: string;
     validityEndISODate?: string;
   }) => {
     this.mapFooter.addStop();
 
-    this.map.clickAtPosition(clickCoordinates.x, clickCoordinates.y);
+    this.map.clickRelativePoint(
+      clickRelativePoint.xPercentage,
+      clickRelativePoint.yPercentage,
+    );
 
     this.stopForm.fillStopForm(stopFormInfo);
 

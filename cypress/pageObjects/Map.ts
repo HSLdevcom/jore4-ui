@@ -42,4 +42,10 @@ export class Map {
   clickNthSnappingPointHandle(nth: number) {
     cy.get(`rect[data-index="${nth}"]`).first().click({ force: true });
   }
+
+  clickRelativePoint(xPercentage: number, yPercentage: number) {
+    const x = (Cypress.config('viewportWidth') / 100) * xPercentage;
+    const y = (Cypress.config('viewportHeight') / 100) * yPercentage;
+    cy.getByTestId('modalMap').click(x, y);
+  }
 }
