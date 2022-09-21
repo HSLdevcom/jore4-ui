@@ -1,15 +1,15 @@
+import flow from 'lodash/flow';
+import identity from 'lodash/identity';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteRoute } from '../../../generated/graphql';
+import { stopBelongsToJourneyPattern } from '../../../graphql';
 import {
-  getEligibleStopsAlongRouteGeometry,
-  stopBelongsToJourneyPattern,
-} from '../../../graphql';
-import {
-  filterHighestPriorityCurrentStops,
+  getEligibleStopsAlongRoute,
   useEditRouteJourneyPattern,
   useObservationDateQueryParam,
 } from '../../../hooks';
+import { getHighestPriorityStopsEligibleForJourneyPattern } from '../../../hooks/routes/useRouteInfo';
 import { Priority } from '../../../types/Priority';
 import { showDangerToast, showSuccessToast } from '../../../utils';
 import { RouteStopsHeaderRow } from './RouteStopsHeaderRow';
@@ -42,32 +42,26 @@ export const RouteStopsSection = ({
 
   const { observationDate } = useObservationDateQueryParam();
 
-  const stopsAlongRoute = getEligibleStopsAlongRouteGeometry(route);
-
-  // Fetch the stop with highest priority that is valid on observation date.
-  // If route is draft, allow adding draft stops to it.
-  const highestPriorityStopInstances = filterHighestPriorityCurrentStops(
-    stopsAlongRoute,
-    observationDate,
-    route.priority === Priority.Draft,
+  /**
+   * Stops to display. Show the highest priority version of stops' valid instances.
+   * If "show unused stops" is selected, also show stops that are not in the journey pattern
+   * but are along route geometry.
+   */
+  const displayedStops = flow(
+    getEligibleStopsAlongRoute,
+    (stops) =>
+      getHighestPriorityStopsEligibleForJourneyPattern(
+        stops,
+        observationDate,
+        route.priority === Priority.Draft,
+      ),
+    showUnusedStops
+      ? identity // Return stops array unchanged
+      : (stops) =>
+          stops.filter((stop) =>
+            stopBelongsToJourneyPattern(stop, route.route_id),
+          ),
   );
-
-  const displayedStops = stopsAlongRoute.filter((item) => {
-    const belongsToJourneyPattern = stopBelongsToJourneyPattern(
-      item,
-      route.route_id,
-    );
-
-    // Only display one stop instance for each stop label.
-    const isHighestPriorityInstance = highestPriorityStopInstances?.find(
-      (stop) => item.scheduled_stop_point_id === stop.scheduled_stop_point_id,
-    );
-
-    return (
-      !!isHighestPriorityInstance &&
-      (belongsToJourneyPattern || showUnusedStops)
-    );
-  });
 
   const onAddToRoute = async (stopLabel: string) => {
     try {
