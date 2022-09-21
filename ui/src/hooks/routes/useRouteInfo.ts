@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import flow from 'lodash/flow';
 import { DateTime } from 'luxon';
 import {
-  RouteInfrastructureLinkAlongRoute,
   RouteMetadataFragment,
   RouteStopFieldsFragment,
   ScheduledStopPointDefaultFieldsFragment,
@@ -17,6 +16,7 @@ import {
 } from '../../redux';
 import { useAppSelector } from '../redux';
 import { filterHighestPriorityCurrentStops } from '../stops';
+import { mapInfrastructureLinksAlongRouteToRouteInfraLinks } from './useEditRouteJourneyPattern';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
 
@@ -55,14 +55,6 @@ const GQL_GET_LINKS_WITH_STOPS_BY_ROUTE_ID = gql`
     }
   }
 `;
-
-export const mapInfrastructureLinksAlongRouteToRouteInfraLinks = (
-  infraLinks: RouteInfrastructureLinkAlongRoute[],
-) =>
-  infraLinks?.map((link) => ({
-    ...link.infrastructure_link,
-    is_traversal_forwards: link.is_traversal_forwards,
-  })) || [];
 
 const mapInfraLinksAlongRouteWithStopsResultToRouteInfraLinks = flow(
   (result) => result.data?.route_infrastructure_link_along_route,

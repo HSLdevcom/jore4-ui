@@ -6,6 +6,7 @@ import {
   RouteStopFieldsFragment,
 } from '../../generated/graphql';
 import { RouteInfraLink } from '../../graphql';
+import { addOrRemoveStopLabelFromIncludedStops } from '../../hooks/stops/utils';
 import { mapToStoreType, StoreType } from '../mappers/storeType';
 
 interface IState {
@@ -86,7 +87,6 @@ export enum Mode {
   Draw,
   Edit,
 }
-
 const slice = createSlice({
   name: 'mapEditor',
   initialState,
@@ -156,9 +156,11 @@ const slice = createSlice({
 
       const oldIncludedStopLabels = state.editedRouteData.includedStopLabels;
 
-      const includedStopLabels = belongsToJourneyPattern
-        ? [...oldIncludedStopLabels, stopLabel]
-        : oldIncludedStopLabels.filter((label) => label !== stopLabel);
+      const includedStopLabels = addOrRemoveStopLabelFromIncludedStops(
+        oldIncludedStopLabels,
+        stopLabel,
+        belongsToJourneyPattern,
+      );
 
       state.editedRouteData = {
         ...state.editedRouteData,

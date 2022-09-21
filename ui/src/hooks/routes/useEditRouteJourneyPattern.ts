@@ -1,23 +1,25 @@
 import { flow } from 'lodash';
 import {
   JourneyPatternStopFragment,
+  RouteInfrastructureLinkAlongRoute,
   RouteRoute,
   RouteStopFieldsFragment,
+  StopWithJourneyPatternFieldsFragment,
   UpdateRouteJourneyPatternMutationVariables,
   useUpdateRouteJourneyPatternMutation,
 } from '../../generated/graphql';
-import { stopBelongsToJourneyPattern } from '../../graphql';
+import { RouteInfraLink, stopBelongsToJourneyPattern } from '../../graphql';
 import {
   buildStopSequence,
   mapRouteStopsToJourneyPatternStops,
   StoreType,
 } from '../../redux';
 import { removeFromApolloCache } from '../../utils';
+import { addOrRemoveStopLabelFromIncludedStops } from '../stops/utils';
 import {
   extractJourneyPatternCandidateStops,
   filterDistinctConsecutiveStops,
 } from './useExtractRouteFromFeature';
-import { mapInfrastructureLinksAlongRouteToRouteInfraLinks } from './useRouteInfo';
 import { useValidateRoute } from './useValidateRoute';
 
 interface DeleteStopParams {
@@ -33,6 +35,14 @@ interface UpdateJourneyPatternChanges {
   includedStopLabels: string[];
   journeyPatternStops: JourneyPatternStopFragment[];
 }
+
+export const mapInfrastructureLinksAlongRouteToRouteInfraLinks = (
+  infraLinks: RouteInfrastructureLinkAlongRoute[],
+): RouteInfraLink[] =>
+  infraLinks?.map((link) => ({
+    ...link.infrastructure_link,
+    is_traversal_forwards: link.is_traversal_forwards,
+  })) || [];
 
 export const getEligibleStopsAlongRoute = (route: RouteRoute) =>
   flow(
@@ -55,36 +65,40 @@ export const useEditRouteJourneyPattern = () => {
     stopBelongsToRoute: boolean,
   ) => {
     const { route, stopPointLabel } = params;
-    const stopsAlongRoute = getEligibleStopsAlongRoute(route);
 
-    const routeStops = stopsAlongRoute.filter((stop) => {
-      const isStopToEdit = stopPointLabel === stop.label;
+    const stopsEligibleForJourneyPattern = flow(
+      getEligibleStopsAlongRoute,
+      // If multiple versions of one stop is active, they are in the list, but
+      // only one version should be added to the journey pattern
+      filterDistinctConsecutiveStops,
+    )(route);
 
-      const belongsToRoute = isStopToEdit
-        ? stopBelongsToRoute
-        : stopBelongsToJourneyPattern(stop, route.route_id);
+    const includedStopLabels = flow(
+      // Filter out stops that do not belong to journey pattern and map stops to labels
+      (stops: StopWithJourneyPatternFieldsFragment[]) =>
+        stops
+          .filter((stop) => stopBelongsToJourneyPattern(stop, route.route_id))
+          .map((stop) => stop.label),
+      // Add or remove stop from label list
+      (stopLabels) =>
+        addOrRemoveStopLabelFromIncludedStops(
+          stopLabels,
+          stopPointLabel,
+          stopBelongsToRoute,
+        ),
+    )(stopsEligibleForJourneyPattern);
 
-      return belongsToRoute;
-    });
-
-    // If multiple versions of one stop is active, they are in the list, but
-    // only one version should be added to the journey pattern
-    const distinctConsecutiveRouteStops =
-      filterDistinctConsecutiveStops(routeStops);
-
-    validateStopCount(distinctConsecutiveRouteStops);
+    validateStopCount(includedStopLabels);
 
     const journeyPatternStops = mapRouteStopsToJourneyPatternStops(
-      routeStops,
+      stopsEligibleForJourneyPattern,
       route.route_id,
     );
 
     const changes: UpdateJourneyPatternChanges = {
       routeId: route.route_id,
-      stopsEligibleForJourneyPattern: routeStops,
-      includedStopLabels: distinctConsecutiveRouteStops.map(
-        (stop) => stop.label,
-      ),
+      stopsEligibleForJourneyPattern,
+      includedStopLabels,
       journeyPatternStops,
     };
 
