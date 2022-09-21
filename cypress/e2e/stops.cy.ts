@@ -32,9 +32,9 @@ describe('Stop tests', () => {
     () => {
       mapIemCreator.createStopAtLocation({
         stopFormInfo: { label: testStopLabel1 },
-        clickCoordinates: {
-          x: 435,
-          y: 334,
+        clickRelativePoint: {
+          xPercentage: 43.5,
+          yPercentage: 53,
         },
         validityStartISODate: '2022-01-01',
       });
@@ -62,9 +62,9 @@ describe('Stop tests', () => {
           latitude: '60.18083637150667',
           longitude: '24.9215054260969',
         },
-        clickCoordinates: {
-          x: 500,
-          y: 300,
+        clickRelativePoint: {
+          xPercentage: 50,
+          yPercentage: 45,
         },
         validityStartISODate: '2022-01-01',
       });
