@@ -7699,6 +7699,16 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
             validity_start?: luxon.DateTime | null | undefined;
             validity_end?: luxon.DateTime | null | undefined;
             priority: number;
+            other_label_instances: Array<{
+              __typename?: 'service_pattern_scheduled_stop_point';
+              priority: number;
+              direction: InfrastructureNetworkDirectionEnum;
+              scheduled_stop_point_id: UUID;
+              label: string;
+              validity_start?: luxon.DateTime | null | undefined;
+              validity_end?: luxon.DateTime | null | undefined;
+              located_on_infrastructure_link_id: UUID;
+            }>;
             scheduled_stop_point_in_journey_patterns: Array<{
               __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
               journey_pattern_id: UUID;
@@ -10310,6 +10320,9 @@ export const GetHighestPriorityLineDetailsWithRoutesDocument = gql`
               where: $routeStopFilters
             ) {
               ...scheduled_stop_point_all_fields
+              other_label_instances {
+                ...scheduled_stop_point_default_fields
+              }
               scheduled_stop_point_in_journey_patterns {
                 ...scheduled_stop_point_in_journey_pattern_all_fields
                 journey_pattern {
@@ -10326,6 +10339,7 @@ export const GetHighestPriorityLineDetailsWithRoutesDocument = gql`
   ${LineAllFieldsFragmentDoc}
   ${RouteAllFieldsFragmentDoc}
   ${ScheduledStopPointAllFieldsFragmentDoc}
+  ${ScheduledStopPointDefaultFieldsFragmentDoc}
   ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
 `;
 
