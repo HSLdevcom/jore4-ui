@@ -1,3 +1,4 @@
+import { flow } from 'lodash';
 import {
   JourneyPatternStopFragment,
   RouteRoute,
@@ -5,17 +6,18 @@ import {
   UpdateRouteJourneyPatternMutationVariables,
   useUpdateRouteJourneyPatternMutation,
 } from '../../generated/graphql';
-import {
-  getEligibleStopsAlongRouteGeometry,
-  stopBelongsToJourneyPattern,
-} from '../../graphql';
+import { stopBelongsToJourneyPattern } from '../../graphql';
 import {
   buildStopSequence,
   mapRouteStopsToJourneyPatternStops,
   StoreType,
 } from '../../redux';
 import { removeFromApolloCache } from '../../utils';
-import { filterDistinctConsecutiveStops } from './useExtractRouteFromFeature';
+import {
+  extractJourneyPatternCandidateStops,
+  filterDistinctConsecutiveStops,
+} from './useExtractRouteFromFeature';
+import { mapInfrastructureLinksAlongRouteToRouteInfraLinks } from './useRouteInfo';
 import { useValidateRoute } from './useValidateRoute';
 
 interface DeleteStopParams {
@@ -32,6 +34,14 @@ interface UpdateJourneyPatternChanges {
   journeyPatternStops: JourneyPatternStopFragment[];
 }
 
+export const getEligibleStopsAlongRoute = (route: RouteRoute) =>
+  flow(
+    (routeGeometry: RouteRoute) =>
+      routeGeometry.infrastructure_links_along_route,
+    mapInfrastructureLinksAlongRouteToRouteInfraLinks,
+    (links) => extractJourneyPatternCandidateStops(links, route),
+  )(route);
+
 /**
  * Hook for adding and removing single stops to route's journey pattern.
  */
@@ -45,7 +55,7 @@ export const useEditRouteJourneyPattern = () => {
     stopBelongsToRoute: boolean,
   ) => {
     const { route, stopPointLabel } = params;
-    const stopsAlongRoute = getEligibleStopsAlongRouteGeometry(route);
+    const stopsAlongRoute = getEligibleStopsAlongRoute(route);
 
     const routeStops = stopsAlongRoute.filter((stop) => {
       const isStopToEdit = stopPointLabel === stop.label;
