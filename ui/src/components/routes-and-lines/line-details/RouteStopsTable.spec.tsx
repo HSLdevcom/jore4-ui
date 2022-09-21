@@ -110,6 +110,24 @@ describe(`<${RouteStopsTable.name} />`, () => {
                             'journey_pattern_scheduled_stop_point_in_journey_pattern',
                         },
                       ],
+                      other_label_instances: [
+                        {
+                          direction: InfrastructureNetworkDirectionEnum.Forward,
+                          located_on_infrastructure_link_id:
+                            'c63b749f-5060-4710-8b07-ec9ac017cb5f',
+                          priority: 10,
+                          scheduled_stop_point_id:
+                            'e3528755-711f-4e4f-9461-7931a2c4bc6d',
+                          label: 'pysäkki A',
+                          validity_start: DateTime.fromISO(
+                            '2000-01-01T00:00:00+00:00',
+                          ),
+                          validity_end: DateTime.fromISO(
+                            '2050-12-13T00:00:00+00:00',
+                          ),
+                          __typename: 'service_pattern_scheduled_stop_point',
+                        },
+                      ],
                     },
                   ],
                   __typename: 'infrastructure_network_infrastructure_link',
@@ -139,6 +157,24 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       __typename: 'service_pattern_scheduled_stop_point',
                       direction: InfrastructureNetworkDirectionEnum.Forward,
                       scheduled_stop_point_in_journey_patterns: [],
+                      other_label_instances: [
+                        {
+                          direction: InfrastructureNetworkDirectionEnum.Forward,
+                          located_on_infrastructure_link_id:
+                            '2feba2ae-c7af-4034-a299-9e592e67358f',
+                          priority: 10,
+                          scheduled_stop_point_id:
+                            '4d294d62-df17-46ff-9248-23f66f17fa87',
+                          label: 'pysäkki B',
+                          validity_start: DateTime.fromISO(
+                            '2000-01-01T00:00:00+00:00',
+                          ),
+                          validity_end: DateTime.fromISO(
+                            '2050-12-13T00:00:00+00:00',
+                          ),
+                          __typename: 'service_pattern_scheduled_stop_point',
+                        },
+                      ],
                     },
                   ],
                   __typename: 'infrastructure_network_infrastructure_link',
@@ -180,6 +216,24 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           is_via_point: false,
                           __typename:
                             'journey_pattern_scheduled_stop_point_in_journey_pattern',
+                        },
+                      ],
+                      other_label_instances: [
+                        {
+                          direction: InfrastructureNetworkDirectionEnum.Forward,
+                          label: 'pysäkki C',
+                          located_on_infrastructure_link_id:
+                            'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
+                          priority: 10,
+                          scheduled_stop_point_id:
+                            'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
+                          validity_start: DateTime.fromISO(
+                            '2000-01-01T00:00:00+00:00',
+                          ),
+                          validity_end: DateTime.fromISO(
+                            '2050-12-13T00:00:00+00:00',
+                          ),
+                          __typename: 'service_pattern_scheduled_stop_point',
                         },
                       ],
                     },

@@ -75,7 +75,7 @@ const mapInfraLinksAlongRouteWithStopsResultToRouteInfraLinks = flow(
  * 2. we do not remove duplicate stops from the array, because same stop can be along the route
  * geometry multiple times (e.g. loop in the geometry)
  */
-const getHighestPriorityStopsEligibleForJourneyPattern = <
+export const getHighestPriorityStopsEligibleForJourneyPattern = <
   TStop extends ScheduledStopPointDefaultFieldsFragment,
 >(
   stopsEligibleForJourneyPattern: TStop[],
