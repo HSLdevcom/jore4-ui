@@ -105,6 +105,40 @@ export class MapItemCreator {
   };
 
   /**
+   * This creates stop at a location that is specified by percentages of the viewport'sg width and height.
+   */
+
+  createStopAtLocationByPercentages = ({
+    stopFormInfo,
+    clickRelativePoint,
+    priority = Priority.Standard,
+    validityStartISODate,
+    validityEndISODate,
+  }: {
+    stopFormInfo: StopFormInfo;
+    clickRelativePoint: { xPercentage: number; yPercentage: number };
+    priority?: Priority;
+    validityStartISODate: string;
+    validityEndISODate?: string;
+  }) => {
+    this.mapFooter.addStop();
+
+    this.map.clickRelativePoint(
+      clickRelativePoint.xPercentage,
+      clickRelativePoint.yPercentage,
+    );
+
+    this.stopForm.fillStopForm(stopFormInfo);
+
+    this.setPriority(priority);
+
+    this.confirmSaveForm.setStartDate(validityStartISODate);
+    this.setEndDate(validityEndISODate);
+
+    this.stopForm.save();
+  };
+
+  /**
    * Create route with UI by giving the necessary information for route creation. This
    * uses ClickPointNearStop array for the route points. This means that you give a stop
    * testId as the origin of the click and then 'right' and 'down' values of where you want
