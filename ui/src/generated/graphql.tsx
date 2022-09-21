@@ -7616,6 +7616,16 @@ export type GetLineDetailsWithRoutesByIdQuery = {
                     on_route_id: UUID;
                   };
                 }>;
+                other_label_instances: Array<{
+                  __typename?: 'service_pattern_scheduled_stop_point';
+                  priority: number;
+                  direction: InfrastructureNetworkDirectionEnum;
+                  scheduled_stop_point_id: UUID;
+                  label: string;
+                  validity_start?: luxon.DateTime | null | undefined;
+                  validity_end?: luxon.DateTime | null | undefined;
+                  located_on_infrastructure_link_id: UUID;
+                }>;
                 vehicle_mode_on_scheduled_stop_point: Array<{
                   __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
                   vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -10213,6 +10223,9 @@ export const GetLineDetailsWithRoutesByIdDocument = gql`
                   on_route_id
                 }
               }
+              other_label_instances {
+                ...scheduled_stop_point_default_fields
+              }
             }
           }
         }
@@ -10223,6 +10236,7 @@ export const GetLineDetailsWithRoutesByIdDocument = gql`
   ${RouteAllFieldsFragmentDoc}
   ${ScheduledStopPointAllFieldsFragmentDoc}
   ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+  ${ScheduledStopPointDefaultFieldsFragmentDoc}
 `;
 
 /**
