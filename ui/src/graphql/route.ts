@@ -197,6 +197,9 @@ const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
                   on_route_id
                 }
               }
+              other_label_instances {
+                ...scheduled_stop_point_default_fields
+              }
             }
           }
         }
@@ -230,6 +233,9 @@ const GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
               where: $routeStopFilters
             ) {
               ...scheduled_stop_point_all_fields
+              other_label_instances {
+                ...scheduled_stop_point_default_fields
+              }
               scheduled_stop_point_in_journey_patterns {
                 ...scheduled_stop_point_in_journey_pattern_all_fields
                 journey_pattern {
