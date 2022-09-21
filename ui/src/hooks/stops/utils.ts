@@ -13,3 +13,13 @@ export const getRoutesOfJourneyPatterns = (
   // so let's make sure we only return unique results
   return uniqBy(allRoutes, (route) => route.route_id);
 };
+
+export const addOrRemoveStopLabelFromIncludedStops = (
+  stops: string[],
+  stop: string,
+  belongsToJourneyPattern: boolean,
+) => {
+  return belongsToJourneyPattern
+    ? [...stops, stop]
+    : stops.filter((label) => label !== stop);
+};

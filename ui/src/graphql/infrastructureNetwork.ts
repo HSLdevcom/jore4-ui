@@ -2,6 +2,7 @@
 import { gql } from '@apollo/client';
 import {
   GetLinksWithStopsByExternalLinkIdsQuery,
+  InfraLinkAlongRouteWithStopsFragment,
   InfraLinkMatchingFieldsFragment,
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
@@ -29,6 +30,14 @@ export type RouteInfraLink = RouteInfraLinkFieldsFragment & {
   // eslint-disable-next-line camelcase
   is_traversal_forwards: boolean;
 };
+
+export const mapInfrastructureLinksAlongRouteToRouteInfraLinks = (
+  infraLinks: InfraLinkAlongRouteWithStopsFragment[],
+): RouteInfraLink[] =>
+  infraLinks?.map((link) => ({
+    ...link.infrastructure_link,
+    is_traversal_forwards: link.is_traversal_forwards,
+  })) || [];
 
 export const mapInfraLinksAlongRouteToGraphQL = (
   infraLinks: RouteInfraLink[],
