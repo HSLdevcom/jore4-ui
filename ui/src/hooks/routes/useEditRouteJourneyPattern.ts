@@ -1,9 +1,8 @@
-import { flow } from 'lodash';
+import { pipe } from 'remeda';
 import {
   JourneyPatternStopFragment,
   RouteRoute,
   RouteStopFieldsFragment,
-  StopWithJourneyPatternFieldsFragment,
   UpdateRouteJourneyPatternMutationVariables,
   useUpdateRouteJourneyPatternMutation,
 } from '../../generated/graphql';
@@ -39,12 +38,12 @@ interface UpdateJourneyPatternChanges {
 }
 
 export const getEligibleStopsAlongRoute = (route: RouteRoute) =>
-  flow(
-    (routeGeometry: RouteRoute) =>
-      routeGeometry.infrastructure_links_along_route,
+  pipe(
+    route,
+    (routeGeometry) => routeGeometry.infrastructure_links_along_route,
     mapInfrastructureLinksAlongRouteToRouteInfraLinks,
     (links) => extractJourneyPatternCandidateStops(links, route),
-  )(route);
+  );
 
 /**
  * Hook for adding and removing single stops to route's journey pattern.
@@ -61,16 +60,18 @@ export const useEditRouteJourneyPattern = () => {
     const { route, stopPointLabel } = params;
 
     // TODO: Get rid of stopsEligibleForJourneyPattern in this hook
-    const stopsEligibleForJourneyPattern = flow(
+    const stopsEligibleForJourneyPattern = pipe(
+      route,
       getEligibleStopsAlongRoute,
       // If multiple versions of one stop is active, they are in the list, but
       // only one version should be added to the journey pattern
       filterDistinctConsecutiveStops,
-    )(route);
+    );
 
-    const includedStopLabels = flow(
+    const includedStopLabels = pipe(
+      stopsEligibleForJourneyPattern,
       // Filter out stops that do not belong to journey pattern and map stops to labels
-      (stops: StopWithJourneyPatternFieldsFragment[]) =>
+      (stops) =>
         stops
           .filter((stop) => stopBelongsToJourneyPattern(stop, route.route_id))
           .map((stop) => stop.label),
@@ -81,7 +82,7 @@ export const useEditRouteJourneyPattern = () => {
           stopPointLabel,
           stopBelongsToRoute,
         ),
-    )(stopsEligibleForJourneyPattern);
+    );
 
     validateStopCount(includedStopLabels);
 

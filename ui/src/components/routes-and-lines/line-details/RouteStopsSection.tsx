@@ -1,7 +1,6 @@
-import flow from 'lodash/flow';
-import identity from 'lodash/identity';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { identity, pipe } from 'remeda';
 import { RouteRoute } from '../../../generated/graphql';
 import { stopBelongsToJourneyPattern } from '../../../graphql';
 import {
@@ -47,7 +46,8 @@ export const RouteStopsSection = ({
    * If "show unused stops" is selected, also show stops that are not in the journey pattern
    * but are along route geometry.
    */
-  const displayedStops = flow(
+  const displayedStops = pipe(
+    route,
     getEligibleStopsAlongRoute,
     (stops) =>
       getHighestPriorityStopsEligibleForJourneyPattern(
