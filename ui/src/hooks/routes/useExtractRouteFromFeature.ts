@@ -142,15 +142,6 @@ const validateStopInstancesAlongGeometry = (
 };
 
 /**
- * Removes all duplicate labeled consecutive stops from the list
- * This is used for example removing different versions of stops from the
- * journey pattern list where only the labels are shown
- */
-export const filterDistinctConsecutiveStops = <TStop extends { label: string }>(
-  stops: TStop[],
-) => stops.filter((stop, index) => stops[index - 1]?.label !== stop.label);
-
-/**
  * Finds all the stops along a route's geometry that are eligible to be part of the journey pattern
  * - only keeps stops that are on the correct side of the road
  * - only keeps stops that are compatible with the route's vehicle mode
