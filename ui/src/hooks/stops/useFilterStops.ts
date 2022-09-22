@@ -14,6 +14,7 @@ import {
 import { Priority } from '../../types/Priority';
 import { useAppDispatch, useAppSelector } from '../redux';
 import { useObservationDateQueryParam } from '../urlQuery';
+import { useVisibleRouteStops } from './useVisibleRouteStops';
 
 type StopFilterFunction = <
   TStop extends ScheduledStopPointDefaultFieldsFragment,
@@ -109,9 +110,16 @@ export const filterHighestPriorityCurrentStops = <
   );
 };
 
+const isStopInDisplayedRoutes = (
+  displayedRouteStopLabels: string[],
+  label: string,
+) => displayedRouteStopLabels.includes(label);
+
 export const useFilterStops = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+
+  const { visibleRouteStopLabels } = useVisibleRouteStops();
 
   const { stopFilters, showStopFilterOverlay } =
     useAppSelector(selectMapFilter);
@@ -223,32 +231,47 @@ export const useFilterStops = () => {
 
   const filter = useCallback(
     <TStop extends ScheduledStopPointDefaultFieldsFragment>(stops: TStop[]) => {
+      let filteredStops = [];
       // If "Show situation on the selected date" filter is selected,
       // ignore other filters
       if (isFilterActive(FilterType.ShowHighestPriorityCurrentStops)) {
-        return filterHighestPriorityCurrentStops(stops, observationDate);
+        filteredStops = filterHighestPriorityCurrentStops(
+          stops,
+          observationDate,
+        );
+      } else {
+        const timeBasedFilterFunctions =
+          mapFilterItemsToFilterFunctions(timeBasedFilterItems);
+        const priorityFilterFunctions =
+          mapFilterItemsToFilterFunctions(priorityFilterItems);
+
+        filteredStops = stops.filter(
+          (stop) =>
+            timeBasedFilterFunctions.some((filterFunction) =>
+              filterFunction(stop),
+            ) &&
+            priorityFilterFunctions.some((filterFunction) =>
+              filterFunction(stop),
+            ),
+        );
       }
 
-      const timeBasedFilterFunctions =
-        mapFilterItemsToFilterFunctions(timeBasedFilterItems);
-      const priorityFilterFunctions =
-        mapFilterItemsToFilterFunctions(priorityFilterItems);
-
-      return stops.filter(
+      /**
+       * Filter out stops that don't belong to any displayed route, if
+       * "Show all stops" -filter is not active
+       */
+      return filteredStops.filter(
         (stop) =>
-          timeBasedFilterFunctions.some((filterFunction) =>
-            filterFunction(stop),
-          ) &&
-          priorityFilterFunctions.some((filterFunction) =>
-            filterFunction(stop),
-          ),
+          isFilterActive(FilterType.ShowAllBusStops) ||
+          isStopInDisplayedRoutes(visibleRouteStopLabels, stop.label),
       );
     },
     [
       isFilterActive,
-      priorityFilterItems,
       timeBasedFilterItems,
+      priorityFilterItems,
       observationDate,
+      visibleRouteStopLabels,
     ],
   );
 
@@ -262,5 +285,7 @@ export const useFilterStops = () => {
     priorityFilterItems,
     highestPriorityCurrentFilterItem,
     toggleShowFilters,
+    toggleFunction,
+    isFilterActive,
   };
 };

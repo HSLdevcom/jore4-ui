@@ -45,6 +45,14 @@ const GQL_DISPLAYED_ROUTE = gql`
     validity_end
     priority
     direction
+    route_journey_patterns {
+      journey_pattern_id
+      scheduled_stop_point_in_journey_patterns {
+        journey_pattern_id
+        scheduled_stop_point_label
+        scheduled_stop_point_sequence
+      }
+    }
   }
 `;
 
@@ -131,5 +139,6 @@ export const useGetDisplayedRoutes = () => {
 
   return {
     displayedRouteIds: displayedRoutes.map((route) => route.route_id),
+    displayedRoutes,
   };
 };
