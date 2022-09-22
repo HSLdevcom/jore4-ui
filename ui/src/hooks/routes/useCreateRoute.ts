@@ -6,10 +6,10 @@ import {
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
 import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
-import { buildStopSequence } from '../../redux';
 import { RouteGeometry } from '../../redux/types';
 import { MIN_DATE } from '../../time';
 import {
+  buildStopSequence,
   mapToObject,
   removeFromApolloCache,
   showDangerToastWithError,

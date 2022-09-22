@@ -7,9 +7,12 @@ import {
   useUpdateRouteGeometryMutation,
 } from '../../generated/graphql';
 import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
-import { buildStopSequence } from '../../redux';
 import { RouteGeometry } from '../../redux/types';
-import { removeFromApolloCache, showDangerToastWithError } from '../../utils';
+import {
+  buildStopSequence,
+  removeFromApolloCache,
+  showDangerToastWithError,
+} from '../../utils';
 import { useValidateRoute } from './useValidateRoute';
 
 interface EditParams {
