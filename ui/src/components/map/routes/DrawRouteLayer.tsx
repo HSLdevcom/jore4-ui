@@ -37,7 +37,6 @@ import {
   useLoader,
 } from '../../../hooks';
 import {
-  mapRouteStopsToJourneyPatternStops,
   Mode,
   Operation,
   resetDraftRouteGeometryAction,
