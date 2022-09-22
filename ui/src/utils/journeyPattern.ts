@@ -2,9 +2,17 @@ import {
   JourneyPatternStopFragment,
   RouteStopFieldsFragment,
   StopWithJourneyPatternFieldsFragment,
-} from '../../generated/graphql';
-import { filterDistinctConsecutiveStops } from '../../hooks/routes/useExtractRouteFromFeature';
-import { StoreType } from './storeType';
+} from '../generated/graphql';
+import { StoreType } from '../redux/mappers/storeType';
+
+/**
+ * Removes all duplicate labeled consecutive stops from the list
+ * This is used for example removing different versions of stops from the
+ * journey pattern list where only the labels are shown
+ */
+export const filterDistinctConsecutiveStops = <TStop extends { label: string }>(
+  stops: TStop[],
+) => stops.filter((stop, index) => stops[index - 1]?.label !== stop.label);
 
 /**
  * Maps a stop to a stop in journey pattern that can be used when
