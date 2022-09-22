@@ -37,7 +37,6 @@ import {
   useLoader,
 } from '../../../hooks';
 import {
-  mapRouteStopsToJourneyPatternStops,
   Mode,
   Operation,
   resetDraftRouteGeometryAction,
@@ -48,7 +47,11 @@ import {
   stopRouteEditingAction,
 } from '../../../redux';
 import { parseDate } from '../../../time';
-import { log, showToast } from '../../../utils';
+import {
+  log,
+  mapRouteStopsToJourneyPatternStops,
+  showToast,
+} from '../../../utils';
 import { addRoute, removeRoute } from '../../../utils/map';
 import { featureStyle, handleStyle } from './editorStyles';
 
