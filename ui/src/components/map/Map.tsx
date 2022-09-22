@@ -3,10 +3,12 @@ import { HTMLOverlay, Layer, MapEvent } from 'react-map-gl';
 import {
   useAppDispatch,
   useAppSelector,
+  useFilterStops,
   useGetDisplayedRoutes,
 } from '../../hooks';
 import { Column } from '../../layoutComponents';
 import {
+  FilterType,
   selectHasDraftRouteGeometry,
   selectIsCreateStopModeEnabled,
   selectIsMoveStopModeEnabled,
@@ -63,7 +65,7 @@ export const MapComponent = (
 
   const [showInfraLinks, setShowInfraLinks] = useState(false);
   const [showRoute, setShowRoute] = useState(true);
-  const [showStops, setShowStops] = useState(true);
+  const { toggleFunction, isFilterActive } = useFilterStops();
 
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
   const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
@@ -143,7 +145,7 @@ export const MapComponent = (
       onClick={onClick}
       className={className}
     >
-      {showStops && <Stops ref={stopsRef} />}
+      <Stops ref={stopsRef} />
       <HTMLOverlay
         style={{
           width: 'auto',
@@ -170,8 +172,8 @@ export const MapComponent = (
                 stops={[
                   {
                     iconClassName: 'icon-bus',
-                    active: showStops,
-                    onToggle: setShowStops,
+                    active: isFilterActive(FilterType.ShowAllBusStops),
+                    onToggle: toggleFunction(FilterType.ShowAllBusStops),
                     testId: 'FilterPanel::toggleShowAllBusStops',
                   },
                   ...placeholderToggles,

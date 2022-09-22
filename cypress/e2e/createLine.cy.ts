@@ -1,5 +1,5 @@
 import { ConfirmSaveForm, LineForm } from '../pageObjects';
-import { deleteLineByLabel } from './utils/db-utils';
+import { deleteLineByLabel } from './utils';
 
 const testLabel = '7327';
 describe('Verify that creating new line works', () => {
