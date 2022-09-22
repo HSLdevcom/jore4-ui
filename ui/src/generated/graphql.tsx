@@ -8790,6 +8790,16 @@ export type GetLineRoutesByLabelQuery = {
       validity_end?: luxon.DateTime | null | undefined;
       priority: number;
       direction: RouteDirectionEnum;
+      route_journey_patterns: Array<{
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_in_journey_patterns: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          journey_pattern_id: UUID;
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+        }>;
+      }>;
     }>;
   }>;
 };
@@ -8808,6 +8818,16 @@ export type GetRouteByFiltersQuery = {
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
     direction: RouteDirectionEnum;
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_label: string;
+        scheduled_stop_point_sequence: number;
+      }>;
+    }>;
   }>;
 };
 
@@ -8819,6 +8839,16 @@ export type DisplayedRouteFragment = {
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
   direction: RouteDirectionEnum;
+  route_journey_patterns: Array<{
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+    scheduled_stop_point_in_journey_patterns: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+    }>;
+  }>;
 };
 
 export type SearchLinesAndRoutesQueryVariables = Exact<{
@@ -9237,6 +9267,14 @@ export const DisplayedRouteFragmentDoc = gql`
     validity_end
     priority
     direction
+    route_journey_patterns {
+      journey_pattern_id
+      scheduled_stop_point_in_journey_patterns {
+        journey_pattern_id
+        scheduled_stop_point_label
+        scheduled_stop_point_sequence
+      }
+    }
   }
 `;
 export const LineForComboboxFragmentDoc = gql`
