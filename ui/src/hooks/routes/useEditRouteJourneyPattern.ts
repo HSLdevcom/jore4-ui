@@ -10,17 +10,15 @@ import {
   mapInfrastructureLinksAlongRouteToRouteInfraLinks,
   stopBelongsToJourneyPattern,
 } from '../../graphql';
+import { StoreType } from '../../redux';
 import {
   buildStopSequence,
-  mapRouteStopsToJourneyPatternStops,
-  StoreType,
-} from '../../redux';
-import { removeFromApolloCache } from '../../utils';
-import { addOrRemoveStopLabelFromIncludedStops } from '../stops/utils';
-import {
-  extractJourneyPatternCandidateStops,
   filterDistinctConsecutiveStops,
-} from './useExtractRouteFromFeature';
+  mapRouteStopsToJourneyPatternStops,
+  removeFromApolloCache,
+} from '../../utils';
+import { addOrRemoveStopLabelFromIncludedStops } from '../stops/utils';
+import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
 import { useValidateRoute } from './useValidateRoute';
 
 interface DeleteStopParams {
