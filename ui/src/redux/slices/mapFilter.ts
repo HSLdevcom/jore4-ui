@@ -8,6 +8,7 @@ export enum FilterType {
   ShowTemporaryStops = 'show-temporary-stops',
   ShowDraftStops = 'show-draft-stops',
   ShowHighestPriorityCurrentStops = 'show-highest-priority-current-stops',
+  ShowAllBusStops = 'show-all-bus-stops',
 }
 
 export interface IState {
@@ -27,6 +28,7 @@ const initialState: IState = {
     [FilterType.ShowTemporaryStops]: true,
     [FilterType.ShowDraftStops]: false,
     [FilterType.ShowHighestPriorityCurrentStops]: true,
+    [FilterType.ShowAllBusStops]: false,
   },
 };
 

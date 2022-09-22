@@ -1,8 +1,12 @@
-import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
+import {
+  ReusableComponentsVehicleModeEnum,
+  RouteDirectionEnum,
+} from '@hsl/jore4-test-db-manager';
 import { Map, RouteEditor } from '../pageObjects';
+import { FilterPanel } from '../pageObjects/FilterPanel';
 import { MapItemCreator } from '../pageObjects/MapItemCreator';
 import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
-import { deleteRoutesByLabel } from './utils/db-utils';
+import { deleteRoutesByLabel } from './utils';
 
 describe('Route creation', () => {
   let mapCreator: MapItemCreator;
@@ -12,6 +16,8 @@ describe('Route creation', () => {
 
   beforeEach(() => {
     mapCreator = new MapItemCreator();
+    const mapFilterPanel = new FilterPanel();
+
     map = new Map();
     routeStopsOverlay = new RouteStopsOverlay();
     routeEditor = new RouteEditor();
@@ -21,6 +27,9 @@ describe('Route creation', () => {
     cy.visit(
       '/routes?mapOpen=true&lng=24.93021804533524&lat=60.164074274478054&z=15',
     );
+
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
     map.waitForMapToLoad();
   });
 
