@@ -3,8 +3,10 @@ import { ConfirmSaveForm } from './ConfirmSaveForm';
 import { ClickPointNearMapMarker, Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { RouteFormInfo, RoutePropertiesForm } from './RoutePropertiesForm';
+import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopForm, StopFormInfo } from './StopForm';
 import { TerminusNameInputs } from './TerminusNameInputs';
+import { Toast } from './Toast';
 
 export class MapItemCreator {
   map = new Map();
@@ -18,6 +20,10 @@ export class MapItemCreator {
   confirmSaveForm = new ConfirmSaveForm();
 
   stopForm = new StopForm();
+
+  routeStopsOverlay = new RouteStopsOverlay();
+
+  toast = new Toast();
 
   setPriority = (priority: Priority) => {
     switch (priority) {
@@ -119,12 +125,14 @@ export class MapItemCreator {
     validityStartISODate,
     validityEndISODate,
     routePoints,
+    omittedStops,
   }: {
     routeFormInfo: RouteFormInfo;
     priority?: Priority;
     validityStartISODate: string;
     validityEndISODate?: string;
     routePoints: ClickPointNearMapMarker[];
+    omittedStops?: string[];
   }) => {
     this.mapFooter.createRoute();
 
@@ -157,6 +165,25 @@ export class MapItemCreator {
 
     const lastSnappingPointHandleIndex = routePoints.length - 1;
     this.map.clickNthSnappingPointHandle(lastSnappingPointHandleIndex);
+    if (omittedStops) {
+      this.routeStopsOverlay.removeStopsFromRoute(omittedStops);
+    }
+
     this.mapFooter.save();
   };
+
+  gqlRouteShouldBeCreatedSuccessfully() {
+    return cy
+      .wait('@gqlInsertRouteOne')
+      .its('response.statusCode')
+      .should('equal', 200);
+  }
+
+  checkRouteSubmitSuccess() {
+    this.toast.checkSuccessToastHasMessage('Reitti tallennettu');
+  }
+
+  checkRouteSubmitFailure() {
+    this.toast.checkDangerToastHasMessage('Tallennus epäonnistui');
+  }
 }

@@ -11,15 +11,11 @@ export class Toast {
     return cy.getByTestId('danger-toast');
   }
 
-  checkLineSubmitSuccess() {
-    this.getSuccessToast().contains('Linja tallennettu').should('be.visible');
+  checkDangerToastHasMessage(message: string) {
+    this.getDangerToast().contains(message);
   }
 
-  checkRouteSubmitSuccess() {
-    this.getSuccessToast().contains('Reitti tallennettu').should('be.visible');
-  }
-
-  checkStopSubmitSuccess() {
-    this.getSuccessToast().contains('Pysäkki luotu').should('be.visible');
+  checkSuccessToastHasMessage(message: string) {
+    this.getSuccessToast().contains(message);
   }
 }

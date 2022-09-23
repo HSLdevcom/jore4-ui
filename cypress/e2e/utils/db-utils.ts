@@ -3,9 +3,11 @@ export const deleteLineByLabel = (label: string) => {
   cy.task('executeRawDbQuery', { query, bindings: label });
 };
 
-export const deleteRouteByLabel = (label: string) => {
-  const query = 'DELETE FROM "route"."route" WHERE label=?';
-  cy.task('executeRawDbQuery', { query, bindings: label });
+export const deleteRoutesByLabel = (labels: string[]) => {
+  labels.forEach((label) => {
+    const query = 'DELETE FROM "route"."route" WHERE label=?';
+    cy.task('executeRawDbQuery', { query, bindings: label });
+  });
 };
 
 export const deleteStopByLabel = (label: string) => {

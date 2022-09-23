@@ -45,4 +45,8 @@ export class LineForm {
   cancel() {
     return cy.getByTestId('LineForm::cancelButton').click();
   }
+
+  checkLineSubmitSuccess() {
+    this.toast.checkSuccessToastHasMessage('Linja tallennettu');
+  }
 }
