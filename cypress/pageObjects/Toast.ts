@@ -12,14 +12,18 @@ export class Toast {
   }
 
   checkLineSubmitSuccess() {
-    this.getSuccessToast().contains('Linja tallennettu').should('be.visible');
+    this.getSuccessToast().contains('Linja tallennettu');
   }
 
   checkRouteSubmitSuccess() {
-    this.getSuccessToast().contains('Reitti tallennettu').should('be.visible');
+    this.getSuccessToast().contains('Reitti tallennettu');
   }
 
   checkStopSubmitSuccess() {
-    this.getSuccessToast().contains('Pysäkki luotu').should('be.visible');
+    this.getSuccessToast().contains('Pysäkki luotu');
+  }
+
+  checkRouteSubmitFailure() {
+    this.getDangerToast().contains('Tallennus epäonnistui');
   }
 }
