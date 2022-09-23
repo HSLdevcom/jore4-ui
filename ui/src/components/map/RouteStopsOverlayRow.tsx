@@ -10,8 +10,17 @@ interface Props {
   isReadOnly?: boolean;
 }
 
-const testId = {
+const rowTestId = {
   generate: (label: string) => `RouteStopsOverlayRow::${label}`,
+};
+
+const menuButtonTestId = {
+  generate: (label: string) => `RouteStopsOverlayRow::${label}::menu`,
+};
+
+const addToJourneyPatternButtonTestId = {
+  generate: (label: string) =>
+    `RouteStopsOverlayRow::${label}::menu::addToJourneyPatternButton`,
 };
 
 export const RouteStopsOverlayRow = ({
@@ -35,7 +44,7 @@ export const RouteStopsOverlayRow = ({
   return (
     <div
       className="flex h-10 items-center justify-between border-b p-2"
-      data-testid={testId.generate(stopMetadata.label)}
+      data-testid={rowTestId.generate(stopMetadata.label)}
     >
       <div className="flex items-center">
         <div className="w-10">
@@ -55,10 +64,16 @@ export const RouteStopsOverlayRow = ({
       </div>
       {!isReadOnly && (
         <div className="text-tweaked-brand">
-          <SimpleDropdownMenu alignItems={AlignDirection.Left}>
+          <SimpleDropdownMenu
+            alignItems={AlignDirection.Left}
+            testId={menuButtonTestId.generate(stopMetadata.label)}
+          >
             <button
               type="button"
               onClick={() => setOnRoute(!belongsToJourneyPattern)}
+              data-testid={addToJourneyPatternButtonTestId.generate(
+                stopMetadata.label,
+              )}
             >
               {belongsToJourneyPattern
                 ? t('stops.removeFromRoute')

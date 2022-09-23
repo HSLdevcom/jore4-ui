@@ -1,15 +1,20 @@
 import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
-import { Map } from '../pageObjects';
+import { Map, RouteEditor } from '../pageObjects';
 import { MapItemCreator } from '../pageObjects/MapItemCreator';
-import { deleteRouteByLabel } from './utils/db-utils';
+import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
+import { deleteRoutesByLabel } from './utils/db-utils';
 
-describe('Should create new route', () => {
+describe('Route creation', () => {
   let mapCreator: MapItemCreator;
   let map: Map;
+  let routeStopsOverlay: RouteStopsOverlay;
+  let routeEditor: RouteEditor;
 
   beforeEach(() => {
     mapCreator = new MapItemCreator();
     map = new Map();
+    routeStopsOverlay = new RouteStopsOverlay();
+    routeEditor = new RouteEditor();
     cy.setupTests();
     cy.mockLogin();
 
@@ -19,19 +24,30 @@ describe('Should create new route', () => {
     map.waitForMapToLoad();
   });
 
-  const testRouteLabel = 'T-reitti 1';
+  const testRouteLabels = {
+    label1: 'T-reitti 1',
+    label2: 'T-reitti 2',
+    label3: 'T-reitti 3',
+  };
 
   // TODO: These stops (H1234, 1236) are currently coming from seed data and
   // stops used by tests will be populated with test-db-manager in the future
-  const testStopId1 = 'Map::Stops::stopMarker::H1234_Standard';
-  const testStopId2 = 'Map::Stops::stopMarker::H1236_Standard';
+
+  const testStop1 = {
+    testId: 'Map::Stops::stopMarker::H1234_Standard',
+    label: 'H1234',
+  };
+  const testStop2 = {
+    testId: 'Map::Stops::stopMarker::H1236_Standard',
+    label: 'H1236',
+  };
 
   beforeEach(() => {
-    deleteRouteByLabel(testRouteLabel);
+    deleteRoutesByLabel(Object.values(testRouteLabels));
   });
 
   after(() => {
-    deleteRouteByLabel(testRouteLabel);
+    deleteRoutesByLabel(Object.values(testRouteLabels));
   });
 
   it(
@@ -39,10 +55,11 @@ describe('Should create new route', () => {
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
     () => {
       const routeName = 'Testireitti 1';
+
       mapCreator.createRoute({
         routeFormInfo: {
           finnishName: routeName,
-          label: testRouteLabel,
+          label: testRouteLabels.label1,
           direction: RouteDirectionEnum.Outbound,
           line: '65',
         },
@@ -52,28 +69,95 @@ describe('Should create new route', () => {
           {
             rightOffset: -10,
             downOffset: 25,
-            mapMarkerTestId: testStopId1,
+            mapMarkerTestId: testStop1.testId,
           },
           {
             rightOffset: 35,
             downOffset: -20,
-            mapMarkerTestId: testStopId2,
+            mapMarkerTestId: testStop2.testId,
           },
         ],
       });
 
-      // waiting for the success toast is not reliable, thus waiting for the graphql request success instead
-      // TODO: Currently 'toast.checkRouteSubmitSuccess()' doesn't work because
-      // cypress on chrome can't find the toast messages for some reason. Find out why this is and add
-      // assertion for the toast message
-      cy.wait('@gqlInsertRouteOne')
-        .its('response.statusCode')
-        .should('equal', 200);
+      routeEditor.gqlRouteShouldBeCreatedSuccessfully();
 
-      cy.getByTestId('RouteStopsOverlay::mapOverlayHeader')
-        .get('div')
-        .contains(routeName)
-        .should('exist');
+      routeEditor.checkRouteSubmitSuccess();
+
+      routeStopsOverlay.routeShouldExist(routeName);
+    },
+  );
+
+  it(
+    'Should create a new route and leave out one stop',
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    () => {
+      const routeName = 'Testireitti 2';
+      const omittedStopsLabels = ['H1235'];
+      mapCreator.createRoute({
+        routeFormInfo: {
+          finnishName: routeName,
+          label: testRouteLabels.label2,
+          direction: RouteDirectionEnum.Outbound,
+          line: '65',
+        },
+        validityStartISODate: '2022-01-01',
+        validityEndISODate: '2022-12-01',
+        routePoints: [
+          {
+            rightOffset: -10,
+            downOffset: 25,
+            mapMarkerTestId: testStop1.testId,
+          },
+          {
+            rightOffset: 35,
+            downOffset: -20,
+            mapMarkerTestId: testStop2.testId,
+          },
+        ],
+        omittedStops: omittedStopsLabels,
+      });
+
+      routeEditor.gqlRouteShouldBeCreatedSuccessfully();
+
+      routeEditor.checkRouteSubmitSuccess();
+
+      routeStopsOverlay.routeShouldExist(routeName);
+
+      routeStopsOverlay.stopsShouldNotBeIncludedInRoute(omittedStopsLabels);
+    },
+  );
+
+  it(
+    'Should not let the user create a route with only one stop',
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    () => {
+      const routeName = 'Testireitti 3';
+      const omittedStopsLabels = ['H1235', 'H1234'];
+      mapCreator.createRoute({
+        routeFormInfo: {
+          finnishName: routeName,
+          label: testRouteLabels.label3,
+          direction: RouteDirectionEnum.Outbound,
+          line: '65',
+        },
+        validityStartISODate: '2022-01-01',
+        validityEndISODate: '2022-12-01',
+        routePoints: [
+          {
+            rightOffset: -10,
+            downOffset: 25,
+            mapMarkerTestId: testStop1.testId,
+          },
+          {
+            rightOffset: 35,
+            downOffset: -20,
+            mapMarkerTestId: testStop2.testId,
+          },
+        ],
+        omittedStops: omittedStopsLabels,
+      });
+
+      routeEditor.checkRouteSubmitFailure();
     },
   );
 });

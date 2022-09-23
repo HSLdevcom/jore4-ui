@@ -1,15 +1,13 @@
-import { ConfirmSaveForm, LineForm, Toast } from '../pageObjects';
+import { ConfirmSaveForm, LineForm } from '../pageObjects';
 import { deleteLineByLabel } from './utils/db-utils';
 
 const testLabel = '7327';
 describe('Verify that creating new line works', () => {
   let lineForm: LineForm;
   let confirmSaveForm: ConfirmSaveForm;
-  let toast: Toast;
   beforeEach(() => {
     lineForm = new LineForm();
     confirmSaveForm = new ConfirmSaveForm();
-    toast = new Toast();
 
     cy.setupTests();
     cy.mockLogin();
@@ -33,6 +31,6 @@ describe('Verify that creating new line works', () => {
     confirmSaveForm.setEndDate('2022-12-31');
 
     lineForm.save();
-    toast.checkLineSubmitSuccess();
+    lineForm.checkLineSubmitSuccess();
   });
 });

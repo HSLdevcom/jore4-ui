@@ -3,6 +3,7 @@ import { ConfirmSaveForm } from './ConfirmSaveForm';
 import { ClickPointNearMapMarker, Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { RouteFormInfo, RoutePropertiesForm } from './RoutePropertiesForm';
+import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopForm, StopFormInfo } from './StopForm';
 import { TerminusNameInputs } from './TerminusNameInputs';
 
@@ -18,6 +19,8 @@ export class MapItemCreator {
   confirmSaveForm = new ConfirmSaveForm();
 
   stopForm = new StopForm();
+
+  routeStopsOverlay = new RouteStopsOverlay();
 
   setPriority = (priority: Priority) => {
     switch (priority) {
@@ -119,12 +122,14 @@ export class MapItemCreator {
     validityStartISODate,
     validityEndISODate,
     routePoints,
+    omittedStops,
   }: {
     routeFormInfo: RouteFormInfo;
     priority?: Priority;
     validityStartISODate: string;
     validityEndISODate?: string;
     routePoints: ClickPointNearMapMarker[];
+    omittedStops?: string[];
   }) => {
     this.mapFooter.createRoute();
 
@@ -157,6 +162,10 @@ export class MapItemCreator {
 
     const lastSnappingPointHandleIndex = routePoints.length - 1;
     this.map.clickNthSnappingPointHandle(lastSnappingPointHandleIndex);
+    if (omittedStops) {
+      this.routeStopsOverlay.removeStopsFromRoute(omittedStops);
+    }
+
     this.mapFooter.save();
   };
 }
