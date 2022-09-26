@@ -49,7 +49,7 @@ import {
 import { parseDate } from '../../../time';
 import {
   log,
-  mapRouteStopsToJourneyPatternStops,
+  mapStopInJourneyPatternToJourneyPatternStop,
   showToast,
 } from '../../../utils';
 import { addRoute, removeRoute } from '../../../utils/map';
@@ -242,8 +242,9 @@ const DrawRouteLayerComponent = (
      */
     if (baseRoute) {
       const journeyPatternStops =
-        baseRoute.route_journey_patterns[0]
-          .scheduled_stop_point_in_journey_patterns;
+        baseRoute.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns.map(
+          mapStopInJourneyPatternToJourneyPatternStop,
+        );
 
       dispatch(setDraftRouteJourneyPatternStopsAction(journeyPatternStops));
     }
