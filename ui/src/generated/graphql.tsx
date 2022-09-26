@@ -6895,6 +6895,89 @@ export type RouteMetadataFragment = {
   direction: RouteDirectionEnum;
 };
 
+export type GetRouteWithInfrastructureLinksQueryVariables = Exact<{
+  route_id: Scalars['uuid'];
+}>;
+
+export type GetRouteWithInfrastructureLinksQuery = {
+  __typename?: 'query_root';
+  route_route_by_pk?:
+    | {
+        __typename?: 'route_route';
+        route_id: UUID;
+        name_i18n: LocalizedString;
+        description_i18n?: LocalizedString | null | undefined;
+        origin_name_i18n: LocalizedString;
+        origin_short_name_i18n: LocalizedString;
+        destination_name_i18n: LocalizedString;
+        destination_short_name_i18n: LocalizedString;
+        route_shape?: GeoJSON.LineString | null | undefined;
+        on_line_id: UUID;
+        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null | undefined;
+        priority: number;
+        label: string;
+        direction: RouteDirectionEnum;
+        route_line: {
+          __typename?: 'route_line';
+          line_id: UUID;
+          name_i18n: LocalizedString;
+          short_name_i18n: LocalizedString;
+          primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+          type_of_line: RouteTypeOfLineEnum;
+          transport_target: HslRouteTransportTargetEnum;
+          validity_start?: luxon.DateTime | null | undefined;
+          validity_end?: luxon.DateTime | null | undefined;
+          priority: number;
+          label: string;
+        };
+        infrastructure_links_along_route: Array<{
+          __typename?: 'route_infrastructure_link_along_route';
+          route_id: UUID;
+          infrastructure_link_sequence: number;
+          infrastructure_link_id: UUID;
+          is_traversal_forwards: boolean;
+          infrastructure_link: {
+            __typename?: 'infrastructure_network_infrastructure_link';
+            infrastructure_link_id: UUID;
+            shape: GeoJSON.LineString;
+          };
+        }>;
+        route_journey_patterns: Array<{
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+          scheduled_stop_point_in_journey_patterns: Array<{
+            __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+            journey_pattern_id: UUID;
+            scheduled_stop_point_label: string;
+            scheduled_stop_point_sequence: number;
+            is_timing_point: boolean;
+            is_via_point: boolean;
+            via_point_name_i18n?: LocalizedString | null | undefined;
+            via_point_short_name_i18n?: LocalizedString | null | undefined;
+            scheduled_stop_points: Array<{
+              __typename?: 'service_pattern_scheduled_stop_point';
+              priority: number;
+              direction: InfrastructureNetworkDirectionEnum;
+              scheduled_stop_point_id: UUID;
+              label: string;
+              validity_start?: luxon.DateTime | null | undefined;
+              validity_end?: luxon.DateTime | null | undefined;
+              located_on_infrastructure_link_id: UUID;
+            }>;
+            journey_pattern: {
+              __typename?: 'journey_pattern_journey_pattern';
+              journey_pattern_id: UUID;
+              on_route_id: UUID;
+            };
+          }>;
+        }>;
+      }
+    | null
+    | undefined;
+};
+
 export type StopPopupInfoFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
   label: string;
@@ -9435,6 +9518,65 @@ export const JourneyPatternStopFragmentDoc = gql`
     via_point_short_name_i18n
   }
 `;
+export const GetRouteWithInfrastructureLinksDocument = gql`
+  query GetRouteWithInfrastructureLinks($route_id: uuid!) {
+    route_route_by_pk(route_id: $route_id) {
+      ...route_with_infrastructure_links
+    }
+  }
+  ${RouteWithInfrastructureLinksFragmentDoc}
+`;
+
+/**
+ * __useGetRouteWithInfrastructureLinksQuery__
+ *
+ * To run a query within a React component, call `useGetRouteWithInfrastructureLinksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteWithInfrastructureLinksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRouteWithInfrastructureLinksQuery({
+ *   variables: {
+ *      route_id: // value for 'route_id'
+ *   },
+ * });
+ */
+export function useGetRouteWithInfrastructureLinksQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetRouteWithInfrastructureLinksQuery,
+    GetRouteWithInfrastructureLinksQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRouteWithInfrastructureLinksQuery,
+    GetRouteWithInfrastructureLinksQueryVariables
+  >(GetRouteWithInfrastructureLinksDocument, options);
+}
+export function useGetRouteWithInfrastructureLinksLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRouteWithInfrastructureLinksQuery,
+    GetRouteWithInfrastructureLinksQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRouteWithInfrastructureLinksQuery,
+    GetRouteWithInfrastructureLinksQueryVariables
+  >(GetRouteWithInfrastructureLinksDocument, options);
+}
+export type GetRouteWithInfrastructureLinksQueryHookResult = ReturnType<
+  typeof useGetRouteWithInfrastructureLinksQuery
+>;
+export type GetRouteWithInfrastructureLinksLazyQueryHookResult = ReturnType<
+  typeof useGetRouteWithInfrastructureLinksLazyQuery
+>;
+export type GetRouteWithInfrastructureLinksQueryResult = Apollo.QueryResult<
+  GetRouteWithInfrastructureLinksQuery,
+  GetRouteWithInfrastructureLinksQueryVariables
+>;
 export const QueryClosestLinkDocument = gql`
   query QueryClosestLink($point: geography) {
     infrastructure_network_resolve_point_to_closest_link(
@@ -12397,6 +12539,15 @@ export type GetSelectedRouteDetailsByIdQueryResult = Apollo.QueryResult<
   GetSelectedRouteDetailsByIdQueryVariables
 >;
 
+export function useGetRouteWithInfrastructureLinksAsyncQuery() {
+  return useAsyncQuery<
+    GetRouteWithInfrastructureLinksQuery,
+    GetRouteWithInfrastructureLinksQueryVariables
+  >(GetRouteWithInfrastructureLinksDocument);
+}
+export type GetRouteWithInfrastructureLinksAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteWithInfrastructureLinksAsyncQuery
+>;
 export function useQueryClosestLinkAsyncQuery() {
   return useAsyncQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(
     QueryClosestLinkDocument,

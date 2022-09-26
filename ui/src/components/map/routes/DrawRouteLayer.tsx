@@ -1,3 +1,4 @@
+import { gql } from '@apollo/client';
 import { Feature } from '@nebula.gl/edit-modes';
 import composeRefs from '@seznam/compose-react-refs';
 import debounce from 'lodash/debounce';
@@ -20,7 +21,7 @@ import {
   Editor,
   SelectAction,
 } from 'react-map-gl-draw';
-import { useGetRoutesWithInfrastructureLinksQuery } from '../../../generated/graphql';
+import { useGetRouteWithInfrastructureLinksQuery } from '../../../generated/graphql';
 import {
   mapRouteResultToRoute,
   mapRouteToInfraLinksAlongRoute,
@@ -57,6 +58,14 @@ import { addRoute, removeRoute } from '../../../utils/map';
 import { featureStyle, handleStyle } from './editorStyles';
 
 const SNAPPING_LINE_LAYER_ID = 'snapping-line';
+
+const GQL_GET_ROUTE_WITH_INFRASTRUCTURE_LINKS = gql`
+  query GetRouteWithInfrastructureLinks($route_id: uuid!) {
+    route_route_by_pk(route_id: $route_id) {
+      ...route_with_infrastructure_links
+    }
+  }
+`;
 
 interface Props {
   mode?: Mode;
@@ -126,9 +135,11 @@ const DrawRouteLayerComponent = (
   // Fetch existing route's stops and geometry in case editing existing route
   // or creating a new route based on a template route
   const baseRouteId = editedRouteData.id || templateRouteId;
-  const baseRouteResult = useGetRoutesWithInfrastructureLinksQuery({
+  const baseRouteResult = useGetRouteWithInfrastructureLinksQuery({
     skip: !baseRouteId,
-    variables: { route_ids: baseRouteId ? [baseRouteId] : [] },
+    // If baseRouteId is undefined, this query is skipped
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    variables: { route_id: baseRouteId! },
   });
   const baseRoute = mapRouteResultToRoute(baseRouteResult);
 
