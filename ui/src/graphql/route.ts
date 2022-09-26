@@ -356,6 +356,14 @@ const GET_ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
   }
 `;
 
+const GET_ROUTE_WITH_INFRASTRUCTURE_LINKS = gql`
+  query GetRouteWithInfrastructureLinks($route_id: uuid!) {
+    route_route(where: { route_id: { _eq: $route_id } }) {
+      ...route_with_infrastructure_links
+    }
+  }
+`;
+
 const GET_ROUTES_BY_VALIDITY = gql`
   query GetRoutesByValidity($filter: route_route_bool_exp) {
     route_route(where: $filter) {
