@@ -17,7 +17,6 @@ import {
   mapRouteStopsToJourneyPatternStops,
   removeFromApolloCache,
 } from '../../utils';
-import { addOrRemoveStopLabelFromIncludedStops } from '../stops/utils';
 import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
 import { useValidateRoute } from './useValidateRoute';
 
@@ -73,12 +72,13 @@ export const useEditRouteJourneyPattern = () => {
           .filter((stop) => stopBelongsToJourneyPattern(stop, route.route_id))
           .map((stop) => stop.label),
       // Add or remove stop from label list
-      (stopLabels) =>
-        addOrRemoveStopLabelFromIncludedStops(
-          stopLabels,
-          stopPointLabel,
-          stopBelongsToRoute,
-        ),
+      (stopLabels) => {
+        const stops = new Set(stopLabels);
+        stopBelongsToRoute
+          ? stops.add(stopPointLabel)
+          : stops.delete(stopPointLabel);
+        return Array.from(stops);
+      },
     );
 
     validateStopCount(includedStopLabels);
