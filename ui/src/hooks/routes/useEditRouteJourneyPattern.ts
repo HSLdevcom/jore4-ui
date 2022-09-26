@@ -12,12 +12,12 @@ import {
 } from '../../graphql';
 import { StoreType } from '../../redux';
 import {
+  addOrRemoveStopLabelFromIncludedStops,
   buildJourneyPatternStopSequence,
   filterDistinctConsecutiveStops,
   mapRouteStopsToJourneyPatternStops,
   removeFromApolloCache,
 } from '../../utils';
-import { addOrRemoveStopLabelFromIncludedStops } from '../stops/utils';
 import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
 import { useValidateRoute } from './useValidateRoute';
 

@@ -1,4 +1,5 @@
 import flip from 'lodash/flip';
+import uniq from 'lodash/uniq';
 import { ScheduledStopPointAllFieldsFragment } from '../generated/graphql';
 
 const sortStopsByTraversalForwards = <
@@ -33,3 +34,12 @@ export const sortStopsOnInfraLink = <
   stops: TStop[],
   isTraversalForwards: boolean,
 ) => stops.sort(sortStopsOnInfraLinkComparator(isTraversalForwards));
+
+export const addOrRemoveStopLabelFromIncludedStops = (
+  stops: string[],
+  stop: string,
+  belongsToJourneyPattern: boolean,
+) =>
+  belongsToJourneyPattern
+    ? uniq([...stops, stop])
+    : stops.filter((label) => label !== stop);

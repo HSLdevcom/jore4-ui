@@ -1,7 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { RouteStopFieldsFragment } from '../../generated/graphql';
 import { useAppDispatch } from '../../hooks';
-import { setStopOnRouteAction } from '../../redux';
+import {
+  excludeStopFromJourneyPatternAction,
+  includeStopToJourneyPatternAction,
+} from '../../redux';
 import { AlignDirection, SimpleDropdownMenu } from '../../uiComponents';
 import { PriorityBadge } from './PriorityBadge';
 
@@ -27,13 +30,12 @@ export const RouteStopsOverlayRow = ({
 
   const dispatch = useAppDispatch();
 
-  const setOnRoute = (onRoute: boolean) => {
-    dispatch(
-      setStopOnRouteAction({
-        stopLabel: stop.label,
-        belongsToJourneyPattern: onRoute,
-      }),
-    );
+  const setBelongsToJourneyPattern = (onRoute: boolean) => {
+    const setBelongsToJourneyPatternAction = onRoute
+      ? includeStopToJourneyPatternAction
+      : excludeStopFromJourneyPatternAction;
+
+    dispatch(setBelongsToJourneyPatternAction(stop.label));
   };
 
   return (
@@ -65,7 +67,9 @@ export const RouteStopsOverlayRow = ({
           >
             <button
               type="button"
-              onClick={() => setOnRoute(!belongsToJourneyPattern)}
+              onClick={() =>
+                setBelongsToJourneyPattern(!belongsToJourneyPattern)
+              }
               data-testid={testIds.addToJourneyPatternButton(stop.label)}
             >
               {belongsToJourneyPattern

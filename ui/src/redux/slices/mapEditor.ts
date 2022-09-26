@@ -6,7 +6,6 @@ import {
   RouteStopFieldsFragment,
 } from '../../generated/graphql';
 import { RouteInfraLink } from '../../graphql';
-import { addOrRemoveStopLabelFromIncludedStops } from '../../hooks/stops/utils';
 import { mapToStoreType, StoreType } from '../mappers/storeType';
 
 export interface MapEditorState {
@@ -145,29 +144,31 @@ const slice = createSlice({
       state.editedRouteData.templateRouteId = action.payload;
     },
     /**
-     * Set a stop to (not) belong to a route when creating / editing a route.
+     * Adds given stop label to edited route journey pattern
      */
-    setStopOnRoute: (
+    includeStopToJourneyPattern: (
       state: IState,
-      action: PayloadAction<{
-        stopLabel: string;
-        belongsToJourneyPattern: boolean;
-      }>,
+      action: PayloadAction<string>,
     ) => {
-      const { stopLabel, belongsToJourneyPattern } = action.payload;
+      const { includedStopLabels } = state.editedRouteData;
 
-      const oldIncludedStopLabels = state.editedRouteData.includedStopLabels;
+      state.editedRouteData.includedStopLabels = [
+        ...includedStopLabels,
+        action.payload,
+      ];
+    },
+    /**
+     * Deletes given stop label from edited route journey pattern
+     */
+    excludeStopFromJourneyPattern: (
+      state: IState,
+      action: PayloadAction<string>,
+    ) => {
+      const { includedStopLabels } = state.editedRouteData;
 
-      const includedStopLabels = addOrRemoveStopLabelFromIncludedStops(
-        oldIncludedStopLabels,
-        stopLabel,
-        belongsToJourneyPattern,
+      state.editedRouteData.includedStopLabels = includedStopLabels.filter(
+        (label) => label !== action.payload,
       );
-
-      state.editedRouteData = {
-        ...state.editedRouteData,
-        includedStopLabels,
-      };
     },
     /**
      * Set created / edited route metadata.
@@ -235,7 +236,7 @@ const slice = createSlice({
 
         state.editedRouteData = {
           ...state.editedRouteData,
-          includedStopLabels,
+          includedStopLabels: uniq(includedStopLabels),
           stopsEligibleForJourneyPattern,
           infraLinks,
         };
@@ -305,7 +306,8 @@ export const {
   startRouteEditing: startRouteEditingAction,
   stopRouteEditing: stopRouteEditingAction,
   setTemplateRouteId: setTemplateRouteIdAction,
-  setStopOnRoute: setStopOnRouteAction,
+  includeStopToJourneyPattern: includeStopToJourneyPatternAction,
+  excludeStopFromJourneyPattern: excludeStopFromJourneyPatternAction,
   setRouteMetadata: setRouteMetadataAction,
   finishRouteMetadataEditing: finishRouteMetadataEditingAction,
   setLineInfo: setLineInfoAction,
