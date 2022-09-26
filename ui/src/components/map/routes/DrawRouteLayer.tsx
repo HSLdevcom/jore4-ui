@@ -50,6 +50,7 @@ import { parseDate } from '../../../time';
 import {
   log,
   MapMatchingNoSegmentError,
+  mapStopInJourneyPatternToJourneyPatternStop,
   showDangerToast,
   showToast,
 } from '../../../utils';
@@ -254,8 +255,9 @@ const DrawRouteLayerComponent = (
      */
     if (baseRoute) {
       const journeyPatternStops =
-        baseRoute.route_journey_patterns[0]
-          .scheduled_stop_point_in_journey_patterns;
+        baseRoute.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns.map(
+          mapStopInJourneyPatternToJourneyPatternStop,
+        );
 
       dispatch(setDraftRouteJourneyPatternStopsAction(journeyPatternStops));
     }

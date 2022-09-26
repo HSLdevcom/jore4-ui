@@ -90,12 +90,10 @@ const RouteEditorComponent = (
   const editRoute = async (routeId: UUID) => {
     const changes = await prepareEditGeometry({
       routeId,
-      newGeometry: {
-        stopsEligibleForJourneyPattern,
-        includedStopLabels,
-        journeyPatternStops,
-        infraLinksAlongRoute: infraLinks || [],
-      },
+      stopsEligibleForJourneyPattern,
+      includedStopLabels,
+      journeyPatternStops,
+      infraLinksAlongRoute: infraLinks || [],
     });
 
     const variables = mapEditGeometryChangesToVariables(changes);
@@ -110,12 +108,10 @@ const RouteEditorComponent = (
       // At the point of saving a route, the form has been validated
       // and it contains all required values
       form: routeDetails as RouteFormState,
-      routeGeometry: {
-        stopsEligibleForJourneyPattern,
-        includedStopLabels,
-        journeyPatternStops,
-        infraLinksAlongRoute: infraLinks || [],
-      },
+      stopsEligibleForJourneyPattern,
+      includedStopLabels,
+      journeyPatternStops,
+      infraLinksAlongRoute: infraLinks || [],
     });
     if (changes.conflicts?.length) {
       setConflicts(changes.conflicts);
