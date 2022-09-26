@@ -1,7 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { RouteStopFieldsFragment } from '../../generated/graphql';
 import { useAppDispatch } from '../../hooks';
-import { setStopOnRouteAction } from '../../redux';
+import {
+  excludeStopFromJourneyPatternAction,
+  includeStopToJourneyPatternAction,
+} from '../../redux';
 import { AlignDirection, SimpleDropdownMenu } from '../../uiComponents';
 import { PriorityBadge } from './PriorityBadge';
 
@@ -28,12 +31,11 @@ export const RouteStopsOverlayRow = ({
   const dispatch = useAppDispatch();
 
   const setOnRoute = (onRoute: boolean) => {
-    dispatch(
-      setStopOnRouteAction({
-        stopLabel: stop.label,
-        belongsToJourneyPattern: onRoute,
-      }),
-    );
+    const setOnRouteAction = onRoute
+      ? includeStopToJourneyPatternAction
+      : excludeStopFromJourneyPatternAction;
+
+    dispatch(setOnRouteAction(stop.label));
   };
 
   return (
