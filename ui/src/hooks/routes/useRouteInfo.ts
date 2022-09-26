@@ -6,7 +6,7 @@ import {
   RouteStopFieldsFragment,
   ScheduledStopPointDefaultFieldsFragment,
   useGetLinksWithStopsByRouteIdQuery,
-  useGetRoutesWithInfrastructureLinksQuery,
+  useGetRouteWithInfrastructureLinksQuery,
 } from '../../generated/graphql';
 import {
   getRouteStopLabels,
@@ -110,13 +110,13 @@ export const useRouteInfo = (
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
 
   // Get route data
-  const routesResult = useGetRoutesWithInfrastructureLinksQuery({
+  const routesResult = useGetRouteWithInfrastructureLinksQuery({
     /**
      * Fetching route data when it is e.g. selected on the map.
      * No need to fetch the data when it is being edited as it already exists in the redux store
      */
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    variables: { route_ids: [routeId!] },
+    variables: { route_id: routeId! },
     skip: !routeId && !routeEditingInProgress,
   });
   const fetchedRoute = routesResult.data?.route_route?.[0];

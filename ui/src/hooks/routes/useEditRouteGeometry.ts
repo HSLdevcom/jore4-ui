@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import {
-  GetRoutesWithInfrastructureLinksDocument,
+  GetRouteWithInfrastructureLinksDocument,
   JourneyPatternJourneyPatternInsertInput,
   RouteInfrastructureLinkAlongRouteInsertInput,
   UpdateRouteGeometryMutationVariables,
@@ -82,8 +82,8 @@ export const useEditRouteGeometry = () => {
       },
       refetchQueries: [
         {
-          query: GetRoutesWithInfrastructureLinksDocument,
-          variables: { route_ids: [variables.route_id] },
+          query: GetRouteWithInfrastructureLinksDocument,
+          variables: { route_id: variables.route_id },
         },
       ],
     });
