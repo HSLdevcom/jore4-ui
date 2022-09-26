@@ -2,14 +2,18 @@ import { useTranslation } from 'react-i18next';
 import {
   GetRouteWithInfrastructureLinksDocument,
   JourneyPatternJourneyPatternInsertInput,
+  JourneyPatternStopFragment,
   RouteInfrastructureLinkAlongRouteInsertInput,
+  RouteStopFieldsFragment,
   UpdateRouteGeometryMutationVariables,
   useUpdateRouteGeometryMutation,
 } from '../../generated/graphql';
-import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
-import { RouteGeometry } from '../../redux/types';
 import {
-  buildStopSequence,
+  mapInfraLinksAlongRouteToGraphQL,
+  RouteInfraLink,
+} from '../../graphql';
+import {
+  buildJourneyPatternStopSequence,
   removeFromApolloCache,
   showDangerToastWithError,
 } from '../../utils';
@@ -17,7 +21,10 @@ import { useValidateRoute } from './useValidateRoute';
 
 interface EditParams {
   routeId: UUID;
-  newGeometry: RouteGeometry;
+  infraLinksAlongRoute: RouteInfraLink[];
+  stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
+  includedStopLabels: string[];
+  journeyPatternStops: JourneyPatternStopFragment[];
 }
 
 interface EditChanges {
@@ -34,11 +41,16 @@ interface EditChanges {
 export const useEditRouteGeometry = () => {
   const { t } = useTranslation();
   const [mutateFunction] = useUpdateRouteGeometryMutation();
-  const { validateGeometry } = useValidateRoute();
+  const { validateJourneyPattern } = useValidateRoute();
 
-  const prepareEdit = async ({ routeId, newGeometry }: EditParams) => {
-    await validateGeometry(newGeometry);
-    const { infraLinksAlongRoute } = newGeometry;
+  const prepareEdit = async ({
+    routeId,
+    infraLinksAlongRoute,
+    stopsEligibleForJourneyPattern,
+    includedStopLabels,
+    journeyPatternStops,
+  }: EditParams) => {
+    await validateJourneyPattern({ includedStopLabels });
 
     const changes: EditChanges = {
       routeId,
@@ -48,7 +60,11 @@ export const useEditRouteGeometry = () => {
       newJourneyPattern: {
         on_route_id: routeId,
         scheduled_stop_point_in_journey_patterns:
-          buildStopSequence(newGeometry),
+          buildJourneyPatternStopSequence({
+            stopsEligibleForJourneyPattern,
+            includedStopLabels,
+            journeyPatternStops,
+          }),
       },
     };
 

@@ -1,17 +1,4 @@
 import { gql } from '@apollo/client';
-import {
-  JourneyPatternStopFragment,
-  RouteStopFieldsFragment,
-} from '../../generated/graphql';
-import { RouteInfraLink } from '../../graphql';
-import { StoreType } from '../mappers';
-
-export interface RouteGeometry {
-  stopsEligibleForJourneyPattern: StoreType<RouteStopFieldsFragment>[];
-  includedStopLabels: string[];
-  journeyPatternStops: JourneyPatternStopFragment[];
-  infraLinksAlongRoute: RouteInfraLink[];
-}
 
 export const GQL_JOURNEY_PATTERN_STOP = gql`
   fragment journey_pattern_stop on journey_pattern_scheduled_stop_point_in_journey_pattern {

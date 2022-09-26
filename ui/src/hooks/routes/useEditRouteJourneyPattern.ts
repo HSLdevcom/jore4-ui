@@ -12,7 +12,7 @@ import {
 } from '../../graphql';
 import { StoreType } from '../../redux';
 import {
-  buildStopSequence,
+  buildJourneyPatternStopSequence,
   filterDistinctConsecutiveStops,
   mapRouteStopsToJourneyPatternStops,
   removeFromApolloCache,
@@ -110,7 +110,8 @@ export const useEditRouteJourneyPattern = () => {
       route_id: changes.routeId,
       new_journey_pattern: {
         on_route_id: changes.routeId,
-        scheduled_stop_point_in_journey_patterns: buildStopSequence(changes),
+        scheduled_stop_point_in_journey_patterns:
+          buildJourneyPatternStopSequence(changes),
       },
     };
 
