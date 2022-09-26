@@ -44,7 +44,6 @@ import {
   selectHasDraftRouteGeometry,
   selectMapEditor,
   setDraftRouteGeometryAction,
-  setDraftRouteJourneyPatternStopsAction,
   stopRouteEditingAction,
 } from '../../../redux';
 import { parseDate } from '../../../time';
@@ -255,18 +254,6 @@ const DrawRouteLayerComponent = (
     // no need to initialize snapping line
     if ((creatingNewRoute && !templateRouteId) || snappingLine) {
       return;
-    }
-
-    /**
-     * Preserve journey pattern stop metadata (e.g. via info)
-     * if editing a route or using template route for created route
-     */
-    if (baseRoute) {
-      const journeyPatternStops =
-        baseRoute.route_journey_patterns[0]
-          .scheduled_stop_point_in_journey_patterns;
-
-      dispatch(setDraftRouteJourneyPatternStopsAction(journeyPatternStops));
     }
 
     if (mode === Mode.Edit && baseRoute) {

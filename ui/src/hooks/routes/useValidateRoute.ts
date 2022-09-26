@@ -6,7 +6,6 @@ import {
   useGetLineDetailsByIdAsyncQuery,
 } from '../../generated/graphql';
 import { mapLineDetailsResult } from '../../graphql';
-import { RouteGeometry } from '../../redux/types';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
@@ -17,6 +16,10 @@ interface ValidityPeriodParams {
   validity_start?: Maybe<DateTime>;
   // eslint-disable-next-line camelcase
   validity_end?: Maybe<DateTime>;
+}
+
+interface JourneyPattern {
+  includedStopLabels: string[];
 }
 
 export const useValidateRoute = () => {
@@ -33,8 +36,8 @@ export const useValidateRoute = () => {
     }
   };
 
-  const validateGeometry = async (routeGeometry: RouteGeometry) => {
-    validateStopCount(routeGeometry.includedStopLabels);
+  const validateJourneyPattern = async (journeyPattern: JourneyPattern) => {
+    validateStopCount(journeyPattern.includedStopLabels);
   };
 
   const checkIsRouteValidityInsideLineValidity = (
@@ -84,7 +87,7 @@ export const useValidateRoute = () => {
 
   return {
     validateStopCount,
-    validateGeometry,
+    validateJourneyPattern,
     validateMetadata,
     checkIsRouteValidityInsideLineValidity,
   };
