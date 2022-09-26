@@ -6,7 +6,7 @@ import {
   RouteStopFieldsFragment,
   ScheduledStopPointDefaultFieldsFragment,
   useGetLinksWithStopsByRouteIdQuery,
-  useGetRoutesWithInfrastructureLinksQuery,
+  useGetRouteWithInfrastructureLinksQuery,
 } from '../../generated/graphql';
 import { getRouteStopLabels, RouteInfraLink } from '../../graphql';
 import {
@@ -111,10 +111,10 @@ export const useRouteInfo = (
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
 
   // Get route data
-  const routesResult = useGetRoutesWithInfrastructureLinksQuery({
+  const routesResult = useGetRouteWithInfrastructureLinksQuery({
     // selectedRouteId must be defined, because query is skipped if selectedRouteId is undefined
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    variables: { route_ids: [routeId!] },
+    variables: { route_id: routeId! },
     skip: !routeId,
   });
   const fetchedRoute = routesResult.data?.route_route?.[0];
