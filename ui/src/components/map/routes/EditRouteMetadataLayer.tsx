@@ -1,13 +1,20 @@
 import React from 'react';
-import { useGetLineDetailsByIdAsyncQuery } from '../../../generated/graphql';
+import { pipe } from 'remeda';
+import {
+  useGetLineDetailsByIdAsyncQuery,
+  useGetRouteDetailsByIdAsyncQuery,
+} from '../../../generated/graphql';
+import { getStopsFromRoute } from '../../../graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   finishRouteMetadataEditingAction,
   resetRouteCreatingAction,
   selectMapEditor,
+  setDraftRouteJourneyPatternStopsAction,
   setLineInfoAction,
   setRouteMetadataFormOpenAction,
 } from '../../../redux';
+import { mapStopInJourneyPatternToJourneyPatternStop } from '../../../utils';
 import {
   routeFormSchema,
   RouteFormState,
@@ -20,6 +27,7 @@ const areFormValuesValid = (formData?: Partial<RouteFormState>) =>
 export const EditRouteMetadataLayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const [getLineDetailsById] = useGetLineDetailsByIdAsyncQuery();
+  const [getRouteDetailsById] = useGetRouteDetailsByIdAsyncQuery();
   const { editedRouteData, isRouteMetadataFormOpen } =
     useAppSelector(selectMapEditor);
 
@@ -47,6 +55,27 @@ export const EditRouteMetadataLayer: React.FC = () => {
 
     dispatch(setLineInfoAction(results.data.route_line_by_pk));
     dispatch(finishRouteMetadataEditingAction(formData));
+
+    const { templateRouteId } = editedRouteData;
+
+    /**
+     * Get journey pattern stop metadata (e.g. via info) from template route
+     */
+    if (templateRouteId) {
+      const routeDetailsResult = await getRouteDetailsById({
+        routeId: templateRouteId,
+      });
+      if (!routeDetailsResult.data.route_route_by_pk)
+        throw new Error("Can't find route and line details");
+
+      const newJourneyPatternStops = pipe(
+        routeDetailsResult.data.route_route_by_pk,
+        getStopsFromRoute,
+        (stops) => stops.map(mapStopInJourneyPatternToJourneyPatternStop),
+      );
+
+      dispatch(setDraftRouteJourneyPatternStopsAction(newJourneyPatternStops));
+    }
   };
 
   // In can we already have some route metadata, fill it in. Also fill in the line id if we already

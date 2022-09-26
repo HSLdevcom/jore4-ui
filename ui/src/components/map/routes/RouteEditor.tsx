@@ -1,9 +1,11 @@
 import React, { Ref, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { pipe } from 'remeda';
 import {
   RouteRoute,
   useGetRouteDetailsByIdAsyncQuery,
 } from '../../../generated/graphql';
+import { getStopsFromRoute } from '../../../graphql';
 import {
   mapRouteToFormState,
   useAppDispatch,
@@ -22,6 +24,7 @@ import {
   selectDrawingMode,
   selectMapEditor,
   selectSelectedRouteId,
+  setDraftRouteJourneyPatternStopsAction,
   setLineInfoAction,
   setRouteMetadataAction,
   setSelectedRouteIdAction,
@@ -31,7 +34,10 @@ import {
 } from '../../../redux';
 import { RequiredKeys } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
-import { showSuccessToast } from '../../../utils';
+import {
+  mapStopInJourneyPatternToJourneyPatternStop,
+  showSuccessToast,
+} from '../../../utils';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
   ConflictResolverModal,
@@ -90,12 +96,10 @@ const RouteEditorComponent = (
   const editRoute = async (routeId: UUID) => {
     const changes = await prepareEditGeometry({
       routeId,
-      newGeometry: {
-        stopsEligibleForJourneyPattern,
-        includedStopLabels,
-        journeyPatternStops,
-        infraLinksAlongRoute: infraLinks || [],
-      },
+      stopsEligibleForJourneyPattern,
+      includedStopLabels,
+      journeyPatternStops,
+      infraLinksAlongRoute: infraLinks || [],
     });
 
     const variables = mapEditGeometryChangesToVariables(changes);
@@ -110,12 +114,10 @@ const RouteEditorComponent = (
       // At the point of saving a route, the form has been validated
       // and it contains all required values
       form: routeDetails as RouteFormState,
-      routeGeometry: {
-        stopsEligibleForJourneyPattern,
-        includedStopLabels,
-        journeyPatternStops,
-        infraLinksAlongRoute: infraLinks || [],
-      },
+      stopsEligibleForJourneyPattern,
+      includedStopLabels,
+      journeyPatternStops,
+      infraLinksAlongRoute: infraLinks || [],
     });
     if (changes.conflicts?.length) {
       setConflicts(changes.conflicts);
@@ -194,6 +196,17 @@ const RouteEditorComponent = (
           mapRouteToFormState(routeDetailsResult.data.route_route_by_pk),
         ),
       );
+
+      /**
+       * Preserve journey pattern stop metadata (e.g. via info)
+       */
+      const newJourneyPatternStops = pipe(
+        routeDetailsResult.data.route_route_by_pk,
+        getStopsFromRoute,
+        (stops) => stops.map(mapStopInJourneyPatternToJourneyPatternStop),
+      );
+
+      dispatch(setDraftRouteJourneyPatternStopsAction(newJourneyPatternStops));
     }
   };
 

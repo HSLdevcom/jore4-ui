@@ -6,7 +6,6 @@ import {
   useGetLineDetailsByIdAsyncQuery,
 } from '../../generated/graphql';
 import { mapLineDetailsResult } from '../../graphql';
-import { RouteGeometry } from '../../redux/types';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
@@ -17,6 +16,10 @@ interface ValidityPeriodParams {
   validity_start?: Maybe<DateTime>;
   // eslint-disable-next-line camelcase
   validity_end?: Maybe<DateTime>;
+}
+
+interface RouteGeometry {
+  includedStopLabels: string[];
 }
 
 export const useValidateRoute = () => {

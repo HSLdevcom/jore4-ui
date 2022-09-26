@@ -14,28 +14,11 @@ export const filterDistinctConsecutiveStops = <TStop extends { label: string }>(
   stops: TStop[],
 ) => stops.filter((stop, index) => stops[index - 1]?.label !== stop.label);
 
-/**
- * Maps a stop to a stop in journey pattern that can be used when
- * creating/updating route's journey pattern in GraphQL
- * @param label Stop label
- * @param stopInJourneyPattern Metadata of a stop on the journey pattern (e.g. via info)
- * @param index Stop's index on journey pattern
- * @returns Stop in journey pattern
- */
-const mapStopToStopInSequence = (
-  label: string,
-  stopInJourneyPattern: JourneyPatternStopFragment | undefined,
-  index: number,
-) => {
-  return {
-    is_timing_point: stopInJourneyPattern?.is_timing_point || false,
-    is_via_point: stopInJourneyPattern?.is_via_point || false,
-    via_point_name_i18n: stopInJourneyPattern?.via_point_name_i18n,
-    via_point_short_name_i18n: stopInJourneyPattern?.via_point_short_name_i18n,
-    scheduled_stop_point_label: label,
-    scheduled_stop_point_sequence: index,
-  };
-};
+export interface BuildJourneyPatternStopSequenceProps {
+  stopsEligibleForJourneyPattern: StoreType<RouteStopFieldsFragment>[];
+  includedStopLabels: string[];
+  journeyPatternStops: JourneyPatternStopFragment[];
+}
 
 /**
  * Maps an array of stops to a list of stops in journey pattern,
@@ -45,15 +28,11 @@ const mapStopToStopInSequence = (
  * @param journeyPatternStops Metadata of stops in journey pattern (e.g. via info)
  * @returns Sequence of stops that belong to route's journey pattern
  */
-export const buildStopSequence = ({
+export const buildJourneyPatternStopSequence = ({
   stopsEligibleForJourneyPattern,
   includedStopLabels,
   journeyPatternStops,
-}: {
-  stopsEligibleForJourneyPattern: StoreType<RouteStopFieldsFragment>[];
-  includedStopLabels: string[];
-  journeyPatternStops: JourneyPatternStopFragment[];
-}) => {
+}: BuildJourneyPatternStopSequenceProps) => {
   const stops = filterDistinctConsecutiveStops(stopsEligibleForJourneyPattern);
   return {
     data: stops
@@ -64,10 +43,31 @@ export const buildStopSequence = ({
           (stop) => stop.scheduled_stop_point_label === label,
         );
 
-        return mapStopToStopInSequence(label, stopInJourneyPattern, index);
+        return {
+          ...stopInJourneyPattern,
+          scheduled_stop_point_label: label,
+          scheduled_stop_point_sequence: index,
+        };
       }),
   };
 };
+
+/**
+ * Pick only desired fields from stop in journey pattern object
+ */
+export const mapStopInJourneyPatternToJourneyPatternStop = <
+  TStop extends JourneyPatternStopFragment,
+>(
+  stopInJourneyPattern: TStop,
+): JourneyPatternStopFragment => ({
+  is_timing_point: stopInJourneyPattern?.is_timing_point || false,
+  is_via_point: stopInJourneyPattern?.is_via_point || false,
+  via_point_name_i18n: stopInJourneyPattern?.via_point_name_i18n,
+  via_point_short_name_i18n: stopInJourneyPattern?.via_point_short_name_i18n,
+  scheduled_stop_point_label: stopInJourneyPattern.scheduled_stop_point_label,
+  scheduled_stop_point_sequence:
+    stopInJourneyPattern.scheduled_stop_point_sequence,
+});
 
 /**
  * Gets stop in journey pattern -metadata (e.g. via info) from stop.
@@ -80,11 +80,13 @@ export const mapRouteStopsToJourneyPatternStops = (
   routeId: UUID,
 ) => {
   return stops.flatMap((stop) => {
-    const journeyPatternStop =
+    const stopInJourneyPattern =
       stop.scheduled_stop_point_in_journey_patterns?.find(
         (stopInRoute) => stopInRoute.journey_pattern.on_route_id === routeId,
       );
 
-    return journeyPatternStop ? [journeyPatternStop] : [];
+    return stopInJourneyPattern
+      ? [mapStopInJourneyPatternToJourneyPatternStop(stopInJourneyPattern)]
+      : [];
   });
 };

@@ -6,18 +6,21 @@ import {
   UpdateRouteGeometryMutationVariables,
   useUpdateRouteGeometryMutation,
 } from '../../generated/graphql';
-import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
-import { RouteGeometry } from '../../redux/types';
 import {
-  buildStopSequence,
+  mapInfraLinksAlongRouteToGraphQL,
+  RouteInfraLink,
+} from '../../graphql';
+import {
+  buildJourneyPatternStopSequence,
+  BuildJourneyPatternStopSequenceProps,
   removeFromApolloCache,
   showDangerToastWithError,
 } from '../../utils';
 import { useValidateRoute } from './useValidateRoute';
 
-interface EditParams {
+interface EditParams extends BuildJourneyPatternStopSequenceProps {
   routeId: UUID;
-  newGeometry: RouteGeometry;
+  infraLinksAlongRoute: RouteInfraLink[];
 }
 
 interface EditChanges {
@@ -36,7 +39,7 @@ export const useEditRouteGeometry = () => {
   const [mutateFunction] = useUpdateRouteGeometryMutation();
   const { validateGeometry } = useValidateRoute();
 
-  const prepareEdit = async ({ routeId, newGeometry }: EditParams) => {
+  const prepareEdit = async ({ routeId, ...newGeometry }: EditParams) => {
     await validateGeometry(newGeometry);
     const { infraLinksAlongRoute } = newGeometry;
 
@@ -48,7 +51,7 @@ export const useEditRouteGeometry = () => {
       newJourneyPattern: {
         on_route_id: routeId,
         scheduled_stop_point_in_journey_patterns:
-          buildStopSequence(newGeometry),
+          buildJourneyPatternStopSequence(newGeometry),
       },
     };
 

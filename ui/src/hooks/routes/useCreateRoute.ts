@@ -5,11 +5,14 @@ import {
   RouteRoute,
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
-import { mapInfraLinksAlongRouteToGraphQL } from '../../graphql';
-import { RouteGeometry } from '../../redux/types';
+import {
+  mapInfraLinksAlongRouteToGraphQL,
+  RouteInfraLink,
+} from '../../graphql';
 import { MIN_DATE } from '../../time';
 import {
-  buildStopSequence,
+  buildJourneyPatternStopSequence,
+  BuildJourneyPatternStopSequenceProps,
   mapToObject,
   removeFromApolloCache,
   showDangerToastWithError,
@@ -18,9 +21,9 @@ import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPrio
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { useValidateRoute } from './useValidateRoute';
 
-interface CreateParams {
+interface CreateParams extends BuildJourneyPatternStopSequenceProps {
   form: RouteFormState;
-  routeGeometry: RouteGeometry;
+  infraLinksAlongRoute: RouteInfraLink[];
 }
 
 interface CreateChanges {
@@ -51,20 +54,18 @@ export const useCreateRoute = () => {
   const mapRouteDetailsToInsertMutationVariables = (
     params: CreateParams,
   ): InsertRouteOneMutationVariables => {
-    const { form, routeGeometry } = params;
-
-    const { infraLinksAlongRoute } = routeGeometry;
+    const { form, ...geometry } = params;
 
     const input: InsertRouteOneMutationVariables = mapToObject({
       ...mapRouteFormToInput(form),
       // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
       infrastructure_links_along_route: {
-        data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
+        data: mapInfraLinksAlongRouteToGraphQL(geometry.infraLinksAlongRoute),
       },
       route_journey_patterns: {
         data: {
           scheduled_stop_point_in_journey_patterns:
-            buildStopSequence(routeGeometry),
+            buildJourneyPatternStopSequence(geometry),
         },
       },
     });
@@ -73,18 +74,20 @@ export const useCreateRoute = () => {
   };
 
   const prepareCreate = async (params: CreateParams) => {
-    await validateGeometry(params.routeGeometry);
-    await validateMetadata(params.form as RouteFormState);
+    const { includedStopLabels, form } = params;
+
+    await validateGeometry({ includedStopLabels });
+    await validateMetadata(form as RouteFormState);
 
     const input = mapRouteDetailsToInsertMutationVariables(params);
     const conflicts = await getConflictingRoutes({
       // Form validation should make sure that label, priority and direction always exist.
       // For some reason form state is saved as Partial<> so we have to use non-null assertions here...
-      label: params.form.label!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
-      priority: params.form.priority!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      label: form.label!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      priority: form.priority!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
       validityStart: input.object.validity_start || MIN_DATE,
       validityEnd: input.object.validity_end || undefined,
-      direction: params.form.direction!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      direction: form.direction!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
     });
 
     const changes: CreateChanges = {
