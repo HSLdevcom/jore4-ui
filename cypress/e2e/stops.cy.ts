@@ -1,3 +1,5 @@
+import { ReusableComponentsVehicleModeEnum } from '@hsl/jore4-test-db-manager';
+import { FilterPanel } from '../pageObjects/FilterPanel';
 import { MapItemCreator } from '../pageObjects/MapItemCreator';
 import { deleteStopByLabel } from './utils/db-utils';
 
@@ -10,15 +12,19 @@ const clearDatabase = () => {
 };
 
 describe('Stop tests', () => {
-  let mapIemCreator: MapItemCreator;
+  let mapItemCreator: MapItemCreator;
+  let mapFilterPanel: FilterPanel;
   beforeEach(() => {
-    mapIemCreator = new MapItemCreator();
+    mapItemCreator = new MapItemCreator();
+    mapFilterPanel = new FilterPanel();
+
     cy.setupTests();
     cy.mockLogin();
     clearDatabase();
     cy.visit(
       '/routes?mapOpen=true&lng=24.93021804533524&lat=60.164074274478054&z=15',
     );
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
   });
 
   after(() => {
@@ -30,7 +36,7 @@ describe('Stop tests', () => {
     // Map opening seems to take time, so we increase the timeout
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
     () => {
-      mapIemCreator.createStopAtLocation({
+      mapItemCreator.createStopAtLocation({
         stopFormInfo: { label: testStopLabel1 },
         clickRelativePoint: {
           xPercentage: 43.5,
@@ -55,7 +61,7 @@ describe('Stop tests', () => {
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
     () => {
       // Create stop
-      mapIemCreator.createStopAtLocation({
+      mapItemCreator.createStopAtLocation({
         stopFormInfo: {
           label: testStopLabel2,
           // Actual coordinates will be on Topeliuksenkatu
@@ -77,6 +83,8 @@ describe('Stop tests', () => {
       cy.visit(
         '/routes?lat=60.1805636468358&lng=24.918451016960763&z=15.008647482331973&mapOpen=true',
       );
+
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
       cy.getByTestId(
         `Map::Stops::stopMarker::${testStopLabel2}_Standard`,
