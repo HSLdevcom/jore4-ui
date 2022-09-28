@@ -164,6 +164,7 @@ export const MapComponent = (
                     active: showRoute,
                     onToggle: setShowRoute,
                     disabled: !routeDisplayed,
+                    testId: 'FilterPanel::toggleShowBusRoutes',
                   },
                   // We want to show placeholder toggles of unimplemented features for visual purposes
                   ...placeholderToggles,
@@ -173,12 +174,14 @@ export const MapComponent = (
                     iconClassName: 'icon-bus',
                     active: isFilterActive(FilterType.ShowAllBusStops),
                     onToggle: toggleFunction(FilterType.ShowAllBusStops),
+                    testId: 'FilterPanel::toggleShowAllBusStops',
                   },
                   ...placeholderToggles,
                 ]}
                 infraLinks={{
                   active: showInfraLinks,
                   onToggle: setShowInfraLinks,
+                  testId: 'FilterPanel::toggleShowInfraLinks',
                 }}
               />
               {(!!selectedRouteId || hasDraftRouteGeometry) && (

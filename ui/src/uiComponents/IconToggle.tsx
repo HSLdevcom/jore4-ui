@@ -4,6 +4,7 @@ interface Props {
   disabled?: boolean;
   className?: string;
   iconClassName: string;
+  testId: string;
 }
 
 export const IconToggle = ({
@@ -12,6 +13,7 @@ export const IconToggle = ({
   disabled = false,
   className = '',
   iconClassName = '',
+  testId,
 }: Props): JSX.Element => {
   const colorClassNames = active
     ? 'bg-tweaked-brand text-white'
@@ -19,6 +21,7 @@ export const IconToggle = ({
   const disabledClassNames = disabled ? 'text-white bg-light-grey' : '';
   return (
     <button
+      data-testid={testId}
       type="button"
       disabled={disabled}
       className={`rounded border border-gray-300

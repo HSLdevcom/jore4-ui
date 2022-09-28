@@ -7,6 +7,7 @@ interface Toggle {
   // eslint gives errors for "react/no-unused-prop-types" even though these are actually used (and these aren't `PropTypes` anyway, we are not using those with TypeScript!). Seems like this linter rule gets confused because these aren't inlined in props interface definition? (And we don't want to do that as these are used in more than one place.)
   active: boolean; // eslint-disable-line react/no-unused-prop-types
   onToggle: (active: boolean) => void; // eslint-disable-line react/no-unused-prop-types
+  testId: string; // eslint-disable-line react/no-unused-prop-types
 }
 
 interface IconToggle extends Toggle {
@@ -23,7 +24,7 @@ const ToggleRow = ({ toggles }: ToggleRowProps): JSX.Element => {
     <Row className="mt-2">
       {toggles.map(
         (
-          { active, onToggle, iconClassName, disabled }: IconToggle,
+          { active, onToggle, iconClassName, disabled, testId }: IconToggle,
           index: number,
         ) => (
           <IconToggle
@@ -35,6 +36,7 @@ const ToggleRow = ({ toggles }: ToggleRowProps): JSX.Element => {
             active={active}
             onToggle={onToggle}
             disabled={disabled}
+            testId={testId}
           />
         ),
       )}
@@ -51,24 +53,28 @@ export const placeholderToggles: IconToggle[] = [
     active: false,
     onToggle: noop,
     disabled: true,
+    testId: 'placeholder',
   },
   {
     iconClassName: 'icon-train',
     active: false,
     onToggle: noop,
     disabled: true,
+    testId: 'placeholder',
   },
   {
     iconClassName: 'icon-ferry',
     active: false,
     onToggle: noop,
     disabled: true,
+    testId: 'placeholder',
   },
   {
     iconClassName: 'icon-metro',
     active: false,
     onToggle: noop,
     disabled: true,
+    testId: 'placeholder',
   },
 ];
 
