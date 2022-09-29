@@ -14,6 +14,7 @@ export const selectModalMap = (state: RootState) => state.modalMap;
 export const selectUser = (state: RootState) => state.user;
 export const selectModals = (state: RootState) => state.modals;
 export const selectLoader = (state: RootState) => state.loader;
+export const selectExport = (state: RootState) => state.export;
 
 export const selectSelectedStopId = createSelector(
   selectMap,
