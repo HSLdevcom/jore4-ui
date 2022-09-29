@@ -126,10 +126,8 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
         expect(conflicts[0].line_id).toEqual(indefiniteLine.line_id);
       });
     });
-    // TODO: this test should pass, will be fixed in future commit
-    // so that it is easier to see the reason why this didn't.
-    // eslint-disable-next-line jest/no-disabled-tests
-    test.skip('Should return conflict on bounded resource within existing indefinite resource', async () => {
+
+    test('Should return conflict on bounded resource within existing indefinite resource', async () => {
       await act(async () => {
         const conflicts = await result.current.getConflictingLines(
           buildQuery({

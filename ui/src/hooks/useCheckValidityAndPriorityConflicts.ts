@@ -47,17 +47,13 @@ const buildValidityStartMissingGqlFilterOrConditions = (
   ];
 };
 
-const buildCommonGqlFilter = (
-  params: CommonParams,
-  allowUndefinedValidityStart?: boolean,
-) => {
+const buildCommonGqlFilter = (params: CommonParams) => {
   const { label, priority, validityStart, validityEnd } = params;
 
   const isIndefinite = !validityEnd;
 
-  const validityStartFilterCondition = allowUndefinedValidityStart
-    ? buildValidityStartMissingGqlFilterOrConditions(params)
-    : [];
+  const validityStartFilterCondition =
+    buildValidityStartMissingGqlFilterOrConditions(params);
 
   const validityFilter = isIndefinite
     ? // case 1: this resource in indefinite
@@ -152,7 +148,7 @@ export const useCheckValidityAndPriorityConflicts = () => {
     const commonFilter: ServicePatternScheduledStopPointBoolExp =
       // Stops do not necessarily have validity start defined
       // (e.g. if they have been imported from jore3)
-      buildCommonGqlFilter(params, true);
+      buildCommonGqlFilter(params);
 
     const { data } = await getStopValidity({
       filter: { ...stopsFilter, ...commonFilter },
