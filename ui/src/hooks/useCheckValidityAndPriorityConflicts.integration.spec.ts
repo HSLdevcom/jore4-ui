@@ -270,10 +270,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
       });
     });
 
-    // TODO: this test should pass, will be fixed in future commit
-    // so that it is easier to see the reason why this didn't.
-    // eslint-disable-next-line jest/no-disabled-tests
-    test.skip('Should allow new version before current version, bounds not overlapping, validity_start null', async () => {
+    test('Should allow new version before current version, bounds not overlapping, validity_start null', async () => {
       await act(async () => {
         const conflicts = await result.current.getConflictingLines(
           buildQuery({
