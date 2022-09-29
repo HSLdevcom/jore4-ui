@@ -256,6 +256,10 @@
   "timetables": {
     "timetables": "Timetables"
   },
+  "export": {
+    "startSelecting": "Select",
+    "quitSelecting": "Quit selecting"
+  },
   "save": "Save",
   "edit": "Edit",
   "move": "Move",

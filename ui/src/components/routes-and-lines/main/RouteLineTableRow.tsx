@@ -5,7 +5,7 @@ import {
   RouteAllFieldsFragment,
 } from '../../../generated/graphql';
 import { useAlertsAndHighLights } from '../../../hooks';
-import { Column, Row } from '../../../layoutComponents';
+import { Column, Row, Visible } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../../time';
 import { LocatorButton } from '../../../uiComponents';
@@ -16,26 +16,50 @@ interface Props {
   locatorButtonTestId: string;
   lineId: UUID;
   rowItem: RouteAllFieldsFragment | LineTableRowFragment;
+  isSelected?: boolean;
+  onSelectChanged?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  selectionDisabled?: boolean;
 }
+
+const yBorderClassnames = 'border-y border-y-light-grey';
 
 export const RouteLineTableRow = ({
   className = '',
   onLocatorButtonClick,
+  onSelectChanged,
   locatorButtonTestId,
   lineId,
   rowItem,
+  isSelected,
+  selectionDisabled = false,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
   const alertStyle = getAlertStyle(getAlertLevel(rowItem));
+  const alertIcon = alertStyle.icon || 'icon-_-placeholder';
 
   return (
-    <tr className={`border border-light-grey ${className}`}>
-      <td className={`${alertStyle.listItemBorder || ''} w-20 p-4 align-top`}>
-        {alertStyle.icon && <i className={`${alertStyle.icon} text-3xl`} />}
+    <tr className={className}>
+      <Visible visible={!!onSelectChanged}>
+        {/*
+          Hard coded width, so this column does not take too much space and
+          checkbox is always aligned with "select all" checkbox above
+         */}
+        <td className="w-14 pr-6">
+          <input
+            type="checkbox"
+            className="h-7 w-7"
+            checked={isSelected}
+            onChange={onSelectChanged}
+            disabled={selectionDisabled}
+          />
+        </td>
+      </Visible>
+      <td className={`${alertStyle.listItemBorder} ${yBorderClassnames} p-4`}>
+        <i className={`${alertIcon} my-auto flex text-3xl`} />
       </td>
-      <td className="py-4">
+      <td className={`w-full py-4 ${yBorderClassnames}`}>
         <Link to={routeDetails[Path.lineDetails].getLink(lineId)}>
           <Row className="items-center">
             <Column className="w-1/2 font-bold">
@@ -54,7 +78,9 @@ export const RouteLineTableRow = ({
           </Row>
         </Link>
       </td>
-      <td className="w-20 p-6 align-middle">
+      <td
+        className={`w-1/12 border-r p-6 text-right align-middle ${yBorderClassnames}`}
+      >
         <LocatorButton
           // Button is disabled if function is not defined
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

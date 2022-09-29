@@ -1,15 +1,22 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { DisplayedSearchResultType, useSearch } from '../../../../hooks';
+import {
+  DisplayedSearchResultType,
+  useAppDispatch,
+  useSearch,
+} from '../../../../hooks';
+import { resetSelectedRoutesAction } from '../../../../redux';
 import { SimpleSmallButton } from '../../../../uiComponents';
 
 export const ResultSelector = (): JSX.Element => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const { queryParameters, setFilter } = useSearch();
   const { displayedData } = queryParameters.filter;
 
-  const displayRoutes = () =>
+  const displayRoutes = () => {
+    dispatch(resetSelectedRoutesAction());
     setFilter('displayedData', DisplayedSearchResultType.Routes);
+  };
   const displayLines = () =>
     setFilter('displayedData', DisplayedSearchResultType.Lines);
 
@@ -19,7 +26,7 @@ export const ResultSelector = (): JSX.Element => {
   };
 
   return (
-    <div>
+    <div className="space-x-2">
       <SimpleSmallButton
         inverted={displayedData !== DisplayedSearchResultType.Lines}
         onClick={displayLines}

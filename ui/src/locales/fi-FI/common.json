@@ -256,6 +256,10 @@
   "timetables": {
     "timetables": "Aikataulut"
   },
+  "export": {
+    "startSelecting": "Valitse",
+    "quitSelecting": "Sulje valinnat"
+  },
   "save": "Tallenna",
   "edit": "Muokkaa",
   "move": "Siirrä",

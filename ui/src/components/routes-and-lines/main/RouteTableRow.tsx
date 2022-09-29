@@ -1,21 +1,45 @@
 import { RouteAllFieldsFragment } from '../../../generated/graphql';
-import { useShowRoutesOnModal } from '../../../hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useShowRoutesOnModal,
+} from '../../../hooks';
+import {
+  deselectRouteLabelAction,
+  selectExport,
+  selectRouteLabelAction,
+} from '../../../redux';
 import { RouteLineTableRow } from './RouteLineTableRow';
 
 interface Props {
   className?: string;
   route: RouteAllFieldsFragment;
+  isSelectable?: boolean;
 }
 
 export const RouteTableRow = ({
   className = '',
   route,
+  isSelectable = false,
 }: Props): JSX.Element => {
   const { showRouteOnMapByLabel } = useShowRoutesOnModal();
+  const dispatch = useAppDispatch();
+  const { selectedRouteLabels } = useAppSelector(selectExport);
 
   const onClickShowRouteOnMap = () => {
     showRouteOnMapByLabel(route);
   };
+
+  const onSelectChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selected = event.target.checked;
+    const selectAction = selected
+      ? selectRouteLabelAction
+      : deselectRouteLabelAction;
+
+    dispatch(selectAction(route.label));
+  };
+
+  const isSelected = selectedRouteLabels.includes(route.label);
 
   return (
     <RouteLineTableRow
@@ -28,6 +52,8 @@ export const RouteTableRow = ({
       }
       locatorButtonTestId="RouteTableRow::showRoute"
       className={className}
+      isSelected={isSelected}
+      onSelectChanged={isSelectable ? onSelectChanged : undefined}
     />
   );
 };
