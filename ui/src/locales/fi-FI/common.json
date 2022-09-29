@@ -252,6 +252,10 @@
     "viaSaveSuccess": "Via-tieto asetettu",
     "viaRemoveSuccess": "Via-tieto poistettu"
   },
+  "export": {
+    "startSelecting": "Valitse",
+    "quitSelecting": "Sulje valinnat"
+  },
   "save": "Tallenna",
   "edit": "Muokkaa",
   "move": "Siirrä",

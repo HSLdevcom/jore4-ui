@@ -252,6 +252,10 @@
     "viaSaveSuccess": "Via information set",
     "viaRemoveSuccess": "Via information removed"
   },
+  "export": {
+    "startSelecting": "Select",
+    "quitSelecting": "Quit selecting"
+  },
   "save": "Save",
   "edit": "Edit",
   "move": "Move",

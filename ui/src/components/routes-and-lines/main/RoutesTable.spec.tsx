@@ -54,7 +54,11 @@ describe(`<${RoutesTable.name} />`, () => {
     const { asFragment } = render(
       <RoutesTable testId={testId}>
         {routes.map((item: RouteRoute) => (
-          <RouteTableRow key={item.route_id} route={item} />
+          <RouteTableRow
+            key={item.route_id}
+            route={item}
+            isSelectable={false}
+          />
         ))}
       </RoutesTable>,
     );
