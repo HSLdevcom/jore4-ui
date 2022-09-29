@@ -30,6 +30,7 @@ export const useSearchResults = (): {
   lines: LineTableRowFragment[];
   routes: RouteAllFieldsFragment[];
   resultCount: number;
+  resultType: DisplayedSearchResultType;
 } => {
   const parsedQueryParameters = useSearchQueryParser();
 
@@ -61,5 +62,6 @@ export const useSearchResults = (): {
     lines,
     routes,
     resultCount: getResultCount(),
+    resultType: parsedQueryParameters.filter.displayedData,
   };
 };

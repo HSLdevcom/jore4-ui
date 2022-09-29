@@ -4,6 +4,7 @@ import { usePagination } from '../../../hooks/usePagination';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import { CloseIconButton, Pagination } from '../../../uiComponents';
 import { SearchContainer } from './conditions/SearchContainer';
+import { ExportToolbar } from './ExportToolbar';
 import { FiltersContainer } from './filters/FiltersContainer';
 import { ResultList } from './ResultList';
 
@@ -35,11 +36,7 @@ export const SearchResultPage = (): JSX.Element => {
       </Row>
       <SearchContainer />
       <FiltersContainer />
-      <h2 className="my-4">
-        {t('search.resultCount', {
-          resultCount,
-        })}
-      </h2>
+      <ExportToolbar />
       <ResultList
         lines={displayedLines}
         routes={displayedRoutes}
