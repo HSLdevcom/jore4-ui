@@ -81,13 +81,6 @@ const buildCommonGqlFilter = (
               { validity_end: { _is_null: true } },
             ],
           },
-          // existing resource starts before this starts and ends after this has started
-          {
-            _and: [
-              { validity_start: { _lte: validityStart } },
-              { validity_end: { _gte: validityStart } },
-            ],
-          },
           // existing resource starts before this ends and ends after this ended
           {
             _and: [
