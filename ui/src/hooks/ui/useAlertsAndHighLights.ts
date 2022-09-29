@@ -51,7 +51,7 @@ export const useAlertsAndHighLights = () => {
       case AlertLevel.Warning:
         return 'border-l-10 border-city-bicycle-yellow';
       case AlertLevel.Important:
-        return 'border-l-10 border-hsl-red border-dashed';
+        return 'border-l-10 border-hsl-red border-l-dashed';
       default:
         return undefined;
     }

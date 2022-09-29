@@ -8,13 +8,17 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
   >
     <tbody>
       <tr
-        class="border border-light-grey "
+        class=""
       >
         <td
-          class="border-l-10 border-hsl-dark-green w-20 p-4 align-top"
-        />
+          class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
+        >
+          <i
+            class="icon-_-placeholder my-auto flex text-3xl"
+          />
+        </td>
         <td
-          class="py-4"
+          class="w-full py-4 border-y border-y-light-grey"
         >
           <a
             href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
@@ -48,7 +52,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 p-6 align-middle"
+          class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
@@ -77,13 +81,17 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         </td>
       </tr>
       <tr
-        class="border border-light-grey "
+        class=""
       >
         <td
-          class="border-l-10 border-hsl-dark-green w-20 p-4 align-top"
-        />
+          class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
+        >
+          <i
+            class="icon-_-placeholder my-auto flex text-3xl"
+          />
+        </td>
         <td
-          class="py-4"
+          class="w-full py-4 border-y border-y-light-grey"
         >
           <a
             href="/lines/9058c328-efdd-412c-9b2b-37b0f6a2c6fb"
@@ -117,7 +125,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 p-6 align-middle"
+          class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
@@ -146,13 +154,17 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         </td>
       </tr>
       <tr
-        class="border border-light-grey "
+        class=""
       >
         <td
-          class="border-l-10 border-hsl-dark-green w-20 p-4 align-top"
-        />
+          class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
+        >
+          <i
+            class="icon-_-placeholder my-auto flex text-3xl"
+          />
+        </td>
         <td
-          class="py-4"
+          class="w-full py-4 border-y border-y-light-grey"
         >
           <a
             href="/lines/bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2"
@@ -186,7 +198,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 p-6 align-middle"
+          class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
@@ -215,13 +227,17 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         </td>
       </tr>
       <tr
-        class="border border-light-grey "
+        class=""
       >
         <td
-          class="border-l-10 border-hsl-dark-green w-20 p-4 align-top"
-        />
+          class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
+        >
+          <i
+            class="icon-_-placeholder my-auto flex text-3xl"
+          />
+        </td>
         <td
-          class="py-4"
+          class="w-full py-4 border-y border-y-light-grey"
         >
           <a
             href="/lines/db748c5c-42e3-429f-baa0-e0db227dc2c8"
@@ -255,7 +271,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 p-6 align-middle"
+          class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
@@ -296,13 +312,17 @@ exports[`<RoutesTable /> Renders the table with route data 1`] = `
   >
     <tbody>
       <tr
-        class="border border-light-grey "
+        class=""
       >
         <td
-          class="border-l-10 border-hsl-dark-green w-20 p-4 align-top"
-        />
+          class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
+        >
+          <i
+            class="icon-_-placeholder my-auto flex text-3xl"
+          />
+        </td>
         <td
-          class="py-4"
+          class="w-full py-4 border-y border-y-light-grey"
         >
           <a
             href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
@@ -336,7 +356,7 @@ exports[`<RoutesTable /> Renders the table with route data 1`] = `
           </a>
         </td>
         <td
-          class="w-20 p-6 align-middle"
+          class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
