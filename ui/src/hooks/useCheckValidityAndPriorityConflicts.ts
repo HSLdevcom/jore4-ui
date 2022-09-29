@@ -49,7 +49,7 @@ const buildValidityStartMissingGqlFilterOrConditions = (
 
 const buildCommonGqlFilter = (
   params: CommonParams,
-  allowUndefinedValidityStart?: boolean,
+  allowUndefinedValidityStart = true,
 ) => {
   const { label, priority, validityStart, validityEnd } = params;
 
@@ -152,7 +152,7 @@ export const useCheckValidityAndPriorityConflicts = () => {
     const commonFilter: ServicePatternScheduledStopPointBoolExp =
       // Stops do not necessarily have validity start defined
       // (e.g. if they have been imported from jore3)
-      buildCommonGqlFilter(params, true);
+      buildCommonGqlFilter(params);
 
     const { data } = await getStopValidity({
       filter: { ...stopsFilter, ...commonFilter },
