@@ -10,16 +10,10 @@ interface Props {
   isReadOnly?: boolean;
 }
 
-const rowTestId = {
-  generate: (label: string) => `RouteStopsOverlayRow::${label}`,
-};
-
-const menuButtonTestId = {
-  generate: (label: string) => `RouteStopsOverlayRow::${label}::menu`,
-};
-
-const addToJourneyPatternButtonTestId = {
-  generate: (label: string) =>
+const testIds = {
+  row: (label: string) => `RouteStopsOverlayRow::${label}`,
+  menuButton: (label: string) => `RouteStopsOverlayRow::${label}::menu`,
+  addToJourneyPatternButton: (label: string) =>
     `RouteStopsOverlayRow::${label}::menu::addToJourneyPatternButton`,
 };
 
@@ -43,7 +37,7 @@ export const RouteStopsOverlayRow = ({
   return (
     <div
       className="flex h-10 items-center justify-between border-b p-2"
-      data-testid={rowTestId.generate(stop.label)}
+      data-testid={testIds.row(stop.label)}
     >
       <div className="flex items-center">
         <div className="w-10">
@@ -65,12 +59,12 @@ export const RouteStopsOverlayRow = ({
         <div className="text-tweaked-brand">
           <SimpleDropdownMenu
             alignItems={AlignDirection.Left}
-            testId={menuButtonTestId.generate(stop.label)}
+            testId={testIds.menuButton(stop.label)}
           >
             <button
               type="button"
               onClick={() => setOnRoute(!belongsToJourneyPattern)}
-              data-testid={addToJourneyPatternButtonTestId.generate(stop.label)}
+              data-testid={testIds.addToJourneyPatternButton(stop.label)}
             >
               {belongsToJourneyPattern
                 ? t('stops.removeFromRoute')
