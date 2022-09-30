@@ -1,6 +1,5 @@
 import { StopWithJourneyPatternFieldsFragment } from '../../generated/graphql';
 import { RouteStop } from '../types';
-import { mapToStoreType } from './storeType';
 
 /**
  * Maps a RouteStop object to a stop in journey pattern that can be used when
@@ -58,6 +57,6 @@ export const buildRouteStop = <
   return {
     belongsToJourneyPattern,
     stopInJourneyPattern,
-    stop: mapToStoreType(stop),
+    stop,
   };
 };

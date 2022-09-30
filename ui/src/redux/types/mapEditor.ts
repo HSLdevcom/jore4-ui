@@ -3,7 +3,6 @@ import {
   ScheduledStopPointInJourneyPatternAllFieldsFragment,
 } from '../../generated/graphql';
 import { RouteInfraLink } from '../../graphql';
-import { StoreType } from '../mappers/storeType';
 
 export interface RouteGeometry {
   routeStops: RouteStop[];
@@ -28,5 +27,5 @@ export interface RouteStop {
   /**
    * Current stop instance attached to the route (journey pattern)
    */
-  stop: StoreType<ScheduledStopPointAllFieldsFragment>;
+  stop: ScheduledStopPointAllFieldsFragment;
 }
