@@ -16,7 +16,7 @@ export class MapFooter {
   }
 
   save() {
-    return cy.getByTestId('MapFooter::saveButton').click();
+    return cy.getByTestId('MapFooter::saveButton').click({ timeout: 15000 });
   }
 
   cancel() {
