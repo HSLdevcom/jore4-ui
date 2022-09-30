@@ -2,7 +2,9 @@
 /* eslint-disable camelcase */
 import {
   buildLine,
+  buildRoute,
   Priority,
+  RouteDirectionEnum,
   RouteLineInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { act, renderHook } from '@testing-library/react';
@@ -73,8 +75,18 @@ const lines: TestLine[] = [
   draftLine,
 ];
 
+const inboundRoute = {
+  ...buildRoute({ label: 'inboundRoute' }),
+  route_id: '4415f493-f170-4540-8753-fe5c3835ad8a',
+  direction: RouteDirectionEnum.Inbound,
+  on_line_id: indefiniteLine.line_id,
+};
+
+const routes = [inboundRoute];
+
 const dbResources = {
   lines,
+  routes,
 };
 
 const buildQuery = ({
@@ -89,9 +101,7 @@ const buildQuery = ({
   validityEnd,
 });
 
-const deleteCreatedResources = () => {
-  removeFromDbHelper(dbResources);
-};
+const deleteCreatedResources = () => removeFromDbHelper(dbResources);
 
 describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
   beforeAll(async () => {
@@ -321,6 +331,33 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
           boundedLine.line_id,
         );
         expect(conflicts.length).toBe(0);
+      });
+    });
+
+    describe('Routes', () => {
+      test('Does not allow creating conflicting route with same direction', async () => {
+        await act(async () => {
+          const conflicts = await result.current.getConflictingRoutes({
+            ...buildQuery({
+              label: inboundRoute.label,
+            }),
+            direction: RouteDirectionEnum.Inbound,
+          });
+          expect(conflicts.length).toBe(1);
+          expect(conflicts[0].route_id).toEqual(inboundRoute.route_id);
+        });
+      });
+
+      test('Allow creating conflicting route with opposite direction', async () => {
+        await act(async () => {
+          const conflicts = await result.current.getConflictingRoutes({
+            ...buildQuery({
+              label: inboundRoute.label,
+            }),
+            direction: RouteDirectionEnum.Outbound,
+          });
+          expect(conflicts.length).toBe(0);
+        });
       });
     });
   });
