@@ -2,7 +2,9 @@
 /* eslint-disable camelcase */
 import {
   buildLine,
+  buildRoute,
   Priority,
+  RouteDirectionEnum,
   RouteLineInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { act, renderHook } from '@testing-library/react';
@@ -57,6 +59,18 @@ const boundedLine = {
   validity_start: DateTime.fromISO('2022-01-01T13:08:43.315+02:00'),
   validity_end: DateTime.fromISO('2022-01-31T13:08:43.315+02:00'),
 } as TestLine;
+const boundedLine2V1 = {
+  ...buildLine({ label: 'bounded2' }),
+  line_id: '53125ee7-3320-45e6-838d-6e0c2ff1dcd6',
+  validity_start: DateTime.fromISO('2022-01-01T13:08:43.315+02:00'),
+  validity_end: DateTime.fromISO('2022-01-31T13:08:43.315+02:00'),
+} as TestLine;
+const boundedLine2V2 = {
+  ...buildLine({ label: 'bounded2' }),
+  line_id: 'bc6b7767-1f20-41cd-8cf9-1d73e262ed33',
+  validity_start: boundedLine.validity_start?.plus({ months: 1 }),
+  validity_end: boundedLine.validity_end?.plus({ months: 1 }),
+} as TestLine;
 const draftLine = {
   ...buildLine({ label: 'draft' }),
   line_id: 'b3734679-1a15-412f-b3ce-1deeade51e89',
@@ -70,11 +84,23 @@ const lines: TestLine[] = [
   indefiniteStartLine,
   indefiniteEndLine,
   boundedLine,
+  boundedLine2V1,
+  boundedLine2V2,
   draftLine,
 ];
 
+const inboundRoute = {
+  ...buildRoute({ label: 'inboundRoute' }),
+  route_id: '4415f493-f170-4540-8753-fe5c3835ad8a',
+  direction: RouteDirectionEnum.Inbound,
+  on_line_id: indefiniteLine.line_id,
+};
+
+const routes = [inboundRoute];
+
 const dbResources = {
   lines,
+  routes,
 };
 
 const buildQuery = ({
@@ -89,9 +115,7 @@ const buildQuery = ({
   validityEnd,
 });
 
-const deleteCreatedResources = () => {
-  removeFromDbHelper(dbResources);
-};
+const deleteCreatedResources = () => removeFromDbHelper(dbResources);
 
 describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
   beforeAll(async () => {
@@ -325,6 +349,48 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
           boundedLine.line_id,
         );
         expect(conflicts.length).toBe(0);
+      });
+    });
+
+    test('A resource should still conflict with existing version if modified', async () => {
+      await act(async () => {
+        const conflicts = await result.current.getConflictingLines(
+          buildQuery({
+            label: boundedLine2V1.label,
+            validityStart: boundedLine2V2.validity_start,
+            validityEnd: boundedLine2V2.validity_end,
+          }),
+          boundedLine2V1.line_id,
+        );
+        expect(conflicts.length).toBe(1);
+        expect(conflicts[0].line_id).toEqual(boundedLine2V2.line_id);
+      });
+    });
+
+    describe('Routes', () => {
+      test('Does not allow creating conflicting route with same direction', async () => {
+        await act(async () => {
+          const conflicts = await result.current.getConflictingRoutes({
+            ...buildQuery({
+              label: inboundRoute.label,
+            }),
+            direction: RouteDirectionEnum.Inbound,
+          });
+          expect(conflicts.length).toBe(1);
+          expect(conflicts[0].route_id).toEqual(inboundRoute.route_id);
+        });
+      });
+
+      test('Allow creating conflicting route with opposite direction', async () => {
+        await act(async () => {
+          const conflicts = await result.current.getConflictingRoutes({
+            ...buildQuery({
+              label: inboundRoute.label,
+            }),
+            direction: RouteDirectionEnum.Outbound,
+          });
+          expect(conflicts.length).toBe(0);
+        });
       });
     });
   });
