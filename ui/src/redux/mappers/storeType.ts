@@ -12,17 +12,15 @@ import {
 type SerializedTypes = DateTime;
 
 // recusively replaces DateTime property types with strings within the input type
-export type StoreType<T extends PlainObject> = {
-  [Property in keyof T]: T[Property] extends PlainObject // object property -> recurse
-    ? StoreType<T[Property]>
-    : T[Property] extends Array<infer U> // array property -> must check inner type
-    ? U extends PlainObject // array of objects -> recurse
-      ? Array<StoreType<U>>
-      : Array<U>
-    : T[Property] extends SerializedTypes // serializable property -> convert to string
-    ? string
-    : T[Property]; // other scalar type -> leave as is
-};
+export type StoreType<T> = T extends SerializedTypes // serializable property -> convert to string
+  ? string
+  : T extends Array<infer U> // array -> recurse
+  ? Array<StoreType<U>>
+  : T extends PlainObject // object -> recurse
+  ? {
+      [Property in keyof T]: StoreType<T[Property]>;
+    }
+  : T; // otherwise return as-is
 
 export type SerializerFunction<
   T extends PlainObject = PlainObject,
@@ -126,7 +124,7 @@ export function mapFromStoreType<T extends PlainObject>(
     if (isArray(value)) {
       return {
         ...result,
-        [key]: value.map((item) =>
+        [key]: value.map((item: unknown) =>
           // array item is an object -> recurse
           isPlainObject(item) ? mapFromStoreType(item, deserializerFunc) : item,
         ),

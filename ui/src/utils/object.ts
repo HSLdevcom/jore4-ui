@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 
-export type PlainObject = Record<string, unknown>;
+// using ExplicitAny instead of unknown so that also interface types would be compatible
+export type PlainObject = Record<string, ExplicitAny>;
 
 export const isPlainObject = (input: unknown): input is PlainObject => {
   return (

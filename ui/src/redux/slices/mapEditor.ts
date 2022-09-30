@@ -8,7 +8,7 @@ import { RouteInfraLink } from '../../graphql';
 import { mapToStoreType, StoreType } from '../mappers/storeType';
 import { RouteStop } from '../types';
 
-interface IState {
+export interface MapEditorState {
   /**
    * Is new route creation in progress
    */
@@ -33,7 +33,7 @@ interface IState {
      * Metadata of the line to which the route belongs
      * Used e.g. for determining the vehicle mode
      */
-    lineInfo?: StoreType<LineAllFieldsFragment>;
+    lineInfo?: LineAllFieldsFragment;
     /**
      * Array of stops along the route geometry with
      * information whether or not the stops belongs to the route (journey pattern)
@@ -45,11 +45,11 @@ interface IState {
      * TODO: should start using this instead of the "stops" variable above
      * For now, everything is way too tightly coupled, so cannot get rid of the other one
      */
-    stopsEligibleForJourneyPattern: StoreType<RouteStopFieldsFragment>[];
+    stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
     /**
      * Array of infrastructure links along the created / edited route
      */
-    infraLinks?: StoreType<RouteInfraLink>[];
+    infraLinks?: RouteInfraLink[];
     /**
      * Id of the route used as a template route, when creating a new route
      */
@@ -64,6 +64,8 @@ interface IState {
    */
   selectedRouteId?: UUID;
 }
+
+type IState = StoreType<MapEditorState>;
 
 const initialState: IState = {
   creatingNewRoute: false,
@@ -212,20 +214,17 @@ const slice = createSlice({
     setDraftRouteGeometry: {
       reducer: (
         state: IState,
-        action: PayloadAction<{
-          stops: RouteStop[];
-          stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
-          infraLinks: RouteInfraLink[];
-        }>,
+        action: PayloadAction<
+          StoreType<{
+            stops: RouteStop[];
+            stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
+            infraLinks: RouteInfraLink[];
+          }>
+        >,
       ) => {
-        const { stops, stopsEligibleForJourneyPattern, infraLinks } =
-          action.payload;
-
         state.editedRouteData = {
           ...state.editedRouteData,
-          stops,
-          stopsEligibleForJourneyPattern,
-          infraLinks,
+          ...action.payload,
         };
       },
       prepare: ({
