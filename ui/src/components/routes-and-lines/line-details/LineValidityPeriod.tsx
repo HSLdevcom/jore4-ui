@@ -7,6 +7,7 @@ import { Priority } from '../../../types/Priority';
 
 const testIds = {
   validityPeriod: 'LineValidityPeriod::validityPeriod',
+  priority: 'LineValidityPeriod::priority',
 };
 
 interface Props {
@@ -33,7 +34,7 @@ export const LineValidityPeriod: React.FC<Props> = ({
       )}
       {line.priority !== Priority.Standard && (
         <>
-          <span className="font-bold">
+          <span className="font-bold" data-testid={testIds.priority}>
             {mapPriorityToUiName(line.priority)}
           </span>
           <span className="mx-1">|</span>
