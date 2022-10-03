@@ -45,44 +45,55 @@ const buildScalarMappingLink = () => {
   return withScalars({ schema, typesMap });
 };
 
-const buildWebSocketLink = (graphqlUrlPath: string) => {
+const getGraphqlUrl = (isTesting: boolean, isWebsocket: boolean) => {
+  const path = '/api/graphql/v1/graphql';
+  if (isTesting) {
+    return `http://localhost:3300${path}`;
+  }
+  if (isWebsocket) {
+    return mapHttpToWs(`${window.location.origin}${path}`);
+  }
+  return path;
+};
+
+const buildWebSocketLink = () => {
   return new WebSocketLink({
     // WebSocketLink doesn't work with relative url's, so we have to
     // turn relative url into absolute.
-    uri: `${mapHttpToWs(window.location.origin)}${graphqlUrlPath}`,
+    uri: getGraphqlUrl(false, true),
     options: {
       reconnect: true,
     },
   });
 };
 
-const buildHttpLink = (graphqlUrlPath: string, isTesting: boolean) => {
+const buildHttpLink = (isTesting: boolean) => {
+  const defaultConfig = {
+    uri: getGraphqlUrl(isTesting, false),
+  };
+
   const httpLinkConfig = isTesting
     ? {
+        ...defaultConfig,
         // `fetch` is not available in test context (with jest) so we have to provide it
         // eslint-disable-next-line global-require, import/no-extraneous-dependencies
         fetch: require('cross-fetch'),
         // logging in directly as admin, only works in e2e environment
         headers: { 'x-hasura-admin-secret': 'hasura' },
-        uri: `http://localhost:3300${graphqlUrlPath}`,
       }
-    : {
-        uri: graphqlUrlPath,
-      };
+    : defaultConfig;
   return new HttpLink(httpLinkConfig);
 };
 
 const buildConnectionLink = (isBrowser: boolean, isTesting: boolean) => {
-  const graphqlUrlPath = '/api/graphql/v1/graphql';
-
   // because next.js might run this on server-side and websockets aren't
   // supported there, we have to check if we are on browser before
   // initializing WebSocket link
-  const httpLink = buildHttpLink(graphqlUrlPath, isTesting);
+  const httpLink = buildHttpLink(isTesting);
   if (isTesting || !isBrowser) {
     return httpLink;
   }
-  const wsLink = buildWebSocketLink(graphqlUrlPath);
+  const wsLink = buildWebSocketLink();
   return split(
     // if running a subscription query, prefer to use wsLink
     ({ query }) => {
