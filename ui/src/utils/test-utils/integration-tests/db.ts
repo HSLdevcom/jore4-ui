@@ -1,9 +1,9 @@
 import {
   hasuraApi,
+  InfraLinkAlongRouteInsertInput,
   InfraLinkInsertInput,
   insertVehicleSubmodeOnInfraLink,
-  JourneyPatternJourneyPatternInsertInput,
-  JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
+  JourneyPatternInsertInput,
   LineInsertInput,
   mapToCreateInfraLinkAlongRouteMutation,
   mapToCreateInfraLinksMutation,
@@ -20,8 +20,8 @@ import {
   mapToDeleteStopsInJourneyPatternMutation,
   mapToDeleteStopsMutation,
   removeVehicleSubmodeOnInfraLink,
-  RouteInfrastructureLinkAlongRouteInsertInput,
   RouteInsertInput,
+  StopInJourneyPatternInsertInput,
   StopInsertInput,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
@@ -39,9 +39,9 @@ interface SupportedResources {
   lines?: LineInsertInput[];
   stops?: StopInsertInput[];
   routes?: RouteInsertInput[];
-  infraLinksAlongRoute?: RouteInfrastructureLinkAlongRouteInsertInput[];
-  journeyPatterns?: JourneyPatternJourneyPatternInsertInput[];
-  stopsInJourneyPattern?: JourneyPatternScheduledStopPointInJourneyPatternInsertInput[];
+  infraLinksAlongRoute?: InfraLinkAlongRouteInsertInput[];
+  journeyPatterns?: JourneyPatternInsertInput[];
+  stopsInJourneyPattern?: StopInJourneyPatternInsertInput[];
 }
 
 export const insertToDbHelper = async ({
@@ -149,8 +149,7 @@ export const removeFromDbHelper = async ({
   }
   if (infraLinksAlongRoute) {
     const mutation = mapToDeleteInfraLinksAlongRouteMutation(
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      infraLinksAlongRoute.map((item) => item.infrastructure_link_id!),
+      infraLinksAlongRoute.map((item) => item.infrastructure_link_id),
     );
     await hasuraApi(mutation).then((res) =>
       logOnError('Removing infra links along route', res),
@@ -158,8 +157,7 @@ export const removeFromDbHelper = async ({
   }
   if (journeyPatterns) {
     const mutation = mapToDeleteJourneyPatternsMutation(
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      journeyPatterns.map((item) => item.journey_pattern_id!),
+      journeyPatterns.map((item) => item.journey_pattern_id),
     );
     await hasuraApi(mutation).then((res) =>
       logOnError('Removing journey patterns', res),
@@ -167,8 +165,7 @@ export const removeFromDbHelper = async ({
   }
   if (stopsInJourneyPattern) {
     const mutation = mapToDeleteStopsInJourneyPatternMutation(
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      stopsInJourneyPattern.map((item) => item.journey_pattern_id!),
+      stopsInJourneyPattern.map((item) => item.journey_pattern_id),
     );
     await hasuraApi(mutation).then((res) =>
       logOnError('Removing stops in journey pattern', res),

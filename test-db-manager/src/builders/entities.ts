@@ -1,7 +1,6 @@
 import {
   HslRouteTransportTargetEnum,
   InfrastructureNetworkDirectionEnum,
-  JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
   ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
   RouteLineInsertInput,
@@ -9,7 +8,7 @@ import {
   RouteTypeOfLineEnum,
   ServicePatternScheduledStopPointInsertInput,
 } from '../generated/graphql';
-import { Priority } from '../types';
+import { Priority, StopInJourneyPatternInsertInput } from '../types';
 
 export const buildLocalizedString = (str: string): LocalizedString => ({
   fi_FI: str,
@@ -75,7 +74,7 @@ export const buildStop = (
 export const buildStopsInJourneyPattern = (
   stopLabels: UUID[],
   journeyPatternId: UUID,
-): JourneyPatternScheduledStopPointInJourneyPatternInsertInput[] =>
+): StopInJourneyPatternInsertInput[] =>
   stopLabels.map((stopLabel, index) => ({
     journey_pattern_id: journeyPatternId,
     scheduled_stop_point_label: stopLabel,

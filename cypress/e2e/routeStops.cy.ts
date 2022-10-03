@@ -3,12 +3,12 @@ import {
   buildRoute,
   buildStop,
   buildStopsInJourneyPattern,
+  InfraLinkAlongRouteInsertInput,
   InfraLinkInsertInput,
   infrastructureLinkAlongRoute,
   infrastructureLinks,
   journeyPatterns,
   LineInsertInput,
-  RouteInfrastructureLinkAlongRouteInsertInput,
   RouteInsertInput,
   StopInsertInput,
   vehicleSubmodeOnInfrastructureLink,
@@ -73,7 +73,7 @@ const routes: RouteInsertInput[] = [
   },
 ];
 
-const infraLinksAlongRoute: RouteInfrastructureLinkAlongRouteInsertInput[] = [
+const infraLinksAlongRoute: InfraLinkAlongRouteInsertInput[] = [
   {
     ...infrastructureLinkAlongRoute[0],
     route_id: routes[0].route_id,
