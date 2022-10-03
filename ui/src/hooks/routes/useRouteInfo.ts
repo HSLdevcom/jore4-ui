@@ -1,19 +1,23 @@
 import { gql } from '@apollo/client';
-import flow from 'lodash/flow';
 import { DateTime } from 'luxon';
+import { pipe } from 'remeda';
 import {
   RouteMetadataFragment,
   RouteStopFieldsFragment,
+  RouteWithInfrastructureLinksWithStopsFragment,
   ScheduledStopPointDefaultFieldsFragment,
-  useGetLinksWithStopsByRouteIdQuery,
-  useGetRouteWithInfrastructureLinksQuery,
+  useGetRouteWithInfrastructureLinksWithStopsQuery,
 } from '../../generated/graphql';
 import {
   getRouteStopLabels,
   mapInfrastructureLinksAlongRouteToRouteInfraLinks,
   RouteInfraLink,
 } from '../../graphql';
-import { selectHasChangesInProgress, selectMapEditor } from '../../redux';
+import {
+  EditedRouteData,
+  selectHasChangesInProgress,
+  selectMapEditor,
+} from '../../redux';
 import { useAppSelector } from '../redux';
 import { filterHighestPriorityCurrentStops } from '../stops';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
@@ -27,6 +31,18 @@ const GQL_ROUTE_METADATA = gql`
     validity_start
     validity_end
     direction
+  }
+`;
+
+const GQL_ROUTES_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS = gql`
+  fragment route_with_infrastructure_links_with_stops on route_route {
+    ...route_with_journey_pattern_stops
+    route_line {
+      ...line_all_fields
+    }
+    infrastructure_links_along_route {
+      ...infra_link_along_route_with_stops
+    }
   }
 `;
 
@@ -45,20 +61,13 @@ const GQL_INFRA_LINK_ALONG_ROUTE_WITH_STOPS = gql`
   }
 `;
 
-const GQL_GET_LINKS_WITH_STOPS_BY_ROUTE_ID = gql`
-  query GetLinksWithStopsByRouteId($routeId: uuid!) {
-    route_infrastructure_link_along_route(
-      where: { route_id: { _eq: $routeId } }
-    ) {
-      ...infra_link_along_route_with_stops
+const GQL_GET_ROUTE_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS = gql`
+  query GetRouteWithInfrastructureLinksWithStops($route_id: uuid!) {
+    route_route_by_pk(route_id: $route_id) {
+      ...route_with_infrastructure_links_with_stops
     }
   }
 `;
-
-const mapInfraLinksAlongRouteWithStopsResultToRouteInfraLinks = flow(
-  (result) => result.data?.route_infrastructure_link_along_route,
-  mapInfrastructureLinksAlongRouteToRouteInfraLinks,
-);
 
 /**
  * Gets an array of stops that can be added to a route. This array might contain multiple different
@@ -92,6 +101,52 @@ export const getHighestPriorityStopsEligibleForJourneyPattern = <
   );
 };
 
+const getRouteInfoFromRoute = (
+  route: RouteWithInfrastructureLinksWithStopsFragment,
+) => {
+  const infraLinksWithStops: RouteInfraLink[] = pipe(
+    route.infrastructure_links_along_route,
+    mapInfrastructureLinksAlongRouteToRouteInfraLinks,
+  );
+
+  const stopsEligibleForJourneyPattern = extractJourneyPatternCandidateStops(
+    infraLinksWithStops,
+    route,
+  );
+
+  const includedStopLabels = getRouteStopLabels(route);
+
+  return {
+    routeMetadata: route,
+    stopsEligibleForJourneyPattern,
+    includedStopLabels,
+  };
+};
+
+const getRouteInfoFromState = (editedRouteData: EditedRouteData) => {
+  return {
+    routeMetadata: editedRouteData.metaData
+      ? mapRouteFormToInput(editedRouteData.metaData)
+      : undefined,
+    stopsEligibleForJourneyPattern:
+      editedRouteData.stopsEligibleForJourneyPattern,
+    includedStopLabels: editedRouteData.includedStopLabels,
+  };
+};
+
+export const belongsToJourneyPattern = (
+  includedStopLabels: string[],
+  stopLabel: string,
+) => {
+  return includedStopLabels.includes(stopLabel);
+};
+
+interface RouteInfo {
+  routeMetadata: RouteMetadataFragment | undefined;
+  stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
+  includedStopLabels: string[];
+}
+
 /**
  * Hook for getting route's metadata and eligible + included stops in the journey pattern.
  * If route is being created or edited, we use data from redux store.
@@ -101,16 +156,12 @@ export const getHighestPriorityStopsEligibleForJourneyPattern = <
  * but e.g. getting all route data to redux for every use case and using it as a source in every case
  * would create its own problems (e.g. caching) so we are going with this hybrid model for now.
  */
-export const useRouteInfo = (
-  routeId: UUID | undefined,
-  observationDate: DateTime,
-  allowDraftStops = false,
-) => {
-  const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
+export const useRouteInfo = (routeId: UUID | undefined): RouteInfo => {
+  const { editedRouteData } = useAppSelector(selectMapEditor);
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
 
   // Get route data
-  const routesResult = useGetRouteWithInfrastructureLinksQuery({
+  const routesResult = useGetRouteWithInfrastructureLinksWithStopsQuery({
     /**
      * Fetching route data when it is e.g. selected on the map.
      * No need to fetch the data when it is being edited as it already exists in the redux store
@@ -119,72 +170,27 @@ export const useRouteInfo = (
     variables: { route_id: routeId! },
     skip: !routeId && !routeEditingInProgress,
   });
-  const fetchedRoute = routesResult.data?.route_route?.[0];
-
-  let routeMetadata: RouteMetadataFragment | undefined = fetchedRoute;
-
-  // If creating new route, get route metadata from redux
-  if (creatingNewRoute && editedRouteData.metaData) {
-    routeMetadata = mapRouteFormToInput(editedRouteData.metaData);
-  }
-
-  const infraLinksWithStopsResult = useGetLinksWithStopsByRouteIdQuery({
-    // If routeId is undefined, we are creating a new route and this query is skipped
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    variables: { routeId: routeId! },
-    /**
-     * If we are getting edited or created route infra links,
-     * do not fetch them as we should get them from redux
-     */
-    skip: routeId === editedRouteData.id || creatingNewRoute,
-  });
-
-  const infraLinksWithStops: RouteInfraLink[] =
-    mapInfraLinksAlongRouteWithStopsResultToRouteInfraLinks(
-      infraLinksWithStopsResult,
-    );
-
-  let stopsEligibleForJourneyPattern: RouteStopFieldsFragment[] = [];
-  let includedStopLabels: string[] = [];
+  const fetchedRoute = routesResult.data?.route_route_by_pk || undefined;
 
   if (routeEditingInProgress) {
     /**
      * If editing in progress, get eligible and included stops from redux store
      */
-    stopsEligibleForJourneyPattern =
-      editedRouteData.stopsEligibleForJourneyPattern;
+    return getRouteInfoFromState(editedRouteData);
+  }
 
-    includedStopLabels = editedRouteData.includedStopLabels;
-  } else if (fetchedRoute) {
+  if (fetchedRoute) {
     /**
      * If just viewing a route and route data has been fetched,
      * extract eligible stops from infrastructure links
      * and included stops from route journey pattern
      */
-    stopsEligibleForJourneyPattern = extractJourneyPatternCandidateStops(
-      infraLinksWithStops,
-      fetchedRoute,
-    );
-
-    includedStopLabels = getRouteStopLabels(fetchedRoute);
+    return getRouteInfoFromRoute(fetchedRoute);
   }
 
-  const highestPriorityStopsEligibleForJourneyPattern =
-    getHighestPriorityStopsEligibleForJourneyPattern(
-      stopsEligibleForJourneyPattern,
-      observationDate,
-      allowDraftStops,
-    );
-
-  const belongsToJourneyPattern = (stop: RouteStopFieldsFragment) => {
-    return !!includedStopLabels.includes(stop.label);
-  };
-
   return {
-    routeMetadata,
-    stopsEligibleForJourneyPattern,
-    highestPriorityStopsEligibleForJourneyPattern,
-    includedStopLabels,
-    belongsToJourneyPattern,
+    routeMetadata: fetchedRoute,
+    stopsEligibleForJourneyPattern: [],
+    includedStopLabels: [],
   };
 };
