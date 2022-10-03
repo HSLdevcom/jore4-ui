@@ -358,7 +358,7 @@ const GET_ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
 
 const GET_ROUTE_WITH_INFRASTRUCTURE_LINKS = gql`
   query GetRouteWithInfrastructureLinks($route_id: uuid!) {
-    route_route(where: { route_id: { _eq: $route_id } }) {
+    route_route_by_pk(route_id: $route_id) {
       ...route_with_infrastructure_links
     }
   }

@@ -3,7 +3,6 @@ import {
   RouteStopFieldsFragment,
   StopWithJourneyPatternFieldsFragment,
 } from '../generated/graphql';
-import { StoreType } from '../redux/mappers/storeType';
 
 /**
  * Removes all duplicate labeled consecutive stops from the list
@@ -15,7 +14,7 @@ export const filterDistinctConsecutiveStops = <TStop extends { label: string }>(
 ) => stops.filter((stop, index) => stops[index - 1]?.label !== stop.label);
 
 export interface BuildJourneyPatternStopSequenceProps {
-  stopsEligibleForJourneyPattern: StoreType<RouteStopFieldsFragment>[];
+  stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
   includedStopLabels: string[];
   journeyPatternStops: JourneyPatternStopFragment[];
 }

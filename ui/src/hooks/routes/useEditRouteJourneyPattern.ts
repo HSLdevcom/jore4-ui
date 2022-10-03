@@ -1,14 +1,13 @@
 import { pipe } from 'remeda';
 import {
+  InfraLinkAlongRouteWithStopsFragment,
   JourneyPatternStopFragment,
-  RouteInfrastructureLinkAlongRoute,
   RouteRoute,
   RouteStopFieldsFragment,
   UpdateRouteJourneyPatternMutationVariables,
   useUpdateRouteJourneyPatternMutation,
 } from '../../generated/graphql';
 import { RouteInfraLink, stopBelongsToJourneyPattern } from '../../graphql';
-import { StoreType } from '../../redux';
 import {
   buildJourneyPatternStopSequence,
   filterDistinctConsecutiveStops,
@@ -27,13 +26,13 @@ type AddStopParams = DeleteStopParams;
 
 interface UpdateJourneyPatternChanges {
   routeId: UUID;
-  stopsEligibleForJourneyPattern: StoreType<RouteStopFieldsFragment>[];
+  stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
   includedStopLabels: string[];
   journeyPatternStops: JourneyPatternStopFragment[];
 }
 
 export const mapInfrastructureLinksAlongRouteToRouteInfraLinks = (
-  infraLinks: RouteInfrastructureLinkAlongRoute[],
+  infraLinks: InfraLinkAlongRouteWithStopsFragment[],
 ): RouteInfraLink[] =>
   infraLinks?.map((link) => ({
     ...link.infrastructure_link,
