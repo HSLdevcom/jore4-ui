@@ -1,7 +1,7 @@
 import {
+  InfraLinkAlongRouteInsertInput,
   InfraLinkInsertInput,
-  JourneyPatternJourneyPatternInsertInput,
-  JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
+  JourneyPatternInsertInput,
   LineInsertInput,
   mapToCreateInfraLinkAlongRouteMutation,
   mapToCreateInfraLinksMutation,
@@ -17,8 +17,8 @@ import {
   mapToDeleteRoutesMutation,
   mapToDeleteStopsInJourneyPatternMutation,
   mapToDeleteStopsMutation,
-  RouteInfrastructureLinkAlongRouteInsertInput,
   RouteInsertInput,
+  StopInJourneyPatternInsertInput,
   StopInsertInput,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
@@ -37,9 +37,9 @@ interface SupportedResources {
   lines?: LineInsertInput[];
   stops?: StopInsertInput[];
   routes?: RouteInsertInput[];
-  infraLinksAlongRoute?: RouteInfrastructureLinkAlongRouteInsertInput[];
-  journeyPatterns?: JourneyPatternJourneyPatternInsertInput[];
-  stopsInJourneyPattern?: JourneyPatternScheduledStopPointInJourneyPatternInsertInput[];
+  infraLinksAlongRoute?: InfraLinkAlongRouteInsertInput[];
+  journeyPatterns?: JourneyPatternInsertInput[];
+  stopsInJourneyPattern?: StopInJourneyPatternInsertInput[];
 }
 
 export const insertToDbHelper = ({
@@ -150,8 +150,7 @@ export const removeFromDbHelper = ({
     cy.task(
       'hasuraApi',
       mapToDeleteInfraLinksAlongRouteMutation(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        infraLinksAlongRoute.map((item) => item.infrastructure_link_id!),
+        infraLinksAlongRoute.map((item) => item.infrastructure_link_id),
       ),
     ).then((res) => responseLogger('Removing infra links along route', res));
   }
@@ -159,8 +158,7 @@ export const removeFromDbHelper = ({
     cy.task(
       'hasuraApi',
       mapToDeleteJourneyPatternsMutation(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        journeyPatterns.map((item) => item.journey_pattern_id!),
+        journeyPatterns.map((item) => item.journey_pattern_id),
       ),
     ).then((res) => responseLogger('Removing journey patterns', res));
   }
@@ -168,8 +166,7 @@ export const removeFromDbHelper = ({
     cy.task(
       'hasuraApi',
       mapToDeleteStopsInJourneyPatternMutation(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        stopsInJourneyPattern.map((item) => item.journey_pattern_id!),
+        stopsInJourneyPattern.map((item) => item.journey_pattern_id),
       ),
     ).then((res) => responseLogger('Removing stops in journey pattern', res));
   }

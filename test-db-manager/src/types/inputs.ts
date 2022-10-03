@@ -2,6 +2,9 @@
 /* eslint-disable camelcase */
 import {
   InfrastructureNetworkInfrastructureLinkInsertInput,
+  JourneyPatternJourneyPatternInsertInput,
+  JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
+  RouteInfrastructureLinkAlongRouteInsertInput,
   RouteLineInsertInput,
   RouteRouteInsertInput,
   ServicePatternScheduledStopPointInsertInput,
@@ -22,4 +25,19 @@ export type LineInsertInput = RouteLineInsertInput & { line_id: UUID };
 export type InfraLinkInsertInput =
   InfrastructureNetworkInfrastructureLinkInsertInput & {
     infrastructure_link_id: UUID;
+  };
+
+export type InfraLinkAlongRouteInsertInput =
+  RouteInfrastructureLinkAlongRouteInsertInput & {
+    infrastructure_link_id: UUID;
+  };
+
+export type JourneyPatternInsertInput =
+  JourneyPatternJourneyPatternInsertInput & {
+    journey_pattern_id: UUID;
+  };
+
+export type StopInJourneyPatternInsertInput =
+  JourneyPatternScheduledStopPointInJourneyPatternInsertInput & {
+    journey_pattern_id: UUID;
   };
