@@ -1,10 +1,14 @@
 import { gql } from '@apollo/client';
 import {
+  filterHighestPriorityCurrentStops,
   useAppDispatch,
   useAppSelector,
   useObservationDateQueryParam,
 } from '../../hooks';
-import { useRouteInfo } from '../../hooks/routes/useRouteInfo';
+import {
+  belongsToJourneyPattern,
+  useRouteInfo,
+} from '../../hooks/routes/useRouteInfo';
 import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import { Row, Visible } from '../../layoutComponents';
 import {
@@ -44,20 +48,30 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
 
   const {
     routeMetadata,
-    highestPriorityStopsEligibleForJourneyPattern,
-    belongsToJourneyPattern,
-  } = useRouteInfo(
-    creatingNewRoute ? undefined : selectedRouteId,
-    observationDate,
-  );
+    includedStopLabels,
+    stopsEligibleForJourneyPattern,
+    // selectedRouteId is undefined if we are creating a new route
+  } = useRouteInfo(selectedRouteId);
 
   if (!routeMetadata) {
     return null;
   }
 
-  const stopsToShow = highestPriorityStopsEligibleForJourneyPattern.filter(
-    (stop) => routeEditingInProgress || belongsToJourneyPattern(stop),
-  );
+  const highestPriorityStopsEligibleForJourneyPattern =
+    filterHighestPriorityCurrentStops(
+      stopsEligibleForJourneyPattern,
+      observationDate,
+    );
+
+  /**
+   * When editing a route, we want to show all stops eligible for route,
+   * When displaying, we don't want to show stops that are not in the journey pattern
+   */
+  const stopsToShow = routeEditingInProgress
+    ? highestPriorityStopsEligibleForJourneyPattern
+    : highestPriorityStopsEligibleForJourneyPattern.filter((stop) =>
+        belongsToJourneyPattern(includedStopLabels, stop.label),
+      );
 
   return (
     <MapOverlay className={className}>
@@ -106,7 +120,10 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
             key={`${stop.label}_${index}`}
             stop={stop}
             isReadOnly={!routeEditingInProgress}
-            belongsToJourneyPattern={belongsToJourneyPattern(stop)}
+            belongsToJourneyPattern={belongsToJourneyPattern(
+              includedStopLabels,
+              stop.label,
+            )}
           />
         ))}
       </div>

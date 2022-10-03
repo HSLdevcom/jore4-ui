@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import uniq from 'lodash/uniq';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
   JourneyPatternStopFragment,
@@ -7,6 +8,43 @@ import {
 } from '../../generated/graphql';
 import { RouteInfraLink } from '../../graphql';
 import { mapToStoreType, StoreType } from '../mappers/storeType';
+
+export interface EditedRouteData {
+  /**
+   * Id of the edited route
+   */
+  id?: UUID;
+  /**
+   * Metadata of the line to which the route belongs
+   * Used e.g. for determining the vehicle mode
+   */
+  lineInfo?: LineAllFieldsFragment;
+  /**
+   * Array of infrastructure links along the created / edited route
+   */
+  infraLinks?: RouteInfraLink[];
+  /**
+   * Id of the route used as a template route, when creating a new route
+   */
+  templateRouteId?: UUID;
+  /**
+   * Metadata of the created / edited route
+   */
+  // TODO: Use RouteMetadataFragment
+  metaData?: RouteFormState;
+  /**
+   * Array of stop labels that are included in the edited route
+   */
+  includedStopLabels: string[];
+  /**
+   * Array of metadata about a stop in journey pattern (including but not limited to via info)
+   */
+  journeyPatternStops: JourneyPatternStopFragment[];
+  /**
+   * Array of stops that are eligible to be added to the journey pattern
+   */
+  stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
+}
 
 export interface MapEditorState {
   /**
@@ -20,41 +58,7 @@ export interface MapEditorState {
   /**
    * Data of route being created / edited
    */
-  editedRouteData: {
-    /**
-     * Id of the edited route
-     */
-    id?: UUID;
-    /**
-     * Metadata of the created / edited route
-     */
-    metaData?: RouteFormState;
-    /**
-     * Metadata of the line to which the route belongs
-     * Used e.g. for determining the vehicle mode
-     */
-    lineInfo?: LineAllFieldsFragment;
-    /**
-     * Array of stop labels that are included in the edited route
-     */
-    includedStopLabels: string[];
-    /**
-     * Array of metadata about a stop in journey pattern (including but not limited to via info)
-     */
-    journeyPatternStops: JourneyPatternStopFragment[];
-    /**
-     * Array of stops that are eligible to be added to the journey pattern
-     */
-    stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
-    /**
-     * Array of infrastructure links along the created / edited route
-     */
-    infraLinks?: RouteInfraLink[];
-    /**
-     * Id of the route used as a template route, when creating a new route
-     */
-    templateRouteId?: UUID;
-  };
+  editedRouteData: EditedRouteData;
   /**
    * Is route metadata form open
    */
@@ -152,10 +156,10 @@ const slice = createSlice({
     ) => {
       const { includedStopLabels } = state.editedRouteData;
 
-      state.editedRouteData.includedStopLabels = [
+      state.editedRouteData.includedStopLabels = uniq([
         ...includedStopLabels,
         action.payload,
-      ];
+      ]);
     },
     /**
      * Deletes given stop label from edited route journey pattern
