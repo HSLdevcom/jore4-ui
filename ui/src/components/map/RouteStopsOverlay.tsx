@@ -1,10 +1,15 @@
 import { gql } from '@apollo/client';
+import { pipe } from 'remeda';
 import {
   useAppDispatch,
   useAppSelector,
   useObservationDateQueryParam,
 } from '../../hooks';
-import { useRouteInfo } from '../../hooks/routes/useRouteInfo';
+import {
+  belongsToJourneyPattern,
+  getHighestPriorityStopsEligibleForJourneyPattern,
+  useRouteInfo,
+} from '../../hooks/routes/useRouteInfo';
 import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import { Row, Visible } from '../../layoutComponents';
 import {
@@ -12,7 +17,9 @@ import {
   selectMapEditor,
   setRouteMetadataFormOpenAction,
 } from '../../redux';
+import { Priority } from '../../types/Priority';
 import { EditButton } from '../../uiComponents';
+import { filterDistinctConsecutiveStops } from '../../utils';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
 import { PriorityBadge } from './PriorityBadge';
 import { RouteStopsOverlayRow } from './RouteStopsOverlayRow';
@@ -44,20 +51,33 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
 
   const {
     routeMetadata,
-    highestPriorityStopsEligibleForJourneyPattern,
-    belongsToJourneyPattern,
-  } = useRouteInfo(
-    creatingNewRoute ? undefined : selectedRouteId,
-    observationDate,
-  );
+    includedStopLabels,
+    stopsEligibleForJourneyPattern,
+    // selectedRouteId is undefined if we are creating a new route
+  } = useRouteInfo(selectedRouteId);
 
   if (!routeMetadata) {
     return <></>;
   }
 
-  const stopsToShow = highestPriorityStopsEligibleForJourneyPattern.filter(
-    (stop) => routeEditingInProgress || belongsToJourneyPattern(stop),
+  const highestPriorityStopsEligibleForJourneyPattern = pipe(
+    getHighestPriorityStopsEligibleForJourneyPattern(
+      stopsEligibleForJourneyPattern,
+      observationDate,
+      routeMetadata.priority === Priority.Draft,
+    ),
+    filterDistinctConsecutiveStops,
   );
+
+  /**
+   * When editing a route, we want to show all stops eligible for route,
+   * When displaying, we don't want to show stops that are not in the journey pattern
+   */
+  const stopsToShow = routeEditingInProgress
+    ? highestPriorityStopsEligibleForJourneyPattern
+    : highestPriorityStopsEligibleForJourneyPattern.filter((stop) =>
+        belongsToJourneyPattern(includedStopLabels, stop.label),
+      );
 
   return (
     <MapOverlay className={className}>
@@ -104,7 +124,10 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
             key={`${stop.label}_${index}`}
             stop={stop}
             isReadOnly={!routeEditingInProgress}
-            belongsToJourneyPattern={belongsToJourneyPattern(stop)}
+            belongsToJourneyPattern={belongsToJourneyPattern(
+              includedStopLabels,
+              stop.label,
+            )}
           />
         ))}
       </div>

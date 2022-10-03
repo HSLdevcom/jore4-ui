@@ -10,7 +10,6 @@ import {
   mapInfrastructureLinksAlongRouteToRouteInfraLinks,
   stopBelongsToJourneyPattern,
 } from '../../graphql';
-import { StoreType } from '../../redux';
 import {
   buildJourneyPatternStopSequence,
   filterDistinctConsecutiveStops,
@@ -29,7 +28,7 @@ type AddStopParams = DeleteStopParams;
 
 interface UpdateJourneyPatternChanges {
   routeId: UUID;
-  stopsEligibleForJourneyPattern: StoreType<RouteStopFieldsFragment>[];
+  stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
   includedStopLabels: string[];
   journeyPatternStops: JourneyPatternStopFragment[];
 }
