@@ -11,7 +11,7 @@ import { mapToSqlLikeValue, mapToVariables } from '../../utils';
 const GQL_GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`
   query GetRouteDetailsByLabelWildcard(
     $labelPattern: String!
-    $date: timestamptz
+    $date: date
     $priorities: [Int!]
   ) {
     route_route(

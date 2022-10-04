@@ -7,7 +7,7 @@ const scalars = {
   geography_point: 'GeoJSON.Point',
   geography_linestring: 'GeoJSON.LineString',
   localized_string: 'LocalizedString',
-  timestamptz: 'luxon.DateTime',
+  date: 'luxon.DateTime',
   float8: 'number',
 };
 

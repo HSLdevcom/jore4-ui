@@ -1471,6 +1471,151 @@
       },
       {
         "kind": "SCALAR",
+        "name": "date",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "date_comparison_exp",
+        "description": "Boolean expression to compare columns of type \"date\". All fields are combined with logical 'AND'.",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "_eq",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_gt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_gte",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_in",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "date",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_is_null",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_lt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_lte",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_neq",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_nin",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "date",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
         "name": "float8",
         "description": null,
         "fields": null,
@@ -8761,7 +8906,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -8773,7 +8918,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -26362,7 +26507,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -26374,7 +26519,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -27083,7 +27228,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -27095,7 +27240,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -27419,7 +27564,7 @@
             "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -27431,7 +27576,7 @@
             "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -27502,7 +27647,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -27514,7 +27659,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -27644,7 +27789,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -27656,7 +27801,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -28299,7 +28444,7 @@
             "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -28311,7 +28456,7 @@
             "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -29393,7 +29538,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -29405,7 +29550,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -30206,7 +30351,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -30218,7 +30363,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -30770,7 +30915,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -30782,7 +30927,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -30853,7 +30998,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -30865,7 +31010,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -31019,7 +31164,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -31031,7 +31176,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -31836,7 +31981,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -31848,7 +31993,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -33895,7 +34040,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -33907,7 +34052,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -34771,7 +34916,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -34783,7 +34928,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -34993,7 +35138,7 @@
             "description": "The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -35005,7 +35150,7 @@
             "description": "The point in time when the stop becomes valid. If NULL, the stop has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -35112,7 +35257,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -35124,7 +35269,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -35326,7 +35471,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -35338,7 +35483,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -35853,7 +35998,7 @@
             "description": "The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -35865,7 +36010,7 @@
             "description": "The point in time when the stop becomes valid. If NULL, the stop has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -41531,151 +41676,6 @@
       },
       {
         "kind": "SCALAR",
-        "name": "timestamptz",
-        "description": null,
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "timestamptz_comparison_exp",
-        "description": "Boolean expression to compare columns of type \"timestamptz\". All fields are combined with logical 'AND'.",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "_eq",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "timestamptz",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "_gt",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "timestamptz",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "_gte",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "timestamptz",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "_in",
-            "description": null,
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "timestamptz",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "_is_null",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "_lt",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "timestamptz",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "_lte",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "timestamptz",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "_neq",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "timestamptz",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "_nin",
-            "description": null,
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "timestamptz",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "SCALAR",
         "name": "uuid",
         "description": null,
         "fields": null,
@@ -41830,7 +41830,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -41842,7 +41842,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,

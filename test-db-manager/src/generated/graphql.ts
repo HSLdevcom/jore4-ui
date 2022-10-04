@@ -16,6 +16,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  date: luxon.DateTime;
   float8: number;
   geography: GeoJSON.Geometry;
   geography_linestring: GeoJSON.LineString;
@@ -23,7 +24,6 @@ export type Scalars = {
   geometry: GeoJSON.Geometry;
   jsonb: any;
   localized_string: LocalizedString;
-  timestamptz: luxon.DateTime;
   uuid: UUID;
 };
 
@@ -84,6 +84,19 @@ export type StringComparisonExp = {
   _regex?: Maybe<Scalars['String']>;
   /** does the column match the given SQL regular expression */
   _similar?: Maybe<Scalars['String']>;
+};
+
+/** Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'. */
+export type DateComparisonExp = {
+  _eq?: Maybe<Scalars['date']>;
+  _gt?: Maybe<Scalars['date']>;
+  _gte?: Maybe<Scalars['date']>;
+  _in?: Maybe<Array<Scalars['date']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _lt?: Maybe<Scalars['date']>;
+  _lte?: Maybe<Scalars['date']>;
+  _neq?: Maybe<Scalars['date']>;
+  _nin?: Maybe<Array<Scalars['date']>>;
 };
 
 /** Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'. */
@@ -1388,8 +1401,8 @@ export type JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs =
     new_located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
     new_measured_location?: Maybe<Scalars['geography']>;
     new_priority?: Maybe<Scalars['Int']>;
-    new_validity_end?: Maybe<Scalars['timestamptz']>;
-    new_validity_start?: Maybe<Scalars['timestamptz']>;
+    new_validity_end?: Maybe<Scalars['date']>;
+    new_validity_start?: Maybe<Scalars['date']>;
     replace_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   };
 
@@ -4402,9 +4415,9 @@ export type RouteLine = {
   /** The type of the line. */
   type_of_line: RouteTypeOfLineEnum;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
   /** An object relationship */
   vehicle_mode: ReusableComponentsVehicleMode;
 };
@@ -4548,8 +4561,8 @@ export type RouteLineBoolExp = {
   transport_target?: Maybe<HslRouteTransportTargetEnumComparisonExp>;
   typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineBoolExp>;
   type_of_line?: Maybe<RouteTypeOfLineEnumComparisonExp>;
-  validity_end?: Maybe<TimestamptzComparisonExp>;
-  validity_start?: Maybe<TimestamptzComparisonExp>;
+  validity_end?: Maybe<DateComparisonExp>;
+  validity_start?: Maybe<DateComparisonExp>;
   vehicle_mode?: Maybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
@@ -4609,9 +4622,9 @@ export type RouteLineInsertInput = {
   /** The type of the line. */
   type_of_line?: Maybe<RouteTypeOfLineEnum>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
   vehicle_mode?: Maybe<ReusableComponentsVehicleModeObjRelInsertInput>;
 };
 
@@ -4625,9 +4638,9 @@ export type RouteLineMaxFields = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by max() on columns of table "route.line" */
@@ -4654,9 +4667,9 @@ export type RouteLineMinFields = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by min() on columns of table "route.line" */
@@ -4769,9 +4782,9 @@ export type RouteLineSetInput = {
   /** The type of the line. */
   type_of_line?: Maybe<RouteTypeOfLineEnum>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate stddev on columns */
@@ -4915,8 +4928,8 @@ export type RouteRoute = {
   route_line: RouteLine;
   /** A computed field, executes function "route.route_shape" */
   route_shape?: Maybe<Scalars['geography_linestring']>;
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** columns and relationships of "route.route" */
@@ -5077,8 +5090,8 @@ export type RouteRouteBoolExp = {
   route_journey_patterns?: Maybe<JourneyPatternJourneyPatternBoolExp>;
   route_line?: Maybe<RouteLineBoolExp>;
   route_shape?: Maybe<GeographyComparisonExp>;
-  validity_end?: Maybe<TimestamptzComparisonExp>;
-  validity_start?: Maybe<TimestamptzComparisonExp>;
+  validity_end?: Maybe<DateComparisonExp>;
+  validity_start?: Maybe<DateComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.route" */
@@ -5138,8 +5151,8 @@ export type RouteRouteInsertInput = {
   route_id?: Maybe<Scalars['uuid']>;
   route_journey_patterns?: Maybe<JourneyPatternJourneyPatternArrRelInsertInput>;
   route_line?: Maybe<RouteLineObjRelInsertInput>;
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate max on columns */
@@ -5149,8 +5162,8 @@ export type RouteRouteMaxFields = {
   on_line_id?: Maybe<Scalars['uuid']>;
   priority?: Maybe<Scalars['Int']>;
   route_id?: Maybe<Scalars['uuid']>;
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by max() on columns of table "route.route" */
@@ -5170,8 +5183,8 @@ export type RouteRouteMinFields = {
   on_line_id?: Maybe<Scalars['uuid']>;
   priority?: Maybe<Scalars['Int']>;
   route_id?: Maybe<Scalars['uuid']>;
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by min() on columns of table "route.route" */
@@ -5286,8 +5299,8 @@ export type RouteRouteSetInput = {
   origin_short_name_i18n?: Maybe<Scalars['localized_string']>;
   priority?: Maybe<Scalars['Int']>;
   route_id?: Maybe<Scalars['uuid']>;
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate stddev on columns */
@@ -5636,9 +5649,9 @@ export type ServicePatternScheduledStopPoint = {
   /** An aggregate relationship */
   scheduled_stop_point_in_journey_patterns_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
   /** An array relationship */
   vehicle_mode_on_scheduled_stop_point: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
   /** An aggregate relationship */
@@ -5836,8 +5849,8 @@ export type ServicePatternScheduledStopPointBoolExp = {
   relative_distance_from_infrastructure_link_start?: Maybe<Float8ComparisonExp>;
   scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
   scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
-  validity_end?: Maybe<TimestamptzComparisonExp>;
-  validity_start?: Maybe<TimestamptzComparisonExp>;
+  validity_end?: Maybe<DateComparisonExp>;
+  validity_start?: Maybe<DateComparisonExp>;
   vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
 };
 
@@ -5870,9 +5883,9 @@ export type ServicePatternScheduledStopPointInsertInput = {
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
   vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointArrRelInsertInput>;
 };
 
@@ -5892,9 +5905,9 @@ export type ServicePatternScheduledStopPointMaxFields = {
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by max() on columns of table "service_pattern.scheduled_stop_point" */
@@ -5933,9 +5946,9 @@ export type ServicePatternScheduledStopPointMinFields = {
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by min() on columns of table "service_pattern.scheduled_stop_point" */
@@ -6027,9 +6040,9 @@ export type ServicePatternScheduledStopPointSetInput = {
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate stddev on columns */
@@ -6850,19 +6863,6 @@ export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointByPkArg
     vehicle_mode: ReusableComponentsVehicleModeEnum;
   };
 
-/** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
-export type TimestamptzComparisonExp = {
-  _eq?: Maybe<Scalars['timestamptz']>;
-  _gt?: Maybe<Scalars['timestamptz']>;
-  _gte?: Maybe<Scalars['timestamptz']>;
-  _in?: Maybe<Array<Scalars['timestamptz']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['timestamptz']>;
-  _lte?: Maybe<Scalars['timestamptz']>;
-  _neq?: Maybe<Scalars['timestamptz']>;
-  _nin?: Maybe<Array<Scalars['timestamptz']>>;
-};
-
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
 export type UuidComparisonExp = {
   _eq?: Maybe<Scalars['uuid']>;
@@ -6877,8 +6877,8 @@ export type UuidComparisonExp = {
 };
 
 export type ValidityPeriod = {
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 export type InsertLinesMutationVariables = Exact<{

@@ -9,7 +9,7 @@ import {
 import { mapToSqlLikeValue, mapToVariables } from '../../utils';
 
 const GQL_GET_LINES_FOR_COMBOBOX = gql`
-  query GetLinesForCombobox($labelPattern: String!, $date: timestamptz!) {
+  query GetLinesForCombobox($labelPattern: String!, $date: date!) {
     route_line(
       limit: 10
       where: {
