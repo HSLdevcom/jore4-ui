@@ -1,7 +1,15 @@
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useMapQueryParams } from '../../../hooks';
+import {
+  useAppDispatch,
+  useFilterStops,
+  useMapQueryParams,
+} from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
-import { resetMapEditorStateAction, resetModalMapAction } from '../../../redux';
+import {
+  FilterType,
+  resetMapEditorStateAction,
+  resetModalMapAction,
+} from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
 import { SearchContainer } from '../search/conditions/SearchContainer';
@@ -15,11 +23,19 @@ export const RoutesAndLinesPage = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { addMapOpenQueryParameter } = useMapQueryParams();
+  const { toggleFunction } = useFilterStops();
+  const toggleShowAllStops = toggleFunction(FilterType.ShowAllBusStops);
+
   const createLineReactRoute = routeDetails[Path.createLine];
   const onOpenModalMap = () => {
     dispatch(resetModalMapAction());
     dispatch(resetMapEditorStateAction());
     addMapOpenQueryParameter();
+    /**
+     * By default only stops that belong to displayed route are shown on map.
+     * Now that no routes are shown on map, show all stops by default.
+     */
+    toggleShowAllStops(true);
   };
 
   return (
