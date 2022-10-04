@@ -4,7 +4,7 @@ export interface RouteFormInfo {
   finnishName: string;
   label: string;
   direction: RouteDirectionEnum;
-  line: string;
+  line?: string;
 }
 
 export class RoutePropertiesForm {
@@ -41,21 +41,11 @@ export class RoutePropertiesForm {
   }
 
   fillRouteProperties(values: RouteFormInfo) {
-    this.getFinnishNameInput().type(values.finnishName);
-    this.getLabelInput().type(values.label);
+    this.getFinnishNameInput().clear().type(values.finnishName);
+    this.getLabelInput().clear().type(values.label);
     this.selectDirection(values.direction);
-    this.selectLine(values.line);
-  }
-
-  /** Presses the Edit route modal's save button. Can be given forceAction = true
-   * to force the click without waiting for it's actionability (If it's covered
-   * by another element etc.).
-   * https://docs.cypress.io/api/commands/click#Arguments
-   */
-  save(forceAction = false) {
-    return cy
-      .getByTestId('EditRouteModal')
-      .findByTestId('Modal::saveButton')
-      .click({ force: forceAction });
+    if (values.line) {
+      this.selectLine(values.line);
+    }
   }
 }

@@ -14,7 +14,7 @@ import {
   vehicleSubmodeOnInfrastructureLink,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
-import { LineDetailsPage, Toast } from '../pageObjects';
+import { LineDetailsPage, Toast, RouteStopsTable } from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 
 const infraLinks: InfraLinkInsertInput[] = [
@@ -122,6 +122,7 @@ const deleteCreatedResources = () => {
 describe('Line details page: stops on route', () => {
   let lineDetailsPage: LineDetailsPage;
   let toast: Toast;
+  let routeStopsTable: RouteStopsTable;
   before(() => {
     deleteCreatedResources();
     insertToDbHelper(dbResources);
@@ -129,6 +130,7 @@ describe('Line details page: stops on route', () => {
   beforeEach(() => {
     lineDetailsPage = new LineDetailsPage();
     toast = new Toast();
+    routeStopsTable = new RouteStopsTable();
 
     cy.setupTests();
     cy.mockLogin();
@@ -137,47 +139,50 @@ describe('Line details page: stops on route', () => {
   after(() => {
     deleteCreatedResources();
   });
+
   it('Verify that stops of route are shown on its list view', () => {
-    lineDetailsPage.toggleRouteSection(routes[0].label);
+    routeStopsTable.toggleRouteSection(routes[0].label);
 
     // verify that stops 0 and 1 are included on route
-    lineDetailsPage.getStopRow(stops[0].label).contains(stops[0].label);
-    lineDetailsPage.getStopRow(stops[1].label).contains(stops[1].label);
+    routeStopsTable.getStopRow(stops[0].label).contains(stops[0].label);
+    routeStopsTable.getStopRow(stops[1].label).contains(stops[1].label);
 
     // stop 2 is not included on route and thus not shown by default
-    lineDetailsPage.getStopRow(stops[2].label).should('not.exist');
+    routeStopsTable.getStopRow(stops[2].label).should('not.exist');
 
     // stop 2 can be shown after toggling unused stops to be visible
-    lineDetailsPage.toggleUnusedStops();
-    lineDetailsPage.getStopRow(stops[2].label).contains(stops[2].label);
+    routeStopsTable.toggleUnusedStops();
+    routeStopsTable.getStopRow(stops[2].label).contains(stops[2].label);
   });
+
   it('User can add stops to route and remove those', () => {
-    lineDetailsPage.toggleRouteSection(routes[0].label);
+    routeStopsTable.toggleRouteSection(routes[0].label);
 
-    lineDetailsPage.toggleUnusedStops();
+    routeStopsTable.toggleUnusedStops();
 
-    lineDetailsPage.addStopToRoute(stops[2].label);
+    routeStopsTable.addStopToRoute(stops[2].label);
     cy.wait('@gqlUpdateRouteJourneyPattern')
       .its('response.statusCode')
       .should('equal', 200);
     // Wait until cache is updated and UI notices that this stop is
     // now included on route
-    lineDetailsPage
+    routeStopsTable
       .getStopRow(stops[2].label)
       .contains('Ei reitin käytössä')
       .should('not.exist');
 
-    lineDetailsPage.removeStopFromRoute(stops[1].label);
+    routeStopsTable.removeStopFromRoute(stops[1].label);
     cy.wait('@gqlUpdateRouteJourneyPattern')
       .its('response.statusCode')
       .should('equal', 200);
 
-    lineDetailsPage.getStopRow(stops[1].label).contains('Ei reitin käytössä');
+    routeStopsTable.getStopRow(stops[1].label).contains('Ei reitin käytössä');
   });
+
   it('User cannot delete too many stops from route', () => {
-    lineDetailsPage.toggleRouteSection(routes[0].label);
+    routeStopsTable.toggleRouteSection(routes[0].label);
     // Route has only 2 stops so user shouldn't be able to remove either of those
-    lineDetailsPage.removeStopFromRoute(stops[0].label);
+    routeStopsTable.removeStopFromRoute(stops[0].label);
     toast
       .getDangerToast()
       .contains('Reitillä on oltava ainakin kaksi pysäkkiä.')

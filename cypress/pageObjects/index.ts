@@ -11,3 +11,5 @@ export * from './Toast';
 export * from './SearchResultsPage';
 export * from './RoutesAndLinesPage';
 export * from './RouteEditor';
+export * from './EditRoutePage';
+export * from './RouteStopsTable';
