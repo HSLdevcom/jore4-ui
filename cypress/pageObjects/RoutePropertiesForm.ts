@@ -7,6 +7,20 @@ export interface RouteFormInfo {
   line: string;
 }
 
+export interface OriginValues {
+  finnishName: string;
+  finnishNameShort: string;
+  swedishName: string;
+  swedishNameShort: string;
+}
+
+export interface DestinationValues {
+  finnishName: string;
+  finnishNameShort: string;
+  swedishName: string;
+  swedishNameShort: string;
+}
+
 export class RoutePropertiesForm {
   getForm() {
     return cy.get('#route-properties-form');
@@ -41,8 +55,8 @@ export class RoutePropertiesForm {
   }
 
   fillRouteProperties(values: RouteFormInfo) {
-    this.getFinnishNameInput().type(values.finnishName);
-    this.getLabelInput().type(values.label);
+    this.getFinnishNameInput().clear().type(values.finnishName);
+    this.getLabelInput().clear().type(values.label);
     this.selectDirection(values.direction);
     this.selectLine(values.line);
   }
@@ -52,6 +66,107 @@ export class RoutePropertiesForm {
    * by another element etc.).
    * https://docs.cypress.io/api/commands/click#Arguments
    */
+
+  getOriginNameFinnishInput() {
+    return cy.getByTestId('TerminusNameInputs::origin::finnishNameInput');
+  }
+
+  getOriginNameFinnishShortInput() {
+    return cy.getByTestId('TerminusNameInputs::origin::finnishShortNameInput');
+  }
+
+  getOriginNameSwedishInput() {
+    return cy.getByTestId('TerminusNameInputs::origin::swedishNameInput');
+  }
+
+  getOriginNameSwedishShortInput() {
+    return cy.getByTestId('TerminusNameInputs::origin::swedishShortNameInput');
+  }
+
+  getDestinationNameFinnishInput() {
+    return cy.getByTestId('TerminusNameInputs::destination::finnishNameInput');
+  }
+
+  getDestinationNameFinnishShortInput() {
+    return cy.getByTestId(
+      'TerminusNameInputs::destination::finnishShortNameInput',
+    );
+  }
+
+  getDestinationNameSwedishInput() {
+    return cy.getByTestId('TerminusNameInputs::destination::swedishNameInput');
+  }
+
+  getDestinationNameSwedishShortInput() {
+    return cy.getByTestId(
+      'TerminusNameInputs::destination::swedishShortNameInput',
+    );
+  }
+
+  fillOriginInputs(originValues: OriginValues) {
+    this.getOriginNameFinnishInput().clear().type(originValues.finnishName);
+    this.getOriginNameFinnishShortInput()
+      .clear()
+      .type(originValues.finnishNameShort);
+    this.getOriginNameSwedishInput().clear().type(originValues.swedishName);
+    this.getOriginNameSwedishShortInput()
+      .clear()
+      .type(originValues.swedishNameShort);
+  }
+
+  fillDestinationInputs(destinationValues: DestinationValues) {
+    this.getDestinationNameFinnishInput()
+      .clear()
+      .type(destinationValues.finnishName);
+    this.getDestinationNameFinnishShortInput()
+      .clear()
+      .type(destinationValues.finnishNameShort);
+    this.getDestinationNameSwedishInput()
+      .clear()
+      .type(destinationValues.swedishName);
+    this.getDestinationNameSwedishShortInput()
+      .clear()
+      .type(destinationValues.swedishNameShort);
+  }
+
+  verifyOriginValues(originValues: OriginValues) {
+    this.getOriginNameFinnishInput().should(
+      'have.value',
+      originValues.finnishName,
+    );
+    this.getOriginNameFinnishShortInput().should(
+      'have.value',
+      originValues.finnishNameShort,
+    );
+    this.getOriginNameSwedishInput().should(
+      'have.value',
+      originValues.swedishName,
+    );
+    this.getOriginNameSwedishShortInput().should(
+      'have.value',
+      originValues.swedishNameShort,
+    );
+  }
+
+  verifyDestinationValues(destinationValues: DestinationValues) {
+    this.getDestinationNameFinnishInput().should(
+      'have.value',
+      destinationValues.finnishName,
+    );
+    this.getDestinationNameFinnishShortInput().should(
+      'have.value',
+      destinationValues.finnishNameShort,
+    );
+    this.getDestinationNameSwedishInput().should(
+      'have.value',
+      destinationValues.swedishName,
+    );
+    this.getDestinationNameSwedishShortInput().should(
+      'have.value',
+      destinationValues.swedishNameShort,
+    );
+  }
+
   save(forceAction = false) {
     return cy
       .getByTestId('EditRouteModal')

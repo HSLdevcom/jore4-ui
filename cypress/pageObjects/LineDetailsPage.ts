@@ -62,4 +62,20 @@ export class LineDetailsPage {
   getLineLabel() {
     return cy.getByTestId('LineDetailsPage::AdditionalInformation::label');
   }
+
+  getRouteName() {
+    return cy.getByTestId('RouteStopsHeaderRow::name');
+  }
+
+  getRouteValidityPeriod(routeLabel: string) {
+    return this.getRouteHeaderRow(routeLabel).findByTestId(
+      'RouteStopsHeaderRow::validityPeriod',
+    );
+  }
+
+  getRouteDirection(routeLabel: string) {
+    return this.getRouteHeaderRow(routeLabel).findByTestId(
+      'DirectionBadge::value',
+    );
+  }
 }
