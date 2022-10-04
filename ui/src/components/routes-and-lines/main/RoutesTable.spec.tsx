@@ -14,7 +14,7 @@ import {
 import { render } from '../../../utils/test-utils';
 import { LineTableRow } from './LineTableRow';
 import { RoutesTable } from './RoutesTable';
-import { RoutesTableRow } from './RoutesTableRow';
+import { RouteTableRow } from './RouteTableRow';
 
 describe(`<${RoutesTable.name} />`, () => {
   const testId = 'routesTable1';
@@ -54,7 +54,7 @@ describe(`<${RoutesTable.name} />`, () => {
     const { asFragment } = render(
       <RoutesTable testId={testId}>
         {routes.map((item: RouteRoute) => (
-          <RoutesTableRow key={item.route_id} route={item} />
+          <RouteTableRow key={item.route_id} route={item} />
         ))}
       </RoutesTable>,
     );
