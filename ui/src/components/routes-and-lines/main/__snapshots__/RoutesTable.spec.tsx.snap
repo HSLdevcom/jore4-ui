@@ -356,7 +356,7 @@ exports[`<RoutesTable /> Renders the table with route data 1`] = `
         >
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
-            data-testid="RoutesTableRow::showRoute"
+            data-testid="RouteTableRow::showRoute"
             disabled=""
             type="button"
           >
