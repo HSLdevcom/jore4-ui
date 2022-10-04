@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { FunctionComponent } from 'react';
-import { BrowserRouter, Route, Switch, useParams } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { MapLoader, ModalMap } from '../components/map';
 import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
@@ -19,15 +19,6 @@ export const Router: FunctionComponent = () => {
     _exact?: boolean; // When true, will only match if the path matches the location.pathname exactly.
     component: React.ComponentType;
   }
-
-  const ExampleResourceRoute: FunctionComponent = () => {
-    const { id } = useParams<{ id: string }>();
-    return React.createElement(
-      'h2',
-      null,
-      `Example resource route. Resouce id: ${id}`,
-    );
-  };
 
   const FallbackRoute: FunctionComponent = () => {
     return React.createElement('p', null, `404, page not found`);
@@ -73,10 +64,6 @@ export const Router: FunctionComponent = () => {
       _routerRoute: Path.editLine,
       _exact: true,
       component: EditLinePage,
-    },
-    [Path.exampleResource]: {
-      _routerRoute: Path.exampleResource,
-      component: ExampleResourceRoute,
     },
     [Path.fallback]: {
       _routerRoute: Path.fallback,
