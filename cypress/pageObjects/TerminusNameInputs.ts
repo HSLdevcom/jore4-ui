@@ -46,18 +46,64 @@ export class TerminusNameInputs {
     origin: TerminusValues,
     destination: TerminusValues,
   ) {
-    this.getTerminusOriginFinnishNameInput().type(origin.finnishName);
-    this.getTerminusOriginFinnishShortNameInput().type(origin.finnishShortName);
-    this.getTerminusOriginSwedishNameInput().type(origin.swedishName);
-    this.getTerminusOriginSwedishShortNameInput().type(origin.swedishShortName);
+    this.getTerminusOriginFinnishNameInput().clear().type(origin.finnishName);
+    this.getTerminusOriginFinnishShortNameInput()
+      .clear()
+      .type(origin.finnishShortName);
+    this.getTerminusOriginSwedishNameInput().clear().type(origin.swedishName);
+    this.getTerminusOriginSwedishShortNameInput()
+      .clear()
+      .type(origin.swedishShortName);
 
-    this.getTerminusDestinationFinnishNameInput().type(destination.finnishName);
-    this.getTerminusDestinationFinnishShortNameInput().type(
-      destination.finnishShortName,
+    this.getTerminusDestinationFinnishNameInput()
+      .clear()
+      .type(destination.finnishName);
+    this.getTerminusDestinationFinnishShortNameInput()
+      .clear()
+      .type(destination.finnishShortName);
+    this.getTerminusDestinationSwedishNameInput()
+      .clear()
+      .type(destination.swedishName);
+    this.getTerminusDestinationSwedishShortNameInput()
+      .clear()
+      .type(destination.swedishShortName);
+  }
+
+  verifyOriginValues(originValues: TerminusValues) {
+    this.getTerminusOriginFinnishNameInput().should(
+      'have.value',
+      originValues.finnishName,
     );
-    this.getTerminusDestinationSwedishNameInput().type(destination.swedishName);
-    this.getTerminusDestinationSwedishShortNameInput().type(
-      destination.swedishShortName,
+    this.getTerminusOriginFinnishShortNameInput().should(
+      'have.value',
+      originValues.finnishShortName,
+    );
+    this.getTerminusOriginSwedishNameInput().should(
+      'have.value',
+      originValues.swedishName,
+    );
+    this.getTerminusOriginSwedishShortNameInput().should(
+      'have.value',
+      originValues.swedishShortName,
+    );
+  }
+
+  verifyDestinationValues(destinationValues: TerminusValues) {
+    this.getTerminusDestinationFinnishNameInput().should(
+      'have.value',
+      destinationValues.finnishName,
+    );
+    this.getTerminusDestinationFinnishShortNameInput().should(
+      'have.value',
+      destinationValues.finnishShortName,
+    );
+    this.getTerminusDestinationSwedishNameInput().should(
+      'have.value',
+      destinationValues.swedishName,
+    );
+    this.getTerminusDestinationSwedishShortNameInput().should(
+      'have.value',
+      destinationValues.swedishShortName,
     );
   }
 }
