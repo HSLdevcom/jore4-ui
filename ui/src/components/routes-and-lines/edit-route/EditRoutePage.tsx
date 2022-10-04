@@ -32,6 +32,12 @@ import {
 } from '../common/ConflictResolverModal';
 import { PageHeader } from '../common/PageHeader';
 
+const testIds = {
+  saveButton: 'EditRoutePage::saveButton',
+  cancelButton: 'EditRoutePage::cancelButton',
+  deleteButton: 'EditRoutePage::deleteButton',
+};
+
 export const EditRoutePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -130,6 +136,7 @@ export const EditRoutePage = (): JSX.Element => {
             containerClassName="ml-auto"
             onClick={() => setIsDeleting(true)}
             inverted
+            testId={testIds.deleteButton}
           >
             {t('map.deleteRoute')}
           </SimpleButton>
@@ -138,6 +145,7 @@ export const EditRoutePage = (): JSX.Element => {
             containerClassName="ml-5"
             onClick={onCancel}
             inverted
+            testId={testIds.cancelButton}
           >
             {t('cancel')}
           </SimpleButton>
@@ -145,6 +153,7 @@ export const EditRoutePage = (): JSX.Element => {
             id="save-button"
             containerClassName="ml-5"
             onClick={onSave}
+            testId={testIds.saveButton}
           >
             {t('save')}
           </SimpleButton>

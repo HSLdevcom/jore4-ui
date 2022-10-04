@@ -1,5 +1,6 @@
 import { Priority } from '@hsl/jore4-test-db-manager';
 import { ConfirmSaveForm } from './ConfirmSaveForm';
+import { EditRouteModal } from './EditRouteModal';
 import { ClickPointNearMapMarker, Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { RouteFormInfo, RoutePropertiesForm } from './RoutePropertiesForm';
@@ -21,6 +22,8 @@ export class MapItemCreator {
   stopForm = new StopForm();
 
   routeStopsOverlay = new RouteStopsOverlay();
+
+  editRouteModal = new EditRouteModal();
 
   setPriority = (priority: Priority) => {
     switch (priority) {
@@ -154,7 +157,7 @@ export class MapItemCreator {
     this.confirmSaveForm.setStartDate(validityStartISODate);
     this.setEndDate(validityEndISODate);
 
-    this.routePropertiesForm.save();
+    this.editRouteModal.save();
 
     routePoints.forEach((routePoint) => {
       this.map.clickAtPositionFromMapMarkerByTestId(routePoint);
