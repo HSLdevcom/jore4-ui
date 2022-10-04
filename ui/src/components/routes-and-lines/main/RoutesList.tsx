@@ -1,6 +1,6 @@
 import { RouteAllFieldsFragment } from '../../../generated/graphql';
 import { RoutesTable } from './RoutesTable';
-import { RoutesTableRow } from './RoutesTableRow';
+import { RouteTableRow } from './RouteTableRow';
 
 type Props = {
   routes?: RouteAllFieldsFragment[];
@@ -13,7 +13,7 @@ const testIds = {
 export const RoutesList = ({ routes }: Props): JSX.Element => (
   <RoutesTable testId={testIds.table}>
     {routes?.map((item: RouteAllFieldsFragment) => (
-      <RoutesTableRow key={item.route_id} route={item} />
+      <RouteTableRow key={item.route_id} route={item} />
     ))}
   </RoutesTable>
 );

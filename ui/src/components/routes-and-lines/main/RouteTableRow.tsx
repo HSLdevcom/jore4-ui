@@ -12,7 +12,7 @@ interface Props {
   route: RouteAllFieldsFragment;
 }
 
-export const RoutesTableRow = ({
+export const RouteTableRow = ({
   className = '',
   route,
 }: Props): JSX.Element => {
@@ -57,7 +57,7 @@ export const RoutesTableRow = ({
             disabled={
               !route.route_shape /* some routes imported from jore3 are missing the geometry */
             }
-            testId="RoutesTableRow::showRoute"
+            testId="RouteTableRow::showRoute"
           />
         </td>
       </tr>
