@@ -149,6 +149,12 @@
     "removedFromRoutes": "The stop will be removed from the following routes: {{ routeLabels }}",
     "confirmText": "OK"
   },
+  "confirmRouteDraftStopsDialog": {
+    "title": "Route has draft stops",
+    "description": "Route {{ routeLabel }} has stops with draft priority: {{ stopLabels }}. If you want to keep them on the route, please set their priority to match the route.",
+    "confirmText": "Save with draft stops",
+    "removeStopsText": "Save without drafts"
+  },
   "priority": {
     "label": "Priority",
     "standard": "Standard",

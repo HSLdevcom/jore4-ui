@@ -3,12 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import {
   RouteRoute,
+  ServicePatternScheduledStopPoint,
   useGetRouteDetailsByIdsQuery,
 } from '../../../generated/graphql';
 import { mapRouteResultToRoute } from '../../../graphql';
 import {
   mapRouteToFormState,
   useDeleteRoute,
+  useEditRouteJourneyPattern,
   useEditRouteMetadata,
 } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
@@ -24,6 +26,7 @@ import {
   submitFormByRef,
 } from '../../../utils';
 import { RedirectWithQuery } from '../../common/RedirectWithQuery';
+import { RouteDraftStopsConfirmationDialog } from '../../forms/route/RouteDraftStopsConfirmationDialog';
 import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
@@ -41,15 +44,27 @@ const testIds = {
 export const EditRoutePage = (): JSX.Element => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [draftStops, setDraftStops] = useState<
+    ServicePatternScheduledStopPoint[]
+  >([]);
+  const [routeFormData, setRouteFormData] = useState<RouteFormState | null>(
+    null,
+  );
 
   const {
     prepareEditRouteMetadata,
+    findDraftStopsOnRoute,
     mapEditRouteMetadataChangesToVariables,
     editRouteMetadata,
     defaultErrorHandler,
   } = useEditRouteMetadata();
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
     useDeleteRoute();
+  const {
+    prepareDeleteStopFromRoute,
+    mapEditJourneyPatternChangesToVariables,
+    updateRouteGeometryMutation,
+  } = useEditRouteJourneyPattern();
   const [conflicts, setConflicts] = useState<RouteRoute[]>([]);
   const formRef = useRef<ExplicitAny>(null);
   const { id } = useParams<{ id: string }>();
@@ -78,6 +93,41 @@ export const EditRoutePage = (): JSX.Element => {
       const variables = mapEditRouteMetadataChangesToVariables(changes);
       await editRouteMetadata(variables);
       setHasFinishedEditing(true);
+      setRouteFormData(null);
+    } catch (err) {
+      defaultErrorHandler(err);
+    }
+  };
+
+  const onPrepareSubmit = async (form: RouteFormState) => {
+    try {
+      const draftStopsOnRoute = await findDraftStopsOnRoute({
+        routeId: id,
+        oldPriority: route?.priority,
+        form,
+      });
+      if (draftStopsOnRoute.length > 0) {
+        setRouteFormData(form);
+        setDraftStops(draftStopsOnRoute);
+        return;
+      }
+      onSubmit(form);
+    } catch (err) {
+      defaultErrorHandler(err);
+    }
+  };
+
+  const onRemoveStopsFromRoute = async (form: RouteFormState) => {
+    try {
+      if (route) {
+        const changes = prepareDeleteStopFromRoute({
+          route,
+          stopPointLabels: draftStops?.map((stop) => stop.label),
+        });
+        const variables = mapEditJourneyPatternChangesToVariables(changes);
+        await updateRouteGeometryMutation(variables);
+      }
+      onSubmit(form);
     } catch (err) {
       defaultErrorHandler(err);
     }
@@ -123,7 +173,7 @@ export const EditRoutePage = (): JSX.Element => {
                 ref={formRef}
                 className="mb-2 ml-2 p-6"
                 defaultValues={mapRouteToFormState(route)}
-                onSubmit={onSubmit}
+                onSubmit={onPrepareSubmit}
               />
             )}
           </FormContainer>
@@ -169,6 +219,18 @@ export const EditRoutePage = (): JSX.Element => {
         description={t('confirmDeleteRouteDialog.description')}
         confirmText={t('confirmDeleteRouteDialog.confirmText')}
         cancelText={t('cancel')}
+      />
+      <RouteDraftStopsConfirmationDialog
+        isOpen={draftStops?.length > 0}
+        onCancel={() => setDraftStops([])}
+        onRemoveStops={() => {
+          if (routeFormData) onRemoveStopsFromRoute(routeFormData);
+        }}
+        onConfirm={() => {
+          if (routeFormData) onSubmit(routeFormData);
+        }}
+        routeLabel={route?.label}
+        stopsLabelsToRemove={draftStops.map((stop) => stop.label)}
       />
     </div>
   );
