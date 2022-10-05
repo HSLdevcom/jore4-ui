@@ -149,6 +149,12 @@
     "removedFromRoutes": "Pysäkki poistetaan seuraavilta reiteiltä: {{ routeLabels }}",
     "confirmText": "OK"
   },
+  "confirmRouteDraftStopsDialog": {
+    "title": "Reitillä luonnospysäkkejä",
+    "description": "Reitillä {{ routeLabel }} olevat pysäkit {{ stopLabels }} ovat luonnoksia. Jos haluat pysäkit mukaan reitille, säädä ensin niiden prioriteetti vastaamaan reittiä.",
+    "confirmText": "Tallenna luonnosten kanssa",
+    "removeStopsText": "Tallenna ilman luonnoksia"
+  },
   "priority": {
     "label": "Prioriteetti",
     "standard": "Perusversio",

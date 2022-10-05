@@ -5,9 +5,12 @@ import {
   RouteAllFieldsFragment,
   RouteRoute,
   RouteRouteSetInput,
+  ServicePatternScheduledStopPoint,
+  useGetScheduledStopsOnRouteAsyncQuery,
   usePatchRouteMutation,
 } from '../../generated/graphql';
 import { mapToISODate, MIN_DATE } from '../../time';
+import { Priority } from '../../types/Priority';
 import { RouteDirection } from '../../types/RouteDirection';
 import {
   defaultLocalizedString,
@@ -81,6 +84,7 @@ export const useEditRouteMetadata = () => {
   const [mutateFunction] = usePatchRouteMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
   const { validateMetadata } = useValidateRoute();
+  const [getScheduledStopsOnRoute] = useGetScheduledStopsOnRouteAsyncQuery();
 
   const prepareEdit = async ({ routeId, form }: EditParams) => {
     const input = mapRouteFormToInput(form);
@@ -104,6 +108,41 @@ export const useEditRouteMetadata = () => {
     };
 
     return changes;
+  };
+
+  // Find all stops on route with draft priority, if the route changes priority from draft
+  const findDraftStopsOnRoute = async ({
+    routeId,
+    oldPriority,
+    form,
+  }: {
+    routeId: UUID;
+    oldPriority?: Priority;
+    form: RouteFormState;
+  }) => {
+    const input = mapRouteFormToInput(form);
+
+    if (oldPriority === Priority.Draft && input.priority !== Priority.Draft) {
+      const result = await getScheduledStopsOnRoute({
+        routeId,
+      });
+      const scheduledStopPoints = result.data.journey_pattern_journey_pattern
+        .flatMap(
+          (journeyPattern) =>
+            journeyPattern.scheduled_stop_point_in_journey_patterns,
+        )
+        .flatMap((scheduledStopPointsInJourneyPatterns) =>
+          scheduledStopPointsInJourneyPatterns.scheduled_stop_points.map(
+            (scheduledStopPoint) =>
+              scheduledStopPoint as ServicePatternScheduledStopPoint,
+          ),
+        );
+      return scheduledStopPoints.filter(
+        (stop) => stop.priority === Priority.Draft,
+      );
+    }
+
+    return [];
   };
 
   const mapEditChangesToVariables = (
@@ -133,6 +172,7 @@ export const useEditRouteMetadata = () => {
 
   return {
     prepareEditRouteMetadata: prepareEdit,
+    findDraftStopsOnRoute,
     mapEditRouteMetadataChangesToVariables: mapEditChangesToVariables,
     editRouteMetadata,
     defaultErrorHandler,

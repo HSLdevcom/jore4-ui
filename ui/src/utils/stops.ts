@@ -42,14 +42,14 @@ export const sortStopsOnInfraLink = <
   isTraversalForwards: boolean,
 ) => stops.sort(sortStopsOnInfraLinkComparator(isTraversalForwards));
 
-export const addOrRemoveStopLabelFromIncludedStops = (
+export const addOrRemoveStopLabelsFromIncludedStops = (
   stops: string[],
-  stop: string,
+  stopsToRemove: string[],
   belongsToJourneyPattern: boolean,
 ) =>
   belongsToJourneyPattern
-    ? uniq([...stops, stop])
-    : stops.filter((label) => label !== stop);
+    ? uniq([...stops, ...stopsToRemove])
+    : stops.filter((label) => !stopsToRemove.includes(label));
 
 export const isFutureStop = <
   TStop extends ScheduledStopPointDefaultFieldsFragment,
