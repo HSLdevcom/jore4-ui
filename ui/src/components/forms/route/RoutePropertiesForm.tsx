@@ -67,7 +67,7 @@ const RoutePropertiesFormComponent = (
       >
         {routeLabel && (
           <Row>
-            <h2 className="mb-8 text-2xl font-bold">
+            <h2 className="mb-8">
               {t('routes.route')} {routeLabel}
             </h2>
           </Row>

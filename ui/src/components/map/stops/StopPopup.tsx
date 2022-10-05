@@ -52,9 +52,7 @@ export const StopPopup = ({
         <Row>
           <Column className="w-full">
             <Row>
-              <h3 className="text-xl font-bold">
-                {t('stops.stopWithLabel', { stopLabel: label })}
-              </h3>
+              <h3>{t('stops.stopWithLabel', { stopLabel: label })}</h3>
               <CloseIconButton className="ml-auto" onClick={onClose} />
             </Row>
           </Column>

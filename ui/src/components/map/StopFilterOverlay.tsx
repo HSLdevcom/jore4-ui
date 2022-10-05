@@ -50,10 +50,10 @@ export const StopFilterOverlay = ({ className = '' }: Props): JSX.Element => {
   return (
     <MapOverlay className={`rounded-b ${className}`}>
       <MapOverlayHeader>
-        <h2 className="text-xl font-bold">{t('filters.title')}</h2>
+        <h4>{t('filters.title')}</h4>
       </MapOverlayHeader>
       <div className="px-4 pt-4 pb-2">
-        <h4 className="mb-3.5 font-bold">{t('stops.stops')}</h4>
+        <p className="mb-3.5 font-bold">{t('stops.stops')} </p>
         <FilterRow className="mb-4" filter={highestPriorityCurrentFilterItem} />
         <Section>
           {timeBasedFilterItems.map((filter) => (

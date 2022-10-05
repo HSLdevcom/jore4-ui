@@ -9,7 +9,7 @@ interface Props {
 export const ModalHeader = ({ onClose, heading }: Props): JSX.Element => {
   return (
     <Row className="border border-light-grey bg-background px-14 py-7">
-      <p className="text-2xl font-bold">{heading}</p>
+      <h2>{heading}</h2>
       <CloseIconButton className="ml-auto" onClick={onClose} />
     </Row>
   );

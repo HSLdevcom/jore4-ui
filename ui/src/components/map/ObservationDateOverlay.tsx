@@ -36,10 +36,14 @@ export const ObservationDateOverlay = ({ className = '' }: Props) => {
     setObservationDateToUrl(DateTime.fromISO(value));
   };
 
+  const dateInputId = 'observation-date-input';
+
   return (
     <MapOverlay className={`${className} rounded`}>
       <Column className="space-y-1 p-3">
-        <h2 className="text-sm font-bold">{t('filters.observationDate')}</h2>
+        <label className="text-sm" htmlFor={dateInputId}>
+          {t('filters.observationDate')}
+        </label>
         <Row className="space-x-1">
           <input
             type="date"
@@ -47,6 +51,7 @@ export const ObservationDateOverlay = ({ className = '' }: Props) => {
             onChange={onObservationDateChange}
             className="flex-1"
             disabled={hasChangesInProgress}
+            id={dateInputId}
           />
           <IconButton
             className="block h-11 w-11 self-stretch rounded-md border border-black"

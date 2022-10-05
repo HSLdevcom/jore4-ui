@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearch } from '../../../../hooks';
 import { useToggle } from '../../../../hooks/useToggle';
@@ -40,9 +39,7 @@ export const SearchContainer = (): JSX.Element => {
       </Row>
       <Visible visible={isExpanded}>
         <div className="border-2 border-background p-10">
-          <h4 className="text-bold text-2xl">
-            {t('search.advancedSearchTitle')}
-          </h4>
+          <h2>{t('search.advancedSearchTitle')}</h2>
           <PriorityCondition
             onClick={setSearchCondition}
             priorities={searchConditions.priorities}

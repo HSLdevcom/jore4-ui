@@ -39,7 +39,7 @@ export const RouteLineTableRow = ({
         <Link to={routeDetails[Path.lineDetails].getLink(lineId)}>
           <Row className="items-center">
             <Column className="w-1/2 font-bold">
-              <p className="text-2xl">{rowItem.label}</p>
+              <h2>{rowItem.label}</h2>
               <p>{rowItem.name_i18n.fi_FI}</p>
             </Column>
             <Column className="w-1/2 text-right">

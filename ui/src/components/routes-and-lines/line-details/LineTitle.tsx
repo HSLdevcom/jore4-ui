@@ -33,9 +33,9 @@ export const LineTitle: React.FC<Props> = ({
   return (
     <Column>
       <Row className={`items-center ${className}`}>
-        <span className="mr-4 text-4xl font-bold" data-testid={testIds.heading}>
+        <h1 className="mr-4" data-testid={testIds.heading}>
           {t('lines.line', { label: line.label })}
-        </span>
+        </h1>
         <span>
           {line.line_routes?.length > 0 &&
             line.line_routes.map((item) => (

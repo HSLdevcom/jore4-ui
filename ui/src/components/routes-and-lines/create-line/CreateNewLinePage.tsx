@@ -66,7 +66,7 @@ export const CreateNewLinePage = (): JSX.Element => {
       />
       <Row>
         <i className="icon-bus-alt text-6xl text-tweaked-brand" />
-        <h1 className="text-3xl font-bold">{t('lines.createNew')}</h1>
+        <h1>{t('lines.createNew')}</h1>
       </Row>
       <LineForm onSubmit={onSubmit} defaultValues={defaultValues} />
     </Container>

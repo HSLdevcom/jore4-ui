@@ -67,9 +67,7 @@ export const LineDetailsPage = (): JSX.Element => {
           </Row>
           <Row>
             <Column className="w-full">
-              <h1 className="mt-8 text-3xl font-semibold">
-                {t('lines.routes')}
-              </h1>
+              <h1 className="mt-8">{t('lines.routes')}</h1>
               {line.line_routes?.length > 0 ? (
                 <RouteStopsTable routes={line.line_routes} />
               ) : (
