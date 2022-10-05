@@ -25,7 +25,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
   return (
     <Container>
       <Row>
-        <h1 className="text-3xl font-bold">{t('routes.routes')}</h1>
+        <h1>{t('routes.routes')}</h1>
         <SimpleButton containerClassName="ml-auto" onClick={onOpenModalMap}>
           {t('map.open')}
         </SimpleButton>

@@ -47,13 +47,13 @@ export const RouteStopsOverlayRow = ({
             validityEnd={stop.validity_end}
           />
         </div>
-        <div
+        <span
           className={`text-sm font-bold ${
             belongsToJourneyPattern ? 'text-black' : 'text-gray-300'
           }`}
         >
           {stop.label}
-        </div>
+        </span>
       </div>
       {!isReadOnly && (
         <div className="text-tweaked-brand">

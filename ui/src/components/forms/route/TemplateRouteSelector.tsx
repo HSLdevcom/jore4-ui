@@ -22,7 +22,7 @@ export const TemplateRouteSelector = ({
 
   return (
     <div className="prelative relative w-full rounded-md border border-light-grey bg-background px-3 py-4">
-      <h2 className="mb-4 text-xl font-bold">{t('routes.searchTemplate')}</h2>
+      <h3 className="mb-4">{t('routes.searchTemplate')}</h3>
       <Row className="mb-4">
         <Column>
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}

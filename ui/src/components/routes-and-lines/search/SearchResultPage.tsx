@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearch, useSearchResults } from '../../../hooks';
 import { usePagination } from '../../../hooks/usePagination';
@@ -27,9 +26,7 @@ export const SearchResultPage = (): JSX.Element => {
   return (
     <Container testId={testIds.container}>
       <Row>
-        <h1 className="text-2xl font-bold">
-          {`${t('search.searchResultsTitle')} | ${t('routes.routes')}`}
-        </h1>
+        <h2>{`${t('search.searchResultsTitle')} | ${t('routes.routes')}`}</h2>
         <CloseIconButton
           label={t('close')}
           className="ml-auto text-base font-bold text-brand"
@@ -38,11 +35,11 @@ export const SearchResultPage = (): JSX.Element => {
       </Row>
       <SearchContainer />
       <FiltersContainer />
-      <h1 className="my-4 text-2xl font-bold">
+      <h2 className="my-4">
         {t('search.resultCount', {
           resultCount,
         })}
-      </h1>
+      </h2>
       <ResultList
         lines={displayedLines}
         routes={displayedRoutes}

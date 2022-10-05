@@ -48,12 +48,10 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
       <MapOverlayHeader testId={testIds.mapOverlayHeader}>
         <i className="icon-bus-alt text-2xl text-tweaked-brand" />
         <div>
-          <h2 className="text-2xl font-bold text-tweaked-brand">
-            {routeMetadata.label}
-          </h2>
-          <div className="text-light text-xs text-gray-500">
+          <h2 className="text-tweaked-brand">{routeMetadata.label}</h2>
+          <p className="text-light text-xs text-gray-500">
             {routeMetadata?.name_i18n.fi_FI}
-          </div>
+          </p>
         </div>
         <Visible visible={creatingNewRoute}>
           <EditButton
@@ -67,9 +65,9 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
         </div>
         <div className="ml-2 flex flex-col">
           <Row className="items-center gap-2">
-            <h2 className="text-base font-bold text-black">
+            <p className="text-base font-bold text-black">
               {routeMetadata.label}
-            </h2>
+            </p>
             <PriorityBadge
               priority={routeMetadata.priority}
               validityStart={routeMetadata.validity_start}

@@ -33,19 +33,22 @@ export const ActionsRow = ({
     setObservationDateToUrl(DateTime.fromISO(value));
   };
 
+  const dateInputId = 'observation-date-input';
+
   return (
     <Container className={className}>
       <Row>
-        <h2 className="text-sm font-bold">{t('filters.observationDate')}</h2>
-      </Row>
-      <Row>
         <Column className="w-1/4">
+          <label className="text-sm" htmlFor={dateInputId}>
+            {t('filters.observationDate')}
+          </label>
           <input
             type="date"
             required
             value={observationDate.toISODate()}
             onChange={(e) => onDateChange(e.target.value)}
             className="flex-1"
+            id={dateInputId}
           />
         </Column>
 

@@ -52,11 +52,8 @@ export const ConfirmSaveForm = ({ className = '' }: Props): JSX.Element => {
 
   return (
     <div className={className}>
-      <h2 className="pb-6 text-xl font-bold">
-        {t('saveChangesModal.validityPeriod')}
-      </h2>
-
-      <Row className="mb-4">
+      <h3>{t('saveChangesModal.validityPeriod')}</h3>
+      <Row className="mb-4 pt-6">
         <Column>
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>{t('priority.label')}</label>

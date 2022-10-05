@@ -167,13 +167,11 @@ const StopFormComponent = (
         ref={ref}
       >
         <div className="mx-12">
-          <h2 className="pb-6 text-xl font-bold">{t('stops.stop')}</h2>
+          <h3 className="pb-6">{t('stops.stop')}</h3>
           <FormColumn>
             <FormRow mdColumns={2}>
               <Column>
-                <h3 className="mb-2 text-lg font-bold">
-                  {t('stops.nameAddress')}
-                </h3>
+                <h5 className="mb-2">{t('stops.nameAddress')}</h5>
                 <InputField<FormState>
                   type="text"
                   translationPrefix="stops"
@@ -182,7 +180,7 @@ const StopFormComponent = (
                 />
               </Column>
               <Column>
-                <h3 className="mb-2 text-lg font-bold">{t('map.location')}</h3>
+                <h5 className="mb-2">{t('map.location')}</h5>
                 <FormRow mdColumns={2}>
                   <InputField<FormState>
                     type="number"

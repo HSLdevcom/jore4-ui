@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Column, Row } from '../../../../layoutComponents';
 import { Priority } from '../../../../types/Priority';
@@ -40,7 +39,7 @@ export const PriorityCondition = ({
 
   return (
     <Column>
-      <h4 className="font-bold">{t('priority.label')}</h4>
+      <p className="font-bold">{t('priority.label')}</p>
       <Row className="space-x-2">
         {priorityButtonData.map((item) => (
           <SimpleButton

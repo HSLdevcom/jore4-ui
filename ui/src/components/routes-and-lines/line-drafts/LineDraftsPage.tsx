@@ -32,12 +32,12 @@ export const LineDraftsPage = (): JSX.Element => {
     setObservationDateToUrl(DateTime.fromISO(value));
   };
 
+  const dateInputId = 'observation-date-input';
+
   return (
     <Container>
       <Row>
-        <h1 className="text-2xl font-bold">
-          {`${t('lines.draftsTitle')} | ${t('lines.line', { label })}`}
-        </h1>
+        <h2>{`${t('lines.draftsTitle')} | ${t('lines.line', { label })}`}</h2>
         <CloseIconButton
           label={t('close')}
           className="ml-auto text-base font-bold text-brand"
@@ -45,16 +45,17 @@ export const LineDraftsPage = (): JSX.Element => {
         />
       </Row>
       <Row>
-        <h2 className="text-sm font-bold">{t('filters.observationDate')}</h2>
-      </Row>
-      <Row>
         <Column className="w-1/4">
+          <label className="text-sm" htmlFor={dateInputId}>
+            {t('filters.observationDate')}
+          </label>
           <input
             type="date"
             required
             value={observationDate.toISODate() || ''}
             onChange={(e) => onDateChange(e.target.value)}
             className="flex-1"
+            id={dateInputId}
           />
         </Column>
       </Row>
@@ -63,9 +64,7 @@ export const LineDraftsPage = (): JSX.Element => {
         <RouteStopsTable routes={routes} />
       ) : (
         <Row className="py-20">
-          <p className="mx-auto flex text-2xl font-bold">
-            {t('lines.noDrafts')}
-          </p>
+          <h2 className="mx-auto flex">{t('lines.noDrafts')}</h2>
         </Row>
       )}
     </Container>

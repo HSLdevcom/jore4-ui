@@ -83,8 +83,8 @@ export const EditLinePage = (): JSX.Element => {
       />
       <PageHeader>
         <Row>
-          <i className="icon-bus-alt text-3xl text-tweaked-brand" />
-          <h1 className="text-3xl font-bold">
+          <h1>
+            <i className="icon-bus-alt text-tweaked-brand" />
             {t('lines.line', { label: line?.label })}
           </h1>
         </Row>

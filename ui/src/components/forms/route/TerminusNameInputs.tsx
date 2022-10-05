@@ -27,9 +27,7 @@ export const TerminusNameInputs = ({ className = '' }: Props): JSX.Element => {
   const { t } = useTranslation();
   return (
     <div className={`${className} w-full`}>
-      <h2 className="my-4 w-full pt-1 text-xl font-bold">
-        {t('routes.origin.title')}
-      </h2>
+      <h3 className="my-4 w-full pt-1">{t('routes.origin.title')}</h3>
       <FormColumn>
         <FormRow mdColumns={2}>
           <InputField<RouteFormState>
@@ -58,9 +56,7 @@ export const TerminusNameInputs = ({ className = '' }: Props): JSX.Element => {
           />
         </FormRow>
       </FormColumn>
-      <h2 className="my-4 w-full pt-1 text-xl font-bold">
-        {t('routes.destination.title')}
-      </h2>
+      <h3 className="my-4 w-full pt-1">{t('routes.destination.title')}</h3>
       <FormColumn>
         <FormRow mdColumns={2}>
           <InputField<RouteFormState>

@@ -25,11 +25,9 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
               <div
                 class="flex flex-col w-1/2 font-bold"
               >
-                <p
-                  class="text-2xl"
-                >
+                <h2>
                   65
-                </p>
+                </h2>
                 <p>
                   Rautatientori - Veräjälaakso
                 </p>
@@ -96,11 +94,9 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
               <div
                 class="flex flex-col w-1/2 font-bold"
               >
-                <p
-                  class="text-2xl"
-                >
+                <h2>
                   71
-                </p>
+                </h2>
                 <p>
                   Rautatientori - Malmi as.
                 </p>
@@ -167,11 +163,9 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
               <div
                 class="flex flex-col w-1/2 font-bold"
               >
-                <p
-                  class="text-2xl"
-                >
+                <h2>
                   785K
-                </p>
+                </h2>
                 <p>
                   Rautatientori - Nikkilä
                 </p>
@@ -238,11 +232,9 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
               <div
                 class="flex flex-col w-1/2 font-bold"
               >
-                <p
-                  class="text-2xl"
-                >
+                <h2>
                   1234
-                </p>
+                </h2>
                 <p>
                   Erottaja - Arkkadiankatu
                 </p>
@@ -321,11 +313,9 @@ exports[`<RoutesTable /> Renders the table with route data 1`] = `
               <div
                 class="flex flex-col w-1/2 font-bold"
               >
-                <p
-                  class="text-2xl"
-                >
+                <h2>
                   1
-                </p>
+                </h2>
                 <p>
                   route 1
                 </p>

@@ -90,11 +90,11 @@ export const FilterPanel = ({
   return (
     <div className={`inline-block ${className}`}>
       <Card className="flex-col rounded-b-none">
-        <h3 className={headingClassName}>{t('map.showRoutes')}</h3>
+        <h6 className={headingClassName}>{t('map.showRoutes')}</h6>
         <ToggleRow toggles={routes} />
       </Card>
       <Card className="flex-col rounded-none !border-t-0">
-        <h3 className={headingClassName}>{t('map.showStops')}</h3>
+        <h6 className={headingClassName}>{t('map.showStops')}</h6>
         <ToggleRow toggles={stops} />
       </Card>
       <Card className="flex-col rounded-t-none !py-2.5 !px-5">
