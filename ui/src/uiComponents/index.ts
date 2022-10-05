@@ -3,6 +3,7 @@ export * from './Card';
 export * from './CloseIconButton';
 export * from './Combobox';
 export * from './ConfirmationDialog';
+export * from './DialogWithButtons';
 export * from './EditButton';
 export * from './FilterPanel';
 export * from './FormContainer';
