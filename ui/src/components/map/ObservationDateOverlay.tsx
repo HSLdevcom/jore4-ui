@@ -41,9 +41,7 @@ export const ObservationDateOverlay = ({ className = '' }: Props) => {
   return (
     <MapOverlay className={`${className} rounded`}>
       <Column className="space-y-1 p-3">
-        <label className="text-sm" htmlFor={dateInputId}>
-          {t('filters.observationDate')}
-        </label>
+        <label htmlFor={dateInputId}>{t('filters.observationDate')}</label>
         <Row className="space-x-1">
           <input
             type="date"
