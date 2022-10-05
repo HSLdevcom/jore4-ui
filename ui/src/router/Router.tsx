@@ -10,6 +10,10 @@ import { LineDetailsPage } from '../components/routes-and-lines/line-details/Lin
 import { LineDraftsPage } from '../components/routes-and-lines/line-drafts/LineDraftsPage';
 import { RoutesAndLinesPage } from '../components/routes-and-lines/main/RoutesAndLinesPage';
 import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
+import {
+  LineTimetablesPage,
+  TimetablesMainPage,
+} from '../components/timetables';
 import { Main } from '../pages/Main';
 import { Path } from './routeDetails';
 
@@ -34,6 +38,11 @@ export const Router: FunctionComponent = () => {
       _routerRoute: Path.routes,
       _exact: true,
       component: RoutesAndLinesPage,
+    },
+    [Path.timetables]: {
+      _routerRoute: Path.timetables,
+      _exact: true,
+      component: TimetablesMainPage,
     },
     [Path.routesSearch]: {
       _routerRoute: Path.routesSearch,
@@ -64,6 +73,11 @@ export const Router: FunctionComponent = () => {
       _routerRoute: Path.editLine,
       _exact: true,
       component: EditLinePage,
+    },
+    [Path.lineTimetables]: {
+      _routerRoute: Path.lineTimetables,
+      _exact: true,
+      component: LineTimetablesPage,
     },
     [Path.fallback]: {
       _routerRoute: Path.fallback,
