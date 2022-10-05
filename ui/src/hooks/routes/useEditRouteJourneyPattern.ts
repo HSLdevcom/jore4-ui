@@ -15,7 +15,7 @@ import { useValidateRoute } from './useValidateRoute';
 
 interface DeleteStopParams {
   route: RouteRoute;
-  stopPointLabel: string;
+  stopPointLabels: string[];
 }
 
 type AddStopParams = DeleteStopParams;
@@ -37,13 +37,13 @@ export const useEditRouteJourneyPattern = () => {
     params: AddStopParams | DeleteStopParams,
     stopBelongsToRoute: boolean,
   ) => {
-    const { route, stopPointLabel } = params;
+    const { route, stopPointLabels } = params;
 
     const stopsAlongRoute = getEligibleStopsAlongRouteGeometry(route);
 
     // Map ServicePatternScheduledStopPoints to RouteStops
     const routeStops: RouteStop[] = stopsAlongRoute.map((stop) => {
-      const isStopToEdit = stopPointLabel === stop.label;
+      const isStopToEdit = stopPointLabels.includes(stop.label);
 
       const belongsToRoute = isStopToEdit
         ? stopBelongsToRoute

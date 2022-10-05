@@ -72,7 +72,7 @@ export const RouteStopsSection = ({
   const onAddToRoute = async (stopLabel: string) => {
     try {
       const changes = prepareAddStopToRoute({
-        stopPointLabel: stopLabel,
+        stopPointLabels: [stopLabel],
         route,
       });
 
@@ -88,7 +88,7 @@ export const RouteStopsSection = ({
   const onRemoveFromRoute = async (stopLabel: string) => {
     try {
       const changes = prepareDeleteStopFromRoute({
-        stopPointLabel: stopLabel,
+        stopPointLabels: [stopLabel],
         route,
       });
 
