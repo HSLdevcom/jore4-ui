@@ -46,9 +46,7 @@ export const LineDraftsPage = (): JSX.Element => {
       </Row>
       <Row>
         <Column className="w-1/4">
-          <label className="text-sm" htmlFor={dateInputId}>
-            {t('filters.observationDate')}
-          </label>
+          <label htmlFor={dateInputId}>{t('filters.observationDate')}</label>
           <input
             type="date"
             required
