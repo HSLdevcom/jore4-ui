@@ -11,7 +11,10 @@ interface Props {
   onChange: ValueFn;
 }
 
-export const TemplateRouteSelector = ({ value, onChange }: Props) => {
+export const TemplateRouteSelector = ({
+  value,
+  onChange,
+}: Props): JSX.Element => {
   const { t } = useTranslation();
 
   const [priority, setPriority] = useState(Priority.Standard);

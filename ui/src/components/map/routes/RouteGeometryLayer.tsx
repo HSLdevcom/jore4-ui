@@ -28,7 +28,7 @@ interface RouteGeometryLayerProps {
 export const RouteGeometryLayer = ({
   routeId,
   isSelected,
-}: RouteGeometryLayerProps) => {
+}: RouteGeometryLayerProps): JSX.Element => {
   const routeRenderInfoResult = useGetRouteRenderInfoByIdQuery(
     mapToVariables({ routeId }),
   );
@@ -36,7 +36,7 @@ export const RouteGeometryLayer = ({
 
   // do not render anything before data is received
   if (!routeRenderInfo?.route_shape) {
-    return null;
+    return <></>;
   }
 
   const beforeId = isSelected ? undefined : 'route_base';

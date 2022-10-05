@@ -1,9 +1,8 @@
 import qs from 'qs';
-import React from 'react';
 import { Redirect, RedirectProps } from 'react-router-dom';
 import { useUrlQuery } from '../../hooks';
 
-export const RedirectWithQuery = (props: RedirectProps) => {
+export const RedirectWithQuery = (props: RedirectProps): JSX.Element => {
   const { queryParams } = useUrlQuery();
   const { to, ...propsWithoutTo } = props;
   return (

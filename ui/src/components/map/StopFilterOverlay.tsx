@@ -38,7 +38,7 @@ const Section: FC = ({ children }) => (
   <Column className="space-y-2 border-t pb-4 pt-4">{children}</Column>
 );
 
-export const StopFilterOverlay = ({ className = '' }: Props) => {
+export const StopFilterOverlay = ({ className = '' }: Props): JSX.Element => {
   const { t } = useTranslation();
 
   const {

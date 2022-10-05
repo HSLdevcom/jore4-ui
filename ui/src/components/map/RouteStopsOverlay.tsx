@@ -32,7 +32,7 @@ const GQL_ROUTE_METADATA = gql`
   }
 `;
 
-export const RouteStopsOverlay = ({ className = '' }: Props) => {
+export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
   const dispatch = useAppDispatch();
   const { creatingNewRoute } = useAppSelector(selectMapEditor);
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
@@ -40,7 +40,7 @@ export const RouteStopsOverlay = ({ className = '' }: Props) => {
   const { routeMetadata, routeStops } = useActiveRouteInfo();
 
   if (!routeMetadata) {
-    return null;
+    return <></>;
   }
 
   return (

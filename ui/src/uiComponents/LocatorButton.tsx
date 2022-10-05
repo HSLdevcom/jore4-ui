@@ -18,7 +18,7 @@ export const LocatorButton = ({
   onClick,
   disabled,
   className = '',
-}: Props) => {
+}: Props): JSX.Element => {
   const disabledStyle = '!bg-background opacity-70 pointer-events-none';
   return (
     <IconButton

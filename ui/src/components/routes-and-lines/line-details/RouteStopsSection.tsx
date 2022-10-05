@@ -25,7 +25,7 @@ export const RouteStopsSection = ({
   className = '',
   route,
   showUnusedStops,
-}: Props) => {
+}: Props): JSX.Element => {
   const [isOpen, setOpen] = useState(false);
   const { t } = useTranslation();
 
