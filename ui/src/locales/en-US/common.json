@@ -253,6 +253,9 @@
     "viaSaveSuccess": "Via information set",
     "viaRemoveSuccess": "Via information removed"
   },
+  "timetables": {
+    "timetables": "Timetables"
+  },
   "save": "Save",
   "edit": "Edit",
   "move": "Move",
