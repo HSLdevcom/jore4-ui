@@ -11,7 +11,7 @@ import {
   stopBelongsToJourneyPattern,
 } from '../../graphql';
 import {
-  addOrRemoveStopLabelFromIncludedStops,
+  addOrRemoveStopLabelsFromIncludedStops,
   buildJourneyPatternStopSequence,
   filterDistinctConsecutiveStops,
   mapRouteStopsToJourneyPatternStops,
@@ -22,7 +22,7 @@ import { useValidateRoute } from './useValidateRoute';
 
 interface DeleteStopParams {
   route: RouteRoute;
-  stopPointLabel: string;
+  stopPointLabels: string[];
 }
 
 type AddStopParams = DeleteStopParams;
@@ -43,7 +43,7 @@ export const getEligibleStopsAlongRoute = (route: RouteRoute) =>
   );
 
 /**
- * Hook for adding and removing single stops to route's journey pattern.
+ * Hook for adding and removing stops to route's journey pattern.
  */
 export const useEditRouteJourneyPattern = () => {
   const [updateRouteJourneyPatternMutation] =
@@ -54,7 +54,7 @@ export const useEditRouteJourneyPattern = () => {
     params: AddStopParams | DeleteStopParams,
     stopBelongsToRoute: boolean,
   ) => {
-    const { route, stopPointLabel } = params;
+    const { route, stopPointLabels } = params;
 
     // TODO: Get rid of stopsEligibleForJourneyPattern in this hook
     const stopsEligibleForJourneyPattern = pipe(
@@ -74,9 +74,9 @@ export const useEditRouteJourneyPattern = () => {
           .map((stop) => stop.label),
       // Add or remove stop from label list
       (stopLabels) =>
-        addOrRemoveStopLabelFromIncludedStops(
+        addOrRemoveStopLabelsFromIncludedStops(
           stopLabels,
-          stopPointLabel,
+          stopPointLabels,
           stopBelongsToRoute,
         ),
     );

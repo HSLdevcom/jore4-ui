@@ -42,14 +42,22 @@ export const sortStopsOnInfraLink = <
   isTraversalForwards: boolean,
 ) => stops.sort(sortStopsOnInfraLinkComparator(isTraversalForwards));
 
-export const addOrRemoveStopLabelFromIncludedStops = (
+/**
+ * Adds stops to or removes stops from the first stop parameter, depending on
+ * belongsToJourneyPattern boolean.
+ * @param stops list of stops to modify
+ * @param stopsToActOn list of stops to add or remove
+ * @param belongsToJourneyPattern should stops be added or removed. true to add, false to remove
+ * @returns stops list with the provided stops added to or removed from it
+ */
+export const addOrRemoveStopLabelsFromIncludedStops = (
   stops: string[],
-  stop: string,
+  stopsToActOn: string[],
   belongsToJourneyPattern: boolean,
 ) =>
   belongsToJourneyPattern
-    ? uniq([...stops, stop])
-    : stops.filter((label) => label !== stop);
+    ? uniq([...stops, ...stopsToActOn])
+    : stops.filter((label) => !stopsToActOn.includes(label));
 
 export const isFutureStop = <
   TStop extends ScheduledStopPointDefaultFieldsFragment,
