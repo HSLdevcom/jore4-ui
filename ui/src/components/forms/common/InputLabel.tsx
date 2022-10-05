@@ -22,10 +22,7 @@ export const InputLabel = <FormState extends FieldValues>({
   const hasError = !!get(errors, fieldPath);
 
   return (
-    <label
-      className={`text-sm ${className}`}
-      htmlFor={`${translationPrefix}.${fieldPath}`}
-    >
+    <label className={className} htmlFor={`${translationPrefix}.${fieldPath}`}>
       {t(`${translationPrefix}.${fieldPath}`)}
       {hasError && <span className="ml-1 text-hsl-red">*</span>}
     </label>
