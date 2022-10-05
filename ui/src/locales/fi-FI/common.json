@@ -253,6 +253,9 @@
     "viaSaveSuccess": "Via-tieto asetettu",
     "viaRemoveSuccess": "Via-tieto poistettu"
   },
+  "timetables": {
+    "timetables": "Aikataulut"
+  },
   "save": "Tallenna",
   "edit": "Muokkaa",
   "move": "Siirrä",

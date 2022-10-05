@@ -16,11 +16,13 @@ module.exports = {
         'tweaked-brand': colors.tweakedBrand,
         stop: colors.stop,
         background: colors.background,
+        'hsl-dark-80': colors.hslDark80,
         grey: colors.grey,
         'light-grey': colors.lightGrey,
         'dark-grey': colors.darkGrey,
         'hsl-dark-green': colors.hslDarkGreen,
         'hsl-red': colors.hslRed,
+        'hsl-neutral-blue': colors.hslNeutralBlue,
         'city-bicycle-yellow': colors.cityBicycleYellow,
         'hsl-warning-yellow': colors.hslWarningYellow,
       },
@@ -31,7 +33,6 @@ module.exports = {
       fontFamily: {
         sans: ['Arial', ...defaultTheme.fontFamily.sans],
       },
-
       fontSize: {
         xl: '1.375rem', // 22px
         '2xl': '1.625rem', // 26px
