@@ -61,24 +61,22 @@ export const LineDetailsPage = (): JSX.Element => {
       <ActionsRow className="!pt-4 !pb-0" />
       {line && (
         <Container className="pt-10">
-          <Column>
-            <Row>
-              <AdditionalInformation className="w-2/3" line={line} />
-              <MapPreview className="w-1/3" />
-            </Row>
-            <Row>
-              <Column className="w-full">
-                <h1 className="mt-8 text-3xl font-semibold">
-                  {t('lines.routes')}
-                </h1>
-                {line.line_routes?.length > 0 ? (
-                  <RouteStopsTable routes={line.line_routes} />
-                ) : (
-                  <CreateRouteBox onCreateRoute={() => onCreateRoute(line)} />
-                )}
-              </Column>
-            </Row>
-          </Column>
+          <Row>
+            <AdditionalInformation className="w-2/3" line={line} />
+            <MapPreview className="w-1/3" />
+          </Row>
+          <Row>
+            <Column className="w-full">
+              <h1 className="mt-8 text-3xl font-semibold">
+                {t('lines.routes')}
+              </h1>
+              {line.line_routes?.length > 0 ? (
+                <RouteStopsTable routes={line.line_routes} />
+              ) : (
+                <CreateRouteBox onCreateRoute={() => onCreateRoute(line)} />
+              )}
+            </Column>
+          </Row>
         </Container>
       )}
       <Visible visible={isViaModalOpen}>
