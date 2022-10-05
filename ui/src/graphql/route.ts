@@ -5,10 +5,12 @@ import {
   GetLineDetailsByIdQuery,
   GetLineDetailsWithRoutesByIdQuery,
   GetLineValidityPeriodByIdQuery,
+  GetScheduledStopsOnRouteQuery,
   InsertLineOneMutation,
   RouteLine,
   RouteRoute,
   RouteWithJourneyPatternStopsFragment,
+  ServicePatternScheduledStopPoint,
   useListOwnLinesQuery,
 } from '../generated/graphql';
 import { GqlQueryResult, isGqlEntity } from './types';
@@ -303,7 +305,26 @@ const GET_ROUTE_DETAILS_BY_ID = gql`
 const GET_ROUTE_DETAILS_BY_IDS = gql`
   query GetRouteDetailsByIds($route_ids: [uuid!]) {
     route_route(where: { route_id: { _in: $route_ids } }) {
-      ...route_with_journey_pattern_stops
+      ...route_all_fields
+      infrastructure_links_along_route {
+        route_id
+        infrastructure_link_id
+        infrastructure_link_sequence
+        is_traversal_forwards
+        infrastructure_link {
+          infrastructure_link_id
+          scheduled_stop_points_located_on_infrastructure_link {
+            ...scheduled_stop_point_all_fields
+            scheduled_stop_point_in_journey_patterns {
+              ...scheduled_stop_point_in_journey_pattern_all_fields
+              journey_pattern {
+                journey_pattern_id
+                on_route_id
+              }
+            }
+          }
+        }
+      }
       route_line {
         line_id
         label
@@ -469,6 +490,34 @@ const DELETE_ROUTE = gql`
     }
   }
 `;
+
+const GET_SCHEDULED_STOPS_ON_ROUTE = gql`
+  query GetScheduledStopsOnRoute($routeId: uuid!) {
+    journey_pattern_journey_pattern(where: { on_route_id: { _eq: $routeId } }) {
+      journey_pattern_id
+      scheduled_stop_point_in_journey_patterns {
+        journey_pattern_id
+        scheduled_stop_point_sequence
+        scheduled_stop_points {
+          ...scheduled_stop_point_default_fields
+        }
+      }
+    }
+  }
+`;
+
+// Used query has limit of 1 journey_pattern_journey_pattern because one route can have a maximum of one journey pattern
+export const mapScheduledStopsOnRoute = (
+  result: GqlQueryResult<GetScheduledStopsOnRouteQuery>,
+) =>
+  result.data?.journey_pattern_journey_pattern[0]?.scheduled_stop_point_in_journey_patterns.flatMap(
+    (item) => item.scheduled_stop_points,
+  ) as ServicePatternScheduledStopPoint[] | undefined;
+
+export const getStopsFromRoute = (route: RouteRoute) => {
+  return route.route_journey_patterns[0]
+    .scheduled_stop_point_in_journey_patterns;
+};
 
 export const getRouteStopLabels = (
   route: RouteWithJourneyPatternStopsFragment,

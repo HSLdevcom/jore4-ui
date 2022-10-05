@@ -68,7 +68,7 @@ export const EditStopConfirmationDialog: React.FC<Props> = ({
       confirmationTextParts.push(removedRoutesText);
     }
 
-    return confirmationTextParts.join('<br/><br/>');
+    return confirmationTextParts.join('\n\n');
   };
 
   return (
