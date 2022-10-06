@@ -35,7 +35,7 @@ export const dropdownTransition: TransitionClasses = {
 export interface FormInputProps {
   value?: string;
   onChange: ValueFn;
-  onBlur: Noop;
+  onBlur?: Noop;
   fieldState?: ControllerFieldState;
 }
 

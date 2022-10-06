@@ -5,6 +5,7 @@ import { FormInputProps } from '../../../uiComponents';
 import { EnumDropdown } from '../common/EnumDropdown';
 
 interface Props extends FormInputProps {
+  id?: string;
   testId?: string;
   includeAllOption?: boolean;
 }
@@ -13,6 +14,7 @@ interface Props extends FormInputProps {
  * enrichted with 'All' option by giving it includeAllOption flag as true.
  */
 export const VehicleModeDropdown = ({
+  id,
   testId,
   includeAllOption,
   ...formInputProps
@@ -21,6 +23,7 @@ export const VehicleModeDropdown = ({
 
   return (
     <EnumDropdown<ReusableComponentsVehicleModeEnum>
+      id={id}
       testId={testId}
       enumType={ReusableComponentsVehicleModeEnum}
       placeholder={t('lines.chooseVehicleMode')}
