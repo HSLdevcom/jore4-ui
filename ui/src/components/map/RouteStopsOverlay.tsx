@@ -1,15 +1,13 @@
 import { gql } from '@apollo/client';
 import { pipe } from 'remeda';
 import {
+  belongsToJourneyPattern,
+  getHighestPriorityStopsEligibleForJourneyPattern,
   useAppDispatch,
   useAppSelector,
   useObservationDateQueryParam,
-} from '../../hooks';
-import {
-  belongsToJourneyPattern,
-  getHighestPriorityStopsEligibleForJourneyPattern,
   useRouteInfo,
-} from '../../hooks/routes/useRouteInfo';
+} from '../../hooks';
 import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import { Row, Visible } from '../../layoutComponents';
 import {

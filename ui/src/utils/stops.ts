@@ -1,5 +1,12 @@
 import flip from 'lodash/flip';
-import { ScheduledStopPointAllFieldsFragment } from '../generated/graphql';
+import groupBy from 'lodash/groupBy';
+import maxBy from 'lodash/maxBy';
+import { DateTime } from 'luxon';
+import {
+  ScheduledStopPointAllFieldsFragment,
+  ScheduledStopPointDefaultFieldsFragment,
+} from '../generated/graphql';
+import { Priority } from '../types/Priority';
 
 const sortStopsByTraversalForwards = <
   TStop extends ScheduledStopPointAllFieldsFragment,
@@ -33,3 +40,77 @@ export const sortStopsOnInfraLink = <
   stops: TStop[],
   isTraversalForwards: boolean,
 ) => stops.sort(sortStopsOnInfraLinkComparator(isTraversalForwards));
+
+export const isFutureStop = <
+  TStop extends ScheduledStopPointDefaultFieldsFragment,
+>(
+  observationDate: DateTime,
+  stop: TStop,
+) => {
+  // if stop has been valid indefinitely from the start, it can never be a future stop
+  if (!stop.validity_start) {
+    return false;
+  }
+
+  // otherwise its validity has to start after the observation date
+  return stop.validity_start > observationDate;
+};
+
+export const isPastStop = <
+  TStop extends ScheduledStopPointDefaultFieldsFragment,
+>(
+  observationDate: DateTime,
+  stop: TStop,
+) => {
+  // if stop is valid indefinitely, it can never be a past stop
+  if (!stop.validity_end) {
+    return false;
+  }
+
+  // otherwise its validity has to end before the observation date
+  return stop.validity_end < observationDate;
+};
+
+export const isCurrentStop = <
+  TStop extends ScheduledStopPointDefaultFieldsFragment,
+>(
+  observationDate: DateTime,
+  stop: TStop,
+) => {
+  return (
+    !isPastStop(observationDate, stop) && !isFutureStop(observationDate, stop)
+  );
+};
+
+export const hasPriority = <
+  TStop extends ScheduledStopPointDefaultFieldsFragment,
+>(
+  priority: Priority,
+  stop: TStop,
+) => stop.priority === priority;
+
+export const filterHighestPriorityCurrentStops = <
+  TStop extends ScheduledStopPointDefaultFieldsFragment,
+>(
+  stops: TStop[],
+  observationDate: DateTime,
+  allowDrafts = false,
+) => {
+  // Get all current stops
+  const currentStops = stops.filter(
+    (stop: TStop) =>
+      isCurrentStop(observationDate, stop) &&
+      (allowDrafts || !hasPriority(Priority.Draft, stop)),
+  );
+
+  // Group stops by label
+  const groupedCurrentStops = groupBy(currentStops, 'label');
+
+  // Pick stop instance with the highest priority for each stop label
+  return (
+    Object.values(groupedCurrentStops)
+      .flatMap((stopInstances) => maxBy(stopInstances, 'priority'))
+      // if for some reason the given group is empty, filter out the undefined values
+      .filter((stop) => !!stop) as TStop[]
+  );
+};

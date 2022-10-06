@@ -18,8 +18,8 @@ import {
   selectHasChangesInProgress,
   selectMapEditor,
 } from '../../redux';
+import { filterHighestPriorityCurrentStops } from '../../utils';
 import { useAppSelector } from '../redux';
-import { filterHighestPriorityCurrentStops } from '../stops';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
 
