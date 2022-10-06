@@ -1,11 +1,9 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { pipe } from 'remeda';
 import {
   RouteMetadataFragment,
   RouteStopFieldsFragment,
   RouteWithInfrastructureLinksWithStopsFragment,
-  ScheduledStopPointDefaultFieldsFragment,
   useGetRouteWithInfrastructureLinksWithStopsQuery,
 } from '../../generated/graphql';
 import {
@@ -19,7 +17,6 @@ import {
   selectMapEditor,
 } from '../../redux';
 import { useAppSelector } from '../redux';
-import { filterHighestPriorityCurrentStops } from '../stops';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
 
@@ -68,38 +65,6 @@ const GQL_GET_ROUTE_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS = gql`
     }
   }
 `;
-
-/**
- * Gets an array of stops that can be added to a route. This array might contain multiple different
- * version instances of the same stop. Returns an array of stop instances
- * that can be added to the route, removing any lower priority instances.
- *
- * What is important here is that
- * 1. the order of stops is preserved (order in which they are along the route geometry)
- * 2. we do not remove duplicate stops from the array, because same stop can be along the route
- * geometry multiple times (e.g. loop in the geometry)
- */
-export const getHighestPriorityStopsEligibleForJourneyPattern = <
-  TStop extends ScheduledStopPointDefaultFieldsFragment,
->(
-  stopsEligibleForJourneyPattern: TStop[],
-  observationDate: DateTime,
-  allowDrafts = false,
-) => {
-  const highestPriotityStops = filterHighestPriorityCurrentStops(
-    stopsEligibleForJourneyPattern,
-    observationDate,
-    allowDrafts,
-  );
-
-  // Filter out any stop instances that are not highest priority at selected observation date
-  return stopsEligibleForJourneyPattern.filter((eligibleStop) =>
-    highestPriotityStops?.find(
-      (stop) =>
-        eligibleStop.scheduled_stop_point_id === stop.scheduled_stop_point_id,
-    ),
-  );
-};
 
 const getRouteInfoFromRoute = (
   route: RouteWithInfrastructureLinksWithStopsFragment,

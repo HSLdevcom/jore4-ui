@@ -1,15 +1,12 @@
 import { gql } from '@apollo/client';
 import { pipe } from 'remeda';
 import {
+  belongsToJourneyPattern,
   useAppDispatch,
   useAppSelector,
   useObservationDateQueryParam,
-} from '../../hooks';
-import {
-  belongsToJourneyPattern,
-  getHighestPriorityStopsEligibleForJourneyPattern,
   useRouteInfo,
-} from '../../hooks/routes/useRouteInfo';
+} from '../../hooks';
 import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import { Row, Visible } from '../../layoutComponents';
 import {
@@ -19,7 +16,10 @@ import {
 } from '../../redux';
 import { Priority } from '../../types/Priority';
 import { EditButton } from '../../uiComponents';
-import { filterDistinctConsecutiveStops } from '../../utils';
+import {
+  filterDistinctConsecutiveStops,
+  filterHighestPriorityCurrentStops,
+} from '../../utils';
 import { MapOverlay, MapOverlayHeader } from './MapOverlay';
 import { PriorityBadge } from './PriorityBadge';
 import { RouteStopsOverlayRow } from './RouteStopsOverlayRow';
@@ -61,7 +61,7 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
   }
 
   const highestPriorityStopsEligibleForJourneyPattern = pipe(
-    getHighestPriorityStopsEligibleForJourneyPattern(
+    filterHighestPriorityCurrentStops(
       stopsEligibleForJourneyPattern,
       observationDate,
       routeMetadata.priority === Priority.Draft,
