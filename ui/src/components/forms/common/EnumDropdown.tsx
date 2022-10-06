@@ -1,5 +1,5 @@
 import { FormInputProps, Listbox } from '../../../uiComponents';
-import { getEnumValues } from '../../../utils';
+import { AllOptionEnum, getEnumValues } from '../../../utils';
 
 const testIds = {
   enumDropdown: 'EnumDropdown::button',
@@ -15,8 +15,13 @@ export interface EnumDropdownProps<TEnum> extends FormInputProps {
   enumType: Object;
   uiNameMapper: (key: TEnum) => string;
   placeholder: string;
+  includeAllOption?: boolean;
 }
 
+/**
+ * Creates dropdown from enum values. This dropdown can be enrichted with 'All' option by giving
+ * it the includeAllOption flag as true.
+ */
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function EnumDropdown<TEnum extends Object>({
   testId,
@@ -24,9 +29,12 @@ export function EnumDropdown<TEnum extends Object>({
   uiNameMapper,
   placeholder,
   value,
+  includeAllOption,
   ...formInputProps
 }: EnumDropdownProps<TEnum>) {
-  const values = getEnumValues(enumType);
+  const values = getEnumValues(
+    includeAllOption ? { ...AllOptionEnum, ...enumType } : enumType,
+  );
 
   const mapToOption = (item: string) => ({
     key: item,
