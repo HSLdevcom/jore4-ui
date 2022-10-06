@@ -7,6 +7,7 @@ import {
 import { i18n } from '../i18n';
 import { Priority } from '../types/Priority';
 import { RouteDirection } from '../types/RouteDirection';
+import { AllOptionEnum } from '../utils';
 
 export const mapPriorityToUiName = (key: Priority) => {
   const uiStrings: Record<Priority, string> = {
@@ -18,8 +19,8 @@ export const mapPriorityToUiName = (key: Priority) => {
 };
 
 export const mapVehicleModeToUiName = (
-  key: ReusableComponentsVehicleModeEnum,
-) => i18n.t(`vehicleModeEnum.${key}`);
+  key: ReusableComponentsVehicleModeEnum | AllOptionEnum.All,
+) => i18n.t(key === AllOptionEnum.All ? key : `vehicleModeEnum.${key}`);
 
 export const mapLineTypeToUiName = (key: RouteTypeOfLineEnum) =>
   i18n.t(`lineTypeEnum.${key}`);

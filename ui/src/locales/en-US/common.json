@@ -164,7 +164,8 @@
     "ferry": "Ferry",
     "metro": "Metro",
     "train": "Train",
-    "tram": "Tram"
+    "tram": "Tram",
+    "all": "All"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Regional rail service",
@@ -259,6 +260,7 @@
   "close": "Close",
   "version": "Version: {{ version }}",
   "hide": "Hide",
+  "all": "All",
   "welcomePage": {
     "heading": "JORE4:n käyttöönotto alkaa!",
     "subheading1": "Mitä?",

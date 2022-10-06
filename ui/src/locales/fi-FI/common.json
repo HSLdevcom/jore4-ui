@@ -164,7 +164,8 @@
     "ferry": "Lautta",
     "metro": "Metro",
     "train": "Juna",
-    "tram": "Raitiovaunu"
+    "tram": "Raitiovaunu",
+    "all": "Kaikki"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Seudullinen juna",
@@ -259,6 +260,7 @@
   "close": "Sulje",
   "version": "Versio: {{ version }}",
   "hide": "Piilota",
+  "all": "Kaikki",
   "welcomePage": {
     "heading": "JORE4:n käyttöönotto alkaa!",
     "subheading1": "Mitä?",
