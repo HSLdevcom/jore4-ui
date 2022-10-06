@@ -10,6 +10,7 @@ const testIds = {
 // this was implemented by processing the Enum values as strings.
 
 export interface EnumDropdownProps<TEnum> extends FormInputProps {
+  id?: string;
   testId?: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
   enumType: Object;
@@ -24,6 +25,7 @@ export interface EnumDropdownProps<TEnum> extends FormInputProps {
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function EnumDropdown<TEnum extends Object>({
+  id,
   testId,
   enumType,
   uiNameMapper,
@@ -54,6 +56,7 @@ export function EnumDropdown<TEnum extends Object>({
 
   return (
     <Listbox
+      id={id}
       testId={testId || testIds.enumDropdown}
       buttonContent={
         value ? uiNameMapper(value as unknown as TEnum) : placeholder
