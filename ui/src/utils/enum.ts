@@ -4,3 +4,10 @@ export function getEnumValues(inputEnum: Object): string[] {
     (value) => typeof value === 'string',
   ) as string[];
 }
+
+/** This enum is used to add the 'All' option to enumDropdowns and also having
+ * the correct types on searchConditions
+ */
+export enum AllOptionEnum {
+  All = 'all',
+}
