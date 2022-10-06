@@ -14,11 +14,10 @@ import {
 } from '../../redux';
 import { RequiredKeys } from '../../types';
 import { Priority } from '../../types/Priority';
-import { mapToVariables } from '../../utils';
+import { filterHighestPriorityCurrentStops, mapToVariables } from '../../utils';
 import { useAppSelector } from '../redux';
 import { useGetDisplayedRoutes } from '../routes';
 import { useObservationDateQueryParam } from '../urlQuery';
-import { filterHighestPriorityCurrentStops } from './useFilterStops';
 
 export type StopWithVehicleMode = RequiredKeys<
   Partial<ServicePatternScheduledStopPoint>,

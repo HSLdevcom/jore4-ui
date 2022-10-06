@@ -5,4 +5,5 @@ export * from './useEditRouteJourneyPattern';
 export * from './useEditRouteMetadata';
 export * from './useExtractRouteFromFeature';
 export * from './useGetDisplayedRoutes';
+export * from './useRouteInfo';
 export * from './useValidateRoute';

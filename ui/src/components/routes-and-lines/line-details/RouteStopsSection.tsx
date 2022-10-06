@@ -8,9 +8,12 @@ import {
   useEditRouteJourneyPattern,
   useObservationDateQueryParam,
 } from '../../../hooks';
-import { getHighestPriorityStopsEligibleForJourneyPattern } from '../../../hooks/routes/useRouteInfo';
 import { Priority } from '../../../types/Priority';
-import { showDangerToast, showSuccessToast } from '../../../utils';
+import {
+  filterHighestPriorityCurrentStops,
+  showDangerToast,
+  showSuccessToast,
+} from '../../../utils';
 import { RouteStopsHeaderRow } from './RouteStopsHeaderRow';
 import { RouteStopsRow } from './RouteStopsRow';
 
@@ -50,7 +53,7 @@ export const RouteStopsSection = ({
     route,
     getEligibleStopsAlongRoute,
     (stops) =>
-      getHighestPriorityStopsEligibleForJourneyPattern(
+      filterHighestPriorityCurrentStops(
         stops,
         observationDate,
         route.priority === Priority.Draft,
