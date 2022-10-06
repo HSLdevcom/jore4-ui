@@ -1,10 +1,17 @@
 import { produce } from 'immer';
+import { ReusableComponentsVehicleModeEnum } from '../generated/graphql';
 import {
   DeserializedQueryStringParameters,
   SearchConditions,
   SearchParameters,
 } from '../hooks/search/useSearchQueryParser';
 import { Priority } from '../types/Priority';
+import { AllOptionEnum } from './enum';
+
+type SearchParameterValueTypes =
+  | string
+  | number[]
+  | ReusableComponentsVehicleModeEnum;
 
 type SearchParametersGqlConfigurations = {
   priority: {
@@ -17,8 +24,19 @@ type SearchParametersGqlConfigurations = {
     replaceStar: boolean;
     operator: string;
   };
+  // eslint-disable-next-line camelcase
+  primary_vehicle_mode?: {
+    value: ReusableComponentsVehicleModeEnum;
+    replaceStar: boolean;
+    operator: string;
+    isLineProperty: boolean;
+  };
 };
 
+/**
+ * GQL filter configuration for label and priority, which are mandatory criteria
+ * to be given for the search.
+ */
 const defaultSearchParametersGqlConfig: SearchParametersGqlConfigurations = {
   priority: {
     value: [Priority.Standard, Priority.Temporary],
@@ -32,12 +50,33 @@ const defaultSearchParametersGqlConfig: SearchParametersGqlConfigurations = {
   },
 };
 
+/**
+ * GQL filter configuration for primaryVehicleMode. This is used and placed
+ * only if a precise primaryVehicleMode is set as search filter.
+ */
+const primaryVehicleModeGqlConfig = {
+  replaceStar: false,
+  operator: '_eq',
+  isLineProperty: true,
+};
+
 const setConfigurations = (queryParams: SearchConditions) => {
   const params: SearchParametersGqlConfigurations = produce(
     defaultSearchParametersGqlConfig,
     (draft) => {
       draft.priority.value = queryParams.priorities;
       draft.label.value = queryParams.label;
+
+      // Only set primaryVehicleMode gql filter if it is set to something else than All
+      if (
+        queryParams.primaryVehicleMode &&
+        queryParams.primaryVehicleMode !== AllOptionEnum.All
+      ) {
+        draft.primary_vehicle_mode = {
+          ...primaryVehicleModeGqlConfig,
+          value: queryParams.primaryVehicleMode,
+        };
+      }
     },
   );
 
@@ -51,7 +90,7 @@ export const mapToSqlLikeValue = (str: string) => {
 const mapToFilterAttribute = (
   key: string,
   values: {
-    value: string | number[];
+    value: SearchParameterValueTypes;
     operator: string;
     replaceStar: boolean;
     isLineProperty?: boolean;
