@@ -3,6 +3,9 @@ import { useSearch } from '../../../../hooks';
 import { useToggle } from '../../../../hooks/useToggle';
 import { Column, Container, Row, Visible } from '../../../../layoutComponents';
 import { SimpleButton } from '../../../../uiComponents';
+import { AllOptionEnum } from '../../../../utils';
+import { FormColumn, FormRow } from '../../../forms/common';
+import { VehicleModeDropdown } from '../../../forms/line/VehicleModeDropdown';
 import { PriorityCondition } from './PriorityCondition';
 import { SearchConditionToggle } from './SearchConditionsToggle';
 import { SearchInput } from './SearchInput';
@@ -14,6 +17,10 @@ export const SearchContainer = (): JSX.Element => {
   const [isExpanded, toggleIsExpanded] = useToggle();
   const testIds = {
     searchInput: 'SearchContainer::SearchInput',
+  };
+
+  const onChangeVehiclemode = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchCondition('primaryVehicleMode', e.target.value);
   };
 
   return (
@@ -40,10 +47,29 @@ export const SearchContainer = (): JSX.Element => {
       <Visible visible={isExpanded}>
         <div className="border-2 border-background p-10">
           <h2>{t('search.advancedSearchTitle')}</h2>
-          <PriorityCondition
-            onClick={setSearchCondition}
-            priorities={searchConditions.priorities}
-          />
+          <FormColumn>
+            <FormRow mdColumns={4}>
+              <Column>
+                <label htmlFor="search.primaryVehicleMode">
+                  {t(`lines.primaryVehicleMode`)}
+                </label>
+                <VehicleModeDropdown
+                  id="search.primaryVehicleMode"
+                  onChange={onChangeVehiclemode}
+                  includeAllOption
+                  value={
+                    searchConditions.primaryVehicleMode ?? AllOptionEnum.All
+                  }
+                />
+              </Column>
+            </FormRow>
+            <FormRow mdColumns={4}>
+              <PriorityCondition
+                onClick={setSearchCondition}
+                priorities={searchConditions.priorities}
+              />
+            </FormRow>
+          </FormColumn>
         </div>
         <Row className="flex justify-end bg-background py-4">
           <SimpleButton

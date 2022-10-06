@@ -1,9 +1,12 @@
+import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import { Priority } from '../../types/Priority';
+import { AllOptionEnum } from '../../utils/enum';
 import { useUrlQuery } from '../urlQuery/useUrlQuery';
 
 export type SearchConditions = {
   priorities: Priority[];
   label: string;
+  primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
 };
 
 /** Enum for different search result options */
@@ -31,6 +34,7 @@ export type SearchParameters = {
 export type QueryStringParameters = {
   priorities: string;
   label: string;
+  primaryVehicleMode?: string;
   displayedData: string;
 };
 
@@ -41,6 +45,7 @@ export type QueryStringParameters = {
 export type DeserializedQueryStringParameters = {
   priorities: Priority[];
   label: string;
+  primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
   displayedData: DisplayedSearchResultType;
 };
 
@@ -72,6 +77,22 @@ const mapDisplayedData = (displayedData: string) => {
 };
 
 /**
+ * If primaryVehicleMode query string is not given or is invalid,
+ * default to All option
+ */
+const mapPrimaryVehicleModeToEnum = (primaryVehicleMode?: string) => {
+  if (
+    Object.values(ReusableComponentsVehicleModeEnum).includes(
+      primaryVehicleMode as ReusableComponentsVehicleModeEnum,
+    )
+  ) {
+    return primaryVehicleMode as ReusableComponentsVehicleModeEnum;
+  }
+
+  return AllOptionEnum.All;
+};
+
+/**
  * Returns parsed and validated priorities if priority query string
  * is existing. If the query string is not given, return default
  * priorities
@@ -96,6 +117,9 @@ const deserializeParameters = (
     search: {
       label: queryParams.label || '',
       priorities: getPriorities(queryParams.priorities),
+      primaryVehicleMode: mapPrimaryVehicleModeToEnum(
+        queryParams.primaryVehicleMode,
+      ),
     },
     filter: {
       displayedData: mapDisplayedData(queryParams.displayedData),
