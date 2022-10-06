@@ -6,10 +6,15 @@ import { EnumDropdown } from '../common/EnumDropdown';
 
 interface Props extends FormInputProps {
   testId?: string;
+  includeAllOption?: boolean;
 }
 
+/** Creates VehicleModeDropdown from ReusableComponentsVehicleModeEnum. This Dropdown can be
+ * enrichted with 'All' option by giving it includeAllOption flag as true.
+ */
 export const VehicleModeDropdown = ({
   testId,
+  includeAllOption,
   ...formInputProps
 }: Props): JSX.Element => {
   const { t } = useTranslation();
@@ -20,6 +25,7 @@ export const VehicleModeDropdown = ({
       enumType={ReusableComponentsVehicleModeEnum}
       placeholder={t('lines.chooseVehicleMode')}
       uiNameMapper={mapVehicleModeToUiName}
+      includeAllOption={includeAllOption}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
