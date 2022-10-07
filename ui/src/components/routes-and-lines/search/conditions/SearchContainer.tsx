@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { useSearch } from '../../../../hooks';
+import { SearchQueryParameterNames, useSearch } from '../../../../hooks';
 import { useToggle } from '../../../../hooks/useToggle';
 import { Column, Container, Row, Visible } from '../../../../layoutComponents';
 import { SimpleButton } from '../../../../uiComponents';
 import { AllOptionEnum } from '../../../../utils';
 import { FormRow } from '../../../forms/common';
+import { LineTypeDropdown } from '../../../forms/line/LineTypeDropdown';
 import { VehicleModeDropdown } from '../../../forms/line/VehicleModeDropdown';
 import { PriorityCondition } from './PriorityCondition';
 import { SearchConditionToggle } from './SearchConditionsToggle';
@@ -20,10 +21,18 @@ export const SearchContainer = (): JSX.Element => {
   };
 
   const onChangeVehiclemode = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchCondition('primaryVehicleMode', e.target.value);
+    setSearchCondition(
+      SearchQueryParameterNames.PrimaryVehicleMode,
+      e.target.value,
+    );
+  };
+
+  const onChangeTypeOfLine = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchCondition(SearchQueryParameterNames.TypeOfLine, e.target.value);
   };
 
   const vehicleModeDropdownId = 'search.primaryVehicleMode';
+  const typeOfLineDropdownId = 'search.typeOfLine';
 
   return (
     <Container className="py-10">
@@ -59,6 +68,17 @@ export const SearchContainer = (): JSX.Element => {
                 onChange={onChangeVehiclemode}
                 includeAllOption
                 value={searchConditions.primaryVehicleMode ?? AllOptionEnum.All}
+              />
+            </Column>
+            <Column>
+              <label htmlFor={typeOfLineDropdownId}>
+                {t(`lines.typeOfLine`)}
+              </label>
+              <LineTypeDropdown
+                id={typeOfLineDropdownId}
+                onChange={onChangeTypeOfLine}
+                includeAllOption
+                value={searchConditions.typeOfLine ?? AllOptionEnum.All}
               />
             </Column>
           </FormRow>

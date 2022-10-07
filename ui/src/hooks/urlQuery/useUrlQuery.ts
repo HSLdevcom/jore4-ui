@@ -6,7 +6,10 @@ import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useCallback, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
+import {
+  ReusableComponentsVehicleModeEnum,
+  RouteTypeOfLineEnum,
+} from '../../generated/graphql';
 import { parseDate } from '../../time';
 import { Priority } from '../../types/Priority';
 import { DisplayedSearchResultType } from '../../utils/enum';
@@ -176,6 +179,21 @@ export const useUrlQuery = () => {
       : undefined;
   };
 
+  /** Returns a query parameter in RouteTypeOfLine if exists,
+   * otherwise returns undefined
+   */
+  const getRouteTypeOfLineEnumFromUrlQuery = (
+    paramName: string,
+  ): RouteTypeOfLineEnum | undefined => {
+    const typeOfLine = queryParams[paramName];
+
+    return Object.values(RouteTypeOfLineEnum).includes(
+      typeOfLine as RouteTypeOfLineEnum,
+    )
+      ? (typeOfLine as RouteTypeOfLineEnum)
+      : undefined;
+  };
+
   /** Returns a query parameter in DisplayedSearchResultType if exists,
    * otherwise returns undefined
    */
@@ -272,6 +290,7 @@ export const useUrlQuery = () => {
     setArrayToUrlQuery,
     getPriorityArrayFromUrlQuery,
     getReusableComponentsVehicleModeEnumFromUrlQuery,
+    getRouteTypeOfLineEnumFromUrlQuery,
     getDisplayedSearchResultTypeFromUrlQuery,
     getStringParamFromUrlQuery,
     getBooleanParamFromUrlQuery,

@@ -5,6 +5,7 @@ import {
   RouteLineOrderBy,
   RouteRouteBoolExp,
   RouteRouteOrderBy,
+  RouteTypeOfLineEnum,
   SearchLinesAndRoutesQueryVariables,
 } from '../generated/graphql';
 import { SearchConditions } from '../hooks/search/useSearchQueryParser';
@@ -13,6 +14,7 @@ import {
   constructLabelLikeGqlFilter,
   constructPrimaryVehicleModeGqlFilter,
   constructPriorityInGqlFilter,
+  constructTypeOfLineGqlFilter,
 } from './gql';
 
 export const mapToSqlLikeValue = (str: string) => {
@@ -80,6 +82,10 @@ const constructSearchConditionGqlFilters = ({
         ...constructOptionalSearchConditionGqlFilter<ReusableComponentsVehicleModeEnum>(
           searchConditions.primaryVehicleMode,
           constructPrimaryVehicleModeGqlFilter,
+        ),
+        ...constructOptionalSearchConditionGqlFilter<RouteTypeOfLineEnum>(
+          searchConditions.typeOfLine,
+          constructTypeOfLineGqlFilter,
         ),
       },
       constructRouteFilter,

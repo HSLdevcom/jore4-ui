@@ -22,8 +22,9 @@ export const mapVehicleModeToUiName = (
   key: ReusableComponentsVehicleModeEnum | AllOptionEnum.All,
 ) => i18n.t(key === AllOptionEnum.All ? key : `vehicleModeEnum.${key}`);
 
-export const mapLineTypeToUiName = (key: RouteTypeOfLineEnum) =>
-  i18n.t(`lineTypeEnum.${key}`);
+export const mapLineTypeToUiName = (
+  key: RouteTypeOfLineEnum | AllOptionEnum.All,
+) => i18n.t(key === AllOptionEnum.All ? key : `lineTypeEnum.${key}`);
 
 export const mapDirectionToUiName = (key: RouteDirection) =>
   i18n.t(`directionEnum.${key}`);

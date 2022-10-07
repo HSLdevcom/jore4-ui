@@ -1,4 +1,7 @@
-import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
+import {
+  ReusableComponentsVehicleModeEnum,
+  RouteTypeOfLineEnum,
+} from '../../generated/graphql';
 import { Priority } from '../../types/Priority';
 import { AllOptionEnum, DisplayedSearchResultType } from '../../utils/enum';
 import { useUrlQuery } from '../urlQuery/useUrlQuery';
@@ -7,6 +10,7 @@ export type SearchConditions = {
   priorities: Priority[];
   label: string;
   primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
+  typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;
 };
 
 export type FilterConditions = {
@@ -29,6 +33,7 @@ export type QueryStringParameters = {
   priorities: string;
   label: string;
   primaryVehicleMode?: string;
+  typeOfLine?: string;
   displayedData: string;
 };
 
@@ -40,6 +45,7 @@ export type DeserializedQueryStringParameters = {
   priorities: Priority[];
   label: string;
   primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
+  typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;
   displayedData: DisplayedSearchResultType;
 };
 
@@ -48,10 +54,12 @@ export enum SearchQueryParameterNames {
   Priorities = 'priorities',
   PrimaryVehicleMode = 'primaryVehicleMode',
   DisplayedData = 'displayedData',
+  TypeOfLine = 'typeOfLine',
 }
 
 const DEFAULT_PRIORITIES = [Priority.Standard, Priority.Temporary];
 const DEFAULT_PRIMARY_VEHICLE_MODE = AllOptionEnum.All;
+const DEFAULT_TYPE_OF_LINE = AllOptionEnum.All;
 const DEFAULT_DISPLAYED_DATA = DisplayedSearchResultType.Lines;
 const DEFAULT_LABEL = '';
 
@@ -60,6 +68,7 @@ export const useSearchQueryParser = () => {
     getStringParamFromUrlQuery,
     getPriorityArrayFromUrlQuery,
     getReusableComponentsVehicleModeEnumFromUrlQuery,
+    getRouteTypeOfLineEnumFromUrlQuery,
     getDisplayedSearchResultTypeFromUrlQuery,
   } = useUrlQuery();
   const label =
@@ -75,6 +84,10 @@ export const useSearchQueryParser = () => {
       SearchQueryParameterNames.PrimaryVehicleMode,
     ) ?? DEFAULT_PRIMARY_VEHICLE_MODE;
 
+  const typeOfLine =
+    getRouteTypeOfLineEnumFromUrlQuery(SearchQueryParameterNames.TypeOfLine) ??
+    DEFAULT_TYPE_OF_LINE;
+
   const displayedData =
     getDisplayedSearchResultTypeFromUrlQuery(
       SearchQueryParameterNames.DisplayedData,
@@ -85,6 +98,7 @@ export const useSearchQueryParser = () => {
       label,
       priorities,
       primaryVehicleMode,
+      typeOfLine,
     },
     filter: {
       displayedData,
