@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import {
   GeographyComparisonExp,
   ReusableComponentsVehicleModeEnum,
+  RouteTypeOfLineEnum,
 } from '../generated/graphql';
 import { Viewport } from '../redux/types/modalMap';
 import { Priority } from '../types/Priority';
@@ -84,5 +85,14 @@ export const constructPrimaryVehicleModeGqlFilter = (
 ) => ({
   primary_vehicle_mode: {
     _eq: primaryVehicleMode,
+  },
+});
+
+/** Constructs an object for gql to filter by typeOfLine */
+export const constructTypeOfLineGqlFilter = (
+  typeOfLine: RouteTypeOfLineEnum,
+) => ({
+  type_of_line: {
+    _eq: typeOfLine,
   },
 });
