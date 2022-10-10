@@ -44,7 +44,7 @@ export const useShowRoutesOnModal = () => {
   const dispatch = useAppDispatch();
   const { openMapWithParameters } = useMapQueryParams();
   const { observationDate: listViewObservationDate } =
-    useObservationDateQueryParam();
+    useObservationDateQueryParam({ initialize: false });
 
   const showRoutesOnModal = ({
     viewPortParams,
