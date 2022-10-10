@@ -7,7 +7,17 @@ import { showWarningToast } from '../../utils';
 import { QueryParameterName } from './useMapQueryParams';
 import { useUrlQuery } from './useUrlQuery';
 
-export const useObservationDateQueryParam = () => {
+interface Props {
+  initialize?: boolean;
+}
+
+/**
+ * Query parameter hook for setting and getting observationDate. Initialization
+ * of this query parameter can be set to false if you don't want to initialize it.
+ */
+export const useObservationDateQueryParam = (
+  { initialize }: Props = { initialize: true },
+) => {
   const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery, queryParams } =
     useUrlQuery();
   const { t } = useTranslation();
@@ -68,8 +78,10 @@ export const useObservationDateQueryParam = () => {
   }, [defaultDate, observationDate, queryParams.observationDate]);
 
   useEffect(() => {
-    initializeObservationDate();
-  }, [initializeObservationDate]);
+    if (initialize) {
+      initializeObservationDate();
+    }
+  }, [initialize, initializeObservationDate]);
 
   return {
     observationDate,
