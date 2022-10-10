@@ -17,8 +17,11 @@ export const ResultSelector = (): JSX.Element => {
     dispatch(resetSelectedRoutesAction());
     setFilter('displayedData', DisplayedSearchResultType.Routes);
   };
-  const displayLines = () =>
+  const displayLines = () => {
+    dispatch(resetSelectedRoutesAction());
     setFilter('displayedData', DisplayedSearchResultType.Lines);
+  };
+
   return (
     <div className="space-x-2">
       <SimpleSmallButton

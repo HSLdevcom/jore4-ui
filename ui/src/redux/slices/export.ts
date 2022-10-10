@@ -33,6 +33,21 @@ const slice = createSlice({
         (label) => label !== action.payload,
       );
     },
+    selectRouteLabels: (state: IState, action: PayloadAction<string[]>) => {
+      const { selectedRouteLabels } = state;
+
+      state.selectedRouteLabels = uniq([
+        ...selectedRouteLabels,
+        ...action.payload,
+      ]);
+    },
+    deselectRouteLabels: (state: IState, action: PayloadAction<string[]>) => {
+      const { selectedRouteLabels } = state;
+
+      state.selectedRouteLabels = selectedRouteLabels.filter(
+        (label) => !action.payload.includes(label),
+      );
+    },
     resetSelectedRoutes: (state) => {
       state.selectedRouteLabels = initialState.selectedRouteLabels;
     },
@@ -43,6 +58,8 @@ export const {
   setIsSelectingRoutesForExport: setIsSelectingRoutesForExportAction,
   selectRouteLabel: selectRouteLabelAction,
   deselectRouteLabel: deselectRouteLabelAction,
+  selectRouteLabels: selectRouteLabelsAction,
+  deselectRouteLabels: deselectRouteLabelsAction,
   resetSelectedRoutes: resetSelectedRoutesAction,
 } = slice.actions;
 
