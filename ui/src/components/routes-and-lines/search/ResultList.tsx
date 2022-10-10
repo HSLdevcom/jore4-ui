@@ -25,7 +25,7 @@ export const ResultList = ({
 
   switch (displayedData) {
     case DisplayedSearchResultType.Lines:
-      return <LinesList lines={lines} />;
+      return <LinesList lines={lines} isSelecting={isSelecting} />;
     case DisplayedSearchResultType.Routes:
       return <RoutesList routes={routes} isSelecting={isSelecting} />;
     default:
