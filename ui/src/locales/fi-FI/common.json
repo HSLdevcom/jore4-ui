@@ -258,7 +258,9 @@
   },
   "export": {
     "startSelecting": "Valitse",
-    "quitSelecting": "Sulje valinnat"
+    "quitSelecting": "Sulje valinnat",
+    "exportSelected": "Vie valitut Hastukseen",
+    "exportAll": "Vie kaikki Hastukseen"
   },
   "save": "Tallenna",
   "edit": "Muokkaa",
