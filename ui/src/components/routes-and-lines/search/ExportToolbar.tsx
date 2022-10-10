@@ -49,6 +49,12 @@ export const ExportToolbar = (): JSX.Element => {
     dispatch(resetSelectedRoutesAction());
   };
 
+  // If no route is selected, export all routes by default
+  const isExportingAll = selectedRouteLabels.length === 0;
+
+  // TODO: Implement exporting
+  const exportRoutes = () => null;
+
   return (
     <Row className="items-center gap-3">
       <Visible visible={isSelecting}>
@@ -70,6 +76,14 @@ export const ExportToolbar = (): JSX.Element => {
         label={t(`export.${isSelecting ? 'quitSelecting' : 'startSelecting'}`)}
         className="w-auto rounded-full px-4"
       />
+      <Visible visible={isSelecting}>
+        <SimpleSmallButton
+          inverted
+          onClick={exportRoutes}
+          label={t(`export.${isExportingAll ? 'exportAll' : 'exportSelected'}`)}
+          className="w-auto rounded-full px-4"
+        />
+      </Visible>
     </Row>
   );
 };
