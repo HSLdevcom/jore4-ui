@@ -7,7 +7,9 @@ import { showWarningToast } from '../../utils';
 import { QueryParameterName } from './useMapQueryParams';
 import { useUrlQuery } from './useUrlQuery';
 
-export const useObservationDateQueryParam = () => {
+export const useObservationDateQueryParam = (
+  initializeObservationDateQueryParam = true,
+) => {
   const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery, queryParams } =
     useUrlQuery();
   const { t } = useTranslation();
@@ -61,7 +63,10 @@ export const useObservationDateQueryParam = () => {
 
   /** Determines and sets date to query parameters if it's not there */
   const initializeObservationDate = useCallback(async () => {
-    if (!queryParams.observationDate || !observationDate) {
+    if (
+      initializeObservationDateQueryParam &&
+      (!queryParams.observationDate || !observationDate)
+    ) {
       setObservationDateToUrl(defaultDate, true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
