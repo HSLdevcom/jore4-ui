@@ -258,7 +258,9 @@
   },
   "export": {
     "startSelecting": "Select",
-    "quitSelecting": "Quit selecting"
+    "quitSelecting": "Quit selecting",
+    "exportSelected": "Export selected to Hastus",
+    "exportAll": "Export all to Hastus"
   },
   "save": "Save",
   "edit": "Edit",
