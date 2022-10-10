@@ -25,7 +25,12 @@ export const ResultList = ({
 
   switch (displayedData) {
     case DisplayedSearchResultType.Lines:
-      return <LinesList lines={lines} />;
+      return (
+        <LinesList
+          lines={lines}
+          areItemsSelectable={isSelectingRoutesForExport}
+        />
+      );
     case DisplayedSearchResultType.Routes:
       return (
         <RoutesList

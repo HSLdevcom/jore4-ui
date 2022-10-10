@@ -17,9 +17,10 @@ export const ResultSelector = (): JSX.Element => {
     dispatch(resetSelectedRoutesAction());
     setFilter('displayedData', DisplayedSearchResultType.Routes);
   };
-  const displayLines = () =>
+  const displayLines = () => {
+    dispatch(resetSelectedRoutesAction());
     setFilter('displayedData', DisplayedSearchResultType.Lines);
-
+  };
   const testIds = {
     linesResultsButton: 'ResultSelector::lines',
     routesResultsButton: 'ResultSelector::routes',
