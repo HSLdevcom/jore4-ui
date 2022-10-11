@@ -132,6 +132,33 @@ const buildCacheDefinition = () => {
       infrastructure_network_infrastructure_link: {
         keyFields: ['infrastructure_link_id'],
       },
+      timetables_journey_pattern_journey_pattern_ref: {
+        keyFields: ['journey_pattern_ref_id'],
+      },
+      timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref: {
+        keyFields: ['scheduled_stop_point_in_journey_pattern_ref_id'],
+      },
+      timetables_service_calendar_day_type: {
+        keyFields: ['day_type_id'],
+      },
+      timetables_vehicle_schedule_vehicle_schedule_frame: {
+        keyFields: ['vehicle_schedule_frame_id'],
+      },
+      timetables_vehicle_service_vehicle_service: {
+        keyFields: ['vehicle_service_id'],
+      },
+      timetables_vehicle_service_block: {
+        keyFields: ['block_id'],
+      },
+      timetables_vehicle_journey_vehicle_journey: {
+        keyFields: ['vehicle_journey_id'],
+      },
+      timetables_passing_times_timetabled_passing_time: {
+        keyFields: ['timetabled_passing_time_id'],
+      },
+      timing_pattern_timing_point: {
+        keyFields: ['timing_point_id'],
+      },
     },
   });
 
