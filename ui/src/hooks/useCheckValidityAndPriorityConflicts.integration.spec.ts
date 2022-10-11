@@ -152,139 +152,143 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
     });
   });
 
-  test('Should return conflict on resources with same validity_start', async () => {
-    await act(async () => {
-      const conflicts = await result.current.getConflictingLines(
-        buildQuery({
-          label: indefiniteEndLine.label,
-          validityStart: indefiniteEndLine.validity_start,
-        }),
-      );
-      expect(conflicts.length).toBe(1);
-      expect(conflicts[0].line_id).toEqual(indefiniteEndLine.line_id);
-    });
-  });
-
-  test('Should return conflict on resources with same validity_end', async () => {
-    await act(async () => {
-      const conflicts = await result.current.getConflictingLines(
-        buildQuery({
-          label: indefiniteStartLine.label,
-          validityEnd: indefiniteStartLine.validity_end,
-        }),
-      );
-      expect(conflicts.length).toBe(1);
-      expect(conflicts[0].line_id).toEqual(indefiniteStartLine.line_id);
-    });
-  });
-
-  test('Should return conflict on resource within existing instance of resource', async () => {
-    await act(async () => {
-      const conflicts = await result.current.getConflictingLines(
-        buildQuery({
-          label: boundedLine.label,
-          validityStart: boundedLine.validity_start?.plus({ milliseconds: 1 }),
-          validityEnd: boundedLine.validity_end?.minus({ milliseconds: 1 }),
-        }),
-      );
-      expect(conflicts.length).toBe(1);
-      expect(conflicts[0].line_id).toEqual(boundedLine.line_id);
-    });
-  });
-
-  test('Should return conflict on resource starting before and ending after existing version', async () => {
-    await act(async () => {
-      const conflicts = await result.current.getConflictingLines(
-        buildQuery({
-          label: boundedLine.label,
-          validityStart: boundedLine.validity_start?.minus({
-            milliseconds: 1,
+  describe('Bounded resources (either validity_start or validity_end defined).', () => {
+    test('Should return conflict on resources with same validity_start', async () => {
+      await act(async () => {
+        const conflicts = await result.current.getConflictingLines(
+          buildQuery({
+            label: indefiniteEndLine.label,
+            validityStart: indefiniteEndLine.validity_start,
           }),
-          validityEnd: boundedLine.validity_end?.plus({ millisecond: 1 }),
-        }),
-      );
-      expect(conflicts.length).toBe(1);
-      expect(conflicts[0].line_id).toEqual(boundedLine.line_id);
+        );
+        expect(conflicts.length).toBe(1);
+        expect(conflicts[0].line_id).toEqual(indefiniteEndLine.line_id);
+      });
     });
-  });
 
-  test('Should not allow new version after current version when bounds overlap', async () => {
-    await act(async () => {
-      const conflicts = await result.current.getConflictingLines(
-        buildQuery({
-          label: boundedLine.label,
-          validityStart: boundedLine.validity_end,
-          validityEnd: undefined,
-        }),
-      );
-      expect(conflicts.length).toBe(1);
-      expect(conflicts[0].line_id).toEqual(boundedLine.line_id);
+    test('Should return conflict on resources with same validity_end', async () => {
+      await act(async () => {
+        const conflicts = await result.current.getConflictingLines(
+          buildQuery({
+            label: indefiniteStartLine.label,
+            validityEnd: indefiniteStartLine.validity_end,
+          }),
+        );
+        expect(conflicts.length).toBe(1);
+        expect(conflicts[0].line_id).toEqual(indefiniteStartLine.line_id);
+      });
     });
-  });
 
-  test('Should allow new version after current version, bounds not overlapping, validity_end null', async () => {
-    await act(async () => {
-      const conflicts = await result.current.getConflictingLines(
-        buildQuery({
-          label: boundedLine.label,
-          validityStart: boundedLine.validity_end?.plus({ milliseconds: 1 }),
-          validityEnd: undefined,
-        }),
-      );
-      expect(conflicts.length).toBe(0);
+    test('Should return conflict on resource within existing instance of resource', async () => {
+      await act(async () => {
+        const conflicts = await result.current.getConflictingLines(
+          buildQuery({
+            label: boundedLine.label,
+            validityStart: boundedLine.validity_start?.plus({
+              milliseconds: 1,
+            }),
+            validityEnd: boundedLine.validity_end?.minus({ milliseconds: 1 }),
+          }),
+        );
+        expect(conflicts.length).toBe(1);
+        expect(conflicts[0].line_id).toEqual(boundedLine.line_id);
+      });
     });
-  });
 
-  test('Should allow new version after current version, bounds not overlapping, validity_end defined', async () => {
-    await act(async () => {
-      const conflicts = await result.current.getConflictingLines(
-        buildQuery({
-          label: boundedLine.label,
-          validityStart: boundedLine.validity_end?.plus({ milliseconds: 1 }),
-          validityEnd: boundedLine.validity_end?.plus({ months: 1 }),
-        }),
-      );
-      expect(conflicts.length).toBe(0);
+    test('Should return conflict on resource starting before and ending after existing version', async () => {
+      await act(async () => {
+        const conflicts = await result.current.getConflictingLines(
+          buildQuery({
+            label: boundedLine.label,
+            validityStart: boundedLine.validity_start?.minus({
+              milliseconds: 1,
+            }),
+            validityEnd: boundedLine.validity_end?.plus({ millisecond: 1 }),
+          }),
+        );
+        expect(conflicts.length).toBe(1);
+        expect(conflicts[0].line_id).toEqual(boundedLine.line_id);
+      });
     });
-  });
 
-  test('Should not allow new version before current version when bounds overlap', async () => {
-    await act(async () => {
-      const conflicts = await result.current.getConflictingLines(
-        buildQuery({
-          label: boundedLine.label,
-          validityStart: undefined,
-          validityEnd: boundedLine.validity_start,
-        }),
-      );
-      expect(conflicts.length).toBe(1);
-      expect(conflicts[0].line_id).toEqual(boundedLine.line_id);
+    test('Should not allow new version after current version when bounds overlap', async () => {
+      await act(async () => {
+        const conflicts = await result.current.getConflictingLines(
+          buildQuery({
+            label: boundedLine.label,
+            validityStart: boundedLine.validity_end,
+            validityEnd: undefined,
+          }),
+        );
+        expect(conflicts.length).toBe(1);
+        expect(conflicts[0].line_id).toEqual(boundedLine.line_id);
+      });
     });
-  });
 
-  test('Should allow new version before current version, bounds not overlapping, validity_start defined', async () => {
-    await act(async () => {
-      const conflicts = await result.current.getConflictingLines(
-        buildQuery({
-          label: boundedLine.label,
-          validityStart: boundedLine.validity_start?.minus({ days: 1 }),
-          validityEnd: boundedLine.validity_start?.minus({ milliseconds: 1 }),
-        }),
-      );
-      expect(conflicts.length).toBe(0);
+    test('Should allow new version after current version, bounds not overlapping, validity_end null', async () => {
+      await act(async () => {
+        const conflicts = await result.current.getConflictingLines(
+          buildQuery({
+            label: boundedLine.label,
+            validityStart: boundedLine.validity_end?.plus({ milliseconds: 1 }),
+            validityEnd: undefined,
+          }),
+        );
+        expect(conflicts.length).toBe(0);
+      });
     });
-  });
 
-  test('Should allow new version before current version, bounds not overlapping, validity_start null', async () => {
-    await act(async () => {
-      const conflicts = await result.current.getConflictingLines(
-        buildQuery({
-          label: boundedLine.label,
-          validityStart: undefined,
-          validityEnd: boundedLine.validity_start?.minus({ milliseconds: 1 }),
-        }),
-      );
-      expect(conflicts.length).toBe(0);
+    test('Should allow new version after current version, bounds not overlapping, validity_end defined', async () => {
+      await act(async () => {
+        const conflicts = await result.current.getConflictingLines(
+          buildQuery({
+            label: boundedLine.label,
+            validityStart: boundedLine.validity_end?.plus({ milliseconds: 1 }),
+            validityEnd: boundedLine.validity_end?.plus({ months: 1 }),
+          }),
+        );
+        expect(conflicts.length).toBe(0);
+      });
+    });
+
+    test('Should not allow new version before current version when bounds overlap', async () => {
+      await act(async () => {
+        const conflicts = await result.current.getConflictingLines(
+          buildQuery({
+            label: boundedLine.label,
+            validityStart: undefined,
+            validityEnd: boundedLine.validity_start,
+          }),
+        );
+        expect(conflicts.length).toBe(1);
+        expect(conflicts[0].line_id).toEqual(boundedLine.line_id);
+      });
+    });
+
+    test('Should allow new version before current version, bounds not overlapping, validity_start defined', async () => {
+      await act(async () => {
+        const conflicts = await result.current.getConflictingLines(
+          buildQuery({
+            label: boundedLine.label,
+            validityStart: boundedLine.validity_start?.minus({ days: 1 }),
+            validityEnd: boundedLine.validity_start?.minus({ milliseconds: 1 }),
+          }),
+        );
+        expect(conflicts.length).toBe(0);
+      });
+    });
+
+    test('Should allow new version before current version, bounds not overlapping, validity_start null', async () => {
+      await act(async () => {
+        const conflicts = await result.current.getConflictingLines(
+          buildQuery({
+            label: boundedLine.label,
+            validityStart: undefined,
+            validityEnd: boundedLine.validity_start?.minus({ milliseconds: 1 }),
+          }),
+        );
+        expect(conflicts.length).toBe(0);
+      });
     });
   });
 
