@@ -10647,6 +10647,75 @@ export type LineTableRowFragment = {
   }>;
 };
 
+export type GetVehicleJourneysQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetVehicleJourneysQuery = {
+  __typename?: 'query_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_query';
+        timetables_vehicle_journey_vehicle_journey: Array<{
+          __typename?: 'timetables_vehicle_journey_vehicle_journey';
+          journey_pattern_ref_id: UUID;
+          vehicle_journey_id: UUID;
+          timetabled_passing_times: Array<{
+            __typename?: 'timetables_passing_times_timetabled_passing_time';
+            arrival_time: luxon.Duration;
+            departure_time?: luxon.Duration | null | undefined;
+            scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+            timetabled_passing_time_id: UUID;
+            vehicle_journey_id: UUID;
+            scheduled_stop_point_in_journey_pattern_ref: {
+              __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
+              journey_pattern_ref_id: UUID;
+              scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+              scheduled_stop_point_label: string;
+              scheduled_stop_point_label_passing: number;
+            };
+          }>;
+        }>;
+      }
+    | null
+    | undefined;
+};
+
+export type PassingTimeFragment = {
+  __typename?: 'timetables_passing_times_timetabled_passing_time';
+  arrival_time: luxon.Duration;
+  departure_time?: luxon.Duration | null | undefined;
+  scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+  timetabled_passing_time_id: UUID;
+  vehicle_journey_id: UUID;
+  scheduled_stop_point_in_journey_pattern_ref: {
+    __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
+    journey_pattern_ref_id: UUID;
+    scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+    scheduled_stop_point_label: string;
+    scheduled_stop_point_label_passing: number;
+  };
+};
+
+export type VehicleJourneyFragment = {
+  __typename?: 'timetables_vehicle_journey_vehicle_journey';
+  journey_pattern_ref_id: UUID;
+  vehicle_journey_id: UUID;
+  timetabled_passing_times: Array<{
+    __typename?: 'timetables_passing_times_timetabled_passing_time';
+    arrival_time: luxon.Duration;
+    departure_time?: luxon.Duration | null | undefined;
+    scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+    timetabled_passing_time_id: UUID;
+    vehicle_journey_id: UUID;
+    scheduled_stop_point_in_journey_pattern_ref: {
+      __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
+      journey_pattern_ref_id: UUID;
+      scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_label_passing: number;
+    };
+  }>;
+};
+
 export type RouteInfraLinkFieldsFragment = {
   __typename?: 'infrastructure_network_infrastructure_link';
   external_link_id: string;
@@ -13126,6 +13195,31 @@ export const LineTableRowFragmentDoc = gql`
   ${LineAllFieldsFragmentDoc}
   ${RouteInformationForMapFragmentDoc}
 `;
+export const PassingTimeFragmentDoc = gql`
+  fragment passing_time on timetables_passing_times_timetabled_passing_time {
+    arrival_time
+    departure_time
+    scheduled_stop_point_in_journey_pattern_ref_id
+    timetabled_passing_time_id
+    vehicle_journey_id
+    scheduled_stop_point_in_journey_pattern_ref {
+      journey_pattern_ref_id
+      scheduled_stop_point_in_journey_pattern_ref_id
+      scheduled_stop_point_label
+      scheduled_stop_point_label_passing
+    }
+  }
+`;
+export const VehicleJourneyFragmentDoc = gql`
+  fragment vehicle_journey on timetables_vehicle_journey_vehicle_journey {
+    timetabled_passing_times {
+      ...passing_time
+    }
+    journey_pattern_ref_id
+    vehicle_journey_id
+  }
+  ${PassingTimeFragmentDoc}
+`;
 export const InfraLinkMatchingFieldsFragmentDoc = gql`
   fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
     external_link_id
@@ -13448,6 +13542,66 @@ export type GetRouteWithInfrastructureLinksLazyQueryHookResult = ReturnType<
 export type GetRouteWithInfrastructureLinksQueryResult = Apollo.QueryResult<
   GetRouteWithInfrastructureLinksQuery,
   GetRouteWithInfrastructureLinksQueryVariables
+>;
+export const GetVehicleJourneysDocument = gql`
+  query GetVehicleJourneys {
+    timetables {
+      timetables_vehicle_journey_vehicle_journey {
+        ...vehicle_journey
+      }
+    }
+  }
+  ${VehicleJourneyFragmentDoc}
+`;
+
+/**
+ * __useGetVehicleJourneysQuery__
+ *
+ * To run a query within a React component, call `useGetVehicleJourneysQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVehicleJourneysQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVehicleJourneysQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetVehicleJourneysQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetVehicleJourneysQuery,
+    GetVehicleJourneysQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetVehicleJourneysQuery,
+    GetVehicleJourneysQueryVariables
+  >(GetVehicleJourneysDocument, options);
+}
+export function useGetVehicleJourneysLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetVehicleJourneysQuery,
+    GetVehicleJourneysQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetVehicleJourneysQuery,
+    GetVehicleJourneysQueryVariables
+  >(GetVehicleJourneysDocument, options);
+}
+export type GetVehicleJourneysQueryHookResult = ReturnType<
+  typeof useGetVehicleJourneysQuery
+>;
+export type GetVehicleJourneysLazyQueryHookResult = ReturnType<
+  typeof useGetVehicleJourneysLazyQuery
+>;
+export type GetVehicleJourneysQueryResult = Apollo.QueryResult<
+  GetVehicleJourneysQuery,
+  GetVehicleJourneysQueryVariables
 >;
 export const QueryClosestLinkDocument = gql`
   query QueryClosestLink($point: geography) {
@@ -16416,6 +16570,15 @@ export function useGetRouteWithInfrastructureLinksAsyncQuery() {
 }
 export type GetRouteWithInfrastructureLinksAsyncQueryHookResult = ReturnType<
   typeof useGetRouteWithInfrastructureLinksAsyncQuery
+>;
+export function useGetVehicleJourneysAsyncQuery() {
+  return useAsyncQuery<
+    GetVehicleJourneysQuery,
+    GetVehicleJourneysQueryVariables
+  >(GetVehicleJourneysDocument);
+}
+export type GetVehicleJourneysAsyncQueryHookResult = ReturnType<
+  typeof useGetVehicleJourneysAsyncQuery
 >;
 export function useQueryClosestLinkAsyncQuery() {
   return useAsyncQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(

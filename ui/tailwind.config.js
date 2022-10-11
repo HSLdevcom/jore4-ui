@@ -34,6 +34,7 @@ module.exports = {
         sans: ['Arial', ...defaultTheme.fontFamily.sans],
       },
       fontSize: {
+        '2xs': '0.625rem', // 10px
         xl: '1.375rem', // 22px
         '2xl': '1.625rem', // 26px
         '3xl': '2rem', // 32px
