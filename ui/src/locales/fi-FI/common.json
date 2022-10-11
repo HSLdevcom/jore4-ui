@@ -253,7 +253,8 @@
     "viaRemoveSuccess": "Via-tieto poistettu"
   },
   "timetables": {
-    "timetables": "Aikataulut"
+    "timetables": "Aikataulut",
+    "departures": "Lähdöt"
   },
   "export": {
     "startSelecting": "Valitse",

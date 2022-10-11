@@ -253,7 +253,8 @@
     "viaRemoveSuccess": "Via information removed"
   },
   "timetables": {
-    "timetables": "Timetables"
+    "timetables": "Timetables",
+    "departures": "Departures"
   },
   "export": {
     "startSelecting": "Select",
