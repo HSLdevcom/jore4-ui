@@ -2,7 +2,7 @@ import {
   LineTableRowFragment,
   RouteAllFieldsFragment,
 } from '../../../generated/graphql';
-import { DisplayedSearchResultType } from '../../../hooks';
+import { DisplayedSearchResultType } from '../../../utils';
 import { LinesList } from '../main/LinesList';
 import { RoutesList } from '../main/RoutesList';
 

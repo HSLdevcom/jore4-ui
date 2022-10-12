@@ -11,3 +11,9 @@ export function getEnumValues(inputEnum: Object): string[] {
 export enum AllOptionEnum {
   All = 'all',
 }
+
+/** Enum for different search result options */
+export enum DisplayedSearchResultType {
+  Routes = 'routes',
+  Lines = 'lines',
+}
