@@ -1,11 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import {
-  DisplayedSearchResultType,
-  useAppDispatch,
-  useSearch,
-} from '../../../../hooks';
+import { useAppDispatch, useSearch } from '../../../../hooks';
 import { resetSelectedRoutesAction } from '../../../../redux';
 import { SimpleSmallButton } from '../../../../uiComponents';
+import { DisplayedSearchResultType } from '../../../../utils';
 
 export const ResultSelector = (): JSX.Element => {
   const { t } = useTranslation();

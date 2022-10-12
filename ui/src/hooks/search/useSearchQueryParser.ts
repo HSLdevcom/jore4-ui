@@ -1,6 +1,6 @@
 import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import { Priority } from '../../types/Priority';
-import { AllOptionEnum } from '../../utils/enum';
+import { AllOptionEnum, DisplayedSearchResultType } from '../../utils/enum';
 import { useUrlQuery } from '../urlQuery/useUrlQuery';
 
 export type SearchConditions = {
@@ -8,12 +8,6 @@ export type SearchConditions = {
   label: string;
   primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
 };
-
-/** Enum for different search result options */
-export enum DisplayedSearchResultType {
-  Routes = 'routes',
-  Lines = 'lines',
-}
 
 export type FilterConditions = {
   displayedData: DisplayedSearchResultType;
@@ -49,86 +43,51 @@ export type DeserializedQueryStringParameters = {
   displayedData: DisplayedSearchResultType;
 };
 
-/**
- * Parses the values in to integer and only accept values that are
- * exsiting type of {Priority}
- * @param priorities Priorities array in string format (csv).
- */
-export const parseAndValidatePriorities = (priorities: string) =>
-  priorities
-    .split(',')
-    .map((p) => parseInt(p, 10))
-    .filter((p) => Object.values(Priority).includes(p));
+export enum SearchQueryParameterNames {
+  Label = 'label',
+  Priorities = 'priorities',
+  PrimaryVehicleMode = 'primaryVehicleMode',
+  DisplayedData = 'displayedData',
+}
 
-/**
- * If displayedData query string is not given or is invalid,
- * default to Lines
- */
-const mapDisplayedData = (displayedData: string) => {
-  if (
-    Object.values(DisplayedSearchResultType).includes(
-      displayedData as DisplayedSearchResultType,
-    )
-  ) {
-    return displayedData as DisplayedSearchResultType;
-  }
-
-  return DisplayedSearchResultType.Lines;
-};
-
-/**
- * If primaryVehicleMode query string is not given or is invalid,
- * default to All option
- */
-const mapPrimaryVehicleModeToEnum = (primaryVehicleMode?: string) => {
-  if (
-    Object.values(ReusableComponentsVehicleModeEnum).includes(
-      primaryVehicleMode as ReusableComponentsVehicleModeEnum,
-    )
-  ) {
-    return primaryVehicleMode as ReusableComponentsVehicleModeEnum;
-  }
-
-  return AllOptionEnum.All;
-};
-
-/**
- * Returns parsed and validated priorities if priority query string
- * is existing. If the query string is not given, return default
- * priorities
- * @param priorities Priorities array in string format (csv).
- */
-const getPriorities = (priorities: string) => {
-  const defaultPriorities = [Priority.Standard, Priority.Temporary];
-
-  return priorities === undefined
-    ? defaultPriorities
-    : parseAndValidatePriorities(priorities);
-};
-
-/**
- * Deserializes and validates the query parameters in to correct types
- * @param queryParams Object with parameters in string format
- */
-const deserializeParameters = (
-  queryParams: QueryStringParameters,
-): SearchParameters => {
-  return {
-    search: {
-      label: queryParams.label || '',
-      priorities: getPriorities(queryParams.priorities),
-      primaryVehicleMode: mapPrimaryVehicleModeToEnum(
-        queryParams.primaryVehicleMode,
-      ),
-    },
-    filter: {
-      displayedData: mapDisplayedData(queryParams.displayedData),
-    },
-  };
-};
+const DEFAULT_PRIORITIES = [Priority.Standard, Priority.Temporary];
+const DEFAULT_PRIMARY_VEHICLE_MODE = AllOptionEnum.All;
+const DEFAULT_DISPLAYED_DATA = DisplayedSearchResultType.Lines;
+const DEFAULT_LABEL = '';
 
 export const useSearchQueryParser = () => {
-  const { queryParams } = useUrlQuery();
+  const {
+    getStringParamFromUrlQuery,
+    getPriorityArrayFromUrlQuery,
+    getReusableComponentsVehicleModeEnumFromUrlQuery,
+    getDisplayedSearchResultTypeFromUrlQuery,
+  } = useUrlQuery();
+  const label =
+    getStringParamFromUrlQuery(SearchQueryParameterNames.Label) ??
+    DEFAULT_LABEL;
 
-  return deserializeParameters(queryParams as QueryStringParameters);
+  const priorities =
+    getPriorityArrayFromUrlQuery(SearchQueryParameterNames.Priorities) ??
+    DEFAULT_PRIORITIES;
+
+  const primaryVehicleMode =
+    getReusableComponentsVehicleModeEnumFromUrlQuery(
+      SearchQueryParameterNames.PrimaryVehicleMode,
+    ) ?? DEFAULT_PRIMARY_VEHICLE_MODE;
+
+  const displayedData =
+    getDisplayedSearchResultTypeFromUrlQuery(
+      SearchQueryParameterNames.DisplayedData,
+    ) ?? DEFAULT_DISPLAYED_DATA;
+
+  return {
+    search: {
+      label,
+      priorities,
+      primaryVehicleMode,
+    },
+    filter: {
+      displayedData,
+    },
+  };
 };
