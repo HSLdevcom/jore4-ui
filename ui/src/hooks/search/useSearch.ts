@@ -2,12 +2,8 @@ import { produce } from 'immer';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Priority } from '../../types/Priority';
-import { createQueryParamString } from '../../utils';
-import {
-  DisplayedSearchResultType,
-  FilterConditions,
-  useSearchQueryParser,
-} from './useSearchQueryParser';
+import { createQueryParamString, DisplayedSearchResultType } from '../../utils';
+import { FilterConditions, useSearchQueryParser } from './useSearchQueryParser';
 
 export const useSearch = () => {
   const history = useHistory();

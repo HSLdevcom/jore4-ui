@@ -6,12 +6,10 @@ import {
 } from '../../generated/graphql';
 import {
   constructSearchLinesAndRoutesGqlQueryVariables,
+  DisplayedSearchResultType,
   mapToVariables,
 } from '../../utils';
-import {
-  DisplayedSearchResultType,
-  useSearchQueryParser,
-} from './useSearchQueryParser';
+import { useSearchQueryParser } from './useSearchQueryParser';
 
 const GQL_SEARCH_LINES_AND_ROUTES = gql`
   query SearchLinesAndRoutes(

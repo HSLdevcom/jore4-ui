@@ -1,7 +1,7 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { DisplayedSearchResultType, useSearch } from '../../../../hooks';
+import { useSearch } from '../../../../hooks';
 import { SimpleSmallButton } from '../../../../uiComponents';
+import { DisplayedSearchResultType } from '../../../../utils';
 
 export const ResultSelector = (): JSX.Element => {
   const { t } = useTranslation();
