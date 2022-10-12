@@ -22,7 +22,7 @@ export type Scalars = {
   geography_linestring: GeoJSON.LineString;
   geography_point: GeoJSON.Point;
   geometry: GeoJSON.Geometry;
-  interval: any;
+  interval: luxon.Duration;
   jsonb: any;
   localized_string: LocalizedString;
   timestamptz: luxon.DateTime;
