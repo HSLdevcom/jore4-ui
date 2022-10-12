@@ -29,75 +29,131 @@ const buildValidityStartMissingGqlFilterOrConditions = (
 ) => {
   const { validityEnd } = params;
 
-  return [
-    // indefinite validity without start or end
-    {
-      _and: [
-        { validity_start: { _is_null: true } },
-        { validity_end: { _is_null: true } },
-      ],
-    },
-    // valid from the beginning of the times until given time
-    {
-      _and: [
-        { validity_start: { _is_null: true } },
-        { validity_end: { _gte: validityEnd } },
-      ],
-    },
-  ];
+  return {
+    _or: [
+      // this and existing have undefined validity_start
+      // existing: ----?
+      // new: ----|
+      { validity_start: { _is_null: true } },
+
+      // existing resource starts before this ends
+      // existing: |----?
+      // new:     ---|
+      { validity_start: { _lte: validityEnd } },
+    ],
+  };
+};
+
+const buildValidityEndMissingGqlFilterOrConditions = (params: CommonParams) => {
+  const { validityStart } = params;
+
+  return {
+    _or: [
+      // this and exsisting have undefined validity_end
+      // existing: ?----
+      // new: |-----
+      { validity_end: { _is_null: true } },
+      // existing resource ends after this starts
+      // existing: ?----|
+      // new:         |-------
+      { validity_end: { _gte: validityStart } },
+    ],
+  };
+};
+
+const buildValidityBoundedGqlFilterOrConditions = (params: CommonParams) => {
+  const { validityStart, validityEnd } = params;
+
+  return {
+    _or: [
+      // existing resource is valid during this resource
+      // existing: |---|
+      // new:     |-----|
+      {
+        _and: [
+          { validity_start: { _gte: validityStart } },
+          { validity_end: { _lte: validityEnd } },
+        ],
+      },
+      // existing resource started before and ended after
+      // existing: |--------|
+      // new:        |--|
+      {
+        _and: [
+          { validity_start: { _lte: validityStart } },
+          { validity_end: { _gte: validityEnd } },
+        ],
+      },
+      // existing resource start indefinite, ends during
+      // existing: ---|
+      // new:    |--------|
+      {
+        _and: [
+          { validity_start: { _is_null: true } },
+          { validity_end: { _gte: validityStart } },
+        ],
+      },
+      // existing indefinite resource starts before this ends
+      // existing: |------
+      // new: |------|
+      {
+        _and: [
+          { validity_start: { _lte: validityEnd } },
+          { validity_end: { _is_null: true } },
+        ],
+      },
+      // indefinite validity without start or end
+      // existing: -------
+      // new:       |--|
+      {
+        _and: [
+          { validity_start: { _is_null: true } },
+          { validity_end: { _is_null: true } },
+        ],
+      },
+      // existing resource ends after this starts
+      // existing: |------|
+      // new:         |-----|
+      {
+        _and: [
+          { validity_start: { _lte: validityStart } },
+          { validity_end: { _gte: validityStart } },
+        ],
+      },
+      // existing resource starts before this ends and ends after this ended
+      // existing: |------|
+      // new:  |-----|
+      {
+        _and: [
+          { validity_start: { _lte: validityEnd } },
+          { validity_end: { _gte: validityEnd } },
+        ],
+      },
+    ],
+  };
+};
+
+const buildCommonGqlFilterOrConditions = (params: CommonParams) => {
+  const { validityStart, validityEnd } = params;
+  if (!validityStart && !validityEnd) {
+    return [];
+  }
+  if (!validityStart) {
+    return buildValidityStartMissingGqlFilterOrConditions(params);
+  }
+  if (!validityEnd) {
+    return buildValidityEndMissingGqlFilterOrConditions(params);
+  }
+  return buildValidityBoundedGqlFilterOrConditions(params);
 };
 
 const buildCommonGqlFilter = (params: CommonParams) => {
-  const { label, priority, validityStart, validityEnd } = params;
+  const { label, priority } = params;
 
-  const isIndefinite = !validityEnd;
-
-  const validityStartFilterCondition =
-    buildValidityStartMissingGqlFilterOrConditions(params);
-
-  const validityFilter = isIndefinite
-    ? // case 1: this resource in indefinite
-      {
-        _or: [
-          // existing resource ends after this starts
-          { validity_end: { _gte: validityStart } },
-          // there is existing indefinite resource
-          { validity_end: { _is_null: true } },
-          ...validityStartFilterCondition,
-        ],
-      }
-    : {
-        _or: [
-          // case 2: this resource has ending date
-
-          // existing indefinite resource starts before this ends
-          {
-            _and: [
-              { validity_start: { _lte: validityEnd } },
-              { validity_end: { _is_null: true } },
-            ],
-          },
-          // existing resource starts before this ends and ends after this ended
-          {
-            _and: [
-              { validity_start: { _lte: validityEnd } },
-              { validity_end: { _gte: validityEnd } },
-            ],
-          },
-          // existing resource is valid during this resource
-          {
-            _and: [
-              { validity_start: { _gte: validityStart } },
-              { validity_end: { _lte: validityEnd } },
-            ],
-          },
-          ...validityStartFilterCondition,
-        ],
-      };
   return {
     label: { _eq: label },
     priority: { _eq: priority },
-    ...validityFilter,
+    ...buildCommonGqlFilterOrConditions(params),
   };
 };
 
