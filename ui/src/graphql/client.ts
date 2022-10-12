@@ -9,7 +9,8 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { withScalars } from 'apollo-link-scalars';
 import { buildClientSchema, IntrospectionQuery } from 'graphql';
-import { DateTime } from 'luxon';
+import isString from 'lodash/isString';
+import { DateTime, Duration } from 'luxon';
 import introspectionResult from '../../graphql.schema.json';
 import { isDateLike, parseDate } from '../time';
 import { mapHttpToWs } from '../utils/url';
@@ -33,6 +34,24 @@ const buildScalarMappingLink = () => {
         }
 
         return parseDate(raw);
+      },
+    },
+    // automatically (de)serializing between graphql interval <-> luxon.Duration types
+    interval: {
+      serialize: (parsed: unknown) => {
+        // if it's a luxon Duration, serialize it to ISO string
+        if (Duration.isDuration(parsed)) {
+          return parsed.toISO();
+        }
+        // otherwise (string, null, undefined) just pass it on as is
+        return parsed;
+      },
+      parseValue: (raw: unknown) => {
+        if (!isString(raw)) {
+          throw new Error(`Invalid graphql time input: '${raw}'`);
+        }
+
+        return Duration.fromISO(raw);
       },
     },
   };
