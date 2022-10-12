@@ -4,7 +4,10 @@ import {
   RouteAllFieldsFragment,
   useSearchLinesAndRoutesQuery,
 } from '../../generated/graphql';
-import { constructGqlFilterObject, mapToVariables } from '../../utils';
+import {
+  constructSearchLinesAndRoutesGqlQueryVariables,
+  mapToVariables,
+} from '../../utils';
 import {
   DisplayedSearchResultType,
   useSearchQueryParser,
@@ -31,19 +34,21 @@ export const useSearchResults = (): {
   routes: RouteAllFieldsFragment[];
   resultCount: number;
 } => {
-  const parsedQueryParameters = useSearchQueryParser();
+  const parsedSearchQueryParameters = useSearchQueryParser();
 
-  const searchConditions = constructGqlFilterObject(
-    parsedQueryParameters.search,
+  const searchQueryVariables = constructSearchLinesAndRoutesGqlQueryVariables(
+    parsedSearchQueryParameters.search,
   );
 
-  const result = useSearchLinesAndRoutesQuery(mapToVariables(searchConditions));
+  const result = useSearchLinesAndRoutesQuery(
+    mapToVariables(searchQueryVariables),
+  );
 
   const lines = (result.data?.route_line || []) as LineTableRowFragment[];
   const routes = (result.data?.route_route || []) as RouteAllFieldsFragment[];
 
   const getResultCount = () => {
-    switch (parsedQueryParameters.filter.displayedData) {
+    switch (parsedSearchQueryParameters.filter.displayedData) {
       case DisplayedSearchResultType.Lines:
         return lines?.length;
       case DisplayedSearchResultType.Routes:
@@ -51,7 +56,7 @@ export const useSearchResults = (): {
       default:
         // eslint-disable-next-line no-console
         console.error(
-          `Error: ${parsedQueryParameters.filter.displayedData} does not exist.`,
+          `Error: ${parsedSearchQueryParameters.filter.displayedData} does not exist.`,
         );
         return 0;
     }
