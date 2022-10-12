@@ -3,7 +3,6 @@ import uniq from 'lodash/uniq';
 import { useTranslation } from 'react-i18next';
 import { pipe } from 'remeda';
 import {
-  DisplayedSearchResultType,
   useAppDispatch,
   useAppSelector,
   useSearchResults,
@@ -16,6 +15,7 @@ import {
   setIsSelectingRoutesForExportAction,
 } from '../../../redux';
 import { SimpleSmallButton } from '../../../uiComponents';
+import { DisplayedSearchResultType } from '../../../utils';
 
 export const ExportToolbar = (): JSX.Element => {
   const dispatch = useAppDispatch();

@@ -2,7 +2,6 @@ import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import { HELSINKI_CITY_CENTER_COORDINATES } from '../../redux';
 import { Priority } from '../../types/Priority';
-import { parseAndValidatePriorities } from '../search';
 import { useUrlQuery } from './useUrlQuery';
 
 export enum QueryParameterName {
@@ -46,6 +45,7 @@ export const useMapQueryParams = () => {
     getStringParamFromUrlQuery,
     getBooleanParamFromUrlQuery,
     getFloatParamFromUrlQuery,
+    getPriorityArrayFromUrlQuery,
     deleteMultipleFromUrlQuery,
     setMultipleParametersToUrlQuery,
     setToUrlQuery,
@@ -147,8 +147,8 @@ export const useMapQueryParams = () => {
   const showSelectedDaySituation = getBooleanParamFromUrlQuery(
     QueryParameterName.ShowSelectedDaySituation,
   );
-  const priorities = parseAndValidatePriorities(
-    getStringParamFromUrlQuery(QueryParameterName.Priorities) || '',
+  const priorities = getPriorityArrayFromUrlQuery(
+    QueryParameterName.Priorities,
   );
 
   const setRouteId = (id: UUID) => {

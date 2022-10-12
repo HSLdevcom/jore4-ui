@@ -2,8 +2,9 @@ import {
   LineTableRowFragment,
   RouteAllFieldsFragment,
 } from '../../../generated/graphql';
-import { DisplayedSearchResultType, useAppSelector } from '../../../hooks';
+import { useAppSelector } from '../../../hooks';
 import { selectExport } from '../../../redux';
+import { DisplayedSearchResultType } from '../../../utils';
 import { LinesList } from '../main/LinesList';
 import { RoutesList } from '../main/RoutesList';
 

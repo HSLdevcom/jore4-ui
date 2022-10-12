@@ -6,9 +6,19 @@ import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useCallback, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import { parseDate } from '../../time';
+import { Priority } from '../../types/Priority';
+import { DisplayedSearchResultType } from '../../utils/enum';
 
-type QueryParameter<TType> = { paramName: string; value: TType };
+export type QueryParameter<TType> = { paramName: string; value: TType };
+export type QueryParameterTypes =
+  | string
+  | boolean
+  | DateTime
+  | number
+  | undefined
+  | number[];
 type ParameterWriteOptions = { replace?: boolean };
 
 export const useUrlQuery = () => {
@@ -95,9 +105,7 @@ export const useUrlQuery = () => {
       parameters,
       replace = false,
     }: {
-      parameters: QueryParameter<
-        string | boolean | DateTime | number | undefined | number[]
-      >[];
+      parameters: QueryParameter<QueryParameterTypes>[];
       replace?: boolean;
       debounced?: boolean;
     }) => {
@@ -141,6 +149,44 @@ export const useUrlQuery = () => {
     setToUrlQuery({ paramName, value: value.join(','), replace });
   };
 
+  /** Returns a query parameter in Priority array type */
+  const getPriorityArrayFromUrlQuery = (paramName: string): Priority[] => {
+    return (queryParams[paramName] as string)
+      ?.split(',')
+      ?.map((p) => parseInt(p, 10))
+      ?.filter((p) => Object.values(Priority).includes(p));
+  };
+
+  /** Returns a query parameter in ReusableComponentsVehicleModeEnum if exists,
+   * otherwise returns undefined
+   */
+  const getReusableComponentsVehicleModeEnumFromUrlQuery = (
+    paramName: string,
+  ): ReusableComponentsVehicleModeEnum | undefined => {
+    const vehicleMode = queryParams[paramName];
+
+    return Object.values(ReusableComponentsVehicleModeEnum).includes(
+      vehicleMode as ReusableComponentsVehicleModeEnum,
+    )
+      ? (vehicleMode as ReusableComponentsVehicleModeEnum)
+      : undefined;
+  };
+
+  /** Returns a query parameter in DisplayedSearchResultType if exists,
+   * otherwise returns undefined
+   */
+  const getDisplayedSearchResultTypeFromUrlQuery = (
+    paramName: string,
+  ): DisplayedSearchResultType | undefined => {
+    const searchResultType = queryParams[paramName];
+
+    return Object.values(DisplayedSearchResultType).includes(
+      searchResultType as DisplayedSearchResultType,
+    )
+      ? (searchResultType as DisplayedSearchResultType)
+      : undefined;
+  };
+
   /** Returns a query parameter in boolean type */
   const getStringParamFromUrlQuery = (paramName: string) => {
     return (queryParams[paramName] as string) || undefined;
@@ -160,6 +206,7 @@ export const useUrlQuery = () => {
     },
     [queryParams],
   );
+
   /** Returns float query parameter if exists, otherwise returns null */
   const getFloatParamFromUrlQuery = (paramName: string) => {
     return queryParams[paramName]
@@ -219,6 +266,9 @@ export const useUrlQuery = () => {
     setBooleanToUrlQuery,
     setDateTimeToUrlQuery,
     setArrayToUrlQuery,
+    getPriorityArrayFromUrlQuery,
+    getReusableComponentsVehicleModeEnumFromUrlQuery,
+    getDisplayedSearchResultTypeFromUrlQuery,
     getStringParamFromUrlQuery,
     getBooleanParamFromUrlQuery,
     getDateTimeFromUrlQuery,
