@@ -8,6 +8,7 @@ const scalars = {
   geography_linestring: 'GeoJSON.LineString',
   localized_string: 'LocalizedString',
   timestamptz: 'luxon.DateTime',
+  interval: 'luxon.Duration',
   float8: 'number',
 };
 
