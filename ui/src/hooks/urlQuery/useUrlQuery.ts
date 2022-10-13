@@ -31,13 +31,15 @@ export const useUrlQuery = () => {
   const history = useHistory();
 
   const setQueryString = useCallback(
-    (queryString: string, replace: boolean) => {
+    (queryString: string, replace: boolean, pathname?: string) => {
       replace
         ? history.replace({
             search: `?${queryString}`,
+            pathname,
           })
         : history.push({
             search: `?${queryString}`,
+            pathname,
           });
     },
     [history],
@@ -104,10 +106,12 @@ export const useUrlQuery = () => {
     ({
       parameters,
       replace = false,
+      pathname = '',
     }: {
       parameters: QueryParameter<QueryParameterTypes>[];
       replace?: boolean;
       debounced?: boolean;
+      pathname?: string;
     }) => {
       const updatedUrlQuery = produce(queryParams, (draft) => {
         parameters.forEach((parameter) => {
@@ -131,7 +135,7 @@ export const useUrlQuery = () => {
       });
       const queryString = qs.stringify(updatedUrlQuery);
 
-      setQueryString(queryString, replace);
+      setQueryString(queryString, replace, pathname);
     },
     [queryParams, setQueryString],
   );

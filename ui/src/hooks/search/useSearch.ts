@@ -1,13 +1,17 @@
 import { produce } from 'immer';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Priority } from '../../types/Priority';
-import { createQueryParamString, DisplayedSearchResultType } from '../../utils';
-import { FilterConditions, useSearchQueryParser } from './useSearchQueryParser';
+import { DisplayedSearchResultType } from '../../utils';
+import { QueryParameter, QueryParameterTypes, useUrlQuery } from '../urlQuery';
+import {
+  DeserializedQueryStringParameters,
+  FilterConditions,
+  useSearchQueryParser,
+} from './useSearchQueryParser';
 
 export const useSearch = () => {
-  const history = useHistory();
   const queryParameters = useSearchQueryParser();
+  const { setMultipleParametersToUrlQuery } = useUrlQuery();
 
   const [searchConditions, setSearchConditions] = useState(
     queryParameters.search,
@@ -24,44 +28,72 @@ export const useSearch = () => {
   };
 
   /**
-   * Filters modify result table instantly by immediately
-   * pushing the change to query string
+   * Maps the search parameters in to QueryParameter<QueryParameterTypes> for
+   * setMultipleParametersToUrlQuery function.
+   */
+  const mapSearchParametersToQueryParameterObjects = (
+    searchParameters: DeserializedQueryStringParameters,
+  ): QueryParameter<QueryParameterTypes>[] => {
+    return Object.entries(searchParameters).map(([key, value]) => {
+      return { paramName: key, value };
+    });
+  };
+
+  /**
+   * Filters modify result table instantly by immediately pushing the
+   * change to query string. This will not trigger a GraphQL request because
+   * filtering is done only in front end.
    */
   const setFilter = (
     filterName: keyof FilterConditions,
     value: DisplayedSearchResultType,
   ) => {
-    const combinedParameters = produce(queryParameters, (draft) => {
+    const newParameters = produce(queryParameters, (draft) => {
       draft.filter[filterName] = value;
     });
 
-    history.push({
+    const combinedParameters = {
+      ...newParameters.filter,
+      ...queryParameters.search,
+    };
+
+    setMultipleParametersToUrlQuery({
+      parameters:
+        mapSearchParametersToQueryParameterObjects(combinedParameters),
       pathname: '/routes/search',
-      search: `${createQueryParamString(combinedParameters)}`,
-      state: { update: true },
     });
   };
 
   /**
-   * Pushes selected search conditions and live filters to query string
+   * Pushes selected search conditions and live filters to query string.
+   * This will trigger GraphQL request, if the searchConditions have changed.
    */
   const handleSearch = () => {
     const combinedParameters = {
-      search: { ...searchConditions },
-      filter: { ...queryParameters.filter },
+      ...searchConditions,
+      ...queryParameters.filter,
     };
-    history.push({
+
+    setMultipleParametersToUrlQuery({
+      parameters:
+        mapSearchParametersToQueryParameterObjects(combinedParameters),
       pathname: '/routes/search',
-      search: `${createQueryParamString(combinedParameters)}`,
-      state: { update: true },
     });
   };
 
+  /**
+   * Navigates back to '/routes' but retains the query parameters.
+   */
   const handleClose = () => {
-    history.push({
+    const combinedParameters = {
+      ...queryParameters.filter,
+      ...queryParameters.search,
+    };
+
+    setMultipleParametersToUrlQuery({
+      parameters:
+        mapSearchParametersToQueryParameterObjects(combinedParameters),
       pathname: '/routes',
-      search: `${createQueryParamString(queryParameters)}`,
-      state: { update: true },
     });
   };
 
