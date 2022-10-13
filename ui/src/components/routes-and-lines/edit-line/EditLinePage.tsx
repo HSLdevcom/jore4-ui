@@ -7,7 +7,7 @@ import {
 } from '../../../generated/graphql';
 import { mapLineDetailsResult } from '../../../graphql';
 import { useEditLine } from '../../../hooks';
-import { Container, Row } from '../../../layoutComponents';
+import { Container } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToISODate } from '../../../time';
 import {
@@ -82,12 +82,10 @@ export const EditLinePage = (): JSX.Element => {
         conflicts={conflicts.map(mapLineToCommonConflictItem)}
       />
       <PageHeader>
-        <Row>
-          <h1>
-            <i className="icon-bus-alt text-tweaked-brand" />
-            {t('lines.line', { label: line?.label })}
-          </h1>
-        </Row>
+        <h1>
+          <i className="icon-bus-alt text-tweaked-brand" />
+          {t('lines.line', { label: line?.label })}
+        </h1>
       </PageHeader>
       <Container>
         {line && (
