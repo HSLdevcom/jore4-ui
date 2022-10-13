@@ -8,11 +8,7 @@ import {
   RouteRouteOrderBy,
   SearchLinesAndRoutesQueryVariables,
 } from '../generated/graphql';
-import {
-  DeserializedQueryStringParameters,
-  SearchConditions,
-  SearchParameters,
-} from '../hooks/search/useSearchQueryParser';
+import { SearchConditions } from '../hooks/search/useSearchQueryParser';
 import { Priority } from '../types/Priority';
 import { AllOptionEnum } from './enum';
 
@@ -203,22 +199,4 @@ export const constructSearchLinesAndRoutesGqlQueryVariables = (
     lineOrderBy,
     routeOrderBy,
   };
-};
-
-export const createQueryParamString = (paramObject: SearchParameters) => {
-  const combinedObject: DeserializedQueryStringParameters = {
-    ...paramObject.filter,
-    ...paramObject.search,
-  };
-
-  let paramString = '?';
-  Object.keys(combinedObject).forEach((key) => {
-    if (paramString.length > 1) {
-      paramString += '&';
-    }
-    paramString += `${key}=${
-      combinedObject[key as keyof DeserializedQueryStringParameters]
-    }`;
-  });
-  return paramString;
 };
