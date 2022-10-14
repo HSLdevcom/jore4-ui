@@ -10,4 +10,12 @@ export class SearchResultsPage {
   getSearchResultsContainer() {
     return cy.getByTestId('SearchResultsPage::Container');
   }
+
+  getRoutesResultsButton() {
+    return cy.getByTestId('SimpleSmallButton::routes');
+  }
+
+  getLinesResultsButton() {
+    return cy.getByTestId('SimpleSmallButton::lines');
+  }
 }

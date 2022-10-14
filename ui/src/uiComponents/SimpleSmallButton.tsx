@@ -4,6 +4,7 @@ type Props = {
   label: string;
   inverted?: boolean;
   onClick: () => void;
+  testId?: string;
 };
 
 const commonClassNames =
@@ -13,10 +14,12 @@ export const SimpleSmallButton = ({
   label,
   inverted,
   onClick,
+  testId,
 }: Props): JSX.Element => (
   <button
     onClick={onClick}
     type="button"
+    data-testid={testId}
     className={`${commonClassNames} ${
       inverted
         ? 'border-grey bg-white text-gray-900 hover:border-brand active:border-brand'
