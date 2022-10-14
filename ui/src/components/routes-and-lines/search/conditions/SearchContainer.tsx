@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { SearchQueryParameterNames, useSearch } from '../../../../hooks';
 import { useToggle } from '../../../../hooks/useToggle';
@@ -35,8 +36,16 @@ export const SearchContainer = (): JSX.Element => {
     setSearchCondition(SearchQueryParameterNames.TypeOfLine, e.target.value);
   };
 
+  const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchCondition(
+      SearchQueryParameterNames.ObservationDate,
+      DateTime.fromISO(e.target.value),
+    );
+  };
+
   const vehicleModeDropdownId = 'search.primaryVehicleMode';
   const typeOfLineDropdownId = 'search.typeOfLine';
+  const observationDateId = 'search.observationDate';
 
   return (
     <Container className="py-10">
@@ -91,6 +100,19 @@ export const SearchContainer = (): JSX.Element => {
               onClick={setSearchCondition}
               priorities={searchConditions.priorities}
             />
+            <Column className="justify-self-end">
+              <label htmlFor={observationDateId}>
+                {t('filters.observationDate')}
+              </label>
+              <input
+                type="date"
+                required
+                value={searchConditions.observationDate.toISODate()}
+                onChange={onChangeDate}
+                className="flex-1"
+                id={observationDateId}
+              />
+            </Column>
           </FormRow>
         </div>
         <Row className="flex justify-end bg-background py-4">
