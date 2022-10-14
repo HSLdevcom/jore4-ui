@@ -164,8 +164,7 @@
     "ferry": "Lautta",
     "metro": "Metro",
     "train": "Juna",
-    "tram": "Raitiovaunu",
-    "all": "Kaikki"
+    "tram": "Raitiovaunu"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Seudullinen juna",
