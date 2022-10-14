@@ -1,4 +1,3 @@
-import { produce } from 'immer';
 import {
   OrderBy,
   ReusableComponentsVehicleModeEnum,
@@ -9,134 +8,56 @@ import {
   SearchLinesAndRoutesQueryVariables,
 } from '../generated/graphql';
 import { SearchConditions } from '../hooks/search/useSearchQueryParser';
-import { Priority } from '../types/Priority';
 import { AllOptionEnum } from './enum';
-
-type SearchParameterValueTypes =
-  | string
-  | number[]
-  | ReusableComponentsVehicleModeEnum;
-
-type SearchParametersGqlOptions = {
-  priority: {
-    value: Priority[];
-    replaceStar: boolean;
-    operator: string;
-  };
-  label: {
-    value: string;
-    replaceStar: boolean;
-    operator: string;
-  };
-  // eslint-disable-next-line camelcase
-  primary_vehicle_mode?: {
-    value: ReusableComponentsVehicleModeEnum;
-    replaceStar: boolean;
-    operator: string;
-    isLineProperty: boolean;
-  };
-};
-
-/**
- * GQL filter options for label and priority, which are mandatory criteria
- * to be given for the search.
- */
-const defaultSearchParametersGqlOptions: SearchParametersGqlOptions = {
-  priority: {
-    value: [Priority.Standard, Priority.Temporary],
-    replaceStar: false,
-    operator: '_in',
-  },
-  label: {
-    value: '',
-    replaceStar: true,
-    operator: '_ilike',
-  },
-};
-
-/**
- * GQL filter configuration for primaryVehicleMode. This is used and placed
- * only if a precise primaryVehicleMode is set as search filter.
- */
-const primaryVehicleModeGqlOptions = {
-  replaceStar: false,
-  operator: '_eq',
-  isLineProperty: true,
-};
-
-/**
- * Constructs the search conditions GQL options from configurations defined in this
- * file and also the value which comes from the SearchConditions query parameters.
- * The resulting options are used to map the final GQL filter.
- */
-const constructSearchConditionsGqlOptions = (queryParams: SearchConditions) => {
-  const gqlOptions: SearchParametersGqlOptions = produce(
-    defaultSearchParametersGqlOptions,
-    (draft) => {
-      draft.priority.value = queryParams.priorities;
-      draft.label.value = queryParams.label;
-
-      // Only set primaryVehicleMode gql filter if it is set to something else than All
-      if (
-        queryParams.primaryVehicleMode &&
-        queryParams.primaryVehicleMode !== AllOptionEnum.All
-      ) {
-        draft.primary_vehicle_mode = {
-          ...primaryVehicleModeGqlOptions,
-          value: queryParams.primaryVehicleMode,
-        };
-      }
-    },
-  );
-
-  return gqlOptions;
-};
+import {
+  constructLabelLikeGqlFilter,
+  constructPrimaryVehicleModeGqlFilter,
+  constructPriorityInGqlFilter,
+} from './gql';
 
 export const mapToSqlLikeValue = (str: string) => {
   return str.replaceAll('*', '%');
 };
 
-/**
- * Maps search condition options in to final single GQL filter object.
- * Required parameters for this is
- * * key (property name e.g. 'label')
- * * value (within options)
- * * operator (which filtering operator to use in GQL, e.g. '_eq' for equal)
- * * replaceStar (when the operator is i.e. '_like' we can use this flag to
- *   replace all '*' to '%' which will mean 'any' in GQL filtering)
- * There is also a optional parameter 'isLineProperty' which is used to
- * define if the property should be filtered through 'route_line' property when
- * mapping route filter (isRouteFilter = true).
+/** Construct optional search condition filter. Returns
+ * empty object if the filter is not set or is set to 'All', otherwise
+ * returns the GQL filter constructed with the given function.
+ * If the value is missing or is 'All', we return empty object because
+ * we do not want to create the GQL filter at all.
  */
-const mapSearchConditionOptionsToGqlFilter = (
-  key: string,
-  options: {
-    value: SearchParameterValueTypes;
-    operator: string;
-    replaceStar: boolean;
-    isLineProperty?: boolean;
-  },
-  isRouteFilter: boolean,
+const constructOptionalSearchConditionGqlFilter = <TType>(
+  value: TType | AllOptionEnum.All | undefined,
+  constructFunction: (value: TType) => RouteLineBoolExp | RouteRouteBoolExp,
 ) => {
-  const filter = {
-    [key]: {
-      [options.operator]: options.replaceStar
-        ? mapToSqlLikeValue(String(options.value)) || '%'
-        : options.value,
-    },
-  };
-
-  // If creating route filter but the property is for line, we then
-  // wrap the filter in route_line to get the filtering from the route_line property
-  return isRouteFilter && options.isLineProperty
-    ? { route_line: filter }
-    : filter;
+  if (value && value !== AllOptionEnum.All) {
+    return constructFunction(value);
+  }
+  return {};
 };
 
-/**
- * Constructs GQL filters for given search conditions. Also takes in to
- * consideration if we are constructing route filter. In that case we wrap all
- * line property filters in to route_line wrapper.
+/** Wraps all the properties in route_line if 'constructRouteFilter' flag is true
+ * and if there is any properties to wrap (they are optional and if none of them
+ * are chosen, the properties object might be empty).
+ */
+const handleLinePropertyGqlFilters = ({
+  properties,
+  constructRouteFilter,
+}: {
+  properties: RouteLineBoolExp;
+  constructRouteFilter: boolean;
+}) => {
+  return {
+    // Wrap with route_line if constructing route filter and there are properties to wrap
+    ...(constructRouteFilter && Object.keys(properties).length
+      ? {
+          route_line: properties,
+        }
+      : properties),
+  };
+};
+
+/** Constructs the search condition GQL filters for either route or line and
+ * constructRouteFilter parameter is used to determine which one.
  */
 const constructSearchConditionGqlFilters = ({
   searchConditions,
@@ -144,31 +65,28 @@ const constructSearchConditionGqlFilters = ({
 }: {
   searchConditions: SearchConditions;
   constructRouteFilter: boolean;
-}): RouteLineBoolExp | RouteRouteBoolExp => {
-  const searchConditionOptions =
-    constructSearchConditionsGqlOptions(searchConditions);
+}): RouteRouteBoolExp | RouteLineBoolExp => {
+  return {
+    // Construct all the generic filters.
+    ...constructOptionalSearchConditionGqlFilter<string>(
+      mapToSqlLikeValue(searchConditions.label),
+      constructLabelLikeGqlFilter,
+    ),
+    ...constructPriorityInGqlFilter(searchConditions.priorities),
 
-  const gqlFilters = Object.entries(searchConditionOptions).map((entry) => {
-    const [key, value] = entry;
-    return mapSearchConditionOptionsToGqlFilter(
-      key,
-      value,
+    // Construct all the filters that are line's properties.
+    ...handleLinePropertyGqlFilters({
+      properties: {
+        ...constructOptionalSearchConditionGqlFilter<ReusableComponentsVehicleModeEnum>(
+          searchConditions.primaryVehicleMode,
+          constructPrimaryVehicleModeGqlFilter,
+        ),
+      },
       constructRouteFilter,
-    );
-  });
-
-  // TODO: This Object.assign is fine for now, but this should be changed to
-  // reduce + merge combination when adding the next 'isLineProperty' filter,
-  // because it will result in duplicate keys and Object.assign will overwrite
-  // instead of merging them.
-  // Converting array [{key: value}, ...] into a single object {key: value, ...}
-  return Object.assign({}, ...gqlFilters);
+    }),
+  };
 };
 
-/**
- * Constructs the search lines and routes GQL query variables from configurations
- * defined in this file and the given search conditions.
- */
 export const constructSearchLinesAndRoutesGqlQueryVariables = (
   searchConditions: SearchConditions,
 ): SearchLinesAndRoutesQueryVariables => {

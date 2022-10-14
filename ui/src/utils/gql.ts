@@ -1,5 +1,8 @@
 import { DateTime } from 'luxon';
-import { GeographyComparisonExp } from '../generated/graphql';
+import {
+  GeographyComparisonExp,
+  ReusableComponentsVehicleModeEnum,
+} from '../generated/graphql';
 import { Viewport } from '../redux/types/modalMap';
 import { Priority } from '../types/Priority';
 
@@ -51,6 +54,13 @@ export const constructLabelGqlFilter = (label?: string) => ({
   label: { _eq: label },
 });
 
+/** Constructs an object for gql to filter by label using the '_like' operator.
+ * This will means that all the '%' in the label are considered as 'any'
+ */
+export const constructLabelLikeGqlFilter = (label?: string) => ({
+  label: { _like: label },
+});
+
 /** Constructs an object for gql to filter route by line label */
 export const constructRouteLineLabelGqlFilter = (label: string) => ({
   route_line: constructLabelGqlFilter(label),
@@ -65,5 +75,14 @@ export const constructWithinViewportGqlFilter = (
       coordinates: [viewport.longitude, viewport.latitude],
     },
     distance: viewport.radius,
+  },
+});
+
+/** Constructs an object for gql to filter by primary_vehicle_mode */
+export const constructPrimaryVehicleModeGqlFilter = (
+  primaryVehicleMode: ReusableComponentsVehicleModeEnum,
+) => ({
+  primary_vehicle_mode: {
+    _eq: primaryVehicleMode,
   },
 });
