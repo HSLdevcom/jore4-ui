@@ -164,8 +164,7 @@
     "ferry": "Ferry",
     "metro": "Metro",
     "train": "Train",
-    "tram": "Tram",
-    "all": "All"
+    "tram": "Tram"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Regional rail service",
