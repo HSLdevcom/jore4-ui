@@ -1,4 +1,5 @@
 import { produce } from 'immer';
+import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { Priority } from '../../types/Priority';
 import { DisplayedSearchResultType } from '../../utils';
@@ -19,7 +20,7 @@ export const useSearch = () => {
 
   const setSearchCondition = (
     condition: string,
-    value: string | Priority[],
+    value: string | Priority[] | DateTime,
   ) => {
     setSearchConditions({
       ...searchConditions,

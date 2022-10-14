@@ -11,6 +11,7 @@ import {
 import { SearchConditions } from '../hooks/search/useSearchQueryParser';
 import { AllOptionEnum } from './enum';
 import {
+  constructActiveDateGqlFilter,
   constructLabelLikeGqlFilter,
   constructPrimaryVehicleModeGqlFilter,
   constructPriorityInGqlFilter,
@@ -75,6 +76,7 @@ const constructSearchConditionGqlFilters = ({
       constructLabelLikeGqlFilter,
     ),
     ...constructPriorityInGqlFilter(searchConditions.priorities),
+    ...constructActiveDateGqlFilter(searchConditions.observationDate),
 
     // Construct all the filters that are line's properties.
     ...handleLinePropertyGqlFilters({
