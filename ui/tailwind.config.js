@@ -25,6 +25,8 @@ module.exports = {
         'hsl-neutral-blue': colors.hslNeutralBlue,
         'city-bicycle-yellow': colors.cityBicycleYellow,
         'hsl-warning-yellow': colors.hslWarningYellow,
+        'hsl-highlight-yellow-dark': colors.hslHighlightYellowDark,
+        'hsl-highlight-yellow-light': colors.hslHighlightYellowLight,
       },
       borderWidth: {
         10: '10px',

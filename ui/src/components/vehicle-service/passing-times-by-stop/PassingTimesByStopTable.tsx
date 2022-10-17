@@ -1,6 +1,11 @@
+import { gql } from '@apollo/client';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { groupBy, pipe } from 'remeda';
-import { VehicleJourneyFragment } from '../../../generated/graphql';
+import {
+  PassingTimeByStopFragment,
+  VehicleJourneyByStopFragment,
+} from '../../../generated/graphql';
 import {
   cellClassNames,
   PassingTimesByStopTableRow,
@@ -10,8 +15,18 @@ const testIds = {
   table: 'PassingTimesByStopTable::table',
 };
 
+const GQL_VEHICLE_JOURNEY = gql`
+  fragment vehicle_journey_by_stop on timetables_vehicle_journey_vehicle_journey {
+    timetabled_passing_times {
+      ...passing_time_by_stop
+    }
+    journey_pattern_ref_id
+    vehicle_journey_id
+  }
+`;
+
 interface Props {
-  vehicleJourneys: VehicleJourneyFragment[];
+  vehicleJourneys: VehicleJourneyByStopFragment[];
   className?: string;
 }
 
@@ -20,6 +35,8 @@ export const PassingTimesByStopTable = ({
   className = '',
 }: Props): JSX.Element => {
   const { t } = useTranslation();
+  const [selectedPassingTime, setSelectedPassingTime] =
+    useState<PassingTimeByStopFragment>();
 
   if (!vehicleJourneys) return <></>;
 
@@ -45,7 +62,9 @@ export const PassingTimesByStopTable = ({
     >
       <thead className="text-left">
         <tr>
-          <th className={`${cellClassNames}`}>{t('stops.stop')}</th>
+          <th className={`w-1 whitespace-nowrap ${cellClassNames}`}>
+            {t('stops.stop')}
+          </th>
           <th className={`${cellClassNames}`}>{t('timetables.departures')}</th>
         </tr>
       </thead>
@@ -55,6 +74,8 @@ export const PassingTimesByStopTable = ({
             <PassingTimesByStopTableRow
               key={stopLabel}
               passingTimes={stopPassingTimes}
+              selectedPassingTime={selectedPassingTime}
+              setSelectedPassingTime={setSelectedPassingTime}
             />
           ),
         )}

@@ -254,7 +254,8 @@
   },
   "timetables": {
     "timetables": "Aikataulut",
-    "departures": "Lähdöt"
+    "departures": "Lähdöt",
+    "at": "klo {{ time }}"
   },
   "export": {
     "startSelecting": "Valitse",
