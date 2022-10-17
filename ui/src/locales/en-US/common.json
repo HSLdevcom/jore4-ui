@@ -261,7 +261,9 @@
   },
   "timetables": {
     "timetables": "Timetables",
+    "validityPeriodLabel": "Timetables valid",
     "departures": "Departures",
+    "noService": "No service",
     "at": "at {{ time }}"
   },
   "export": {

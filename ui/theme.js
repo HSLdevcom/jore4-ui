@@ -16,6 +16,7 @@ const theme = {
     hslWarningYellow: '#FED100',
     hslHighlightYellowDark: '#C89515',
     hslHighlightYellowLight: '#FFD771',
+    hslLightPurple: '#DDC8E0',
     routes: {
       bus: '#0074BF',
       ferry: '#333333',

@@ -261,7 +261,9 @@
   },
   "timetables": {
     "timetables": "Aikataulut",
+    "validityPeriodLabel": "Aikataulut voimassa",
     "departures": "Lähdöt",
+    "noService": "Ei vuoroja",
     "at": "klo {{ time }}"
   },
   "export": {
