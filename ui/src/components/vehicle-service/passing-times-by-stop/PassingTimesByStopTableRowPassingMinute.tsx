@@ -1,0 +1,79 @@
+import { PassingTimeByStopFragment } from '../../../generated/graphql';
+import { Visible } from '../../../layoutComponents';
+import { mapDurationToShortTime, padToTwoDigits } from '../../../time';
+import { VehicleJourneyPopover } from './VehicleJourneyPopover';
+
+/**
+ * Common props for PassingTimesByStopTableRow and its child components.
+ * This is annoying prop drilling, but using redux here feels like an overkill.
+ */
+export interface HighlightProps {
+  selectedPassingTime?: PassingTimeByStopFragment;
+  setSelectedPassingTime: (
+    passingTime: PassingTimeByStopFragment | undefined,
+  ) => void;
+}
+
+const testIds = {
+  selectPassingTimeButton: 'PassingTimesByStopTableRowPassingMinute::button',
+};
+
+type Props = {
+  passingTime: PassingTimeByStopFragment;
+} & HighlightProps;
+
+export const PassingTimesByStopTableRowPassingMinute = ({
+  passingTime,
+  selectedPassingTime,
+  setSelectedPassingTime,
+}: Props): JSX.Element => {
+  const arrival = passingTime.arrival_time;
+  // If departure is undefined, departure time is same as arrival time
+  const departure = passingTime?.departure_time || arrival;
+
+  // Highlight passing minute, if it belongs to the same vehicle journey as selected passing minute
+  const isHighlighted =
+    selectedPassingTime?.vehicle_journey_id === passingTime.vehicle_journey_id;
+
+  const isSelected =
+    selectedPassingTime?.timetabled_passing_time_id ===
+    passingTime.timetabled_passing_time_id;
+
+  // Display arrival time only if it differs from departure
+  const displayArrival = arrival !== departure;
+
+  // If arrival time is not at the same hour as departure, display also arrival hours,
+  // otherwise only display minutes
+  const displayedArrival =
+    arrival.hours !== departure.hours
+      ? mapDurationToShortTime(arrival)
+      : padToTwoDigits(arrival.minutes);
+
+  return (
+    <span>
+      <button
+        className={`inline-flex flex-col items-end border border-transparent px-0.5 align-text-bottom text-xs ${
+          isHighlighted
+            ? 'rounded-sm !border-hsl-highlight-yellow-dark bg-city-bicycle-yellow'
+            : ''
+        }`}
+        onClick={() => setSelectedPassingTime(passingTime)}
+        type="button"
+        data-testid={testIds.selectPassingTimeButton}
+      >
+        <span className="flex flex-col">
+          <Visible visible={displayArrival}>
+            <span className="text-2xs leading-tight">{displayedArrival}</span>
+          </Visible>
+          <span>{padToTwoDigits(departure.minutes)}</span>
+        </span>
+      </button>
+      <Visible visible={isSelected}>
+        <VehicleJourneyPopover
+          departure={departure}
+          onClose={() => setSelectedPassingTime(undefined)}
+        />
+      </Visible>
+    </span>
+  );
+};

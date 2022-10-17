@@ -1,5 +1,5 @@
 import isString from 'lodash/isString';
-import { DateTime, Interval, Settings } from 'luxon';
+import { DateTime, Duration, Interval, Settings } from 'luxon';
 import { Maybe, ValidityPeriod } from './generated/graphql';
 import { i18n } from './i18n';
 
@@ -87,3 +87,9 @@ export const areValidityPeriodsOverlapping = (
   mapValidityPeriodToInterval(entity1).overlaps(
     mapValidityPeriodToInterval(entity2),
   );
+
+export const padToTwoDigits = (timePart: number) =>
+  timePart >= 10 ? `${timePart}` : `0${timePart}`;
+
+export const mapDurationToShortTime = (duration: Duration) =>
+  `${padToTwoDigits(duration.hours)}:${padToTwoDigits(duration.minutes)}`;

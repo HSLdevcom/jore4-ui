@@ -254,7 +254,8 @@
   },
   "timetables": {
     "timetables": "Timetables",
-    "departures": "Departures"
+    "departures": "Departures",
+    "at": "at {{ time }}"
   },
   "export": {
     "startSelecting": "Select",

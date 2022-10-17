@@ -13,6 +13,7 @@ export * from './LoadingOverlay';
 export * from './LocatorButton';
 export * from './Modal';
 export * from './Pagination';
+export * from './Popover';
 export * from './SimpleButton';
 export * from './SimpleDropdownMenu';
 export * from './SimpleSmallButton';

@@ -10,7 +10,7 @@ const GQL_GET_VEHICLE_JOURNEYS = gql`
   query GetVehicleJourneys {
     timetables {
       timetables_vehicle_journey_vehicle_journey {
-        ...vehicle_journey
+        ...vehicle_journey_by_stop
       }
     }
   }
