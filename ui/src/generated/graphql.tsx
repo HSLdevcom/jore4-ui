@@ -1,7 +1,7 @@
+import * as Apollo from '@apollo/client';
+import { gql } from '@apollo/client';
 import * as luxon from 'luxon';
 import { useAsyncQuery } from '../hooks/useAsyncQuery';
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
@@ -10667,10 +10667,8 @@ export type GetVehicleJourneysQuery = {
             vehicle_journey_id: UUID;
             scheduled_stop_point_in_journey_pattern_ref: {
               __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
-              journey_pattern_ref_id: UUID;
               scheduled_stop_point_in_journey_pattern_ref_id: UUID;
               scheduled_stop_point_label: string;
-              scheduled_stop_point_label_passing: number;
             };
           }>;
         }>;
@@ -10679,23 +10677,7 @@ export type GetVehicleJourneysQuery = {
     | undefined;
 };
 
-export type PassingTimeFragment = {
-  __typename?: 'timetables_passing_times_timetabled_passing_time';
-  arrival_time: luxon.Duration;
-  departure_time?: luxon.Duration | null | undefined;
-  scheduled_stop_point_in_journey_pattern_ref_id: UUID;
-  timetabled_passing_time_id: UUID;
-  vehicle_journey_id: UUID;
-  scheduled_stop_point_in_journey_pattern_ref: {
-    __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
-    journey_pattern_ref_id: UUID;
-    scheduled_stop_point_in_journey_pattern_ref_id: UUID;
-    scheduled_stop_point_label: string;
-    scheduled_stop_point_label_passing: number;
-  };
-};
-
-export type VehicleJourneyFragment = {
+export type VehicleJourneyByStopFragment = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey';
   journey_pattern_ref_id: UUID;
   vehicle_journey_id: UUID;
@@ -10708,12 +10690,24 @@ export type VehicleJourneyFragment = {
     vehicle_journey_id: UUID;
     scheduled_stop_point_in_journey_pattern_ref: {
       __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
-      journey_pattern_ref_id: UUID;
       scheduled_stop_point_in_journey_pattern_ref_id: UUID;
       scheduled_stop_point_label: string;
-      scheduled_stop_point_label_passing: number;
     };
   }>;
+};
+
+export type PassingTimeByStopFragment = {
+  __typename?: 'timetables_passing_times_timetabled_passing_time';
+  arrival_time: luxon.Duration;
+  departure_time?: luxon.Duration | null | undefined;
+  scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+  timetabled_passing_time_id: UUID;
+  vehicle_journey_id: UUID;
+  scheduled_stop_point_in_journey_pattern_ref: {
+    __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
+    scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+    scheduled_stop_point_label: string;
+  };
 };
 
 export type RouteInfraLinkFieldsFragment = {
@@ -13195,7 +13189,7 @@ export const LineTableRowFragmentDoc = gql`
   ${LineAllFieldsFragmentDoc}
   ${RouteInformationForMapFragmentDoc}
 `;
-export const PassingTimeFragmentDoc = gql`
+export const PassingTimeByStopFragmentDoc = gql`
   fragment passing_time on timetables_passing_times_timetabled_passing_time {
     arrival_time
     departure_time
@@ -13203,14 +13197,12 @@ export const PassingTimeFragmentDoc = gql`
     timetabled_passing_time_id
     vehicle_journey_id
     scheduled_stop_point_in_journey_pattern_ref {
-      journey_pattern_ref_id
       scheduled_stop_point_in_journey_pattern_ref_id
       scheduled_stop_point_label
-      scheduled_stop_point_label_passing
     }
   }
 `;
-export const VehicleJourneyFragmentDoc = gql`
+export const VehicleJourneyByStopFragmentDoc = gql`
   fragment vehicle_journey on timetables_vehicle_journey_vehicle_journey {
     timetabled_passing_times {
       ...passing_time
@@ -13218,7 +13210,7 @@ export const VehicleJourneyFragmentDoc = gql`
     journey_pattern_ref_id
     vehicle_journey_id
   }
-  ${PassingTimeFragmentDoc}
+  ${PassingTimeByStopFragmentDoc}
 `;
 export const InfraLinkMatchingFieldsFragmentDoc = gql`
   fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
@@ -13551,7 +13543,7 @@ export const GetVehicleJourneysDocument = gql`
       }
     }
   }
-  ${VehicleJourneyFragmentDoc}
+  ${VehicleJourneyByStopFragmentDoc}
 `;
 
 /**
