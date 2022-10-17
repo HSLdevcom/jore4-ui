@@ -262,7 +262,14 @@
   "timetables": {
     "timetables": "Aikataulut",
     "departures": "Lähdöt",
-    "at": "klo {{ time }}"
+    "at": "klo {{ time }}",
+    "timetableRanges": {
+      "mt": "Ma-To",
+      "mf": "Ma-Pe",
+      "fri": "Pe",
+      "sat": "La",
+      "sun": "Su"
+    }
   },
   "export": {
     "startSelecting": "Valitse",

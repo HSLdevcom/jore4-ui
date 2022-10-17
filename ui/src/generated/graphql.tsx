@@ -13170,6 +13170,49 @@ export type LineInformationForMapFragment = {
   }>;
 };
 
+export type GetTimetablesForCalendarDayQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetTimetablesForCalendarDayQuery = {
+  __typename?: 'query_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_query';
+        timetables_service_calendar_day_type: Array<{
+          __typename?: 'timetables_service_calendar_day_type';
+          label: string;
+          day_type_id: UUID;
+          vehicle_services: Array<{
+            __typename?: 'timetables_vehicle_service_vehicle_service';
+            day_type_id: UUID;
+            vehicle_service_id: UUID;
+            blocks: Array<{
+              __typename?: 'timetables_vehicle_service_block';
+              block_id: UUID;
+              vehicle_journeys: Array<{
+                __typename?: 'timetables_vehicle_journey_vehicle_journey';
+                vehicle_journey_id: UUID;
+                timetabled_passing_times: Array<{
+                  __typename?: 'timetables_passing_times_timetabled_passing_time';
+                  arrival_time: luxon.Duration;
+                  departure_time?: luxon.Duration | null | undefined;
+                  timetabled_passing_time_id: UUID;
+                }>;
+              }>;
+            }>;
+            day_type: {
+              __typename?: 'timetables_service_calendar_day_type';
+              label: string;
+              day_type_id: UUID;
+            };
+          }>;
+        }>;
+      }
+    | null
+    | undefined;
+};
+
 export type JourneyPatternStopFragment = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
   scheduled_stop_point_label: string;
@@ -16683,6 +16726,85 @@ export type GetSelectedRouteDetailsByIdQueryResult = Apollo.QueryResult<
   GetSelectedRouteDetailsByIdQuery,
   GetSelectedRouteDetailsByIdQueryVariables
 >;
+export const GetTimetablesForCalendarDayDocument = gql`
+  query GetTimetablesForCalendarDay {
+    timetables {
+      timetables_service_calendar_day_type {
+        vehicle_services {
+          blocks {
+            vehicle_journeys {
+              timetabled_passing_times {
+                arrival_time
+                departure_time
+                timetabled_passing_time_id
+              }
+              vehicle_journey_id
+            }
+            block_id
+          }
+          day_type_id
+          day_type {
+            label
+            day_type_id
+          }
+          vehicle_service_id
+        }
+        label
+        day_type_id
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetTimetablesForCalendarDayQuery__
+ *
+ * To run a query within a React component, call `useGetTimetablesForCalendarDayQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTimetablesForCalendarDayQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTimetablesForCalendarDayQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTimetablesForCalendarDayQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetTimetablesForCalendarDayQuery,
+    GetTimetablesForCalendarDayQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetTimetablesForCalendarDayQuery,
+    GetTimetablesForCalendarDayQueryVariables
+  >(GetTimetablesForCalendarDayDocument, options);
+}
+export function useGetTimetablesForCalendarDayLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTimetablesForCalendarDayQuery,
+    GetTimetablesForCalendarDayQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetTimetablesForCalendarDayQuery,
+    GetTimetablesForCalendarDayQueryVariables
+  >(GetTimetablesForCalendarDayDocument, options);
+}
+export type GetTimetablesForCalendarDayQueryHookResult = ReturnType<
+  typeof useGetTimetablesForCalendarDayQuery
+>;
+export type GetTimetablesForCalendarDayLazyQueryHookResult = ReturnType<
+  typeof useGetTimetablesForCalendarDayLazyQuery
+>;
+export type GetTimetablesForCalendarDayQueryResult = Apollo.QueryResult<
+  GetTimetablesForCalendarDayQuery,
+  GetTimetablesForCalendarDayQueryVariables
+>;
 
 export function useGetRouteWithInfrastructureLinksAsyncQuery() {
   return useAsyncQuery<
@@ -17004,4 +17126,13 @@ export function useGetSelectedRouteDetailsByIdAsyncQuery() {
 }
 export type GetSelectedRouteDetailsByIdAsyncQueryHookResult = ReturnType<
   typeof useGetSelectedRouteDetailsByIdAsyncQuery
+>;
+export function useGetTimetablesForCalendarDayAsyncQuery() {
+  return useAsyncQuery<
+    GetTimetablesForCalendarDayQuery,
+    GetTimetablesForCalendarDayQueryVariables
+  >(GetTimetablesForCalendarDayDocument);
+}
+export type GetTimetablesForCalendarDayAsyncQueryHookResult = ReturnType<
+  typeof useGetTimetablesForCalendarDayAsyncQuery
 >;

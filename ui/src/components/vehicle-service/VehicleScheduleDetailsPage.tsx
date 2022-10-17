@@ -1,6 +1,11 @@
 import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
-import { useGetVehicleJourneysQuery } from '../../generated/graphql';
+import {
+  TimetablesVehicleServiceVehicleService,
+  useGetVehicleJourneysQuery,
+} from '../../generated/graphql';
+import { useGetTimetables } from '../../hooks';
+import { mapTimetablesServiceCalendarDayTypeToUiName } from '../../i18n/uiNameMappings';
 import { Container } from '../../layoutComponents';
 import { PageHeader } from '../routes-and-lines/common/PageHeader';
 import { PassingTimesByStopTable } from './passing-times-by-stop';
@@ -19,6 +24,8 @@ const GQL_GET_VEHICLE_JOURNEYS = gql`
 export const VehicleScheduleDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
 
+  const { timetables } = useGetTimetables();
+
   // Just get all vehicle journeys from back end as test data
   // TODO: Use PassingTimesByStopTable in the right place and fetch correct data
   const vehicleJourneysResult = useGetVehicleJourneysQuery();
@@ -34,8 +41,21 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
           {t('lines.line', { label: '!1234' })}
         </h1>
       </PageHeader>
+      <div className="mx-12 my-8 grid grid-cols-3 gap-x-8 gap-y-5">
+        {timetables?.timetables_service_calendar_day_type.map((item) => (
+          <VehicleServiceTable
+            key={item.label}
+            heading={mapTimetablesServiceCalendarDayTypeToUiName(item.label)}
+            vehicleServices={
+              // TODO: should avoud unsafe as casting, but have no idea how to
+              // access correct type. Getting rid of this this may require
+              // also changes to the typings in Table component itself
+              item.vehicle_services as TimetablesVehicleServiceVehicleService[]
+            }
+          />
+        ))}
+      </div>
       <Container className="space-y-10 pt-10">
-        <VehicleServiceTable />
         <PassingTimesByStopTable vehicleJourneys={vehicleJourneys} />
       </Container>
     </div>

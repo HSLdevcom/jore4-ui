@@ -35,3 +35,25 @@ export const mapTransportTargetToUiName = (key: HslRouteTransportTargetEnum) =>
 export const mapDirectionToShortUiName = (
   direction?: RouteDirection | RouteDirectionEnum,
 ) => (direction === RouteDirectionEnum.Outbound ? '1' : '2');
+
+// NOTE: we would rather want to do this kind of mapping based on
+// some kind of enum field, but we don't have one available
+// right now.
+export const mapTimetablesServiceCalendarDayTypeToUiName = (label: string) => {
+  switch (label) {
+    case 'MT':
+      return i18n.t('timetables.timetableRanges.mt');
+    case 'MP':
+      return i18n.t('timetables.timetableRanges.mf');
+    case 'PE':
+      return i18n.t('timetables.timetableRanges.fri');
+    case 'LA':
+      return i18n.t('timetables.timetableRanges.sat');
+    case 'SU':
+      return i18n.t('timetables.timetableRanges.sun');
+    default:
+      throw new Error(
+        `Unknown timetables service calendar day type: "${label}"`,
+      );
+  }
+};

@@ -262,7 +262,14 @@
   "timetables": {
     "timetables": "Timetables",
     "departures": "Departures",
-    "at": "at {{ time }}"
+    "at": "at {{ time }}",
+    "timetableRanges": {
+      "mt": "Mon-Thur",
+      "mf": "Mon-Fri",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    }
   },
   "export": {
     "startSelecting": "Select",
