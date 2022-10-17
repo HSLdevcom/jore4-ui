@@ -1,4 +1,5 @@
 import isString from 'lodash/isString';
+import padStart from 'lodash/padStart';
 import { DateTime, Duration, Interval, Settings } from 'luxon';
 import { Maybe, ValidityPeriod } from './generated/graphql';
 import { i18n } from './i18n';
@@ -89,7 +90,7 @@ export const areValidityPeriodsOverlapping = (
   );
 
 export const padToTwoDigits = (number: number) =>
-  number >= 10 ? `${number}` : `0${number}`;
+  padStart(number.toString(), 2, '0');
 
 export const mapDurationToShortTime = (duration: Duration) =>
   `${padToTwoDigits(duration.hours)}:${padToTwoDigits(duration.minutes)}`;

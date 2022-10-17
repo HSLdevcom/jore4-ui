@@ -13764,6 +13764,84 @@ export type LineInformationForMapFragment = {
   }>;
 };
 
+export type DayTypeAllFieldsFragment = {
+  __typename?: 'timetables_service_calendar_day_type';
+  day_type_id: UUID;
+  label: string;
+  name_i18n: any;
+};
+
+export type VehicleServiceWithJourneysFragment = {
+  __typename?: 'timetables_vehicle_service_vehicle_service';
+  vehicle_service_id: UUID;
+  vehicle_schedule_frame: {
+    __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+    vehicle_schedule_frame_id: UUID;
+    priority: number;
+  };
+  day_type: {
+    __typename?: 'timetables_service_calendar_day_type';
+    day_type_id: UUID;
+    label: string;
+    name_i18n: any;
+  };
+  blocks: Array<{
+    __typename?: 'timetables_vehicle_service_block';
+    block_id: UUID;
+    vehicle_journeys: Array<{
+      __typename?: 'timetables_vehicle_journey_vehicle_journey';
+      start_time: luxon.Duration;
+      vehicle_journey_id: UUID;
+    }>;
+  }>;
+};
+
+export type GetTimetablesForOperationDayQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetTimetablesForOperationDayQuery = {
+  __typename?: 'query_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_query';
+        timetables_vehicle_schedule_vehicle_schedule_frame: Array<{
+          __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+          validity_end?: luxon.DateTime | null | undefined;
+          validity_start?: luxon.DateTime | null | undefined;
+          name_i18n: any;
+          vehicle_schedule_frame_id: UUID;
+          priority: number;
+          vehicle_services: Array<{
+            __typename?: 'timetables_vehicle_service_vehicle_service';
+            vehicle_service_id: UUID;
+            vehicle_schedule_frame: {
+              __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+              vehicle_schedule_frame_id: UUID;
+              priority: number;
+            };
+            day_type: {
+              __typename?: 'timetables_service_calendar_day_type';
+              day_type_id: UUID;
+              label: string;
+              name_i18n: any;
+            };
+            blocks: Array<{
+              __typename?: 'timetables_vehicle_service_block';
+              block_id: UUID;
+              vehicle_journeys: Array<{
+                __typename?: 'timetables_vehicle_journey_vehicle_journey';
+                start_time: luxon.Duration;
+                vehicle_journey_id: UUID;
+              }>;
+            }>;
+          }>;
+        }>;
+      }
+    | null
+    | undefined;
+};
+
 export type JourneyPatternStopFragment = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
   scheduled_stop_point_label: string;
@@ -14103,6 +14181,33 @@ export const LineInformationForMapFragmentDoc = gql`
       route_shape
     }
   }
+`;
+export const DayTypeAllFieldsFragmentDoc = gql`
+  fragment day_type_all_fields on timetables_service_calendar_day_type {
+    day_type_id
+    label
+    name_i18n
+  }
+`;
+export const VehicleServiceWithJourneysFragmentDoc = gql`
+  fragment vehicle_service_with_journeys on timetables_vehicle_service_vehicle_service {
+    vehicle_service_id
+    vehicle_schedule_frame {
+      vehicle_schedule_frame_id
+      priority
+    }
+    day_type {
+      ...day_type_all_fields
+    }
+    blocks {
+      block_id
+      vehicle_journeys {
+        start_time
+        vehicle_journey_id
+      }
+    }
+  }
+  ${DayTypeAllFieldsFragmentDoc}
 `;
 export const JourneyPatternStopFragmentDoc = gql`
   fragment journey_pattern_stop on journey_pattern_scheduled_stop_point_in_journey_pattern {
@@ -17278,6 +17383,84 @@ export type GetSelectedRouteDetailsByIdQueryResult = Apollo.QueryResult<
   GetSelectedRouteDetailsByIdQuery,
   GetSelectedRouteDetailsByIdQueryVariables
 >;
+export const GetTimetablesForOperationDayDocument = gql`
+  query GetTimetablesForOperationDay {
+    timetables {
+      timetables_vehicle_schedule_vehicle_schedule_frame(
+        order_by: { priority: desc }
+        where: {
+          vehicle_services: {
+            blocks: {
+              vehicle_journeys: {
+                journey_pattern_ref: { journey_pattern_id: {} }
+              }
+            }
+          }
+        }
+      ) {
+        validity_end
+        validity_start
+        name_i18n
+        vehicle_schedule_frame_id
+        priority
+        vehicle_services {
+          ...vehicle_service_with_journeys
+        }
+      }
+    }
+  }
+  ${VehicleServiceWithJourneysFragmentDoc}
+`;
+
+/**
+ * __useGetTimetablesForOperationDayQuery__
+ *
+ * To run a query within a React component, call `useGetTimetablesForOperationDayQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTimetablesForOperationDayQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTimetablesForOperationDayQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTimetablesForOperationDayQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetTimetablesForOperationDayQuery,
+    GetTimetablesForOperationDayQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetTimetablesForOperationDayQuery,
+    GetTimetablesForOperationDayQueryVariables
+  >(GetTimetablesForOperationDayDocument, options);
+}
+export function useGetTimetablesForOperationDayLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTimetablesForOperationDayQuery,
+    GetTimetablesForOperationDayQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetTimetablesForOperationDayQuery,
+    GetTimetablesForOperationDayQueryVariables
+  >(GetTimetablesForOperationDayDocument, options);
+}
+export type GetTimetablesForOperationDayQueryHookResult = ReturnType<
+  typeof useGetTimetablesForOperationDayQuery
+>;
+export type GetTimetablesForOperationDayLazyQueryHookResult = ReturnType<
+  typeof useGetTimetablesForOperationDayLazyQuery
+>;
+export type GetTimetablesForOperationDayQueryResult = Apollo.QueryResult<
+  GetTimetablesForOperationDayQuery,
+  GetTimetablesForOperationDayQueryVariables
+>;
 
 export function useGetRouteWithInfrastructureLinksAsyncQuery() {
   return useAsyncQuery<
@@ -17599,4 +17782,13 @@ export function useGetSelectedRouteDetailsByIdAsyncQuery() {
 }
 export type GetSelectedRouteDetailsByIdAsyncQueryHookResult = ReturnType<
   typeof useGetSelectedRouteDetailsByIdAsyncQuery
+>;
+export function useGetTimetablesForOperationDayAsyncQuery() {
+  return useAsyncQuery<
+    GetTimetablesForOperationDayQuery,
+    GetTimetablesForOperationDayQueryVariables
+  >(GetTimetablesForOperationDayDocument);
+}
+export type GetTimetablesForOperationDayAsyncQueryHookResult = ReturnType<
+  typeof useGetTimetablesForOperationDayAsyncQuery
 >;
