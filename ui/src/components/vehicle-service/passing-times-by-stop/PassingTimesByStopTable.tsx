@@ -1,6 +1,10 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { groupBy, pipe } from 'remeda';
-import { VehicleJourneyFragment } from '../../../generated/graphql';
+import {
+  PassingTimeFragment,
+  VehicleJourneyFragment,
+} from '../../../generated/graphql';
 import {
   cellClassNames,
   PassingTimesByStopTableRow,
@@ -20,6 +24,8 @@ export const PassingTimesByStopTable = ({
   className = '',
 }: Props): JSX.Element => {
   const { t } = useTranslation();
+  const [selectedPassingTime, setSelectedPassingTime] =
+    useState<PassingTimeFragment>();
 
   if (!vehicleJourneys) return <></>;
 
@@ -45,7 +51,9 @@ export const PassingTimesByStopTable = ({
     >
       <thead className="bg-white text-left">
         <tr>
-          <th className={`${cellClassNames}`}>{t('stops.stop')}</th>
+          <th className={`w-1 whitespace-nowrap ${cellClassNames}`}>
+            {t('stops.stop')}
+          </th>
           <th className={`${cellClassNames}`}>{t('timetables.departures')}</th>
         </tr>
       </thead>
@@ -56,6 +64,8 @@ export const PassingTimesByStopTable = ({
               stopPassingTimes[0].scheduled_stop_point_in_journey_pattern_ref_id
             }
             passingTimes={stopPassingTimes}
+            selectedPassingTime={selectedPassingTime}
+            setSelectedPassingTime={setSelectedPassingTime}
           />
         ))}
       </tbody>

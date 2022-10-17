@@ -14,6 +14,8 @@ export const theme = {
     hslNeutralBlue: "#E5F2FA",
     cityBicycleYellow: "#FCBC19",
     hslWarningYellow: "#FED100",
+    hslHighlightYellowDark: "#C89515",
+    hslHighlightYellowLight: "#FFD771",
     routes: {
       bus: "#0074BF",
       ferry: "#333333",
