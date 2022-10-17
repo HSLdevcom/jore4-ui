@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import { MdOutlineHistory } from 'react-icons/md';
+import { MdHistory } from 'react-icons/md';
 import { RouteStopFieldsFragment } from '../../../generated/graphql';
 import { useAlertsAndHighLights } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
@@ -91,7 +91,7 @@ export const RouteStopsRow = ({
           <span data-testid={testIds.lastEdited}>
             !{mapToShortDateTime(DateTime.now())}
           </span>
-          <MdOutlineHistory className="ml-2 inline text-xl text-tweaked-brand" />
+          <MdHistory className="ml-2 inline text-xl text-tweaked-brand" />
         </Row>
       </td>
       <td>&nbsp;</td>
