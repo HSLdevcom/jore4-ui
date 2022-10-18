@@ -18,8 +18,8 @@ export const VehicleServiceTable = ({ className = '' }: Props): JSX.Element => {
     { hours: 1, minutes: [1, 3, 5] },
     { hours: 2, minutes: [1, 3, 5, 7, 9] },
     { hours: 3, minutes: [1, 3, 5, 7, 9] },
-    { hours: 3, minutes: [1, 3, 5, 7, 9, 12, 15, 18, 23] },
-    { hours: 4, minutes: [1] },
+    { hours: 4, minutes: [1, 3, 5, 7, 9, 12, 15, 18, 23] },
+    { hours: 5, minutes: [1] },
   ];
 
   return (
@@ -36,9 +36,11 @@ export const VehicleServiceTable = ({ className = '' }: Props): JSX.Element => {
       </Row>
 
       <table className={`${className}`} data-testid={testIds.timetable}>
-        {mockContent.map((item) => (
-          <VehicleServiceTableRow key={item.hours} data={item} />
-        ))}
+        <tbody>
+          {mockContent.map((item) => (
+            <VehicleServiceTableRow key={item.hours} data={item} />
+          ))}
+        </tbody>
       </table>
     </div>
   );
