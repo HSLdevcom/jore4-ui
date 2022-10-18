@@ -1,3 +1,4 @@
+import flatten from '@turf/flatten';
 import { Feature, LineString, point } from '@turf/helpers';
 import nearestPointOnLine from '@turf/nearest-point-on-line';
 import pointToLineDistance from '@turf/point-to-line-distance';
@@ -37,6 +38,15 @@ const findFeaturesForLayerWithRadius = (
     );
   }
   return [];
+};
+
+// Turn any possible MultiLineStrings in the feature into LineStrings
+const getLineStringFromFeature = (feature: Feature<Geometry>) => {
+  const flattened = flatten(feature);
+  if (flattened.features.length > 0) {
+    return flattened.features[0];
+  }
+  return feature.geometry;
 };
 
 export const removeLineFromStopToInfraLink = (map: MaplibreGLMap) => {
@@ -95,7 +105,13 @@ export const drawLineToClosestRoad = (map: MaplibreGLMap, coords: Coords) => {
     // pair each network connection with the distance from the coordinates
     const linesWithDistance: FeatureAndDistance[] = features.map((line) => ({
       feature: line,
-      distance: pointToLineDistance(cursorLocation, line, { units: 'meters' }),
+      distance: pointToLineDistance(
+        cursorLocation,
+        getLineStringFromFeature(line),
+        {
+          units: 'meters',
+        },
+      ),
     }));
 
     // find the nearest network connection
