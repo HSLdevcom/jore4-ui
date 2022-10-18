@@ -5,7 +5,7 @@ import {
   Maybe,
   RouteInformationForMapFragment,
 } from '../generated/graphql';
-import { resetMapEditorStateAction } from '../redux';
+import { resetMapEditorStateAction, setSelectedRouteIdAction } from '../redux';
 import { isDateInRange } from '../time';
 import { Priority } from '../types/Priority';
 import { getRouteShapeFirstCoordinates } from '../utils/routeShape';
@@ -99,6 +99,8 @@ export const useShowRoutesOnModal = () => {
         longitude,
       },
     });
+
+    dispatch(setSelectedRouteIdAction(route.route_id));
   };
 
   const showRouteOnMapByLineLabel = (line: LineInformationForMapFragment) => {
@@ -131,6 +133,8 @@ export const useShowRoutesOnModal = () => {
       validityEnd: route.validity_end,
       viewPortParams: { latitude, longitude },
     });
+
+    dispatch(setSelectedRouteIdAction(route.route_id));
   };
 
   return {
