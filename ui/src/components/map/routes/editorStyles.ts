@@ -3,8 +3,8 @@ import { RENDER_STATE } from 'react-map-gl-draw';
 // Handle styles
 
 const RECT_STYLE = {
-  x: -12,
-  y: -12,
+  x: -10,
+  y: -10,
   strokeWidth: 4,
 };
 
@@ -15,6 +15,7 @@ export const handleStyle =
       return {
         ...RECT_STYLE,
         stroke: 'black',
+        strokeWidth: 6,
       };
     }
     if (selectedSnapPoints.includes(index)) {
@@ -26,7 +27,6 @@ export const handleStyle =
     return {
       ...RECT_STYLE,
       stroke: 'black',
-      strokeDasharray: '4,2',
     };
   };
 

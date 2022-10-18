@@ -390,7 +390,7 @@ const DrawRouteLayerComponent = (
       }}
       featureStyle={featureStyle}
       ref={composeRefs(externalRef, editorRef)}
-      clickRadius={24}
+      clickRadius={20}
       mode={modeHandler}
       onUpdate={onUpdate}
       features={mapSnappingLineToRenderedFeatures(snappingLine)}
