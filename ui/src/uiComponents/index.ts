@@ -1,5 +1,6 @@
 export * from './AccordionButton';
 export * from './Card';
+export * from './ChevronToggle';
 export * from './CloseIconButton';
 export * from './Combobox';
 export * from './ConfirmationDialog';

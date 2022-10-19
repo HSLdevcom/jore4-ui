@@ -1,15 +1,16 @@
-import React from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { IconButton } from '../../../../uiComponents';
+import { IconButton } from './IconButton';
 
 type Props = {
   isToggled: boolean;
+  testId?: string;
   onClick: () => void;
 };
 
-export const SearchConditionToggle = ({
+export const ChevronToggle = ({
   isToggled,
   onClick,
+  testId,
 }: Props): JSX.Element => {
   const iconClassName = 'text-3xl text-tweaked-brand';
   return (
@@ -22,7 +23,7 @@ export const SearchConditionToggle = ({
           <FaChevronDown className={iconClassName} />
         )
       }
-      testId="SearchConditionToggle::toggle"
+      testId={testId}
     />
   );
 };
