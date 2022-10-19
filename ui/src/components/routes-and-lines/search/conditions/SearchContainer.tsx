@@ -3,13 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { SearchQueryParameterNames, useSearch } from '../../../../hooks';
 import { useToggle } from '../../../../hooks/useToggle';
 import { Column, Container, Row, Visible } from '../../../../layoutComponents';
-import { SimpleButton } from '../../../../uiComponents';
+import { ChevronToggle, SimpleButton } from '../../../../uiComponents';
 import { AllOptionEnum } from '../../../../utils';
 import { FormRow } from '../../../forms/common';
 import { LineTypeDropdown } from '../../../forms/line/LineTypeDropdown';
 import { VehicleModeDropdown } from '../../../forms/line/VehicleModeDropdown';
 import { PriorityCondition } from './PriorityCondition';
-import { SearchConditionToggle } from './SearchConditionsToggle';
 import { SearchInput } from './SearchInput';
 
 export const SearchContainer = (): JSX.Element => {
@@ -19,6 +18,7 @@ export const SearchContainer = (): JSX.Element => {
   const [isExpanded, toggleIsExpanded] = useToggle();
   const testIds = {
     searchInput: 'SearchContainer::SearchInput',
+    toggleExpand: 'SearchContainer::ChevronToggle',
   };
 
   const onChangeLabel = (value: string) => {
@@ -61,7 +61,8 @@ export const SearchContainer = (): JSX.Element => {
               onSearch={handleSearch}
               onChange={onChangeLabel}
             />
-            <SearchConditionToggle
+            <ChevronToggle
+              testId={testIds.toggleExpand}
               isToggled={isExpanded}
               onClick={toggleIsExpanded}
             />
