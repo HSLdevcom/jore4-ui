@@ -5,11 +5,11 @@ import { useToggle } from '../../../../hooks/useToggle';
 import { Column, Container, Row, Visible } from '../../../../layoutComponents';
 import { SimpleButton } from '../../../../uiComponents';
 import { AllOptionEnum } from '../../../../utils';
+import { ChevronToggle } from '../../../common/ChevronToggle';
 import { FormRow } from '../../../forms/common';
 import { LineTypeDropdown } from '../../../forms/line/LineTypeDropdown';
 import { VehicleModeDropdown } from '../../../forms/line/VehicleModeDropdown';
 import { PriorityCondition } from './PriorityCondition';
-import { SearchConditionToggle } from './SearchConditionsToggle';
 import { SearchInput } from './SearchInput';
 
 export const SearchContainer = (): JSX.Element => {
@@ -61,10 +61,7 @@ export const SearchContainer = (): JSX.Element => {
               onSearch={handleSearch}
               onChange={onChangeLabel}
             />
-            <SearchConditionToggle
-              isToggled={isExpanded}
-              onClick={toggleIsExpanded}
-            />
+            <ChevronToggle isToggled={isExpanded} onClick={toggleIsExpanded} />
           </Row>
         </Column>
       </Row>
