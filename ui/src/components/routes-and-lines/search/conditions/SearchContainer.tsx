@@ -20,6 +20,10 @@ export const SearchContainer = (): JSX.Element => {
     searchInput: 'SearchContainer::SearchInput',
   };
 
+  const onChangeLabel = (value: string) => {
+    setSearchCondition(SearchQueryParameterNames.Label, value);
+  };
+
   const onChangeVehiclemode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchCondition(
       SearchQueryParameterNames.PrimaryVehicleMode,
@@ -46,7 +50,7 @@ export const SearchContainer = (): JSX.Element => {
               testId={testIds.searchInput}
               value={searchConditions.label}
               onSearch={handleSearch}
-              onChange={(value) => setSearchCondition('label', value)}
+              onChange={onChangeLabel}
             />
             <SearchConditionToggle
               isToggled={isExpanded}
