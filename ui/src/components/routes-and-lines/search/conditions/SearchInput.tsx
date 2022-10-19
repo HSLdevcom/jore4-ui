@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 type Props = {
   value?: string;
-  onChange: (value: string) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSearch: () => void;
   testId?: string;
 };
@@ -27,7 +27,7 @@ export const SearchInput = ({
       type="text"
       value={value}
       placeholder={t('search.searchPlaceholder')}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={onChange}
       onKeyPress={onKeyPress}
     />
   );
