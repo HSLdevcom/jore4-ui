@@ -3,10 +3,10 @@ import { useSearch, useSearchResults } from '../../../hooks';
 import { usePagination } from '../../../hooks/usePagination';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import { CloseIconButton, Pagination } from '../../../uiComponents';
-import { SearchContainer } from './conditions/SearchContainer';
 import { ExportToolbar } from './ExportToolbar';
 import { FiltersContainer } from './filters/FiltersContainer';
 import { ResultList } from './ResultList';
+import { SearchContainer } from './SearchContainer';
 
 export const SearchResultPage = (): JSX.Element => {
   const { handleClose } = useSearch();

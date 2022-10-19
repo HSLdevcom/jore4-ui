@@ -8,7 +8,7 @@ import { Container, Row } from '../../../layoutComponents';
 import { FilterType, resetMapState } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
-import { SearchContainer } from '../search/conditions/SearchContainer';
+import { SearchContainer } from '../search/SearchContainer';
 import { RoutesAndLinesLists } from './RoutesAndLinesLists';
 
 const testIds = {
