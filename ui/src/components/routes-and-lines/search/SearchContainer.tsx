@@ -5,11 +5,11 @@ import { useToggle } from '../../../hooks/useToggle';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import { ChevronToggle, SimpleButton } from '../../../uiComponents';
 import { AllOptionEnum } from '../../../utils';
+import { SearchInput } from '../../common/search';
 import { FormRow } from '../../forms/common';
 import { LineTypeDropdown } from '../../forms/line/LineTypeDropdown';
 import { VehicleModeDropdown } from '../../forms/line/VehicleModeDropdown';
 import { PriorityCondition } from './conditions/PriorityCondition';
-import { SearchInput } from './conditions/SearchInput';
 
 export const SearchContainer = (): JSX.Element => {
   const { searchConditions, setSearchCondition, handleSearch } = useSearch();
