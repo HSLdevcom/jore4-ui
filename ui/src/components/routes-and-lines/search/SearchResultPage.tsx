@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useSearch, useSearchResults } from '../../../hooks';
 import { usePagination } from '../../../hooks/usePagination';
 import { Container, Row, Visible } from '../../../layoutComponents';
+import { Path } from '../../../router/routeDetails';
 import { CloseIconButton, Pagination } from '../../../uiComponents';
 import { ExportToolbar } from './ExportToolbar';
 import { FiltersContainer } from './filters/FiltersContainer';
@@ -9,7 +10,9 @@ import { ResultList } from './ResultList';
 import { SearchContainer } from './SearchContainer';
 
 export const SearchResultPage = (): JSX.Element => {
-  const { handleClose } = useSearch();
+  const { handleClose, queryParameters } = useSearch({
+    basePath: Path.routes,
+  });
   const { resultCount } = useSearchResults();
   const { t } = useTranslation();
   const { getPaginatedData } = usePagination();
@@ -18,7 +21,6 @@ export const SearchResultPage = (): JSX.Element => {
 
   const displayedLines = getPaginatedData(lines, itemsPerPage);
   const displayedRoutes = getPaginatedData(routes, itemsPerPage);
-  const { queryParameters } = useSearch();
 
   const testIds = {
     container: 'SearchResultsPage::Container',

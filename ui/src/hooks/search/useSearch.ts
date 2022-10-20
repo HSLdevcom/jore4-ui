@@ -10,7 +10,14 @@ import {
   useSearchQueryParser,
 } from './useSearchQueryParser';
 
-export const useSearch = () => {
+/**
+ * Common search hook. Takes basePath as parameter, which will be used when
+ * handling filter setting, searching and closing.
+ * For example using 'routes-and-lines' as basePath will direct searches to
+ * '/routes-and-lines/search' and closing the search will direct to
+ * '/routes-and-lines'
+ */
+export const useSearch = ({ basePath }: { basePath: string }) => {
   const queryParameters = useSearchQueryParser();
   const { setMultipleParametersToUrlQuery } = useUrlQuery();
 
@@ -61,7 +68,7 @@ export const useSearch = () => {
     setMultipleParametersToUrlQuery({
       parameters:
         mapSearchParametersToQueryParameterObjects(combinedParameters),
-      pathname: '/routes/search',
+      pathname: `${basePath}/search`,
     });
   };
 
@@ -78,7 +85,7 @@ export const useSearch = () => {
     setMultipleParametersToUrlQuery({
       parameters:
         mapSearchParametersToQueryParameterObjects(combinedParameters),
-      pathname: '/routes/search',
+      pathname: `${basePath}/search`,
     });
   };
 
@@ -94,7 +101,7 @@ export const useSearch = () => {
     setMultipleParametersToUrlQuery({
       parameters:
         mapSearchParametersToQueryParameterObjects(combinedParameters),
-      pathname: '/routes',
+      pathname: `${basePath}`,
     });
   };
 
