@@ -1,13 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useSearch } from '../../../../hooks';
 import { resetSelectedRoutesAction } from '../../../../redux';
+import { Path } from '../../../../router/routeDetails';
 import { SimpleSmallButton } from '../../../../uiComponents';
 import { DisplayedSearchResultType } from '../../../../utils';
 
 export const ResultSelector = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { queryParameters, setFilter } = useSearch();
+  const { queryParameters, setFilter } = useSearch({ basePath: Path.routes });
   const { displayedData } = queryParameters.filter;
 
   const displayRoutes = () => {
