@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { SearchQueryParameterNames, useSearch } from '../../../hooks';
 import { useToggle } from '../../../hooks/useToggle';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
+import { Path } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
 import { AllOptionEnum } from '../../../utils';
 import { ChevronToggle } from '../../common/ChevronToggle';
@@ -13,7 +14,9 @@ import { VehicleModeDropdown } from '../../forms/line/VehicleModeDropdown';
 import { PriorityCondition } from './conditions/PriorityCondition';
 
 export const SearchContainer = (): JSX.Element => {
-  const { searchConditions, setSearchCondition, handleSearch } = useSearch();
+  const { searchConditions, setSearchCondition, handleSearch } = useSearch({
+    modulePath: Path.routes,
+  });
   const { t } = useTranslation();
 
   const [isExpanded, toggleIsExpanded] = useToggle();

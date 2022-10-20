@@ -10,7 +10,7 @@ import {
   useSearchQueryParser,
 } from './useSearchQueryParser';
 
-export const useSearch = () => {
+export const useSearch = ({ modulePath }: { modulePath: string }) => {
   const queryParameters = useSearchQueryParser();
   const { setMultipleParametersToUrlQuery } = useUrlQuery();
 
@@ -61,7 +61,7 @@ export const useSearch = () => {
     setMultipleParametersToUrlQuery({
       parameters:
         mapSearchParametersToQueryParameterObjects(combinedParameters),
-      pathname: '/routes/search',
+      pathname: `${modulePath}/search`,
     });
   };
 
@@ -78,7 +78,7 @@ export const useSearch = () => {
     setMultipleParametersToUrlQuery({
       parameters:
         mapSearchParametersToQueryParameterObjects(combinedParameters),
-      pathname: '/routes/search',
+      pathname: `${modulePath}/search`,
     });
   };
 
@@ -94,7 +94,7 @@ export const useSearch = () => {
     setMultipleParametersToUrlQuery({
       parameters:
         mapSearchParametersToQueryParameterObjects(combinedParameters),
-      pathname: '/routes',
+      pathname: `${modulePath}`,
     });
   };
 
