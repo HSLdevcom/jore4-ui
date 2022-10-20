@@ -147,6 +147,7 @@
     "title": "Confirm changes",
     "description": "Confirm stop changes ({{ stopLabel }})",
     "removedFromRoutes": "The stop will be removed from the following routes: {{ routeLabels }}",
+    "routeWithNVersions": "{{ routeLabel }} ({{ labelCount }} versions)",
     "confirmText": "OK"
   },
   "priority": {

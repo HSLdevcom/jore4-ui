@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { DeleteChanges } from '../../../hooks';
 import { ConfirmationDialog } from '../../../uiComponents';
+import { buildRouteLabelListString } from './EditStopConfirmationDialog';
 
 interface Props {
   isOpen: boolean;
@@ -30,8 +31,9 @@ export const DeleteStopConfirmationDialog: React.FC<Props> = ({
 
     // if stop is deleted from some routes, list them
     if (changes.deleteStopFromRoutes.length > 0) {
-      const routeLabels = changes.deleteStopFromRoutes.map(
-        (item) => item.label,
+      const routeLabels = buildRouteLabelListString(
+        changes.deleteStopFromRoutes,
+        t,
       );
       const removedRoutesText = t('confirmDeleteStopDialog.removedFromRoutes', {
         routeLabels,

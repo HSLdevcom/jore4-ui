@@ -147,6 +147,7 @@
     "title": "Vahvista muutos",
     "description": "Vahvista pysäkin muokkaus ({{ stopLabel }})",
     "removedFromRoutes": "Pysäkki poistetaan seuraavilta reiteiltä: {{ routeLabels }}",
+    "routeWithNVersions": "{{ routeLabel }} ({{ labelCount }} versiota)",
     "confirmText": "OK"
   },
   "priority": {
