@@ -46,6 +46,9 @@ const slice = createSlice({
         payload: stop ? mapToStoreType(stop) : undefined,
       }),
     },
+    reset: () => {
+      return initialState;
+    },
   },
 });
 
@@ -55,6 +58,7 @@ export const {
   setIsMoveStopModeEnabled: setIsMoveStopModeEnabledAction,
   resetEnabledModes: resetEnabledModesAction,
   setEditedStopData: setEditedStopDataAction,
+  reset: resetMapStopEditorStateAction,
 } = slice.actions;
 
 export const mapStopEditorReducer = slice.reducer;
