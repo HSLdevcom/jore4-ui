@@ -1,0 +1,9 @@
+export class StopPopUp {
+  getMoveButton() {
+    return cy.getByTestId('StopPopUp::moveButton');
+  }
+
+  getEditButton() {
+    return cy.getByTestId('StopPopUp::editButton');
+  }
+}
