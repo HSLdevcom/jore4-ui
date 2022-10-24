@@ -2,13 +2,13 @@ import { createSelector } from '@reduxjs/toolkit';
 import { mapFromStoreType } from '../mappers/storeType';
 import { mapOperations, Operation } from '../slices/loader';
 import { MapState } from '../slices/map';
-import { MapEditorState } from '../slices/mapEditor';
+import { MapRouteEditorState } from '../slices/mapRouteEditor';
 import { RootState } from '../store';
 
 export const selectMap = (state: RootState) =>
   mapFromStoreType<MapState>(state.map);
-export const selectMapEditor = (state: RootState) =>
-  mapFromStoreType<MapEditorState>(state.mapEditor);
+export const selectMapRouteEditor = (state: RootState) =>
+  mapFromStoreType<MapRouteEditorState>(state.mapRouteEditor);
 export const selectMapFilter = (state: RootState) => state.mapFilter;
 export const selectModalMap = (state: RootState) => state.modalMap;
 export const selectUser = (state: RootState) => state.user;
@@ -42,29 +42,29 @@ export const selectMapViewport = createSelector(
 );
 
 export const selectIsInViewMode = createSelector(
-  selectMapEditor,
+  selectMapRouteEditor,
   (modalMap) => modalMap.drawingMode === undefined,
 );
 
 export const selectHasChangesInProgress = createSelector(
-  selectMapEditor,
+  selectMapRouteEditor,
   selectIsInViewMode,
   (modalMap, viewMode) => modalMap.creatingNewRoute || !viewMode,
 );
 
 export const selectHasDraftRouteGeometry = createSelector(
-  selectMapEditor,
-  (mapEditor) => !!mapEditor.editedRouteData.infraLinks?.length,
+  selectMapRouteEditor,
+  (mapRouteEditor) => !!mapRouteEditor.editedRouteData.infraLinks?.length,
 );
 
 export const selectSelectedRouteId = createSelector(
-  selectMapEditor,
-  (mapEditor) => mapEditor.selectedRouteId,
+  selectMapRouteEditor,
+  (mapRouteEditor) => mapRouteEditor.selectedRouteId,
 );
 
 export const selectDrawingMode = createSelector(
-  selectMapEditor,
-  (mapEditor) => mapEditor.drawingMode,
+  selectMapRouteEditor,
+  (mapRouteEditor) => mapRouteEditor.drawingMode,
 );
 
 export const selectViaModal = createSelector(
@@ -86,7 +86,7 @@ export const selectIsMapOperationLoading = createSelector(
 );
 
 export const selectEditedRouteIncludedStops = createSelector(
-  selectMapEditor,
+  selectMapRouteEditor,
   ({ editedRouteData }) =>
     editedRouteData.stopsEligibleForJourneyPattern.filter((stop) =>
       editedRouteData.includedStopLabels.includes(stop.label),
