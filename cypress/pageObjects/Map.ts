@@ -1,3 +1,6 @@
+import qs from 'qs';
+import { StopPopUp } from './StopPopUp';
+
 export interface ClickPointNearMapMarker {
   mapMarkerTestId: string;
   rightOffset: number;
@@ -5,6 +8,8 @@ export interface ClickPointNearMapMarker {
 }
 
 export class Map {
+  stopPopUp = new StopPopUp();
+
   zoomIn() {
     cy.get('.mapboxgl-ctrl-zoom-in').click();
   }
@@ -47,5 +52,23 @@ export class Map {
     const x = (Cypress.config('viewportWidth') / 100) * xPercentage;
     const y = (Cypress.config('viewportHeight') / 100) * yPercentage;
     cy.getByTestId('modalMap').click(x, y);
+  }
+
+  getStopByStopLabel(testStopLabel: string) {
+    return cy.getByTestId(`Map::Stops::stopMarker::${testStopLabel}_Standard`);
+  }
+
+  visit(params?: { zoom?: number; lat: number; lng: number }) {
+    if (params) {
+      return cy.visit(
+        `/routes?${qs.stringify({
+          z: params.zoom || 13, // 13 is default zoom level
+          mapOpen: true,
+          lat: params.lat,
+          lng: params.lng,
+        })}`,
+      );
+    }
+    return cy.visit('/routes?mapOpen=true');
   }
 }
