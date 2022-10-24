@@ -1,4 +1,7 @@
 export * from './ConfirmSaveForm';
+export * from './ConfirmationDialog';
+export * from './EditRoutePage';
+export * from './FilterPanel';
 export * from './LineDetailsPage';
 export * from './LineForm';
 export * from './Map';
@@ -11,5 +14,4 @@ export * from './Toast';
 export * from './SearchResultsPage';
 export * from './RoutesAndLinesPage';
 export * from './RouteEditor';
-export * from './EditRoutePage';
 export * from './RouteStopsTable';
