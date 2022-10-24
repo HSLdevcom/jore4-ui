@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {
   LineTableRowFragment,
-  RouteAllFieldsFragment,
+  RouteTableRowFragment,
 } from '../../../generated/graphql';
 import { useAlertsAndHighLights } from '../../../hooks';
 import { Column, Row, Visible } from '../../../layoutComponents';
@@ -15,7 +15,7 @@ interface Props {
   onLocatorButtonClick?: () => void;
   locatorButtonTestId: string;
   lineId: UUID;
-  rowItem: RouteAllFieldsFragment | LineTableRowFragment;
+  rowItem: LineTableRowFragment | RouteTableRowFragment;
   isSelected?: boolean;
   onSelectChanged?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   selectionDisabled?: boolean;
