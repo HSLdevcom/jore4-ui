@@ -26,6 +26,11 @@ const GQL_STOP_POPUP_INFO = gql`
   }
 `;
 
+const testIds = {
+  moveButton: 'StopPopUp::moveButton',
+  editButton: 'StopPopUp::editButton',
+};
+
 export const StopPopup = ({
   stop,
   onEdit,
@@ -73,10 +78,18 @@ export const StopPopup = ({
           <SimpleButton className="h-full !px-3" onClick={onDelete} inverted>
             <MdDelete aria-label={t('map.deleteRoute')} className="text-xl" />
           </SimpleButton>
-          <SimpleButton containerClassName="ml-auto" onClick={onMove}>
+          <SimpleButton
+            containerClassName="ml-auto"
+            onClick={onMove}
+            testId={testIds.moveButton}
+          >
             {t('move')}
           </SimpleButton>
-          <SimpleButton containerClassName="ml-2" onClick={onEdit}>
+          <SimpleButton
+            containerClassName="ml-2"
+            onClick={onEdit}
+            testId={testIds.editButton}
+          >
             {t('edit')}
           </SimpleButton>
         </Row>
