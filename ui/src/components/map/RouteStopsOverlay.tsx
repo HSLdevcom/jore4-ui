@@ -11,7 +11,7 @@ import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
 import { Row, Visible } from '../../layoutComponents';
 import {
   selectHasChangesInProgress,
-  selectMapEditor,
+  selectMapRouteEditor,
   setRouteMetadataFormOpenAction,
 } from '../../redux';
 import { Priority } from '../../types/Priority';
@@ -47,7 +47,8 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
   const dispatch = useAppDispatch();
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
   const { observationDate } = useObservationDateQueryParam();
-  const { selectedRouteId, creatingNewRoute } = useAppSelector(selectMapEditor);
+  const { selectedRouteId, creatingNewRoute } =
+    useAppSelector(selectMapRouteEditor);
 
   const {
     routeMetadata,

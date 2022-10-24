@@ -42,7 +42,7 @@ import {
   Operation,
   resetDraftRouteGeometryAction,
   selectHasDraftRouteGeometry,
-  selectMapEditor,
+  selectMapRouteEditor,
   setDraftRouteGeometryAction,
   stopRouteEditingAction,
 } from '../../../redux';
@@ -91,7 +91,7 @@ const DrawRouteLayerComponent = (
 
   const dispatch = useAppDispatch();
   const { editedRouteData, creatingNewRoute, isRouteMetadataFormOpen } =
-    useAppSelector(selectMapEditor);
+    useAppSelector(selectMapRouteEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
 
   const { templateRouteId } = editedRouteData;
