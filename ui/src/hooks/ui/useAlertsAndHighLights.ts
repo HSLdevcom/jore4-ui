@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import {
-  LineAllFieldsFragment,
-  RouteAllFieldsFragment,
+  LineTableRowFragment,
+  RouteTableRowFragment,
   ScheduledStopPointDefaultFieldsFragment,
 } from '../../generated/graphql';
 import { parseDate } from '../../time';
@@ -17,8 +17,8 @@ enum AlertLevel {
 export const useAlertsAndHighLights = () => {
   const getAlertLevel = (
     input:
-      | RouteAllFieldsFragment
-      | LineAllFieldsFragment
+      | RouteTableRowFragment
+      | LineTableRowFragment
       | ScheduledStopPointDefaultFieldsFragment,
   ): AlertLevel => {
     // TODO: this logic is actually pretty far from the desired functionality, but at least

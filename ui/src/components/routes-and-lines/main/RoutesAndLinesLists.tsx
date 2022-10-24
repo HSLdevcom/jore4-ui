@@ -1,17 +1,40 @@
+import { gql } from '@apollo/client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
 } from '../../../generated/graphql';
-import {
-  mapListOwnLinesResult,
-  mapRouteResultToRoutes,
-} from '../../../graphql';
 import { LinesList } from './LinesList';
 import { ListFooter } from './ListFooter';
 import { ListHeader } from './ListHeader';
 import { RoutesList } from './RoutesList';
+
+// TODO: This list is currently only for visual purpose and will be so until
+// we get user data to our system. Until then, we just list all routes
+const GQL_LIST_CHANGING_ROUTES = gql`
+  query ListChangingRoutes($limit: Int) {
+    route_route(
+      limit: $limit
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
+      ...route_table_row
+    }
+  }
+`;
+
+// TODO: This list is currently only for visual purpose and will be so until
+// we get user data to our system. Until then, we just list all lines
+const GQL_LIST_OWN_LINES = gql`
+  query ListOwnLines($limit: Int = 10) {
+    route_line(
+      limit: $limit
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
+      ...line_table_row
+    }
+  }
+`;
 
 export const RoutesAndLinesLists = (): JSX.Element => {
   const { t } = useTranslation();
@@ -25,11 +48,12 @@ export const RoutesAndLinesLists = (): JSX.Element => {
   const changingRoutesResult = useListChangingRoutesQuery({
     variables: { limit: changingRoutesLimit },
   });
-  const changingRoutes = mapRouteResultToRoutes(changingRoutesResult);
+
+  const changingRoutes = changingRoutesResult.data?.route_route || [];
 
   // own lines
   const ownLinesResult = useListOwnLinesQuery();
-  const ownLines = mapListOwnLinesResult(ownLinesResult);
+  const ownLines = ownLinesResult.data?.route_line || [];
 
   return (
     <div>

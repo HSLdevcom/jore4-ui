@@ -11,7 +11,6 @@ import {
   RouteRoute,
   RouteWithJourneyPatternStopsFragment,
   ServicePatternScheduledStopPoint,
-  useListOwnLinesQuery,
 } from '../generated/graphql';
 import { GqlQueryResult, isGqlEntity } from './types';
 
@@ -107,39 +106,6 @@ const ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
         shape
       }
       is_traversal_forwards
-    }
-  }
-`;
-
-// TODO this is just listing all lines for now
-const LIST_OWN_LINES = gql`
-  query ListOwnLines($limit: Int = 10) {
-    route_line(
-      limit: $limit
-      order_by: [{ label: asc }, { validity_start: asc }]
-    ) {
-      ...line_all_fields
-      line_routes {
-        route_id
-      }
-    }
-  }
-`;
-export const mapListOwnLinesResult = (
-  result: ReturnType<typeof useListOwnLinesQuery>,
-) => result.data?.route_line as RouteLine[];
-
-// TODO this will list all routes for now
-const LIST_CHANGING_ROUTES = gql`
-  query ListChangingRoutes($limit: Int) {
-    route_route(
-      limit: $limit
-      order_by: [{ label: asc }, { validity_start: asc }]
-    ) {
-      ...route_all_fields
-      route_line {
-        ...line_default_fields
-      }
     }
   }
 `;
