@@ -1,17 +1,42 @@
+import { gql } from '@apollo/client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  LineTableRowFragment,
+  RouteTableRowFragment,
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
 } from '../../../generated/graphql';
-import {
-  mapListOwnLinesResult,
-  mapRouteResultToRoutes,
-} from '../../../graphql';
 import { LinesList } from './LinesList';
 import { ListFooter } from './ListFooter';
 import { ListHeader } from './ListHeader';
 import { RoutesList } from './RoutesList';
+
+// TODO: This list is currently only for visual purpose and will be so until
+// we get user data to our system. Until then, we just list all routes
+const GQL_LIST_CHANGING_ROUTES = gql`
+  query ListChangingRoutes($limit: Int) {
+    route_route(
+      limit: $limit
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
+      ...route_table_row
+    }
+  }
+`;
+
+// TODO: This list is currently only for visual purpose and will be so until
+// we get user data to our system. Until then, we just list all lines
+const GQL_LIST_OWN_LINES = gql`
+  query ListOwnLines($limit: Int = 10) {
+    route_line(
+      limit: $limit
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
+      ...line_table_row
+    }
+  }
+`;
 
 export const RoutesAndLinesLists = (): JSX.Element => {
   const { t } = useTranslation();
@@ -25,11 +50,19 @@ export const RoutesAndLinesLists = (): JSX.Element => {
   const changingRoutesResult = useListChangingRoutesQuery({
     variables: { limit: changingRoutesLimit },
   });
-  const changingRoutes = mapRouteResultToRoutes(changingRoutesResult);
+
+  // Casting to RouteTableRowFragment is safe because route_route contains all
+  // route fields and RouteTableRowFragment is a subset of these fields
+  const changingRoutes = (changingRoutesResult.data?.route_route ||
+    []) as RouteTableRowFragment[];
 
   // own lines
   const ownLinesResult = useListOwnLinesQuery();
-  const ownLines = mapListOwnLinesResult(ownLinesResult);
+
+  // Casting to LineTableRowFragment is safe because route_line contains all
+  // the line fields and LineTableRowFragment is a subset of these fields
+  const ownLines = (ownLinesResult.data?.route_line ||
+    []) as LineTableRowFragment[];
 
   return (
     <div>
