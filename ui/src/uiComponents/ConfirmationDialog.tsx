@@ -12,6 +12,10 @@ interface Props {
   className?: string;
 }
 
+const testIds = {
+  confirmButton: 'ConfirmationDialog::confirmButton',
+};
+
 export const ConfirmationDialog = ({
   isOpen,
   onConfirm,
@@ -29,7 +33,11 @@ export const ConfirmationDialog = ({
       description={description}
       buttons={[
         { text: cancelText, onClick: onCancel, inverted: true },
-        { text: confirmText, onClick: onConfirm },
+        {
+          text: confirmText,
+          onClick: onConfirm,
+          testId: testIds.confirmButton,
+        },
       ]}
       onCancel={onCancel}
       className={className}
