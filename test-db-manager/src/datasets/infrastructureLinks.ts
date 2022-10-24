@@ -51,6 +51,20 @@ export const infrastructureLinks: InfrastructureNetworkInfrastructureLinkInsertI
       external_link_source: InfrastructureNetworkExternalSourceEnum.DigiroadR,
       external_link_id: '3',
     },
+    {
+      infrastructure_link_id: '3986bcc4-f3d7-44b8-b46a-0ade9d014af6',
+      direction: InfrastructureNetworkDirectionEnum.Bidirectional,
+      shape: {
+        type: 'LineString',
+        coordinates: [
+          [24.925251259734353, 60.16287920585574, 15],
+          [24.92832655782573, 60.16391811339392, 15],
+        ],
+      },
+      estimated_length_in_metres: 10,
+      external_link_source: InfrastructureNetworkExternalSourceEnum.DigiroadR,
+      external_link_id: '1',
+    },
   ];
 
 export const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[] =
