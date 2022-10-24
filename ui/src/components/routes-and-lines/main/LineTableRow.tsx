@@ -20,7 +20,10 @@ interface Props {
 
 const GQL_LINE_TABLE_ROW = gql`
   fragment line_table_row on route_line {
-    ...line_all_fields
+    name_i18n
+    short_name_i18n
+    priority
+    ...line_information_for_map
     line_routes {
       ...route_information_for_map
     }
