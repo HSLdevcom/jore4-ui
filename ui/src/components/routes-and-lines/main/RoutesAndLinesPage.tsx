@@ -5,11 +5,7 @@ import {
   useMapQueryParams,
 } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
-import {
-  FilterType,
-  resetMapRouteEditorStateAction,
-  resetModalMapAction,
-} from '../../../redux';
+import { FilterType, resetMapState } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
 import { SearchContainer } from '../search/conditions/SearchContainer';
@@ -28,8 +24,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
 
   const createLineReactRoute = routeDetails[Path.createLine];
   const onOpenModalMap = () => {
-    dispatch(resetModalMapAction());
-    dispatch(resetMapRouteEditorStateAction());
+    dispatch(resetMapState());
     addMapOpenQueryParameter();
     /**
      * By default only stops that belong to displayed route are shown on map.
