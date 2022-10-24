@@ -18,7 +18,7 @@ export class StopForm {
   }
 
   fillStopForm(values: StopFormInfo) {
-    this.getLabelInput().type(values.label);
+    this.getLabelInput().clear().type(values.label);
     if (values.latitude) {
       this.getLatitudeInput().clear().type(values.latitude);
     }
