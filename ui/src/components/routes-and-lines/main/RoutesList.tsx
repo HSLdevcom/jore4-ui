@@ -1,9 +1,9 @@
-import { RouteAllFieldsFragment } from '../../../generated/graphql';
+import { RouteTableRowFragment } from '../../../generated/graphql';
 import { RoutesTable } from './RoutesTable';
 import { RouteTableRow } from './RouteTableRow';
 
 type Props = {
-  routes?: RouteAllFieldsFragment[];
+  routes?: RouteTableRowFragment[];
   areItemsSelectable?: boolean;
 };
 
@@ -16,7 +16,7 @@ export const RoutesList = ({
   areItemsSelectable = false,
 }: Props): JSX.Element => (
   <RoutesTable testId={testIds.table}>
-    {routes?.map((item: RouteAllFieldsFragment) => (
+    {routes?.map((item: RouteTableRowFragment) => (
       <RouteTableRow
         key={item.route_id}
         route={item}
