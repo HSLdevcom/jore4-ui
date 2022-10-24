@@ -21,7 +21,7 @@ import {
   Operation,
   resetRouteCreatingAction,
   selectDrawingMode,
-  selectMapEditor,
+  selectMapRouteEditor,
   selectSelectedRouteId,
   setDraftRouteJourneyPatternStopsAction,
   setLineInfoAction,
@@ -54,7 +54,8 @@ const RouteEditorComponent = (
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
+  const { editedRouteData, creatingNewRoute } =
+    useAppSelector(selectMapRouteEditor);
   const drawingMode = useAppSelector(selectDrawingMode);
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
 

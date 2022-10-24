@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   finishRouteMetadataEditingAction,
   resetRouteCreatingAction,
-  selectMapEditor,
+  selectMapRouteEditor,
   setDraftRouteJourneyPatternStopsAction,
   setLineInfoAction,
   setRouteMetadataFormOpenAction,
@@ -28,7 +28,7 @@ export const EditRouteMetadataLayer: React.FC = () => {
   const [getLineDetailsById] = useGetLineDetailsByIdAsyncQuery();
   const [getRouteDetailsById] = useGetRouteDetailsByIdAsyncQuery();
   const { editedRouteData, isRouteMetadataFormOpen } =
-    useAppSelector(selectMapEditor);
+    useAppSelector(selectMapRouteEditor);
 
   const onClose = () => {
     dispatch(setRouteMetadataFormOpenAction(false));

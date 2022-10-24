@@ -9,7 +9,7 @@ import {
 import { getRouteStopLabels, mapRouteResultToRoutes } from '../../graphql';
 import {
   selectEditedRouteIncludedStops,
-  selectMapEditor,
+  selectMapRouteEditor,
   selectSelectedStopId,
 } from '../../redux';
 import { RequiredKeys } from '../../types';
@@ -42,14 +42,14 @@ const extractHighestPriorityStopsFromRoute = (
 };
 
 export const useMapStops = () => {
-  const { selectedRouteId } = useAppSelector(selectMapEditor);
+  const { selectedRouteId } = useAppSelector(selectMapRouteEditor);
   const { observationDate } = useObservationDateQueryParam();
   const { displayedRouteIds } = useGetDisplayedRoutes();
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const editedRouteIncludedStops = useAppSelector(
     selectEditedRouteIncludedStops,
   );
-  const { editedRouteData } = useAppSelector(selectMapEditor);
+  const { editedRouteData } = useAppSelector(selectMapRouteEditor);
   const editedRouteStopLabels = editedRouteData.includedStopLabels;
 
   const displayedRoutesResult = useGetRoutesWithInfrastructureLinksQuery(

@@ -14,7 +14,7 @@ import {
 import {
   EditedRouteData,
   selectHasChangesInProgress,
-  selectMapEditor,
+  selectMapRouteEditor,
 } from '../../redux';
 import { useAppSelector } from '../redux';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
@@ -122,7 +122,7 @@ interface RouteInfo {
  * would create its own problems (e.g. caching) so we are going with this hybrid model for now.
  */
 export const useRouteInfo = (routeId: UUID | undefined): RouteInfo => {
-  const { editedRouteData } = useAppSelector(selectMapEditor);
+  const { editedRouteData } = useAppSelector(selectMapRouteEditor);
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
 
   // Get route data

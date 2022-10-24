@@ -7,7 +7,7 @@ import {
 import { Container, Row } from '../../../layoutComponents';
 import {
   FilterType,
-  resetMapEditorStateAction,
+  resetMapRouteEditorStateAction,
   resetModalMapAction,
 } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -29,7 +29,7 @@ export const RoutesAndLinesPage = (): JSX.Element => {
   const createLineReactRoute = routeDetails[Path.createLine];
   const onOpenModalMap = () => {
     dispatch(resetModalMapAction());
-    dispatch(resetMapEditorStateAction());
+    dispatch(resetMapRouteEditorStateAction());
     addMapOpenQueryParameter();
     /**
      * By default only stops that belong to displayed route are shown on map.

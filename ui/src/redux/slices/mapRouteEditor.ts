@@ -46,7 +46,7 @@ export interface EditedRouteData {
   stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
 }
 
-export interface MapEditorState {
+export interface MapRouteEditorState {
   /**
    * Is new route creation in progress
    */
@@ -69,7 +69,7 @@ export interface MapEditorState {
   selectedRouteId?: UUID;
 }
 
-type IState = StoreType<MapEditorState>;
+type IState = StoreType<MapRouteEditorState>;
 
 const initialState: IState = {
   creatingNewRoute: false,
@@ -93,7 +93,7 @@ export enum Mode {
   Edit,
 }
 const slice = createSlice({
-  name: 'mapEditor',
+  name: 'mapRouteEditor',
   initialState,
   reducers: {
     reset: () => {
@@ -304,7 +304,7 @@ const slice = createSlice({
 });
 
 export const {
-  reset: resetMapEditorStateAction,
+  reset: resetMapRouteEditorStateAction,
   startRouteCreating: startRouteCreatingAction,
   resetRouteCreating: resetRouteCreatingAction,
   startRouteEditing: startRouteEditingAction,
@@ -322,4 +322,4 @@ export const {
   setDraftRouteJourneyPatternStops: setDraftRouteJourneyPatternStopsAction,
 } = slice.actions;
 
-export const mapEditorReducer = slice.reducer;
+export const mapRouteEditorReducer = slice.reducer;

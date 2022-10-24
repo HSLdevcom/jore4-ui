@@ -8,7 +8,7 @@ import {
 } from '../../../hooks';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import {
-  resetMapEditorStateAction,
+  resetMapRouteEditorStateAction,
   selectIsViaModalOpen,
   setLineInfoAction,
 } from '../../../redux';
@@ -31,7 +31,7 @@ export const LineDetailsPage = (): JSX.Element => {
   const { line } = useGetLineDetails();
 
   const onCreateRoute = (routeLine: LineAllFieldsFragment) => {
-    dispatch(resetMapEditorStateAction());
+    dispatch(resetMapRouteEditorStateAction());
     dispatch(setLineInfoAction(routeLine));
     addMapOpenQueryParameter();
   };

@@ -12,8 +12,8 @@ import {
   selectHasDraftRouteGeometry,
   selectIsCreateStopModeEnabled,
   selectIsMoveStopModeEnabled,
-  selectMapEditor,
   selectMapFilter,
+  selectMapRouteEditor,
   selectSelectedRouteId,
   setSelectedRouteIdAction,
 } from '../../redux';
@@ -51,7 +51,7 @@ export const MapComponent = (
 ): JSX.Element => {
   const routeEditorRef = useRef<ExplicitAny>(null);
 
-  const { drawingMode } = useAppSelector(selectMapEditor);
+  const { drawingMode } = useAppSelector(selectMapRouteEditor);
 
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
   const { showStopFilterOverlay } = useAppSelector(selectMapFilter);

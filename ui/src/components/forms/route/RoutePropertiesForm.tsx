@@ -5,7 +5,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
-import { selectMapEditor, setTemplateRouteIdAction } from '../../../redux';
+import { selectMapRouteEditor, setTemplateRouteIdAction } from '../../../redux';
 import { Switch, SwitchLabel } from '../../../uiComponents';
 import { FormColumn, FormRow, InputField } from '../common';
 import { ConfirmSaveForm } from '../common/ConfirmSaveForm';
@@ -40,7 +40,8 @@ const RoutePropertiesFormComponent = (
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const { editedRouteData, creatingNewRoute } = useAppSelector(selectMapEditor);
+  const { editedRouteData, creatingNewRoute } =
+    useAppSelector(selectMapRouteEditor);
 
   const methods = useForm<FormState>({
     defaultValues,

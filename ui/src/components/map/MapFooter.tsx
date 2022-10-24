@@ -10,7 +10,7 @@ import {
   selectIsCreateStopModeEnabled,
   selectIsInViewMode,
   selectIsMoveStopModeEnabled,
-  selectMapEditor,
+  selectMapRouteEditor,
   setIsCreateStopModeEnabledAction,
 } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
@@ -45,7 +45,7 @@ export const MapFooter: React.FC<Props> = ({
     creatingNewRoute,
     isRouteMetadataFormOpen,
     selectedRouteId,
-  } = useAppSelector(selectMapEditor);
+  } = useAppSelector(selectMapRouteEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
 
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
