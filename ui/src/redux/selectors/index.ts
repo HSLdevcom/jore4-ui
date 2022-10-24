@@ -1,12 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { mapFromStoreType } from '../mappers/storeType';
 import { mapOperations, Operation } from '../slices/loader';
-import { MapState } from '../slices/map';
 import { MapRouteEditorState } from '../slices/mapRouteEditor';
+import { MapStopEditorState } from '../slices/mapStopEditor';
 import { RootState } from '../store';
 
-export const selectMap = (state: RootState) =>
-  mapFromStoreType<MapState>(state.map);
+export const selectMapStopEditor = (state: RootState) =>
+  mapFromStoreType<MapStopEditorState>(state.map);
 export const selectMapRouteEditor = (state: RootState) =>
   mapFromStoreType<MapRouteEditorState>(state.mapRouteEditor);
 export const selectMapFilter = (state: RootState) => state.mapFilter;
@@ -17,22 +17,22 @@ export const selectLoader = (state: RootState) => state.loader;
 export const selectExport = (state: RootState) => state.export;
 
 export const selectSelectedStopId = createSelector(
-  selectMap,
+  selectMapStopEditor,
   (map) => map.selectedStopId,
 );
 
 export const selectEditedStopData = createSelector(
-  selectMap,
+  selectMapStopEditor,
   (map) => map.editedStopData,
 );
 
 export const selectIsCreateStopModeEnabled = createSelector(
-  selectMap,
+  selectMapStopEditor,
   (map) => map.isCreateStopModeEnabled,
 );
 
 export const selectIsMoveStopModeEnabled = createSelector(
-  selectMap,
+  selectMapStopEditor,
   (map) => map.isMoveStopModeEnabled,
 );
 
