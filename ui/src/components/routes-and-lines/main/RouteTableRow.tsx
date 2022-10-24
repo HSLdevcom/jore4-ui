@@ -1,4 +1,5 @@
-import { RouteAllFieldsFragment } from '../../../generated/graphql';
+import { gql } from '@apollo/client';
+import { RouteTableRowFragment } from '../../../generated/graphql';
 import {
   useAppDispatch,
   useAppSelector,
@@ -11,9 +12,19 @@ import {
 } from '../../../redux';
 import { RouteLineTableRow } from './RouteLineTableRow';
 
+const GQL_ROUTE_TABLE_ROW = gql`
+  fragment route_table_row on route_route {
+    ...route_information_for_map
+    name_i18n
+    direction
+    priority
+    on_line_id
+  }
+`;
+
 interface Props {
   className?: string;
-  route: RouteAllFieldsFragment;
+  route: RouteTableRowFragment;
   isSelectable?: boolean;
 }
 

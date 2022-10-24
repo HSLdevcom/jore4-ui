@@ -11218,23 +11218,79 @@ export type StopPopupInfoFragment = {
 
 export type LineTableRowFragment = {
   __typename?: 'route_line';
-  line_id: UUID;
   name_i18n: LocalizedString;
   short_name_i18n: LocalizedString;
-  primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-  type_of_line: RouteTypeOfLineEnum;
-  transport_target: HslRouteTransportTargetEnum;
+  priority: number;
+  line_id: UUID;
+  label: string;
   validity_start?: luxon.DateTime | null | undefined;
   validity_end?: luxon.DateTime | null | undefined;
-  priority: number;
-  label: string;
   line_routes: Array<{
     __typename?: 'route_route';
+    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null | undefined;
+    label: string;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+  }>;
+};
+
+export type RouteTableRowFragment = {
+  __typename?: 'route_route';
+  name_i18n: LocalizedString;
+  direction: RouteDirectionEnum;
+  priority: number;
+  on_line_id: UUID;
+  route_id: UUID;
+  label: string;
+  route_shape?: GeoJSON.LineString | null | undefined;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+};
+
+export type ListChangingRoutesQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+}>;
+
+export type ListChangingRoutesQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    name_i18n: LocalizedString;
+    direction: RouteDirectionEnum;
+    priority: number;
+    on_line_id: UUID;
     route_id: UUID;
     label: string;
     route_shape?: GeoJSON.LineString | null | undefined;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
+  }>;
+};
+
+export type ListOwnLinesQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+}>;
+
+export type ListOwnLinesQuery = {
+  __typename?: 'query_root';
+  route_line: Array<{
+    __typename?: 'route_line';
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    priority: number;
+    line_id: UUID;
+    label: string;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+    line_routes: Array<{
+      __typename?: 'route_route';
+      route_id: UUID;
+      route_shape?: GeoJSON.LineString | null | undefined;
+      label: string;
+      validity_start?: luxon.DateTime | null | undefined;
+      validity_end?: luxon.DateTime | null | undefined;
+    }>;
   }>;
 };
 
@@ -11796,62 +11852,6 @@ export type RouteWithInfrastructureLinksFragment = {
         on_route_id: UUID;
       };
     }>;
-  }>;
-};
-
-export type ListOwnLinesQueryVariables = Exact<{
-  limit?: Maybe<Scalars['Int']>;
-}>;
-
-export type ListOwnLinesQuery = {
-  __typename?: 'query_root';
-  route_line: Array<{
-    __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
-    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-    type_of_line: RouteTypeOfLineEnum;
-    transport_target: HslRouteTransportTargetEnum;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    label: string;
-    line_routes: Array<{ __typename?: 'route_route'; route_id: UUID }>;
-  }>;
-};
-
-export type ListChangingRoutesQueryVariables = Exact<{
-  limit?: Maybe<Scalars['Int']>;
-}>;
-
-export type ListChangingRoutesQuery = {
-  __typename?: 'query_root';
-  route_route: Array<{
-    __typename?: 'route_route';
-    route_id: UUID;
-    name_i18n: LocalizedString;
-    description_i18n?: LocalizedString | null | undefined;
-    origin_name_i18n: LocalizedString;
-    origin_short_name_i18n: LocalizedString;
-    destination_name_i18n: LocalizedString;
-    destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null | undefined;
-    on_line_id: UUID;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    label: string;
-    direction: RouteDirectionEnum;
-    route_line: {
-      __typename?: 'route_line';
-      line_id: UUID;
-      label: string;
-      name_i18n: LocalizedString;
-      short_name_i18n: LocalizedString;
-      validity_start?: luxon.DateTime | null | undefined;
-      validity_end?: luxon.DateTime | null | undefined;
-    };
   }>;
 };
 
@@ -13604,21 +13604,18 @@ export type SearchLinesAndRoutesQuery = {
   __typename?: 'query_root';
   route_line: Array<{
     __typename?: 'route_line';
-    line_id: UUID;
     name_i18n: LocalizedString;
     short_name_i18n: LocalizedString;
-    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-    type_of_line: RouteTypeOfLineEnum;
-    transport_target: HslRouteTransportTargetEnum;
+    priority: number;
+    line_id: UUID;
+    label: string;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    label: string;
     line_routes: Array<{
       __typename?: 'route_route';
       route_id: UUID;
-      label: string;
       route_shape?: GeoJSON.LineString | null | undefined;
+      label: string;
       validity_start?: luxon.DateTime | null | undefined;
       validity_end?: luxon.DateTime | null | undefined;
     }>;
@@ -13871,18 +13868,16 @@ export const StopPopupInfoFragmentDoc = gql`
     measured_location
   }
 `;
-export const LineAllFieldsFragmentDoc = gql`
-  fragment line_all_fields on route_line {
+export const LineInformationForMapFragmentDoc = gql`
+  fragment line_information_for_map on route_line {
     line_id
-    name_i18n
-    short_name_i18n
-    primary_vehicle_mode
-    type_of_line
-    transport_target
+    label
     validity_start
     validity_end
-    priority
-    label
+    line_routes {
+      route_id
+      route_shape
+    }
   }
 `;
 export const RouteInformationForMapFragmentDoc = gql`
@@ -13896,12 +13891,25 @@ export const RouteInformationForMapFragmentDoc = gql`
 `;
 export const LineTableRowFragmentDoc = gql`
   fragment line_table_row on route_line {
-    ...line_all_fields
+    name_i18n
+    short_name_i18n
+    priority
+    ...line_information_for_map
     line_routes {
       ...route_information_for_map
     }
   }
-  ${LineAllFieldsFragmentDoc}
+  ${LineInformationForMapFragmentDoc}
+  ${RouteInformationForMapFragmentDoc}
+`;
+export const RouteTableRowFragmentDoc = gql`
+  fragment route_table_row on route_route {
+    ...route_information_for_map
+    name_i18n
+    direction
+    priority
+    on_line_id
+  }
   ${RouteInformationForMapFragmentDoc}
 `;
 export const PassingTimeByStopFragmentDoc = gql`
@@ -14093,6 +14101,20 @@ export const RouteWithJourneyPatternStopsFragmentDoc = gql`
   ${RouteAllFieldsFragmentDoc}
   ${JourneyPatternWithStopsFragmentDoc}
 `;
+export const LineAllFieldsFragmentDoc = gql`
+  fragment line_all_fields on route_line {
+    line_id
+    name_i18n
+    short_name_i18n
+    primary_vehicle_mode
+    type_of_line
+    transport_target
+    validity_start
+    validity_end
+    priority
+    label
+  }
+`;
 export const RouteWithInfrastructureLinksFragmentDoc = gql`
   fragment route_with_infrastructure_links on route_route {
     ...route_with_journey_pattern_stops
@@ -14168,18 +14190,6 @@ export const LineForComboboxFragmentDoc = gql`
     label
     validity_start
     validity_end
-  }
-`;
-export const LineInformationForMapFragmentDoc = gql`
-  fragment line_information_for_map on route_line {
-    line_id
-    label
-    validity_start
-    validity_end
-    line_routes {
-      route_id
-      route_shape
-    }
   }
 `;
 export const DayTypeAllFieldsFragmentDoc = gql`
@@ -14277,6 +14287,130 @@ export type GetRouteWithInfrastructureLinksLazyQueryHookResult = ReturnType<
 export type GetRouteWithInfrastructureLinksQueryResult = Apollo.QueryResult<
   GetRouteWithInfrastructureLinksQuery,
   GetRouteWithInfrastructureLinksQueryVariables
+>;
+export const ListChangingRoutesDocument = gql`
+  query ListChangingRoutes($limit: Int) {
+    route_route(
+      limit: $limit
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
+      ...route_table_row
+    }
+  }
+  ${RouteTableRowFragmentDoc}
+`;
+
+/**
+ * __useListChangingRoutesQuery__
+ *
+ * To run a query within a React component, call `useListChangingRoutesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListChangingRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListChangingRoutesQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useListChangingRoutesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ListChangingRoutesQuery,
+    ListChangingRoutesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ListChangingRoutesQuery,
+    ListChangingRoutesQueryVariables
+  >(ListChangingRoutesDocument, options);
+}
+export function useListChangingRoutesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ListChangingRoutesQuery,
+    ListChangingRoutesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ListChangingRoutesQuery,
+    ListChangingRoutesQueryVariables
+  >(ListChangingRoutesDocument, options);
+}
+export type ListChangingRoutesQueryHookResult = ReturnType<
+  typeof useListChangingRoutesQuery
+>;
+export type ListChangingRoutesLazyQueryHookResult = ReturnType<
+  typeof useListChangingRoutesLazyQuery
+>;
+export type ListChangingRoutesQueryResult = Apollo.QueryResult<
+  ListChangingRoutesQuery,
+  ListChangingRoutesQueryVariables
+>;
+export const ListOwnLinesDocument = gql`
+  query ListOwnLines($limit: Int = 10) {
+    route_line(
+      limit: $limit
+      order_by: [{ label: asc }, { validity_start: asc }]
+    ) {
+      ...line_table_row
+    }
+  }
+  ${LineTableRowFragmentDoc}
+`;
+
+/**
+ * __useListOwnLinesQuery__
+ *
+ * To run a query within a React component, call `useListOwnLinesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListOwnLinesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListOwnLinesQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useListOwnLinesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ListOwnLinesQuery,
+    ListOwnLinesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(
+    ListOwnLinesDocument,
+    options,
+  );
+}
+export function useListOwnLinesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ListOwnLinesQuery,
+    ListOwnLinesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(
+    ListOwnLinesDocument,
+    options,
+  );
+}
+export type ListOwnLinesQueryHookResult = ReturnType<
+  typeof useListOwnLinesQuery
+>;
+export type ListOwnLinesLazyQueryHookResult = ReturnType<
+  typeof useListOwnLinesLazyQuery
+>;
+export type ListOwnLinesQueryResult = Apollo.QueryResult<
+  ListOwnLinesQuery,
+  ListOwnLinesQueryVariables
 >;
 export const GetVehicleJourneysDocument = gql`
   query GetVehicleJourneys {
@@ -14804,137 +14938,6 @@ export type GetScheduledStopPointWithViaInfoLazyQueryHookResult = ReturnType<
 export type GetScheduledStopPointWithViaInfoQueryResult = Apollo.QueryResult<
   GetScheduledStopPointWithViaInfoQuery,
   GetScheduledStopPointWithViaInfoQueryVariables
->;
-export const ListOwnLinesDocument = gql`
-  query ListOwnLines($limit: Int = 10) {
-    route_line(
-      limit: $limit
-      order_by: [{ label: asc }, { validity_start: asc }]
-    ) {
-      ...line_all_fields
-      line_routes {
-        route_id
-      }
-    }
-  }
-  ${LineAllFieldsFragmentDoc}
-`;
-
-/**
- * __useListOwnLinesQuery__
- *
- * To run a query within a React component, call `useListOwnLinesQuery` and pass it any options that fit your needs.
- * When your component renders, `useListOwnLinesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useListOwnLinesQuery({
- *   variables: {
- *      limit: // value for 'limit'
- *   },
- * });
- */
-export function useListOwnLinesQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    ListOwnLinesQuery,
-    ListOwnLinesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(
-    ListOwnLinesDocument,
-    options,
-  );
-}
-export function useListOwnLinesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ListOwnLinesQuery,
-    ListOwnLinesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(
-    ListOwnLinesDocument,
-    options,
-  );
-}
-export type ListOwnLinesQueryHookResult = ReturnType<
-  typeof useListOwnLinesQuery
->;
-export type ListOwnLinesLazyQueryHookResult = ReturnType<
-  typeof useListOwnLinesLazyQuery
->;
-export type ListOwnLinesQueryResult = Apollo.QueryResult<
-  ListOwnLinesQuery,
-  ListOwnLinesQueryVariables
->;
-export const ListChangingRoutesDocument = gql`
-  query ListChangingRoutes($limit: Int) {
-    route_route(
-      limit: $limit
-      order_by: [{ label: asc }, { validity_start: asc }]
-    ) {
-      ...route_all_fields
-      route_line {
-        ...line_default_fields
-      }
-    }
-  }
-  ${RouteAllFieldsFragmentDoc}
-  ${LineDefaultFieldsFragmentDoc}
-`;
-
-/**
- * __useListChangingRoutesQuery__
- *
- * To run a query within a React component, call `useListChangingRoutesQuery` and pass it any options that fit your needs.
- * When your component renders, `useListChangingRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useListChangingRoutesQuery({
- *   variables: {
- *      limit: // value for 'limit'
- *   },
- * });
- */
-export function useListChangingRoutesQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    ListChangingRoutesQuery,
-    ListChangingRoutesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    ListChangingRoutesQuery,
-    ListChangingRoutesQueryVariables
-  >(ListChangingRoutesDocument, options);
-}
-export function useListChangingRoutesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ListChangingRoutesQuery,
-    ListChangingRoutesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ListChangingRoutesQuery,
-    ListChangingRoutesQueryVariables
-  >(ListChangingRoutesDocument, options);
-}
-export type ListChangingRoutesQueryHookResult = ReturnType<
-  typeof useListChangingRoutesQuery
->;
-export type ListChangingRoutesLazyQueryHookResult = ReturnType<
-  typeof useListChangingRoutesLazyQuery
->;
-export type ListChangingRoutesQueryResult = Apollo.QueryResult<
-  ListChangingRoutesQuery,
-  ListChangingRoutesQueryVariables
 >;
 export const GetLineDetailsByIdDocument = gql`
   query GetLineDetailsById($line_id: uuid!) {
@@ -17471,6 +17474,23 @@ export function useGetRouteWithInfrastructureLinksAsyncQuery() {
 export type GetRouteWithInfrastructureLinksAsyncQueryHookResult = ReturnType<
   typeof useGetRouteWithInfrastructureLinksAsyncQuery
 >;
+export function useListChangingRoutesAsyncQuery() {
+  return useAsyncQuery<
+    ListChangingRoutesQuery,
+    ListChangingRoutesQueryVariables
+  >(ListChangingRoutesDocument);
+}
+export type ListChangingRoutesAsyncQueryHookResult = ReturnType<
+  typeof useListChangingRoutesAsyncQuery
+>;
+export function useListOwnLinesAsyncQuery() {
+  return useAsyncQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(
+    ListOwnLinesDocument,
+  );
+}
+export type ListOwnLinesAsyncQueryHookResult = ReturnType<
+  typeof useListOwnLinesAsyncQuery
+>;
 export function useGetVehicleJourneysAsyncQuery() {
   return useAsyncQuery<
     GetVehicleJourneysQuery,
@@ -17515,23 +17535,6 @@ export function useGetScheduledStopPointWithViaInfoAsyncQuery() {
 }
 export type GetScheduledStopPointWithViaInfoAsyncQueryHookResult = ReturnType<
   typeof useGetScheduledStopPointWithViaInfoAsyncQuery
->;
-export function useListOwnLinesAsyncQuery() {
-  return useAsyncQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(
-    ListOwnLinesDocument,
-  );
-}
-export type ListOwnLinesAsyncQueryHookResult = ReturnType<
-  typeof useListOwnLinesAsyncQuery
->;
-export function useListChangingRoutesAsyncQuery() {
-  return useAsyncQuery<
-    ListChangingRoutesQuery,
-    ListChangingRoutesQueryVariables
-  >(ListChangingRoutesDocument);
-}
-export type ListChangingRoutesAsyncQueryHookResult = ReturnType<
-  typeof useListChangingRoutesAsyncQuery
 >;
 export function useGetLineDetailsByIdAsyncQuery() {
   return useAsyncQuery<
