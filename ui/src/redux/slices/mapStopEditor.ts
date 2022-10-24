@@ -2,14 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { StopWithLocation } from '../../graphql';
 import { mapToStoreType, StoreType } from '../mappers/storeType';
 
-export interface MapState {
+export interface MapStopEditorState {
   selectedStopId?: UUID;
   editedStopData?: StopWithLocation;
   isCreateStopModeEnabled: boolean;
   isMoveStopModeEnabled: boolean;
 }
 
-type IState = StoreType<MapState>;
+type IState = StoreType<MapStopEditorState>;
 
 const initialState: IState = {
   selectedStopId: undefined,
@@ -19,7 +19,7 @@ const initialState: IState = {
 };
 
 const slice = createSlice({
-  name: 'map',
+  name: 'mapStopEditor',
   initialState,
   reducers: {
     setSelectedStopId: (state, action: PayloadAction<UUID | undefined>) => {
@@ -57,4 +57,4 @@ export const {
   setEditedStopData: setEditedStopDataAction,
 } = slice.actions;
 
-export const mapReducer = slice.reducer;
+export const mapStopEditorReducer = slice.reducer;
