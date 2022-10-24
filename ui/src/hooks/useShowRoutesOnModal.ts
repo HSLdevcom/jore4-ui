@@ -5,10 +5,7 @@ import {
   Maybe,
   RouteInformationForMapFragment,
 } from '../generated/graphql';
-import {
-  resetMapRouteEditorStateAction,
-  setSelectedRouteIdAction,
-} from '../redux';
+import { resetMapState, setSelectedRouteIdAction } from '../redux';
 import { isDateInRange } from '../time';
 import { Priority } from '../types/Priority';
 import { getRouteShapeFirstCoordinates } from '../utils/routeShape';
@@ -75,7 +72,7 @@ export const useShowRoutesOnModal = () => {
       ? listViewObservationDate
       : validityStart;
 
-    dispatch(resetMapRouteEditorStateAction());
+    dispatch(resetMapState());
     openMapWithParameters({
       viewPortParams,
       displayedRouteParams: {

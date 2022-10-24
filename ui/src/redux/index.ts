@@ -10,3 +10,4 @@ export * from './slices/modalMap';
 export * from './slices/modals';
 export * from './slices/user';
 export * from './store';
+export * from './thunks';
