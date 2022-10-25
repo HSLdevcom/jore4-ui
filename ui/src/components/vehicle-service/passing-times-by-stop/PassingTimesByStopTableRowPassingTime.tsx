@@ -22,8 +22,8 @@ export const PassingTimesByStopTableRowPassingTime = ({
   );
 
   return (
-    <span className="my-2 mr-3 inline-block space-x-2 whitespace-nowrap border-b border-dashed border-grey">
-      <span className="text-lg font-bold">{hour}</span>
+    <span className="my-2 mr-6 inline-block space-x-2 whitespace-nowrap border-b border-dashed border-grey">
+      <span className="font-narrow text-lg font-bold">{hour}</span>
       {sortedPassingTimes.map((passingTime) => (
         <PassingTimesByStopTableRowPassingMinute
           key={passingTime.timetabled_passing_time_id}
