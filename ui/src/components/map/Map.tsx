@@ -22,6 +22,7 @@ import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
 import {
+  DraftRouteGeometryLayer,
   DrawRouteLayer,
   EditRouteMetadataLayer,
   isRouteGeometryLayer,
@@ -239,6 +240,7 @@ export const MapComponent = (
             isSelected={selectedRouteId === item && !hasDraftRouteGeometry}
           />
         ))}
+      <DraftRouteGeometryLayer />
       <RouteEditor
         onDeleteDrawnRoute={() => editorLayerRef.current?.onDeleteRoute()}
         ref={routeEditorRef}
