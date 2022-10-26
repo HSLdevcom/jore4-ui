@@ -7582,10 +7582,10 @@ export type TimetablesJourneyPatternJourneyPatternRefUpdates = {
 /** Long-term planned time data concerning public transport vehicles passing a particular POINT IN JOURNEY PATTERN on a specified VEHICLE JOURNEY for a certain DAY TYPE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:4:946  */
 export type TimetablesPassingTimesTimetabledPassingTime = {
   __typename?: 'timetables_passing_times_timetabled_passing_time';
-  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY */
-  arrival_time: Scalars['interval'];
-  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately */
-  departure_time?: Maybe<Scalars['interval']>;
+  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately */
+  arrival_time?: Maybe<Scalars['interval']>;
+  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. */
+  departure_time: Scalars['interval'];
   /** An object relationship */
   scheduled_stop_point_in_journey_pattern_ref: TimetablesServicePatternScheduledStopPointInJourneyPatternRef;
   /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
@@ -7657,9 +7657,9 @@ export enum TimetablesPassingTimesTimetabledPassingTimeConstraint {
 
 /** input type for inserting data into table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeInsertInput = {
-  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY */
+  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately */
   arrival_time?: Maybe<Scalars['interval']>;
-  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately */
+  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. */
   departure_time?: Maybe<Scalars['interval']>;
   scheduled_stop_point_in_journey_pattern_ref?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefObjRelInsertInput>;
   /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
@@ -7756,9 +7756,9 @@ export enum TimetablesPassingTimesTimetabledPassingTimeSelectColumn {
 
 /** input type for updating data in table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeSetInput = {
-  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY */
+  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately */
   arrival_time?: Maybe<Scalars['interval']>;
-  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately */
+  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. */
   departure_time?: Maybe<Scalars['interval']>;
   /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
   scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
@@ -7778,9 +7778,9 @@ export type TimetablesPassingTimesTimetabledPassingTimeStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type TimetablesPassingTimesTimetabledPassingTimeStreamCursorValueInput =
   {
-    /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY */
+    /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately */
     arrival_time?: Maybe<Scalars['interval']>;
-    /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately */
+    /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. */
     departure_time?: Maybe<Scalars['interval']>;
     /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
     scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
@@ -9791,8 +9791,6 @@ export type TimetablesVehicleJourneyVehicleJourneyUpdates = {
 /** A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993  */
 export type TimetablesVehicleScheduleVehicleScheduleFrame = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-  /** The label for the VEHICLE SCHEDULE FRAME */
-  label: Scalars['String'];
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n: Scalars['jsonb'];
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
@@ -9869,7 +9867,6 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameBoolExp = {
   _and?: Maybe<Array<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>>;
   _not?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
   _or?: Maybe<Array<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>>;
-  label?: Maybe<StringComparisonExp>;
   name_i18n?: Maybe<JsonbComparisonExp>;
   validity_end?: Maybe<DateComparisonExp>;
   validity_start?: Maybe<DateComparisonExp>;
@@ -9879,8 +9876,6 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameBoolExp = {
 
 /** unique or primary key constraints on table "vehicle_schedule.vehicle_schedule_frame" */
 export enum TimetablesVehicleScheduleVehicleScheduleFrameConstraint {
-  /** unique or primary key constraint on columns "label" */
-  VehicleScheduleFrameLabelKey = 'vehicle_schedule_frame_label_key',
   /** unique or primary key constraint on columns "vehicle_schedule_frame_id" */
   VehicleScheduleFramePkey = 'vehicle_schedule_frame_pkey',
 }
@@ -9905,8 +9900,6 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput = {
 
 /** input type for inserting data into table "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameInsertInput = {
-  /** The label for the VEHICLE SCHEDULE FRAME */
-  label?: Maybe<Scalars['String']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: Maybe<Scalars['jsonb']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
@@ -9920,8 +9913,6 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameInsertInput = {
 /** aggregate max on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameMaxFields = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_max_fields';
-  /** The label for the VEHICLE SCHEDULE FRAME */
-  label?: Maybe<Scalars['String']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
   validity_end?: Maybe<Scalars['date']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
@@ -9932,8 +9923,6 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameMaxFields = {
 /** aggregate min on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameMinFields = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_min_fields';
-  /** The label for the VEHICLE SCHEDULE FRAME */
-  label?: Maybe<Scalars['String']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
   validity_end?: Maybe<Scalars['date']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
@@ -9966,7 +9955,6 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameOnConflict = {
 
 /** Ordering options when selecting data from "vehicle_schedule.vehicle_schedule_frame". */
 export type TimetablesVehicleScheduleVehicleScheduleFrameOrderBy = {
-  label?: Maybe<OrderBy>;
   name_i18n?: Maybe<OrderBy>;
   validity_end?: Maybe<OrderBy>;
   validity_start?: Maybe<OrderBy>;
@@ -9988,8 +9976,6 @@ export type TimetablesVehicleScheduleVehicleScheduleFramePrependInput = {
 /** select columns of table "vehicle_schedule.vehicle_schedule_frame" */
 export enum TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn {
   /** column name */
-  Label = 'label',
-  /** column name */
   NameI18n = 'name_i18n',
   /** column name */
   ValidityEnd = 'validity_end',
@@ -10001,8 +9987,6 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn {
 
 /** input type for updating data in table "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameSetInput = {
-  /** The label for the VEHICLE SCHEDULE FRAME */
-  label?: Maybe<Scalars['String']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: Maybe<Scalars['jsonb']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
@@ -10023,8 +10007,6 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorValueInput =
   {
-    /** The label for the VEHICLE SCHEDULE FRAME */
-    label?: Maybe<Scalars['String']>;
     /** Human-readable name for the VEHICLE SCHEDULE FRAME */
     name_i18n?: Maybe<Scalars['jsonb']>;
     /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
@@ -10036,8 +10018,6 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorValueInput 
 
 /** update columns of table "vehicle_schedule.vehicle_schedule_frame" */
 export enum TimetablesVehicleScheduleVehicleScheduleFrameUpdateColumn {
-  /** column name */
-  Label = 'label',
   /** column name */
   NameI18n = 'name_i18n',
   /** column name */
