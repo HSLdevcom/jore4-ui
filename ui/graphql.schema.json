@@ -47868,7 +47868,19 @@
         "fields": [
           {
             "name": "arrival_time",
-            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY",
+            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "departure_time",
+            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -47878,18 +47890,6 @@
                 "name": "interval",
                 "ofType": null
               }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "departure_time",
-            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "interval",
-              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -48377,7 +48377,7 @@
         "inputFields": [
           {
             "name": "arrival_time",
-            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY",
+            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately",
             "type": {
               "kind": "SCALAR",
               "name": "interval",
@@ -48389,7 +48389,7 @@
           },
           {
             "name": "departure_time",
-            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately",
+            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY.",
             "type": {
               "kind": "SCALAR",
               "name": "interval",
@@ -48937,7 +48937,7 @@
         "inputFields": [
           {
             "name": "arrival_time",
-            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY",
+            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately",
             "type": {
               "kind": "SCALAR",
               "name": "interval",
@@ -48949,7 +48949,7 @@
           },
           {
             "name": "departure_time",
-            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately",
+            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY.",
             "type": {
               "kind": "SCALAR",
               "name": "interval",
@@ -49047,7 +49047,7 @@
         "inputFields": [
           {
             "name": "arrival_time",
-            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY",
+            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately",
             "type": {
               "kind": "SCALAR",
               "name": "interval",
@@ -49059,7 +49059,7 @@
           },
           {
             "name": "departure_time",
-            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately",
+            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY.",
             "type": {
               "kind": "SCALAR",
               "name": "interval",
@@ -60656,22 +60656,6 @@
         "description": "A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993 ",
         "fields": [
           {
-            "name": "label",
-            "description": "The label for the VEHICLE SCHEDULE FRAME",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
             "args": [
@@ -61153,18 +61137,6 @@
             "deprecationReason": null
           },
           {
-            "name": "label",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "name_i18n",
             "description": null,
             "type": {
@@ -61237,12 +61209,6 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
-          {
-            "name": "vehicle_schedule_frame_label_key",
-            "description": "unique or primary key constraint on columns \"label\"",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "vehicle_schedule_frame_pkey",
             "description": "unique or primary key constraint on columns \"vehicle_schedule_frame_id\"",
@@ -61336,18 +61302,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "label",
-            "description": "The label for the VEHICLE SCHEDULE FRAME",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
             "type": {
@@ -61418,18 +61372,6 @@
         "description": "aggregate max on columns",
         "fields": [
           {
-            "name": "label",
-            "description": "The label for the VEHICLE SCHEDULE FRAME",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "validity_end",
             "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid.",
             "args": [],
@@ -61476,18 +61418,6 @@
         "name": "timetables_vehicle_schedule_vehicle_schedule_frame_min_fields",
         "description": "aggregate min on columns",
         "fields": [
-          {
-            "name": "label",
-            "description": "The label for the VEHICLE SCHEDULE FRAME",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "validity_end",
             "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid.",
@@ -61690,18 +61620,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "label",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "name_i18n",
             "description": null,
             "type": {
@@ -61825,12 +61743,6 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "label",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "name_i18n",
             "description": "column name",
             "isDeprecated": false,
@@ -61863,18 +61775,6 @@
         "description": "input type for updating data in table \"vehicle_schedule.vehicle_schedule_frame\"",
         "fields": null,
         "inputFields": [
-          {
-            "name": "label",
-            "description": "The label for the VEHICLE SCHEDULE FRAME",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
@@ -61974,18 +61874,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "label",
-            "description": "The label for the VEHICLE SCHEDULE FRAME",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
             "type": {
@@ -62046,12 +61934,6 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
-          {
-            "name": "label",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "name_i18n",
             "description": "column name",
