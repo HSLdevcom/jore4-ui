@@ -27,8 +27,8 @@ import {
   isRouteGeometryLayer,
   mapLayerIdToRouteId,
   RouteEditor,
-  RouteGeometryLayer,
 } from './routes';
+import { ExistingRouteGeometryLayer } from './routes/ExistingRouteGeometryLayer';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopFilterOverlay } from './StopFilterOverlay';
 import { Stops } from './stops';
@@ -233,7 +233,7 @@ export const MapComponent = (
       {showRoute &&
         routeDisplayed &&
         displayedRouteIds?.map((item) => (
-          <RouteGeometryLayer
+          <ExistingRouteGeometryLayer
             key={item}
             routeId={item}
             isSelected={selectedRouteId === item && !hasDraftRouteGeometry}
