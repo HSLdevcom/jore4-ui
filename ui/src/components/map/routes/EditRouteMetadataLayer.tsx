@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   finishRouteMetadataEditingAction,
   resetRouteCreatingAction,
+  selectEditedRouteData,
   selectMapRouteEditor,
   setDraftRouteJourneyPatternStopsAction,
   setLineInfoAction,
@@ -27,15 +28,17 @@ export const EditRouteMetadataLayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const [getLineDetailsById] = useGetLineDetailsByIdAsyncQuery();
   const [getRouteDetailsById] = useGetRouteDetailsByIdAsyncQuery();
-  const { editedRouteData, isRouteMetadataFormOpen } =
-    useAppSelector(selectMapRouteEditor);
+  const { isRouteMetadataFormOpen } = useAppSelector(selectMapRouteEditor);
+  const {
+    templateRouteId,
+    metaData: editedRouteMetadata,
+    lineInfo: editedRouteLineInfo,
+  } = useAppSelector(selectEditedRouteData);
 
   const onClose = () => {
     dispatch(setRouteMetadataFormOpenAction(false));
 
-    const alreadyHaveValidFormValues = areFormValuesValid(
-      editedRouteData.metaData,
-    );
+    const alreadyHaveValidFormValues = areFormValuesValid(editedRouteMetadata);
 
     // In case route metadata form has not yet been submitted with valid values,
     // closing the metadata form will also cancel the route creation.
@@ -54,8 +57,6 @@ export const EditRouteMetadataLayer: React.FC = () => {
 
     dispatch(setLineInfoAction(results.data.route_line_by_pk));
     dispatch(finishRouteMetadataEditingAction(formData));
-
-    const { templateRouteId } = editedRouteData;
 
     /**
      * Get journey pattern stop metadata (e.g. via info) from template route
@@ -84,8 +85,8 @@ export const EditRouteMetadataLayer: React.FC = () => {
   // In can we already have some route metadata, fill it in. Also fill in the line id if we already
   // have it
   const defaultValues: Partial<RouteFormState> = {
-    ...editedRouteData.metaData,
-    onLineId: editedRouteData.lineInfo?.line_id,
+    ...editedRouteMetadata,
+    onLineId: editedRouteLineInfo?.line_id,
   };
 
   if (!isRouteMetadataFormOpen) {

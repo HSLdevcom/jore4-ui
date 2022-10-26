@@ -13,8 +13,8 @@ import {
 } from '../../graphql';
 import {
   EditedRouteData,
+  selectEditedRouteData,
   selectHasChangesInProgress,
-  selectMapRouteEditor,
 } from '../../redux';
 import { useAppSelector } from '../redux';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
@@ -122,7 +122,7 @@ interface RouteInfo {
  * would create its own problems (e.g. caching) so we are going with this hybrid model for now.
  */
 export const useRouteInfo = (routeId: UUID | undefined): RouteInfo => {
-  const { editedRouteData } = useAppSelector(selectMapRouteEditor);
+  const editedRouteData = useAppSelector(selectEditedRouteData);
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
 
   // Get route data

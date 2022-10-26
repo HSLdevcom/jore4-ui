@@ -21,6 +21,7 @@ import {
   Operation,
   resetRouteCreatingAction,
   selectDrawingMode,
+  selectEditedRouteData,
   selectMapRouteEditor,
   selectSelectedRouteId,
   setDraftRouteJourneyPatternStopsAction,
@@ -54,14 +55,9 @@ const RouteEditorComponent = (
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const { editedRouteData, creatingNewRoute } =
-    useAppSelector(selectMapRouteEditor);
+  const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
   const drawingMode = useAppSelector(selectDrawingMode);
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
-
-  const { updateObservationDateByValidityPeriodIfNeeded } =
-    useObservationDateQueryParam();
-  const { deleteMapQueryParameters, setRouteId } = useMapQueryParams();
 
   const {
     id: editedRouteId,
@@ -70,7 +66,11 @@ const RouteEditorComponent = (
     includedStopLabels,
     journeyPatternStops,
     metaData: routeDetails,
-  } = editedRouteData;
+  } = useAppSelector(selectEditedRouteData);
+
+  const { updateObservationDateByValidityPeriodIfNeeded } =
+    useObservationDateQueryParam();
+  const { deleteMapQueryParameters, setRouteId } = useMapQueryParams();
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [conflicts, setConflicts] = useState<RouteRoute[]>([]);

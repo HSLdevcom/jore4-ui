@@ -41,6 +41,7 @@ import {
   Mode,
   Operation,
   resetDraftRouteGeometryAction,
+  selectEditedRouteData,
   selectHasDraftRouteGeometry,
   selectMapRouteEditor,
   setDraftRouteGeometryAction,
@@ -90,9 +91,10 @@ const DrawRouteLayerComponent = (
   const editorRef = useRef<ExplicitAny>(null);
 
   const dispatch = useAppDispatch();
-  const { editedRouteData, creatingNewRoute, isRouteMetadataFormOpen } =
+  const { creatingNewRoute, isRouteMetadataFormOpen } =
     useAppSelector(selectMapRouteEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
+  const editedRouteData = useAppSelector(selectEditedRouteData);
 
   const { templateRouteId } = editedRouteData;
 
