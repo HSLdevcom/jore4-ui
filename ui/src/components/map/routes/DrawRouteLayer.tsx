@@ -53,9 +53,6 @@ import {
   showToast,
 } from '../../../utils';
 import { featureStyle, handleStyle } from './editorStyles';
-import { RouteGeometryLayer } from './RouteGeometryLayer';
-
-const SNAPPING_LINE_LAYER_ID = 'snapping-line';
 
 const GQL_GET_ROUTE_WITH_INFRASTRUCTURE_LINKS = gql`
   query GetRouteWithInfrastructureLinks($route_id: uuid!) {
@@ -99,8 +96,6 @@ const DrawRouteLayerComponent = (
   const [snappingLine, setSnappingLine] = useState<LineStringFeature>();
 
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
-  const [draftRouteGeometry, setDraftRouteGeometry] =
-    useState<GeoJSON.LineString>();
 
   const { getInfraLinksWithStopsForGeometry, getRemovedStopLabels } =
     useExtractRouteFromFeature();
@@ -112,7 +107,6 @@ const DrawRouteLayerComponent = (
   useImperativeHandle(externalRef, () => ({
     onDeleteRoute: () => {
       setSnappingLine(undefined);
-      setDraftRouteGeometry(undefined);
       dispatch(resetDraftRouteGeometryAction());
     },
   }));
@@ -212,17 +206,9 @@ const DrawRouteLayerComponent = (
           includedStopLabels,
           stopsEligibleForJourneyPattern,
           infraLinks: infraLinksWithStops,
+          geometry: matchedGeometry,
         }),
       );
-
-      if (matchedGeometry) {
-        setDraftRouteGeometry(matchedGeometry);
-      } else {
-        // map matching backend didn't returned valid route. -> remove
-        // also drawn route. Maybe we should show notification to the user
-        // when this happens?
-        setDraftRouteGeometry(undefined);
-      }
     },
     [
       baseRoute,
@@ -372,36 +358,23 @@ const DrawRouteLayerComponent = (
 
   // this renders the grey snapping line + snapping points that appear when creating or editing a route
   return (
-    <>
-      <Editor
-        style={{
-          // This component doesn't support className prop so we have to
-          // write styles manually
-          cursor: getCursor(),
-        }}
-        featureStyle={featureStyle}
-        ref={composeRefs(externalRef, editorRef)}
-        clickRadius={20}
-        mode={modeHandler}
-        onUpdate={onUpdate}
-        features={mapSnappingLineToRenderedFeatures(snappingLine)}
-        featuresDraggable={false}
-        selectable
-        onSelect={onFeatureSelected}
-        editHandleStyle={handleStyle(selectedSnapPoints)}
-      />
-      {draftRouteGeometry && hasDraftRouteGeometry && (
-        <RouteGeometryLayer
-          layerId={SNAPPING_LINE_LAYER_ID}
-          geometry={draftRouteGeometry}
-          // If we have draft route geometry,
-          // we must have set the line the route belongs to
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          vehicleMode={editedRouteData.lineInfo!.primary_vehicle_mode}
-          isSelected
-        />
-      )}
-    </>
+    <Editor
+      style={{
+        // This component doesn't support className prop so we have to
+        // write styles manually
+        cursor: getCursor(),
+      }}
+      featureStyle={featureStyle}
+      ref={composeRefs(externalRef, editorRef)}
+      clickRadius={20}
+      mode={modeHandler}
+      onUpdate={onUpdate}
+      features={mapSnappingLineToRenderedFeatures(snappingLine)}
+      featuresDraggable={false}
+      selectable
+      onSelect={onFeatureSelected}
+      editHandleStyle={handleStyle(selectedSnapPoints)}
+    />
   );
 };
 

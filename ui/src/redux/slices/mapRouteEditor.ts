@@ -44,6 +44,10 @@ export interface EditedRouteData {
    * Array of stops that are eligible to be added to the journey pattern
    */
   stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
+  /**
+   * Draft route geometry
+   */
+  geometry?: GeoJSON.LineString;
 }
 
 export interface MapRouteEditorState {
@@ -83,6 +87,7 @@ const initialState: IState = {
     stopsEligibleForJourneyPattern: [],
     infraLinks: [],
     templateRouteId: undefined,
+    geometry: undefined,
   },
   isRouteMetadataFormOpen: false,
   selectedRouteId: undefined,
@@ -229,6 +234,7 @@ const slice = createSlice({
             includedStopLabels: string[];
             stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
             infraLinks: RouteInfraLink[];
+            geometry?: GeoJSON.LineString;
           }>
         >,
       ) => {
@@ -236,6 +242,7 @@ const slice = createSlice({
           includedStopLabels,
           stopsEligibleForJourneyPattern,
           infraLinks,
+          geometry,
         } = action.payload;
 
         state.editedRouteData = {
@@ -243,21 +250,25 @@ const slice = createSlice({
           includedStopLabels: uniq(includedStopLabels),
           stopsEligibleForJourneyPattern,
           infraLinks,
+          geometry,
         };
       },
       prepare: ({
         includedStopLabels,
         stopsEligibleForJourneyPattern,
         infraLinks,
+        geometry,
       }: {
         includedStopLabels: string[];
         stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
         infraLinks: RouteInfraLink[];
+        geometry?: GeoJSON.LineString;
       }) => ({
         payload: mapToStoreType({
           includedStopLabels,
           stopsEligibleForJourneyPattern,
           infraLinks,
+          geometry,
         }),
       }),
     },
@@ -280,6 +291,7 @@ const slice = createSlice({
         journeyPatternStops: [],
         stopsEligibleForJourneyPattern: [],
         infraLinks: [],
+        geometry: undefined,
       };
     },
     /**
