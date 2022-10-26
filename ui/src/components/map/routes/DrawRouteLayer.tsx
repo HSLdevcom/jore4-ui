@@ -149,7 +149,7 @@ const DrawRouteLayerComponent = (
       // we are editing an existing or a template route, but haven't (yet) received the graphql
       // response with its data -> return early
       if (!baseRoute && !creatingNewRoute) {
-        log.error(
+        log.warn(
           'Trying to edit an existing route but could not find a base route (yet)',
         );
         return;
@@ -163,7 +163,7 @@ const DrawRouteLayerComponent = (
         editedRouteData.metaData.validityEnd === undefined ||
         editedRouteData.metaData.priority === undefined
       ) {
-        log.error(
+        log.warn(
           'Trying to update route geometry but route metadata is not (yet) available',
         );
         return;
