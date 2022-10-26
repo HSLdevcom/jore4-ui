@@ -8,6 +8,7 @@ import {
 } from '../../generated/graphql';
 import { getRouteStopLabels, mapRouteResultToRoutes } from '../../graphql';
 import {
+  selectEditedRouteData,
   selectEditedRouteIncludedStops,
   selectMapRouteEditor,
   selectSelectedStopId,
@@ -49,8 +50,10 @@ export const useMapStops = () => {
   const editedRouteIncludedStops = useAppSelector(
     selectEditedRouteIncludedStops,
   );
-  const { editedRouteData } = useAppSelector(selectMapRouteEditor);
-  const editedRouteStopLabels = editedRouteData.includedStopLabels;
+
+  const { includedStopLabels: editedRouteStopLabels } = useAppSelector(
+    selectEditedRouteData,
+  );
 
   const displayedRoutesResult = useGetRoutesWithInfrastructureLinksQuery(
     mapToVariables({ route_ids: displayedRouteIds }),

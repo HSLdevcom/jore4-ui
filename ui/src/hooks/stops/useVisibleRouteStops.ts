@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { pipe } from 'remeda';
-import { selectHasChangesInProgress, selectMapRouteEditor } from '../../redux';
+import { selectEditedRouteData, selectHasChangesInProgress } from '../../redux';
 import { useAppSelector } from '../redux';
 import { useGetDisplayedRoutes } from '../routes';
 
@@ -10,7 +10,9 @@ import { useGetDisplayedRoutes } from '../routes';
 export const useVisibleRouteStops = () => {
   const { displayedRoutes } = useGetDisplayedRoutes();
 
-  const { editedRouteData } = useAppSelector(selectMapRouteEditor);
+  const { includedStopLabels: editedRouteStopLabels } = useAppSelector(
+    selectEditedRouteData,
+  );
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
 
   const displayedRouteStopLabels = pipe(
@@ -30,13 +32,9 @@ export const useVisibleRouteStops = () => {
   const visibleRouteStopLabels = useMemo(
     () =>
       routeEditingInProgress
-        ? [...displayedRouteStopLabels, ...editedRouteData.includedStopLabels]
+        ? [...displayedRouteStopLabels, ...editedRouteStopLabels]
         : displayedRouteStopLabels,
-    [
-      displayedRouteStopLabels,
-      editedRouteData.includedStopLabels,
-      routeEditingInProgress,
-    ],
+    [displayedRouteStopLabels, editedRouteStopLabels, routeEditingInProgress],
   );
 
   return { visibleRouteStopLabels };

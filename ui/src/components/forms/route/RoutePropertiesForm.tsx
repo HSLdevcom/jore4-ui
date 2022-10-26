@@ -5,7 +5,11 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
-import { selectMapRouteEditor, setTemplateRouteIdAction } from '../../../redux';
+import {
+  selectEditedRouteData,
+  selectMapRouteEditor,
+  setTemplateRouteIdAction,
+} from '../../../redux';
 import { Switch, SwitchLabel } from '../../../uiComponents';
 import { FormColumn, FormRow, InputField } from '../common';
 import { ConfirmSaveForm } from '../common/ConfirmSaveForm';
@@ -40,8 +44,8 @@ const RoutePropertiesFormComponent = (
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const { editedRouteData, creatingNewRoute } =
-    useAppSelector(selectMapRouteEditor);
+  const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
+  const { templateRouteId } = useAppSelector(selectEditedRouteData);
 
   const methods = useForm<FormState>({
     defaultValues,
@@ -137,7 +141,7 @@ const RoutePropertiesFormComponent = (
             </Row>
             {showTemplateRouteSelector && (
               <TemplateRouteSelector
-                value={editedRouteData.templateRouteId}
+                value={templateRouteId}
                 onChange={(e) => setTemplateRoute(e.target.value)}
               />
             )}

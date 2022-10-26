@@ -52,6 +52,11 @@ export const selectHasChangesInProgress = createSelector(
   (modalMap, viewMode) => modalMap.creatingNewRoute || !viewMode,
 );
 
+export const selectEditedRouteData = createSelector(
+  selectMapRouteEditor,
+  (mapRouteEditor) => mapRouteEditor.editedRouteData,
+);
+
 export const selectHasDraftRouteGeometry = createSelector(
   selectMapRouteEditor,
   (mapRouteEditor) => !!mapRouteEditor.editedRouteData.infraLinks?.length,
