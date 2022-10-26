@@ -1,4 +1,5 @@
 import { theme } from '../../../generated/theme';
+import { LineArrowLayer } from './LineArrowLayer';
 import { LinePolygonLayer } from './LinePolygonLayer';
 
 const { colors } = theme;
@@ -19,19 +20,40 @@ export const RouteGeometryLayer = ({
 }: Props): JSX.Element => {
   const beforeId = isHighlighted ? undefined : 'route_base';
 
-  const paint: mapboxgl.LinePaint = {
-    'line-color': isHighlighted ? colors.selectedMapItem : defaultColor,
+  const color = isHighlighted ? colors.selectedMapItem : defaultColor;
+
+  // Offset line to right side of the infra link
+  const lineOffset = 6;
+
+  const linePaint: mapboxgl.LinePaint = {
+    'line-color': color,
     'line-width': isHighlighted ? 9 : 8,
-    'line-opacity': isHighlighted ? 1 : 0.75,
-    'line-offset': 6,
+    'line-offset': lineOffset,
+  };
+
+  const arrowLayout: mapboxgl.SymbolLayout = {
+    'icon-offset': [0, lineOffset],
+  };
+
+  const arrowPaint: mapboxgl.SymbolPaint = {
+    'icon-color': color,
   };
 
   return (
-    <LinePolygonLayer
-      layerId={layerId}
-      geometry={geometry}
-      paint={paint}
-      beforeId={beforeId}
-    />
+    <>
+      <LinePolygonLayer
+        layerId={layerId}
+        geometry={geometry}
+        paint={linePaint}
+        beforeId={beforeId}
+      />
+      <LineArrowLayer
+        layerId={`arrows_for_${layerId}`}
+        geometry={geometry}
+        layout={arrowLayout}
+        paint={arrowPaint}
+        beforeId={layerId}
+      />
+    </>
   );
 };
