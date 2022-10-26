@@ -1,6 +1,7 @@
 import { RouteTableRowFragment } from '../../../generated/graphql';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { RouteTableRow } from '../../common';
 import { RoutesTable } from './RoutesTable';
-import { RouteTableRow } from './RouteTableRow';
 
 type Props = {
   routes?: RouteTableRowFragment[];
@@ -19,6 +20,7 @@ export const RoutesList = ({
     {routes?.map((item: RouteTableRowFragment) => (
       <RouteTableRow
         key={item.route_id}
+        linkTo={routeDetails[Path.lineDetails].getLink(item.on_line_id)}
         route={item}
         isSelectable={areItemsSelectable}
       />

@@ -3,19 +3,18 @@ import { Link } from 'react-router-dom';
 import {
   LineTableRowFragment,
   RouteTableRowFragment,
-} from '../../../generated/graphql';
-import { useAlertsAndHighLights } from '../../../hooks';
-import { Column, Row, Visible } from '../../../layoutComponents';
-import { Path, routeDetails } from '../../../router/routeDetails';
-import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../../time';
-import { LocatorButton } from '../../../uiComponents';
+} from '../../generated/graphql';
+import { useAlertsAndHighLights } from '../../hooks';
+import { Column, Row, Visible } from '../../layoutComponents';
+import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../time';
+import { LocatorButton } from '../../uiComponents';
 
 interface Props {
   className?: string;
   onLocatorButtonClick?: () => void;
   locatorButtonTestId: string;
-  lineId: UUID;
   rowItem: LineTableRowFragment | RouteTableRowFragment;
+  linkTo: string;
   isSelected?: boolean;
   onSelectChanged?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   selectionDisabled?: boolean;
@@ -23,13 +22,14 @@ interface Props {
 
 const yBorderClassnames = 'border-y border-y-light-grey';
 
+/** The visual component used for displaying RouteTableRow and LineTableRow */
 export const RouteLineTableRow = ({
   className = '',
   onLocatorButtonClick,
   onSelectChanged,
   locatorButtonTestId,
-  lineId,
   rowItem,
+  linkTo,
   isSelected,
   selectionDisabled = false,
 }: Props): JSX.Element => {
@@ -60,7 +60,7 @@ export const RouteLineTableRow = ({
         <i className={`${alertIcon} my-auto flex text-3xl`} />
       </td>
       <td className={`w-full py-4 ${yBorderClassnames}`}>
-        <Link to={routeDetails[Path.lineDetails].getLink(lineId)}>
+        <Link to={linkTo}>
           <Row className="items-center">
             <Column className="w-1/2 font-bold">
               <h2>{rowItem.label}</h2>

@@ -1,20 +1,21 @@
 import { gql } from '@apollo/client';
-import { LineTableRowFragment } from '../../../generated/graphql';
+import { LineTableRowFragment } from '../../generated/graphql';
 import {
   useAppDispatch,
   useAppSelector,
   useShowRoutesOnModal,
-} from '../../../hooks';
+} from '../../hooks';
 import {
   deselectRouteLabelsAction,
   selectExport,
   selectRouteLabelsAction,
-} from '../../../redux';
+} from '../../redux';
 import { RouteLineTableRow } from './RouteLineTableRow';
 
 interface Props {
   className?: string;
   line: LineTableRowFragment;
+  linkTo: string;
   isSelectable?: boolean;
 }
 
@@ -30,9 +31,15 @@ const GQL_LINE_TABLE_ROW = gql`
   }
 `;
 
+/**
+ * Reusable component LineTableRow for list views. This component requires
+ * the line information (LineTableRowFragment) and linkTo parameter to
+ * determine where we navigate after clicking this row.
+ */
 export const LineTableRow = ({
   className = '',
   line,
+  linkTo,
   isSelectable = false,
 }: Props): JSX.Element => {
   const { showRouteOnMapByLineLabel } = useShowRoutesOnModal();
@@ -68,7 +75,7 @@ export const LineTableRow = ({
   return (
     <RouteLineTableRow
       rowItem={line}
-      lineId={line.line_id}
+      linkTo={linkTo}
       onLocatorButtonClick={showLineRoutes}
       locatorButtonTestId="LineTableRow::showLineRoutes"
       className={className}

@@ -1,5 +1,6 @@
 import { LineTableRowFragment } from '../../../generated/graphql';
-import { LineTableRow } from './LineTableRow';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { LineTableRow } from '../../common';
 import { RoutesTable } from './RoutesTable';
 
 type Props = {
@@ -19,6 +20,7 @@ export const LinesList = ({
     {lines?.map((item: LineTableRowFragment) => (
       <LineTableRow
         key={item.line_id}
+        linkTo={routeDetails[Path.lineDetails].getLink(item.line_id)}
         line={item}
         isSelectable={areItemsSelectable}
       />
