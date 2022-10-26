@@ -6,7 +6,6 @@ import isNil from 'lodash/isNil';
 import remove from 'lodash/remove';
 import React, {
   useCallback,
-  useContext,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -14,7 +13,6 @@ import React, {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapContext } from 'react-map-gl';
 import {
   DrawLineStringMode,
   EditingMode,
@@ -54,8 +52,8 @@ import {
   showDangerToast,
   showToast,
 } from '../../../utils';
-import { addRoute, removeRoute } from '../../../utils/map';
 import { featureStyle, handleStyle } from './editorStyles';
+import { RouteGeometryLayer } from './RouteGeometryLayer';
 
 const SNAPPING_LINE_LAYER_ID = 'snapping-line';
 
@@ -87,7 +85,6 @@ const DrawRouteLayerComponent = (
   { mode }: Props,
   externalRef: ExplicitAny,
 ): JSX.Element => {
-  const { map } = useContext(MapContext);
   const editorRef = useRef<ExplicitAny>(null);
 
   const dispatch = useAppDispatch();
@@ -102,6 +99,8 @@ const DrawRouteLayerComponent = (
   const [snappingLine, setSnappingLine] = useState<LineStringFeature>();
 
   const [selectedSnapPoints, setSelectedSnapPoints] = useState<number[]>([]);
+  const [draftRouteGeometry, setDraftRouteGeometry] =
+    useState<GeoJSON.LineString>();
 
   const { getInfraLinksWithStopsForGeometry, getRemovedStopLabels } =
     useExtractRouteFromFeature();
@@ -110,20 +109,11 @@ const DrawRouteLayerComponent = (
 
   const { t } = useTranslation();
 
-  const onDelete = useCallback(
-    (routeId: string) => {
-      setSnappingLine(undefined);
-      removeRoute(map, routeId);
-      dispatch(resetDraftRouteGeometryAction());
-    },
-    [map, dispatch],
-  );
-
   useImperativeHandle(externalRef, () => ({
     onDeleteRoute: () => {
-      // currently user can draw only one route, so id of it will always be '0'
-      const routeId = SNAPPING_LINE_LAYER_ID;
-      onDelete(routeId);
+      setSnappingLine(undefined);
+      setDraftRouteGeometry(undefined);
+      dispatch(resetDraftRouteGeometryAction());
     },
   }));
 
@@ -226,12 +216,12 @@ const DrawRouteLayerComponent = (
       );
 
       if (matchedGeometry) {
-        addRoute(map, SNAPPING_LINE_LAYER_ID, matchedGeometry);
+        setDraftRouteGeometry(matchedGeometry);
       } else {
         // map matching backend didn't returned valid route. -> remove
         // also drawn route. Maybe we should show notification to the user
         // when this happens?
-        onDelete(SNAPPING_LINE_LAYER_ID);
+        setDraftRouteGeometry(undefined);
       }
     },
     [
@@ -243,8 +233,6 @@ const DrawRouteLayerComponent = (
       editedRouteData.metaData,
       getInfraLinksWithStopsForGeometry,
       getRemovedStopLabels,
-      map,
-      onDelete,
       setIsLoading,
       t,
     ],
@@ -384,23 +372,36 @@ const DrawRouteLayerComponent = (
 
   // this renders the grey snapping line + snapping points that appear when creating or editing a route
   return (
-    <Editor
-      style={{
-        // This component doesn't support className prop so we have to
-        // write styles manually
-        cursor: getCursor(),
-      }}
-      featureStyle={featureStyle}
-      ref={composeRefs(externalRef, editorRef)}
-      clickRadius={20}
-      mode={modeHandler}
-      onUpdate={onUpdate}
-      features={mapSnappingLineToRenderedFeatures(snappingLine)}
-      featuresDraggable={false}
-      selectable
-      onSelect={onFeatureSelected}
-      editHandleStyle={handleStyle(selectedSnapPoints)}
-    />
+    <>
+      <Editor
+        style={{
+          // This component doesn't support className prop so we have to
+          // write styles manually
+          cursor: getCursor(),
+        }}
+        featureStyle={featureStyle}
+        ref={composeRefs(externalRef, editorRef)}
+        clickRadius={20}
+        mode={modeHandler}
+        onUpdate={onUpdate}
+        features={mapSnappingLineToRenderedFeatures(snappingLine)}
+        featuresDraggable={false}
+        selectable
+        onSelect={onFeatureSelected}
+        editHandleStyle={handleStyle(selectedSnapPoints)}
+      />
+      {draftRouteGeometry && hasDraftRouteGeometry && (
+        <RouteGeometryLayer
+          layerId={SNAPPING_LINE_LAYER_ID}
+          geometry={draftRouteGeometry}
+          // If we have draft route geometry,
+          // we must have set the line the route belongs to
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          vehicleMode={editedRouteData.lineInfo!.primary_vehicle_mode}
+          isSelected
+        />
+      )}
+    </>
   );
 };
 
