@@ -26,7 +26,6 @@ export const LinePolygonLayer = ({
   const defaultPaint: mapboxgl.LinePaint = {
     'line-color': theme.colors.routes.bus,
     'line-width': 8,
-    'line-opacity': 0.75,
     'line-offset': 6,
   };
 

@@ -6,6 +6,7 @@ import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
 import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
 import { Operation, setViewPortAction } from '../../redux';
+import { loadMapAssets } from '../../utils/map';
 
 interface Props {
   className?: string;
@@ -141,6 +142,8 @@ export const Maplibre: FunctionComponent<Props> = ({
       updateMapDetailsDebounced.cancel();
     };
   }, [updateMapDetailsDebounced]);
+
+  loadMapAssets(mapRef);
 
   return (
     <MapGL
