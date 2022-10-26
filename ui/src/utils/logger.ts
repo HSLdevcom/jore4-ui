@@ -6,4 +6,8 @@ export const log = {
     // eslint-disable-next-line no-console
     console.error(...data);
   },
+  warn: (...data: ExplicitAny[]) => {
+    // eslint-disable-next-line no-console
+    console.warn(...data);
+  },
 };
