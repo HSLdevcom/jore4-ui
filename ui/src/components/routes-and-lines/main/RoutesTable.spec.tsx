@@ -4,11 +4,12 @@ import {
   RouteDirectionEnum,
   RouteTableRowFragment,
 } from '../../../generated/graphql';
+import { Path, routeDetails } from '../../../router/routeDetails';
 import { Priority } from '../../../types/Priority';
 import { render } from '../../../utils/test-utils';
-import { LineTableRow } from './LineTableRow';
+import { RouteTableRow } from '../../common';
+import { LineTableRow } from '../../common/LineTableRow';
 import { RoutesTable } from './RoutesTable';
-import { RouteTableRow } from './RouteTableRow';
 
 describe(`<${RoutesTable.name} />`, () => {
   const testId = 'routesTable1';
@@ -26,13 +27,17 @@ describe(`<${RoutesTable.name} />`, () => {
     },
   ];
 
-  test('Renders the table with route data', async () => {
+  test('Renders the table with route data (routes and lines)', async () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const routes = routesResponseMock!;
     const { asFragment } = render(
       <RoutesTable testId={testId}>
         {routes.map((item: RouteTableRowFragment) => (
-          <RouteTableRow key={item.route_id} route={item} />
+          <RouteTableRow
+            key={item.route_id}
+            route={item}
+            linkTo={routeDetails[Path.lineDetails].getLink(item.on_line_id)}
+          />
         ))}
       </RoutesTable>,
     );
@@ -85,7 +90,11 @@ describe(`<${RoutesTable.name} />`, () => {
     const { asFragment } = render(
       <RoutesTable testId={testId}>
         {lines.map((item: LineTableRowFragment) => (
-          <LineTableRow key={item.line_id} line={item} />
+          <LineTableRow
+            key={item.line_id}
+            line={item}
+            linkTo={routeDetails[Path.lineDetails].getLink(item.line_id)}
+          />
         ))}
       </RoutesTable>,
     );
