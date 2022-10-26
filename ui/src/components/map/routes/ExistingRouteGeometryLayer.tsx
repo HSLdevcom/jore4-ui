@@ -7,15 +7,22 @@ import { mapToVariables } from '../../../utils';
 import { mapVehicleModeToRouteColor } from '../../../utils/colors';
 import { RouteGeometryLayer } from './RouteGeometryLayer';
 
-export const ROUTE_LAYER_ID_PREFIX = 'route_id_';
+const ROUTE_LAYER_ID_PREFIX = 'route_id_';
+// Get route id between route layer id prefix and _line/_arrows postfix
+const ROUTE_ID_FROM_LAYER_ID_REGEX = new RegExp(
+  `(?<=${ROUTE_LAYER_ID_PREFIX})(.*)(?=_)`,
+);
 
 // utilities to allow finding the original route's id based on the layer's id
 export const isRouteGeometryLayer = (layerId: string) =>
   layerId.startsWith(ROUTE_LAYER_ID_PREFIX);
 export const mapRouteIdToLayerId = (routeId: UUID) =>
   `${ROUTE_LAYER_ID_PREFIX}${routeId}`;
-export const mapLayerIdToRouteId = (layerId: string) =>
-  layerId.substring(ROUTE_LAYER_ID_PREFIX.length) as UUID;
+export const mapLayerIdToRouteId = (layerId: string) => {
+  const matches = layerId.match(ROUTE_ID_FROM_LAYER_ID_REGEX);
+
+  return matches?.length ? (matches[0] as UUID) : undefined;
+};
 
 interface Props {
   routeId: string;
