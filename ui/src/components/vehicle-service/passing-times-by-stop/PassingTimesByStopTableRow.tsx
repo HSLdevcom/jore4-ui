@@ -40,9 +40,7 @@ export const PassingTimesByStopTableRow = ({
 
   const passingTimesByHour = groupBy(
     passingTimes,
-    (passingTime) =>
-      // Group by departure hour. If departure is not defined, departure is same as arrival
-      passingTime?.departure_time?.hours || passingTime.arrival_time.hours,
+    (passingTime) => passingTime.departure_time.hours,
   );
 
   return (

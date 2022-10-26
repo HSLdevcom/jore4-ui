@@ -27,9 +27,10 @@ export const PassingTimesByStopTableRowPassingMinute = ({
   selectedPassingTime,
   setSelectedPassingTime,
 }: Props): JSX.Element => {
-  const arrival = passingTime.arrival_time;
-  // If departure is undefined, departure time is same as arrival time
-  const departure = passingTime?.departure_time || arrival;
+  const departure = passingTime.departure_time;
+
+  // If arrival is undefined, arrival time is same as departure time
+  const arrival = passingTime.arrival_time || departure;
 
   // Highlight passing minute, if it belongs to the same vehicle journey as selected passing minute
   const isHighlighted =

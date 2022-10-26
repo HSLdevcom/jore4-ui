@@ -18,7 +18,7 @@ export const PassingTimesByStopTableRowPassingTime = ({
 }: Props): JSX.Element => {
   const sortedPassingTimes = sortBy(
     passingTimes,
-    (passingTime) => passingTime.arrival_time,
+    (passingTime) => passingTime.departure_time,
   );
 
   return (
