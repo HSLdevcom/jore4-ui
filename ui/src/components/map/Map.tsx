@@ -33,6 +33,7 @@ import { ExistingRouteGeometryLayer } from './routes/ExistingRouteGeometryLayer'
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopFilterOverlay } from './StopFilterOverlay';
 import { Stops } from './stops';
+import { VisualElements } from './VisualElements';
 
 interface Props {
   drawable?: boolean;
@@ -245,6 +246,7 @@ export const MapComponent = (
         onDeleteDrawnRoute={() => editorLayerRef.current?.onDeleteRoute()}
         ref={routeEditorRef}
       />
+      <VisualElements />
     </Maplibre>
   );
 };
