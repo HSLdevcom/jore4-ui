@@ -1,3 +1,4 @@
+export * from './DraftRouteGeometryLayer';
 export * from './DrawRouteLayer';
 export * from './EditRouteMetadataLayer';
 export * from './EditRouteModal';
