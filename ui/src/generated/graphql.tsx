@@ -11114,6 +11114,38 @@ export type ValidityPeriod = {
   validity_start?: Maybe<Scalars['date']>;
 };
 
+export type LineTableRowFragment = {
+  __typename?: 'route_line';
+  name_i18n: LocalizedString;
+  short_name_i18n: LocalizedString;
+  priority: number;
+  line_id: UUID;
+  label: string;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  line_routes: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null | undefined;
+    label: string;
+    validity_start?: luxon.DateTime | null | undefined;
+    validity_end?: luxon.DateTime | null | undefined;
+  }>;
+};
+
+export type RouteTableRowFragment = {
+  __typename?: 'route_route';
+  name_i18n: LocalizedString;
+  direction: RouteDirectionEnum;
+  priority: number;
+  on_line_id: UUID;
+  route_id: UUID;
+  label: string;
+  route_shape?: GeoJSON.LineString | null | undefined;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+};
+
 export type RouteMetadataFragment = {
   __typename?: 'route_route';
   name_i18n: LocalizedString;
@@ -11214,38 +11246,6 @@ export type StopPopupInfoFragment = {
   validity_start?: luxon.DateTime | null | undefined;
   validity_end?: luxon.DateTime | null | undefined;
   measured_location: GeoJSON.Point;
-};
-
-export type LineTableRowFragment = {
-  __typename?: 'route_line';
-  name_i18n: LocalizedString;
-  short_name_i18n: LocalizedString;
-  priority: number;
-  line_id: UUID;
-  label: string;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
-  line_routes: Array<{
-    __typename?: 'route_route';
-    route_id: UUID;
-    route_shape?: GeoJSON.LineString | null | undefined;
-    label: string;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-  }>;
-};
-
-export type RouteTableRowFragment = {
-  __typename?: 'route_route';
-  name_i18n: LocalizedString;
-  direction: RouteDirectionEnum;
-  priority: number;
-  on_line_id: UUID;
-  route_id: UUID;
-  label: string;
-  route_shape?: GeoJSON.LineString | null | undefined;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
 };
 
 export type ListChangingRoutesQueryVariables = Exact<{
@@ -13849,25 +13849,6 @@ export type JourneyPatternStopFragment = {
   via_point_short_name_i18n?: LocalizedString | null | undefined;
 };
 
-export const RouteMetadataFragmentDoc = gql`
-  fragment route_metadata on route_route {
-    name_i18n
-    label
-    priority
-    validity_start
-    validity_end
-    direction
-  }
-`;
-export const StopPopupInfoFragmentDoc = gql`
-  fragment stop_popup_info on service_pattern_scheduled_stop_point {
-    label
-    priority
-    validity_start
-    validity_end
-    measured_location
-  }
-`;
 export const LineInformationForMapFragmentDoc = gql`
   fragment line_information_for_map on route_line {
     line_id
@@ -13911,6 +13892,25 @@ export const RouteTableRowFragmentDoc = gql`
     on_line_id
   }
   ${RouteInformationForMapFragmentDoc}
+`;
+export const RouteMetadataFragmentDoc = gql`
+  fragment route_metadata on route_route {
+    name_i18n
+    label
+    priority
+    validity_start
+    validity_end
+    direction
+  }
+`;
+export const StopPopupInfoFragmentDoc = gql`
+  fragment stop_popup_info on service_pattern_scheduled_stop_point {
+    label
+    priority
+    validity_start
+    validity_end
+    measured_location
+  }
 `;
 export const PassingTimeByStopFragmentDoc = gql`
   fragment passing_time_by_stop on timetables_passing_times_timetabled_passing_time {
