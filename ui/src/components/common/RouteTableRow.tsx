@@ -1,15 +1,15 @@
 import { gql } from '@apollo/client';
-import { RouteTableRowFragment } from '../../../generated/graphql';
+import { RouteTableRowFragment } from '../../generated/graphql';
 import {
   useAppDispatch,
   useAppSelector,
   useShowRoutesOnModal,
-} from '../../../hooks';
+} from '../../hooks';
 import {
   deselectRouteLabelAction,
   selectExport,
   selectRouteLabelAction,
-} from '../../../redux';
+} from '../../redux';
 import { RouteLineTableRow } from './RouteLineTableRow';
 
 const GQL_ROUTE_TABLE_ROW = gql`
@@ -25,12 +25,19 @@ const GQL_ROUTE_TABLE_ROW = gql`
 interface Props {
   className?: string;
   route: RouteTableRowFragment;
+  linkTo: string;
   isSelectable?: boolean;
 }
 
+/**
+ * Reusable component RouteTableRow for list views. This component requires
+ * the route information (RouteTableRowFragment) and linkTo parameter to
+ * determine where we navigate after clicking this row.
+ */
 export const RouteTableRow = ({
   className = '',
   route,
+  linkTo,
   isSelectable = false,
 }: Props): JSX.Element => {
   const { showRouteOnMapByLabel } = useShowRoutesOnModal();
@@ -55,7 +62,7 @@ export const RouteTableRow = ({
   return (
     <RouteLineTableRow
       rowItem={route}
-      lineId={route.on_line_id}
+      linkTo={linkTo}
       onLocatorButtonClick={
         route.route_shape /* some routes imported from jore3 are missing the geometry */
           ? onClickShowRouteOnMap
