@@ -61,7 +61,7 @@ describe('Route creation', () => {
 
   it(
     'Should create new route',
-    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 12000 },
     () => {
       const routeName = 'Testireitti 1';
 
@@ -98,7 +98,7 @@ describe('Route creation', () => {
 
   it(
     'Should create a new route and leave out one stop',
-    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 12000 },
     () => {
       const routeName = 'Testireitti 2';
       const omittedStopsLabels = ['H1235'];
@@ -138,7 +138,7 @@ describe('Route creation', () => {
 
   it(
     'Should not let the user create a route with only one stop',
-    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 12000 },
     () => {
       const routeName = 'Testireitti 3';
       const omittedStopsLabels = ['H1235', 'H1234'];
