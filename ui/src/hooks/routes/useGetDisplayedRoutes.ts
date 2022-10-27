@@ -7,9 +7,9 @@ import {
 } from '../../generated/graphql';
 import { Operation } from '../../redux';
 import {
-  constructActiveDateGqlFilter,
-  constructLabelGqlFilter,
-  constructPriorityInGqlFilter,
+  buildActiveDateGqlFilter,
+  buildLabelGqlFilter,
+  buildPriorityInGqlFilter,
 } from '../../utils';
 import { filterRoutesByHighestPriority } from '../line-details';
 import { useLoader } from '../ui';
@@ -69,8 +69,8 @@ export const useGetDisplayedRoutes = () => {
   const { setIsLoading } = useLoader(Operation.FetchRoutes);
 
   const routeFilters = {
-    ...constructActiveDateGqlFilter(observationDate),
-    ...constructPriorityInGqlFilter(priorities),
+    ...buildActiveDateGqlFilter(observationDate),
+    ...buildPriorityInGqlFilter(priorities),
   };
 
   // Get routes by ROUTE LABEL OR ID
@@ -81,7 +81,7 @@ export const useGetDisplayedRoutes = () => {
         _and: [
           {
             _or: [
-              routeLabel && constructLabelGqlFilter(routeLabel),
+              routeLabel && buildLabelGqlFilter(routeLabel),
               routeId && { route_id: { _eq: routeId } },
               // Remove undefined instances with filter
             ].filter((i) => i) as RouteRouteBoolExp[],
@@ -98,7 +98,7 @@ export const useGetDisplayedRoutes = () => {
   // Get routes by LINE LABEL
 
   const lineFilters = {
-    ...constructLabelGqlFilter(lineLabel),
+    ...buildLabelGqlFilter(lineLabel),
   };
 
   const routesByLineLabelResult = useGetLineRoutesByLabelQuery({

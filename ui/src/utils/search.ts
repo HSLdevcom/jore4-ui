@@ -11,47 +11,47 @@ import {
 import { SearchConditions } from '../hooks/search/useSearchQueryParser';
 import { AllOptionEnum } from './enum';
 import {
-  constructActiveDateGqlFilter,
-  constructLabelLikeGqlFilter,
-  constructPrimaryVehicleModeGqlFilter,
-  constructPriorityInGqlFilter,
-  constructTypeOfLineGqlFilter,
+  buildActiveDateGqlFilter,
+  buildLabelLikeGqlFilter,
+  buildPrimaryVehicleModeGqlFilter,
+  buildPriorityInGqlFilter,
+  buildTypeOfLineGqlFilter,
 } from './gql';
 
 export const mapToSqlLikeValue = (str: string) => {
   return str.replaceAll('*', '%');
 };
 
-/** Construct optional search condition filter. Returns
+/** Build optional search condition filter. Returns
  * empty object if the filter is not set or is set to 'All', otherwise
- * returns the GQL filter constructed with the given function.
+ * returns the GQL filter built with the given function.
  * If the value is missing or is 'All', we return empty object because
  * we do not want to create the GQL filter at all.
  */
-const constructOptionalSearchConditionGqlFilter = <TType>(
+const buildOptionalSearchConditionGqlFilter = <TType>(
   value: TType | AllOptionEnum.All | undefined,
-  constructFunction: (value: TType) => RouteLineBoolExp | RouteRouteBoolExp,
+  buildFunction: (value: TType) => RouteLineBoolExp | RouteRouteBoolExp,
 ) => {
   if (value && value !== AllOptionEnum.All) {
-    return constructFunction(value);
+    return buildFunction(value);
   }
   return {};
 };
 
-/** Wraps all the properties in route_line if 'constructRouteFilter' flag is true
+/** Wraps all the properties in route_line if 'buildRouteFilter' flag is true
  * and if there is any properties to wrap (they are optional and if none of them
  * are chosen, the properties object might be empty).
  */
 const handleLinePropertyGqlFilters = ({
   properties,
-  constructRouteFilter,
+  buildRouteFilter,
 }: {
   properties: RouteLineBoolExp;
-  constructRouteFilter: boolean;
+  buildRouteFilter: boolean;
 }) => {
   return {
-    // Wrap with route_line if constructing route filter and there are properties to wrap
-    ...(constructRouteFilter && Object.keys(properties).length
+    // Wrap with route_line if building route filter and there are properties to wrap
+    ...(buildRouteFilter && Object.keys(properties).length
       ? {
           route_line: properties,
         }
@@ -59,53 +59,53 @@ const handleLinePropertyGqlFilters = ({
   };
 };
 
-/** Constructs the search condition GQL filters for either route or line and
- * constructRouteFilter parameter is used to determine which one.
+/** Builds the search condition GQL filters for either route or line and
+ * buildRouteFilter parameter is used to determine which one.
  */
-const constructSearchConditionGqlFilters = ({
+const buildSearchConditionGqlFilters = ({
   searchConditions,
-  constructRouteFilter,
+  buildRouteFilter,
 }: {
   searchConditions: SearchConditions;
-  constructRouteFilter: boolean;
+  buildRouteFilter: boolean;
 }): RouteRouteBoolExp | RouteLineBoolExp => {
   return {
-    // Construct all the generic filters.
-    ...constructOptionalSearchConditionGqlFilter<string>(
+    // Build all the generic filters.
+    ...buildOptionalSearchConditionGqlFilter<string>(
       mapToSqlLikeValue(searchConditions.label),
-      constructLabelLikeGqlFilter,
+      buildLabelLikeGqlFilter,
     ),
-    ...constructPriorityInGqlFilter(searchConditions.priorities),
-    ...constructActiveDateGqlFilter(searchConditions.observationDate),
+    ...buildPriorityInGqlFilter(searchConditions.priorities),
+    ...buildActiveDateGqlFilter(searchConditions.observationDate),
 
-    // Construct all the filters that are line's properties.
+    // Build all the filters that are line's properties.
     ...handleLinePropertyGqlFilters({
       properties: {
-        ...constructOptionalSearchConditionGqlFilter<ReusableComponentsVehicleModeEnum>(
+        ...buildOptionalSearchConditionGqlFilter<ReusableComponentsVehicleModeEnum>(
           searchConditions.primaryVehicleMode,
-          constructPrimaryVehicleModeGqlFilter,
+          buildPrimaryVehicleModeGqlFilter,
         ),
-        ...constructOptionalSearchConditionGqlFilter<RouteTypeOfLineEnum>(
+        ...buildOptionalSearchConditionGqlFilter<RouteTypeOfLineEnum>(
           searchConditions.typeOfLine,
-          constructTypeOfLineGqlFilter,
+          buildTypeOfLineGqlFilter,
         ),
       },
-      constructRouteFilter,
+      buildRouteFilter,
     }),
   };
 };
 
-export const constructSearchLinesAndRoutesGqlQueryVariables = (
+export const buildSearchLinesAndRoutesGqlQueryVariables = (
   searchConditions: SearchConditions,
 ): SearchLinesAndRoutesQueryVariables => {
-  const lineFilter = constructSearchConditionGqlFilters({
+  const lineFilter = buildSearchConditionGqlFilters({
     searchConditions,
-    constructRouteFilter: false,
+    buildRouteFilter: false,
   });
 
-  const routeFilter = constructSearchConditionGqlFilters({
+  const routeFilter = buildSearchConditionGqlFilters({
     searchConditions,
-    constructRouteFilter: true,
+    buildRouteFilter: true,
   });
 
   // TODO: These will be changed to dynamic when the sorting feature is implemented

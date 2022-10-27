@@ -17,9 +17,9 @@ import {
   mapLineValidityPeriod,
 } from '../../graphql';
 import {
-  constructActiveDateGqlFilter,
-  constructDraftPriorityGqlFilter,
-  constructLabelGqlFilter,
+  buildActiveDateGqlFilter,
+  buildDraftPriorityGqlFilter,
+  buildLabelGqlFilter,
 } from '../../utils';
 import { useObservationDateQueryParam } from '../urlQuery';
 
@@ -90,22 +90,22 @@ const getInitialDate = (
   return validityStart;
 };
 
-const constructLineDetailsGqlFilters = (
+const buildLineDetailsGqlFilters = (
   line?: RouteLine,
   observationDate?: DateTime | null,
 ) => {
   const lineFilters = {
-    ...constructLabelGqlFilter(line?.label),
-    ...constructActiveDateGqlFilter(observationDate),
-    ...constructDraftPriorityGqlFilter(line?.priority),
+    ...buildLabelGqlFilter(line?.label),
+    ...buildActiveDateGqlFilter(observationDate),
+    ...buildDraftPriorityGqlFilter(line?.priority),
   };
 
   const lineRouteFilters = {
-    ...constructActiveDateGqlFilter(observationDate),
-    ...constructDraftPriorityGqlFilter(line?.priority),
+    ...buildActiveDateGqlFilter(observationDate),
+    ...buildDraftPriorityGqlFilter(line?.priority),
   };
 
-  const routeStopFilters = constructActiveDateGqlFilter(observationDate);
+  const routeStopFilters = buildActiveDateGqlFilter(observationDate);
 
   return {
     lineFilters,
@@ -162,7 +162,7 @@ export const useGetLineDetails = () => {
       const lineDetails = mapLineDetailsWithRoutesResult(lineDetailsResult);
 
       const lineByDateResult = await getHighestPriorityLineDetails(
-        constructLineDetailsGqlFilters(lineDetails, observationDate),
+        buildLineDetailsGqlFilters(lineDetails, observationDate),
       );
 
       const lineByDate =

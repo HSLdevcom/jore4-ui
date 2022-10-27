@@ -9,8 +9,8 @@ import { mapRouteResultToRoutes } from '../../graphql';
 import { isDateInRange } from '../../time';
 import { Priority } from '../../types/Priority';
 import {
-  constructPriorityEqualGqlFilter,
-  constructRouteLineLabelGqlFilter,
+  buildPriorityEqualGqlFilter,
+  buildRouteLineLabelGqlFilter,
   mapToVariables,
 } from '../../utils';
 
@@ -26,8 +26,8 @@ export const useGetLineDraftDetails = () => {
 
   // Get all draft routes by line label
   const routeFilters = {
-    ...constructRouteLineLabelGqlFilter(label),
-    ...constructPriorityEqualGqlFilter(Priority.Draft),
+    ...buildRouteLineLabelGqlFilter(label),
+    ...buildPriorityEqualGqlFilter(Priority.Draft),
   };
 
   const result = useGetRoutesWithStopsQuery(mapToVariables({ routeFilters }));

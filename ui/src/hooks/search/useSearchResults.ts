@@ -5,7 +5,7 @@ import {
   useSearchLinesAndRoutesQuery,
 } from '../../generated/graphql';
 import {
-  constructSearchLinesAndRoutesGqlQueryVariables,
+  buildSearchLinesAndRoutesGqlQueryVariables,
   DisplayedSearchResultType,
   mapToVariables,
 } from '../../utils';
@@ -35,7 +35,7 @@ export const useSearchResults = (): {
 } => {
   const parsedSearchQueryParameters = useSearchQueryParser();
 
-  const searchQueryVariables = constructSearchLinesAndRoutesGqlQueryVariables(
+  const searchQueryVariables = buildSearchLinesAndRoutesGqlQueryVariables(
     parsedSearchQueryParameters.search,
   );
 
