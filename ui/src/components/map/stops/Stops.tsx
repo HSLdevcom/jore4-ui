@@ -33,7 +33,7 @@ import {
 import { Coords } from '../../../types';
 import { Priority } from '../../../types/Priority';
 import {
-  constructWithinViewportGqlFilter,
+  buildWithinViewportGqlFilter,
   mapLngLatToGeoJSON,
   mapLngLatToPoint,
   mapToVariables,
@@ -77,7 +77,7 @@ export const Stops = React.forwardRef((props, ref) => {
 
   const stopsResult = useGetStopsByLocationQuery(
     mapToVariables({
-      measured_location_filter: constructWithinViewportGqlFilter(viewport),
+      measured_location_filter: buildWithinViewportGqlFilter(viewport),
     }),
   );
 

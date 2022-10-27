@@ -7,10 +7,10 @@ import {
 import { Viewport } from '../redux/types/modalMap';
 import { Priority } from '../types/Priority';
 
-/** Constructs an object for gql to filter out all
+/** Builds an object for gql to filter out all
  * results which are not active on the given date
  */
-export const constructActiveDateGqlFilter = (date?: DateTime | null) => ({
+export const buildActiveDateGqlFilter = (date?: DateTime | null) => ({
   _and: [
     {
       _or: [
@@ -27,47 +27,47 @@ export const constructActiveDateGqlFilter = (date?: DateTime | null) => ({
   ],
 });
 
-/** Constructs an object for gql to filter out all drafts if
+/** Builds an object for gql to filter out all drafts if
  * the given priority is not draft itself
  */
-export const constructDraftPriorityGqlFilter = (priority?: Priority) => ({
+export const buildDraftPriorityGqlFilter = (priority?: Priority) => ({
   priority: {
     _nin: priority !== Priority.Draft ? [Priority.Draft] : [],
   },
 });
 
-/** Constructs an object for gql to filter out all but the given priority */
-export const constructPriorityEqualGqlFilter = (priority: Priority) => ({
+/** Builds an object for gql to filter out all but the given priority */
+export const buildPriorityEqualGqlFilter = (priority: Priority) => ({
   priority: {
     _eq: priority,
   },
 });
 
-/** Constructs an object for gql to filter out all but the given priority */
-export const constructPriorityInGqlFilter = (priorities: Priority[]) => ({
+/** Builds an object for gql to filter out all but the given priority */
+export const buildPriorityInGqlFilter = (priorities: Priority[]) => ({
   priority: {
     _in: priorities,
   },
 });
 
-/** Constructs an object for gql to filter by label */
-export const constructLabelGqlFilter = (label?: string) => ({
+/** Builds an object for gql to filter by label */
+export const buildLabelGqlFilter = (label?: string) => ({
   label: { _eq: label },
 });
 
-/** Constructs an object for gql to filter by label using the '_like' operator.
+/** Builds an object for gql to filter by label using the '_like' operator.
  * This will means that all the '%' in the label are considered as 'any'
  */
-export const constructLabelLikeGqlFilter = (label?: string) => ({
+export const buildLabelLikeGqlFilter = (label?: string) => ({
   label: { _like: label },
 });
 
-/** Constructs an object for gql to filter route by line label */
-export const constructRouteLineLabelGqlFilter = (label: string) => ({
-  route_line: constructLabelGqlFilter(label),
+/** Builds an object for gql to filter route by line label */
+export const buildRouteLineLabelGqlFilter = (label: string) => ({
+  route_line: buildLabelGqlFilter(label),
 });
 
-export const constructWithinViewportGqlFilter = (
+export const buildWithinViewportGqlFilter = (
   viewport: Viewport,
 ): GeographyComparisonExp => ({
   _st_d_within: {
@@ -79,8 +79,8 @@ export const constructWithinViewportGqlFilter = (
   },
 });
 
-/** Constructs an object for gql to filter by primary_vehicle_mode */
-export const constructPrimaryVehicleModeGqlFilter = (
+/** Builds an object for gql to filter by primary_vehicle_mode */
+export const buildPrimaryVehicleModeGqlFilter = (
   primaryVehicleMode: ReusableComponentsVehicleModeEnum,
 ) => ({
   primary_vehicle_mode: {
@@ -88,10 +88,8 @@ export const constructPrimaryVehicleModeGqlFilter = (
   },
 });
 
-/** Constructs an object for gql to filter by typeOfLine */
-export const constructTypeOfLineGqlFilter = (
-  typeOfLine: RouteTypeOfLineEnum,
-) => ({
+/** Builds an object for gql to filter by typeOfLine */
+export const buildTypeOfLineGqlFilter = (typeOfLine: RouteTypeOfLineEnum) => ({
   type_of_line: {
     _eq: typeOfLine,
   },
