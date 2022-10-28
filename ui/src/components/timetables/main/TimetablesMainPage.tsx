@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { Container } from '../../layoutComponents';
-import { SimpleButton } from '../../uiComponents';
+import { Container } from '../../../layoutComponents';
+import { SimpleButton } from '../../../uiComponents';
 
-export const VehicleScheduleListPage = (): JSX.Element => {
+export const TimetablesMainPage = (): JSX.Element => {
   const { t } = useTranslation();
 
   return (

@@ -1,4 +1,4 @@
-import { padToTwoDigits } from '../../../time';
+import { padToTwoDigits } from '../../../../time';
 
 interface Props {
   data: VehicleServiceRowData;

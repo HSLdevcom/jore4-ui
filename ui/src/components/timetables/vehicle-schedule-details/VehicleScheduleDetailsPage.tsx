@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
-import { useGetVehicleJourneysQuery } from '../../generated/graphql';
-import { useGetTimetables } from '../../hooks';
-import { Container } from '../../layoutComponents';
-import { mapToShortDate } from '../../time';
-import { PageHeader } from '../routes-and-lines/common/PageHeader';
-import { PassingTimesByStopTable } from './passing-times-by-stop';
+import { useGetVehicleJourneysQuery } from '../../../generated/graphql';
+import { useGetTimetables } from '../../../hooks';
+import { Container } from '../../../layoutComponents';
+import { mapToShortDate } from '../../../time';
+import { PageHeader } from '../../routes-and-lines/common/PageHeader';
+import { PassingTimesByStopTable } from '../passing-times-by-stop';
 import { VehicleServiceTable } from './vehicle-service-table';
 
 const GQL_GET_VEHICLE_JOURNEYS = gql`

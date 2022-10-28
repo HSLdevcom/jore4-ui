@@ -4,11 +4,11 @@ import { groupBy, pipe } from 'remeda';
 import {
   DayTypeAllFieldsFragment,
   VehicleServiceWithJourneysFragment,
-} from '../../../generated/graphql';
-import { parseI18nField } from '../../../i18n/utils';
-import { Column, Row, Visible } from '../../../layoutComponents';
-import { mapToShortDateTime } from '../../../time';
-import { TimetablePriority } from '../../../types/Priority';
+} from '../../../../generated/graphql';
+import { parseI18nField } from '../../../../i18n/utils';
+import { Column, Row, Visible } from '../../../../layoutComponents';
+import { mapToShortDateTime } from '../../../../time';
+import { TimetablePriority } from '../../../../types/Priority';
 import {
   VehicleServiceRowData,
   VehicleServiceTableRow,
