@@ -9663,7 +9663,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -9675,7 +9675,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -28813,7 +28813,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -28825,7 +28825,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -29534,7 +29534,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -29546,7 +29546,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -29870,7 +29870,7 @@
             "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -29882,7 +29882,7 @@
             "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -29953,7 +29953,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -29965,7 +29965,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -30095,7 +30095,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -30107,7 +30107,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -30750,7 +30750,7 @@
             "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -30762,7 +30762,7 @@
             "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -31058,7 +31058,7 @@
             "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -31070,7 +31070,7 @@
             "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -32125,7 +32125,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -32137,7 +32137,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -32938,7 +32938,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -32950,7 +32950,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -33502,7 +33502,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -33514,7 +33514,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -33585,7 +33585,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -33597,7 +33597,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -33751,7 +33751,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -33763,7 +33763,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -34568,7 +34568,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -34580,7 +34580,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -34912,7 +34912,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -34924,7 +34924,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -36553,7 +36553,7 @@
           },
           {
             "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
+            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -37053,11 +37053,11 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -37065,11 +37065,11 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -37933,7 +37933,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -37945,7 +37945,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -38024,7 +38024,7 @@
           },
           {
             "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
+            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -38152,10 +38152,10 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -38164,10 +38164,10 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -38198,7 +38198,7 @@
         "fields": [
           {
             "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
+            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38270,11 +38270,11 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -38282,11 +38282,11 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -38306,7 +38306,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
+            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38378,7 +38378,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38390,7 +38390,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38412,7 +38412,7 @@
         "fields": [
           {
             "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
+            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38484,11 +38484,11 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -38496,11 +38496,11 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -38520,7 +38520,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
+            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38592,7 +38592,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38604,7 +38604,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38928,7 +38928,7 @@
           },
           {
             "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
+            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
             "type": {
               "kind": "ENUM",
               "name": "infrastructure_network_direction_enum",
@@ -39012,10 +39012,10 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -39024,10 +39024,10 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -39308,7 +39308,7 @@
           },
           {
             "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
+            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -39392,10 +39392,10 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -39404,10 +39404,10 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -47868,7 +47868,7 @@
         "fields": [
           {
             "name": "arrival_time",
-            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately",
+            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -47880,7 +47880,19 @@
           },
           {
             "name": "departure_time",
-            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY.",
+            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "passing_time",
+            "description": "The time when the vehicle can be considered as passing a SCHEDULED STOP POINT. Computed field to ease development; it can never be NULL.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -48288,6 +48300,18 @@
             "deprecationReason": null
           },
           {
+            "name": "passing_time",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "interval_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "scheduled_stop_point_in_journey_pattern_ref",
             "description": null,
             "type": {
@@ -48377,7 +48401,7 @@
         "inputFields": [
           {
             "name": "arrival_time",
-            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately",
+            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey.",
             "type": {
               "kind": "SCALAR",
               "name": "interval",
@@ -48389,7 +48413,7 @@
           },
           {
             "name": "departure_time",
-            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY.",
+            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey.",
             "type": {
               "kind": "SCALAR",
               "name": "interval",
@@ -48797,6 +48821,18 @@
             "deprecationReason": null
           },
           {
+            "name": "passing_time",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "scheduled_stop_point_in_journey_pattern_ref",
             "description": null,
             "type": {
@@ -48909,6 +48945,12 @@
             "deprecationReason": null
           },
           {
+            "name": "passing_time",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "scheduled_stop_point_in_journey_pattern_ref_id",
             "description": "column name",
             "isDeprecated": false,
@@ -48937,7 +48979,7 @@
         "inputFields": [
           {
             "name": "arrival_time",
-            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately",
+            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey.",
             "type": {
               "kind": "SCALAR",
               "name": "interval",
@@ -48949,7 +48991,7 @@
           },
           {
             "name": "departure_time",
-            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY.",
+            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey.",
             "type": {
               "kind": "SCALAR",
               "name": "interval",
@@ -49047,7 +49089,7 @@
         "inputFields": [
           {
             "name": "arrival_time",
-            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately",
+            "description": "The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey.",
             "type": {
               "kind": "SCALAR",
               "name": "interval",
@@ -49059,7 +49101,19 @@
           },
           {
             "name": "departure_time",
-            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY.",
+            "description": "The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "passing_time",
+            "description": "The time when the vehicle can be considered as passing a SCHEDULED STOP POINT. Computed field to ease development; it can never be NULL.",
             "type": {
               "kind": "SCALAR",
               "name": "interval",
@@ -50572,8 +50626,8 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -51210,8 +51264,8 @@
         "description": "aggregate avg on columns",
         "fields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -51234,8 +51288,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -51357,7 +51411,7 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_label_passing",
+            "name": "scheduled_stop_point_sequence",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -51394,6 +51448,12 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "scheduled_stop_point_in_journ_journey_pattern_ref_id_schedu_key",
+            "description": "unique or primary key constraint on columns \"scheduled_stop_point_sequence\", \"journey_pattern_ref_id\"",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "scheduled_stop_point_in_journey_pattern_ref_pkey",
             "description": "unique or primary key constraint on columns \"scheduled_stop_point_in_journey_pattern_ref_id\"",
             "isDeprecated": false,
@@ -51409,8 +51469,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -51480,8 +51540,8 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -51550,8 +51610,8 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -51610,8 +51670,8 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -51668,8 +51728,8 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -51728,8 +51788,8 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -51952,7 +52012,7 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_label_passing",
+            "name": "scheduled_stop_point_sequence",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -52034,7 +52094,7 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_label_passing",
+            "name": "scheduled_stop_point_sequence",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -52085,8 +52145,8 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -52107,8 +52167,8 @@
         "description": "aggregate stddev on columns",
         "fields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -52131,8 +52191,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -52153,8 +52213,8 @@
         "description": "aggregate stddev_pop on columns",
         "fields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -52177,8 +52237,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -52199,8 +52259,8 @@
         "description": "aggregate stddev_samp on columns",
         "fields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -52223,8 +52283,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -52321,8 +52381,8 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -52343,8 +52403,8 @@
         "description": "aggregate sum on columns",
         "fields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -52367,8 +52427,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -52410,7 +52470,7 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_label_passing",
+            "name": "scheduled_stop_point_sequence",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -52475,8 +52535,8 @@
         "description": "aggregate var_pop on columns",
         "fields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -52499,8 +52559,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -52521,8 +52581,8 @@
         "description": "aggregate var_samp on columns",
         "fields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -52545,8 +52605,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -52567,8 +52627,8 @@
         "description": "aggregate variance on columns",
         "fields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -52591,8 +52651,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "scheduled_stop_point_label_passing",
-            "description": "The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. \"1\" marks first passing, \"2\" marks the second passing and so on",
+            "name": "scheduled_stop_point_sequence",
+            "description": "The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -64880,7 +64940,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -64892,7 +64952,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,

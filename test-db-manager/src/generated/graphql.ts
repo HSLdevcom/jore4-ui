@@ -16,7 +16,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  date: any;
+  date: luxon.DateTime;
   float8: number;
   geography: GeoJSON.Geometry;
   geography_linestring: GeoJSON.LineString;
@@ -1421,8 +1421,8 @@ export type JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs =
     new_located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
     new_measured_location?: Maybe<Scalars['geography']>;
     new_priority?: Maybe<Scalars['Int']>;
-    new_validity_end?: Maybe<Scalars['timestamptz']>;
-    new_validity_start?: Maybe<Scalars['timestamptz']>;
+    new_validity_end?: Maybe<Scalars['date']>;
+    new_validity_start?: Maybe<Scalars['date']>;
     replace_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   };
 
@@ -4633,9 +4633,9 @@ export type RouteLine = {
   /** The type of the line. */
   type_of_line: RouteTypeOfLineEnum;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
   /** An object relationship */
   vehicle_mode: ReusableComponentsVehicleMode;
 };
@@ -4755,8 +4755,8 @@ export type RouteLineBoolExp = {
   transport_target?: Maybe<HslRouteTransportTargetEnumComparisonExp>;
   typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineBoolExp>;
   type_of_line?: Maybe<RouteTypeOfLineEnumComparisonExp>;
-  validity_end?: Maybe<TimestamptzComparisonExp>;
-  validity_start?: Maybe<TimestamptzComparisonExp>;
+  validity_end?: Maybe<DateComparisonExp>;
+  validity_start?: Maybe<DateComparisonExp>;
   vehicle_mode?: Maybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
@@ -4816,9 +4816,9 @@ export type RouteLineInsertInput = {
   /** The type of the line. */
   type_of_line?: Maybe<RouteTypeOfLineEnum>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
   vehicle_mode?: Maybe<ReusableComponentsVehicleModeObjRelInsertInput>;
 };
 
@@ -4832,9 +4832,9 @@ export type RouteLineMaxFields = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by max() on columns of table "route.line" */
@@ -4861,9 +4861,9 @@ export type RouteLineMinFields = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by min() on columns of table "route.line" */
@@ -4976,9 +4976,9 @@ export type RouteLineSetInput = {
   /** The type of the line. */
   type_of_line?: Maybe<RouteTypeOfLineEnum>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate stddev on columns */
@@ -5046,9 +5046,9 @@ export type RouteLineStreamCursorValueInput = {
   /** The type of the line. */
   type_of_line?: Maybe<RouteTypeOfLineEnum>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate sum on columns */
@@ -5171,8 +5171,8 @@ export type RouteRoute = {
   route_line: RouteLine;
   /** A computed field, executes function "route.route_shape" */
   route_shape?: Maybe<Scalars['geography_linestring']>;
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** columns and relationships of "route.route" */
@@ -5333,8 +5333,8 @@ export type RouteRouteBoolExp = {
   route_journey_patterns?: Maybe<JourneyPatternJourneyPatternBoolExp>;
   route_line?: Maybe<RouteLineBoolExp>;
   route_shape?: Maybe<GeographyComparisonExp>;
-  validity_end?: Maybe<TimestamptzComparisonExp>;
-  validity_start?: Maybe<TimestamptzComparisonExp>;
+  validity_end?: Maybe<DateComparisonExp>;
+  validity_start?: Maybe<DateComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.route" */
@@ -5394,8 +5394,8 @@ export type RouteRouteInsertInput = {
   route_id?: Maybe<Scalars['uuid']>;
   route_journey_patterns?: Maybe<JourneyPatternJourneyPatternArrRelInsertInput>;
   route_line?: Maybe<RouteLineObjRelInsertInput>;
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate max on columns */
@@ -5405,8 +5405,8 @@ export type RouteRouteMaxFields = {
   on_line_id?: Maybe<Scalars['uuid']>;
   priority?: Maybe<Scalars['Int']>;
   route_id?: Maybe<Scalars['uuid']>;
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by max() on columns of table "route.route" */
@@ -5426,8 +5426,8 @@ export type RouteRouteMinFields = {
   on_line_id?: Maybe<Scalars['uuid']>;
   priority?: Maybe<Scalars['Int']>;
   route_id?: Maybe<Scalars['uuid']>;
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by min() on columns of table "route.route" */
@@ -5542,8 +5542,8 @@ export type RouteRouteSetInput = {
   origin_short_name_i18n?: Maybe<Scalars['localized_string']>;
   priority?: Maybe<Scalars['Int']>;
   route_id?: Maybe<Scalars['uuid']>;
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate stddev on columns */
@@ -5600,8 +5600,8 @@ export type RouteRouteStreamCursorValueInput = {
   origin_short_name_i18n?: Maybe<Scalars['jsonb']>;
   priority?: Maybe<Scalars['Int']>;
   route_id?: Maybe<Scalars['uuid']>;
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate sum on columns */
@@ -5909,7 +5909,7 @@ export type ServicePatternScheduledStopPoint = {
   __typename?: 'service_pattern_scheduled_stop_point';
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography_point']>;
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
   direction: InfrastructureNetworkDirectionEnum;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
@@ -5931,10 +5931,10 @@ export type ServicePatternScheduledStopPoint = {
   scheduled_stop_point_in_journey_patterns: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** An aggregate relationship */
   scheduled_stop_point_in_journey_patterns_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
-  /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  validity_end?: Maybe<Scalars['date']>;
+  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  validity_start?: Maybe<Scalars['date']>;
   /** An array relationship */
   vehicle_mode_on_scheduled_stop_point: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
   /** An aggregate relationship */
@@ -6096,8 +6096,8 @@ export type ServicePatternScheduledStopPointBoolExp = {
   relative_distance_from_infrastructure_link_start?: Maybe<Float8ComparisonExp>;
   scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
   scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
-  validity_end?: Maybe<TimestamptzComparisonExp>;
-  validity_start?: Maybe<TimestamptzComparisonExp>;
+  validity_end?: Maybe<DateComparisonExp>;
+  validity_start?: Maybe<DateComparisonExp>;
   vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
 };
 
@@ -6113,7 +6113,7 @@ export type ServicePatternScheduledStopPointIncInput = {
 export type ServicePatternScheduledStopPointInsertInput = {
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
   direction: InfrastructureNetworkDirectionEnum;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
@@ -6129,17 +6129,17 @@ export type ServicePatternScheduledStopPointInsertInput = {
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
-  /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  validity_end?: Maybe<Scalars['date']>;
+  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  validity_start?: Maybe<Scalars['date']>;
   vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
 export type ServicePatternScheduledStopPointMaxFields = {
   __typename?: 'service_pattern_scheduled_stop_point_max_fields';
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
   direction?: Maybe<Scalars['String']>;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<Scalars['String']>;
@@ -6151,15 +6151,15 @@ export type ServicePatternScheduledStopPointMaxFields = {
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  validity_end?: Maybe<Scalars['date']>;
+  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by max() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointMaxOrderBy = {
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
   direction?: Maybe<OrderBy>;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<OrderBy>;
@@ -6171,16 +6171,16 @@ export type ServicePatternScheduledStopPointMaxOrderBy = {
   relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<OrderBy>;
-  /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
   validity_end?: Maybe<OrderBy>;
-  /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
+  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
   validity_start?: Maybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type ServicePatternScheduledStopPointMinFields = {
   __typename?: 'service_pattern_scheduled_stop_point_min_fields';
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
   direction?: Maybe<Scalars['String']>;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<Scalars['String']>;
@@ -6192,15 +6192,15 @@ export type ServicePatternScheduledStopPointMinFields = {
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  validity_end?: Maybe<Scalars['date']>;
+  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by min() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointMinOrderBy = {
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
   direction?: Maybe<OrderBy>;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<OrderBy>;
@@ -6212,9 +6212,9 @@ export type ServicePatternScheduledStopPointMinOrderBy = {
   relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<OrderBy>;
-  /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
   validity_end?: Maybe<OrderBy>;
-  /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
+  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
   validity_start?: Maybe<OrderBy>;
 };
 
@@ -6272,7 +6272,7 @@ export enum ServicePatternScheduledStopPointSelectColumn {
 export type ServicePatternScheduledStopPointSetInput = {
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
   direction?: Maybe<InfrastructureNetworkDirectionEnum>;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<Scalars['String']>;
@@ -6286,10 +6286,10 @@ export type ServicePatternScheduledStopPointSetInput = {
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  validity_end?: Maybe<Scalars['date']>;
+  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate stddev on columns */
@@ -6355,7 +6355,7 @@ export type ServicePatternScheduledStopPointStreamCursorInput = {
 export type ServicePatternScheduledStopPointStreamCursorValueInput = {
   /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
   direction?: Maybe<Scalars['String']>;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<Scalars['String']>;
@@ -6369,10 +6369,10 @@ export type ServicePatternScheduledStopPointStreamCursorValueInput = {
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The point in time from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  /** The point in time when the stop becomes valid. If NULL, the stop has been always valid. */
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  validity_end?: Maybe<Scalars['date']>;
+  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate sum on columns */
@@ -7582,10 +7582,12 @@ export type TimetablesJourneyPatternJourneyPatternRefUpdates = {
 /** Long-term planned time data concerning public transport vehicles passing a particular POINT IN JOURNEY PATTERN on a specified VEHICLE JOURNEY for a certain DAY TYPE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:4:946  */
 export type TimetablesPassingTimesTimetabledPassingTime = {
   __typename?: 'timetables_passing_times_timetabled_passing_time';
-  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately */
+  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey. */
   arrival_time?: Maybe<Scalars['interval']>;
-  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. */
-  departure_time: Scalars['interval'];
+  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey. */
+  departure_time?: Maybe<Scalars['interval']>;
+  /** The time when the vehicle can be considered as passing a SCHEDULED STOP POINT. Computed field to ease development; it can never be NULL. */
+  passing_time: Scalars['interval'];
   /** An object relationship */
   scheduled_stop_point_in_journey_pattern_ref: TimetablesServicePatternScheduledStopPointInJourneyPatternRef;
   /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
@@ -7642,6 +7644,7 @@ export type TimetablesPassingTimesTimetabledPassingTimeBoolExp = {
   _or?: Maybe<Array<TimetablesPassingTimesTimetabledPassingTimeBoolExp>>;
   arrival_time?: Maybe<IntervalComparisonExp>;
   departure_time?: Maybe<IntervalComparisonExp>;
+  passing_time?: Maybe<IntervalComparisonExp>;
   scheduled_stop_point_in_journey_pattern_ref?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
   scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<UuidComparisonExp>;
   timetabled_passing_time_id?: Maybe<UuidComparisonExp>;
@@ -7657,9 +7660,9 @@ export enum TimetablesPassingTimesTimetabledPassingTimeConstraint {
 
 /** input type for inserting data into table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeInsertInput = {
-  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately */
+  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey. */
   arrival_time?: Maybe<Scalars['interval']>;
-  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. */
+  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey. */
   departure_time?: Maybe<Scalars['interval']>;
   scheduled_stop_point_in_journey_pattern_ref?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefObjRelInsertInput>;
   /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
@@ -7728,6 +7731,7 @@ export type TimetablesPassingTimesTimetabledPassingTimeOnConflict = {
 export type TimetablesPassingTimesTimetabledPassingTimeOrderBy = {
   arrival_time?: Maybe<OrderBy>;
   departure_time?: Maybe<OrderBy>;
+  passing_time?: Maybe<OrderBy>;
   scheduled_stop_point_in_journey_pattern_ref?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOrderBy>;
   scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<OrderBy>;
   timetabled_passing_time_id?: Maybe<OrderBy>;
@@ -7747,6 +7751,8 @@ export enum TimetablesPassingTimesTimetabledPassingTimeSelectColumn {
   /** column name */
   DepartureTime = 'departure_time',
   /** column name */
+  PassingTime = 'passing_time',
+  /** column name */
   ScheduledStopPointInJourneyPatternRefId = 'scheduled_stop_point_in_journey_pattern_ref_id',
   /** column name */
   TimetabledPassingTimeId = 'timetabled_passing_time_id',
@@ -7756,9 +7762,9 @@ export enum TimetablesPassingTimesTimetabledPassingTimeSelectColumn {
 
 /** input type for updating data in table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeSetInput = {
-  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately */
+  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey. */
   arrival_time?: Maybe<Scalars['interval']>;
-  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. */
+  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey. */
   departure_time?: Maybe<Scalars['interval']>;
   /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
   scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
@@ -7778,10 +7784,12 @@ export type TimetablesPassingTimesTimetabledPassingTimeStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type TimetablesPassingTimesTimetabledPassingTimeStreamCursorValueInput =
   {
-    /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, the vehicle does not need to wait at the stop but may continue its journey immediately */
+    /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey. */
     arrival_time?: Maybe<Scalars['interval']>;
-    /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. */
+    /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey. */
     departure_time?: Maybe<Scalars['interval']>;
+    /** The time when the vehicle can be considered as passing a SCHEDULED STOP POINT. Computed field to ease development; it can never be NULL. */
+    passing_time?: Maybe<Scalars['interval']>;
     /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
     scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
     timetabled_passing_time_id?: Maybe<Scalars['uuid']>;
@@ -8054,8 +8062,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRef = {
   scheduled_stop_point_in_journey_pattern_ref_id: Scalars['uuid'];
   /** The label of the SCHEDULED STOP POINT */
   scheduled_stop_point_label: Scalars['String'];
-  /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-  scheduled_stop_point_label_passing: Scalars['Int'];
+  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+  scheduled_stop_point_sequence: Scalars['Int'];
   /** An array relationship */
   timetabled_passing_times: Array<TimetablesPassingTimesTimetabledPassingTime>;
   /** An aggregate relationship */
@@ -8148,15 +8156,15 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefArrRelI
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefAvgFields =
   {
     __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_avg_fields';
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Float']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
   };
 
 /** order by avg() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefAvgOrderBy =
   {
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<OrderBy>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<OrderBy>;
   };
 
 /** Boolean expression to filter rows from the table "service_pattern.scheduled_stop_point_in_journey_pattern_ref". All fields are combined with a logical 'AND'. */
@@ -8173,12 +8181,14 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp
     journey_pattern_ref_id?: Maybe<UuidComparisonExp>;
     scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<UuidComparisonExp>;
     scheduled_stop_point_label?: Maybe<StringComparisonExp>;
-    scheduled_stop_point_label_passing?: Maybe<IntComparisonExp>;
+    scheduled_stop_point_sequence?: Maybe<IntComparisonExp>;
     timetabled_passing_times?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
   };
 
 /** unique or primary key constraints on table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefConstraint {
+  /** unique or primary key constraint on columns "scheduled_stop_point_sequence", "journey_pattern_ref_id" */
+  ScheduledStopPointInJournJourneyPatternRefIdScheduKey = 'scheduled_stop_point_in_journ_journey_pattern_ref_id_schedu_key',
   /** unique or primary key constraint on columns "scheduled_stop_point_in_journey_pattern_ref_id" */
   ScheduledStopPointInJourneyPatternRefPkey = 'scheduled_stop_point_in_journey_pattern_ref_pkey',
 }
@@ -8186,8 +8196,8 @@ export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefConstra
 /** input type for incrementing numeric columns in table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefIncInput =
   {
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Int']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
   };
 
 /** input type for inserting data into table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -8199,8 +8209,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefInsertI
     scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
     /** The label of the SCHEDULED STOP POINT */
     scheduled_stop_point_label?: Maybe<Scalars['String']>;
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Int']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
     timetabled_passing_times?: Maybe<TimetablesPassingTimesTimetabledPassingTimeArrRelInsertInput>;
   };
 
@@ -8213,8 +8223,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMaxFiel
     scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
     /** The label of the SCHEDULED STOP POINT */
     scheduled_stop_point_label?: Maybe<Scalars['String']>;
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Int']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
   };
 
 /** order by max() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -8225,8 +8235,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMaxOrde
     scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<OrderBy>;
     /** The label of the SCHEDULED STOP POINT */
     scheduled_stop_point_label?: Maybe<OrderBy>;
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<OrderBy>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<OrderBy>;
   };
 
 /** aggregate min on columns */
@@ -8238,8 +8248,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMinFiel
     scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
     /** The label of the SCHEDULED STOP POINT */
     scheduled_stop_point_label?: Maybe<Scalars['String']>;
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Int']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
   };
 
 /** order by min() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -8250,8 +8260,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMinOrde
     scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<OrderBy>;
     /** The label of the SCHEDULED STOP POINT */
     scheduled_stop_point_label?: Maybe<OrderBy>;
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<OrderBy>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<OrderBy>;
   };
 
 /** response of any mutation on the table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -8287,7 +8297,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefOrderBy
     journey_pattern_ref_id?: Maybe<OrderBy>;
     scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<OrderBy>;
     scheduled_stop_point_label?: Maybe<OrderBy>;
-    scheduled_stop_point_label_passing?: Maybe<OrderBy>;
+    scheduled_stop_point_sequence?: Maybe<OrderBy>;
     timetabled_passing_times_aggregate?: Maybe<TimetablesPassingTimesTimetabledPassingTimeAggregateOrderBy>;
   };
 
@@ -8306,7 +8316,7 @@ export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectC
   /** column name */
   ScheduledStopPointLabel = 'scheduled_stop_point_label',
   /** column name */
-  ScheduledStopPointLabelPassing = 'scheduled_stop_point_label_passing',
+  ScheduledStopPointSequence = 'scheduled_stop_point_sequence',
 }
 
 /** input type for updating data in table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -8317,53 +8327,53 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefSetInpu
     scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
     /** The label of the SCHEDULED STOP POINT */
     scheduled_stop_point_label?: Maybe<Scalars['String']>;
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Int']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
   };
 
 /** aggregate stddev on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevFields =
   {
     __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_stddev_fields';
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Float']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
   };
 
 /** order by stddev() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevOrderBy =
   {
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<OrderBy>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<OrderBy>;
   };
 
 /** aggregate stddev_pop on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevPopFields =
   {
     __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_stddev_pop_fields';
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Float']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
   };
 
 /** order by stddev_pop() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevPopOrderBy =
   {
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<OrderBy>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<OrderBy>;
   };
 
 /** aggregate stddev_samp on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevSampFields =
   {
     __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_stddev_samp_fields';
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Float']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
   };
 
 /** order by stddev_samp() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevSampOrderBy =
   {
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<OrderBy>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<OrderBy>;
   };
 
 /** Streaming cursor of the table "service_pattern_scheduled_stop_point_in_journey_pattern_ref" */
@@ -8383,23 +8393,23 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStreamC
     scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
     /** The label of the SCHEDULED STOP POINT */
     scheduled_stop_point_label?: Maybe<Scalars['String']>;
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Int']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
   };
 
 /** aggregate sum on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefSumFields =
   {
     __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_sum_fields';
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Int']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
   };
 
 /** order by sum() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefSumOrderBy =
   {
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<OrderBy>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<OrderBy>;
   };
 
 /** update columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -8411,7 +8421,7 @@ export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefUpdateC
   /** column name */
   ScheduledStopPointLabel = 'scheduled_stop_point_label',
   /** column name */
-  ScheduledStopPointLabelPassing = 'scheduled_stop_point_label_passing',
+  ScheduledStopPointSequence = 'scheduled_stop_point_sequence',
 }
 
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefUpdates =
@@ -8427,45 +8437,45 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefUpdates
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarPopFields =
   {
     __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_var_pop_fields';
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Float']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
   };
 
 /** order by var_pop() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarPopOrderBy =
   {
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<OrderBy>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<OrderBy>;
   };
 
 /** aggregate var_samp on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarSampFields =
   {
     __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_var_samp_fields';
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Float']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
   };
 
 /** order by var_samp() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarSampOrderBy =
   {
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<OrderBy>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<OrderBy>;
   };
 
 /** aggregate variance on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarianceFields =
   {
     __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_variance_fields';
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<Scalars['Float']>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<Scalars['Float']>;
   };
 
 /** order by variance() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarianceOrderBy =
   {
-    /** The occurrence of the same SCHEDULED STOP POINT within the JOURNEY PATTERN. "1" marks first passing, "2" marks the second passing and so on */
-    scheduled_stop_point_label_passing?: Maybe<OrderBy>;
+    /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
+    scheduled_stop_point_sequence?: Maybe<OrderBy>;
   };
 
 export type TimetablesTimetablesMutationFrontend = {
@@ -10495,8 +10505,8 @@ export type UuidComparisonExp = {
 };
 
 export type ValidityPeriod = {
-  validity_end?: Maybe<Scalars['timestamptz']>;
-  validity_start?: Maybe<Scalars['timestamptz']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
 };
 
 export type InsertLinesMutationVariables = Exact<{

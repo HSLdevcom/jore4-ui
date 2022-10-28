@@ -118,8 +118,8 @@ const hasuraOverrideTypeDefs = gql`
   }
 
   interface validity_period {
-    validity_start: timestamptz
-    validity_end: timestamptz
+    validity_start: date
+    validity_end: date
   }
 `;
 
