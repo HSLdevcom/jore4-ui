@@ -15,4 +15,4 @@ services:
 
   jore4-mapmatching:
     # pinning map-maching API to compatible version
-    image: "hsldevcom/jore4-map-matching:main--20220714-0488cf186532cd2446d75edc4c2e69b43277ab8a"
+    image: "hsldevcom/jore4-map-matching:main--20221024-3ebdfd21ca3213a5d28f8cdf050718c036e8a9ab"
