@@ -1,14 +1,17 @@
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useSearch } from '../../../../hooks';
-import { resetSelectedRoutesAction } from '../../../../redux';
-import { Path } from '../../../../router/routeDetails';
-import { SimpleSmallButton } from '../../../../uiComponents';
-import { DisplayedSearchResultType } from '../../../../utils';
+import { useAppDispatch, useSearch } from '../../../hooks';
+import { resetSelectedRoutesAction } from '../../../redux';
+import { SimpleSmallButton } from '../../../uiComponents';
+import { DisplayedSearchResultType } from '../../../utils';
 
-export const ResultSelector = (): JSX.Element => {
+export const ResultSelector = ({
+  basePath,
+}: {
+  basePath: string;
+}): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { queryParameters, setFilter } = useSearch({ basePath: Path.routes });
+  const { queryParameters, setFilter } = useSearch({ basePath });
   const { displayedData } = queryParameters.filter;
 
   const displayRoutes = () => {
