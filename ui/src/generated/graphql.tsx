@@ -11294,37 +11294,6 @@ export type ListOwnLinesQuery = {
   }>;
 };
 
-export type GetVehicleJourneysQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetVehicleJourneysQuery = {
-  __typename?: 'query_root';
-  timetables?:
-    | {
-        __typename?: 'timetables_timetables_query';
-        timetables_vehicle_journey_vehicle_journey: Array<{
-          __typename?: 'timetables_vehicle_journey_vehicle_journey';
-          journey_pattern_ref_id: UUID;
-          vehicle_journey_id: UUID;
-          timetabled_passing_times: Array<{
-            __typename?: 'timetables_passing_times_timetabled_passing_time';
-            arrival_time?: luxon.Duration | null | undefined;
-            departure_time?: luxon.Duration | null | undefined;
-            passing_time: luxon.Duration;
-            scheduled_stop_point_in_journey_pattern_ref_id: UUID;
-            timetabled_passing_time_id: UUID;
-            vehicle_journey_id: UUID;
-            scheduled_stop_point_in_journey_pattern_ref: {
-              __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
-              scheduled_stop_point_in_journey_pattern_ref_id: UUID;
-              scheduled_stop_point_label: string;
-            };
-          }>;
-        }>;
-      }
-    | null
-    | undefined;
-};
-
 export type VehicleJourneyByStopFragment = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey';
   journey_pattern_ref_id: UUID;
@@ -11358,6 +11327,37 @@ export type PassingTimeByStopFragment = {
     scheduled_stop_point_in_journey_pattern_ref_id: UUID;
     scheduled_stop_point_label: string;
   };
+};
+
+export type GetVehicleJourneysQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetVehicleJourneysQuery = {
+  __typename?: 'query_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_query';
+        timetables_vehicle_journey_vehicle_journey: Array<{
+          __typename?: 'timetables_vehicle_journey_vehicle_journey';
+          journey_pattern_ref_id: UUID;
+          vehicle_journey_id: UUID;
+          timetabled_passing_times: Array<{
+            __typename?: 'timetables_passing_times_timetabled_passing_time';
+            arrival_time?: luxon.Duration | null | undefined;
+            departure_time?: luxon.Duration | null | undefined;
+            passing_time: luxon.Duration;
+            scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+            timetabled_passing_time_id: UUID;
+            vehicle_journey_id: UUID;
+            scheduled_stop_point_in_journey_pattern_ref: {
+              __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
+              scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+              scheduled_stop_point_label: string;
+            };
+          }>;
+        }>;
+      }
+    | null
+    | undefined;
 };
 
 export type RouteInfraLinkFieldsFragment = {
