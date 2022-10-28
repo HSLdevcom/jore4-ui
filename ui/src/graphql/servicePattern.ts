@@ -204,8 +204,8 @@ const GET_ROUTES_BROKEN_BY_STOP_CHANGE = gql`
     $new_located_on_infrastructure_link_id: uuid!
     $new_direction: String!
     $new_label: String!
-    $new_validity_start: timestamptz
-    $new_validity_end: timestamptz
+    $new_validity_start: date
+    $new_validity_end: date
     $new_priority: Int!
     $new_measured_location: geography!
     $replace_scheduled_stop_point_id: uuid

@@ -348,7 +348,7 @@ const GET_ROUTE_RENDER_INFO_BY_ID = gql`
 `;
 
 const GET_ROUTE_DETAILS_BY_LABELS = gql`
-  query GetRouteDetailsByLabels($labels: [String!], $date: timestamptz) {
+  query GetRouteDetailsByLabels($labels: [String!], $date: date) {
     route_route(
       where: {
         label: { _in: $labels }

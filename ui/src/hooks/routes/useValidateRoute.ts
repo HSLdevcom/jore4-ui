@@ -44,19 +44,16 @@ export const useValidateRoute = () => {
     route: ValidityPeriodParams,
     line: ValidityPeriodParams,
   ) => {
-    const lineValidityStart = line?.validity_start?.startOf('day');
-    const lineValidityEnd = line?.validity_end?.endOf('day');
-
     if (
       !route.validity_start ||
-      (lineValidityStart && route.validity_start < lineValidityStart)
+      (line.validity_start && route.validity_start < line.validity_start)
     ) {
       throw new Error(t('routes.startNotInsideLineValidity'));
     }
 
     if (
-      lineValidityEnd &&
-      (!route.validity_end || route.validity_end > lineValidityEnd)
+      line.validity_end &&
+      (!route.validity_end || route.validity_end > line.validity_end)
     ) {
       throw new Error(t('routes.endNotInsideLineValidity'));
     }
