@@ -11,9 +11,9 @@ import { LineDraftsPage } from '../components/routes-and-lines/line-drafts/LineD
 import { RoutesAndLinesMainPage } from '../components/routes-and-lines/main/RoutesAndLinesMainPage';
 import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
 import {
+  TimetablesMainPage,
   VehicleScheduleDetailsPage,
-  VehicleScheduleListPage,
-} from '../components/vehicle-service';
+} from '../components/timetables';
 import { Main } from '../pages/Main';
 import { Path } from './routeDetails';
 
@@ -42,7 +42,7 @@ export const Router: FunctionComponent = () => {
     [Path.timetables]: {
       _routerRoute: Path.timetables,
       _exact: true,
-      component: VehicleScheduleListPage,
+      component: TimetablesMainPage,
     },
     [Path.routesSearch]: {
       _routerRoute: Path.routesSearch,
