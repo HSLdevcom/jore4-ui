@@ -18,12 +18,12 @@ import { authRoleMiddleware } from './auth';
 
 const buildScalarMappingLink = () => {
   const typesMap = {
-    // automatically (de)serializing between graphql timestamptz <-> luxon.DateTime types
-    timestamptz: {
+    // automatically (de)serializing between graphql date <-> luxon.DateTime types
+    date: {
       serialize: (parsed: unknown) => {
-        // if it's a luxon DateTime, serialize it to ISO string
+        // if it's a luxon DateTime, serialize it to ISO date string
         if (DateTime.isDateTime(parsed)) {
-          return parsed.toISO({ includeOffset: true });
+          return parsed.toFormat('yyyy-LL-dd');
         }
         // otherwise (string, null, undefined) just pass it on as is
         return parsed;
