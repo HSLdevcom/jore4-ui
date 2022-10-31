@@ -9,6 +9,7 @@ const GQL_PASSING_TIME = gql`
   fragment passing_time_by_stop on timetables_passing_times_timetabled_passing_time {
     arrival_time
     departure_time
+    passing_time
     scheduled_stop_point_in_journey_pattern_ref_id
     timetabled_passing_time_id
     vehicle_journey_id
@@ -40,7 +41,7 @@ export const PassingTimesByStopTableRow = ({
 
   const passingTimesByHour = groupBy(
     passingTimes,
-    (passingTime) => passingTime.departure_time.hours,
+    (passingTime) => passingTime.passing_time.hours,
   );
 
   return (
