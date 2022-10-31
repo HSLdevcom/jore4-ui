@@ -27,10 +27,10 @@ export const PassingTimesByStopTableRowPassingMinute = ({
   selectedPassingTime,
   setSelectedPassingTime,
 }: Props): JSX.Element => {
-  const departure = passingTime.departure_time;
+  const passing = passingTime.passing_time;
 
-  // If arrival is undefined, arrival time is same as departure time
-  const arrival = passingTime.arrival_time || departure;
+  // If arrival is undefined, arrival time is same as passing time
+  const arrival = passingTime.arrival_time || passing;
 
   // Highlight passing minute, if it belongs to the same vehicle journey as selected passing minute
   const isHighlighted =
@@ -40,13 +40,15 @@ export const PassingTimesByStopTableRowPassingMinute = ({
     selectedPassingTime?.timetabled_passing_time_id ===
     passingTime.timetabled_passing_time_id;
 
-  // Display arrival time only if it differs from departure
-  const displayArrival = arrival !== departure;
+  // Display arrival time only if it differs from passing time (!== operator does not work here, since the departure
+  // time can be explicitly specified to be the same as the arrival time. So we do not want to test for object equality,
+  // but for equal values.)
+  const displayArrival = !passing.equals(arrival);
 
-  // If arrival time is not at the same hour as departure, display also arrival hours,
+  // If arrival time is not at the same hour as passing, display also arrival hours,
   // otherwise only display minutes
   const displayedArrival =
-    arrival.hours !== departure.hours
+    arrival.hours !== passing.hours
       ? mapDurationToShortTime(arrival)
       : padToTwoDigits(arrival.minutes);
 
@@ -66,12 +68,12 @@ export const PassingTimesByStopTableRowPassingMinute = ({
           <Visible visible={displayArrival}>
             <span className="text-2xs leading-tight">{displayedArrival}</span>
           </Visible>
-          <span>{padToTwoDigits(departure.minutes)}</span>
+          <span>{padToTwoDigits(passing.minutes)}</span>
         </span>
       </button>
       <Visible visible={isSelected}>
         <VehicleJourneyPopover
-          departure={departure}
+          passingTime={passing}
           onClose={() => setSelectedPassingTime(undefined)}
         />
       </Visible>
