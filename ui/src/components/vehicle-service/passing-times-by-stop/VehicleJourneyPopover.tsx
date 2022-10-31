@@ -4,12 +4,12 @@ import { mapDurationToShortTime } from '../../../time';
 import { Popover } from '../../../uiComponents';
 
 interface Props {
-  departure: Duration;
+  passingTime: Duration;
   onClose: () => void;
 }
 
 export const VehicleJourneyPopover = ({
-  departure,
+  passingTime,
   onClose,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
@@ -19,7 +19,7 @@ export const VehicleJourneyPopover = ({
       <div className="mb-1 space-x-3">
         <h5 className="inline text-lg">!Label</h5>
         <span className="text-sm">
-          {t('timetables.at', { time: mapDurationToShortTime(departure) })}
+          {t('timetables.at', { time: mapDurationToShortTime(passingTime) })}
         </span>
       </div>
       <p className="text-sm">!Kalustotyyppi</p>
