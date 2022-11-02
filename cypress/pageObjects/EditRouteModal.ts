@@ -5,9 +5,11 @@ export class EditRouteModal {
    * https://docs.cypress.io/api/commands/click#Arguments
    */
   save(forceAction = false) {
-    return cy
-      .getByTestId('EditRouteModal')
+    cy.getByTestId('EditRouteModal')
       .findByTestId('Modal::saveButton')
       .click({ force: forceAction });
+
+    // After save the edit route modal should close
+    cy.getByTestId('EditRouteModal').should('not.exist');
   }
 }
