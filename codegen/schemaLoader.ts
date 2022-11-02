@@ -121,6 +121,11 @@ const hasuraOverrideTypeDefs = gql`
     validity_start: date
     validity_end: date
   }
+
+  type timetables_vehicle_journey_vehicle_journey {
+    start_time: interval!
+    end_time: interval!
+  }
 `;
 
 // Note: if want to make custom directives for the schema, here are some examples on how to do so:

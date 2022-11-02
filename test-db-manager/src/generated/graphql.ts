@@ -7820,6 +7820,10 @@ export type TimetablesPassingTimesTimetabledPassingTimeUpdates = {
 /** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
 export type TimetablesServiceCalendarDayType = {
   __typename?: 'timetables_service_calendar_day_type';
+  /** An array relationship */
+  active_on_days_of_week: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeek>;
+  /** An aggregate relationship */
+  active_on_days_of_week_aggregate: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregate;
   day_type_id: Scalars['uuid'];
   /** The label for the DAY TYPE. Used for identifying the DAY TYPE when importing data from Hastus. Includes both basic (e.g. "Monday-Thursday") and special ("Easter Sunday") day types */
   label: Scalars['String'];
@@ -7829,6 +7833,32 @@ export type TimetablesServiceCalendarDayType = {
   vehicle_services: Array<TimetablesVehicleServiceVehicleService>;
   /** An aggregate relationship */
   vehicle_services_aggregate: TimetablesVehicleServiceVehicleServiceAggregate;
+};
+
+/** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
+export type TimetablesServiceCalendarDayTypeActiveOnDaysOfWeekArgs = {
+  distinct_on?: Maybe<
+    Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
+  >;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<
+    Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy>
+  >;
+  where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+};
+
+/** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
+export type TimetablesServiceCalendarDayTypeActiveOnDaysOfWeekAggregateArgs = {
+  distinct_on?: Maybe<
+    Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
+  >;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<
+    Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy>
+  >;
+  where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
 };
 
 /** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
@@ -7856,6 +7886,327 @@ export type TimetablesServiceCalendarDayTypeVehicleServicesAggregateArgs = {
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
   where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+};
+
+/** Tells on which days of week a particular DAY TYPE is active */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeek = {
+  __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week';
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week: Scalars['Int'];
+  /** An object relationship */
+  day_type: TimetablesServiceCalendarDayType;
+  /** The DAY TYPE for which we define the activeness */
+  day_type_id: Scalars['uuid'];
+};
+
+/** aggregated selection of "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregate = {
+  __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_aggregate';
+  aggregate?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateFields>;
+  nodes: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeek>;
+};
+
+/** aggregate fields of "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateFields = {
+  __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_aggregate_fields';
+  avg?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAvgFields>;
+  count: Scalars['Int'];
+  max?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMaxFields>;
+  min?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMinFields>;
+  stddev?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevFields>;
+  stddev_pop?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevPopFields>;
+  stddev_samp?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevSampFields>;
+  sum?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSumFields>;
+  var_pop?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarPopFields>;
+  var_samp?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarSampFields>;
+  variance?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarianceFields>;
+};
+
+/** aggregate fields of "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateFieldsCountArgs =
+  {
+    columns?: Maybe<
+      Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
+    >;
+    distinct?: Maybe<Scalars['Boolean']>;
+  };
+
+/** order by aggregate values of table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateOrderBy =
+  {
+    avg?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAvgOrderBy>;
+    count?: Maybe<OrderBy>;
+    max?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMaxOrderBy>;
+    min?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMinOrderBy>;
+    stddev?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevOrderBy>;
+    stddev_pop?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevPopOrderBy>;
+    stddev_samp?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevSampOrderBy>;
+    sum?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSumOrderBy>;
+    var_pop?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarPopOrderBy>;
+    var_samp?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarSampOrderBy>;
+    variance?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarianceOrderBy>;
+  };
+
+/** input type for inserting array relation for remote table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekArrRelInsertInput =
+  {
+    data: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekInsertInput>;
+    /** upsert condition */
+    on_conflict?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOnConflict>;
+  };
+
+/** aggregate avg on columns */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAvgFields = {
+  __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_avg_fields';
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAvgOrderBy = {
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<OrderBy>;
+};
+
+/** Boolean expression to filter rows from the table "service_calendar.day_type_active_on_day_of_week". All fields are combined with a logical 'AND'. */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp = {
+  _and?: Maybe<Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>>;
+  _not?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+  _or?: Maybe<Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>>;
+  day_of_week?: Maybe<IntComparisonExp>;
+  day_type?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  day_type_id?: Maybe<UuidComparisonExp>;
+};
+
+/** unique or primary key constraints on table "service_calendar.day_type_active_on_day_of_week" */
+export enum TimetablesServiceCalendarDayTypeActiveOnDayOfWeekConstraint {
+  /** unique or primary key constraint on columns "day_type_id", "day_of_week" */
+  DayTypeActiveOnDayOfWeekPkey = 'day_type_active_on_day_of_week_pkey',
+}
+
+/** input type for incrementing numeric columns in table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekIncInput = {
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekInsertInput = {
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<Scalars['Int']>;
+  day_type?: Maybe<TimetablesServiceCalendarDayTypeObjRelInsertInput>;
+  /** The DAY TYPE for which we define the activeness */
+  day_type_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregate max on columns */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMaxFields = {
+  __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_max_fields';
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<Scalars['Int']>;
+  /** The DAY TYPE for which we define the activeness */
+  day_type_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by max() on columns of table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMaxOrderBy = {
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<OrderBy>;
+  /** The DAY TYPE for which we define the activeness */
+  day_type_id?: Maybe<OrderBy>;
+};
+
+/** aggregate min on columns */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMinFields = {
+  __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_min_fields';
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<Scalars['Int']>;
+  /** The DAY TYPE for which we define the activeness */
+  day_type_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by min() on columns of table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMinOrderBy = {
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<OrderBy>;
+  /** The DAY TYPE for which we define the activeness */
+  day_type_id?: Maybe<OrderBy>;
+};
+
+/** response of any mutation on the table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMutationResponse =
+  {
+    __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_mutation_response';
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int'];
+    /** data from the rows affected by the mutation */
+    returning: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeek>;
+  };
+
+/** on_conflict condition type for table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOnConflict = {
+  constraint: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekConstraint;
+  update_columns?: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekUpdateColumn>;
+  where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+};
+
+/** Ordering options when selecting data from "service_calendar.day_type_active_on_day_of_week". */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy = {
+  day_of_week?: Maybe<OrderBy>;
+  day_type?: Maybe<TimetablesServiceCalendarDayTypeOrderBy>;
+  day_type_id?: Maybe<OrderBy>;
+};
+
+/** primary key columns input for table: service_calendar.day_type_active_on_day_of_week */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekPkColumnsInput = {
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week: Scalars['Int'];
+  /** The DAY TYPE for which we define the activeness */
+  day_type_id: Scalars['uuid'];
+};
+
+/** select columns of table "service_calendar.day_type_active_on_day_of_week" */
+export enum TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn {
+  /** column name */
+  DayOfWeek = 'day_of_week',
+  /** column name */
+  DayTypeId = 'day_type_id',
+}
+
+/** input type for updating data in table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSetInput = {
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<Scalars['Int']>;
+  /** The DAY TYPE for which we define the activeness */
+  day_type_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregate stddev on columns */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevFields = {
+  __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_stddev_fields';
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevOrderBy = {
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<OrderBy>;
+};
+
+/** aggregate stddev_pop on columns */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevPopFields = {
+  __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_stddev_pop_fields';
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevPopOrderBy =
+  {
+    /** ISO week day definition (1 = Monday, 7 = Sunday) */
+    day_of_week?: Maybe<OrderBy>;
+  };
+
+/** aggregate stddev_samp on columns */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevSampFields =
+  {
+    __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_stddev_samp_fields';
+    /** ISO week day definition (1 = Monday, 7 = Sunday) */
+    day_of_week?: Maybe<Scalars['Float']>;
+  };
+
+/** order by stddev_samp() on columns of table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevSampOrderBy =
+  {
+    /** ISO week day definition (1 = Monday, 7 = Sunday) */
+    day_of_week?: Maybe<OrderBy>;
+  };
+
+/** Streaming cursor of the table "service_calendar_day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStreamCursorInput =
+  {
+    /** Stream column input with initial value */
+    initial_value: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStreamCursorValueInput;
+    /** cursor ordering */
+    ordering?: Maybe<TimetablesCursorOrdering>;
+  };
+
+/** Initial value of the column from where the streaming should start */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStreamCursorValueInput =
+  {
+    /** ISO week day definition (1 = Monday, 7 = Sunday) */
+    day_of_week?: Maybe<Scalars['Int']>;
+    /** The DAY TYPE for which we define the activeness */
+    day_type_id?: Maybe<Scalars['uuid']>;
+  };
+
+/** aggregate sum on columns */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSumFields = {
+  __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_sum_fields';
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSumOrderBy = {
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<OrderBy>;
+};
+
+/** update columns of table "service_calendar.day_type_active_on_day_of_week" */
+export enum TimetablesServiceCalendarDayTypeActiveOnDayOfWeekUpdateColumn {
+  /** column name */
+  DayOfWeek = 'day_of_week',
+  /** column name */
+  DayTypeId = 'day_type_id',
+}
+
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSetInput>;
+  where: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp;
+};
+
+/** aggregate var_pop on columns */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarPopFields = {
+  __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_var_pop_fields';
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarPopOrderBy = {
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<OrderBy>;
+};
+
+/** aggregate var_samp on columns */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarSampFields = {
+  __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_var_samp_fields';
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarSampOrderBy = {
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<OrderBy>;
+};
+
+/** aggregate variance on columns */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarianceFields = {
+  __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_variance_fields';
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "service_calendar.day_type_active_on_day_of_week" */
+export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarianceOrderBy = {
+  /** ISO week day definition (1 = Monday, 7 = Sunday) */
+  day_of_week?: Maybe<OrderBy>;
 };
 
 /** aggregated selection of "service_calendar.day_type" */
@@ -7890,6 +8241,7 @@ export type TimetablesServiceCalendarDayTypeBoolExp = {
   _and?: Maybe<Array<TimetablesServiceCalendarDayTypeBoolExp>>;
   _not?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
   _or?: Maybe<Array<TimetablesServiceCalendarDayTypeBoolExp>>;
+  active_on_days_of_week?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
   day_type_id?: Maybe<UuidComparisonExp>;
   label?: Maybe<StringComparisonExp>;
   name_i18n?: Maybe<JsonbComparisonExp>;
@@ -7924,6 +8276,7 @@ export type TimetablesServiceCalendarDayTypeDeleteKeyInput = {
 
 /** input type for inserting data into table "service_calendar.day_type" */
 export type TimetablesServiceCalendarDayTypeInsertInput = {
+  active_on_days_of_week?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekArrRelInsertInput>;
   day_type_id?: Maybe<Scalars['uuid']>;
   /** The label for the DAY TYPE. Used for identifying the DAY TYPE when importing data from Hastus. Includes both basic (e.g. "Monday-Thursday") and special ("Easter Sunday") day types */
   label?: Maybe<Scalars['String']>;
@@ -7973,6 +8326,7 @@ export type TimetablesServiceCalendarDayTypeOnConflict = {
 
 /** Ordering options when selecting data from "service_calendar.day_type". */
 export type TimetablesServiceCalendarDayTypeOrderBy = {
+  active_on_days_of_week_aggregate?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateOrderBy>;
   day_type_id?: Maybe<OrderBy>;
   label?: Maybe<OrderBy>;
   name_i18n?: Maybe<OrderBy>;
@@ -8490,6 +8844,10 @@ export type TimetablesTimetablesMutationFrontend = {
   timetables_delete_passing_times_timetabled_passing_time_by_pk?: Maybe<TimetablesPassingTimesTimetabledPassingTime>;
   /** delete data from the table: "service_calendar.day_type" */
   timetables_delete_service_calendar_day_type?: Maybe<TimetablesServiceCalendarDayTypeMutationResponse>;
+  /** delete data from the table: "service_calendar.day_type_active_on_day_of_week" */
+  timetables_delete_service_calendar_day_type_active_on_day_of_week?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMutationResponse>;
+  /** delete single row from the table: "service_calendar.day_type_active_on_day_of_week" */
+  timetables_delete_service_calendar_day_type_active_on_day_of_week_by_pk?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeek>;
   /** delete single row from the table: "service_calendar.day_type" */
   timetables_delete_service_calendar_day_type_by_pk?: Maybe<TimetablesServiceCalendarDayType>;
   /** delete data from the table: "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -8522,6 +8880,10 @@ export type TimetablesTimetablesMutationFrontend = {
   timetables_insert_passing_times_timetabled_passing_time_one?: Maybe<TimetablesPassingTimesTimetabledPassingTime>;
   /** insert data into the table: "service_calendar.day_type" */
   timetables_insert_service_calendar_day_type?: Maybe<TimetablesServiceCalendarDayTypeMutationResponse>;
+  /** insert data into the table: "service_calendar.day_type_active_on_day_of_week" */
+  timetables_insert_service_calendar_day_type_active_on_day_of_week?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMutationResponse>;
+  /** insert a single row into the table: "service_calendar.day_type_active_on_day_of_week" */
+  timetables_insert_service_calendar_day_type_active_on_day_of_week_one?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeek>;
   /** insert a single row into the table: "service_calendar.day_type" */
   timetables_insert_service_calendar_day_type_one?: Maybe<TimetablesServiceCalendarDayType>;
   /** insert data into the table: "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -8562,6 +8924,16 @@ export type TimetablesTimetablesMutationFrontend = {
   >;
   /** update data of the table: "service_calendar.day_type" */
   timetables_update_service_calendar_day_type?: Maybe<TimetablesServiceCalendarDayTypeMutationResponse>;
+  /** update data of the table: "service_calendar.day_type_active_on_day_of_week" */
+  timetables_update_service_calendar_day_type_active_on_day_of_week?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMutationResponse>;
+  /** update single row of the table: "service_calendar.day_type_active_on_day_of_week" */
+  timetables_update_service_calendar_day_type_active_on_day_of_week_by_pk?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeek>;
+  /** update multiples rows of table: "service_calendar.day_type_active_on_day_of_week" */
+  timetables_update_service_calendar_day_type_active_on_day_of_week_many?: Maybe<
+    Array<
+      Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMutationResponse>
+    >
+  >;
   /** update single row of the table: "service_calendar.day_type" */
   timetables_update_service_calendar_day_type_by_pk?: Maybe<TimetablesServiceCalendarDayType>;
   /** update multiples rows of table: "service_calendar.day_type" */
@@ -8635,6 +9007,17 @@ export type TimetablesTimetablesMutationFrontendTimetablesDeletePassingTimesTime
 export type TimetablesTimetablesMutationFrontendTimetablesDeleteServiceCalendarDayTypeArgs =
   {
     where: TimetablesServiceCalendarDayTypeBoolExp;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesDeleteServiceCalendarDayTypeActiveOnDayOfWeekArgs =
+  {
+    where: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesDeleteServiceCalendarDayTypeActiveOnDayOfWeekByPkArgs =
+  {
+    day_of_week: Scalars['Int'];
+    day_type_id: Scalars['uuid'];
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesDeleteServiceCalendarDayTypeByPkArgs =
@@ -8720,6 +9103,18 @@ export type TimetablesTimetablesMutationFrontendTimetablesInsertServiceCalendarD
   {
     objects: Array<TimetablesServiceCalendarDayTypeInsertInput>;
     on_conflict?: Maybe<TimetablesServiceCalendarDayTypeOnConflict>;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesInsertServiceCalendarDayTypeActiveOnDayOfWeekArgs =
+  {
+    objects: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekInsertInput>;
+    on_conflict?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOnConflict>;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesInsertServiceCalendarDayTypeActiveOnDayOfWeekOneArgs =
+  {
+    object: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekInsertInput;
+    on_conflict?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertServiceCalendarDayTypeOneArgs =
@@ -8833,6 +9228,25 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarD
     where: TimetablesServiceCalendarDayTypeBoolExp;
   };
 
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarDayTypeActiveOnDayOfWeekArgs =
+  {
+    _inc?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekIncInput>;
+    _set?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSetInput>;
+    where: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarDayTypeActiveOnDayOfWeekByPkArgs =
+  {
+    _inc?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekIncInput>;
+    _set?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSetInput>;
+    pk_columns: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekPkColumnsInput;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarDayTypeActiveOnDayOfWeekManyArgs =
+  {
+    updates: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekUpdates>;
+  };
+
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarDayTypeByPkArgs =
   {
     _append?: Maybe<TimetablesServiceCalendarDayTypeAppendInput>;
@@ -8891,6 +9305,7 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleScheduleV
     _delete_at_path?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteAtPathInput>;
     _delete_elem?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteElemInput>;
     _delete_key?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput>;
+    _inc?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameIncInput>;
     _prepend?: Maybe<TimetablesVehicleScheduleVehicleScheduleFramePrependInput>;
     _set?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameSetInput>;
     where: TimetablesVehicleScheduleVehicleScheduleFrameBoolExp;
@@ -8902,6 +9317,7 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleScheduleV
     _delete_at_path?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteAtPathInput>;
     _delete_elem?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteElemInput>;
     _delete_key?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput>;
+    _inc?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameIncInput>;
     _prepend?: Maybe<TimetablesVehicleScheduleVehicleScheduleFramePrependInput>;
     _set?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameSetInput>;
     pk_columns: TimetablesVehicleScheduleVehicleScheduleFramePkColumnsInput;
@@ -8962,6 +9378,12 @@ export type TimetablesTimetablesQuery = {
   timetables_passing_times_timetabled_passing_time_by_pk?: Maybe<TimetablesPassingTimesTimetabledPassingTime>;
   /** fetch data from the table: "service_calendar.day_type" */
   timetables_service_calendar_day_type: Array<TimetablesServiceCalendarDayType>;
+  /** fetch data from the table: "service_calendar.day_type_active_on_day_of_week" */
+  timetables_service_calendar_day_type_active_on_day_of_week: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeek>;
+  /** fetch aggregated fields from the table: "service_calendar.day_type_active_on_day_of_week" */
+  timetables_service_calendar_day_type_active_on_day_of_week_aggregate: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregate;
+  /** fetch data from the table: "service_calendar.day_type_active_on_day_of_week" using primary key columns */
+  timetables_service_calendar_day_type_active_on_day_of_week_by_pk?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeek>;
   /** fetch aggregated fields from the table: "service_calendar.day_type" */
   timetables_service_calendar_day_type_aggregate: TimetablesServiceCalendarDayTypeAggregate;
   /** fetch data from the table: "service_calendar.day_type" using primary key columns */
@@ -9059,6 +9481,38 @@ export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeArgs = {
   order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
   where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
 };
+
+export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeActiveOnDayOfWeekArgs =
+  {
+    distinct_on?: Maybe<
+      Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy>
+    >;
+    where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+  };
+
+export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy>
+    >;
+    where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+  };
+
+export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeActiveOnDayOfWeekByPkArgs =
+  {
+    day_of_week: Scalars['Int'];
+    day_type_id: Scalars['uuid'];
+  };
 
 export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeAggregateArgs =
   {
@@ -9231,6 +9685,14 @@ export type TimetablesTimetablesSubscription = {
   timetables_passing_times_timetabled_passing_time_stream: Array<TimetablesPassingTimesTimetabledPassingTime>;
   /** fetch data from the table: "service_calendar.day_type" */
   timetables_service_calendar_day_type: Array<TimetablesServiceCalendarDayType>;
+  /** fetch data from the table: "service_calendar.day_type_active_on_day_of_week" */
+  timetables_service_calendar_day_type_active_on_day_of_week: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeek>;
+  /** fetch aggregated fields from the table: "service_calendar.day_type_active_on_day_of_week" */
+  timetables_service_calendar_day_type_active_on_day_of_week_aggregate: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregate;
+  /** fetch data from the table: "service_calendar.day_type_active_on_day_of_week" using primary key columns */
+  timetables_service_calendar_day_type_active_on_day_of_week_by_pk?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeek>;
+  /** fetch data from the table in a streaming manner : "service_calendar.day_type_active_on_day_of_week" */
+  timetables_service_calendar_day_type_active_on_day_of_week_stream: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeek>;
   /** fetch aggregated fields from the table: "service_calendar.day_type" */
   timetables_service_calendar_day_type_aggregate: TimetablesServiceCalendarDayTypeAggregate;
   /** fetch data from the table: "service_calendar.day_type" using primary key columns */
@@ -9358,6 +9820,47 @@ export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeArgs
     offset?: Maybe<Scalars['Int']>;
     order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
     where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeActiveOnDayOfWeekArgs =
+  {
+    distinct_on?: Maybe<
+      Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy>
+    >;
+    where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateArgs =
+  {
+    distinct_on?: Maybe<
+      Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<
+      Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy>
+    >;
+    where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeActiveOnDayOfWeekByPkArgs =
+  {
+    day_of_week: Scalars['Int'];
+    day_type_id: Scalars['uuid'];
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeActiveOnDayOfWeekStreamArgs =
+  {
+    batch_size: Scalars['Int'];
+    cursor: Array<
+      Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStreamCursorInput>
+    >;
+    where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeAggregateArgs =
@@ -9570,10 +10073,14 @@ export type TimetablesVehicleJourneyVehicleJourney = {
   block: TimetablesVehicleServiceBlock;
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id: Scalars['uuid'];
+  /** A computed field, executes function "vehicle_journey.vehicle_journey_end_time" */
+  end_time: Scalars['interval'];
   /** An object relationship */
   journey_pattern_ref: TimetablesJourneyPatternJourneyPatternRef;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   journey_pattern_ref_id: Scalars['uuid'];
+  /** A computed field, executes function "vehicle_journey.vehicle_journey_start_time" */
+  start_time: Scalars['interval'];
   /** An array relationship */
   timetabled_passing_times: Array<TimetablesPassingTimesTimetabledPassingTime>;
   /** An aggregate relationship */
@@ -9646,8 +10153,10 @@ export type TimetablesVehicleJourneyVehicleJourneyBoolExp = {
   _or?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneyBoolExp>>;
   block?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
   block_id?: Maybe<UuidComparisonExp>;
+  end_time?: Maybe<StringComparisonExp>;
   journey_pattern_ref?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
   journey_pattern_ref_id?: Maybe<UuidComparisonExp>;
+  start_time?: Maybe<StringComparisonExp>;
   timetabled_passing_times?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
   vehicle_journey_id?: Maybe<UuidComparisonExp>;
 };
@@ -9735,8 +10244,10 @@ export type TimetablesVehicleJourneyVehicleJourneyOnConflict = {
 export type TimetablesVehicleJourneyVehicleJourneyOrderBy = {
   block?: Maybe<TimetablesVehicleServiceBlockOrderBy>;
   block_id?: Maybe<OrderBy>;
+  end_time?: Maybe<OrderBy>;
   journey_pattern_ref?: Maybe<TimetablesJourneyPatternJourneyPatternRefOrderBy>;
   journey_pattern_ref_id?: Maybe<OrderBy>;
+  start_time?: Maybe<OrderBy>;
   timetabled_passing_times_aggregate?: Maybe<TimetablesPassingTimesTimetabledPassingTimeAggregateOrderBy>;
   vehicle_journey_id?: Maybe<OrderBy>;
 };
@@ -9803,6 +10314,8 @@ export type TimetablesVehicleScheduleVehicleScheduleFrame = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n: Scalars['jsonb'];
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority: Scalars['Int'];
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
   validity_end?: Maybe<Scalars['date']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
@@ -9852,9 +10365,17 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameAggregate = {
 /** aggregate fields of "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameAggregateFields = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_aggregate_fields';
+  avg?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameAvgFields>;
   count: Scalars['Int'];
   max?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameMaxFields>;
   min?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameMinFields>;
+  stddev?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameStddevFields>;
+  stddev_pop?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameStddevPopFields>;
+  stddev_samp?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameStddevSampFields>;
+  sum?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameSumFields>;
+  var_pop?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameVarPopFields>;
+  var_samp?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameVarSampFields>;
+  variance?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameVarianceFields>;
 };
 
 /** aggregate fields of "vehicle_schedule.vehicle_schedule_frame" */
@@ -9872,12 +10393,20 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameAppendInput = {
   name_i18n?: Maybe<Scalars['jsonb']>;
 };
 
+/** aggregate avg on columns */
+export type TimetablesVehicleScheduleVehicleScheduleFrameAvgFields = {
+  __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_avg_fields';
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Float']>;
+};
+
 /** Boolean expression to filter rows from the table "vehicle_schedule.vehicle_schedule_frame". All fields are combined with a logical 'AND'. */
 export type TimetablesVehicleScheduleVehicleScheduleFrameBoolExp = {
   _and?: Maybe<Array<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>>;
   _not?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
   _or?: Maybe<Array<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>>;
   name_i18n?: Maybe<JsonbComparisonExp>;
+  priority?: Maybe<IntComparisonExp>;
   validity_end?: Maybe<DateComparisonExp>;
   validity_start?: Maybe<DateComparisonExp>;
   vehicle_schedule_frame_id?: Maybe<UuidComparisonExp>;
@@ -9908,10 +10437,18 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput = {
   name_i18n?: Maybe<Scalars['String']>;
 };
 
+/** input type for incrementing numeric columns in table "vehicle_schedule.vehicle_schedule_frame" */
+export type TimetablesVehicleScheduleVehicleScheduleFrameIncInput = {
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Int']>;
+};
+
 /** input type for inserting data into table "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameInsertInput = {
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: Maybe<Scalars['jsonb']>;
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Int']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
   validity_end?: Maybe<Scalars['date']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
@@ -9923,6 +10460,8 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameInsertInput = {
 /** aggregate max on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameMaxFields = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_max_fields';
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Int']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
   validity_end?: Maybe<Scalars['date']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
@@ -9933,6 +10472,8 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameMaxFields = {
 /** aggregate min on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameMinFields = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_min_fields';
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Int']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
   validity_end?: Maybe<Scalars['date']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
@@ -9966,6 +10507,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameOnConflict = {
 /** Ordering options when selecting data from "vehicle_schedule.vehicle_schedule_frame". */
 export type TimetablesVehicleScheduleVehicleScheduleFrameOrderBy = {
   name_i18n?: Maybe<OrderBy>;
+  priority?: Maybe<OrderBy>;
   validity_end?: Maybe<OrderBy>;
   validity_start?: Maybe<OrderBy>;
   vehicle_schedule_frame_id?: Maybe<OrderBy>;
@@ -9988,6 +10530,8 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn {
   /** column name */
   NameI18n = 'name_i18n',
   /** column name */
+  Priority = 'priority',
+  /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
   ValidityStart = 'validity_start',
@@ -9999,11 +10543,34 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn {
 export type TimetablesVehicleScheduleVehicleScheduleFrameSetInput = {
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: Maybe<Scalars['jsonb']>;
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Int']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
   validity_end?: Maybe<Scalars['date']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
   validity_start?: Maybe<Scalars['date']>;
   vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregate stddev on columns */
+export type TimetablesVehicleScheduleVehicleScheduleFrameStddevFields = {
+  __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_stddev_fields';
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type TimetablesVehicleScheduleVehicleScheduleFrameStddevPopFields = {
+  __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_stddev_pop_fields';
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type TimetablesVehicleScheduleVehicleScheduleFrameStddevSampFields = {
+  __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_stddev_samp_fields';
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Float']>;
 };
 
 /** Streaming cursor of the table "vehicle_schedule_vehicle_schedule_frame" */
@@ -10019,6 +10586,8 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorValueInput 
   {
     /** Human-readable name for the VEHICLE SCHEDULE FRAME */
     name_i18n?: Maybe<Scalars['jsonb']>;
+    /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+    priority?: Maybe<Scalars['Int']>;
     /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
     validity_end?: Maybe<Scalars['date']>;
     /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
@@ -10026,10 +10595,19 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorValueInput 
     vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
   };
 
+/** aggregate sum on columns */
+export type TimetablesVehicleScheduleVehicleScheduleFrameSumFields = {
+  __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_sum_fields';
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Int']>;
+};
+
 /** update columns of table "vehicle_schedule.vehicle_schedule_frame" */
 export enum TimetablesVehicleScheduleVehicleScheduleFrameUpdateColumn {
   /** column name */
   NameI18n = 'name_i18n',
+  /** column name */
+  Priority = 'priority',
   /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
@@ -10047,11 +10625,34 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameUpdates = {
   _delete_elem?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteElemInput>;
   /** delete key/value pair or string element. key/value pairs are matched based on their key value */
   _delete_key?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameIncInput>;
   /** prepend existing jsonb value of filtered columns with new jsonb value */
   _prepend?: Maybe<TimetablesVehicleScheduleVehicleScheduleFramePrependInput>;
   /** sets the columns of the filtered rows to the given values */
   _set?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameSetInput>;
   where: TimetablesVehicleScheduleVehicleScheduleFrameBoolExp;
+};
+
+/** aggregate var_pop on columns */
+export type TimetablesVehicleScheduleVehicleScheduleFrameVarPopFields = {
+  __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_var_pop_fields';
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type TimetablesVehicleScheduleVehicleScheduleFrameVarSampFields = {
+  __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_var_samp_fields';
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type TimetablesVehicleScheduleVehicleScheduleFrameVarianceFields = {
+  __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_variance_fields';
+  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
+  priority?: Maybe<Scalars['Float']>;
 };
 
 /** The work of a vehicle from the time it leaves a PARKING POINT after parking until its next return to park at a PARKING POINT. Any subsequent departure from a PARKING POINT after parking marks the start of a new BLOCK. The period of a BLOCK has to be covered by DUTies. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:958  */
@@ -10261,7 +10862,7 @@ export type TimetablesVehicleServiceBlockUpdates = {
   where: TimetablesVehicleServiceBlockBoolExp;
 };
 
-/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several VEHICLE SERVICE PARTs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
+/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
 export type TimetablesVehicleServiceVehicleService = {
   __typename?: 'timetables_vehicle_service_vehicle_service';
   /** An array relationship */
@@ -10279,7 +10880,7 @@ export type TimetablesVehicleServiceVehicleService = {
   vehicle_service_id: Scalars['uuid'];
 };
 
-/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several VEHICLE SERVICE PARTs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
+/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
 export type TimetablesVehicleServiceVehicleServiceBlocksArgs = {
   distinct_on?: Maybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -10288,7 +10889,7 @@ export type TimetablesVehicleServiceVehicleServiceBlocksArgs = {
   where?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
 };
 
-/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several VEHICLE SERVICE PARTs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
+/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
 export type TimetablesVehicleServiceVehicleServiceBlocksAggregateArgs = {
   distinct_on?: Maybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
