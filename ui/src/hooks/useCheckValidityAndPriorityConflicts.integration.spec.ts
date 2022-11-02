@@ -244,7 +244,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
         const conflicts = await result.current.getConflictingLines(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_end?.plus({ milliseconds: 1 }),
+            validityStart: boundedLine.validity_end?.plus({ days: 1 }),
             validityEnd: undefined,
           }),
         );
@@ -257,7 +257,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
         const conflicts = await result.current.getConflictingLines(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_end?.plus({ milliseconds: 1 }),
+            validityStart: boundedLine.validity_end?.plus({ days: 1 }),
             validityEnd: boundedLine.validity_end?.plus({ months: 1 }),
           }),
         );
@@ -284,8 +284,8 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
         const conflicts = await result.current.getConflictingLines(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_start?.minus({ days: 1 }),
-            validityEnd: boundedLine.validity_start?.minus({ milliseconds: 1 }),
+            validityStart: boundedLine.validity_start?.minus({ months: 1 }),
+            validityEnd: boundedLine.validity_start?.minus({ days: 1 }),
           }),
         );
         expect(conflicts.length).toBe(0);
@@ -298,7 +298,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
           buildQuery({
             label: boundedLine.label,
             validityStart: undefined,
-            validityEnd: boundedLine.validity_start?.minus({ milliseconds: 1 }),
+            validityEnd: boundedLine.validity_start?.minus({ days: 1 }),
           }),
         );
         expect(conflicts.length).toBe(0);
