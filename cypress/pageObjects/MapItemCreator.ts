@@ -159,6 +159,7 @@ export class MapItemCreator {
 
     this.editRouteModal.save();
 
+    cy.getByTestId('EditRouteModal').should('not.exist');
     routePoints.forEach((routePoint) => {
       this.map.clickAtPositionFromMapMarkerByTestId(routePoint);
     });
