@@ -1,22 +1,26 @@
 import { padToTwoDigits } from '../../../../time';
 
-interface Props {
-  data: VehicleServiceRowData;
-}
-
 export interface VehicleServiceRowData {
   hours: number;
   minutes: number[];
 }
 
-export const VehicleServiceTableRow = ({ data }: Props): JSX.Element => {
+interface Props {
+  data: VehicleServiceRowData;
+  oddRowColor: string;
+}
+
+export const VehicleServiceTableRow = ({
+  data,
+  oddRowColor = '',
+}: Props): JSX.Element => {
   const { hours, minutes } = data;
   return (
-    <tr className="odd:bg-hsl-neutral-blue">
-      <td className="border-r border-dark-grey px-4">
+    <tr className={`flex items-stretch odd:${oddRowColor}`}>
+      <td className="px-4">
         <h4>{padToTwoDigits(hours)}</h4>
       </td>
-      <td className="w-full space-x-3 pl-3 text-sm">
+      <td className="flex flex-wrap content-center gap-x-3 border-l border-dark-grey pl-3 text-sm">
         {minutes.map((item) => (
           <span key={item}>{padToTwoDigits(item)}</span>
         ))}

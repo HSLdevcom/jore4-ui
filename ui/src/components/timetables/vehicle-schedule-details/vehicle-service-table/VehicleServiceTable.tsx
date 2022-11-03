@@ -41,6 +41,16 @@ export const VehicleServiceTable = ({
     return bgColors[key];
   };
 
+  const getOddRowColor = (key: TimetablePriority) => {
+    const bgColors: Record<TimetablePriority, string> = {
+      [TimetablePriority.Standard]: 'bg-hsl-neutral-blue',
+      [TimetablePriority.Temporary]: 'bg-hsl-neutral-blue',
+      [TimetablePriority.Special]: 'bg-hsl-neutral-blue',
+      [TimetablePriority.Draft]: 'bg-background',
+    };
+    return bgColors[key];
+  };
+
   const passingTimesByHour = pipe(
     vehicleServices,
     (services) => services.flatMap((item) => item.blocks),
@@ -81,10 +91,14 @@ export const VehicleServiceTable = ({
       </Row>
 
       <Visible visible={hasVehicleServices}>
-        <table data-testid={testIds.timetable}>
-          <tbody>
+        <table data-testid={testIds.timetable} className="flex">
+          <tbody className=" w-full">
             {rowData.map((item) => (
-              <VehicleServiceTableRow key={item.hours} data={item} />
+              <VehicleServiceTableRow
+                key={item.hours}
+                data={item}
+                oddRowColor={getOddRowColor(priority)}
+              />
             ))}
           </tbody>
         </table>
