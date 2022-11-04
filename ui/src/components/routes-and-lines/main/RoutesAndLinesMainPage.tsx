@@ -15,7 +15,7 @@ const testIds = {
   createLineButton: 'RoutesAndLinesPage::createLineButton',
 };
 
-export const RoutesAndLinesPage = (): JSX.Element => {
+export const RoutesAndLinesMainPage = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { addMapOpenQueryParameter } = useMapQueryParams();
