@@ -159,9 +159,9 @@ const DrawRouteLayerComponent = (
       // (when editing, fetch it from graphql; when creating, filled in through form)
       if (
         !editedRouteData.metaData ||
-        !editedRouteData.metaData.validityStart ||
-        !editedRouteData.metaData.validityEnd ||
-        !editedRouteData.metaData.priority
+        editedRouteData.metaData.validityStart === undefined ||
+        editedRouteData.metaData.validityEnd === undefined ||
+        editedRouteData.metaData.priority === undefined
       ) {
         log.error(
           'Trying to update route geometry but route metadata is not (yet) available',
