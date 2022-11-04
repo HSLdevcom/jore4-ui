@@ -8,7 +8,7 @@ import { EditLinePage } from '../components/routes-and-lines/edit-line/EditLineP
 import { EditRoutePage } from '../components/routes-and-lines/edit-route/EditRoutePage';
 import { LineDetailsPage } from '../components/routes-and-lines/line-details/LineDetailsPage';
 import { LineDraftsPage } from '../components/routes-and-lines/line-drafts/LineDraftsPage';
-import { RoutesAndLinesPage } from '../components/routes-and-lines/main/RoutesAndLinesPage';
+import { RoutesAndLinesMainPage } from '../components/routes-and-lines/main/RoutesAndLinesMainPage';
 import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
 import {
   VehicleScheduleDetailsPage,
@@ -37,7 +37,7 @@ export const Router: FunctionComponent = () => {
     [Path.routes]: {
       _routerRoute: Path.routes,
       _exact: true,
-      component: RoutesAndLinesPage,
+      component: RoutesAndLinesMainPage,
     },
     [Path.timetables]: {
       _routerRoute: Path.timetables,
