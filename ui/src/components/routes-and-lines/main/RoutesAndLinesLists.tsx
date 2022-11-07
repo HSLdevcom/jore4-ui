@@ -5,10 +5,11 @@ import {
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
 } from '../../../generated/graphql';
-import { LinesList } from './LinesList';
+import { Path } from '../../../router/routeDetails';
+import { LinesList } from '../../common/search/LinesList';
+import { RoutesList } from '../../common/search/RoutesList';
 import { ListFooter } from './ListFooter';
 import { ListHeader } from './ListHeader';
-import { RoutesList } from './RoutesList';
 
 // TODO: This list is currently only for visual purpose and will be so until
 // we get user data to our system. Until then, we just list all routes
@@ -65,10 +66,10 @@ export const RoutesAndLinesLists = (): JSX.Element => {
         onLimitChange={setChangingRoutesLimit}
         className="mb-5"
       />
-      <RoutesList routes={changingRoutes} />
+      <RoutesList basePath={Path.lineDetails} routes={changingRoutes} />
       <ListFooter onLimitChange={setChangingRoutesLimit} className="mt-8" />
       <h2 className="mb-14 mt-12">{t('lines.lines')}</h2>
-      <LinesList lines={ownLines} />
+      <LinesList basePath={Path.lineDetails} lines={ownLines} />
     </div>
   );
 };
