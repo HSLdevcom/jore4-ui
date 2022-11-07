@@ -4,22 +4,25 @@ import {
 } from '../../../generated/graphql';
 import { useAppSelector } from '../../../hooks';
 import { selectExport } from '../../../redux';
+import { Path } from '../../../router/routeDetails';
 import { DisplayedSearchResultType } from '../../../utils';
-import { LinesList } from '../main/LinesList';
-import { RoutesList } from '../main/RoutesList';
+import { LinesList } from './LinesList';
+import { RoutesList } from './RoutesList';
 
 interface Props {
   lines?: LineTableRowFragment[];
   routes?: RouteAllFieldsFragment[];
+  basePath: Path;
   displayedData: DisplayedSearchResultType;
 }
 
-/** Depending on displayeData this component will return the
+/** Depending on displayedData this component will return the
  * corresponding list element
  */
 export const ResultList = ({
   lines,
   routes,
+  basePath,
   displayedData,
 }: Props): JSX.Element => {
   const { isSelectingRoutesForExport } = useAppSelector(selectExport);
@@ -28,6 +31,7 @@ export const ResultList = ({
     case DisplayedSearchResultType.Lines:
       return (
         <LinesList
+          basePath={basePath}
           lines={lines}
           areItemsSelectable={isSelectingRoutesForExport}
         />
@@ -35,6 +39,7 @@ export const ResultList = ({
     case DisplayedSearchResultType.Routes:
       return (
         <RoutesList
+          basePath={basePath}
           routes={routes}
           areItemsSelectable={isSelectingRoutesForExport}
         />

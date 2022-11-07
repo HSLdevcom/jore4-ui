@@ -4,9 +4,9 @@ import { usePagination } from '../../../hooks/usePagination';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
 import { CloseIconButton, Pagination } from '../../../uiComponents';
+import { ResultList } from '../../common/search/ResultList';
 import { ExportToolbar } from './ExportToolbar';
 import { FiltersContainer } from './filters/FiltersContainer';
-import { ResultList } from './ResultList';
 import { SearchContainer } from './SearchContainer';
 
 export const SearchResultPage = (): JSX.Element => {
@@ -42,6 +42,7 @@ export const SearchResultPage = (): JSX.Element => {
       <ResultList
         lines={displayedLines}
         routes={displayedRoutes}
+        basePath={Path.lineDetails}
         displayedData={queryParameters.filter.displayedData}
       />
       <Visible visible={!!resultCount}>
