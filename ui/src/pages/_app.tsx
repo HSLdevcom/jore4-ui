@@ -2,6 +2,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 import { UserProvider } from '../auth/UserProvider';
+import '../axe';
 import '../generated/fontello/css/hsl-icons.css';
 import { ApolloProvider } from '../graphql';
 import '../i18n';
