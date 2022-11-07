@@ -13639,6 +13639,118 @@ export type SearchLinesAndRoutesQuery = {
   }>;
 };
 
+export type TimetablesLineListInformationFragment = {
+  __typename?: 'route_line';
+  line_id: UUID;
+  label: string;
+  name_i18n: LocalizedString;
+  priority: number;
+  short_name_i18n: LocalizedString;
+  line_routes: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    label: string;
+    route_shape?: GeoJSON.LineString | null | undefined;
+  }>;
+};
+
+export type TimetablesRouteListInformationFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  name_i18n: LocalizedString;
+  label: string;
+  direction: RouteDirectionEnum;
+  validity_start?: luxon.DateTime | null | undefined;
+  validity_end?: luxon.DateTime | null | undefined;
+  on_line_id: UUID;
+  priority: number;
+  route_shape?: GeoJSON.LineString | null | undefined;
+  route_line: {
+    __typename?: 'route_line';
+    line_id: UUID;
+    label: string;
+    name_i18n: LocalizedString;
+    priority: number;
+    short_name_i18n: LocalizedString;
+    line_routes: Array<{
+      __typename?: 'route_route';
+      route_id: UUID;
+      label: string;
+      route_shape?: GeoJSON.LineString | null | undefined;
+    }>;
+  };
+};
+
+export type SearchJourneyPatternIdsQueryVariables = Exact<{
+  filter?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+}>;
+
+export type SearchJourneyPatternIdsQuery = {
+  __typename?: 'query_root';
+  journey_pattern_journey_pattern: Array<{
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+  }>;
+};
+
+export type SearchTimetablesByJourneyPatternIdsQueryVariables = Exact<{
+  journeyPatternIds?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
+}>;
+
+export type SearchTimetablesByJourneyPatternIdsQuery = {
+  __typename?: 'query_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_query';
+        timetables_vehicle_journey_vehicle_journey: Array<{
+          __typename?: 'timetables_vehicle_journey_vehicle_journey';
+          vehicle_journey_id: UUID;
+          journey_pattern_ref: {
+            __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+            journey_pattern_ref_id: UUID;
+            journey_pattern_instance?:
+              | {
+                  __typename?: 'journey_pattern_journey_pattern';
+                  journey_pattern_id: UUID;
+                  journey_pattern_route?:
+                    | {
+                        __typename?: 'route_route';
+                        route_id: UUID;
+                        name_i18n: LocalizedString;
+                        label: string;
+                        direction: RouteDirectionEnum;
+                        validity_start?: luxon.DateTime | null | undefined;
+                        validity_end?: luxon.DateTime | null | undefined;
+                        on_line_id: UUID;
+                        priority: number;
+                        route_shape?: GeoJSON.LineString | null | undefined;
+                        route_line: {
+                          __typename?: 'route_line';
+                          line_id: UUID;
+                          label: string;
+                          name_i18n: LocalizedString;
+                          priority: number;
+                          short_name_i18n: LocalizedString;
+                          line_routes: Array<{
+                            __typename?: 'route_route';
+                            route_id: UUID;
+                            label: string;
+                            route_shape?: GeoJSON.LineString | null | undefined;
+                          }>;
+                        };
+                      }
+                    | null
+                    | undefined;
+                }
+              | null
+              | undefined;
+          };
+        }>;
+      }
+    | null
+    | undefined;
+};
+
 export type GetLinesForComboboxQueryVariables = Exact<{
   labelPattern: Scalars['String'];
   date: Scalars['date'];
@@ -14182,6 +14294,37 @@ export const RouteWithInfrastructureLinksWithStopsFragmentDoc = gql`
   ${RouteWithJourneyPatternStopsFragmentDoc}
   ${LineAllFieldsFragmentDoc}
   ${InfraLinkAlongRouteWithStopsFragmentDoc}
+`;
+export const TimetablesLineListInformationFragmentDoc = gql`
+  fragment timetables_line_list_information on route_line {
+    line_id
+    label
+    name_i18n
+    priority
+    short_name_i18n
+    line_routes {
+      route_id
+      label
+      route_shape
+    }
+  }
+`;
+export const TimetablesRouteListInformationFragmentDoc = gql`
+  fragment timetables_route_list_information on route_route {
+    route_id
+    name_i18n
+    label
+    direction
+    validity_start
+    validity_end
+    on_line_id
+    priority
+    route_shape
+    route_line {
+      ...timetables_line_list_information
+    }
+  }
+  ${TimetablesLineListInformationFragmentDoc}
 `;
 export const LineForComboboxFragmentDoc = gql`
   fragment line_for_combobox on route_line {
@@ -17121,6 +17264,142 @@ export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<
   SearchLinesAndRoutesQuery,
   SearchLinesAndRoutesQueryVariables
 >;
+export const SearchJourneyPatternIdsDocument = gql`
+  query SearchJourneyPatternIds(
+    $filter: journey_pattern_journey_pattern_bool_exp
+  ) {
+    journey_pattern_journey_pattern(where: $filter) {
+      journey_pattern_id
+    }
+  }
+`;
+
+/**
+ * __useSearchJourneyPatternIdsQuery__
+ *
+ * To run a query within a React component, call `useSearchJourneyPatternIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchJourneyPatternIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchJourneyPatternIdsQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useSearchJourneyPatternIdsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    SearchJourneyPatternIdsQuery,
+    SearchJourneyPatternIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    SearchJourneyPatternIdsQuery,
+    SearchJourneyPatternIdsQueryVariables
+  >(SearchJourneyPatternIdsDocument, options);
+}
+export function useSearchJourneyPatternIdsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SearchJourneyPatternIdsQuery,
+    SearchJourneyPatternIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    SearchJourneyPatternIdsQuery,
+    SearchJourneyPatternIdsQueryVariables
+  >(SearchJourneyPatternIdsDocument, options);
+}
+export type SearchJourneyPatternIdsQueryHookResult = ReturnType<
+  typeof useSearchJourneyPatternIdsQuery
+>;
+export type SearchJourneyPatternIdsLazyQueryHookResult = ReturnType<
+  typeof useSearchJourneyPatternIdsLazyQuery
+>;
+export type SearchJourneyPatternIdsQueryResult = Apollo.QueryResult<
+  SearchJourneyPatternIdsQuery,
+  SearchJourneyPatternIdsQueryVariables
+>;
+export const SearchTimetablesByJourneyPatternIdsDocument = gql`
+  query SearchTimetablesByJourneyPatternIds($journeyPatternIds: [uuid!]) {
+    timetables {
+      timetables_vehicle_journey_vehicle_journey(
+        where: {
+          journey_pattern_ref: {
+            journey_pattern_id: { _in: $journeyPatternIds }
+          }
+        }
+      ) {
+        vehicle_journey_id
+        journey_pattern_ref {
+          journey_pattern_ref_id
+          journey_pattern_instance {
+            journey_pattern_id
+            journey_pattern_route {
+              ...timetables_route_list_information
+            }
+          }
+        }
+      }
+    }
+  }
+  ${TimetablesRouteListInformationFragmentDoc}
+`;
+
+/**
+ * __useSearchTimetablesByJourneyPatternIdsQuery__
+ *
+ * To run a query within a React component, call `useSearchTimetablesByJourneyPatternIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchTimetablesByJourneyPatternIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchTimetablesByJourneyPatternIdsQuery({
+ *   variables: {
+ *      journeyPatternIds: // value for 'journeyPatternIds'
+ *   },
+ * });
+ */
+export function useSearchTimetablesByJourneyPatternIdsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    SearchTimetablesByJourneyPatternIdsQuery,
+    SearchTimetablesByJourneyPatternIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    SearchTimetablesByJourneyPatternIdsQuery,
+    SearchTimetablesByJourneyPatternIdsQueryVariables
+  >(SearchTimetablesByJourneyPatternIdsDocument, options);
+}
+export function useSearchTimetablesByJourneyPatternIdsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SearchTimetablesByJourneyPatternIdsQuery,
+    SearchTimetablesByJourneyPatternIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    SearchTimetablesByJourneyPatternIdsQuery,
+    SearchTimetablesByJourneyPatternIdsQueryVariables
+  >(SearchTimetablesByJourneyPatternIdsDocument, options);
+}
+export type SearchTimetablesByJourneyPatternIdsQueryHookResult = ReturnType<
+  typeof useSearchTimetablesByJourneyPatternIdsQuery
+>;
+export type SearchTimetablesByJourneyPatternIdsLazyQueryHookResult = ReturnType<
+  typeof useSearchTimetablesByJourneyPatternIdsLazyQuery
+>;
+export type SearchTimetablesByJourneyPatternIdsQueryResult = Apollo.QueryResult<
+  SearchTimetablesByJourneyPatternIdsQuery,
+  SearchTimetablesByJourneyPatternIdsQueryVariables
+>;
 export const GetLinesForComboboxDocument = gql`
   query GetLinesForCombobox($labelPattern: String!, $date: date!) {
     route_line(
@@ -17750,6 +18029,23 @@ export function useSearchLinesAndRoutesAsyncQuery() {
 export type SearchLinesAndRoutesAsyncQueryHookResult = ReturnType<
   typeof useSearchLinesAndRoutesAsyncQuery
 >;
+export function useSearchJourneyPatternIdsAsyncQuery() {
+  return useAsyncQuery<
+    SearchJourneyPatternIdsQuery,
+    SearchJourneyPatternIdsQueryVariables
+  >(SearchJourneyPatternIdsDocument);
+}
+export type SearchJourneyPatternIdsAsyncQueryHookResult = ReturnType<
+  typeof useSearchJourneyPatternIdsAsyncQuery
+>;
+export function useSearchTimetablesByJourneyPatternIdsAsyncQuery() {
+  return useAsyncQuery<
+    SearchTimetablesByJourneyPatternIdsQuery,
+    SearchTimetablesByJourneyPatternIdsQueryVariables
+  >(SearchTimetablesByJourneyPatternIdsDocument);
+}
+export type SearchTimetablesByJourneyPatternIdsAsyncQueryHookResult =
+  ReturnType<typeof useSearchTimetablesByJourneyPatternIdsAsyncQuery>;
 export function useGetLinesForComboboxAsyncQuery() {
   return useAsyncQuery<
     GetLinesForComboboxQuery,

@@ -1,6 +1,6 @@
 import {
   LineTableRowFragment,
-  RouteAllFieldsFragment,
+  RouteTableRowFragment,
 } from '../../../generated/graphql';
 import { useAppSelector } from '../../../hooks';
 import { selectExport } from '../../../redux';
@@ -11,8 +11,8 @@ import { RoutesList } from './RoutesList';
 
 interface Props {
   lines?: LineTableRowFragment[];
-  routes?: RouteAllFieldsFragment[];
   basePath: Path;
+  routes?: RouteTableRowFragment[];
   displayedData: DisplayedSearchResultType;
 }
 

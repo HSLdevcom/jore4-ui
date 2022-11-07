@@ -12,6 +12,7 @@ import { RoutesAndLinesMainPage } from '../components/routes-and-lines/main/Rout
 import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
 import {
   TimetablesMainPage,
+  TimetablesSearchResultPage,
   VehicleScheduleDetailsPage,
 } from '../components/timetables';
 import { Main } from '../pages/Main';
@@ -48,6 +49,11 @@ export const Router: FunctionComponent = () => {
       _routerRoute: Path.routesSearch,
       _exact: true,
       component: SearchResultPage,
+    },
+    [Path.timetablesSearch]: {
+      _routerRoute: Path.timetablesSearch,
+      _exact: true,
+      component: TimetablesSearchResultPage,
     },
     [Path.editRoute]: {
       _routerRoute: Path.editRoute,

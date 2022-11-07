@@ -6,9 +6,11 @@ import {
   RouteRouteBoolExp,
   RouteRouteOrderBy,
   RouteTypeOfLineEnum,
+  SearchJourneyPatternIdsQueryVariables,
   SearchLinesAndRoutesQueryVariables,
 } from '../generated/graphql';
 import { SearchConditions } from '../hooks/search/useSearchQueryParser';
+import { TimetablesSearchConditions } from '../hooks/search/useTimetablesSearchQueryParser';
 import { AllOptionEnum } from './enum';
 import {
   buildActiveDateGqlFilter,
@@ -124,5 +126,42 @@ export const buildSearchLinesAndRoutesGqlQueryVariables = (
     routeFilter,
     lineOrderBy,
     routeOrderBy,
+  };
+};
+
+export const buildTimetablesSearchCondtionGqlFilters = (
+  searchConditions: TimetablesSearchConditions,
+  buildRouteFilter: boolean,
+) => {
+  return {
+    journey_pattern_route: {
+      ...(buildRouteFilter
+        ? buildOptionalSearchConditionGqlFilter<string>(
+            mapToSqlLikeValue(searchConditions.label),
+            buildLabelLikeGqlFilter,
+          )
+        : {
+            route_line: {
+              ...buildOptionalSearchConditionGqlFilter<string>(
+                mapToSqlLikeValue(searchConditions.label),
+                buildLabelLikeGqlFilter,
+              ),
+            },
+          }),
+    },
+  };
+};
+
+export const buildSearchTimetablesByJourneyPatternIdsQueryVariables = (
+  searchConditions: TimetablesSearchConditions,
+  buildRouteVariables: boolean,
+): SearchJourneyPatternIdsQueryVariables => {
+  const filter = buildTimetablesSearchCondtionGqlFilters(
+    searchConditions,
+    buildRouteVariables,
+  );
+
+  return {
+    filter,
   };
 };

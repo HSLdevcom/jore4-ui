@@ -5,12 +5,13 @@ export enum Path {
   routes = '/routes',
   timetables = '/timetables',
   routesSearch = '/routes/search',
+  timetablesSearch = '/timetables/search',
   editRoute = '/routes/:id/edit',
   createLine = '/lines/create',
   lineDetails = '/lines/:id',
   lineDrafts = '/lines/:label/drafts',
   editLine = '/lines/:id/edit',
-  lineTimetables = '/lines/:id/timetables',
+  lineTimetables = '/timetables/lines/:id',
   fallback = '*',
 }
 
@@ -39,6 +40,11 @@ export const routeDetails: Record<Path, RouteDetail> = {
   [Path.routesSearch]: {
     getLink: () => Path.routesSearch,
     translationKey: 'routes.routesSearchResult',
+    includeInNav: false,
+  },
+  [Path.timetablesSearch]: {
+    getLink: () => Path.timetablesSearch,
+    translationKey: 'routes.timetablesSearchResult',
     includeInNav: false,
   },
   [Path.editRoute]: {
