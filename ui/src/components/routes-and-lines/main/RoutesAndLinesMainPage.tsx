@@ -8,7 +8,7 @@ import { Container, Row } from '../../../layoutComponents';
 import { FilterType, resetMapState } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
-import { SearchContainer } from '../search/SearchContainer';
+import { RoutesAndLinesSearchContainer } from '../search/RoutesAndLinesSearchContainer';
 import { RoutesAndLinesLists } from './RoutesAndLinesLists';
 
 const testIds = {
@@ -49,7 +49,7 @@ export const RoutesAndLinesMainPage = (): JSX.Element => {
           {t('lines.createNew')}
         </SimpleButton>
       </Row>
-      <SearchContainer />
+      <RoutesAndLinesSearchContainer />
       <RoutesAndLinesLists />
     </Container>
   );

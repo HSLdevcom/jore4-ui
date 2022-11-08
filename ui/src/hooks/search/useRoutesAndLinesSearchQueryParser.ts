@@ -7,7 +7,7 @@ import { Priority } from '../../types/Priority';
 import { AllOptionEnum, DisplayedSearchResultType } from '../../utils/enum';
 import { useUrlQuery } from '../urlQuery/useUrlQuery';
 
-export type SearchConditions = {
+export type RoutesAndLinesSearchConditions = {
   priorities: Priority[];
   label: string;
   primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
@@ -24,7 +24,7 @@ export type FilterConditions = {
  * conditions separately
  */
 export type SearchParameters = {
-  search: SearchConditions;
+  search: RoutesAndLinesSearchConditions;
   filter: FilterConditions;
 };
 
@@ -67,7 +67,7 @@ const DEFAULT_DISPLAYED_DATA = DisplayedSearchResultType.Lines;
 const DEFAULT_LABEL = '';
 const DEFAULT_OBSERVATION_DATE = DateTime.now().startOf('day');
 
-export const useSearchQueryParser = () => {
+export const useRoutesAndLinesSearchQueryParser = () => {
   const {
     getStringParamFromUrlQuery,
     getPriorityArrayFromUrlQuery,

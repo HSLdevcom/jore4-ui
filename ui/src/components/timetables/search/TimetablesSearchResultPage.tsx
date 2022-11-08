@@ -41,6 +41,11 @@ export const TimetablesSearchResultPage = (): JSX.Element => {
       <Row className="my-4">
         <ResultSelector basePath={Path.timetables} />
       </Row>
+      <h2 className="my-4 ml-2">
+        {t('search.resultCount', {
+          resultCount,
+        })}
+      </h2>
       <ResultList
         routes={displayedRoutes}
         lines={lines}

@@ -9,7 +9,7 @@ import { EditRoutePage } from '../components/routes-and-lines/edit-route/EditRou
 import { LineDetailsPage } from '../components/routes-and-lines/line-details/LineDetailsPage';
 import { LineDraftsPage } from '../components/routes-and-lines/line-drafts/LineDraftsPage';
 import { RoutesAndLinesMainPage } from '../components/routes-and-lines/main/RoutesAndLinesMainPage';
-import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
+import { RoutesAndLinesSearchResultPage } from '../components/routes-and-lines/search/RoutesAndLinesSearchResultPage';
 import {
   TimetablesMainPage,
   TimetablesSearchResultPage,
@@ -48,7 +48,7 @@ export const Router: FunctionComponent = () => {
     [Path.routesSearch]: {
       _routerRoute: Path.routesSearch,
       _exact: true,
-      component: SearchResultPage,
+      component: RoutesAndLinesSearchResultPage,
     },
     [Path.timetablesSearch]: {
       _routerRoute: Path.timetablesSearch,

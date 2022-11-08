@@ -7,8 +7,8 @@ import { QueryParameter, QueryParameterTypes, useUrlQuery } from '../urlQuery';
 import {
   DeserializedQueryStringParameters,
   FilterConditions,
-  useSearchQueryParser,
-} from './useSearchQueryParser';
+  useRoutesAndLinesSearchQueryParser,
+} from './useRoutesAndLinesSearchQueryParser';
 
 /**
  * Common search hook. Takes basePath as parameter, which will be used when
@@ -18,7 +18,7 @@ import {
  * '/routes-and-lines'
  */
 export const useSearch = ({ basePath }: { basePath: string }) => {
-  const queryParameters = useSearchQueryParser();
+  const queryParameters = useRoutesAndLinesSearchQueryParser();
   const { setMultipleParametersToUrlQuery } = useUrlQuery();
 
   const [searchConditions, setSearchConditions] = useState(

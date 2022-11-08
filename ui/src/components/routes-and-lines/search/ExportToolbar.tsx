@@ -5,7 +5,7 @@ import { pipe } from 'remeda';
 import {
   useAppDispatch,
   useAppSelector,
-  useSearchResults,
+  useRoutesAndLinesSearchResults,
 } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
 import {
@@ -21,7 +21,8 @@ export const ExportToolbar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const { resultCount, resultType, routes, lines } = useSearchResults();
+  const { resultCount, resultType, routes, lines } =
+    useRoutesAndLinesSearchResults();
   const { isSelectingRoutesForExport, selectedRouteLabels } =
     useAppSelector(selectExport);
 

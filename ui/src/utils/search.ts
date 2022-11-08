@@ -9,7 +9,7 @@ import {
   SearchJourneyPatternIdsQueryVariables,
   SearchLinesAndRoutesQueryVariables,
 } from '../generated/graphql';
-import { SearchConditions } from '../hooks/search/useSearchQueryParser';
+import { RoutesAndLinesSearchConditions } from '../hooks/search/useRoutesAndLinesSearchQueryParser';
 import { TimetablesSearchConditions } from '../hooks/search/useTimetablesSearchQueryParser';
 import { AllOptionEnum } from './enum';
 import {
@@ -61,14 +61,14 @@ const handleLinePropertyGqlFilters = ({
   };
 };
 
-/** Builds the search condition GQL filters for either route or line and
+/** Builds the Routes and Lines search condition GQL filters for either route or line and
  * buildRouteFilter parameter is used to determine which one.
  */
-const buildSearchConditionGqlFilters = ({
+const buildRoutesAndLinesSearchConditionGqlFilters = ({
   searchConditions,
   buildRouteFilter,
 }: {
-  searchConditions: SearchConditions;
+  searchConditions: RoutesAndLinesSearchConditions;
   buildRouteFilter: boolean;
 }): RouteRouteBoolExp | RouteLineBoolExp => {
   return {
@@ -98,14 +98,14 @@ const buildSearchConditionGqlFilters = ({
 };
 
 export const buildSearchLinesAndRoutesGqlQueryVariables = (
-  searchConditions: SearchConditions,
+  searchConditions: RoutesAndLinesSearchConditions,
 ): SearchLinesAndRoutesQueryVariables => {
-  const lineFilter = buildSearchConditionGqlFilters({
+  const lineFilter = buildRoutesAndLinesSearchConditionGqlFilters({
     searchConditions,
     buildRouteFilter: false,
   });
 
-  const routeFilter = buildSearchConditionGqlFilters({
+  const routeFilter = buildRoutesAndLinesSearchConditionGqlFilters({
     searchConditions,
     buildRouteFilter: true,
   });

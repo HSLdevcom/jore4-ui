@@ -9,7 +9,7 @@ import {
   DisplayedSearchResultType,
   mapToVariables,
 } from '../../utils';
-import { useSearchQueryParser } from './useSearchQueryParser';
+import { useRoutesAndLinesSearchQueryParser } from './useRoutesAndLinesSearchQueryParser';
 
 const GQL_SEARCH_LINES_AND_ROUTES = gql`
   query SearchLinesAndRoutes(
@@ -27,13 +27,13 @@ const GQL_SEARCH_LINES_AND_ROUTES = gql`
   }
 `;
 
-export const useSearchResults = (): {
+export const useRoutesAndLinesSearchResults = (): {
   lines: LineTableRowFragment[];
   routes: RouteAllFieldsFragment[];
   resultCount: number;
   resultType: DisplayedSearchResultType;
 } => {
-  const parsedSearchQueryParameters = useSearchQueryParser();
+  const parsedSearchQueryParameters = useRoutesAndLinesSearchQueryParser();
 
   const searchQueryVariables = buildSearchLinesAndRoutesGqlQueryVariables(
     parsedSearchQueryParameters.search,

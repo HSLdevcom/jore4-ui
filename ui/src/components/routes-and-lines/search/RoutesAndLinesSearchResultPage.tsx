@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useSearch, useSearchResults } from '../../../hooks';
+import { useRoutesAndLinesSearchResults, useSearch } from '../../../hooks';
 import { usePagination } from '../../../hooks/usePagination';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
@@ -7,16 +7,16 @@ import { CloseIconButton, Pagination } from '../../../uiComponents';
 import { ResultList } from '../../common/search/ResultList';
 import { ExportToolbar } from './ExportToolbar';
 import { FiltersContainer } from './filters/FiltersContainer';
-import { SearchContainer } from './SearchContainer';
+import { RoutesAndLinesSearchContainer } from './RoutesAndLinesSearchContainer';
 
-export const SearchResultPage = (): JSX.Element => {
+export const RoutesAndLinesSearchResultPage = (): JSX.Element => {
   const { handleClose, queryParameters } = useSearch({
     basePath: Path.routes,
   });
-  const { resultCount } = useSearchResults();
+  const { resultCount } = useRoutesAndLinesSearchResults();
   const { t } = useTranslation();
   const { getPaginatedData } = usePagination();
-  const { lines, routes } = useSearchResults();
+  const { lines, routes } = useRoutesAndLinesSearchResults();
   const itemsPerPage = 10;
 
   const displayedLines = getPaginatedData(lines, itemsPerPage);
@@ -36,7 +36,7 @@ export const SearchResultPage = (): JSX.Element => {
           onClick={handleClose}
         />
       </Row>
-      <SearchContainer />
+      <RoutesAndLinesSearchContainer />
       <FiltersContainer />
       <ExportToolbar />
       <ResultList

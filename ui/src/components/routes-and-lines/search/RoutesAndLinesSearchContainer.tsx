@@ -12,7 +12,7 @@ import { LineTypeDropdown } from '../../forms/line/LineTypeDropdown';
 import { VehicleModeDropdown } from '../../forms/line/VehicleModeDropdown';
 import { PriorityCondition } from './conditions/PriorityCondition';
 
-export const SearchContainer = (): JSX.Element => {
+export const RoutesAndLinesSearchContainer = (): JSX.Element => {
   const { searchConditions, setSearchCondition, handleSearch } = useSearch({
     basePath: Path.routes,
   });
