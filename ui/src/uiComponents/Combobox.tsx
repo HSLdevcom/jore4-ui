@@ -17,7 +17,7 @@ export interface ComboboxInputProps {
 
 export interface ComboboxOptionRenderer {
   key: string;
-  value: string;
+  value: string | null;
   render: (props: OptionRenderPropArg) => ReactNode;
 }
 
@@ -27,6 +27,7 @@ interface Props extends ComboboxInputProps {
   testId?: string;
   options: ComboboxOptionRenderer[];
   onQueryChange: (query: string) => void;
+  nullable?: boolean;
 }
 
 export interface ComboboxEvent {
@@ -44,6 +45,7 @@ export const Combobox = ({
   onChange,
   onBlur,
   onQueryChange,
+  nullable = false,
 }: Props): JSX.Element => {
   const onItemSelected = (val: string) => {
     const event: ComboboxEvent = { target: { value: val } };
@@ -59,6 +61,7 @@ export const Combobox = ({
       onChange={onItemSelected}
       onBlur={onBlur}
       data-testid={testId}
+      nullable={nullable}
     >
       {({ open }) => (
         <>

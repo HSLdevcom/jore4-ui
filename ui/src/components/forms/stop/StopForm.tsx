@@ -36,6 +36,7 @@ import {
   FormState as ConfirmSaveFormState,
   schema as confirmSaveFormSchema,
 } from '../common/ConfirmSaveForm';
+import { ChooseTimingPlaceDropdown } from './ChooseTimingPlaceDropdown';
 
 const schema = z
   .object({
@@ -43,6 +44,7 @@ const schema = z
     label: requiredString,
     latitude: requiredNumber.min(-180).max(180),
     longitude: requiredNumber.min(-180).max(180),
+    timingPlaceId: z.string().uuid().nullable(),
   })
   .merge(confirmSaveFormSchema);
 
@@ -50,6 +52,7 @@ const testIds = {
   label: 'StopFormComponent::label',
   latitude: 'StopFormComponent::latitude',
   longitude: 'StopFormComponent::longitude',
+  timingPlace: 'StopFormComponent::timingPlace',
 };
 
 export type FormState = z.infer<typeof schema> & ConfirmSaveFormState;
@@ -63,6 +66,7 @@ export const mapStopDataToFormState = (
   const { latitude, longitude } = mapLngLatToPoint(
     stop.measured_location.coordinates,
   );
+
   const formState: Partial<FormState> = {
     stopId: stop.scheduled_stop_point_id,
     label: stop.label || '',
@@ -72,6 +76,7 @@ export const mapStopDataToFormState = (
     validityStart: mapToISODate(stop.validity_start),
     validityEnd: mapToISODate(stop.validity_end),
     indefinite: !stop.validity_end,
+    timingPlaceId: stop.timing_place_id,
   };
 
   return formState;
@@ -109,6 +114,7 @@ const StopFormComponent = (
         state.validityEnd,
         state.indefinite,
       ),
+      timing_place_id: state.timingPlaceId,
     };
     return input;
   };
@@ -179,7 +185,7 @@ const StopFormComponent = (
                   testId={testIds.label}
                 />
               </Column>
-              <Column>
+              <Column className="space-y-4">
                 <h5 className="mb-2">{t('map.location')}</h5>
                 <FormRow mdColumns={2}>
                   <InputField<FormState>
@@ -195,6 +201,20 @@ const StopFormComponent = (
                     fieldPath="longitude"
                     testId={testIds.longitude}
                     step="any"
+                  />
+                </FormRow>
+                <FormRow>
+                  <InputField<FormState>
+                    translationPrefix="stops"
+                    fieldPath="timingPlaceId"
+                    testId={testIds.timingPlace}
+                    inputElementRenderer={(props) => (
+                      <ChooseTimingPlaceDropdown
+                        // eslint-disable-next-line react/jsx-props-no-spreading
+                        {...props}
+                      />
+                    )}
+                    className="sm:col-span-2"
                   />
                 </FormRow>
               </Column>
