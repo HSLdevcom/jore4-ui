@@ -12,6 +12,6 @@ export const deleteRoutesByLabel = (labels: string[]) => {
 
 export const deleteStopByLabel = (label: string) => {
   const query =
-    'DELETE FROM "internal_service_pattern"."scheduled_stop_point" WHERE label=?';
+    'DELETE FROM "service_pattern"."scheduled_stop_point" WHERE label=?';
   cy.task('executeRawDbQuery', { query, bindings: label });
 };

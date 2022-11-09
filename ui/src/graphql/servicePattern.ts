@@ -42,7 +42,7 @@ const SCHEDULED_STOP_POINT_ALL_FIELDS = gql`
     measured_location
     located_on_infrastructure_link_id
     direction
-    relative_distance_from_infrastructure_link_start
+    relative_distance_from_infrastructure_link
     closest_point_on_infrastructure_link
     validity_start
     validity_end

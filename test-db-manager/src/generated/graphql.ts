@@ -2198,10 +2198,16 @@ export type MutationRoot = {
   delete_route_type_of_line_by_pk?: Maybe<RouteTypeOfLine>;
   /** delete data from the table: "service_pattern.scheduled_stop_point" */
   delete_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
+  /** delete single row from the table: "service_pattern.scheduled_stop_point" */
+  delete_service_pattern_scheduled_stop_point_by_pk?: Maybe<ServicePatternScheduledStopPoint>;
   /** delete data from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
   delete_service_pattern_vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMutationResponse>;
   /** delete single row from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
   delete_service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
+  /** delete data from the table: "timing_pattern.timing_place" */
+  delete_timing_pattern_timing_place?: Maybe<TimingPatternTimingPlaceMutationResponse>;
+  /** delete single row from the table: "timing_pattern.timing_place" */
+  delete_timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
   /** insert data into the table: "hsl_route.transport_target" */
   insert_hsl_route_transport_target?: Maybe<HslRouteTransportTargetMutationResponse>;
   /** insert a single row into the table: "hsl_route.transport_target" */
@@ -2266,6 +2272,10 @@ export type MutationRoot = {
   insert_service_pattern_vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMutationResponse>;
   /** insert a single row into the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
   insert_service_pattern_vehicle_mode_on_scheduled_stop_point_one?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
+  /** insert data into the table: "timing_pattern.timing_place" */
+  insert_timing_pattern_timing_place?: Maybe<TimingPatternTimingPlaceMutationResponse>;
+  /** insert a single row into the table: "timing_pattern.timing_place" */
+  insert_timing_pattern_timing_place_one?: Maybe<TimingPatternTimingPlace>;
   timetables?: Maybe<TimetablesTimetablesMutationFrontend>;
   /** update data of the table: "hsl_route.transport_target" */
   update_hsl_route_transport_target?: Maybe<HslRouteTransportTargetMutationResponse>;
@@ -2381,6 +2391,8 @@ export type MutationRoot = {
   >;
   /** update data of the table: "service_pattern.scheduled_stop_point" */
   update_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
+  /** update single row of the table: "service_pattern.scheduled_stop_point" */
+  update_service_pattern_scheduled_stop_point_by_pk?: Maybe<ServicePatternScheduledStopPoint>;
   /** update multiples rows of table: "service_pattern.scheduled_stop_point" */
   update_service_pattern_scheduled_stop_point_many?: Maybe<
     Array<Maybe<ServicePatternScheduledStopPointMutationResponse>>
@@ -2392,6 +2404,14 @@ export type MutationRoot = {
   /** update multiples rows of table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
   update_service_pattern_vehicle_mode_on_scheduled_stop_point_many?: Maybe<
     Array<Maybe<ServicePatternVehicleModeOnScheduledStopPointMutationResponse>>
+  >;
+  /** update data of the table: "timing_pattern.timing_place" */
+  update_timing_pattern_timing_place?: Maybe<TimingPatternTimingPlaceMutationResponse>;
+  /** update single row of the table: "timing_pattern.timing_place" */
+  update_timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
+  /** update multiples rows of table: "timing_pattern.timing_place" */
+  update_timing_pattern_timing_place_many?: Maybe<
+    Array<Maybe<TimingPatternTimingPlaceMutationResponse>>
   >;
 };
 
@@ -2549,6 +2569,11 @@ export type MutationRootDeleteServicePatternScheduledStopPointArgs = {
 };
 
 /** mutation root */
+export type MutationRootDeleteServicePatternScheduledStopPointByPkArgs = {
+  scheduled_stop_point_id: Scalars['uuid'];
+};
+
+/** mutation root */
 export type MutationRootDeleteServicePatternVehicleModeOnScheduledStopPointArgs =
   {
     where: ServicePatternVehicleModeOnScheduledStopPointBoolExp;
@@ -2560,6 +2585,16 @@ export type MutationRootDeleteServicePatternVehicleModeOnScheduledStopPointByPkA
     scheduled_stop_point_id: Scalars['uuid'];
     vehicle_mode: ReusableComponentsVehicleModeEnum;
   };
+
+/** mutation root */
+export type MutationRootDeleteTimingPatternTimingPlaceArgs = {
+  where: TimingPatternTimingPlaceBoolExp;
+};
+
+/** mutation root */
+export type MutationRootDeleteTimingPatternTimingPlaceByPkArgs = {
+  timing_place_id: Scalars['uuid'];
+};
 
 /** mutation root */
 export type MutationRootInsertHslRouteTransportTargetArgs = {
@@ -2736,11 +2771,13 @@ export type MutationRootInsertRouteTypeOfLineOneArgs = {
 /** mutation root */
 export type MutationRootInsertServicePatternScheduledStopPointArgs = {
   objects: Array<ServicePatternScheduledStopPointInsertInput>;
+  on_conflict?: Maybe<ServicePatternScheduledStopPointOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertServicePatternScheduledStopPointOneArgs = {
   object: ServicePatternScheduledStopPointInsertInput;
+  on_conflict?: Maybe<ServicePatternScheduledStopPointOnConflict>;
 };
 
 /** mutation root */
@@ -2756,6 +2793,18 @@ export type MutationRootInsertServicePatternVehicleModeOnScheduledStopPointOneAr
     object: ServicePatternVehicleModeOnScheduledStopPointInsertInput;
     on_conflict?: Maybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
   };
+
+/** mutation root */
+export type MutationRootInsertTimingPatternTimingPlaceArgs = {
+  objects: Array<TimingPatternTimingPlaceInsertInput>;
+  on_conflict?: Maybe<TimingPatternTimingPlaceOnConflict>;
+};
+
+/** mutation root */
+export type MutationRootInsertTimingPatternTimingPlaceOneArgs = {
+  object: TimingPatternTimingPlaceInsertInput;
+  on_conflict?: Maybe<TimingPatternTimingPlaceOnConflict>;
+};
 
 /** mutation root */
 export type MutationRootUpdateHslRouteTransportTargetArgs = {
@@ -3051,6 +3100,13 @@ export type MutationRootUpdateServicePatternScheduledStopPointArgs = {
 };
 
 /** mutation root */
+export type MutationRootUpdateServicePatternScheduledStopPointByPkArgs = {
+  _inc?: Maybe<ServicePatternScheduledStopPointIncInput>;
+  _set?: Maybe<ServicePatternScheduledStopPointSetInput>;
+  pk_columns: ServicePatternScheduledStopPointPkColumnsInput;
+};
+
+/** mutation root */
 export type MutationRootUpdateServicePatternScheduledStopPointManyArgs = {
   updates: Array<ServicePatternScheduledStopPointUpdates>;
 };
@@ -3074,6 +3130,33 @@ export type MutationRootUpdateServicePatternVehicleModeOnScheduledStopPointManyA
   {
     updates: Array<ServicePatternVehicleModeOnScheduledStopPointUpdates>;
   };
+
+/** mutation root */
+export type MutationRootUpdateTimingPatternTimingPlaceArgs = {
+  _append?: Maybe<TimingPatternTimingPlaceAppendInput>;
+  _delete_at_path?: Maybe<TimingPatternTimingPlaceDeleteAtPathInput>;
+  _delete_elem?: Maybe<TimingPatternTimingPlaceDeleteElemInput>;
+  _delete_key?: Maybe<TimingPatternTimingPlaceDeleteKeyInput>;
+  _prepend?: Maybe<TimingPatternTimingPlacePrependInput>;
+  _set?: Maybe<TimingPatternTimingPlaceSetInput>;
+  where: TimingPatternTimingPlaceBoolExp;
+};
+
+/** mutation root */
+export type MutationRootUpdateTimingPatternTimingPlaceByPkArgs = {
+  _append?: Maybe<TimingPatternTimingPlaceAppendInput>;
+  _delete_at_path?: Maybe<TimingPatternTimingPlaceDeleteAtPathInput>;
+  _delete_elem?: Maybe<TimingPatternTimingPlaceDeleteElemInput>;
+  _delete_key?: Maybe<TimingPatternTimingPlaceDeleteKeyInput>;
+  _prepend?: Maybe<TimingPatternTimingPlacePrependInput>;
+  _set?: Maybe<TimingPatternTimingPlaceSetInput>;
+  pk_columns: TimingPatternTimingPlacePkColumnsInput;
+};
+
+/** mutation root */
+export type MutationRootUpdateTimingPatternTimingPlaceManyArgs = {
+  updates: Array<TimingPatternTimingPlaceUpdates>;
+};
 
 /** column ordering options */
 export enum OrderBy {
@@ -3193,6 +3276,8 @@ export type QueryRoot = {
   service_pattern_scheduled_stop_point: Array<ServicePatternScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point" */
   service_pattern_scheduled_stop_point_aggregate: ServicePatternScheduledStopPointAggregate;
+  /** fetch data from the table: "service_pattern.scheduled_stop_point" using primary key columns */
+  service_pattern_scheduled_stop_point_by_pk?: Maybe<ServicePatternScheduledStopPoint>;
   /** fetch data from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
   service_pattern_vehicle_mode_on_scheduled_stop_point: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
@@ -3200,6 +3285,12 @@ export type QueryRoot = {
   /** fetch data from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" using primary key columns */
   service_pattern_vehicle_mode_on_scheduled_stop_point_by_pk?: Maybe<ServicePatternVehicleModeOnScheduledStopPoint>;
   timetables?: Maybe<TimetablesTimetablesQuery>;
+  /** fetch data from the table: "timing_pattern.timing_place" */
+  timing_pattern_timing_place: Array<TimingPatternTimingPlace>;
+  /** fetch aggregated fields from the table: "timing_pattern.timing_place" */
+  timing_pattern_timing_place_aggregate: TimingPatternTimingPlaceAggregate;
+  /** fetch data from the table: "timing_pattern.timing_place" using primary key columns */
+  timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
 };
 
 export type QueryRootHslRouteTransportTargetArgs = {
@@ -3588,6 +3679,10 @@ export type QueryRootServicePatternScheduledStopPointAggregateArgs = {
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
+export type QueryRootServicePatternScheduledStopPointByPkArgs = {
+  scheduled_stop_point_id: Scalars['uuid'];
+};
+
 export type QueryRootServicePatternVehicleModeOnScheduledStopPointArgs = {
   distinct_on?: Maybe<
     Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
@@ -3614,6 +3709,26 @@ export type QueryRootServicePatternVehicleModeOnScheduledStopPointAggregateArgs 
 export type QueryRootServicePatternVehicleModeOnScheduledStopPointByPkArgs = {
   scheduled_stop_point_id: Scalars['uuid'];
   vehicle_mode: ReusableComponentsVehicleModeEnum;
+};
+
+export type QueryRootTimingPatternTimingPlaceArgs = {
+  distinct_on?: Maybe<Array<TimingPatternTimingPlaceSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<TimingPatternTimingPlaceOrderBy>>;
+  where?: Maybe<TimingPatternTimingPlaceBoolExp>;
+};
+
+export type QueryRootTimingPatternTimingPlaceAggregateArgs = {
+  distinct_on?: Maybe<Array<TimingPatternTimingPlaceSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<TimingPatternTimingPlaceOrderBy>>;
+  where?: Maybe<TimingPatternTimingPlaceBoolExp>;
+};
+
+export type QueryRootTimingPatternTimingPlaceByPkArgs = {
+  timing_place_id: Scalars['uuid'];
 };
 
 /** The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
@@ -5904,36 +6019,36 @@ export type RouteTypeOfLineUpdates = {
   where: RouteTypeOfLineBoolExp;
 };
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPoint = {
   __typename?: 'service_pattern_scheduled_stop_point';
-  /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
+  /** A computed field, executes function "service_pattern.scheduled_stop_point_closest_point_on_infrastructure_link" */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography_point']>;
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
   direction: InfrastructureNetworkDirectionEnum;
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
-  /** The infrastructure link on which the stop is located. */
+  /** An object relationship */
+  located_on_infrastructure_link: InfrastructureNetworkInfrastructureLink;
   located_on_infrastructure_link_id: Scalars['uuid'];
-  /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location: Scalars['geography_point'];
   /** An array relationship */
   other_label_instances: Array<ServicePatternScheduledStopPoint>;
   /** An aggregate relationship */
   other_label_instances_aggregate: ServicePatternScheduledStopPointAggregate;
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority: Scalars['Int'];
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start: Scalars['Float'];
-  /** The ID of the scheduled stop point. */
+  /** A computed field, executes function "service_pattern.scheduled_stop_point_relative_distance_from_infrastructure_link" */
+  relative_distance_from_infrastructure_link: Scalars['Float'];
   scheduled_stop_point_id: Scalars['uuid'];
   /** An array relationship */
   scheduled_stop_point_in_journey_patterns: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** An aggregate relationship */
   scheduled_stop_point_in_journey_patterns_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
-  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  /** An object relationship */
+  timing_place?: Maybe<TimingPatternTimingPlace>;
+  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
+  timing_place_id?: Maybe<Scalars['uuid']>;
+  /** end of the operating date span in the scheduled stop point's local time */
   validity_end?: Maybe<Scalars['date']>;
-  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  /** end of the route's operating date span in the route's local time */
   validity_start?: Maybe<Scalars['date']>;
   /** An array relationship */
   vehicle_mode_on_scheduled_stop_point: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
@@ -5941,7 +6056,7 @@ export type ServicePatternScheduledStopPoint = {
   vehicle_mode_on_scheduled_stop_point_aggregate: ServicePatternVehicleModeOnScheduledStopPointAggregate;
 };
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointOtherLabelInstancesArgs = {
   distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -5950,7 +6065,7 @@ export type ServicePatternScheduledStopPointOtherLabelInstancesArgs = {
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointOtherLabelInstancesAggregateArgs = {
   distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -5959,7 +6074,7 @@ export type ServicePatternScheduledStopPointOtherLabelInstancesAggregateArgs = {
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsArgs =
   {
     distinct_on?: Maybe<
@@ -5973,7 +6088,7 @@ export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsA
     where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsAggregateArgs =
   {
     distinct_on?: Maybe<
@@ -5987,7 +6102,7 @@ export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsA
     where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointArgs =
   {
     distinct_on?: Maybe<
@@ -6001,7 +6116,7 @@ export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointArgs 
     where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
   };
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointAggregateArgs =
   {
     distinct_on?: Maybe<
@@ -6062,23 +6177,19 @@ export type ServicePatternScheduledStopPointAggregateOrderBy = {
 /** input type for inserting array relation for remote table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointArrRelInsertInput = {
   data: Array<ServicePatternScheduledStopPointInsertInput>;
+  /** upsert condition */
+  on_conflict?: Maybe<ServicePatternScheduledStopPointOnConflict>;
 };
 
 /** aggregate avg on columns */
 export type ServicePatternScheduledStopPointAvgFields = {
   __typename?: 'service_pattern_scheduled_stop_point_avg_fields';
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** order by avg() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointAvgOrderBy = {
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "service_pattern.scheduled_stop_point". All fields are combined with a logical 'AND'. */
@@ -6087,51 +6198,51 @@ export type ServicePatternScheduledStopPointBoolExp = {
   _not?: Maybe<ServicePatternScheduledStopPointBoolExp>;
   _or?: Maybe<Array<ServicePatternScheduledStopPointBoolExp>>;
   closest_point_on_infrastructure_link?: Maybe<GeographyComparisonExp>;
-  direction?: Maybe<StringComparisonExp>;
+  direction?: Maybe<InfrastructureNetworkDirectionEnumComparisonExp>;
   label?: Maybe<StringComparisonExp>;
+  located_on_infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   located_on_infrastructure_link_id?: Maybe<UuidComparisonExp>;
   measured_location?: Maybe<GeographyComparisonExp>;
   other_label_instances?: Maybe<ServicePatternScheduledStopPointBoolExp>;
   priority?: Maybe<IntComparisonExp>;
-  relative_distance_from_infrastructure_link_start?: Maybe<Float8ComparisonExp>;
+  relative_distance_from_infrastructure_link?: Maybe<Float8ComparisonExp>;
   scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
   scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  timing_place?: Maybe<TimingPatternTimingPlaceBoolExp>;
+  timing_place_id?: Maybe<UuidComparisonExp>;
   validity_end?: Maybe<DateComparisonExp>;
   validity_start?: Maybe<DateComparisonExp>;
   vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
 };
 
+/** unique or primary key constraints on table "service_pattern.scheduled_stop_point" */
+export enum ServicePatternScheduledStopPointConstraint {
+  /** unique or primary key constraint on columns "scheduled_stop_point_id" */
+  ScheduledStopPointPkey = 'scheduled_stop_point_pkey',
+}
+
 /** input type for incrementing numeric columns in table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointIncInput = {
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
 };
 
 /** input type for inserting data into table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointInsertInput = {
-  /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
-  closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
   direction: InfrastructureNetworkDirectionEnum;
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
-  /** The infrastructure link on which the stop is located. */
+  located_on_infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
   located_on_infrastructure_link_id: Scalars['uuid'];
-  /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location: Scalars['geography_point'];
   other_label_instances?: Maybe<ServicePatternScheduledStopPointArrRelInsertInput>;
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority: Scalars['Int'];
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
-  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
-  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  timing_place?: Maybe<TimingPatternTimingPlaceObjRelInsertInput>;
+  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
+  timing_place_id?: Maybe<Scalars['uuid']>;
+  /** end of the operating date span in the scheduled stop point's local time */
   validity_end?: Maybe<Scalars['date']>;
-  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  /** end of the route's operating date span in the route's local time */
   validity_start?: Maybe<Scalars['date']>;
   vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointArrRelInsertInput>;
 };
@@ -6139,82 +6250,58 @@ export type ServicePatternScheduledStopPointInsertInput = {
 /** aggregate max on columns */
 export type ServicePatternScheduledStopPointMaxFields = {
   __typename?: 'service_pattern_scheduled_stop_point_max_fields';
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
-  direction?: Maybe<Scalars['String']>;
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<Scalars['String']>;
-  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
-  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
+  timing_place_id?: Maybe<Scalars['uuid']>;
+  /** end of the operating date span in the scheduled stop point's local time */
   validity_end?: Maybe<Scalars['date']>;
-  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  /** end of the route's operating date span in the route's local time */
   validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by max() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointMaxOrderBy = {
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
-  direction?: Maybe<OrderBy>;
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<OrderBy>;
-  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<OrderBy>;
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
-  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<OrderBy>;
-  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
+  timing_place_id?: Maybe<OrderBy>;
+  /** end of the operating date span in the scheduled stop point's local time */
   validity_end?: Maybe<OrderBy>;
-  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  /** end of the route's operating date span in the route's local time */
   validity_start?: Maybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type ServicePatternScheduledStopPointMinFields = {
   __typename?: 'service_pattern_scheduled_stop_point_min_fields';
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
-  direction?: Maybe<Scalars['String']>;
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<Scalars['String']>;
-  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
-  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
+  timing_place_id?: Maybe<Scalars['uuid']>;
+  /** end of the operating date span in the scheduled stop point's local time */
   validity_end?: Maybe<Scalars['date']>;
-  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  /** end of the route's operating date span in the route's local time */
   validity_start?: Maybe<Scalars['date']>;
 };
 
 /** order by min() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointMinOrderBy = {
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
-  direction?: Maybe<OrderBy>;
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<OrderBy>;
-  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<OrderBy>;
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
-  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<OrderBy>;
-  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
+  timing_place_id?: Maybe<OrderBy>;
+  /** end of the operating date span in the scheduled stop point's local time */
   validity_end?: Maybe<OrderBy>;
-  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  /** end of the route's operating date span in the route's local time */
   validity_start?: Maybe<OrderBy>;
 };
 
@@ -6227,27 +6314,40 @@ export type ServicePatternScheduledStopPointMutationResponse = {
   returning: Array<ServicePatternScheduledStopPoint>;
 };
 
+/** on_conflict condition type for table "service_pattern.scheduled_stop_point" */
+export type ServicePatternScheduledStopPointOnConflict = {
+  constraint: ServicePatternScheduledStopPointConstraint;
+  update_columns?: Array<ServicePatternScheduledStopPointUpdateColumn>;
+  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+};
+
 /** Ordering options when selecting data from "service_pattern.scheduled_stop_point". */
 export type ServicePatternScheduledStopPointOrderBy = {
   closest_point_on_infrastructure_link?: Maybe<OrderBy>;
   direction?: Maybe<OrderBy>;
   label?: Maybe<OrderBy>;
+  located_on_infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkOrderBy>;
   located_on_infrastructure_link_id?: Maybe<OrderBy>;
   measured_location?: Maybe<OrderBy>;
   other_label_instances_aggregate?: Maybe<ServicePatternScheduledStopPointAggregateOrderBy>;
   priority?: Maybe<OrderBy>;
-  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
+  relative_distance_from_infrastructure_link?: Maybe<OrderBy>;
   scheduled_stop_point_id?: Maybe<OrderBy>;
   scheduled_stop_point_in_journey_patterns_aggregate?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy>;
+  timing_place?: Maybe<TimingPatternTimingPlaceOrderBy>;
+  timing_place_id?: Maybe<OrderBy>;
   validity_end?: Maybe<OrderBy>;
   validity_start?: Maybe<OrderBy>;
   vehicle_mode_on_scheduled_stop_point_aggregate?: Maybe<ServicePatternVehicleModeOnScheduledStopPointAggregateOrderBy>;
 };
 
+/** primary key columns input for table: service_pattern.scheduled_stop_point */
+export type ServicePatternScheduledStopPointPkColumnsInput = {
+  scheduled_stop_point_id: Scalars['uuid'];
+};
+
 /** select columns of table "service_pattern.scheduled_stop_point" */
 export enum ServicePatternScheduledStopPointSelectColumn {
-  /** column name */
-  ClosestPointOnInfrastructureLink = 'closest_point_on_infrastructure_link',
   /** column name */
   Direction = 'direction',
   /** column name */
@@ -6259,9 +6359,9 @@ export enum ServicePatternScheduledStopPointSelectColumn {
   /** column name */
   Priority = 'priority',
   /** column name */
-  RelativeDistanceFromInfrastructureLinkStart = 'relative_distance_from_infrastructure_link_start',
-  /** column name */
   ScheduledStopPointId = 'scheduled_stop_point_id',
+  /** column name */
+  TimingPlaceId = 'timing_place_id',
   /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
@@ -6270,77 +6370,51 @@ export enum ServicePatternScheduledStopPointSelectColumn {
 
 /** input type for updating data in table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointSetInput = {
-  /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
-  closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
   direction?: Maybe<InfrastructureNetworkDirectionEnum>;
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<Scalars['String']>;
-  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
-  /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location?: Maybe<Scalars['geography_point']>;
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
-  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
+  timing_place_id?: Maybe<Scalars['uuid']>;
+  /** end of the operating date span in the scheduled stop point's local time */
   validity_end?: Maybe<Scalars['date']>;
-  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  /** end of the route's operating date span in the route's local time */
   validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate stddev on columns */
 export type ServicePatternScheduledStopPointStddevFields = {
   __typename?: 'service_pattern_scheduled_stop_point_stddev_fields';
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointStddevOrderBy = {
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type ServicePatternScheduledStopPointStddevPopFields = {
   __typename?: 'service_pattern_scheduled_stop_point_stddev_pop_fields';
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_pop() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointStddevPopOrderBy = {
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type ServicePatternScheduledStopPointStddevSampFields = {
   __typename?: 'service_pattern_scheduled_stop_point_stddev_samp_fields';
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_samp() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointStddevSampOrderBy = {
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "service_pattern_scheduled_stop_point" */
@@ -6353,44 +6427,52 @@ export type ServicePatternScheduledStopPointStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type ServicePatternScheduledStopPointStreamCursorValueInput = {
-  /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
-  closest_point_on_infrastructure_link?: Maybe<Scalars['geography']>;
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString. */
-  direction?: Maybe<Scalars['String']>;
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
+  direction?: Maybe<InfrastructureNetworkDirectionEnum>;
   label?: Maybe<Scalars['String']>;
-  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
-  /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location?: Maybe<Scalars['geography']>;
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
-  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  /** The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid. */
+  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
+  timing_place_id?: Maybe<Scalars['uuid']>;
+  /** end of the operating date span in the scheduled stop point's local time */
   validity_end?: Maybe<Scalars['date']>;
-  /** The date when the stop becomes valid. If NULL, the stop has been always valid. */
+  /** end of the route's operating date span in the route's local time */
   validity_start?: Maybe<Scalars['date']>;
 };
 
 /** aggregate sum on columns */
 export type ServicePatternScheduledStopPointSumFields = {
   __typename?: 'service_pattern_scheduled_stop_point_sum_fields';
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
 };
 
 /** order by sum() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointSumOrderBy = {
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
 };
+
+/** update columns of table "service_pattern.scheduled_stop_point" */
+export enum ServicePatternScheduledStopPointUpdateColumn {
+  /** column name */
+  Direction = 'direction',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  LocatedOnInfrastructureLinkId = 'located_on_infrastructure_link_id',
+  /** column name */
+  MeasuredLocation = 'measured_location',
+  /** column name */
+  Priority = 'priority',
+  /** column name */
+  ScheduledStopPointId = 'scheduled_stop_point_id',
+  /** column name */
+  TimingPlaceId = 'timing_place_id',
+  /** column name */
+  ValidityEnd = 'validity_end',
+  /** column name */
+  ValidityStart = 'validity_start',
+}
 
 export type ServicePatternScheduledStopPointUpdates = {
   /** increments the numeric columns with given value of the filtered values */
@@ -6403,52 +6485,34 @@ export type ServicePatternScheduledStopPointUpdates = {
 /** aggregate var_pop on columns */
 export type ServicePatternScheduledStopPointVarPopFields = {
   __typename?: 'service_pattern_scheduled_stop_point_var_pop_fields';
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_pop() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointVarPopOrderBy = {
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type ServicePatternScheduledStopPointVarSampFields = {
   __typename?: 'service_pattern_scheduled_stop_point_var_samp_fields';
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_samp() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointVarSampOrderBy = {
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type ServicePatternScheduledStopPointVarianceFields = {
   __typename?: 'service_pattern_scheduled_stop_point_variance_fields';
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['Float']>;
 };
 
 /** order by variance() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointVarianceOrderBy = {
-  /** The priority of the stop definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
-  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
 };
 
 /** Which scheduled stop points are serviced by which vehicle modes? */
@@ -6765,6 +6829,8 @@ export type SubscriptionRoot = {
   service_pattern_scheduled_stop_point: Array<ServicePatternScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point" */
   service_pattern_scheduled_stop_point_aggregate: ServicePatternScheduledStopPointAggregate;
+  /** fetch data from the table: "service_pattern.scheduled_stop_point" using primary key columns */
+  service_pattern_scheduled_stop_point_by_pk?: Maybe<ServicePatternScheduledStopPoint>;
   /** fetch data from the table in a streaming manner : "service_pattern.scheduled_stop_point" */
   service_pattern_scheduled_stop_point_stream: Array<ServicePatternScheduledStopPoint>;
   /** fetch data from the table: "service_pattern.vehicle_mode_on_scheduled_stop_point" */
@@ -6776,6 +6842,14 @@ export type SubscriptionRoot = {
   /** fetch data from the table in a streaming manner : "service_pattern.vehicle_mode_on_scheduled_stop_point" */
   service_pattern_vehicle_mode_on_scheduled_stop_point_stream: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
   timetables?: Maybe<TimetablesTimetablesSubscription>;
+  /** fetch data from the table: "timing_pattern.timing_place" */
+  timing_pattern_timing_place: Array<TimingPatternTimingPlace>;
+  /** fetch aggregated fields from the table: "timing_pattern.timing_place" */
+  timing_pattern_timing_place_aggregate: TimingPatternTimingPlaceAggregate;
+  /** fetch data from the table: "timing_pattern.timing_place" using primary key columns */
+  timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
+  /** fetch data from the table in a streaming manner : "timing_pattern.timing_place" */
+  timing_pattern_timing_place_stream: Array<TimingPatternTimingPlace>;
 };
 
 export type SubscriptionRootHslRouteTransportTargetArgs = {
@@ -7261,6 +7335,10 @@ export type SubscriptionRootServicePatternScheduledStopPointAggregateArgs = {
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
+export type SubscriptionRootServicePatternScheduledStopPointByPkArgs = {
+  scheduled_stop_point_id: Scalars['uuid'];
+};
+
 export type SubscriptionRootServicePatternScheduledStopPointStreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<Maybe<ServicePatternScheduledStopPointStreamCursorInput>>;
@@ -7307,6 +7385,32 @@ export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointStreamA
     >;
     where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
   };
+
+export type SubscriptionRootTimingPatternTimingPlaceArgs = {
+  distinct_on?: Maybe<Array<TimingPatternTimingPlaceSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<TimingPatternTimingPlaceOrderBy>>;
+  where?: Maybe<TimingPatternTimingPlaceBoolExp>;
+};
+
+export type SubscriptionRootTimingPatternTimingPlaceAggregateArgs = {
+  distinct_on?: Maybe<Array<TimingPatternTimingPlaceSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<TimingPatternTimingPlaceOrderBy>>;
+  where?: Maybe<TimingPatternTimingPlaceBoolExp>;
+};
+
+export type SubscriptionRootTimingPatternTimingPlaceByPkArgs = {
+  timing_place_id: Scalars['uuid'];
+};
+
+export type SubscriptionRootTimingPatternTimingPlaceStreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<Maybe<TimingPatternTimingPlaceStreamCursorInput>>;
+  where?: Maybe<TimingPatternTimingPlaceBoolExp>;
+};
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type TimestamptzComparisonExp = {
@@ -11090,6 +11194,222 @@ export type TimetablesVehicleServiceVehicleServiceUpdates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: Maybe<TimetablesVehicleServiceVehicleServiceSetInput>;
   where: TimetablesVehicleServiceVehicleServiceBoolExp;
+};
+
+/** A set of SCHEDULED STOP POINTs against which the timing information necessary to build schedules may be recorded. In HSL context this is "Hastus paikka". Based on Transmodel entity TIMING POINT: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:2:709  */
+export type TimingPatternTimingPlace = {
+  __typename?: 'timing_pattern_timing_place';
+  description?: Maybe<Scalars['jsonb']>;
+  label: Scalars['String'];
+  /** An array relationship */
+  scheduled_stop_points: Array<ServicePatternScheduledStopPoint>;
+  /** An aggregate relationship */
+  scheduled_stop_points_aggregate: ServicePatternScheduledStopPointAggregate;
+  timing_place_id: Scalars['uuid'];
+};
+
+/** A set of SCHEDULED STOP POINTs against which the timing information necessary to build schedules may be recorded. In HSL context this is "Hastus paikka". Based on Transmodel entity TIMING POINT: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:2:709  */
+export type TimingPatternTimingPlaceDescriptionArgs = {
+  path?: Maybe<Scalars['String']>;
+};
+
+/** A set of SCHEDULED STOP POINTs against which the timing information necessary to build schedules may be recorded. In HSL context this is "Hastus paikka". Based on Transmodel entity TIMING POINT: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:2:709  */
+export type TimingPatternTimingPlaceScheduledStopPointsArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+};
+
+/** A set of SCHEDULED STOP POINTs against which the timing information necessary to build schedules may be recorded. In HSL context this is "Hastus paikka". Based on Transmodel entity TIMING POINT: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:2:709  */
+export type TimingPatternTimingPlaceScheduledStopPointsAggregateArgs = {
+  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+};
+
+/** aggregated selection of "timing_pattern.timing_place" */
+export type TimingPatternTimingPlaceAggregate = {
+  __typename?: 'timing_pattern_timing_place_aggregate';
+  aggregate?: Maybe<TimingPatternTimingPlaceAggregateFields>;
+  nodes: Array<TimingPatternTimingPlace>;
+};
+
+/** aggregate fields of "timing_pattern.timing_place" */
+export type TimingPatternTimingPlaceAggregateFields = {
+  __typename?: 'timing_pattern_timing_place_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<TimingPatternTimingPlaceMaxFields>;
+  min?: Maybe<TimingPatternTimingPlaceMinFields>;
+};
+
+/** aggregate fields of "timing_pattern.timing_place" */
+export type TimingPatternTimingPlaceAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<TimingPatternTimingPlaceSelectColumn>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type TimingPatternTimingPlaceAppendInput = {
+  description?: Maybe<Scalars['jsonb']>;
+};
+
+/** Boolean expression to filter rows from the table "timing_pattern.timing_place". All fields are combined with a logical 'AND'. */
+export type TimingPatternTimingPlaceBoolExp = {
+  _and?: Maybe<Array<TimingPatternTimingPlaceBoolExp>>;
+  _not?: Maybe<TimingPatternTimingPlaceBoolExp>;
+  _or?: Maybe<Array<TimingPatternTimingPlaceBoolExp>>;
+  description?: Maybe<JsonbComparisonExp>;
+  label?: Maybe<StringComparisonExp>;
+  scheduled_stop_points?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  timing_place_id?: Maybe<UuidComparisonExp>;
+};
+
+/** unique or primary key constraints on table "timing_pattern.timing_place" */
+export enum TimingPatternTimingPlaceConstraint {
+  /** unique or primary key constraint on columns "label" */
+  TimingPlaceLabelKey = 'timing_place_label_key',
+  /** unique or primary key constraint on columns "timing_place_id" */
+  TimingPlacePkey = 'timing_place_pkey',
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type TimingPatternTimingPlaceDeleteAtPathInput = {
+  description?: Maybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type TimingPatternTimingPlaceDeleteElemInput = {
+  description?: Maybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type TimingPatternTimingPlaceDeleteKeyInput = {
+  description?: Maybe<Scalars['String']>;
+};
+
+/** input type for inserting data into table "timing_pattern.timing_place" */
+export type TimingPatternTimingPlaceInsertInput = {
+  description?: Maybe<Scalars['jsonb']>;
+  label?: Maybe<Scalars['String']>;
+  scheduled_stop_points?: Maybe<ServicePatternScheduledStopPointArrRelInsertInput>;
+  timing_place_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregate max on columns */
+export type TimingPatternTimingPlaceMaxFields = {
+  __typename?: 'timing_pattern_timing_place_max_fields';
+  label?: Maybe<Scalars['String']>;
+  timing_place_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregate min on columns */
+export type TimingPatternTimingPlaceMinFields = {
+  __typename?: 'timing_pattern_timing_place_min_fields';
+  label?: Maybe<Scalars['String']>;
+  timing_place_id?: Maybe<Scalars['uuid']>;
+};
+
+/** response of any mutation on the table "timing_pattern.timing_place" */
+export type TimingPatternTimingPlaceMutationResponse = {
+  __typename?: 'timing_pattern_timing_place_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<TimingPatternTimingPlace>;
+};
+
+/** input type for inserting object relation for remote table "timing_pattern.timing_place" */
+export type TimingPatternTimingPlaceObjRelInsertInput = {
+  data: TimingPatternTimingPlaceInsertInput;
+  /** upsert condition */
+  on_conflict?: Maybe<TimingPatternTimingPlaceOnConflict>;
+};
+
+/** on_conflict condition type for table "timing_pattern.timing_place" */
+export type TimingPatternTimingPlaceOnConflict = {
+  constraint: TimingPatternTimingPlaceConstraint;
+  update_columns?: Array<TimingPatternTimingPlaceUpdateColumn>;
+  where?: Maybe<TimingPatternTimingPlaceBoolExp>;
+};
+
+/** Ordering options when selecting data from "timing_pattern.timing_place". */
+export type TimingPatternTimingPlaceOrderBy = {
+  description?: Maybe<OrderBy>;
+  label?: Maybe<OrderBy>;
+  scheduled_stop_points_aggregate?: Maybe<ServicePatternScheduledStopPointAggregateOrderBy>;
+  timing_place_id?: Maybe<OrderBy>;
+};
+
+/** primary key columns input for table: timing_pattern.timing_place */
+export type TimingPatternTimingPlacePkColumnsInput = {
+  timing_place_id: Scalars['uuid'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type TimingPatternTimingPlacePrependInput = {
+  description?: Maybe<Scalars['jsonb']>;
+};
+
+/** select columns of table "timing_pattern.timing_place" */
+export enum TimingPatternTimingPlaceSelectColumn {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  TimingPlaceId = 'timing_place_id',
+}
+
+/** input type for updating data in table "timing_pattern.timing_place" */
+export type TimingPatternTimingPlaceSetInput = {
+  description?: Maybe<Scalars['jsonb']>;
+  label?: Maybe<Scalars['String']>;
+  timing_place_id?: Maybe<Scalars['uuid']>;
+};
+
+/** Streaming cursor of the table "timing_pattern_timing_place" */
+export type TimingPatternTimingPlaceStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: TimingPatternTimingPlaceStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: Maybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type TimingPatternTimingPlaceStreamCursorValueInput = {
+  description?: Maybe<Scalars['jsonb']>;
+  label?: Maybe<Scalars['String']>;
+  timing_place_id?: Maybe<Scalars['uuid']>;
+};
+
+/** update columns of table "timing_pattern.timing_place" */
+export enum TimingPatternTimingPlaceUpdateColumn {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  TimingPlaceId = 'timing_place_id',
+}
+
+export type TimingPatternTimingPlaceUpdates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: Maybe<TimingPatternTimingPlaceAppendInput>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: Maybe<TimingPatternTimingPlaceDeleteAtPathInput>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: Maybe<TimingPatternTimingPlaceDeleteElemInput>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: Maybe<TimingPatternTimingPlaceDeleteKeyInput>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: Maybe<TimingPatternTimingPlacePrependInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: Maybe<TimingPatternTimingPlaceSetInput>;
+  where: TimingPatternTimingPlaceBoolExp;
 };
 
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */

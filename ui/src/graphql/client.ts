@@ -175,8 +175,8 @@ const buildCacheDefinition = () => {
       timetables_passing_times_timetabled_passing_time: {
         keyFields: ['timetabled_passing_time_id'],
       },
-      timing_pattern_timing_point: {
-        keyFields: ['timing_point_id'],
+      timing_pattern_timing_place: {
+        keyFields: ['timing_place_id'],
       },
     },
   });
