@@ -1,6 +1,6 @@
 import { theme } from '../../../generated/theme';
-import { LineArrowLayer } from './LineArrowLayer';
-import { LinePolygonLayer } from './LinePolygonLayer';
+import { ArrowRenderLayer } from './ArrowRenderLayer';
+import { LineRenderLayer } from './LineRenderLayer';
 
 const { colors } = theme;
 
@@ -39,23 +39,23 @@ export const RouteGeometryLayer = ({
     'icon-color': color,
   };
 
-  const lineLayerId = `${layerId}_line`;
-  const arrowLayerId = `${layerId}_arrows`;
+  const lineRenderLayerId = `${layerId}_line`;
+  const arrowRenderLayerId = `${layerId}_arrows`;
 
   return (
     <>
-      <LinePolygonLayer
-        layerId={lineLayerId}
+      <LineRenderLayer
+        layerId={lineRenderLayerId}
         geometry={geometry}
         paint={linePaint}
         beforeId={beforeId}
       />
-      <LineArrowLayer
-        layerId={arrowLayerId}
+      <ArrowRenderLayer
+        layerId={arrowRenderLayerId}
         geometry={geometry}
         layout={arrowLayout}
         paint={arrowPaint}
-        beforeId={lineLayerId}
+        beforeId={lineRenderLayerId}
         minzoom={12}
       />
     </>
