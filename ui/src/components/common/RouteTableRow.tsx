@@ -10,6 +10,7 @@ import {
   selectExport,
   selectRouteLabelAction,
 } from '../../redux';
+import { Priority } from '../../types/Priority';
 import { RouteLineTableRow } from './RouteLineTableRow';
 
 const GQL_ROUTE_TABLE_ROW = gql`
@@ -40,12 +41,18 @@ export const RouteTableRow = ({
   linkTo,
   isSelectable = false,
 }: Props): JSX.Element => {
-  const { showRouteOnMapByLabel } = useShowRoutesOnModal();
+  const { showRouteOnMapByLabel, showRouteOnMapById } = useShowRoutesOnModal();
   const dispatch = useAppDispatch();
   const { selectedRouteLabels } = useAppSelector(selectExport);
 
   const onClickShowRouteOnMap = () => {
-    showRouteOnMapByLabel(route);
+    // Draft routes are shown by ID rather than label, because in case of drafts
+    // we only want to show one route at a time.
+    if (route.priority === Priority.Draft) {
+      showRouteOnMapById(route);
+    } else {
+      showRouteOnMapByLabel(route);
+    }
   };
 
   const onSelectChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
