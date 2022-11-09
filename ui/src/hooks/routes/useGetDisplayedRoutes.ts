@@ -70,11 +70,10 @@ export const useGetDisplayedRoutes = () => {
 
   const routeFilters = {
     ...buildActiveDateGqlFilter(observationDate),
-    ...buildPriorityInGqlFilter(priorities),
+    ...(priorities ? buildPriorityInGqlFilter(priorities) : {}),
   };
 
   // Get routes by ROUTE LABEL OR ID
-
   const routesByRouteInfoResult = useGetRouteByFiltersQuery({
     variables: {
       routeFilters: {
@@ -96,7 +95,6 @@ export const useGetDisplayedRoutes = () => {
   const routesByRouteInfo = routesByRouteInfoResult.data?.route_route || [];
 
   // Get routes by LINE LABEL
-
   const lineFilters = {
     ...buildLabelGqlFilter(lineLabel),
   };
@@ -116,10 +114,8 @@ export const useGetDisplayedRoutes = () => {
 
   const routes = [...routesByRouteInfo, ...routesByLineLabel];
 
-  /*
-   * If we choose not to show the situation on selected day,
-   * do not filter routes
-   */
+  // If we choose not to show the situation on selected day,
+  // do not filter routes
   const displayedRoutes = showSelectedDaySituation
     ? filterRoutesByHighestPriority(routes)
     : routes;
@@ -128,12 +124,9 @@ export const useGetDisplayedRoutes = () => {
     routesByRouteInfoResult.loading || routesByLineLabelResult.loading;
 
   useEffect(() => {
-    /**
-     * Here we sync route fetch query loading state with useLoader hook state.
-     *
-     * We could also use useLoader's immediatelyOn option instead of useEffect,
-     * but using options to dynamically control loading state feels semantically wrong.
-     */
+    // Here we sync route fetch query loading state with useLoader hook state.
+    // We could also use useLoader's immediatelyOn option instead of useEffect,
+    // but using options to dynamically control loading state feels semantically wrong.
     setIsLoading(isLoading);
   }, [setIsLoading, isLoading]);
 
