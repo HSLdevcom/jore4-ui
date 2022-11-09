@@ -1,9 +1,10 @@
 import { gql } from '@apollo/client';
 import { DateTime } from 'luxon';
 import {
-  LineInformationForMapFragment,
+  LineTableRowFragment,
   Maybe,
   RouteInformationForMapFragment,
+  RouteTableRowFragment,
 } from '../generated/graphql';
 import { resetMapState, setSelectedRouteIdAction } from '../redux';
 import { isDateInRange } from '../time';
@@ -84,7 +85,7 @@ export const useShowRoutesOnModal = () => {
     });
   };
 
-  const showRouteOnMapByLabel = (route: RouteInformationForMapFragment) => {
+  const showRoutesOnMapByLabel = (route: RouteInformationForMapFragment) => {
     const { latitude, longitude } = getRouteShapeFirstCoordinates(
       route.route_shape,
     );
@@ -106,13 +107,17 @@ export const useShowRoutesOnModal = () => {
     dispatch(setSelectedRouteIdAction(route.route_id));
   };
 
-  const showRouteOnMapByLineLabel = (line: LineInformationForMapFragment) => {
+  const showRoutesOnMapByLineLabel = (line: LineTableRowFragment) => {
     const { latitude, longitude } = getRouteShapeFirstCoordinates(
       line.line_routes[0]?.route_shape,
     );
 
     showRoutesOnModal({
-      displayedRouteParams: { lineLabel: line.label },
+      displayedRouteParams: {
+        lineLabel: line.label,
+        priorities:
+          line.priority === Priority.Draft ? [Priority.Draft] : undefined,
+      },
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       validityStart: line.validity_start!,
       validityEnd: line.validity_end,
@@ -143,9 +148,20 @@ export const useShowRoutesOnModal = () => {
     dispatch(setSelectedRouteIdAction(route.route_id));
   };
 
+  /**
+   * Shows the route on map by id if it is a draft route. Otherwise shows the route
+   * by label (both directions).
+   */
+  const showRouteOnMap = (route: RouteTableRowFragment) => {
+    if (route.priority === Priority.Draft) {
+      showRouteOnMapById(route);
+    } else {
+      showRoutesOnMapByLabel(route);
+    }
+  };
+
   return {
-    showRouteOnMapByLabel,
-    showRouteOnMapByLineLabel,
-    showRouteOnMapById,
+    showRoutesOnMapByLineLabel,
+    showRouteOnMap,
   };
 };

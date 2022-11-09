@@ -16,6 +16,9 @@ describe('Verify that creating new line works', () => {
     // possible constraint violation
     deleteLineByLabel(testLabel);
   });
+  after(() => {
+    deleteLineByLabel(testLabel);
+  });
   it('Creates new line as expected', () => {
     lineForm.getLabelInput().type(testLabel);
     lineForm.getFinnishNameInput().type('Testilinja FI');

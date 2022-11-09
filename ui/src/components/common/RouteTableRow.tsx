@@ -40,12 +40,12 @@ export const RouteTableRow = ({
   linkTo,
   isSelectable = false,
 }: Props): JSX.Element => {
-  const { showRouteOnMapByLabel } = useShowRoutesOnModal();
+  const { showRouteOnMap } = useShowRoutesOnModal();
   const dispatch = useAppDispatch();
   const { selectedRouteLabels } = useAppSelector(selectExport);
 
   const onClickShowRouteOnMap = () => {
-    showRouteOnMapByLabel(route);
+    showRouteOnMap(route);
   };
 
   const onSelectChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
