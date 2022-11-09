@@ -42,12 +42,12 @@ export const LineTableRow = ({
   linkTo,
   isSelectable = false,
 }: Props): JSX.Element => {
-  const { showRouteOnMapByLineLabel } = useShowRoutesOnModal();
+  const { showRoutesOnMapByLineLabel } = useShowRoutesOnModal();
   const dispatch = useAppDispatch();
   const { selectedRouteLabels } = useAppSelector(selectExport);
 
   const showLineRoutes = () => {
-    showRouteOnMapByLineLabel(line);
+    showRoutesOnMapByLineLabel(line);
   };
 
   const onSelectChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
