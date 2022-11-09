@@ -15,8 +15,8 @@ const sortStopsByTraversalForwards = <
   stop1: TStop,
   stop2: TStop,
 ) =>
-  stop1.relative_distance_from_infrastructure_link_start -
-  stop2.relative_distance_from_infrastructure_link_start;
+  stop1.relative_distance_from_infrastructure_link -
+  stop2.relative_distance_from_infrastructure_link;
 
 /**
  * Comparator for sorting stops of the same link based on the distance from the link start.

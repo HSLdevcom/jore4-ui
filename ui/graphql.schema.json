@@ -14667,6 +14667,35 @@
             "deprecationReason": null
           },
           {
+            "name": "delete_service_pattern_scheduled_stop_point_by_pk",
+            "description": "delete single row from the table: \"service_pattern.scheduled_stop_point\"",
+            "args": [
+              {
+                "name": "scheduled_stop_point_id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "uuid",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "service_pattern_scheduled_stop_point",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "delete_service_pattern_vehicle_mode_on_scheduled_stop_point",
             "description": "delete data from the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
             "args": [
@@ -14735,6 +14764,64 @@
             "type": {
               "kind": "OBJECT",
               "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "delete_timing_pattern_timing_place",
+            "description": "delete data from the table: \"timing_pattern.timing_place\"",
+            "args": [
+              {
+                "name": "where",
+                "description": "filter the rows which have to be deleted",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "timing_pattern_timing_place_bool_exp",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "timing_pattern_timing_place_mutation_response",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "delete_timing_pattern_timing_place_by_pk",
+            "description": "delete single row from the table: \"timing_pattern.timing_place\"",
+            "args": [
+              {
+                "name": "timing_place_id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "uuid",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "timing_pattern_timing_place",
               "ofType": null
             },
             "isDeprecated": false,
@@ -16027,6 +16114,18 @@
                 "defaultValue": null,
                 "isDeprecated": false,
                 "deprecationReason": null
+              },
+              {
+                "name": "on_conflict",
+                "description": "upsert condition",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "service_pattern_scheduled_stop_point_on_conflict",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
               }
             ],
             "type": {
@@ -16052,6 +16151,18 @@
                     "name": "service_pattern_scheduled_stop_point_insert_input",
                     "ofType": null
                   }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "on_conflict",
+                "description": "upsert condition",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "service_pattern_scheduled_stop_point_on_conflict",
+                  "ofType": null
                 },
                 "defaultValue": null,
                 "isDeprecated": false,
@@ -16151,6 +16262,96 @@
             "type": {
               "kind": "OBJECT",
               "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "insert_timing_pattern_timing_place",
+            "description": "insert data into the table: \"timing_pattern.timing_place\"",
+            "args": [
+              {
+                "name": "objects",
+                "description": "the rows to be inserted",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "timing_pattern_timing_place_insert_input",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "on_conflict",
+                "description": "upsert condition",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_on_conflict",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "timing_pattern_timing_place_mutation_response",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "insert_timing_pattern_timing_place_one",
+            "description": "insert a single row into the table: \"timing_pattern.timing_place\"",
+            "args": [
+              {
+                "name": "object",
+                "description": "the row to be inserted",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "timing_pattern_timing_place_insert_input",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "on_conflict",
+                "description": "upsert condition",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_on_conflict",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "timing_pattern_timing_place",
               "ofType": null
             },
             "isDeprecated": false,
@@ -18424,6 +18625,59 @@
             "deprecationReason": null
           },
           {
+            "name": "update_service_pattern_scheduled_stop_point_by_pk",
+            "description": "update single row of the table: \"service_pattern.scheduled_stop_point\"",
+            "args": [
+              {
+                "name": "_inc",
+                "description": "increments the numeric columns with given value of the filtered values",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "service_pattern_scheduled_stop_point_inc_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_set",
+                "description": "sets the columns of the filtered rows to the given values",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "service_pattern_scheduled_stop_point_set_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pk_columns",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "service_pattern_scheduled_stop_point_pk_columns_input",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "service_pattern_scheduled_stop_point",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "update_service_pattern_scheduled_stop_point_many",
             "description": "update multiples rows of table: \"service_pattern.scheduled_stop_point\"",
             "args": [
@@ -18581,6 +18835,249 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_mutation_response",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "update_timing_pattern_timing_place",
+            "description": "update data of the table: \"timing_pattern.timing_place\"",
+            "args": [
+              {
+                "name": "_append",
+                "description": "append existing jsonb value of filtered columns with new jsonb value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_append_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_at_path",
+                "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_delete_at_path_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_elem",
+                "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_delete_elem_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_key",
+                "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_delete_key_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_prepend",
+                "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_prepend_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_set",
+                "description": "sets the columns of the filtered rows to the given values",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_set_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows which have to be updated",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "timing_pattern_timing_place_bool_exp",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "timing_pattern_timing_place_mutation_response",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "update_timing_pattern_timing_place_by_pk",
+            "description": "update single row of the table: \"timing_pattern.timing_place\"",
+            "args": [
+              {
+                "name": "_append",
+                "description": "append existing jsonb value of filtered columns with new jsonb value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_append_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_at_path",
+                "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_delete_at_path_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_elem",
+                "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_delete_elem_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_key",
+                "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_delete_key_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_prepend",
+                "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_prepend_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_set",
+                "description": "sets the columns of the filtered rows to the given values",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_set_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pk_columns",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "timing_pattern_timing_place_pk_columns_input",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "timing_pattern_timing_place",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "update_timing_pattern_timing_place_many",
+            "description": "update multiples rows of table: \"timing_pattern.timing_place\"",
+            "args": [
+              {
+                "name": "updates",
+                "description": "updates to execute, in order",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "timing_pattern_timing_place_updates",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "timing_pattern_timing_place_mutation_response",
                 "ofType": null
               }
             },
@@ -22688,6 +23185,35 @@
             "deprecationReason": null
           },
           {
+            "name": "service_pattern_scheduled_stop_point_by_pk",
+            "description": "fetch data from the table: \"service_pattern.scheduled_stop_point\" using primary key columns",
+            "args": [
+              {
+                "name": "scheduled_stop_point_id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "uuid",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "service_pattern_scheduled_stop_point",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "service_pattern_vehicle_mode_on_scheduled_stop_point",
             "description": "fetch data from the table: \"service_pattern.vehicle_mode_on_scheduled_stop_point\"",
             "args": [
@@ -22933,6 +23459,229 @@
             "type": {
               "kind": "OBJECT",
               "name": "timetables_timetables_query",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_pattern_timing_place",
+            "description": "fetch data from the table: \"timing_pattern.timing_place\"",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "timing_pattern_timing_place_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "timing_pattern_timing_place_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "timing_pattern_timing_place",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_pattern_timing_place_aggregate",
+            "description": "fetch aggregated fields from the table: \"timing_pattern.timing_place\"",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "timing_pattern_timing_place_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "timing_pattern_timing_place_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "timing_pattern_timing_place_aggregate",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_pattern_timing_place_by_pk",
+            "description": "fetch data from the table: \"timing_pattern.timing_place\" using primary key columns",
+            "args": [
+              {
+                "name": "timing_place_id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "uuid",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "timing_pattern_timing_place",
               "ofType": null
             },
             "isDeprecated": false,
@@ -36537,11 +37286,11 @@
       {
         "kind": "OBJECT",
         "name": "service_pattern_scheduled_stop_point",
-        "description": "The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.",
+        "description": "columns and relationships of \"service_pattern.scheduled_stop_point\"",
         "fields": [
           {
             "name": "closest_point_on_infrastructure_link",
-            "description": "The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326.",
+            "description": "A computed field, executes function \"service_pattern.scheduled_stop_point_closest_point_on_infrastructure_link\"",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -36553,7 +37302,7 @@
           },
           {
             "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -36569,7 +37318,7 @@
           },
           {
             "name": "label",
-            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -36584,8 +37333,24 @@
             "deprecationReason": null
           },
           {
+            "name": "located_on_infrastructure_link",
+            "description": "An object relationship",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "infrastructure_network_infrastructure_link",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "located_on_infrastructure_link_id",
-            "description": "The infrastructure link on which the stop is located.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -36601,7 +37366,7 @@
           },
           {
             "name": "measured_location",
-            "description": "The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -36811,7 +37576,7 @@
           },
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -36826,8 +37591,8 @@
             "deprecationReason": null
           },
           {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "name": "relative_distance_from_infrastructure_link",
+            "description": "A computed field, executes function \"service_pattern.scheduled_stop_point_relative_distance_from_infrastructure_link\"",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -36843,7 +37608,7 @@
           },
           {
             "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -37052,8 +37817,32 @@
             "deprecationReason": null
           },
           {
+            "name": "timing_place",
+            "description": "An object relationship",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "timing_pattern_timing_place",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": "Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "validity_end",
-            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "end of the operating date span in the scheduled stop point's local time",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -37065,7 +37854,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "end of the route's operating date span in the route's local time",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -37674,6 +38463,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "on_conflict",
+            "description": "upsert condition",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_on_conflict",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -37687,19 +38488,7 @@
         "fields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -37723,19 +38512,7 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -37825,7 +38602,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
+              "name": "infrastructure_network_direction_enum_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -37838,6 +38615,18 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "located_on_infrastructure_link",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "infrastructure_network_infrastructure_link_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -37893,7 +38682,7 @@
             "deprecationReason": null
           },
           {
-            "name": "relative_distance_from_infrastructure_link_start",
+            "name": "relative_distance_from_infrastructure_link",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -37922,6 +38711,30 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "journey_pattern_scheduled_stop_point_in_journey_pattern_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timing_pattern_timing_place_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "uuid_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -37970,6 +38783,23 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "service_pattern_scheduled_stop_point_constraint",
+        "description": "unique or primary key constraints on table \"service_pattern.scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "scheduled_stop_point_pkey",
+            "description": "unique or primary key constraint on columns \"scheduled_stop_point_id\"",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "service_pattern_scheduled_stop_point_inc_input",
         "description": "input type for incrementing numeric columns in table \"service_pattern.scheduled_stop_point\"",
@@ -37977,22 +38807,10 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "Int",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
-            "type": {
-              "kind": "SCALAR",
-              "name": "float8",
               "ofType": null
             },
             "defaultValue": null,
@@ -38011,20 +38829,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "closest_point_on_infrastructure_link",
-            "description": "The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "geography",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -38040,7 +38846,7 @@
           },
           {
             "name": "label",
-            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -38055,8 +38861,20 @@
             "deprecationReason": null
           },
           {
+            "name": "located_on_infrastructure_link",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "infrastructure_network_infrastructure_link_obj_rel_insert_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "located_on_infrastructure_link_id",
-            "description": "The infrastructure link on which the stop is located.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -38072,7 +38890,7 @@
           },
           {
             "name": "measured_location",
-            "description": "The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -38100,7 +38918,7 @@
           },
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -38115,20 +38933,8 @@
             "deprecationReason": null
           },
           {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
-            "type": {
-              "kind": "SCALAR",
-              "name": "float8",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -38151,8 +38957,32 @@
             "deprecationReason": null
           },
           {
+            "name": "timing_place",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timing_pattern_timing_place_obj_rel_insert_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": "Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "validity_end",
-            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "end of the operating date span in the scheduled stop point's local time",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -38164,7 +38994,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "end of the route's operating date span in the route's local time",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -38197,20 +39027,8 @@
         "description": "aggregate max on columns",
         "fields": [
           {
-            "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
-            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38222,7 +39040,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": "The infrastructure link on which the stop is located.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38234,7 +39052,7 @@
           },
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38245,20 +39063,20 @@
             "deprecationReason": null
           },
           {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "name": "scheduled_stop_point_id",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "float8",
+              "name": "uuid",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "name": "timing_place_id",
+            "description": "Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38270,7 +39088,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "end of the operating date span in the scheduled stop point's local time",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38282,7 +39100,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "end of the route's operating date span in the route's local time",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38305,20 +39123,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
-            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38330,7 +39136,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": "The infrastructure link on which the stop is located.",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38342,19 +39148,7 @@
           },
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38366,7 +39160,19 @@
           },
           {
             "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": "Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38378,7 +39184,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "end of the operating date span in the scheduled stop point's local time",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38390,7 +39196,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "end of the route's operating date span in the route's local time",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38411,20 +39217,8 @@
         "description": "aggregate min on columns",
         "fields": [
           {
-            "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
-            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38436,7 +39230,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": "The infrastructure link on which the stop is located.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38448,7 +39242,7 @@
           },
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38459,20 +39253,20 @@
             "deprecationReason": null
           },
           {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "name": "scheduled_stop_point_id",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "float8",
+              "name": "uuid",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "name": "timing_place_id",
+            "description": "Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38484,7 +39278,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "end of the operating date span in the scheduled stop point's local time",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38496,7 +39290,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "end of the route's operating date span in the route's local time",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38519,20 +39313,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "label",
-            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38544,7 +39326,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": "The infrastructure link on which the stop is located.",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38556,19 +39338,7 @@
           },
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38580,7 +39350,19 @@
           },
           {
             "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": "Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38592,7 +39374,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "end of the operating date span in the scheduled stop point's local time",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38604,7 +39386,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "end of the route's operating date span in the route's local time",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38672,6 +39454,69 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "service_pattern_scheduled_stop_point_on_conflict",
+        "description": "on_conflict condition type for table \"service_pattern.scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "constraint",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "service_pattern_scheduled_stop_point_constraint",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "update_columns",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "service_pattern_scheduled_stop_point_update_column",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "defaultValue": "[]",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "where",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "service_pattern_scheduled_stop_point_order_by",
         "description": "Ordering options when selecting data from \"service_pattern.scheduled_stop_point\".",
         "fields": null,
@@ -38706,6 +39551,18 @@
             "type": {
               "kind": "ENUM",
               "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "located_on_infrastructure_link",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "infrastructure_network_infrastructure_link_order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -38761,7 +39618,7 @@
             "deprecationReason": null
           },
           {
-            "name": "relative_distance_from_infrastructure_link_start",
+            "name": "relative_distance_from_infrastructure_link",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -38790,6 +39647,30 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate_order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timing_pattern_timing_place_order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -38838,6 +39719,33 @@
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "service_pattern_scheduled_stop_point_pk_columns_input",
+        "description": "primary key columns input for table: service_pattern.scheduled_stop_point",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "scheduled_stop_point_id",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "uuid",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "ENUM",
         "name": "service_pattern_scheduled_stop_point_select_column",
         "description": "select columns of table \"service_pattern.scheduled_stop_point\"",
@@ -38845,12 +39753,6 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
-          {
-            "name": "closest_point_on_infrastructure_link",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "direction",
             "description": "column name",
@@ -38882,13 +39784,13 @@
             "deprecationReason": null
           },
           {
-            "name": "relative_distance_from_infrastructure_link_start",
+            "name": "scheduled_stop_point_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_id",
+            "name": "timing_place_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -38915,20 +39817,8 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "closest_point_on_infrastructure_link",
-            "description": "The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "geography",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "infrastructure_network_direction_enum",
@@ -38940,7 +39830,7 @@
           },
           {
             "name": "label",
-            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -38952,7 +39842,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": "The infrastructure link on which the stop is located.",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -38964,7 +39854,7 @@
           },
           {
             "name": "measured_location",
-            "description": "The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326.",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "geography_point",
@@ -38976,7 +39866,7 @@
           },
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -38987,11 +39877,11 @@
             "deprecationReason": null
           },
           {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "name": "scheduled_stop_point_id",
+            "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "float8",
+              "name": "uuid",
               "ofType": null
             },
             "defaultValue": null,
@@ -38999,8 +39889,8 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "name": "timing_place_id",
+            "description": "Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -39012,7 +39902,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "end of the operating date span in the scheduled stop point's local time",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -39024,7 +39914,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "end of the route's operating date span in the route's local time",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -39046,19 +39936,7 @@
         "fields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39082,19 +39960,7 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39116,19 +39982,7 @@
         "fields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39152,19 +40006,7 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39186,19 +40028,7 @@
         "fields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39222,19 +40052,7 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39295,23 +40113,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "closest_point_on_infrastructure_link",
-            "description": "The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "geography",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "direction",
-            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified LineString.",
+            "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "ENUM",
+              "name": "infrastructure_network_direction_enum",
               "ofType": null
             },
             "defaultValue": null,
@@ -39320,7 +40126,7 @@
           },
           {
             "name": "label",
-            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -39332,7 +40138,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": "The infrastructure link on which the stop is located.",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -39344,7 +40150,7 @@
           },
           {
             "name": "measured_location",
-            "description": "The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326.",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "geography",
@@ -39356,7 +40162,7 @@
           },
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -39367,11 +40173,11 @@
             "deprecationReason": null
           },
           {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "name": "scheduled_stop_point_id",
+            "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "float8",
+              "name": "uuid",
               "ofType": null
             },
             "defaultValue": null,
@@ -39379,8 +40185,8 @@
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_id",
-            "description": "The ID of the scheduled stop point.",
+            "name": "timing_place_id",
+            "description": "Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -39392,7 +40198,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The date from which onwards the stop is no longer valid. If NULL, the stop will be always valid.",
+            "description": "end of the operating date span in the scheduled stop point's local time",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -39404,7 +40210,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The date when the stop becomes valid. If NULL, the stop has been always valid.",
+            "description": "end of the route's operating date span in the route's local time",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -39426,23 +40232,11 @@
         "fields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "float8",
               "ofType": null
             },
             "isDeprecated": false,
@@ -39462,19 +40256,7 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39487,6 +40269,71 @@
         ],
         "interfaces": null,
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "service_pattern_scheduled_stop_point_update_column",
+        "description": "update columns of table \"service_pattern.scheduled_stop_point\"",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "direction",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "located_on_infrastructure_link_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "measured_location",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "priority",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_point_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "validity_end",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "validity_start",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {
@@ -39547,19 +40394,7 @@
         "fields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39583,19 +40418,7 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39617,19 +40440,7 @@
         "fields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39653,19 +40464,7 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39687,19 +40486,7 @@
         "fields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39723,19 +40510,7 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": "The priority of the stop definition. The definition may be overridden by higher priority definitions.",
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "relative_distance_from_infrastructure_link_start",
-            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -45803,6 +46578,35 @@
             "deprecationReason": null
           },
           {
+            "name": "service_pattern_scheduled_stop_point_by_pk",
+            "description": "fetch data from the table: \"service_pattern.scheduled_stop_point\" using primary key columns",
+            "args": [
+              {
+                "name": "scheduled_stop_point_id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "uuid",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "service_pattern_scheduled_stop_point",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "service_pattern_scheduled_stop_point_stream",
             "description": "fetch data from the table in a streaming manner : \"service_pattern.scheduled_stop_point\"",
             "args": [
@@ -46195,6 +46999,302 @@
               "kind": "OBJECT",
               "name": "timetables_timetables_subscription",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_pattern_timing_place",
+            "description": "fetch data from the table: \"timing_pattern.timing_place\"",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "timing_pattern_timing_place_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "timing_pattern_timing_place_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "timing_pattern_timing_place",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_pattern_timing_place_aggregate",
+            "description": "fetch aggregated fields from the table: \"timing_pattern.timing_place\"",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "timing_pattern_timing_place_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "timing_pattern_timing_place_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "timing_pattern_timing_place_aggregate",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_pattern_timing_place_by_pk",
+            "description": "fetch data from the table: \"timing_pattern.timing_place\" using primary key columns",
+            "args": [
+              {
+                "name": "timing_place_id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "uuid",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "timing_pattern_timing_place",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_pattern_timing_place_stream",
+            "description": "fetch data from the table in a streaming manner : \"timing_pattern.timing_place\"",
+            "args": [
+              {
+                "name": "batch_size",
+                "description": "maximum number of rows returned in a single batch",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "cursor",
+                "description": "cursor to stream the results returned by the query",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "timing_pattern_timing_place_stream_cursor_input",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "timing_pattern_timing_place",
+                    "ofType": null
+                  }
+                }
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -67975,6 +69075,1314 @@
               "ofType": {
                 "kind": "INPUT_OBJECT",
                 "name": "timetables_vehicle_service_vehicle_service_bool_exp",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "timing_pattern_timing_place",
+        "description": "A set of SCHEDULED STOP POINTs against which the timing information necessary to build schedules may be recorded. In HSL context this is \"Hastus paikka\". Based on Transmodel entity TIMING POINT: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:2:709 ",
+        "fields": [
+          {
+            "name": "description",
+            "description": null,
+            "args": [
+              {
+                "name": "path",
+                "description": "JSON select path",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_points",
+            "description": "An array relationship",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "service_pattern_scheduled_stop_point_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "service_pattern_scheduled_stop_point_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "service_pattern_scheduled_stop_point_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "service_pattern_scheduled_stop_point",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_points_aggregate",
+            "description": "An aggregate relationship",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "service_pattern_scheduled_stop_point_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "service_pattern_scheduled_stop_point_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "service_pattern_scheduled_stop_point_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "service_pattern_scheduled_stop_point_aggregate",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "uuid",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "timing_pattern_timing_place_aggregate",
+        "description": "aggregated selection of \"timing_pattern.timing_place\"",
+        "fields": [
+          {
+            "name": "aggregate",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "timing_pattern_timing_place_aggregate_fields",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nodes",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "timing_pattern_timing_place",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "timing_pattern_timing_place_aggregate_fields",
+        "description": "aggregate fields of \"timing_pattern.timing_place\"",
+        "fields": [
+          {
+            "name": "count",
+            "description": null,
+            "args": [
+              {
+                "name": "columns",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "timing_pattern_timing_place_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "distinct",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "max",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "timing_pattern_timing_place_max_fields",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "min",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "timing_pattern_timing_place_min_fields",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_append_input",
+        "description": "append existing jsonb value of filtered columns with new jsonb value",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_bool_exp",
+        "description": "Boolean expression to filter rows from the table \"timing_pattern.timing_place\". All fields are combined with a logical 'AND'.",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "_and",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_bool_exp",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_not",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timing_pattern_timing_place_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_or",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timing_pattern_timing_place_bool_exp",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "description",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "jsonb_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_points",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "uuid_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "timing_pattern_timing_place_constraint",
+        "description": "unique or primary key constraints on table \"timing_pattern.timing_place\"",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "timing_place_label_key",
+            "description": "unique or primary key constraint on columns \"label\"",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_pkey",
+            "description": "unique or primary key constraint on columns \"timing_place_id\"",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_delete_at_path_input",
+        "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_delete_elem_input",
+        "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_delete_key_input",
+        "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_insert_input",
+        "description": "input type for inserting data into table \"timing_pattern.timing_place\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_points",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_arr_rel_insert_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "timing_pattern_timing_place_max_fields",
+        "description": "aggregate max on columns",
+        "fields": [
+          {
+            "name": "label",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "timing_pattern_timing_place_min_fields",
+        "description": "aggregate min on columns",
+        "fields": [
+          {
+            "name": "label",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "timing_pattern_timing_place_mutation_response",
+        "description": "response of any mutation on the table \"timing_pattern.timing_place\"",
+        "fields": [
+          {
+            "name": "affected_rows",
+            "description": "number of rows affected by the mutation",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "returning",
+            "description": "data from the rows affected by the mutation",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "timing_pattern_timing_place",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_obj_rel_insert_input",
+        "description": "input type for inserting object relation for remote table \"timing_pattern.timing_place\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "data",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "timing_pattern_timing_place_insert_input",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "on_conflict",
+            "description": "upsert condition",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timing_pattern_timing_place_on_conflict",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_on_conflict",
+        "description": "on_conflict condition type for table \"timing_pattern.timing_place\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "constraint",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "timing_pattern_timing_place_constraint",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "update_columns",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "timing_pattern_timing_place_update_column",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "defaultValue": "[]",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "where",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timing_pattern_timing_place_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_order_by",
+        "description": "Ordering options when selecting data from \"timing_pattern.timing_place\".",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_points_aggregate",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "service_pattern_scheduled_stop_point_aggregate_order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_pk_columns_input",
+        "description": "primary key columns input for table: timing_pattern.timing_place",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "timing_place_id",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "uuid",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_prepend_input",
+        "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "timing_pattern_timing_place_select_column",
+        "description": "select columns of table \"timing_pattern.timing_place\"",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "description",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_set_input",
+        "description": "input type for updating data in table \"timing_pattern.timing_place\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_stream_cursor_input",
+        "description": "Streaming cursor of the table \"timing_pattern_timing_place\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "initial_value",
+            "description": "Stream column input with initial value",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "timing_pattern_timing_place_stream_cursor_value_input",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ordering",
+            "description": "cursor ordering",
+            "type": {
+              "kind": "ENUM",
+              "name": "cursor_ordering",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_stream_cursor_value_input",
+        "description": "Initial value of the column from where the streaming should start",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "timing_pattern_timing_place_update_column",
+        "description": "update columns of table \"timing_pattern.timing_place\"",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "description",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timing_place_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timing_pattern_timing_place_updates",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "_append",
+            "description": "append existing jsonb value of filtered columns with new jsonb value",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timing_pattern_timing_place_append_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_delete_at_path",
+            "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timing_pattern_timing_place_delete_at_path_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_delete_elem",
+            "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timing_pattern_timing_place_delete_elem_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_delete_key",
+            "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timing_pattern_timing_place_delete_key_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_prepend",
+            "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timing_pattern_timing_place_prepend_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_set",
+            "description": "sets the columns of the filtered rows to the given values",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timing_pattern_timing_place_set_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "where",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "timing_pattern_timing_place_bool_exp",
                 "ofType": null
               }
             },
