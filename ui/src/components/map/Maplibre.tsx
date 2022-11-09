@@ -6,6 +6,7 @@ import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
 import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
 import { Operation, setViewPortAction } from '../../redux';
+import { getCursor, getInteractiveLayerIds } from './VisualElements';
 
 interface Props {
   className?: string;
@@ -101,21 +102,6 @@ export const Maplibre: FunctionComponent<Props> = ({
     padding: '10px',
   };
 
-  const getCursor = ({
-    isHovering,
-    isDragging,
-  }: {
-    isLoaded: boolean;
-    isDragging: boolean;
-    isHovering: boolean;
-  }) => {
-    if (isDragging) {
-      return 'grabbing';
-    }
-    // TODO: seems like we never actually receive isHovering as true
-    return isHovering ? 'pointer' : 'default';
-  };
-
   const transformRequest = (url: string) => {
     if (url.startsWith('/')) {
       // mapbox gl js doesn't handle relative url's. As a workaround
@@ -142,6 +128,8 @@ export const Maplibre: FunctionComponent<Props> = ({
     };
   }, [updateMapDetailsDebounced]);
 
+  const interactiveLayerIds = getInteractiveLayerIds(mapRef);
+
   return (
     <MapGL
       // eslint-disable-next-line react/jsx-props-no-spreading
@@ -157,6 +145,9 @@ export const Maplibre: FunctionComponent<Props> = ({
       doubleClickZoom={false}
       ref={mapRef}
       onLoad={onLoad}
+      interactiveLayerIds={interactiveLayerIds}
+      // Increased click radius to make it easier to click a route on map
+      clickRadius={3}
     >
       {children}
       <NavigationControl style={navStyle} showCompass={false} />

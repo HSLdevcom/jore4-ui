@@ -1,5 +1,33 @@
 import { useContext } from 'react';
-import { MapContext } from 'react-map-gl';
+import { LayerProps, MapContext, MapRef } from 'react-map-gl';
+import { isRouteGeometryLayer } from './routes';
+
+export const getCursor = ({
+  isHovering,
+  isDragging,
+}: {
+  isLoaded: boolean;
+  isDragging: boolean;
+  isHovering: boolean;
+}) => {
+  if (isDragging) {
+    return 'grabbing';
+  }
+
+  return isHovering ? 'pointer' : 'default';
+};
+
+// Construct an array of interactive (e.g. hoverable) layer ids
+export const getInteractiveLayerIds = (mapRef: React.RefObject<MapRef>) => {
+  // Get all rendered layer ids
+  const layers = mapRef.current
+    ?.getMap()
+    ?.getStyle()
+    ?.layers?.map((layer: LayerProps) => layer.id);
+
+  // Filter only layer ids that are route geometry layers
+  return layers?.filter(isRouteGeometryLayer) || [];
+};
 
 export const VisualElements: React.FC = () => {
   const { map } = useContext(MapContext);
