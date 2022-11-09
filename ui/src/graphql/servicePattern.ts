@@ -50,6 +50,7 @@ const SCHEDULED_STOP_POINT_ALL_FIELDS = gql`
     vehicle_mode_on_scheduled_stop_point {
       vehicle_mode
     }
+    timing_place_id
   }
 `;
 

@@ -11697,6 +11697,7 @@ export type RouteInfraLinkFieldsFragment = {
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
+    timing_place_id?: UUID | null | undefined;
     other_label_instances: Array<{
       __typename?: 'service_pattern_scheduled_stop_point';
       priority: number;
@@ -11795,6 +11796,7 @@ export type GetStopsAlongInfrastructureLinksQuery = {
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
+    timing_place_id?: UUID | null | undefined;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -12296,6 +12298,7 @@ export type GetLineDetailsWithRoutesByIdQuery = {
                 validity_start?: luxon.DateTime | null | undefined;
                 validity_end?: luxon.DateTime | null | undefined;
                 priority: number;
+                timing_place_id?: UUID | null | undefined;
                 scheduled_stop_point_in_journey_patterns: Array<{
                   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
                   journey_pattern_id: UUID;
@@ -12397,6 +12400,7 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
             validity_start?: luxon.DateTime | null | undefined;
             validity_end?: luxon.DateTime | null | undefined;
             priority: number;
+            timing_place_id?: UUID | null | undefined;
             other_label_instances: Array<{
               __typename?: 'service_pattern_scheduled_stop_point';
               priority: number;
@@ -12480,6 +12484,7 @@ export type GetRoutesWithStopsQuery = {
           validity_start?: luxon.DateTime | null | undefined;
           validity_end?: luxon.DateTime | null | undefined;
           priority: number;
+          timing_place_id?: UUID | null | undefined;
           scheduled_stop_point_in_journey_patterns: Array<{
             __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
             journey_pattern_id: UUID;
@@ -12622,6 +12627,7 @@ export type GetRouteDetailsByIdsQuery = {
           validity_start?: luxon.DateTime | null | undefined;
           validity_end?: luxon.DateTime | null | undefined;
           priority: number;
+          timing_place_id?: UUID | null | undefined;
           scheduled_stop_point_in_journey_patterns: Array<{
             __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
             journey_pattern_id: UUID;
@@ -13096,6 +13102,7 @@ export type ScheduledStopPointAllFieldsFragment = {
   validity_start?: luxon.DateTime | null | undefined;
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
+  timing_place_id?: UUID | null | undefined;
   vehicle_mode_on_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
     vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -13114,6 +13121,7 @@ export type StopWithJourneyPatternFieldsFragment = {
   validity_start?: luxon.DateTime | null | undefined;
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
+  timing_place_id?: UUID | null | undefined;
   scheduled_stop_point_in_journey_patterns: Array<{
     __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
     journey_pattern_id: UUID;
@@ -13147,6 +13155,7 @@ export type RouteStopFieldsFragment = {
   validity_start?: luxon.DateTime | null | undefined;
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
+  timing_place_id?: UUID | null | undefined;
   other_label_instances: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
     priority: number;
@@ -13214,6 +13223,7 @@ export type GetStopsByLocationQuery = {
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
+    timing_place_id?: UUID | null | undefined;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -13239,6 +13249,7 @@ export type GetStopsByValidityQuery = {
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
+    timing_place_id?: UUID | null | undefined;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -13264,6 +13275,7 @@ export type GetStopsByIdsQuery = {
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
+    timing_place_id?: UUID | null | undefined;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -13289,6 +13301,7 @@ export type GetStopsByLabelsQuery = {
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
+    timing_place_id?: UUID | null | undefined;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -13345,6 +13358,7 @@ export type EditStopMutation = {
           validity_start?: luxon.DateTime | null | undefined;
           validity_end?: luxon.DateTime | null | undefined;
           priority: number;
+          timing_place_id?: UUID | null | undefined;
           vehicle_mode_on_scheduled_stop_point: Array<{
             __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
             vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -13394,6 +13408,7 @@ export type GetStopWithRouteGraphDataByIdQuery = {
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
+    timing_place_id?: UUID | null | undefined;
     scheduled_stop_point_in_journey_patterns: Array<{
       __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
       journey_pattern_id: UUID;
@@ -13500,6 +13515,7 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
       validity_start?: luxon.DateTime | null | undefined;
       validity_end?: luxon.DateTime | null | undefined;
       priority: number;
+      timing_place_id?: UUID | null | undefined;
       other_label_instances: Array<{
         __typename?: 'service_pattern_scheduled_stop_point';
         priority: number;
@@ -13664,6 +13680,7 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
         validity_start?: luxon.DateTime | null | undefined;
         validity_end?: luxon.DateTime | null | undefined;
         priority: number;
+        timing_place_id?: UUID | null | undefined;
         other_label_instances: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
           priority: number;
@@ -13751,6 +13768,7 @@ export type InfraLinkAlongRouteWithStopsFragment = {
       validity_start?: luxon.DateTime | null | undefined;
       validity_end?: luxon.DateTime | null | undefined;
       priority: number;
+      timing_place_id?: UUID | null | undefined;
       other_label_instances: Array<{
         __typename?: 'service_pattern_scheduled_stop_point';
         priority: number;
@@ -13846,6 +13864,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
               validity_start?: luxon.DateTime | null | undefined;
               validity_end?: luxon.DateTime | null | undefined;
               priority: number;
+              timing_place_id?: UUID | null | undefined;
               other_label_instances: Array<{
                 __typename?: 'service_pattern_scheduled_stop_point';
                 priority: number;
@@ -14057,6 +14076,44 @@ export type GetSelectedRouteDetailsByIdQuery = {
       }
     | null
     | undefined;
+};
+
+export type GetTimingPlacesForComboboxQueryVariables = Exact<{
+  labelPattern: Scalars['String'];
+}>;
+
+export type GetTimingPlacesForComboboxQuery = {
+  __typename?: 'query_root';
+  timing_pattern_timing_place: Array<{
+    __typename?: 'timing_pattern_timing_place';
+    timing_place_id: UUID;
+    label: string;
+    description?: any | null | undefined;
+  }>;
+};
+
+export type GetSelectedTimingPlaceDetailsByIdQueryVariables = Exact<{
+  timing_place_id: Scalars['uuid'];
+}>;
+
+export type GetSelectedTimingPlaceDetailsByIdQuery = {
+  __typename?: 'query_root';
+  timing_pattern_timing_place_by_pk?:
+    | {
+        __typename?: 'timing_pattern_timing_place';
+        timing_place_id: UUID;
+        label: string;
+        description?: any | null | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type TimingPlaceForComboboxFragment = {
+  __typename?: 'timing_pattern_timing_place';
+  timing_place_id: UUID;
+  label: string;
+  description?: any | null | undefined;
 };
 
 export type RouteInformationForMapFragment = {
@@ -14278,6 +14335,7 @@ export const ScheduledStopPointAllFieldsFragmentDoc = gql`
     vehicle_mode_on_scheduled_stop_point {
       vehicle_mode
     }
+    timing_place_id
   }
 `;
 export const ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc = gql`
@@ -14510,6 +14568,13 @@ export const LineForComboboxFragmentDoc = gql`
     label
     validity_start
     validity_end
+  }
+`;
+export const TimingPlaceForComboboxFragmentDoc = gql`
+  fragment timing_place_for_combobox on timing_pattern_timing_place {
+    timing_place_id
+    label
+    description
   }
 `;
 export const DayTypeAllFieldsFragmentDoc = gql`
@@ -17706,6 +17771,128 @@ export type GetSelectedRouteDetailsByIdQueryResult = Apollo.QueryResult<
   GetSelectedRouteDetailsByIdQuery,
   GetSelectedRouteDetailsByIdQueryVariables
 >;
+export const GetTimingPlacesForComboboxDocument = gql`
+  query GetTimingPlacesForCombobox($labelPattern: String!) {
+    timing_pattern_timing_place(
+      limit: 10
+      where: { label: { _ilike: $labelPattern } }
+      order_by: [{ label: asc }]
+    ) {
+      ...timing_place_for_combobox
+    }
+  }
+  ${TimingPlaceForComboboxFragmentDoc}
+`;
+
+/**
+ * __useGetTimingPlacesForComboboxQuery__
+ *
+ * To run a query within a React component, call `useGetTimingPlacesForComboboxQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTimingPlacesForComboboxQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTimingPlacesForComboboxQuery({
+ *   variables: {
+ *      labelPattern: // value for 'labelPattern'
+ *   },
+ * });
+ */
+export function useGetTimingPlacesForComboboxQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetTimingPlacesForComboboxQuery,
+    GetTimingPlacesForComboboxQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetTimingPlacesForComboboxQuery,
+    GetTimingPlacesForComboboxQueryVariables
+  >(GetTimingPlacesForComboboxDocument, options);
+}
+export function useGetTimingPlacesForComboboxLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTimingPlacesForComboboxQuery,
+    GetTimingPlacesForComboboxQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetTimingPlacesForComboboxQuery,
+    GetTimingPlacesForComboboxQueryVariables
+  >(GetTimingPlacesForComboboxDocument, options);
+}
+export type GetTimingPlacesForComboboxQueryHookResult = ReturnType<
+  typeof useGetTimingPlacesForComboboxQuery
+>;
+export type GetTimingPlacesForComboboxLazyQueryHookResult = ReturnType<
+  typeof useGetTimingPlacesForComboboxLazyQuery
+>;
+export type GetTimingPlacesForComboboxQueryResult = Apollo.QueryResult<
+  GetTimingPlacesForComboboxQuery,
+  GetTimingPlacesForComboboxQueryVariables
+>;
+export const GetSelectedTimingPlaceDetailsByIdDocument = gql`
+  query GetSelectedTimingPlaceDetailsById($timing_place_id: uuid!) {
+    timing_pattern_timing_place_by_pk(timing_place_id: $timing_place_id) {
+      ...timing_place_for_combobox
+    }
+  }
+  ${TimingPlaceForComboboxFragmentDoc}
+`;
+
+/**
+ * __useGetSelectedTimingPlaceDetailsByIdQuery__
+ *
+ * To run a query within a React component, call `useGetSelectedTimingPlaceDetailsByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSelectedTimingPlaceDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSelectedTimingPlaceDetailsByIdQuery({
+ *   variables: {
+ *      timing_place_id: // value for 'timing_place_id'
+ *   },
+ * });
+ */
+export function useGetSelectedTimingPlaceDetailsByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetSelectedTimingPlaceDetailsByIdQuery,
+    GetSelectedTimingPlaceDetailsByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetSelectedTimingPlaceDetailsByIdQuery,
+    GetSelectedTimingPlaceDetailsByIdQueryVariables
+  >(GetSelectedTimingPlaceDetailsByIdDocument, options);
+}
+export function useGetSelectedTimingPlaceDetailsByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetSelectedTimingPlaceDetailsByIdQuery,
+    GetSelectedTimingPlaceDetailsByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetSelectedTimingPlaceDetailsByIdQuery,
+    GetSelectedTimingPlaceDetailsByIdQueryVariables
+  >(GetSelectedTimingPlaceDetailsByIdDocument, options);
+}
+export type GetSelectedTimingPlaceDetailsByIdQueryHookResult = ReturnType<
+  typeof useGetSelectedTimingPlaceDetailsByIdQuery
+>;
+export type GetSelectedTimingPlaceDetailsByIdLazyQueryHookResult = ReturnType<
+  typeof useGetSelectedTimingPlaceDetailsByIdLazyQuery
+>;
+export type GetSelectedTimingPlaceDetailsByIdQueryResult = Apollo.QueryResult<
+  GetSelectedTimingPlaceDetailsByIdQuery,
+  GetSelectedTimingPlaceDetailsByIdQueryVariables
+>;
 export const GetTimetablesForOperationDayDocument = gql`
   query GetTimetablesForOperationDay {
     timetables {
@@ -18105,6 +18292,24 @@ export function useGetSelectedRouteDetailsByIdAsyncQuery() {
 }
 export type GetSelectedRouteDetailsByIdAsyncQueryHookResult = ReturnType<
   typeof useGetSelectedRouteDetailsByIdAsyncQuery
+>;
+export function useGetTimingPlacesForComboboxAsyncQuery() {
+  return useAsyncQuery<
+    GetTimingPlacesForComboboxQuery,
+    GetTimingPlacesForComboboxQueryVariables
+  >(GetTimingPlacesForComboboxDocument);
+}
+export type GetTimingPlacesForComboboxAsyncQueryHookResult = ReturnType<
+  typeof useGetTimingPlacesForComboboxAsyncQuery
+>;
+export function useGetSelectedTimingPlaceDetailsByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetSelectedTimingPlaceDetailsByIdQuery,
+    GetSelectedTimingPlaceDetailsByIdQueryVariables
+  >(GetSelectedTimingPlaceDetailsByIdDocument);
+}
+export type GetSelectedTimingPlaceDetailsByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetSelectedTimingPlaceDetailsByIdAsyncQuery
 >;
 export function useGetTimetablesForOperationDayAsyncQuery() {
   return useAsyncQuery<

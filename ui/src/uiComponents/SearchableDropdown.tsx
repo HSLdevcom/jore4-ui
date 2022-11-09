@@ -15,7 +15,9 @@ interface Props<T> extends ComboboxInputProps {
   selectedItem: T | undefined;
   onQueryChange: (query: string) => void;
   mapToButtonContent: (displayedItem?: T) => JSX.Element;
+  nullOptionRender?: () => JSX.Element;
   options: ComboboxOptionRenderer[];
+  nullable?: boolean;
 }
 
 export function SearchableDropdown<T>({
@@ -27,11 +29,15 @@ export function SearchableDropdown<T>({
   onChange,
   onBlur,
   mapToButtonContent,
+  nullOptionRender = () => <></>,
   onQueryChange: parentOnQueryChange,
+  nullable,
 }: Props<T>): JSX.Element {
-  // Selected item details are shown on buttonContent by default
-  // But we want to hide it when typing new search
-  const [showButtonContent, setShowButtonContent] = useState(true);
+  // Query value is debounced because we do async call on query change.
+  // We need to know the not debounced query value to determine what to show in the
+  // combobox search input, therefore track with separate state variable whether or
+  // not the query is empty.
+  const [isQueryEmpty, setIsQueryEmpty] = useState(true);
 
   const debouncedSetQuery = debounce(
     (str) => parentOnQueryChange(str),
@@ -39,30 +45,41 @@ export function SearchableDropdown<T>({
   );
 
   const onQueryChange = (str: string) => {
-    // If there is a searchword, do not show the buttonContent on top of input text
-    if (str !== '') {
-      setShowButtonContent(false);
-    }
+    setIsQueryEmpty(str === '');
     debouncedSetQuery(str);
   };
 
   const onItemSelected = (e: ComboboxEvent) => {
     onChange(e);
-    setShowButtonContent(true);
+    // Query is reset on item selection
+    setIsQueryEmpty(true);
   };
+
+  const optionsWithNullOption =
+    // Add null option to options if dropdown is nullable and if
+    // no search word exists
+    nullable && isQueryEmpty
+      ? [
+          {
+            key: 'none',
+            value: null,
+            render: nullOptionRender,
+          },
+          ...options,
+        ]
+      : options;
 
   return (
     <Combobox
       id={id}
       testId={testId}
-      buttonContent={
-        showButtonContent ? mapToButtonContent(selectedItem) : null
-      }
-      options={options}
+      buttonContent={isQueryEmpty ? mapToButtonContent(selectedItem) : null}
+      options={optionsWithNullOption}
       value={value}
       onChange={onItemSelected}
       onBlur={onBlur}
       onQueryChange={onQueryChange}
+      nullable={nullable}
     />
   );
 }

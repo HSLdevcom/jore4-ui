@@ -61,6 +61,7 @@ export const useCreateStop = () => {
     draftStop.located_on_infrastructure_link_id =
       closestLink.infrastructure_link_id;
     draftStop.direction = direction;
+    draftStop.timing_place_id = null;
 
     return draftStop;
   };
