@@ -11,7 +11,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 1`] = `
       aria-expanded="false"
       class="input-element relative h-full w-full"
       data-testid="ChooseRouteDropdown1::input"
-      id="headlessui-combobox-input-7"
+      id="headlessui-combobox-input-:r6:"
       role="combobox"
       type="text"
     />
@@ -20,7 +20,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 1`] = `
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
       data-testid="ChooseRouteDropdown1::button"
-      id="headlessui-combobox-button-8"
+      id="headlessui-combobox-button-:r7:"
       tabindex="-1"
       type="button"
     >
@@ -67,7 +67,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 2`] = `
       aria-expanded="false"
       class="input-element relative h-full w-full"
       data-testid="ChooseRouteDropdown1::input"
-      id="headlessui-combobox-input-7"
+      id="headlessui-combobox-input-:r6:"
       role="combobox"
       type="text"
     />
@@ -76,7 +76,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 2`] = `
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
       data-testid="ChooseRouteDropdown1::button"
-      id="headlessui-combobox-button-8"
+      id="headlessui-combobox-button-:r7:"
       tabindex="-1"
       type="button"
     >
@@ -120,21 +120,22 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
     id="choose-route-combobox"
   >
     <input
-      aria-controls="headlessui-combobox-options-10"
+      aria-activedescendant="headlessui-combobox-option-:ra:"
+      aria-controls="headlessui-combobox-options-:r9:"
       aria-expanded="true"
       class="input-element relative h-full w-full"
       data-testid="ChooseRouteDropdown1::input"
-      id="headlessui-combobox-input-7"
+      id="headlessui-combobox-input-:r6:"
       role="combobox"
       type="text"
     />
     <button
-      aria-controls="headlessui-combobox-options-10"
+      aria-controls="headlessui-combobox-options-:r9:"
       aria-expanded="true"
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
       data-testid="ChooseRouteDropdown1::button"
-      id="headlessui-combobox-button-8"
+      id="headlessui-combobox-button-:r7:"
       tabindex="-1"
       type="button"
     >
@@ -162,18 +163,19 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
       />
     </button>
     <ul
-      aria-labelledby="headlessui-combobox-button-8"
+      aria-activedescendant="headlessui-combobox-option-:ra:"
+      aria-labelledby="headlessui-combobox-button-:r7:"
       class="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
-      id="headlessui-combobox-options-10"
+      id="headlessui-combobox-options-:r9:"
       role="listbox"
     >
       <li
-        id="headlessui-combobox-option-11"
+        id="headlessui-combobox-option-:ra:"
         role="option"
         tabindex="-1"
       >
         <span
-          class=" flex group text-left pr-2 py-2 focus:outline-none items-center"
+          class="bg-background flex group text-left pr-2 py-2 focus:outline-none items-center"
         >
           <svg
             class="mx-1 text-2xl invisible"
@@ -228,7 +230,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
       aria-expanded="false"
       class="input-element relative h-full w-full"
       data-testid="ChooseRouteDropdown1::input"
-      id="headlessui-combobox-input-1"
+      id="headlessui-combobox-input-:r0:"
       role="combobox"
       type="text"
     />
@@ -237,7 +239,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
       data-testid="ChooseRouteDropdown1::button"
-      id="headlessui-combobox-button-2"
+      id="headlessui-combobox-button-:r1:"
       tabindex="-1"
       type="button"
     >
@@ -284,7 +286,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
       aria-expanded="false"
       class="input-element relative h-full w-full"
       data-testid="ChooseRouteDropdown1::input"
-      id="headlessui-combobox-input-1"
+      id="headlessui-combobox-input-:r0:"
       role="combobox"
       type="text"
     />
@@ -293,7 +295,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
       data-testid="ChooseRouteDropdown1::button"
-      id="headlessui-combobox-button-2"
+      id="headlessui-combobox-button-:r1:"
       tabindex="-1"
       type="button"
     >
@@ -337,21 +339,22 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
     id="choose-route-combobox"
   >
     <input
-      aria-controls="headlessui-combobox-options-4"
+      aria-activedescendant="headlessui-combobox-option-:r4:"
+      aria-controls="headlessui-combobox-options-:r3:"
       aria-expanded="true"
       class="input-element relative h-full w-full"
       data-testid="ChooseRouteDropdown1::input"
-      id="headlessui-combobox-input-1"
+      id="headlessui-combobox-input-:r0:"
       role="combobox"
       type="text"
     />
     <button
-      aria-controls="headlessui-combobox-options-4"
+      aria-controls="headlessui-combobox-options-:r3:"
       aria-expanded="true"
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
       data-testid="ChooseRouteDropdown1::button"
-      id="headlessui-combobox-button-2"
+      id="headlessui-combobox-button-:r1:"
       tabindex="-1"
       type="button"
     >
@@ -384,18 +387,19 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
       />
     </button>
     <ul
-      aria-labelledby="headlessui-combobox-button-2"
+      aria-activedescendant="headlessui-combobox-option-:r4:"
+      aria-labelledby="headlessui-combobox-button-:r1:"
       class="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
-      id="headlessui-combobox-options-4"
+      id="headlessui-combobox-options-:r3:"
       role="listbox"
     >
       <li
-        id="headlessui-combobox-option-5"
+        id="headlessui-combobox-option-:r4:"
         role="option"
         tabindex="-1"
       >
         <span
-          class=" flex group text-left pr-2 py-2 focus:outline-none items-center"
+          class="bg-background flex group text-left pr-2 py-2 focus:outline-none items-center"
         >
           <svg
             class="mx-1 text-2xl invisible"
@@ -435,7 +439,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
         </span>
       </li>
       <li
-        id="headlessui-combobox-option-6"
+        id="headlessui-combobox-option-:r5:"
         role="option"
         tabindex="-1"
       >

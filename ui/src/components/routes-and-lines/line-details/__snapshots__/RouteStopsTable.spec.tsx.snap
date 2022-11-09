@@ -8,16 +8,16 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
     >
       <label
         class="my-8 mr-8 font-normal"
-        id="headlessui-label-1"
+        id="headlessui-label-:r0:"
       >
         Näytä reittiin kuulumattomat pysäkit
       </label>
       <button
         aria-checked="false"
-        aria-labelledby="headlessui-label-1"
+        aria-labelledby="headlessui-label-:r0:"
         class=" border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
         data-testid="show-unused-stops-switch"
-        id="headlessui-switch-2"
+        id="headlessui-switch-:r1:"
         role="switch"
         tabindex="0"
         type="button"
@@ -217,16 +217,16 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
     >
       <label
         class="my-8 mr-8 font-normal"
-        id="headlessui-label-1"
+        id="headlessui-label-:r0:"
       >
         Näytä reittiin kuulumattomat pysäkit
       </label>
       <button
         aria-checked="false"
-        aria-labelledby="headlessui-label-1"
+        aria-labelledby="headlessui-label-:r0:"
         class=" border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
         data-testid="show-unused-stops-switch"
-        id="headlessui-switch-2"
+        id="headlessui-switch-:r1:"
         role="switch"
         tabindex="0"
         type="button"
@@ -487,7 +487,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 aria-haspopup="true"
                 class="mx-auto flex items-center px-3 focus:outline-none"
                 data-testid="StopActionsDrowdown::menu"
-                id="headlessui-menu-button-3"
+                id="headlessui-menu-button-:r2:"
                 type="button"
               >
                 <svg
@@ -587,7 +587,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 aria-haspopup="true"
                 class="mx-auto flex items-center px-3 focus:outline-none"
                 data-testid="StopActionsDrowdown::menu"
-                id="headlessui-menu-button-4"
+                id="headlessui-menu-button-:r3:"
                 type="button"
               >
                 <svg
@@ -626,16 +626,16 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
     >
       <label
         class="my-8 mr-8 font-normal"
-        id="headlessui-label-1"
+        id="headlessui-label-:r0:"
       >
         Näytä reittiin kuulumattomat pysäkit
       </label>
       <button
         aria-checked="true"
-        aria-labelledby="headlessui-label-1"
+        aria-labelledby="headlessui-label-:r0:"
         class=" border-brand bg-brand relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
         data-testid="show-unused-stops-switch"
-        id="headlessui-switch-2"
+        id="headlessui-switch-:r1:"
         role="switch"
         tabindex="0"
         type="button"
@@ -896,7 +896,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 aria-haspopup="true"
                 class="mx-auto flex items-center px-3 focus:outline-none"
                 data-testid="StopActionsDrowdown::menu"
-                id="headlessui-menu-button-3"
+                id="headlessui-menu-button-:r2:"
                 type="button"
               >
                 <svg
@@ -996,7 +996,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 aria-haspopup="true"
                 class="mx-auto flex items-center px-3 focus:outline-none"
                 data-testid="StopActionsDrowdown::menu"
-                id="headlessui-menu-button-5"
+                id="headlessui-menu-button-:r4:"
                 type="button"
               >
                 <svg
@@ -1096,7 +1096,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 aria-haspopup="true"
                 class="mx-auto flex items-center px-3 focus:outline-none"
                 data-testid="StopActionsDrowdown::menu"
-                id="headlessui-menu-button-6"
+                id="headlessui-menu-button-:r5:"
                 type="button"
               >
                 <svg

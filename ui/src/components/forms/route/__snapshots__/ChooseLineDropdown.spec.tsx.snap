@@ -8,22 +8,22 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
     id="choose-line-combobox"
   >
     <input
-      aria-activedescendant="headlessui-combobox-option-9"
-      aria-controls="headlessui-combobox-options-8"
+      aria-activedescendant="headlessui-combobox-option-:r8:"
+      aria-controls="headlessui-combobox-options-:r7:"
       aria-expanded="true"
       class="input-element relative h-full w-full"
       data-testid="ChooseLineDropdown1::input"
-      id="headlessui-combobox-input-5"
+      id="headlessui-combobox-input-:r4:"
       role="combobox"
       type="text"
     />
     <button
-      aria-controls="headlessui-combobox-options-8"
+      aria-controls="headlessui-combobox-options-:r7:"
       aria-expanded="true"
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
       data-testid="ChooseLineDropdown1::button"
-      id="headlessui-combobox-button-6"
+      id="headlessui-combobox-button-:r5:"
       tabindex="-1"
       type="button"
     >
@@ -56,15 +56,15 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
       />
     </button>
     <ul
-      aria-activedescendant="headlessui-combobox-option-9"
-      aria-labelledby="headlessui-combobox-button-6"
+      aria-activedescendant="headlessui-combobox-option-:r8:"
+      aria-labelledby="headlessui-combobox-button-:r5:"
       class="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
-      id="headlessui-combobox-options-8"
+      id="headlessui-combobox-options-:r7:"
       role="listbox"
     >
       <li
         aria-selected="true"
-        id="headlessui-combobox-option-9"
+        id="headlessui-combobox-option-:r8:"
         role="option"
         tabindex="-1"
       >
@@ -102,7 +102,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
         </span>
       </li>
       <li
-        id="headlessui-combobox-option-10"
+        id="headlessui-combobox-option-:r9:"
         role="option"
         tabindex="-1"
       >
@@ -155,7 +155,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
       aria-expanded="false"
       class="input-element relative h-full w-full"
       data-testid="ChooseLineDropdown1::input"
-      id="headlessui-combobox-input-1"
+      id="headlessui-combobox-input-:r0:"
       role="combobox"
       type="text"
     />
@@ -164,7 +164,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
       data-testid="ChooseLineDropdown1::button"
-      id="headlessui-combobox-button-2"
+      id="headlessui-combobox-button-:r1:"
       tabindex="-1"
       type="button"
     >
@@ -211,7 +211,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
       aria-expanded="false"
       class="input-element relative h-full w-full"
       data-testid="ChooseLineDropdown1::input"
-      id="headlessui-combobox-input-1"
+      id="headlessui-combobox-input-:r0:"
       role="combobox"
       type="text"
     />
@@ -220,7 +220,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
       data-testid="ChooseLineDropdown1::button"
-      id="headlessui-combobox-button-2"
+      id="headlessui-combobox-button-:r1:"
       tabindex="-1"
       type="button"
     >
@@ -267,7 +267,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
       aria-expanded="false"
       class="input-element relative h-full w-full"
       data-testid="ChooseLineDropdown1::input"
-      id="headlessui-combobox-input-3"
+      id="headlessui-combobox-input-:r2:"
       role="combobox"
       type="text"
     />
@@ -276,7 +276,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
       data-testid="ChooseLineDropdown1::button"
-      id="headlessui-combobox-button-4"
+      id="headlessui-combobox-button-:r3:"
       tabindex="-1"
       type="button"
     >
@@ -323,7 +323,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
       aria-expanded="false"
       class="input-element relative h-full w-full"
       data-testid="ChooseLineDropdown1::input"
-      id="headlessui-combobox-input-3"
+      id="headlessui-combobox-input-:r2:"
       role="combobox"
       type="text"
     />
@@ -332,7 +332,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
       aria-haspopup="true"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
       data-testid="ChooseLineDropdown1::button"
-      id="headlessui-combobox-button-4"
+      id="headlessui-combobox-button-:r3:"
       tabindex="-1"
       type="button"
     >
