@@ -157,7 +157,9 @@ export const useUrlQuery = () => {
   };
 
   /** Returns a query parameter in Priority array type */
-  const getPriorityArrayFromUrlQuery = (paramName: string): Priority[] => {
+  const getPriorityArrayFromUrlQuery = (
+    paramName: string,
+  ): Priority[] | undefined => {
     return (queryParams[paramName] as string)
       ?.split(',')
       ?.map((p) => parseInt(p, 10))
