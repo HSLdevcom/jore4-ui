@@ -115,10 +115,10 @@ describe('Stop creation tests', () => {
 
       toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
-      // Wait is used only as a workaround to get the updated coordinates to show in the edit modal.
-      // TODO: This can be refactored if a better solution is found.
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(300);
+      // Workaround to get the updated coordinates to show in the stop edit modal.
+      // TODO: Find a better way to make the coordinates update faster in the modal.
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
       map.getStopByStopLabel(stops[0].label).click();
 
