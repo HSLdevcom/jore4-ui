@@ -29,7 +29,7 @@ interface Props {
   isSelected: boolean;
 }
 
-// This layer fetches a single route's geometry and renders it as a line polygon
+// This layer fetches a single route's geometry and renders it as a line
 export const ExistingRouteGeometryLayer = ({
   routeId,
   isSelected,
