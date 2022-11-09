@@ -10,8 +10,8 @@ interface Props {
   minzoom?: number;
 }
 
-// this layer renders a static arrows on line
-export const LineArrowLayer = ({
+// this layer renders a static arrows
+export const ArrowRenderLayer = ({
   layerId,
   geometry,
   beforeId,

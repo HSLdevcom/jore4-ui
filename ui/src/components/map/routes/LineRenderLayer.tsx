@@ -10,8 +10,8 @@ interface Props {
   paint?: Partial<mapboxgl.LinePaint>;
 }
 
-// this layer renders a static line polygon
-export const LinePolygonLayer = ({
+// this layer renders a static line
+export const LineRenderLayer = ({
   layerId,
   geometry,
   beforeId,
