@@ -12,6 +12,7 @@ docker/*
 !docker/docker-compose.cypress.yml
 !docker/docker-compose.custom.yml
 !docker/docker-compose.testdb-volume.yml
+!docker/docker-compose.e2e.yml
 
 pg_data
 mbtiles
