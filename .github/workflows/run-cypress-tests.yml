@@ -19,23 +19,11 @@ jobs:
       - name: Extract metadata to env variables
         uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
 
-      # TODO: this should be replaced with the setup-e2e-environment-v1 action when
-      # we don't need to rely on hasura seed data anymore for the e2e tests.
-      # For now however, we don't have a way to reliably choose a seed-data version of the hasura
-      # image that is certainly compatible with the tested UI image
-      # Note: we don't start mbtiles, jore3importer and mssqltestdb to save memory for the github runner
-      # Note: we don't start auth backend as we anyway mock the login
-      - name: Start e2e env
-        run: |
-          # pin the just-built version of the UI image
-          export UI_DOCKER_IMAGE="$IMAGE_NAME:$COMMIT_ID"
-
-          curl -L https://github.com/HSLdevcom/jore4-flux/releases/download/e2e-docker-compose/e2e-docker-compose.tar.gz --silent | tar -xzf - -C ./docker/
-          docker-compose \
-           -f ./docker/docker-compose.yml \
-           -f ./docker/docker-compose.custom.yml \
-           up -d \
-           jore4-testdb jore4-hasura jore4-mapmatchingdb jore4-mapmatching jore4-ui jore4-proxy
+      - name: start e2e env
+        uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
+        with:
+          ui_version: $IMAGE_NAME:$COMMIT_ID
+          hasura_version: hsldevcom/jore4-hasura:hsl-main--20221116-9b166a43f9f14535b126f1e10cf1ff26051719e3
 
       - name: Verify that all services are up and running
         uses: HSLdevcom/jore4-tools/github-actions/healthcheck@healthcheck-v1
