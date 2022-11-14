@@ -1,1 +1,1 @@
-export * from './timetables';
+export * from './useGetTimetables';
