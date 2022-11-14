@@ -51,7 +51,7 @@ function start_docker_bundle {
   if [[ "${1:-x}" == "--e2e" ]]
   then
     # for e2e tests, no additional changes are made to the compose setup
-    DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.yml"
+    DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.e2e.yml"
     echo $DOCKER_COMPOSE_CMD
   elif [[ "${1:-x}" == "--volume" ]]
   then
