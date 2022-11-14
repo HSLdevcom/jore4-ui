@@ -58,7 +58,7 @@ export const VehicleServiceTable = ({
     (journeys) => journeys.flatMap((item) => item.start_time),
     (journeyStartTimes) =>
       journeyStartTimes.sort(
-        (time1, time2) => time2.as('millisecond') - time1.as('millisecond'),
+        (time1, time2) => time1.as('millisecond') - time2.as('millisecond'),
       ),
     (journeyStartTimes) => groupBy(journeyStartTimes, (item) => item.hours),
   );
