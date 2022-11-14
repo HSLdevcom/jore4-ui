@@ -1,4 +1,3 @@
-import debounce from 'lodash/debounce';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,14 +5,8 @@ import { RouteAllFieldsFragment } from '../../../generated/graphql';
 import { useChooseRouteDropdown } from '../../../hooks';
 import { MAX_DATE, MIN_DATE } from '../../../time';
 import { Priority } from '../../../types/Priority';
-import {
-  Combobox,
-  ComboboxEvent,
-  ComboboxInputProps,
-} from '../../../uiComponents';
+import { ComboboxInputProps, SearchableDropdown } from '../../../uiComponents';
 import { DateRange } from '../common/DateRange';
-
-const DEBOUNCE_DELAY_MS = 300;
 
 interface Props extends ComboboxInputProps {
   testId?: string;
@@ -54,9 +47,6 @@ export const ChooseRouteDropdown = ({
 
   const [query, setQuery] = useState('');
 
-  // Selected route details are shown on buttonContent by default
-  // But we want to hide it when typing new search
-  const [showButtonContent, setShowButtonContent] = useState(true);
   const { routes, selectedRoute } = useChooseRouteDropdown({
     query,
     observationDate: date,
@@ -77,33 +67,17 @@ export const ChooseRouteDropdown = ({
     );
   };
 
-  const debouncedSetQuery = debounce((str) => setQuery(str), DEBOUNCE_DELAY_MS);
-
-  const onQueryChange = (str: string) => {
-    // If there is a searchword, do not show the buttonContent on top of input text
-    if (str !== '') {
-      setShowButtonContent(false);
-    }
-    debouncedSetQuery(str);
-  };
-
-  const onItemSelected = (e: ComboboxEvent) => {
-    onChange(e);
-    setShowButtonContent(true);
-  };
-
   return (
-    <Combobox
+    <SearchableDropdown
       id="choose-route-combobox"
       testId={testId}
-      buttonContent={
-        showButtonContent ? mapToButtonContent(selectedRoute) : null
-      }
+      mapToButtonContent={mapToButtonContent}
       options={options}
       value={value}
-      onChange={onItemSelected}
+      onChange={onChange}
       onBlur={onBlur}
-      onQueryChange={onQueryChange}
+      onQueryChange={setQuery}
+      selectedItem={selectedRoute}
     />
   );
 };

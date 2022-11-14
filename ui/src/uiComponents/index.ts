@@ -16,6 +16,7 @@ export * from './LocatorButton';
 export * from './Modal';
 export * from './Pagination';
 export * from './Popover';
+export * from './SearchableDropdown';
 export * from './SimpleButton';
 export * from './SimpleDropdownMenu';
 export * from './SimpleSmallButton';
