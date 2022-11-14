@@ -55,14 +55,22 @@ module.exports = (on, config) => {
           return undefined;
         });
     },
+
     async truncateDb() {
       const db = getDbConnection();
       return truncateDb(db);
     },
+
     async executeRawDbQuery({ query, bindings }) {
       const db = getDbConnection();
       return db.raw(query, bindings);
     },
+
+    async executeRawDbQueryWithoutBindings(query) {
+      const db = getDbConnection();
+      return db.raw(query);
+    },
+
     async hasuraApi(request) {
       return hasuraApi(request);
     },
@@ -74,6 +82,7 @@ module.exports = (on, config) => {
     async insertVehicleSubmodOnInfraLinks(request) {
       return insertVehicleSubmodeOnInfraLink(request);
     },
+
     async removeVehicleSubmodOnInfraLinks(request) {
       return removeVehicleSubmodeOnInfraLink(request);
     },

@@ -32,10 +32,10 @@ jobs:
 
           curl -L https://github.com/HSLdevcom/jore4-flux/releases/download/e2e-docker-compose/e2e-docker-compose.tar.gz --silent | tar -xzf - -C ./docker/
           docker-compose \
-           -f ./docker/docker-compose.yml \
-           -f ./docker/docker-compose.custom.yml \
-           up -d \
-           jore4-testdb jore4-hasura jore4-mapmatchingdb jore4-mapmatching jore4-ui jore4-proxy
+            -f ./docker/docker-compose.yml \
+            -f ./docker/docker-compose.e2e.yml \
+            up -d \
+            jore4-testdb jore4-hasura jore4-mapmatchingdb jore4-mapmatching jore4-ui jore4-proxy
 
       - name: Verify that all services are up and running
         uses: HSLdevcom/jore4-tools/github-actions/healthcheck@healthcheck-v1
