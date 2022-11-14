@@ -1,19 +1,12 @@
-import debounce from 'lodash/debounce';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineForComboboxFragment } from '../../../generated/graphql';
 import { useChooseLineDropdown } from '../../../hooks';
 import { MAX_DATE, MIN_DATE } from '../../../time';
-import {
-  Combobox,
-  ComboboxEvent,
-  FormInputProps as ListboxInputProps,
-} from '../../../uiComponents';
+import { ComboboxInputProps, SearchableDropdown } from '../../../uiComponents';
 import { DateRange } from '../common';
 
-const DEBOUNCE_DELAY_MS = 300;
-
-interface Props extends ListboxInputProps {
+interface Props extends ComboboxInputProps {
   testId?: string;
 }
 
@@ -44,7 +37,6 @@ export const ChooseLineDropdown = ({
   const { t } = useTranslation();
 
   const [query, setQuery] = useState('');
-  const [showButtonContent, setShowButtonContent] = useState(true);
 
   const { lines, selectedLine } = useChooseLineDropdown(query, value);
 
@@ -61,33 +53,17 @@ export const ChooseLineDropdown = ({
     );
   };
 
-  const debouncedSetQuery = debounce((str) => setQuery(str), DEBOUNCE_DELAY_MS);
-
-  const onQueryChange = (str: string) => {
-    // If there is a searchword, do not show the buttonContent on top of input text
-    if (str !== '') {
-      setShowButtonContent(false);
-    }
-    debouncedSetQuery(str);
-  };
-
-  const onItemSelected = (e: ComboboxEvent) => {
-    onChange(e);
-    setShowButtonContent(true);
-  };
-
   return (
-    <Combobox
+    <SearchableDropdown
       id="choose-line-combobox"
       testId={testId}
-      buttonContent={
-        showButtonContent ? mapToButtonContent(selectedLine) : null
-      }
+      mapToButtonContent={mapToButtonContent}
       options={options}
       value={value}
-      onChange={onItemSelected}
+      onChange={onChange}
       onBlur={onBlur}
-      onQueryChange={onQueryChange}
+      onQueryChange={setQuery}
+      selectedItem={selectedLine}
     />
   );
 };

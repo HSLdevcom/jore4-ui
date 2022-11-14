@@ -15,7 +15,7 @@ export interface ComboboxInputProps {
   onBlur?: Noop;
 }
 
-interface ComboboxOptionRenderer {
+export interface ComboboxOptionRenderer {
   key: string;
   value: string;
   render: (props: OptionRenderPropArg) => ReactNode;
