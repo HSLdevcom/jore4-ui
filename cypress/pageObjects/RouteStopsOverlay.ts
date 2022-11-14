@@ -23,7 +23,9 @@ export class RouteStopsOverlay {
 
   removeStopsFromRoute(stopLabels: string[]) {
     stopLabels.forEach((label) => {
+      this.getRouteStopRowMenu(label).should('exist');
       this.getRouteStopRowMenu(label).click();
+      this.getAddToJourneyPatternButton(label).should('exist');
       this.getAddToJourneyPatternButton(label).click();
     });
   }

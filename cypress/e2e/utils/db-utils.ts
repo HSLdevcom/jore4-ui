@@ -10,8 +10,10 @@ export const deleteRoutesByLabel = (labels: string[]) => {
   });
 };
 
-export const deleteStopByLabel = (label: string) => {
-  const query =
-    'DELETE FROM "service_pattern"."scheduled_stop_point" WHERE label=?';
-  cy.task('executeRawDbQuery', { query, bindings: label });
+export const deleteStopsByLabel = (labels: string[]) => {
+  labels.forEach((label) => {
+    const query =
+      'DELETE FROM "service_pattern"."scheduled_stop_point" WHERE label=?';
+    cy.task('executeRawDbQuery', { query, bindings: label });
+  });
 };
