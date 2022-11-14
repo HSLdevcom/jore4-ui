@@ -1,10 +1,10 @@
 import {
   buildStop,
-  InfraLinkInsertInput,
-  infrastructureLinks,
   ReusableComponentsVehicleModeEnum,
+  ReusableComponentsVehicleSubmodeEnum,
+  ServicePatternVehicleModeOnScheduledStopPointInsertInput,
   StopInsertInput,
-  vehicleSubmodeOnInfrastructureLink,
+  VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import {
@@ -17,57 +17,87 @@ import {
 } from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 
-// Point where stop is initially added and where map view is opened
-const startCoordinates = [24.925251259734353, 60.16287920585574, 0];
+// Stops are created on these infralinks via insertToDbHelper or the map view.
+// vehicleSubmodeOnInfrastructureLink information is needed for these infralinks.
 
-const infraLinks: InfraLinkInsertInput[] = [
-  {
-    ...(infrastructureLinks[0] as InfraLinkInsertInput),
-    shape: {
-      type: 'LineString',
-      coordinates: [startCoordinates, startCoordinates],
+const infraLinkIds = {
+  infraLink1: '73bc2df9-f5af-4c38-a1dd-5ed1f71c90a8',
+  infraLink2: 'ea69415a-9c54-4327-8836-f38b36d8fa99',
+  infraLink3: '13de61c2-3fc9-4255-955f-0a2350c389e1',
+  infraLink4: '4c098659-17d8-44e5-95a9-d8879468dd58',
+};
+
+const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[] =
+  [
+    {
+      infrastructure_link_id: infraLinkIds.infraLink1,
+      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
     },
-  },
-];
+    {
+      infrastructure_link_id: infraLinkIds.infraLink2,
+      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
+    },
+    {
+      infrastructure_link_id: infraLinkIds.infraLink3,
+      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
+    },
+    {
+      infrastructure_link_id: infraLinkIds.infraLink4,
+      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
+    },
+  ];
 
-const vehicleSubmodesOnInfrastructureLink = [
-  vehicleSubmodeOnInfrastructureLink[0],
-];
+// This point exists on infraLink1
+const testCoordinates1 = {
+  lng: 24.92492146851626,
+  lat: 60.1634759878872,
+  el: 0,
+};
 
 const stops: StopInsertInput[] = [
   {
     ...buildStop({
       label: 'Move stop test stop',
-      located_on_infrastructure_link_id: infraLinks[0].infrastructure_link_id,
+      located_on_infrastructure_link_id: infraLinkIds.infraLink1,
     }),
     validity_start: DateTime.fromISO('2022-03-20T22:00:00+00:00'),
     scheduled_stop_point_id: '68684b40-c4db-4c72-b3b8-c3307dde7a72',
     measured_location: {
       type: 'Point',
-      coordinates: startCoordinates,
+      coordinates: Object.values(testCoordinates1),
     },
   },
 ];
 
+const vehicleModeOnScheduledStopPoint: ServicePatternVehicleModeOnScheduledStopPointInsertInput[] =
+  [
+    {
+      scheduled_stop_point_id: stops[0].scheduled_stop_point_id,
+      vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+    },
+  ];
+
 const dbResources = {
-  infraLinks,
-  vehicleSubmodeOnInfrastructureLink: vehicleSubmodesOnInfrastructureLink,
+  vehicleSubmodeOnInfrastructureLink,
   stops,
+  vehicleModeOnScheduledStopPoint,
 };
 
-const deleteCreatedResources = () => {
-  removeFromDbHelper(dbResources);
-};
-
-describe('Stop creation tests', () => {
+describe('Stop editing tests', () => {
   let mapFilterPanel: FilterPanel;
   let map: Map;
   let confirmationDialog: ConfirmationDialog;
   let stopForm: StopForm;
   let toast: Toast;
 
+  before(() => {
+    cy.fixture('infraLinks/infraLinks.sql').then((infraLinksQuery) => {
+      cy.task('executeRawDbQuery', { query: infraLinksQuery });
+    });
+  });
+
   beforeEach(() => {
-    deleteCreatedResources();
+    removeFromDbHelper(dbResources);
     insertToDbHelper(dbResources);
 
     mapFilterPanel = new FilterPanel();
@@ -80,13 +110,13 @@ describe('Stop creation tests', () => {
     cy.mockLogin();
     map.visit({
       zoom: 15,
-      lat: startCoordinates[1],
-      lng: startCoordinates[0],
+      lat: testCoordinates1.lat,
+      lng: testCoordinates1.lng,
     });
   });
 
   afterEach(() => {
-    deleteCreatedResources();
+    removeFromDbHelper(dbResources);
   });
 
   it(
@@ -95,7 +125,7 @@ describe('Stop creation tests', () => {
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
     () => {
       // Coordinates for the point where the stop is moved in the test.
-      const endCoordinates = [24.924435868192024, 60.162622981678744];
+      const endCoordinates = { lng: 24.92410607697449, lat: 60.16321976836281 };
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -117,15 +147,20 @@ describe('Stop creation tests', () => {
 
       // Workaround to get the updated coordinates to show in the stop edit modal.
       // TODO: Find a better way to make the coordinates update faster in the modal.
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      map.visit({
+        zoom: 15,
+        lat: testCoordinates1.lat,
+        lng: testCoordinates1.lng,
+      });
+
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
       map.getStopByStopLabel(stops[0].label).click();
 
       map.stopPopUp.getEditButton().click();
 
-      stopForm.getLatitudeInput().should('have.value', endCoordinates[1]);
-      stopForm.getLongitudeInput().should('have.value', endCoordinates[0]);
+      stopForm.getLatitudeInput().should('have.value', endCoordinates.lat);
+      stopForm.getLongitudeInput().should('have.value', endCoordinates.lng);
     },
   );
 
@@ -134,11 +169,16 @@ describe('Stop creation tests', () => {
     // Map opening seems to take time, so we increase the timeout
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
     () => {
-      const moveCoordinates = [60.166533287996124, 24.935753563211073];
+      const testCoordinates2 = {
+        lng: 24.92904198486008,
+        lat: 60.16490775039894,
+        el: 0,
+      };
+
       const updatedStopInfo: StopFormInfo = {
         label: 'Moved stop new label',
-        latitude: String(moveCoordinates[0]),
-        longitude: String(moveCoordinates[1]),
+        latitude: String(testCoordinates2.lat),
+        longitude: String(testCoordinates2.lng),
       };
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
@@ -162,12 +202,8 @@ describe('Stop creation tests', () => {
 
       map.stopPopUp.getEditButton().click();
 
-      stopForm
-        .getLatitudeInput()
-        .should('have.value', updatedStopInfo.latitude);
-      stopForm
-        .getLongitudeInput()
-        .should('have.value', updatedStopInfo.longitude);
+      stopForm.getLatitudeInput().should('have.value', testCoordinates2.lat);
+      stopForm.getLongitudeInput().should('have.value', testCoordinates2.lng);
     },
   );
 });
