@@ -34,7 +34,7 @@ const GQL_TIMING_PLACE_FOR_COMBOBOX = gql`
   }
 `;
 
-export const useChooseTimingPointDropdown = (
+export const useChooseTimingPlaceDropdown = (
   query: string,
   timingPlaceId?: string,
 ): {

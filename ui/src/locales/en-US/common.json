@@ -96,6 +96,7 @@
     "timingPlaceId": "Hastus place",
     "chooseTimingPlace": "Hastus place not selected",
     "noTimingPlace": "No Hastus place",
+    "createTimingPlace": "Create new",
     "nameAddress": "Name and address",
     "saveSuccess": "Stop created",
     "editSuccess": "Stop edited",
@@ -108,6 +109,15 @@
     "cannotEditTerminalStops": "Editing the start and end stops of a route is not allowed",
     "addToRoute": "Add to route",
     "stopBreaksRoutes": "The stop to be added is not compatible with the following routes: ({{ routeLabels }})"
+  },
+  "timingPlaces": {
+    "label": "New Hastus place",
+    "description": {
+      "fi_FI": "Description (in Finnish)"
+    },
+    "create": "Create",
+    "labelReserved": "Hastus place with provided name already exists.",
+    "saveSuccess": "Hastus place created"
   },
   "navigation": {
     "logout": "Log out",

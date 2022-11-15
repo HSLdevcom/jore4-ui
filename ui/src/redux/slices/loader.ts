@@ -8,6 +8,7 @@ export enum Operation {
   SaveRoute = 'saveRoute',
   MatchRoute = 'matchRoute',
   CheckBrokenRoutes = 'checkBrokenRoutes',
+  SaveTimingPlace = 'saveTimingPlace',
 }
 
 export const mapOperations = [
@@ -18,6 +19,7 @@ export const mapOperations = [
   Operation.SaveRoute,
   Operation.MatchRoute,
   Operation.CheckBrokenRoutes,
+  Operation.SaveTimingPlace,
 ];
 
 type IState = {
@@ -32,6 +34,7 @@ const initialState: IState = {
   [Operation.SaveRoute]: false,
   [Operation.MatchRoute]: false,
   [Operation.CheckBrokenRoutes]: false,
+  [Operation.SaveTimingPlace]: false,
 };
 
 const slice = createSlice({

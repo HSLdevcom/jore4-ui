@@ -13978,6 +13978,50 @@ export type SearchLinesAndRoutesQuery = {
   }>;
 };
 
+export type NewTimingPlaceFragment = {
+  __typename?: 'timing_pattern_timing_place';
+  label: string;
+  description?: any | null | undefined;
+};
+
+export type CreatedTimingPlaceFragment = {
+  __typename?: 'timing_pattern_timing_place';
+  timing_place_id: UUID;
+  label: string;
+  description?: any | null | undefined;
+};
+
+export type InsertTimingPlaceMutationVariables = Exact<{
+  object: TimingPatternTimingPlaceInsertInput;
+}>;
+
+export type InsertTimingPlaceMutation = {
+  __typename?: 'mutation_root';
+  insert_timing_pattern_timing_place_one?:
+    | {
+        __typename?: 'timing_pattern_timing_place';
+        timing_place_id: UUID;
+        label: string;
+        description?: any | null | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type GetTimingPlacesByLabelQueryVariables = Exact<{
+  label: Scalars['String'];
+}>;
+
+export type GetTimingPlacesByLabelQuery = {
+  __typename?: 'query_root';
+  timing_pattern_timing_place: Array<{
+    __typename?: 'timing_pattern_timing_place';
+    timing_place_id: UUID;
+    label: string;
+    description?: any | null | undefined;
+  }>;
+};
+
 export type GetLinesForComboboxQueryVariables = Exact<{
   labelPattern: Scalars['String'];
   date: Scalars['date'];
@@ -14560,6 +14604,19 @@ export const RouteWithInfrastructureLinksWithStopsFragmentDoc = gql`
   ${RouteWithJourneyPatternStopsFragmentDoc}
   ${LineAllFieldsFragmentDoc}
   ${InfraLinkAlongRouteWithStopsFragmentDoc}
+`;
+export const NewTimingPlaceFragmentDoc = gql`
+  fragment new_timing_place on timing_pattern_timing_place {
+    label
+    description
+  }
+`;
+export const CreatedTimingPlaceFragmentDoc = gql`
+  fragment created_timing_place on timing_pattern_timing_place {
+    timing_place_id
+    label
+    description
+  }
 `;
 export const LineForComboboxFragmentDoc = gql`
   fragment line_for_combobox on route_line {
@@ -17506,6 +17563,118 @@ export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<
   SearchLinesAndRoutesQuery,
   SearchLinesAndRoutesQueryVariables
 >;
+export const InsertTimingPlaceDocument = gql`
+  mutation InsertTimingPlace(
+    $object: timing_pattern_timing_place_insert_input!
+  ) {
+    insert_timing_pattern_timing_place_one(object: $object) {
+      ...created_timing_place
+    }
+  }
+  ${CreatedTimingPlaceFragmentDoc}
+`;
+export type InsertTimingPlaceMutationFn = Apollo.MutationFunction<
+  InsertTimingPlaceMutation,
+  InsertTimingPlaceMutationVariables
+>;
+
+/**
+ * __useInsertTimingPlaceMutation__
+ *
+ * To run a mutation, you first call `useInsertTimingPlaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertTimingPlaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertTimingPlaceMutation, { data, loading, error }] = useInsertTimingPlaceMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useInsertTimingPlaceMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    InsertTimingPlaceMutation,
+    InsertTimingPlaceMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    InsertTimingPlaceMutation,
+    InsertTimingPlaceMutationVariables
+  >(InsertTimingPlaceDocument, options);
+}
+export type InsertTimingPlaceMutationHookResult = ReturnType<
+  typeof useInsertTimingPlaceMutation
+>;
+export type InsertTimingPlaceMutationResult =
+  Apollo.MutationResult<InsertTimingPlaceMutation>;
+export type InsertTimingPlaceMutationOptions = Apollo.BaseMutationOptions<
+  InsertTimingPlaceMutation,
+  InsertTimingPlaceMutationVariables
+>;
+export const GetTimingPlacesByLabelDocument = gql`
+  query GetTimingPlacesByLabel($label: String!) {
+    timing_pattern_timing_place(where: { label: { _eq: $label } }) {
+      ...created_timing_place
+    }
+  }
+  ${CreatedTimingPlaceFragmentDoc}
+`;
+
+/**
+ * __useGetTimingPlacesByLabelQuery__
+ *
+ * To run a query within a React component, call `useGetTimingPlacesByLabelQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTimingPlacesByLabelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTimingPlacesByLabelQuery({
+ *   variables: {
+ *      label: // value for 'label'
+ *   },
+ * });
+ */
+export function useGetTimingPlacesByLabelQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetTimingPlacesByLabelQuery,
+    GetTimingPlacesByLabelQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetTimingPlacesByLabelQuery,
+    GetTimingPlacesByLabelQueryVariables
+  >(GetTimingPlacesByLabelDocument, options);
+}
+export function useGetTimingPlacesByLabelLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTimingPlacesByLabelQuery,
+    GetTimingPlacesByLabelQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetTimingPlacesByLabelQuery,
+    GetTimingPlacesByLabelQueryVariables
+  >(GetTimingPlacesByLabelDocument, options);
+}
+export type GetTimingPlacesByLabelQueryHookResult = ReturnType<
+  typeof useGetTimingPlacesByLabelQuery
+>;
+export type GetTimingPlacesByLabelLazyQueryHookResult = ReturnType<
+  typeof useGetTimingPlacesByLabelLazyQuery
+>;
+export type GetTimingPlacesByLabelQueryResult = Apollo.QueryResult<
+  GetTimingPlacesByLabelQuery,
+  GetTimingPlacesByLabelQueryVariables
+>;
 export const GetLinesForComboboxDocument = gql`
   query GetLinesForCombobox($labelPattern: String!, $date: date!) {
     route_line(
@@ -18256,6 +18425,16 @@ export function useSearchLinesAndRoutesAsyncQuery() {
 }
 export type SearchLinesAndRoutesAsyncQueryHookResult = ReturnType<
   typeof useSearchLinesAndRoutesAsyncQuery
+>;
+
+export function useGetTimingPlacesByLabelAsyncQuery() {
+  return useAsyncQuery<
+    GetTimingPlacesByLabelQuery,
+    GetTimingPlacesByLabelQueryVariables
+  >(GetTimingPlacesByLabelDocument);
+}
+export type GetTimingPlacesByLabelAsyncQueryHookResult = ReturnType<
+  typeof useGetTimingPlacesByLabelAsyncQuery
 >;
 export function useGetLinesForComboboxAsyncQuery() {
   return useAsyncQuery<

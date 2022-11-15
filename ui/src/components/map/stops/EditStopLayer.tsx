@@ -19,6 +19,7 @@ import {
   useObservationDateQueryParam,
 } from '../../../hooks';
 import {
+  closeTimingPlaceModalAction,
   Operation,
   selectIsMoveStopModeEnabled,
   setEditedStopDataAction,
@@ -104,18 +105,14 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
       if (!isMoveStopModeEnabled) {
         setDisplayedEditor(defaultDisplayedEditor);
       }
-    }, [
-      defaultDisplayedEditor,
-      dispatch,
-      editedStopData,
-      isMoveStopModeEnabled,
-    ]);
+    }, [defaultDisplayedEditor, isMoveStopModeEnabled]);
 
     const onCloseEditors = () => {
       setCreateChanges(undefined);
       setSelectedStopId(undefined);
       setEditedStopData(undefined);
       setDisplayedEditor(StopEditorViews.None);
+      dispatch(closeTimingPlaceModalAction());
       onPopupClose?.();
     };
 
