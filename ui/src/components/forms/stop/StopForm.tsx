@@ -10,12 +10,13 @@ import {
 import {
   CreateChanges,
   EditChanges,
+  useAppSelector,
   useCreateStop,
   useEditStop,
   useLoader,
 } from '../../../hooks';
-import { Column, Row } from '../../../layoutComponents';
-import { Operation } from '../../../redux';
+import { Column, Row, Visible } from '../../../layoutComponents';
+import { Operation, selectIsTimingPlaceModalOpen } from '../../../redux';
 import { mapToISODate } from '../../../time';
 import { RequiredKeys } from '../../../types';
 import {
@@ -36,7 +37,8 @@ import {
   FormState as ConfirmSaveFormState,
   schema as confirmSaveFormSchema,
 } from '../common/ConfirmSaveForm';
-import { ChooseTimingPlaceDropdown } from './ChooseTimingPlaceDropdown';
+import { TimingPlaceModal } from './TimingPlaceModal';
+import { TimingPlaceSelector } from './TimingPlaceSelector';
 
 const schema = z
   .object({
@@ -52,7 +54,6 @@ const testIds = {
   label: 'StopFormComponent::label',
   latitude: 'StopFormComponent::latitude',
   longitude: 'StopFormComponent::longitude',
-  timingPlace: 'StopFormComponent::timingPlace',
 };
 
 export type FormState = z.infer<typeof schema> & ConfirmSaveFormState;
@@ -98,11 +99,12 @@ const StopFormComponent = (
     defaultValues,
     resolver: zodResolver(schema),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, setValue } = methods;
 
   const { prepareEdit, defaultErrorHandler } = useEditStop();
   const { prepareCreate } = useCreateStop();
   const { setIsLoading } = useLoader(Operation.SaveStop);
+  const isTimingPlaceModalOpen = useAppSelector(selectIsTimingPlaceModalOpen);
 
   const mapFormStateToInput = (state: FormState) => {
     const input = {
@@ -164,6 +166,10 @@ const StopFormComponent = (
     }
   };
 
+  const onTimingPlaceCreated = (timingPlaceId: UUID) => {
+    setValue('timingPlaceId', timingPlaceId);
+  };
+
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
@@ -204,18 +210,7 @@ const StopFormComponent = (
                   />
                 </FormRow>
                 <FormRow>
-                  <InputField<FormState>
-                    translationPrefix="stops"
-                    fieldPath="timingPlaceId"
-                    testId={testIds.timingPlace}
-                    inputElementRenderer={(props) => (
-                      <ChooseTimingPlaceDropdown
-                        // eslint-disable-next-line react/jsx-props-no-spreading
-                        {...props}
-                      />
-                    )}
-                    className="sm:col-span-2"
-                  />
+                  <TimingPlaceSelector />
                 </FormRow>
               </Column>
             </FormRow>
@@ -225,6 +220,9 @@ const StopFormComponent = (
           <ConfirmSaveForm className="mt-5" />
         </Row>
       </form>
+      <Visible visible={isTimingPlaceModalOpen}>
+        <TimingPlaceModal onTimingPlaceCreated={onTimingPlaceCreated} />
+      </Visible>
     </FormProvider>
   );
 };
