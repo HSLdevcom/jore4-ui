@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IState {
   viaModal: ViaModalState;
+  timingPlaceModal: TimingPlaceModalState;
 }
 
 interface ViaModalState {
@@ -10,11 +11,18 @@ interface ViaModalState {
   stopLabel?: string;
 }
 
+interface TimingPlaceModalState {
+  isOpen: boolean;
+}
+
 const initialState: IState = {
   viaModal: {
     isOpen: false,
     journeyPatternId: undefined,
     stopLabel: undefined,
+  },
+  timingPlaceModal: {
+    isOpen: false,
   },
 };
 
@@ -36,12 +44,20 @@ const slice = createSlice({
     closeViaModal: (state) => {
       state.viaModal = initialState.viaModal;
     },
+    openTimingPlaceModal: (state) => {
+      state.timingPlaceModal.isOpen = true;
+    },
+    closeTimingPlaceModal: (state) => {
+      state.timingPlaceModal = initialState.timingPlaceModal;
+    },
   },
 });
 
 export const {
   openViaModal: openViaModalAction,
   closeViaModal: closeViaModalAction,
+  openTimingPlaceModal: openTimingPlaceModalAction,
+  closeTimingPlaceModal: closeTimingPlaceModalAction,
 } = slice.actions;
 
 export const modalsReducer = slice.reducer;

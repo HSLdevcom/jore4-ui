@@ -10,14 +10,21 @@ import {
 import {
   CreateChanges,
   EditChanges,
+  useAppDispatch,
+  useAppSelector,
   useCreateStop,
   useEditStop,
   useLoader,
 } from '../../../hooks';
-import { Column, Row } from '../../../layoutComponents';
-import { Operation } from '../../../redux';
+import { Column, Row, Visible } from '../../../layoutComponents';
+import {
+  openTimingPlaceModalAction,
+  Operation,
+  selectIsTimingPlaceModalOpen,
+} from '../../../redux';
 import { mapToISODate } from '../../../time';
 import { RequiredKeys } from '../../../types';
+import { SimpleButton } from '../../../uiComponents';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
@@ -37,6 +44,7 @@ import {
   schema as confirmSaveFormSchema,
 } from '../common/ConfirmSaveForm';
 import { ChooseTimingPlaceDropdown } from './ChooseTimingPlaceDropdown';
+import { TimingPlaceModal } from './TimingPlaceModal';
 
 const schema = z
   .object({
@@ -52,7 +60,8 @@ const testIds = {
   label: 'StopFormComponent::label',
   latitude: 'StopFormComponent::latitude',
   longitude: 'StopFormComponent::longitude',
-  timingPlace: 'StopFormComponent::timingPlace',
+  timingPlaceDropdown: 'StopFormComponent::timingPlaceDropdown',
+  addTimingPlaceButton: 'StopFormComponent::addTimingPlaceButton',
 };
 
 export type FormState = z.infer<typeof schema> & ConfirmSaveFormState;
@@ -93,16 +102,18 @@ const StopFormComponent = (
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const methods = useForm<FormState>({
     defaultValues,
     resolver: zodResolver(schema),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, setValue } = methods;
 
   const { prepareEdit, defaultErrorHandler } = useEditStop();
   const { prepareCreate } = useCreateStop();
   const { setIsLoading } = useLoader(Operation.SaveStop);
+  const isTimingPlaceModalOpen = useAppSelector(selectIsTimingPlaceModalOpen);
 
   const mapFormStateToInput = (state: FormState) => {
     const input = {
@@ -164,6 +175,10 @@ const StopFormComponent = (
     }
   };
 
+  const onTimingPlaceCreated = (timingPlaceId: UUID) => {
+    setValue('timingPlaceId', timingPlaceId);
+  };
+
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
@@ -204,18 +219,29 @@ const StopFormComponent = (
                   />
                 </FormRow>
                 <FormRow>
-                  <InputField<FormState>
-                    translationPrefix="stops"
-                    fieldPath="timingPlaceId"
-                    testId={testIds.timingPlace}
-                    inputElementRenderer={(props) => (
-                      <ChooseTimingPlaceDropdown
-                        // eslint-disable-next-line react/jsx-props-no-spreading
-                        {...props}
+                  <Column>
+                    <Row>
+                      <InputField
+                        translationPrefix="stops"
+                        fieldPath="timingPlaceId"
+                        testId={testIds.timingPlaceDropdown}
+                        inputElementRenderer={(props) => (
+                          <ChooseTimingPlaceDropdown
+                            // eslint-disable-next-line react/jsx-props-no-spreading
+                            {...props}
+                          />
+                        )}
+                        className="flex-1"
                       />
-                    )}
-                    className="sm:col-span-2"
-                  />
+                      <SimpleButton
+                        containerClassName="self-end ml-6"
+                        onClick={() => dispatch(openTimingPlaceModalAction())}
+                        testId={testIds.addTimingPlaceButton}
+                      >
+                        {t('stops.createTimingPlace')}
+                      </SimpleButton>
+                    </Row>
+                  </Column>
                 </FormRow>
               </Column>
             </FormRow>
@@ -225,6 +251,9 @@ const StopFormComponent = (
           <ConfirmSaveForm className="mt-5" />
         </Row>
       </form>
+      <Visible visible={isTimingPlaceModalOpen}>
+        <TimingPlaceModal onTimingPlaceCreated={onTimingPlaceCreated} />
+      </Visible>
     </FormProvider>
   );
 };

@@ -82,6 +82,11 @@ export const selectIsViaModalOpen = createSelector(
   (modals) => modals.viaModal.isOpen,
 );
 
+export const selectIsTimingPlaceModalOpen = createSelector(
+  selectModals,
+  (modals) => modals.timingPlaceModal.isOpen,
+);
+
 export const selectIsMapOperationLoading = createSelector(
   selectLoader,
   (loaders) =>

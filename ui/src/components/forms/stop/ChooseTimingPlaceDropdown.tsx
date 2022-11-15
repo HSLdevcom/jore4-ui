@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TimingPlaceForComboboxFragment } from '../../../generated/graphql';
-import { useChooseTimingPointDropdown } from '../../../hooks/ui/useChooseTimingPlaceDropdown';
+import { useChooseTimingPlaceDropdown } from '../../../hooks/ui/useChooseTimingPlaceDropdown';
 import {
   FormInputProps as ListboxInputProps,
   SearchableDropdown,
@@ -33,7 +33,7 @@ export const ChooseTimingPlaceDropdown = ({
 
   const [query, setQuery] = useState('');
 
-  const { timingPlaces, selectedTimingPlace } = useChooseTimingPointDropdown(
+  const { timingPlaces, selectedTimingPlace } = useChooseTimingPlaceDropdown(
     query,
     value,
   );

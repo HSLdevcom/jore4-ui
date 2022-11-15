@@ -5,6 +5,7 @@ export * from './redux';
 export * from './routes';
 export * from './search';
 export * from './stops';
+export * from './timing-places';
 export * from './ui';
 export * from './urlQuery';
 export * from './useAsyncQuery';
