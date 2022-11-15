@@ -48,7 +48,12 @@ function check_pinned_hasura {
 }
 
 function start_docker_bundle {
-  if [[ "${1:-x}" == "--volume" ]]
+  if [[ "${1:-x}" == "--e2e" ]]
+  then
+    # for e2e tests, no additional changes are made to the compose setup
+    DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.yml"
+    echo $DOCKER_COMPOSE_CMD
+  elif [[ "${1:-x}" == "--volume" ]]
   then
     # start the testdb with mounted volume
     DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.testdb-volume.yml -f ./docker/docker-compose.custom.yml"
@@ -64,4 +69,4 @@ function start_docker_bundle {
 
 download_docker_bundle
 check_pinned_hasura
-start_docker_bundle
+start_docker_bundle "${1:-x}"
