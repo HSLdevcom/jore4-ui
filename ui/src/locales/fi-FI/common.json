@@ -96,6 +96,7 @@
     "timingPlaceId": "Hastus-paikka",
     "chooseTimingPlace": "Ei Hastus-paikkaa valittuna",
     "noTimingPlace": "Ei Hastus-paikkaa",
+    "createTimingPlace": "Luo uusi",
     "nameAddress": "Nimi ja osoite",
     "saveSuccess": "Pysäkki luotu",
     "editSuccess": "Pysäkki muokattu",
@@ -108,6 +109,15 @@
     "cannotEditTerminalStops": "Reitin alku- ja päätepysäkin muokkaaminen ei ole sallittua",
     "addToRoute": "Lisää reitille",
     "stopBreaksRoutes": "Lisättävä pysäkki ei ole yhteensopiva seuraavien reittien kanssa: ({{ routeLabels }})"
+  },
+  "timingPlaces": {
+    "label": "Uusi Hastus-paikka",
+    "description": {
+      "fi_FI": "Kuvaus"
+    },
+    "create": "Lisää paikka",
+    "labelReserved": "Syötetty Hastus-paikka on jo olemassa.",
+    "saveSuccess": "Hastus-paikka luotu"
   },
   "navigation": {
     "logout": "Kirjaudu ulos",
