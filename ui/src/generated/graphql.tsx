@@ -11522,6 +11522,7 @@ export type GetRouteWithInfrastructureLinksQuery = {
             __typename?: 'infrastructure_network_infrastructure_link';
             infrastructure_link_id: UUID;
             shape: GeoJSON.LineString;
+            direction: InfrastructureNetworkDirectionEnum;
           };
         }>;
         route_journey_patterns: Array<{
@@ -11685,6 +11686,7 @@ export type RouteInfraLinkFieldsFragment = {
   external_link_id: string;
   infrastructure_link_id: UUID;
   shape: GeoJSON.LineString;
+  direction: InfrastructureNetworkDirectionEnum;
   scheduled_stop_points_located_on_infrastructure_link: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
     scheduled_stop_point_id: UUID;
@@ -11745,6 +11747,7 @@ export type InfraLinkMatchingFieldsFragment = {
   external_link_id: string;
   infrastructure_link_id: UUID;
   shape: GeoJSON.LineString;
+  direction: InfrastructureNetworkDirectionEnum;
 };
 
 export type QueryClosestLinkQueryVariables = Exact<{
@@ -12143,6 +12146,7 @@ export type RouteWithInfrastructureLinksFragment = {
       __typename?: 'infrastructure_network_infrastructure_link';
       infrastructure_link_id: UUID;
       shape: GeoJSON.LineString;
+      direction: InfrastructureNetworkDirectionEnum;
     };
   }>;
   route_journey_patterns: Array<{
@@ -12787,6 +12791,7 @@ export type GetRoutesWithInfrastructureLinksQuery = {
         __typename?: 'infrastructure_network_infrastructure_link';
         infrastructure_link_id: UUID;
         shape: GeoJSON.LineString;
+        direction: InfrastructureNetworkDirectionEnum;
       };
     }>;
     route_journey_patterns: Array<{
@@ -13503,6 +13508,7 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
     external_link_id: string;
     infrastructure_link_id: UUID;
     shape: GeoJSON.LineString;
+    direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_points_located_on_infrastructure_link: Array<{
       __typename?: 'service_pattern_scheduled_stop_point';
       scheduled_stop_point_id: UUID;
@@ -13668,6 +13674,7 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
       external_link_id: string;
       infrastructure_link_id: UUID;
       shape: GeoJSON.LineString;
+      direction: InfrastructureNetworkDirectionEnum;
       scheduled_stop_points_located_on_infrastructure_link: Array<{
         __typename?: 'service_pattern_scheduled_stop_point';
         scheduled_stop_point_id: UUID;
@@ -13756,6 +13763,7 @@ export type InfraLinkAlongRouteWithStopsFragment = {
     external_link_id: string;
     infrastructure_link_id: UUID;
     shape: GeoJSON.LineString;
+    direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_points_located_on_infrastructure_link: Array<{
       __typename?: 'service_pattern_scheduled_stop_point';
       scheduled_stop_point_id: UUID;
@@ -13849,6 +13857,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
             external_link_id: string;
             infrastructure_link_id: UUID;
             shape: GeoJSON.LineString;
+            direction: InfrastructureNetworkDirectionEnum;
             scheduled_stop_points_located_on_infrastructure_link: Array<{
               __typename?: 'service_pattern_scheduled_stop_point';
               scheduled_stop_point_id: UUID;
@@ -14362,6 +14371,7 @@ export const InfraLinkMatchingFieldsFragmentDoc = gql`
     external_link_id
     infrastructure_link_id
     shape
+    direction
   }
 `;
 export const ScheduledStopPointAllFieldsFragmentDoc = gql`
@@ -14550,6 +14560,7 @@ export const RouteWithInfrastructureLinksFragmentDoc = gql`
       infrastructure_link {
         infrastructure_link_id
         shape
+        direction
       }
       is_traversal_forwards
     }
