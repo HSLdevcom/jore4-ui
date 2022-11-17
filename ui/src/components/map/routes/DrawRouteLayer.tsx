@@ -166,6 +166,8 @@ const DrawRouteLayerComponent = (
       } catch (err) {
         if (err instanceof MapMatchingNoSegmentError) {
           showDangerToast(t('errors.tooFarFromInfrastructureLink'));
+        } else {
+          throw err;
         }
       } finally {
         setIsLoading(false);
