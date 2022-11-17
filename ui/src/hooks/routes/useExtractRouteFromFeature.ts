@@ -1,5 +1,9 @@
 import { gql } from '@apollo/client';
+import { Feature, LineString, Point } from '@turf/helpers';
+import length from '@turf/length';
+import isEqual from 'lodash/isEqual';
 import { useCallback } from 'react';
+import { pipe } from 'remeda';
 import { getBusRoute } from '../../api/routing';
 import {
   InfrastructureNetworkDirectionEnum,
@@ -22,6 +26,7 @@ import { areValidityPeriodsOverlapping } from '../../time';
 import { Priority } from '../../types/Priority';
 import {
   mapGeoJSONtoFeature,
+  relativeAlong,
   sortStopsOnInfraLinkComparator,
 } from '../../utils';
 
@@ -200,33 +205,85 @@ export const extractJourneyPatternCandidateStops = (
   return filteredValidatedStops;
 };
 
+const mapShapeToFeature = (shape: LineString, shouldReverseGeometry: boolean) =>
+  pipe(
+    shouldReverseGeometry
+      ? [...shape.coordinates].reverse()
+      : shape.coordinates,
+    (linkCoordinates) =>
+      mapGeoJSONtoFeature({
+        ...shape,
+        coordinates: linkCoordinates,
+      }),
+  );
+
+// Minimun length (meters) for infrastructure links,
+// from which feature points are picked from
+const MIN_INFRA_LINK_POINT_PICK_LENGTH = 15;
+
 export const mapInfraLinksToFeature = (
   infraLinks: RouteInfraLink[],
 ): LineStringFeature => {
   const coordinates: GeoJSON.Position[] = infraLinks.flatMap((link, index) => {
-    const isFirst = index === 0;
-    const linkCoordinates = link.shape.coordinates;
+    const {
+      shape,
+      direction,
+      is_traversal_forwards: isTraversalForwards,
+    } = link;
+    // Infrastructure link geometry as feature
+    const reverseGeometry = !!shape.coordinates.length && !isTraversalForwards;
+    const linkFeature = mapShapeToFeature(shape, reverseGeometry);
 
-    // Order coordinates properly
+    // Helper constants for deciding which points to use
+    const featureLength = length(linkFeature, { units: 'meters' });
+    const isLoopLink = isEqual(
+      shape.coordinates[0],
+      shape.coordinates[shape.coordinates.length - 1],
+    );
 
-    const shouldReverseCoordinates =
-      linkCoordinates.length && !link.is_traversal_forwards;
+    const isFirstLink = index === 0;
+    const isLastLink = index === infraLinks.length - 1;
+    const isBetweenLink = !isFirstLink && !isLastLink;
 
-    // TODO: Could be optimized since only first and last coordinates are being used
-    const featureCoordinates = shouldReverseCoordinates
-      ? [...linkCoordinates].reverse()
-      : linkCoordinates;
+    // Distances in percentages how far along the infrastructure link the desired point is located
+    let relativeDistancesAlongLink: number[] = [];
 
-    // To simplify the path drawn,
-    // remove points in the middle of the infrastructure link
-    const firstPoint = featureCoordinates[0];
-    const lastPoint = featureCoordinates[featureCoordinates.length - 1];
+    if (
+      direction === InfrastructureNetworkDirectionEnum.Bidirectional &&
+      isLoopLink
+    ) {
+      // If link is bidirectional loop link, add two points along (33%, 66%) infrastructure geometry.
+      // In case link is first of route's infrastructure links, replace 33% point with starting point.
+      // In case link is last of route's infrastructure links, replace 66% point with endpoint.
+      relativeDistancesAlongLink = [
+        isFirstLink ? 0 : 1 / 3,
+        isLastLink ? 1 : 2 / 3,
+      ];
+    } else if (isFirstLink) {
+      // Otherwise,
+      // If link is first of route's infrastructure links, add link's starting point.
+      relativeDistancesAlongLink = [0];
+    } else if (
+      isBetweenLink &&
+      featureLength > MIN_INFRA_LINK_POINT_PICK_LENGTH
+    ) {
+      // If link is in between route's other infrastructure links (is not first or last link),
+      // add link's center point (if infrastructure link is long enough).
+      relativeDistancesAlongLink = [0.5];
+    } else if (isLastLink) {
+      // If link is last of route's infrastructure links, add link's endpoint.
+      relativeDistancesAlongLink = [1];
+    }
 
-    const pointsToDraw = isFirst ? [firstPoint, lastPoint] : [lastPoint];
-
-    // Remove z-coordinate
-    return pointsToDraw.map(
-      (coordinate: number[]) => coordinate.slice(0, 2) as GeoJSON.Position,
+    return (
+      relativeDistancesAlongLink
+        // Map relative distance to point along infrastructure link
+        .map((relativeDistance) => relativeAlong(linkFeature, relativeDistance))
+        // Remove z-coordinate
+        .map(
+          (point: Feature<Point>) =>
+            point.geometry.coordinates.slice(0, 2) as GeoJSON.Position,
+        )
     );
   });
 

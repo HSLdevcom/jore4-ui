@@ -104,6 +104,7 @@ const ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
       infrastructure_link {
         infrastructure_link_id
         shape
+        direction
       }
       is_traversal_forwards
     }
