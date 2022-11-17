@@ -1,3 +1,6 @@
+import along from '@turf/along';
+import { Feature, LineString } from '@turf/helpers';
+import length from '@turf/length';
 import flow from 'lodash/flow';
 import { Point } from '../types';
 
@@ -37,3 +40,18 @@ export function mapGeoJSONtoFeature<T extends GeoJSON.Geometry>(geoJson: T) {
   };
   return feature;
 }
+
+/**
+ * Takes a LineString and returns a Point at a specified relative distance along the line.
+ * @param feature input feature
+ * @param percentage relative distance along the line
+ * @returns Point `percentage`% along the line
+ */
+export const relativeAlong = (
+  feature: Feature<LineString>,
+  percentage: number,
+) => {
+  const featureLength = length(feature);
+
+  return along(feature, featureLength * percentage);
+};

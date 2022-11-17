@@ -98,6 +98,7 @@ const INFRA_LINK_MATCHING_FIELDS = gql`
     external_link_id
     infrastructure_link_id
     shape
+    direction
   }
 `;
 
