@@ -4,14 +4,10 @@ import { resetSelectedRoutesAction } from '../../../redux';
 import { SimpleSmallButton } from '../../../uiComponents';
 import { DisplayedSearchResultType } from '../../../utils';
 
-export const ResultSelector = ({
-  basePath,
-}: {
-  basePath: string;
-}): JSX.Element => {
+export const ResultSelector = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { queryParameters, setFilter } = useSearch({ basePath });
+  const { queryParameters, setFilter } = useSearch();
   const { displayedData } = queryParameters.filter;
 
   const displayRoutes = () => {

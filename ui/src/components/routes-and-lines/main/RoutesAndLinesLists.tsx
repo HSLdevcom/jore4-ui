@@ -5,7 +5,7 @@ import {
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
 } from '../../../generated/graphql';
-import { Path } from '../../../router/routeDetails';
+import { RouteLineTableRowVariant } from '../../common';
 import { LinesList } from '../../common/search/LinesList';
 import { RoutesList } from '../../common/search/RoutesList';
 import { ListFooter } from './ListFooter';
@@ -66,10 +66,16 @@ export const RoutesAndLinesLists = (): JSX.Element => {
         onLimitChange={setChangingRoutesLimit}
         className="mb-5"
       />
-      <RoutesList basePath={Path.lineDetails} routes={changingRoutes} />
+      <RoutesList
+        rowVariant={RouteLineTableRowVariant.RoutesAndLines}
+        routes={changingRoutes}
+      />
       <ListFooter onLimitChange={setChangingRoutesLimit} className="mt-8" />
       <h2 className="mb-14 mt-12">{t('lines.lines')}</h2>
-      <LinesList basePath={Path.lineDetails} lines={ownLines} />
+      <LinesList
+        rowVariant={RouteLineTableRowVariant.RoutesAndLines}
+        lines={ownLines}
+      />
     </div>
   );
 };

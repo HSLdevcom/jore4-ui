@@ -1431,6 +1431,8 @@ export type JourneyPatternJourneyPattern = {
   __typename?: 'journey_pattern_journey_pattern';
   /** The ID of the journey pattern. */
   journey_pattern_id: Scalars['uuid'];
+  journey_pattern_refs: Array<TimetablesJourneyPatternJourneyPatternRef>;
+  journey_pattern_refs_aggregate: TimetablesJourneyPatternJourneyPatternRefAggregate;
   /** An object relationship */
   journey_pattern_route?: Maybe<RouteRoute>;
   /** The ID of the route the journey pattern is on. */
@@ -1439,6 +1441,28 @@ export type JourneyPatternJourneyPattern = {
   scheduled_stop_point_in_journey_patterns: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** An aggregate relationship */
   scheduled_stop_point_in_journey_patterns_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
+};
+
+/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+export type JourneyPatternJourneyPatternJourneyPatternRefsArgs = {
+  distinct_on?: Maybe<
+    Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
+  >;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>>;
+  where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+};
+
+/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+export type JourneyPatternJourneyPatternJourneyPatternRefsAggregateArgs = {
+  distinct_on?: Maybe<
+    Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
+  >;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>>;
+  where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
 };
 
 /** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */

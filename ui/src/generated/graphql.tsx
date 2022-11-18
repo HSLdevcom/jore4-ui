@@ -1435,6 +1435,8 @@ export type JourneyPatternJourneyPattern = {
   __typename?: 'journey_pattern_journey_pattern';
   /** The ID of the journey pattern. */
   journey_pattern_id: Scalars['uuid'];
+  journey_pattern_refs: Array<TimetablesJourneyPatternJourneyPatternRef>;
+  journey_pattern_refs_aggregate: TimetablesJourneyPatternJourneyPatternRefAggregate;
   /** An object relationship */
   journey_pattern_route?: Maybe<RouteRoute>;
   /** The ID of the route the journey pattern is on. */
@@ -1443,6 +1445,28 @@ export type JourneyPatternJourneyPattern = {
   scheduled_stop_point_in_journey_patterns: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** An aggregate relationship */
   scheduled_stop_point_in_journey_patterns_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
+};
+
+/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+export type JourneyPatternJourneyPatternJourneyPatternRefsArgs = {
+  distinct_on?: Maybe<
+    Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
+  >;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>>;
+  where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+};
+
+/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+export type JourneyPatternJourneyPatternJourneyPatternRefsAggregateArgs = {
+  distinct_on?: Maybe<
+    Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
+  >;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>>;
+  where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
 };
 
 /** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
@@ -11450,6 +11474,18 @@ export type LineTableRowFragment = {
     label: string;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      journey_pattern_refs: Array<{
+        __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+        journey_pattern_ref_id: UUID;
+        vehicle_journeys: Array<{
+          __typename?: 'timetables_vehicle_journey_vehicle_journey';
+          vehicle_journey_id: UUID;
+        }>;
+      }>;
+    }>;
   }>;
 };
 
@@ -11464,6 +11500,18 @@ export type RouteTableRowFragment = {
   route_shape?: GeoJSON.LineString | null | undefined;
   validity_start?: luxon.DateTime | null | undefined;
   validity_end?: luxon.DateTime | null | undefined;
+  route_journey_patterns: Array<{
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+    journey_pattern_refs: Array<{
+      __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+      journey_pattern_ref_id: UUID;
+      vehicle_journeys: Array<{
+        __typename?: 'timetables_vehicle_journey_vehicle_journey';
+        vehicle_journey_id: UUID;
+      }>;
+    }>;
+  }>;
 };
 
 export type RouteMetadataFragment = {
@@ -11586,6 +11634,18 @@ export type ListChangingRoutesQuery = {
     route_shape?: GeoJSON.LineString | null | undefined;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      journey_pattern_refs: Array<{
+        __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+        journey_pattern_ref_id: UUID;
+        vehicle_journeys: Array<{
+          __typename?: 'timetables_vehicle_journey_vehicle_journey';
+          vehicle_journey_id: UUID;
+        }>;
+      }>;
+    }>;
   }>;
 };
 
@@ -11611,6 +11671,18 @@ export type ListOwnLinesQuery = {
       label: string;
       validity_start?: luxon.DateTime | null | undefined;
       validity_end?: luxon.DateTime | null | undefined;
+      route_journey_patterns: Array<{
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        journey_pattern_refs: Array<{
+          __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+          journey_pattern_ref_id: UUID;
+          vehicle_journeys: Array<{
+            __typename?: 'timetables_vehicle_journey_vehicle_journey';
+            vehicle_journey_id: UUID;
+          }>;
+        }>;
+      }>;
     }>;
   }>;
 };
@@ -13966,24 +14038,43 @@ export type SearchLinesAndRoutesQuery = {
       label: string;
       validity_start?: luxon.DateTime | null | undefined;
       validity_end?: luxon.DateTime | null | undefined;
+      route_journey_patterns: Array<{
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        journey_pattern_refs: Array<{
+          __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+          journey_pattern_ref_id: UUID;
+          vehicle_journeys: Array<{
+            __typename?: 'timetables_vehicle_journey_vehicle_journey';
+            vehicle_journey_id: UUID;
+          }>;
+        }>;
+      }>;
     }>;
   }>;
   route_route: Array<{
     __typename?: 'route_route';
-    route_id: UUID;
     name_i18n: LocalizedString;
-    description_i18n?: LocalizedString | null | undefined;
-    origin_name_i18n: LocalizedString;
-    origin_short_name_i18n: LocalizedString;
-    destination_name_i18n: LocalizedString;
-    destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null | undefined;
+    direction: RouteDirectionEnum;
+    priority: number;
     on_line_id: UUID;
+    route_id: UUID;
+    label: string;
+    route_shape?: GeoJSON.LineString | null | undefined;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    label: string;
-    direction: RouteDirectionEnum;
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      journey_pattern_refs: Array<{
+        __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+        journey_pattern_ref_id: UUID;
+        vehicle_journeys: Array<{
+          __typename?: 'timetables_vehicle_journey_vehicle_journey';
+          vehicle_journey_id: UUID;
+        }>;
+      }>;
+    }>;
   }>;
 };
 
@@ -14308,6 +14399,15 @@ export const LineTableRowFragmentDoc = gql`
     ...line_information_for_map
     line_routes {
       ...route_information_for_map
+      route_journey_patterns {
+        journey_pattern_id
+        journey_pattern_refs {
+          journey_pattern_ref_id
+          vehicle_journeys {
+            vehicle_journey_id
+          }
+        }
+      }
     }
   }
   ${LineInformationForMapFragmentDoc}
@@ -14320,6 +14420,15 @@ export const RouteTableRowFragmentDoc = gql`
     direction
     priority
     on_line_id
+    route_journey_patterns {
+      journey_pattern_id
+      journey_pattern_refs {
+        journey_pattern_ref_id
+        vehicle_journeys {
+          vehicle_journey_id
+        }
+      }
+    }
   }
   ${RouteInformationForMapFragmentDoc}
 `;
@@ -17514,11 +17623,11 @@ export const SearchLinesAndRoutesDocument = gql`
       ...line_table_row
     }
     route_route(where: $routeFilter, order_by: $routeOrderBy) {
-      ...route_all_fields
+      ...route_table_row
     }
   }
   ${LineTableRowFragmentDoc}
-  ${RouteAllFieldsFragmentDoc}
+  ${RouteTableRowFragmentDoc}
 `;
 
 /**
