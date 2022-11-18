@@ -16,7 +16,7 @@ export type SearchConditions = {
 };
 
 export type FilterConditions = {
-  displayedData: DisplayedSearchResultType;
+  displayedType: DisplayedSearchResultType;
 };
 
 /**
@@ -36,7 +36,7 @@ export type QueryStringParameters = {
   label: string;
   primaryVehicleMode?: string;
   typeOfLine?: string;
-  displayedData: string;
+  displayedType: string;
 };
 
 /**
@@ -48,14 +48,14 @@ export type DeserializedQueryStringParameters = {
   label: string;
   primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
   typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;
-  displayedData: DisplayedSearchResultType;
+  displayedType: DisplayedSearchResultType;
 };
 
 export enum SearchQueryParameterNames {
   Label = 'label',
   Priorities = 'priorities',
   PrimaryVehicleMode = 'primaryVehicleMode',
-  DisplayedData = 'displayedData',
+  DisplayedType = 'displayedType',
   TypeOfLine = 'typeOfLine',
   ObservationDate = 'observationDate',
 }
@@ -93,9 +93,9 @@ export const useSearchQueryParser = () => {
     getRouteTypeOfLineEnumFromUrlQuery(SearchQueryParameterNames.TypeOfLine) ??
     DEFAULT_TYPE_OF_LINE;
 
-  const displayedData =
+  const displayedType =
     getDisplayedSearchResultTypeFromUrlQuery(
-      SearchQueryParameterNames.DisplayedData,
+      SearchQueryParameterNames.DisplayedType,
     ) ?? DEFAULT_DISPLAYED_DATA;
   const observationDate =
     getDateTimeFromUrlQuery(SearchQueryParameterNames.ObservationDate) ??
@@ -110,7 +110,7 @@ export const useSearchQueryParser = () => {
       observationDate,
     },
     filter: {
-      displayedData,
+      displayedType,
     },
   };
 };

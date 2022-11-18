@@ -47,7 +47,7 @@ export const useSearchResults = (): {
   const routes = (result.data?.route_route || []) as RouteTableRowFragment[];
 
   const getResultCount = () => {
-    switch (parsedSearchQueryParameters.filter.displayedData) {
+    switch (parsedSearchQueryParameters.filter.displayedType) {
       case DisplayedSearchResultType.Lines:
         return lines?.length;
       case DisplayedSearchResultType.Routes:
@@ -55,7 +55,7 @@ export const useSearchResults = (): {
       default:
         // eslint-disable-next-line no-console
         console.error(
-          `Error: ${parsedSearchQueryParameters.filter.displayedData} does not exist.`,
+          `Error: ${parsedSearchQueryParameters.filter.displayedType} does not exist.`,
         );
         return 0;
     }
@@ -65,6 +65,6 @@ export const useSearchResults = (): {
     lines,
     routes,
     resultCount: getResultCount(),
-    resultType: parsedSearchQueryParameters.filter.displayedData,
+    resultType: parsedSearchQueryParameters.filter.displayedType,
   };
 };
