@@ -64,7 +64,7 @@ export const SearchResultPage = (): JSX.Element => {
         lines={displayedLines}
         routes={displayedRoutes}
         rowVariant={displayInformation.rowVariant}
-        displayedData={queryParameters.filter.displayedType}
+        displayedType={queryParameters.filter.displayedType}
       />
       <Visible visible={!!resultCount}>
         <div className="grid grid-cols-4">
