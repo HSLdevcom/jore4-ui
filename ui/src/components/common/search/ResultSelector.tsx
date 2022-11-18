@@ -1,5 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useSearch } from '../../../hooks';
+import {
+  SearchQueryParameterNames,
+  useAppDispatch,
+  useSearch,
+} from '../../../hooks';
 import { resetSelectedRoutesAction } from '../../../redux';
 import { SimpleSmallButton } from '../../../uiComponents';
 import { DisplayedSearchResultType } from '../../../utils';
@@ -8,15 +12,21 @@ export const ResultSelector = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { queryParameters, setFilter } = useSearch();
-  const { displayedData } = queryParameters.filter;
+  const { displayedType } = queryParameters.filter;
 
   const displayRoutes = () => {
     dispatch(resetSelectedRoutesAction());
-    setFilter('displayedData', DisplayedSearchResultType.Routes);
+    setFilter(
+      SearchQueryParameterNames.DisplayedType,
+      DisplayedSearchResultType.Routes,
+    );
   };
   const displayLines = () => {
     dispatch(resetSelectedRoutesAction());
-    setFilter('displayedData', DisplayedSearchResultType.Lines);
+    setFilter(
+      SearchQueryParameterNames.DisplayedType,
+      DisplayedSearchResultType.Lines,
+    );
   };
   const testIds = {
     linesResultsButton: 'ResultSelector::lines',
@@ -26,14 +36,14 @@ export const ResultSelector = (): JSX.Element => {
   return (
     <div className="space-x-2">
       <SimpleSmallButton
-        inverted={displayedData !== DisplayedSearchResultType.Lines}
+        inverted={displayedType !== DisplayedSearchResultType.Lines}
         onClick={displayLines}
         label={t('lines.lines')}
         testId={testIds.linesResultsButton}
       />
       <SimpleSmallButton
         onClick={displayRoutes}
-        inverted={displayedData !== DisplayedSearchResultType.Routes}
+        inverted={displayedType !== DisplayedSearchResultType.Routes}
         label={t('lines.routes')}
         testId={testIds.routesResultsButton}
       />
