@@ -21,6 +21,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           class="w-full py-4 border-y border-y-light-grey"
         >
           <a
+            class=""
             href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
           >
             <div
@@ -29,9 +30,16 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
               <div
                 class="flex flex-col w-1/2 font-bold"
               >
-                <h2>
-                  65
-                </h2>
+                <div
+                  class="flex flex-row "
+                >
+                  <h2>
+                    65
+                  </h2>
+                  <i
+                    class="icon-bus-alt text-2xl text-tweaked-brand"
+                  />
+                </div>
                 <p>
                   Rautatientori - Veräjälaakso
                 </p>
@@ -52,6 +60,20 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
+          class="w-1/12 pl-6 text-right align-middle border-y border-y-light-grey"
+        >
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            data-testid="LocatorButton::button"
+            disabled=""
+            type="button"
+          >
+            <i
+              class="icon-calendar inline text-center"
+            />
+          </button>
+        </td>
+        <td
           class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
@@ -94,6 +116,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           class="w-full py-4 border-y border-y-light-grey"
         >
           <a
+            class=""
             href="/lines/9058c328-efdd-412c-9b2b-37b0f6a2c6fb"
           >
             <div
@@ -102,9 +125,16 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
               <div
                 class="flex flex-col w-1/2 font-bold"
               >
-                <h2>
-                  71
-                </h2>
+                <div
+                  class="flex flex-row "
+                >
+                  <h2>
+                    71
+                  </h2>
+                  <i
+                    class="icon-bus-alt text-2xl text-tweaked-brand"
+                  />
+                </div>
                 <p>
                   Rautatientori - Malmi as.
                 </p>
@@ -125,6 +155,20 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
+          class="w-1/12 pl-6 text-right align-middle border-y border-y-light-grey"
+        >
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            data-testid="LocatorButton::button"
+            disabled=""
+            type="button"
+          >
+            <i
+              class="icon-calendar inline text-center"
+            />
+          </button>
+        </td>
+        <td
           class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
@@ -167,6 +211,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           class="w-full py-4 border-y border-y-light-grey"
         >
           <a
+            class=""
             href="/lines/bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2"
           >
             <div
@@ -175,9 +220,16 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
               <div
                 class="flex flex-col w-1/2 font-bold"
               >
-                <h2>
-                  785K
-                </h2>
+                <div
+                  class="flex flex-row "
+                >
+                  <h2>
+                    785K
+                  </h2>
+                  <i
+                    class="icon-bus-alt text-2xl text-tweaked-brand"
+                  />
+                </div>
                 <p>
                   Rautatientori - Nikkilä
                 </p>
@@ -198,6 +250,20 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </a>
         </td>
         <td
+          class="w-1/12 pl-6 text-right align-middle border-y border-y-light-grey"
+        >
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            data-testid="LocatorButton::button"
+            disabled=""
+            type="button"
+          >
+            <i
+              class="icon-calendar inline text-center"
+            />
+          </button>
+        </td>
+        <td
           class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
@@ -240,6 +306,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           class="w-full py-4 border-y border-y-light-grey"
         >
           <a
+            class=""
             href="/lines/db748c5c-42e3-429f-baa0-e0db227dc2c8"
           >
             <div
@@ -248,9 +315,16 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
               <div
                 class="flex flex-col w-1/2 font-bold"
               >
-                <h2>
-                  1234
-                </h2>
+                <div
+                  class="flex flex-row "
+                >
+                  <h2>
+                    1234
+                  </h2>
+                  <i
+                    class="icon-bus-alt text-2xl text-tweaked-brand"
+                  />
+                </div>
                 <p>
                   Erottaja - Arkkadiankatu
                 </p>
@@ -269,6 +343,20 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
               </div>
             </div>
           </a>
+        </td>
+        <td
+          class="w-1/12 pl-6 text-right align-middle border-y border-y-light-grey"
+        >
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            data-testid="LocatorButton::button"
+            disabled=""
+            type="button"
+          >
+            <i
+              class="icon-calendar inline text-center"
+            />
+          </button>
         </td>
         <td
           class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
@@ -325,6 +413,7 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
           class="w-full py-4 border-y border-y-light-grey"
         >
           <a
+            class=""
             href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
           >
             <div
@@ -333,9 +422,16 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
               <div
                 class="flex flex-col w-1/2 font-bold"
               >
-                <h2>
-                  1
-                </h2>
+                <div
+                  class="flex flex-row "
+                >
+                  <h2>
+                    1
+                  </h2>
+                  <i
+                    class="icon-bus-alt text-2xl text-tweaked-brand"
+                  />
+                </div>
                 <p>
                   route 1
                 </p>
@@ -354,6 +450,127 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
               </div>
             </div>
           </a>
+        </td>
+        <td
+          class="w-1/12 pl-6 text-right align-middle border-y border-y-light-grey"
+        >
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            data-testid="LocatorButton::button"
+            disabled=""
+            type="button"
+          >
+            <i
+              class="icon-calendar inline text-center"
+            />
+          </button>
+        </td>
+        <td
+          class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
+        >
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            data-testid="RouteTableRow::showRoute"
+            disabled=""
+            type="button"
+          >
+            <svg
+              class="text-2xl inline text-center"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+              />
+            </svg>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
+<DocumentFragment>
+  <table
+    class="h-1 w-full "
+    data-testid="routesTable1"
+  >
+    <tbody>
+      <tr
+        class=""
+      >
+        <td
+          class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
+        >
+          <i
+            class="icon-_-placeholder my-auto flex text-3xl"
+          />
+        </td>
+        <td
+          class="w-full py-4 border-y border-y-light-grey"
+        >
+          <a
+            class="pointer-events-none text-zinc-400"
+            href="/timetables/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
+          >
+            <div
+              class="flex flex-row items-center"
+            >
+              <div
+                class="flex flex-col w-1/2 font-bold"
+              >
+                <div
+                  class="flex flex-row "
+                >
+                  <h2>
+                    1
+                  </h2>
+                  <i
+                    class="icon-calendar text-2xl text-zinc-400"
+                  />
+                </div>
+                <p>
+                  route 1
+                </p>
+              </div>
+              <div
+                class="flex flex-col w-1/2 text-right"
+              >
+                <p
+                  class="font-bold"
+                >
+                  Voimassa 1.1.1970 - 31.12.2050
+                </p>
+                <p>
+                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                </p>
+              </div>
+            </div>
+          </a>
+        </td>
+        <td
+          class="w-1/12 pl-6 text-right align-middle border-y border-y-light-grey"
+        >
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
+            data-testid="LocatorButton::button"
+            type="button"
+          >
+            <i
+              class="icon-bus-alt inline text-center"
+            />
+          </button>
         </td>
         <td
           class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"

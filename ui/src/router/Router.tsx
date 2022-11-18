@@ -49,6 +49,11 @@ export const Router: FunctionComponent = () => {
       _exact: true,
       component: SearchResultPage,
     },
+    [Path.timetablesSearch]: {
+      _routerRoute: Path.timetablesSearch,
+      _exact: true,
+      component: SearchResultPage,
+    },
     [Path.editRoute]: {
       _routerRoute: Path.editRoute,
       _exact: true,

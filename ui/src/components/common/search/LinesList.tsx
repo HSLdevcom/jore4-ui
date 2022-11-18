@@ -1,12 +1,11 @@
-import { LineTableRow } from '..';
+import { LineTableRow, RouteLineTableRowVariant } from '..';
 import { LineTableRowFragment } from '../../../generated/graphql';
-import { Path, routeDetails } from '../../../router/routeDetails';
 import { RoutesTable } from '../../routes-and-lines/main/RoutesTable';
 
 type Props = {
   lines?: LineTableRowFragment[];
-  basePath: Path;
   areItemsSelectable?: boolean;
+  rowVariant: RouteLineTableRowVariant;
 };
 
 const testIds = {
@@ -15,14 +14,14 @@ const testIds = {
 
 export const LinesList = ({
   lines,
-  basePath,
   areItemsSelectable = false,
+  rowVariant,
 }: Props): JSX.Element => (
   <RoutesTable testId={testIds.table}>
     {lines?.map((item: LineTableRowFragment) => (
       <LineTableRow
+        rowVariant={rowVariant}
         key={item.line_id}
-        linkTo={routeDetails[basePath].getLink(item.line_id)}
         line={item}
         isSelectable={areItemsSelectable}
       />

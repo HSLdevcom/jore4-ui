@@ -4,10 +4,9 @@ import {
   RouteDirectionEnum,
   RouteTableRowFragment,
 } from '../../../generated/graphql';
-import { Path, routeDetails } from '../../../router/routeDetails';
 import { Priority } from '../../../types/Priority';
 import { render } from '../../../utils/test-utils';
-import { RouteTableRow } from '../../common';
+import { RouteLineTableRowVariant, RouteTableRow } from '../../common';
 import { LineTableRow } from '../../common/LineTableRow';
 import { RoutesTable } from './RoutesTable';
 
@@ -24,6 +23,7 @@ describe(`<${RoutesTable.name} />`, () => {
       on_line_id: lineId,
       priority: 10,
       direction: RouteDirectionEnum.Outbound,
+      route_journey_patterns: [],
     },
   ];
 
@@ -34,9 +34,27 @@ describe(`<${RoutesTable.name} />`, () => {
       <RoutesTable testId={testId}>
         {routes.map((item: RouteTableRowFragment) => (
           <RouteTableRow
+            rowVariant={RouteLineTableRowVariant.RoutesAndLines}
             key={item.route_id}
             route={item}
-            linkTo={routeDetails[Path.lineDetails].getLink(item.on_line_id)}
+          />
+        ))}
+      </RoutesTable>,
+    );
+
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test('Renders the table with route data (timetables)', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const routes = routesResponseMock!;
+    const { asFragment } = render(
+      <RoutesTable testId={testId}>
+        {routes.map((item: RouteTableRowFragment) => (
+          <RouteTableRow
+            rowVariant={RouteLineTableRowVariant.Timetables}
+            key={item.route_id}
+            route={item}
           />
         ))}
       </RoutesTable>,
@@ -91,9 +109,9 @@ describe(`<${RoutesTable.name} />`, () => {
       <RoutesTable testId={testId}>
         {lines.map((item: LineTableRowFragment) => (
           <LineTableRow
+            rowVariant={RouteLineTableRowVariant.RoutesAndLines}
             key={item.line_id}
             line={item}
-            linkTo={routeDetails[Path.lineDetails].getLink(item.line_id)}
           />
         ))}
       </RoutesTable>,
