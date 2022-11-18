@@ -11,20 +11,20 @@ import { RoutesList } from './RoutesList';
 interface Props {
   lines?: LineTableRowFragment[];
   routes?: RouteTableRowFragment[];
-  displayedData: DisplayedSearchResultType;
+  displayedType: DisplayedSearchResultType;
 }
 
-/** Depending on displayedData this component will return the
+/** Depending on displayedType this component will return the
  * corresponding list element
  */
 export const ResultList = ({
   lines,
   routes,
-  displayedData,
+  displayedType,
 }: Props): JSX.Element => {
   const { isSelectingRoutesForExport } = useAppSelector(selectExport);
 
-  switch (displayedData) {
+  switch (displayedType) {
     case DisplayedSearchResultType.Lines:
       return (
         <LinesList
@@ -41,7 +41,7 @@ export const ResultList = ({
       );
     default:
       // eslint-disable-next-line no-console
-      console.error(`Error: ${displayedData} does not exist.`);
+      console.error(`Error: ${displayedType} does not exist.`);
       return <></>;
   }
 };

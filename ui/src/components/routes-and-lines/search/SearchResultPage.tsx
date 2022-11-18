@@ -45,7 +45,7 @@ export const SearchResultPage = ({
       <ResultList
         lines={displayedLines}
         routes={displayedRoutes}
-        displayedData={queryParameters.filter.displayedData}
+        displayedType={queryParameters.filter.displayedType}
       />
       <Visible visible={!!resultCount}>
         <div className="grid grid-cols-4">
