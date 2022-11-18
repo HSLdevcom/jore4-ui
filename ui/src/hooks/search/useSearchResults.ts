@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import {
   LineTableRowFragment,
-  RouteAllFieldsFragment,
+  RouteTableRowFragment,
   useSearchLinesAndRoutesQuery,
 } from '../../generated/graphql';
 import {
@@ -22,14 +22,14 @@ const GQL_SEARCH_LINES_AND_ROUTES = gql`
       ...line_table_row
     }
     route_route(where: $routeFilter, order_by: $routeOrderBy) {
-      ...route_all_fields
+      ...route_table_row
     }
   }
 `;
 
 export const useSearchResults = (): {
   lines: LineTableRowFragment[];
-  routes: RouteAllFieldsFragment[];
+  routes: RouteTableRowFragment[];
   resultCount: number;
   resultType: DisplayedSearchResultType;
 } => {
@@ -44,7 +44,7 @@ export const useSearchResults = (): {
   );
 
   const lines = (result.data?.route_line || []) as LineTableRowFragment[];
-  const routes = (result.data?.route_route || []) as RouteAllFieldsFragment[];
+  const routes = (result.data?.route_route || []) as RouteTableRowFragment[];
 
   const getResultCount = () => {
     switch (parsedSearchQueryParameters.filter.displayedData) {

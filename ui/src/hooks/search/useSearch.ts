@@ -4,20 +4,15 @@ import { useState } from 'react';
 import { Priority } from '../../types/Priority';
 import { DisplayedSearchResultType } from '../../utils';
 import { QueryParameter, QueryParameterTypes, useUrlQuery } from '../urlQuery';
+import { useBasePath } from '../useBasePath';
 import {
   DeserializedQueryStringParameters,
   FilterConditions,
   useSearchQueryParser,
 } from './useSearchQueryParser';
 
-/**
- * Common search hook. Takes basePath as parameter, which will be used when
- * handling filter setting, searching and closing.
- * For example using 'routes-and-lines' as basePath will direct searches to
- * '/routes-and-lines/search' and closing the search will direct to
- * '/routes-and-lines'
- */
-export const useSearch = ({ basePath }: { basePath: string }) => {
+export const useSearch = () => {
+  const { basePath } = useBasePath();
   const queryParameters = useSearchQueryParser();
   const { setMultipleParametersToUrlQuery } = useUrlQuery();
 
