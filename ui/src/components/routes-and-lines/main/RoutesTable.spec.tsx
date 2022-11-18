@@ -4,7 +4,6 @@ import {
   RouteDirectionEnum,
   RouteTableRowFragment,
 } from '../../../generated/graphql';
-import { Path, routeDetails } from '../../../router/routeDetails';
 import { Priority } from '../../../types/Priority';
 import { render } from '../../../utils/test-utils';
 import { RouteTableRow } from '../../common';
@@ -24,6 +23,7 @@ describe(`<${RoutesTable.name} />`, () => {
       on_line_id: lineId,
       priority: 10,
       direction: RouteDirectionEnum.Outbound,
+      route_journey_patterns: [],
     },
   ];
 
@@ -33,11 +33,7 @@ describe(`<${RoutesTable.name} />`, () => {
     const { asFragment } = render(
       <RoutesTable testId={testId}>
         {routes.map((item: RouteTableRowFragment) => (
-          <RouteTableRow
-            key={item.route_id}
-            route={item}
-            linkTo={routeDetails[Path.lineDetails].getLink(item.on_line_id)}
-          />
+          <RouteTableRow key={item.route_id} route={item} />
         ))}
       </RoutesTable>,
     );
@@ -90,11 +86,7 @@ describe(`<${RoutesTable.name} />`, () => {
     const { asFragment } = render(
       <RoutesTable testId={testId}>
         {lines.map((item: LineTableRowFragment) => (
-          <LineTableRow
-            key={item.line_id}
-            line={item}
-            linkTo={routeDetails[Path.lineDetails].getLink(item.line_id)}
-          />
+          <LineTableRow key={item.line_id} line={item} />
         ))}
       </RoutesTable>,
     );

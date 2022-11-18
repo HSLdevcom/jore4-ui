@@ -1,6 +1,7 @@
 import { produce } from 'immer';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Priority } from '../../types/Priority';
 import { DisplayedSearchResultType } from '../../utils';
 import { QueryParameter, QueryParameterTypes, useUrlQuery } from '../urlQuery';
@@ -10,14 +11,13 @@ import {
   useSearchQueryParser,
 } from './useSearchQueryParser';
 
-/**
- * Common search hook. Takes basePath as parameter, which will be used when
- * handling filter setting, searching and closing.
- * For example using 'routes-and-lines' as basePath will direct searches to
- * '/routes-and-lines/search' and closing the search will direct to
- * '/routes-and-lines'
- */
-export const useSearch = ({ basePath }: { basePath: string }) => {
+export const useSearch = () => {
+  const history = useHistory();
+  // basePath is the first part of the URL path (e.g. 'routes' or 'timetables').
+  // We need to check this path and use it in the methods to direct the search
+  // to the correct path, because we have different search result paths and we
+  // have the search component in multiple different pathed urls.
+  const basePath = history.location.pathname.split('/')[1];
   const queryParameters = useSearchQueryParser();
   const { setMultipleParametersToUrlQuery } = useUrlQuery();
 
@@ -68,7 +68,7 @@ export const useSearch = ({ basePath }: { basePath: string }) => {
     setMultipleParametersToUrlQuery({
       parameters:
         mapSearchParametersToQueryParameterObjects(combinedParameters),
-      pathname: `${basePath}/search`,
+      pathname: `/${basePath}/search`,
     });
   };
 
@@ -85,7 +85,7 @@ export const useSearch = ({ basePath }: { basePath: string }) => {
     setMultipleParametersToUrlQuery({
       parameters:
         mapSearchParametersToQueryParameterObjects(combinedParameters),
-      pathname: `${basePath}/search`,
+      pathname: `/${basePath}/search`,
     });
   };
 

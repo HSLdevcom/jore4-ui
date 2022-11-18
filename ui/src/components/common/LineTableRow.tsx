@@ -15,7 +15,6 @@ import { RouteLineTableRow } from './RouteLineTableRow';
 interface Props {
   className?: string;
   line: LineTableRowFragment;
-  linkTo: string;
   isSelectable?: boolean;
 }
 
@@ -27,6 +26,15 @@ const GQL_LINE_TABLE_ROW = gql`
     ...line_information_for_map
     line_routes {
       ...route_information_for_map
+      route_journey_patterns {
+        journey_pattern_id
+        journey_pattern_refs {
+          journey_pattern_ref_id
+          vehicle_journeys {
+            vehicle_journey_id
+          }
+        }
+      }
     }
   }
 `;
@@ -39,7 +47,6 @@ const GQL_LINE_TABLE_ROW = gql`
 export const LineTableRow = ({
   className = '',
   line,
-  linkTo,
   isSelectable = false,
 }: Props): JSX.Element => {
   const { showRoutesOnMapByLineLabel } = useShowRoutesOnModal();
@@ -61,24 +68,32 @@ export const LineTableRow = ({
 
   const hasRoutes = line.line_routes?.length > 0;
 
-  /**
-   * Entire line is selected for export if it has routes and each of those is selected.
-   * Selecting only subset of routes shouldn't be possible, as user can select routes
-   * from line list or from route list, not from both simultaneously.
-   */
+  // Entire line is selected for export if it has routes and each of those is selected.
+  // Selecting only subset of routes shouldn't be possible, as user can select routes
+  // from line list or from route list, not from both simultaneously.
   const isSelected =
     hasRoutes &&
     line.line_routes.every((route) =>
       selectedRouteLabels.includes(route.label),
     );
 
+  // Check if any of the line's routes have any vehicle_journey's existing, which means
+  // that the line has timetables.
+  const hasTimetables = line.line_routes.some((route) =>
+    route.route_journey_patterns.some((routeJourneyPattern) =>
+      routeJourneyPattern.journey_pattern_refs.some(
+        (journeyPatternRefs) => journeyPatternRefs.vehicle_journeys.length,
+      ),
+    ),
+  );
   return (
     <RouteLineTableRow
       rowItem={line}
-      linkTo={linkTo}
+      hasTimetables={hasTimetables}
       onLocatorButtonClick={showLineRoutes}
       locatorButtonTestId="LineTableRow::showLineRoutes"
       className={className}
+      lineId={line.line_id}
       onSelectChanged={isSelectable ? onSelectChanged : undefined}
       isSelected={isSelected}
       selectionDisabled={!hasRoutes}

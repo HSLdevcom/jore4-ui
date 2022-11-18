@@ -19,13 +19,21 @@ const GQL_ROUTE_TABLE_ROW = gql`
     direction
     priority
     on_line_id
+    route_journey_patterns {
+      journey_pattern_id
+      journey_pattern_refs {
+        journey_pattern_ref_id
+        vehicle_journeys {
+          vehicle_journey_id
+        }
+      }
+    }
   }
 `;
 
 interface Props {
   className?: string;
   route: RouteTableRowFragment;
-  linkTo: string;
   isSelectable?: boolean;
 }
 
@@ -37,7 +45,7 @@ interface Props {
 export const RouteTableRow = ({
   className = '',
   route,
-  linkTo,
+
   isSelectable = false,
 }: Props): JSX.Element => {
   const { showRouteOnMap } = useShowRoutesOnModal();
@@ -57,12 +65,19 @@ export const RouteTableRow = ({
     dispatch(selectAction(route.label));
   };
 
-  const isSelected = selectedRouteLabels.includes(route.label);
+  // Check if the route has any vehicle_journey's existing, which means
+  // that the route has timetables.
+  const hasTimetables = route.route_journey_patterns.some(
+    (routeJourneyPattern) =>
+      routeJourneyPattern.journey_pattern_refs.some(
+        (journeyPatternRefs) => journeyPatternRefs.vehicle_journeys.length,
+      ),
+  );
 
+  const isSelected = selectedRouteLabels.includes(route.label);
   return (
     <RouteLineTableRow
       rowItem={route}
-      linkTo={linkTo}
       onLocatorButtonClick={
         route.route_shape /* some routes imported from jore3 are missing the geometry */
           ? onClickShowRouteOnMap
@@ -70,7 +85,9 @@ export const RouteTableRow = ({
       }
       locatorButtonTestId="RouteTableRow::showRoute"
       className={className}
+      lineId={route.on_line_id}
       isSelected={isSelected}
+      hasTimetables={hasTimetables}
       onSelectChanged={isSelectable ? onSelectChanged : undefined}
     />
   );

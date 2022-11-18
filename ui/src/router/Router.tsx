@@ -28,6 +28,13 @@ export const Router: FunctionComponent = () => {
     return React.createElement('p', null, `404, page not found`);
   };
 
+  const TimetablesSearchResultPage = () => (
+    <SearchResultPage titleTranslationKey="timetables.timetables" />
+  );
+  const RoutesAndLinesSearchResultPage = () => (
+    <SearchResultPage titleTranslationKey="routes.routes" />
+  );
+
   const routes: Record<Path, Route> = {
     [Path.root]: {
       _routerRoute: Path.root,
@@ -47,7 +54,12 @@ export const Router: FunctionComponent = () => {
     [Path.routesSearch]: {
       _routerRoute: Path.routesSearch,
       _exact: true,
-      component: SearchResultPage,
+      component: RoutesAndLinesSearchResultPage,
+    },
+    [Path.timetablesSearch]: {
+      _routerRoute: Path.timetablesSearch,
+      _exact: true,
+      component: TimetablesSearchResultPage,
     },
     [Path.editRoute]: {
       _routerRoute: Path.editRoute,
