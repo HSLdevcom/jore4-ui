@@ -1,9 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { Row } from '../../../layoutComponents';
+import { Priority } from '../../../types/Priority';
 import { FormContainer, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
 import {
@@ -61,7 +62,10 @@ export const LineForm = ({ defaultValues, onSubmit }: Props): JSX.Element => {
         </Row>
         <Row className="mt-2">
           <FormContainer className="w-full p-6">
-            <ConfirmSaveForm className="mb-2 ml-2" />
+            <ConfirmSaveForm
+              className="mb-2 ml-2"
+              hiddenPriorities={[Priority.Temporary]} // Line does not have temporary priority, so hide it
+            />
           </FormContainer>
         </Row>
         <Row className="mt-8 space-x-5">

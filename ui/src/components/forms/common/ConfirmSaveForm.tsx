@@ -25,19 +25,54 @@ export const schema = z.object({
 export type FormState = z.infer<typeof schema>;
 
 const testIds = {
-  standardPriorityButton: 'ConfirmSaveForm::standardPriorityButton',
-  draftPriorityButton: 'ConfirmSaveForm::draftPriorityButton',
-  temporaryPriorityButton: 'ConfirmSaveForm::temporaryPriorityButton',
+  priorityButton: (priorityLabel: string) =>
+    `ConfirmSaveForm::${priorityLabel}PriorityButton`,
   startDateInput: 'ConfirmSaveForm::startDateInput',
   endDateInput: 'ConfirmSaveForm::endDateInput',
   indefiniteCheckbox: 'ConfirmSaveForm::indefiniteCheckbox',
 };
 
-interface Props {
-  className?: string;
+interface PriorityButtonProps {
+  priority: Priority;
+  priorityLabel: string;
 }
 
-export const ConfirmSaveForm = ({ className = '' }: Props): JSX.Element => {
+interface Props {
+  className?: string;
+  hiddenPriorities?: Priority[];
+}
+
+const defaultPriorities: PriorityButtonProps[] = [
+  {
+    priority: Priority.Standard,
+    priorityLabel: 'standard',
+  },
+  {
+    priority: Priority.Draft,
+    priorityLabel: 'draft',
+  },
+  {
+    priority: Priority.Temporary,
+    priorityLabel: 'temporary',
+  },
+];
+
+/**
+ * Component for selecting priority and validity period for an entity (e.g. line, route, stop).
+ * Can be merged with other forms.
+ *
+ * @component
+ * @example
+ * // Usage in LineForm.tsx:
+ * <ConfirmSaveForm
+ *   className="mb-2 ml-2"
+ *   hiddenPriorities={[Priority.Temporary]} // Line does not have temporary priority, so hide it
+ * />
+ */
+export const ConfirmSaveForm = ({
+  className = '',
+  hiddenPriorities,
+}: Props): JSX.Element => {
   const { t } = useTranslation();
   const {
     register,
@@ -47,8 +82,24 @@ export const ConfirmSaveForm = ({ className = '' }: Props): JSX.Element => {
   } = useFormContext<FormState>();
 
   const indefinite = watch('indefinite');
-  const priority = watch('priority');
+  const selectedPriority = watch('priority');
   const setPriority = (value: Priority) => setValue('priority', value);
+
+  const PriorityButton = ({ priority, priorityLabel }: PriorityButtonProps) => {
+    return (
+      <SimpleButton
+        onClick={() => setPriority(priority)}
+        inverted={selectedPriority !== priority}
+        testId={testIds.priorityButton(priorityLabel)}
+      >
+        {t(`priority.${priorityLabel}`)}
+      </SimpleButton>
+    );
+  };
+
+  const displayedPriorities = defaultPriorities.filter(
+    (priority) => !hiddenPriorities?.includes(priority.priority),
+  );
 
   return (
     <div className={className}>
@@ -58,27 +109,13 @@ export const ConfirmSaveForm = ({ className = '' }: Props): JSX.Element => {
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>{t('priority.label')}</label>
           <Row className="flex-wrap gap-2">
-            <SimpleButton
-              onClick={() => setPriority(Priority.Standard)}
-              inverted={priority !== Priority.Standard}
-              testId={testIds.standardPriorityButton}
-            >
-              {t('priority.standard')}
-            </SimpleButton>
-            <SimpleButton
-              onClick={() => setPriority(Priority.Draft)}
-              inverted={priority !== Priority.Draft}
-              testId={testIds.draftPriorityButton}
-            >
-              {t('priority.draft')}
-            </SimpleButton>
-            <SimpleButton
-              onClick={() => setPriority(Priority.Temporary)}
-              inverted={priority !== Priority.Temporary}
-              testId={testIds.temporaryPriorityButton}
-            >
-              {t('priority.temporary')}
-            </SimpleButton>
+            {displayedPriorities.map((priority) => (
+              <PriorityButton
+                key={priority.priorityLabel}
+                priority={priority.priority}
+                priorityLabel={priority.priorityLabel}
+              />
+            ))}
           </Row>
           <p>{errors.priority && t('formValidation.required')}</p>
         </Column>
