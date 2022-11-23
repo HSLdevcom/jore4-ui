@@ -15,7 +15,7 @@ const testIds = {
 interface Props {
   className?: string;
   line: RouteLine;
-  onCreateRoute: () => void;
+  onCreateRoute?: () => void;
 }
 
 export const LineTitle: React.FC<Props> = ({
@@ -49,11 +49,13 @@ export const LineTitle: React.FC<Props> = ({
               </SimpleButton>
             ))}
         </span>
-        <IconButton
-          testId={testIds.createRouteButton}
-          icon={<AiFillPlusCircle className="text-3xl text-brand" />}
-          onClick={onCreateRoute}
-        />
+        {onCreateRoute && (
+          <IconButton
+            testId={testIds.createRouteButton}
+            icon={<AiFillPlusCircle className="text-3xl text-brand" />}
+            onClick={onCreateRoute}
+          />
+        )}
       </Row>
       <Row>
         <span className="font-bold" data-testid={testIds.name}>
