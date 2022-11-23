@@ -8,6 +8,7 @@ import {
   ScheduledStopPointDefaultFieldsFragment,
 } from '../generated/graphql';
 import { Priority } from '../types/Priority';
+import { isCurrentEntity } from './validity';
 
 const sortStopsByTraversalForwards = <
   TStop extends ScheduledStopPointAllFieldsFragment,
@@ -59,47 +60,6 @@ export const addOrRemoveStopLabelsFromIncludedStops = (
     ? uniq([...stops, ...stopsToActOn])
     : stops.filter((label) => !stopsToActOn.includes(label));
 
-export const isFutureStop = <
-  TStop extends ScheduledStopPointDefaultFieldsFragment,
->(
-  observationDate: DateTime,
-  stop: TStop,
-) => {
-  // if stop has been valid indefinitely from the start, it can never be a future stop
-  if (!stop.validity_start) {
-    return false;
-  }
-
-  // otherwise its validity has to start after the observation date
-  return stop.validity_start > observationDate;
-};
-
-export const isPastStop = <
-  TStop extends ScheduledStopPointDefaultFieldsFragment,
->(
-  observationDate: DateTime,
-  stop: TStop,
-) => {
-  // if stop is valid indefinitely, it can never be a past stop
-  if (!stop.validity_end) {
-    return false;
-  }
-
-  // otherwise its validity has to end before the observation date
-  return stop.validity_end < observationDate;
-};
-
-export const isCurrentStop = <
-  TStop extends ScheduledStopPointDefaultFieldsFragment,
->(
-  observationDate: DateTime,
-  stop: TStop,
-) => {
-  return (
-    !isPastStop(observationDate, stop) && !isFutureStop(observationDate, stop)
-  );
-};
-
 export const hasPriority = <
   TStop extends ScheduledStopPointDefaultFieldsFragment,
 >(
@@ -126,7 +86,7 @@ export const filterHighestPriorityCurrentStops = <
   // Get all current stops, remove drafts if they are not allowed
   const currentStops = stops.filter(
     (stop: TStop) =>
-      isCurrentStop(observationDate, stop) &&
+      isCurrentEntity(observationDate, stop) &&
       (allowDrafts || !hasPriority(Priority.Draft, stop)),
   );
 
