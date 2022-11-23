@@ -5,7 +5,7 @@ import { SimpleButton } from '../../../uiComponents';
 
 interface Props {
   className?: string;
-  onCreateRoute: () => void;
+  onCreateRoute?: () => void;
 }
 
 export const CreateRouteBox: React.FC<Props> = ({
@@ -18,14 +18,20 @@ export const CreateRouteBox: React.FC<Props> = ({
     <Column
       className={`items-center border border-light-grey bg-background p-8 ${className}`}
     >
-      <SimpleButton
-        id="create-route-button"
-        containerClassName="mb-4"
-        onClick={onCreateRoute}
-      >
-        {t('lines.createNewRoute')}
-      </SimpleButton>
-      <span>{t('lines.createNewRouteInstructions')}</span>
+      {onCreateRoute && (
+        <SimpleButton
+          id="create-route-button"
+          containerClassName="mb-4"
+          onClick={onCreateRoute}
+        >
+          {t('lines.createNewRoute')}
+        </SimpleButton>
+      )}
+      {onCreateRoute ? (
+        <span>{t('lines.createNewRouteInstructions')}</span>
+      ) : (
+        <span>{t('lines.cannotCreateRoute')}</span>
+      )}
     </Column>
   );
 };

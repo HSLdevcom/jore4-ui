@@ -81,6 +81,7 @@
     "lines": "Lines",
     "createNewRoute": "Create new route",
     "createNewRouteInstructions": "Route drawing opens in a new window.",
+    "cannotCreateRoute": "Cannot create new route for past line.",
     "showDrafts": "Show drafts",
     "draftsTitle": "Drafts",
     "noDrafts": "No drafts",

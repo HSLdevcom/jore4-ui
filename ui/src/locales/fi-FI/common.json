@@ -81,6 +81,7 @@
     "lines": "Linjat",
     "createNewRoute": "Luo reitti",
     "createNewRouteInstructions": "Uuden reitin luominen avautuu karttanäkymään.",
+    "cannotCreateRoute": "Linjalle, jonka voimassaolo on päättynyt, ei voi luoda reittiä.",
     "showDrafts": "Näytä luonnokset",
     "draftsTitle": "Luonnokset",
     "noDrafts": "Ei luonnoksia",
