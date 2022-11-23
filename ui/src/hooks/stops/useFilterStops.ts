@@ -12,9 +12,9 @@ import { Priority } from '../../types/Priority';
 import {
   filterHighestPriorityCurrentStops,
   hasPriority,
-  isCurrentStop,
-  isFutureStop,
-  isPastStop,
+  isCurrentEntity,
+  isFutureEntity,
+  isPastEntity,
 } from '../../utils';
 import { useAppDispatch, useAppSelector } from '../redux';
 import { useObservationDateQueryParam } from '../urlQuery';
@@ -71,7 +71,7 @@ export const useFilterStops = () => {
       filterFunction: <TStop extends ScheduledStopPointDefaultFieldsFragment>(
         stop: TStop,
       ) =>
-        isCurrentStop(observationDate, stop) &&
+        isCurrentEntity(observationDate, stop) &&
         !hasPriority(Priority.Draft, stop),
     }),
     [observationDate, t],
@@ -82,17 +82,17 @@ export const useFilterStops = () => {
       {
         type: FilterType.ShowFutureStops,
         label: t('filters.future'),
-        filterFunction: partial(isFutureStop, observationDate),
+        filterFunction: partial(isFutureEntity, observationDate),
       },
       {
         type: FilterType.ShowCurrentStops,
         label: t('filters.current'),
-        filterFunction: partial(isCurrentStop, observationDate),
+        filterFunction: partial(isCurrentEntity, observationDate),
       },
       {
         type: FilterType.ShowPastStops,
         label: t('filters.past'),
-        filterFunction: partial(isPastStop, observationDate),
+        filterFunction: partial(isPastEntity, observationDate),
       },
     ],
     [observationDate, t],
