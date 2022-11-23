@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { LineAllFieldsFragment } from '../../../generated/graphql';
 import {
@@ -13,6 +14,7 @@ import {
   setLineInfoAction,
 } from '../../../redux';
 import { Priority } from '../../../types/Priority';
+import { isPastEntity } from '../../../utils';
 import { PageHeader } from '../common/PageHeader';
 import { ViaModal } from '../via/ViaModal';
 import { ActionsRow } from './ActionsRow';
@@ -30,7 +32,7 @@ export const LineDetailsPage = (): JSX.Element => {
 
   const { line } = useGetLineDetails();
 
-  const onCreateRoute = (routeLine: LineAllFieldsFragment) => {
+  const createRoute = (routeLine: LineAllFieldsFragment) => {
     dispatch(resetMapRouteEditorStateAction());
     dispatch(setLineInfoAction(routeLine));
     addMapOpenQueryParameter();
@@ -48,14 +50,17 @@ export const LineDetailsPage = (): JSX.Element => {
     return '';
   };
 
+  const isRouteCreationAllowed = line && !isPastEntity(DateTime.now(), line);
+  const onCreateRoute = isRouteCreationAllowed
+    ? () => createRoute(line)
+    : undefined;
+
   return (
     <div>
       <PageHeader className={getHeaderBorderClassName()}>
         <Row>
           <i className="icon-bus-alt text-6xl text-tweaked-brand" />
-          {line && (
-            <LineTitle line={line} onCreateRoute={() => onCreateRoute(line)} />
-          )}
+          {line && <LineTitle line={line} onCreateRoute={onCreateRoute} />}
         </Row>
       </PageHeader>
       <ActionsRow className="!pt-4 !pb-0" />
@@ -71,7 +76,7 @@ export const LineDetailsPage = (): JSX.Element => {
               {line.line_routes?.length > 0 ? (
                 <RouteStopsTable routes={line.line_routes} />
               ) : (
-                <CreateRouteBox onCreateRoute={() => onCreateRoute(line)} />
+                <CreateRouteBox onCreateRoute={onCreateRoute} />
               )}
             </Column>
           </Row>
