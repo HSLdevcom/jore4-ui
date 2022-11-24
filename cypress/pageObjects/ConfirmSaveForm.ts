@@ -1,4 +1,8 @@
 export class ConfirmSaveForm {
+  getEndDateInput() {
+    return cy.getByTestId('ConfirmSaveForm::endDateInput');
+  }
+
   setAsStandard() {
     return cy.getByTestId('ConfirmSaveForm::standardPriorityButton').click();
   }
