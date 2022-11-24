@@ -3,12 +3,13 @@ import {
   ReusableComponentsVehicleSubmodeEnum,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
+import { Map } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
 import { MapItemCreator } from '../pageObjects/MapItemCreator';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteStopsByLabel } from './utils';
 
-const testStopLabels = ['T0001', 'TManual'];
+const testStopLabels = ['T0001', 'TManual', 'TEndDate'];
 
 const testInfraLinks = {
   1: 'c63b749f-5060-4710-8b07-ec9ac017cb5f',
@@ -39,6 +40,7 @@ const clearDatabase = () => {
 describe('Stop creation tests', () => {
   let mapItemCreator: MapItemCreator;
   let mapFilterPanel: FilterPanel;
+  let map: Map;
 
   before(() => {
     cy.fixture('infraLinks/infraLinks.sql').then((infraLinksQuery) => {
@@ -52,13 +54,16 @@ describe('Stop creation tests', () => {
 
     mapItemCreator = new MapItemCreator();
     mapFilterPanel = new FilterPanel();
+    map = new Map();
 
     cy.setupTests();
     cy.mockLogin();
 
-    cy.visit(
-      '/routes?mapOpen=true&lng=24.93021804533524&lat=60.164074274478054&z=15',
-    );
+    map.visit({
+      zoom: 15,
+      lat: 60.164074274478054,
+      lng: 24.93021804533524,
+    });
   });
 
   after(() => {
@@ -79,10 +84,9 @@ describe('Stop creation tests', () => {
         validityStartISODate: '2022-01-01',
       });
 
-      // TODO: Currently 'toast.checkStopSubmitSuccess()' doesn't work because
-      // cypress on chrome can't find the toast messages for some reason. Find out why this is and add
-      // assertion for the toast message
       cy.wait('@gqlInsertStop').its('response.statusCode').should('equal', 200);
+
+      mapItemCreator.checkStopSubmitSuccess();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -111,19 +115,48 @@ describe('Stop creation tests', () => {
         validityStartISODate: '2022-01-01',
       });
 
-      // TODO: Currently 'toast.checkStopSubmitSuccess()' doesn't work because
-      // cypress on chrome can't find the toast messages for some reason. Find out why this is and add
-      // assertion for the toast message
       cy.wait('@gqlInsertStop').its('response.statusCode').should('equal', 200);
+
+      mapItemCreator.checkStopSubmitSuccess();
+
       // Change map position to created stop location
-      cy.visit(
-        '/routes?lat=60.1805636468358&lng=24.918451016960763&z=15.008647482331973&mapOpen=true',
-      );
+      map.visit({
+        zoom: 15.008647482331973,
+        lat: 60.1805636468358,
+        lng: 24.918451016960763,
+      });
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
       cy.getByTestId(
         `Map::Stops::stopMarker::${testStopLabels[1]}_Standard`,
+      ).should('exist');
+    },
+  );
+
+  it(
+    'Should create stop with end time on map',
+    // Map opening seems to take time, so we increase the timeout
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    () => {
+      mapItemCreator.createStopAtLocation({
+        stopFormInfo: { label: testStopLabels[2] },
+        clickRelativePoint: {
+          xPercentage: 43.5,
+          yPercentage: 53,
+        },
+        validityStartISODate: '2022-01-01',
+        validityEndISODate: '2040-12-31',
+      });
+
+      cy.wait('@gqlInsertStop').its('response.statusCode').should('equal', 200);
+
+      mapItemCreator.checkStopSubmitSuccess();
+
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      cy.getByTestId(
+        `Map::Stops::stopMarker::${testStopLabels[2]}_Standard`,
       ).should('exist');
     },
   );
