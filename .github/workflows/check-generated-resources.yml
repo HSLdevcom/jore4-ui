@@ -18,8 +18,10 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Set up docker dependencies (in the background)
-        run: ./start-dependencies.sh &
+      - name: Start e2e env
+        uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
+        with:
+          custom_docker_compose: ./docker/docker-compose.custom.yml
 
       - name: Install node_modules
         # making sure that we do have the proper set of node_modules installed regardless of what's cached
