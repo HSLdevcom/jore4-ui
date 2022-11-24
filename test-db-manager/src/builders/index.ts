@@ -1,2 +1,2 @@
-export * from './mutations';
 export * from './entities';
+export * from './mutations';

@@ -4,8 +4,8 @@ import {
   ReusableComponentsVehicleModeEnum,
   ServicePatternScheduledStopPointInsertInput,
   ServicePatternVehicleModeOnScheduledStopPointInsertInput,
-} from '../generated/graphql';
-import { Priority } from '../types';
+} from '../../generated/graphql';
+import { Priority } from '../../types';
 import { infrastructureLinks } from './infrastructureLinks';
 
 export const scheduledStopPoints: ServicePatternScheduledStopPointInsertInput[] =

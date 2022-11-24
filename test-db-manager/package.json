@@ -8,6 +8,7 @@
   "types": "dist/types/index.d.ts",
   "scripts": {
     "build": "yarn clean && yarn rollup --config rollup.config.js",
+    "seed": "node dist/seed.js",
     "clean": "rm -rf ts-dist && rm -rf dist && rm -f tsconfig.tsbuildinfo && rm -rf .rollup.cache",
     "ts:check": "yarn tsc --noEmit",
     "ts:build": "yarn tsc --build"
@@ -25,6 +26,7 @@
     "pg": "^8.7.3",
     "rollup": "^2.75.5",
     "rollup-plugin-dts": "^4.2.2",
+    "ts-node": "^10.9.1",
     "typescript": "^4.7.2"
   },
   "devDependencies": {

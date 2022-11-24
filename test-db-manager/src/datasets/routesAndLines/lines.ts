@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon';
-import { buildLine } from '../builders';
+import { buildLine } from '../../builders';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteLineInsertInput,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 
 export const lines: RouteLineInsertInput[] = [
   {

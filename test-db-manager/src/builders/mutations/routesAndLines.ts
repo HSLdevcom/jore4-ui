@@ -1,5 +1,4 @@
 import { gql } from 'graphql-tag';
-import { DocumentNode } from 'graphql/language/ast';
 import {
   InfrastructureNetworkInfrastructureLinkInsertInput,
   JourneyPatternJourneyPatternInsertInput,
@@ -9,11 +8,8 @@ import {
   RouteLineInsertInput,
   RouteRouteInsertInput,
   ServicePatternScheduledStopPointInsertInput,
-} from '../generated/graphql';
-
-const getGqlString = (doc: DocumentNode) => {
-  return doc.loc && doc.loc.source.body;
-};
+} from '../../generated/graphql';
+import { getGqlString } from './utils';
 
 const GQL_INSERT_LINES = gql`
   mutation InsertLines($objects: [route_line_insert_input!]!) {
