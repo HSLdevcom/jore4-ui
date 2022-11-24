@@ -1,4 +1,4 @@
-import { JourneyPatternInsertInput } from '../types';
+import { JourneyPatternInsertInput } from '../../types';
 import { routes } from './routes';
 
 export const journeyPatterns: JourneyPatternInsertInput[] = [

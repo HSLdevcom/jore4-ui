@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon';
-import { buildRoute } from '../builders';
+import { buildRoute } from '../../builders';
 import {
   RouteDirectionEnum,
   RouteInfrastructureLinkAlongRouteInsertInput,
   RouteRouteInsertInput,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import { infrastructureLinks } from './infrastructureLinks';
 import { lines } from './lines';
 

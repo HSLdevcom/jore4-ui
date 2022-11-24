@@ -3,14 +3,28 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
 
+const commonPlugins = [
+  nodeResolve(),
+  commonjs({
+    include: ['./index.js', /node_modules/],
+  }),
+  typescript({
+    tsconfig: './tsconfig.json',
+    compilerOptions: { declarationDir: './types' },
+  }),
+];
+
+// had to define cross-fetch as external to get rid of rollup build error.
+const commonExternals = ['cross-fetch', 'cross-fetch/polyfill'];
+
 /**
  * @type {import('rollup').RollupOptions}
  */
 const config = [
   {
     input: 'src/index.ts',
-    // had to define cross-fetch as external to get rid of rollup build error.
-    external: ['cross-fetch', 'cross-fetch/polyfill'],
+
+    external: commonExternals,
     output: [
       // es output from ts build (ts-dist) is needed for including
       // TS types (.d.ts files) to output
@@ -31,16 +45,19 @@ const config = [
         sourcemap: true,
       },
     ],
-    plugins: [
-      nodeResolve(),
-      commonjs({
-        include: ['./index.js', /node_modules/],
-      }),
-      typescript({
-        tsconfig: './tsconfig.json',
-        compilerOptions: { declarationDir: './types' },
-      }),
+    plugins: commonPlugins,
+  },
+  {
+    input: 'src/seed.ts',
+    external: commonExternals,
+    output: [
+      {
+        file: 'dist/seed.js',
+        format: 'cjs', // commonJS
+        sourcemap: true,
+      },
     ],
+    plugins: commonPlugins,
   },
   {
     input: './ts-dist/types/index.d.ts',

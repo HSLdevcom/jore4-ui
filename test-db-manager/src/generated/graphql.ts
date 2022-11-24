@@ -11711,3 +11711,355 @@ export type RemoveStopsInJourneyPatternMutation = {
     | null
     | undefined;
 };
+
+export type InsertTimetablesJourneyPatternRefMutationVariables = Exact<{
+  objects:
+    | Array<TimetablesJourneyPatternJourneyPatternRefInsertInput>
+    | TimetablesJourneyPatternJourneyPatternRefInsertInput;
+}>;
+
+export type InsertTimetablesJourneyPatternRefMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_insert_journey_pattern_journey_pattern_ref?:
+          | {
+              __typename?: 'timetables_journey_pattern_journey_pattern_ref_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+                journey_pattern_id: UUID;
+                journey_pattern_ref_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type RemoveTimetablesJourneyPatternRefsMutationVariables = Exact<{
+  journey_pattern_ref_ids: Array<Scalars['uuid']> | Scalars['uuid'];
+}>;
+
+export type RemoveTimetablesJourneyPatternRefsMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_delete_journey_pattern_journey_pattern_ref?:
+          | {
+              __typename?: 'timetables_journey_pattern_journey_pattern_ref_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+                journey_pattern_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type InsertStopInJourneyPatternRefMutationVariables = Exact<{
+  objects:
+    | Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefInsertInput>
+    | TimetablesServicePatternScheduledStopPointInJourneyPatternRefInsertInput;
+}>;
+
+export type InsertStopInJourneyPatternRefMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_insert_service_pattern_scheduled_stop_point_in_journey_pattern_ref?:
+          | {
+              __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
+                journey_pattern_ref_id: UUID;
+                scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type RemoveStopInJourneyPatternRefsMutationVariables = Exact<{
+  stop_ref_ids: Array<Scalars['uuid']> | Scalars['uuid'];
+}>;
+
+export type RemoveStopInJourneyPatternRefsMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_delete_service_pattern_scheduled_stop_point_in_journey_pattern_ref?:
+          | {
+              __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
+                scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type InsertVehicleScheduleFramesMutationVariables = Exact<{
+  objects:
+    | Array<TimetablesVehicleScheduleVehicleScheduleFrameInsertInput>
+    | TimetablesVehicleScheduleVehicleScheduleFrameInsertInput;
+}>;
+
+export type InsertVehicleScheduleFramesMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_insert_vehicle_schedule_vehicle_schedule_frame?:
+          | {
+              __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+                vehicle_schedule_frame_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type RemoveVehicleScheduleFramesMutationVariables = Exact<{
+  vehicle_schedule_frame_ids: Array<Scalars['uuid']> | Scalars['uuid'];
+}>;
+
+export type RemoveVehicleScheduleFramesMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_delete_vehicle_schedule_vehicle_schedule_frame?:
+          | {
+              __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+                vehicle_schedule_frame_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type InsertVehicleServicesMutationVariables = Exact<{
+  objects:
+    | Array<TimetablesVehicleServiceVehicleServiceInsertInput>
+    | TimetablesVehicleServiceVehicleServiceInsertInput;
+}>;
+
+export type InsertVehicleServicesMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_insert_vehicle_service_vehicle_service?:
+          | {
+              __typename?: 'timetables_vehicle_service_vehicle_service_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_vehicle_service_vehicle_service';
+                vehicle_service_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type RemoveVehicleServicesMutationVariables = Exact<{
+  vehicle_service_ids: Array<Scalars['uuid']> | Scalars['uuid'];
+}>;
+
+export type RemoveVehicleServicesMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_delete_vehicle_service_vehicle_service?:
+          | {
+              __typename?: 'timetables_vehicle_service_vehicle_service_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_vehicle_service_vehicle_service';
+                vehicle_service_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type InsertVehicleServiceBlocksMutationVariables = Exact<{
+  objects:
+    | Array<TimetablesVehicleServiceBlockInsertInput>
+    | TimetablesVehicleServiceBlockInsertInput;
+}>;
+
+export type InsertVehicleServiceBlocksMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_insert_vehicle_service_block?:
+          | {
+              __typename?: 'timetables_vehicle_service_block_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_vehicle_service_block';
+                block_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type RemoveVehicleServiceBlocksMutationVariables = Exact<{
+  block_ids: Array<Scalars['uuid']> | Scalars['uuid'];
+}>;
+
+export type RemoveVehicleServiceBlocksMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_delete_vehicle_service_block?:
+          | {
+              __typename?: 'timetables_vehicle_service_block_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_vehicle_service_block';
+                block_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type InsertVehicleJourneysMutationVariables = Exact<{
+  objects:
+    | Array<TimetablesVehicleJourneyVehicleJourneyInsertInput>
+    | TimetablesVehicleJourneyVehicleJourneyInsertInput;
+}>;
+
+export type InsertVehicleJourneysMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_insert_vehicle_journey_vehicle_journey?:
+          | {
+              __typename?: 'timetables_vehicle_journey_vehicle_journey_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_vehicle_journey_vehicle_journey';
+                vehicle_journey_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type DeleteVehicleJourneysMutationVariables = Exact<{
+  vehicle_journey_ids: Array<Scalars['uuid']> | Scalars['uuid'];
+}>;
+
+export type DeleteVehicleJourneysMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_delete_vehicle_journey_vehicle_journey?:
+          | {
+              __typename?: 'timetables_vehicle_journey_vehicle_journey_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_vehicle_journey_vehicle_journey';
+                vehicle_journey_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type InsertTimetabledPassingTimesMutationVariables = Exact<{
+  objects:
+    | Array<TimetablesPassingTimesTimetabledPassingTimeInsertInput>
+    | TimetablesPassingTimesTimetabledPassingTimeInsertInput;
+}>;
+
+export type InsertTimetabledPassingTimesMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_insert_passing_times_timetabled_passing_time?:
+          | {
+              __typename?: 'timetables_passing_times_timetabled_passing_time_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_passing_times_timetabled_passing_time';
+                timetabled_passing_time_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type DeleteTimetabledPassingTimesMutationVariables = Exact<{
+  timetabled_passing_time_ids: Array<Scalars['uuid']> | Scalars['uuid'];
+}>;
+
+export type DeleteTimetabledPassingTimesMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_delete_passing_times_timetabled_passing_time?:
+          | {
+              __typename?: 'timetables_passing_times_timetabled_passing_time_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_passing_times_timetabled_passing_time';
+                timetabled_passing_time_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};

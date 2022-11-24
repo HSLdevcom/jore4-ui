@@ -1,10 +1,10 @@
-import { VehicleSubmodeOnInfraLinkInsertInput } from '../builders';
+import { VehicleSubmodeOnInfraLinkInsertInput } from '../../builders';
 import {
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkExternalSourceEnum,
   InfrastructureNetworkInfrastructureLinkInsertInput,
   ReusableComponentsVehicleSubmodeEnum,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 
 // Note: These infra links don't actually exist, so they won't work in map matching.
 export const infrastructureLinks: InfrastructureNetworkInfrastructureLinkInsertInput[] =
