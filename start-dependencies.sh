@@ -4,21 +4,23 @@
 
 set -euo pipefail
 
+if ! command -v gh; then
+  echo "Please install the github gh tool on your machine."
+  exit 1
+fi
+
 # initialize package folder
-mkdir -p ./docker
+mkdir -p ./docker/update
 
 function download_docker_bundle {
-  # compare versions
-  GITHUB_VERSION=$(curl -L https://github.com/HSLdevcom/jore4-flux/releases/download/e2e-docker-compose/RELEASE_VERSION.txt --silent)
-  LOCAL_VERSION=$(cat ./docker/RELEASE_VERSION.txt || echo "unknown")
+  echo "Downloading latest version of E2E docker-compose package..."
+  gh auth status || gh auth login
 
-  # download latest version of the docker-compose package in case it has changed
-  if [ "$GITHUB_VERSION" != "$LOCAL_VERSION" ]; then
-    echo "E2E docker-compose package is not up to date, downloading a new version."
-    curl -L https://github.com/HSLdevcom/jore4-flux/releases/download/e2e-docker-compose/e2e-docker-compose.tar.gz --silent | tar -xzf - -C ./docker/
-  else
-    echo "E2E docker-compose package is up to date, no need to download new version."
-  fi
+  # gh cannot overwrite existing files, therefore first download into separate dir. This way we still have the old copy
+  # in case the download fails
+  rm -rf ./docker/update/*
+  gh release download e2e-docker-compose --repo HSLdevcom/jore4-flux --dir ./docker/update
+  cp -R ./docker/update/* ./docker
 }
 
 function check_pinned_hasura {
