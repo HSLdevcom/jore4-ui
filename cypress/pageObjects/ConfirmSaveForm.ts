@@ -20,13 +20,14 @@ export class ConfirmSaveForm {
       .type(isoDate);
   }
 
+  getEndDateInput() {
+    return cy.getByTestId('ConfirmSaveForm::endDateInput');
+  }
+
   setEndDate(isoDate: string) {
     // This invoke is a workaround to
     // prevent map from zooming out when typing '-' value to the date input
-    return cy
-      .getByTestId('ConfirmSaveForm::endDateInput')
-      .invoke('removeAttr', 'type')
-      .type(isoDate);
+    return this.getEndDateInput().invoke('removeAttr', 'type').type(isoDate);
   }
 
   getIndefiniteCheckbox() {
