@@ -7,6 +7,7 @@ import { RouteFormInfo, RoutePropertiesForm } from './RoutePropertiesForm';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopForm, StopFormInfo } from './StopForm';
 import { TerminusNameInputs } from './TerminusNameInputs';
+import { Toast } from './Toast';
 
 export class MapItemCreator {
   map = new Map();
@@ -25,6 +26,8 @@ export class MapItemCreator {
 
   editRouteModal = new EditRouteModal();
 
+  toast = new Toast();
+
   setPriority = (priority: Priority) => {
     switch (priority) {
       case Priority.Draft:
@@ -41,9 +44,12 @@ export class MapItemCreator {
   };
 
   setEndDate = (isoDate?: string) => {
-    isoDate
-      ? this.confirmSaveForm.setEndDate(isoDate)
-      : this.confirmSaveForm.setAsIndefinite();
+    if (isoDate) {
+      this.confirmSaveForm.setAsIndefinite(false);
+      this.confirmSaveForm.setEndDate(isoDate);
+    } else {
+      this.confirmSaveForm.setAsIndefinite();
+    }
   };
 
   /**
@@ -171,4 +177,19 @@ export class MapItemCreator {
 
     this.mapFooter.save();
   };
+
+  checkStopSubmitSuccessToast() {
+    this.toast.checkSuccessToastHasMessage('Pysäkki luotu');
+  }
+
+  checkStopSubmitFailureToast() {
+    this.toast.checkDangerToastHasMessage('Tallennus epäonnistui');
+  }
+
+  gqlStopShouldBeCreatedSuccessfully() {
+    return cy
+      .wait('@gqlInsertStop')
+      .its('response.statusCode')
+      .should('equal', 200);
+  }
 }
