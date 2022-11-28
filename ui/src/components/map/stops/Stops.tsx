@@ -71,6 +71,8 @@ export const Stops = React.forwardRef((props, ref) => {
 
   const { setIsLoading } = useLoader(Operation.FetchStops);
 
+  const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
+
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
 
   const viewport = useAppSelector(selectMapViewport);
@@ -139,6 +141,7 @@ export const Stops = React.forwardRef((props, ref) => {
     // the newly created stop should become a regular stop from a draft
     // also, the recently edited stop's data is refetched
     await stopsResult.refetch();
+    setIsLoadingSaveStop(false);
   };
 
   return (

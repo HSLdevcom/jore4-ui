@@ -201,7 +201,6 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
       } catch (err) {
         defaultErrorHandler(err as Error);
       }
-      setIsLoadingSaveStop(false);
     };
 
     const doEditStop = async (changes: EditChanges) => {
@@ -227,7 +226,6 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
         defaultErrorHandler(err as Error);
       }
       dispatch(setIsMoveStopModeEnabledAction(false));
-      setIsLoadingSaveStop(false);
     };
 
     // we are removing stop that is already stored to backend
