@@ -71,4 +71,8 @@ export class Map {
     }
     return cy.visit('/routes?mapOpen=true');
   }
+
+  getLoader() {
+    return cy.getByTestId('MapLoader::loader');
+  }
 }

@@ -145,15 +145,7 @@ describe('Stop editing tests', () => {
 
       toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
-      // Workaround to get the updated coordinates to show in the stop edit modal.
-      // TODO: Find a better way to make the coordinates update faster in the modal.
-      map.visit({
-        zoom: 15,
-        lat: testCoordinates1.lat,
-        lng: testCoordinates1.lng,
-      });
-
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      map.getLoader().should('not.exist');
 
       map.getStopByStopLabel(stops[0].label).click();
 
