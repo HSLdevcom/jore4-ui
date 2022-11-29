@@ -241,7 +241,8 @@
     "draft": "Draft",
     "highestPriorityCurrent": "Show situation on the selected date",
     "observationDate": "Observation date",
-    "observationDateAdjusted": "Observation date adjusted"
+    "observationDateAdjusted": "Observation date adjusted",
+    "stopFiltersAdjusted": "Stop filters adjusted"
   },
   "search": {
     "advancedSearchTitle": "Advanced search",

@@ -15,6 +15,7 @@ import {
   isCurrentEntity,
   isFutureEntity,
   isPastEntity,
+  showWarningToast,
 } from '../../utils';
 import { useAppDispatch, useAppSelector } from '../redux';
 import { useObservationDateQueryParam } from '../urlQuery';
@@ -217,6 +218,44 @@ export const useFilterStops = () => {
     dispatch(setShowStopFilterOverlayAction(!showStopFilterOverlay));
   }, [dispatch, showStopFilterOverlay]);
 
+  const mapPriorityToFilterType = (priority: Priority) => {
+    switch (priority) {
+      case Priority.Standard:
+        return FilterType.ShowStandardStops;
+      case Priority.Temporary:
+        return FilterType.ShowTemporaryStops;
+      case Priority.Draft:
+      default:
+        return FilterType.ShowDraftStops;
+    }
+  };
+
+  /**
+   * If the given priority stops are currently being filtered out from the view
+   * -> adjust the priority filters so that the given priority stops are shown and
+   * also deactivate the 'showHighestPriorityCurrentStops' filter.
+   * -> Show the user toast message about the adjustment.
+   */
+  const updateStopPriorityFilterIfNeeded = (priority: Priority) => {
+    const filterType = mapPriorityToFilterType(priority);
+
+    if (!stopFilters[filterType]) {
+      dispatch(
+        setStopFilterAction({
+          filterType,
+          isActive: true,
+        }),
+      );
+      dispatch(
+        setStopFilterAction({
+          filterType: FilterType.ShowHighestPriorityCurrentStops,
+          isActive: false,
+        }),
+      );
+      showWarningToast(t('filters.stopFiltersAdjusted'));
+    }
+  };
+
   return {
     filter,
     timeBasedFilterItems,
@@ -225,5 +264,6 @@ export const useFilterStops = () => {
     toggleShowFilters,
     toggleFunction,
     isFilterActive,
+    updateStopPriorityFilterIfNeeded,
   };
 };
