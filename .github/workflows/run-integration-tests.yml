@@ -20,6 +20,8 @@ jobs:
 
       - name: start e2e env
         uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
+        with:
+          hasura_version: hsldevcom/jore4-hasura:hsl-route-variant--20221205-80124dbf77e777b4029aa8ee5fd1b84fa0fb3e1a
 
       - name: Build test db manager module
         run: yarn ws:db build

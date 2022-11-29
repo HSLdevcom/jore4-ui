@@ -9721,6 +9721,200 @@
             "deprecationReason": null
           },
           {
+            "name": "journey_pattern_refs",
+            "description": null,
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "timetables_journey_pattern_journey_pattern_ref_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "timetables_journey_pattern_journey_pattern_ref_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_journey_pattern_journey_pattern_ref_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "timetables_journey_pattern_journey_pattern_ref",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_pattern_refs_aggregate",
+            "description": null,
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "timetables_journey_pattern_journey_pattern_ref_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "timetables_journey_pattern_journey_pattern_ref_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_journey_pattern_journey_pattern_ref_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "timetables_journey_pattern_journey_pattern_ref_aggregate",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "journey_pattern_route",
             "description": "An object relationship",
             "args": [],
@@ -14556,7 +14750,7 @@
             "args": [
               {
                 "name": "route_id",
-                "description": null,
+                "description": "The ID of the route.",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -14672,7 +14866,7 @@
             "args": [
               {
                 "name": "scheduled_stop_point_id",
-                "description": null,
+                "description": "The ID of the scheduled stop point.",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -22744,7 +22938,7 @@
             "args": [
               {
                 "name": "route_id",
-                "description": null,
+                "description": "The ID of the route.",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -23190,7 +23384,7 @@
             "args": [
               {
                 "name": "scheduled_stop_point_id",
-                "description": null,
+                "description": "The ID of the scheduled stop point.",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -32200,11 +32394,11 @@
       {
         "kind": "OBJECT",
         "name": "route_route",
-        "description": "columns and relationships of \"route.route\"",
+        "description": "The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483",
         "fields": [
           {
             "name": "description_i18n",
-            "description": null,
+            "description": "The description of the route in the form of starting location - destination. Placeholder for multilingual strings.",
             "args": [
               {
                 "name": "path",
@@ -32287,7 +32481,7 @@
           },
           {
             "name": "direction",
-            "description": null,
+            "description": "The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -32497,7 +32691,7 @@
           },
           {
             "name": "label",
-            "description": null,
+            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -32542,7 +32736,7 @@
           },
           {
             "name": "on_line_id",
-            "description": null,
+            "description": "The line to which this route belongs.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -32616,7 +32810,7 @@
           },
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -32632,7 +32826,7 @@
           },
           {
             "name": "route_id",
-            "description": null,
+            "description": "The ID of the route.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -32870,7 +33064,7 @@
           },
           {
             "name": "validity_end",
-            "description": null,
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -32882,11 +33076,23 @@
           },
           {
             "name": "validity_start",
-            "description": null,
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "date",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
               "ofType": null
             },
             "isDeprecated": false,
@@ -33276,7 +33482,7 @@
         "inputFields": [
           {
             "name": "description_i18n",
-            "description": null,
+            "description": "The description of the route in the form of starting location - destination. Placeholder for multilingual strings.",
             "type": {
               "kind": "SCALAR",
               "name": "jsonb",
@@ -33405,7 +33611,19 @@
         "fields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -33429,7 +33647,19 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -33705,6 +33935,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "smallint_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -33736,7 +33978,7 @@
         "inputFields": [
           {
             "name": "description_i18n",
-            "description": null,
+            "description": "The description of the route in the form of starting location - destination. Placeholder for multilingual strings.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -33867,7 +34109,7 @@
         "inputFields": [
           {
             "name": "description_i18n",
-            "description": null,
+            "description": "The description of the route in the form of starting location - destination. Placeholder for multilingual strings.",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -33950,7 +34192,7 @@
         "inputFields": [
           {
             "name": "description_i18n",
-            "description": null,
+            "description": "The description of the route in the form of starting location - destination. Placeholder for multilingual strings.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -34033,10 +34275,22 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
               "ofType": null
             },
             "defaultValue": null,
@@ -34056,7 +34310,7 @@
         "inputFields": [
           {
             "name": "description_i18n",
-            "description": null,
+            "description": "The description of the route in the form of starting location - destination. Placeholder for multilingual strings.",
             "type": {
               "kind": "SCALAR",
               "name": "localized_string",
@@ -34100,7 +34354,7 @@
           },
           {
             "name": "direction",
-            "description": null,
+            "description": "The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "route_direction_enum",
@@ -34124,7 +34378,7 @@
           },
           {
             "name": "label",
-            "description": null,
+            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -34156,7 +34410,7 @@
           },
           {
             "name": "on_line_id",
-            "description": null,
+            "description": "The line to which this route belongs.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -34200,7 +34454,7 @@
           },
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -34212,7 +34466,7 @@
           },
           {
             "name": "route_id",
-            "description": null,
+            "description": "The ID of the route.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -34248,7 +34502,7 @@
           },
           {
             "name": "validity_end",
-            "description": null,
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -34260,10 +34514,22 @@
           },
           {
             "name": "validity_start",
-            "description": null,
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
               "ofType": null
             },
             "defaultValue": null,
@@ -34282,7 +34548,7 @@
         "fields": [
           {
             "name": "label",
-            "description": null,
+            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -34294,7 +34560,7 @@
           },
           {
             "name": "on_line_id",
-            "description": null,
+            "description": "The line to which this route belongs.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -34306,7 +34572,7 @@
           },
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -34318,7 +34584,7 @@
           },
           {
             "name": "route_id",
-            "description": null,
+            "description": "The ID of the route.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -34330,7 +34596,7 @@
           },
           {
             "name": "validity_end",
-            "description": null,
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -34342,11 +34608,23 @@
           },
           {
             "name": "validity_start",
-            "description": null,
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "date",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
               "ofType": null
             },
             "isDeprecated": false,
@@ -34366,7 +34644,7 @@
         "inputFields": [
           {
             "name": "label",
-            "description": null,
+            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -34378,7 +34656,7 @@
           },
           {
             "name": "on_line_id",
-            "description": null,
+            "description": "The line to which this route belongs.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -34390,7 +34668,7 @@
           },
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -34402,7 +34680,7 @@
           },
           {
             "name": "route_id",
-            "description": null,
+            "description": "The ID of the route.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -34414,7 +34692,7 @@
           },
           {
             "name": "validity_end",
-            "description": null,
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -34426,7 +34704,19 @@
           },
           {
             "name": "validity_start",
-            "description": null,
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -34448,7 +34738,7 @@
         "fields": [
           {
             "name": "label",
-            "description": null,
+            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -34460,7 +34750,7 @@
           },
           {
             "name": "on_line_id",
-            "description": null,
+            "description": "The line to which this route belongs.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -34472,7 +34762,7 @@
           },
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -34484,7 +34774,7 @@
           },
           {
             "name": "route_id",
-            "description": null,
+            "description": "The ID of the route.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -34496,7 +34786,7 @@
           },
           {
             "name": "validity_end",
-            "description": null,
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -34508,11 +34798,23 @@
           },
           {
             "name": "validity_start",
-            "description": null,
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "date",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
               "ofType": null
             },
             "isDeprecated": false,
@@ -34532,7 +34834,7 @@
         "inputFields": [
           {
             "name": "label",
-            "description": null,
+            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -34544,7 +34846,7 @@
           },
           {
             "name": "on_line_id",
-            "description": null,
+            "description": "The line to which this route belongs.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -34556,7 +34858,7 @@
           },
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -34568,7 +34870,7 @@
           },
           {
             "name": "route_id",
-            "description": null,
+            "description": "The ID of the route.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -34580,7 +34882,7 @@
           },
           {
             "name": "validity_end",
-            "description": null,
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -34592,7 +34894,19 @@
           },
           {
             "name": "validity_start",
-            "description": null,
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -34969,6 +35283,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -34983,7 +35309,7 @@
         "inputFields": [
           {
             "name": "route_id",
-            "description": null,
+            "description": "The ID of the route.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -35010,7 +35336,7 @@
         "inputFields": [
           {
             "name": "description_i18n",
-            "description": null,
+            "description": "The description of the route in the form of starting location - destination. Placeholder for multilingual strings.",
             "type": {
               "kind": "SCALAR",
               "name": "jsonb",
@@ -35170,6 +35496,12 @@
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "possibleTypes": null
@@ -35182,7 +35514,7 @@
         "inputFields": [
           {
             "name": "description_i18n",
-            "description": null,
+            "description": "The description of the route in the form of starting location - destination. Placeholder for multilingual strings.",
             "type": {
               "kind": "SCALAR",
               "name": "localized_string",
@@ -35218,7 +35550,7 @@
           },
           {
             "name": "direction",
-            "description": null,
+            "description": "The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "route_direction_enum",
@@ -35230,7 +35562,7 @@
           },
           {
             "name": "label",
-            "description": null,
+            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -35254,7 +35586,7 @@
           },
           {
             "name": "on_line_id",
-            "description": null,
+            "description": "The line to which this route belongs.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -35290,7 +35622,7 @@
           },
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -35302,7 +35634,7 @@
           },
           {
             "name": "route_id",
-            "description": null,
+            "description": "The ID of the route.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -35314,7 +35646,7 @@
           },
           {
             "name": "validity_end",
-            "description": null,
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -35326,10 +35658,22 @@
           },
           {
             "name": "validity_start",
-            "description": null,
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
               "ofType": null
             },
             "defaultValue": null,
@@ -35348,7 +35692,19 @@
         "fields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -35372,7 +35728,19 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -35394,7 +35762,19 @@
         "fields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -35418,7 +35798,19 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -35440,7 +35832,19 @@
         "fields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -35464,7 +35868,19 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -35526,7 +35942,7 @@
         "inputFields": [
           {
             "name": "description_i18n",
-            "description": null,
+            "description": "The description of the route in the form of starting location - destination. Placeholder for multilingual strings.",
             "type": {
               "kind": "SCALAR",
               "name": "jsonb",
@@ -35562,7 +35978,7 @@
           },
           {
             "name": "direction",
-            "description": null,
+            "description": "The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "route_direction_enum",
@@ -35574,7 +35990,7 @@
           },
           {
             "name": "label",
-            "description": null,
+            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -35598,7 +36014,7 @@
           },
           {
             "name": "on_line_id",
-            "description": null,
+            "description": "The line to which this route belongs.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -35634,7 +36050,7 @@
           },
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -35646,7 +36062,7 @@
           },
           {
             "name": "route_id",
-            "description": null,
+            "description": "The ID of the route.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -35658,7 +36074,7 @@
           },
           {
             "name": "validity_end",
-            "description": null,
+            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -35670,10 +36086,22 @@
           },
           {
             "name": "validity_start",
-            "description": null,
+            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
               "ofType": null
             },
             "defaultValue": null,
@@ -35692,11 +36120,23 @@
         "fields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
               "ofType": null
             },
             "isDeprecated": false,
@@ -35716,7 +36156,19 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -35813,6 +36265,12 @@
           },
           {
             "name": "validity_start",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -35938,7 +36396,19 @@
         "fields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -35962,7 +36432,19 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -35984,7 +36466,19 @@
         "fields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -36008,7 +36502,19 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -36030,7 +36536,19 @@
         "fields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -36054,7 +36572,19 @@
         "inputFields": [
           {
             "name": "priority",
-            "description": null,
+            "description": "The priority of the route definition. The definition may be overridden by higher priority definitions.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -37286,11 +37816,11 @@
       {
         "kind": "OBJECT",
         "name": "service_pattern_scheduled_stop_point",
-        "description": "columns and relationships of \"service_pattern.scheduled_stop_point\"",
+        "description": "The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning.",
         "fields": [
           {
             "name": "closest_point_on_infrastructure_link",
-            "description": "A computed field, executes function \"service_pattern.scheduled_stop_point_closest_point_on_infrastructure_link\"",
+            "description": "The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -37302,7 +37832,7 @@
           },
           {
             "name": "direction",
-            "description": null,
+            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -37318,7 +37848,7 @@
           },
           {
             "name": "label",
-            "description": null,
+            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -37350,7 +37880,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": null,
+            "description": "The infrastructure link on which the stop is located.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -37366,7 +37896,7 @@
           },
           {
             "name": "measured_location",
-            "description": null,
+            "description": "The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -37592,7 +38122,7 @@
           },
           {
             "name": "relative_distance_from_infrastructure_link",
-            "description": "A computed field, executes function \"service_pattern.scheduled_stop_point_relative_distance_from_infrastructure_link\"",
+            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -37608,7 +38138,7 @@
           },
           {
             "name": "scheduled_stop_point_id",
-            "description": null,
+            "description": "The ID of the scheduled stop point.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -38830,7 +39360,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": null,
+            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -38846,7 +39376,7 @@
           },
           {
             "name": "label",
-            "description": null,
+            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -38874,7 +39404,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": null,
+            "description": "The infrastructure link on which the stop is located.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -38890,7 +39420,7 @@
           },
           {
             "name": "measured_location",
-            "description": null,
+            "description": "The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -38934,7 +39464,7 @@
           },
           {
             "name": "scheduled_stop_point_id",
-            "description": null,
+            "description": "The ID of the scheduled stop point.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -39028,7 +39558,7 @@
         "fields": [
           {
             "name": "label",
-            "description": null,
+            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39040,7 +39570,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": null,
+            "description": "The infrastructure link on which the stop is located.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39064,7 +39594,7 @@
           },
           {
             "name": "scheduled_stop_point_id",
-            "description": null,
+            "description": "The ID of the scheduled stop point.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39124,7 +39654,7 @@
         "inputFields": [
           {
             "name": "label",
-            "description": null,
+            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39136,7 +39666,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": null,
+            "description": "The infrastructure link on which the stop is located.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39160,7 +39690,7 @@
           },
           {
             "name": "scheduled_stop_point_id",
-            "description": null,
+            "description": "The ID of the scheduled stop point.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39218,7 +39748,7 @@
         "fields": [
           {
             "name": "label",
-            "description": null,
+            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39230,7 +39760,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": null,
+            "description": "The infrastructure link on which the stop is located.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39254,7 +39784,7 @@
           },
           {
             "name": "scheduled_stop_point_id",
-            "description": null,
+            "description": "The ID of the scheduled stop point.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39314,7 +39844,7 @@
         "inputFields": [
           {
             "name": "label",
-            "description": null,
+            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39326,7 +39856,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": null,
+            "description": "The infrastructure link on which the stop is located.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39350,7 +39880,7 @@
           },
           {
             "name": "scheduled_stop_point_id",
-            "description": null,
+            "description": "The ID of the scheduled stop point.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39726,7 +40256,7 @@
         "inputFields": [
           {
             "name": "scheduled_stop_point_id",
-            "description": null,
+            "description": "The ID of the scheduled stop point.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -39818,7 +40348,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": null,
+            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
             "type": {
               "kind": "ENUM",
               "name": "infrastructure_network_direction_enum",
@@ -39830,7 +40360,7 @@
           },
           {
             "name": "label",
-            "description": null,
+            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -39842,7 +40372,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": null,
+            "description": "The infrastructure link on which the stop is located.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -39854,7 +40384,7 @@
           },
           {
             "name": "measured_location",
-            "description": null,
+            "description": "The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326.",
             "type": {
               "kind": "SCALAR",
               "name": "geography_point",
@@ -39878,7 +40408,7 @@
           },
           {
             "name": "scheduled_stop_point_id",
-            "description": null,
+            "description": "The ID of the scheduled stop point.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -40114,7 +40644,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": null,
+            "description": "The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string.",
             "type": {
               "kind": "ENUM",
               "name": "infrastructure_network_direction_enum",
@@ -40126,7 +40656,7 @@
           },
           {
             "name": "label",
-            "description": null,
+            "description": "The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -40138,7 +40668,7 @@
           },
           {
             "name": "located_on_infrastructure_link_id",
-            "description": null,
+            "description": "The infrastructure link on which the stop is located.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -40150,7 +40680,7 @@
           },
           {
             "name": "measured_location",
-            "description": null,
+            "description": "The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326.",
             "type": {
               "kind": "SCALAR",
               "name": "geography",
@@ -40174,7 +40704,7 @@
           },
           {
             "name": "scheduled_stop_point_id",
-            "description": null,
+            "description": "The ID of the scheduled stop point.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -41399,6 +41929,151 @@
                 "kind": "INPUT_OBJECT",
                 "name": "service_pattern_vehicle_mode_on_scheduled_stop_point_bool_exp",
                 "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "smallint",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "smallint_comparison_exp",
+        "description": "Boolean expression to compare columns of type \"smallint\". All fields are combined with logical 'AND'.",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "_eq",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_gt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_gte",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_in",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "smallint",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_is_null",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_lt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_lte",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_neq",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "smallint",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_nin",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "smallint",
+                  "ofType": null
+                }
               }
             },
             "defaultValue": null,
@@ -45991,7 +46666,7 @@
             "args": [
               {
                 "name": "route_id",
-                "description": null,
+                "description": "The ID of the route.",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -46583,7 +47258,7 @@
             "args": [
               {
                 "name": "scheduled_stop_point_id",
-                "description": null,
+                "description": "The ID of the scheduled stop point.",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -52670,14 +53345,14 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "day_type_label_key",
-            "description": "unique or primary key constraint on columns \"label\"",
+            "name": "day_type_pkey",
+            "description": "unique or primary key constraint on columns \"day_type_id\"",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "day_type_pkey",
-            "description": "unique or primary key constraint on columns \"day_type_id\"",
+            "name": "service_calendar_day_type_label_idx",
+            "description": "unique or primary key constraint on columns \"label\"",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -54358,14 +55033,14 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "scheduled_stop_point_in_journ_journey_pattern_ref_id_schedu_key",
-            "description": "unique or primary key constraint on columns \"scheduled_stop_point_sequence\", \"journey_pattern_ref_id\"",
+            "name": "scheduled_stop_point_in_journey_pattern_ref_pkey",
+            "description": "unique or primary key constraint on columns \"scheduled_stop_point_in_journey_pattern_ref_id\"",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "scheduled_stop_point_in_journey_pattern_ref_pkey",
-            "description": "unique or primary key constraint on columns \"scheduled_stop_point_in_journey_pattern_ref_id\"",
+            "name": "service_pattern_scheduled_stop_point_in_journey_pattern_ref_idx",
+            "description": "unique or primary key constraint on columns \"scheduled_stop_point_sequence\", \"journey_pattern_ref_id\"",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -69623,7 +70298,7 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "timing_place_label_key",
+            "name": "timing_place_label_idx",
             "description": "unique or primary key constraint on columns \"label\"",
             "isDeprecated": false,
             "deprecationReason": null

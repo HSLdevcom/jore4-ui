@@ -25,6 +25,7 @@ export type Scalars = {
   interval: luxon.Duration;
   jsonb: any;
   localized_string: LocalizedString;
+  smallint: number;
   timestamptz: luxon.DateTime;
   uuid: UUID;
 };
@@ -1431,6 +1432,8 @@ export type JourneyPatternJourneyPattern = {
   __typename?: 'journey_pattern_journey_pattern';
   /** The ID of the journey pattern. */
   journey_pattern_id: Scalars['uuid'];
+  journey_pattern_refs: Array<TimetablesJourneyPatternJourneyPatternRef>;
+  journey_pattern_refs_aggregate: TimetablesJourneyPatternJourneyPatternRefAggregate;
   /** An object relationship */
   journey_pattern_route?: Maybe<RouteRoute>;
   /** The ID of the route the journey pattern is on. */
@@ -1439,6 +1442,28 @@ export type JourneyPatternJourneyPattern = {
   scheduled_stop_point_in_journey_patterns: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** An aggregate relationship */
   scheduled_stop_point_in_journey_patterns_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
+};
+
+/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+export type JourneyPatternJourneyPatternJourneyPatternRefsArgs = {
+  distinct_on?: Maybe<
+    Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
+  >;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>>;
+  where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+};
+
+/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+export type JourneyPatternJourneyPatternJourneyPatternRefsAggregateArgs = {
+  distinct_on?: Maybe<
+    Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
+  >;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>>;
+  where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
 };
 
 /** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
@@ -5260,23 +5285,29 @@ export type RouteLineVarianceOrderBy = {
   priority?: Maybe<OrderBy>;
 };
 
-/** columns and relationships of "route.route" */
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRoute = {
   __typename?: 'route_route';
+  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['localized_string']>;
   destination_name_i18n: Scalars['localized_string'];
   destination_short_name_i18n: Scalars['localized_string'];
+  /** The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
   direction: RouteDirectionEnum;
   /** An array relationship */
   infrastructure_links_along_route: Array<RouteInfrastructureLinkAlongRoute>;
   /** An aggregate relationship */
   infrastructure_links_along_route_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
+  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
   label: Scalars['String'];
   name_i18n: Scalars['localized_string'];
+  /** The line to which this route belongs. */
   on_line_id: Scalars['uuid'];
   origin_name_i18n: Scalars['localized_string'];
   origin_short_name_i18n: Scalars['localized_string'];
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority: Scalars['Int'];
+  /** The ID of the route. */
   route_id: Scalars['uuid'];
   /** An array relationship */
   route_journey_patterns: Array<JourneyPatternJourneyPattern>;
@@ -5286,26 +5317,30 @@ export type RouteRoute = {
   route_line: RouteLine;
   /** A computed field, executes function "route.route_shape" */
   route_shape?: Maybe<Scalars['geography_linestring']>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['smallint']>;
 };
 
-/** columns and relationships of "route.route" */
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteDescriptionI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
 
-/** columns and relationships of "route.route" */
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteDestinationNameI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
 
-/** columns and relationships of "route.route" */
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteDestinationShortNameI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
 
-/** columns and relationships of "route.route" */
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteInfrastructureLinksAlongRouteArgs = {
   distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -5314,7 +5349,7 @@ export type RouteRouteInfrastructureLinksAlongRouteArgs = {
   where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
-/** columns and relationships of "route.route" */
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteInfrastructureLinksAlongRouteAggregateArgs = {
   distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -5323,22 +5358,22 @@ export type RouteRouteInfrastructureLinksAlongRouteAggregateArgs = {
   where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
-/** columns and relationships of "route.route" */
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteNameI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
 
-/** columns and relationships of "route.route" */
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteOriginNameI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
 
-/** columns and relationships of "route.route" */
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteOriginShortNameI18nArgs = {
   path?: Maybe<Scalars['String']>;
 };
 
-/** columns and relationships of "route.route" */
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteRouteJourneyPatternsArgs = {
   distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -5347,7 +5382,7 @@ export type RouteRouteRouteJourneyPatternsArgs = {
   where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
-/** columns and relationships of "route.route" */
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteRouteJourneyPatternsAggregateArgs = {
   distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -5402,6 +5437,7 @@ export type RouteRouteAggregateOrderBy = {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type RouteRouteAppendInput = {
+  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['jsonb']>;
   destination_name_i18n?: Maybe<Scalars['jsonb']>;
   destination_short_name_i18n?: Maybe<Scalars['jsonb']>;
@@ -5420,12 +5456,18 @@ export type RouteRouteArrRelInsertInput = {
 /** aggregate avg on columns */
 export type RouteRouteAvgFields = {
   __typename?: 'route_route_avg_fields';
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['Float']>;
 };
 
 /** order by avg() on columns of table "route.route" */
 export type RouteRouteAvgOrderBy = {
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "route.route". All fields are combined with a logical 'AND'. */
@@ -5450,6 +5492,7 @@ export type RouteRouteBoolExp = {
   route_shape?: Maybe<GeographyComparisonExp>;
   validity_end?: Maybe<DateComparisonExp>;
   validity_start?: Maybe<DateComparisonExp>;
+  variant?: Maybe<SmallintComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.route" */
@@ -5460,6 +5503,7 @@ export enum RouteRouteConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type RouteRouteDeleteAtPathInput = {
+  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Array<Scalars['String']>>;
   destination_name_i18n?: Maybe<Array<Scalars['String']>>;
   destination_short_name_i18n?: Maybe<Array<Scalars['String']>>;
@@ -5470,6 +5514,7 @@ export type RouteRouteDeleteAtPathInput = {
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type RouteRouteDeleteElemInput = {
+  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['Int']>;
   destination_name_i18n?: Maybe<Scalars['Int']>;
   destination_short_name_i18n?: Maybe<Scalars['Int']>;
@@ -5480,6 +5525,7 @@ export type RouteRouteDeleteElemInput = {
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type RouteRouteDeleteKeyInput = {
+  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['String']>;
   destination_name_i18n?: Maybe<Scalars['String']>;
   destination_short_name_i18n?: Maybe<Scalars['String']>;
@@ -5490,69 +5536,114 @@ export type RouteRouteDeleteKeyInput = {
 
 /** input type for incrementing numeric columns in table "route.route" */
 export type RouteRouteIncInput = {
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['smallint']>;
 };
 
 /** input type for inserting data into table "route.route" */
 export type RouteRouteInsertInput = {
+  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['localized_string']>;
   destination_name_i18n: Scalars['localized_string'];
   destination_short_name_i18n: Scalars['localized_string'];
+  /** The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
   direction?: Maybe<RouteDirectionEnum>;
   infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
+  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
   label: Scalars['String'];
   name_i18n: Scalars['localized_string'];
+  /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
   origin_name_i18n: Scalars['localized_string'];
   origin_short_name_i18n: Scalars['localized_string'];
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
+  /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
   route_journey_patterns?: Maybe<JourneyPatternJourneyPatternArrRelInsertInput>;
   route_line?: Maybe<RouteLineObjRelInsertInput>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['smallint']>;
 };
 
 /** aggregate max on columns */
 export type RouteRouteMaxFields = {
   __typename?: 'route_route_max_fields';
+  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']>;
+  /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
+  /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['smallint']>;
 };
 
 /** order by max() on columns of table "route.route" */
 export type RouteRouteMaxOrderBy = {
+  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
   label?: Maybe<OrderBy>;
+  /** The line to which this route belongs. */
   on_line_id?: Maybe<OrderBy>;
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
+  /** The ID of the route. */
   route_id?: Maybe<OrderBy>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<OrderBy>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<OrderBy>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type RouteRouteMinFields = {
   __typename?: 'route_route_min_fields';
+  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']>;
+  /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
+  /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['smallint']>;
 };
 
 /** order by min() on columns of table "route.route" */
 export type RouteRouteMinOrderBy = {
+  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
   label?: Maybe<OrderBy>;
+  /** The line to which this route belongs. */
   on_line_id?: Maybe<OrderBy>;
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
+  /** The ID of the route. */
   route_id?: Maybe<OrderBy>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<OrderBy>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<OrderBy>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<OrderBy>;
 };
 
 /** response of any mutation on the table "route.route" */
@@ -5597,15 +5688,18 @@ export type RouteRouteOrderBy = {
   route_shape?: Maybe<OrderBy>;
   validity_end?: Maybe<OrderBy>;
   validity_start?: Maybe<OrderBy>;
+  variant?: Maybe<OrderBy>;
 };
 
 /** primary key columns input for table: route.route */
 export type RouteRoutePkColumnsInput = {
+  /** The ID of the route. */
   route_id: Scalars['uuid'];
 };
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type RouteRoutePrependInput = {
+  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['jsonb']>;
   destination_name_i18n?: Maybe<Scalars['jsonb']>;
   destination_short_name_i18n?: Maybe<Scalars['jsonb']>;
@@ -5642,56 +5736,86 @@ export enum RouteRouteSelectColumn {
   ValidityEnd = 'validity_end',
   /** column name */
   ValidityStart = 'validity_start',
+  /** column name */
+  Variant = 'variant',
 }
 
 /** input type for updating data in table "route.route" */
 export type RouteRouteSetInput = {
+  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['localized_string']>;
   destination_name_i18n?: Maybe<Scalars['localized_string']>;
   destination_short_name_i18n?: Maybe<Scalars['localized_string']>;
+  /** The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
   direction?: Maybe<RouteDirectionEnum>;
+  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']>;
   name_i18n?: Maybe<Scalars['localized_string']>;
+  /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
   origin_name_i18n?: Maybe<Scalars['localized_string']>;
   origin_short_name_i18n?: Maybe<Scalars['localized_string']>;
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
+  /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['smallint']>;
 };
 
 /** aggregate stddev on columns */
 export type RouteRouteStddevFields = {
   __typename?: 'route_route_stddev_fields';
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev() on columns of table "route.route" */
 export type RouteRouteStddevOrderBy = {
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type RouteRouteStddevPopFields = {
   __typename?: 'route_route_stddev_pop_fields';
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_pop() on columns of table "route.route" */
 export type RouteRouteStddevPopOrderBy = {
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type RouteRouteStddevSampFields = {
   __typename?: 'route_route_stddev_samp_fields';
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_samp() on columns of table "route.route" */
 export type RouteRouteStddevSampOrderBy = {
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "route_route" */
@@ -5704,30 +5828,46 @@ export type RouteRouteStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RouteRouteStreamCursorValueInput = {
+  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['jsonb']>;
   destination_name_i18n?: Maybe<Scalars['jsonb']>;
   destination_short_name_i18n?: Maybe<Scalars['jsonb']>;
+  /** The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
   direction?: Maybe<RouteDirectionEnum>;
+  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']>;
   name_i18n?: Maybe<Scalars['jsonb']>;
+  /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
   origin_name_i18n?: Maybe<Scalars['jsonb']>;
   origin_short_name_i18n?: Maybe<Scalars['jsonb']>;
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
+  /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
+  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
+  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['smallint']>;
 };
 
 /** aggregate sum on columns */
 export type RouteRouteSumFields = {
   __typename?: 'route_route_sum_fields';
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['smallint']>;
 };
 
 /** order by sum() on columns of table "route.route" */
 export type RouteRouteSumOrderBy = {
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<OrderBy>;
 };
 
 /** update columns of table "route.route" */
@@ -5758,6 +5898,8 @@ export enum RouteRouteUpdateColumn {
   ValidityEnd = 'validity_end',
   /** column name */
   ValidityStart = 'validity_start',
+  /** column name */
+  Variant = 'variant',
 }
 
 export type RouteRouteUpdates = {
@@ -5781,34 +5923,52 @@ export type RouteRouteUpdates = {
 /** aggregate var_pop on columns */
 export type RouteRouteVarPopFields = {
   __typename?: 'route_route_var_pop_fields';
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_pop() on columns of table "route.route" */
 export type RouteRouteVarPopOrderBy = {
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type RouteRouteVarSampFields = {
   __typename?: 'route_route_var_samp_fields';
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_samp() on columns of table "route.route" */
 export type RouteRouteVarSampOrderBy = {
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type RouteRouteVarianceFields = {
   __typename?: 'route_route_variance_fields';
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<Scalars['Float']>;
 };
 
 /** order by variance() on columns of table "route.route" */
 export type RouteRouteVarianceOrderBy = {
+  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
+  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  variant?: Maybe<OrderBy>;
 };
 
 /** Type of line. https://www.transmodel-cen.eu/model/EARoot/EA2/EA1/EA3/EA491.htm */
@@ -6019,24 +6179,29 @@ export type RouteTypeOfLineUpdates = {
   where: RouteTypeOfLineBoolExp;
 };
 
-/** columns and relationships of "service_pattern.scheduled_stop_point" */
+/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPoint = {
   __typename?: 'service_pattern_scheduled_stop_point';
-  /** A computed field, executes function "service_pattern.scheduled_stop_point_closest_point_on_infrastructure_link" */
+  /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
   closest_point_on_infrastructure_link?: Maybe<Scalars['geography_point']>;
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   direction: InfrastructureNetworkDirectionEnum;
+  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
   /** An object relationship */
   located_on_infrastructure_link: InfrastructureNetworkInfrastructureLink;
+  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id: Scalars['uuid'];
+  /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location: Scalars['geography_point'];
   /** An array relationship */
   other_label_instances: Array<ServicePatternScheduledStopPoint>;
   /** An aggregate relationship */
   other_label_instances_aggregate: ServicePatternScheduledStopPointAggregate;
   priority: Scalars['Int'];
-  /** A computed field, executes function "service_pattern.scheduled_stop_point_relative_distance_from_infrastructure_link" */
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   relative_distance_from_infrastructure_link: Scalars['Float'];
+  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id: Scalars['uuid'];
   /** An array relationship */
   scheduled_stop_point_in_journey_patterns: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
@@ -6056,7 +6221,7 @@ export type ServicePatternScheduledStopPoint = {
   vehicle_mode_on_scheduled_stop_point_aggregate: ServicePatternVehicleModeOnScheduledStopPointAggregate;
 };
 
-/** columns and relationships of "service_pattern.scheduled_stop_point" */
+/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointOtherLabelInstancesArgs = {
   distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6065,7 +6230,7 @@ export type ServicePatternScheduledStopPointOtherLabelInstancesArgs = {
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
-/** columns and relationships of "service_pattern.scheduled_stop_point" */
+/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointOtherLabelInstancesAggregateArgs = {
   distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6074,7 +6239,7 @@ export type ServicePatternScheduledStopPointOtherLabelInstancesAggregateArgs = {
   where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
-/** columns and relationships of "service_pattern.scheduled_stop_point" */
+/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsArgs =
   {
     distinct_on?: Maybe<
@@ -6088,7 +6253,7 @@ export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsA
     where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
 
-/** columns and relationships of "service_pattern.scheduled_stop_point" */
+/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsAggregateArgs =
   {
     distinct_on?: Maybe<
@@ -6102,7 +6267,7 @@ export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsA
     where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
 
-/** columns and relationships of "service_pattern.scheduled_stop_point" */
+/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointArgs =
   {
     distinct_on?: Maybe<
@@ -6116,7 +6281,7 @@ export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointArgs 
     where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
   };
 
-/** columns and relationships of "service_pattern.scheduled_stop_point" */
+/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointAggregateArgs =
   {
     distinct_on?: Maybe<
@@ -6228,13 +6393,18 @@ export type ServicePatternScheduledStopPointIncInput = {
 
 /** input type for inserting data into table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointInsertInput = {
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   direction: InfrastructureNetworkDirectionEnum;
+  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
   located_on_infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
+  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id: Scalars['uuid'];
+  /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location: Scalars['geography_point'];
   other_label_instances?: Maybe<ServicePatternScheduledStopPointArrRelInsertInput>;
   priority: Scalars['Int'];
+  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
   timing_place?: Maybe<TimingPatternTimingPlaceObjRelInsertInput>;
@@ -6250,9 +6420,12 @@ export type ServicePatternScheduledStopPointInsertInput = {
 /** aggregate max on columns */
 export type ServicePatternScheduledStopPointMaxFields = {
   __typename?: 'service_pattern_scheduled_stop_point_max_fields';
+  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<Scalars['String']>;
+  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
   priority?: Maybe<Scalars['Int']>;
+  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: Maybe<Scalars['uuid']>;
@@ -6264,9 +6437,12 @@ export type ServicePatternScheduledStopPointMaxFields = {
 
 /** order by max() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointMaxOrderBy = {
+  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<OrderBy>;
+  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<OrderBy>;
   priority?: Maybe<OrderBy>;
+  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<OrderBy>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: Maybe<OrderBy>;
@@ -6279,9 +6455,12 @@ export type ServicePatternScheduledStopPointMaxOrderBy = {
 /** aggregate min on columns */
 export type ServicePatternScheduledStopPointMinFields = {
   __typename?: 'service_pattern_scheduled_stop_point_min_fields';
+  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<Scalars['String']>;
+  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
   priority?: Maybe<Scalars['Int']>;
+  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: Maybe<Scalars['uuid']>;
@@ -6293,9 +6472,12 @@ export type ServicePatternScheduledStopPointMinFields = {
 
 /** order by min() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointMinOrderBy = {
+  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<OrderBy>;
+  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<OrderBy>;
   priority?: Maybe<OrderBy>;
+  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<OrderBy>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: Maybe<OrderBy>;
@@ -6343,6 +6525,7 @@ export type ServicePatternScheduledStopPointOrderBy = {
 
 /** primary key columns input for table: service_pattern.scheduled_stop_point */
 export type ServicePatternScheduledStopPointPkColumnsInput = {
+  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id: Scalars['uuid'];
 };
 
@@ -6370,11 +6553,16 @@ export enum ServicePatternScheduledStopPointSelectColumn {
 
 /** input type for updating data in table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointSetInput = {
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   direction?: Maybe<InfrastructureNetworkDirectionEnum>;
+  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<Scalars['String']>;
+  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location?: Maybe<Scalars['geography_point']>;
   priority?: Maybe<Scalars['Int']>;
+  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: Maybe<Scalars['uuid']>;
@@ -6427,11 +6615,16 @@ export type ServicePatternScheduledStopPointStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type ServicePatternScheduledStopPointStreamCursorValueInput = {
+  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   direction?: Maybe<InfrastructureNetworkDirectionEnum>;
+  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label?: Maybe<Scalars['String']>;
+  /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location?: Maybe<Scalars['geography']>;
   priority?: Maybe<Scalars['Int']>;
+  /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: Maybe<Scalars['uuid']>;
@@ -6686,6 +6879,19 @@ export type ServicePatternVehicleModeOnScheduledStopPointUpdates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: Maybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
   where: ServicePatternVehicleModeOnScheduledStopPointBoolExp;
+};
+
+/** Boolean expression to compare columns of type "smallint". All fields are combined with logical 'AND'. */
+export type SmallintComparisonExp = {
+  _eq?: Maybe<Scalars['smallint']>;
+  _gt?: Maybe<Scalars['smallint']>;
+  _gte?: Maybe<Scalars['smallint']>;
+  _in?: Maybe<Array<Scalars['smallint']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _lt?: Maybe<Scalars['smallint']>;
+  _lte?: Maybe<Scalars['smallint']>;
+  _neq?: Maybe<Scalars['smallint']>;
+  _nin?: Maybe<Array<Scalars['smallint']>>;
 };
 
 export type StDWithinGeographyInput = {
@@ -8354,10 +8560,10 @@ export type TimetablesServiceCalendarDayTypeBoolExp = {
 
 /** unique or primary key constraints on table "service_calendar.day_type" */
 export enum TimetablesServiceCalendarDayTypeConstraint {
-  /** unique or primary key constraint on columns "label" */
-  DayTypeLabelKey = 'day_type_label_key',
   /** unique or primary key constraint on columns "day_type_id" */
   DayTypePkey = 'day_type_pkey',
+  /** unique or primary key constraint on columns "label" */
+  ServiceCalendarDayTypeLabelIdx = 'service_calendar_day_type_label_idx',
 }
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
@@ -8645,10 +8851,10 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp
 
 /** unique or primary key constraints on table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefConstraint {
-  /** unique or primary key constraint on columns "scheduled_stop_point_sequence", "journey_pattern_ref_id" */
-  ScheduledStopPointInJournJourneyPatternRefIdScheduKey = 'scheduled_stop_point_in_journ_journey_pattern_ref_id_schedu_key',
   /** unique or primary key constraint on columns "scheduled_stop_point_in_journey_pattern_ref_id" */
   ScheduledStopPointInJourneyPatternRefPkey = 'scheduled_stop_point_in_journey_pattern_ref_pkey',
+  /** unique or primary key constraint on columns "scheduled_stop_point_sequence", "journey_pattern_ref_id" */
+  ServicePatternScheduledStopPointInJourneyPatternRefIdx = 'service_pattern_scheduled_stop_point_in_journey_pattern_ref_idx',
 }
 
 /** input type for incrementing numeric columns in table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -11271,7 +11477,7 @@ export type TimingPatternTimingPlaceBoolExp = {
 /** unique or primary key constraints on table "timing_pattern.timing_place" */
 export enum TimingPatternTimingPlaceConstraint {
   /** unique or primary key constraint on columns "label" */
-  TimingPlaceLabelKey = 'timing_place_label_key',
+  TimingPlaceLabelIdx = 'timing_place_label_idx',
   /** unique or primary key constraint on columns "timing_place_id" */
   TimingPlacePkey = 'timing_place_pkey',
 }
