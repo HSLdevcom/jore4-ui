@@ -35,6 +35,7 @@ const testIds = {
   lineChoiceDropdown: 'RoutePropertiesFormComponent::chooseLineDropdown',
   label: 'RoutePropertiesFormComponent::label',
   finnishName: 'RoutePropertiesFormComponent::finnishName',
+  variant: 'RoutePropertiesFormComponent::variant',
 };
 
 const RoutePropertiesFormComponent = (
@@ -78,19 +79,26 @@ const RoutePropertiesFormComponent = (
           </Row>
         )}
         <FormColumn>
-          <FormRow mdColumns={3} smColumns={2}>
+          <FormRow mdColumns={5} smColumns={4}>
             <InputField<FormState>
               type="text"
               translationPrefix="routes"
               fieldPath="finnishName"
               testId={testIds.finnishName}
-              className="sm:col-span-2"
+              className="sm:col-span-3"
             />
             <InputField<FormState>
               type="text"
               translationPrefix="routes"
               fieldPath="label"
               testId={testIds.label}
+              className="col-span-1"
+            />
+            <InputField<FormState>
+              type="number"
+              translationPrefix="routes"
+              fieldPath="variant"
+              testId={testIds.variant}
               className="col-span-1"
             />
             <InputField<FormState>
@@ -103,7 +111,7 @@ const RoutePropertiesFormComponent = (
                   {...props}
                 />
               )}
-              className="col-span-1"
+              className="col-span-2"
             />
             <InputField<FormState>
               translationPrefix="routes"
@@ -115,7 +123,7 @@ const RoutePropertiesFormComponent = (
                   {...props}
                 />
               )}
-              className="sm:col-span-2"
+              className="sm:col-span-3"
             />
           </FormRow>
         </FormColumn>
