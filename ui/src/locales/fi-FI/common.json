@@ -50,6 +50,7 @@
     "searchTemplate": "Hae pohjareitti",
     "chooseRoute": "Valitse reitti",
     "direction": "Suunta",
+    "variant": "Piilovariantti",
     "chooseDirection": "Valitse suunta",
     "tooFewStops": "Reitillä on oltava ainakin kaksi pysäkkiä.",
     "startNotInsideLineValidity": "Reitin voimassaoloaika ei voi alkaa ennen linjan voimassaoloajan alkamista.",
