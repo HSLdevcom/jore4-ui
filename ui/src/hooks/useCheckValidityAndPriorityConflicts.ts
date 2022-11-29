@@ -12,6 +12,7 @@ import {
   useGetStopsByValidityAsyncQuery,
 } from '../generated/graphql';
 import { Priority } from '../types/Priority';
+import { buildVariantGqlFilter } from '../utils';
 
 export interface CommonParams {
   label: string;
@@ -22,6 +23,7 @@ export interface CommonParams {
 
 interface RouteParams extends CommonParams {
   direction: RouteDirectionEnum;
+  variant: number | null;
 }
 
 const buildValidityStartMissingGqlFilterOrConditions = (
@@ -228,6 +230,12 @@ export const useCheckValidityAndPriorityConflicts = () => {
     const directionFilter: RouteRouteBoolExp = {
       direction: { _eq: params.direction },
     };
+
+    // Allow routes with different variant to exists with same validity period.
+    const variantFilter: RouteRouteBoolExp = buildVariantGqlFilter(
+      params.variant,
+    );
+
     // Ignore row itself as if we are editing existing version of row then
     // possible conflict doesn't matter as we are *overwriting* conflicting
     // version.
@@ -237,7 +245,12 @@ export const useCheckValidityAndPriorityConflicts = () => {
     const commonFilter: RouteRouteBoolExp = buildCommonGqlFilter(params);
 
     const { data } = await getRouteValidity({
-      filter: { ...directionFilter, ...routesFilter, ...commonFilter },
+      filter: {
+        ...directionFilter,
+        ...variantFilter,
+        ...routesFilter,
+        ...commonFilter,
+      },
     });
 
     // We have to cast return type from GetRoutesByValidityQuery['route_route'] -> RouteRoute[]

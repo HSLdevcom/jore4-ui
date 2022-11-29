@@ -375,6 +375,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
               label: inboundRoute.label,
             }),
             direction: RouteDirectionEnum.Inbound,
+            variant: null,
           });
           expect(conflicts.length).toBe(1);
           expect(conflicts[0].route_id).toEqual(inboundRoute.route_id);
@@ -388,6 +389,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
               label: inboundRoute.label,
             }),
             direction: RouteDirectionEnum.Outbound,
+            variant: null,
           });
           expect(conflicts.length).toBe(0);
         });
