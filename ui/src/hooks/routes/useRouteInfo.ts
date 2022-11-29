@@ -28,6 +28,7 @@ const GQL_ROUTE_METADATA = gql`
     validity_start
     validity_end
     direction
+    variant
   }
 `;
 

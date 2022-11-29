@@ -426,7 +426,9 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
                   class="flex flex-row "
                 >
                   <h2>
-                    1
+                    <b>
+                      1
+                    </b>
                   </h2>
                   <i
                     class="icon-bus-alt text-2xl text-tweaked-brand"
@@ -534,7 +536,9 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
                   class="flex flex-row "
                 >
                   <h2>
-                    1
+                    <b>
+                      1
+                    </b>
                   </h2>
                   <i
                     class="icon-calendar text-2xl text-zinc-400"

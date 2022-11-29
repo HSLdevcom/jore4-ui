@@ -63,6 +63,7 @@ const ROUTE_ALL_FIELDS = gql`
     validity_end
     priority
     label
+    variant
     direction
   }
 `;
@@ -78,6 +79,7 @@ const ROUTE_DEFAULT_FIELDS = gql`
     destination_short_name_i18n
     on_line_id
     label
+    variant
     priority
   }
 `;
@@ -451,12 +453,16 @@ export const getRouteStopLabels = (
   );
 };
 
-export const isRoute = (input: unknown): input is RouteRoute => {
+export const isRoute = (
+  input: unknown,
+): input is Pick<RouteRoute, '__typename'> => {
   // eslint-disable-next-line no-underscore-dangle
   return isGqlEntity(input) && input.__typename === 'route_route';
 };
 
-export const isLine = (input: unknown): input is RouteLine => {
+export const isLine = (
+  input: unknown,
+): input is Pick<RouteLine, '__typename'> => {
   // eslint-disable-next-line no-underscore-dangle
   return isGqlEntity(input) && input.__typename === 'route_line';
 };
