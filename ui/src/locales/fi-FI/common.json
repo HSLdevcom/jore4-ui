@@ -241,7 +241,8 @@
     "draft": "Luonnokset",
     "highestPriorityCurrent": "Näytä tilanne valittuna päivänä",
     "observationDate": "Tarkasteluhetki",
-    "observationDateAdjusted": "Tarkasteluhetkeä muutettu"
+    "observationDateAdjusted": "Tarkasteluhetkeä muutettu",
+    "stopFiltersAdjusted": "Pysäkkien suodattimia muutettu"
   },
   "search": {
     "advancedSearchTitle": "Tarkenna",

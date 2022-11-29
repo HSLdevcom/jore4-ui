@@ -15,6 +15,7 @@ import {
   useCreateStop,
   useDeleteStop,
   useEditStop,
+  useFilterStops,
   useLoader,
   useObservationDateQueryParam,
 } from '../../../hooks';
@@ -70,6 +71,7 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
     const { t } = useTranslation();
     const { updateObservationDateByValidityPeriodIfNeeded } =
       useObservationDateQueryParam();
+    const { updateStopPriorityFilterIfNeeded } = useFilterStops();
 
     const setSelectedStopId = useAppAction(setSelectedStopIdAction);
     const setEditedStopData = useAppAction(setEditedStopDataAction);
@@ -197,6 +199,7 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
 
         showSuccessToast(t('stops.saveSuccess'));
         updateObservationDateByValidityPeriodIfNeeded(changes.stopToCreate);
+        updateStopPriorityFilterIfNeeded(changes.stopToCreate.priority);
         onFinishEditing();
       } catch (err) {
         defaultErrorHandler(err as Error);
@@ -221,6 +224,7 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
 
         showSuccessToast(t('stops.editSuccess'));
         updateObservationDateByValidityPeriodIfNeeded(changes.editedStop);
+        updateStopPriorityFilterIfNeeded(changes.editedStop.priority);
         onFinishEditing();
       } catch (err) {
         defaultErrorHandler(err as Error);
