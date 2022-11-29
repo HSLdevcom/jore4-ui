@@ -103,6 +103,7 @@ export const useCreateRoute = () => {
       validityStart: input.object.validity_start || MIN_DATE,
       validityEnd: input.object.validity_end || undefined,
       direction: form.direction!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      variant: form.variant,
     });
 
     const changes: CreateChanges = {

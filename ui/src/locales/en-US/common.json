@@ -50,6 +50,7 @@
     "searchTemplate": "Search for template route",
     "chooseRoute": "Choose route",
     "direction": "Direction",
+    "variant": "Hidden variant",
     "chooseDirection": "Choose direction",
     "tooFewStops": "There must be at least two stops on route.",
     "startNotInsideLineValidity": "Route's validity period cannot start before line's validity period.",

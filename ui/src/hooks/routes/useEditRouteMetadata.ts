@@ -34,11 +34,13 @@ interface EditChanges {
 }
 
 export const mapRouteFormToInput = (state: RouteFormState) => {
-  const { label, priority, validityStart, validityEnd, indefinite } = state;
+  const { label, variant, priority, validityStart, validityEnd, indefinite } =
+    state;
   const mutation = {
     name_i18n: { fi_FI: state.finnishName },
     label,
     on_line_id: state.onLineId,
+    variant: Number.isInteger(variant) ? variant : null,
     direction: state.direction,
     priority,
     validity_start: mapDateInputToValidityStart(validityStart),
@@ -59,6 +61,7 @@ export const mapRouteToFormState = (
   finnishName: route.name_i18n?.fi_FI || '',
   label: route.label,
   onLineId: route.on_line_id,
+  variant: route.variant || null,
   direction: route.direction as RouteDirection,
   priority: route.priority,
   validityStart: mapToISODate(route.validity_start) || '',
@@ -97,6 +100,7 @@ export const useEditRouteMetadata = () => {
         validityStart: input.validity_start || MIN_DATE,
         validityEnd: input.validity_end || undefined,
         direction: form.direction,
+        variant: form.variant,
       },
       routeId,
     );
