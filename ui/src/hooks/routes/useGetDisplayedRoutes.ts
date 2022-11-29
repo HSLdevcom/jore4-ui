@@ -42,6 +42,7 @@ const GQL_DISPLAYED_ROUTE = gql`
   fragment displayed_route on route_route {
     route_id
     label
+    variant
     validity_start
     validity_end
     priority

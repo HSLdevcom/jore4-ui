@@ -12,6 +12,7 @@ import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../time';
 import { LocatorButton } from '../../uiComponents';
 import { LineDetailsButton } from './LineDetailsButton';
 import { LineTimetablesButton } from './LineTimetablesButton';
+import { RouteLabel } from './RouteLabel';
 
 export enum RouteLineTableRowVariant {
   Timetables,
@@ -134,7 +135,13 @@ export const RouteLineTableRow = ({
           <Row className="items-center">
             <Column className="w-1/2 font-bold">
               <Row>
-                <h2>{rowItem.label}</h2>
+                <h2>
+                  {isRoute(rowItem) ? (
+                    <RouteLabel route={rowItem} />
+                  ) : (
+                    rowItem.label
+                  )}
+                </h2>
                 {displayInformation.rowIcon}
               </Row>
               <p>{rowItem.name_i18n.fi_FI}</p>

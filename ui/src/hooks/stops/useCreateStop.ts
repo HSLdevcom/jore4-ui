@@ -11,6 +11,7 @@ import {
   IncompatibleWithExistingRoutesError,
   removeFromApolloCache,
 } from '../../utils';
+import { getRouteLabelVariantText } from '../../utils/route';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { BrokenRouteCheckParams, useEditStop } from './useEditStop';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
@@ -74,7 +75,7 @@ export const useCreateStop = () => {
 
     if (brokenRoutes?.length) {
       throw new IncompatibleWithExistingRoutesError(
-        brokenRoutes.map((route) => route?.label).join(', '),
+        brokenRoutes.map((route) => getRouteLabelVariantText(route)).join(', '),
       );
     }
   };

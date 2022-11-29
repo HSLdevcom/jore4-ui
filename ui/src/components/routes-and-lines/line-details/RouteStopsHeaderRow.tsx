@@ -16,6 +16,7 @@ import {
   EditButton,
   LocatorButton,
 } from '../../../uiComponents';
+import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from './DirectionBadge';
 
 const testIds = {
@@ -61,8 +62,8 @@ export const RouteStopsHeaderRow = ({
       <td className={`${alertStyle.listItemBorder || ''} p-4 pl-12`}>
         <Row className="items-center">
           <DirectionBadge direction={route.direction as RouteDirectionEnum} />
-          <span className="text-xl font-bold" data-testid={testIds.label}>
-            {route.label}
+          <span className="text-xl" data-testid={testIds.label}>
+            <RouteLabel route={route} />
           </span>
         </Row>
       </td>
