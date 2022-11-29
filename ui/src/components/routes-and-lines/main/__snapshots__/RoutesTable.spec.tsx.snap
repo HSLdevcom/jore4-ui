@@ -334,7 +334,9 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
                 class="flex flex-col w-1/2 font-bold"
               >
                 <h2>
-                  1
+                  <b>
+                    1
+                  </b>
                 </h2>
                 <p>
                   route 1

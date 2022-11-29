@@ -1,4 +1,5 @@
 import flow from 'lodash/flow';
+import { getRouteLabelText } from '../../components/common/RouteLabel';
 import {
   InsertStopMutationVariables,
   ServicePatternScheduledStopPoint,
@@ -74,7 +75,7 @@ export const useCreateStop = () => {
 
     if (brokenRoutes?.length) {
       throw new IncompatibleWithExistingRoutesError(
-        brokenRoutes.map((route) => route?.label).join(', '),
+        brokenRoutes.map((route) => getRouteLabelText(route)).join(', '),
       );
     }
   };

@@ -14,6 +14,7 @@ import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDate } from '../../../time';
 import { Priority } from '../../../types/Priority';
 import { CloseIconButton, Modal, SimpleButton } from '../../../uiComponents';
+import { RouteLabel } from '../../common/RouteLabel';
 
 interface Props {
   onClose: () => void;
@@ -34,6 +35,7 @@ interface CommonConflictItem {
   validityEnd?: DateTime;
   priority: Priority;
   label: string;
+  variant?: number | null;
   id: UUID;
   href?: string;
 }
@@ -45,6 +47,7 @@ export const mapRouteToCommonConflictItem = (
   validityEnd: route.validity_end || undefined,
   priority: route.priority,
   label: route.label,
+  variant: route.variant,
   id: route.route_id,
   href: routeDetails[Path.editRoute].getLink(route.route_id),
 });
@@ -88,10 +91,10 @@ const ConflictItemRow = ({
       <Td>
         {item.href ? (
           <Link to={item.href} className="text-brand">
-            {item.label}
+            <RouteLabel route={item} />
           </Link>
         ) : (
-          item.label
+          <RouteLabel route={item} />
         )}
       </Td>
     </tr>

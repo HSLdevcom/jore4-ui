@@ -11659,6 +11659,12 @@ export type LineTableRowFragment = {
   }>;
 };
 
+export type RouteLabelFragment = {
+  __typename?: 'route_route';
+  label: string;
+  variant?: number | null | undefined;
+};
+
 export type RouteTableRowFragment = {
   __typename?: 'route_route';
   name_i18n: LocalizedString;
@@ -11704,6 +11710,7 @@ export type GetRouteWithInfrastructureLinksQuery = {
         validity_end?: luxon.DateTime | null | undefined;
         priority: number;
         label: string;
+        variant?: number | null | undefined;
         direction: RouteDirectionEnum;
         route_line: {
           __typename?: 'route_line';
@@ -12248,6 +12255,7 @@ export type RouteAllFieldsFragment = {
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
   label: string;
+  variant?: number | null | undefined;
   direction: RouteDirectionEnum;
 };
 
@@ -12262,6 +12270,7 @@ export type RouteDefaultFieldsFragment = {
   destination_short_name_i18n: LocalizedString;
   on_line_id: UUID;
   label: string;
+  variant?: number | null | undefined;
   priority: number;
 };
 
@@ -12280,6 +12289,7 @@ export type RouteWithJourneyPatternStopsFragment = {
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
   label: string;
+  variant?: number | null | undefined;
   direction: RouteDirectionEnum;
   route_journey_patterns: Array<{
     __typename?: 'journey_pattern_journey_pattern';
@@ -12328,6 +12338,7 @@ export type RouteWithInfrastructureLinksFragment = {
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
   label: string;
+  variant?: number | null | undefined;
   direction: RouteDirectionEnum;
   route_line: {
     __typename?: 'route_line';
@@ -12483,6 +12494,7 @@ export type GetLineDetailsWithRoutesByIdQuery = {
           validity_end?: luxon.DateTime | null | undefined;
           priority: number;
           label: string;
+          variant?: number | null | undefined;
           direction: RouteDirectionEnum;
           infrastructure_links_along_route: Array<{
             __typename?: 'route_infrastructure_link_along_route';
@@ -12585,6 +12597,7 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
       validity_end?: luxon.DateTime | null | undefined;
       priority: number;
       label: string;
+      variant?: number | null | undefined;
       direction: RouteDirectionEnum;
       infrastructure_links_along_route: Array<{
         __typename?: 'route_infrastructure_link_along_route';
@@ -12668,6 +12681,7 @@ export type GetRoutesWithStopsQuery = {
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
     label: string;
+    variant?: number | null | undefined;
     direction: RouteDirectionEnum;
     route_line: { __typename?: 'route_line'; line_id: UUID };
     infrastructure_links_along_route: Array<{
@@ -12742,6 +12756,7 @@ export type GetRouteDetailsByIdQuery = {
         validity_end?: luxon.DateTime | null | undefined;
         priority: number;
         label: string;
+        variant?: number | null | undefined;
         direction: RouteDirectionEnum;
         route_line: {
           __typename?: 'route_line';
@@ -12812,6 +12827,7 @@ export type GetRouteDetailsByIdsQuery = {
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
     label: string;
+    variant?: number | null | undefined;
     direction: RouteDirectionEnum;
     infrastructure_links_along_route: Array<{
       __typename?: 'route_infrastructure_link_along_route';
@@ -12912,6 +12928,7 @@ export type GetRouteDetailsByLabelsQuery = {
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
     label: string;
+    variant?: number | null | undefined;
     direction: RouteDirectionEnum;
     route_line: {
       __typename?: 'route_line';
@@ -12973,6 +12990,7 @@ export type GetRoutesWithInfrastructureLinksQuery = {
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
     label: string;
+    variant?: number | null | undefined;
     direction: RouteDirectionEnum;
     route_line: {
       __typename?: 'route_line';
@@ -13052,6 +13070,7 @@ export type GetRoutesByValidityQuery = {
     destination_short_name_i18n: LocalizedString;
     on_line_id: UUID;
     label: string;
+    variant?: number | null | undefined;
     priority: number;
   }>;
 };
@@ -13124,6 +13143,7 @@ export type InsertRouteOneMutation = {
         validity_end?: luxon.DateTime | null | undefined;
         priority: number;
         label: string;
+        variant?: number | null | undefined;
         direction: RouteDirectionEnum;
       }
     | null
@@ -13155,6 +13175,7 @@ export type PatchRouteMutation = {
           validity_end?: luxon.DateTime | null | undefined;
           priority: number;
           label: string;
+          variant?: number | null | undefined;
           direction: RouteDirectionEnum;
         }>;
       }
@@ -13645,6 +13666,7 @@ export type GetStopWithRouteGraphDataByIdQuery = {
               destination_short_name_i18n: LocalizedString;
               on_line_id: UUID;
               label: string;
+              variant?: number | null | undefined;
               priority: number;
               infrastructure_links_along_route: Array<{
                 __typename?: 'route_infrastructure_link_along_route';
@@ -13696,6 +13718,7 @@ export type GetRoutesBrokenByStopChangeQuery = {
           validity_end?: luxon.DateTime | null | undefined;
           priority: number;
           label: string;
+          variant?: number | null | undefined;
           direction: RouteDirectionEnum;
         }
       | null
@@ -13775,6 +13798,7 @@ export type GetLineRoutesByLabelQuery = {
       __typename?: 'route_route';
       route_id: UUID;
       label: string;
+      variant?: number | null | undefined;
       validity_start?: luxon.DateTime | null | undefined;
       validity_end?: luxon.DateTime | null | undefined;
       priority: number;
@@ -13803,6 +13827,7 @@ export type GetRouteByFiltersQuery = {
     __typename?: 'route_route';
     route_id: UUID;
     label: string;
+    variant?: number | null | undefined;
     validity_start?: luxon.DateTime | null | undefined;
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
@@ -13824,6 +13849,7 @@ export type DisplayedRouteFragment = {
   __typename?: 'route_route';
   route_id: UUID;
   label: string;
+  variant?: number | null | undefined;
   validity_start?: luxon.DateTime | null | undefined;
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
@@ -13855,6 +13881,7 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
   validity_end?: luxon.DateTime | null | undefined;
   priority: number;
   label: string;
+  variant?: number | null | undefined;
   direction: RouteDirectionEnum;
   route_line: {
     __typename?: 'route_line';
@@ -14038,6 +14065,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
         validity_end?: luxon.DateTime | null | undefined;
         priority: number;
         label: string;
+        variant?: number | null | undefined;
         direction: RouteDirectionEnum;
         route_line: {
           __typename?: 'route_line';
@@ -14189,6 +14217,7 @@ export type SearchLinesAndRoutesQuery = {
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
     label: string;
+    variant?: number | null | undefined;
     direction: RouteDirectionEnum;
   }>;
 };
@@ -14305,6 +14334,7 @@ export type GetRouteDetailsByLabelWildcardQuery = {
     validity_end?: luxon.DateTime | null | undefined;
     priority: number;
     label: string;
+    variant?: number | null | undefined;
     direction: RouteDirectionEnum;
   }>;
 };
@@ -14331,6 +14361,7 @@ export type GetSelectedRouteDetailsByIdQuery = {
         validity_end?: luxon.DateTime | null | undefined;
         priority: number;
         label: string;
+        variant?: number | null | undefined;
         direction: RouteDirectionEnum;
       }
     | null
@@ -14519,6 +14550,12 @@ export const LineTableRowFragmentDoc = gql`
   ${LineInformationForMapFragmentDoc}
   ${RouteInformationForMapFragmentDoc}
 `;
+export const RouteLabelFragmentDoc = gql`
+  fragment route_label on route_route {
+    label
+    variant
+  }
+`;
 export const RouteTableRowFragmentDoc = gql`
   fragment route_table_row on route_route {
     ...route_information_for_map
@@ -14692,6 +14729,7 @@ export const RouteDefaultFieldsFragmentDoc = gql`
     destination_short_name_i18n
     on_line_id
     label
+    variant
     priority
   }
 `;
@@ -14710,6 +14748,7 @@ export const RouteAllFieldsFragmentDoc = gql`
     validity_end
     priority
     label
+    variant
     direction
   }
 `;
@@ -14778,6 +14817,7 @@ export const DisplayedRouteFragmentDoc = gql`
   fragment displayed_route on route_route {
     route_id
     label
+    variant
     validity_start
     validity_end
     priority

@@ -4,10 +4,12 @@ import {
   LineTableRowFragment,
   RouteTableRowFragment,
 } from '../../generated/graphql';
+import { isRoute } from '../../graphql';
 import { useAlertsAndHighLights } from '../../hooks';
 import { Column, Row, Visible } from '../../layoutComponents';
 import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../time';
 import { LocatorButton } from '../../uiComponents';
+import { RouteLabel } from './RouteLabel';
 
 interface Props {
   className?: string;
@@ -63,7 +65,13 @@ export const RouteLineTableRow = ({
         <Link to={linkTo}>
           <Row className="items-center">
             <Column className="w-1/2 font-bold">
-              <h2>{rowItem.label}</h2>
+              <h2>
+                {isRoute(rowItem) ? (
+                  <RouteLabel route={rowItem} />
+                ) : (
+                  rowItem.label
+                )}
+              </h2>
               <p>{rowItem.name_i18n.fi_FI}</p>
             </Column>
             <Column className="w-1/2 text-right">

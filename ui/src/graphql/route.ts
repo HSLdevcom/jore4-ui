@@ -63,6 +63,7 @@ const ROUTE_ALL_FIELDS = gql`
     validity_end
     priority
     label
+    variant
     direction
   }
 `;
@@ -78,6 +79,7 @@ const ROUTE_DEFAULT_FIELDS = gql`
     destination_short_name_i18n
     on_line_id
     label
+    variant
     priority
   }
 `;
