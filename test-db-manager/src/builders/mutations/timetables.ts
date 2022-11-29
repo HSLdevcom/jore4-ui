@@ -9,7 +9,7 @@ import {
 } from '../../generated/graphql';
 import { getGqlString } from './utils';
 
-const GQL_INSERT_TIMETABLES_JOURNEY_PATTERN = gql`
+const GQL_INSERT_TIMETABLES_JOURNEY_PATTERN_REFS = gql`
   mutation InsertTimetablesJourneyPatternRef(
     $objects: [timetables_journey_pattern_journey_pattern_ref_insert_input!]!
   ) {
@@ -24,17 +24,17 @@ const GQL_INSERT_TIMETABLES_JOURNEY_PATTERN = gql`
   }
 `;
 
-export const mapToCreateTimetablesJourneyPatternMutation = (
+export const mapToCreateTimetablesJourneyPatternRefsMutation = (
   objects: TimetablesJourneyPatternJourneyPatternRefInsertInput[],
 ) => {
   return {
     operationName: 'InsertTimetablesJourneyPatternRef',
-    query: getGqlString(GQL_INSERT_TIMETABLES_JOURNEY_PATTERN),
+    query: getGqlString(GQL_INSERT_TIMETABLES_JOURNEY_PATTERN_REFS),
     variables: { objects },
   };
 };
 
-const GQL_DELETE_TIMETABLES_JOURNEY_PATTERN = gql`
+const GQL_DELETE_TIMETABLES_JOURNEY_PATTERN_REFS = gql`
   mutation RemoveTimetablesJourneyPatternRefs(
     $journey_pattern_ref_ids: [uuid!]!
   ) {
@@ -50,9 +50,11 @@ const GQL_DELETE_TIMETABLES_JOURNEY_PATTERN = gql`
   }
 `;
 
-export const mapToDeleteTimetablesJourneyPatternMutation = (uuids: UUID[]) => {
+export const mapToDeleteTimetablesJourneyPatternRefsMutation = (
+  uuids: UUID[],
+) => {
   return {
-    query: getGqlString(GQL_DELETE_TIMETABLES_JOURNEY_PATTERN),
+    query: getGqlString(GQL_DELETE_TIMETABLES_JOURNEY_PATTERN_REFS),
     variables: { journey_pattern_ref_ids: uuids },
   };
 };

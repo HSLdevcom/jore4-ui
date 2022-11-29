@@ -1,14 +1,14 @@
 import {
   mapToCreateStopInJourneyPatternRefMutation,
   mapToCreateTimetabledPassingTimesMutation,
-  mapToCreateTimetablesJourneyPatternMutation,
+  mapToCreateTimetablesJourneyPatternRefsMutation,
   mapToCreateVehicleJourneys,
   mapToCreateVehicleScheduleFramesMutation,
   mapToCreateVehicleServiceBlocks,
   mapToCreateVehicleServices,
   mapToDeleteStopInJourneyPatternRefMutation,
   mapToDeleteTimetabledPassingTimesMutation,
-  mapToDeleteTimetablesJourneyPatternMutation,
+  mapToDeleteTimetablesJourneyPatternRefsMutation,
   mapToDeleteVehicleJourneysMutation,
   mapToDeleteVehicleScheduleFramesMutation,
   mapToDeleteVehicleServiceBlocksMutation,
@@ -44,7 +44,7 @@ const responseLogger = (message: string, res: any) => {
 };
 
 export const clearTimetablesDb = async ({
-  journeyPatternRefs: journeyPatterns,
+  journeyPatternRefs,
   stopsInJourneyPatternRefs,
   vehicleScheduleFrames,
   vehicleServices,
@@ -103,10 +103,10 @@ export const clearTimetablesDb = async ({
     responseLogger('Deleting stops in journey pattern refs', res);
   }
 
-  if (journeyPatterns) {
+  if (journeyPatternRefs) {
     const res = await hasuraApi(
-      mapToDeleteTimetablesJourneyPatternMutation(
-        journeyPatterns.map((item) => item.journey_pattern_ref_id),
+      mapToDeleteTimetablesJourneyPatternRefsMutation(
+        journeyPatternRefs.map((item) => item.journey_pattern_ref_id),
       ),
     );
     responseLogger('Deleting journey pattern refs', res);
@@ -124,7 +124,7 @@ export const populateTimetablesDb = async ({
 }: TimetablesResources) => {
   if (journeyPatternRefs) {
     const res = await hasuraApi(
-      mapToCreateTimetablesJourneyPatternMutation(journeyPatternRefs),
+      mapToCreateTimetablesJourneyPatternRefsMutation(journeyPatternRefs),
     );
     responseLogger('Inserting journey pattern refs', res);
   }
