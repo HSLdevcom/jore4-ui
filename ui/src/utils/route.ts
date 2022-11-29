@@ -1,4 +1,7 @@
-import { RouteTableRowFragment } from '../generated/graphql';
+import {
+  RouteAllFieldsFragment,
+  RouteTableRowFragment,
+} from '../generated/graphql';
 
 /**
  * Checks if the route has any vehicle_journey's existing. If there is
@@ -12,3 +15,11 @@ export const routeHasTimetables = (
       (journeyPatternRefs) => journeyPatternRefs.vehicle_journeys.length,
     ),
   );
+
+export type RouteWithLabel = Pick<RouteAllFieldsFragment, 'label' | 'variant'>;
+
+export const hasRouteVariant = (route: RouteWithLabel) =>
+  Number.isInteger(route?.variant);
+
+export const getRouteLabelVariantText = (route: RouteWithLabel) =>
+  `${route.label}${hasRouteVariant(route) ? ` ${route.variant}` : ''}`;

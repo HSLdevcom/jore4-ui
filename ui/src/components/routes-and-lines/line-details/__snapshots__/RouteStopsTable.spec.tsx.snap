@@ -57,10 +57,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
                 />
               </span>
               <span
-                class="text-xl font-bold"
+                class="text-xl"
                 data-testid="RouteStopsHeaderRow::label"
               >
-                65 itään
+                <b>
+                  65 itään
+                </b>
               </span>
             </div>
           </td>
@@ -266,10 +268,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 />
               </span>
               <span
-                class="text-xl font-bold"
+                class="text-xl"
                 data-testid="RouteStopsHeaderRow::label"
               >
-                65 itään
+                <b>
+                  65 itään
+                </b>
               </span>
             </div>
           </td>
@@ -675,10 +679,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 />
               </span>
               <span
-                class="text-xl font-bold"
+                class="text-xl"
                 data-testid="RouteStopsHeaderRow::label"
               >
-                65 itään
+                <b>
+                  65 itään
+                </b>
               </span>
             </div>
           </td>
