@@ -23,7 +23,7 @@ jobs:
         uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
         with:
           ui_version: $IMAGE_NAME:$COMMIT_ID
-          hasura_version: hsldevcom/jore4-hasura:hsl-main--20221116-9b166a43f9f14535b126f1e10cf1ff26051719e3
+          hasura_version: hsldevcom/jore4-hasura:hsl-route-variant--20221214-6e418bf41849ac5abbe85bd66743b87290c813c0
 
       - name: Verify that all services are up and running
         uses: HSLdevcom/jore4-tools/github-actions/healthcheck@healthcheck-v1

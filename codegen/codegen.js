@@ -11,6 +11,7 @@ const scalars = {
   date: 'luxon.DateTime',
   interval: 'luxon.Duration',
   float8: 'number',
+  smallint: 'number',
 };
 
 const defaultConfig = {
