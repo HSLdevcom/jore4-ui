@@ -24,6 +24,8 @@ export const createGeometryLineBetweenPoints = (
 export const loadMapAssets = (mapRef: React.RefObject<MapRef>) => {
   const map = mapRef.current?.getMap();
 
+  if (map?.hasImage('arrow')) return;
+
   map?.loadImage('/img/arrow-right.png', (error: unknown, image: unknown) => {
     if (error) throw error;
 
