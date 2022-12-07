@@ -14,6 +14,20 @@ import { parseDate } from '../../time';
 import { Priority } from '../../types/Priority';
 import { DisplayedSearchResultType } from '../../utils/enum';
 
+export enum QueryParameterName {
+  MapOpen = 'mapOpen',
+  Longitude = 'lng',
+  Latitude = 'lat',
+  Zoom = 'z',
+  ObservationDate = 'observationDate',
+  RouteLabel = 'routeLabel',
+  RouteLabels = 'routeLabels',
+  LineLabel = 'lineLabel',
+  RouteId = 'routeId',
+  ShowSelectedDaySituation = 'showSelectedDaySituation',
+  Priorities = 'routePriorities',
+}
+
 export type QueryParameter<TType> = { paramName: string; value: TType };
 export type QueryParameterTypes =
   | string
@@ -156,12 +170,16 @@ export const useUrlQuery = () => {
     setToUrlQuery({ paramName, value: value.join(','), replace });
   };
 
+  /** Returns a query parameter in array type */
+  const getArrayFromUrlQuery = (paramName: string): string[] | undefined => {
+    return (queryParams[paramName] as string)?.split(',');
+  };
+
   /** Returns a query parameter in Priority array type */
   const getPriorityArrayFromUrlQuery = (
     paramName: string,
   ): Priority[] | undefined => {
-    return (queryParams[paramName] as string)
-      ?.split(',')
+    return getArrayFromUrlQuery(paramName)
       ?.map((p) => parseInt(p, 10))
       ?.filter((p) => Object.values(Priority).includes(p));
   };
@@ -290,6 +308,7 @@ export const useUrlQuery = () => {
     setBooleanToUrlQuery,
     setDateTimeToUrlQuery,
     setArrayToUrlQuery,
+    getArrayFromUrlQuery,
     getPriorityArrayFromUrlQuery,
     getReusableComponentsVehicleModeEnumFromUrlQuery,
     getRouteTypeOfLineEnumFromUrlQuery,

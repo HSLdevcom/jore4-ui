@@ -10,6 +10,7 @@ interface Props {
   testId?: string;
   disabled?: boolean;
   lineId: UUID;
+  routeLabel?: string;
   className?: string;
 }
 
@@ -17,13 +18,14 @@ export const LineTimetablesButton = ({
   testId,
   disabled,
   lineId,
+  routeLabel,
   className = '',
 }: Props): JSX.Element => {
   const disabledStyle = '!bg-background opacity-70 pointer-events-none';
   const history = useHistory();
   const onClick = () => {
     history.push({
-      pathname: routeDetails[Path.lineTimetables].getLink(lineId),
+      pathname: routeDetails[Path.lineTimetables].getLink(lineId, routeLabel),
     });
   };
   return (

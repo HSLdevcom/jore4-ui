@@ -414,7 +414,7 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
         >
           <a
             class=""
-            href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
+            href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e?routeLabels=1"
           >
             <div
               class="flex flex-row items-center"
@@ -522,7 +522,7 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
         >
           <a
             class="pointer-events-none text-zinc-400"
-            href="/timetables/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
+            href="/timetables/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e?routeLabels=1"
           >
             <div
               class="flex flex-row items-center"

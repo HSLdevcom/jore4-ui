@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ValidityPeriod } from '../../generated/graphql';
 import { isDateInRange } from '../../time';
 import { showWarningToast } from '../../utils';
-import { QueryParameterName } from './useMapQueryParams';
-import { useUrlQuery } from './useUrlQuery';
+import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
 interface Props {
   initialize?: boolean;
