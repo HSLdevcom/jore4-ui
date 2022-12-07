@@ -156,12 +156,16 @@ export const useUrlQuery = () => {
     setToUrlQuery({ paramName, value: value.join(','), replace });
   };
 
+  /** Returns a query parameter in array type */
+  const getArrayFromUrlQuery = (paramName: string): string[] | undefined => {
+    return (queryParams[paramName] as string)?.split(',');
+  };
+
   /** Returns a query parameter in Priority array type */
   const getPriorityArrayFromUrlQuery = (
     paramName: string,
   ): Priority[] | undefined => {
-    return (queryParams[paramName] as string)
-      ?.split(',')
+    return getArrayFromUrlQuery(paramName)
       ?.map((p) => parseInt(p, 10))
       ?.filter((p) => Object.values(Priority).includes(p));
   };
@@ -290,6 +294,7 @@ export const useUrlQuery = () => {
     setBooleanToUrlQuery,
     setDateTimeToUrlQuery,
     setArrayToUrlQuery,
+    getArrayFromUrlQuery,
     getPriorityArrayFromUrlQuery,
     getReusableComponentsVehicleModeEnumFromUrlQuery,
     getRouteTypeOfLineEnumFromUrlQuery,

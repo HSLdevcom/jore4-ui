@@ -1,5 +1,7 @@
+import qs from 'qs';
 import { RouteTableRow } from '..';
 import { RouteTableRowFragment } from '../../../generated/graphql';
+import { QueryParameterName } from '../../../hooks';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { RoutesTable } from '../../routes-and-lines/main/RoutesTable';
 
@@ -17,15 +19,22 @@ export const RoutesList = ({
   routes,
   basePath,
   areItemsSelectable = false,
-}: Props): JSX.Element => (
-  <RoutesTable testId={testIds.table}>
-    {routes?.map((item: RouteTableRowFragment) => (
-      <RouteTableRow
-        key={item.route_id}
-        linkTo={routeDetails[basePath].getLink(item.on_line_id)}
-        route={item}
-        isSelectable={areItemsSelectable}
-      />
-    ))}
-  </RoutesTable>
-);
+}: Props): JSX.Element => {
+  const getRouteDetailsLink = (lineId: UUID, routeLabel: string) =>
+    `${routeDetails[basePath].getLink(lineId)}?${qs.stringify({
+      [QueryParameterName.RouteLabels]: routeLabel,
+    })}`;
+
+  return (
+    <RoutesTable testId={testIds.table}>
+      {routes?.map((item: RouteTableRowFragment) => (
+        <RouteTableRow
+          key={item.route_id}
+          linkTo={getRouteDetailsLink(item.on_line_id, item.label)}
+          route={item}
+          isSelectable={areItemsSelectable}
+        />
+      ))}
+    </RoutesTable>
+  );
+};

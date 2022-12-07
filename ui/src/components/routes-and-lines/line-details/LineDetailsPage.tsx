@@ -1,9 +1,12 @@
 import { DateTime } from 'luxon';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { pipe, uniq } from 'remeda';
 import { LineAllFieldsFragment } from '../../../generated/graphql';
 import {
   useAppDispatch,
   useAppSelector,
+  useDisplayedRoutesQueryParam,
   useGetLineDetails,
   useMapQueryParams,
 } from '../../../hooks';
@@ -29,6 +32,8 @@ export const LineDetailsPage = (): JSX.Element => {
 
   const dispatch = useAppDispatch();
   const { addMapOpenQueryParameter } = useMapQueryParams();
+  const { displayedRouteLabels, setDisplayedRoutesToUrl } =
+    useDisplayedRoutesQueryParam();
 
   const { line } = useGetLineDetails();
 
@@ -55,6 +60,25 @@ export const LineDetailsPage = (): JSX.Element => {
     ? () => createRoute(line)
     : undefined;
 
+  const lineRouteLabels = pipe(
+    line?.line_routes,
+    (routes) => routes?.map((route) => route.label) || [],
+    (routeLabels) => uniq(routeLabels),
+  );
+
+  const shownRoutes =
+    line?.line_routes?.filter((route) =>
+      displayedRouteLabels.includes(route.label),
+    ) || [];
+
+  // If no route has been initially selected to display, show all line's routes
+  useEffect(() => {
+    if (displayedRouteLabels.length === 0 && lineRouteLabels.length !== 0) {
+      setDisplayedRoutesToUrl(lineRouteLabels);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lineRouteLabels]);
+
   return (
     <div>
       <PageHeader className={getHeaderBorderClassName()}>
@@ -74,7 +98,7 @@ export const LineDetailsPage = (): JSX.Element => {
             <Column className="w-full">
               <h1 className="mt-8">{t('lines.routes')}</h1>
               {line.line_routes?.length > 0 ? (
-                <RouteStopsTable routes={line.line_routes} />
+                <RouteStopsTable routes={shownRoutes} />
               ) : (
                 <CreateRouteBox onCreateRoute={onCreateRoute} />
               )}

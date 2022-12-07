@@ -11,6 +11,7 @@ export enum QueryParameterName {
   Zoom = 'z',
   ObservationDate = 'observationDate',
   RouteLabel = 'routeLabel',
+  RouteLabels = 'routeLabels',
   LineLabel = 'lineLabel',
   RouteId = 'routeId',
   ShowSelectedDaySituation = 'showSelectedDaySituation',
