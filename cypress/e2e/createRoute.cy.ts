@@ -1,17 +1,18 @@
 import {
-  buildStop,
-  StopInsertInput,
   buildLine,
+  buildStop,
   LineInsertInput,
+  Priority,
   ReusableComponentsVehicleModeEnum,
   ReusableComponentsVehicleSubmodeEnum,
   RouteDirectionEnum,
+  StopInsertInput,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Map, RouteEditor } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
-import { MapItemCreator } from '../pageObjects/MapItemCreator';
+import { ModalMap } from '../pageObjects/ModalMap';
 import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteRoutesByLabel } from './utils';
@@ -134,7 +135,7 @@ const clearDatabase = () => {
 };
 
 describe('Route creation', () => {
-  let mapCreator: MapItemCreator;
+  let modalMap: ModalMap;
   let map: Map;
   let routeStopsOverlay: RouteStopsOverlay;
   let routeEditor: RouteEditor;
@@ -146,7 +147,7 @@ describe('Route creation', () => {
   });
 
   beforeEach(() => {
-    mapCreator = new MapItemCreator();
+    modalMap = new ModalMap();
     const mapFilterPanel = new FilterPanel();
 
     clearDatabase();
@@ -182,15 +183,18 @@ describe('Route creation', () => {
     () => {
       const routeName = 'Testireitti 1';
 
-      mapCreator.createRoute({
+      modalMap.createRoute({
         routeFormInfo: {
           finnishName: routeName,
           label: testRouteLabels.label1,
           direction: RouteDirectionEnum.Outbound,
           line: String(lines[0].label),
         },
-        validityStartISODate: '2022-01-01',
-        validityEndISODate: '2025-12-01',
+        confirmSaveFormInfo: {
+          validityStartISODate: '2022-01-01',
+          validityEndISODate: '2025-12-01',
+          priority: Priority.Standard,
+        },
         routePoints: [
           {
             rightOffset: -10,
@@ -219,15 +223,18 @@ describe('Route creation', () => {
     () => {
       const routeName = 'Testireitti 2';
       const omittedStopsLabels = [stops[1].label];
-      mapCreator.createRoute({
+      modalMap.createRoute({
         routeFormInfo: {
           finnishName: routeName,
           label: testRouteLabels.label2,
           direction: RouteDirectionEnum.Inbound,
           line: String(lines[1].label),
         },
-        validityStartISODate: '2022-01-01',
-        validityEndISODate: '2025-12-01',
+        confirmSaveFormInfo: {
+          validityStartISODate: '2022-01-01',
+          validityEndISODate: '2025-12-01',
+          priority: Priority.Standard,
+        },
         routePoints: [
           {
             rightOffset: -10,
@@ -259,15 +266,18 @@ describe('Route creation', () => {
     () => {
       const routeName = 'Testireitti 3';
       const omittedStopsLabels = [stops[1].label, stops[2].label];
-      mapCreator.createRoute({
+      modalMap.createRoute({
         routeFormInfo: {
           finnishName: routeName,
           label: testRouteLabels.label3,
           direction: RouteDirectionEnum.Outbound,
           line: String(lines[2].label),
         },
-        validityStartISODate: '2022-01-01',
-        validityEndISODate: '2025-12-01',
+        confirmSaveFormInfo: {
+          validityStartISODate: '2022-01-01',
+          validityEndISODate: '2025-12-01',
+          priority: Priority.Standard,
+        },
         routePoints: [
           {
             rightOffset: -10,
@@ -293,14 +303,17 @@ describe('Route creation', () => {
     () => {
       const routeName = 'Testireitti 4';
 
-      mapCreator.createRoute({
+      modalMap.createRoute({
         routeFormInfo: {
           finnishName: routeName,
           label: testRouteLabels.label4,
           direction: RouteDirectionEnum.Outbound,
           line: String(lines[3].label),
         },
-        validityStartISODate: '2022-01-01',
+        confirmSaveFormInfo: {
+          validityStartISODate: '2022-01-01',
+          priority: Priority.Standard,
+        },
         routePoints: [
           {
             rightOffset: -10,
