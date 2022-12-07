@@ -9,7 +9,7 @@ import { StopForm, StopFormInfo } from './StopForm';
 import { TerminusNameInputs } from './TerminusNameInputs';
 import { Toast } from './Toast';
 
-export class MapItemCreator {
+export class ModalMap {
   map = new Map();
 
   mapFooter = new MapFooter();
@@ -27,30 +27,6 @@ export class MapItemCreator {
   editRouteModal = new EditRouteModal();
 
   toast = new Toast();
-
-  setPriority = (priority: Priority) => {
-    switch (priority) {
-      case Priority.Draft:
-        this.confirmSaveForm.setAsDraft();
-        break;
-      case Priority.Temporary:
-        this.confirmSaveForm.setAsTemporary();
-        break;
-      case Priority.Standard:
-        this.confirmSaveForm.setAsStandard();
-        break;
-      default:
-    }
-  };
-
-  setEndDate = (isoDate?: string) => {
-    if (isoDate) {
-      this.confirmSaveForm.setAsIndefinite(false);
-      this.confirmSaveForm.setEndDate(isoDate);
-    } else {
-      this.confirmSaveForm.setAsIndefinite();
-    }
-  };
 
   /**
    * Creates stop using ClickPointNear stop.
@@ -76,11 +52,11 @@ export class MapItemCreator {
     this.map.clickAtPositionFromMapMarkerByTestId(stopPoint);
 
     this.stopForm.fillStopForm(stopFormInfo);
-
-    this.setPriority(priority);
-
-    this.confirmSaveForm.setStartDate(validityStartISODate);
-    this.setEndDate(validityEndISODate);
+    this.confirmSaveForm.fillConfirmSaveForm({
+      priority,
+      validityStartISODate,
+      validityEndISODate,
+    });
 
     this.stopForm.save();
   };
@@ -88,7 +64,6 @@ export class MapItemCreator {
   /**
    * This creates stop at a location that is specified by percentages of the viewport'sg width and height.
    */
-
   createStopAtLocation = ({
     stopFormInfo,
     clickRelativePoint,
@@ -111,10 +86,11 @@ export class MapItemCreator {
 
     this.stopForm.fillStopForm(stopFormInfo);
 
-    this.setPriority(priority);
-
-    this.confirmSaveForm.setStartDate(validityStartISODate);
-    this.setEndDate(validityEndISODate);
+    this.confirmSaveForm.fillConfirmSaveForm({
+      priority,
+      validityStartISODate,
+      validityEndISODate,
+    });
 
     this.stopForm.save();
   };
@@ -159,9 +135,11 @@ export class MapItemCreator {
       },
     );
 
-    this.setPriority(priority);
-    this.confirmSaveForm.setStartDate(validityStartISODate);
-    this.setEndDate(validityEndISODate);
+    this.confirmSaveForm.fillConfirmSaveForm({
+      priority,
+      validityStartISODate,
+      validityEndISODate,
+    });
 
     this.editRouteModal.save();
 
