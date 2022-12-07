@@ -1,4 +1,5 @@
 import qs from 'qs';
+import { QueryParameterName } from '../hooks/urlQuery/useUrlQuery';
 
 export enum Path {
   root = '/',
@@ -16,10 +17,24 @@ export enum Path {
 }
 
 interface RouteDetail {
-  getLink: (...args: string[]) => string;
+  getLink: (...args: ExplicitAny[]) => string;
   translationKey?: string;
   includeInNav?: boolean;
 }
+
+const getLineIdRouteLabelLink = (
+  path: Path,
+  lineId: UUID,
+  routeLabel?: string,
+) => {
+  const searchQuery = routeLabel
+    ? `?${qs.stringify({
+        [QueryParameterName.RouteLabels]: routeLabel,
+      })}`
+    : '';
+
+  return `${path.replace(':id', lineId)}${searchQuery}`;
+};
 
 export const routeDetails: Record<Path, RouteDetail> = {
   [Path.root]: {
@@ -50,7 +65,7 @@ export const routeDetails: Record<Path, RouteDetail> = {
   [Path.editRoute]: {
     getLink: (id: string, observationIsoDate: string) =>
       `${Path.editRoute.replace(':id', id)}?${qs.stringify({
-        observationDate: observationIsoDate,
+        [QueryParameterName.ObservationDate]: observationIsoDate,
       })}`,
     translationKey: 'routes.editRoute',
     includeInNav: false,
@@ -61,7 +76,8 @@ export const routeDetails: Record<Path, RouteDetail> = {
     includeInNav: false,
   },
   [Path.lineDetails]: {
-    getLink: (id: string) => Path.lineDetails.replace(':id', id),
+    getLink: (id: string, routeLabel?: string) =>
+      getLineIdRouteLabelLink(Path.lineDetails, id, routeLabel),
     translationKey: 'lines.lineDetails',
     includeInNav: false,
   },
@@ -76,7 +92,8 @@ export const routeDetails: Record<Path, RouteDetail> = {
     includeInNav: false,
   },
   [Path.lineTimetables]: {
-    getLink: (id: string) => Path.lineTimetables.replace(':id', id),
+    getLink: (id: string, routeLabel?: string) =>
+      getLineIdRouteLabelLink(Path.lineTimetables, id, routeLabel),
     includeInNav: false,
   },
   [Path.fallback]: {
