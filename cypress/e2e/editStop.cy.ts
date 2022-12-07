@@ -198,4 +198,27 @@ describe('Stop editing tests', () => {
       stopForm.getLongitudeInput().should('have.value', testCoordinates2.lng);
     },
   );
+
+  it(
+    'Should delete a stop',
+    // Map opening seems to take time, so we increase the timeout
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    () => {
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      map.waitForMapToLoad();
+
+      map.getStopByStopLabel(stops[0].label).click();
+
+      map.stopPopUp.getDeleteButton().click();
+
+      confirmationDialog.getConfirmButton().click();
+
+      cy.wait('@gqlRemoveStop').its('response.statusCode').should('equal', 200);
+
+      toast.checkSuccessToastHasMessage('Pysäkki poistettu');
+
+      map.getStopByStopLabel(stops[0].label).should('not.exist');
+    },
+  );
 });
