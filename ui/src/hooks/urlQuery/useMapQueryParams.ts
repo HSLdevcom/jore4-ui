@@ -2,20 +2,7 @@ import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import { HELSINKI_CITY_CENTER_COORDINATES } from '../../redux';
 import { Priority } from '../../types/Priority';
-import { useUrlQuery } from './useUrlQuery';
-
-export enum QueryParameterName {
-  MapOpen = 'mapOpen',
-  Longitude = 'lng',
-  Latitude = 'lat',
-  Zoom = 'z',
-  ObservationDate = 'observationDate',
-  RouteLabel = 'routeLabel',
-  LineLabel = 'lineLabel',
-  RouteId = 'routeId',
-  ShowSelectedDaySituation = 'showSelectedDaySituation',
-  Priorities = 'routePriorities',
-}
+import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
 const DEFAULT_ZOOM = 13 as const;
 

@@ -1,7 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
+import { uniqBy } from 'remeda';
 import { RouteLine } from '../../../generated/graphql';
+import { useRouteLabelsQueryParam } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { IconButton, SimpleButton } from '../../../uiComponents';
 import { LineValidityPeriod } from './LineValidityPeriod';
@@ -24,11 +26,10 @@ export const LineTitle: React.FC<Props> = ({
   onCreateRoute,
 }) => {
   const { t } = useTranslation();
+  const { toggleDisplayedRoute, displayedRouteLabels } =
+    useRouteLabelsQueryParam();
 
-  const onToggleRoute = () => {
-    // eslint-disable-next-line no-console
-    console.log('TODO');
-  };
+  const lineRoutes = uniqBy(line.line_routes, (route) => route.label);
 
   return (
     <Column>
@@ -37,13 +38,15 @@ export const LineTitle: React.FC<Props> = ({
           {t('lines.line', { label: line.label })}
         </h1>
         <span>
-          {line.line_routes?.length > 0 &&
-            line.line_routes.map((item) => (
+          {lineRoutes?.length > 0 &&
+            lineRoutes.map((item) => (
               <SimpleButton
                 key={item.route_id}
                 containerClassName="mr-2"
-                className="w-20 !rounded bg-tweaked-brand !px-0 !py-0 !text-sm !font-normal text-white"
-                onClick={onToggleRoute}
+                className="!mx-0 w-20 !rounded !px-0 !py-0 !text-sm !font-normal"
+                invertedClassName="!text-black"
+                onClick={() => toggleDisplayedRoute(item.label)}
+                inverted={!displayedRouteLabels?.includes(item.label)}
               >
                 {item.label}
               </SimpleButton>

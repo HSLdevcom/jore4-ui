@@ -1,11 +1,14 @@
 import { DateTime } from 'luxon';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { pipe, uniq } from 'remeda';
 import { LineAllFieldsFragment } from '../../../generated/graphql';
 import {
   useAppDispatch,
   useAppSelector,
   useGetLineDetails,
   useMapQueryParams,
+  useRouteLabelsQueryParam,
 } from '../../../hooks';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import {
@@ -29,6 +32,8 @@ export const LineDetailsPage = (): JSX.Element => {
 
   const dispatch = useAppDispatch();
   const { addMapOpenQueryParameter } = useMapQueryParams();
+  const { displayedRouteLabels, setDisplayedRoutesToUrl } =
+    useRouteLabelsQueryParam();
 
   const { line } = useGetLineDetails();
 
@@ -55,6 +60,26 @@ export const LineDetailsPage = (): JSX.Element => {
     ? () => createRoute(line)
     : undefined;
 
+  const uniqueLineRouteLabels = pipe(
+    line?.line_routes,
+    (routes) => routes?.map((route) => route.label) || [],
+    (routeLabels) => uniq(routeLabels),
+  );
+
+  const displayedRoutes =
+    line?.line_routes?.filter((route) =>
+      displayedRouteLabels?.includes(route.label),
+    ) || [];
+
+  // If no route has been initially selected to display, show all line's routes
+  // Set the default value to query params if route labels query param doesn't exist
+  useEffect(() => {
+    if (!displayedRouteLabels && uniqueLineRouteLabels.length !== 0) {
+      setDisplayedRoutesToUrl(uniqueLineRouteLabels);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [uniqueLineRouteLabels]);
+
   return (
     <div>
       <PageHeader className={getHeaderBorderClassName()}>
@@ -74,7 +99,7 @@ export const LineDetailsPage = (): JSX.Element => {
             <Column className="w-full">
               <h1 className="mt-8">{t('lines.routes')}</h1>
               {line.line_routes?.length > 0 ? (
-                <RouteStopsTable routes={line.line_routes} />
+                <RouteStopsTable routes={displayedRoutes} />
               ) : (
                 <CreateRouteBox onCreateRoute={onCreateRoute} />
               )}

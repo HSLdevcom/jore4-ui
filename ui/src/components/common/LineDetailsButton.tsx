@@ -10,18 +10,20 @@ const testIds = {
 interface Props {
   testId?: string;
   lineId: UUID;
+  routeLabel?: string;
   className?: string;
 }
 
 export const LineDetailsButton = ({
   testId,
   lineId,
+  routeLabel,
   className = '',
 }: Props): JSX.Element => {
   const history = useHistory();
   const onClick = () => {
     history.push({
-      pathname: routeDetails[Path.lineDetails].getLink(lineId),
+      pathname: routeDetails[Path.lineDetails].getLink(lineId, routeLabel),
     });
   };
   return (
