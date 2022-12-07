@@ -1,10 +1,12 @@
+import qs from 'qs';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {
   LineTableRowFragment,
   RouteTableRowFragment,
 } from '../../generated/graphql';
-import { useAlertsAndHighLights } from '../../hooks';
+import { isRoute } from '../../graphql';
+import { QueryParameterName, useAlertsAndHighLights } from '../../hooks';
 import { Column, Row, Visible } from '../../layoutComponents';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../time';
@@ -17,13 +19,15 @@ export enum RouteLineTableRowVariant {
   RoutesAndLines,
 }
 
+type RowItem = LineTableRowFragment | RouteTableRowFragment;
+
 interface Props {
   className?: string;
   lineId: UUID;
   hasTimetables?: boolean;
   onLocatorButtonClick?: () => void;
   locatorButtonTestId: string;
-  rowItem: LineTableRowFragment | RouteTableRowFragment;
+  rowItem: RowItem;
   rowVariant: RouteLineTableRowVariant;
   isSelected?: boolean;
   onSelectChanged?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -32,11 +36,24 @@ interface Props {
 
 const yBorderClassnames = 'border-y border-y-light-grey';
 
+const getLink = (path: Path, lineId: UUID, routeLabel?: string) => {
+  const searchQuery = routeLabel
+    ? `?${qs.stringify({
+        [QueryParameterName.RouteLabels]: routeLabel,
+      })}`
+    : '';
+
+  return `${routeDetails[path].getLink(lineId)}${searchQuery}`;
+};
+
 const getDisplayInformation = (
   routeLineTableRowVariant: RouteLineTableRowVariant,
   lineId: UUID,
+  rowItem: RowItem,
   hasTimetables?: boolean,
 ) => {
+  const routeLabel = isRoute(rowItem) ? rowItem.label : undefined;
+
   switch (routeLineTableRowVariant) {
     case RouteLineTableRowVariant.Timetables:
       return {
@@ -48,7 +65,7 @@ const getDisplayInformation = (
           />
         ),
         alternativeRowActionButton: <LineDetailsButton lineId={lineId} />,
-        linkTo: routeDetails[Path.lineTimetables].getLink(lineId),
+        linkTo: getLink(Path.lineTimetables, lineId, routeLabel),
         isDisabled: !hasTimetables,
       };
     case RouteLineTableRowVariant.RoutesAndLines:
@@ -58,7 +75,7 @@ const getDisplayInformation = (
         alternativeRowActionButton: (
           <LineTimetablesButton disabled={!hasTimetables} lineId={lineId} />
         ),
-        linkTo: routeDetails[Path.lineDetails].getLink(lineId),
+        linkTo: getLink(Path.lineDetails, lineId, routeLabel),
         isDisabled: false,
       };
   }
@@ -88,6 +105,7 @@ export const RouteLineTableRow = ({
   const displayInformation = getDisplayInformation(
     rowVariant,
     lineId,
+    rowItem,
     hasTimetables,
   );
 
