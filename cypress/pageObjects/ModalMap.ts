@@ -1,5 +1,4 @@
-import { Priority } from '@hsl/jore4-test-db-manager';
-import { ConfirmSaveForm } from './ConfirmSaveForm';
+import { ConfirmSaveForm, ConfirmSaveFormInfo } from './ConfirmSaveForm';
 import { EditRouteModal } from './EditRouteModal';
 import { ClickPointNearMapMarker, Map } from './Map';
 import { MapFooter } from './MapFooter';
@@ -9,7 +8,7 @@ import { StopForm, StopFormInfo } from './StopForm';
 import { TerminusNameInputs } from './TerminusNameInputs';
 import { Toast } from './Toast';
 
-export class MapItemCreator {
+export class ModalMap {
   map = new Map();
 
   mapFooter = new MapFooter();
@@ -28,30 +27,6 @@ export class MapItemCreator {
 
   toast = new Toast();
 
-  setPriority = (priority: Priority) => {
-    switch (priority) {
-      case Priority.Draft:
-        this.confirmSaveForm.setAsDraft();
-        break;
-      case Priority.Temporary:
-        this.confirmSaveForm.setAsTemporary();
-        break;
-      case Priority.Standard:
-        this.confirmSaveForm.setAsStandard();
-        break;
-      default:
-    }
-  };
-
-  setEndDate = (isoDate?: string) => {
-    if (isoDate) {
-      this.confirmSaveForm.setAsIndefinite(false);
-      this.confirmSaveForm.setEndDate(isoDate);
-    } else {
-      this.confirmSaveForm.setAsIndefinite();
-    }
-  };
-
   /**
    * Creates stop using ClickPointNear stop.
    * This means that you give a stop testId as the origin of the click
@@ -60,27 +35,19 @@ export class MapItemCreator {
    */
   createStopNextToAnotherStop = ({
     stopFormInfo,
+    confirmSaveFormInfo,
     stopPoint,
-    priority = Priority.Standard,
-    validityStartISODate,
-    validityEndISODate,
   }: {
     stopFormInfo: StopFormInfo;
+    confirmSaveFormInfo: ConfirmSaveFormInfo;
     stopPoint: ClickPointNearMapMarker;
-    priority?: Priority;
-    validityStartISODate: string;
-    validityEndISODate?: string;
   }) => {
     this.mapFooter.addStop();
 
     this.map.clickAtPositionFromMapMarkerByTestId(stopPoint);
 
-    this.stopForm.fillStopForm(stopFormInfo);
-
-    this.setPriority(priority);
-
-    this.confirmSaveForm.setStartDate(validityStartISODate);
-    this.setEndDate(validityEndISODate);
+    this.stopForm.fillForm(stopFormInfo);
+    this.confirmSaveForm.fillForm(confirmSaveFormInfo);
 
     this.stopForm.save();
   };
@@ -88,19 +55,14 @@ export class MapItemCreator {
   /**
    * This creates stop at a location that is specified by percentages of the viewport'sg width and height.
    */
-
   createStopAtLocation = ({
     stopFormInfo,
+    confirmSaveFormInfo,
     clickRelativePoint,
-    priority = Priority.Standard,
-    validityStartISODate,
-    validityEndISODate,
   }: {
     stopFormInfo: StopFormInfo;
     clickRelativePoint: { xPercentage: number; yPercentage: number };
-    priority?: Priority;
-    validityStartISODate: string;
-    validityEndISODate?: string;
+    confirmSaveFormInfo: ConfirmSaveFormInfo;
   }) => {
     this.mapFooter.addStop();
 
@@ -109,12 +71,8 @@ export class MapItemCreator {
       clickRelativePoint.yPercentage,
     );
 
-    this.stopForm.fillStopForm(stopFormInfo);
-
-    this.setPriority(priority);
-
-    this.confirmSaveForm.setStartDate(validityStartISODate);
-    this.setEndDate(validityEndISODate);
+    this.stopForm.fillForm(stopFormInfo);
+    this.confirmSaveForm.fillForm(confirmSaveFormInfo);
 
     this.stopForm.save();
   };
@@ -127,16 +85,12 @@ export class MapItemCreator {
    */
   createRoute = ({
     routeFormInfo,
-    priority = Priority.Standard,
-    validityStartISODate,
-    validityEndISODate,
+    confirmSaveFormInfo,
     routePoints,
     omittedStops,
   }: {
     routeFormInfo: RouteFormInfo;
-    priority?: Priority;
-    validityStartISODate: string;
-    validityEndISODate?: string;
+    confirmSaveFormInfo: ConfirmSaveFormInfo;
     routePoints: ClickPointNearMapMarker[];
     omittedStops?: string[];
   }) => {
@@ -159,10 +113,7 @@ export class MapItemCreator {
       },
     );
 
-    this.setPriority(priority);
-    this.confirmSaveForm.setStartDate(validityStartISODate);
-    this.setEndDate(validityEndISODate);
-
+    this.confirmSaveForm.fillForm(confirmSaveFormInfo);
     this.editRouteModal.save();
 
     routePoints.forEach((routePoint) => {
