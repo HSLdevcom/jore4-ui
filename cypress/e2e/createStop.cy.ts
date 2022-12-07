@@ -1,11 +1,12 @@
 import {
+  Priority,
   ReusableComponentsVehicleModeEnum,
   ReusableComponentsVehicleSubmodeEnum,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { ConfirmSaveForm, Map } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
-import { MapItemCreator } from '../pageObjects/MapItemCreator';
+import { ModalMap } from '../pageObjects/ModalMap';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteStopsByLabel } from './utils';
 
@@ -42,7 +43,7 @@ const clearDatabase = () => {
 };
 
 describe('Stop creation tests', () => {
-  let mapItemCreator: MapItemCreator;
+  let modalMap: ModalMap;
   let mapFilterPanel: FilterPanel;
   let map: Map;
   let confirmSaveForm: ConfirmSaveForm;
@@ -57,7 +58,7 @@ describe('Stop creation tests', () => {
     clearDatabase();
     insertToDbHelper(dbResources);
 
-    mapItemCreator = new MapItemCreator();
+    modalMap = new ModalMap();
     mapFilterPanel = new FilterPanel();
     map = new Map();
     confirmSaveForm = new ConfirmSaveForm();
@@ -81,18 +82,21 @@ describe('Stop creation tests', () => {
     // Map opening seems to take time, so we increase the timeout
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
     () => {
-      mapItemCreator.createStopAtLocation({
+      modalMap.createStopAtLocation({
         stopFormInfo: { label: testStopLabels.testLabel1 },
         clickRelativePoint: {
           xPercentage: 43.5,
           yPercentage: 53,
         },
-        validityStartISODate: '2022-01-01',
+        confirmSaveFormInfo: {
+          validityStartISODate: '2022-01-01',
+          priority: Priority.Standard,
+        },
       });
 
-      mapItemCreator.gqlStopShouldBeCreatedSuccessfully();
+      modalMap.gqlStopShouldBeCreatedSuccessfully();
 
-      mapItemCreator.checkStopSubmitSuccessToast();
+      modalMap.checkStopSubmitSuccessToast();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -107,7 +111,7 @@ describe('Stop creation tests', () => {
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
     () => {
       // Create stop
-      mapItemCreator.createStopAtLocation({
+      modalMap.createStopAtLocation({
         stopFormInfo: {
           label: testStopLabels.manualCoordinatesLabel,
           // Actual coordinates will be on Topeliuksenkatu
@@ -118,12 +122,15 @@ describe('Stop creation tests', () => {
           xPercentage: 50,
           yPercentage: 45,
         },
-        validityStartISODate: '2022-01-01',
+        confirmSaveFormInfo: {
+          validityStartISODate: '2022-01-01',
+          priority: Priority.Standard,
+        },
       });
 
-      mapItemCreator.gqlStopShouldBeCreatedSuccessfully();
+      modalMap.gqlStopShouldBeCreatedSuccessfully();
 
-      mapItemCreator.checkStopSubmitSuccessToast();
+      modalMap.checkStopSubmitSuccessToast();
 
       // Change map position to created stop location
       map.visit({
@@ -145,19 +152,22 @@ describe('Stop creation tests', () => {
     // Map opening seems to take time, so we increase the timeout
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
     () => {
-      mapItemCreator.createStopAtLocation({
+      modalMap.createStopAtLocation({
         stopFormInfo: { label: testStopLabels.endDateLabel },
         clickRelativePoint: {
           xPercentage: 43.5,
           yPercentage: 53,
         },
-        validityStartISODate: '2022-01-01',
-        validityEndISODate: '2040-12-31',
+        confirmSaveFormInfo: {
+          validityStartISODate: '2022-01-01',
+          validityEndISODate: '2040-12-31',
+          priority: Priority.Standard,
+        },
       });
 
-      mapItemCreator.gqlStopShouldBeCreatedSuccessfully();
+      modalMap.gqlStopShouldBeCreatedSuccessfully();
 
-      mapItemCreator.checkStopSubmitSuccessToast();
+      modalMap.checkStopSubmitSuccessToast();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 

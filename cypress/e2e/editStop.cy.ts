@@ -181,7 +181,7 @@ describe('Stop editing tests', () => {
 
       map.stopPopUp.getEditButton().click();
 
-      stopForm.fillStopForm(updatedStopInfo);
+      stopForm.fillForm(updatedStopInfo);
       stopForm.save();
 
       confirmationDialog.getConfirmButton().click();

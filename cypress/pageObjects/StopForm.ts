@@ -17,7 +17,7 @@ export class StopForm {
     return cy.getByTestId('StopFormComponent::latitude');
   }
 
-  fillStopForm(values: StopFormInfo) {
+  fillForm(values: StopFormInfo) {
     this.getLabelInput().clear().type(values.label);
     if (values.latitude) {
       this.getLatitudeInput().clear().type(values.latitude);
