@@ -6,4 +6,8 @@ export class StopPopUp {
   getEditButton() {
     return cy.getByTestId('StopPopUp::editButton');
   }
+
+  getDeleteButton() {
+    return cy.getByTestId('StopPopUp::deleteButton');
+  }
 }
