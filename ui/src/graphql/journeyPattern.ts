@@ -38,26 +38,6 @@ const JOURNEY_PATTERN_WITH_STOPS = gql`
   }
 `;
 
-const UPDATE_ROUTE_JOURNEY_PATTERN = gql`
-  mutation UpdateRouteJourneyPattern(
-    $route_id: uuid!
-    $new_journey_pattern: journey_pattern_journey_pattern_insert_input!
-  ) {
-    delete_journey_pattern_journey_pattern(
-      where: { on_route_id: { _eq: $route_id } }
-    ) {
-      returning {
-        journey_pattern_id
-        on_route_id
-      }
-    }
-
-    insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
-      ...journey_pattern_with_stops
-    }
-  }
-`;
-
 // check if the stop belongs to any of the current route's journey patterns
 export const stopBelongsToJourneyPattern = (
   stop: StopWithJourneyPatternFieldsFragment,
