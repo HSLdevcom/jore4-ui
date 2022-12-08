@@ -55,6 +55,11 @@ export const buildLabelGqlFilter = (label?: string) => ({
   label: { _eq: label },
 });
 
+/** Builds an object for gql to filter by labels */
+export const buildLabelInGqlFilter = (labels?: string[]) => ({
+  label: { _in: labels },
+});
+
 /** Builds an object for gql to filter by label using the '_like' operator.
  * This will means that all the '%' in the label are considered as 'any'
  */

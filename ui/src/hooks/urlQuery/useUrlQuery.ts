@@ -21,7 +21,8 @@ export type QueryParameterTypes =
   | DateTime
   | number
   | undefined
-  | number[];
+  | number[]
+  | string[];
 type ParameterWriteOptions = { replace?: boolean };
 
 export const useUrlQuery = () => {
