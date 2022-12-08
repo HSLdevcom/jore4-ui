@@ -31,12 +31,12 @@ const {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 module.exports = (on, config) => {
+  const db = getDbConnection();
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   on('task', {
     async checkDbConnection() {
       // Example about direct access to db
-      const db = getDbConnection();
       return db
         .raw('SELECT 1')
         .then((res) => {
@@ -56,11 +56,9 @@ module.exports = (on, config) => {
         });
     },
     async truncateDb() {
-      const db = getDbConnection();
       return truncateDb(db);
     },
     async executeRawDbQuery({ query, bindings }) {
-      const db = getDbConnection();
       return db.raw(query, bindings);
     },
     async hasuraApi(request) {
@@ -72,10 +70,10 @@ module.exports = (on, config) => {
     // should be accessed through "hasuraApi" function and this kind
     // of specific functions should be avoided.
     async insertVehicleSubmodOnInfraLinks(request) {
-      return insertVehicleSubmodeOnInfraLink(request);
+      return insertVehicleSubmodeOnInfraLink(db, request);
     },
     async removeVehicleSubmodOnInfraLinks(request) {
-      return removeVehicleSubmodeOnInfraLink(request);
+      return removeVehicleSubmodeOnInfraLink(db, request);
     },
   });
 };

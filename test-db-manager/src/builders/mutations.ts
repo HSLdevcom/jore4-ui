@@ -1,6 +1,5 @@
 import { gql } from 'graphql-tag';
 import { DocumentNode } from 'graphql/language/ast';
-import { getDbConnection } from '../DbManager';
 import {
   InfrastructureNetworkInfrastructureLinkInsertInput,
   JourneyPatternJourneyPatternInsertInput,
@@ -213,19 +212,18 @@ export interface VehicleSubmodeOnInfraLinkInsertInput {
 // Thus we have to use raw sql connection for handling those.
 // (Other solution could be renaming the tables.)
 export const insertVehicleSubmodeOnInfraLink = (
+  db,
   infraLinks: VehicleSubmodeOnInfraLinkInsertInput[],
 ) => {
-  const db = getDbConnection();
-
   return db('infrastructure_network.vehicle_submode_on_infrastructure_link')
     .returning(['infrastructure_link_id', 'vehicle_submode'])
     .insert(infraLinks);
 };
 
 export const removeVehicleSubmodeOnInfraLink = (
+  db,
   infraLinks: VehicleSubmodeOnInfraLinkInsertInput[],
 ) => {
-  const db = getDbConnection();
   return db('infrastructure_network.vehicle_submode_on_infrastructure_link')
     .whereIn(
       'infrastructure_link_id',
