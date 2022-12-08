@@ -1,4 +1,5 @@
 import {
+  getDbConnection,
   hasuraApi,
   InfraLinkAlongRouteInsertInput,
   InfraLinkInsertInput,
@@ -61,11 +62,14 @@ export const insertToDbHelper = async ({
     );
   }
   if (vehicleSubmodeOnInfrastructureLink) {
+    const db = getDbConnection();
     await insertVehicleSubmodeOnInfraLink(
+      db,
       vehicleSubmodeOnInfrastructureLink,
     ).then((res: ExplicitAny) =>
       logOnError('Inserting vehicle submodes on infra links', res),
     );
+    db.destroy();
   }
   if (lines) {
     const mutation = mapToCreateLinesMutation(lines);
@@ -133,11 +137,14 @@ export const removeFromDbHelper = async ({
     await hasuraApi(mutation).then((res) => logOnError('Removing stops', res));
   }
   if (vehicleSubmodeOnInfrastructureLink) {
+    const db = getDbConnection();
     await removeVehicleSubmodeOnInfraLink(
+      db,
       vehicleSubmodeOnInfrastructureLink,
     ).then((res: ExplicitAny) =>
       logOnError('Removing vehicle submodes on infra links', res),
     );
+    db.destroy();
   }
   if (infraLinks) {
     const mutation = mapToDeleteInfraLinksMutation(
