@@ -13,7 +13,7 @@ export interface ViewPortParams {
 }
 
 export interface DisplayedRouteParams {
-  routeLabel?: string;
+  routeLabels?: string[];
   lineLabel?: string;
   routeId?: UUID;
   showSelectedDaySituation?: boolean;
@@ -35,6 +35,7 @@ export const useMapQueryParams = () => {
     getPriorityArrayFromUrlQuery,
     deleteMultipleFromUrlQuery,
     setMultipleParametersToUrlQuery,
+    getArrayFromUrlQuery,
     setToUrlQuery,
   } = useUrlQuery();
 
@@ -53,7 +54,7 @@ export const useMapQueryParams = () => {
     viewPortParams: { latitude, longitude, zoom },
     observationDate,
     displayedRouteParams: {
-      routeLabel,
+      routeLabels,
       lineLabel,
       routeId,
       showSelectedDaySituation = true,
@@ -77,8 +78,8 @@ export const useMapQueryParams = () => {
           value: observationDate,
         },
         {
-          paramName: QueryParameterName.RouteLabel,
-          value: routeLabel,
+          paramName: QueryParameterName.RouteLabels,
+          value: routeLabels,
         },
         {
           paramName: QueryParameterName.LineLabel,
@@ -107,7 +108,7 @@ export const useMapQueryParams = () => {
         QueryParameterName.Longitude,
         QueryParameterName.Latitude,
         QueryParameterName.Zoom,
-        QueryParameterName.RouteLabel,
+        QueryParameterName.RouteLabels,
         QueryParameterName.LineLabel,
         QueryParameterName.RouteId,
         QueryParameterName.ShowSelectedDaySituation,
@@ -128,7 +129,7 @@ export const useMapQueryParams = () => {
     zoom: getFloatParamFromUrlQuery(QueryParameterName.Zoom) ?? DEFAULT_ZOOM,
   };
 
-  const routeLabel = getStringParamFromUrlQuery(QueryParameterName.RouteLabel);
+  const routeLabels = getArrayFromUrlQuery(QueryParameterName.RouteLabels);
   const lineLabel = getStringParamFromUrlQuery(QueryParameterName.LineLabel);
   const routeId = getStringParamFromUrlQuery(QueryParameterName.RouteId);
   const showSelectedDaySituation = getBooleanParamFromUrlQuery(
@@ -167,7 +168,7 @@ export const useMapQueryParams = () => {
     addMapOpenQueryParameter,
     isMapOpen,
     mapPosition,
-    routeLabel,
+    routeLabels,
     lineLabel,
     routeId,
     showSelectedDaySituation,

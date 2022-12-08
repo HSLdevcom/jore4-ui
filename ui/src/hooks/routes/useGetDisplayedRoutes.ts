@@ -9,6 +9,7 @@ import { Operation } from '../../redux';
 import {
   buildActiveDateGqlFilter,
   buildLabelGqlFilter,
+  buildLabelInGqlFilter,
   buildPriorityInGqlFilter,
 } from '../../utils';
 import { filterRoutesByHighestPriority } from '../line-details';
@@ -59,7 +60,7 @@ const GQL_DISPLAYED_ROUTE = gql`
 export const useGetDisplayedRoutes = () => {
   const { observationDate } = useObservationDateQueryParam();
   const {
-    routeLabel,
+    routeLabels,
     lineLabel,
     routeId,
     showSelectedDaySituation,
@@ -80,7 +81,7 @@ export const useGetDisplayedRoutes = () => {
         _and: [
           {
             _or: [
-              routeLabel && buildLabelGqlFilter(routeLabel),
+              routeLabels && buildLabelInGqlFilter(routeLabels),
               routeId && { route_id: { _eq: routeId } },
               // Remove undefined instances with filter
             ].filter((i) => i) as RouteRouteBoolExp[],
@@ -89,7 +90,7 @@ export const useGetDisplayedRoutes = () => {
         ],
       },
     },
-    skip: !routeLabel && !routeId,
+    skip: !routeLabels?.length && !routeId,
   });
 
   const routesByRouteInfo = routesByRouteInfoResult.data?.route_route || [];
