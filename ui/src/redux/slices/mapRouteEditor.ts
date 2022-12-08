@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import uniq from 'lodash/uniq';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
-  JourneyPatternStopFragment,
   LineAllFieldsFragment,
   RouteStopFieldsFragment,
 } from '../../generated/graphql';
 import { RouteInfraLink } from '../../graphql';
 import { mapToStoreType, StoreType } from '../mappers/storeType';
+import { JourneyPattern } from '../types';
 
 export interface EditedRouteData {
   /**
@@ -33,13 +33,13 @@ export interface EditedRouteData {
   // TODO: Use RouteMetadataFragment
   metaData?: RouteFormState;
   /**
+   * Route journey pattern
+   */
+  journeyPattern: JourneyPattern;
+  /**
    * Array of stop labels that are included in the edited route
    */
   includedStopLabels: string[];
-  /**
-   * Array of metadata about a stop in journey pattern (including but not limited to via info)
-   */
-  journeyPatternStops: JourneyPatternStopFragment[];
   /**
    * Array of stops that are eligible to be added to the journey pattern
    */
@@ -83,7 +83,10 @@ const initialState: IState = {
     lineInfo: undefined,
     metaData: undefined,
     includedStopLabels: [],
-    journeyPatternStops: [],
+    journeyPattern: {
+      id: undefined,
+      stops: [],
+    },
     stopsEligibleForJourneyPattern: [],
     infraLinks: [],
     templateRouteId: undefined,
@@ -273,13 +276,13 @@ const slice = createSlice({
       }),
     },
     /**
-     * Set draft route journey pattern stops
+     * Set draft route journey pattern
      */
-    setDraftRouteJourneyPatternStops: (
+    setDraftRouteJourneyPattern: (
       state: IState,
-      action: PayloadAction<JourneyPatternStopFragment[]>,
+      action: PayloadAction<JourneyPattern>,
     ) => {
-      state.editedRouteData.journeyPatternStops = action.payload;
+      state.editedRouteData.journeyPattern = action.payload;
     },
     /**
      * Reset created / edited route geometry in state.
@@ -288,7 +291,7 @@ const slice = createSlice({
       state.editedRouteData = {
         ...state.editedRouteData,
         includedStopLabels: [],
-        journeyPatternStops: [],
+        journeyPattern: { id: undefined, stops: [] },
         stopsEligibleForJourneyPattern: [],
         infraLinks: [],
         geometry: undefined,
@@ -331,7 +334,7 @@ export const {
   resetDraftRouteGeometry: resetDraftRouteGeometryAction,
   setSelectedRouteId: setSelectedRouteIdAction,
   setRouteMetadataFormOpen: setRouteMetadataFormOpenAction,
-  setDraftRouteJourneyPatternStops: setDraftRouteJourneyPatternStopsAction,
+  setDraftRouteJourneyPattern: setDraftRouteJourneyPatternAction,
 } = slice.actions;
 
 export const mapRouteEditorReducer = slice.reducer;

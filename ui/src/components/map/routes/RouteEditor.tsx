@@ -24,7 +24,7 @@ import {
   selectEditedRouteData,
   selectMapRouteEditor,
   selectSelectedRouteId,
-  setDraftRouteJourneyPatternStopsAction,
+  setDraftRouteJourneyPatternAction,
   setLineInfoAction,
   setRouteMetadataAction,
   setSelectedRouteIdAction,
@@ -64,7 +64,7 @@ const RouteEditorComponent = (
     infraLinks,
     stopsEligibleForJourneyPattern,
     includedStopLabels,
-    journeyPatternStops,
+    journeyPattern,
     metaData: routeDetails,
   } = useAppSelector(selectEditedRouteData);
 
@@ -98,8 +98,11 @@ const RouteEditorComponent = (
       routeId,
       stopsEligibleForJourneyPattern,
       includedStopLabels,
-      journeyPatternStops,
+      journeyPatternStops: journeyPattern.stops,
       infraLinksAlongRoute: infraLinks || [],
+      // journeyPattern id is defined when editing route
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      journeyPatternId: journeyPattern.id!,
     });
 
     const variables = mapEditGeometryChangesToVariables(changes);
@@ -116,7 +119,7 @@ const RouteEditorComponent = (
       form: routeDetails as RouteFormState,
       stopsEligibleForJourneyPattern,
       includedStopLabels,
-      journeyPatternStops,
+      journeyPatternStops: journeyPattern.stops,
       infraLinksAlongRoute: infraLinks || [],
     });
     if (changes.conflicts?.length) {
@@ -197,12 +200,13 @@ const RouteEditorComponent = (
         ),
       );
 
-      /**
-       * Preserve journey pattern stop metadata (e.g. via info)
-       */
+      // In our data model route has always exactly one journey pattern
+      const editedRouteJourneyPattern =
+        routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0];
+
+      // Preserve journey pattern stop metadata (e.g. via info)
       const newJourneyPatternStops = pipe(
-        routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0]
-          .scheduled_stop_point_in_journey_patterns,
+        editedRouteJourneyPattern.scheduled_stop_point_in_journey_patterns,
         (stopsInJourneyPattern) =>
           stopsInJourneyPattern.map((stopInJourneyPattern) => ({
             ...stopInJourneyPattern,
@@ -210,7 +214,12 @@ const RouteEditorComponent = (
           })),
       );
 
-      dispatch(setDraftRouteJourneyPatternStopsAction(newJourneyPatternStops));
+      dispatch(
+        setDraftRouteJourneyPatternAction({
+          id: editedRouteJourneyPattern.journey_pattern_id,
+          stops: newJourneyPatternStops,
+        }),
+      );
     }
   };
 

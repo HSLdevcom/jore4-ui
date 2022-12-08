@@ -1,3 +1,4 @@
+import { gql } from '@apollo/client';
 import { pipe } from 'remeda';
 import {
   JourneyPatternStopFragment,
@@ -20,6 +21,32 @@ import {
 import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
 import { useValidateRoute } from './useValidateRoute';
 
+const GQL_UPDATE_ROUTE_JOURNEY_PATTERN = gql`
+  mutation UpdateRouteJourneyPattern(
+    $journey_pattern_id: uuid!
+    $new_stops_in_journey_pattern: [journey_pattern_scheduled_stop_point_in_journey_pattern_insert_input!]!
+  ) {
+    delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: { journey_pattern_id: { _eq: $journey_pattern_id } }
+    ) {
+      returning {
+        scheduled_stop_point_label
+        scheduled_stop_point_sequence
+        journey_pattern_id
+      }
+    }
+
+    insert_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      objects: $new_stops_in_journey_pattern
+    ) {
+      returning {
+        scheduled_stop_point_label
+        scheduled_stop_point_sequence
+        journey_pattern_id
+      }
+    }
+  }
+`;
 interface DeleteStopParams {
   route: RouteRoute;
   stopPointLabels: string[];
@@ -28,7 +55,7 @@ interface DeleteStopParams {
 type AddStopParams = DeleteStopParams;
 
 interface UpdateJourneyPatternChanges {
-  routeId: UUID;
+  journeyPatternId: UUID;
   stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
   includedStopLabels: string[];
   journeyPatternStops: JourneyPatternStopFragment[];
@@ -89,7 +116,8 @@ export const useEditRouteJourneyPattern = () => {
     );
 
     const changes: UpdateJourneyPatternChanges = {
-      routeId: route.route_id,
+      // In our data model route has always exactly one journey pattern
+      journeyPatternId: route.route_journey_patterns[0].journey_pattern_id,
       stopsEligibleForJourneyPattern,
       includedStopLabels,
       journeyPatternStops,
@@ -106,12 +134,8 @@ export const useEditRouteJourneyPattern = () => {
     changes: UpdateJourneyPatternChanges,
   ) => {
     const variables: UpdateRouteJourneyPatternMutationVariables = {
-      route_id: changes.routeId,
-      new_journey_pattern: {
-        on_route_id: changes.routeId,
-        scheduled_stop_point_in_journey_patterns:
-          buildJourneyPatternStopSequence(changes),
-      },
+      journey_pattern_id: changes.journeyPatternId,
+      new_stops_in_journey_pattern: buildJourneyPatternStopSequence(changes),
     };
 
     return variables;
@@ -129,8 +153,8 @@ export const useEditRouteJourneyPattern = () => {
       // remove scheduled stop point from cache after mutation
       update(cache) {
         removeFromApolloCache(cache, {
-          route_id: variables.route_id,
-          __typename: 'route_route',
+          journey_pattern_id: variables.journey_pattern_id,
+          __typename: 'journey_pattern_journey_pattern',
         });
       },
     });
