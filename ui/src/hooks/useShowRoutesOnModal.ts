@@ -91,7 +91,7 @@ export const useShowRoutesOnModal = () => {
     );
 
     showRoutesOnModal({
-      displayedRouteParams: { routeLabel: route.label },
+      displayedRouteParams: { routeLabels: [route.label] },
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       validityStart: route.validity_start!,
       validityEnd: route.validity_end,
