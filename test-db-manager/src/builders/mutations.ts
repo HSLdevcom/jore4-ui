@@ -1,6 +1,5 @@
 import { gql } from 'graphql-tag';
 import { DocumentNode } from 'graphql/language/ast';
-import { getDbConnection } from '../DbManager';
 import {
   InfrastructureNetworkInfrastructureLinkInsertInput,
   JourneyPatternJourneyPatternInsertInput,
@@ -214,9 +213,8 @@ export interface VehicleSubmodeOnInfraLinkInsertInput {
 // (Other solution could be renaming the tables.)
 export const insertVehicleSubmodeOnInfraLink = (
   infraLinks: VehicleSubmodeOnInfraLinkInsertInput[],
+  db,
 ) => {
-  const db = getDbConnection();
-
   return db('infrastructure_network.vehicle_submode_on_infrastructure_link')
     .returning(['infrastructure_link_id', 'vehicle_submode'])
     .insert(infraLinks);
@@ -224,8 +222,8 @@ export const insertVehicleSubmodeOnInfraLink = (
 
 export const removeVehicleSubmodeOnInfraLink = (
   infraLinks: VehicleSubmodeOnInfraLinkInsertInput[],
+  db,
 ) => {
-  const db = getDbConnection();
   return db('infrastructure_network.vehicle_submode_on_infrastructure_link')
     .whereIn(
       'infrastructure_link_id',
