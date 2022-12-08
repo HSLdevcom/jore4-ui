@@ -20,7 +20,6 @@ export enum QueryParameterName {
   Latitude = 'lat',
   Zoom = 'z',
   ObservationDate = 'observationDate',
-  RouteLabel = 'routeLabel',
   RouteLabels = 'routeLabels',
   LineLabel = 'lineLabel',
   RouteId = 'routeId',
@@ -35,7 +34,8 @@ export type QueryParameterTypes =
   | DateTime
   | number
   | undefined
-  | number[];
+  | number[]
+  | string[];
 type ParameterWriteOptions = { replace?: boolean };
 
 export const useUrlQuery = () => {
