@@ -11926,59 +11926,6 @@ export type JourneyPatternWithStopsFragment = {
   }>;
 };
 
-export type UpdateRouteJourneyPatternMutationVariables = Exact<{
-  route_id: Scalars['uuid'];
-  new_journey_pattern: JourneyPatternJourneyPatternInsertInput;
-}>;
-
-export type UpdateRouteJourneyPatternMutation = {
-  __typename?: 'mutation_root';
-  delete_journey_pattern_journey_pattern?:
-    | {
-        __typename?: 'journey_pattern_journey_pattern_mutation_response';
-        returning: Array<{
-          __typename?: 'journey_pattern_journey_pattern';
-          journey_pattern_id: UUID;
-          on_route_id: UUID;
-        }>;
-      }
-    | null
-    | undefined;
-  insert_journey_pattern_journey_pattern_one?:
-    | {
-        __typename?: 'journey_pattern_journey_pattern';
-        journey_pattern_id: UUID;
-        on_route_id: UUID;
-        scheduled_stop_point_in_journey_patterns: Array<{
-          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-          journey_pattern_id: UUID;
-          scheduled_stop_point_label: string;
-          scheduled_stop_point_sequence: number;
-          is_timing_point: boolean;
-          is_via_point: boolean;
-          via_point_name_i18n?: LocalizedString | null | undefined;
-          via_point_short_name_i18n?: LocalizedString | null | undefined;
-          scheduled_stop_points: Array<{
-            __typename?: 'service_pattern_scheduled_stop_point';
-            priority: number;
-            direction: InfrastructureNetworkDirectionEnum;
-            scheduled_stop_point_id: UUID;
-            label: string;
-            validity_start?: luxon.DateTime | null | undefined;
-            validity_end?: luxon.DateTime | null | undefined;
-            located_on_infrastructure_link_id: UUID;
-          }>;
-          journey_pattern: {
-            __typename?: 'journey_pattern_journey_pattern';
-            journey_pattern_id: UUID;
-            on_route_id: UUID;
-          };
-        }>;
-      }
-    | null
-    | undefined;
-};
-
 export type PatchScheduledStopPointViaInfoMutationVariables = Exact<{
   stopLabel: Scalars['String'];
   journeyPatternId: Scalars['uuid'];
@@ -12509,6 +12456,10 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
           }>;
         };
       }>;
+      route_journey_patterns: Array<{
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+      }>;
     }>;
   }>;
 };
@@ -13028,92 +12979,6 @@ export type PatchRouteMutation = {
     | undefined;
 };
 
-export type UpdateRouteGeometryMutationVariables = Exact<{
-  route_id: Scalars['uuid'];
-  new_infrastructure_links:
-    | Array<RouteInfrastructureLinkAlongRouteInsertInput>
-    | RouteInfrastructureLinkAlongRouteInsertInput;
-  new_journey_pattern: JourneyPatternJourneyPatternInsertInput;
-}>;
-
-export type UpdateRouteGeometryMutation = {
-  __typename?: 'mutation_root';
-  delete_route_infrastructure_link_along_route?:
-    | {
-        __typename?: 'route_infrastructure_link_along_route_mutation_response';
-        returning: Array<{
-          __typename?: 'route_infrastructure_link_along_route';
-          infrastructure_link_id: UUID;
-          infrastructure_link_sequence: number;
-          route_id: UUID;
-        }>;
-      }
-    | null
-    | undefined;
-  insert_route_infrastructure_link_along_route?:
-    | {
-        __typename?: 'route_infrastructure_link_along_route_mutation_response';
-        returning: Array<{
-          __typename?: 'route_infrastructure_link_along_route';
-          route_id: UUID;
-          infrastructure_link_id: UUID;
-          infrastructure_link_sequence: number;
-          is_traversal_forwards: boolean;
-          infrastructure_link: {
-            __typename?: 'infrastructure_network_infrastructure_link';
-            infrastructure_link_id: UUID;
-            shape: GeoJSON.LineString;
-          };
-        }>;
-      }
-    | null
-    | undefined;
-  delete_journey_pattern_journey_pattern?:
-    | {
-        __typename?: 'journey_pattern_journey_pattern_mutation_response';
-        returning: Array<{
-          __typename?: 'journey_pattern_journey_pattern';
-          journey_pattern_id: UUID;
-          on_route_id: UUID;
-        }>;
-      }
-    | null
-    | undefined;
-  insert_journey_pattern_journey_pattern_one?:
-    | {
-        __typename?: 'journey_pattern_journey_pattern';
-        journey_pattern_id: UUID;
-        on_route_id: UUID;
-        scheduled_stop_point_in_journey_patterns: Array<{
-          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-          journey_pattern_id: UUID;
-          scheduled_stop_point_label: string;
-          scheduled_stop_point_sequence: number;
-          is_timing_point: boolean;
-          is_via_point: boolean;
-          via_point_name_i18n?: LocalizedString | null | undefined;
-          via_point_short_name_i18n?: LocalizedString | null | undefined;
-          scheduled_stop_points: Array<{
-            __typename?: 'service_pattern_scheduled_stop_point';
-            priority: number;
-            direction: InfrastructureNetworkDirectionEnum;
-            scheduled_stop_point_id: UUID;
-            label: string;
-            validity_start?: luxon.DateTime | null | undefined;
-            validity_end?: luxon.DateTime | null | undefined;
-            located_on_infrastructure_link_id: UUID;
-          }>;
-          journey_pattern: {
-            __typename?: 'journey_pattern_journey_pattern';
-            journey_pattern_id: UUID;
-            on_route_id: UUID;
-          };
-        }>;
-      }
-    | null
-    | undefined;
-};
-
 export type DeleteRouteMutationVariables = Exact<{
   route_id: Scalars['uuid'];
 }>;
@@ -13567,6 +13432,110 @@ export type GetRoutesBrokenByStopChangeQuery = {
       | null
       | undefined;
   }>;
+};
+
+export type UpdateRouteGeometryMutationVariables = Exact<{
+  route_id: Scalars['uuid'];
+  journey_pattern_id: Scalars['uuid'];
+  new_infrastructure_links:
+    | Array<RouteInfrastructureLinkAlongRouteInsertInput>
+    | RouteInfrastructureLinkAlongRouteInsertInput;
+  new_stops_in_journey_pattern:
+    | Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>
+    | JourneyPatternScheduledStopPointInJourneyPatternInsertInput;
+}>;
+
+export type UpdateRouteGeometryMutation = {
+  __typename?: 'mutation_root';
+  delete_route_infrastructure_link_along_route?:
+    | {
+        __typename?: 'route_infrastructure_link_along_route_mutation_response';
+        returning: Array<{
+          __typename?: 'route_infrastructure_link_along_route';
+          infrastructure_link_id: UUID;
+          infrastructure_link_sequence: number;
+          route_id: UUID;
+        }>;
+      }
+    | null
+    | undefined;
+  insert_route_infrastructure_link_along_route?:
+    | {
+        __typename?: 'route_infrastructure_link_along_route_mutation_response';
+        returning: Array<{
+          __typename?: 'route_infrastructure_link_along_route';
+          route_id: UUID;
+          infrastructure_link_id: UUID;
+          infrastructure_link_sequence: number;
+          is_traversal_forwards: boolean;
+          infrastructure_link: {
+            __typename?: 'infrastructure_network_infrastructure_link';
+            infrastructure_link_id: UUID;
+            shape: GeoJSON.LineString;
+          };
+        }>;
+      }
+    | null
+    | undefined;
+  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?:
+    | {
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+        returning: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+          journey_pattern_id: UUID;
+        }>;
+      }
+    | null
+    | undefined;
+  insert_journey_pattern_scheduled_stop_point_in_journey_pattern?:
+    | {
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+        returning: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+          journey_pattern_id: UUID;
+        }>;
+      }
+    | null
+    | undefined;
+};
+
+export type UpdateRouteJourneyPatternMutationVariables = Exact<{
+  journey_pattern_id: Scalars['uuid'];
+  new_stops_in_journey_pattern:
+    | Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>
+    | JourneyPatternScheduledStopPointInJourneyPatternInsertInput;
+}>;
+
+export type UpdateRouteJourneyPatternMutation = {
+  __typename?: 'mutation_root';
+  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?:
+    | {
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+        returning: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+          journey_pattern_id: UUID;
+        }>;
+      }
+    | null
+    | undefined;
+  insert_journey_pattern_scheduled_stop_point_in_journey_pattern?:
+    | {
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+        returning: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+          journey_pattern_id: UUID;
+        }>;
+      }
+    | null
+    | undefined;
 };
 
 export type GetLinksWithStopsByExternalLinkIdsQueryVariables = Exact<{
@@ -15228,70 +15197,6 @@ export type GetStopsAlongInfrastructureLinksQueryResult = Apollo.QueryResult<
   GetStopsAlongInfrastructureLinksQuery,
   GetStopsAlongInfrastructureLinksQueryVariables
 >;
-export const UpdateRouteJourneyPatternDocument = gql`
-  mutation UpdateRouteJourneyPattern(
-    $route_id: uuid!
-    $new_journey_pattern: journey_pattern_journey_pattern_insert_input!
-  ) {
-    delete_journey_pattern_journey_pattern(
-      where: { on_route_id: { _eq: $route_id } }
-    ) {
-      returning {
-        journey_pattern_id
-        on_route_id
-      }
-    }
-    insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
-      ...journey_pattern_with_stops
-    }
-  }
-  ${JourneyPatternWithStopsFragmentDoc}
-`;
-export type UpdateRouteJourneyPatternMutationFn = Apollo.MutationFunction<
-  UpdateRouteJourneyPatternMutation,
-  UpdateRouteJourneyPatternMutationVariables
->;
-
-/**
- * __useUpdateRouteJourneyPatternMutation__
- *
- * To run a mutation, you first call `useUpdateRouteJourneyPatternMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateRouteJourneyPatternMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateRouteJourneyPatternMutation, { data, loading, error }] = useUpdateRouteJourneyPatternMutation({
- *   variables: {
- *      route_id: // value for 'route_id'
- *      new_journey_pattern: // value for 'new_journey_pattern'
- *   },
- * });
- */
-export function useUpdateRouteJourneyPatternMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UpdateRouteJourneyPatternMutation,
-    UpdateRouteJourneyPatternMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    UpdateRouteJourneyPatternMutation,
-    UpdateRouteJourneyPatternMutationVariables
-  >(UpdateRouteJourneyPatternDocument, options);
-}
-export type UpdateRouteJourneyPatternMutationHookResult = ReturnType<
-  typeof useUpdateRouteJourneyPatternMutation
->;
-export type UpdateRouteJourneyPatternMutationResult =
-  Apollo.MutationResult<UpdateRouteJourneyPatternMutation>;
-export type UpdateRouteJourneyPatternMutationOptions =
-  Apollo.BaseMutationOptions<
-    UpdateRouteJourneyPatternMutation,
-    UpdateRouteJourneyPatternMutationVariables
-  >;
 export const PatchScheduledStopPointViaInfoDocument = gql`
   mutation PatchScheduledStopPointViaInfo(
     $stopLabel: String!
@@ -15800,6 +15705,9 @@ export const GetHighestPriorityLineDetailsWithRoutesDocument = gql`
               }
             }
           }
+        }
+        route_journey_patterns {
+          journey_pattern_id
         }
       }
     }
@@ -16563,94 +16471,6 @@ export type PatchRouteMutationOptions = Apollo.BaseMutationOptions<
   PatchRouteMutation,
   PatchRouteMutationVariables
 >;
-export const UpdateRouteGeometryDocument = gql`
-  mutation UpdateRouteGeometry(
-    $route_id: uuid!
-    $new_infrastructure_links: [route_infrastructure_link_along_route_insert_input!]!
-    $new_journey_pattern: journey_pattern_journey_pattern_insert_input!
-  ) {
-    delete_route_infrastructure_link_along_route(
-      where: { route_id: { _eq: $route_id } }
-    ) {
-      returning {
-        infrastructure_link_id
-        infrastructure_link_sequence
-        route_id
-      }
-    }
-    insert_route_infrastructure_link_along_route(
-      objects: $new_infrastructure_links
-    ) {
-      returning {
-        route_id
-        infrastructure_link_id
-        infrastructure_link_sequence
-        infrastructure_link {
-          infrastructure_link_id
-          shape
-        }
-        is_traversal_forwards
-      }
-    }
-    delete_journey_pattern_journey_pattern(
-      where: { on_route_id: { _eq: $route_id } }
-    ) {
-      returning {
-        journey_pattern_id
-        on_route_id
-      }
-    }
-    insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
-      ...journey_pattern_with_stops
-    }
-  }
-  ${JourneyPatternWithStopsFragmentDoc}
-`;
-export type UpdateRouteGeometryMutationFn = Apollo.MutationFunction<
-  UpdateRouteGeometryMutation,
-  UpdateRouteGeometryMutationVariables
->;
-
-/**
- * __useUpdateRouteGeometryMutation__
- *
- * To run a mutation, you first call `useUpdateRouteGeometryMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateRouteGeometryMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateRouteGeometryMutation, { data, loading, error }] = useUpdateRouteGeometryMutation({
- *   variables: {
- *      route_id: // value for 'route_id'
- *      new_infrastructure_links: // value for 'new_infrastructure_links'
- *      new_journey_pattern: // value for 'new_journey_pattern'
- *   },
- * });
- */
-export function useUpdateRouteGeometryMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UpdateRouteGeometryMutation,
-    UpdateRouteGeometryMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    UpdateRouteGeometryMutation,
-    UpdateRouteGeometryMutationVariables
-  >(UpdateRouteGeometryDocument, options);
-}
-export type UpdateRouteGeometryMutationHookResult = ReturnType<
-  typeof useUpdateRouteGeometryMutation
->;
-export type UpdateRouteGeometryMutationResult =
-  Apollo.MutationResult<UpdateRouteGeometryMutation>;
-export type UpdateRouteGeometryMutationOptions = Apollo.BaseMutationOptions<
-  UpdateRouteGeometryMutation,
-  UpdateRouteGeometryMutationVariables
->;
 export const DeleteRouteDocument = gql`
   mutation DeleteRoute($route_id: uuid!) {
     delete_route_route(where: { route_id: { _eq: $route_id } }) {
@@ -17368,6 +17188,172 @@ export type GetRoutesBrokenByStopChangeQueryResult = Apollo.QueryResult<
   GetRoutesBrokenByStopChangeQuery,
   GetRoutesBrokenByStopChangeQueryVariables
 >;
+export const UpdateRouteGeometryDocument = gql`
+  mutation UpdateRouteGeometry(
+    $route_id: uuid!
+    $journey_pattern_id: uuid!
+    $new_infrastructure_links: [route_infrastructure_link_along_route_insert_input!]!
+    $new_stops_in_journey_pattern: [journey_pattern_scheduled_stop_point_in_journey_pattern_insert_input!]!
+  ) {
+    delete_route_infrastructure_link_along_route(
+      where: { route_id: { _eq: $route_id } }
+    ) {
+      returning {
+        infrastructure_link_id
+        infrastructure_link_sequence
+        route_id
+      }
+    }
+    insert_route_infrastructure_link_along_route(
+      objects: $new_infrastructure_links
+    ) {
+      returning {
+        route_id
+        infrastructure_link_id
+        infrastructure_link_sequence
+        infrastructure_link {
+          infrastructure_link_id
+          shape
+        }
+        is_traversal_forwards
+      }
+    }
+    delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: { journey_pattern_id: { _eq: $journey_pattern_id } }
+    ) {
+      returning {
+        scheduled_stop_point_label
+        scheduled_stop_point_sequence
+        journey_pattern_id
+      }
+    }
+    insert_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      objects: $new_stops_in_journey_pattern
+    ) {
+      returning {
+        scheduled_stop_point_label
+        scheduled_stop_point_sequence
+        journey_pattern_id
+      }
+    }
+  }
+`;
+export type UpdateRouteGeometryMutationFn = Apollo.MutationFunction<
+  UpdateRouteGeometryMutation,
+  UpdateRouteGeometryMutationVariables
+>;
+
+/**
+ * __useUpdateRouteGeometryMutation__
+ *
+ * To run a mutation, you first call `useUpdateRouteGeometryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateRouteGeometryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateRouteGeometryMutation, { data, loading, error }] = useUpdateRouteGeometryMutation({
+ *   variables: {
+ *      route_id: // value for 'route_id'
+ *      journey_pattern_id: // value for 'journey_pattern_id'
+ *      new_infrastructure_links: // value for 'new_infrastructure_links'
+ *      new_stops_in_journey_pattern: // value for 'new_stops_in_journey_pattern'
+ *   },
+ * });
+ */
+export function useUpdateRouteGeometryMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateRouteGeometryMutation,
+    UpdateRouteGeometryMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateRouteGeometryMutation,
+    UpdateRouteGeometryMutationVariables
+  >(UpdateRouteGeometryDocument, options);
+}
+export type UpdateRouteGeometryMutationHookResult = ReturnType<
+  typeof useUpdateRouteGeometryMutation
+>;
+export type UpdateRouteGeometryMutationResult =
+  Apollo.MutationResult<UpdateRouteGeometryMutation>;
+export type UpdateRouteGeometryMutationOptions = Apollo.BaseMutationOptions<
+  UpdateRouteGeometryMutation,
+  UpdateRouteGeometryMutationVariables
+>;
+export const UpdateRouteJourneyPatternDocument = gql`
+  mutation UpdateRouteJourneyPattern(
+    $journey_pattern_id: uuid!
+    $new_stops_in_journey_pattern: [journey_pattern_scheduled_stop_point_in_journey_pattern_insert_input!]!
+  ) {
+    delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: { journey_pattern_id: { _eq: $journey_pattern_id } }
+    ) {
+      returning {
+        scheduled_stop_point_label
+        scheduled_stop_point_sequence
+        journey_pattern_id
+      }
+    }
+    insert_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      objects: $new_stops_in_journey_pattern
+    ) {
+      returning {
+        scheduled_stop_point_label
+        scheduled_stop_point_sequence
+        journey_pattern_id
+      }
+    }
+  }
+`;
+export type UpdateRouteJourneyPatternMutationFn = Apollo.MutationFunction<
+  UpdateRouteJourneyPatternMutation,
+  UpdateRouteJourneyPatternMutationVariables
+>;
+
+/**
+ * __useUpdateRouteJourneyPatternMutation__
+ *
+ * To run a mutation, you first call `useUpdateRouteJourneyPatternMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateRouteJourneyPatternMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateRouteJourneyPatternMutation, { data, loading, error }] = useUpdateRouteJourneyPatternMutation({
+ *   variables: {
+ *      journey_pattern_id: // value for 'journey_pattern_id'
+ *      new_stops_in_journey_pattern: // value for 'new_stops_in_journey_pattern'
+ *   },
+ * });
+ */
+export function useUpdateRouteJourneyPatternMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateRouteJourneyPatternMutation,
+    UpdateRouteJourneyPatternMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateRouteJourneyPatternMutation,
+    UpdateRouteJourneyPatternMutationVariables
+  >(UpdateRouteJourneyPatternDocument, options);
+}
+export type UpdateRouteJourneyPatternMutationHookResult = ReturnType<
+  typeof useUpdateRouteJourneyPatternMutation
+>;
+export type UpdateRouteJourneyPatternMutationResult =
+  Apollo.MutationResult<UpdateRouteJourneyPatternMutation>;
+export type UpdateRouteJourneyPatternMutationOptions =
+  Apollo.BaseMutationOptions<
+    UpdateRouteJourneyPatternMutation,
+    UpdateRouteJourneyPatternMutationVariables
+  >;
 export const GetLinksWithStopsByExternalLinkIdsDocument = gql`
   query GetLinksWithStopsByExternalLinkIds($externalLinkIds: [String!]) {
     infrastructure_network_infrastructure_link(
@@ -18503,6 +18489,7 @@ export function useGetRoutesBrokenByStopChangeAsyncQuery() {
 export type GetRoutesBrokenByStopChangeAsyncQueryHookResult = ReturnType<
   typeof useGetRoutesBrokenByStopChangeAsyncQuery
 >;
+
 export function useGetLinksWithStopsByExternalLinkIdsAsyncQuery() {
   return useAsyncQuery<
     GetLinksWithStopsByExternalLinkIdsQuery,

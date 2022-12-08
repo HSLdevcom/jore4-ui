@@ -138,12 +138,40 @@ const buildCacheDefinition = () => {
       },
       service_pattern_scheduled_stop_point: {
         keyFields: ['scheduled_stop_point_id'],
+        fields: {
+          scheduled_stop_point_in_journey_patterns: {
+            merge(existing, incoming) {
+              // Just return incoming contents without trying to do any merging
+              // to silence console warning about defining custom merge function when
+              // editing route geometry.
+              // The default merge function works like this as well, but for some reason
+              // defining it here silences the warning.
+              // "By default, the field's existing array is completely replaced by the incoming array."
+              // https://www.apollographql.com/docs/react/caching/cache-field-behavior/#merging-arrays
+              return incoming;
+            },
+          },
+        },
       },
       journey_pattern_scheduled_stop_point_in_journey_pattern: {
         keyFields: ['journey_pattern_id', 'scheduled_stop_point_sequence'],
       },
       journey_pattern_journey_pattern: {
         keyFields: ['journey_pattern_id'],
+        fields: {
+          scheduled_stop_point_in_journey_patterns: {
+            merge(existing, incoming) {
+              // Just return incoming contents without trying to do any merging
+              // to silence console warning about defining custom merge function when
+              // editing route geometry.
+              // The default merge function works like this as well, but for some reason
+              // defining it here silences the warning.
+              // "By default, the field's existing array is completely replaced by the incoming array."
+              // https://www.apollographql.com/docs/react/caching/cache-field-behavior/#merging-arrays
+              return incoming;
+            },
+          },
+        },
       },
       route_infrastructure_link_along_route: {
         keyFields: ['route_id', 'infrastructure_link_sequence'],

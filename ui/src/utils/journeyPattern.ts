@@ -1,5 +1,5 @@
 import {
-  JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput,
+  JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
   JourneyPatternStopFragment,
   RouteStopFieldsFragment,
   StopWithJourneyPatternFieldsFragment,
@@ -25,6 +25,7 @@ interface BuildJourneyPatternStopSequenceProps {
   stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
   includedStopLabels: string[];
   journeyPatternStops: JourneyPatternStopFragment[];
+  journeyPatternId?: UUID;
 }
 
 /**
@@ -33,30 +34,33 @@ interface BuildJourneyPatternStopSequenceProps {
  * @param stopsEligibleForJourneyPattern Stops along route's geometry
  * @param includedStopLabels Stops that are included in the journey pattern
  * @param journeyPatternStops Metadata of stops in journey pattern (e.g. via info)
+ * @param journeyPatternId Journey pattern id
  * @returns Sequence of stops that belong to route's journey pattern
  */
 export const buildJourneyPatternStopSequence = ({
   stopsEligibleForJourneyPattern,
   includedStopLabels,
   journeyPatternStops,
-}: BuildJourneyPatternStopSequenceProps): JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput => {
+  journeyPatternId,
+}: BuildJourneyPatternStopSequenceProps): JourneyPatternScheduledStopPointInJourneyPatternInsertInput[] => {
   const stops = filterDistinctConsecutiveStops(stopsEligibleForJourneyPattern);
-  return {
-    data: stops
-      .filter((stop) => includedStopLabels.includes(stop.label))
-      .map((routeStop, index) => {
-        const { label } = routeStop;
-        const stopInJourneyPattern = journeyPatternStops.find(
-          (stop) => stop.scheduled_stop_point_label === label,
-        );
+  return stops
+    .filter((stop) => includedStopLabels.includes(stop.label))
+    .map((routeStop, index) => {
+      const { label } = routeStop;
+      const stopInJourneyPattern = journeyPatternStops.find(
+        (stop) => stop.scheduled_stop_point_label === label,
+      );
 
-        return {
-          ...stopInJourneyPattern,
-          scheduled_stop_point_label: label,
-          scheduled_stop_point_sequence: index,
-        };
-      }),
-  };
+      return {
+        ...stopInJourneyPattern,
+        scheduled_stop_point_label: label,
+        scheduled_stop_point_sequence: index,
+        ...(journeyPatternId && {
+          journey_pattern_id: journeyPatternId,
+        }),
+      };
+    });
 };
 
 /**

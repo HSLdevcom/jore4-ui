@@ -74,12 +74,13 @@ export const useCreateRoute = () => {
       },
       route_journey_patterns: {
         data: {
-          scheduled_stop_point_in_journey_patterns:
-            buildJourneyPatternStopSequence({
+          scheduled_stop_point_in_journey_patterns: {
+            data: buildJourneyPatternStopSequence({
               stopsEligibleForJourneyPattern,
               includedStopLabels,
               journeyPatternStops,
             }),
+          },
         },
       },
     });

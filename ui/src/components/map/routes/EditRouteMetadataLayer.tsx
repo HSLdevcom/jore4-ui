@@ -10,7 +10,7 @@ import {
   resetRouteCreatingAction,
   selectEditedRouteData,
   selectMapRouteEditor,
-  setDraftRouteJourneyPatternStopsAction,
+  setDraftRouteJourneyPatternAction,
   setLineInfoAction,
   setRouteMetadataFormOpenAction,
 } from '../../../redux';
@@ -78,7 +78,9 @@ export const EditRouteMetadataLayer: React.FC = () => {
           })),
       );
 
-      dispatch(setDraftRouteJourneyPatternStopsAction(newJourneyPatternStops));
+      dispatch(
+        setDraftRouteJourneyPatternAction({ stops: newJourneyPatternStops }),
+      );
     }
   };
 

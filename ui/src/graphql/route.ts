@@ -215,6 +215,9 @@ const GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
             }
           }
         }
+        route_journey_patterns {
+          journey_pattern_id
+        }
       }
     }
   }
@@ -398,52 +401,6 @@ const UPDATE_ROUTE = gql`
       returning {
         ...route_all_fields
       }
-    }
-  }
-`;
-
-const UPDATE_ROUTE_GEOMETRY = gql`
-  mutation UpdateRouteGeometry(
-    $route_id: uuid!
-    $new_infrastructure_links: [route_infrastructure_link_along_route_insert_input!]!
-    $new_journey_pattern: journey_pattern_journey_pattern_insert_input!
-  ) {
-    delete_route_infrastructure_link_along_route(
-      where: { route_id: { _eq: $route_id } }
-    ) {
-      returning {
-        infrastructure_link_id
-        infrastructure_link_sequence
-        route_id
-      }
-    }
-
-    insert_route_infrastructure_link_along_route(
-      objects: $new_infrastructure_links
-    ) {
-      returning {
-        route_id
-        infrastructure_link_id
-        infrastructure_link_sequence
-        infrastructure_link {
-          infrastructure_link_id
-          shape
-        }
-        is_traversal_forwards
-      }
-    }
-
-    delete_journey_pattern_journey_pattern(
-      where: { on_route_id: { _eq: $route_id } }
-    ) {
-      returning {
-        journey_pattern_id
-        on_route_id
-      }
-    }
-
-    insert_journey_pattern_journey_pattern_one(object: $new_journey_pattern) {
-      ...journey_pattern_with_stops
     }
   }
 `;
