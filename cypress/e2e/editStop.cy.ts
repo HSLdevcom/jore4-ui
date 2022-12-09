@@ -1,5 +1,6 @@
 import {
   buildStop,
+  Priority,
   ReusableComponentsVehicleModeEnum,
   ReusableComponentsVehicleSubmodeEnum,
   ServicePatternVehicleModeOnScheduledStopPointInsertInput,
@@ -94,6 +95,9 @@ describe('Stop editing tests', () => {
     cy.fixture('infraLinks/infraLinks.sql').then((infraLinksQuery) => {
       cy.task('executeRawDbQuery', { query: infraLinksQuery });
     });
+    cy.fixture('timingPlaces/timingPlaces.sql').then((timingPlacesQuery) => {
+      cy.task('executeRawDbQuery', { query: timingPlacesQuery });
+    });
   });
 
   beforeEach(() => {
@@ -157,49 +161,6 @@ describe('Stop editing tests', () => {
   );
 
   it(
-    'Should move a stop on the map by changing the coordinates',
-    // Map opening seems to take time, so we increase the timeout
-    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
-    () => {
-      const testCoordinates2 = {
-        lng: 24.92904198486008,
-        lat: 60.16490775039894,
-        el: 0,
-      };
-
-      const updatedStopInfo: StopFormInfo = {
-        label: 'Moved stop new label',
-        latitude: String(testCoordinates2.lat),
-        longitude: String(testCoordinates2.lng),
-      };
-
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-
-      map.waitForMapToLoad();
-
-      map.getStopByStopLabel(stops[0].label).click();
-
-      map.stopPopUp.getEditButton().click();
-
-      stopForm.fillForm(updatedStopInfo);
-      stopForm.save();
-
-      confirmationDialog.getConfirmButton().click();
-
-      cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
-
-      toast.checkSuccessToastHasMessage('Pysäkki muokattu');
-
-      map.getStopByStopLabel(updatedStopInfo.label).click();
-
-      map.stopPopUp.getEditButton().click();
-
-      stopForm.getLatitudeInput().should('have.value', testCoordinates2.lat);
-      stopForm.getLongitudeInput().should('have.value', testCoordinates2.lng);
-    },
-  );
-
-  it(
     'Should delete a stop',
     // Map opening seems to take time, so we increase the timeout
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
@@ -219,6 +180,66 @@ describe('Stop editing tests', () => {
       toast.checkSuccessToastHasMessage('Pysäkki poistettu');
 
       map.getStopByStopLabel(stops[0].label).should('not.exist');
+    },
+  );
+
+  it(
+    'Should edit stop info',
+    // Map opening seems to take time, so we increase the timeout
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    () => {
+      const testCoordinates2 = {
+        lng: 24.92904198486008,
+        lat: 60.16490775039894,
+      };
+
+      const updatedStopInfo: StopFormInfo = {
+        label: 'Add timing place stop label',
+        // This timing place value comes from timing places sql seed data
+        timingPlace: '1ALATI',
+        latitude: String(testCoordinates2.lat),
+        longitude: String(testCoordinates2.lng),
+        validityStartISODate: '2019-01-01',
+        validityEndISODate: '2029-12-31',
+        priority: Priority.Draft,
+      };
+
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      map.waitForMapToLoad();
+
+      map.getStopByStopLabel(stops[0].label).click();
+
+      map.stopPopUp.getEditButton().click();
+
+      stopForm.fillForm(updatedStopInfo);
+      stopForm.save();
+
+      confirmationDialog.getConfirmButton().click();
+
+      cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
+
+      toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+
+      map.getStopByStopLabel(updatedStopInfo.label, 'Draft').click();
+
+      map.stopPopUp.getEditButton().click();
+
+      stopForm.getLabelInput().should('have.value', updatedStopInfo.label);
+      stopForm
+        .getTimingPlaceDropdown()
+        .should('contain', updatedStopInfo.timingPlace);
+      stopForm.changeValidityForm.assertSelectedPriority(
+        updatedStopInfo.priority,
+      );
+      stopForm.changeValidityForm
+        .getStartDateInput()
+        .should('have.value', updatedStopInfo.validityStartISODate);
+      stopForm.changeValidityForm
+        .getEndDateInput()
+        .should('have.value', updatedStopInfo.validityEndISODate);
+      stopForm.getLatitudeInput().should('have.value', testCoordinates2.lat);
+      stopForm.getLongitudeInput().should('have.value', testCoordinates2.lng);
     },
   );
 });
