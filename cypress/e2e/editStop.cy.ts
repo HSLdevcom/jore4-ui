@@ -1,9 +1,11 @@
 import {
   buildStop,
+  Priority,
   ReusableComponentsVehicleModeEnum,
   ReusableComponentsVehicleSubmodeEnum,
   ServicePatternVehicleModeOnScheduledStopPointInsertInput,
   StopInsertInput,
+  timingPlaces,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
@@ -81,6 +83,7 @@ const dbResources = {
   vehicleSubmodeOnInfrastructureLink,
   stops,
   vehicleModeOnScheduledStopPoint,
+  timingPlaces,
 };
 
 describe('Stop editing tests', () => {
@@ -121,7 +124,6 @@ describe('Stop editing tests', () => {
 
   it(
     'Should move a stop on the map',
-    // Map opening seems to take time, so we increase the timeout
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
     () => {
       // Coordinates for the point where the stop is moved in the test.
@@ -131,7 +133,9 @@ describe('Stop editing tests', () => {
 
       map.waitForMapToLoad();
 
-      map.getStopByStopLabel(stops[0].label).click();
+      map
+        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+        .click();
 
       map.stopPopUp.getMoveButton().click();
 
@@ -147,7 +151,9 @@ describe('Stop editing tests', () => {
 
       map.getLoader().should('not.exist');
 
-      map.getStopByStopLabel(stops[0].label).click();
+      map
+        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+        .click();
 
       map.stopPopUp.getEditButton().click();
 
@@ -157,27 +163,59 @@ describe('Stop editing tests', () => {
   );
 
   it(
-    'Should move a stop on the map by changing the coordinates',
-    // Map opening seems to take time, so we increase the timeout
+    'Should delete a stop',
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    () => {
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      map.waitForMapToLoad();
+
+      map
+        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+        .click();
+
+      map.stopPopUp.getDeleteButton().click();
+
+      confirmationDialog.getConfirmButton().click();
+
+      cy.wait('@gqlRemoveStop').its('response.statusCode').should('equal', 200);
+
+      toast.checkSuccessToastHasMessage('Pysäkki poistettu');
+
+      map
+        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+        .should('not.exist');
+    },
+  );
+
+  it(
+    'Should edit stop info',
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
     () => {
       const testCoordinates2 = {
         lng: 24.92904198486008,
         lat: 60.16490775039894,
-        el: 0,
       };
 
       const updatedStopInfo: StopFormInfo = {
-        label: 'Moved stop new label',
+        label: 'Add timing place stop label',
+        // seed timing places should always have label defined
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        timingPlace: timingPlaces[0].label!,
         latitude: String(testCoordinates2.lat),
         longitude: String(testCoordinates2.lng),
+        validityStartISODate: '2019-01-01',
+        validityEndISODate: '2029-12-31',
+        priority: Priority.Draft,
       };
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
       map.waitForMapToLoad();
 
-      map.getStopByStopLabel(stops[0].label).click();
+      map
+        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+        .click();
 
       map.stopPopUp.getEditButton().click();
 
@@ -190,35 +228,32 @@ describe('Stop editing tests', () => {
 
       toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
-      map.getStopByStopLabel(updatedStopInfo.label).click();
+      map
+        .getStopByStopLabelAndPriority(
+          updatedStopInfo.label,
+          // Assert non-null since priority is defined in the updatedStopInfo
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          updatedStopInfo.priority!,
+        )
+        .click();
 
       map.stopPopUp.getEditButton().click();
 
+      stopForm.getLabelInput().should('have.value', updatedStopInfo.label);
+      stopForm
+        .getTimingPlaceDropdown()
+        .should('contain', updatedStopInfo.timingPlace);
+      stopForm.changeValidityForm.assertSelectedPriority(
+        updatedStopInfo.priority,
+      );
+      stopForm.changeValidityForm
+        .getStartDateInput()
+        .should('have.value', updatedStopInfo.validityStartISODate);
+      stopForm.changeValidityForm
+        .getEndDateInput()
+        .should('have.value', updatedStopInfo.validityEndISODate);
       stopForm.getLatitudeInput().should('have.value', testCoordinates2.lat);
       stopForm.getLongitudeInput().should('have.value', testCoordinates2.lng);
-    },
-  );
-
-  it(
-    'Should delete a stop',
-    // Map opening seems to take time, so we increase the timeout
-    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
-    () => {
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-
-      map.waitForMapToLoad();
-
-      map.getStopByStopLabel(stops[0].label).click();
-
-      map.stopPopUp.getDeleteButton().click();
-
-      confirmationDialog.getConfirmButton().click();
-
-      cy.wait('@gqlRemoveStop').its('response.statusCode').should('equal', 200);
-
-      toast.checkSuccessToastHasMessage('Pysäkki poistettu');
-
-      map.getStopByStopLabel(stops[0].label).should('not.exist');
     },
   );
 });
