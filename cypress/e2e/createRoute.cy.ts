@@ -1,18 +1,22 @@
 import {
   buildLine,
+  buildRoute,
   buildStop,
+  buildStopsInJourneyPattern,
+  InfraLinkAlongRouteInsertInput,
+  JourneyPatternInsertInput,
   LineInsertInput,
   Priority,
   ReusableComponentsVehicleModeEnum,
   ReusableComponentsVehicleSubmodeEnum,
   RouteDirectionEnum,
+  RouteInsertInput,
   StopInsertInput,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
-import { Map, RouteEditor } from '../pageObjects';
+import { Map, ModalMap, RouteEditor } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
-import { ModalMap } from '../pageObjects/ModalMap';
 import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteRoutesByLabel } from './utils';
@@ -22,26 +26,27 @@ const testRouteLabels = {
   label2: 'T-reitti 2',
   label3: 'T-reitti 3',
   label4: 'Indefinite end time route',
+  label5: 'Template route',
 };
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
 // These form a straight line on Eerikinkatu in Helsinki.
 // Coordinates are partial since they are needed only for the stop creation.
 
-const testInfraLinks = {
-  1: {
+const testInfraLinks = [
+  {
     id: '73bc2df9-f5af-4c38-a1dd-5ed1f71c90a8',
     coordinates: [24.92492146851626, 60.1634759878872, 0],
   },
-  2: {
+  {
     id: 'ea69415a-9c54-4327-8836-f38b36d8fa99',
     coordinates: [24.92904198486008, 60.16490775039894, 0],
   },
-  3: {
+  {
     id: '13de61c2-3fc9-4255-955f-0a2350c389e1',
     coordinates: [24.932072417514647, 60.166003223527824, 0],
   },
-};
+];
 
 const lines: LineInsertInput[] = [
   {
@@ -66,10 +71,22 @@ const stops: StopInsertInput[] = [
   {
     ...buildStop({
       label: 'Test stop 1',
-      located_on_infrastructure_link_id: testInfraLinks[1].id,
+      located_on_infrastructure_link_id: testInfraLinks[0].id,
     }),
     validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
     scheduled_stop_point_id: '3f23a4c5-f527-4395-bd9f-bbc398f837df',
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[0].coordinates,
+    },
+  },
+  {
+    ...buildStop({
+      label: 'Test stop 2',
+      located_on_infrastructure_link_id: testInfraLinks[1].id,
+    }),
+    validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
+    scheduled_stop_point_id: '431a6791-f1f5-45d4-8c9d-9e154a2531e0',
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[1].coordinates,
@@ -77,32 +94,55 @@ const stops: StopInsertInput[] = [
   },
   {
     ...buildStop({
-      label: 'Test stop 2',
-      located_on_infrastructure_link_id: testInfraLinks[2].id,
-    }),
-    validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
-    scheduled_stop_point_id: '431a6791-f1f5-45d4-8c9d-9e154a2531e0',
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[2].coordinates,
-    },
-  },
-  {
-    ...buildStop({
       label: 'Test stop 3',
-      located_on_infrastructure_link_id: testInfraLinks[3].id,
+      located_on_infrastructure_link_id: testInfraLinks[2].id,
     }),
     validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
     scheduled_stop_point_id: '6c09b8d9-5952-4ee3-92b9-a7b4847517d3',
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[3].coordinates,
+      coordinates: testInfraLinks[2].coordinates,
     },
+  },
+];
+
+const routes: RouteInsertInput[] = [
+  {
+    ...buildRoute({ label: testRouteLabels.label1 }),
+    route_id: '7961d12f-26cc-4e0f-b6a7-845bc334df63',
+    on_line_id: lines[0].line_id,
+    validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+03:00'),
+    validity_end: DateTime.fromISO('2032-08-11T13:08:43.315+03:00'),
+  },
+];
+
+const infraLinksAlongRoute: InfraLinkAlongRouteInsertInput[] = [
+  {
+    route_id: routes[0].route_id,
+    infrastructure_link_id: testInfraLinks[0].id,
+    infrastructure_link_sequence: 0,
+    is_traversal_forwards: true,
+  },
+  {
+    route_id: routes[0].route_id,
+    infrastructure_link_id: testInfraLinks[1].id,
+    infrastructure_link_sequence: 1,
+    is_traversal_forwards: true,
+  },
+  {
+    route_id: routes[0].route_id,
+    infrastructure_link_id: testInfraLinks[2].id,
+    infrastructure_link_sequence: 2,
+    is_traversal_forwards: true,
   },
 ];
 
 const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[] =
   [
+    {
+      infrastructure_link_id: testInfraLinks[0].id,
+      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
+    },
     {
       infrastructure_link_id: testInfraLinks[1].id,
       vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
@@ -111,16 +151,29 @@ const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[]
       infrastructure_link_id: testInfraLinks[2].id,
       vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
     },
-    {
-      infrastructure_link_id: testInfraLinks[3].id,
-      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-    },
   ];
+
+const journeyPatterns: JourneyPatternInsertInput[] = [
+  {
+    journey_pattern_id: '6cae356b-20f4-4e04-a969-097999b351f0',
+    on_route_id: routes[0].route_id,
+  },
+];
+
+const stopsInJourneyPattern = buildStopsInJourneyPattern(
+  stops.map((item) => item.label),
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  journeyPatterns[0].journey_pattern_id!,
+);
 
 const dbResources = {
   vehicleSubmodeOnInfrastructureLink,
   lines,
   stops,
+  routes,
+  infraLinksAlongRoute,
+  journeyPatterns,
+  stopsInJourneyPattern,
 };
 
 const stopTestIds = {
@@ -170,7 +223,7 @@ describe('Route creation', () => {
 
     mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-    map.waitForMapToLoad();
+    map.getLoader().should('not.exist');
   });
 
   afterEach(() => {
@@ -321,6 +374,50 @@ describe('Route creation', () => {
       routeEditor.checkRouteSubmitSuccessToast();
 
       routeStopsOverlay.routeShouldBeSelected(routeName);
+    },
+  );
+
+  it(
+    'Should create a new route using an existing route as a template',
+    { scrollBehavior: 'bottom' },
+    () => {
+      // Location where all test stops and routes are visible.
+      const mapLocation = { lng: 24.929689228090112, lat: 60.16495016651525 };
+
+      map.visit({
+        zoom: 15,
+        lat: mapLocation.lat,
+        lng: mapLocation.lng,
+      });
+
+      modalMap.createRoute({
+        routeFormInfo: {
+          finnishName: 'Reitin pohjalta luotu reitti',
+          label: testRouteLabels.label5,
+          direction: RouteDirectionEnum.Outbound,
+          line: String(lines[0].label),
+          templateRoute: {
+            templateRouteSelectorInfo: {
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              priority: routes[0].priority!,
+              label: routes[0].label,
+            },
+          },
+          validityStartISODate: String(routes[0].validity_start),
+          validityEndISODate: String(routes[0].validity_end),
+          priority: Priority.Standard,
+        },
+      });
+
+      routeEditor.gqlRouteShouldBeCreatedSuccessfully();
+
+      routeEditor.checkRouteSubmitSuccessToast();
+
+      routeStopsOverlay.routeShouldBeSelected(testRouteLabels.label5);
+
+      routeStopsOverlay.stopsShouldBeIncludedInRoute(
+        stops.map((item) => item.label),
+      );
     },
   );
 });

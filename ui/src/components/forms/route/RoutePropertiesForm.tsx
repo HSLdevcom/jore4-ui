@@ -36,6 +36,8 @@ const testIds = {
   label: 'RoutePropertiesFormComponent::label',
   finnishName: 'RoutePropertiesFormComponent::finnishName',
   variant: 'RoutePropertiesFormComponent::variant',
+  useTemplateRouteButton:
+    'RoutePropertiesFormComponent::useTemplateRouteButton',
 };
 
 const RoutePropertiesFormComponent = (
@@ -137,6 +139,7 @@ const RoutePropertiesFormComponent = (
                 </SwitchLabel>
                 <Switch
                   checked={showTemplateRouteSelector}
+                  testId={testIds.useTemplateRouteButton}
                   onChange={(enabled: boolean) => {
                     setShowTemplateRouteSelector(enabled);
 
