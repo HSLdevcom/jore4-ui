@@ -71,10 +71,18 @@ export class Map {
           lng: params.lng,
         })}`,
       );
+      // Some operations might fail if performed too quickly after opening the map
+      // so we wait for these requests to succeed first
+      cy.wait('@gqlGetRoutesWithInfrastructureLinks');
+      cy.wait('@gqlGetStopsByLocation');
+      cy.wait('@gqlListChangingRoutes');
       this.waitForLoadToComplete();
       return;
     }
     cy.visit('/routes?mapOpen=true');
+    cy.wait('@gqlGetRoutesWithInfrastructureLinks');
+    cy.wait('@gqlGetStopsByLocation');
+    cy.wait('@gqlListChangingRoutes');
     this.waitForLoadToComplete();
   }
 

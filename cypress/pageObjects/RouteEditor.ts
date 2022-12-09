@@ -55,6 +55,6 @@ export class RouteEditor {
     this.moveRouteEditHandle(values);
     cy.wait('@mapMatching');
     cy.wait('@gqlGetLinksWithStopsByExternalLinkIds');
-    this.mapFooter.save();
+    cy.wait('@gqlGetStopsByLocation');
   }
 }
