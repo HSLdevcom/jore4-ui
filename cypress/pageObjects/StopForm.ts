@@ -8,6 +8,7 @@ export interface StopFormInfo extends ChangeValidityFormInfo {
   label: string;
   longitude?: string;
   latitude?: string;
+  timingPlace?: string;
 }
 
 export class StopForm {
@@ -31,8 +32,9 @@ export class StopForm {
     return cy.getByTestId('StopFormComponent::timingPlaceDropdown');
   }
 
-  getAddTimingPlaceButton() {
-    return cy.getByTestId('StopFormComponent::addTimingPlaceButton');
+  selectTimingPlace(timingPlaceName: string) {
+    this.getTimingPlaceDropdown().click();
+    this.getTimingPlaceDropdown().find('li').contains(timingPlaceName).click();
   }
 
   fillForm(values: StopFormInfo) {
@@ -42,6 +44,9 @@ export class StopForm {
     }
     if (values.longitude) {
       this.getLongitudeInput().clear().type(values.longitude);
+    }
+    if (values.timingPlace) {
+      this.selectTimingPlace(values.timingPlace);
     }
     this.changeValidityForm.fillForm(values);
   }
