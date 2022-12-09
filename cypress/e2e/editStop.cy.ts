@@ -221,4 +221,41 @@ describe('Stop editing tests', () => {
       map.getStopByStopLabel(stops[0].label).should('not.exist');
     },
   );
+
+  it(
+    'Should add a timing place to an existing stop',
+    // Map opening seems to take time, so we increase the timeout
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    () => {
+      // This value comes from timing places sql seed data
+      const testTimingPlace = '1ALATI';
+      const updatedStopInfo: StopFormInfo = {
+        label: 'Add timing place stop label',
+        timingPlace: testTimingPlace,
+      };
+
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      map.waitForMapToLoad();
+
+      map.getStopByStopLabel(stops[0].label).click();
+
+      map.stopPopUp.getEditButton().click();
+
+      stopForm.fillForm(updatedStopInfo);
+      stopForm.save();
+
+      confirmationDialog.getConfirmButton().click();
+
+      cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
+
+      toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+
+      map.getStopByStopLabel(updatedStopInfo.label).click();
+
+      map.stopPopUp.getEditButton().click();
+
+      stopForm.getTimingPlaceDropdown().should('contain', testTimingPlace);
+    },
+  );
 });
