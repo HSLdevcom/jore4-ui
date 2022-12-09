@@ -2,9 +2,10 @@ import {
   Priority,
   ReusableComponentsVehicleModeEnum,
   ReusableComponentsVehicleSubmodeEnum,
+  timingPlaces,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
-import { ChangeValidityForm, Map } from '../pageObjects';
+import { ChangeValidityForm, Map, StopForm } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
 import { ModalMap } from '../pageObjects/ModalMap';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
@@ -14,6 +15,7 @@ const testStopLabels = {
   testLabel1: 'T0001',
   manualCoordinatesLabel: 'TManual',
   endDateLabel: 'TEndDate',
+  timingPlaceLabel: 'Timing place stop label',
 };
 
 const testInfraLinks = {
@@ -35,6 +37,7 @@ const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[]
 
 const dbResources = {
   vehicleSubmodeOnInfrastructureLink,
+  timingPlaces,
 };
 
 const clearDatabase = () => {
@@ -47,6 +50,7 @@ describe('Stop creation tests', () => {
   let mapFilterPanel: FilterPanel;
   let map: Map;
   let changeValidityForm: ChangeValidityForm;
+  let stopForm: StopForm;
 
   before(() => {
     cy.fixture('infraLinks/infraLinks.sql').then((infraLinksQuery) => {
@@ -62,6 +66,7 @@ describe('Stop creation tests', () => {
     mapFilterPanel = new FilterPanel();
     map = new Map();
     changeValidityForm = new ChangeValidityForm();
+    stopForm = new StopForm();
 
     cy.setupTests();
     cy.mockLogin();
@@ -176,6 +181,44 @@ describe('Stop creation tests', () => {
       map.stopPopUp.getEditButton().click();
 
       changeValidityForm.getEndDateInput().should('have.value', '2040-12-31');
+    },
+  );
+
+  it(
+    'Should create a stop with a hastus place on map',
+    // Map opening seems to take time, so we increase the timeout
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    () => {
+      // This value comes from timing places sql seed data
+      modalMap.createStopAtLocation({
+        stopFormInfo: {
+          label: testStopLabels.timingPlaceLabel,
+          timingPlace: String(timingPlaces[0].label),
+          validityStartISODate: '2022-01-01',
+          validityEndISODate: '2040-12-31',
+          priority: Priority.Standard,
+        },
+        clickRelativePoint: {
+          xPercentage: 43.5,
+          yPercentage: 53,
+        },
+      });
+
+      modalMap.gqlStopShouldBeCreatedSuccessfully();
+
+      modalMap.checkStopSubmitSuccessToast();
+
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      cy.getByTestId(
+        `Map::Stops::stopMarker::${testStopLabels.timingPlaceLabel}_Standard`,
+      ).click();
+
+      map.stopPopUp.getEditButton().click();
+
+      stopForm
+        .getTimingPlaceDropdown()
+        .should('contain', String(timingPlaces[0].label));
     },
   );
 });

@@ -10,6 +10,7 @@ import {
   mapToCreateRoutesMutation,
   mapToCreateStopsMutation,
   mapToCreateStopsOnJourneyPatternMutation,
+  mapToCreateTimingPlacesMutation,
   mapToDeleteInfraLinksAlongRouteMutation,
   mapToDeleteInfraLinksMutation,
   mapToDeleteJourneyPatternsMutation,
@@ -17,9 +18,11 @@ import {
   mapToDeleteRoutesMutation,
   mapToDeleteStopsInJourneyPatternMutation,
   mapToDeleteStopsMutation,
+  mapToDeleteTimingPlacesMutation,
   RouteInsertInput,
   StopInJourneyPatternInsertInput,
   StopInsertInput,
+  TimingPatternTimingPlaceInsertInput,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 
@@ -40,6 +43,7 @@ interface SupportedResources {
   infraLinksAlongRoute?: InfraLinkAlongRouteInsertInput[];
   journeyPatterns?: JourneyPatternInsertInput[];
   stopsInJourneyPattern?: StopInJourneyPatternInsertInput[];
+  timingPlaces?: TimingPatternTimingPlaceInsertInput[];
 }
 
 export const insertToDbHelper = ({
@@ -51,6 +55,7 @@ export const insertToDbHelper = ({
   infraLinksAlongRoute,
   journeyPatterns,
   stopsInJourneyPattern,
+  timingPlaces,
 }: SupportedResources) => {
   if (infraLinks) {
     cy.task('hasuraApi', mapToCreateInfraLinksMutation(infraLinks)).then(
@@ -98,6 +103,11 @@ export const insertToDbHelper = ({
       mapToCreateStopsOnJourneyPatternMutation(stopsInJourneyPattern),
     ).then((res) => responseLogger('Inserting stops in journey pattern', res));
   }
+  if (timingPlaces) {
+    cy.task('hasuraApi', mapToCreateTimingPlacesMutation(timingPlaces)).then(
+      (res) => responseLogger('Inserting timing places', res),
+    );
+  }
 };
 
 export const removeFromDbHelper = ({
@@ -109,6 +119,7 @@ export const removeFromDbHelper = ({
   infraLinksAlongRoute,
   journeyPatterns,
   stopsInJourneyPattern,
+  timingPlaces,
 }: SupportedResources) => {
   if (routes) {
     cy.task(
@@ -169,5 +180,13 @@ export const removeFromDbHelper = ({
         stopsInJourneyPattern.map((item) => item.journey_pattern_id),
       ),
     ).then((res) => responseLogger('Removing stops in journey pattern', res));
+  }
+  if (timingPlaces) {
+    cy.task(
+      'hasuraApi',
+      mapToDeleteTimingPlacesMutation(
+        timingPlaces.map((item) => item.timing_place_id),
+      ),
+    ).then((res) => responseLogger('Removing timing places', res));
   }
 };

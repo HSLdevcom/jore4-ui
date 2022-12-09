@@ -1,3 +1,4 @@
+import { Priority } from '@hsl/jore4-test-db-manager';
 import qs from 'qs';
 import { StopPopUp } from './StopPopUp';
 
@@ -54,8 +55,10 @@ export class Map {
     cy.getByTestId('modalMap').click(x, y);
   }
 
-  getStopByStopLabel(testStopLabel: string) {
-    return cy.getByTestId(`Map::Stops::stopMarker::${testStopLabel}_Standard`);
+  getStopByStopLabelAndPriority(testStopLabel: string, priority: Priority) {
+    return cy.getByTestId(
+      `Map::Stops::stopMarker::${testStopLabel}_${Priority[priority]}`,
+    );
   }
 
   visit(params?: { zoom?: number; lat: number; lng: number }) {
