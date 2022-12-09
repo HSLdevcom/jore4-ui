@@ -2,6 +2,7 @@ export interface StopFormInfo {
   label: string;
   longitude?: string;
   latitude?: string;
+  timingPlace?: string;
 }
 
 export class StopForm {
@@ -17,6 +18,18 @@ export class StopForm {
     return cy.getByTestId('StopFormComponent::latitude');
   }
 
+  getTimingPlaceDropdown() {
+    return cy.getByTestId('StopFormComponent::timingPlaceDropdown');
+  }
+
+  selectTimingPlace(timingPlaceName: string) {
+    this.getTimingPlaceDropdown().click();
+    this.getTimingPlaceDropdown()
+      .find('li')
+      .contains(`${timingPlaceName}`)
+      .click();
+  }
+
   fillForm(values: StopFormInfo) {
     this.getLabelInput().clear().type(values.label);
     if (values.latitude) {
@@ -24,6 +37,9 @@ export class StopForm {
     }
     if (values.longitude) {
       this.getLongitudeInput().clear().type(values.longitude);
+    }
+    if (values.timingPlace) {
+      this.selectTimingPlace(values.timingPlace);
     }
   }
 
