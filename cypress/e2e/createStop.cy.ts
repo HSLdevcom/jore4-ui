@@ -5,9 +5,8 @@ import {
   timingPlaces,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
-import { ChangeValidityForm, Map, StopForm } from '../pageObjects';
+import { ChangeValidityForm, ModalMap } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
-import { ModalMap } from '../pageObjects/ModalMap';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteStopsByLabel } from './utils';
 
@@ -48,9 +47,7 @@ const clearDatabase = () => {
 describe('Stop creation tests', () => {
   let modalMap: ModalMap;
   let mapFilterPanel: FilterPanel;
-  let map: Map;
   let changeValidityForm: ChangeValidityForm;
-  let stopForm: StopForm;
 
   before(() => {
     cy.fixture('infraLinks/infraLinks.sql').then((infraLinksQuery) => {
@@ -64,14 +61,12 @@ describe('Stop creation tests', () => {
 
     modalMap = new ModalMap();
     mapFilterPanel = new FilterPanel();
-    map = new Map();
     changeValidityForm = new ChangeValidityForm();
-    stopForm = new StopForm();
 
     cy.setupTests();
     cy.mockLogin();
 
-    map.visit({
+    modalMap.map.visit({
       zoom: 15,
       lat: 60.164074274478054,
       lng: 24.93021804533524,
@@ -131,7 +126,7 @@ describe('Stop creation tests', () => {
       modalMap.checkStopSubmitSuccessToast();
 
       // Change map position to created stop location
-      map.visit({
+      modalMap.map.visit({
         zoom: 15,
         lat: 60.1805636468358,
         lng: 24.918451016960763,
@@ -172,7 +167,7 @@ describe('Stop creation tests', () => {
         `Map::Stops::stopMarker::${testStopLabels.endDateLabel}_Standard`,
       ).click();
 
-      map.stopPopUp.getEditButton().click();
+      modalMap.map.stopPopUp.getEditButton().click();
 
       changeValidityForm.getEndDateInput().should('have.value', '2040-12-31');
     },
@@ -209,9 +204,9 @@ describe('Stop creation tests', () => {
         `Map::Stops::stopMarker::${testStopLabels.timingPlaceLabel}_Standard`,
       ).click();
 
-      map.stopPopUp.getEditButton().click();
+      modalMap.map.stopPopUp.getEditButton().click();
 
-      stopForm
+      modalMap.stopForm
         .getTimingPlaceDropdown()
         .should('contain', timingPlaces[0].label);
     },

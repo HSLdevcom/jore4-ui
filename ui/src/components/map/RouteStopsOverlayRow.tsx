@@ -15,7 +15,7 @@ interface Props {
 }
 
 const testIds = {
-  row: (label: string) => `RouteStopsOverlayRow::${label}`,
+  rowLabel: (label: string) => `RouteStopsOverlayRow::label::${label}`,
   menuButton: (label: string) => `RouteStopsOverlayRow::${label}::menu`,
   addToJourneyPatternButton: (label: string) =>
     `RouteStopsOverlayRow::${label}::menu::addToJourneyPatternButton`,
@@ -39,10 +39,7 @@ export const RouteStopsOverlayRow = ({
   };
 
   return (
-    <div
-      className="flex h-10 items-center justify-between border-b p-2"
-      data-testid={testIds.row(stop.label)}
-    >
+    <div className="flex h-10 items-center justify-between border-b p-2">
       <div className="flex items-center">
         <div className="w-10">
           <PriorityBadge
@@ -52,6 +49,7 @@ export const RouteStopsOverlayRow = ({
           />
         </div>
         <span
+          data-testid={testIds.rowLabel(stop.label)}
           className={`text-sm font-bold ${
             belongsToJourneyPattern ? 'text-black' : 'text-gray-300'
           }`}
