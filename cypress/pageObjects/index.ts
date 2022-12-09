@@ -6,6 +6,7 @@ export * from './LineDetailsPage';
 export * from './LineForm';
 export * from './Map';
 export * from './MapFooter';
+export * from './ModalMap';
 export * from './Navbar';
 export * from './RouteEditor';
 export * from './RoutePropertiesForm';
