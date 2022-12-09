@@ -18,12 +18,6 @@ export class Map {
     cy.wait('@gqlGetStopsByLocation');
   }
 
-  // Wait for a map marker to appear on the map
-  // This might take long as we need many HTTP requests to initialize the map view
-  waitForMapToLoad() {
-    this.getNthMarker(1);
-  }
-
   getNthMarker(markerNumber: number, options?: Partial<Cypress.Timeoutable>) {
     return cy
       .get(`.overlays>.mapboxgl-marker:nth-of-type(${markerNumber})`, options)
@@ -70,19 +64,28 @@ export class Map {
 
   visit(params?: { zoom?: number; lat: number; lng: number }) {
     if (params) {
-      cy.visit(
-        `/routes?${qs.stringify({
-          z: params.zoom || 13, // 13 is default zoom level
-          mapOpen: true,
-          lat: params.lat,
-          lng: params.lng,
-        })}`,
-      );
-      this.getLoader().should('not.exist');
-      return;
+      return [
+        cy.visit(
+          `/routes?${qs.stringify({
+            z: params.zoom || 13, // 13 is default zoom level
+            mapOpen: true,
+            lat: params.lat,
+            lng: params.lng,
+          })}`,
+        ),
+        // Some operations might fail if performed too quickly after opening the map
+        // so we wait for these requests to succeed first
+        cy.wait('@gqlGetRoutesWithInfrastructureLinks'),
+        cy.wait('@gqlGetStopsByLocation'),
+        cy.wait('@gqlListChangingRoutes'),
+      ];
     }
-    cy.visit('/routes?mapOpen=true');
-    this.getLoader().should('not.exist');
+    return [
+      cy.visit('/routes?mapOpen=true'),
+      cy.wait('@gqlGetRoutesWithInfrastructureLinks'),
+      cy.wait('@gqlGetStopsByLocation'),
+      cy.wait('@gqlListChangingRoutes'),
+    ];
   }
 
   getLoader() {

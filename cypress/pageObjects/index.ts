@@ -14,5 +14,6 @@ export * from './RoutesAndLinesPage';
 export * from './RouteStopsTable';
 export * from './SearchResultsPage';
 export * from './StopForm';
+export * from './TemplateRouteSelector';
 export * from './TerminusNameInputs';
 export * from './Toast';
