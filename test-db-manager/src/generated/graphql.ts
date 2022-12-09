@@ -11736,6 +11736,44 @@ export type RemoveStopsInJourneyPatternMutation = {
     | undefined;
 };
 
+export type InsertTimingPlacesMutationVariables = Exact<{
+  objects:
+    | Array<TimingPatternTimingPlaceInsertInput>
+    | TimingPatternTimingPlaceInsertInput;
+}>;
+
+export type InsertTimingPlacesMutation = {
+  __typename?: 'mutation_root';
+  insert_timing_pattern_timing_place?:
+    | {
+        __typename?: 'timing_pattern_timing_place_mutation_response';
+        returning: Array<{
+          __typename?: 'timing_pattern_timing_place';
+          timing_place_id: UUID;
+        }>;
+      }
+    | null
+    | undefined;
+};
+
+export type RemoveTimingPlacesMutationVariables = Exact<{
+  timing_place_ids: Array<Scalars['uuid']> | Scalars['uuid'];
+}>;
+
+export type RemoveTimingPlacesMutation = {
+  __typename?: 'mutation_root';
+  delete_timing_pattern_timing_place?:
+    | {
+        __typename?: 'timing_pattern_timing_place_mutation_response';
+        returning: Array<{
+          __typename?: 'timing_pattern_timing_place';
+          timing_place_id: UUID;
+        }>;
+      }
+    | null
+    | undefined;
+};
+
 export type InsertTimetablesJourneyPatternRefMutationVariables = Exact<{
   objects:
     | Array<TimetablesJourneyPatternJourneyPatternRefInsertInput>

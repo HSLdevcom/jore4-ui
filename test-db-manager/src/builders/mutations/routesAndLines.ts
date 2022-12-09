@@ -8,6 +8,7 @@ import {
   RouteLineInsertInput,
   RouteRouteInsertInput,
   ServicePatternScheduledStopPointInsertInput,
+  TimingPatternTimingPlaceInsertInput,
 } from '../../generated/graphql';
 import { getGqlString } from './utils';
 
@@ -355,5 +356,46 @@ export const mapToDeleteStopsInJourneyPatternMutation = (uuids: UUID[]) => {
   return {
     query: getGqlString(GQL_DELETE_STOPS_IN_JOURNEY_PATTERN),
     variables: { journey_pattern_ids: uuids },
+  };
+};
+
+const GQL_INSERT_TIMING_PLACES = gql`
+  mutation InsertTimingPlaces(
+    $objects: [timing_pattern_timing_place_insert_input!]!
+  ) {
+    insert_timing_pattern_timing_place(objects: $objects) {
+      returning {
+        timing_place_id
+      }
+    }
+  }
+`;
+
+export const mapToCreateTimingPlacesMutation = (
+  objects: TimingPatternTimingPlaceInsertInput[],
+) => {
+  return {
+    operationName: 'InsertTimingPlaces',
+    query: getGqlString(GQL_INSERT_TIMING_PLACES),
+    variables: { objects },
+  };
+};
+
+const GQL_DELETE_TIMING_PLACES = gql`
+  mutation RemoveTimingPlaces($timing_place_ids: [uuid!]!) {
+    delete_timing_pattern_timing_place(
+      where: { timing_place_id: { _in: $timing_place_ids } }
+    ) {
+      returning {
+        timing_place_id
+      }
+    }
+  }
+`;
+
+export const mapToDeleteTimingPlacesMutation = (uuids: UUID[]) => {
+  return {
+    query: getGqlString(GQL_DELETE_TIMING_PLACES),
+    variables: { timing_place_ids: uuids },
   };
 };
