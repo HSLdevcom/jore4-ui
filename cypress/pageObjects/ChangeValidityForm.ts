@@ -21,13 +21,43 @@ export class ChangeValidityForm {
       .click();
   }
 
+  assertPriority(priority: Priority) {
+    switch (priority) {
+      case Priority.Draft:
+        cy.getByTestId('ChangeValidityForm::draftPriorityButton').should(
+          'have.class',
+          'text-white',
+        );
+        break;
+      case Priority.Temporary:
+        cy.getByTestId('ChangeValidityForm::temporaryPriorityButton').should(
+          'have.class',
+          'text-white',
+        );
+        break;
+      case Priority.Standard:
+        cy.getByTestId('ChangeValidityForm::standardPriorityButton').should(
+          'have.class',
+          'text-white',
+        );
+        break;
+      default:
+        throw new Error(`Unknown priority "${priority}"`);
+    }
+  }
+
   setStartDate(isoDate: string) {
     // This invoke is a workaround to
     // prevent map from zooming out when typing '-' value to the date input
     return cy
       .getByTestId('ChangeValidityForm::startDateInput')
+      .clear()
       .invoke('removeAttr', 'type')
       .type(isoDate);
+  }
+
+  getStartDateInput() {
+    return cy.getByTestId('ChangeValidityForm::startDateInput');
   }
 
   getEndDateInput() {
@@ -39,7 +69,7 @@ export class ChangeValidityForm {
       this.setAsIndefinite(false);
       // This invoke is a workaround to
       // prevent map from zooming out when typing '-' value to the date input
-      this.getEndDateInput().invoke('removeAttr', 'type').type(isoDate);
+      this.getEndDateInput().clear().invoke('removeAttr', 'type').type(isoDate);
     } else {
       this.setAsIndefinite();
     }

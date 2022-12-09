@@ -54,8 +54,10 @@ export class Map {
     cy.getByTestId('modalMap').click(x, y);
   }
 
-  getStopByStopLabel(testStopLabel: string) {
-    return cy.getByTestId(`Map::Stops::stopMarker::${testStopLabel}_Standard`);
+  getStopByStopLabel(testStopLabel: string, priority = 'Standard') {
+    return cy.getByTestId(
+      `Map::Stops::stopMarker::${testStopLabel}_${priority}`,
+    );
   }
 
   visit(params?: { zoom?: number; lat: number; lng: number }) {

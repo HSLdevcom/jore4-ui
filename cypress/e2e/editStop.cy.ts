@@ -1,5 +1,6 @@
 import {
   buildStop,
+  Priority,
   ReusableComponentsVehicleModeEnum,
   ReusableComponentsVehicleSubmodeEnum,
   ServicePatternVehicleModeOnScheduledStopPointInsertInput,
@@ -219,6 +220,55 @@ describe('Stop editing tests', () => {
       toast.checkSuccessToastHasMessage('Pysäkki poistettu');
 
       map.getStopByStopLabel(stops[0].label).should('not.exist');
+    },
+  );
+
+  it(
+    'Should edit stop info',
+    // Map opening seems to take time, so we increase the timeout
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    () => {
+      const updatedStopInfo: StopFormInfo = {
+        label: 'Add timing place stop label',
+        // This value comes from timing places sql seed data
+        timingPlace: '1ALATI',
+        validityStartISODate: '2019-01-01',
+        validityEndISODate: '2029-12-31',
+        priority: Priority.Draft,
+      };
+
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      map.waitForMapToLoad();
+
+      map.getStopByStopLabel(stops[0].label).click();
+
+      map.stopPopUp.getEditButton().click();
+
+      stopForm.fillForm(updatedStopInfo);
+      stopForm.save();
+
+      confirmationDialog.getConfirmButton().click();
+
+      cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
+
+      toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+
+      map.getStopByStopLabel(updatedStopInfo.label, 'Draft').click();
+
+      map.stopPopUp.getEditButton().click();
+
+      stopForm.getLabelInput().should('have.value', updatedStopInfo.label);
+      stopForm
+        .getTimingPlaceDropdown()
+        .should('contain', updatedStopInfo.timingPlace);
+      stopForm.changeValidityForm.assertPriority(updatedStopInfo.priority);
+      stopForm.changeValidityForm
+        .getStartDateInput()
+        .should('have.value', updatedStopInfo.validityStartISODate);
+      stopForm.changeValidityForm
+        .getEndDateInput()
+        .should('have.value', updatedStopInfo.validityEndISODate);
     },
   );
 });
