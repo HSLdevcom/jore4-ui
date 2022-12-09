@@ -131,7 +131,7 @@ describe('Stop editing tests', () => {
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForMapToLoad();
+      map.getLoader().should('not.exist');
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
@@ -168,7 +168,7 @@ describe('Stop editing tests', () => {
     () => {
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForMapToLoad();
+      map.getLoader().should('not.exist');
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
@@ -211,7 +211,7 @@ describe('Stop editing tests', () => {
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForMapToLoad();
+      map.getLoader().should('not.exist');
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)

@@ -8,15 +8,27 @@ export interface ChangeValidityFormInfo {
 
 export class ChangeValidityForm {
   setAsStandard() {
-    return cy.getByTestId('PriorityForm::standardPriorityButton').click();
+    return cy
+      .getByTestId('PriorityForm::standardPriorityButton')
+      .should('be.visible')
+      .and('be.enabled')
+      .click();
   }
 
   setAsDraft() {
-    return cy.getByTestId('PriorityForm::draftPriorityButton').click();
+    return cy
+      .getByTestId('PriorityForm::draftPriorityButton')
+      .should('be.visible')
+      .and('be.enabled')
+      .click();
   }
 
   setAsTemporary() {
-    return cy.getByTestId('PriorityForm::temporaryPriorityButton').click();
+    return cy
+      .getByTestId('PriorityForm::temporaryPriorityButton')
+      .should('be.visible')
+      .and('be.enabled')
+      .click();
   }
 
   assertSelectedPriority(priority: Priority | undefined) {

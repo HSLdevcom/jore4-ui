@@ -11,6 +11,14 @@ interface Props {
   onChange: ValueFn;
 }
 
+const testIds = {
+  standardPriorityButton: `TemplateRouteSelector::standardPriorityButton`,
+  draftPriorityButton: `TemplateRouteSelector::draftPriorityButton`,
+  temporaryPriorityButton: `TemplateRouteSelector::temporaryPriorityButton`,
+  observationDateInput: 'TemplateRouteSelector::observationDateInput',
+  chooseRouteDropdown: 'TemplateRouteSelector::chooseRouteDropdown',
+};
+
 export const TemplateRouteSelector = ({
   value,
   onChange,
@@ -31,18 +39,21 @@ export const TemplateRouteSelector = ({
             <SimpleButton
               onClick={() => setPriority(Priority.Standard)}
               inverted={priority !== Priority.Standard}
+              testId={testIds.standardPriorityButton}
             >
               {t('priority.standard')}
             </SimpleButton>
             <SimpleButton
               onClick={() => setPriority(Priority.Draft)}
               inverted={priority !== Priority.Draft}
+              testId={testIds.draftPriorityButton}
             >
               {t('priority.draft')}
             </SimpleButton>
             <SimpleButton
               onClick={() => setPriority(Priority.Temporary)}
               inverted={priority !== Priority.Temporary}
+              testId={testIds.temporaryPriorityButton}
             >
               {t('priority.temporary')}
             </SimpleButton>
@@ -59,6 +70,7 @@ export const TemplateRouteSelector = ({
           value={observationDate.toISODate()}
           onChange={(e) => setObservationDate(DateTime.fromISO(e.target.value))}
           className="flex-1"
+          data-testid={testIds.observationDateInput}
         />
       </Column>
       <label htmlFor="choose-route-combobox">{t('routes.label')}</label>
@@ -68,6 +80,7 @@ export const TemplateRouteSelector = ({
           onChange={onChange}
           date={observationDate}
           priorities={[priority]}
+          testId={testIds.chooseRouteDropdown}
         />
       </Row>
     </div>
