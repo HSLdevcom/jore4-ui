@@ -27,7 +27,6 @@ export class MapFooter {
       .should('be.visible')
       .and('be.enabled')
       .click();
-    cy.wait('@gqlGetRouteWithInfrastructureLinks');
   }
 
   save() {

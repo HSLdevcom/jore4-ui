@@ -1,6 +1,6 @@
 export class RouteStopsOverlay {
-  getRouteStop(stopLabel: string) {
-    return cy.getByTestId(`RouteStopsOverlayRow::${stopLabel}`);
+  getRouteStopRow(stopLabel: string) {
+    return cy.getByTestId(`RouteStopsOverlayRow::label::${stopLabel}`);
   }
 
   getHeader() {
@@ -32,13 +32,19 @@ export class RouteStopsOverlay {
 
   stopsShouldNotBeIncludedInRoute(stopLabels: string[]) {
     stopLabels.forEach((label) => {
-      this.getRouteStop(label).should('not.exist');
+      this.getRouteStopRow(label).should('not.exist');
     });
   }
 
   stopsShouldBeIncludedInRoute(stopLabels: string[]) {
     stopLabels.forEach((label) => {
-      this.getRouteStop(label).should('exist');
+      this.getRouteStopRow(label).should('exist');
     });
+  }
+
+  assertRouteStopCount(expectedCount: number) {
+    return cy
+      .get('[data-testid^="RouteStopsOverlayRow::label"')
+      .should('have.length', expectedCount);
   }
 }
