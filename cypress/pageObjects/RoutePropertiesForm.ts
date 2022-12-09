@@ -4,6 +4,11 @@ import {
   ChangeValidityFormInfo,
 } from './ChangeValidityForm';
 import { PriorityForm, PriorityFormInfo } from './PriorityForm';
+import { MoveRouteEditHandleInfo, RouteEditor } from './RouteEditor';
+import {
+  TemplateRouteSelector,
+  TemplateRouteSelectorInfo,
+} from './TemplateRouteSelector';
 import { TerminusNameInputs } from './TerminusNameInputs';
 
 export interface RouteFormInfo
@@ -13,6 +18,10 @@ export interface RouteFormInfo
   label?: string;
   direction?: RouteDirectionEnum;
   line?: string;
+  templateRoute?: {
+    templateRouteSelectorInfo: TemplateRouteSelectorInfo;
+    moveRouteEditHandleInfo?: MoveRouteEditHandleInfo;
+  };
 }
 
 export class RoutePropertiesForm {
@@ -21,6 +30,10 @@ export class RoutePropertiesForm {
   changeValidityForm = new ChangeValidityForm();
 
   priorityForm = new PriorityForm();
+
+  templateRouteSelector = new TemplateRouteSelector();
+
+  routeEditor = new RouteEditor();
 
   getForm() {
     return cy.get('#route-properties-form');
@@ -32,6 +45,12 @@ export class RoutePropertiesForm {
 
   getFinnishNameInput() {
     return cy.getByTestId('RoutePropertiesFormComponent::finnishName');
+  }
+
+  getUseTemplateRouteButton() {
+    return cy.getByTestId(
+      'RoutePropertiesFormComponent::useTemplateRouteButton',
+    );
   }
 
   selectDirection(direction: RouteDirectionEnum) {
@@ -85,6 +104,14 @@ export class RoutePropertiesForm {
     if (values.priority) {
       this.priorityForm.setPriority(values.priority);
     }
+
+    if (values.templateRoute) {
+      this.getUseTemplateRouteButton().click();
+      this.templateRouteSelector.fillForm(
+        values.templateRoute.templateRouteSelectorInfo,
+      );
+    }
+
     this.changeValidityForm.fillForm(values);
   }
 }

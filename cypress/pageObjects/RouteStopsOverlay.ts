@@ -41,4 +41,10 @@ export class RouteStopsOverlay {
       this.getRouteStop(label).should('exist');
     });
   }
+
+  assertRouteStopCount(expectedCount: number) {
+    return cy
+      .get('[data-testid^="RouteStopsOverlayRow::"')
+      .should('have.length', expectedCount);
+  }
 }

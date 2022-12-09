@@ -6,7 +6,9 @@ import {
   InfraLinkAlongRouteInsertInput,
   JourneyPatternInsertInput,
   LineInsertInput,
+  Priority,
   ReusableComponentsVehicleSubmodeEnum,
+  RouteDirectionEnum,
   RouteInsertInput,
   StopInsertInput,
   VehicleSubmodeOnInfraLinkInsertInput,
@@ -14,16 +16,23 @@ import {
 import { DateTime } from 'luxon';
 import {
   Map,
-  MoveRouteEditHandleInfo,
+  MapFooter,
+  ModalMap,
   RouteEditor,
   RoutesAndLinesPage,
   SearchResultsPage,
 } from '../pageObjects';
 import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
+import { deleteRoutesByLabel } from './utils';
 
 const testRouteLabels = {
   label1: 'T-reitti 1',
+};
+
+// These need to be deleted separately with deleteRoutesByLabel
+const testCreatedRouteLabels = {
+  templateRoute: 'T-reitti 2',
 };
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
@@ -47,8 +56,8 @@ const testInfraLinks = [
 
 const lines: LineInsertInput[] = [
   {
-    ...buildLine({ label: 'Test line' }),
-    line_id: '6f1f458a-f6ad-40dd-8866-44e1e4795554',
+    ...buildLine({ label: 'Test line 1' }),
+    line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
   },
 ];
 
@@ -58,7 +67,7 @@ const stops: StopInsertInput[] = [
       label: 'E2E001',
       located_on_infrastructure_link_id: testInfraLinks[0].id,
     }),
-    scheduled_stop_point_id: '019ce3bf-cdcd-42ff-9a1d-363108d4c640',
+    scheduled_stop_point_id: 'bfa722af-4605-4792-b01a-9184c2133368',
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[0].coordinates,
@@ -69,7 +78,7 @@ const stops: StopInsertInput[] = [
       label: 'E2E002',
       located_on_infrastructure_link_id: testInfraLinks[1].id,
     }),
-    scheduled_stop_point_id: 'b59285c8-a2ee-49dc-ad36-313232947d8a',
+    scheduled_stop_point_id: '779e9352-ae03-42f6-bd1e-2519887cdaa3',
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[1].coordinates,
@@ -80,7 +89,7 @@ const stops: StopInsertInput[] = [
       label: 'E2E003',
       located_on_infrastructure_link_id: testInfraLinks[2].id,
     }),
-    scheduled_stop_point_id: 'f2299595-7f95-4b1e-b7aa-4f6f26fc4bc5',
+    scheduled_stop_point_id: '5d25c9ef-f48e-4d10-8cbf-deec0d274d7f',
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[2].coordinates,
@@ -91,7 +100,7 @@ const stops: StopInsertInput[] = [
 const routes: RouteInsertInput[] = [
   {
     ...buildRoute({ label: testRouteLabels.label1 }),
-    route_id: '4bde1fd7-9bea-44cc-8ac8-3ff82c204d41',
+    route_id: '994a7d79-4991-423b-9c1a-0ca621a6d9ed',
     on_line_id: lines[0].line_id,
     validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+03:00'),
     validity_end: DateTime.fromISO('2032-08-11T13:08:43.315+03:00'),
@@ -137,7 +146,7 @@ const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[]
 
 const journeyPatterns: JourneyPatternInsertInput[] = [
   {
-    journey_pattern_id: 'fc99398a-2d6b-47f9-b141-b9050809053c',
+    journey_pattern_id: '6cae356b-20f4-4e04-a969-097999b351f0',
     on_route_id: routes[0].route_id,
   },
 ];
@@ -159,6 +168,7 @@ const dbResources = {
 };
 
 const clearDatabase = () => {
+  deleteRoutesByLabel(Object.values(testCreatedRouteLabels));
   removeFromDbHelper(dbResources);
 };
 
@@ -168,6 +178,8 @@ describe('Edit route geometry', () => {
   let routeEditor: RouteEditor;
   let searchResultsPage: SearchResultsPage;
   let routesAndLinesPage: RoutesAndLinesPage;
+  let modalMap: ModalMap;
+  let mapFooter: MapFooter;
 
   before(() => {
     cy.fixture('infraLinks/infraLinks.sql').then((infraLinksQuery) => {
@@ -184,10 +196,11 @@ describe('Edit route geometry', () => {
     routeEditor = new RouteEditor();
     searchResultsPage = new SearchResultsPage();
     routesAndLinesPage = new RoutesAndLinesPage();
+    modalMap = new ModalMap();
+    mapFooter = new MapFooter();
 
     cy.setupTests();
     cy.mockLogin();
-    cy.visit('/routes');
   });
 
   afterEach(() => {
@@ -195,12 +208,7 @@ describe('Edit route geometry', () => {
   });
 
   it("Should edit a route's shape", { scrollBehavior: 'bottom' }, () => {
-    const moveHandleInfo: MoveRouteEditHandleInfo = {
-      handleIndex: 2,
-      deltaX: 10,
-      deltaY: -90,
-    };
-
+    cy.visit('/routes');
     routesAndLinesPage
       .getRoutesAndLinesSearchInput()
       .type(`${routes[0].label}{enter}`);
@@ -219,7 +227,14 @@ describe('Edit route geometry', () => {
       stops.map((item) => item.label),
     );
 
-    routeEditor.editOneRoutePoint(moveHandleInfo);
+    // Route is edited so that the second stop is not included
+    routeEditor.editOneRoutePoint({
+      handleIndex: 2,
+      deltaX: 10,
+      deltaY: -90,
+    });
+
+    mapFooter.save();
 
     routeEditor.checkRouteSubmitSuccessToast();
 
@@ -227,4 +242,61 @@ describe('Edit route geometry', () => {
 
     routeStopsOverlay.stopsShouldNotBeIncludedInRoute([stops[1].label]);
   });
+
+  it(
+    'Should edit route shape correctly when creating new route with template',
+    { scrollBehavior: 'bottom' },
+    () => {
+      // Location where all test stops and routes are visible.
+      const mapLocation = { lng: 24.929689228090112, lat: 60.16495016651525 };
+
+      map.visit({
+        zoom: 16,
+        lat: mapLocation.lat,
+        lng: mapLocation.lng,
+      });
+
+      modalMap.createRoute({
+        routeFormInfo: {
+          finnishName: 'Reitin pohjalta luotu reitti',
+          label: testCreatedRouteLabels.templateRoute,
+          direction: RouteDirectionEnum.Outbound,
+          line: String(lines[0].label),
+          templateRoute: {
+            templateRouteSelectorInfo: {
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              priority: routes[0].priority!,
+              label: routes[0].label,
+            },
+            // Route is edited so that the second stop is not included
+            moveRouteEditHandleInfo: {
+              handleIndex: 2,
+              deltaX: 10,
+              deltaY: -170,
+            },
+          },
+          validityStartISODate: String(routes[0].validity_start),
+          validityEndISODate: String(routes[0].validity_end),
+          priority: Priority.Standard,
+        },
+      });
+
+      routeEditor.gqlRouteShouldBeCreatedSuccessfully();
+
+      routeEditor.checkRouteSubmitSuccessToast();
+
+      routeStopsOverlay.routeShouldBeSelected(
+        testCreatedRouteLabels.templateRoute,
+      );
+
+      // Verify that stop with label 'E2E002' is not included in the route
+      // and that the stop count is correct
+      routeStopsOverlay.assertRouteStopCount(2);
+      routeStopsOverlay.stopsShouldBeIncludedInRoute([
+        stops[0].label,
+        stops[2].label,
+      ]);
+      routeStopsOverlay.stopsShouldNotBeIncludedInRoute([stops[1].label]);
+    },
+  );
 });
