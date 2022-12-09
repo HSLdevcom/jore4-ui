@@ -1,3 +1,4 @@
+import { Priority } from '@hsl/jore4-test-db-manager';
 import { ChangeValidityForm, LineForm } from '../pageObjects';
 import { deleteLineByLabel } from './utils';
 
@@ -29,7 +30,7 @@ describe('Verify that creating new line works', () => {
     lineForm.selectVehicleType('Bussi');
     lineForm.selectLineType('Peruslinja');
 
-    changeValidityForm.setAsDraft();
+    changeValidityForm.setPriority(Priority.Standard);
     changeValidityForm.setStartDate('2022-01-01');
     changeValidityForm.setEndDate('2022-12-31');
 

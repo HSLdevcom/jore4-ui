@@ -108,6 +108,11 @@ export const insertToDbHelper = ({
       mapToCreateStopsOnJourneyPatternMutation(stopsInJourneyPattern),
     ).then((res) => responseLogger('Inserting stops in journey pattern', res));
   }
+  if (timingPlaces) {
+    cy.task('hasuraApi', mapToCreateTimingPlacesMutation(timingPlaces)).then(
+      (res) => responseLogger('Inserting timing places', res),
+    );
+  }
 };
 
 export const removeFromDbHelper = ({
@@ -188,5 +193,13 @@ export const removeFromDbHelper = ({
         stopsInJourneyPattern.map((item) => item.journey_pattern_id),
       ),
     ).then((res) => responseLogger('Removing stops in journey pattern', res));
+  }
+  if (timingPlaces) {
+    cy.task(
+      'hasuraApi',
+      mapToDeleteTimingPlacesMutation(
+        timingPlaces.map((item) => item.timing_place_id),
+      ),
+    ).then((res) => responseLogger('Removing timing places', res));
   }
 };
