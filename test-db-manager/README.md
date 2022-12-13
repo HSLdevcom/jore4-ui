@@ -15,4 +15,7 @@ It is implemented as separate package so that it can be used in different situat
 Note that most of the seed data is defined in `jore4-hasura` repository, in plain SQL statements.
 Anyway, we needed to have some timetables seed data for UI development, and as it has many uuid references it is really difficult to do with SQL.
 Thus it was decided to define it here.
-Same dataset can be also used in e2e/integration tests if needed.
+Same dataset can be also used in e2e/integration tests if needed, but in that case we might have to provide UUID's for test data somehow in order to be able to remove that data after tests.
+
+Currently there is no easy way to remove seeded data.
+Because of that, if seed data is changed it is recommended to delete all data from local db (by removing related docker volumes and by restarting docker environment) and start from empty db.
