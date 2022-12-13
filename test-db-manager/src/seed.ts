@@ -7,11 +7,7 @@ import {
   seedVehicleServiceBlocks,
   seedVehicleServices,
 } from './datasets/timetables';
-import {
-  clearTimetablesDb,
-  populateTimetablesDb,
-  TimetablesResources,
-} from './db-helpers';
+import { populateTimetablesDb, TimetablesResources } from './db-helpers';
 
 const seedTimetablesResources: TimetablesResources = {
   journeyPatternRefs: seedJourneyPatternRefs,
@@ -24,7 +20,6 @@ const seedTimetablesResources: TimetablesResources = {
 };
 
 const seedTimetables = async (resources: TimetablesResources) => {
-  await clearTimetablesDb(resources);
   await populateTimetablesDb(resources);
 };
 

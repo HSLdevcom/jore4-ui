@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import { VehicleServiceInsertInput } from '../../types';
 import { seedVehicleScheduleFrames } from './vehicleScheduleFrames';
 
@@ -24,47 +25,44 @@ const SAT_DAY_TYPE = '61374d2b-5cce-4a7d-b63a-d487f3a05e0d';
 const SUN_DAY_TYPE = '0e1855f1-dfca-4900-a118-f608aa07e939';
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
+const basicVehicleScheduleFrameId =
+  seedVehicleScheduleFrames[0].vehicle_schedule_frame_id;
+
 export const seedVehicleServices: VehicleServiceInsertInput[] = [
   // vehicle 1, Mon-Fri
   {
-    vehicle_service_id: '6b8525aa-42dc-455f-8558-132ff1b8ae10',
+    vehicle_service_id: uuid(),
     day_type_id: MON_FRI_DAY_TYPE,
-    vehicle_schedule_frame_id:
-      seedVehicleScheduleFrames[0].vehicle_schedule_frame_id,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
   },
   // vehicle 1, Sat
   {
-    vehicle_service_id: 'c77f0015-b30b-44f2-b837-aba7a23e1457',
+    vehicle_service_id: uuid(),
     day_type_id: SAT_DAY_TYPE,
-    vehicle_schedule_frame_id:
-      seedVehicleScheduleFrames[0].vehicle_schedule_frame_id,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
   },
   // vehicle 1, Sun
   {
-    vehicle_service_id: 'e5bb5eab-4285-413d-9def-5e0852073f78',
+    vehicle_service_id: uuid(),
     day_type_id: SUN_DAY_TYPE,
-    vehicle_schedule_frame_id:
-      seedVehicleScheduleFrames[0].vehicle_schedule_frame_id,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
   },
   // vehicle 2, Mon-Fri
   {
-    vehicle_service_id: '954add13-560a-472a-a556-fb8484c7efe8',
+    vehicle_service_id: uuid(),
     day_type_id: MON_FRI_DAY_TYPE,
-    vehicle_schedule_frame_id:
-      seedVehicleScheduleFrames[0].vehicle_schedule_frame_id,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
   },
   // vehicle 2, Sat
   {
-    vehicle_service_id: 'aa65a84d-5dd6-4437-a758-4588f10feeb0',
+    vehicle_service_id: uuid(),
     day_type_id: SAT_DAY_TYPE,
-    vehicle_schedule_frame_id:
-      seedVehicleScheduleFrames[0].vehicle_schedule_frame_id,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
   },
   // vehicle 2, Sun
   {
-    vehicle_service_id: '5dde7383-f241-46aa-ad19-5b8a883fb6f9',
+    vehicle_service_id: uuid(),
     day_type_id: SUN_DAY_TYPE,
-    vehicle_schedule_frame_id:
-      seedVehicleScheduleFrames[0].vehicle_schedule_frame_id,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
   },
 ];
