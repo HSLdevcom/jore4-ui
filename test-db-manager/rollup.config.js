@@ -4,7 +4,7 @@ import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
 
 const commonPlugins = [
-  nodeResolve(),
+  nodeResolve({ exportConditions: ['node'] }),
   commonjs({
     include: ['./index.js', /node_modules/],
   }),
