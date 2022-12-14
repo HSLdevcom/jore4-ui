@@ -1,14 +1,9 @@
-import {
-  ChangeValidityForm,
-  ChangeValidityFormInfo,
-} from './ChangeValidityForm';
 import { EditRouteModal } from './EditRouteModal';
 import { ClickPointNearMapMarker, Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { RouteFormInfo, RoutePropertiesForm } from './RoutePropertiesForm';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopForm, StopFormInfo } from './StopForm';
-import { TerminusNameInputs } from './TerminusNameInputs';
 import { Toast } from './Toast';
 
 export class ModalMap {
@@ -17,10 +12,6 @@ export class ModalMap {
   mapFooter = new MapFooter();
 
   routePropertiesForm = new RoutePropertiesForm();
-
-  terminusNameInputs = new TerminusNameInputs();
-
-  changeValidityForm = new ChangeValidityForm();
 
   stopForm = new StopForm();
 
@@ -38,11 +29,9 @@ export class ModalMap {
    */
   createStopNextToAnotherStop = ({
     stopFormInfo,
-    changeValidityFormInfo,
     stopPoint,
   }: {
     stopFormInfo: StopFormInfo;
-    changeValidityFormInfo: ChangeValidityFormInfo;
     stopPoint: ClickPointNearMapMarker;
   }) => {
     this.mapFooter.addStop();
@@ -50,7 +39,6 @@ export class ModalMap {
     this.map.clickAtPositionFromMapMarkerByTestId(stopPoint);
 
     this.stopForm.fillForm(stopFormInfo);
-    this.changeValidityForm.fillForm(changeValidityFormInfo);
 
     this.stopForm.save();
   };
@@ -60,12 +48,10 @@ export class ModalMap {
    */
   createStopAtLocation = ({
     stopFormInfo,
-    changeValidityFormInfo,
     clickRelativePoint,
   }: {
     stopFormInfo: StopFormInfo;
     clickRelativePoint: { xPercentage: number; yPercentage: number };
-    changeValidityFormInfo: ChangeValidityFormInfo;
   }) => {
     this.mapFooter.addStop();
 
@@ -75,7 +61,6 @@ export class ModalMap {
     );
 
     this.stopForm.fillForm(stopFormInfo);
-    this.changeValidityForm.fillForm(changeValidityFormInfo);
 
     this.stopForm.save();
   };
@@ -88,12 +73,10 @@ export class ModalMap {
    */
   createRoute = ({
     routeFormInfo,
-    changeValidityFormInfo,
     routePoints,
     omittedStops,
   }: {
     routeFormInfo: RouteFormInfo;
-    changeValidityFormInfo: ChangeValidityFormInfo;
     routePoints: ClickPointNearMapMarker[];
     omittedStops?: string[];
   }) => {
@@ -101,22 +84,6 @@ export class ModalMap {
 
     this.routePropertiesForm.fillRouteProperties(routeFormInfo);
 
-    this.terminusNameInputs.fillTerminusNameInputsForm(
-      {
-        finnishName: 'Lähtöpaikka',
-        swedishName: 'Ursprung',
-        finnishShortName: 'LP',
-        swedishShortName: 'UP',
-      },
-      {
-        finnishName: 'Määränpää',
-        swedishName: 'Ändstation',
-        finnishShortName: 'MP',
-        swedishShortName: 'ÄS',
-      },
-    );
-
-    this.changeValidityForm.fillForm(changeValidityFormInfo);
     this.editRouteModal.save();
 
     routePoints.forEach((routePoint) => {

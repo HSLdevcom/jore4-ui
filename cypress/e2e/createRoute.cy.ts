@@ -189,8 +189,6 @@ describe('Route creation', () => {
           label: testRouteLabels.label1,
           direction: RouteDirectionEnum.Outbound,
           line: String(lines[0].label),
-        },
-        changeValidityFormInfo: {
           validityStartISODate: '2022-01-01',
           validityEndISODate: '2025-12-01',
           priority: Priority.Standard,
@@ -229,8 +227,6 @@ describe('Route creation', () => {
           label: testRouteLabels.label2,
           direction: RouteDirectionEnum.Inbound,
           line: String(lines[1].label),
-        },
-        changeValidityFormInfo: {
           validityStartISODate: '2022-01-01',
           validityEndISODate: '2025-12-01',
           priority: Priority.Standard,
@@ -272,8 +268,6 @@ describe('Route creation', () => {
           label: testRouteLabels.label3,
           direction: RouteDirectionEnum.Outbound,
           line: String(lines[2].label),
-        },
-        changeValidityFormInfo: {
           validityStartISODate: '2022-01-01',
           validityEndISODate: '2025-12-01',
           priority: Priority.Standard,
@@ -309,8 +303,6 @@ describe('Route creation', () => {
           label: testRouteLabels.label4,
           direction: RouteDirectionEnum.Outbound,
           line: String(lines[3].label),
-        },
-        changeValidityFormInfo: {
           validityStartISODate: '2022-01-01',
           priority: Priority.Standard,
         },

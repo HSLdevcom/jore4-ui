@@ -1,8 +1,8 @@
 import { Priority } from '@hsl/jore4-test-db-manager';
 
 export interface ChangeValidityFormInfo {
-  priority: Priority;
-  validityStartISODate: string;
+  priority?: Priority;
+  validityStartISODate?: string;
   validityEndISODate?: string;
 }
 
@@ -72,8 +72,12 @@ export class ChangeValidityForm {
   };
 
   fillForm(values: ChangeValidityFormInfo) {
-    this.setPriority(values.priority);
-    this.setStartDate(values.validityStartISODate);
+    if (values.priority) {
+      this.setPriority(values.priority);
+    }
+    if (values.validityStartISODate) {
+      this.setStartDate(values.validityStartISODate);
+    }
     this.setEndDate(values.validityEndISODate);
   }
 }
