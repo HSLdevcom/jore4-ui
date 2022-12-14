@@ -6,9 +6,9 @@ import {
   requiredUuid,
 } from '../common';
 import {
-  FormState as ConfirmSaveFormState,
-  schema as confirmSaveFormSchema,
-} from '../common/ConfirmSaveForm';
+  FormState as ChangeValidityFormFormState,
+  schema as changeValidityFormSchema,
+} from '../common/ChangeValidityForm';
 
 export const namesSchema = z.object({
   name: localizedStringRequired,
@@ -24,7 +24,7 @@ export const routeFormSchema = z
     origin: namesSchema.required(),
     destination: namesSchema.required(),
   })
-  .merge(confirmSaveFormSchema);
+  .merge(changeValidityFormSchema);
 
 export type RouteFormState = z.infer<typeof routeFormSchema> &
-  ConfirmSaveFormState;
+  ChangeValidityFormFormState;

@@ -26,10 +26,10 @@ export type FormState = z.infer<typeof schema>;
 
 const testIds = {
   priorityButton: (priorityLabel: string) =>
-    `ConfirmSaveForm::${priorityLabel}PriorityButton`,
-  startDateInput: 'ConfirmSaveForm::startDateInput',
-  endDateInput: 'ConfirmSaveForm::endDateInput',
-  indefiniteCheckbox: 'ConfirmSaveForm::indefiniteCheckbox',
+    `ChangeValidityForm::${priorityLabel}PriorityButton`,
+  startDateInput: 'ChangeValidityForm::startDateInput',
+  endDateInput: 'ChangeValidityForm::endDateInput',
+  indefiniteCheckbox: 'ChangeValidityForm::indefiniteCheckbox',
 };
 
 interface PriorityButtonProps {
@@ -64,12 +64,12 @@ const defaultPriorities: PriorityButtonProps[] = [
  * @component
  * @example
  * // Usage in LineForm.tsx:
- * <ConfirmSaveForm
+ * <ChangeValidityForm
  *   className="mb-2 ml-2"
  *   hiddenPriorities={[Priority.Temporary]} // Line does not have temporary priority, so hide it
  * />
  */
-export const ConfirmSaveForm = ({
+export const ChangeValidityForm = ({
   className = '',
   hiddenPriorities,
 }: Props): JSX.Element => {

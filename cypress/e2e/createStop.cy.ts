@@ -4,7 +4,7 @@ import {
   ReusableComponentsVehicleSubmodeEnum,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
-import { ConfirmSaveForm, Map } from '../pageObjects';
+import { ChangeValidityForm, Map } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
 import { ModalMap } from '../pageObjects/ModalMap';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
@@ -46,7 +46,7 @@ describe('Stop creation tests', () => {
   let modalMap: ModalMap;
   let mapFilterPanel: FilterPanel;
   let map: Map;
-  let confirmSaveForm: ConfirmSaveForm;
+  let changeValidityForm: ChangeValidityForm;
 
   before(() => {
     cy.fixture('infraLinks/infraLinks.sql').then((infraLinksQuery) => {
@@ -61,7 +61,7 @@ describe('Stop creation tests', () => {
     modalMap = new ModalMap();
     mapFilterPanel = new FilterPanel();
     map = new Map();
-    confirmSaveForm = new ConfirmSaveForm();
+    changeValidityForm = new ChangeValidityForm();
 
     cy.setupTests();
     cy.mockLogin();
@@ -84,7 +84,7 @@ describe('Stop creation tests', () => {
     () => {
       modalMap.createStopAtLocation({
         stopFormInfo: { label: testStopLabels.testLabel1 },
-        confirmSaveFormInfo: {
+        changeValidityFormInfo: {
           validityStartISODate: '2022-01-01',
           priority: Priority.Standard,
         },
@@ -118,7 +118,7 @@ describe('Stop creation tests', () => {
           latitude: '60.18083637150667',
           longitude: '24.9215054260969',
         },
-        confirmSaveFormInfo: {
+        changeValidityFormInfo: {
           validityStartISODate: '2022-01-01',
           priority: Priority.Standard,
         },
@@ -154,7 +154,7 @@ describe('Stop creation tests', () => {
     () => {
       modalMap.createStopAtLocation({
         stopFormInfo: { label: testStopLabels.endDateLabel },
-        confirmSaveFormInfo: {
+        changeValidityFormInfo: {
           validityStartISODate: '2022-01-01',
           validityEndISODate: '2040-12-31',
           priority: Priority.Standard,
@@ -177,7 +177,7 @@ describe('Stop creation tests', () => {
 
       map.stopPopUp.getEditButton().click();
 
-      confirmSaveForm.getEndDateInput().should('have.value', '2040-12-31');
+      changeValidityForm.getEndDateInput().should('have.value', '2040-12-31');
     },
   );
 });

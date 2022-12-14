@@ -12,7 +12,7 @@ import {
 } from '../../../redux';
 import { Switch, SwitchLabel } from '../../../uiComponents';
 import { FormColumn, FormRow, InputField } from '../common';
-import { ConfirmSaveForm } from '../common/ConfirmSaveForm';
+import { ChangeValidityForm } from '../common/ChangeValidityForm';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';
 import {
@@ -148,7 +148,7 @@ const RoutePropertiesFormComponent = (
           </>
         )}
         <Row className="mt-7 border-t">
-          <ConfirmSaveForm className="mt-5" />
+          <ChangeValidityForm className="mt-5" />
         </Row>
       </form>
     </FormProvider>
