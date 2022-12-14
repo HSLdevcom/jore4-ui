@@ -39,10 +39,10 @@ import {
   requiredString,
 } from '../common';
 import {
-  ConfirmSaveForm,
-  FormState as ConfirmSaveFormState,
-  schema as confirmSaveFormSchema,
-} from '../common/ConfirmSaveForm';
+  ChangeValidityForm,
+  FormState as ChangeValidityFormState,
+  schema as changeValidityFormSchema,
+} from '../common/ChangeValidityForm';
 import { ChooseTimingPlaceDropdown } from './ChooseTimingPlaceDropdown';
 import { TimingPlaceModal } from './TimingPlaceModal';
 
@@ -54,7 +54,7 @@ const schema = z
     longitude: requiredNumber.min(-180).max(180),
     timingPlaceId: z.string().uuid().nullable(),
   })
-  .merge(confirmSaveFormSchema);
+  .merge(changeValidityFormSchema);
 
 const testIds = {
   label: 'StopFormComponent::label',
@@ -64,7 +64,7 @@ const testIds = {
   addTimingPlaceButton: 'StopFormComponent::addTimingPlaceButton',
 };
 
-export type FormState = z.infer<typeof schema> & ConfirmSaveFormState;
+export type FormState = z.infer<typeof schema> & ChangeValidityFormState;
 
 export const mapStopDataToFormState = (
   stop: RequiredKeys<
@@ -248,7 +248,7 @@ const StopFormComponent = (
           </FormColumn>
         </div>
         <Row className="mt-7 border-t border-light-grey px-12">
-          <ConfirmSaveForm className="mt-5" />
+          <ChangeValidityForm className="mt-5" />
         </Row>
       </form>
       <Visible visible={isTimingPlaceModalOpen}>

@@ -8,17 +8,17 @@ import { Priority } from '../../../types/Priority';
 import { FormContainer, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
 import {
-  ConfirmSaveForm,
-  FormState as ConfirmSaveFormState,
-  schema as confirmSaveFormSchema,
-} from '../common/ConfirmSaveForm';
+  ChangeValidityForm,
+  FormState as ChangeValidityFormState,
+  schema as changeValidityFormSaveFormSchema,
+} from '../common/ChangeValidityForm';
 import {
   FormState as LinePropertiesFormState,
   LinePropertiesForm,
   schema as linePropertiesFormSchema,
 } from './LinePropertiesForm';
 
-export type FormState = LinePropertiesFormState & ConfirmSaveFormState;
+export type FormState = LinePropertiesFormState & ChangeValidityFormState;
 
 const testIds = {
   saveButton: 'LineForm::saveButton',
@@ -36,7 +36,9 @@ export const LineForm = ({ defaultValues, onSubmit }: Props): JSX.Element => {
 
   const { t } = useTranslation();
 
-  const formSchema = linePropertiesFormSchema.merge(confirmSaveFormSchema);
+  const formSchema = linePropertiesFormSchema.merge(
+    changeValidityFormSaveFormSchema,
+  );
   const methods = useForm<FormState>({
     defaultValues,
     resolver: zodResolver(formSchema),
@@ -62,7 +64,7 @@ export const LineForm = ({ defaultValues, onSubmit }: Props): JSX.Element => {
         </Row>
         <Row className="mt-2">
           <FormContainer className="w-full p-6">
-            <ConfirmSaveForm
+            <ChangeValidityForm
               className="mb-2 ml-2"
               hiddenPriorities={[Priority.Temporary]} // Line does not have temporary priority, so hide it
             />
