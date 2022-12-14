@@ -1,5 +1,5 @@
 import { UUID } from '../types';
-import { ConfirmSaveForm } from './ConfirmSaveForm';
+import { ChangeValidityForm } from './ChangeValidityForm';
 import { RoutePropertiesForm } from './RoutePropertiesForm';
 import { TerminusNameInputs } from './TerminusNameInputs';
 
@@ -8,7 +8,7 @@ export class EditRoutePage {
 
   terminusNamesInputs = new TerminusNameInputs();
 
-  confirmSaveForm = new ConfirmSaveForm();
+  changeValidityForm = new ChangeValidityForm();
 
   visit(routeid: UUID) {
     cy.visit(`/routes/${routeid}/edit`);

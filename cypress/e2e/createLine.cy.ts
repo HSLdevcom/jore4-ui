@@ -1,13 +1,13 @@
-import { ConfirmSaveForm, LineForm } from '../pageObjects';
+import { ChangeValidityForm, LineForm } from '../pageObjects';
 import { deleteLineByLabel } from './utils';
 
 const testLabel = '7327';
 describe('Verify that creating new line works', () => {
   let lineForm: LineForm;
-  let confirmSaveForm: ConfirmSaveForm;
+  let changeValidityForm: ChangeValidityForm;
   beforeEach(() => {
     lineForm = new LineForm();
-    confirmSaveForm = new ConfirmSaveForm();
+    changeValidityForm = new ChangeValidityForm();
 
     cy.setupTests();
     cy.mockLogin();
@@ -29,9 +29,9 @@ describe('Verify that creating new line works', () => {
     lineForm.selectVehicleType('Bussi');
     lineForm.selectLineType('Peruslinja');
 
-    confirmSaveForm.setAsDraft();
-    confirmSaveForm.setStartDate('2022-01-01');
-    confirmSaveForm.setEndDate('2022-12-31');
+    changeValidityForm.setAsDraft();
+    changeValidityForm.setStartDate('2022-01-01');
+    changeValidityForm.setEndDate('2022-12-31');
 
     lineForm.save();
     lineForm.checkLineSubmitSuccess();

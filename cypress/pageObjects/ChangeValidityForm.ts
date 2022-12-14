@@ -1,35 +1,37 @@
 import { Priority } from '@hsl/jore4-test-db-manager';
 
-export interface ConfirmSaveFormInfo {
+export interface ChangeValidityFormInfo {
   priority: Priority;
   validityStartISODate: string;
   validityEndISODate?: string;
 }
 
-export class ConfirmSaveForm {
+export class ChangeValidityForm {
   setAsStandard() {
-    return cy.getByTestId('ConfirmSaveForm::standardPriorityButton').click();
+    return cy.getByTestId('ChangeValidityForm::standardPriorityButton').click();
   }
 
   setAsDraft() {
-    return cy.getByTestId('ConfirmSaveForm::draftPriorityButton').click();
+    return cy.getByTestId('ChangeValidityForm::draftPriorityButton').click();
   }
 
   setAsTemporary() {
-    return cy.getByTestId('ConfirmSaveForm::temporaryPriorityButton').click();
+    return cy
+      .getByTestId('ChangeValidityForm::temporaryPriorityButton')
+      .click();
   }
 
   setStartDate(isoDate: string) {
     // This invoke is a workaround to
     // prevent map from zooming out when typing '-' value to the date input
     return cy
-      .getByTestId('ConfirmSaveForm::startDateInput')
+      .getByTestId('ChangeValidityForm::startDateInput')
       .invoke('removeAttr', 'type')
       .type(isoDate);
   }
 
   getEndDateInput() {
-    return cy.getByTestId('ConfirmSaveForm::endDateInput');
+    return cy.getByTestId('ChangeValidityForm::endDateInput');
   }
 
   setEndDate = (isoDate?: string) => {
@@ -44,7 +46,7 @@ export class ConfirmSaveForm {
   };
 
   getIndefiniteCheckbox() {
-    return cy.getByTestId('ConfirmSaveForm::indefiniteCheckbox');
+    return cy.getByTestId('ChangeValidityForm::indefiniteCheckbox');
   }
 
   setAsIndefinite(indefinite = true) {
@@ -69,7 +71,7 @@ export class ConfirmSaveForm {
     }
   };
 
-  fillForm(values: ConfirmSaveFormInfo) {
+  fillForm(values: ChangeValidityFormInfo) {
     this.setPriority(values.priority);
     this.setStartDate(values.validityStartISODate);
     this.setEndDate(values.validityEndISODate);

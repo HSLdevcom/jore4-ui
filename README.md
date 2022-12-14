@@ -252,23 +252,23 @@ export * from './SimpleDropdownMenu';
 ### Test ids
 
 Example:
-`ConfirmSaveForm::startDateInput`
+`ChangeValidityForm::startDateInput`
 When giving test ids to elements, follow these guidelines.
 
-- Use capital letters with component names eg. `ConfirmSaveForm`
+- Use capital letters with component names eg. `ChangeValidityForm`
   - Otherwise use camelCase eg. `startdateInput`
-- Use double colon `::` separating the different parts of the test id eg. `ConfirmSaveForm::startDateInput`
+- Use double colon `::` separating the different parts of the test id eg. `ChangeValidityForm::startDateInput`
 
 Also use a `const testIds = {...}` object on top of the file to define the test ids instead of defining them inline.
 
 **Bad**
 
 ```
-export const ConfirmSaveForm = (...):  {
+export const ChangeValidityForm = (...):  {
   ...
   <
     ...
-    testId="ConfirmSaveForm::startDateInput"
+    testId="ChangeValidityForm::startDateInput"
     ...
   />
 }
@@ -278,10 +278,10 @@ export const ConfirmSaveForm = (...):  {
 
 ```
 const testIds = {
-  startDateInput: 'ConfirmSaveForm::startDateInput'
+  startDateInput: 'ChangeValidityForm::startDateInput'
 }
 
-export const ConfirmSaveForm = (...):  {
+export const ChangeValidityForm = (...):  {
   ...
   <
     ...
