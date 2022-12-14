@@ -1,10 +1,17 @@
-export interface StopFormInfo {
+import {
+  ChangeValidityForm,
+  ChangeValidityFormInfo,
+} from './ChangeValidityForm';
+
+export interface StopFormInfo extends ChangeValidityFormInfo {
   label: string;
   longitude?: string;
   latitude?: string;
 }
 
 export class StopForm {
+  changeValidityForm = new ChangeValidityForm();
+
   getLabelInput() {
     return cy.getByTestId('StopFormComponent::label');
   }
@@ -25,6 +32,7 @@ export class StopForm {
     if (values.longitude) {
       this.getLongitudeInput().clear().type(values.longitude);
     }
+    this.changeValidityForm.fillForm(values);
   }
 
   /** Clicks the Edit stop modal's save button. Can be given forceAction = true

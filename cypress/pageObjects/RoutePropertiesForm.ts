@@ -1,13 +1,22 @@
 import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
+import {
+  ChangeValidityForm,
+  ChangeValidityFormInfo,
+} from './ChangeValidityForm';
+import { TerminusNameInputs } from './TerminusNameInputs';
 
-export interface RouteFormInfo {
-  finnishName: string;
-  label: string;
-  direction: RouteDirectionEnum;
+export interface RouteFormInfo extends ChangeValidityFormInfo {
+  finnishName?: string;
+  label?: string;
+  direction?: RouteDirectionEnum;
   line?: string;
 }
 
 export class RoutePropertiesForm {
+  terminusNameInputs = new TerminusNameInputs();
+
+  changeValidityForm = new ChangeValidityForm();
+
   getForm() {
     return cy.get('#route-properties-form');
   }
@@ -41,11 +50,34 @@ export class RoutePropertiesForm {
   }
 
   fillRouteProperties(values: RouteFormInfo) {
-    this.getFinnishNameInput().clear().type(values.finnishName);
-    this.getLabelInput().clear().type(values.label);
-    this.selectDirection(values.direction);
+    if (values.finnishName) {
+      this.getFinnishNameInput().clear().type(values.finnishName);
+    }
+    if (values.label) {
+      this.getLabelInput().clear().type(values.label);
+    }
+    if (values.direction) {
+      this.selectDirection(values.direction);
+    }
     if (values.line) {
       this.selectLine(values.line);
     }
+
+    this.terminusNameInputs.fillTerminusNameInputsForm(
+      {
+        finnishName: 'Lähtöpaikka',
+        swedishName: 'Ursprung',
+        finnishShortName: 'LP',
+        swedishShortName: 'UP',
+      },
+      {
+        finnishName: 'Määränpää',
+        swedishName: 'Ändstation',
+        finnishShortName: 'MP',
+        swedishShortName: 'ÄS',
+      },
+    );
+
+    this.changeValidityForm.fillForm(values);
   }
 }

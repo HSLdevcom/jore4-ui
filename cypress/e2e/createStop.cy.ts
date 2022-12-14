@@ -83,8 +83,8 @@ describe('Stop creation tests', () => {
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
     () => {
       modalMap.createStopAtLocation({
-        stopFormInfo: { label: testStopLabels.testLabel1 },
-        changeValidityFormInfo: {
+        stopFormInfo: {
+          label: testStopLabels.testLabel1,
           validityStartISODate: '2022-01-01',
           priority: Priority.Standard,
         },
@@ -117,8 +117,6 @@ describe('Stop creation tests', () => {
           // Actual coordinates will be on Topeliuksenkatu
           latitude: '60.18083637150667',
           longitude: '24.9215054260969',
-        },
-        changeValidityFormInfo: {
           validityStartISODate: '2022-01-01',
           priority: Priority.Standard,
         },
@@ -153,8 +151,8 @@ describe('Stop creation tests', () => {
     { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
     () => {
       modalMap.createStopAtLocation({
-        stopFormInfo: { label: testStopLabels.endDateLabel },
-        changeValidityFormInfo: {
+        stopFormInfo: {
+          label: testStopLabels.endDateLabel,
           validityStartISODate: '2022-01-01',
           validityEndISODate: '2040-12-31',
           priority: Priority.Standard,
