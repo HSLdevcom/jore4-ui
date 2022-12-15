@@ -1,4 +1,12 @@
+import { Crypto } from '@peculiar/webcrypto';
 import { defineConfig } from 'cypress';
+
+// fix following error that occurs on CI:
+// The error was thrown while executing your e2e.setupNodeEvents() function:
+// `Error: crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported`
+// (this happens because we are using uuidjs in test-db-manager module and
+// for some reason it fails cypress tests )
+global.crypto = new Crypto();
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
