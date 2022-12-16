@@ -1,3 +1,4 @@
+import times from 'lodash/times';
 import qs from 'qs';
 import { StopPopUp } from './StopPopUp';
 
@@ -10,8 +11,8 @@ export interface ClickPointNearMapMarker {
 export class Map {
   stopPopUp = new StopPopUp();
 
-  zoomIn() {
-    cy.get('.mapboxgl-ctrl-zoom-in').click();
+  zoomIn(n = 1) {
+    times(n, () => cy.get('.mapboxgl-ctrl-zoom-in').click());
   }
 
   // Wait for a map marker to appear on the map
@@ -44,8 +45,12 @@ export class Map {
     cy.getByTestId('modalMap').click(x, y);
   }
 
+  getNthSnappingPointHandle(nth: number) {
+    return cy.get(`rect[data-index="${nth}"]`).first();
+  }
+
   clickNthSnappingPointHandle(nth: number) {
-    cy.get(`rect[data-index="${nth}"]`).first().click({ force: true });
+    this.getNthSnappingPointHandle(nth).click();
   }
 
   clickRelativePoint(xPercentage: number, yPercentage: number) {
