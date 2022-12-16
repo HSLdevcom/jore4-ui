@@ -17,7 +17,7 @@ export class RouteStopsOverlay {
     );
   }
 
-  routeShouldExist(routeName: string) {
+  routeShouldBeSelected(routeName: string) {
     return this.getHeader().get('div').contains(routeName).should('exist');
   }
 
@@ -33,6 +33,12 @@ export class RouteStopsOverlay {
   stopsShouldNotBeIncludedInRoute(stopLabels: string[]) {
     stopLabels.forEach((label) => {
       this.getRouteStop(label).should('not.exist');
+    });
+  }
+
+  stopsShouldBeIncludedInRoute(stopLabels: string[]) {
+    stopLabels.forEach((label) => {
+      this.getRouteStop(label).should('exist');
     });
   }
 }
