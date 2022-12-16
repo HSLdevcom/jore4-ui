@@ -44,8 +44,12 @@ export class Map {
     cy.getByTestId('modalMap').click(x, y);
   }
 
+  getNthSnappingPointHandle(nth: number) {
+    return cy.get(`rect[data-index="${nth}"]`).first();
+  }
+
   clickNthSnappingPointHandle(nth: number) {
-    cy.get(`rect[data-index="${nth}"]`).first().click({ force: true });
+    this.getNthSnappingPointHandle(nth).first().click({ force: true });
   }
 
   clickRelativePoint(xPercentage: number, yPercentage: number) {
