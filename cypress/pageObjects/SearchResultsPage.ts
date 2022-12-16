@@ -18,4 +18,8 @@ export class SearchResultsPage {
   getLinesResultsButton() {
     return cy.getByTestId('ResultSelector::lines');
   }
+
+  getShowRouteOnMapButton() {
+    return cy.getByTestId('RouteTableRow::showRoute');
+  }
 }

@@ -209,7 +209,7 @@ describe('Route creation', () => {
 
       routeEditor.gqlRouteShouldBeCreatedSuccessfully();
 
-      routeEditor.checkRouteSubmitSuccess();
+      routeEditor.checkRouteSubmitSuccessToast();
 
       routeStopsOverlay.routeShouldExist(routeName);
     },
@@ -248,7 +248,7 @@ describe('Route creation', () => {
 
       routeEditor.gqlRouteShouldBeCreatedSuccessfully();
 
-      routeEditor.checkRouteSubmitSuccess();
+      routeEditor.checkRouteSubmitSuccessToast();
 
       routeStopsOverlay.routeShouldExist(routeName);
 
@@ -287,7 +287,7 @@ describe('Route creation', () => {
         omittedStops: omittedStopsLabels,
       });
 
-      routeEditor.checkRouteSubmitFailure();
+      routeEditor.checkRouteSubmitFailureToast();
     },
   );
 
@@ -322,7 +322,7 @@ describe('Route creation', () => {
 
       routeEditor.gqlRouteShouldBeCreatedSuccessfully();
 
-      routeEditor.checkRouteSubmitSuccess();
+      routeEditor.checkRouteSubmitSuccessToast();
 
       routeStopsOverlay.routeShouldExist(routeName);
     },
