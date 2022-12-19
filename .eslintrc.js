@@ -31,7 +31,7 @@ module.exports = {
       typescript: {}, // this loads <rootdir>/tsconfig.json to eslint
     },
   },
-  plugins: ['react', 'react-hooks', '@typescript-eslint', 'jest'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'jest', 'lodash'],
   ignorePatterns: [
     'ui/src/generated/*.tsx',
     'test-db-manager/src/generated/*.ts',
@@ -135,6 +135,7 @@ module.exports = {
         allowWholeFile: true,
       },
     ],
+    'lodash/import-scope': ['error', 'method'], // prefer importing individual lodash methods (e.g. `import map from 'lodash/map'` instead of whole lodash library (`import { map } from 'lodash'`) to minimize bundle size
     'react/react-in-jsx-scope': 'off', // not needed with next.js: https://stackoverflow.com/a/61160875
     'react-hooks/rules-of-hooks': 'error', // enforce best practices with react hoooks
     'react-hooks/exhaustive-deps': 'error', // enforce best practices with react hoooks: https://github.com/facebook/create-react-app/issues/6880#issuecomment-485912528
