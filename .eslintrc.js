@@ -31,7 +31,7 @@ module.exports = {
       typescript: {}, // this loads <rootdir>/tsconfig.json to eslint
     },
   },
-  plugins: ['react', 'react-hooks', '@typescript-eslint', 'jest'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'jest', 'lodash'],
   ignorePatterns: [
     'ui/src/generated/*.tsx',
     'test-db-manager/src/generated/*.ts',
@@ -45,6 +45,7 @@ module.exports = {
     'import/prefer-default-export': 'off', // default exports are bad, prefer named exports: https://basarat.gitbook.io/typescript/main-1/defaultisbad
     'import/no-default-export': 'error', // default exports are bad, prefer named exports
     '@typescript-eslint/explicit-module-boundary-types': 'off', // don't require explicit return values for functions as usually TS can infer those
+    'lodash/import-scope': ['error', 'method'],
     'no-param-reassign': [
       'error',
       // ignore 'draft' as its convention to use that name with immer: https://immerjs.github.io/immer/
