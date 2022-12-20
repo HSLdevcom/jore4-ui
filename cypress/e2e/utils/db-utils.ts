@@ -17,3 +17,10 @@ export const deleteStopsByLabel = (labels: string[]) => {
     cy.task('executeRawDbQuery', { query, bindings: label });
   });
 };
+
+export const deleteTimingPlacesByLabel = (labels: string[]) => {
+  labels.forEach((label) => {
+    const query = 'DELETE FROM "timing_pattern"."timing_place" WHERE label=?';
+    cy.task('executeRawDbQuery', { query, bindings: label });
+  });
+};

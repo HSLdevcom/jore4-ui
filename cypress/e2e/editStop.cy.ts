@@ -16,6 +16,7 @@ import {
   Toast,
 } from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
+import { deleteTimingPlacesByLabel } from './utils';
 
 // Stops are created on these infralinks via insertToDbHelper or the map view.
 // vehicleSubmodeOnInfrastructureLink information is needed for these infralinks.
@@ -83,6 +84,15 @@ const dbResources = {
   vehicleModeOnScheduledStopPoint,
 };
 
+const testTimingPlaceLabels = {
+  label1: 'Test timing place label 1',
+};
+
+const clearDatabase = () => {
+  removeFromDbHelper(dbResources);
+  deleteTimingPlacesByLabel(Object.values(testTimingPlaceLabels));
+};
+
 describe('Stop editing tests', () => {
   let mapFilterPanel: FilterPanel;
   let map: Map;
@@ -116,7 +126,7 @@ describe('Stop editing tests', () => {
   });
 
   afterEach(() => {
-    removeFromDbHelper(dbResources);
+    clearDatabase();
   });
 
   it(
@@ -219,6 +229,45 @@ describe('Stop editing tests', () => {
       toast.checkSuccessToastHasMessage('Pysäkki poistettu');
 
       map.getStopByStopLabel(stops[0].label).should('not.exist');
+    },
+  );
+
+  it(
+    'Should create a new timing place',
+    // Map opening seems to take time, so we increase the timeout
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    () => {
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      map.waitForMapToLoad();
+
+      map.getStopByStopLabel(stops[0].label).click();
+
+      map.stopPopUp.getEditButton().click();
+
+      stopForm.getAddTimingPlaceButton().click();
+
+      stopForm.createTimingPlaceForm.fillTimingPlaceFormAndSave({
+        label: testTimingPlaceLabels.label1,
+        description: 'Test timing place description',
+      });
+
+      stopForm.save();
+
+      confirmationDialog.getConfirmButton().click();
+
+      toast.checkSuccessToastHasMessage('Hastus-paikka luotu');
+
+      cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
+
+      map.getStopByStopLabel(stops[0].label).click();
+      map.stopPopUp.getEditButton().click();
+
+      stopForm
+        .getTimingPlaceDropdown()
+        .click()
+        .find('ul')
+        .should('contain', testTimingPlaceLabels.label1);
     },
   );
 });
