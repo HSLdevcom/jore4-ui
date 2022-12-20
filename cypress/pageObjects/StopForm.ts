@@ -2,6 +2,7 @@ import {
   ChangeValidityForm,
   ChangeValidityFormInfo,
 } from './ChangeValidityForm';
+import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 
 export interface StopFormInfo extends ChangeValidityFormInfo {
   label: string;
@@ -11,6 +12,8 @@ export interface StopFormInfo extends ChangeValidityFormInfo {
 
 export class StopForm {
   changeValidityForm = new ChangeValidityForm();
+
+  createTimingPlaceForm = new CreateTimingPlaceForm();
 
   getLabelInput() {
     return cy.getByTestId('StopFormComponent::label');
@@ -22,6 +25,14 @@ export class StopForm {
 
   getLatitudeInput() {
     return cy.getByTestId('StopFormComponent::latitude');
+  }
+
+  getTimingPlaceDropdown() {
+    return cy.getByTestId('StopFormComponent::timingPlaceDropdown');
+  }
+
+  getAddTimingPlaceButton() {
+    return cy.getByTestId('StopFormComponent::addTimingPlaceButton');
   }
 
   fillForm(values: StopFormInfo) {
