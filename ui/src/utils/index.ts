@@ -11,6 +11,7 @@ export * from './logger';
 export * from './object';
 export * from './routeShape';
 export * from './search';
+export * from './servicePattern';
 export * from './stops';
 export * from './toastService';
 export * from './url';
