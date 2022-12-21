@@ -7,6 +7,7 @@ interface CommonButtonProps {
   className?: string;
   testId?: string;
   inverted?: boolean;
+  selected?: boolean;
   disabled?: boolean;
   children?: ReactNode;
   containerClassName?: string;
@@ -43,6 +44,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
     id,
     className = '',
     inverted,
+    selected,
     disabled,
     testId,
     children,
@@ -64,6 +66,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
       <span className={`inline-flex ${containerClassName}`}>
         <button
           id={id}
+          data-selected={selected}
           className={`${commonClassNames} ${className}`}
           type="button"
           onClick={(props as ButtonProps).onClick}

@@ -19,6 +19,28 @@ export class ChangeValidityForm {
     return cy.getByTestId('PriorityForm::temporaryPriorityButton').click();
   }
 
+  assertSelectedPriority(priority: Priority | undefined) {
+    switch (priority) {
+      case Priority.Draft:
+        cy.getByTestId('PriorityForm::draftPriorityButton')
+          .get('[data-selected="true"]')
+          .should('exist');
+        break;
+      case Priority.Temporary:
+        cy.getByTestId('PriorityForm::temporaryPriorityButton')
+          .get('[data-selected="true"]')
+          .should('exist');
+        break;
+      case Priority.Standard:
+        cy.getByTestId('PriorityForm::standardPriorityButton')
+          .get('[data-selected="true"]')
+          .should('exist');
+        break;
+      default:
+        throw new Error(`Unknown priority "${priority}"`);
+    }
+  }
+
   setStartDate(isoDate: string) {
     // This invoke is a workaround to
     // prevent map from zooming out when typing '-' value to the date input
