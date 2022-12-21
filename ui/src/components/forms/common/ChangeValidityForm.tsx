@@ -90,6 +90,7 @@ export const ChangeValidityForm = ({
       <SimpleButton
         onClick={() => setPriority(priority)}
         inverted={selectedPriority !== priority}
+        selected={selectedPriority === priority}
         testId={testIds.priorityButton(priorityLabel)}
       >
         {t(`priority.${priorityLabel}`)}
