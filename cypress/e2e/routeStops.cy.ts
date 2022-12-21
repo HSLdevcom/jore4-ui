@@ -1,20 +1,21 @@
 import {
+  InfraLinkAlongRouteInsertInput,
+  InfraLinkInsertInput,
+  LineInsertInput,
+  RouteInsertInput,
+  StopInsertInput,
+  TimingPatternTimingPlaceInsertInput,
   buildLine,
   buildRoute,
   buildStop,
   buildStopsInJourneyPattern,
-  InfraLinkAlongRouteInsertInput,
-  InfraLinkInsertInput,
   infrastructureLinkAlongRoute,
   infrastructureLinks,
   journeyPatterns,
-  LineInsertInput,
-  RouteInsertInput,
-  StopInsertInput,
   vehicleSubmodeOnInfrastructureLink,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
-import { LineDetailsPage, Toast, RouteStopsTable } from '../pageObjects';
+import { LineDetailsPage, RouteStopsTable, Toast } from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 
 const infraLinks: InfraLinkInsertInput[] = [
@@ -36,6 +37,13 @@ const lines: LineInsertInput[] = [
   },
 ];
 
+const timingPlaces: TimingPatternTimingPlaceInsertInput[] = [
+  {
+    timing_place_id: '9f0ab231-f53e-4870-b8f3-dae3c60278da',
+    label: 'Place',
+  },
+];
+
 const stops: StopInsertInput[] = [
   // included on route
   {
@@ -44,6 +52,7 @@ const stops: StopInsertInput[] = [
       located_on_infrastructure_link_id: infraLinks[0].infrastructure_link_id,
     }),
     scheduled_stop_point_id: '0f6254d9-dc60-4626-a777-ce4d4381d38a',
+    timing_place_id: '9f0ab231-f53e-4870-b8f3-dae3c60278da',
   },
   // included on route
   {
@@ -52,6 +61,7 @@ const stops: StopInsertInput[] = [
       located_on_infrastructure_link_id: infraLinks[1].infrastructure_link_id,
     }),
     scheduled_stop_point_id: '7e97247d-7750-4d72-b02e-bd4e886357b7',
+    timing_place_id: '9f0ab231-f53e-4870-b8f3-dae3c60278da',
   },
   // not included on route
   {
@@ -108,6 +118,7 @@ const dbResources = {
   infraLinks,
   vehicleSubmodeOnInfrastructureLink,
   lines,
+  timingPlaces,
   stops,
   routes,
   infraLinksAlongRoute,
