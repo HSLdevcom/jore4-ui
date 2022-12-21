@@ -302,6 +302,13 @@ export type HslRouteTransportTargetMutationResponse = {
   returning: Array<HslRouteTransportTarget>;
 };
 
+/** input type for inserting object relation for remote table "hsl_route.transport_target" */
+export type HslRouteTransportTargetObjRelInsertInput = {
+  data: HslRouteTransportTargetInsertInput;
+  /** upsert condition */
+  on_conflict?: Maybe<HslRouteTransportTargetOnConflict>;
+};
+
 /** on_conflict condition type for table "hsl_route.transport_target" */
 export type HslRouteTransportTargetOnConflict = {
   constraint: HslRouteTransportTargetConstraint;
@@ -1848,8 +1855,12 @@ export type JourneyPatternJourneyPatternUpdates = {
 /** The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern. */
 export type JourneyPatternScheduledStopPointInJourneyPattern = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-  /** Is this scheduled stop point a timing point? */
-  is_timing_point: Scalars['Boolean'];
+  /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
+  is_loading_time_allowed: Scalars['Boolean'];
+  /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
+  is_regulated_timing_point: Scalars['Boolean'];
+  /** Is this scheduled stop point used as a timing point in the journey pattern? */
+  is_used_as_timing_point: Scalars['Boolean'];
   /** Is this scheduled stop point a via point? */
   is_via_point: Scalars['Boolean'];
   /** An object relationship */
@@ -2010,7 +2021,9 @@ export type JourneyPatternScheduledStopPointInJourneyPatternBoolExp = {
   _and?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>>;
   _not?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   _or?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>>;
-  is_timing_point?: Maybe<BooleanComparisonExp>;
+  is_loading_time_allowed?: Maybe<BooleanComparisonExp>;
+  is_regulated_timing_point?: Maybe<BooleanComparisonExp>;
+  is_used_as_timing_point?: Maybe<BooleanComparisonExp>;
   is_via_point?: Maybe<BooleanComparisonExp>;
   journey_pattern?: Maybe<JourneyPatternJourneyPatternBoolExp>;
   journey_pattern_id?: Maybe<UuidComparisonExp>;
@@ -2055,8 +2068,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternIncInput = {
 
 /** input type for inserting data into table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternInsertInput = {
-  /** Is this scheduled stop point a timing point? */
-  is_timing_point?: Maybe<Scalars['Boolean']>;
+  /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
+  is_loading_time_allowed?: Maybe<Scalars['Boolean']>;
+  /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
+  is_regulated_timing_point?: Maybe<Scalars['Boolean']>;
+  /** Is this scheduled stop point used as a timing point in the journey pattern? */
+  is_used_as_timing_point?: Maybe<Scalars['Boolean']>;
   /** Is this scheduled stop point a via point? */
   is_via_point?: Maybe<Scalars['Boolean']>;
   journey_pattern?: Maybe<JourneyPatternJourneyPatternObjRelInsertInput>;
@@ -2126,7 +2143,9 @@ export type JourneyPatternScheduledStopPointInJourneyPatternOnConflict = {
 
 /** Ordering options when selecting data from "journey_pattern.scheduled_stop_point_in_journey_pattern". */
 export type JourneyPatternScheduledStopPointInJourneyPatternOrderBy = {
-  is_timing_point?: Maybe<OrderBy>;
+  is_loading_time_allowed?: Maybe<OrderBy>;
+  is_regulated_timing_point?: Maybe<OrderBy>;
+  is_used_as_timing_point?: Maybe<OrderBy>;
   is_via_point?: Maybe<OrderBy>;
   journey_pattern?: Maybe<JourneyPatternJourneyPatternOrderBy>;
   journey_pattern_id?: Maybe<OrderBy>;
@@ -2154,7 +2173,11 @@ export type JourneyPatternScheduledStopPointInJourneyPatternPrependInput = {
 /** select columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumn {
   /** column name */
-  IsTimingPoint = 'is_timing_point',
+  IsLoadingTimeAllowed = 'is_loading_time_allowed',
+  /** column name */
+  IsRegulatedTimingPoint = 'is_regulated_timing_point',
+  /** column name */
+  IsUsedAsTimingPoint = 'is_used_as_timing_point',
   /** column name */
   IsViaPoint = 'is_via_point',
   /** column name */
@@ -2172,7 +2195,11 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumn {
 /** select "journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate_bool_exp_bool_and_arguments_columns" columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolAndArgumentsColumns {
   /** column name */
-  IsTimingPoint = 'is_timing_point',
+  IsLoadingTimeAllowed = 'is_loading_time_allowed',
+  /** column name */
+  IsRegulatedTimingPoint = 'is_regulated_timing_point',
+  /** column name */
+  IsUsedAsTimingPoint = 'is_used_as_timing_point',
   /** column name */
   IsViaPoint = 'is_via_point',
 }
@@ -2180,15 +2207,23 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyP
 /** select "journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate_bool_exp_bool_or_arguments_columns" columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolOrArgumentsColumns {
   /** column name */
-  IsTimingPoint = 'is_timing_point',
+  IsLoadingTimeAllowed = 'is_loading_time_allowed',
+  /** column name */
+  IsRegulatedTimingPoint = 'is_regulated_timing_point',
+  /** column name */
+  IsUsedAsTimingPoint = 'is_used_as_timing_point',
   /** column name */
   IsViaPoint = 'is_via_point',
 }
 
 /** input type for updating data in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternSetInput = {
-  /** Is this scheduled stop point a timing point? */
-  is_timing_point?: Maybe<Scalars['Boolean']>;
+  /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
+  is_loading_time_allowed?: Maybe<Scalars['Boolean']>;
+  /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
+  is_regulated_timing_point?: Maybe<Scalars['Boolean']>;
+  /** Is this scheduled stop point used as a timing point in the journey pattern? */
+  is_used_as_timing_point?: Maybe<Scalars['Boolean']>;
   /** Is this scheduled stop point a via point? */
   is_via_point?: Maybe<Scalars['Boolean']>;
   /** The ID of the journey pattern. */
@@ -2252,8 +2287,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternStreamCursorInput =
 /** Initial value of the column from where the streaming should start */
 export type JourneyPatternScheduledStopPointInJourneyPatternStreamCursorValueInput =
   {
-    /** Is this scheduled stop point a timing point? */
-    is_timing_point?: Maybe<Scalars['Boolean']>;
+    /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
+    is_loading_time_allowed?: Maybe<Scalars['Boolean']>;
+    /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
+    is_regulated_timing_point?: Maybe<Scalars['Boolean']>;
+    /** Is this scheduled stop point used as a timing point in the journey pattern? */
+    is_used_as_timing_point?: Maybe<Scalars['Boolean']>;
     /** Is this scheduled stop point a via point? */
     is_via_point?: Maybe<Scalars['Boolean']>;
     /** The ID of the journey pattern. */
@@ -2281,7 +2320,11 @@ export type JourneyPatternScheduledStopPointInJourneyPatternSumOrderBy = {
 /** update columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternUpdateColumn {
   /** column name */
-  IsTimingPoint = 'is_timing_point',
+  IsLoadingTimeAllowed = 'is_loading_time_allowed',
+  /** column name */
+  IsRegulatedTimingPoint = 'is_regulated_timing_point',
+  /** column name */
+  IsUsedAsTimingPoint = 'is_used_as_timing_point',
   /** column name */
   IsViaPoint = 'is_via_point',
   /** column name */
@@ -5063,6 +5106,8 @@ export type RouteLine = {
   priority: Scalars['Int'];
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n: Scalars['localized_string'];
+  /** An object relationship */
+  transportTargetByTransportTarget: HslRouteTransportTarget;
   transport_target: HslRouteTransportTargetEnum;
   /** An object relationship */
   typeOfLineByTypeOfLine: RouteTypeOfLine;
@@ -5200,6 +5245,7 @@ export type RouteLineBoolExp = {
   primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
   priority?: Maybe<IntComparisonExp>;
   short_name_i18n?: Maybe<JsonbComparisonExp>;
+  transportTargetByTransportTarget?: Maybe<HslRouteTransportTargetBoolExp>;
   transport_target?: Maybe<HslRouteTransportTargetEnumComparisonExp>;
   typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineBoolExp>;
   type_of_line?: Maybe<RouteTypeOfLineEnumComparisonExp>;
@@ -5259,6 +5305,7 @@ export type RouteLineInsertInput = {
   priority?: Maybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n: Scalars['localized_string'];
+  transportTargetByTransportTarget?: Maybe<HslRouteTransportTargetObjRelInsertInput>;
   transport_target?: Maybe<HslRouteTransportTargetEnum>;
   typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineObjRelInsertInput>;
   /** The type of the line. */
@@ -5360,6 +5407,7 @@ export type RouteLineOrderBy = {
   primary_vehicle_mode?: Maybe<OrderBy>;
   priority?: Maybe<OrderBy>;
   short_name_i18n?: Maybe<OrderBy>;
+  transportTargetByTransportTarget?: Maybe<HslRouteTransportTargetOrderBy>;
   transport_target?: Maybe<OrderBy>;
   typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineOrderBy>;
   type_of_line?: Maybe<OrderBy>;
@@ -9098,6 +9146,10 @@ export type TimetablesServiceCalendarDayTypeUpdates = {
   where: TimetablesServiceCalendarDayTypeBoolExp;
 };
 
+export type TimetablesServiceCalendarGetActiveDayTypesForDateArgs = {
+  observation_date?: Maybe<Scalars['date']>;
+};
+
 /** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRef = {
   __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
@@ -10081,6 +10133,10 @@ export type TimetablesTimetablesQuery = {
   timetables_service_calendar_day_type_aggregate: TimetablesServiceCalendarDayTypeAggregate;
   /** fetch data from the table: "service_calendar.day_type" using primary key columns */
   timetables_service_calendar_day_type_by_pk?: Maybe<TimetablesServiceCalendarDayType>;
+  /** execute function "service_calendar.get_active_day_types_for_date" which returns "service_calendar.day_type" */
+  timetables_service_calendar_get_active_day_types_for_date: Array<TimetablesServiceCalendarDayType>;
+  /** execute function "service_calendar.get_active_day_types_for_date" and query aggregates on result of table type "service_calendar.day_type" */
+  timetables_service_calendar_get_active_day_types_for_date_aggregate: TimetablesServiceCalendarDayTypeAggregate;
   /** fetch data from the table: "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
   timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref: Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRef>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -10105,6 +10161,10 @@ export type TimetablesTimetablesQuery = {
   timetables_vehicle_service_block_aggregate: TimetablesVehicleServiceBlockAggregate;
   /** fetch data from the table: "vehicle_service.block" using primary key columns */
   timetables_vehicle_service_block_by_pk?: Maybe<TimetablesVehicleServiceBlock>;
+  /** execute function "vehicle_service.get_vehicle_services_for_date" which returns "vehicle_service.vehicle_service" */
+  timetables_vehicle_service_get_vehicle_services_for_date: Array<TimetablesVehicleServiceVehicleService>;
+  /** execute function "vehicle_service.get_vehicle_services_for_date" and query aggregates on result of table type "vehicle_service.vehicle_service" */
+  timetables_vehicle_service_get_vehicle_services_for_date_aggregate: TimetablesVehicleServiceVehicleServiceAggregate;
   /** fetch data from the table: "vehicle_service.vehicle_service" */
   timetables_vehicle_service_vehicle_service: Array<TimetablesVehicleServiceVehicleService>;
   /** fetch aggregated fields from the table: "vehicle_service.vehicle_service" */
@@ -10221,6 +10281,26 @@ export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeByPkArgs =
     day_type_id: Scalars['uuid'];
   };
 
+export type TimetablesTimetablesQueryTimetablesServiceCalendarGetActiveDayTypesForDateArgs =
+  {
+    args: TimetablesServiceCalendarGetActiveDayTypesForDateArgs;
+    distinct_on?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
+    where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  };
+
+export type TimetablesTimetablesQueryTimetablesServiceCalendarGetActiveDayTypesForDateAggregateArgs =
+  {
+    args: TimetablesServiceCalendarGetActiveDayTypesForDateArgs;
+    distinct_on?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
+    where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  };
+
 export type TimetablesTimetablesQueryTimetablesServicePatternScheduledStopPointInJourneyPatternRefArgs =
   {
     distinct_on?: Maybe<
@@ -10331,6 +10411,30 @@ export type TimetablesTimetablesQueryTimetablesVehicleServiceBlockByPkArgs = {
   block_id: Scalars['uuid'];
 };
 
+export type TimetablesTimetablesQueryTimetablesVehicleServiceGetVehicleServicesForDateArgs =
+  {
+    args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
+    distinct_on?: Maybe<
+      Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+  };
+
+export type TimetablesTimetablesQueryTimetablesVehicleServiceGetVehicleServicesForDateAggregateArgs =
+  {
+    args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
+    distinct_on?: Maybe<
+      Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+  };
+
 export type TimetablesTimetablesQueryTimetablesVehicleServiceVehicleServiceArgs =
   {
     distinct_on?: Maybe<
@@ -10392,6 +10496,10 @@ export type TimetablesTimetablesSubscription = {
   timetables_service_calendar_day_type_by_pk?: Maybe<TimetablesServiceCalendarDayType>;
   /** fetch data from the table in a streaming manner: "service_calendar.day_type" */
   timetables_service_calendar_day_type_stream: Array<TimetablesServiceCalendarDayType>;
+  /** execute function "service_calendar.get_active_day_types_for_date" which returns "service_calendar.day_type" */
+  timetables_service_calendar_get_active_day_types_for_date: Array<TimetablesServiceCalendarDayType>;
+  /** execute function "service_calendar.get_active_day_types_for_date" and query aggregates on result of table type "service_calendar.day_type" */
+  timetables_service_calendar_get_active_day_types_for_date_aggregate: TimetablesServiceCalendarDayTypeAggregate;
   /** fetch data from the table: "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
   timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref: Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRef>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -10424,6 +10532,10 @@ export type TimetablesTimetablesSubscription = {
   timetables_vehicle_service_block_by_pk?: Maybe<TimetablesVehicleServiceBlock>;
   /** fetch data from the table in a streaming manner: "vehicle_service.block" */
   timetables_vehicle_service_block_stream: Array<TimetablesVehicleServiceBlock>;
+  /** execute function "vehicle_service.get_vehicle_services_for_date" which returns "vehicle_service.vehicle_service" */
+  timetables_vehicle_service_get_vehicle_services_for_date: Array<TimetablesVehicleServiceVehicleService>;
+  /** execute function "vehicle_service.get_vehicle_services_for_date" and query aggregates on result of table type "vehicle_service.vehicle_service" */
+  timetables_vehicle_service_get_vehicle_services_for_date_aggregate: TimetablesVehicleServiceVehicleServiceAggregate;
   /** fetch data from the table: "vehicle_service.vehicle_service" */
   timetables_vehicle_service_vehicle_service: Array<TimetablesVehicleServiceVehicleService>;
   /** fetch aggregated fields from the table: "vehicle_service.vehicle_service" */
@@ -10577,6 +10689,26 @@ export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeStre
     where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
   };
 
+export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarGetActiveDayTypesForDateArgs =
+  {
+    args: TimetablesServiceCalendarGetActiveDayTypesForDateArgs;
+    distinct_on?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
+    where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarGetActiveDayTypesForDateAggregateArgs =
+  {
+    args: TimetablesServiceCalendarGetActiveDayTypesForDateArgs;
+    distinct_on?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
+    where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  };
+
 export type TimetablesTimetablesSubscriptionTimetablesServicePatternScheduledStopPointInJourneyPatternRefArgs =
   {
     distinct_on?: Maybe<
@@ -10721,6 +10853,30 @@ export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceBlockStreamA
     batch_size: Scalars['Int'];
     cursor: Array<Maybe<TimetablesVehicleServiceBlockStreamCursorInput>>;
     where?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceGetVehicleServicesForDateArgs =
+  {
+    args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
+    distinct_on?: Maybe<
+      Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceGetVehicleServicesForDateAggregateArgs =
+  {
+    args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
+    distinct_on?: Maybe<
+      Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
+    >;
+    limit?: Maybe<Scalars['Int']>;
+    offset?: Maybe<Scalars['Int']>;
+    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceVehicleServiceArgs =
@@ -11558,6 +11714,10 @@ export type TimetablesVehicleServiceBlockUpdates = {
   where: TimetablesVehicleServiceBlockBoolExp;
 };
 
+export type TimetablesVehicleServiceGetVehicleServicesForDateArgs = {
+  observation_date?: Maybe<Scalars['date']>;
+};
+
 /** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
 export type TimetablesVehicleServiceVehicleService = {
   __typename?: 'timetables_vehicle_service_vehicle_service';
@@ -12137,6 +12297,46 @@ export type RemoveLinesMutation = {
     | {
         __typename?: 'route_line_mutation_response';
         returning: Array<{ __typename?: 'route_line'; line_id: UUID }>;
+      }
+    | null
+    | undefined;
+};
+
+export type InsertTimingPlacesMutationVariables = Exact<{
+  objects:
+    | Array<TimingPatternTimingPlaceInsertInput>
+    | TimingPatternTimingPlaceInsertInput;
+}>;
+
+export type InsertTimingPlacesMutation = {
+  __typename?: 'mutation_root';
+  insert_timing_pattern_timing_place?:
+    | {
+        __typename?: 'timing_pattern_timing_place_mutation_response';
+        returning: Array<{
+          __typename?: 'timing_pattern_timing_place';
+          description?: any | null | undefined;
+          label: string;
+          timing_place_id: UUID;
+        }>;
+      }
+    | null
+    | undefined;
+};
+
+export type RemoveTimingPlacesMutationVariables = Exact<{
+  timing_place_ids: Array<Scalars['uuid']> | Scalars['uuid'];
+}>;
+
+export type RemoveTimingPlacesMutation = {
+  __typename?: 'mutation_root';
+  delete_timing_pattern_timing_place?:
+    | {
+        __typename?: 'timing_pattern_timing_place_mutation_response';
+        returning: Array<{
+          __typename?: 'timing_pattern_timing_place';
+          timing_place_id: UUID;
+        }>;
       }
     | null
     | undefined;
