@@ -3,12 +3,22 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface IState {
   viaModal: ViaModalState;
   timingPlaceModal: TimingPlaceModalState;
+  timingSettingsModal: TimingSettingsModalState;
 }
 
 interface ViaModalState {
   isOpen: boolean;
   journeyPatternId?: UUID;
   stopLabel?: string;
+}
+
+interface TimingSettingsModalState {
+  isOpen: boolean;
+  data?: {
+    journeyPatternId: UUID;
+    stopLabel: string;
+    sequence: number;
+  };
 }
 
 interface TimingPlaceModalState {
@@ -23,6 +33,10 @@ const initialState: IState = {
   },
   timingPlaceModal: {
     isOpen: false,
+  },
+  timingSettingsModal: {
+    isOpen: false,
+    data: undefined,
   },
 };
 
@@ -50,6 +64,22 @@ const slice = createSlice({
     closeTimingPlaceModal: (state) => {
       state.timingPlaceModal = initialState.timingPlaceModal;
     },
+    openTimingSettingsModal: (
+      state,
+      action: PayloadAction<{
+        journeyPatternId: UUID;
+        stopLabel: string;
+        sequence: number;
+      }>,
+    ) => {
+      state.timingSettingsModal = {
+        data: action.payload,
+        isOpen: true,
+      };
+    },
+    closeTimingSettingsModal: (state) => {
+      state.timingSettingsModal = initialState.timingSettingsModal;
+    },
   },
 });
 
@@ -58,6 +88,8 @@ export const {
   closeViaModal: closeViaModalAction,
   openTimingPlaceModal: openTimingPlaceModalAction,
   closeTimingPlaceModal: closeTimingPlaceModalAction,
+  openTimingSettingsModal: openTimingSettingsModalAction,
+  closeTimingSettingsModal: closeTimingSettingsModalAction,
 } = slice.actions;
 
 export const modalsReducer = slice.reducer;

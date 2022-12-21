@@ -12338,6 +12338,8 @@ export type GetRouteWithInfrastructureLinksQuery = {
             scheduled_stop_point_label: string;
             scheduled_stop_point_sequence: number;
             is_used_as_timing_point: boolean;
+            is_regulated_timing_point: boolean;
+            is_loading_time_allowed: boolean;
             is_via_point: boolean;
             via_point_name_i18n?: LocalizedString | null | undefined;
             via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12443,6 +12445,69 @@ export type ListOwnLinesQuery = {
   }>;
 };
 
+export type ScheduledStopPointWithTimingSettingsFragment = {
+  __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+  journey_pattern_id: UUID;
+  scheduled_stop_point_label: string;
+  scheduled_stop_point_sequence: number;
+  is_used_as_timing_point: boolean;
+  is_regulated_timing_point: boolean;
+  is_loading_time_allowed: boolean;
+  is_via_point: boolean;
+  via_point_name_i18n?: LocalizedString | null | undefined;
+  via_point_short_name_i18n?: LocalizedString | null | undefined;
+  journey_pattern: {
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+    on_route_id: UUID;
+    journey_pattern_route?:
+      | { __typename?: 'route_route'; route_id: UUID; label: string }
+      | null
+      | undefined;
+  };
+  scheduled_stop_points: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    timing_place_id?: UUID | null | undefined;
+  }>;
+};
+
+export type GetScheduledStopPointWithTimingSettingsQueryVariables = Exact<{
+  journeyPatternId: Scalars['uuid'];
+  stopLabel: Scalars['String'];
+  sequence: Scalars['Int'];
+}>;
+
+export type GetScheduledStopPointWithTimingSettingsQuery = {
+  __typename?: 'query_root';
+  journey_pattern_scheduled_stop_point_in_journey_pattern: Array<{
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+    journey_pattern_id: UUID;
+    scheduled_stop_point_label: string;
+    scheduled_stop_point_sequence: number;
+    is_used_as_timing_point: boolean;
+    is_regulated_timing_point: boolean;
+    is_loading_time_allowed: boolean;
+    is_via_point: boolean;
+    via_point_name_i18n?: LocalizedString | null | undefined;
+    via_point_short_name_i18n?: LocalizedString | null | undefined;
+    journey_pattern: {
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      journey_pattern_route?:
+        | { __typename?: 'route_route'; route_id: UUID; label: string }
+        | null
+        | undefined;
+    };
+    scheduled_stop_points: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point';
+      scheduled_stop_point_id: UUID;
+      timing_place_id?: UUID | null | undefined;
+    }>;
+  }>;
+};
+
 export type VehicleJourneyByStopFragment = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey';
   journey_pattern_ref_id: UUID;
@@ -12544,6 +12609,8 @@ export type RouteInfraLinkFieldsFragment = {
       scheduled_stop_point_label: string;
       scheduled_stop_point_sequence: number;
       is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
       is_via_point: boolean;
       via_point_name_i18n?: LocalizedString | null | undefined;
       via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12641,6 +12708,8 @@ export type ScheduledStopPointInJourneyPatternAllFieldsFragment = {
   scheduled_stop_point_label: string;
   scheduled_stop_point_sequence: number;
   is_used_as_timing_point: boolean;
+  is_regulated_timing_point: boolean;
+  is_loading_time_allowed: boolean;
   is_via_point: boolean;
   via_point_name_i18n?: LocalizedString | null | undefined;
   via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12661,6 +12730,8 @@ export type JourneyPatternWithStopsFragment = {
     scheduled_stop_point_label: string;
     scheduled_stop_point_sequence: number;
     is_used_as_timing_point: boolean;
+    is_regulated_timing_point: boolean;
+    is_loading_time_allowed: boolean;
     is_via_point: boolean;
     via_point_name_i18n?: LocalizedString | null | undefined;
     via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12699,6 +12770,8 @@ export type PatchScheduledStopPointViaInfoMutation = {
           scheduled_stop_point_label: string;
           scheduled_stop_point_sequence: number;
           is_used_as_timing_point: boolean;
+          is_regulated_timing_point: boolean;
+          is_loading_time_allowed: boolean;
           is_via_point: boolean;
           via_point_name_i18n?: LocalizedString | null | undefined;
           via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12729,6 +12802,8 @@ export type RemoveScheduledStopPointViaInfoMutation = {
           scheduled_stop_point_label: string;
           scheduled_stop_point_sequence: number;
           is_used_as_timing_point: boolean;
+          is_regulated_timing_point: boolean;
+          is_loading_time_allowed: boolean;
           is_via_point: boolean;
           via_point_name_i18n?: LocalizedString | null | undefined;
           via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12756,6 +12831,8 @@ export type GetScheduledStopPointWithViaInfoQuery = {
     scheduled_stop_point_label: string;
     scheduled_stop_point_sequence: number;
     is_used_as_timing_point: boolean;
+    is_regulated_timing_point: boolean;
+    is_loading_time_allowed: boolean;
     is_via_point: boolean;
     via_point_name_i18n?: LocalizedString | null | undefined;
     via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12863,6 +12940,8 @@ export type RouteWithJourneyPatternStopsFragment = {
       scheduled_stop_point_label: string;
       scheduled_stop_point_sequence: number;
       is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
       is_via_point: boolean;
       via_point_name_i18n?: LocalizedString | null | undefined;
       via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12938,6 +13017,8 @@ export type RouteWithInfrastructureLinksFragment = {
       scheduled_stop_point_label: string;
       scheduled_stop_point_sequence: number;
       is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
       is_via_point: boolean;
       via_point_name_i18n?: LocalizedString | null | undefined;
       via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13089,6 +13170,8 @@ export type GetLineDetailsWithRoutesByIdQuery = {
                   scheduled_stop_point_label: string;
                   scheduled_stop_point_sequence: number;
                   is_used_as_timing_point: boolean;
+                  is_regulated_timing_point: boolean;
+                  is_loading_time_allowed: boolean;
                   is_via_point: boolean;
                   via_point_name_i18n?: LocalizedString | null | undefined;
                   via_point_short_name_i18n?:
@@ -13202,6 +13285,8 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
               scheduled_stop_point_label: string;
               scheduled_stop_point_sequence: number;
               is_used_as_timing_point: boolean;
+              is_regulated_timing_point: boolean;
+              is_loading_time_allowed: boolean;
               is_via_point: boolean;
               via_point_name_i18n?: LocalizedString | null | undefined;
               via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13281,6 +13366,8 @@ export type GetRoutesWithStopsQuery = {
             scheduled_stop_point_label: string;
             scheduled_stop_point_sequence: number;
             is_used_as_timing_point: boolean;
+            is_regulated_timing_point: boolean;
+            is_loading_time_allowed: boolean;
             is_via_point: boolean;
             via_point_name_i18n?: LocalizedString | null | undefined;
             via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13347,6 +13434,8 @@ export type GetRouteDetailsByIdQuery = {
             scheduled_stop_point_label: string;
             scheduled_stop_point_sequence: number;
             is_used_as_timing_point: boolean;
+            is_regulated_timing_point: boolean;
+            is_loading_time_allowed: boolean;
             is_via_point: boolean;
             via_point_name_i18n?: LocalizedString | null | undefined;
             via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13426,6 +13515,8 @@ export type GetRouteDetailsByIdsQuery = {
             scheduled_stop_point_label: string;
             scheduled_stop_point_sequence: number;
             is_used_as_timing_point: boolean;
+            is_regulated_timing_point: boolean;
+            is_loading_time_allowed: boolean;
             is_via_point: boolean;
             via_point_name_i18n?: LocalizedString | null | undefined;
             via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13512,6 +13603,8 @@ export type GetRouteDetailsByLabelsQuery = {
         scheduled_stop_point_label: string;
         scheduled_stop_point_sequence: number;
         is_used_as_timing_point: boolean;
+        is_regulated_timing_point: boolean;
+        is_loading_time_allowed: boolean;
         is_via_point: boolean;
         via_point_name_i18n?: LocalizedString | null | undefined;
         via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13594,6 +13687,8 @@ export type GetRoutesWithInfrastructureLinksQuery = {
         scheduled_stop_point_label: string;
         scheduled_stop_point_sequence: number;
         is_used_as_timing_point: boolean;
+        is_regulated_timing_point: boolean;
+        is_loading_time_allowed: boolean;
         is_via_point: boolean;
         via_point_name_i18n?: LocalizedString | null | undefined;
         via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13840,6 +13935,8 @@ export type StopWithJourneyPatternFieldsFragment = {
     scheduled_stop_point_label: string;
     scheduled_stop_point_sequence: number;
     is_used_as_timing_point: boolean;
+    is_regulated_timing_point: boolean;
+    is_loading_time_allowed: boolean;
     is_via_point: boolean;
     via_point_name_i18n?: LocalizedString | null | undefined;
     via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13884,6 +13981,8 @@ export type RouteStopFieldsFragment = {
     scheduled_stop_point_label: string;
     scheduled_stop_point_sequence: number;
     is_used_as_timing_point: boolean;
+    is_regulated_timing_point: boolean;
+    is_loading_time_allowed: boolean;
     is_via_point: boolean;
     via_point_name_i18n?: LocalizedString | null | undefined;
     via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14088,6 +14187,8 @@ export type EditStopMutation = {
           scheduled_stop_point_label: string;
           scheduled_stop_point_sequence: number;
           is_used_as_timing_point: boolean;
+          is_regulated_timing_point: boolean;
+          is_loading_time_allowed: boolean;
           is_via_point: boolean;
           via_point_name_i18n?: LocalizedString | null | undefined;
           via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14127,6 +14228,8 @@ export type GetStopWithRouteGraphDataByIdQuery = {
       scheduled_stop_point_label: string;
       scheduled_stop_point_sequence: number;
       is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
       is_via_point: boolean;
       via_point_name_i18n?: LocalizedString | null | undefined;
       via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14351,6 +14454,8 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
         scheduled_stop_point_label: string;
         scheduled_stop_point_sequence: number;
         is_used_as_timing_point: boolean;
+        is_regulated_timing_point: boolean;
+        is_loading_time_allowed: boolean;
         is_via_point: boolean;
         via_point_name_i18n?: LocalizedString | null | undefined;
         via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14532,6 +14637,8 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
           scheduled_stop_point_label: string;
           scheduled_stop_point_sequence: number;
           is_used_as_timing_point: boolean;
+          is_regulated_timing_point: boolean;
+          is_loading_time_allowed: boolean;
           is_via_point: boolean;
           via_point_name_i18n?: LocalizedString | null | undefined;
           via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14558,6 +14665,8 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
       scheduled_stop_point_label: string;
       scheduled_stop_point_sequence: number;
       is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
       is_via_point: boolean;
       via_point_name_i18n?: LocalizedString | null | undefined;
       via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14621,6 +14730,8 @@ export type InfraLinkAlongRouteWithStopsFragment = {
         scheduled_stop_point_label: string;
         scheduled_stop_point_sequence: number;
         is_used_as_timing_point: boolean;
+        is_regulated_timing_point: boolean;
+        is_loading_time_allowed: boolean;
         is_via_point: boolean;
         via_point_name_i18n?: LocalizedString | null | undefined;
         via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14719,6 +14830,8 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
                 scheduled_stop_point_label: string;
                 scheduled_stop_point_sequence: number;
                 is_used_as_timing_point: boolean;
+                is_regulated_timing_point: boolean;
+                is_loading_time_allowed: boolean;
                 is_via_point: boolean;
                 via_point_name_i18n?: LocalizedString | null | undefined;
                 via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14745,6 +14858,8 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
             scheduled_stop_point_label: string;
             scheduled_stop_point_sequence: number;
             is_used_as_timing_point: boolean;
+            is_regulated_timing_point: boolean;
+            is_loading_time_allowed: boolean;
             is_via_point: boolean;
             via_point_name_i18n?: LocalizedString | null | undefined;
             via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14834,6 +14949,40 @@ export type SearchLinesAndRoutesQuery = {
       }>;
     }>;
   }>;
+};
+
+export type PatchScheduledStopPointTimingSettingsMutationVariables = Exact<{
+  stopLabel: Scalars['String'];
+  journeyPatternId: Scalars['uuid'];
+  sequence: Scalars['Int'];
+  patch: JourneyPatternScheduledStopPointInJourneyPatternSetInput;
+}>;
+
+export type PatchScheduledStopPointTimingSettingsMutation = {
+  __typename?: 'mutation_root';
+  update_journey_pattern_scheduled_stop_point_in_journey_pattern?:
+    | {
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+        returning: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          journey_pattern_id: UUID;
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+          is_used_as_timing_point: boolean;
+          is_regulated_timing_point: boolean;
+          is_loading_time_allowed: boolean;
+          is_via_point: boolean;
+          via_point_name_i18n?: LocalizedString | null | undefined;
+          via_point_short_name_i18n?: LocalizedString | null | undefined;
+          journey_pattern: {
+            __typename?: 'journey_pattern_journey_pattern';
+            journey_pattern_id: UUID;
+            on_route_id: UUID;
+          };
+        }>;
+      }
+    | null
+    | undefined;
 };
 
 export type NewTimingPlaceFragment = {
@@ -15202,6 +15351,40 @@ export const StopPopupInfoFragmentDoc = gql`
     measured_location
   }
 `;
+export const ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc = gql`
+  fragment scheduled_stop_point_in_journey_pattern_all_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
+    journey_pattern_id
+    scheduled_stop_point_label
+    scheduled_stop_point_sequence
+    is_used_as_timing_point
+    is_regulated_timing_point
+    is_loading_time_allowed
+    is_via_point
+    via_point_name_i18n
+    via_point_short_name_i18n
+    journey_pattern {
+      journey_pattern_id
+      on_route_id
+    }
+  }
+`;
+export const ScheduledStopPointWithTimingSettingsFragmentDoc = gql`
+  fragment scheduled_stop_point_with_timing_settings on journey_pattern_scheduled_stop_point_in_journey_pattern {
+    ...scheduled_stop_point_in_journey_pattern_all_fields
+    journey_pattern {
+      journey_pattern_id
+      journey_pattern_route {
+        route_id
+        label
+      }
+    }
+    scheduled_stop_points {
+      scheduled_stop_point_id
+      timing_place_id
+    }
+  }
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+`;
 export const PassingTimeByStopFragmentDoc = gql`
   fragment passing_time_by_stop on timetables_passing_times_timetabled_passing_time {
     arrival_time
@@ -15250,21 +15433,6 @@ export const ScheduledStopPointAllFieldsFragmentDoc = gql`
       vehicle_mode
     }
     timing_place_id
-  }
-`;
-export const ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc = gql`
-  fragment scheduled_stop_point_in_journey_pattern_all_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
-    journey_pattern_id
-    scheduled_stop_point_label
-    scheduled_stop_point_sequence
-    is_used_as_timing_point
-    is_via_point
-    via_point_name_i18n
-    via_point_short_name_i18n
-    journey_pattern {
-      journey_pattern_id
-      on_route_id
-    }
   }
 `;
 export const StopWithJourneyPatternFieldsFragmentDoc = gql`
@@ -15739,6 +15907,77 @@ export type ListOwnLinesQueryResult = Apollo.QueryResult<
   ListOwnLinesQuery,
   ListOwnLinesQueryVariables
 >;
+export const GetScheduledStopPointWithTimingSettingsDocument = gql`
+  query GetScheduledStopPointWithTimingSettings(
+    $journeyPatternId: uuid!
+    $stopLabel: String!
+    $sequence: Int!
+  ) {
+    journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        journey_pattern_id: { _eq: $journeyPatternId }
+        scheduled_stop_point_label: { _eq: $stopLabel }
+        scheduled_stop_point_sequence: { _eq: $sequence }
+      }
+    ) {
+      ...scheduled_stop_point_with_timing_settings
+    }
+  }
+  ${ScheduledStopPointWithTimingSettingsFragmentDoc}
+`;
+
+/**
+ * __useGetScheduledStopPointWithTimingSettingsQuery__
+ *
+ * To run a query within a React component, call `useGetScheduledStopPointWithTimingSettingsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetScheduledStopPointWithTimingSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetScheduledStopPointWithTimingSettingsQuery({
+ *   variables: {
+ *      journeyPatternId: // value for 'journeyPatternId'
+ *      stopLabel: // value for 'stopLabel'
+ *      sequence: // value for 'sequence'
+ *   },
+ * });
+ */
+export function useGetScheduledStopPointWithTimingSettingsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetScheduledStopPointWithTimingSettingsQuery,
+    GetScheduledStopPointWithTimingSettingsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetScheduledStopPointWithTimingSettingsQuery,
+    GetScheduledStopPointWithTimingSettingsQueryVariables
+  >(GetScheduledStopPointWithTimingSettingsDocument, options);
+}
+export function useGetScheduledStopPointWithTimingSettingsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetScheduledStopPointWithTimingSettingsQuery,
+    GetScheduledStopPointWithTimingSettingsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetScheduledStopPointWithTimingSettingsQuery,
+    GetScheduledStopPointWithTimingSettingsQueryVariables
+  >(GetScheduledStopPointWithTimingSettingsDocument, options);
+}
+export type GetScheduledStopPointWithTimingSettingsQueryHookResult = ReturnType<
+  typeof useGetScheduledStopPointWithTimingSettingsQuery
+>;
+export type GetScheduledStopPointWithTimingSettingsLazyQueryHookResult =
+  ReturnType<typeof useGetScheduledStopPointWithTimingSettingsLazyQuery>;
+export type GetScheduledStopPointWithTimingSettingsQueryResult =
+  Apollo.QueryResult<
+    GetScheduledStopPointWithTimingSettingsQuery,
+    GetScheduledStopPointWithTimingSettingsQueryVariables
+  >;
 export const GetVehicleJourneysDocument = gql`
   query GetVehicleJourneys {
     timetables {
@@ -18465,6 +18704,75 @@ export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<
   SearchLinesAndRoutesQuery,
   SearchLinesAndRoutesQueryVariables
 >;
+export const PatchScheduledStopPointTimingSettingsDocument = gql`
+  mutation PatchScheduledStopPointTimingSettings(
+    $stopLabel: String!
+    $journeyPatternId: uuid!
+    $sequence: Int!
+    $patch: journey_pattern_scheduled_stop_point_in_journey_pattern_set_input!
+  ) {
+    update_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        scheduled_stop_point_label: { _eq: $stopLabel }
+        scheduled_stop_point_sequence: { _eq: $sequence }
+        journey_pattern_id: { _eq: $journeyPatternId }
+      }
+      _set: $patch
+    ) {
+      returning {
+        ...scheduled_stop_point_in_journey_pattern_all_fields
+      }
+    }
+  }
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+`;
+export type PatchScheduledStopPointTimingSettingsMutationFn =
+  Apollo.MutationFunction<
+    PatchScheduledStopPointTimingSettingsMutation,
+    PatchScheduledStopPointTimingSettingsMutationVariables
+  >;
+
+/**
+ * __usePatchScheduledStopPointTimingSettingsMutation__
+ *
+ * To run a mutation, you first call `usePatchScheduledStopPointTimingSettingsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePatchScheduledStopPointTimingSettingsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [patchScheduledStopPointTimingSettingsMutation, { data, loading, error }] = usePatchScheduledStopPointTimingSettingsMutation({
+ *   variables: {
+ *      stopLabel: // value for 'stopLabel'
+ *      journeyPatternId: // value for 'journeyPatternId'
+ *      sequence: // value for 'sequence'
+ *      patch: // value for 'patch'
+ *   },
+ * });
+ */
+export function usePatchScheduledStopPointTimingSettingsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    PatchScheduledStopPointTimingSettingsMutation,
+    PatchScheduledStopPointTimingSettingsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    PatchScheduledStopPointTimingSettingsMutation,
+    PatchScheduledStopPointTimingSettingsMutationVariables
+  >(PatchScheduledStopPointTimingSettingsDocument, options);
+}
+export type PatchScheduledStopPointTimingSettingsMutationHookResult =
+  ReturnType<typeof usePatchScheduledStopPointTimingSettingsMutation>;
+export type PatchScheduledStopPointTimingSettingsMutationResult =
+  Apollo.MutationResult<PatchScheduledStopPointTimingSettingsMutation>;
+export type PatchScheduledStopPointTimingSettingsMutationOptions =
+  Apollo.BaseMutationOptions<
+    PatchScheduledStopPointTimingSettingsMutation,
+    PatchScheduledStopPointTimingSettingsMutationVariables
+  >;
 export const InsertTimingPlaceDocument = gql`
   mutation InsertTimingPlace(
     $object: timing_pattern_timing_place_insert_input!
@@ -19069,6 +19377,14 @@ export function useListOwnLinesAsyncQuery() {
 export type ListOwnLinesAsyncQueryHookResult = ReturnType<
   typeof useListOwnLinesAsyncQuery
 >;
+export function useGetScheduledStopPointWithTimingSettingsAsyncQuery() {
+  return useAsyncQuery<
+    GetScheduledStopPointWithTimingSettingsQuery,
+    GetScheduledStopPointWithTimingSettingsQueryVariables
+  >(GetScheduledStopPointWithTimingSettingsDocument);
+}
+export type GetScheduledStopPointWithTimingSettingsAsyncQueryHookResult =
+  ReturnType<typeof useGetScheduledStopPointWithTimingSettingsAsyncQuery>;
 export function useGetVehicleJourneysAsyncQuery() {
   return useAsyncQuery<
     GetVehicleJourneysQuery,

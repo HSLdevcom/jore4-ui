@@ -13,12 +13,14 @@ import {
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import {
   resetMapRouteEditorStateAction,
+  selectIsTimingSettingsModalOpen,
   selectIsViaModalOpen,
   setLineInfoAction,
 } from '../../../redux';
 import { Priority } from '../../../types/Priority';
 import { isPastEntity } from '../../../utils';
 import { PageHeader } from '../common/PageHeader';
+import { TimingSettingsModal } from '../stop-timing-settings/TimingSettingsModal';
 import { ViaModal } from '../via/ViaModal';
 import { ActionsRow } from './ActionsRow';
 import { AdditionalInformation } from './AdditionalInformation';
@@ -44,6 +46,9 @@ export const LineDetailsPage = (): JSX.Element => {
   };
 
   const isViaModalOpen = useAppSelector(selectIsViaModalOpen);
+  const isTimingSettingsModalOpen = useAppSelector(
+    selectIsTimingSettingsModalOpen,
+  );
 
   const getHeaderBorderClassName = () => {
     if (line?.priority === Priority.Draft) {
@@ -109,6 +114,9 @@ export const LineDetailsPage = (): JSX.Element => {
       )}
       <Visible visible={isViaModalOpen}>
         <ViaModal />
+      </Visible>
+      <Visible visible={isTimingSettingsModalOpen}>
+        <TimingSettingsModal />
       </Visible>
     </div>
   );
