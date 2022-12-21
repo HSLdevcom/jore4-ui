@@ -74,6 +74,7 @@ export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
     return (
       <SimpleButton
         onClick={() => setPriority(priority)}
+        selected={selectedPriority === priority}
         inverted={selectedPriority !== priority}
         testId={testIds.priorityButton(testIdPrefix)}
       >
