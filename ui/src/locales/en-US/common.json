@@ -275,6 +275,14 @@
     "viaSaveSuccess": "Via information set",
     "viaRemoveSuccess": "Via information removed"
   },
+  "timingSettingsModal": {
+    "timingSettings": "Timing settings",
+    "timingSettingsModalTitle": "{{ label }} | Timing settings",
+    "isUsedAsTimingPoint": "Use Hastus place",
+    "isRegulatedTimingPoint": "Is regulated timing point",
+    "isLoadingTimeAllowed": "Is loading time allowed",
+    "saveSuccess": "Time settings saved"
+  },
   "timetables": {
     "timetables": "Timetables",
     "validityPeriodLabel": "Timetables valid",

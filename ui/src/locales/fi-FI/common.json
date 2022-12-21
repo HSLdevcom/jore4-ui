@@ -275,6 +275,14 @@
     "viaSaveSuccess": "Via-tieto asetettu",
     "viaRemoveSuccess": "Via-tieto poistettu"
   },
+  "timingSettingsModal": {
+    "timingSettings": "Aika-asetukset",
+    "timingSettingsModalTitle": "{{ label }} | Aika-asetukset",
+    "isUsedAsTimingPoint": "Käytä Hastus-paikkaa",
+    "isRegulatedTimingPoint": "Käytä ajantasauspysäkkinä",
+    "isLoadingTimeAllowed": "Lastausaika sallittu",
+    "saveSuccess": "Aika-asetusten tallennus onnistui"
+  },
   "timetables": {
     "timetables": "Aikataulut",
     "validityPeriodLabel": "Aikataulut voimassa",

@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { mapFromStoreType } from '../mappers/storeType';
-import { mapOperations, Operation } from '../slices/loader';
+import { Operation, mapOperations } from '../slices/loader';
 import { MapRouteEditorState } from '../slices/mapRouteEditor';
 import { MapStopEditorState } from '../slices/mapStopEditor';
 import { RootState } from '../store';
@@ -85,6 +85,16 @@ export const selectIsViaModalOpen = createSelector(
 export const selectIsTimingPlaceModalOpen = createSelector(
   selectModals,
   (modals) => modals.timingPlaceModal.isOpen,
+);
+
+export const selectTimingSettingsModal = createSelector(
+  selectModals,
+  (modals) => modals.timingSettingsModal,
+);
+
+export const selectIsTimingSettingsModalOpen = createSelector(
+  selectTimingSettingsModal,
+  (timingSettingsModal) => timingSettingsModal.isOpen,
 );
 
 export const selectIsMapOperationLoading = createSelector(

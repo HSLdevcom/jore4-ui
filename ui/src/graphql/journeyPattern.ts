@@ -13,6 +13,8 @@ const SCHEDULED_STOP_POINT_IN_JOURNEY_PATTERN_ALL_FIELDS = gql`
     scheduled_stop_point_label
     scheduled_stop_point_sequence
     is_used_as_timing_point
+    is_regulated_timing_point
+    is_loading_time_allowed
     is_via_point
     via_point_name_i18n
     via_point_short_name_i18n

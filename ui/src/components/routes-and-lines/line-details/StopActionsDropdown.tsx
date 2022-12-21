@@ -1,7 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { RouteStopFieldsFragment } from '../../../generated/graphql';
 import { useAppDispatch } from '../../../hooks';
-import { openViaModalAction } from '../../../redux';
+import {
+  openTimingSettingsModalAction,
+  openViaModalAction,
+} from '../../../redux';
 import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
 
 const testIds = {
@@ -52,6 +55,21 @@ export const StopActionsDropdown = ({
     }
   };
 
+  const showTimingSettingsModal = () => {
+    const journeyPatternId =
+      scheduledStopPointInJourneyPattern?.journey_pattern_id;
+
+    if (journeyPatternId) {
+      dispatch(
+        openTimingSettingsModalAction({
+          stopLabel: stop.label,
+          journeyPatternId,
+          sequence:
+            scheduledStopPointInJourneyPattern.scheduled_stop_point_sequence,
+        }),
+      );
+    }
+  };
   return (
     <SimpleDropdownMenu alignItems={AlignDirection.Left} testId={testIds.menu}>
       {stopBelongsToJourneyPattern ? (
@@ -87,6 +105,16 @@ export const StopActionsDropdown = ({
           {t('viaModal.createViaPoint')}
         </button>
       )}
+      <button
+        disabled={!stopBelongsToJourneyPattern}
+        className={`${
+          !stopBelongsToJourneyPattern ? 'bg-background text-dark-grey' : ''
+        }`}
+        type="button"
+        onClick={showTimingSettingsModal}
+      >
+        {t('timingSettingsModal.timingSettings')}
+      </button>
     </SimpleDropdownMenu>
   );
 };
