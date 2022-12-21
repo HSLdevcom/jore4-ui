@@ -115,8 +115,8 @@ describe('Stop creation tests', () => {
         stopFormInfo: {
           label: testStopLabels.manualCoordinatesLabel,
           // Actual coordinates will be on Topeliuksenkatu
-          latitude: '60.18083637150667',
-          longitude: '24.9215054260969',
+          latitude: '60.18072918584129',
+          longitude: '24.92131574451069',
           validityStartISODate: '2022-01-01',
           priority: Priority.Standard,
         },
