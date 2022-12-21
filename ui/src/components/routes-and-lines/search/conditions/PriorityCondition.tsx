@@ -44,6 +44,7 @@ export const PriorityCondition = ({
         {priorityButtonData.map((item) => (
           <SimpleButton
             onClick={() => onClickPriority(item.priority)}
+            selected={priorities.includes(item.priority)}
             inverted={!priorities.includes(item.priority)}
             key={item.priority}
           >
