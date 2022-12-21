@@ -12,7 +12,7 @@ const SCHEDULED_STOP_POINT_IN_JOURNEY_PATTERN_ALL_FIELDS = gql`
     journey_pattern_id
     scheduled_stop_point_label
     scheduled_stop_point_sequence
-    is_timing_point
+    is_used_as_timing_point
     is_via_point
     via_point_name_i18n
     via_point_short_name_i18n

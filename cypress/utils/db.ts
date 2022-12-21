@@ -10,6 +10,7 @@ import {
   mapToCreateRoutesMutation,
   mapToCreateStopsMutation,
   mapToCreateStopsOnJourneyPatternMutation,
+  mapToCreateTimingPlacesMutation,
   mapToDeleteInfraLinksAlongRouteMutation,
   mapToDeleteInfraLinksMutation,
   mapToDeleteJourneyPatternsMutation,
@@ -17,9 +18,11 @@ import {
   mapToDeleteRoutesMutation,
   mapToDeleteStopsInJourneyPatternMutation,
   mapToDeleteStopsMutation,
+  mapToDeleteTimingPlacesMutation,
   RouteInsertInput,
   StopInJourneyPatternInsertInput,
   StopInsertInput,
+  TimingPatternTimingPlaceInsertInput,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 
@@ -35,6 +38,7 @@ interface SupportedResources {
   infraLinks?: InfraLinkInsertInput[];
   vehicleSubmodeOnInfrastructureLink?: VehicleSubmodeOnInfraLinkInsertInput[];
   lines?: LineInsertInput[];
+  timingPlaces?: TimingPatternTimingPlaceInsertInput[];
   stops?: StopInsertInput[];
   routes?: RouteInsertInput[];
   infraLinksAlongRoute?: InfraLinkAlongRouteInsertInput[];
@@ -46,6 +50,7 @@ export const insertToDbHelper = ({
   infraLinks,
   vehicleSubmodeOnInfrastructureLink,
   lines,
+  timingPlaces,
   stops,
   routes,
   infraLinksAlongRoute,
@@ -68,6 +73,11 @@ export const insertToDbHelper = ({
   if (lines) {
     cy.task('hasuraApi', mapToCreateLinesMutation(lines)).then((res) =>
       responseLogger('Inserting lines', res),
+    );
+  }
+  if (timingPlaces) {
+    cy.task('hasuraApi', mapToCreateTimingPlacesMutation(timingPlaces)).then(
+      (res) => responseLogger('Inserting timing places', res),
     );
   }
   if (stops) {
@@ -104,6 +114,7 @@ export const removeFromDbHelper = ({
   infraLinks,
   vehicleSubmodeOnInfrastructureLink,
   lines,
+  timingPlaces,
   stops,
   routes,
   infraLinksAlongRoute,
@@ -121,6 +132,14 @@ export const removeFromDbHelper = ({
       'hasuraApi',
       mapToDeleteLinesMutation(lines.map((line) => line.line_id)),
     ).then((res) => responseLogger('Removing line', res));
+  }
+  if (timingPlaces) {
+    cy.task(
+      'hasuraApi',
+      mapToDeleteTimingPlacesMutation(
+        timingPlaces.map((timingPlace) => timingPlace.timing_place_id),
+      ),
+    ).then((res) => responseLogger('Removing timing place', res));
   }
   if (stops) {
     cy.task(

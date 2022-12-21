@@ -104,7 +104,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           },
                           scheduled_stop_point_label: 'pysäkki A',
                           scheduled_stop_point_sequence: 0,
-                          is_timing_point: false,
+                          is_used_as_timing_point: false,
                           is_via_point: false,
                           __typename:
                             'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -212,7 +212,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           },
                           scheduled_stop_point_label: 'pysäkki C',
                           scheduled_stop_point_sequence: 2,
-                          is_timing_point: false,
+                          is_used_as_timing_point: false,
                           is_via_point: false,
                           __typename:
                             'journey_pattern_scheduled_stop_point_in_journey_pattern',

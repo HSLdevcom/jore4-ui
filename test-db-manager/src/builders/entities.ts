@@ -79,6 +79,6 @@ export const buildStopsInJourneyPattern = (
     journey_pattern_id: journeyPatternId,
     scheduled_stop_point_label: stopLabel,
     scheduled_stop_point_sequence: index,
-    is_timing_point: true,
+    is_used_as_timing_point: true,
     is_via_point: false,
   }));

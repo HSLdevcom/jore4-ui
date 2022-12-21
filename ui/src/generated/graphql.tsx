@@ -1859,8 +1859,12 @@ export type JourneyPatternJourneyPatternUpdates = {
 /** The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern. */
 export type JourneyPatternScheduledStopPointInJourneyPattern = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-  /** Is this scheduled stop point a timing point? */
-  is_timing_point: Scalars['Boolean'];
+  /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
+  is_loading_time_allowed: Scalars['Boolean'];
+  /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
+  is_regulated_timing_point: Scalars['Boolean'];
+  /** Is this scheduled stop point used as a timing point in the journey pattern? */
+  is_used_as_timing_point: Scalars['Boolean'];
   /** Is this scheduled stop point a via point? */
   is_via_point: Scalars['Boolean'];
   /** An object relationship */
@@ -2021,7 +2025,9 @@ export type JourneyPatternScheduledStopPointInJourneyPatternBoolExp = {
   _and?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>>;
   _not?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   _or?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>>;
-  is_timing_point?: Maybe<BooleanComparisonExp>;
+  is_loading_time_allowed?: Maybe<BooleanComparisonExp>;
+  is_regulated_timing_point?: Maybe<BooleanComparisonExp>;
+  is_used_as_timing_point?: Maybe<BooleanComparisonExp>;
   is_via_point?: Maybe<BooleanComparisonExp>;
   journey_pattern?: Maybe<JourneyPatternJourneyPatternBoolExp>;
   journey_pattern_id?: Maybe<UuidComparisonExp>;
@@ -2066,8 +2072,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternIncInput = {
 
 /** input type for inserting data into table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternInsertInput = {
-  /** Is this scheduled stop point a timing point? */
-  is_timing_point?: Maybe<Scalars['Boolean']>;
+  /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
+  is_loading_time_allowed?: Maybe<Scalars['Boolean']>;
+  /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
+  is_regulated_timing_point?: Maybe<Scalars['Boolean']>;
+  /** Is this scheduled stop point used as a timing point in the journey pattern? */
+  is_used_as_timing_point?: Maybe<Scalars['Boolean']>;
   /** Is this scheduled stop point a via point? */
   is_via_point?: Maybe<Scalars['Boolean']>;
   journey_pattern?: Maybe<JourneyPatternJourneyPatternObjRelInsertInput>;
@@ -2137,7 +2147,9 @@ export type JourneyPatternScheduledStopPointInJourneyPatternOnConflict = {
 
 /** Ordering options when selecting data from "journey_pattern.scheduled_stop_point_in_journey_pattern". */
 export type JourneyPatternScheduledStopPointInJourneyPatternOrderBy = {
-  is_timing_point?: Maybe<OrderBy>;
+  is_loading_time_allowed?: Maybe<OrderBy>;
+  is_regulated_timing_point?: Maybe<OrderBy>;
+  is_used_as_timing_point?: Maybe<OrderBy>;
   is_via_point?: Maybe<OrderBy>;
   journey_pattern?: Maybe<JourneyPatternJourneyPatternOrderBy>;
   journey_pattern_id?: Maybe<OrderBy>;
@@ -2165,7 +2177,11 @@ export type JourneyPatternScheduledStopPointInJourneyPatternPrependInput = {
 /** select columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumn {
   /** column name */
-  IsTimingPoint = 'is_timing_point',
+  IsLoadingTimeAllowed = 'is_loading_time_allowed',
+  /** column name */
+  IsRegulatedTimingPoint = 'is_regulated_timing_point',
+  /** column name */
+  IsUsedAsTimingPoint = 'is_used_as_timing_point',
   /** column name */
   IsViaPoint = 'is_via_point',
   /** column name */
@@ -2183,7 +2199,11 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumn {
 /** select "journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate_bool_exp_bool_and_arguments_columns" columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolAndArgumentsColumns {
   /** column name */
-  IsTimingPoint = 'is_timing_point',
+  IsLoadingTimeAllowed = 'is_loading_time_allowed',
+  /** column name */
+  IsRegulatedTimingPoint = 'is_regulated_timing_point',
+  /** column name */
+  IsUsedAsTimingPoint = 'is_used_as_timing_point',
   /** column name */
   IsViaPoint = 'is_via_point',
 }
@@ -2191,15 +2211,23 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyP
 /** select "journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate_bool_exp_bool_or_arguments_columns" columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolOrArgumentsColumns {
   /** column name */
-  IsTimingPoint = 'is_timing_point',
+  IsLoadingTimeAllowed = 'is_loading_time_allowed',
+  /** column name */
+  IsRegulatedTimingPoint = 'is_regulated_timing_point',
+  /** column name */
+  IsUsedAsTimingPoint = 'is_used_as_timing_point',
   /** column name */
   IsViaPoint = 'is_via_point',
 }
 
 /** input type for updating data in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternSetInput = {
-  /** Is this scheduled stop point a timing point? */
-  is_timing_point?: Maybe<Scalars['Boolean']>;
+  /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
+  is_loading_time_allowed?: Maybe<Scalars['Boolean']>;
+  /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
+  is_regulated_timing_point?: Maybe<Scalars['Boolean']>;
+  /** Is this scheduled stop point used as a timing point in the journey pattern? */
+  is_used_as_timing_point?: Maybe<Scalars['Boolean']>;
   /** Is this scheduled stop point a via point? */
   is_via_point?: Maybe<Scalars['Boolean']>;
   /** The ID of the journey pattern. */
@@ -2263,8 +2291,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternStreamCursorInput =
 /** Initial value of the column from where the streaming should start */
 export type JourneyPatternScheduledStopPointInJourneyPatternStreamCursorValueInput =
   {
-    /** Is this scheduled stop point a timing point? */
-    is_timing_point?: Maybe<Scalars['Boolean']>;
+    /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
+    is_loading_time_allowed?: Maybe<Scalars['Boolean']>;
+    /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
+    is_regulated_timing_point?: Maybe<Scalars['Boolean']>;
+    /** Is this scheduled stop point used as a timing point in the journey pattern? */
+    is_used_as_timing_point?: Maybe<Scalars['Boolean']>;
     /** Is this scheduled stop point a via point? */
     is_via_point?: Maybe<Scalars['Boolean']>;
     /** The ID of the journey pattern. */
@@ -2292,7 +2324,11 @@ export type JourneyPatternScheduledStopPointInJourneyPatternSumOrderBy = {
 /** update columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternUpdateColumn {
   /** column name */
-  IsTimingPoint = 'is_timing_point',
+  IsLoadingTimeAllowed = 'is_loading_time_allowed',
+  /** column name */
+  IsRegulatedTimingPoint = 'is_regulated_timing_point',
+  /** column name */
+  IsUsedAsTimingPoint = 'is_used_as_timing_point',
   /** column name */
   IsViaPoint = 'is_via_point',
   /** column name */
@@ -12301,7 +12337,7 @@ export type GetRouteWithInfrastructureLinksQuery = {
             journey_pattern_id: UUID;
             scheduled_stop_point_label: string;
             scheduled_stop_point_sequence: number;
-            is_timing_point: boolean;
+            is_used_as_timing_point: boolean;
             is_via_point: boolean;
             via_point_name_i18n?: LocalizedString | null | undefined;
             via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12507,7 +12543,7 @@ export type RouteInfraLinkFieldsFragment = {
       journey_pattern_id: UUID;
       scheduled_stop_point_label: string;
       scheduled_stop_point_sequence: number;
-      is_timing_point: boolean;
+      is_used_as_timing_point: boolean;
       is_via_point: boolean;
       via_point_name_i18n?: LocalizedString | null | undefined;
       via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12604,7 +12640,7 @@ export type ScheduledStopPointInJourneyPatternAllFieldsFragment = {
   journey_pattern_id: UUID;
   scheduled_stop_point_label: string;
   scheduled_stop_point_sequence: number;
-  is_timing_point: boolean;
+  is_used_as_timing_point: boolean;
   is_via_point: boolean;
   via_point_name_i18n?: LocalizedString | null | undefined;
   via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12624,7 +12660,7 @@ export type JourneyPatternWithStopsFragment = {
     journey_pattern_id: UUID;
     scheduled_stop_point_label: string;
     scheduled_stop_point_sequence: number;
-    is_timing_point: boolean;
+    is_used_as_timing_point: boolean;
     is_via_point: boolean;
     via_point_name_i18n?: LocalizedString | null | undefined;
     via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12662,7 +12698,7 @@ export type PatchScheduledStopPointViaInfoMutation = {
           journey_pattern_id: UUID;
           scheduled_stop_point_label: string;
           scheduled_stop_point_sequence: number;
-          is_timing_point: boolean;
+          is_used_as_timing_point: boolean;
           is_via_point: boolean;
           via_point_name_i18n?: LocalizedString | null | undefined;
           via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12692,7 +12728,7 @@ export type RemoveScheduledStopPointViaInfoMutation = {
           journey_pattern_id: UUID;
           scheduled_stop_point_label: string;
           scheduled_stop_point_sequence: number;
-          is_timing_point: boolean;
+          is_used_as_timing_point: boolean;
           is_via_point: boolean;
           via_point_name_i18n?: LocalizedString | null | undefined;
           via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12719,7 +12755,7 @@ export type GetScheduledStopPointWithViaInfoQuery = {
     journey_pattern_id: UUID;
     scheduled_stop_point_label: string;
     scheduled_stop_point_sequence: number;
-    is_timing_point: boolean;
+    is_used_as_timing_point: boolean;
     is_via_point: boolean;
     via_point_name_i18n?: LocalizedString | null | undefined;
     via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12826,7 +12862,7 @@ export type RouteWithJourneyPatternStopsFragment = {
       journey_pattern_id: UUID;
       scheduled_stop_point_label: string;
       scheduled_stop_point_sequence: number;
-      is_timing_point: boolean;
+      is_used_as_timing_point: boolean;
       is_via_point: boolean;
       via_point_name_i18n?: LocalizedString | null | undefined;
       via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -12901,7 +12937,7 @@ export type RouteWithInfrastructureLinksFragment = {
       journey_pattern_id: UUID;
       scheduled_stop_point_label: string;
       scheduled_stop_point_sequence: number;
-      is_timing_point: boolean;
+      is_used_as_timing_point: boolean;
       is_via_point: boolean;
       via_point_name_i18n?: LocalizedString | null | undefined;
       via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13052,7 +13088,7 @@ export type GetLineDetailsWithRoutesByIdQuery = {
                   journey_pattern_id: UUID;
                   scheduled_stop_point_label: string;
                   scheduled_stop_point_sequence: number;
-                  is_timing_point: boolean;
+                  is_used_as_timing_point: boolean;
                   is_via_point: boolean;
                   via_point_name_i18n?: LocalizedString | null | undefined;
                   via_point_short_name_i18n?:
@@ -13165,7 +13201,7 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
               journey_pattern_id: UUID;
               scheduled_stop_point_label: string;
               scheduled_stop_point_sequence: number;
-              is_timing_point: boolean;
+              is_used_as_timing_point: boolean;
               is_via_point: boolean;
               via_point_name_i18n?: LocalizedString | null | undefined;
               via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13244,7 +13280,7 @@ export type GetRoutesWithStopsQuery = {
             journey_pattern_id: UUID;
             scheduled_stop_point_label: string;
             scheduled_stop_point_sequence: number;
-            is_timing_point: boolean;
+            is_used_as_timing_point: boolean;
             is_via_point: boolean;
             via_point_name_i18n?: LocalizedString | null | undefined;
             via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13310,7 +13346,7 @@ export type GetRouteDetailsByIdQuery = {
             journey_pattern_id: UUID;
             scheduled_stop_point_label: string;
             scheduled_stop_point_sequence: number;
-            is_timing_point: boolean;
+            is_used_as_timing_point: boolean;
             is_via_point: boolean;
             via_point_name_i18n?: LocalizedString | null | undefined;
             via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13389,7 +13425,7 @@ export type GetRouteDetailsByIdsQuery = {
             journey_pattern_id: UUID;
             scheduled_stop_point_label: string;
             scheduled_stop_point_sequence: number;
-            is_timing_point: boolean;
+            is_used_as_timing_point: boolean;
             is_via_point: boolean;
             via_point_name_i18n?: LocalizedString | null | undefined;
             via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13475,7 +13511,7 @@ export type GetRouteDetailsByLabelsQuery = {
         journey_pattern_id: UUID;
         scheduled_stop_point_label: string;
         scheduled_stop_point_sequence: number;
-        is_timing_point: boolean;
+        is_used_as_timing_point: boolean;
         is_via_point: boolean;
         via_point_name_i18n?: LocalizedString | null | undefined;
         via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13557,7 +13593,7 @@ export type GetRoutesWithInfrastructureLinksQuery = {
         journey_pattern_id: UUID;
         scheduled_stop_point_label: string;
         scheduled_stop_point_sequence: number;
-        is_timing_point: boolean;
+        is_used_as_timing_point: boolean;
         is_via_point: boolean;
         via_point_name_i18n?: LocalizedString | null | undefined;
         via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13803,7 +13839,7 @@ export type StopWithJourneyPatternFieldsFragment = {
     journey_pattern_id: UUID;
     scheduled_stop_point_label: string;
     scheduled_stop_point_sequence: number;
-    is_timing_point: boolean;
+    is_used_as_timing_point: boolean;
     is_via_point: boolean;
     via_point_name_i18n?: LocalizedString | null | undefined;
     via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -13847,7 +13883,7 @@ export type RouteStopFieldsFragment = {
     journey_pattern_id: UUID;
     scheduled_stop_point_label: string;
     scheduled_stop_point_sequence: number;
-    is_timing_point: boolean;
+    is_used_as_timing_point: boolean;
     is_via_point: boolean;
     via_point_name_i18n?: LocalizedString | null | undefined;
     via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14051,7 +14087,7 @@ export type EditStopMutation = {
           journey_pattern_id: UUID;
           scheduled_stop_point_label: string;
           scheduled_stop_point_sequence: number;
-          is_timing_point: boolean;
+          is_used_as_timing_point: boolean;
           is_via_point: boolean;
           via_point_name_i18n?: LocalizedString | null | undefined;
           via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14090,7 +14126,7 @@ export type GetStopWithRouteGraphDataByIdQuery = {
       journey_pattern_id: UUID;
       scheduled_stop_point_label: string;
       scheduled_stop_point_sequence: number;
-      is_timing_point: boolean;
+      is_used_as_timing_point: boolean;
       is_via_point: boolean;
       via_point_name_i18n?: LocalizedString | null | undefined;
       via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14314,7 +14350,7 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
         journey_pattern_id: UUID;
         scheduled_stop_point_label: string;
         scheduled_stop_point_sequence: number;
-        is_timing_point: boolean;
+        is_used_as_timing_point: boolean;
         is_via_point: boolean;
         via_point_name_i18n?: LocalizedString | null | undefined;
         via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14495,7 +14531,7 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
           journey_pattern_id: UUID;
           scheduled_stop_point_label: string;
           scheduled_stop_point_sequence: number;
-          is_timing_point: boolean;
+          is_used_as_timing_point: boolean;
           is_via_point: boolean;
           via_point_name_i18n?: LocalizedString | null | undefined;
           via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14521,7 +14557,7 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
       journey_pattern_id: UUID;
       scheduled_stop_point_label: string;
       scheduled_stop_point_sequence: number;
-      is_timing_point: boolean;
+      is_used_as_timing_point: boolean;
       is_via_point: boolean;
       via_point_name_i18n?: LocalizedString | null | undefined;
       via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14584,7 +14620,7 @@ export type InfraLinkAlongRouteWithStopsFragment = {
         journey_pattern_id: UUID;
         scheduled_stop_point_label: string;
         scheduled_stop_point_sequence: number;
-        is_timing_point: boolean;
+        is_used_as_timing_point: boolean;
         is_via_point: boolean;
         via_point_name_i18n?: LocalizedString | null | undefined;
         via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14682,7 +14718,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
                 journey_pattern_id: UUID;
                 scheduled_stop_point_label: string;
                 scheduled_stop_point_sequence: number;
-                is_timing_point: boolean;
+                is_used_as_timing_point: boolean;
                 is_via_point: boolean;
                 via_point_name_i18n?: LocalizedString | null | undefined;
                 via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -14708,7 +14744,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
             journey_pattern_id: UUID;
             scheduled_stop_point_label: string;
             scheduled_stop_point_sequence: number;
-            is_timing_point: boolean;
+            is_used_as_timing_point: boolean;
             is_via_point: boolean;
             via_point_name_i18n?: LocalizedString | null | undefined;
             via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -15088,7 +15124,7 @@ export type JourneyPatternStopFragment = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
   scheduled_stop_point_label: string;
   scheduled_stop_point_sequence: number;
-  is_timing_point: boolean;
+  is_used_as_timing_point: boolean;
   is_via_point: boolean;
   via_point_name_i18n?: LocalizedString | null | undefined;
   via_point_short_name_i18n?: LocalizedString | null | undefined;
@@ -15221,7 +15257,7 @@ export const ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc = gql`
     journey_pattern_id
     scheduled_stop_point_label
     scheduled_stop_point_sequence
-    is_timing_point
+    is_used_as_timing_point
     is_via_point
     via_point_name_i18n
     via_point_short_name_i18n
@@ -15514,7 +15550,7 @@ export const JourneyPatternStopFragmentDoc = gql`
   fragment journey_pattern_stop on journey_pattern_scheduled_stop_point_in_journey_pattern {
     scheduled_stop_point_label
     scheduled_stop_point_sequence
-    is_timing_point
+    is_used_as_timing_point
     is_via_point
     via_point_name_i18n
     via_point_short_name_i18n

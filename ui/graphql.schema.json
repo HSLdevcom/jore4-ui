@@ -12410,8 +12410,40 @@
         "description": "The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern.",
         "fields": [
           {
-            "name": "is_timing_point",
-            "description": "Is this scheduled stop point a timing point?",
+            "name": "is_loading_time_allowed",
+            "description": "Is adding loading time to this scheduled stop point in the journey pattern allowed?",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_regulated_timing_point",
+            "description": "Is this stop point passing time regulated so that it cannot be passed before scheduled time?",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_used_as_timing_point",
+            "description": "Is this scheduled stop point used as a timing point in the journey pattern?",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -13564,7 +13596,31 @@
             "deprecationReason": null
           },
           {
-            "name": "is_timing_point",
+            "name": "is_loading_time_allowed",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Boolean_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_regulated_timing_point",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Boolean_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_used_as_timing_point",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -13856,8 +13912,32 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "is_timing_point",
-            "description": "Is this scheduled stop point a timing point?",
+            "name": "is_loading_time_allowed",
+            "description": "Is adding loading time to this scheduled stop point in the journey pattern allowed?",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_regulated_timing_point",
+            "description": "Is this stop point passing time regulated so that it cannot be passed before scheduled time?",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_used_as_timing_point",
+            "description": "Is this scheduled stop point used as a timing point in the journey pattern?",
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
@@ -14277,7 +14357,31 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "is_timing_point",
+            "name": "is_loading_time_allowed",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_regulated_timing_point",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_used_as_timing_point",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -14476,7 +14580,19 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "is_timing_point",
+            "name": "is_loading_time_allowed",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_regulated_timing_point",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_used_as_timing_point",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -14529,7 +14645,19 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "is_timing_point",
+            "name": "is_loading_time_allowed",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_regulated_timing_point",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_used_as_timing_point",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -14552,7 +14680,19 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "is_timing_point",
+            "name": "is_loading_time_allowed",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_regulated_timing_point",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_used_as_timing_point",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -14573,8 +14713,32 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "is_timing_point",
-            "description": "Is this scheduled stop point a timing point?",
+            "name": "is_loading_time_allowed",
+            "description": "Is adding loading time to this scheduled stop point in the journey pattern allowed?",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_regulated_timing_point",
+            "description": "Is this stop point passing time regulated so that it cannot be passed before scheduled time?",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_used_as_timing_point",
+            "description": "Is this scheduled stop point used as a timing point in the journey pattern?",
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
@@ -14845,8 +15009,32 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "is_timing_point",
-            "description": "Is this scheduled stop point a timing point?",
+            "name": "is_loading_time_allowed",
+            "description": "Is adding loading time to this scheduled stop point in the journey pattern allowed?",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_regulated_timing_point",
+            "description": "Is this stop point passing time regulated so that it cannot be passed before scheduled time?",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_used_as_timing_point",
+            "description": "Is this scheduled stop point used as a timing point in the journey pattern?",
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
@@ -14988,7 +15176,19 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "is_timing_point",
+            "name": "is_loading_time_allowed",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_regulated_timing_point",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_used_as_timing_point",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
