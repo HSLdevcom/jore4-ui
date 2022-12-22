@@ -58,7 +58,6 @@ describe('Verify that route and line search works', () => {
     routesAndLinesPage = new RoutesAndLinesPage();
     deleteCreatedResources();
     insertToDbHelper(dbResources);
-    cy.visit('/routes');
   });
 
   after(() => {
@@ -68,7 +67,7 @@ describe('Verify that route and line search works', () => {
   beforeEach(() => {
     cy.setupTests();
     cy.mockLogin();
-    routesAndLinesPage.getRoutesAndLinesSearchInput().clear();
+    cy.visit('/routes');
   });
 
   it('Searches line with exact ID', () => {

@@ -11,12 +11,12 @@
   },
   "dependencies": {
     "@hsl/jore4-test-db-manager": "1.0.0",
-    "cypress": "^10.3.1",
+    "cypress": "^12.2.0",
     "luxon": "^2.3.0",
     "qs": "^6.10.1"
   },
   "devDependencies": {
-    "eslint-plugin-cypress": "^2.12.1",
-    "@types/qs": "^6.9.7"
+    "@types/qs": "^6.9.7",
+    "eslint-plugin-cypress": "^2.12.1"
   }
 }
