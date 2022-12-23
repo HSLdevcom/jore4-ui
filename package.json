@@ -19,8 +19,10 @@
     "test": "yarn ws:ui test:unit",
     "test:integration": "yarn ws:ui test:integration",
     "test:e2e": "yarn ws:db build && yarn ws:e2e cypress run --browser chrome",
+    "test:e2e:fast": "yarn ws:db build && yarn ws:e2e cypress run --browser chrome --config-file cypress.config.fast.ts",
     "test:e2e:open": "yarn ws:db build && yarn ws:e2e cypress open",
-    "qa": "yarn --frozen-lockfile && yarn ws:db build && yarn ts:check && yarn prettier:check && yarn lint && yarn test && yarn test:integration && yarn test:e2e"
+    "qa": "yarn --frozen-lockfile && yarn ws:db build && yarn ts:check && yarn prettier:check && yarn lint && yarn test && yarn test:integration && yarn test:e2e",
+    "qa:fast": "yarn --frozen-lockfile && yarn ws:db build && yarn ts:check && yarn prettier:check && yarn lint && yarn test && yarn test:integration && yarn test:e2e --config-file cypress.config.fast.ts"
   },
   "dependencies": {},
   "devDependencies": {
