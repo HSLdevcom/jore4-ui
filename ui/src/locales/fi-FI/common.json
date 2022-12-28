@@ -110,7 +110,8 @@
     "removeFromRoute": "Poista reitin käytöstä",
     "cannotEditTerminalStops": "Reitin alku- ja päätepysäkin muokkaaminen ei ole sallittua",
     "addToRoute": "Lisää reitille",
-    "stopBreaksRoutes": "Lisättävä pysäkki ei ole yhteensopiva seuraavien reittien kanssa: ({{ routeLabels }})"
+    "stopBreaksRoutes": "Lisättävä pysäkki ei ole yhteensopiva seuraavien reittien kanssa: ({{ routeLabels }})",
+    "timingPlaceRequired": "Pysäkkiä käytetään Hastus-paikkana seuraavilla reiteillä: {{ routeLabels }}. Aseta Hastus-paikka tai poista Hastus-paikka käytöstä reiteiltä."
   },
   "timingPlaces": {
     "label": "Uusi Hastus-paikka",
