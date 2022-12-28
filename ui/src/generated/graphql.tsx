@@ -14985,6 +14985,35 @@ export type PatchScheduledStopPointTimingSettingsMutation = {
     | undefined;
 };
 
+export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables =
+  Exact<{
+    label: Scalars['String'];
+  }>;
+
+export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery = {
+  __typename?: 'query_root';
+  journey_pattern_scheduled_stop_point_in_journey_pattern: Array<{
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+    journey_pattern_id: UUID;
+    scheduled_stop_point_label: string;
+    scheduled_stop_point_sequence: number;
+    journey_pattern: {
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      journey_pattern_route?:
+        | {
+            __typename?: 'route_route';
+            route_id: UUID;
+            label: string;
+            variant?: number | null | undefined;
+          }
+        | null
+        | undefined;
+    };
+  }>;
+};
+
 export type NewTimingPlaceFragment = {
   __typename?: 'timing_pattern_timing_place';
   label: string;
@@ -18773,6 +18802,85 @@ export type PatchScheduledStopPointTimingSettingsMutationOptions =
     PatchScheduledStopPointTimingSettingsMutation,
     PatchScheduledStopPointTimingSettingsMutationVariables
   >;
+export const GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsDocument = gql`
+  query GetScheduledStopPointsInJourneyPatternsUsedAsTimingPoints(
+    $label: String!
+  ) {
+    journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        is_used_as_timing_point: { _eq: true }
+        scheduled_stop_points: { label: { _eq: $label } }
+      }
+    ) {
+      journey_pattern_id
+      scheduled_stop_point_label
+      scheduled_stop_point_sequence
+      journey_pattern {
+        journey_pattern_id
+        on_route_id
+        journey_pattern_route {
+          route_id
+          label
+          variant
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery__
+ *
+ * To run a query within a React component, call `useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery({
+ *   variables: {
+ *      label: // value for 'label'
+ *   },
+ * });
+ */
+export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
+  >(GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsDocument, options);
+}
+export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
+  >(GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsDocument, options);
+}
+export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryHookResult =
+  ReturnType<
+    typeof useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery
+  >;
+export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQueryHookResult =
+  ReturnType<
+    typeof useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQuery
+  >;
+export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryResult =
+  Apollo.QueryResult<
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
+  >;
 export const InsertTimingPlaceDocument = gql`
   mutation InsertTimingPlace(
     $object: timing_pattern_timing_place_insert_input!
@@ -19645,6 +19753,17 @@ export function useSearchLinesAndRoutesAsyncQuery() {
 export type SearchLinesAndRoutesAsyncQueryHookResult = ReturnType<
   typeof useSearchLinesAndRoutesAsyncQuery
 >;
+
+export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQuery() {
+  return useAsyncQuery<
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
+  >(GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsDocument);
+}
+export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQueryHookResult =
+  ReturnType<
+    typeof useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQuery
+  >;
 
 export function useGetTimingPlacesByLabelAsyncQuery() {
   return useAsyncQuery<

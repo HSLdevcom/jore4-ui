@@ -95,3 +95,12 @@ export class MapMatchingNoSegmentError extends ExtendableError {
     Object.setPrototypeOf(this, MapMatchingNoSegmentError.prototype);
   }
 }
+
+export class TimingPlaceRequiredError extends ExtendableError {
+  constructor(errorMessage?: string) {
+    super(errorMessage);
+
+    // Set the prototype explicitly.
+    Object.setPrototypeOf(this, TimingPlaceRequiredError.prototype);
+  }
+}

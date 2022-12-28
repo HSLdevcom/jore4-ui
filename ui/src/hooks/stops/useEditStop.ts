@@ -13,22 +13,24 @@ import {
   useGetStopWithRouteGraphDataByIdAsyncQuery,
 } from '../../generated/graphql';
 import {
+  ScheduledStopPointSetInput,
   mapGetRoutesBrokenByStopChangeResult,
   mapStopResultToStop,
-  ScheduledStopPointSetInput,
 } from '../../graphql';
 import {
-  defaultTo,
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
   IncompatibleDirectionsError,
   IncompatibleWithExistingRoutesError,
   InternalError,
   LinkNotResolvedError,
+  TimingPlaceRequiredError,
+  defaultTo,
   showDangerToast,
 } from '../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
+import { useValidateTimingSettings } from './useValidateTimingSettings';
 
 interface EditParams {
   stopId: UUID;
@@ -68,6 +70,7 @@ export const useEditStop = () => {
     useGetStopWithRouteGraphDataByIdAsyncQuery();
   const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
   const [getBrokenRoutes] = useGetRoutesBrokenByStopChangeAsyncQuery();
+  const [validateTimingSettings] = useValidateTimingSettings();
 
   const getRoutesBrokenByStopChange = async ({
     newLink,
@@ -209,6 +212,21 @@ export const useEditStop = () => {
       ? await onStopLocationChanged(stopWithRouteGraphData, patch, stopId)
       : {};
 
+    // validate stop's timing settings in journey patterns if stop's timing place has been changed
+    const newTimingPlaceId = patch.timing_place_id;
+    const oldTimingPlaceId = stopWithRouteGraphData.timing_place_id;
+    const hasTimingPlaceIdChanged = !isEqual(
+      newTimingPlaceId,
+      oldTimingPlaceId,
+    );
+
+    if (hasTimingPlaceIdChanged) {
+      await validateTimingSettings({
+        stopLabel,
+        timingPlaceId: newTimingPlaceId,
+      });
+    }
+
     const mergedChanges = merge({}, defaultChanges, locationChanges);
 
     const finalChanges: EditChanges = {
@@ -258,6 +276,12 @@ export const useEditStop = () => {
     if (err instanceof IncompatibleWithExistingRoutesError) {
       showDangerToast(
         t('stops.stopBreaksRoutes', { routeLabels: err.message }),
+      );
+      return;
+    }
+    if (err instanceof TimingPlaceRequiredError) {
+      showDangerToast(
+        t('stops.timingPlaceRequired', { routeLabels: err.message }),
       );
       return;
     }
