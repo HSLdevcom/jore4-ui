@@ -4,5 +4,6 @@ export * from './useEditStop';
 export * from './useFilterStops';
 export * from './useGetStopLinkAndDirection';
 export * from './useMapStops';
+export * from './useValidateTimingSettings';
 export * from './useVisibleRouteStops';
 export * from './utils';
