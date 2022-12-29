@@ -1,6 +1,19 @@
+import '@4tw/cypress-drag-drop';
+import { Map } from './Map';
+import { MapFooter } from './MapFooter';
 import { Toast } from './Toast';
 
+export interface MoveRouteEditHandleInfo {
+  handleIndex: number;
+  deltaX: number;
+  deltaY: number;
+}
+
 export class RouteEditor {
+  map = new Map();
+
+  mapFooter = new MapFooter();
+
   toast = new Toast();
 
   gqlRouteShouldBeCreatedSuccessfully() {
@@ -10,11 +23,36 @@ export class RouteEditor {
       .should('equal', 200);
   }
 
-  checkRouteSubmitSuccess() {
+  checkRouteSubmitSuccessToast() {
     this.toast.checkSuccessToastHasMessage('Reitti tallennettu');
   }
 
-  checkRouteSubmitFailure() {
+  checkRouteSubmitFailureToast() {
     this.toast.checkDangerToastHasMessage('Tallennus epäonnistui');
+  }
+
+  getRouteDashedLine() {
+    // Locator matches multiple elements, but we need only one of them to be able to click the route.
+    return cy.get('[data-type="feature"]').eq(1);
+  }
+
+  moveRouteEditHandle(values: MoveRouteEditHandleInfo) {
+    this.map.getNthSnappingPointHandle(values.handleIndex).move(values);
+  }
+
+  /**
+   * Starts the route editing process, moves one editHandle by the given offset
+   * @example const moveHandleInfo: MoveRouteEditHandleInfo =
+   * { handleIndex: 2, deltaX: 10, deltaY: -90}
+   * editOneRoutePoint(moveHandleInfo)
+   */
+  editOneRoutePoint(values: MoveRouteEditHandleInfo) {
+    this.mapFooter.editRoute();
+    this.map.getLoader().should('not.exist');
+    // Force clicking is used here because the dashed line element
+    // might be covered by another element, like a stop circle
+    this.getRouteDashedLine().click({ force: true });
+    this.moveRouteEditHandle(values);
+    this.map.getLoader().should('not.exist');
   }
 }
