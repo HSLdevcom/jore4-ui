@@ -1,6 +1,7 @@
 import { EditRouteModal } from './EditRouteModal';
 import { ClickPointNearMapMarker, Map } from './Map';
 import { MapFooter } from './MapFooter';
+import { RouteEditor } from './RouteEditor';
 import { RouteFormInfo, RoutePropertiesForm } from './RoutePropertiesForm';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopForm, StopFormInfo } from './StopForm';
@@ -20,6 +21,8 @@ export class ModalMap {
   editRouteModal = new EditRouteModal();
 
   toast = new Toast();
+
+  routeEditor = new RouteEditor();
 
   /**
    * Creates stop using ClickPointNear stop.
@@ -77,7 +80,7 @@ export class ModalMap {
     omittedStops,
   }: {
     routeFormInfo: RouteFormInfo;
-    routePoints: ClickPointNearMapMarker[];
+    routePoints?: ClickPointNearMapMarker[];
     omittedStops?: string[];
   }) => {
     this.mapFooter.createRoute();
@@ -86,16 +89,38 @@ export class ModalMap {
 
     this.editRouteModal.save();
 
-    routePoints.forEach((routePoint) => {
-      this.map.clickAtPositionFromMapMarkerByTestId(routePoint);
-    });
+    this.map.getLoader().should('not.exist');
 
-    const lastSnappingPointHandleIndex = routePoints.length - 1;
-    this.map.clickNthSnappingPointHandle(lastSnappingPointHandleIndex);
+    if (routeFormInfo.templateRoute?.moveRouteEditHandleInfo) {
+      this.map.getLoader().should('not.exist');
+      this.mapFooter.editRoute();
+      this.routeEditor.editOneRoutePoint(
+        routeFormInfo.templateRoute.moveRouteEditHandleInfo,
+      );
+      // Using a route as a template seems to fail without these waits
+      cy.wait('@gqlGetLinksWithStopsByExternalLinkIds');
+      cy.wait('@gqlGetStopsAlongInfrastructureLinks');
+      cy.wait('@gqlGetRouteWithInfrastructureLinksWithStops');
+      cy.wait('@gqlGetLinksWithStopsByExternalLinkIds');
+      cy.wait('@gqlGetStopsAlongInfrastructureLinks');
+    }
+
+    if (routePoints) {
+      this.map.getLoader().should('not.exist');
+      routePoints.forEach((routePoint) => {
+        this.map.clickAtPositionFromMapMarkerByTestId(routePoint);
+      });
+
+      const lastSnappingPointHandleIndex = routePoints.length - 1;
+      this.map.clickNthSnappingPointHandle(lastSnappingPointHandleIndex);
+    }
+
     if (omittedStops) {
+      this.map.getLoader().should('not.exist');
       this.routeStopsOverlay.removeStopsFromRoute(omittedStops);
     }
 
+    this.map.getLoader().should('not.exist');
     this.mapFooter.save();
   };
 

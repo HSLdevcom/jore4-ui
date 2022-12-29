@@ -4,9 +4,8 @@ import {
   ReusableComponentsVehicleSubmodeEnum,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
-import { ChangeValidityForm, Map } from '../pageObjects';
+import { ChangeValidityForm, Map, ModalMap } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
-import { ModalMap } from '../pageObjects/ModalMap';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteStopsByLabel } from './utils';
 

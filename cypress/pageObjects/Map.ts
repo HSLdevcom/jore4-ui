@@ -1,3 +1,4 @@
+import times from 'lodash/times';
 import qs from 'qs';
 import { StopPopUp } from './StopPopUp';
 
@@ -10,8 +11,10 @@ export interface ClickPointNearMapMarker {
 export class Map {
   stopPopUp = new StopPopUp();
 
-  zoomIn() {
-    cy.get('.mapboxgl-ctrl-zoom-in').click();
+  zoomIn(n = 1) {
+    times(n, () => cy.getByTestId('modalMap').type('+'));
+    this.getLoader().should('not.exist');
+    cy.wait('@gqlGetStopsByLocation');
   }
 
   // Wait for a map marker to appear on the map
@@ -44,8 +47,12 @@ export class Map {
     cy.getByTestId('modalMap').click(x, y);
   }
 
+  getNthSnappingPointHandle(nth: number) {
+    return cy.get(`rect[data-index="${nth}"]`).first();
+  }
+
   clickNthSnappingPointHandle(nth: number) {
-    cy.get(`rect[data-index="${nth}"]`).first().click({ force: true });
+    this.getNthSnappingPointHandle(nth).click();
   }
 
   clickRelativePoint(xPercentage: number, yPercentage: number) {
@@ -60,16 +67,26 @@ export class Map {
 
   visit(params?: { zoom?: number; lat: number; lng: number }) {
     if (params) {
-      return cy.visit(
-        `/routes?${qs.stringify({
-          z: params.zoom || 13, // 13 is default zoom level
-          mapOpen: true,
-          lat: params.lat,
-          lng: params.lng,
-        })}`,
-      );
+      return [
+        cy.visit(
+          `/routes?${qs.stringify({
+            z: params.zoom || 13, // 13 is default zoom level
+            mapOpen: true,
+            lat: params.lat,
+            lng: params.lng,
+          })}`,
+        ),
+        // Some operations might fail if performed too quickly after opening the map
+        // so we wait for these requests to succeed first
+        cy.wait('@gqlGetRoutesWithInfrastructureLinks'),
+        cy.wait('@gqlGetStopsByLocation'),
+      ];
     }
-    return cy.visit('/routes?mapOpen=true');
+    return [
+      cy.visit('/routes?mapOpen=true'),
+      cy.wait('@gqlGetRoutesWithInfrastructureLinks'),
+      cy.wait('@gqlGetStopsByLocation'),
+    ];
   }
 
   getLoader() {

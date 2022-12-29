@@ -1,18 +1,19 @@
 import {
   buildLine,
+  buildRoute,
   buildStop,
   LineInsertInput,
   Priority,
   ReusableComponentsVehicleModeEnum,
   ReusableComponentsVehicleSubmodeEnum,
   RouteDirectionEnum,
+  RouteInsertInput,
   StopInsertInput,
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
-import { Map, RouteEditor } from '../pageObjects';
+import { Map, ModalMap, RouteEditor } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
-import { ModalMap } from '../pageObjects/ModalMap';
 import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteRoutesByLabel } from './utils';
@@ -101,6 +102,16 @@ const stops: StopInsertInput[] = [
   },
 ];
 
+const routes: RouteInsertInput[] = [
+  {
+    ...buildRoute({ label: '7777' }),
+    route_id: 'fec93df1-cfd2-435e-a344-2246828843e6',
+    name_i18n: 'Alkuperäinen nimi',
+    direction: RouteDirectionEnum.Inbound,
+    on_line_id: lines[0].line_id,
+  },
+];
+
 const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[] =
   [
     {
@@ -121,6 +132,7 @@ const dbResources = {
   vehicleSubmodeOnInfrastructureLink,
   lines,
   stops,
+  routes,
 };
 
 const stopTestIds = {
@@ -209,9 +221,9 @@ describe('Route creation', () => {
 
       routeEditor.gqlRouteShouldBeCreatedSuccessfully();
 
-      routeEditor.checkRouteSubmitSuccess();
+      routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldExist(routeName);
+      routeStopsOverlay.routeShouldBeSelected(routeName);
     },
   );
 
@@ -248,9 +260,9 @@ describe('Route creation', () => {
 
       routeEditor.gqlRouteShouldBeCreatedSuccessfully();
 
-      routeEditor.checkRouteSubmitSuccess();
+      routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldExist(routeName);
+      routeStopsOverlay.routeShouldBeSelected(routeName);
 
       routeStopsOverlay.stopsShouldNotBeIncludedInRoute(omittedStopsLabels);
     },
@@ -287,7 +299,7 @@ describe('Route creation', () => {
         omittedStops: omittedStopsLabels,
       });
 
-      routeEditor.checkRouteSubmitFailure();
+      routeEditor.checkRouteSubmitFailureToast();
     },
   );
 
@@ -322,9 +334,9 @@ describe('Route creation', () => {
 
       routeEditor.gqlRouteShouldBeCreatedSuccessfully();
 
-      routeEditor.checkRouteSubmitSuccess();
+      routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldExist(routeName);
+      routeStopsOverlay.routeShouldBeSelected(routeName);
     },
   );
 });
