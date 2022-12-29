@@ -8,16 +8,26 @@ export interface ChangeValidityFormInfo {
 
 export class ChangeValidityForm {
   setAsStandard() {
-    return cy.getByTestId('ChangeValidityForm::standardPriorityButton').click();
+    return cy
+      .getByTestId('ChangeValidityForm::standardPriorityButton')
+      .should('be.visible')
+      .and('be.enabled')
+      .click();
   }
 
   setAsDraft() {
-    return cy.getByTestId('ChangeValidityForm::draftPriorityButton').click();
+    return cy
+      .getByTestId('ChangeValidityForm::draftPriorityButton')
+      .should('be.visible')
+      .and('be.enabled')
+      .click();
   }
 
   setAsTemporary() {
     return cy
       .getByTestId('ChangeValidityForm::temporaryPriorityButton')
+      .should('be.visible')
+      .and('be.enabled')
       .click();
   }
 

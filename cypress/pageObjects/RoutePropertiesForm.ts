@@ -3,6 +3,11 @@ import {
   ChangeValidityForm,
   ChangeValidityFormInfo,
 } from './ChangeValidityForm';
+import { MoveRouteEditHandleInfo, RouteEditor } from './RouteEditor';
+import {
+  TemplateRouteSelector,
+  TemplateRouteSelectorInfo,
+} from './TemplateRouteSelector';
 import { TerminusNameInputs } from './TerminusNameInputs';
 
 export interface RouteFormInfo extends ChangeValidityFormInfo {
@@ -10,12 +15,20 @@ export interface RouteFormInfo extends ChangeValidityFormInfo {
   label?: string;
   direction?: RouteDirectionEnum;
   line?: string;
+  templateRoute?: {
+    templateRouteSelectorInfo: TemplateRouteSelectorInfo;
+    moveRouteEditHandleInfo: MoveRouteEditHandleInfo;
+  };
 }
 
 export class RoutePropertiesForm {
   terminusNameInputs = new TerminusNameInputs();
 
   changeValidityForm = new ChangeValidityForm();
+
+  templateRouteSelector = new TemplateRouteSelector();
+
+  routeEditor = new RouteEditor();
 
   getForm() {
     return cy.get('#route-properties-form');
@@ -27,6 +40,12 @@ export class RoutePropertiesForm {
 
   getFinnishNameInput() {
     return cy.getByTestId('RoutePropertiesFormComponent::finnishName');
+  }
+
+  getUseTemplateRouteButton() {
+    return cy.getByTestId(
+      'RoutePropertiesFormComponent::useTemplateRouteButton',
+    );
   }
 
   selectDirection(direction: RouteDirectionEnum) {
@@ -77,6 +96,13 @@ export class RoutePropertiesForm {
         swedishShortName: 'ÄS',
       },
     );
+
+    if (values.templateRoute) {
+      this.getUseTemplateRouteButton().click();
+      this.templateRouteSelector.fillForm(
+        values.templateRoute.templateRouteSelectorInfo,
+      );
+    }
 
     this.changeValidityForm.fillForm(values);
   }
