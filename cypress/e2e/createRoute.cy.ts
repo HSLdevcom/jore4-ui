@@ -130,8 +130,8 @@ const stopTestIds = {
 };
 
 const clearDatabase = () => {
-  removeFromDbHelper(dbResources);
   deleteRoutesByLabel(Object.values(testRouteLabels));
+  removeFromDbHelper(dbResources);
 };
 
 describe('Route creation', () => {
