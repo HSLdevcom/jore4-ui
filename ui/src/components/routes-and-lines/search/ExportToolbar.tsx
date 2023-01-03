@@ -5,6 +5,7 @@ import { pipe } from 'remeda';
 import {
   useAppDispatch,
   useAppSelector,
+  useExportRoutes,
   useSearchResults,
 } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
@@ -24,6 +25,7 @@ export const ExportToolbar = (): JSX.Element => {
   const { resultCount, resultType, routes, lines } = useSearchResults();
   const { isSelectingRoutesForExport, selectedRouteLabels } =
     useAppSelector(selectExport);
+  const { canExport, exportRoutesToHastus } = useExportRoutes();
 
   const searchResultRouteLabels = pipe(
     resultType === DisplayedSearchResultType.Routes
@@ -54,8 +56,11 @@ export const ExportToolbar = (): JSX.Element => {
   // If no route is selected, export all routes by default
   const isExportingAll = selectedRouteLabels.length === 0;
 
-  // TODO: Implement exporting
-  const exportRoutes = () => null;
+  const exportRoutes = () => {
+    exportRoutesToHastus(
+      isExportingAll ? searchResultRouteLabels : selectedRouteLabels,
+    );
+  };
 
   return (
     <Row className="items-center gap-3">
@@ -85,6 +90,7 @@ export const ExportToolbar = (): JSX.Element => {
       <Visible visible={isSelectingRoutesForExport}>
         <SimpleSmallButton
           inverted
+          disabled={!canExport}
           onClick={exportRoutes}
           label={t(
             isExportingAll ? 'export.exportAll' : 'export.exportSelected',
