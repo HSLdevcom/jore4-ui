@@ -1,4 +1,5 @@
 export * from './components';
+export * from './download';
 export * from './enum';
 export * from './errors';
 export * from './forms';
