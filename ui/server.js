@@ -40,6 +40,13 @@ const devProxy = {
     },
     target: 'http://localhost:3005',
   },
+  '/api/hastus': {
+    // Proxy hastus importer / exporter requests to hastus import / export microservice
+    pathRewrite: {
+      '^/api/hastus': '', // remove path.
+    },
+    target: 'http://localhost:3008',
+  },
 };
 
 const port = parseInt(process.env.PORT, 10) || 3300;
