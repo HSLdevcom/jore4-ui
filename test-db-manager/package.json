@@ -9,6 +9,8 @@
   "scripts": {
     "build": "yarn clean && yarn rollup --config rollup.config.mjs",
     "seed": "node dist/seed.js",
+    "seed:timetables:imported": "node dist/seed-imported-timetables.js",
+    "clear:timetables:imported": "node dist/clear-imported-timetables.js",
     "clean": "rm -rf ts-dist && rm -rf dist && rm -f tsconfig.tsbuildinfo && rm -rf .rollup.cache",
     "ts:check": "yarn tsc --noEmit",
     "ts:build": "yarn tsc --build"

@@ -4,6 +4,17 @@ import { v4 as uuid } from 'uuid';
 import { StopInJourneyPatternRefInsertInput } from '../../types';
 import { seedJourneyPatternRefs } from './journeyPatternRefs';
 
+const ids = [
+  'cc73b7dc-6a17-4779-9f97-f27f1ae25fdb',
+  'e0852edf-939f-4145-a459-a8625f5dcdba',
+  '8272a746-0519-456c-9db2-0ec5a56f20d4',
+  '2f9bdd3e-8297-4dfd-81b7-7fac761b85cc',
+  '1c3f9614-14c6-4606-bfe3-9e3ca9ba330e',
+  'c36e0e0c-d224-4f53-bd1a-753d1b4bc670',
+  'db7be353-cd73-40e4-aa81-e66d673f4aac',
+  '3ca2cd41-bb19-4a41-9044-d01f8079385b',
+];
+
 const buildStopInJourneyPatternRef = ({
   id = uuid(),
   journeyPatternRefId,
@@ -38,6 +49,7 @@ const buildStopSequence = ({
         journeyPatternRefId,
         label: `${labelPrefix}${labelPostfix}`,
         sequenceNumber: index,
+        id: labelPrefix === 'H22' ? ids[index - 1] : uuid(),
       }),
     );
   });

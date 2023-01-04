@@ -27,42 +27,70 @@ const SUN_DAY_TYPE = '0e1855f1-dfca-4900-a118-f608aa07e939';
 
 const basicVehicleScheduleFrameId =
   seedVehicleScheduleFrames[0].vehicle_schedule_frame_id;
+const importedVehicleScheduleFrameId =
+  seedVehicleScheduleFrames[5].vehicle_schedule_frame_id;
+
+const seedDefaultVehicleServices: VehicleServiceInsertInput[] = [
+  // basic schedule frame, vehicle 1, Mon-Fri
+  {
+    vehicle_service_id: uuid(),
+    day_type_id: MON_FRI_DAY_TYPE,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
+  },
+  // basic schedule frame, vehicle 1, Sat
+  {
+    vehicle_service_id: uuid(),
+    day_type_id: SAT_DAY_TYPE,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
+  },
+  // basic schedule frame, vehicle 1, Sun
+  {
+    vehicle_service_id: uuid(),
+    day_type_id: SUN_DAY_TYPE,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
+  },
+  // basic schedule frame, vehicle 2, Mon-Fri
+  {
+    vehicle_service_id: uuid(),
+    day_type_id: MON_FRI_DAY_TYPE,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
+  },
+  // basic schedule frame, vehicle 2, Sat
+  {
+    vehicle_service_id: uuid(),
+    day_type_id: SAT_DAY_TYPE,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
+  },
+  // basic schedule frame, vehicle 2, Sun
+  {
+    vehicle_service_id: uuid(),
+    day_type_id: SUN_DAY_TYPE,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
+  },
+];
+
+export const seedImportedVehicleServices: VehicleServiceInsertInput[] = [
+  // imported schedule frame, vehicle 1, Mon-Fri
+  {
+    vehicle_service_id: '407d5e12-2f90-4ccb-9300-896f9673b473',
+    day_type_id: MON_FRI_DAY_TYPE,
+    vehicle_schedule_frame_id: importedVehicleScheduleFrameId,
+  },
+  // imported schedule frame, vehicle 1, Sat
+  {
+    vehicle_service_id: 'ff4e9832-c4c8-4498-b027-119e0b9757f9',
+    day_type_id: SAT_DAY_TYPE,
+    vehicle_schedule_frame_id: importedVehicleScheduleFrameId,
+  },
+  // imported schedule frame, vehicle 1, Sun
+  {
+    vehicle_service_id: 'a41f7614-d27f-4b65-bef0-cd554de01133',
+    day_type_id: SUN_DAY_TYPE,
+    vehicle_schedule_frame_id: importedVehicleScheduleFrameId,
+  },
+];
 
 export const seedVehicleServices: VehicleServiceInsertInput[] = [
-  // vehicle 1, Mon-Fri
-  {
-    vehicle_service_id: uuid(),
-    day_type_id: MON_FRI_DAY_TYPE,
-    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
-  },
-  // vehicle 1, Sat
-  {
-    vehicle_service_id: uuid(),
-    day_type_id: SAT_DAY_TYPE,
-    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
-  },
-  // vehicle 1, Sun
-  {
-    vehicle_service_id: uuid(),
-    day_type_id: SUN_DAY_TYPE,
-    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
-  },
-  // vehicle 2, Mon-Fri
-  {
-    vehicle_service_id: uuid(),
-    day_type_id: MON_FRI_DAY_TYPE,
-    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
-  },
-  // vehicle 2, Sat
-  {
-    vehicle_service_id: uuid(),
-    day_type_id: SAT_DAY_TYPE,
-    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
-  },
-  // vehicle 2, Sun
-  {
-    vehicle_service_id: uuid(),
-    day_type_id: SUN_DAY_TYPE,
-    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
-  },
+  ...seedDefaultVehicleServices,
+  ...seedImportedVehicleServices,
 ];
