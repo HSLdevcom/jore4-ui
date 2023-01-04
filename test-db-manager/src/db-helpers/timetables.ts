@@ -58,7 +58,7 @@ export const clearTimetablesDb = async ({
         timetabledPassingTimes.map((item) => item.timetabled_passing_time_id),
       ),
     );
-    responseLogger('Deleting vehicle journeys', res);
+    responseLogger('Deleting timetabled passing times', res);
   }
   if (vehicleJourneys) {
     const res = await hasuraApi(

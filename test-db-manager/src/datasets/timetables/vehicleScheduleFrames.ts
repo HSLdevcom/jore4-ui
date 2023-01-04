@@ -5,7 +5,7 @@ import {
   VehicleScheduleFrameInsertInput,
 } from '../../types';
 
-export const seedVehicleScheduleFrames: VehicleScheduleFrameInsertInput[] = [
+const seedDefaultVehicleScheduleFrames: VehicleScheduleFrameInsertInput[] = [
   // basic case
   {
     vehicle_schedule_frame_id: '7bdb824f-5461-4049-9668-254e8e3172db',
@@ -46,4 +46,21 @@ export const seedVehicleScheduleFrames: VehicleScheduleFrameInsertInput[] = [
     validity_end: DateTime.fromISO('2024-06-04T00:00:00+00:00'),
     priority: TimetablePriority.Special,
   },
+];
+
+export const seedImportedVehicleScheduleFrames: VehicleScheduleFrameInsertInput[] =
+  [
+    // imported, staging priority
+    {
+      vehicle_schedule_frame_id: '98c3f3af-875f-4b20-9514-4ab1f8664a4e',
+      name_i18n: buildLocalizedString('2023 Syksy - 2024 Kevät'),
+      validity_start: DateTime.fromISO('2023-08-15T00:00:00+00:00'),
+      validity_end: DateTime.fromISO('2024-06-04T00:00:00+00:00'),
+      priority: TimetablePriority.Staging,
+    },
+  ];
+
+export const seedVehicleScheduleFrames: VehicleScheduleFrameInsertInput[] = [
+  ...seedDefaultVehicleScheduleFrames,
+  ...seedImportedVehicleScheduleFrames,
 ];

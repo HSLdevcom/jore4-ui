@@ -60,6 +60,30 @@ const config = [
     plugins: commonPlugins,
   },
   {
+    input: 'src/seed-imported-timetables.ts',
+    external: commonExternals,
+    output: [
+      {
+        file: 'dist/seed-imported-timetables.js',
+        format: 'cjs', // commonJS
+        sourcemap: true,
+      },
+    ],
+    plugins: commonPlugins,
+  },
+  {
+    input: 'src/clear-imported-timetables.ts',
+    external: commonExternals,
+    output: [
+      {
+        file: 'dist/clear-imported-timetables.js',
+        format: 'cjs', // commonJS
+        sourcemap: true,
+      },
+    ],
+    plugins: commonPlugins,
+  },
+  {
     input: './ts-dist/types/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'es' }],
     plugins: [dts()],
