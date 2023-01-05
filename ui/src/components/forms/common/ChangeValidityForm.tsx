@@ -1,28 +1,35 @@
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { Column, Row } from '../../../layoutComponents';
+import { Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/Priority';
-import { SimpleButton } from '../../../uiComponents';
-import { requiredString } from './customZodSchemas';
 import { FormColumn } from './FormColumn';
 import { FormRow } from './FormRow';
 import { InputField } from './InputField';
+import {
+  PriorityForm,
+  PriorityFormState,
+  priorityFormSchema,
+} from './PriorityForm';
+// eslint and auto import order conflict with this import
+// eslint-disable-next-line import/order
+import { requiredString } from './customZodSchemas';
 
-export const schema = z.object({
-  priority: z.nativeEnum(Priority),
-  validityStart: requiredString.regex(/[0-9]{4}-[0-9]{2}-[0-9]{2}/),
-  // TODO: also validityEnd could/should be validated against regex
-  // but only when "indefinite" is set to false. Anyway, seems like zod
-  // schemas start to cause TS errors if merged with each other after
-  // .partial() and .refine() methods have been called, so validation
-  // is left out for now. See message of commit
-  // c7f8d6f6f95712a6d7a6d5003c4b170390e731f9 for details
-  validityEnd: z.string().optional(),
-  indefinite: z.boolean(),
-});
+export const schema = z
+  .object({
+    validityStart: requiredString.regex(/[0-9]{4}-[0-9]{2}-[0-9]{2}/),
+    // TODO: also validityEnd could/should be validated against regex
+    // but only when "indefinite" is set to false. Anyway, seems like zod
+    // schemas start to cause TS errors if merged with each other after
+    // .partial() and .refine() methods have been called, so validation
+    // is left out for now. See message of commit
+    // c7f8d6f6f95712a6d7a6d5003c4b170390e731f9 for details
+    validityEnd: z.string().optional(),
+    indefinite: z.boolean(),
+  })
+  .merge(priorityFormSchema);
 
-export type FormState = z.infer<typeof schema>;
+export type FormState = z.infer<typeof schema> & PriorityFormState;
 
 const testIds = {
   priorityButton: (priorityLabel: string) =>
@@ -32,30 +39,10 @@ const testIds = {
   indefiniteCheckbox: 'ChangeValidityForm::indefiniteCheckbox',
 };
 
-interface PriorityButtonProps {
-  priority: Priority;
-  priorityLabel: string;
-}
-
 interface Props {
   className?: string;
   hiddenPriorities?: Priority[];
 }
-
-const defaultPriorities: PriorityButtonProps[] = [
-  {
-    priority: Priority.Standard,
-    priorityLabel: 'standard',
-  },
-  {
-    priority: Priority.Draft,
-    priorityLabel: 'draft',
-  },
-  {
-    priority: Priority.Temporary,
-    priorityLabel: 'temporary',
-  },
-];
 
 /**
  * Component for selecting priority and validity period for an entity (e.g. line, route, stop).
@@ -74,51 +61,15 @@ export const ChangeValidityForm = ({
   hiddenPriorities,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
-  const {
-    register,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useFormContext<FormState>();
+  const { register, watch } = useFormContext<FormState>();
 
   const indefinite = watch('indefinite');
-  const selectedPriority = watch('priority');
-  const setPriority = (value: Priority) => setValue('priority', value);
-
-  const PriorityButton = ({ priority, priorityLabel }: PriorityButtonProps) => {
-    return (
-      <SimpleButton
-        onClick={() => setPriority(priority)}
-        inverted={selectedPriority !== priority}
-        testId={testIds.priorityButton(priorityLabel)}
-      >
-        {t(`priority.${priorityLabel}`)}
-      </SimpleButton>
-    );
-  };
-
-  const displayedPriorities = defaultPriorities.filter(
-    (priority) => !hiddenPriorities?.includes(priority.priority),
-  );
 
   return (
     <div className={className}>
       <h3>{t('saveChangesModal.validityPeriod')}</h3>
       <Row className="mb-4 pt-6">
-        <Column>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label>{t('priority.label')}</label>
-          <Row className="flex-wrap gap-2">
-            {displayedPriorities.map((priority) => (
-              <PriorityButton
-                key={priority.priorityLabel}
-                priority={priority.priority}
-                priorityLabel={priority.priorityLabel}
-              />
-            ))}
-          </Row>
-          <p>{errors.priority && t('formValidation.required')}</p>
-        </Column>
+        <PriorityForm hiddenPriorities={hiddenPriorities} />
       </Row>
       <FormColumn>
         <FormRow mdColumns={2}>
