@@ -14,6 +14,7 @@ import {
   TimetablesMainPage,
   VehicleScheduleDetailsPage,
 } from '../components/timetables';
+import { ImportTimetablesPage } from '../components/timetables/import/ImportTimetablesPage';
 import { Main } from '../pages/Main';
 import { Path } from './routeDetails';
 
@@ -83,6 +84,11 @@ export const Router: FunctionComponent = () => {
       _routerRoute: Path.lineTimetables,
       _exact: true,
       component: VehicleScheduleDetailsPage,
+    },
+    [Path.timetablesImport]: {
+      _routerRoute: Path.timetablesImport,
+      _exact: true,
+      component: ImportTimetablesPage,
     },
     [Path.fallback]: {
       _routerRoute: Path.fallback,
