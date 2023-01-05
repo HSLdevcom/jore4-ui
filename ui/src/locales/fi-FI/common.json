@@ -289,7 +289,13 @@
     "validityPeriodLabel": "Aikataulut voimassa",
     "departures": "Lähdöt",
     "noService": "Ei vuoroja",
-    "at": "klo {{ time }}"
+    "at": "klo {{ time }}",
+    "import": "Tuo Hastuksesta",
+    "importTimetables": "Tuo aikataulut Hastuksesta"
+  },
+  "importTimetablesModal": {
+    "title": "Tallenna muutos",
+    "priority": "Aikataulujen prioriteetti"
   },
   "export": {
     "startSelecting": "Valitse",
