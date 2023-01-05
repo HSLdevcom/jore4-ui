@@ -289,7 +289,13 @@
     "validityPeriodLabel": "Timetables valid",
     "departures": "Departures",
     "noService": "No service",
-    "at": "at {{ time }}"
+    "at": "at {{ time }}",
+    "importFromHastus": "Import from Hastus",
+    "importTimetablesFromHastus": "Import timetables from Hastus"
+  },
+  "confirmTimetablesImportModal": {
+    "title": "Save changes",
+    "priority": "Timetables' priority"
   },
   "export": {
     "startSelecting": "Select",

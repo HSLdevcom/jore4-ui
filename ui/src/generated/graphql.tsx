@@ -15030,6 +15030,80 @@ export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery = {
   }>;
 };
 
+export type GetStagingVehicleScheduleFramesQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetStagingVehicleScheduleFramesQuery = {
+  __typename?: 'query_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_query';
+        timetables_vehicle_schedule_vehicle_schedule_frame: Array<{
+          __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+          validity_end?: luxon.DateTime | null | undefined;
+          validity_start?: luxon.DateTime | null | undefined;
+          name_i18n: any;
+          vehicle_schedule_frame_id: UUID;
+          priority: number;
+          vehicle_services: Array<{
+            __typename?: 'timetables_vehicle_service_vehicle_service';
+            vehicle_service_id: UUID;
+            vehicle_schedule_frame: {
+              __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+              vehicle_schedule_frame_id: UUID;
+              priority: number;
+            };
+            day_type: {
+              __typename?: 'timetables_service_calendar_day_type';
+              day_type_id: UUID;
+              label: string;
+              name_i18n: any;
+            };
+            blocks: Array<{
+              __typename?: 'timetables_vehicle_service_block';
+              block_id: UUID;
+              vehicle_journeys: Array<{
+                __typename?: 'timetables_vehicle_journey_vehicle_journey';
+                start_time: luxon.Duration;
+                vehicle_journey_id: UUID;
+              }>;
+            }>;
+          }>;
+        }>;
+      }
+    | null
+    | undefined;
+};
+
+export type ChangeStagingVehicleScheduleFramePriorityMutationVariables = Exact<{
+  newPriority: Scalars['Int'];
+}>;
+
+export type ChangeStagingVehicleScheduleFramePriorityMutation = {
+  __typename?: 'mutation_root';
+  timetables?:
+    | {
+        __typename?: 'timetables_timetables_mutation_frontend';
+        timetables_update_vehicle_schedule_vehicle_schedule_frame?:
+          | {
+              __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response';
+              returning: Array<{
+                __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+                priority: number;
+                validity_end?: luxon.DateTime | null | undefined;
+                validity_start?: luxon.DateTime | null | undefined;
+                name_i18n: any;
+                vehicle_schedule_frame_id: UUID;
+              }>;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
 export type NewTimingPlaceFragment = {
   __typename?: 'timing_pattern_timing_place';
   label: string;
@@ -18897,6 +18971,137 @@ export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryResult
     GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
     GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
   >;
+export const GetStagingVehicleScheduleFramesDocument = gql`
+  query GetStagingVehicleScheduleFrames {
+    timetables {
+      timetables_vehicle_schedule_vehicle_schedule_frame(
+        where: { priority: { _eq: 40 } }
+      ) {
+        validity_end
+        validity_start
+        name_i18n
+        vehicle_schedule_frame_id
+        priority
+        vehicle_services {
+          ...vehicle_service_with_journeys
+        }
+      }
+    }
+  }
+  ${VehicleServiceWithJourneysFragmentDoc}
+`;
+
+/**
+ * __useGetStagingVehicleScheduleFramesQuery__
+ *
+ * To run a query within a React component, call `useGetStagingVehicleScheduleFramesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStagingVehicleScheduleFramesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStagingVehicleScheduleFramesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStagingVehicleScheduleFramesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetStagingVehicleScheduleFramesQuery,
+    GetStagingVehicleScheduleFramesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetStagingVehicleScheduleFramesQuery,
+    GetStagingVehicleScheduleFramesQueryVariables
+  >(GetStagingVehicleScheduleFramesDocument, options);
+}
+export function useGetStagingVehicleScheduleFramesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStagingVehicleScheduleFramesQuery,
+    GetStagingVehicleScheduleFramesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStagingVehicleScheduleFramesQuery,
+    GetStagingVehicleScheduleFramesQueryVariables
+  >(GetStagingVehicleScheduleFramesDocument, options);
+}
+export type GetStagingVehicleScheduleFramesQueryHookResult = ReturnType<
+  typeof useGetStagingVehicleScheduleFramesQuery
+>;
+export type GetStagingVehicleScheduleFramesLazyQueryHookResult = ReturnType<
+  typeof useGetStagingVehicleScheduleFramesLazyQuery
+>;
+export type GetStagingVehicleScheduleFramesQueryResult = Apollo.QueryResult<
+  GetStagingVehicleScheduleFramesQuery,
+  GetStagingVehicleScheduleFramesQueryVariables
+>;
+export const ChangeStagingVehicleScheduleFramePriorityDocument = gql`
+  mutation ChangeStagingVehicleScheduleFramePriority($newPriority: Int!) {
+    timetables {
+      timetables_update_vehicle_schedule_vehicle_schedule_frame(
+        where: { priority: { _eq: 40 } }
+        _set: { priority: $newPriority }
+      ) {
+        returning {
+          priority
+          validity_end
+          validity_start
+          name_i18n
+          vehicle_schedule_frame_id
+        }
+      }
+    }
+  }
+`;
+export type ChangeStagingVehicleScheduleFramePriorityMutationFn =
+  Apollo.MutationFunction<
+    ChangeStagingVehicleScheduleFramePriorityMutation,
+    ChangeStagingVehicleScheduleFramePriorityMutationVariables
+  >;
+
+/**
+ * __useChangeStagingVehicleScheduleFramePriorityMutation__
+ *
+ * To run a mutation, you first call `useChangeStagingVehicleScheduleFramePriorityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeStagingVehicleScheduleFramePriorityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeStagingVehicleScheduleFramePriorityMutation, { data, loading, error }] = useChangeStagingVehicleScheduleFramePriorityMutation({
+ *   variables: {
+ *      newPriority: // value for 'newPriority'
+ *   },
+ * });
+ */
+export function useChangeStagingVehicleScheduleFramePriorityMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ChangeStagingVehicleScheduleFramePriorityMutation,
+    ChangeStagingVehicleScheduleFramePriorityMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    ChangeStagingVehicleScheduleFramePriorityMutation,
+    ChangeStagingVehicleScheduleFramePriorityMutationVariables
+  >(ChangeStagingVehicleScheduleFramePriorityDocument, options);
+}
+export type ChangeStagingVehicleScheduleFramePriorityMutationHookResult =
+  ReturnType<typeof useChangeStagingVehicleScheduleFramePriorityMutation>;
+export type ChangeStagingVehicleScheduleFramePriorityMutationResult =
+  Apollo.MutationResult<ChangeStagingVehicleScheduleFramePriorityMutation>;
+export type ChangeStagingVehicleScheduleFramePriorityMutationOptions =
+  Apollo.BaseMutationOptions<
+    ChangeStagingVehicleScheduleFramePriorityMutation,
+    ChangeStagingVehicleScheduleFramePriorityMutationVariables
+  >;
 export const InsertTimingPlaceDocument = gql`
   mutation InsertTimingPlace(
     $object: timing_pattern_timing_place_insert_input!
@@ -19780,6 +19985,15 @@ export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQueryH
   ReturnType<
     typeof useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQuery
   >;
+export function useGetStagingVehicleScheduleFramesAsyncQuery() {
+  return useAsyncQuery<
+    GetStagingVehicleScheduleFramesQuery,
+    GetStagingVehicleScheduleFramesQueryVariables
+  >(GetStagingVehicleScheduleFramesDocument);
+}
+export type GetStagingVehicleScheduleFramesAsyncQueryHookResult = ReturnType<
+  typeof useGetStagingVehicleScheduleFramesAsyncQuery
+>;
 
 export function useGetTimingPlacesByLabelAsyncQuery() {
   return useAsyncQuery<
