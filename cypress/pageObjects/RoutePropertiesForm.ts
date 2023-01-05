@@ -3,15 +3,19 @@ import {
   ChangeValidityForm,
   ChangeValidityFormInfo,
 } from './ChangeValidityForm';
-import { TerminusNameInputs } from './TerminusNameInputs';
+import { TerminusNameInputs, TerminusValues } from './TerminusNameInputs';
 
 export interface RouteFormInfo extends ChangeValidityFormInfo {
   finnishName?: string;
   label?: string;
+  hiddenVariant?: string;
   direction?: RouteDirectionEnum;
   line?: string;
+  terminusInfo?: {
+    origin: TerminusValues;
+    destination: TerminusValues;
+  };
 }
-
 export class RoutePropertiesForm {
   terminusNameInputs = new TerminusNameInputs();
 
@@ -27,6 +31,10 @@ export class RoutePropertiesForm {
 
   getFinnishNameInput() {
     return cy.getByTestId('RoutePropertiesFormComponent::finnishName');
+  }
+
+  getHiddenVariantInput() {
+    return cy.getByTestId('RoutePropertiesFormComponent::variant');
   }
 
   selectDirection(direction: RouteDirectionEnum) {
@@ -56,6 +64,9 @@ export class RoutePropertiesForm {
     if (values.label) {
       this.getLabelInput().clear().type(values.label);
     }
+    if (values.hiddenVariant) {
+      this.getHiddenVariantInput().clear().type(values.hiddenVariant);
+    }
     if (values.direction) {
       this.selectDirection(values.direction);
     }
@@ -63,20 +74,12 @@ export class RoutePropertiesForm {
       this.selectLine(values.line);
     }
 
-    this.terminusNameInputs.fillTerminusNameInputsForm(
-      {
-        finnishName: 'Lähtöpaikka',
-        swedishName: 'Ursprung',
-        finnishShortName: 'LP',
-        swedishShortName: 'UP',
-      },
-      {
-        finnishName: 'Määränpää',
-        swedishName: 'Ändstation',
-        finnishShortName: 'MP',
-        swedishShortName: 'ÄS',
-      },
-    );
+    if (values.terminusInfo) {
+      this.terminusNameInputs.fillTerminusNameInputsForm(
+        values.terminusInfo.origin,
+        values.terminusInfo.destination,
+      );
+    }
 
     this.changeValidityForm.fillForm(values);
   }

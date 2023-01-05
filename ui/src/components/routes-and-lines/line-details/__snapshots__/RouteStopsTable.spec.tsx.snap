@@ -79,7 +79,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
                 Reitti A - B FI
               </span>
               <a
-                data-testid="edit-route-button"
+                data-testid="RouteStopsHeaderRow::editRouteButton::Reitti A - B FI"
                 href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
               >
                 <div
@@ -290,7 +290,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 Reitti A - B FI
               </span>
               <a
-                data-testid="edit-route-button"
+                data-testid="RouteStopsHeaderRow::editRouteButton::Reitti A - B FI"
                 href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
               >
                 <div
@@ -701,7 +701,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 Reitti A - B FI
               </span>
               <a
-                data-testid="edit-route-button"
+                data-testid="RouteStopsHeaderRow::editRouteButton::Reitti A - B FI"
                 href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
               >
                 <div
