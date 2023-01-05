@@ -25,7 +25,18 @@ interface LinkButtonProps {
 type Props = CommonButtonProps & (ButtonProps | LinkButtonProps);
 
 export const commonHoverStyle = 'hover:border-2 hover:border-tweaked-brand';
-const hoverStyle = `${commonHoverStyle} m-px hover:m-0`;
+
+const getHoverStyles = (inverted = false, disabled = false) => {
+  const hoverStyle = `${commonHoverStyle} m-px hover:m-0`;
+
+  if (disabled) {
+    return '';
+  }
+
+  return inverted
+    ? `${hoverStyle} hover:border-brand`
+    : `${hoverStyle} hover:bg-opacity-50`;
+};
 
 export const SimpleButton: React.FC<Props> = (props) => {
   const {
@@ -38,11 +49,16 @@ export const SimpleButton: React.FC<Props> = (props) => {
     containerClassName = '',
     invertedClassName = '',
   } = props;
+
   const colorClassNames = inverted
-    ? `text-brand bg-white border border-grey hover:border-brand active:border-brand ${hoverStyle} ${invertedClassName}`
-    : `text-white bg-brand border border-brand hover:bg-opacity-50 active:bg-opacity-50 ${hoverStyle}`;
-  const disabledClassNames = disabled ? 'pointer-events-none opacity-70' : '';
-  const commonClassNames = `px-4 py-2 font-bold rounded-full ${colorClassNames} ${disabledClassNames}`;
+    ? `text-brand bg-white border border-grey active:border-brand ${invertedClassName}`
+    : `text-white bg-brand border border-brand active:bg-opacity-50`;
+  const disabledClassNames = disabled ? 'cursor-not-allowed opacity-70' : '';
+  const commonClassNames = `px-4 py-2 font-bold rounded-full ${colorClassNames} ${getHoverStyles(
+    inverted,
+    disabled,
+  )} ${disabledClassNames}`;
+
   if ((props as ButtonProps).onClick) {
     return (
       <span className={`inline-flex ${containerClassName}`}>
