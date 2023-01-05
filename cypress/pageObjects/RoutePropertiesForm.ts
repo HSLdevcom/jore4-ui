@@ -8,9 +8,25 @@ import { TerminusNameInputs } from './TerminusNameInputs';
 export interface RouteFormInfo extends ChangeValidityFormInfo {
   finnishName?: string;
   label?: string;
+  hiddenVariant?: string;
   direction?: RouteDirectionEnum;
   line?: string;
 }
+
+const terminusInfo = {
+  originInfo: {
+    finnishName: 'Lähtöpaikka',
+    swedishName: 'Ursprung',
+    finnishShortName: 'LP',
+    swedishShortName: 'UP',
+  },
+  destinationInfo: {
+    finnishName: 'Määränpää',
+    swedishName: 'Ändstation',
+    finnishShortName: 'MP',
+    swedishShortName: 'ÄS',
+  },
+};
 
 export class RoutePropertiesForm {
   terminusNameInputs = new TerminusNameInputs();
@@ -27,6 +43,10 @@ export class RoutePropertiesForm {
 
   getFinnishNameInput() {
     return cy.getByTestId('RoutePropertiesFormComponent::finnishName');
+  }
+
+  getHiddenVariantInput() {
+    return cy.getByTestId('RoutePropertiesFormComponent::variant');
   }
 
   selectDirection(direction: RouteDirectionEnum) {
@@ -56,6 +76,9 @@ export class RoutePropertiesForm {
     if (values.label) {
       this.getLabelInput().clear().type(values.label);
     }
+    if (values.hiddenVariant) {
+      this.getHiddenVariantInput().clear().type(values.hiddenVariant);
+    }
     if (values.direction) {
       this.selectDirection(values.direction);
     }
@@ -64,20 +87,27 @@ export class RoutePropertiesForm {
     }
 
     this.terminusNameInputs.fillTerminusNameInputsForm(
-      {
-        finnishName: 'Lähtöpaikka',
-        swedishName: 'Ursprung',
-        finnishShortName: 'LP',
-        swedishShortName: 'UP',
-      },
-      {
-        finnishName: 'Määränpää',
-        swedishName: 'Ändstation',
-        finnishShortName: 'MP',
-        swedishShortName: 'ÄS',
-      },
+      terminusInfo.originInfo,
+      terminusInfo.destinationInfo,
     );
 
     this.changeValidityForm.fillForm(values);
+  }
+
+  verifyRouteFormInfo(info: RouteFormInfo) {
+    this.getFinnishNameInput().should('have.value', info.finnishName);
+    this.getLabelInput().should('have.value', info.label);
+    this.getHiddenVariantInput().should('have.value', info.hiddenVariant);
+    this.terminusNameInputs.verifyOriginValues(terminusInfo.originInfo);
+    this.terminusNameInputs.verifyDestinationValues(
+      terminusInfo.destinationInfo,
+    );
+    this.changeValidityForm.assertSelectedPriority(info.priority);
+    this.changeValidityForm
+      .getStartDateInput()
+      .should('have.value', info.validityStartISODate);
+    this.changeValidityForm
+      .getEndDateInput()
+      .should('have.value', info.validityEndISODate);
   }
 }

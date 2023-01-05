@@ -50,6 +50,10 @@ export class ChangeValidityForm {
       .type(isoDate);
   }
 
+  getStartDateInput() {
+    return cy.getByTestId('ChangeValidityForm::startDateInput');
+  }
+
   getEndDateInput() {
     return cy.getByTestId('ChangeValidityForm::endDateInput');
   }

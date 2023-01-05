@@ -17,6 +17,10 @@ export class RouteStopsTable {
     return cy.getByTestId('RouteStopsHeaderRow::name');
   }
 
+  getEditRouteButton(routeName: string) {
+    return cy.getByTestId(`RouteStopsHeaderRow::editRouteButton::${routeName}`);
+  }
+
   getRouteValidityPeriod(routeLabel: string) {
     return this.getRouteHeaderRow(routeLabel).findByTestId(
       'RouteStopsHeaderRow::validityPeriod',
