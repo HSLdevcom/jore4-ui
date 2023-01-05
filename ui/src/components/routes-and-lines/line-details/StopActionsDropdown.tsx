@@ -6,11 +6,15 @@ import {
   openViaModalAction,
 } from '../../../redux';
 import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
+import { SimpleDropdownMenuItem } from './SimpleDropdownMenuItem';
 
 const testIds = {
   menu: 'StopActionsDrowdown::menu',
   addStop: 'StopActionsDrowdown::addStopToRouteButton',
   removeStop: 'StopActionsDrowdown::removeStopFromRouteButton',
+  createViaPoint: 'StopActionsDrowdown::createViaPoint',
+  editViaPoint: 'StopActionsDrowdown::editViaPoint',
+  openTimingSettings: 'StopActionsDrowdown::openTimingSettings',
 };
 
 interface Props {
@@ -73,48 +77,38 @@ export const StopActionsDropdown = ({
   return (
     <SimpleDropdownMenu alignItems={AlignDirection.Left} testId={testIds.menu}>
       {stopBelongsToJourneyPattern ? (
-        <button
-          type="button"
+        <SimpleDropdownMenuItem
           onClick={() => onRemoveFromRoute(stop.label)}
-          data-testid={testIds.removeStop}
-        >
-          {t('stops.removeFromRoute')}
-        </button>
+          text={t('stops.removeFromRoute')}
+          testId={testIds.removeStop}
+        />
       ) : (
-        <button
-          type="button"
+        <SimpleDropdownMenuItem
           onClick={() => onAddToRoute(stop.label)}
-          data-testid={testIds.addStop}
-        >
-          {t('stops.addToRoute')}
-        </button>
+          text={t('stops.addToRoute')}
+          testId={testIds.addStop}
+        />
       )}
       {isViaPoint ? (
-        <button type="button" onClick={showViaModal}>
-          {t('viaModal.editViaPoint')}
-        </button>
-      ) : (
-        <button
-          disabled={!stopBelongsToJourneyPattern}
-          className={`${
-            !stopBelongsToJourneyPattern ? 'bg-background text-dark-grey' : ''
-          }`}
-          type="button"
+        <SimpleDropdownMenuItem
           onClick={showViaModal}
-        >
-          {t('viaModal.createViaPoint')}
-        </button>
+          text={t('viaModal.editViaPoint')}
+          testId={testIds.editViaPoint}
+        />
+      ) : (
+        <SimpleDropdownMenuItem
+          disabled={!stopBelongsToJourneyPattern}
+          onClick={showViaModal}
+          text={t('viaModal.createViaPoint')}
+          testId={testIds.createViaPoint}
+        />
       )}
-      <button
+      <SimpleDropdownMenuItem
         disabled={!stopBelongsToJourneyPattern}
-        className={`${
-          !stopBelongsToJourneyPattern ? 'bg-background text-dark-grey' : ''
-        }`}
-        type="button"
         onClick={showTimingSettingsModal}
-      >
-        {t('timingSettingsModal.timingSettings')}
-      </button>
+        text={t('timingSettingsModal.timingSettings')}
+        testId={testIds.openTimingSettings}
+      />
     </SimpleDropdownMenu>
   );
 };
