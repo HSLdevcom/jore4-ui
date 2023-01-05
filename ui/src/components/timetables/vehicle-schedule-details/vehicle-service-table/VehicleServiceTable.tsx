@@ -37,6 +37,7 @@ export const VehicleServiceTable = ({
       [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
       [TimetablePriority.Special]: 'bg-hsl-light-purple',
       [TimetablePriority.Draft]: 'bg-background',
+      [TimetablePriority.Staging]: 'bg-hsl-red',
     };
     return bgColors[key];
   };
@@ -47,6 +48,7 @@ export const VehicleServiceTable = ({
       [TimetablePriority.Temporary]: 'bg-hsl-neutral-blue',
       [TimetablePriority.Special]: 'bg-hsl-neutral-blue',
       [TimetablePriority.Draft]: 'bg-background',
+      [TimetablePriority.Staging]: 'bg-hsl-neutral-blue',
     };
     return bgColors[key];
   };
