@@ -35,4 +35,10 @@ export class RouteStopsOverlay {
       this.getRouteStop(label).should('not.exist');
     });
   }
+
+  stopsShouldBeIncludedInRoute(stopLabels: string[]) {
+    stopLabels.forEach((label) => {
+      this.getRouteStop(label).should('exist');
+    });
+  }
 }
