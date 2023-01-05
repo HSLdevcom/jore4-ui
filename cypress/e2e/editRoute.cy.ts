@@ -2,6 +2,7 @@ import {
   buildLine,
   buildRoute,
   LineInsertInput,
+  Priority,
   RouteInsertInput,
   RouteDirectionEnum,
 } from '@hsl/jore4-test-db-manager';
@@ -10,30 +11,9 @@ import {
   LineDetailsPage,
   RoutesAndLinesPage,
   SearchResultsPage,
-  TerminusValues,
   Toast,
 } from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
-
-const routeFormTestInputs = {
-  finnishName: 'Muokattu reitin nimi',
-  label: 'Muokattu label',
-  direction: RouteDirectionEnum.Outbound,
-};
-
-const originTestInputs: TerminusValues = {
-  finnishName: 'Muokattu lähtöpaikka FIN',
-  finnishShortName: 'Muokattu lähtöpaikka FIN lyhennys',
-  swedishName: 'Muokattu lähtöpaikka SWE',
-  swedishShortName: 'Muokattu lähtöpaikka SWE lyhennys',
-};
-
-const destinationTestInputs: TerminusValues = {
-  finnishName: 'Muokattu määränpää FIN',
-  finnishShortName: 'Muokattu määränpää FIN lyhennys',
-  swedishName: 'Muokattu määränpää SWE',
-  swedishShortName: 'Muokattu määränpää SWE lyhennys',
-};
 
 const lines: LineInsertInput[] = [
   {
@@ -88,10 +68,24 @@ describe('Route meta information editing', () => {
   });
 
   it("Edits a routes's information", () => {
-    editRoutePage.routePropertiesForm.fillRouteProperties(routeFormTestInputs);
+    editRoutePage.routePropertiesForm.fillRouteProperties({
+      finnishName: 'Muokattu reitin nimi',
+      label: 'Muokattu label',
+      direction: RouteDirectionEnum.Outbound,
+    });
     editRoutePage.terminusNamesInputs.fillTerminusNameInputsForm(
-      originTestInputs,
-      destinationTestInputs,
+      {
+        finnishName: 'Muokattu lähtöpaikka FIN',
+        finnishShortName: 'Muokattu lähtöpaikka FIN lyhennys',
+        swedishName: 'Muokattu lähtöpaikka SWE',
+        swedishShortName: 'Muokattu lähtöpaikka SWE lyhennys',
+      },
+      {
+        finnishName: 'Muokattu määränpää FIN',
+        finnishShortName: 'Muokattu määränpää FIN lyhennys',
+        swedishName: 'Muokattu määränpää SWE',
+        swedishShortName: 'Muokattu määränpää SWE lyhennys',
+      },
     );
     editRoutePage.changeValidityForm.setAsTemporary();
     editRoutePage.changeValidityForm.getIndefiniteCheckbox().click();
@@ -102,22 +96,41 @@ describe('Route meta information editing', () => {
 
     lineDetailsPage.routeStopsTable
       .getRouteName()
-      .should('contain', routeFormTestInputs.finnishName);
-    lineDetailsPage.routeStopsTable.getRouteHeaderRow(
-      routeFormTestInputs.label,
-    );
+      .should('contain', 'Muokattu reitin nimi');
+    lineDetailsPage.routeStopsTable.getRouteHeaderRow('Muokattu label');
     lineDetailsPage.routeStopsTable.routeDirectionShouldBeOutbound(
-      routeFormTestInputs.label,
+      'Muokattu label',
     );
     lineDetailsPage.routeStopsTable
-      .getRouteValidityPeriod(routeFormTestInputs.label)
+      .getRouteValidityPeriod('Muokattu label')
       .should('contain', '1.1.2022 - 31.12.2030');
 
     editRoutePage.visit(routes[0].route_id);
-    editRoutePage.terminusNamesInputs.verifyOriginValues(originTestInputs);
-    editRoutePage.terminusNamesInputs.verifyDestinationValues(
-      destinationTestInputs,
-    );
+    editRoutePage.terminusNamesInputs
+      .getTerminusOriginFinnishNameInput()
+      .should('have.value', 'Muokattu lähtöpaikka FIN');
+    editRoutePage.terminusNamesInputs
+      .getTerminusOriginFinnishShortNameInput()
+      .should('have.value', 'Muokattu lähtöpaikka FIN lyhennys');
+    editRoutePage.terminusNamesInputs
+      .getTerminusOriginSwedishNameInput()
+      .should('have.value', 'Muokattu lähtöpaikka SWE');
+    editRoutePage.terminusNamesInputs
+      .getTerminusOriginSwedishShortNameInput()
+      .should('have.value', 'Muokattu lähtöpaikka SWE lyhennys');
+    editRoutePage.terminusNamesInputs
+      .getTerminusDestinationFinnishNameInput()
+      .should('have.value', 'Muokattu määränpää FIN');
+    editRoutePage.terminusNamesInputs
+      .getTerminusDestinationFinnishShortNameInput()
+      .should('have.value', 'Muokattu määränpää FIN lyhennys');
+    editRoutePage.terminusNamesInputs
+      .getTerminusDestinationSwedishNameInput()
+      .should('have.value', 'Muokattu määränpää SWE');
+    editRoutePage.terminusNamesInputs
+      .getTerminusDestinationSwedishShortNameInput()
+      .should('have.value', 'Muokattu määränpää SWE lyhennys');
+    editRoutePage.changeValidityForm.assertSelectedPriority(Priority.Standard);
   });
 
   it('Deletes a route', () => {

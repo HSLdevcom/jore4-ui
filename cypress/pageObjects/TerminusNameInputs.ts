@@ -68,42 +68,4 @@ export class TerminusNameInputs {
       .clear()
       .type(destination.swedishShortName);
   }
-
-  verifyOriginValues(originValues: TerminusValues) {
-    this.getTerminusOriginFinnishNameInput().should(
-      'have.value',
-      originValues.finnishName,
-    );
-    this.getTerminusOriginFinnishShortNameInput().should(
-      'have.value',
-      originValues.finnishShortName,
-    );
-    this.getTerminusOriginSwedishNameInput().should(
-      'have.value',
-      originValues.swedishName,
-    );
-    this.getTerminusOriginSwedishShortNameInput().should(
-      'have.value',
-      originValues.swedishShortName,
-    );
-  }
-
-  verifyDestinationValues(destinationValues: TerminusValues) {
-    this.getTerminusDestinationFinnishNameInput().should(
-      'have.value',
-      destinationValues.finnishName,
-    );
-    this.getTerminusDestinationFinnishShortNameInput().should(
-      'have.value',
-      destinationValues.finnishShortName,
-    );
-    this.getTerminusDestinationSwedishNameInput().should(
-      'have.value',
-      destinationValues.swedishName,
-    );
-    this.getTerminusDestinationSwedishShortNameInput().should(
-      'have.value',
-      destinationValues.swedishShortName,
-    );
-  }
 }
