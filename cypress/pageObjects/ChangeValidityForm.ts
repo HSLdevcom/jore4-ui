@@ -8,17 +8,15 @@ export interface ChangeValidityFormInfo {
 
 export class ChangeValidityForm {
   setAsStandard() {
-    return cy.getByTestId('ChangeValidityForm::standardPriorityButton').click();
+    return cy.getByTestId('PriorityForm::standardPriorityButton').click();
   }
 
   setAsDraft() {
-    return cy.getByTestId('ChangeValidityForm::draftPriorityButton').click();
+    return cy.getByTestId('PriorityForm::draftPriorityButton').click();
   }
 
   setAsTemporary() {
-    return cy
-      .getByTestId('ChangeValidityForm::temporaryPriorityButton')
-      .click();
+    return cy.getByTestId('PriorityForm::temporaryPriorityButton').click();
   }
 
   setStartDate(isoDate: string) {
