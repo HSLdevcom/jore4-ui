@@ -5,7 +5,14 @@ import {
   RouteInsertInput,
   RouteDirectionEnum,
 } from '@hsl/jore4-test-db-manager';
-import { EditRoutePage, LineDetailsPage, TerminusValues } from '../pageObjects';
+import {
+  EditRoutePage,
+  LineDetailsPage,
+  RoutesAndLinesPage,
+  SearchResultsPage,
+  TerminusValues,
+  Toast,
+} from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 
 const routeFormTestInputs = {
@@ -57,6 +64,9 @@ const deleteCreatedResources = () => {
 describe('Route meta information editing', () => {
   let editRoutePage: EditRoutePage;
   let lineDetailsPage: LineDetailsPage;
+  let toast: Toast;
+  let routesAndLinesPage: RoutesAndLinesPage;
+  let searchResultsPage: SearchResultsPage;
 
   before(() => {
     deleteCreatedResources();
@@ -64,6 +74,9 @@ describe('Route meta information editing', () => {
   beforeEach(() => {
     editRoutePage = new EditRoutePage();
     lineDetailsPage = new LineDetailsPage();
+    toast = new Toast();
+    routesAndLinesPage = new RoutesAndLinesPage();
+    searchResultsPage = new SearchResultsPage();
 
     cy.setupTests();
     cy.mockLogin();
@@ -105,5 +118,24 @@ describe('Route meta information editing', () => {
     editRoutePage.terminusNamesInputs.verifyDestinationValues(
       destinationTestInputs,
     );
+  });
+
+  it('Deletes a route', () => {
+    editRoutePage.routePropertiesForm.getForm().should('be.visible');
+    editRoutePage.getDeleteRouteButton().click();
+    editRoutePage.confirmationDialog.getConfirmButton().click();
+    cy.wait('@gqlDeleteRoute').its('response.statusCode').should('equal', 200);
+    toast.checkSuccessToastHasMessage('Reitti poistettu');
+    editRoutePage.visit(routes[0].route_id);
+    editRoutePage.routePropertiesForm.getForm().should('not.exist');
+    cy.visit('/routes');
+    routesAndLinesPage
+      .getRoutesAndLinesSearchInput()
+      .type(`${routes[0].label}{enter}`);
+    cy.wait('@gqlSearchLinesAndRoutes');
+    searchResultsPage.getRoutesResultsButton().click();
+    searchResultsPage
+      .getSearchResultsContainer()
+      .should('contain', '0 hakutulosta');
   });
 });
