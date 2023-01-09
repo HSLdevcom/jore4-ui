@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { buildGetButtonClassNamesFunction } from '../utils/classNames';
 
 interface CommonButtonProps {
   id?: string;
@@ -10,7 +11,6 @@ interface CommonButtonProps {
   disabled?: boolean;
   children?: ReactNode;
   containerClassName?: string;
-  invertedClassName?: string;
 }
 
 interface ButtonProps {
@@ -27,6 +27,15 @@ type Props = CommonButtonProps & (ButtonProps | LinkButtonProps);
 export const commonHoverStyle = 'hover:border-2 hover:border-tweaked-brand';
 const hoverStyle = `${commonHoverStyle} m-px hover:m-0`;
 
+const getButtonClassNames = buildGetButtonClassNamesFunction({
+  commonClassNames: 'px-4 py-2 font-bold rounded-full',
+  colorClassNames:
+    'text-white bg-brand border border-brand active:bg-opacity-50',
+  invertedColorClassNames: `text-brand bg-white border border-grey active:border-brand`,
+  hoverClassNames: `${hoverStyle} hover:bg-opacity-50`,
+  invertedHoverClassNames: `${hoverStyle} hover:border-brand`,
+});
+
 export const SimpleButton: React.FC<Props> = (props) => {
   const {
     id,
@@ -36,19 +45,15 @@ export const SimpleButton: React.FC<Props> = (props) => {
     testId,
     children,
     containerClassName = '',
-    invertedClassName = '',
   } = props;
-  const colorClassNames = inverted
-    ? `text-brand bg-white border border-grey hover:border-brand active:border-brand ${hoverStyle} ${invertedClassName}`
-    : `text-white bg-brand border border-brand hover:bg-opacity-50 active:bg-opacity-50 ${hoverStyle}`;
-  const disabledClassNames = disabled ? 'pointer-events-none opacity-70' : '';
-  const commonClassNames = `px-4 py-2 font-bold rounded-full ${colorClassNames} ${disabledClassNames}`;
+  const defaultClassNames = getButtonClassNames(disabled, inverted);
+
   if ((props as ButtonProps).onClick) {
     return (
       <span className={`inline-flex ${containerClassName}`}>
         <button
           id={id}
-          className={`${commonClassNames} ${className}`}
+          className={`${defaultClassNames} ${className}`}
           type="button"
           onClick={(props as ButtonProps).onClick}
           disabled={disabled}
@@ -68,7 +73,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
       <span className={`inline-flex ${containerClassName}`}>
         <Link
           id={id}
-          className={`${commonClassNames} flex items-center ${className}`}
+          className={`${defaultClassNames} flex items-center ${className}`}
           type="button"
           // @ts-expect-error we want to pass undefined as href for disabled buttons
           to={disabled ? undefined : (props as LinkButtonProps).href}

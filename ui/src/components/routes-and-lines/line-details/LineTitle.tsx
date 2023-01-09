@@ -5,7 +5,7 @@ import { uniqBy } from 'remeda';
 import { RouteLine } from '../../../generated/graphql';
 import { useRouteLabelsQueryParam } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
-import { IconButton, SimpleButton } from '../../../uiComponents';
+import { IconButton, SimpleSmallButton } from '../../../uiComponents';
 import { LineValidityPeriod } from './LineValidityPeriod';
 
 const testIds = {
@@ -40,16 +40,13 @@ export const LineTitle: React.FC<Props> = ({
         <span>
           {lineRoutes?.length > 0 &&
             lineRoutes.map((item) => (
-              <SimpleButton
+              <SimpleSmallButton
                 key={item.route_id}
-                containerClassName="mr-2"
-                className="!mx-0 w-20 !rounded !px-0 !py-0 !text-sm !font-normal"
-                invertedClassName="!text-black"
+                className="mr-2"
                 onClick={() => toggleDisplayedRoute(item.label)}
                 inverted={!displayedRouteLabels?.includes(item.label)}
-              >
-                {item.label}
-              </SimpleButton>
+                label={item.label}
+              />
             ))}
         </span>
         {onCreateRoute && (
