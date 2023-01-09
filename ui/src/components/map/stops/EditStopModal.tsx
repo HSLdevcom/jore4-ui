@@ -45,7 +45,6 @@ export const EditStopModal = ({
             heading={buildHeading()}
           >
             <StopForm
-              className="my-8"
               defaultValues={defaultValues}
               onSubmit={onSubmit}
               ref={formRef}
