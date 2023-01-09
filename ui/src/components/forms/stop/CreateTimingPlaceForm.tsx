@@ -110,7 +110,7 @@ export const CreateTimingPlaceForm = ({
       <form
         onSubmit={handleSubmit(onFormSubmit)}
         ref={formRef}
-        className={`space-y-4 p-8 ${className}`}
+        className={`space-y-4 ${className}`}
       >
         <FormRow>
           <InputField<FormState>

@@ -18,8 +18,8 @@ import {
 } from '../../../hooks';
 import { Column, Row, Visible } from '../../../layoutComponents';
 import {
-  openTimingPlaceModalAction,
   Operation,
+  openTimingPlaceModalAction,
   selectIsTimingPlaceModalOpen,
 } from '../../../redux';
 import { mapToISODate } from '../../../time';
@@ -187,67 +187,65 @@ const StopFormComponent = (
         onSubmit={handleSubmit(onFormSubmit)}
         ref={ref}
       >
-        <div className="mx-12">
-          <h3 className="pb-6">{t('stops.stop')}</h3>
-          <FormColumn>
-            <FormRow mdColumns={2}>
-              <Column>
-                <h5 className="mb-2">{t('stops.nameAddress')}</h5>
+        <h3 className="pb-6">{t('stops.stop')}</h3>
+        <FormColumn>
+          <FormRow mdColumns={2}>
+            <Column>
+              <h5 className="mb-2">{t('stops.nameAddress')}</h5>
+              <InputField<FormState>
+                type="text"
+                translationPrefix="stops"
+                fieldPath="label"
+                testId={testIds.label}
+              />
+            </Column>
+            <Column className="space-y-4">
+              <h5 className="mb-2">{t('map.location')}</h5>
+              <FormRow mdColumns={2}>
                 <InputField<FormState>
-                  type="text"
-                  translationPrefix="stops"
-                  fieldPath="label"
-                  testId={testIds.label}
+                  type="number"
+                  translationPrefix="map"
+                  fieldPath="latitude"
+                  testId={testIds.latitude}
+                  step="any"
                 />
-              </Column>
-              <Column className="space-y-4">
-                <h5 className="mb-2">{t('map.location')}</h5>
-                <FormRow mdColumns={2}>
-                  <InputField<FormState>
-                    type="number"
-                    translationPrefix="map"
-                    fieldPath="latitude"
-                    testId={testIds.latitude}
-                    step="any"
-                  />
-                  <InputField<FormState>
-                    type="number"
-                    translationPrefix="map"
-                    fieldPath="longitude"
-                    testId={testIds.longitude}
-                    step="any"
-                  />
-                </FormRow>
-                <FormRow>
-                  <Column>
-                    <Row>
-                      <InputField
-                        translationPrefix="stops"
-                        fieldPath="timingPlaceId"
-                        testId={testIds.timingPlaceDropdown}
-                        inputElementRenderer={(props) => (
-                          <ChooseTimingPlaceDropdown
-                            // eslint-disable-next-line react/jsx-props-no-spreading
-                            {...props}
-                          />
-                        )}
-                        className="flex-1"
-                      />
-                      <SimpleButton
-                        containerClassName="self-end ml-6"
-                        onClick={() => dispatch(openTimingPlaceModalAction())}
-                        testId={testIds.addTimingPlaceButton}
-                      >
-                        {t('stops.createTimingPlace')}
-                      </SimpleButton>
-                    </Row>
-                  </Column>
-                </FormRow>
-              </Column>
-            </FormRow>
-          </FormColumn>
-        </div>
-        <Row className="mt-7 border-t border-light-grey px-12">
+                <InputField<FormState>
+                  type="number"
+                  translationPrefix="map"
+                  fieldPath="longitude"
+                  testId={testIds.longitude}
+                  step="any"
+                />
+              </FormRow>
+              <FormRow>
+                <Column>
+                  <Row>
+                    <InputField
+                      translationPrefix="stops"
+                      fieldPath="timingPlaceId"
+                      testId={testIds.timingPlaceDropdown}
+                      inputElementRenderer={(props) => (
+                        <ChooseTimingPlaceDropdown
+                          // eslint-disable-next-line react/jsx-props-no-spreading
+                          {...props}
+                        />
+                      )}
+                      className="flex-1"
+                    />
+                    <SimpleButton
+                      containerClassName="self-end ml-6"
+                      onClick={() => dispatch(openTimingPlaceModalAction())}
+                      testId={testIds.addTimingPlaceButton}
+                    >
+                      {t('stops.createTimingPlace')}
+                    </SimpleButton>
+                  </Row>
+                </Column>
+              </FormRow>
+            </Column>
+          </FormRow>
+        </FormColumn>
+        <Row className="mt-7 border-t border-light-grey">
           <ChangeValidityForm className="mt-5" />
         </Row>
       </form>

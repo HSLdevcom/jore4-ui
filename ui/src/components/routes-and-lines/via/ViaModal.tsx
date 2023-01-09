@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   JourneyPatternScheduledStopPointInJourneyPattern,
@@ -14,11 +13,11 @@ import {
 import { selectViaModal } from '../../../redux';
 import { closeViaModalAction } from '../../../redux/slices/modals';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
-import { ModalHeader } from '../../modal';
+import { ModalBody, ModalHeader } from '../../modal';
 import {
   FormState,
-  mapStopJourneyPatternToFormState,
   ViaForm,
+  mapStopJourneyPatternToFormState,
 } from './ViaForm';
 
 interface Props {
@@ -95,13 +94,14 @@ export const ViaModal = ({ className = '' }: Props): JSX.Element => {
         })}
       />
       {stopInfo && (
-        <ViaForm
-          className="p-8"
-          onCancel={onClose}
-          onSubmit={(formState) => onSubmit(formState, stopInfo)}
-          onRemove={() => onRemove(stopInfo)}
-          defaultValues={mapStopJourneyPatternToFormState(stopInfo)}
-        />
+        <ModalBody>
+          <ViaForm
+            onCancel={onClose}
+            onSubmit={(formState) => onSubmit(formState, stopInfo)}
+            onRemove={() => onRemove(stopInfo)}
+            defaultValues={mapStopJourneyPatternToFormState(stopInfo)}
+          />
+        </ModalBody>
       )}
     </div>
   );
