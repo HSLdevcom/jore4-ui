@@ -27,12 +27,12 @@ interface Props {
 
 const defaultPriorities: PriorityButtonProps[] = [
   {
-    priority: Priority.Standard,
-    priorityLabel: 'standard',
-  },
-  {
     priority: Priority.Draft,
     priorityLabel: 'draft',
+  },
+  {
+    priority: Priority.Standard,
+    priorityLabel: 'standard',
   },
   {
     priority: Priority.Temporary,
