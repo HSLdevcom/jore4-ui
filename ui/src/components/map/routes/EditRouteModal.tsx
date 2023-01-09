@@ -42,7 +42,7 @@ export const EditRouteModal = ({
             heading={t('routes.enterRouteData')}
           >
             <RoutePropertiesForm
-              className="my-8 mx-12 max-w-2xl"
+              className="max-w-2xl"
               defaultValues={defaultValues}
               ref={formRef}
               onSubmit={onSuccess}
