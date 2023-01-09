@@ -5,7 +5,12 @@ import {
   RouteInsertInput,
   RouteDirectionEnum,
 } from '@hsl/jore4-test-db-manager';
-import { EditRoutePage, LineDetailsPage, TerminusValues } from '../pageObjects';
+import {
+  EditRoutePage,
+  LineDetailsPage,
+  TerminusValues,
+  Toast,
+} from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 
 const routeFormTestInputs = {
@@ -57,6 +62,7 @@ const deleteCreatedResources = () => {
 describe('Route meta information editing', () => {
   let editRoutePage: EditRoutePage;
   let lineDetailsPage: LineDetailsPage;
+  let toast: Toast;
 
   before(() => {
     deleteCreatedResources();
@@ -64,6 +70,7 @@ describe('Route meta information editing', () => {
   beforeEach(() => {
     editRoutePage = new EditRoutePage();
     lineDetailsPage = new LineDetailsPage();
+    toast = new Toast();
 
     cy.setupTests();
     cy.mockLogin();
@@ -105,5 +112,15 @@ describe('Route meta information editing', () => {
     editRoutePage.terminusNamesInputs.verifyDestinationValues(
       destinationTestInputs,
     );
+  });
+
+  it('Deletes a route', () => {
+    editRoutePage.routePropertiesForm.getForm().should('be.visible');
+    editRoutePage.getDeleteRouteButton().click();
+    editRoutePage.confirmationDialog.getConfirmButton().click();
+    cy.wait('@gqlDeleteRoute').its('response.statusCode').should('equal', 200);
+    toast.checkSuccessToastHasMessage('Reitti poistettu');
+    editRoutePage.visit(routes[0].route_id);
+    editRoutePage.routePropertiesForm.getForm().should('not.exist');
   });
 });
