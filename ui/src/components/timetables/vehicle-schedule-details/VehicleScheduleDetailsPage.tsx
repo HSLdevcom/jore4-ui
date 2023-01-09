@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { useGetVehicleJourneysQuery } from '../../../generated/graphql';
-import { useGetTimetables } from '../../../hooks';
+import { useGetLineDetails, useGetTimetables } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
 import { mapToShortDate } from '../../../time';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';
@@ -22,6 +22,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
 
   const { timetables, vehicleServices } = useGetTimetables();
+  const { line } = useGetLineDetails();
 
   const vehicleScheduleFrames = timetables
     ?.timetables_vehicle_schedule_vehicle_schedule_frame.length
@@ -45,7 +46,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
       <PageHeader>
         <h1>
           <i className="icon-bus-alt text-tweaked-brand" />
-          {t('lines.line', { label: '!1234' })}
+          {t('lines.line', { label: line?.label })}
         </h1>
       </PageHeader>
       <div className="mx-12 my-8">
@@ -55,8 +56,8 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
           </p>
           <h1>{`${validityStartDate} - ${validityEndDate}`}</h1>
         </div>
-        <div className=" grid grid-cols-3 gap-x-8 gap-y-5">
-          {vehicleServices.map((item) => (
+        <div className="grid grid-cols-3 gap-x-8 gap-y-5">
+          {(vehicleServices || []).map((item) => (
             <VehicleServiceTable
               priority={item.priority}
               dayType={item.dayType}

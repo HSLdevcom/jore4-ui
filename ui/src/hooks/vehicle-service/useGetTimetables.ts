@@ -1,11 +1,14 @@
 import { gql } from '@apollo/client';
+import { useCallback, useEffect, useState } from 'react';
 import { pipe } from 'remeda';
 import {
   DayTypeAllFieldsFragment,
-  useGetTimetablesForOperationDayQuery,
+  GetTimetablesForOperationDayQuery,
+  useGetTimetablesForOperationDayAsyncQuery,
   VehicleServiceWithJourneysFragment,
 } from '../../generated/graphql';
 import { TimetablePriority } from '../../types/Priority';
+import { useGetLineDetails } from '../line-details';
 
 const GQL_DAY_TYPE_FRAGMENT = gql`
   fragment day_type_all_fields on timetables_service_calendar_day_type {
@@ -35,11 +38,8 @@ const GQL_VEHICLE_SERVICES_FRAGMENT = gql`
   }
 `;
 
-// TODO: we should query timetables based on line_id/journey_pattern_id,
-// but now we only have only mock seed data available and no UI for selecting
-// line so this query just fetches all available data
 const GQL_GET_TIMETABLES_FOR_OPERATION_DAY = gql`
-  query GetTimetablesForOperationDay {
+  query GetTimetablesForOperationDay($journey_pattern_id: uuid!) {
     timetables {
       timetables_vehicle_schedule_vehicle_schedule_frame(
         order_by: { priority: desc }
@@ -47,7 +47,9 @@ const GQL_GET_TIMETABLES_FOR_OPERATION_DAY = gql`
           vehicle_services: {
             blocks: {
               vehicle_journeys: {
-                journey_pattern_ref: { journey_pattern_id: {} }
+                journey_pattern_ref: {
+                  journey_pattern_id: { _eq: $journey_pattern_id }
+                }
               }
             }
           }
@@ -73,43 +75,67 @@ interface VehicleServiceGroup {
 }
 
 export const useGetTimetables = () => {
-  const timetablesResponse = useGetTimetablesForOperationDayQuery();
-  const timetables = timetablesResponse.data?.timetables;
+  const { line } = useGetLineDetails();
+  const [getTimetablesForOperationDay] =
+    useGetTimetablesForOperationDayAsyncQuery();
+  const [timetables, setTimetables] =
+    useState<GetTimetablesForOperationDayQuery['timetables']>();
+  const [vehicleServices, setVehicleServices] =
+    useState<VehicleServiceGroup[]>();
 
-  const vehicleScheduleFrames = timetables
-    ?.timetables_vehicle_schedule_vehicle_schedule_frame.length
-    ? timetables?.timetables_vehicle_schedule_vehicle_schedule_frame
-    : [];
+  // TODO: Lines may have multiple routes and those may have multiple journey patterns.
+  // We are just selecting first route and first journey pattern here, but
+  // does that make sense..?
+  const journeyPatternId =
+    line?.line_routes[0].route_journey_patterns[0].journey_pattern_id;
 
-  // Vehicle services parsed & groupd from timetables response so that
-  // they can be shown in UI more easily.
-  const vehicleServices = pipe(
-    vehicleScheduleFrames,
-    (scheduleFrames) => scheduleFrames.flatMap((item) => item.vehicle_services),
-    (services) =>
-      services.reduce<VehicleServiceGroup[]>((groups, item) => {
-        const foundGroup = groups.find(
-          (group) =>
-            group.dayType === item.day_type &&
-            group.priority === item.vehicle_schedule_frame.priority,
-        );
-        if (foundGroup) {
-          foundGroup.vehicleServices.push(item);
-          return groups;
-        }
-        return [
-          ...groups,
-          {
-            dayType: item.day_type,
-            priority: item.vehicle_schedule_frame.priority,
-            vehicleServices: [item],
-          },
-        ];
-      }, []),
-  );
+  const getTimetables = useCallback(async () => {
+    if (!journeyPatternId) {
+      return;
+    }
+    const timetablesResponse = await getTimetablesForOperationDay({
+      journey_pattern_id: journeyPatternId,
+    });
+    const tmpTimetables = timetablesResponse.data?.timetables;
+    const vehicleScheduleFrames = tmpTimetables
+      ?.timetables_vehicle_schedule_vehicle_schedule_frame.length
+      ? tmpTimetables?.timetables_vehicle_schedule_vehicle_schedule_frame
+      : [];
 
-  return {
-    timetables,
-    vehicleServices,
-  };
+    // Vehicle services parsed & groupd from timetables response so that
+    // they can be shown in UI more easily.
+    const groupedVehicleServices = pipe(
+      vehicleScheduleFrames,
+      (scheduleFrames) =>
+        scheduleFrames.flatMap((item) => item.vehicle_services),
+      (services) =>
+        services.reduce<VehicleServiceGroup[]>((groups, item) => {
+          const foundGroup = groups.find(
+            (group) =>
+              group.dayType === item.day_type &&
+              group.priority === item.vehicle_schedule_frame.priority,
+          );
+          if (foundGroup) {
+            foundGroup.vehicleServices.push(item);
+            return groups;
+          }
+          return [
+            ...groups,
+            {
+              dayType: item.day_type,
+              priority: item.vehicle_schedule_frame.priority,
+              vehicleServices: [item],
+            },
+          ];
+        }, []),
+    );
+    setTimetables(tmpTimetables);
+    setVehicleServices(groupedVehicleServices);
+  }, [getTimetablesForOperationDay, journeyPatternId]);
+
+  useEffect(() => {
+    getTimetables();
+  }, [getTimetables]);
+
+  return { timetables, vehicleServices };
 };

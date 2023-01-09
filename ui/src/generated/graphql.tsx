@@ -15253,7 +15253,7 @@ export type VehicleServiceWithJourneysFragment = {
 };
 
 export type GetTimetablesForOperationDayQueryVariables = Exact<{
-  [key: string]: never;
+  journey_pattern_id: Scalars['uuid'];
 }>;
 
 export type GetTimetablesForOperationDayQuery = {
@@ -19381,7 +19381,7 @@ export type GetSelectedTimingPlaceDetailsByIdQueryResult = Apollo.QueryResult<
   GetSelectedTimingPlaceDetailsByIdQueryVariables
 >;
 export const GetTimetablesForOperationDayDocument = gql`
-  query GetTimetablesForOperationDay {
+  query GetTimetablesForOperationDay($journey_pattern_id: uuid!) {
     timetables {
       timetables_vehicle_schedule_vehicle_schedule_frame(
         order_by: { priority: desc }
@@ -19389,7 +19389,9 @@ export const GetTimetablesForOperationDayDocument = gql`
           vehicle_services: {
             blocks: {
               vehicle_journeys: {
-                journey_pattern_ref: { journey_pattern_id: {} }
+                journey_pattern_ref: {
+                  journey_pattern_id: { _eq: $journey_pattern_id }
+                }
               }
             }
           }
@@ -19421,11 +19423,12 @@ export const GetTimetablesForOperationDayDocument = gql`
  * @example
  * const { data, loading, error } = useGetTimetablesForOperationDayQuery({
  *   variables: {
+ *      journey_pattern_id: // value for 'journey_pattern_id'
  *   },
  * });
  */
 export function useGetTimetablesForOperationDayQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     GetTimetablesForOperationDayQuery,
     GetTimetablesForOperationDayQueryVariables
   >,
