@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row } from '../../layoutComponents';
 import { SimpleButton } from '../../uiComponents';
-import { ModalHeader } from '../modal';
+import { ModalBody, ModalHeader } from '../modal';
 
 const testIds = {
   saveButton: 'Modal::saveButton',
@@ -56,7 +56,7 @@ export const Modal: FunctionComponent<Props> = ({
   return (
     <div data-testid={testId} className="overflow-auto bg-white">
       <ModalHeader onClose={onClose} heading={heading} />
-      {children}
+      <ModalBody>{children}</ModalBody>
       <ModalFooter onCancel={onCancel} onSave={onSave} />
     </div>
   );

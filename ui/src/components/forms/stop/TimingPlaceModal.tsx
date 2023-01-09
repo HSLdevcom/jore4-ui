@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../hooks';
 import { closeTimingPlaceModalAction } from '../../../redux/slices/modals';
-import { ModalHeader } from '../../modal';
+import { ModalBody, ModalHeader } from '../../modal';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 
 interface Props {
@@ -30,10 +30,12 @@ export const TimingPlaceModal = ({
       className={`fixed top-1/2 left-1/2 z-10 -translate-y-1/2 -translate-x-1/2 overflow-auto overflow-y-auto bg-white shadow-md ${className}`}
     >
       <ModalHeader onClose={onClose} heading={t('timingPlaces.label')} />
-      <CreateTimingPlaceForm
-        onCancel={onClose}
-        onTimingPlaceCreated={timingPlaceCreated}
-      />
+      <ModalBody>
+        <CreateTimingPlaceForm
+          onCancel={onClose}
+          onTimingPlaceCreated={timingPlaceCreated}
+        />
+      </ModalBody>
     </div>
   );
 };
