@@ -11,6 +11,7 @@ import {
 } from '../../../hooks';
 import { selectTimingSettingsModal } from '../../../redux';
 import { closeTimingSettingsModalAction } from '../../../redux/slices/modals';
+import { Modal } from '../../../uiComponents';
 import {
   showDangerToastWithError,
   showSuccessToast,
@@ -22,10 +23,6 @@ import {
   TimingSettingsForm,
   mapStopJourneyPatternToFormState,
 } from './TimingSettingsForm';
-
-interface Props {
-  className?: string;
-}
 
 const GQL_SCHEDULED_STOP_POINT_WITH_TIMING_SETTINGS = gql`
   fragment scheduled_stop_point_with_timing_settings on journey_pattern_scheduled_stop_point_in_journey_pattern {
@@ -62,7 +59,7 @@ const GQL_GET_SCHEDULED_STOP_POINT_WITH_TIMING_SETTINGS = gql`
   }
 `;
 
-export const TimingSettingsModal = ({ className = '' }: Props): JSX.Element => {
+export const TimingSettingsModal = (): JSX.Element => {
   const { t } = useTranslation();
   const timingSettingsModalState = useAppSelector(selectTimingSettingsModal);
   const { data: timingSettings } = timingSettingsModalState;
@@ -113,9 +110,7 @@ export const TimingSettingsModal = ({ className = '' }: Props): JSX.Element => {
   const stopHasTimingPlace = !!stopInfo && stopHasUsableTimingPlace(stopInfo);
 
   return (
-    <div
-      className={`fixed top-1/2 left-1/2 z-10 -translate-y-1/2 -translate-x-1/2 overflow-auto overflow-y-auto bg-white shadow-md ${className}`}
-    >
+    <Modal isOpen onClose={onClose}>
       <ModalHeader
         onClose={onClose}
         heading={t('timingSettingsModal.timingSettingsModalTitle', {
@@ -131,6 +126,6 @@ export const TimingSettingsModal = ({ className = '' }: Props): JSX.Element => {
           defaultValues={mapStopJourneyPatternToFormState(stopInfo)}
         />
       )}
-    </div>
+    </Modal>
   );
 };
