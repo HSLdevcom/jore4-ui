@@ -15254,6 +15254,7 @@ export type VehicleServiceWithJourneysFragment = {
 
 export type GetTimetablesForOperationDayQueryVariables = Exact<{
   journey_pattern_id: Scalars['uuid'];
+  observation_date: Scalars['date'];
 }>;
 
 export type GetTimetablesForOperationDayQuery = {
@@ -15292,6 +15293,10 @@ export type GetTimetablesForOperationDayQuery = {
               }>;
             }>;
           }>;
+        }>;
+        timetables_vehicle_service_get_vehicle_services_for_date: Array<{
+          __typename?: 'timetables_vehicle_service_vehicle_service';
+          vehicle_service_id: UUID;
         }>;
       }
     | null
@@ -19381,7 +19386,10 @@ export type GetSelectedTimingPlaceDetailsByIdQueryResult = Apollo.QueryResult<
   GetSelectedTimingPlaceDetailsByIdQueryVariables
 >;
 export const GetTimetablesForOperationDayDocument = gql`
-  query GetTimetablesForOperationDay($journey_pattern_id: uuid!) {
+  query GetTimetablesForOperationDay(
+    $journey_pattern_id: uuid!
+    $observation_date: date!
+  ) {
     timetables {
       timetables_vehicle_schedule_vehicle_schedule_frame(
         order_by: { priority: desc }
@@ -19406,6 +19414,11 @@ export const GetTimetablesForOperationDayDocument = gql`
           ...vehicle_service_with_journeys
         }
       }
+      timetables_vehicle_service_get_vehicle_services_for_date(
+        args: { observation_date: $observation_date }
+      ) {
+        vehicle_service_id
+      }
     }
   }
   ${VehicleServiceWithJourneysFragmentDoc}
@@ -19424,6 +19437,7 @@ export const GetTimetablesForOperationDayDocument = gql`
  * const { data, loading, error } = useGetTimetablesForOperationDayQuery({
  *   variables: {
  *      journey_pattern_id: // value for 'journey_pattern_id'
+ *      observation_date: // value for 'observation_date'
  *   },
  * });
  */
