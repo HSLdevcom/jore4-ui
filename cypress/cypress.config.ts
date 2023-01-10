@@ -8,7 +8,8 @@ export default defineConfig({
     specPattern: 'e2e/**/*.cy.{js,jsx,ts,tsx}',
     fixturesFolder: 'fixtures',
     screenshotsFolder: 'reports/screenshots',
-    videosFolder: 'reports/videos',
+    // Currently the CI is running slow and the videos produce no value
+    video: false,
     defaultCommandTimeout: 10000,
     viewportWidth: 1920,
     viewportHeight: 1080,
