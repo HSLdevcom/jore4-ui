@@ -156,7 +156,7 @@ const seedTimetabledPassingTimesMonFri: TimetabledPassingTimeInsertInput[] = [
   ...buildTimetabledPassingTimesForJourney({
     vehicleJourneyId: seedVehicleJourneys[2].vehicle_journey_id,
     scheduledStopLabels: ['H2204', 'H2205', 'H2206', 'H2207', 'H2208'],
-    journeyStartTime: Duration.fromISO('PT7H38M'),
+    journeyStartTime: Duration.fromISO('PT7H29M'),
     waitTimeOnStops: Duration.fromISO('PT2M'),
   }),
   // journey 4, goes from H2201->H2208 but misses H2202, H2204, H2206
