@@ -1,8 +1,13 @@
 import { gql } from '@apollo/client';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { useGetVehicleJourneysQuery } from '../../../generated/graphql';
-import { useGetLineDetails, useGetTimetables } from '../../../hooks';
-import { Container } from '../../../layoutComponents';
+import {
+  useGetLineDetails,
+  useGetTimetables,
+  useObservationDateQueryParam,
+} from '../../../hooks';
+import { Column, Container, Row } from '../../../layoutComponents';
 import { mapToShortDate } from '../../../time';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';
 import { PassingTimesByStopTable } from '../passing-times-by-stop';
@@ -41,6 +46,13 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
     vehicleJourneysResult.data?.timetables
       ?.timetables_vehicle_journey_vehicle_journey || [];
 
+  const { observationDate, setObservationDateToUrl } =
+    useObservationDateQueryParam();
+  const onDateChange = (value: string) => {
+    setObservationDateToUrl(DateTime.fromISO(value));
+  };
+
+  const dateInputId = 'observation-date-input';
   return (
     <div>
       <PageHeader>
@@ -50,12 +62,23 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
         </h1>
       </PageHeader>
       <div className="mx-12 my-8">
-        <div className="mb-8">
-          <p className="text-base font-bold">
-            {t('timetables.validityPeriodLabel')}
-          </p>
-          <h1>{`${validityStartDate} - ${validityEndDate}`}</h1>
-        </div>
+        <Row className="mb-8">
+          <Column className="mr-12">
+            <p className="text-base font-bold">
+              {t('timetables.validityPeriodLabel')}
+            </p>
+            <h1>{`${validityStartDate} - ${validityEndDate}`}</h1>
+          </Column>
+          <Column>
+            <label htmlFor={dateInputId}>{t('filters.observationDate')}</label>
+            <input
+              type="date"
+              value={observationDate.toISODate()}
+              onChange={(e) => onDateChange(e.target.value)}
+              id={dateInputId}
+            />
+          </Column>
+        </Row>
         <div className="grid grid-cols-3 gap-x-8 gap-y-5">
           {(vehicleServices || []).map((item) => (
             <VehicleServiceTable
