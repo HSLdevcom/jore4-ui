@@ -20,7 +20,9 @@ export const Modal: React.FC<Props> = ({
       open={isOpen}
       data-testid={testId}
       onClose={onClose}
-      className={`bg-white ${className || ''}`}
+      className={`fixed top-1/2 left-1/2 z-10 -translate-y-1/2 -translate-x-1/2 overflow-y-auto bg-white drop-shadow-md ${
+        className || ''
+      }`}
     >
       {children}
     </Dialog>

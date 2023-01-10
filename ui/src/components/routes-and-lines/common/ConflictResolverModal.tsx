@@ -15,6 +15,7 @@ import { mapToShortDate } from '../../../time';
 import { Priority } from '../../../types/Priority';
 import { CloseIconButton, Modal, SimpleButton } from '../../../uiComponents';
 import { RouteLabel } from '../../common/RouteLabel';
+import { ModalBody } from '../../modal';
 
 interface Props {
   onClose: () => void;
@@ -110,46 +111,42 @@ export const ConflictResolverModal: React.FC<Props> = ({
   const isOpen = !!conflicts.length;
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      className={`fixed top-1/2 left-1/2 z-10 -translate-y-1/2 -translate-x-1/2 overflow-y-auto p-10 drop-shadow-md ${
-        className || ''
-      }`}
-    >
-      <Dialog.Title className="flex text-xl font-bold">
-        {t('saveChangesModal.validityConflictTitle')}
-        <CloseIconButton className="ml-auto" onClick={onClose} />
-      </Dialog.Title>
-      <Dialog.Description>
-        {t('saveChangesModal.validityConflictBody')}
-      </Dialog.Description>
+    <Modal isOpen={isOpen} onClose={onClose} className={className || ''}>
+      <ModalBody>
+        <Dialog.Title className="flex text-xl font-bold">
+          {t('saveChangesModal.validityConflictTitle')}
+          <CloseIconButton className="ml-auto" onClick={onClose} />
+        </Dialog.Title>
+        <Dialog.Description>
+          {t('saveChangesModal.validityConflictBody')}
+        </Dialog.Description>
 
-      <table className="mt-6">
-        <thead>
-          <tr>
-            <Th>{t('priority.label')}</Th>
-            <Th>{t('validityPeriod.validityStart')}</Th>
-            <Th>{t('validityPeriod.validityEnd')}</Th>
-            <Th>{t('lines.label')}</Th>
-          </tr>
-        </thead>
-        <tbody>
-          {conflicts.map((item) => (
-            <ConflictItemRow key={item.id} item={item} />
-          ))}
-        </tbody>
-      </table>
+        <table className="mt-6">
+          <thead>
+            <tr>
+              <Th>{t('priority.label')}</Th>
+              <Th>{t('validityPeriod.validityStart')}</Th>
+              <Th>{t('validityPeriod.validityEnd')}</Th>
+              <Th>{t('lines.label')}</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {conflicts.map((item) => (
+              <ConflictItemRow key={item.id} item={item} />
+            ))}
+          </tbody>
+        </table>
 
-      <Row>
-        <SimpleButton
-          containerClassName="ml-auto mt-14"
-          onClick={onClose}
-          inverted
-        >
-          {t('cancel')}
-        </SimpleButton>
-      </Row>
+        <Row>
+          <SimpleButton
+            containerClassName="ml-auto mt-14"
+            onClick={onClose}
+            inverted
+          >
+            {t('cancel')}
+          </SimpleButton>
+        </Row>
+      </ModalBody>
     </Modal>
   );
 };

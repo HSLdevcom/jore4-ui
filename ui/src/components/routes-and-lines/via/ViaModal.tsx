@@ -12,6 +12,7 @@ import {
 } from '../../../hooks';
 import { selectViaModal } from '../../../redux';
 import { closeViaModalAction } from '../../../redux/slices/modals';
+import { Modal } from '../../../uiComponents';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
 import { ModalBody, ModalHeader } from '../../modal';
 import {
@@ -84,9 +85,7 @@ export const ViaModal = ({ className = '' }: Props): JSX.Element => {
   };
 
   return (
-    <div
-      className={`fixed top-1/2 left-1/2 z-10 -translate-y-1/2 -translate-x-1/2 overflow-auto overflow-y-auto bg-white shadow-md ${className}`}
-    >
+    <Modal isOpen onClose={onClose} className={className || ''}>
       <ModalHeader
         onClose={onClose}
         heading={t('viaModal.viaModalTitle', {
@@ -103,6 +102,6 @@ export const ViaModal = ({ className = '' }: Props): JSX.Element => {
           />
         </ModalBody>
       )}
-    </div>
+    </Modal>
   );
 };
