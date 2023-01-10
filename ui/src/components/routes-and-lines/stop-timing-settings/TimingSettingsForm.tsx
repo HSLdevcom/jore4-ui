@@ -115,7 +115,7 @@ export const TimingSettingsForm = ({
           </label>
         </Row>
         <Row className="mt-4 space-x-4">
-          <SimpleButton className="ml-auto" onClick={onCancel} inverted>
+          <SimpleButton onClick={onCancel} inverted>
             {t('cancel')}
           </SimpleButton>
 

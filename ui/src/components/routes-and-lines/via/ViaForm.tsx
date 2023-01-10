@@ -106,12 +106,11 @@ export const ViaForm = ({
           />
         </Row>
         <Row className="space-x-4">
-          <SimpleButton className="ml-auto" onClick={onCancel} inverted>
+          <SimpleButton onClick={onCancel} inverted>
             {t('cancel')}
           </SimpleButton>
           <SimpleButton
             disabled={!defaultValues?.isViaPoint}
-            className="ml-auto"
             onClick={onRemove}
             inverted
           >
