@@ -88,7 +88,7 @@ export const ExportToolbar = (): JSX.Element => {
             ? 'export.quitSelecting'
             : 'export.startSelecting',
         )}
-        className="w-auto rounded-full px-4"
+        className="!rounded-full"
       />
       <Visible visible={isSelectingRoutesForExport}>
         <SimpleSmallButton
@@ -100,7 +100,7 @@ export const ExportToolbar = (): JSX.Element => {
               ? 'export.exportAll'
               : 'export.exportSelected',
           )}
-          className="w-auto rounded-full px-4"
+          className="!rounded-full"
         />
       </Visible>
     </Row>
