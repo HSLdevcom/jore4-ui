@@ -48,11 +48,15 @@ export class RouteEditor {
    * editOneRoutePoint(moveHandleInfo)
    */
   editOneRoutePoint(values: MoveRouteEditHandleInfo) {
+    cy.intercept('/api/mapmatching/api/route/v1/bus/').as('mapMatching');
+
     this.mapFooter.editRoute();
     this.map.getLoader().should('not.exist');
     this.getRouteDashedLine().click('topRight');
     this.moveRouteEditHandle(values);
-    this.map.getLoader().should('not.exist');
+
+    cy.wait('@mapMatching');
+
     this.mapFooter.save();
   }
 }
