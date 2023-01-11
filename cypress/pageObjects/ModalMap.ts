@@ -92,9 +92,14 @@ export class ModalMap {
 
     const lastSnappingPointHandleIndex = routePoints.length - 1;
     this.map.clickNthSnappingPointHandle(lastSnappingPointHandleIndex);
+
+    cy.wait('@mapMatching', { requestTimeout: 10000 }); // TODO: Remove timeout when CI test runner has more power
+
     if (omittedStops) {
       this.routeStopsOverlay.removeStopsFromRoute(omittedStops);
     }
+
+    cy.wait('@gqlGetLinksWithStopsByExternalLinkIds');
 
     this.mapFooter.save();
   };
