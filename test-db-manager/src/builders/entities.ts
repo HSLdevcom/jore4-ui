@@ -7,6 +7,7 @@ import {
   RouteRouteInsertInput,
   RouteTypeOfLineEnum,
   ServicePatternScheduledStopPointInsertInput,
+  TimingPatternTimingPlaceInsertInput,
 } from '../generated/graphql';
 import { Priority, StopInJourneyPatternInsertInput } from '../types';
 
@@ -84,3 +85,12 @@ export const buildStopsInJourneyPattern = (
     is_regulated_timing_point: false,
     is_via_point: false,
   }));
+
+export const buildTimingPlace = (
+  id: UUID,
+  label: string,
+): TimingPatternTimingPlaceInsertInput => ({
+  timing_place_id: id,
+  label,
+  description: buildLocalizedString(label),
+});

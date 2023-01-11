@@ -9,6 +9,7 @@ import {
   buildRoute,
   buildStop,
   buildStopsInJourneyPattern,
+  buildTimingPlace,
   infrastructureLinkAlongRoute,
   infrastructureLinks,
   journeyPatterns,
@@ -38,10 +39,7 @@ const lines: LineInsertInput[] = [
 ];
 
 const timingPlaces: TimingPatternTimingPlaceInsertInput[] = [
-  {
-    timing_place_id: '9f0ab231-f53e-4870-b8f3-dae3c60278da',
-    label: 'Place',
-  },
+  buildTimingPlace('9f0ab231-f53e-4870-b8f3-dae3c60278da', 'Place'),
 ];
 
 const stops: StopInsertInput[] = [
