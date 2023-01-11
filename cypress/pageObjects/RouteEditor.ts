@@ -52,7 +52,10 @@ export class RouteEditor {
     this.map.getLoader().should('not.exist');
     this.getRouteDashedLine().click('topRight');
     this.moveRouteEditHandle(values);
-    this.map.getLoader().should('not.exist');
+
+    cy.wait('@mapMatching');
+    cy.wait('@gqlGetLinksWithStopsByExternalLinkIds');
+
     this.mapFooter.save();
   }
 }

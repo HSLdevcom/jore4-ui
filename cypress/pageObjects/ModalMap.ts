@@ -92,9 +92,14 @@ export class ModalMap {
 
     const lastSnappingPointHandleIndex = routePoints.length - 1;
     this.map.clickNthSnappingPointHandle(lastSnappingPointHandleIndex);
+
+    cy.wait('@mapMatching');
+
     if (omittedStops) {
       this.routeStopsOverlay.removeStopsFromRoute(omittedStops);
     }
+
+    cy.wait('@gqlGetLinksWithStopsByExternalLinkIds');
 
     this.mapFooter.save();
   };
