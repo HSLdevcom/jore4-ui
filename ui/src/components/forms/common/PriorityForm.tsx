@@ -12,13 +12,14 @@ export const priorityFormSchema = z.object({
 export type PriorityFormState = z.infer<typeof priorityFormSchema>;
 
 const testIds = {
-  priorityButton: (priorityLabel: string) =>
-    `PriorityForm::${priorityLabel}PriorityButton`,
+  priorityButton: (testIdPrefix: string) =>
+    `PriorityForm::${testIdPrefix}PriorityButton`,
 };
 
 interface PriorityButtonProps {
   priority: Priority;
-  priorityLabel: string;
+  testIdPrefix: string;
+  translationKey: string;
 }
 
 interface Props {
@@ -28,15 +29,18 @@ interface Props {
 const defaultPriorities: PriorityButtonProps[] = [
   {
     priority: Priority.Draft,
-    priorityLabel: 'draft',
+    testIdPrefix: 'draft',
+    translationKey: 'priority.draft',
   },
   {
     priority: Priority.Standard,
-    priorityLabel: 'standard',
+    testIdPrefix: 'standard',
+    translationKey: 'priority.standard',
   },
   {
     priority: Priority.Temporary,
-    priorityLabel: 'temporary',
+    testIdPrefix: 'temporary',
+    translationKey: 'priority.temporary',
   },
 ];
 
@@ -62,14 +66,18 @@ export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
   const selectedPriority = watch('priority');
   const setPriority = (value: Priority) => setValue('priority', value);
 
-  const PriorityButton = ({ priority, priorityLabel }: PriorityButtonProps) => {
+  const PriorityButton = ({
+    priority,
+    testIdPrefix,
+    translationKey,
+  }: PriorityButtonProps) => {
     return (
       <SimpleButton
         onClick={() => setPriority(priority)}
         inverted={selectedPriority !== priority}
-        testId={testIds.priorityButton(priorityLabel)}
+        testId={testIds.priorityButton(testIdPrefix)}
       >
-        {t(`priority.${priorityLabel}`)}
+        {t(translationKey)}
       </SimpleButton>
     );
   };
@@ -85,9 +93,10 @@ export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
       <Row className="flex-wrap gap-2">
         {displayedPriorities.map((priority) => (
           <PriorityButton
-            key={priority.priorityLabel}
+            key={priority.testIdPrefix}
             priority={priority.priority}
-            priorityLabel={priority.priorityLabel}
+            testIdPrefix={priority.testIdPrefix}
+            translationKey={priority.translationKey}
           />
         ))}
       </Row>
