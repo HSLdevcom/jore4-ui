@@ -129,47 +129,43 @@ describe('Stop editing tests', () => {
     clearDatabase();
   });
 
-  it(
-    'Should move a stop on the map',
-    // Map opening seems to take time, so we increase the timeout
-    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
-    () => {
-      // Coordinates for the point where the stop is moved in the test.
-      const endCoordinates = { lng: 24.92410607697449, lat: 60.16321976836281 };
+  it('Should move a stop on the map', { scrollBehavior: 'bottom' }, () => {
+    // Coordinates for the point where the stop is moved in the test.
+    const endCoordinates = { lng: 24.92410607697449, lat: 60.16321976836281 };
 
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    map.getLoader().should('not.exist');
 
-      map.waitForMapToLoad();
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.getStopByStopLabel(stops[0].label).click();
+    map.getLoader().should('not.exist');
 
-      map.stopPopUp.getMoveButton().click();
+    map.getStopByStopLabel(stops[0].label).click();
 
-      // Point where the stop is moved on the map. Moving the stop here gives it the endCoordinates.
-      // Map view zoom level should not be changed in the test since it would naturally affect this test location.
-      map.clickRelativePoint(48, 52);
+    map.stopPopUp.getMoveButton().click();
 
-      confirmationDialog.getConfirmButton().click();
+    // Point where the stop is moved on the map. Moving the stop here gives it the endCoordinates.
+    // Map view zoom level should not be changed in the test since it would naturally affect this test location.
+    map.clickRelativePoint(48, 52);
 
-      cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
+    confirmationDialog.getConfirmButton().click();
 
-      toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+    cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
 
-      map.getLoader().should('not.exist');
+    toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
-      map.getStopByStopLabel(stops[0].label).click();
+    map.getLoader().should('not.exist');
 
-      map.stopPopUp.getEditButton().click();
+    map.getStopByStopLabel(stops[0].label).click();
 
-      stopForm.getLatitudeInput().should('have.value', endCoordinates.lat);
-      stopForm.getLongitudeInput().should('have.value', endCoordinates.lng);
-    },
-  );
+    map.stopPopUp.getEditButton().click();
+
+    stopForm.getLatitudeInput().should('have.value', endCoordinates.lat);
+    stopForm.getLongitudeInput().should('have.value', endCoordinates.lng);
+  });
 
   it(
     'Should move a stop on the map by changing the coordinates',
-    // Map opening seems to take time, so we increase the timeout
-    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    { scrollBehavior: 'bottom' },
     () => {
       const testCoordinates2 = {
         lng: 24.92904198486008,
@@ -185,7 +181,7 @@ describe('Stop editing tests', () => {
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForMapToLoad();
+      map.getLoader().should('not.exist');
 
       map.getStopByStopLabel(stops[0].label).click();
 
@@ -209,65 +205,55 @@ describe('Stop editing tests', () => {
     },
   );
 
-  it(
-    'Should delete a stop',
-    // Map opening seems to take time, so we increase the timeout
-    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
-    () => {
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+  it('Should delete a stop', { scrollBehavior: 'bottom' }, () => {
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForMapToLoad();
+    map.getLoader().should('not.exist');
 
-      map.getStopByStopLabel(stops[0].label).click();
+    map.getStopByStopLabel(stops[0].label).click();
 
-      map.stopPopUp.getDeleteButton().click();
+    map.stopPopUp.getDeleteButton().click();
 
-      confirmationDialog.getConfirmButton().click();
+    confirmationDialog.getConfirmButton().click();
 
-      cy.wait('@gqlRemoveStop').its('response.statusCode').should('equal', 200);
+    cy.wait('@gqlRemoveStop').its('response.statusCode').should('equal', 200);
 
-      toast.checkSuccessToastHasMessage('Pysäkki poistettu');
+    toast.checkSuccessToastHasMessage('Pysäkki poistettu');
 
-      map.getStopByStopLabel(stops[0].label).should('not.exist');
-    },
-  );
+    map.getStopByStopLabel(stops[0].label).should('not.exist');
+  });
 
-  it(
-    'Should create a new timing place',
-    // Map opening seems to take time, so we increase the timeout
-    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
-    () => {
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+  it('Should create a new timing place', { scrollBehavior: 'bottom' }, () => {
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForMapToLoad();
+    map.getLoader().should('not.exist');
 
-      map.getStopByStopLabel(stops[0].label).click();
+    map.getStopByStopLabel(stops[0].label).click();
 
-      map.stopPopUp.getEditButton().click();
+    map.stopPopUp.getEditButton().click();
 
-      stopForm.getAddTimingPlaceButton().click();
+    stopForm.getAddTimingPlaceButton().click();
 
-      stopForm.createTimingPlaceForm.fillTimingPlaceFormAndSave({
-        label: testTimingPlaceLabels.label1,
-        description: 'Test timing place description',
-      });
+    stopForm.createTimingPlaceForm.fillTimingPlaceFormAndSave({
+      label: testTimingPlaceLabels.label1,
+      description: 'Test timing place description',
+    });
 
-      stopForm.save();
+    stopForm.save();
 
-      confirmationDialog.getConfirmButton().click();
+    confirmationDialog.getConfirmButton().click();
 
-      toast.checkSuccessToastHasMessage('Hastus-paikka luotu');
+    toast.checkSuccessToastHasMessage('Hastus-paikka luotu');
 
-      cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
+    cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
 
-      map.getStopByStopLabel(stops[0].label).click();
-      map.stopPopUp.getEditButton().click();
+    map.getStopByStopLabel(stops[0].label).click();
+    map.stopPopUp.getEditButton().click();
 
-      stopForm
-        .getTimingPlaceDropdown()
-        .click()
-        .find('ul')
-        .should('contain', testTimingPlaceLabels.label1);
-    },
-  );
+    stopForm
+      .getTimingPlaceDropdown()
+      .click()
+      .find('ul')
+      .should('contain', testTimingPlaceLabels.label1);
+  });
 });

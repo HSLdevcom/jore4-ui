@@ -48,11 +48,14 @@ export class RouteEditor {
    * editOneRoutePoint(moveHandleInfo)
    */
   editOneRoutePoint(values: MoveRouteEditHandleInfo) {
+    cy.intercept('/api/mapmatching/api/route/v1/bus/').as('mapMatching');
     this.mapFooter.editRoute();
     this.map.getLoader().should('not.exist');
-    this.getRouteDashedLine().click('topRight');
+    // Force click because element might be covered by some other element, like a stop circle
+    this.getRouteDashedLine().click({ force: true });
     this.moveRouteEditHandle(values);
     this.map.getLoader().should('not.exist');
+    cy.wait('@mapMatching');
     this.mapFooter.save();
   }
 }
