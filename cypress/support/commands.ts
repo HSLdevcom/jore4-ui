@@ -80,6 +80,8 @@ Cypress.Commands.add('setupTests', () => {
       req.alias = `gql${req.body.operationName}`;
     }
   });
+
+  cy.intercept('/api/mapmatching/api/route/v1/**').as('mapMatching');
 });
 
 // workaround for 'commands.ts' cannot be compiled under '--isolatedModules' because it is considered a global script file. Add an import, export, or an empty 'export {}' statement to make it a module.ts(1208)

@@ -77,38 +77,33 @@ describe('Stop creation tests', () => {
     clearDatabase();
   });
 
-  it(
-    'Should create stop on map',
-    // Map opening seems to take time, so we increase the timeout
-    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
-    () => {
-      modalMap.createStopAtLocation({
-        stopFormInfo: {
-          label: testStopLabels.testLabel1,
-          validityStartISODate: '2022-01-01',
-          priority: Priority.Standard,
-        },
-        clickRelativePoint: {
-          xPercentage: 43.5,
-          yPercentage: 53,
-        },
-      });
+  it('Should create stop on map', { scrollBehavior: 'bottom' }, () => {
+    modalMap.createStopAtLocation({
+      stopFormInfo: {
+        label: testStopLabels.testLabel1,
+        validityStartISODate: '2022-01-01',
+        priority: Priority.Standard,
+      },
+      clickRelativePoint: {
+        xPercentage: 43.5,
+        yPercentage: 53,
+      },
+    });
 
-      modalMap.gqlStopShouldBeCreatedSuccessfully();
+    modalMap.gqlStopShouldBeCreatedSuccessfully();
 
-      modalMap.checkStopSubmitSuccessToast();
+    modalMap.checkStopSubmitSuccessToast();
 
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      cy.getByTestId(
-        `Map::Stops::stopMarker::${testStopLabels.testLabel1}_Standard`,
-      ).should('exist');
-    },
-  );
+    cy.getByTestId(
+      `Map::Stops::stopMarker::${testStopLabels.testLabel1}_Standard`,
+    ).should('exist');
+  });
 
   it(
     'Should place stop correctly by using manually typed latitude and longitude',
-    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    { scrollBehavior: 'bottom' },
     () => {
       // Create stop
       modalMap.createStopAtLocation({
@@ -147,8 +142,7 @@ describe('Stop creation tests', () => {
 
   it(
     'Should create stop with end time on map',
-    // Map opening seems to take time, so we increase the timeout
-    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    { scrollBehavior: 'bottom' },
     () => {
       modalMap.createStopAtLocation({
         stopFormInfo: {
