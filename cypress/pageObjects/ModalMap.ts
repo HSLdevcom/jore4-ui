@@ -80,6 +80,9 @@ export class ModalMap {
     routePoints: ClickPointNearMapMarker[];
     omittedStops?: string[];
   }) => {
+    cy.intercept('/api/mapmatching/api/route/v1/bus/').as('mapMatching');
+    this.map.getLoader().should('not.exist');
+
     this.mapFooter.createRoute();
 
     this.routePropertiesForm.fillRouteProperties(routeFormInfo);
@@ -92,9 +95,14 @@ export class ModalMap {
 
     const lastSnappingPointHandleIndex = routePoints.length - 1;
     this.map.clickNthSnappingPointHandle(lastSnappingPointHandleIndex);
+
+    cy.wait('@mapMatching');
+
     if (omittedStops) {
       this.routeStopsOverlay.removeStopsFromRoute(omittedStops);
     }
+
+    cy.wait('@gqlGetLinksWithStopsByExternalLinkIds');
 
     this.mapFooter.save();
   };
