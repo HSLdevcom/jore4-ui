@@ -1,10 +1,12 @@
-import { gql } from '@apollo/client';
+import { ApolloQueryResult, gql } from '@apollo/client';
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
 import { pipe } from 'remeda';
 import {
   DayTypeAllFieldsFragment,
   GetTimetablesForOperationDayQuery,
+  Maybe,
+  TimetablesVehicleScheduleVehicleScheduleFrame,
   useGetTimetablesForOperationDayAsyncQuery,
   VehicleServiceWithJourneysFragment,
 } from '../../generated/graphql';
@@ -84,87 +86,134 @@ interface VehicleServiceGroup {
   vehicleServices: VehicleServiceWithJourneysFragment[];
 }
 
+type TimetablesResponse = ApolloQueryResult<GetTimetablesForOperationDayQuery>;
+
+const getVehicleScheduleFrames = (timetablesResponse: TimetablesResponse) => {
+  const timetables = timetablesResponse.data?.timetables;
+  return timetables?.timetables_vehicle_schedule_vehicle_schedule_frame.length
+    ? timetables?.timetables_vehicle_schedule_vehicle_schedule_frame
+    : [];
+};
+
+const getTimetableValidity = (timetablesResponse: TimetablesResponse) => {
+  const timetables = timetablesResponse.data?.timetables;
+  const vehicleScheduleFrames = timetables
+    ?.timetables_vehicle_schedule_vehicle_schedule_frame.length
+    ? timetables?.timetables_vehicle_schedule_vehicle_schedule_frame
+    : [];
+
+  const validityStart = vehicleScheduleFrames[0]?.validity_start;
+  const validityEnd = vehicleScheduleFrames[0]?.validity_end;
+
+  return { validityStart, validityEnd };
+};
+
+const getVehicleServiceIdsOnObservationDate = (
+  timetablesResponse: TimetablesResponse,
+) => {
+  const timetables = timetablesResponse.data?.timetables;
+  const vehicleServiceIdsOnObservationDate =
+    timetables?.timetables_vehicle_service_get_vehicle_services_for_date.map(
+      (item) => item.vehicle_service_id,
+    );
+  return vehicleServiceIdsOnObservationDate;
+};
+
+const groupVehicleServices = (
+  vehicleScheduleFrames: TimetablesVehicleScheduleVehicleScheduleFrame[],
+  vehicleServiceIdsOnObservationDate: UUID[],
+) => {
+  // Vehicle services parsed & groupd from timetables response so that
+  // they can be shown in UI more easily.
+  return pipe(
+    vehicleScheduleFrames,
+    (scheduleFrames) => scheduleFrames.flatMap((item) => item.vehicle_services),
+    (services) =>
+      // filter out services that are not active on selected observation date
+      services.filter((item) =>
+        vehicleServiceIdsOnObservationDate?.includes(item.vehicle_service_id),
+      ),
+    (services) =>
+      services.reduce<VehicleServiceGroup[]>((groups, item) => {
+        const foundGroup = groups.find(
+          (group) =>
+            group.dayType === item.day_type &&
+            group.priority === item.vehicle_schedule_frame.priority,
+        );
+        if (foundGroup) {
+          foundGroup.vehicleServices.push(item);
+          return groups;
+        }
+        return [
+          ...groups,
+          {
+            dayType: item.day_type,
+            priority: item.vehicle_schedule_frame.priority,
+            vehicleServices: [item],
+          },
+        ];
+      }, []),
+  );
+};
+
+const getGroupedVehicleServices = (timetablesResponse: TimetablesResponse) => {
+  const vehicleServiceIds =
+    getVehicleServiceIdsOnObservationDate(timetablesResponse);
+  const scheduleFrames = getVehicleScheduleFrames(timetablesResponse);
+  // @ts-expect-error generated graphql types won't match even though
+  // these types should be compatible
+  return groupVehicleServices(scheduleFrames, vehicleServiceIds);
+};
+
+type Validity = {
+  validityStart?: Maybe<DateTime>;
+  validityEnd?: Maybe<DateTime>;
+};
+export interface TimetableWithMetadata {
+  timetable: TimetablesResponse;
+  validity: Validity;
+  vehicleServices: VehicleServiceGroup[];
+  journeyPatternId: UUID;
+}
+
 export const useGetTimetables = () => {
   const { line } = useGetLineDetails();
   const [getTimetablesForOperationDay] =
     useGetTimetablesForOperationDayAsyncQuery();
+
   const { observationDate } = useObservationDateQueryParam();
-  // TODO/NOTE: seems like "observationDate" from hook above
-  // is somehow incorrectly memoized (?) and it doesn't re-trigger
-  // updates here even if it is changed! As a workaround we
-  // convert it to ISO date. That doesn't hurt performance here
-  // as we can pass that ISO date to dependency array to useCallback.
-  const observationISODate = observationDate.toISODate();
 
-  const [timetables, setTimetables] =
-    useState<GetTimetablesForOperationDayQuery['timetables']>();
-  const [vehicleServices, setVehicleServices] =
-    useState<VehicleServiceGroup[]>();
-
-  // TODO: Lines may have multiple routes and routes may have two directions.
-  // We are just selecting first route and first route direction here, but
-  // does that make sense..?
-  const journeyPatternId =
-    line?.line_routes[0].route_journey_patterns[0].journey_pattern_id;
+  const [timetables, setTimetables] = useState<TimetableWithMetadata[]>([]);
 
   const getTimetables = useCallback(async () => {
-    if (!journeyPatternId) {
-      return;
-    }
-    const timetablesResponse = await getTimetablesForOperationDay({
-      journey_pattern_id: journeyPatternId,
-      observation_date: DateTime.fromISO(observationISODate),
-    });
-    const tmpTimetables = timetablesResponse.data?.timetables;
-    const vehicleScheduleFrames = tmpTimetables
-      ?.timetables_vehicle_schedule_vehicle_schedule_frame.length
-      ? tmpTimetables?.timetables_vehicle_schedule_vehicle_schedule_frame
-      : [];
-
-    const vehicleServiceIdsOnObservationDate =
-      tmpTimetables?.timetables_vehicle_service_get_vehicle_services_for_date.map(
-        (item) => item.vehicle_service_id,
-      );
-
-    // Vehicle services parsed & groupd from timetables response so that
-    // they can be shown in UI more easily.
-    const groupedVehicleServices = pipe(
-      vehicleScheduleFrames,
-      (scheduleFrames) =>
-        scheduleFrames.flatMap((item) => item.vehicle_services),
-      (services) =>
-        // filter out services that are not active on selected observation date
-        services.filter((item) =>
-          vehicleServiceIdsOnObservationDate?.includes(item.vehicle_service_id),
-        ),
-      (services) =>
-        services.reduce<VehicleServiceGroup[]>((groups, item) => {
-          const foundGroup = groups.find(
-            (group) =>
-              group.dayType === item.day_type &&
-              group.priority === item.vehicle_schedule_frame.priority,
-          );
-          if (foundGroup) {
-            foundGroup.vehicleServices.push(item);
-            return groups;
-          }
-          return [
-            ...groups,
-            {
-              dayType: item.day_type,
-              priority: item.vehicle_schedule_frame.priority,
-              vehicleServices: [item],
-            },
-          ];
-        }, []),
+    const journeyPatternIds = line?.line_routes?.map(
+      (route) => route.route_journey_patterns[0].journey_pattern_id,
     );
-    setTimetables(tmpTimetables);
-    setVehicleServices(groupedVehicleServices);
-  }, [getTimetablesForOperationDay, journeyPatternId, observationISODate]);
+
+    const res = await Promise.all(
+      (journeyPatternIds || []).map((journeyPatternId) =>
+        getTimetablesForOperationDay({
+          journey_pattern_id: journeyPatternId,
+          observation_date: observationDate,
+        }).then((response) => ({
+          response,
+          journeyPatternId,
+        })),
+      ),
+    );
+    const timetablesWithMetadata = res.map((item) => ({
+      timetable: item.response,
+      validity: getTimetableValidity(item.response),
+      vehicleServices: getGroupedVehicleServices(item.response),
+      journeyPatternId: item.journeyPatternId,
+    }));
+
+    setTimetables(timetablesWithMetadata);
+  }, [line, getTimetablesForOperationDay, observationDate]);
 
   useEffect(() => {
     getTimetables();
   }, [getTimetables, observationDate]);
 
-  return { timetables, vehicleServices };
+  return { timetables };
 };

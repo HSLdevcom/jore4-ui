@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { useGetVehicleJourneysQuery } from '../../../generated/graphql';
 import {
+  TimetableWithMetadata,
   useGetLineDetails,
   useGetTimetables,
   useObservationDateQueryParam,
@@ -12,7 +13,7 @@ import { mapToShortDate } from '../../../time';
 import { ObservationDateInput } from '../../forms/common';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';
 import { PassingTimesByStopTable } from '../passing-times-by-stop';
-import { VehicleServiceTable } from './vehicle-service-table';
+import { VehicleRouteTimetables } from './VehicleRouteTimetables';
 
 const GQL_GET_VEHICLE_JOURNEYS = gql`
   query GetVehicleJourneys {
@@ -24,21 +25,24 @@ const GQL_GET_VEHICLE_JOURNEYS = gql`
   }
 `;
 
+const getValidityPeriod = (timetables: TimetableWithMetadata[]) => {
+  // TODO/NOTE: different timetables might have different validity periods.
+  // We might have 0...n timetables to handle here. So how do we actually
+  // want to decide which values to show as "validity"?
+  // For now, just use validity of first available timetable.
+  const validity = timetables.length ? timetables[0].validity : undefined;
+  const validityStartDate = mapToShortDate(validity?.validityStart) || '';
+  const validityEndDate = mapToShortDate(validity?.validityEnd) || '';
+  return { validityStartDate, validityEndDate };
+};
+
 export const VehicleScheduleDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
 
-  const { timetables, vehicleServices } = useGetTimetables();
+  const { timetables } = useGetTimetables();
   const { line } = useGetLineDetails();
 
-  const vehicleScheduleFrames = timetables
-    ?.timetables_vehicle_schedule_vehicle_schedule_frame.length
-    ? timetables?.timetables_vehicle_schedule_vehicle_schedule_frame
-    : [];
-
-  const validityStartDate =
-    mapToShortDate(vehicleScheduleFrames[0]?.validity_start) || '';
-  const validityEndDate =
-    mapToShortDate(vehicleScheduleFrames[0]?.validity_end) || '';
+  const { validityStartDate, validityEndDate } = getValidityPeriod(timetables);
 
   // Just get all vehicle journeys from back end as test data
   // TODO: Use PassingTimesByStopTable in the right place and fetch correct data
@@ -76,16 +80,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
             />
           </Column>
         </Row>
-        <div className="grid grid-cols-3 gap-x-8 gap-y-5">
-          {(vehicleServices || []).map((item) => (
-            <VehicleServiceTable
-              priority={item.priority}
-              dayType={item.dayType}
-              key={`${item.priority}-${item.dayType.day_type_id}`}
-              vehicleServices={item.vehicleServices}
-            />
-          ))}
-        </div>
+        <VehicleRouteTimetables timetables={timetables} />
       </div>
       <Container className="space-y-10 pt-10">
         <PassingTimesByStopTable vehicleJourneys={vehicleJourneys} />
