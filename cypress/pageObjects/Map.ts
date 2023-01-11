@@ -12,14 +12,15 @@ export class Map {
   stopPopUp = new StopPopUp();
 
   zoomIn(n = 1) {
-    times(n, () => cy.get('.mapboxgl-ctrl-zoom-in').click());
+    times(n, () => cy.getByTestId('modalMap').type('+'));
     this.getLoader().should('not.exist');
+    cy.wait('@gqlGetStopsByLocation');
   }
 
   // Wait for a map marker to appear on the map
   // This might take long as we need many HTTP requests to initialize the map view
   waitForMapToLoad() {
-    this.getNthMarker(1, { timeout: 20000 });
+    this.getNthMarker(1);
   }
 
   getNthMarker(markerNumber: number, options?: Partial<Cypress.Timeoutable>) {
@@ -66,7 +67,7 @@ export class Map {
 
   visit(params?: { zoom?: number; lat: number; lng: number }) {
     if (params) {
-      return cy.visit(
+      cy.visit(
         `/routes?${qs.stringify({
           z: params.zoom || 13, // 13 is default zoom level
           mapOpen: true,
@@ -74,8 +75,11 @@ export class Map {
           lng: params.lng,
         })}`,
       );
+      this.getLoader().should('not.exist');
+      return;
     }
-    return cy.visit('/routes?mapOpen=true');
+    cy.visit('/routes?mapOpen=true');
+    this.getLoader().should('not.exist');
   }
 
   getLoader() {
