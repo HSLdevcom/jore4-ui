@@ -8,6 +8,11 @@ import { resetSelectedRoutesAction } from '../../../redux';
 import { SimpleSmallButton } from '../../../uiComponents';
 import { DisplayedSearchResultType } from '../../../utils';
 
+const testIds = {
+  linesResultsButton: 'ResultSelector::lines',
+  routesResultsButton: 'ResultSelector::routes',
+};
+
 export const ResultSelector = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -27,10 +32,6 @@ export const ResultSelector = (): JSX.Element => {
       SearchQueryParameterNames.DisplayedType,
       DisplayedSearchResultType.Lines,
     );
-  };
-  const testIds = {
-    linesResultsButton: 'ResultSelector::lines',
-    routesResultsButton: 'ResultSelector::routes',
   };
 
   return (
