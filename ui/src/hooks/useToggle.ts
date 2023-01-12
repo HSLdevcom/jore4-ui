@@ -1,8 +1,6 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 
 export const useToggle = (initialState = false): [boolean, () => void] => {
-  const [state, setState] = useState<boolean>(initialState);
-
-  const toggle = () => setState((value) => !value);
+  const [state, toggle] = useReducer((s) => !s, initialState);
   return [state, toggle];
 };
