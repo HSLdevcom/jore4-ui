@@ -50,7 +50,7 @@ export class RouteEditor {
   editOneRoutePoint(values: MoveRouteEditHandleInfo) {
     this.mapFooter.editRoute();
     this.map.getLoader().should('not.exist');
-    this.getRouteDashedLine().click('topRight');
+    this.getRouteDashedLine().click({ force: true });
     this.moveRouteEditHandle(values);
 
     cy.wait('@mapMatching');
