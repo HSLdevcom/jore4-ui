@@ -9,6 +9,7 @@ import {
 } from '../../../hooks';
 import { Column, Container, Row } from '../../../layoutComponents';
 import { mapToShortDate } from '../../../time';
+import { ObservationDateInput } from '../../forms/common';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';
 import { PassingTimesByStopTable } from '../passing-times-by-stop';
 import { VehicleServiceTable } from './vehicle-service-table';
@@ -48,11 +49,10 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
 
   const { observationDate, setObservationDateToUrl } =
     useObservationDateQueryParam();
-  const onDateChange = (value: string) => {
-    setObservationDateToUrl(DateTime.fromISO(value));
+  const onDateChange = (date: DateTime) => {
+    setObservationDateToUrl(date);
   };
 
-  const dateInputId = 'observation-date-input';
   return (
     <div>
       <PageHeader>
@@ -70,12 +70,9 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
             <h1>{`${validityStartDate} - ${validityEndDate}`}</h1>
           </Column>
           <Column>
-            <label htmlFor={dateInputId}>{t('filters.observationDate')}</label>
-            <input
-              type="date"
-              value={observationDate.toISODate()}
-              onChange={(e) => onDateChange(e.target.value)}
-              id={dateInputId}
+            <ObservationDateInput
+              value={observationDate}
+              onChange={onDateChange}
             />
           </Column>
         </Row>
