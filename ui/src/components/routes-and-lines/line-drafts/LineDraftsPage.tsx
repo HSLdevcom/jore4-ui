@@ -6,6 +6,7 @@ import { useGetLineDraftDetails } from '../../../hooks/line-drafts/useGetLineDra
 import { Column, Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { CloseIconButton } from '../../../uiComponents';
+import { ObservationDateInput } from '../../forms/common';
 import { RouteStopsTable } from '../line-details/RouteStopsTable';
 
 export const LineDraftsPage = (): JSX.Element => {
@@ -28,11 +29,9 @@ export const LineDraftsPage = (): JSX.Element => {
     });
   };
 
-  const onDateChange = (value: string) => {
-    setObservationDateToUrl(DateTime.fromISO(value));
+  const onDateChange = (value: DateTime) => {
+    setObservationDateToUrl(value);
   };
-
-  const dateInputId = 'observation-date-input';
 
   return (
     <Container>
@@ -46,14 +45,10 @@ export const LineDraftsPage = (): JSX.Element => {
       </Row>
       <Row>
         <Column className="w-1/4">
-          <label htmlFor={dateInputId}>{t('filters.observationDate')}</label>
-          <input
-            type="date"
-            required
-            value={observationDate.toISODate() || ''}
-            onChange={(e) => onDateChange(e.target.value)}
+          <ObservationDateInput
+            value={observationDate}
+            onChange={onDateChange}
             className="flex-1"
-            id={dateInputId}
           />
         </Column>
       </Row>

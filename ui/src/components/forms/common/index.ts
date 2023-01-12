@@ -7,4 +7,5 @@ export * from './FormRow';
 export * from './InputElement';
 export * from './InputField';
 export * from './InputLabel';
+export * from './ObservationDateInput';
 export * from './ValidationErrorList';
