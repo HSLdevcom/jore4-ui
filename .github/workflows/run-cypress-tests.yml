@@ -38,13 +38,20 @@ jobs:
           # note: need to explicitly name the container here to be able to reference it later
           docker-compose -f ./docker/docker-compose.cypress.yml run --name cypress jore4-cypress yarn test:e2e
 
+      - name: Check if results folder exists
+        id: check_results_exist
+        uses: andstor/file-existence-action@v2
+        with:
+          files: '/e2e/cypress/reports'
+
       - name: Retrieve test results from container
-        if: ${{ always() }}
+        id: retrive-results
+        if: steps.check_results_exist.outputs.files_exists == 'true'
         run: |
           docker cp cypress:/e2e/cypress/reports ${{ github.workspace }}/cypress/
 
       - name: Upload test results as an artifact
-        if: ${{ always() }}
+        if: steps.retrive-results.conclusion == 'success'
         uses: actions/upload-artifact@v3
         with:
           name: cypress-docker-reports
