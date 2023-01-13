@@ -177,9 +177,7 @@ describe('Route creation', () => {
     clearDatabase();
   });
 
-  // Skip this test until CI is stable
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('Should create a new route', { scrollBehavior: 'bottom' }, () => {
+  it('Should create a new route', { scrollBehavior: 'bottom' }, () => {
     const routeName = 'Testireitti 1';
 
     modalMap.createRoute({
@@ -289,9 +287,7 @@ describe('Route creation', () => {
     },
   );
 
-  // Skip this test until CI is stable
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip(
+  it(
     'Should create new route with an indefinite validity end date',
     { scrollBehavior: 'bottom' },
     () => {
