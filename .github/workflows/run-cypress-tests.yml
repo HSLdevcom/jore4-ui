@@ -39,6 +39,7 @@ jobs:
           docker-compose -f ./docker/docker-compose.cypress.yml run --name cypress jore4-cypress yarn test:e2e
 
       - name: Check if reports folder exists
+        if: ${{ always() }}
         id: check_reports_exist
         uses: andstor/file-existence-action@v2
         with:
