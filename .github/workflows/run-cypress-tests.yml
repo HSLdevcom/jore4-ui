@@ -42,7 +42,7 @@ jobs:
         id: check_reports_exist
         uses: andstor/file-existence-action@v2
         with:
-          files: '/e2e/cypress/reports'
+          files: 'cypress:/e2e/cypress/reports/**'
 
       - name: Retrieve test reports from container
         id: retrive-reports
