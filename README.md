@@ -61,6 +61,7 @@ We have those because sometimes there is need to do e.g. complex graphql queries
 - To open cypress with browser for developing tests locally: `yarn test:e2e:open`
 - To run all cypress tests without browser: `yarn test:e2e`
 - To disable map tile rendering (e.g. to speed up tests or improve reliability in CI), set the `CYPRESS_DISABLE_MAP_TILES=true` environment variable
+- To list existing e2e test cases run `yarn test:e2e:list`
 
 Failed tests ran without browser can be investigated visually by looking at videos and screenshots at `./cypress/reports`.
 Anyway, debugging is generally easier when cypress is opened with browser as then you can poke around with browsers devtools.

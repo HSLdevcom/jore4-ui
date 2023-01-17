@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@types/qs": "^6.9.7",
-    "eslint-plugin-cypress": "^2.12.1"
+    "eslint-plugin-cypress": "^2.12.1",
+    "find-test-names": "^1.22.2"
   }
 }
