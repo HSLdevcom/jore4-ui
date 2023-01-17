@@ -12,9 +12,8 @@ import {
 } from '../../../hooks';
 import { selectViaModal } from '../../../redux';
 import { closeViaModalAction } from '../../../redux/slices/modals';
-import { Modal } from '../../../uiComponents';
+import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
-import { ModalBody, ModalHeader } from '../../modal';
 import {
   FormState,
   ViaForm,
