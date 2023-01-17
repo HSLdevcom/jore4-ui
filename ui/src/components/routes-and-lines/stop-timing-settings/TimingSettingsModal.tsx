@@ -11,13 +11,12 @@ import {
 } from '../../../hooks';
 import { selectTimingSettingsModal } from '../../../redux';
 import { closeTimingSettingsModalAction } from '../../../redux/slices/modals';
-import { Modal } from '../../../uiComponents';
+import { Modal, ModalHeader } from '../../../uiComponents';
 import {
   showDangerToastWithError,
   showSuccessToast,
   stopHasUsableTimingPlace,
 } from '../../../utils';
-import { ModalHeader } from '../../modal';
 import {
   FormState,
   TimingSettingsForm,

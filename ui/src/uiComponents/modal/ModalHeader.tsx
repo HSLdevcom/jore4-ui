@@ -1,5 +1,5 @@
 import { Row } from '../../layoutComponents';
-import { CloseIconButton } from '../../uiComponents';
+import { CloseIconButton } from '../CloseIconButton';
 
 interface Props {
   onClose: () => void;

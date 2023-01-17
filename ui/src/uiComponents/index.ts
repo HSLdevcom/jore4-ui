@@ -13,7 +13,6 @@ export * from './IconToggle';
 export * from './Listbox';
 export * from './LoadingOverlay';
 export * from './LocatorButton';
-export * from './Modal';
 export * from './Pagination';
 export * from './Popover';
 export * from './SearchableDropdown';
@@ -25,3 +24,5 @@ export * from './Switch';
 export * from './TextButton';
 export * from './Toast';
 export * from './ToastTransition';
+export * from './modal';
+
