@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../hooks';
 import { closeTimingPlaceModalAction } from '../../../redux/slices/modals';
-import { Modal } from '../../../uiComponents';
-import { ModalBody, ModalHeader } from '../../modal';
+import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 
 interface Props {

@@ -13,9 +13,13 @@ import { Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDate } from '../../../time';
 import { Priority } from '../../../types/Priority';
-import { CloseIconButton, Modal, SimpleButton } from '../../../uiComponents';
+import {
+  CloseIconButton,
+  Modal,
+  ModalBody,
+  SimpleButton,
+} from '../../../uiComponents';
 import { RouteLabel } from '../../common/RouteLabel';
-import { ModalBody } from '../../modal';
 
 interface Props {
   onClose: () => void;
