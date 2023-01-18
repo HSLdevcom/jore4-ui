@@ -4,7 +4,11 @@ import {
   TimetabledPassingTimeInsertInput,
 } from '../../types';
 import { multiplyDuration } from '../../utils';
-import { seedStopsInJourneyPatternRefs } from './stopsInJourneyPatternRefs';
+import { seedJourneyPatternRefs } from './journeyPatternRefs';
+import {
+  seedStopsInJourneyPatternRefs,
+  seedStopsInJourneyPatternRefsByJourneyPattern,
+} from './stopsInJourneyPatternRefs';
 import { seedVehicleJourneys } from './vehicleJourneys';
 
 interface TimetabledPassingTimesForJourney {
@@ -15,9 +19,12 @@ interface TimetabledPassingTimesForJourney {
   waitTimeOnStops?: Duration; // how long vehicle stays on stop
 }
 
-const ALL_STOP_LABELS = seedStopsInJourneyPatternRefs.map(
-  (item) => item.scheduled_stop_point_label,
-);
+const DIRECTION1_STOP_LABELS = seedStopsInJourneyPatternRefsByJourneyPattern[
+  seedJourneyPatternRefs[0].journey_pattern_ref_id
+].map((item) => item.scheduled_stop_point_label);
+const DIRECTION2_STOP_LABELS = seedStopsInJourneyPatternRefsByJourneyPattern[
+  seedJourneyPatternRefs[1].journey_pattern_ref_id
+].map((item) => item.scheduled_stop_point_label);
 
 const findStopIdByLabel = (
   label: string,
@@ -47,7 +54,7 @@ const buildTimetabledPassingTime = (params: {
 
 const buildTimetabledPassingTimesForJourney = ({
   vehicleJourneyId,
-  scheduledStopLabels = ALL_STOP_LABELS,
+  scheduledStopLabels = DIRECTION1_STOP_LABELS,
   journeyStartTime,
   stopInterval = Duration.fromISO('PT5M'),
   waitTimeOnStops = Duration.fromISO('PT0M'),
@@ -77,10 +84,12 @@ const buildTimetabledPassingTimesForJourney = ({
 const buildBulkJourneys = ({
   vehicleJourneyIds,
   blockStartTime,
+  scheduledStopLabels,
   journeyInterval = Duration.fromISO('PT5M'),
 }: {
   vehicleJourneyIds: UUID[];
   blockStartTime: Duration;
+  scheduledStopLabels: string[];
   journeyInterval?: Duration;
 }): TimetabledPassingTimeInsertInput[] => {
   return vehicleJourneyIds.flatMap((item, index) => {
@@ -88,11 +97,16 @@ const buildBulkJourneys = ({
     return buildTimetabledPassingTimesForJourney({
       vehicleJourneyId: item,
       journeyStartTime: blockStartTime.plus(durationFromStart),
+      scheduledStopLabels,
     });
   });
 };
 
 const journey1Id = seedVehicleJourneys[0].vehicle_journey_id;
+
+const seedVehicleJourneyIds = seedVehicleJourneys.map(
+  (item) => item.vehicle_journey_id,
+);
 
 const seedTimetabledPassingTimesMonFri: TimetabledPassingTimeInsertInput[] = [
   // journey 1, goes from H2201->H2208. Defined manually to have some "random"
@@ -186,44 +200,35 @@ const seedTimetabledPassingTimesMonFri: TimetabledPassingTimeInsertInput[] = [
     journeyStartTime: Duration.fromISO('PT7H15M'),
     stopInterval: Duration.fromISO('PT15M'),
   }),
+  // journeys 7-19
   ...buildBulkJourneys({
-    vehicleJourneyIds: [
-      seedVehicleJourneys[7].vehicle_journey_id,
-      seedVehicleJourneys[8].vehicle_journey_id,
-      seedVehicleJourneys[9].vehicle_journey_id,
-      seedVehicleJourneys[10].vehicle_journey_id,
-      seedVehicleJourneys[11].vehicle_journey_id,
-      seedVehicleJourneys[12].vehicle_journey_id,
-      seedVehicleJourneys[13].vehicle_journey_id,
-      seedVehicleJourneys[14].vehicle_journey_id,
-      seedVehicleJourneys[15].vehicle_journey_id,
-      seedVehicleJourneys[16].vehicle_journey_id,
-      seedVehicleJourneys[17].vehicle_journey_id,
-      seedVehicleJourneys[18].vehicle_journey_id,
-      seedVehicleJourneys[19].vehicle_journey_id,
-    ],
+    vehicleJourneyIds: seedVehicleJourneyIds.slice(7, 20),
     blockStartTime: Duration.fromISO('PT7H18M'),
     journeyInterval: Duration.fromISO('PT2M'),
+    scheduledStopLabels: DIRECTION1_STOP_LABELS,
+  }),
+  // journeys 20-24, opposite direction
+  ...buildBulkJourneys({
+    vehicleJourneyIds: seedVehicleJourneyIds.slice(20, 25),
+    blockStartTime: Duration.fromISO('PT7H18M'),
+    scheduledStopLabels: DIRECTION2_STOP_LABELS,
   }),
 ];
 
 const seedTimetabledPassingTimesSat: TimetabledPassingTimeInsertInput[] = [
   ...buildBulkJourneys({
-    vehicleJourneyIds: [
-      seedVehicleJourneys[20].vehicle_journey_id,
-      seedVehicleJourneys[21].vehicle_journey_id,
-      seedVehicleJourneys[22].vehicle_journey_id,
-      seedVehicleJourneys[23].vehicle_journey_id,
-    ],
+    vehicleJourneyIds: seedVehicleJourneyIds.slice(25, 29),
     blockStartTime: Duration.fromISO('PT10H0M'),
+    scheduledStopLabels: DIRECTION1_STOP_LABELS,
   }),
 ];
 
 const seedTimetabledPassingTimesSun: TimetabledPassingTimeInsertInput[] = [
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[24].vehicle_journey_id,
+    vehicleJourneyId: seedVehicleJourneys[29].vehicle_journey_id,
     journeyStartTime: Duration.fromISO('PT10H15M'),
     stopInterval: Duration.fromISO('PT15M'),
+    scheduledStopLabels: DIRECTION1_STOP_LABELS,
   }),
 ];
 
