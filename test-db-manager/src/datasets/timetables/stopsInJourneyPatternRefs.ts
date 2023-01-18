@@ -45,11 +45,21 @@ const buildStopSequence = ({
   return stops;
 };
 
+const journeyPatternRefId0 = seedJourneyPatternRefs[0].journey_pattern_ref_id;
+const journeyPatternRefId1 = seedJourneyPatternRefs[1].journey_pattern_ref_id;
+
+export const seedStopsInJourneyPatternRefsByJourneyPattern = {
+  [journeyPatternRefId0]: buildStopSequence({
+    journeyPatternRefId: journeyPatternRefId0,
+    labelPrefix: 'H22',
+    stopsToCreate: 8,
+  }),
+  [journeyPatternRefId1]: buildStopSequence({
+    journeyPatternRefId: journeyPatternRefId1,
+    labelPrefix: 'H23',
+    stopsToCreate: 8,
+  }),
+};
+
 export const seedStopsInJourneyPatternRefs: StopInJourneyPatternRefInsertInput[] =
-  [
-    ...buildStopSequence({
-      journeyPatternRefId: seedJourneyPatternRefs[0].journey_pattern_ref_id,
-      labelPrefix: 'H22',
-      stopsToCreate: 8,
-    }),
-  ];
+  Object.values(seedStopsInJourneyPatternRefsByJourneyPattern).flat();
