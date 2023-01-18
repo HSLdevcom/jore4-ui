@@ -86,17 +86,18 @@ interface VehicleServiceGroup {
   vehicleServices: VehicleServiceWithJourneysFragment[];
 }
 
-type TimetablesResponse = ApolloQueryResult<GetTimetablesForOperationDayQuery>;
+// TODO: we probably should have better type for Timetables response, but
+// seems like it is not generated for some reason
+type Timetables =
+  ApolloQueryResult<GetTimetablesForOperationDayQuery>['data']['timetables'];
 
-const getVehicleScheduleFrames = (timetablesResponse: TimetablesResponse) => {
-  const timetables = timetablesResponse.data?.timetables;
+const getVehicleScheduleFrames = (timetables: Timetables) => {
   return timetables?.timetables_vehicle_schedule_vehicle_schedule_frame.length
     ? timetables?.timetables_vehicle_schedule_vehicle_schedule_frame
     : [];
 };
 
-const getTimetableValidity = (timetablesResponse: TimetablesResponse) => {
-  const timetables = timetablesResponse.data?.timetables;
+const getTimetableValidity = (timetables: Timetables) => {
   const vehicleScheduleFrames = timetables
     ?.timetables_vehicle_schedule_vehicle_schedule_frame.length
     ? timetables?.timetables_vehicle_schedule_vehicle_schedule_frame
@@ -108,10 +109,7 @@ const getTimetableValidity = (timetablesResponse: TimetablesResponse) => {
   return { validityStart, validityEnd };
 };
 
-const getVehicleServiceIdsOnObservationDate = (
-  timetablesResponse: TimetablesResponse,
-) => {
-  const timetables = timetablesResponse.data?.timetables;
+const getVehicleServiceIdsOnObservationDate = (timetables: Timetables) => {
   const vehicleServiceIdsOnObservationDate =
     timetables?.timetables_vehicle_service_get_vehicle_services_for_date.map(
       (item) => item.vehicle_service_id,
@@ -156,10 +154,9 @@ const groupVehicleServices = (
   );
 };
 
-const getGroupedVehicleServices = (timetablesResponse: TimetablesResponse) => {
-  const vehicleServiceIds =
-    getVehicleServiceIdsOnObservationDate(timetablesResponse);
-  const scheduleFrames = getVehicleScheduleFrames(timetablesResponse);
+const getGroupedVehicleServices = (timetables: Timetables) => {
+  const vehicleServiceIds = getVehicleServiceIdsOnObservationDate(timetables);
+  const scheduleFrames = getVehicleScheduleFrames(timetables);
   // @ts-expect-error generated graphql types won't match even though
   // these types should be compatible
   return groupVehicleServices(scheduleFrames, vehicleServiceIds);
@@ -170,7 +167,7 @@ type Validity = {
   validityEnd?: Maybe<DateTime>;
 };
 export interface TimetableWithMetadata {
-  timetable: TimetablesResponse;
+  timetable: Timetables;
   validity: Validity;
   vehicleServices: VehicleServiceGroup[];
   journeyPatternId: UUID;
@@ -190,21 +187,21 @@ export const useGetTimetables = () => {
       (route) => route.route_journey_patterns[0].journey_pattern_id,
     );
 
-    const res = await Promise.all(
+    const timetablesForJourneyPatterns = await Promise.all(
       (journeyPatternIds || []).map((journeyPatternId) =>
         getTimetablesForOperationDay({
           journey_pattern_id: journeyPatternId,
           observation_date: observationDate,
         }).then((response) => ({
-          response,
+          timetables: response.data.timetables,
           journeyPatternId,
         })),
       ),
     );
-    const timetablesWithMetadata = res.map((item) => ({
-      timetable: item.response,
-      validity: getTimetableValidity(item.response),
-      vehicleServices: getGroupedVehicleServices(item.response),
+    const timetablesWithMetadata = timetablesForJourneyPatterns.map((item) => ({
+      timetable: item.timetables,
+      validity: getTimetableValidity(item.timetables),
+      vehicleServices: getGroupedVehicleServices(item.timetables),
       journeyPatternId: item.journeyPatternId,
     }));
 
