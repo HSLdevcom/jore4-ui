@@ -4,7 +4,7 @@ services:
     # Link to available jore4-hasura images in Docker Hub:
     # https://hub.docker.com/r/hsldevcom/jore4-hasura/tags?page=1&ordering=last_updated
     # The :seed-data tag contains the latest main-build image with seed data.
-    image: 'hsldevcom/jore4-hasura:hsl-main--20230104-a2667a89c3090133b0e65d419276c37fc81b667f'
+    image: 'hsldevcom/jore4-hasura:hsl-main--20230116-b378d3cca95ad8ab720e8053556c7cabe2a90f89'
     # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
     # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
     depends_on:

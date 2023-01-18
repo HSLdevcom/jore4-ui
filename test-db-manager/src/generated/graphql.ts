@@ -5648,13 +5648,13 @@ export type RouteRoute = {
   description_i18n?: Maybe<Scalars['localized_string']>;
   destination_name_i18n: Scalars['localized_string'];
   destination_short_name_i18n: Scalars['localized_string'];
-  /** The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The direction of the route definition. */
   direction: RouteDirectionEnum;
   /** An array relationship */
   infrastructure_links_along_route: Array<RouteInfrastructureLinkAlongRoute>;
   /** An aggregate relationship */
   infrastructure_links_along_route_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
-  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The label of the route definition. */
   label: Scalars['String'];
   name_i18n: Scalars['localized_string'];
   /** The line to which this route belongs. */
@@ -5673,11 +5673,13 @@ export type RouteRoute = {
   route_line: RouteLine;
   /** A computed field, executes function "route.route_shape" */
   route_shape?: Maybe<Scalars['geography_linestring']>;
+  /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
+  unique_label?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']>;
 };
 
@@ -5825,7 +5827,7 @@ export type RouteRouteAvgFields = {
   __typename?: 'route_route_avg_fields';
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['Float']>;
 };
 
@@ -5833,7 +5835,7 @@ export type RouteRouteAvgFields = {
 export type RouteRouteAvgOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<OrderBy>;
 };
 
@@ -5859,6 +5861,7 @@ export type RouteRouteBoolExp = {
   route_journey_patterns_aggregate?: Maybe<JourneyPatternJourneyPatternAggregateBoolExp>;
   route_line?: Maybe<RouteLineBoolExp>;
   route_shape?: Maybe<GeographyComparisonExp>;
+  unique_label?: Maybe<StringComparisonExp>;
   validity_end?: Maybe<DateComparisonExp>;
   validity_start?: Maybe<DateComparisonExp>;
   variant?: Maybe<SmallintComparisonExp>;
@@ -5907,7 +5910,7 @@ export type RouteRouteDeleteKeyInput = {
 export type RouteRouteIncInput = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']>;
 };
 
@@ -5917,10 +5920,10 @@ export type RouteRouteInsertInput = {
   description_i18n?: Maybe<Scalars['localized_string']>;
   destination_name_i18n: Scalars['localized_string'];
   destination_short_name_i18n: Scalars['localized_string'];
-  /** The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The direction of the route definition. */
   direction?: Maybe<RouteDirectionEnum>;
   infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
-  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The label of the route definition. */
   label: Scalars['String'];
   name_i18n: Scalars['localized_string'];
   /** The line to which this route belongs. */
@@ -5937,14 +5940,14 @@ export type RouteRouteInsertInput = {
   validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']>;
 };
 
 /** aggregate max on columns */
 export type RouteRouteMaxFields = {
   __typename?: 'route_route_max_fields';
-  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The label of the route definition. */
   label?: Maybe<Scalars['String']>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
@@ -5952,17 +5955,19 @@ export type RouteRouteMaxFields = {
   priority?: Maybe<Scalars['Int']>;
   /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
+  /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
+  unique_label?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']>;
 };
 
 /** order by max() on columns of table "route.route" */
 export type RouteRouteMaxOrderBy = {
-  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The label of the route definition. */
   label?: Maybe<OrderBy>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<OrderBy>;
@@ -5970,18 +5975,20 @@ export type RouteRouteMaxOrderBy = {
   priority?: Maybe<OrderBy>;
   /** The ID of the route. */
   route_id?: Maybe<OrderBy>;
+  /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
+  unique_label?: Maybe<OrderBy>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<OrderBy>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<OrderBy>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type RouteRouteMinFields = {
   __typename?: 'route_route_min_fields';
-  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The label of the route definition. */
   label?: Maybe<Scalars['String']>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
@@ -5989,17 +5996,19 @@ export type RouteRouteMinFields = {
   priority?: Maybe<Scalars['Int']>;
   /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
+  /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
+  unique_label?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']>;
 };
 
 /** order by min() on columns of table "route.route" */
 export type RouteRouteMinOrderBy = {
-  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The label of the route definition. */
   label?: Maybe<OrderBy>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<OrderBy>;
@@ -6007,11 +6016,13 @@ export type RouteRouteMinOrderBy = {
   priority?: Maybe<OrderBy>;
   /** The ID of the route. */
   route_id?: Maybe<OrderBy>;
+  /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
+  unique_label?: Maybe<OrderBy>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<OrderBy>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<OrderBy>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<OrderBy>;
 };
 
@@ -6055,6 +6066,7 @@ export type RouteRouteOrderBy = {
   route_journey_patterns_aggregate?: Maybe<JourneyPatternJourneyPatternAggregateOrderBy>;
   route_line?: Maybe<RouteLineOrderBy>;
   route_shape?: Maybe<OrderBy>;
+  unique_label?: Maybe<OrderBy>;
   validity_end?: Maybe<OrderBy>;
   validity_start?: Maybe<OrderBy>;
   variant?: Maybe<OrderBy>;
@@ -6102,6 +6114,8 @@ export enum RouteRouteSelectColumn {
   /** column name */
   RouteId = 'route_id',
   /** column name */
+  UniqueLabel = 'unique_label',
+  /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
   ValidityStart = 'validity_start',
@@ -6115,9 +6129,9 @@ export type RouteRouteSetInput = {
   description_i18n?: Maybe<Scalars['localized_string']>;
   destination_name_i18n?: Maybe<Scalars['localized_string']>;
   destination_short_name_i18n?: Maybe<Scalars['localized_string']>;
-  /** The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The direction of the route definition. */
   direction?: Maybe<RouteDirectionEnum>;
-  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The label of the route definition. */
   label?: Maybe<Scalars['String']>;
   name_i18n?: Maybe<Scalars['localized_string']>;
   /** The line to which this route belongs. */
@@ -6132,7 +6146,7 @@ export type RouteRouteSetInput = {
   validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']>;
 };
 
@@ -6141,7 +6155,7 @@ export type RouteRouteStddevFields = {
   __typename?: 'route_route_stddev_fields';
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['Float']>;
 };
 
@@ -6149,7 +6163,7 @@ export type RouteRouteStddevFields = {
 export type RouteRouteStddevOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<OrderBy>;
 };
 
@@ -6158,7 +6172,7 @@ export type RouteRouteStddevPopFields = {
   __typename?: 'route_route_stddev_pop_fields';
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['Float']>;
 };
 
@@ -6166,7 +6180,7 @@ export type RouteRouteStddevPopFields = {
 export type RouteRouteStddevPopOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<OrderBy>;
 };
 
@@ -6175,7 +6189,7 @@ export type RouteRouteStddevSampFields = {
   __typename?: 'route_route_stddev_samp_fields';
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['Float']>;
 };
 
@@ -6183,7 +6197,7 @@ export type RouteRouteStddevSampFields = {
 export type RouteRouteStddevSampOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<OrderBy>;
 };
 
@@ -6201,9 +6215,9 @@ export type RouteRouteStreamCursorValueInput = {
   description_i18n?: Maybe<Scalars['jsonb']>;
   destination_name_i18n?: Maybe<Scalars['jsonb']>;
   destination_short_name_i18n?: Maybe<Scalars['jsonb']>;
-  /** The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The direction of the route definition. */
   direction?: Maybe<RouteDirectionEnum>;
-  /** The label of the route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The label of the route definition. */
   label?: Maybe<Scalars['String']>;
   name_i18n?: Maybe<Scalars['jsonb']>;
   /** The line to which this route belongs. */
@@ -6214,11 +6228,13 @@ export type RouteRouteStreamCursorValueInput = {
   priority?: Maybe<Scalars['Int']>;
   /** The ID of the route. */
   route_id?: Maybe<Scalars['uuid']>;
+  /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
+  unique_label?: Maybe<Scalars['String']>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']>;
 };
 
@@ -6227,7 +6243,7 @@ export type RouteRouteSumFields = {
   __typename?: 'route_route_sum_fields';
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']>;
 };
 
@@ -6235,7 +6251,7 @@ export type RouteRouteSumFields = {
 export type RouteRouteSumOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<OrderBy>;
 };
 
@@ -6294,7 +6310,7 @@ export type RouteRouteVarPopFields = {
   __typename?: 'route_route_var_pop_fields';
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['Float']>;
 };
 
@@ -6302,7 +6318,7 @@ export type RouteRouteVarPopFields = {
 export type RouteRouteVarPopOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<OrderBy>;
 };
 
@@ -6311,7 +6327,7 @@ export type RouteRouteVarSampFields = {
   __typename?: 'route_route_var_samp_fields';
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['Float']>;
 };
 
@@ -6319,7 +6335,7 @@ export type RouteRouteVarSampFields = {
 export type RouteRouteVarSampOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<OrderBy>;
 };
 
@@ -6328,7 +6344,7 @@ export type RouteRouteVarianceFields = {
   __typename?: 'route_route_variance_fields';
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Float']>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<Scalars['Float']>;
 };
 
@@ -6336,7 +6352,7 @@ export type RouteRouteVarianceFields = {
 export type RouteRouteVarianceOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<OrderBy>;
-  /** The variant for route definition, label, variant and direction together are unique for a certain priority and validity period. */
+  /** The variant for route definition. */
   variant?: Maybe<OrderBy>;
 };
 
