@@ -35024,7 +35024,7 @@
           },
           {
             "name": "direction",
-            "description": "The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The direction of the route definition.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -35234,7 +35234,7 @@
           },
           {
             "name": "label",
-            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The label of the route definition.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -35606,6 +35606,18 @@
             "deprecationReason": null
           },
           {
+            "name": "unique_label",
+            "description": "Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "validity_end",
             "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "args": [],
@@ -35631,7 +35643,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -36260,7 +36272,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -36296,7 +36308,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -36567,6 +36579,18 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "geography_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "unique_label",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -36948,7 +36972,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "SCALAR",
               "name": "smallint",
@@ -37015,7 +37039,7 @@
           },
           {
             "name": "direction",
-            "description": "The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The direction of the route definition.",
             "type": {
               "kind": "ENUM",
               "name": "route_direction_enum",
@@ -37039,7 +37063,7 @@
           },
           {
             "name": "label",
-            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The label of the route definition.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -37187,7 +37211,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "SCALAR",
               "name": "smallint",
@@ -37209,7 +37233,7 @@
         "fields": [
           {
             "name": "label",
-            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The label of the route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -37256,6 +37280,18 @@
             "deprecationReason": null
           },
           {
+            "name": "unique_label",
+            "description": "Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "validity_end",
             "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "args": [],
@@ -37281,7 +37317,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -37305,7 +37341,7 @@
         "inputFields": [
           {
             "name": "label",
-            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The label of the route definition.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -37352,6 +37388,18 @@
             "deprecationReason": null
           },
           {
+            "name": "unique_label",
+            "description": "Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "validity_end",
             "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
@@ -37377,7 +37425,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -37399,7 +37447,7 @@
         "fields": [
           {
             "name": "label",
-            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The label of the route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -37446,6 +37494,18 @@
             "deprecationReason": null
           },
           {
+            "name": "unique_label",
+            "description": "Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "validity_end",
             "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "args": [],
@@ -37471,7 +37531,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -37495,7 +37555,7 @@
         "inputFields": [
           {
             "name": "label",
-            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The label of the route definition.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -37542,6 +37602,18 @@
             "deprecationReason": null
           },
           {
+            "name": "unique_label",
+            "description": "Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "validity_end",
             "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
@@ -37567,7 +37639,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -37922,6 +37994,18 @@
             "deprecationReason": null
           },
           {
+            "name": "unique_label",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "validity_end",
             "description": null,
             "type": {
@@ -38147,6 +38231,12 @@
             "deprecationReason": null
           },
           {
+            "name": "unique_label",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "validity_end",
             "description": "column name",
             "isDeprecated": false,
@@ -38211,7 +38301,7 @@
           },
           {
             "name": "direction",
-            "description": "The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The direction of the route definition.",
             "type": {
               "kind": "ENUM",
               "name": "route_direction_enum",
@@ -38223,7 +38313,7 @@
           },
           {
             "name": "label",
-            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The label of the route definition.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -38331,7 +38421,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "SCALAR",
               "name": "smallint",
@@ -38365,7 +38455,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38401,7 +38491,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38435,7 +38525,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38471,7 +38561,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38505,7 +38595,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38541,7 +38631,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -38639,7 +38729,7 @@
           },
           {
             "name": "direction",
-            "description": "The direction of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The direction of the route definition.",
             "type": {
               "kind": "ENUM",
               "name": "route_direction_enum",
@@ -38651,7 +38741,7 @@
           },
           {
             "name": "label",
-            "description": "The label of the route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The label of the route definition.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -38734,6 +38824,18 @@
             "deprecationReason": null
           },
           {
+            "name": "unique_label",
+            "description": "Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "validity_end",
             "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
@@ -38759,7 +38861,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "SCALAR",
               "name": "smallint",
@@ -38793,7 +38895,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38829,7 +38931,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39069,7 +39171,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39105,7 +39207,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39139,7 +39241,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39175,7 +39277,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -39209,7 +39311,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39245,7 +39347,7 @@
           },
           {
             "name": "variant",
-            "description": "The variant for route definition, label, variant and direction together are unique for a certain priority and validity period.",
+            "description": "The variant for route definition.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
