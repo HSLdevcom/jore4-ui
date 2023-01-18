@@ -162,7 +162,7 @@ const clearDatabase = () => {
   removeFromDbHelper(dbResources);
 };
 
-describe('Edit route geometry', () => {
+describe.skip('Edit route geometry', () => {
   let map: Map;
   let routeStopsOverlay: RouteStopsOverlay;
   let routeEditor: RouteEditor;

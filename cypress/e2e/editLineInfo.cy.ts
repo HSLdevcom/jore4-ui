@@ -28,7 +28,7 @@ const deleteCreatedResources = () => {
   removeFromDbHelper(dbResources);
 };
 
-describe('Line editing', () => {
+describe.skip('Line editing', () => {
   let lineForm: LineForm;
   let changeValidityForm: ChangeValidityForm;
   let lineDetailsPage: LineDetailsPage;

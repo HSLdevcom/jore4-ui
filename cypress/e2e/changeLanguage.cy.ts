@@ -11,7 +11,7 @@ describe('Verify that language changing works', () => {
   });
   it('Changes language from FI to EN', () => {
     // Language is FI by default
-    navbar.getLanguageDropdown().should('have.text', 'FI');
+    navbar.getLanguageDropdown().should('have.text', 'FIdfd');
     navbar.getMainPageLink().should('have.text', 'Etusivu');
 
     navbar.toggleLanguage();

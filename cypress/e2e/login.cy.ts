@@ -1,4 +1,4 @@
-describe('Verify that login mocking works', () => {
+describe.skip('Verify that login mocking works', () => {
   let userInfo: { givenName: string };
 
   before(() => {

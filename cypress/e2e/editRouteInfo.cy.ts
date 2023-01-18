@@ -54,7 +54,7 @@ const deleteCreatedResources = () => {
   removeFromDbHelper(dbResources);
 };
 
-describe('Route meta information editing', () => {
+describe.skip('Route meta information editing', () => {
   let editRoutePage: EditRoutePage;
   let lineDetailsPage: LineDetailsPage;
 

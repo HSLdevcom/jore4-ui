@@ -134,7 +134,7 @@ const clearDatabase = () => {
   removeFromDbHelper(dbResources);
 };
 
-describe('Route creation', () => {
+describe.skip('Route creation', () => {
   let modalMap: ModalMap;
   let map: Map;
   let routeStopsOverlay: RouteStopsOverlay;

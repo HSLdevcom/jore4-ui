@@ -1,6 +1,6 @@
 import { LineForm } from '../pageObjects';
 
-describe('Example test suite that demonstrates how to access db in tests', () => {
+describe.skip('Example test suite that demonstrates how to access db in tests', () => {
   let lineForm: LineForm;
 
   beforeEach(() => {

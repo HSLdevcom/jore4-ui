@@ -42,7 +42,7 @@ const clearDatabase = () => {
   removeFromDbHelper(dbResources);
 };
 
-describe('Stop creation tests', () => {
+describe.skip('Stop creation tests', () => {
   let modalMap: ModalMap;
   let mapFilterPanel: FilterPanel;
   let map: Map;

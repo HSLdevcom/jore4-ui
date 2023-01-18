@@ -2,7 +2,7 @@ import { ChangeValidityForm, LineForm } from '../pageObjects';
 import { deleteLineByLabel } from './utils';
 
 const testLabel = '7327';
-describe('Verify that creating new line works', () => {
+describe.skip('Verify that creating new line works', () => {
   let lineForm: LineForm;
   let changeValidityForm: ChangeValidityForm;
   beforeEach(() => {

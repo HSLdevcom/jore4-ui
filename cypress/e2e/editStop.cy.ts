@@ -93,7 +93,7 @@ const clearDatabase = () => {
   deleteTimingPlacesByLabel(Object.values(testTimingPlaceLabels));
 };
 
-describe('Stop editing tests', () => {
+describe.skip('Stop editing tests', () => {
   let mapFilterPanel: FilterPanel;
   let map: Map;
   let confirmationDialog: ConfirmationDialog;

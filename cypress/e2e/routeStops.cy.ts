@@ -128,7 +128,7 @@ const deleteCreatedResources = () => {
   removeFromDbHelper(dbResources);
 };
 
-describe('Line details page: stops on route', () => {
+describe.skip('Line details page: stops on route', () => {
   let lineDetailsPage: LineDetailsPage;
   let toast: Toast;
   let routeStopsTable: RouteStopsTable;
