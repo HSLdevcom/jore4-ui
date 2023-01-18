@@ -286,7 +286,7 @@
   },
   "timetables": {
     "timetables": "Timetables",
-    "validityPeriodLabel": "Timetables valid",
+    "timetableValidity": "Valid {{ validityStart }} - {{ validityEnd }}",
     "departures": "Departures",
     "noService": "No service",
     "at": "at {{ time }}",

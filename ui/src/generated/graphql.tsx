@@ -15030,6 +15030,31 @@ export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery = {
   }>;
 };
 
+export type VehicleServiceWithJourneysFragment = {
+  __typename?: 'timetables_vehicle_service_vehicle_service';
+  vehicle_service_id: UUID;
+  vehicle_schedule_frame: {
+    __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+    vehicle_schedule_frame_id: UUID;
+    priority: number;
+  };
+  day_type: {
+    __typename?: 'timetables_service_calendar_day_type';
+    day_type_id: UUID;
+    label: string;
+    name_i18n: any;
+  };
+  blocks: Array<{
+    __typename?: 'timetables_vehicle_service_block';
+    block_id: UUID;
+    vehicle_journeys: Array<{
+      __typename?: 'timetables_vehicle_journey_vehicle_journey';
+      start_time: luxon.Duration;
+      vehicle_journey_id: UUID;
+    }>;
+  }>;
+};
+
 export type GetStagingVehicleScheduleFramesQueryVariables = Exact<{
   [key: string]: never;
 }>;
@@ -15317,29 +15342,40 @@ export type DayTypeAllFieldsFragment = {
   name_i18n: any;
 };
 
-export type VehicleServiceWithJourneysFragment = {
-  __typename?: 'timetables_vehicle_service_vehicle_service';
-  vehicle_service_id: UUID;
-  vehicle_schedule_frame: {
-    __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-    vehicle_schedule_frame_id: UUID;
-    priority: number;
+export type VehicleJourneyWithServiceFragment = {
+  __typename?: 'timetables_vehicle_journey_vehicle_journey';
+  vehicle_journey_id: UUID;
+  start_time: luxon.Duration;
+  end_time: luxon.Duration;
+  journey_pattern_ref: {
+    __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+    journey_pattern_ref_id: UUID;
+    journey_pattern_id: UUID;
   };
-  day_type: {
-    __typename?: 'timetables_service_calendar_day_type';
-    day_type_id: UUID;
-    label: string;
-    name_i18n: any;
-  };
-  blocks: Array<{
+  block: {
     __typename?: 'timetables_vehicle_service_block';
     block_id: UUID;
-    vehicle_journeys: Array<{
-      __typename?: 'timetables_vehicle_journey_vehicle_journey';
-      start_time: luxon.Duration;
-      vehicle_journey_id: UUID;
-    }>;
-  }>;
+    vehicle_service_id: UUID;
+    vehicle_service: {
+      __typename?: 'timetables_vehicle_service_vehicle_service';
+      vehicle_service_id: UUID;
+      day_type_id: UUID;
+      vehicle_schedule_frame: {
+        __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+        vehicle_schedule_frame_id: UUID;
+        validity_end?: luxon.DateTime | null | undefined;
+        validity_start?: luxon.DateTime | null | undefined;
+        priority: number;
+        name_i18n: any;
+      };
+      day_type: {
+        __typename?: 'timetables_service_calendar_day_type';
+        day_type_id: UUID;
+        label: string;
+        name_i18n: any;
+      };
+    };
+  };
 };
 
 export type GetTimetablesForOperationDayQueryVariables = Exact<{
@@ -15352,37 +15388,40 @@ export type GetTimetablesForOperationDayQuery = {
   timetables?:
     | {
         __typename?: 'timetables_timetables_query';
-        timetables_vehicle_schedule_vehicle_schedule_frame: Array<{
-          __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-          validity_end?: luxon.DateTime | null | undefined;
-          validity_start?: luxon.DateTime | null | undefined;
-          name_i18n: any;
-          vehicle_schedule_frame_id: UUID;
-          priority: number;
-          vehicle_services: Array<{
-            __typename?: 'timetables_vehicle_service_vehicle_service';
+        timetables_vehicle_journey_vehicle_journey: Array<{
+          __typename?: 'timetables_vehicle_journey_vehicle_journey';
+          vehicle_journey_id: UUID;
+          start_time: luxon.Duration;
+          end_time: luxon.Duration;
+          journey_pattern_ref: {
+            __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+            journey_pattern_ref_id: UUID;
+            journey_pattern_id: UUID;
+          };
+          block: {
+            __typename?: 'timetables_vehicle_service_block';
+            block_id: UUID;
             vehicle_service_id: UUID;
-            vehicle_schedule_frame: {
-              __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-              vehicle_schedule_frame_id: UUID;
-              priority: number;
-            };
-            day_type: {
-              __typename?: 'timetables_service_calendar_day_type';
+            vehicle_service: {
+              __typename?: 'timetables_vehicle_service_vehicle_service';
+              vehicle_service_id: UUID;
               day_type_id: UUID;
-              label: string;
-              name_i18n: any;
+              vehicle_schedule_frame: {
+                __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+                vehicle_schedule_frame_id: UUID;
+                validity_end?: luxon.DateTime | null | undefined;
+                validity_start?: luxon.DateTime | null | undefined;
+                priority: number;
+                name_i18n: any;
+              };
+              day_type: {
+                __typename?: 'timetables_service_calendar_day_type';
+                day_type_id: UUID;
+                label: string;
+                name_i18n: any;
+              };
             };
-            blocks: Array<{
-              __typename?: 'timetables_vehicle_service_block';
-              block_id: UUID;
-              vehicle_journeys: Array<{
-                __typename?: 'timetables_vehicle_journey_vehicle_journey';
-                start_time: luxon.Duration;
-                vehicle_journey_id: UUID;
-              }>;
-            }>;
-          }>;
+          };
         }>;
         timetables_vehicle_service_get_vehicle_services_for_date: Array<{
           __typename?: 'timetables_vehicle_service_vehicle_service';
@@ -15782,6 +15821,33 @@ export const RouteWithInfrastructureLinksWithStopsFragmentDoc = gql`
   ${LineAllFieldsFragmentDoc}
   ${InfraLinkAlongRouteWithStopsFragmentDoc}
 `;
+export const DayTypeAllFieldsFragmentDoc = gql`
+  fragment day_type_all_fields on timetables_service_calendar_day_type {
+    day_type_id
+    label
+    name_i18n
+  }
+`;
+export const VehicleServiceWithJourneysFragmentDoc = gql`
+  fragment vehicle_service_with_journeys on timetables_vehicle_service_vehicle_service {
+    vehicle_service_id
+    vehicle_schedule_frame {
+      vehicle_schedule_frame_id
+      priority
+    }
+    day_type {
+      ...day_type_all_fields
+    }
+    blocks {
+      block_id
+      vehicle_journeys {
+        start_time
+        vehicle_journey_id
+      }
+    }
+  }
+  ${DayTypeAllFieldsFragmentDoc}
+`;
 export const NewTimingPlaceFragmentDoc = gql`
   fragment new_timing_place on timing_pattern_timing_place {
     label
@@ -15811,28 +15877,31 @@ export const TimingPlaceForComboboxFragmentDoc = gql`
     description
   }
 `;
-export const DayTypeAllFieldsFragmentDoc = gql`
-  fragment day_type_all_fields on timetables_service_calendar_day_type {
-    day_type_id
-    label
-    name_i18n
-  }
-`;
-export const VehicleServiceWithJourneysFragmentDoc = gql`
-  fragment vehicle_service_with_journeys on timetables_vehicle_service_vehicle_service {
-    vehicle_service_id
-    vehicle_schedule_frame {
-      vehicle_schedule_frame_id
-      priority
+export const VehicleJourneyWithServiceFragmentDoc = gql`
+  fragment vehicle_journey_with_service on timetables_vehicle_journey_vehicle_journey {
+    vehicle_journey_id
+    start_time
+    end_time
+    journey_pattern_ref {
+      journey_pattern_ref_id
+      journey_pattern_id
     }
-    day_type {
-      ...day_type_all_fields
-    }
-    blocks {
+    block {
       block_id
-      vehicle_journeys {
-        start_time
-        vehicle_journey_id
+      vehicle_service_id
+      vehicle_service {
+        vehicle_schedule_frame {
+          vehicle_schedule_frame_id
+          validity_end
+          validity_start
+          priority
+          name_i18n
+        }
+        vehicle_service_id
+        day_type_id
+        day_type {
+          ...day_type_all_fields
+        }
       }
     }
   }
@@ -19612,28 +19681,14 @@ export const GetTimetablesForOperationDayDocument = gql`
     $observation_date: date!
   ) {
     timetables {
-      timetables_vehicle_schedule_vehicle_schedule_frame(
-        order_by: { priority: desc }
+      timetables_vehicle_journey_vehicle_journey(
         where: {
-          vehicle_services: {
-            blocks: {
-              vehicle_journeys: {
-                journey_pattern_ref: {
-                  journey_pattern_id: { _eq: $journey_pattern_id }
-                }
-              }
-            }
+          journey_pattern_ref: {
+            journey_pattern_id: { _eq: $journey_pattern_id }
           }
         }
       ) {
-        validity_end
-        validity_start
-        name_i18n
-        vehicle_schedule_frame_id
-        priority
-        vehicle_services {
-          ...vehicle_service_with_journeys
-        }
+        ...vehicle_journey_with_service
       }
       timetables_vehicle_service_get_vehicle_services_for_date(
         args: { observation_date: $observation_date }
@@ -19642,7 +19697,7 @@ export const GetTimetablesForOperationDayDocument = gql`
       }
     }
   }
-  ${VehicleServiceWithJourneysFragmentDoc}
+  ${VehicleJourneyWithServiceFragmentDoc}
 `;
 
 /**

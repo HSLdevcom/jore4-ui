@@ -6,12 +6,11 @@ import {
   DayTypeAllFieldsFragment,
   GetTimetablesForOperationDayQuery,
   Maybe,
-  TimetablesVehicleScheduleVehicleScheduleFrame,
   useGetTimetablesForOperationDayAsyncQuery,
-  VehicleServiceWithJourneysFragment,
+  VehicleJourneyWithServiceFragment,
 } from '../../generated/graphql';
+import { findEarliestTime, findLatestTime } from '../../time';
 import { TimetablePriority } from '../../types/Priority';
-import { useGetLineDetails } from '../line-details';
 import { useObservationDateQueryParam } from '../urlQuery';
 
 const GQL_DAY_TYPE_FRAGMENT = gql`
@@ -22,21 +21,31 @@ const GQL_DAY_TYPE_FRAGMENT = gql`
   }
 `;
 
-const GQL_VEHICLE_SERVICES_FRAGMENT = gql`
-  fragment vehicle_service_with_journeys on timetables_vehicle_service_vehicle_service {
-    vehicle_service_id
-    vehicle_schedule_frame {
-      vehicle_schedule_frame_id
-      priority
+const GQL_VEHICLE_JOURNEY_WITH_SERVICE_FRAGMENT = gql`
+  fragment vehicle_journey_with_service on timetables_vehicle_journey_vehicle_journey {
+    vehicle_journey_id
+    start_time
+    end_time
+    journey_pattern_ref {
+      journey_pattern_ref_id
+      journey_pattern_id
     }
-    day_type {
-      ...day_type_all_fields
-    }
-    blocks {
+    block {
       block_id
-      vehicle_journeys {
-        start_time
-        vehicle_journey_id
+      vehicle_service_id
+      vehicle_service {
+        vehicle_schedule_frame {
+          vehicle_schedule_frame_id
+          validity_end
+          validity_start
+          priority
+          name_i18n
+        }
+        vehicle_service_id
+        day_type_id
+        day_type {
+          ...day_type_all_fields
+        }
       }
     }
   }
@@ -48,28 +57,14 @@ const GQL_GET_TIMETABLES_FOR_OPERATION_DAY = gql`
     $observation_date: date!
   ) {
     timetables {
-      timetables_vehicle_schedule_vehicle_schedule_frame(
-        order_by: { priority: desc }
+      timetables_vehicle_journey_vehicle_journey(
         where: {
-          vehicle_services: {
-            blocks: {
-              vehicle_journeys: {
-                journey_pattern_ref: {
-                  journey_pattern_id: { _eq: $journey_pattern_id }
-                }
-              }
-            }
+          journey_pattern_ref: {
+            journey_pattern_id: { _eq: $journey_pattern_id }
           }
         }
       ) {
-        validity_end
-        validity_start
-        name_i18n
-        vehicle_schedule_frame_id
-        priority
-        vehicle_services {
-          ...vehicle_service_with_journeys
-        }
+        ...vehicle_journey_with_service
       }
       timetables_vehicle_service_get_vehicle_services_for_date(
         args: { observation_date: $observation_date }
@@ -80,38 +75,18 @@ const GQL_GET_TIMETABLES_FOR_OPERATION_DAY = gql`
   }
 `;
 
-interface VehicleServiceGroup {
-  priority: TimetablePriority;
-  dayType: DayTypeAllFieldsFragment;
-  vehicleServices: VehicleServiceWithJourneysFragment[];
-}
+// TODO: we probably should have better type for Timetables response, but
+// seems like it is not generated for some reason
+type Timetables =
+  ApolloQueryResult<GetTimetablesForOperationDayQuery>['data']['timetables'];
 
-type TimetablesResponse = ApolloQueryResult<GetTimetablesForOperationDayQuery>;
-
-const getVehicleScheduleFrames = (timetablesResponse: TimetablesResponse) => {
-  const timetables = timetablesResponse.data?.timetables;
-  return timetables?.timetables_vehicle_schedule_vehicle_schedule_frame.length
-    ? timetables?.timetables_vehicle_schedule_vehicle_schedule_frame
+const getVehicleJourneys = (timetables: Timetables) => {
+  return timetables?.timetables_vehicle_journey_vehicle_journey.length
+    ? timetables?.timetables_vehicle_journey_vehicle_journey
     : [];
 };
 
-const getTimetableValidity = (timetablesResponse: TimetablesResponse) => {
-  const timetables = timetablesResponse.data?.timetables;
-  const vehicleScheduleFrames = timetables
-    ?.timetables_vehicle_schedule_vehicle_schedule_frame.length
-    ? timetables?.timetables_vehicle_schedule_vehicle_schedule_frame
-    : [];
-
-  const validityStart = vehicleScheduleFrames[0]?.validity_start;
-  const validityEnd = vehicleScheduleFrames[0]?.validity_end;
-
-  return { validityStart, validityEnd };
-};
-
-const getVehicleServiceIdsOnObservationDate = (
-  timetablesResponse: TimetablesResponse,
-) => {
-  const timetables = timetablesResponse.data?.timetables;
+const getVehicleServiceIdsOnObservationDate = (timetables: Timetables) => {
   const vehicleServiceIdsOnObservationDate =
     timetables?.timetables_vehicle_service_get_vehicle_services_for_date.map(
       (item) => item.vehicle_service_id,
@@ -119,26 +94,34 @@ const getVehicleServiceIdsOnObservationDate = (
   return vehicleServiceIdsOnObservationDate;
 };
 
+interface VehicleServiceGroup {
+  priority: TimetablePriority;
+  dayType: DayTypeAllFieldsFragment;
+  vehicleServices: VehicleJourneyWithServiceFragment[];
+}
+
 const groupVehicleServices = (
-  vehicleScheduleFrames: TimetablesVehicleScheduleVehicleScheduleFrame[],
-  vehicleServiceIdsOnObservationDate: UUID[],
+  journeys: VehicleJourneyWithServiceFragment[],
+  vehicleServiceIdsOnObservationDate?: UUID[],
 ) => {
   // Vehicle services parsed & groupd from timetables response so that
   // they can be shown in UI more easily.
   return pipe(
-    vehicleScheduleFrames,
-    (scheduleFrames) => scheduleFrames.flatMap((item) => item.vehicle_services),
-    (services) =>
+    journeys,
+    (input) =>
       // filter out services that are not active on selected observation date
-      services.filter((item) =>
-        vehicleServiceIdsOnObservationDate?.includes(item.vehicle_service_id),
+      input.filter((item) =>
+        vehicleServiceIdsOnObservationDate?.includes(
+          item.block.vehicle_service.vehicle_service_id,
+        ),
       ),
     (services) =>
       services.reduce<VehicleServiceGroup[]>((groups, item) => {
         const foundGroup = groups.find(
           (group) =>
-            group.dayType === item.day_type &&
-            group.priority === item.vehicle_schedule_frame.priority,
+            group.dayType === item.block.vehicle_service.day_type &&
+            group.priority ===
+              item.block.vehicle_service.vehicle_schedule_frame.priority,
         );
         if (foundGroup) {
           foundGroup.vehicleServices.push(item);
@@ -147,8 +130,9 @@ const groupVehicleServices = (
         return [
           ...groups,
           {
-            dayType: item.day_type,
-            priority: item.vehicle_schedule_frame.priority,
+            dayType: item.block.vehicle_service.day_type,
+            priority:
+              item.block.vehicle_service.vehicle_schedule_frame.priority,
             vehicleServices: [item],
           },
         ];
@@ -156,64 +140,85 @@ const groupVehicleServices = (
   );
 };
 
-const getGroupedVehicleServices = (timetablesResponse: TimetablesResponse) => {
-  const vehicleServiceIds =
-    getVehicleServiceIdsOnObservationDate(timetablesResponse);
-  const scheduleFrames = getVehicleScheduleFrames(timetablesResponse);
-  // @ts-expect-error generated graphql types won't match even though
-  // these types should be compatible
-  return groupVehicleServices(scheduleFrames, vehicleServiceIds);
+const getGroupedVehicleServices = (timetables: Timetables) => {
+  const vehicleServiceIds = getVehicleServiceIdsOnObservationDate(timetables);
+  const vehicleJourneys = getVehicleJourneys(timetables);
+
+  return groupVehicleServices(vehicleJourneys, vehicleServiceIds);
 };
 
 type Validity = {
   validityStart?: Maybe<DateTime>;
   validityEnd?: Maybe<DateTime>;
 };
+
+const getTimetableValidity = (timetables: Timetables): Validity => {
+  const removeNonDateValues = (times?: (DateTime | null | undefined)[]) => {
+    // we have to use unsafe `as` casting here as TS doesn't realise that we
+    // are filtering out non-date values from the input
+    return times ? times.filter((item) => !!item) : ([] as DateTime[]);
+  };
+
+  const validityStart = pipe(
+    timetables,
+    (input) =>
+      input?.timetables_vehicle_journey_vehicle_journey.map(
+        (item) =>
+          item.block.vehicle_service.vehicle_schedule_frame.validity_start,
+      ),
+    removeNonDateValues,
+    (startTimes) => findEarliestTime(startTimes as DateTime[]),
+    (startTime) => (startTime.isValid ? startTime : undefined),
+  );
+  const validityEnd = pipe(
+    timetables,
+    (input) =>
+      input?.timetables_vehicle_journey_vehicle_journey.map(
+        (item) =>
+          item.block.vehicle_service.vehicle_schedule_frame.validity_end,
+      ),
+    removeNonDateValues,
+    (endTimes) => findLatestTime(endTimes as DateTime[]),
+    (endTime) => (endTime.isValid ? endTime : undefined),
+  );
+  return { validityStart, validityEnd };
+};
+
 export interface TimetableWithMetadata {
-  timetable: TimetablesResponse;
+  timetable: Timetables;
   validity: Validity;
-  vehicleServices: VehicleServiceGroup[];
+  vehicleServiceGroups: VehicleServiceGroup[];
   journeyPatternId: UUID;
 }
 
-export const useGetTimetables = () => {
-  const { line } = useGetLineDetails();
+export const useGetTimetables = (journeyPatternId: UUID) => {
   const [getTimetablesForOperationDay] =
     useGetTimetablesForOperationDayAsyncQuery();
 
   const { observationDate } = useObservationDateQueryParam();
 
-  const [timetables, setTimetables] = useState<TimetableWithMetadata[]>([]);
+  const [timetables, setTimetables] = useState<TimetableWithMetadata>();
 
-  const getTimetables = useCallback(async () => {
-    const journeyPatternIds = line?.line_routes?.map(
-      (route) => route.route_journey_patterns[0].journey_pattern_id,
-    );
+  const getTimetablesForRoute = useCallback(async () => {
+    const res = await getTimetablesForOperationDay({
+      journey_pattern_id: journeyPatternId,
+      observation_date: observationDate,
+    });
 
-    const res = await Promise.all(
-      (journeyPatternIds || []).map((journeyPatternId) =>
-        getTimetablesForOperationDay({
-          journey_pattern_id: journeyPatternId,
-          observation_date: observationDate,
-        }).then((response) => ({
-          response,
-          journeyPatternId,
-        })),
-      ),
-    );
-    const timetablesWithMetadata = res.map((item) => ({
-      timetable: item.response,
-      validity: getTimetableValidity(item.response),
-      vehicleServices: getGroupedVehicleServices(item.response),
-      journeyPatternId: item.journeyPatternId,
-    }));
+    const rawTimetables = res.data?.timetables;
 
-    setTimetables(timetablesWithMetadata);
-  }, [line, getTimetablesForOperationDay, observationDate]);
+    const timetableWithMetadata: TimetableWithMetadata = {
+      timetable: rawTimetables,
+      validity: getTimetableValidity(rawTimetables),
+      vehicleServiceGroups: getGroupedVehicleServices(rawTimetables),
+      journeyPatternId,
+    };
+    setTimetables(timetableWithMetadata);
+  }, [journeyPatternId, observationDate, getTimetablesForOperationDay]);
 
   useEffect(() => {
-    getTimetables();
-  }, [getTimetables, observationDate]);
+    getTimetablesForRoute();
+  }, [getTimetablesForRoute, observationDate]);
 
   return { timetables };
 };

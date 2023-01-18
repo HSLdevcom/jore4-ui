@@ -7,6 +7,26 @@ import {
 import { TimetablePriority } from '../../types/Priority';
 import { mapToVariables } from '../../utils';
 
+const GQL_VEHICLE_SERVICES_FRAGMENT = gql`
+  fragment vehicle_service_with_journeys on timetables_vehicle_service_vehicle_service {
+    vehicle_service_id
+    vehicle_schedule_frame {
+      vehicle_schedule_frame_id
+      priority
+    }
+    day_type {
+      ...day_type_all_fields
+    }
+    blocks {
+      block_id
+      vehicle_journeys {
+        start_time
+        vehicle_journey_id
+      }
+    }
+  }
+`;
+
 const GQL_GET_STAGING_VEHICLE_SCHEDULE_FRAMES = gql`
   query GetStagingVehicleScheduleFrames {
     timetables {
