@@ -1,17 +1,17 @@
-import { TimetableWithMetadata } from '../../../hooks';
+import { RouteRoute } from '../../../generated/graphql';
 import { VehicleRouteTimetableSection } from './VehicleRouteTimetableSection';
 
 interface Props {
-  timetables: TimetableWithMetadata[];
+  routes: RouteRoute[];
 }
 
-export const VehicleRouteTimetables = ({ timetables }: Props): JSX.Element => {
+export const VehicleRouteTimetables = ({ routes }: Props): JSX.Element => {
   return (
     <div className="grid gap-y-5">
-      {timetables.map((item, index) => (
+      {routes.map((item, index) => (
         <VehicleRouteTimetableSection
-          key={item.journeyPatternId}
-          timetable={item}
+          key={item.route_id}
+          route={item}
           initiallyOpen={index === 0}
         />
       ))}

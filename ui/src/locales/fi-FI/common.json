@@ -286,7 +286,7 @@
   },
   "timetables": {
     "timetables": "Aikataulut",
-    "validityPeriodLabel": "Aikataulut voimassa",
+    "timetableValidity": "Voimassa {{ validityStart }} - {{ validityEnd }}",
     "departures": "Lähdöt",
     "noService": "Ei vuoroja",
     "at": "klo {{ time }}",

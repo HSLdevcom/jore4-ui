@@ -3,7 +3,7 @@ import { MdHistory } from 'react-icons/md';
 import { groupBy, pipe } from 'remeda';
 import {
   DayTypeAllFieldsFragment,
-  VehicleServiceWithJourneysFragment,
+  VehicleJourneyWithServicesFragment,
 } from '../../../../generated/graphql';
 import { parseI18nField } from '../../../../i18n/utils';
 import { Column, Row, Visible } from '../../../../layoutComponents';
@@ -17,7 +17,7 @@ import {
 interface Props {
   priority: TimetablePriority;
   dayType: DayTypeAllFieldsFragment;
-  vehicleServices: VehicleServiceWithJourneysFragment[];
+  vehicleServices: VehicleJourneyWithServicesFragment[];
 }
 
 const testIds = {
@@ -55,9 +55,7 @@ export const VehicleServiceTable = ({
 
   const passingTimesByHour = pipe(
     vehicleServices,
-    (services) => services.flatMap((item) => item.blocks),
-    (blocks) => blocks.flatMap((item) => item.vehicle_journeys),
-    (journeys) => journeys.flatMap((item) => item.start_time),
+    (services) => services.flatMap((item) => item.start_time),
     (journeyStartTimes) =>
       journeyStartTimes.sort(
         (time1, time2) => time1.as('millisecond') - time2.as('millisecond'),
