@@ -5,7 +5,6 @@ import { useGetVehicleJourneysQuery } from '../../../generated/graphql';
 import {
   TimetableWithMetadata,
   useGetLineDetails,
-  useGetTimetables,
   useObservationDateQueryParam,
 } from '../../../hooks';
 import { Column, Container, Row } from '../../../layoutComponents';
@@ -39,10 +38,7 @@ const getValidityPeriod = (timetables: TimetableWithMetadata[]) => {
 export const VehicleScheduleDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
 
-  const { timetables } = useGetTimetables();
   const { line } = useGetLineDetails();
-
-  const { validityStartDate, validityEndDate } = getValidityPeriod(timetables);
 
   // Just get all vehicle journeys from back end as test data
   // TODO: Use PassingTimesByStopTable in the right place and fetch correct data
@@ -67,12 +63,6 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
       </PageHeader>
       <div className="mx-12 my-8">
         <Row className="mb-8">
-          <Column className="mr-12">
-            <p className="text-base font-bold">
-              {t('timetables.validityPeriodLabel')}
-            </p>
-            <h1>{`${validityStartDate} - ${validityEndDate}`}</h1>
-          </Column>
           <Column>
             <ObservationDateInput
               value={observationDate}
@@ -80,7 +70,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
             />
           </Column>
         </Row>
-        <VehicleRouteTimetables timetables={timetables} />
+        <VehicleRouteTimetables routes={line?.line_routes || []} />
       </div>
       <Container className="space-y-10 pt-10">
         <PassingTimesByStopTable vehicleJourneys={vehicleJourneys} />

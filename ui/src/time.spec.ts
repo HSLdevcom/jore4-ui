@@ -1,6 +1,12 @@
 import { DateTime } from 'luxon';
 import { i18n } from './i18n';
-import { formatDate, mapToISODate, parseDate } from './time';
+import {
+  findEarliestTime,
+  findLatestTime,
+  formatDate,
+  mapToISODate,
+  parseDate,
+} from './time';
 
 describe(`${formatDate.name}()`, () => {
   beforeEach(() => {
@@ -59,5 +65,41 @@ describe(`${mapToISODate.name}()`, () => {
   test('Maps ISO string to ISO date', () => {
     const output = mapToISODate(isoString);
     expect(output).toBe('2017-04-20');
+  });
+});
+
+const earliest = DateTime.fromISO('2022-08-11T00:00:00.000+03:00');
+const middle = DateTime.fromISO('2022-08-12T00:00:00.000+03:00');
+const latest = DateTime.fromISO('2022-08-13T00:00:00.000+03:00');
+
+describe('Utils to find earliest/latest times', () => {
+  describe(`${findEarliestTime.name}()`, () => {
+    test('Finds earliest time when located in middle of input array', () => {
+      const output = findEarliestTime([middle, earliest, latest]);
+      expect(output.toISODate()).toBe(earliest.toISODate());
+    });
+    test('Finds earliest time when located at beginning of input array', () => {
+      const output = findEarliestTime([earliest, latest, middle]);
+      expect(output.toISODate()).toBe(earliest.toISODate());
+    });
+    test('Finds earliest time when there are only 1 element in input array', () => {
+      const output = findEarliestTime([earliest]);
+      expect(output.toISODate()).toBe(earliest.toISODate());
+    });
+  });
+
+  describe(`${findLatestTime.name}()`, () => {
+    test('Finds latest time when located in middle of input array', () => {
+      const output = findLatestTime([middle, latest, earliest]);
+      expect(output.toISODate()).toBe(latest.toISODate());
+    });
+    test('Finds latest time when located at beginning of input array', () => {
+      const output = findLatestTime([latest, earliest, middle]);
+      expect(output.toISODate()).toBe(latest.toISODate());
+    });
+    test('Finds latest time when there are only 1 element in input array', () => {
+      const output = findLatestTime([latest]);
+      expect(output.toISODate()).toBe(latest.toISODate());
+    });
   });
 });
