@@ -190,23 +190,23 @@ export const useGetTimetables = () => {
       (route) => route.route_journey_patterns[0].journey_pattern_id,
     );
 
-    const timetablesWithMetadata = [];
-
-    // eslint-disable-next-line no-restricted-syntax
-    for (const journeyPatternId of journeyPatternIds || []) {
-      // eslint-disable-next-line no-await-in-loop
-      const res = await getTimetablesForOperationDay({
-        journey_pattern_id: journeyPatternId,
-        observation_date: observationDate,
-      });
-      const withMetadata: TimetableWithMetadata = {
-        timetable: res,
-        validity: getTimetableValidity(res),
-        vehicleServices: getGroupedVehicleServices(res),
-        journeyPatternId,
-      };
-      timetablesWithMetadata.push(withMetadata);
-    }
+    const res = await Promise.all(
+      (journeyPatternIds || []).map((journeyPatternId) =>
+        getTimetablesForOperationDay({
+          journey_pattern_id: journeyPatternId,
+          observation_date: observationDate,
+        }).then((response) => ({
+          response,
+          journeyPatternId,
+        })),
+      ),
+    );
+    const timetablesWithMetadata = res.map((item) => ({
+      timetable: item.response,
+      validity: getTimetableValidity(item.response),
+      vehicleServices: getGroupedVehicleServices(item.response),
+      journeyPatternId: item.journeyPatternId,
+    }));
 
     setTimetables(timetablesWithMetadata);
   }, [line, getTimetablesForOperationDay, observationDate]);
