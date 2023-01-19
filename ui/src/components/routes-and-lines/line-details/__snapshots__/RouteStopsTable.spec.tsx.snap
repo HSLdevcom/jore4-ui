@@ -45,7 +45,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               class="flex flex-row items-center"
             >
               <span
-                class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-2xl font-bold text-white"
+                class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-4"
               >
                 <span
                   data-testid="DirectionBadge::value"
@@ -256,7 +256,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               class="flex flex-row items-center"
             >
               <span
-                class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-2xl font-bold text-white"
+                class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-4"
               >
                 <span
                   data-testid="DirectionBadge::value"
@@ -667,7 +667,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               class="flex flex-row items-center"
             >
               <span
-                class="relative mr-4 flex h-12 w-12 items-center justify-center bg-brand text-2xl font-bold text-white"
+                class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-4"
               >
                 <span
                   data-testid="DirectionBadge::value"
