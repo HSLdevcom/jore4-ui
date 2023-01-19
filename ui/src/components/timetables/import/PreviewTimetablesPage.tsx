@@ -1,0 +1,126 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useReducer, useRef } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { useConfirmTimetablesImport } from '../../../hooks/timetables-import/useConfirmTimetablesImport';
+import { Container, Row, Visible } from '../../../layoutComponents';
+import { Path } from '../../../router/routeDetails';
+import { TimetablePriority } from '../../../types/Priority';
+import { AccordionButton, SimpleButton } from '../../../uiComponents';
+import { submitFormByRef } from '../../../utils';
+import {
+  PriorityForm,
+  PriorityFormState,
+  priorityFormSchema,
+} from '../../forms/common';
+
+const schema = priorityFormSchema;
+
+export type FormState = PriorityFormState;
+
+const testIds = {
+  toggleShowStagingTimetables:
+    'PreviewTimetablesPage::toggleShowStagingTimetables',
+  saveButton: 'PreviewTimetablesPage::saveButton',
+  cancelButton: 'PreviewTimetablesPage::cancelButton',
+};
+
+export const PreviewTimetablesPage = (): JSX.Element => {
+  const { t } = useTranslation();
+
+  const { vehicleJourneyCount, confirmTimetablesImport } =
+    useConfirmTimetablesImport();
+  const [showStagingTimetables, toggleShowStagingTimetables] = useReducer(
+    (value) => !value,
+    false,
+  );
+
+  const importedTimetablesExist = vehicleJourneyCount > 0;
+
+  const formRef = useRef<ExplicitAny>(null);
+
+  const methods = useForm<FormState>({
+    defaultValues: undefined,
+    resolver: zodResolver(schema),
+  });
+
+  const { handleSubmit } = methods;
+
+  const onSave = () => {
+    submitFormByRef(formRef);
+  };
+
+  const onSubmit = async (state: FormState) => {
+    await confirmTimetablesImport(
+      state.priority as unknown as TimetablePriority,
+    );
+  };
+
+  return (
+    <Container>
+      <h1>{t('timetablesPreview.preview')}</h1>
+      <div className="overflow-none mt-9 rounded border border-grey">
+        <Row className="justify-between rounded-t-sm border-brand bg-brand pl-16 pr-8 text-white">
+          <div className="py-2">
+            <h2>
+              {t('timetablesPreview.departures')} {vehicleJourneyCount}
+            </h2>
+          </div>
+          <div className="flex items-center">
+            <button
+              onClick={toggleShowStagingTimetables}
+              type="button"
+              className="font-bold"
+            >
+              {showStagingTimetables
+                ? t('timetablesPreview.closeContent')
+                : t('timetablesPreview.showContent')}
+            </button>
+            <AccordionButton
+              testId={testIds.toggleShowStagingTimetables}
+              isOpen={showStagingTimetables}
+              onToggle={toggleShowStagingTimetables}
+              iconClassName="text-white text-[50px]"
+            />
+          </div>
+        </Row>
+        <Row className="items-center space-x-14 py-9 px-16">
+          <h3>{t('timetablesPreview.contentUsage')}</h3>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <FormProvider {...methods}>
+            <form
+              id="save-timetables-form"
+              onSubmit={handleSubmit(onSubmit)}
+              ref={formRef}
+            >
+              <PriorityForm showLabel={false} />
+            </form>
+          </FormProvider>
+        </Row>
+        <Visible visible={showStagingTimetables}>
+          <div className="rounded-b-sm bg-hsl-neutral-blue">
+            TODO: Implement
+          </div>
+        </Visible>
+      </div>
+      <div className="pt-10">
+        <Row className="justify-end space-x-4">
+          <SimpleButton
+            inverted
+            testId={testIds.cancelButton}
+            href={Path.timetablesImport}
+          >
+            {t('cancel')}
+          </SimpleButton>
+          <SimpleButton
+            testId={testIds.saveButton}
+            onClick={onSave}
+            disabled={!importedTimetablesExist}
+          >
+            {t('timetablesPreview.save')}
+          </SimpleButton>
+        </Row>
+      </div>
+    </Container>
+  );
+};
