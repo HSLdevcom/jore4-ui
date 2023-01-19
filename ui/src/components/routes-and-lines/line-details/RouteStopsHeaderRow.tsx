@@ -61,7 +61,10 @@ export const RouteStopsHeaderRow = ({
     >
       <td className={`${alertStyle.listItemBorder || ''} p-4 pl-12`}>
         <Row className="items-center">
-          <DirectionBadge direction={route.direction as RouteDirectionEnum} />
+          <DirectionBadge
+            direction={route.direction as RouteDirectionEnum}
+            className="mr-4"
+          />
           <span className="text-xl" data-testid={testIds.label}>
             <RouteLabel route={route} />
           </span>
