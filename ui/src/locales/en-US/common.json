@@ -291,7 +291,16 @@
     "noService": "No service",
     "at": "at {{ time }}",
     "importFromHastus": "Import from Hastus",
-    "importTimetablesFromHastus": "Import timetables from Hastus"
+    "importTimetablesFromHastus": "Import timetables from Hastus",
+    "openPreview": "Open preview"
+  },
+  "timetablesPreview": {
+    "preview": "Preview",
+    "save": "Save timetables",
+    "departures": "Departures:",
+    "showContent": "Show content",
+    "closeContent": "Close content",
+    "contentUsage": "Contant usage"
   },
   "confirmTimetablesImportModal": {
     "title": "Save changes",
