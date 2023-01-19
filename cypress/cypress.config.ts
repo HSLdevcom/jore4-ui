@@ -14,6 +14,7 @@ export default defineConfig({
     viewportWidth: 1920,
     viewportHeight: 1080,
     requestTimeout: 20000,
+    numTestsKeptInMemory: 5,
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {
