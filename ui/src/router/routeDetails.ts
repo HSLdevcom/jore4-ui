@@ -14,6 +14,7 @@ export enum Path {
   editLine = '/lines/:id/edit',
   lineTimetables = '/timetables/lines/:id',
   timetablesImport = '/timetables/import',
+  timetablesImportPreview = '/timetables/import/preview',
   fallback = '*',
 }
 
@@ -100,6 +101,11 @@ export const routeDetails: Record<Path, RouteDetail> = {
   [Path.timetablesImport]: {
     getLink: () => Path.timetablesImport,
     translationKey: 'timetables.import',
+    includeInNav: false,
+  },
+  [Path.timetablesImportPreview]: {
+    getLink: () => Path.timetablesImportPreview,
+    translationKey: 'timetables.importPreview',
     includeInNav: false,
   },
   [Path.fallback]: {
