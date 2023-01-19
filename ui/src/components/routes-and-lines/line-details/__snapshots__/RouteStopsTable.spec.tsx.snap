@@ -182,7 +182,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               type="button"
             >
               <svg
-                class="text-3xl text-3xl text-tweaked-brand inline text-center"
+                class="text-3xl text-tweaked-brand text-3xl  inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -390,7 +390,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               type="button"
             >
               <svg
-                class="text-3xl text-3xl text-tweaked-brand inline text-center"
+                class="text-3xl text-tweaked-brand text-3xl inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -798,7 +798,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               type="button"
             >
               <svg
-                class="text-3xl text-3xl text-tweaked-brand inline text-center"
+                class="text-3xl text-tweaked-brand text-3xl inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"

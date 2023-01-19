@@ -23,11 +23,11 @@ export const AccordionButton = ({
       icon={
         isOpen ? (
           <MdKeyboardArrowUp
-            className={`${iconClassName} text-3xl text-tweaked-brand`}
+            className={`text-3xl text-tweaked-brand ${iconClassName}`}
           />
         ) : (
           <MdKeyboardArrowDown
-            className={`${iconClassName} text-3xl text-tweaked-brand`}
+            className={`text-3xl text-tweaked-brand ${iconClassName} `}
           />
         )
       }

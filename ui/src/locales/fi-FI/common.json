@@ -291,7 +291,16 @@
     "noService": "Ei vuoroja",
     "at": "klo {{ time }}",
     "importFromHastus": "Tuo Hastuksesta",
-    "importTimetablesFromHastus": "Tuo aikataulut Hastuksesta"
+    "importTimetablesFromHastus": "Tuo aikataulut Hastuksesta",
+    "openPreview": "Avaa esikatselu"
+  },
+  "timetablesPreview": {
+    "preview": "Esikatselu",
+    "save": "Tallenna aikataulut",
+    "departures": "Lähtöjä:",
+    "showContent": "Näytä sisältö",
+    "closeContent": "Sulje sisältö",
+    "contentUsage": "Sisällön käyttö"
   },
   "confirmTimetablesImportModal": {
     "title": "Tallenna muutos",
