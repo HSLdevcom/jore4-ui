@@ -75,16 +75,19 @@ export const useConfirmTimetablesImport = () => {
     await changeTimetablesPriority(mapToVariables({ newPriority: priority }));
   };
 
-  const vehicleServiceCount =
+  const vehicleScheduleFrames =
+    importedScheduleFrames.data?.timetables
+      ?.timetables_vehicle_schedule_vehicle_schedule_frame;
+
+  const vehicleJourneyCount =
     pipe(
-      importedScheduleFrames.data?.timetables?.timetables_vehicle_schedule_vehicle_schedule_frame.flatMap(
-        (frame) =>
-          frame.vehicle_services.flatMap((service) =>
-            service.blocks.flatMap((block) => block.vehicle_journeys),
-          ),
+      vehicleScheduleFrames?.flatMap((frame) =>
+        frame.vehicle_services.flatMap((service) =>
+          service.blocks.flatMap((block) => block.vehicle_journeys),
+        ),
       ),
-      (vehicleServices) => vehicleServices?.length,
+      (vehicleJourneys) => vehicleJourneys?.length,
     ) || 0;
 
-  return { confirmTimetablesImport, vehicleServiceCount };
+  return { confirmTimetablesImport, vehicleJourneyCount };
 };
