@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { Column, Row } from '../../../layoutComponents';
+import { Column, Row, Visible } from '../../../layoutComponents';
 import { Priority } from '../../../types/Priority';
 import { SimpleButton } from '../../../uiComponents';
 
@@ -24,6 +24,7 @@ interface PriorityButtonProps {
 
 interface Props {
   hiddenPriorities?: Priority[];
+  showLabel?: boolean;
 }
 
 const defaultPriorities: PriorityButtonProps[] = [
@@ -55,7 +56,10 @@ const defaultPriorities: PriorityButtonProps[] = [
  *   hiddenPriorities={[Priority.Temporary]} // Line does not have temporary priority, so hide it
  * />
  */
-export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
+export const PriorityForm = ({
+  hiddenPriorities,
+  showLabel = true,
+}: Props): JSX.Element => {
   const { t } = useTranslation();
   const {
     setValue,
@@ -89,8 +93,10 @@ export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
 
   return (
     <Column>
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label>{t('priority.label')}</label>
+      <Visible visible={showLabel}>
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+        <label>{t('priority.label')}</label>
+      </Visible>
       <Row className="flex-wrap gap-2">
         {displayedPriorities.map((priority) => (
           <PriorityButton
