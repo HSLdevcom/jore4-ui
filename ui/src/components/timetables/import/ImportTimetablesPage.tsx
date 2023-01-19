@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConfirmTimetablesImport } from '../../../hooks/timetables-import/useConfirmTimetablesImport';
-import { Container } from '../../../layoutComponents';
+import { Container, Row } from '../../../layoutComponents';
+import { Path } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
 import { ConfirmTimetablesImportModal } from './ConfirmTimetablesImportModal';
 
@@ -11,21 +12,30 @@ const testIds = {
 
 export const ImportTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const { vehicleServiceCount } = useConfirmTimetablesImport();
+  const { vehicleJourneyCount } = useConfirmTimetablesImport();
   const [isSavingImport, setIsSavingImport] = useState(false);
 
-  const importedTimetablesExist = vehicleServiceCount > 0;
+  const importedTimetablesExist = vehicleJourneyCount > 0;
 
   return (
     <Container>
       <h1>{t('timetables.importTimetablesFromHastus')}</h1>
-      <SimpleButton
-        testId={testIds.saveButton}
-        onClick={() => setIsSavingImport(true)}
-        disabled={!importedTimetablesExist}
-      >
-        {t('save')}
-      </SimpleButton>
+      <Row className="space-x-3">
+        <SimpleButton
+          testId={testIds.saveButton}
+          onClick={() => setIsSavingImport(true)}
+          disabled={!importedTimetablesExist}
+        >
+          {t('save')}
+        </SimpleButton>
+        <SimpleButton
+          testId={testIds.saveButton}
+          href={Path.timetablesImportPreview}
+          disabled={!importedTimetablesExist}
+        >
+          {t('timetables.openPreview')}
+        </SimpleButton>
+      </Row>
       <ConfirmTimetablesImportModal
         isOpen={isSavingImport}
         onClose={() => setIsSavingImport(false)}
