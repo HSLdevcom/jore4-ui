@@ -32,6 +32,10 @@ export class StopForm {
     return cy.getByTestId('StopFormComponent::timingPlaceDropdown');
   }
 
+  getAddTimingPlaceButton() {
+    return cy.getByTestId('StopFormComponent::addTimingPlaceButton');
+  }
+
   selectTimingPlace(timingPlaceName: string) {
     this.getTimingPlaceDropdown().click();
     this.getTimingPlaceDropdown().find('li').contains(timingPlaceName).click();

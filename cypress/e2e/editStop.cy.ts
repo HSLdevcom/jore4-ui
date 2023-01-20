@@ -18,6 +18,7 @@ import {
   Toast,
 } from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
+import { deleteTimingPlacesByLabel } from './utils';
 
 // Stops are created on these infralinks via insertToDbHelper or the map view.
 // vehicleSubmodeOnInfrastructureLink information is needed for these infralinks.
@@ -27,6 +28,10 @@ const infraLinkIds = {
   infraLink2: 'ea69415a-9c54-4327-8836-f38b36d8fa99',
   infraLink3: '13de61c2-3fc9-4255-955f-0a2350c389e1',
   infraLink4: '4c098659-17d8-44e5-95a9-d8879468dd58',
+};
+
+const testTimingPlaceLabels = {
+  label1: 'Test created timing place label 1',
 };
 
 const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[] =
@@ -86,6 +91,11 @@ const dbResources = {
   timingPlaces,
 };
 
+const clearDatabase = () => {
+  removeFromDbHelper(dbResources);
+  deleteTimingPlacesByLabel(Object.values(testTimingPlaceLabels));
+};
+
 describe('Stop editing tests', () => {
   let mapFilterPanel: FilterPanel;
   let map: Map;
@@ -100,7 +110,7 @@ describe('Stop editing tests', () => {
   });
 
   beforeEach(() => {
-    removeFromDbHelper(dbResources);
+    clearDatabase();
     insertToDbHelper(dbResources);
 
     mapFilterPanel = new FilterPanel();
@@ -119,7 +129,7 @@ describe('Stop editing tests', () => {
   });
 
   afterEach(() => {
-    removeFromDbHelper(dbResources);
+    clearDatabase();
   });
 
   it(
@@ -131,7 +141,7 @@ describe('Stop editing tests', () => {
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForMapToLoad();
+      map.getLoader().should('not.exist');
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
@@ -168,7 +178,7 @@ describe('Stop editing tests', () => {
     () => {
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForMapToLoad();
+      map.getLoader().should('not.exist');
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
@@ -211,7 +221,7 @@ describe('Stop editing tests', () => {
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForMapToLoad();
+      map.getLoader().should('not.exist');
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
@@ -254,6 +264,49 @@ describe('Stop editing tests', () => {
         .should('have.value', updatedStopInfo.validityEndISODate);
       stopForm.getLatitudeInput().should('have.value', testCoordinates2.lat);
       stopForm.getLongitudeInput().should('have.value', testCoordinates2.lng);
+    },
+  );
+
+  it(
+    'Should create a new timing place',
+    // Map opening seems to take time, so we increase the timeout
+    { scrollBehavior: 'bottom', defaultCommandTimeout: 10000 },
+    () => {
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      map.getLoader().should('not.exist');
+
+      map
+        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+        .click();
+
+      map.stopPopUp.getEditButton().click();
+
+      stopForm.getAddTimingPlaceButton().click();
+
+      stopForm.createTimingPlaceForm.fillTimingPlaceFormAndSave({
+        label: testTimingPlaceLabels.label1,
+        description: 'New timing place description',
+      });
+
+      stopForm.save();
+
+      confirmationDialog.getConfirmButton().click();
+
+      toast.checkSuccessToastHasMessage('Hastus-paikka luotu');
+
+      cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
+
+      map
+        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+        .click();
+      map.stopPopUp.getEditButton().click();
+
+      stopForm
+        .getTimingPlaceDropdown()
+        .click()
+        .find('ul')
+        .should('contain', testTimingPlaceLabels.label1);
     },
   );
 });
