@@ -132,6 +132,7 @@ describe('Line details page: stops on route', () => {
   let lineDetailsPage: LineDetailsPage;
   let toast: Toast;
   let routeStopsTable: RouteStopsTable;
+
   before(() => {
     deleteCreatedResources();
     insertToDbHelper(dbResources);
@@ -196,5 +197,39 @@ describe('Line details page: stops on route', () => {
       .getDangerToast()
       .contains('Reitillä on oltava ainakin kaksi pysäkkiä.')
       .should('be.visible');
+  });
+
+  it('Should add Via info to a stop and then remove it', () => {
+    routeStopsTable.toggleRouteSection(routes[0].label);
+    // Open via point creation modal
+    routeStopsTable.openCreateViaPointModal(stops[0].label);
+    // Input via info to form
+    routeStopsTable.viaForm.getViaFinnishNameInput().type('Via-piste');
+    routeStopsTable.viaForm.getViaSwedishNameInput().type('Via punkt');
+    routeStopsTable.viaForm.getViaFinnishShortNameInput().type('Lyhyt nimi');
+    routeStopsTable.viaForm.getViaSwedishShortNameInput().type('Kort namn');
+    // Save via info form
+    routeStopsTable.viaForm.getSaveButton().click();
+    cy.wait('@gqlPatchScheduledStopPointViaInfo');
+    toast.checkSuccessToastHasMessage('Via-tieto asetettu');
+    // Verify info was saved
+    routeStopsTable.openEditViaPointModal(stops[0].label);
+    routeStopsTable.viaForm
+      .getViaFinnishNameInput()
+      .should('have.value', 'Via-piste');
+    routeStopsTable.viaForm
+      .getViaSwedishNameInput()
+      .should('have.value', 'Via punkt');
+    routeStopsTable.viaForm
+      .getViaFinnishShortNameInput()
+      .should('have.value', 'Lyhyt nimi');
+    routeStopsTable.viaForm
+      .getViaSwedishShortNameInput()
+      .should('have.value', 'Kort namn');
+    // Delete via info
+    routeStopsTable.viaForm.getRemoveButton().click();
+    cy.wait('@gqlRemoveScheduledStopPointViaInfo');
+    // Verify that createViaPoint selection is available instead of editViaPoint
+    routeStopsTable.getStopDropdown(stops[0].label).should('be.visible');
   });
 });
