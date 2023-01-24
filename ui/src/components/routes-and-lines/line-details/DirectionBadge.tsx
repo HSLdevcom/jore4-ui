@@ -18,7 +18,6 @@ export const DirectionBadge = ({ direction, className = '' }: Props) => {
       <span data-testid={testIds.value}>
         {mapDirectionToShortUiName(direction)}
       </span>
-      <i className="icon-opposite border-brank absolute -bottom-2 -right-2 rounded-full border bg-white text-sm text-brand" />
     </span>
   );
 };
