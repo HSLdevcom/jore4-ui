@@ -30,6 +30,8 @@ const testIds = {
   swedishName: 'ViaForm::swedishName',
   finnishShortName: 'ViaForm::finnishShortName',
   swedishShortName: 'ViaForm::swedishShortName',
+  saveButton: 'ViaForm::saveButton',
+  removeButton: 'ViaForm::removeButton',
 };
 
 export const mapStopJourneyPatternToFormState = (
@@ -113,10 +115,11 @@ export const ViaForm = ({
             disabled={!defaultValues?.isViaPoint}
             onClick={onRemove}
             inverted
+            testId={testIds.removeButton}
           >
             {t('viaModal.removeViaInfo')}
           </SimpleButton>
-          <SimpleButton onClick={onSave}>
+          <SimpleButton onClick={onSave} testId={testIds.saveButton}>
             {t('viaModal.setViaInfo')}
           </SimpleButton>
         </Row>
