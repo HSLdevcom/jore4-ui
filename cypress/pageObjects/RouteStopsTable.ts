@@ -1,4 +1,8 @@
+import { ViaForm } from './ViaForm';
+
 export class RouteStopsTable {
+  viaForm = new ViaForm();
+
   toggleUnusedStops() {
     return cy.getByTestId('show-unused-stops-switch').click();
   }
@@ -43,6 +47,16 @@ export class RouteStopsTable {
       .click()
       .getByTestId('StopActionsDrowdown::removeStopFromRouteButton')
       .click();
+  }
+
+  openCreateViaPointModal(stopLabel: string) {
+    this.getStopDropdown(stopLabel).click();
+    cy.getByTestId('StopActionsDrowdown::createViaPoint').click();
+  }
+
+  openEditViaPointModal(stopLabel: string) {
+    this.getStopDropdown(stopLabel).click();
+    cy.getByTestId('StopActionsDrowdown::editViaPoint').click();
   }
 
   getRouteDirection(routeLabel: string) {
