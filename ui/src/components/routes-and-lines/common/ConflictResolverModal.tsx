@@ -27,14 +27,6 @@ interface Props {
   conflicts?: CommonConflictItem[];
 }
 
-const Th: React.FC = ({ children }) => (
-  <th className="font-normal">{children}</th>
-);
-
-const Td: React.FC = ({ children }) => (
-  <td className="border border-light-grey p-5">{children}</td>
-);
-
 interface CommonConflictItem {
   validityStart?: DateTime;
   validityEnd?: DateTime;
@@ -85,15 +77,18 @@ const ConflictItemRow = ({
 }): JSX.Element => {
   const { t } = useTranslation();
   return (
-    <tr key={item.id}>
-      <Td>{mapPriorityToUiName(item.priority)}</Td>
-      <Td>
+    <tr
+      className="[&>td]:border [&>td]:border-light-grey [&>td]:p-5"
+      key={item.id}
+    >
+      <td>{mapPriorityToUiName(item.priority)}</td>
+      <td>
         {mapToShortDate(item.validityStart) || t('saveChangesModal.indefinite')}
-      </Td>
-      <Td>
+      </td>
+      <td>
         {mapToShortDate(item.validityEnd) || t('saveChangesModal.indefinite')}
-      </Td>
-      <Td>
+      </td>
+      <td>
         {item.href ? (
           <Link to={item.href} className="text-brand">
             <RouteLabel route={item} />
@@ -101,7 +96,7 @@ const ConflictItemRow = ({
         ) : (
           <RouteLabel route={item} />
         )}
-      </Td>
+      </td>
     </tr>
   );
 };
@@ -127,11 +122,11 @@ export const ConflictResolverModal: React.FC<Props> = ({
 
         <table className="mt-6">
           <thead>
-            <tr>
-              <Th>{t('priority.label')}</Th>
-              <Th>{t('validityPeriod.validityStart')}</Th>
-              <Th>{t('validityPeriod.validityEnd')}</Th>
-              <Th>{t('lines.label')}</Th>
+            <tr className="[&>th]font-normal">
+              <th>{t('priority.label')}</th>
+              <th>{t('validityPeriod.validityStart')}</th>
+              <th>{t('validityPeriod.validityEnd')}</th>
+              <th>{t('lines.label')}</th>
             </tr>
           </thead>
           <tbody>
