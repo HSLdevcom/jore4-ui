@@ -52,9 +52,6 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
                 >
                   1
                 </span>
-                <i
-                  class="icon-opposite border-brank absolute -bottom-2 -right-2 rounded-full border bg-white text-sm text-brand"
-                />
               </span>
               <span
                 class="text-xl"
@@ -263,9 +260,6 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 >
                   1
                 </span>
-                <i
-                  class="icon-opposite border-brank absolute -bottom-2 -right-2 rounded-full border bg-white text-sm text-brand"
-                />
               </span>
               <span
                 class="text-xl"
@@ -674,9 +668,6 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 >
                   1
                 </span>
-                <i
-                  class="icon-opposite border-brank absolute -bottom-2 -right-2 rounded-full border bg-white text-sm text-brand"
-                />
               </span>
               <span
                 class="text-xl"
