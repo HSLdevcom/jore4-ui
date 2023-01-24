@@ -132,6 +132,7 @@ describe('Line details page: stops on route', () => {
   let lineDetailsPage: LineDetailsPage;
   let toast: Toast;
   let routeStopsTable: RouteStopsTable;
+
   before(() => {
     deleteCreatedResources();
     insertToDbHelper(dbResources);
@@ -196,5 +197,26 @@ describe('Line details page: stops on route', () => {
       .getDangerToast()
       .contains('Reitillä on oltava ainakin kaksi pysäkkiä.')
       .should('be.visible');
+  });
+
+  it('Should add Via info to a stop and then remove it', () => {
+    routeStopsTable.toggleRouteSection(routes[0].label);
+    routeStopsTable.createViaPoint(stops[0].label);
+    routeStopsTable.viaForm.getViaFinnishNameInput().clear().type('Via-piste');
+    routeStopsTable.viaForm.getViaSwedishNameInput().clear().type('Via punkt');
+    routeStopsTable.viaForm
+      .getViaFinnishShortNameInput()
+      .clear()
+      .type('Lyhyt nimi');
+    routeStopsTable.viaForm.getViaSwedishShortNameInput().type('Kort namn');
+    routeStopsTable.viaForm.getSaveButton().click();
+    cy.wait('@gqlPatchScheduledStopPointViaInfo');
+    toast.checkSuccessToastHasMessage('Via-tieto asetettu');
+    routeStopsTable.editViaPoint(stops[0].label);
+    routeStopsTable.viaForm.getRemoveButton().click();
+    cy.wait('@gqlRemoveScheduledStopPointViaInfo');
+    // Verify that createViaPoint selection is available instead of editViaPoint
+    routeStopsTable.getStopDropdown(stops[0].label).click();
+    cy.getByTestId('StopActionsDrowdown::createViaPoint').should('be.visible');
   });
 });
