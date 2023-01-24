@@ -63,9 +63,11 @@ describe('Line editing', () => {
 
     lineDetailsPage.getLineName().should('have.text', testInputs.newName);
     lineDetailsPage.getLineLabel().should('have.text', testInputs.newLabel);
-    lineDetailsPage
+    lineDetailsPage.lineValidityPeriod
       .getLinePriority()
       .should('have.text', testInputs.newPriority);
-    lineDetailsPage.getLineValidityPeriod().should('have.text', '1.1.2022 - ');
+    lineDetailsPage.lineValidityPeriod
+      .getLineValidityPeriod()
+      .should('have.text', '1.1.2022 - ');
   });
 });
