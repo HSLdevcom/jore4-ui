@@ -24,3 +24,8 @@ export const deleteTimingPlacesByLabel = (labels: string[]) => {
     cy.task('executeRawDbQuery', { query, bindings: label });
   });
 };
+
+export const selectLineByLabel = (label: string) => {
+  const query = 'SELECT * FROM "route"."line" WHERE label=?';
+  return cy.task('executeRawDbQuery', { query, bindings: label });
+};
