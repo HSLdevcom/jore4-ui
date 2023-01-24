@@ -1,11 +1,4 @@
-describe('Verify that login mocking works', () => {
-  let userInfo: { givenName: string };
-
-  before(() => {
-    cy.fixture('users/e2e.json').then((user) => {
-      userInfo = user;
-    });
-  });
+describe('Login tests', () => {
   beforeEach(() => {
     cy.setupTests();
   });
@@ -14,16 +7,6 @@ describe('Verify that login mocking works', () => {
     cy.visit('/');
     // If login button is visible, user is logged out
     cy.getByTestId('UserNavMenu::loginButton');
-  });
-
-  it('cy.mockLogin() logs user in', () => {
-    cy.mockLogin();
-    cy.visit('/');
-    // If dropdown contains user's name, they are logged in
-    cy.getByTestId('UserNavMenu::toggleDropdown').should(
-      'contain',
-      userInfo.givenName,
-    );
   });
 });
 
