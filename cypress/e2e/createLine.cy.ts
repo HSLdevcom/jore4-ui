@@ -1,25 +1,33 @@
 import { Priority } from '@hsl/jore4-test-db-manager';
-import { LineForm } from '../pageObjects';
+import {
+  LineForm,
+  RoutesAndLinesPage,
+  SearchResultsPage,
+} from '../pageObjects';
 import { deleteLineByLabel } from './utils';
 
-const testLabel = '7327';
 describe('Verify that creating new line works', () => {
   let lineForm: LineForm;
+  let routesAndLinesPage: RoutesAndLinesPage;
+  let searchResultsPage: SearchResultsPage;
+
   beforeEach(() => {
     lineForm = new LineForm();
+    routesAndLinesPage = new RoutesAndLinesPage();
+    searchResultsPage = new SearchResultsPage();
 
     cy.setupTests();
     cy.mockLogin();
     cy.visit('/lines/create');
     // delete label we are about to create (if exists) to avoid
     // possible constraint violation
-    deleteLineByLabel(testLabel);
+    deleteLineByLabel('7327');
   });
   after(() => {
-    deleteLineByLabel(testLabel);
+    deleteLineByLabel('7327');
   });
   it('Creates new line as expected', () => {
-    lineForm.getLabelInput().type(testLabel);
+    lineForm.getLabelInput().type('7327');
     lineForm.getFinnishNameInput().type('Testilinja FI');
     lineForm.getSwedishNameInput().type('Testilinja SV');
     lineForm.getFinnishShortNameInput().type('Testilinja lyhyt FI');
@@ -30,9 +38,17 @@ describe('Verify that creating new line works', () => {
 
     lineForm.priorityForm.setPriority(Priority.Standard);
     lineForm.changeValidityForm.setStartDate('2022-01-01');
-    lineForm.changeValidityForm.setEndDate('2022-12-31');
+    lineForm.changeValidityForm.setEndDate('2050-01-01');
 
     lineForm.save();
     lineForm.checkLineSubmitSuccess();
+
+    cy.visit('/routes');
+    routesAndLinesPage.getRoutesAndLinesSearchInput().type(`7327{enter}`);
+    cy.wait('@gqlSearchLinesAndRoutes');
+    searchResultsPage
+      .getSearchResultsContainer()
+      .should('contain', 'hakutulosta');
+    searchResultsPage.getLinesSearchResultTable().should('contain', '7327');
   });
 });
