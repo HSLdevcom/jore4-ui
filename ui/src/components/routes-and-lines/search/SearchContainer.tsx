@@ -1,7 +1,10 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import { SearchQueryParameterNames, useSearch } from '../../../hooks';
-import { useToggle } from '../../../hooks/useToggle';
+import {
+  SearchQueryParameterNames,
+  useSearch,
+  useToggle,
+} from '../../../hooks';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import { ChevronToggle, SimpleButton } from '../../../uiComponents';
 import { AllOptionEnum } from '../../../utils';

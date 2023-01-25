@@ -297,10 +297,12 @@
   "timetablesPreview": {
     "preview": "Preview",
     "save": "Save timetables",
-    "departures": "Departures:",
+    "departures": "Departures: {{ count }}",
     "showContent": "Show content",
     "closeContent": "Close content",
-    "contentUsage": "Contant usage"
+    "contentUsage": "Content usage",
+    "fileContent": "File content",
+    "blockCount": "{{ count }} blocks"
   },
   "confirmTimetablesImportModal": {
     "title": "Save changes",
