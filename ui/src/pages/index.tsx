@@ -1,8 +1,7 @@
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 
-// eslint-disable-next-line import/no-default-export
-export default function Index() {
+const Index = () => {
   const { t } = useTranslation();
   return (
     <div>
@@ -16,4 +15,7 @@ export default function Index() {
       </footer>
     </div>
   );
-}
+};
+
+// eslint-disable-next-line import/no-default-export
+export default Index;

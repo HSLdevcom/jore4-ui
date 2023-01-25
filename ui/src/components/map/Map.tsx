@@ -155,6 +155,7 @@ export const MapComponent = (
           display: 'flex',
           flexDirection: 'column',
         }}
+        // eslint-disable-next-line react/no-unstable-nested-components
         redraw={() => (
           <>
             <Column className="items-start overflow-hidden p-8">
@@ -205,6 +206,7 @@ export const MapComponent = (
           width: 'auto',
           height: 'auto',
         }}
+        // eslint-disable-next-line react/no-unstable-nested-components
         redraw={() => (
           <Column>
             {showStopFilterOverlay && (
