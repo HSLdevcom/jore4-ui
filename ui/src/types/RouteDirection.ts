@@ -7,4 +7,4 @@ export const RouteDirection = {
 };
 
 export type RouteDirection =
-  typeof RouteDirectionEnum[keyof typeof RouteDirection];
+  (typeof RouteDirectionEnum)[keyof typeof RouteDirection];
