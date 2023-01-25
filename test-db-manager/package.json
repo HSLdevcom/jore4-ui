@@ -23,7 +23,7 @@
     "graphql-tag": "^2.12.6",
     "knex": "^2.1.0",
     "lodash": "^4.17.21",
-    "luxon": "^2.3.0",
+    "luxon": "^3.2.1",
     "pg": "^8.7.3",
     "rollup": "^2.75.5",
     "rollup-plugin-dts": "^4.2.2",
