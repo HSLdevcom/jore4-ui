@@ -8,8 +8,6 @@
     "prebuild": "yarn generate-theme",
     "build": "next build && next export",
     "ts:check": "yarn tsc --noEmit",
-    "prettier": "prettier --write .",
-    "prettier:check": "prettier --check .",
     "test": "jest --ci",
     "test:unit": "yarn test --testRegex='^(?!.*\\.integration\\.spec\\.tsx?$).*\\.spec\\.tsx?$'",
     "test:integration": "yarn test --testRegex='\\.integration\\.spec\\.tsx?$'",
