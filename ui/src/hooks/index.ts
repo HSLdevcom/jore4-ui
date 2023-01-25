@@ -13,5 +13,6 @@ export * from './useAsyncQuery';
 export * from './useCheckValidityAndPriorityConflicts';
 export * from './usePagination';
 export * from './useShowRoutesOnModal';
+export * from './useToggle';
 export * from './vehicle-service';
 export * from './via';
