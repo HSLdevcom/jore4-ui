@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
+import { Column } from '../../../layoutComponents';
 
 interface Props {
   value: DateTime;
@@ -21,7 +22,7 @@ export const ObservationDateInput = ({
   const { t } = useTranslation();
   const dateInputId = 'observation-date-input';
   return (
-    <>
+    <Column className={className}>
       <label htmlFor={dateInputId}>{t('filters.observationDate')}</label>
       <input
         type="date"
@@ -33,6 +34,6 @@ export const ObservationDateInput = ({
         required={required}
         disabled={disabled}
       />
-    </>
+    </Column>
   );
 };
