@@ -6,8 +6,8 @@ import {
   DayTypeAllFieldsFragment,
   GetTimetablesForOperationDayQuery,
   Maybe,
-  useGetTimetablesForOperationDayAsyncQuery,
   VehicleJourneyWithServiceFragment,
+  useGetTimetablesForOperationDayAsyncQuery,
 } from '../../generated/graphql';
 import { findEarliestTime, findLatestTime } from '../../time';
 import { TimetablePriority } from '../../types/Priority';
@@ -94,29 +94,29 @@ const getVehicleServiceIdsOnObservationDate = (timetables: Timetables) => {
   return vehicleServiceIdsOnObservationDate;
 };
 
-interface VehicleServiceGroup {
+interface VehicleJourneyGroup {
   priority: TimetablePriority;
   dayType: DayTypeAllFieldsFragment;
-  vehicleServices: VehicleJourneyWithServiceFragment[];
+  vehicleJourneys: VehicleJourneyWithServiceFragment[];
 }
 
-const groupVehicleServices = (
+const groupVehicleJourneys = (
   journeys: VehicleJourneyWithServiceFragment[],
   vehicleServiceIdsOnObservationDate?: UUID[],
 ) => {
-  // Vehicle services parsed & groupd from timetables response so that
+  // Vehicle journeys parsed & groupd from timetables response so that
   // they can be shown in UI more easily.
   return pipe(
     journeys,
     (input) =>
-      // filter out services that are not active on selected observation date
+      // filter out journeys that are not active on selected observation date
       input.filter((item) =>
         vehicleServiceIdsOnObservationDate?.includes(
           item.block.vehicle_service.vehicle_service_id,
         ),
       ),
-    (services) =>
-      services.reduce<VehicleServiceGroup[]>((groups, item) => {
+    (vehicleJourneys) =>
+      vehicleJourneys.reduce<VehicleJourneyGroup[]>((groups, item) => {
         const foundGroup = groups.find(
           (group) =>
             group.dayType === item.block.vehicle_service.day_type &&
@@ -124,7 +124,7 @@ const groupVehicleServices = (
               item.block.vehicle_service.vehicle_schedule_frame.priority,
         );
         if (foundGroup) {
-          foundGroup.vehicleServices.push(item);
+          foundGroup.vehicleJourneys.push(item);
           return groups;
         }
         return [
@@ -133,18 +133,18 @@ const groupVehicleServices = (
             dayType: item.block.vehicle_service.day_type,
             priority:
               item.block.vehicle_service.vehicle_schedule_frame.priority,
-            vehicleServices: [item],
+            vehicleJourneys: [item],
           },
         ];
       }, []),
   );
 };
 
-const getGroupedVehicleServices = (timetables: Timetables) => {
+const getGroupedVehicleJourneys = (timetables: Timetables) => {
   const vehicleServiceIds = getVehicleServiceIdsOnObservationDate(timetables);
   const vehicleJourneys = getVehicleJourneys(timetables);
 
-  return groupVehicleServices(vehicleJourneys, vehicleServiceIds);
+  return groupVehicleJourneys(vehicleJourneys, vehicleServiceIds);
 };
 
 type Validity = {
@@ -187,7 +187,7 @@ const getTimetableValidity = (timetables: Timetables): Validity => {
 export interface TimetableWithMetadata {
   timetable: Timetables;
   validity: Validity;
-  vehicleServiceGroups: VehicleServiceGroup[];
+  vehicleJourneyGroups: VehicleJourneyGroup[];
   journeyPatternId: UUID;
 }
 
@@ -210,7 +210,7 @@ export const useGetTimetables = (journeyPatternId: UUID) => {
     const timetableWithMetadata: TimetableWithMetadata = {
       timetable: rawTimetables,
       validity: getTimetableValidity(rawTimetables),
-      vehicleServiceGroups: getGroupedVehicleServices(rawTimetables),
+      vehicleJourneyGroups: getGroupedVehicleJourneys(rawTimetables),
       journeyPatternId,
     };
     setTimetables(timetableWithMetadata);
