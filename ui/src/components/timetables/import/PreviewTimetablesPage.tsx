@@ -2,11 +2,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useToggle } from '../../../hooks';
-import { useConfirmTimetablesImport } from '../../../hooks/timetables-import/useConfirmTimetablesImport';
+import { useHistory } from 'react-router';
+import {
+  useConfirmTimetablesImport,
+  useTimetablesImportUIActions,
+  useToggle,
+} from '../../../hooks';
 import { Container, Row, Visible } from '../../../layoutComponents';
-import { Path } from '../../../router/routeDetails';
-import { TimetablePriority } from '../../../types/Priority';
+import { Path, routeDetails } from '../../../router/routeDetails';
 import { AccordionButton, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
 import {
@@ -29,10 +32,12 @@ const testIds = {
 
 export const PreviewTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
+  const history = useHistory();
 
-  const { confirmTimetablesImport, vehicleJourneys, vehicleScheduleFrames } =
+  const { vehicleJourneys, vehicleScheduleFrames } =
     useConfirmTimetablesImport();
   const [showStagingTimetables, toggleShowStagingTimetables] = useToggle(true);
+  const { onTimetablesImportConfirm } = useTimetablesImportUIActions();
 
   const vehicleJourneyCount = vehicleJourneys?.length || 0;
   const importedTimetablesExist = vehicleJourneyCount > 0;
@@ -51,9 +56,11 @@ export const PreviewTimetablesPage = (): JSX.Element => {
   };
 
   const onSubmit = async (state: FormState) => {
-    await confirmTimetablesImport(
-      state.priority as unknown as TimetablePriority,
-    );
+    await onTimetablesImportConfirm(state.priority);
+
+    history.push({
+      pathname: routeDetails[Path.timetablesImport].getLink(),
+    });
   };
 
   return (
