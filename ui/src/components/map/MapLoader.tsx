@@ -2,10 +2,11 @@ import { useAppSelector, useMapQueryParams } from '../../hooks';
 import { selectIsMapOperationLoading } from '../../redux';
 import { LoadingOverlay } from '../../uiComponents';
 
-export const MapLoader = () => {
-  const testIds = {
-    loader: 'MapLoader::loader',
-  };
+const testIds = {
+  loader: 'MapLoader::loader',
+};
+
+export const MapLoader = (): JSX.Element => {
   const { isMapOpen } = useMapQueryParams();
   const isLoading = useAppSelector(selectIsMapOperationLoading);
 
