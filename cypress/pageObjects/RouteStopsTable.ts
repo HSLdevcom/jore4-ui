@@ -1,4 +1,8 @@
+import { TimingSettingsForm } from './TimingSettingsForm';
+
 export class RouteStopsTable {
+  timingSettingsForm = new TimingSettingsForm();
+
   toggleUnusedStops() {
     return cy.getByTestId('show-unused-stops-switch').click();
   }
@@ -43,6 +47,11 @@ export class RouteStopsTable {
       .click()
       .getByTestId('StopActionsDrowdown::removeStopFromRouteButton')
       .click();
+  }
+
+  openTimingSettingsForm(stopLabel: string) {
+    this.getStopDropdown(stopLabel).click();
+    cy.getByTestId('StopActionsDrowdown::openTimingSettings').click();
   }
 
   getRouteDirection(routeLabel: string) {

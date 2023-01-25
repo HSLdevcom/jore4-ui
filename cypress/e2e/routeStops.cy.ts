@@ -197,4 +197,28 @@ describe('Line details page: stops on route', () => {
       .contains('Reitillä on oltava ainakin kaksi pysäkkiä.')
       .should('be.visible');
   });
+
+  it('Should set stop as timing place, regulated timing place and allow loading time', () => {
+    routeStopsTable.toggleRouteSection(routes[0].label);
+    routeStopsTable.openTimingSettingsForm(stops[0].label);
+    routeStopsTable.timingSettingsForm.getIsUsedAsTimingPointCheckbox().check();
+    routeStopsTable.timingSettingsForm
+      .getIsRegulatedTimingPointCheckbox()
+      .check();
+    routeStopsTable.timingSettingsForm
+      .getIsLoadingTimeAllowedCheckbox()
+      .check();
+    routeStopsTable.timingSettingsForm.getSavebutton().click();
+    toast.checkSuccessToastHasMessage('Aika-asetusten tallennus onnistui');
+    routeStopsTable.openTimingSettingsForm(stops[0].label);
+    routeStopsTable.timingSettingsForm
+      .getIsUsedAsTimingPointCheckbox()
+      .should('be.checked');
+    routeStopsTable.timingSettingsForm
+      .getIsRegulatedTimingPointCheckbox()
+      .should('be.checked');
+    routeStopsTable.timingSettingsForm
+      .getIsLoadingTimeAllowedCheckbox()
+      .should('be.checked');
+  });
 });
