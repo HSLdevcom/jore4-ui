@@ -1,8 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLoader } from '../../../hooks';
 import { useConfirmTimetablesImport } from '../../../hooks/timetables-import/useConfirmTimetablesImport';
+import { Operation } from '../../../redux';
 import { TimetablePriority } from '../../../types/Priority';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
+import { showSuccessToast } from '../../../utils';
 import {
   ConfirmTimetablesImportForm,
   FormState,
@@ -21,12 +24,21 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { confirmTimetablesImport } = useConfirmTimetablesImport();
+  const { setIsLoading } = useLoader(Operation.ConfirmTimetablesImport);
 
   const onSave = async (state: FormState) => {
-    await confirmTimetablesImport(
-      state.priority as unknown as TimetablePriority,
-    );
-    onClose();
+    setIsLoading(true);
+
+    try {
+      await confirmTimetablesImport(
+        state.priority as unknown as TimetablePriority,
+      );
+      showSuccessToast(t('timetables.importSuccess'));
+
+      onClose();
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

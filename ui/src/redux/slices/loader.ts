@@ -9,6 +9,7 @@ export enum Operation {
   MatchRoute = 'matchRoute',
   CheckBrokenRoutes = 'checkBrokenRoutes',
   SaveTimingPlace = 'saveTimingPlace',
+  ConfirmTimetablesImport = 'confirmTimetablesImport',
 }
 
 export const mapOperations = [
@@ -35,6 +36,7 @@ const initialState: IState = {
   [Operation.MatchRoute]: false,
   [Operation.CheckBrokenRoutes]: false,
   [Operation.SaveTimingPlace]: false,
+  [Operation.ConfirmTimetablesImport]: false,
 };
 
 const slice = createSlice({
