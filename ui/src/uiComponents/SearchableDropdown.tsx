@@ -19,7 +19,7 @@ interface Props<T> extends ComboboxInputProps {
   options: ComboboxOptionRenderer[];
 }
 
-export function SearchableDropdown<T>({
+export const SearchableDropdown = <T extends ExplicitAny>({
   selectedItem,
   options,
   onChange,
@@ -27,7 +27,7 @@ export function SearchableDropdown<T>({
   nullOptionRender,
   onQueryChange: parentOnQueryChange,
   ...otherProps
-}: Props<T>): JSX.Element {
+}: Props<T>): JSX.Element => {
   // Query value is debounced because we do async call on query change.
   // We need to know the not debounced query value to determine what to show in the
   // combobox search input, therefore track with separate state variable whether or
@@ -72,4 +72,4 @@ export function SearchableDropdown<T>({
       {...otherProps}
     />
   );
-}
+};

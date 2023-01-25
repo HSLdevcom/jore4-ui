@@ -73,6 +73,11 @@ module.exports = {
     ],
     'react/require-default-props': 'off', // default props are going to be deprecated in function components (https://github.com/reactjs/rfcs/pull/107) so it doesn't make sense to enforce them. Use e.g. default values instead.
     'react/prop-types': 'off', // not needed with TypeScript as it checks type compatability already on compile time based
+    'react/function-component-definition': [
+      // enforce consistent react component definitions
+      'error',
+      { namedComponents: 'arrow-function' },
+    ],
     'react/jsx-filename-extension': [
       // require jsx to be in TS files. For some reason both .tsx and .ts extensions need to be listed here, but this will still complain if it finds .jsx in .ts file
       'error',
@@ -135,6 +140,12 @@ module.exports = {
         allowWholeFile: true,
       },
     ],
+    // Disabled as this provides mostly cosmetic value but causes typing errors
+    // instead. Due to current react typings we can't `return null`
+    // (or undefined) for components when we don't want to render anything, and
+    // this rule disallows also workaround of returning empty fragment
+    // (`return <></>`)
+    'react/jsx-no-useless-fragment': 'off',
     'lodash/import-scope': ['error', 'method'], // prefer importing individual lodash methods (e.g. `import map from 'lodash/map'` instead of whole lodash library (`import { map } from 'lodash'`) to minimize bundle size
     'react/react-in-jsx-scope': 'off', // not needed with next.js: https://stackoverflow.com/a/61160875
     'react-hooks/rules-of-hooks': 'error', // enforce best practices with react hoooks

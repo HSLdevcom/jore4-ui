@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 // This is a custom typing file, because the origin does not provide typings.
 // Based on https://github.com/HSLdevcom/hsl-map-style
 declare module 'hsl-map-style' {

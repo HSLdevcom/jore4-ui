@@ -70,23 +70,6 @@ export const PriorityForm = ({
   const selectedPriority = watch('priority');
   const setPriority = (value: Priority) => setValue('priority', value);
 
-  const PriorityButton = ({
-    priority,
-    testIdPrefix,
-    translationKey,
-  }: PriorityButtonProps) => {
-    return (
-      <SimpleButton
-        onClick={() => setPriority(priority)}
-        selected={selectedPriority === priority}
-        inverted={selectedPriority !== priority}
-        testId={testIds.priorityButton(testIdPrefix)}
-      >
-        {t(translationKey)}
-      </SimpleButton>
-    );
-  };
-
   const displayedPriorities = defaultPriorities.filter(
     (priority) => !hiddenPriorities?.includes(priority.priority),
   );
@@ -98,14 +81,19 @@ export const PriorityForm = ({
         <label>{t('priority.label')}</label>
       </Visible>
       <Row className="flex-wrap gap-2">
-        {displayedPriorities.map((priority) => (
-          <PriorityButton
-            key={priority.testIdPrefix}
-            priority={priority.priority}
-            testIdPrefix={priority.testIdPrefix}
-            translationKey={priority.translationKey}
-          />
-        ))}
+        {displayedPriorities.map(
+          ({ priority, testIdPrefix, translationKey }) => (
+            <SimpleButton
+              key={testIdPrefix}
+              onClick={() => setPriority(priority)}
+              selected={selectedPriority === priority}
+              inverted={selectedPriority !== priority}
+              testId={testIds.priorityButton(testIdPrefix)}
+            >
+              {t(translationKey)}
+            </SimpleButton>
+          ),
+        )}
       </Row>
       <p>{errors.priority && t('formValidation.required')}</p>
     </Column>

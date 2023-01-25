@@ -32,6 +32,7 @@ export const EditRouteModal = ({
 
   return (
     <HTMLOverlay
+      // eslint-disable-next-line react/no-unstable-nested-components
       redraw={() => (
         <div className="flex max-h-full justify-center py-5">
           <Modal

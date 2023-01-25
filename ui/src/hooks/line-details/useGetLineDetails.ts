@@ -21,6 +21,7 @@ import {
   buildDraftPriorityGqlFilter,
   buildLabelGqlFilter,
 } from '../../utils';
+import { getRouteLabelVariantText } from '../../utils/route';
 import { useObservationDateQueryParam } from '../urlQuery';
 
 const findHighestPriorityRoute = <TRoute extends DisplayedRouteFragment>(
@@ -40,7 +41,7 @@ const filterRoutesByHighestPriorityAndDirection = <
   );
   const routesGroupedByLabelAndVariant = groupBy(
     routesFilteredByDirection,
-    (route) => route.label + route?.variant,
+    getRouteLabelVariantText,
   );
 
   const highestPriorityRoutes = Object.keys(routesGroupedByLabelAndVariant).map(
