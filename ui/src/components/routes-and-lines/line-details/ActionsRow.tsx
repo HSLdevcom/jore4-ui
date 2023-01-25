@@ -27,9 +27,7 @@ export const ActionsRow = ({
   return (
     <Container className={className}>
       <FormRow mdColumns={2}>
-        <Column className="w-1/4">
-          <ObservationDateControl className="flex-1" />
-        </Column>
+        <ObservationDateControl className="max-w-max" />
         {line && (
           <Column className="items-end justify-end">
             <SimpleButton
