@@ -27,7 +27,9 @@ export const ActionsRow = ({
     <Container className={className}>
       <Row>
         <Column className="w-1/4">
-          <ObservationDateControl className="flex-1" />
+          <Row className="flex-1">
+            <ObservationDateControl />
+          </Row>
         </Column>
 
         {line && (
