@@ -105,6 +105,14 @@ export const selectIsMapOperationLoading = createSelector(
       .some(([, isLoading]) => isLoading),
 );
 
+export const selectIsOperationLoading = createSelector(
+  selectLoader,
+  (loaders) =>
+    Object.entries(loaders)
+      .filter(([operation]) => !mapOperations.includes(operation as Operation))
+      .some(([, isLoading]) => isLoading),
+);
+
 export const selectEditedRouteIncludedStops = createSelector(
   selectMapRouteEditor,
   ({ editedRouteData }) =>
