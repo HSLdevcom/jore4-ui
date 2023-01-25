@@ -1,7 +1,10 @@
+import { TimingSettingsForm } from './TimingSettingsForm';
 import { ViaForm } from './ViaForm';
 
 export class RouteStopsTable {
   viaForm = new ViaForm();
+
+  timingSettingsForm = new TimingSettingsForm();
 
   toggleUnusedStops() {
     return cy.getByTestId('show-unused-stops-switch').click();
@@ -57,6 +60,11 @@ export class RouteStopsTable {
   openEditViaPointModal(stopLabel: string) {
     this.getStopDropdown(stopLabel).click();
     cy.getByTestId('StopActionsDrowdown::editViaPoint').click();
+  }
+
+  openTimingSettingsForm(stopLabel: string) {
+    this.getStopDropdown(stopLabel).click();
+    cy.getByTestId('StopActionsDrowdown::openTimingSettings').click();
   }
 
   getRouteDirection(routeLabel: string) {

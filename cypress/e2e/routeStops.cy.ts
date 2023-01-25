@@ -11,6 +11,7 @@ import {
   infrastructureLinkAlongRoute,
   infrastructureLinks,
   journeyPatterns,
+  timingPlaces,
   vehicleSubmodeOnInfrastructureLink,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
@@ -45,13 +46,14 @@ const stops: StopInsertInput[] = [
     }),
     scheduled_stop_point_id: '0f6254d9-dc60-4626-a777-ce4d4381d38a',
   },
-  // included on route
+  // included on route, has a timing place
   {
     ...buildStop({
       label: 'E2E002',
       located_on_infrastructure_link_id: infraLinks[1].infrastructure_link_id,
     }),
     scheduled_stop_point_id: '7e97247d-7750-4d72-b02e-bd4e886357b7',
+    timing_place_id: timingPlaces[0].timing_place_id,
   },
   // not included on route
   {
@@ -113,6 +115,7 @@ const dbResources = {
   infraLinksAlongRoute,
   journeyPatterns,
   stopsInJourneyPattern,
+  timingPlaces,
 };
 
 const deleteCreatedResources = () => {
@@ -126,18 +129,19 @@ describe('Line details page: stops on route', () => {
 
   before(() => {
     deleteCreatedResources();
-    insertToDbHelper(dbResources);
   });
   beforeEach(() => {
     lineDetailsPage = new LineDetailsPage();
     toast = new Toast();
     routeStopsTable = new RouteStopsTable();
 
+    insertToDbHelper(dbResources);
+
     cy.setupTests();
     cy.mockLogin();
     lineDetailsPage.visit(lines[0].line_id);
   });
-  after(() => {
+  afterEach(() => {
     deleteCreatedResources();
   });
 
@@ -222,5 +226,42 @@ describe('Line details page: stops on route', () => {
     cy.wait('@gqlRemoveScheduledStopPointViaInfo');
     // Verify that createViaPoint selection is available instead of editViaPoint
     routeStopsTable.getStopDropdown(stops[0].label).should('be.visible');
+  });
+
+  it('Checking "Use Hastus place" should not be possible when the stop has no timing place', () => {
+    routeStopsTable.toggleRouteSection(routes[0].label);
+    // This stop does not have a timing place
+    // so it should not be possible to enable 'Use Hastus place'
+    routeStopsTable.openTimingSettingsForm(stops[0].label);
+    routeStopsTable.timingSettingsForm
+      .getIsUsedAsTimingPointCheckbox()
+      .should('be.disabled');
+  });
+
+  it('Should set stop as timing place, regulated timing place and allow loading time', () => {
+    routeStopsTable.toggleRouteSection(routes[0].label);
+    // Open timing settings modal
+    routeStopsTable.openTimingSettingsForm(stops[1].label);
+    // Set timing settings
+    routeStopsTable.timingSettingsForm.getIsUsedAsTimingPointCheckbox().check();
+    routeStopsTable.timingSettingsForm
+      .getIsRegulatedTimingPointCheckbox()
+      .check();
+    routeStopsTable.timingSettingsForm
+      .getIsLoadingTimeAllowedCheckbox()
+      .check();
+    routeStopsTable.timingSettingsForm.getSavebutton().click();
+    toast.checkSuccessToastHasMessage('Aika-asetusten tallennus onnistui');
+    // Check that timing settings are set
+    routeStopsTable.openTimingSettingsForm(stops[1].label);
+    routeStopsTable.timingSettingsForm
+      .getIsUsedAsTimingPointCheckbox()
+      .should('be.checked');
+    routeStopsTable.timingSettingsForm
+      .getIsRegulatedTimingPointCheckbox()
+      .should('be.checked');
+    routeStopsTable.timingSettingsForm
+      .getIsLoadingTimeAllowedCheckbox()
+      .should('be.checked');
   });
 });

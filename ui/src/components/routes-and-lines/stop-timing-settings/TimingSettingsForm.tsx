@@ -29,6 +29,7 @@ const testIds = {
   isUsedAsTimingPoint: 'TimingSettingsForm::isUsedAsTimingPoint',
   isRegulatedTimingPoint: 'TimingSettingsForm::isRegulatedTimingPoint',
   isLoadingTimeAllowed: 'TimingSettingsForm::isLoadingTimeAllowed',
+  saveButton: 'TimingSettingsForm::saveButton',
 };
 
 export const mapStopJourneyPatternToFormState = (
@@ -119,7 +120,9 @@ export const TimingSettingsForm = ({
             {t('cancel')}
           </SimpleButton>
 
-          <SimpleButton onClick={onSave}>{t('save')}</SimpleButton>
+          <SimpleButton onClick={onSave} testId={testIds.saveButton}>
+            {t('save')}
+          </SimpleButton>
         </Row>
       </form>
     </FormProvider>
