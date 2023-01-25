@@ -1,7 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useReducer, useRef } from 'react';
+import { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useToggle } from '../../../hooks';
 import { useConfirmTimetablesImport } from '../../../hooks/timetables-import/useConfirmTimetablesImport';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
@@ -13,10 +14,11 @@ import {
   PriorityFormState,
   priorityFormSchema,
 } from '../../forms/common';
+import { ImportContentsView } from './ImportContentsView';
 
 const schema = priorityFormSchema;
 
-export type FormState = PriorityFormState;
+type FormState = PriorityFormState;
 
 const testIds = {
   toggleShowStagingTimetables:
@@ -28,13 +30,11 @@ const testIds = {
 export const PreviewTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
 
-  const { vehicleJourneyCount, confirmTimetablesImport } =
+  const { confirmTimetablesImport, vehicleJourneys, vehicleScheduleFrames } =
     useConfirmTimetablesImport();
-  const [showStagingTimetables, toggleShowStagingTimetables] = useReducer(
-    (value) => !value,
-    false,
-  );
+  const [showStagingTimetables, toggleShowStagingTimetables] = useToggle();
 
+  const vehicleJourneyCount = vehicleJourneys?.length || 0;
   const importedTimetablesExist = vehicleJourneyCount > 0;
 
   const formRef = useRef<ExplicitAny>(null);
@@ -63,7 +63,9 @@ export const PreviewTimetablesPage = (): JSX.Element => {
         <Row className="justify-between rounded-t-sm border-brand bg-brand pl-16 pr-8 text-white">
           <div className="py-2">
             <h2>
-              {t('timetablesPreview.departures')} {vehicleJourneyCount}
+              {t('timetablesPreview.departures', {
+                count: vehicleJourneyCount,
+              })}
             </h2>
           </div>
           <div className="flex items-center">
@@ -98,8 +100,8 @@ export const PreviewTimetablesPage = (): JSX.Element => {
           </FormProvider>
         </Row>
         <Visible visible={showStagingTimetables}>
-          <div className="rounded-b-sm bg-hsl-neutral-blue">
-            TODO: Implement
+          <div className="items-center space-x-14 rounded-b-sm bg-hsl-neutral-blue py-9 px-16">
+            <ImportContentsView vehicleScheduleFrames={vehicleScheduleFrames} />
           </div>
         </Visible>
       </div>

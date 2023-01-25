@@ -297,10 +297,12 @@
   "timetablesPreview": {
     "preview": "Esikatselu",
     "save": "Tallenna aikataulut",
-    "departures": "Lähtöjä:",
+    "departures": "Lähtöjä: {{ count }}",
     "showContent": "Näytä sisältö",
     "closeContent": "Sulje sisältö",
-    "contentUsage": "Sisällön käyttö"
+    "contentUsage": "Sisällön käyttö",
+    "fileContent": "Tiedoston sisältö",
+    "blockCount": "{{ count }} autokiertoa"
   },
   "confirmTimetablesImportModal": {
     "title": "Tallenna muutos",
