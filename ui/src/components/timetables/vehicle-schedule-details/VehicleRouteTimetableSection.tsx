@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { RouteRoute } from '../../../generated/graphql';
-import { useGetTimetables } from '../../../hooks';
-import { useToggle } from '../../../hooks/useToggle';
+import { useGetTimetables, useToggle } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
 import { mapToShortDate } from '../../../time';
 import { AccordionButton } from '../../../uiComponents';
