@@ -18,16 +18,16 @@ import { ImportTimetablesPage } from '../components/timetables/import/ImportTime
 import { Main } from '../pages/Main';
 import { Path } from './routeDetails';
 
+const FallbackRoute: FunctionComponent = () => {
+  return React.createElement('p', null, `404, page not found`);
+};
+
 export const Router: FunctionComponent = () => {
   interface Route {
     _routerRoute: Path;
     _exact?: boolean; // When true, will only match if the path matches the location.pathname exactly.
     component: React.ComponentType;
   }
-
-  const FallbackRoute: FunctionComponent = () => {
-    return React.createElement('p', null, `404, page not found`);
-  };
 
   const routes: Record<Path, Route> = {
     [Path.root]: {

@@ -105,6 +105,7 @@ const RoutePropertiesFormComponent = (
               translationPrefix="routes"
               fieldPath="direction"
               testId={testIds.directionDropdown}
+              // eslint-disable-next-line react/no-unstable-nested-components
               inputElementRenderer={(props) => (
                 <DirectionDropdown
                   // eslint-disable-next-line react/jsx-props-no-spreading
@@ -117,6 +118,7 @@ const RoutePropertiesFormComponent = (
               translationPrefix="routes"
               fieldPath="onLineId"
               testId={testIds.lineChoiceDropdown}
+              // eslint-disable-next-line react/no-unstable-nested-components
               inputElementRenderer={(props) => (
                 <ChooseLineDropdown
                   // eslint-disable-next-line react/jsx-props-no-spreading
