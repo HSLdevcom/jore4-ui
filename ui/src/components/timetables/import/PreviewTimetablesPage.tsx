@@ -2,13 +2,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useToggle } from '../../../hooks';
+import { useHistory } from 'react-router';
+import { useLoader, useToggle } from '../../../hooks';
 import { useConfirmTimetablesImport } from '../../../hooks/timetables-import/useConfirmTimetablesImport';
 import { Container, Row, Visible } from '../../../layoutComponents';
-import { Path } from '../../../router/routeDetails';
+import { Operation } from '../../../redux';
+import { Path, routeDetails } from '../../../router/routeDetails';
 import { TimetablePriority } from '../../../types/Priority';
 import { AccordionButton, SimpleButton } from '../../../uiComponents';
-import { submitFormByRef } from '../../../utils';
+import { showSuccessToast, submitFormByRef } from '../../../utils';
 import {
   PriorityForm,
   PriorityFormState,
@@ -29,10 +31,12 @@ const testIds = {
 
 export const PreviewTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
+  const history = useHistory();
 
   const { confirmTimetablesImport, vehicleJourneys, vehicleScheduleFrames } =
     useConfirmTimetablesImport();
   const [showStagingTimetables, toggleShowStagingTimetables] = useToggle();
+  const { setIsLoading } = useLoader(Operation.ConfirmTimetablesImport);
 
   const vehicleJourneyCount = vehicleJourneys?.length || 0;
   const importedTimetablesExist = vehicleJourneyCount > 0;
@@ -51,9 +55,20 @@ export const PreviewTimetablesPage = (): JSX.Element => {
   };
 
   const onSubmit = async (state: FormState) => {
-    await confirmTimetablesImport(
-      state.priority as unknown as TimetablePriority,
-    );
+    setIsLoading(true);
+
+    try {
+      await confirmTimetablesImport(
+        state.priority as unknown as TimetablePriority,
+      );
+      showSuccessToast(t('timetables.importSuccess'));
+
+      history.push({
+        pathname: routeDetails[Path.timetablesImport].getLink(),
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
