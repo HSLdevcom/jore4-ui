@@ -6,6 +6,7 @@ export * from './routes';
 export * from './search';
 export * from './stop-timing-settings';
 export * from './stops';
+export * from './timetables-import';
 export * from './timing-places';
 export * from './ui';
 export * from './urlQuery';

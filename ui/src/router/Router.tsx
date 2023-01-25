@@ -1,7 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import React, { FunctionComponent } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { MapLoader, ModalMap } from '../components/map';
+import { Loader } from '../components/common/Loader';
+import { ModalMap } from '../components/map';
 import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
 import { EditLinePage } from '../components/routes-and-lines/edit-line/EditLinePage';
@@ -116,7 +117,7 @@ export const Router: FunctionComponent = () => {
         ))}
       </Switch>
       <ModalMap />
-      <MapLoader />
+      <Loader />
     </BrowserRouter>
   );
 };

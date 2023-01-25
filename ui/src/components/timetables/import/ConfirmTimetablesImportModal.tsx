@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfirmTimetablesImport } from '../../../hooks/timetables-import/useConfirmTimetablesImport';
-import { TimetablePriority } from '../../../types/enums';
+import { useConfirmTimetablesImportUIAction } from '../../../hooks';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import {
   ConfirmTimetablesImportForm,
@@ -20,12 +19,11 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
   className = '',
 }) => {
   const { t } = useTranslation();
-  const { confirmTimetablesImport } = useConfirmTimetablesImport();
+  const { onConfirmTimetablesImport } = useConfirmTimetablesImportUIAction();
 
   const onSave = async (state: FormState) => {
-    await confirmTimetablesImport(
-      state.priority as unknown as TimetablePriority,
-    );
+    await onConfirmTimetablesImport(state.priority);
+
     onClose();
   };
 
