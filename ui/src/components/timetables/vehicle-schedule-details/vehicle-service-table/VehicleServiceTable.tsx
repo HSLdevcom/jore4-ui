@@ -17,7 +17,7 @@ import {
 interface Props {
   priority: TimetablePriority;
   dayType: DayTypeAllFieldsFragment;
-  vehicleServices: VehicleJourneyWithServiceFragment[];
+  vehicleJourneys: VehicleJourneyWithServiceFragment[];
 }
 
 const testIds = {
@@ -27,7 +27,7 @@ const testIds = {
 export const VehicleServiceTable = ({
   priority,
   dayType,
-  vehicleServices,
+  vehicleJourneys,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
@@ -54,7 +54,7 @@ export const VehicleServiceTable = ({
   };
 
   const departureTimesByHour = pipe(
-    vehicleServices,
+    vehicleJourneys,
     (services) => services.flatMap((item) => item.start_time),
     (journeyStartTimes) =>
       journeyStartTimes.sort(
@@ -70,7 +70,7 @@ export const VehicleServiceTable = ({
     minutes: value.map((item) => item.minutes),
   }));
 
-  const hasVehicleServices = !!rowData.length;
+  const hasVehicleJourneys = !!rowData.length;
 
   return (
     <div>
@@ -90,7 +90,7 @@ export const VehicleServiceTable = ({
         </Column>
       </Row>
 
-      <Visible visible={hasVehicleServices}>
+      <Visible visible={hasVehicleJourneys}>
         <table data-testid={testIds.timetable} className="flex">
           <tbody className=" w-full">
             {rowData.map((item) => (
@@ -103,7 +103,7 @@ export const VehicleServiceTable = ({
           </tbody>
         </table>
       </Visible>
-      <Visible visible={!hasVehicleServices}>
+      <Visible visible={!hasVehicleJourneys}>
         <p>{t('timetables.noService')}</p>
       </Visible>
     </div>

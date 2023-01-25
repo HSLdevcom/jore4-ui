@@ -58,16 +58,16 @@ export const VehicleRouteTimetableSection = ({
       </Row>
       <Visible visible={isOpen}>
         <div className="mt-8 grid grid-cols-3 gap-x-8 gap-y-5">
-          {timetables?.vehicleServiceGroups.map((item) => (
+          {timetables?.vehicleJourneyGroups.map((item) => (
             <VehicleServiceTable
               priority={item.priority}
               dayType={item.dayType}
-              vehicleServices={item.vehicleServices}
+              vehicleJourneys={item.vehicleJourneys}
               key={`${item.priority}-${item.dayType.day_type_id}`}
             />
           ))}
         </div>
-        <Visible visible={!timetables?.vehicleServiceGroups.length}>
+        <Visible visible={!timetables?.vehicleJourneyGroups.length}>
           <p>{t('timetables.noService')}</p>
         </Visible>
       </Visible>
