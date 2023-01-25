@@ -13,6 +13,7 @@ import {
   PriorityFormState,
   priorityFormSchema,
 } from '../../forms/common';
+import { ImportContentsView } from './ImportContentsView';
 
 const schema = priorityFormSchema;
 
@@ -28,13 +29,14 @@ const testIds = {
 export const PreviewTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
 
-  const { vehicleJourneyCount, confirmTimetablesImport } =
+  const { confirmTimetablesImport, vehicleJourneys, vehicleScheduleFrames } =
     useConfirmTimetablesImport();
   const [showStagingTimetables, toggleShowStagingTimetables] = useReducer(
     (value) => !value,
     false,
   );
 
+  const vehicleJourneyCount = vehicleJourneys?.length || 0;
   const importedTimetablesExist = vehicleJourneyCount > 0;
 
   const formRef = useRef<ExplicitAny>(null);
@@ -98,8 +100,8 @@ export const PreviewTimetablesPage = (): JSX.Element => {
           </FormProvider>
         </Row>
         <Visible visible={showStagingTimetables}>
-          <div className="rounded-b-sm bg-hsl-neutral-blue">
-            TODO: Implement
+          <div className="items-center space-x-14 rounded-b-sm bg-hsl-neutral-blue py-9 px-16">
+            <ImportContentsView vehicleScheduleFrames={vehicleScheduleFrames} />
           </div>
         </Visible>
       </div>
