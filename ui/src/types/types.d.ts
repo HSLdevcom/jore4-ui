@@ -4,9 +4,7 @@ type ExplicitAny = any; // eslint-disable-line @typescript-eslint/no-explicit-an
 type UUID = string;
 
 type LocalizedString = {
-  // eslint-disable-next-line camelcase
   fi_FI?: string;
-  // eslint-disable-next-line camelcase
   sv_FI?: string;
 };
 
@@ -33,7 +31,7 @@ type Join<K, P> = K extends string | number
 // paths strings within a object
 type Paths<T, D extends number = 10> = [D] extends [never]
   ? never
-  : T extends object // eslint-disable-line @typescript-eslint/ban-types
+  : T extends object
   ? {
       [K in keyof T]-?: K extends string | number
         ? `${K}` | Join<K, Paths<T[K], Prev[D]>>

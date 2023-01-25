@@ -24,7 +24,7 @@ export interface EnumDropdownProps<TEnum> extends FormInputProps {
  * it the includeAllOption flag as true.
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function EnumDropdown<TEnum extends Object>({
+export const EnumDropdown = <TEnum extends Object>({
   id,
   testId,
   enumType,
@@ -33,7 +33,7 @@ export function EnumDropdown<TEnum extends Object>({
   value,
   includeAllOption,
   ...formInputProps
-}: EnumDropdownProps<TEnum>) {
+}: EnumDropdownProps<TEnum>): JSX.Element => {
   const values = getEnumValues(
     includeAllOption ? { ...AllOptionEnum, ...enumType } : enumType,
   );
@@ -67,4 +67,4 @@ export function EnumDropdown<TEnum extends Object>({
       {...formInputProps}
     />
   );
-}
+};

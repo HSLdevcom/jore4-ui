@@ -1,5 +1,3 @@
-// graphql schema uses snake_case instead of camelCase
-/* eslint-disable camelcase */
 import {
   buildLine,
   buildRoute,

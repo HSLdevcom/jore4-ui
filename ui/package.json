@@ -69,8 +69,6 @@
     "@types/qs": "^6.9.7",
     "@types/react": "^17.0.21",
     "@types/react-router-dom": "^5.1.7",
-    "@typescript-eslint/eslint-plugin": "^4.31.1",
-    "@typescript-eslint/parser": "^4.31.1",
     "autoprefixer": "^10.4.2",
     "bufferutil": "^4.0.3",
     "cross-fetch": "^3.1.5",

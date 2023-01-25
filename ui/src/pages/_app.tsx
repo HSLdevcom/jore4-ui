@@ -10,7 +10,7 @@ import { Router } from '../router/Router';
 import '../styles/globals.css';
 import { Toaster } from '../uiComponents/Toaster';
 
-function SafeHydrate({ children }: { children: JSX.Element }) {
+const SafeHydrate = ({ children }: { children: JSX.Element }) => {
   // We are not using SSR. Use useEffect as workaround to
   // get rid of hydration mismatch error on first render as
   // suggested in nextjs documentation:
@@ -22,9 +22,9 @@ function SafeHydrate({ children }: { children: JSX.Element }) {
       {windowType === 'undefined' ? null : children}
     </div>
   );
-}
+};
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <SafeHydrate>
       <ApolloProvider>
@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </ApolloProvider>
     </SafeHydrate>
   );
-}
+};
 
 // eslint-disable-next-line import/no-default-export
 export default MyApp;

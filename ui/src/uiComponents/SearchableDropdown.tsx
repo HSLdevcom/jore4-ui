@@ -19,6 +19,9 @@ interface Props<T> extends ComboboxInputProps {
   options: ComboboxOptionRenderer[];
 }
 
+// eslint disabled until someone figures syntax to pass generic type param
+// to arrow function component definition.
+// eslint-disable-next-line react/function-component-definition
 export function SearchableDropdown<T>({
   selectedItem,
   options,

@@ -129,6 +129,7 @@ export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
             translationPrefix="lines"
             fieldPath="transportTarget"
             testId={testIds.transportTargetDropdown}
+            // eslint-disable-next-line react/no-unstable-nested-components
             inputElementRenderer={(props) => (
               <TransportTargetDropdown
                 // eslint-disable-next-line react/jsx-props-no-spreading
@@ -140,6 +141,7 @@ export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
             translationPrefix="lines"
             fieldPath="primaryVehicleMode"
             testId={testIds.vehicleModeDropdown}
+            // eslint-disable-next-line react/no-unstable-nested-components
             inputElementRenderer={(props) => (
               <VehicleModeDropdown
                 // eslint-disable-next-line react/jsx-props-no-spreading
@@ -151,6 +153,7 @@ export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
             translationPrefix="lines"
             fieldPath="typeOfLine"
             testId={testIds.lineTypeDropdown}
+            // eslint-disable-next-line react/no-unstable-nested-components
             inputElementRenderer={(props) => (
               <LineTypeDropdown
                 // eslint-disable-next-line react/jsx-props-no-spreading

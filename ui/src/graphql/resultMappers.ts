@@ -16,9 +16,7 @@ const emptyArray = [] as const;
 
 // routes
 
-// eslint-disable-next-line camelcase
 type RoutePkQueryResult = QueryRootLike<{ route_route_by_pk?: RouteLike }>;
-// eslint-disable-next-line camelcase
 type RouteQueryResult = QueryRootLike<{ route_route?: RouteLike[] }>;
 
 const isRouteQueryResult = (
@@ -40,7 +38,6 @@ export const mapRouteResultToRoutes = (
 // stops
 
 type StopQueryResult = QueryRootLike<{
-  // eslint-disable-next-line camelcase
   service_pattern_scheduled_stop_point?: StopLike[];
 }>;
 

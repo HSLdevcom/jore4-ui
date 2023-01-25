@@ -40,7 +40,7 @@ const filterRoutesByHighestPriorityAndDirection = <
   );
   const routesGroupedByLabelAndVariant = groupBy(
     routesFilteredByDirection,
-    (route) => route.label + route?.variant,
+    (route) => `${route.label}${route?.variant}`,
   );
 
   const highestPriorityRoutes = Object.keys(routesGroupedByLabelAndVariant).map(

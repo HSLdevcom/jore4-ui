@@ -2,15 +2,22 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { usePagination } from '../hooks/usePagination';
 import { IconButton } from './IconButton';
 
-interface Props {
+interface ClassNameProps {
+  className?: string;
+}
+
+interface Props extends ClassNameProps {
   totalItemsCount: number;
   amountOfNeighbours?: number;
   itemsPerPage?: number;
-  className?: string;
 }
 
 const DEFAULT_AMOUNT_OF_NEIGHBOURS = 2;
 const DEFAULT_ITEMS_PER_PAGE = 10;
+
+const Dots = ({ className = '' }: ClassNameProps): JSX.Element => (
+  <span className={className}>...</span>
+);
 
 /**
  * Pagination component
@@ -62,7 +69,7 @@ export const Pagination = ({
     'rounded-full border border-brand bg-brand text-white';
   const commonClassName = `text-1xl px-4 py-2 text-center flex-1`;
 
-  const Dots = (): JSX.Element => <span className={commonClassName}>...</span>;
+  // eslint-disable-next-line react/no-unstable-nested-components
   const PageButton = ({ pageNumber }: { pageNumber: number }): JSX.Element => (
     <button
       onClick={() => setPage(pageNumber)}
@@ -91,7 +98,7 @@ export const Pagination = ({
       {showAdditionalElementsOnStart && (
         <>
           <PageButton pageNumber={firstPageNumber} />
-          {showDotsNearStart && <Dots />}
+          {showDotsNearStart && <Dots className={commonClassName} />}
         </>
       )}
       {displayedPageNumbers.map((pageNumber) =>
@@ -108,7 +115,7 @@ export const Pagination = ({
       )}
       {showAdditionalElementsOnEnd && (
         <>
-          {showDotsNearEnd && <Dots />}
+          {showDotsNearEnd && <Dots className={commonClassName} />}
           <PageButton pageNumber={lastPageNumber} />
         </>
       )}

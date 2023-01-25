@@ -35,6 +35,7 @@ export const EditStopModal = ({
   return (
     <HTMLOverlay
       style={{ zIndex: 10 }}
+      // eslint-disable-next-line react/no-unstable-nested-components
       redraw={() => (
         <div className="flex max-h-full py-5 px-5">
           <Modal

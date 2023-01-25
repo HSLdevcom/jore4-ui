@@ -235,9 +235,7 @@ export const mapToDeleteInfraLinksMutation = (uuids: UUID[]) => {
 };
 
 export interface VehicleSubmodeOnInfraLinkInsertInput {
-  // eslint-disable-next-line camelcase
   infrastructure_link_id: UUID;
-  // eslint-disable-next-line camelcase
   vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
 }
 

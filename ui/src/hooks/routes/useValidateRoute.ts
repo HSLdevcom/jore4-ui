@@ -12,9 +12,7 @@ import {
 } from '../../utils';
 
 interface ValidityPeriodParams {
-  // eslint-disable-next-line camelcase
   validity_start?: Maybe<DateTime>;
-  // eslint-disable-next-line camelcase
   validity_end?: Maybe<DateTime>;
 }
 

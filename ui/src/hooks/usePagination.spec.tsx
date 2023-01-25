@@ -99,7 +99,7 @@ describe(`${hookForNames.result.current.setPage.name}`, () => {
 
     result.current.setPage(5);
 
-    expect(mockHistory.push).toBeCalledWith({ search: 'page=5' });
+    expect(mockHistory.push).toHaveBeenCalledWith({ search: 'page=5' });
   });
 
   test('should overwrite existing page query parameter', () => {
@@ -107,7 +107,7 @@ describe(`${hookForNames.result.current.setPage.name}`, () => {
     const { result } = renderHook(usePagination);
     result.current.setPage(10);
 
-    expect(mockHistory.push).toBeCalledWith({
+    expect(mockHistory.push).toHaveBeenCalledWith({
       search: 'page=10',
     });
   });
@@ -119,7 +119,7 @@ describe(`${hookForNames.result.current.setPage.name}`, () => {
     const { result } = renderHook(usePagination);
     result.current.setPage(10);
 
-    expect(mockHistory.push).toBeCalledWith({
+    expect(mockHistory.push).toHaveBeenCalledWith({
       search: 'name=TestName&line=TestLine&page=10',
     });
   });
