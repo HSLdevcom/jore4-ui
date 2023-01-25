@@ -12,10 +12,10 @@ const testIds = {
 
 export const ImportTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const { vehicleJourneyCount } = useConfirmTimetablesImport();
+  const { vehicleJourneys } = useConfirmTimetablesImport();
   const [isSavingImport, setIsSavingImport] = useState(false);
 
-  const importedTimetablesExist = vehicleJourneyCount > 0;
+  const importedTimetablesExist = vehicleJourneys.length > 0;
 
   return (
     <Container>
