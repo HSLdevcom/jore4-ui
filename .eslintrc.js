@@ -55,7 +55,7 @@ module.exports = {
     '@typescript-eslint/no-shadow': ['error'], //
     'no-unused-expressions': ['error', { allowTernary: true }], // allow expressions like `booleanValue ? doSomething() : doSomethingElse()`
     'react/forbid-component-props': [
-      'warn',
+      'error',
       {
         forbid: [
           // catch common misspelling that can cause errors
@@ -64,7 +64,7 @@ module.exports = {
       },
     ],
     'react/forbid-dom-props': [
-      'warn',
+      'error',
       {
         forbid: [
           { propName: 'data-testId', message: 'Should be "data-testid"' },
