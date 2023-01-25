@@ -292,7 +292,8 @@
     "at": "klo {{ time }}",
     "importFromHastus": "Tuo Hastuksesta",
     "importTimetablesFromHastus": "Tuo aikataulut Hastuksesta",
-    "openPreview": "Avaa esikatselu"
+    "openPreview": "Avaa esikatselu",
+    "importSuccess": "Aikataulujen tuonti onnistui!"
   },
   "timetablesPreview": {
     "preview": "Esikatselu",

@@ -292,7 +292,8 @@
     "at": "at {{ time }}",
     "importFromHastus": "Import from Hastus",
     "importTimetablesFromHastus": "Import timetables from Hastus",
-    "openPreview": "Open preview"
+    "openPreview": "Open preview",
+    "importSuccess": "Timetables imported successfully!"
   },
   "timetablesPreview": {
     "preview": "Preview",
