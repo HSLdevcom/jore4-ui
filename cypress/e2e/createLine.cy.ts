@@ -1,14 +1,12 @@
 import { Priority } from '@hsl/jore4-test-db-manager';
-import { ChangeValidityForm, LineForm } from '../pageObjects';
+import { LineForm } from '../pageObjects';
 import { deleteLineByLabel } from './utils';
 
 const testLabel = '7327';
 describe('Verify that creating new line works', () => {
   let lineForm: LineForm;
-  let changeValidityForm: ChangeValidityForm;
   beforeEach(() => {
     lineForm = new LineForm();
-    changeValidityForm = new ChangeValidityForm();
 
     cy.setupTests();
     cy.mockLogin();
@@ -30,9 +28,9 @@ describe('Verify that creating new line works', () => {
     lineForm.selectVehicleType('Bussi');
     lineForm.selectLineType('Peruslinja');
 
-    changeValidityForm.setPriority(Priority.Standard);
-    changeValidityForm.setStartDate('2022-01-01');
-    changeValidityForm.setEndDate('2022-12-31');
+    lineForm.priorityForm.setPriority(Priority.Standard);
+    lineForm.changeValidityForm.setStartDate('2022-01-01');
+    lineForm.changeValidityForm.setEndDate('2022-12-31');
 
     lineForm.save();
     lineForm.checkLineSubmitSuccess();

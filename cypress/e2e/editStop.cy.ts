@@ -253,9 +253,7 @@ describe('Stop editing tests', () => {
       stopForm
         .getTimingPlaceDropdown()
         .should('contain', updatedStopInfo.timingPlace);
-      stopForm.changeValidityForm.assertSelectedPriority(
-        updatedStopInfo.priority,
-      );
+      stopForm.priorityForm.assertSelectedPriority(updatedStopInfo.priority);
       stopForm.changeValidityForm
         .getStartDateInput()
         .should('have.value', updatedStopInfo.validityStartISODate);
