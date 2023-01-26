@@ -1,7 +1,13 @@
+import { ChangeValidityForm } from './ChangeValidityForm';
+import { PriorityForm } from './PriorityForm';
 import { Toast } from './Toast';
 
 export class LineForm {
   toast = new Toast();
+
+  priorityForm = new PriorityForm();
+
+  changeValidityForm = new ChangeValidityForm();
 
   getLabelInput() {
     return cy.getByTestId('LinePropertiesForm::label');

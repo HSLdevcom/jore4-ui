@@ -3,8 +3,9 @@ import {
   ChangeValidityFormInfo,
 } from './ChangeValidityForm';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
+import { PriorityForm, PriorityFormInfo } from './PriorityForm';
 
-export interface StopFormInfo extends ChangeValidityFormInfo {
+export interface StopFormInfo extends ChangeValidityFormInfo, PriorityFormInfo {
   label: string;
   longitude?: string;
   latitude?: string;
@@ -15,6 +16,8 @@ export class StopForm {
   changeValidityForm = new ChangeValidityForm();
 
   createTimingPlaceForm = new CreateTimingPlaceForm();
+
+  priorityForm = new PriorityForm();
 
   getLabelInput() {
     return cy.getByTestId('StopFormComponent::label');
@@ -51,6 +54,9 @@ export class StopForm {
     }
     if (values.timingPlace) {
       this.selectTimingPlace(values.timingPlace);
+    }
+    if (values.priority) {
+      this.priorityForm.setPriority(values.priority);
     }
     this.changeValidityForm.fillForm(values);
   }

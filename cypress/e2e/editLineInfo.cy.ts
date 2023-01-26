@@ -3,7 +3,7 @@ import {
   LineInsertInput,
   Priority,
 } from '@hsl/jore4-test-db-manager';
-import { ChangeValidityForm, LineDetailsPage, LineForm } from '../pageObjects';
+import { LineDetailsPage, LineForm } from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 
 const testInputs = {
@@ -30,14 +30,12 @@ const deleteCreatedResources = () => {
 
 describe('Line editing', () => {
   let lineForm: LineForm;
-  let changeValidityForm: ChangeValidityForm;
   let lineDetailsPage: LineDetailsPage;
   before(() => {
     deleteCreatedResources();
   });
   beforeEach(() => {
     lineForm = new LineForm();
-    changeValidityForm = new ChangeValidityForm();
     lineDetailsPage = new LineDetailsPage();
 
     cy.setupTests();
@@ -57,8 +55,8 @@ describe('Line editing', () => {
     lineForm.selectVehicleType('Bussi');
     lineForm.selectLineType('Peruslinja');
 
-    changeValidityForm.setAsDraft();
-    changeValidityForm.setStartDate('2022-01-01');
+    lineForm.priorityForm.setAsDraft();
+    lineForm.changeValidityForm.setStartDate('2022-01-01');
 
     lineForm.save();
     lineForm.checkLineSubmitSuccess();
