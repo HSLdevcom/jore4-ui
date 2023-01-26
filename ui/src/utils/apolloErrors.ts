@@ -11,6 +11,9 @@ export const getApolloErrorMessage = (err: ApolloError) => {
     const errorMessages = err.graphQLErrors.map((gqlError) => {
       // If it is an internal error, we get the message from internal object
       // otherwise it is in the message field.
+      // @ts-expect-error "Property 'error' does not exist on type '{}"
+      // Typings seems to be somehow off, this seems still be the way to
+      // receive internal error message.
       return gqlError.extensions?.internal?.error?.message || gqlError.message;
     });
 

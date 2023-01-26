@@ -34,7 +34,7 @@
     "@types/redux-logger": "^3.0.9",
     "apollo-link-scalars": "^4.0.1",
     "axios": "0.21.1",
-    "graphql": "^15.5.3",
+    "graphql": "^16.6.0",
     "hsl-map-style": "HSLdevcom/hsl-map-style",
     "i18next": "^20.2.1",
     "immer": "^9.0.5",
