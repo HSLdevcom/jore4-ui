@@ -1,51 +1,12 @@
-import { Priority } from '@hsl/jore4-test-db-manager';
+import { PriorityForm } from './PriorityForm';
 
 export interface ChangeValidityFormInfo {
-  priority?: Priority;
   validityStartISODate?: string;
   validityEndISODate?: string;
 }
 
 export class ChangeValidityForm {
-  setAsStandard() {
-    return cy.getByTestId('PriorityForm::standardPriorityButton').click();
-  }
-
-  setAsDraft() {
-    return cy.getByTestId('PriorityForm::draftPriorityButton').click();
-  }
-
-  setAsTemporary() {
-    return cy.getByTestId('PriorityForm::temporaryPriorityButton').click();
-  }
-
-  assertSelectedPriority(priority: Priority | undefined) {
-    switch (priority) {
-      case Priority.Draft:
-        cy.getByTestId('PriorityForm::draftPriorityButton').should(
-          'have.attr',
-          'data-selected',
-          'true',
-        );
-        break;
-      case Priority.Temporary:
-        cy.getByTestId('PriorityForm::temporaryPriorityButton').should(
-          'have.attr',
-          'data-selected',
-          'true',
-        );
-        break;
-      case Priority.Standard:
-        cy.getByTestId('PriorityForm::standardPriorityButton').should(
-          'have.attr',
-          'data-selected',
-          'true',
-        );
-        break;
-      default:
-        throw new Error(`Unknown priority "${priority}"`);
-    }
-  }
+  priorityForm = new PriorityForm();
 
   setStartDate(isoDate: string) {
     // This invoke is a workaround to
@@ -86,26 +47,7 @@ export class ChangeValidityForm {
       : this.getIndefiniteCheckbox().uncheck();
   }
 
-  setPriority = (priority: Priority) => {
-    switch (priority) {
-      case Priority.Draft:
-        this.setAsDraft();
-        break;
-      case Priority.Temporary:
-        this.setAsTemporary();
-        break;
-      case Priority.Standard:
-        this.setAsStandard();
-        break;
-      default:
-        throw new Error(`Unknown priority "${priority}"`);
-    }
-  };
-
   fillForm(values: ChangeValidityFormInfo) {
-    if (values.priority) {
-      this.setPriority(values.priority);
-    }
     if (values.validityStartISODate) {
       this.setStartDate(values.validityStartISODate);
     }

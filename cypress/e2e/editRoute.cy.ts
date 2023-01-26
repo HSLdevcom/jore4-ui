@@ -93,7 +93,7 @@ describe('Route meta information editing', () => {
       originTestInputs,
       destinationTestInputs,
     );
-    editRoutePage.changeValidityForm.setAsTemporary();
+    editRoutePage.priorityForm.setAsTemporary();
     editRoutePage.changeValidityForm.getIndefiniteCheckbox().click();
     editRoutePage.changeValidityForm.setStartDate('2022-01-01');
     editRoutePage.changeValidityForm.setEndDate('2030-12-31');

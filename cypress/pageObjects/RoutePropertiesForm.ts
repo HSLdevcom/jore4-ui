@@ -3,9 +3,12 @@ import {
   ChangeValidityForm,
   ChangeValidityFormInfo,
 } from './ChangeValidityForm';
+import { PriorityForm, PriorityFormInfo } from './PriorityForm';
 import { TerminusNameInputs } from './TerminusNameInputs';
 
-export interface RouteFormInfo extends ChangeValidityFormInfo {
+export interface RouteFormInfo
+  extends ChangeValidityFormInfo,
+    PriorityFormInfo {
   finnishName?: string;
   label?: string;
   direction?: RouteDirectionEnum;
@@ -16,6 +19,8 @@ export class RoutePropertiesForm {
   terminusNameInputs = new TerminusNameInputs();
 
   changeValidityForm = new ChangeValidityForm();
+
+  priorityForm = new PriorityForm();
 
   getForm() {
     return cy.get('#route-properties-form');
@@ -77,7 +82,9 @@ export class RoutePropertiesForm {
         swedishShortName: 'ÄS',
       },
     );
-
+    if (values.priority) {
+      this.priorityForm.setPriority(values.priority);
+    }
     this.changeValidityForm.fillForm(values);
   }
 }
