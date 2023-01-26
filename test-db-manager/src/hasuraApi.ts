@@ -1,6 +1,6 @@
 import fetch from 'cross-fetch';
 
-export const hasuraApi = async (jsonPayload: unknown) => {
+export const hasuraApi = async (jsonPayload: unknown): Promise<unknown> => {
   const req = {
     method: 'POST',
     body: JSON.stringify(jsonPayload),

@@ -3,6 +3,7 @@ import { useAsyncQuery } from '../hooks/useAsyncQuery';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
@@ -12,7 +13,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
-const defaultOptions = {};
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -36,61 +37,61 @@ export type Scalars = {
 
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
 export type BooleanComparisonExp = {
-  _eq?: Maybe<Scalars['Boolean']>;
-  _gt?: Maybe<Scalars['Boolean']>;
-  _gte?: Maybe<Scalars['Boolean']>;
-  _in?: Maybe<Array<Scalars['Boolean']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['Boolean']>;
-  _lte?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<Scalars['Boolean']>;
-  _nin?: Maybe<Array<Scalars['Boolean']>>;
+  _eq?: InputMaybe<Scalars['Boolean']>;
+  _gt?: InputMaybe<Scalars['Boolean']>;
+  _gte?: InputMaybe<Scalars['Boolean']>;
+  _in?: InputMaybe<Array<Scalars['Boolean']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Boolean']>;
+  _lte?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<Scalars['Boolean']>;
+  _nin?: InputMaybe<Array<Scalars['Boolean']>>;
 };
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type IntComparisonExp = {
-  _eq?: Maybe<Scalars['Int']>;
-  _gt?: Maybe<Scalars['Int']>;
-  _gte?: Maybe<Scalars['Int']>;
-  _in?: Maybe<Array<Scalars['Int']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['Int']>;
-  _lte?: Maybe<Scalars['Int']>;
-  _neq?: Maybe<Scalars['Int']>;
-  _nin?: Maybe<Array<Scalars['Int']>>;
+  _eq?: InputMaybe<Scalars['Int']>;
+  _gt?: InputMaybe<Scalars['Int']>;
+  _gte?: InputMaybe<Scalars['Int']>;
+  _in?: InputMaybe<Array<Scalars['Int']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Int']>;
+  _lte?: InputMaybe<Scalars['Int']>;
+  _neq?: InputMaybe<Scalars['Int']>;
+  _nin?: InputMaybe<Array<Scalars['Int']>>;
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type StringComparisonExp = {
-  _eq?: Maybe<Scalars['String']>;
-  _gt?: Maybe<Scalars['String']>;
-  _gte?: Maybe<Scalars['String']>;
+  _eq?: InputMaybe<Scalars['String']>;
+  _gt?: InputMaybe<Scalars['String']>;
+  _gte?: InputMaybe<Scalars['String']>;
   /** does the column match the given case-insensitive pattern */
-  _ilike?: Maybe<Scalars['String']>;
-  _in?: Maybe<Array<Scalars['String']>>;
+  _ilike?: InputMaybe<Scalars['String']>;
+  _in?: InputMaybe<Array<Scalars['String']>>;
   /** does the column match the given POSIX regular expression, case insensitive */
-  _iregex?: Maybe<Scalars['String']>;
-  _is_null?: Maybe<Scalars['Boolean']>;
+  _iregex?: InputMaybe<Scalars['String']>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
   /** does the column match the given pattern */
-  _like?: Maybe<Scalars['String']>;
-  _lt?: Maybe<Scalars['String']>;
-  _lte?: Maybe<Scalars['String']>;
-  _neq?: Maybe<Scalars['String']>;
+  _like?: InputMaybe<Scalars['String']>;
+  _lt?: InputMaybe<Scalars['String']>;
+  _lte?: InputMaybe<Scalars['String']>;
+  _neq?: InputMaybe<Scalars['String']>;
   /** does the column NOT match the given case-insensitive pattern */
-  _nilike?: Maybe<Scalars['String']>;
-  _nin?: Maybe<Array<Scalars['String']>>;
+  _nilike?: InputMaybe<Scalars['String']>;
+  _nin?: InputMaybe<Array<Scalars['String']>>;
   /** does the column NOT match the given POSIX regular expression, case insensitive */
-  _niregex?: Maybe<Scalars['String']>;
+  _niregex?: InputMaybe<Scalars['String']>;
   /** does the column NOT match the given pattern */
-  _nlike?: Maybe<Scalars['String']>;
+  _nlike?: InputMaybe<Scalars['String']>;
   /** does the column NOT match the given POSIX regular expression, case sensitive */
-  _nregex?: Maybe<Scalars['String']>;
+  _nregex?: InputMaybe<Scalars['String']>;
   /** does the column NOT match the given SQL regular expression */
-  _nsimilar?: Maybe<Scalars['String']>;
+  _nsimilar?: InputMaybe<Scalars['String']>;
   /** does the column match the given POSIX regular expression, case sensitive */
-  _regex?: Maybe<Scalars['String']>;
+  _regex?: InputMaybe<Scalars['String']>;
   /** does the column match the given SQL regular expression */
-  _similar?: Maybe<Scalars['String']>;
+  _similar?: InputMaybe<Scalars['String']>;
 };
 
 /** ordering argument of a cursor */
@@ -103,88 +104,88 @@ export enum CursorOrdering {
 
 /** Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'. */
 export type DateComparisonExp = {
-  _eq?: Maybe<Scalars['date']>;
-  _gt?: Maybe<Scalars['date']>;
-  _gte?: Maybe<Scalars['date']>;
-  _in?: Maybe<Array<Scalars['date']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['date']>;
-  _lte?: Maybe<Scalars['date']>;
-  _neq?: Maybe<Scalars['date']>;
-  _nin?: Maybe<Array<Scalars['date']>>;
+  _eq?: InputMaybe<Scalars['date']>;
+  _gt?: InputMaybe<Scalars['date']>;
+  _gte?: InputMaybe<Scalars['date']>;
+  _in?: InputMaybe<Array<Scalars['date']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['date']>;
+  _lte?: InputMaybe<Scalars['date']>;
+  _neq?: InputMaybe<Scalars['date']>;
+  _nin?: InputMaybe<Array<Scalars['date']>>;
 };
 
 /** Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'. */
 export type Float8ComparisonExp = {
-  _eq?: Maybe<Scalars['float8']>;
-  _gt?: Maybe<Scalars['float8']>;
-  _gte?: Maybe<Scalars['float8']>;
-  _in?: Maybe<Array<Scalars['float8']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['float8']>;
-  _lte?: Maybe<Scalars['float8']>;
-  _neq?: Maybe<Scalars['float8']>;
-  _nin?: Maybe<Array<Scalars['float8']>>;
+  _eq?: InputMaybe<Scalars['float8']>;
+  _gt?: InputMaybe<Scalars['float8']>;
+  _gte?: InputMaybe<Scalars['float8']>;
+  _in?: InputMaybe<Array<Scalars['float8']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['float8']>;
+  _lte?: InputMaybe<Scalars['float8']>;
+  _neq?: InputMaybe<Scalars['float8']>;
+  _nin?: InputMaybe<Array<Scalars['float8']>>;
 };
 
 export type GeographyCastExp = {
-  geometry?: Maybe<GeometryComparisonExp>;
+  geometry?: InputMaybe<GeometryComparisonExp>;
 };
 
 /** Boolean expression to compare columns of type "geography". All fields are combined with logical 'AND'. */
 export type GeographyComparisonExp = {
-  _cast?: Maybe<GeographyCastExp>;
-  _eq?: Maybe<Scalars['geography']>;
-  _gt?: Maybe<Scalars['geography']>;
-  _gte?: Maybe<Scalars['geography']>;
-  _in?: Maybe<Array<Scalars['geography']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['geography']>;
-  _lte?: Maybe<Scalars['geography']>;
-  _neq?: Maybe<Scalars['geography']>;
-  _nin?: Maybe<Array<Scalars['geography']>>;
+  _cast?: InputMaybe<GeographyCastExp>;
+  _eq?: InputMaybe<Scalars['geography']>;
+  _gt?: InputMaybe<Scalars['geography']>;
+  _gte?: InputMaybe<Scalars['geography']>;
+  _in?: InputMaybe<Array<Scalars['geography']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['geography']>;
+  _lte?: InputMaybe<Scalars['geography']>;
+  _neq?: InputMaybe<Scalars['geography']>;
+  _nin?: InputMaybe<Array<Scalars['geography']>>;
   /** is the column within a given distance from the given geography value */
-  _st_d_within?: Maybe<StDWithinGeographyInput>;
+  _st_d_within?: InputMaybe<StDWithinGeographyInput>;
   /** does the column spatially intersect the given geography value */
-  _st_intersects?: Maybe<Scalars['geography']>;
+  _st_intersects?: InputMaybe<Scalars['geography']>;
 };
 
 export type GeometryCastExp = {
-  geography?: Maybe<GeographyComparisonExp>;
+  geography?: InputMaybe<GeographyComparisonExp>;
 };
 
 /** Boolean expression to compare columns of type "geometry". All fields are combined with logical 'AND'. */
 export type GeometryComparisonExp = {
-  _cast?: Maybe<GeometryCastExp>;
-  _eq?: Maybe<Scalars['geometry']>;
-  _gt?: Maybe<Scalars['geometry']>;
-  _gte?: Maybe<Scalars['geometry']>;
-  _in?: Maybe<Array<Scalars['geometry']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['geometry']>;
-  _lte?: Maybe<Scalars['geometry']>;
-  _neq?: Maybe<Scalars['geometry']>;
-  _nin?: Maybe<Array<Scalars['geometry']>>;
+  _cast?: InputMaybe<GeometryCastExp>;
+  _eq?: InputMaybe<Scalars['geometry']>;
+  _gt?: InputMaybe<Scalars['geometry']>;
+  _gte?: InputMaybe<Scalars['geometry']>;
+  _in?: InputMaybe<Array<Scalars['geometry']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['geometry']>;
+  _lte?: InputMaybe<Scalars['geometry']>;
+  _neq?: InputMaybe<Scalars['geometry']>;
+  _nin?: InputMaybe<Array<Scalars['geometry']>>;
   /** is the column within a given 3D distance from the given geometry value */
-  _st_3d_d_within?: Maybe<StDWithinInput>;
+  _st_3d_d_within?: InputMaybe<StDWithinInput>;
   /** does the column spatially intersect the given geometry value in 3D */
-  _st_3d_intersects?: Maybe<Scalars['geometry']>;
+  _st_3d_intersects?: InputMaybe<Scalars['geometry']>;
   /** does the column contain the given geometry value */
-  _st_contains?: Maybe<Scalars['geometry']>;
+  _st_contains?: InputMaybe<Scalars['geometry']>;
   /** does the column cross the given geometry value */
-  _st_crosses?: Maybe<Scalars['geometry']>;
+  _st_crosses?: InputMaybe<Scalars['geometry']>;
   /** is the column within a given distance from the given geometry value */
-  _st_d_within?: Maybe<StDWithinInput>;
+  _st_d_within?: InputMaybe<StDWithinInput>;
   /** is the column equal to given geometry value (directionality is ignored) */
-  _st_equals?: Maybe<Scalars['geometry']>;
+  _st_equals?: InputMaybe<Scalars['geometry']>;
   /** does the column spatially intersect the given geometry value */
-  _st_intersects?: Maybe<Scalars['geometry']>;
+  _st_intersects?: InputMaybe<Scalars['geometry']>;
   /** does the column 'spatially overlap' (intersect but not completely contain) the given geometry value */
-  _st_overlaps?: Maybe<Scalars['geometry']>;
+  _st_overlaps?: InputMaybe<Scalars['geometry']>;
   /** does the column have atleast one point in common with the given geometry value */
-  _st_touches?: Maybe<Scalars['geometry']>;
+  _st_touches?: InputMaybe<Scalars['geometry']>;
   /** is the column contained in the given geometry value */
-  _st_within?: Maybe<Scalars['geometry']>;
+  _st_within?: InputMaybe<Scalars['geometry']>;
 };
 
 /** Transport target, can be used e.g. for cost sharing. */
@@ -199,20 +200,20 @@ export type HslRouteTransportTarget = {
 
 /** Transport target, can be used e.g. for cost sharing. */
 export type HslRouteTransportTargetLinesArgs = {
-  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteLineOrderBy>>;
-  where?: Maybe<RouteLineBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteLineOrderBy>>;
+  where?: InputMaybe<RouteLineBoolExp>;
 };
 
 /** Transport target, can be used e.g. for cost sharing. */
 export type HslRouteTransportTargetLinesAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteLineOrderBy>>;
-  where?: Maybe<RouteLineBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteLineOrderBy>>;
+  where?: InputMaybe<RouteLineBoolExp>;
 };
 
 /** aggregated selection of "hsl_route.transport_target" */
@@ -232,18 +233,18 @@ export type HslRouteTransportTargetAggregateFields = {
 
 /** aggregate fields of "hsl_route.transport_target" */
 export type HslRouteTransportTargetAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<HslRouteTransportTargetSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "hsl_route.transport_target". All fields are combined with a logical 'AND'. */
 export type HslRouteTransportTargetBoolExp = {
-  _and?: Maybe<Array<HslRouteTransportTargetBoolExp>>;
-  _not?: Maybe<HslRouteTransportTargetBoolExp>;
-  _or?: Maybe<Array<HslRouteTransportTargetBoolExp>>;
-  lines?: Maybe<RouteLineBoolExp>;
-  lines_aggregate?: Maybe<RouteLineAggregateBoolExp>;
-  transport_target?: Maybe<StringComparisonExp>;
+  _and?: InputMaybe<Array<HslRouteTransportTargetBoolExp>>;
+  _not?: InputMaybe<HslRouteTransportTargetBoolExp>;
+  _or?: InputMaybe<Array<HslRouteTransportTargetBoolExp>>;
+  lines?: InputMaybe<RouteLineBoolExp>;
+  lines_aggregate?: InputMaybe<RouteLineAggregateBoolExp>;
+  transport_target?: InputMaybe<StringComparisonExp>;
 };
 
 /** unique or primary key constraints on table "hsl_route.transport_target" */
@@ -272,17 +273,17 @@ export enum HslRouteTransportTargetEnum {
 
 /** Boolean expression to compare columns of type "hsl_route_transport_target_enum". All fields are combined with logical 'AND'. */
 export type HslRouteTransportTargetEnumComparisonExp = {
-  _eq?: Maybe<HslRouteTransportTargetEnum>;
-  _in?: Maybe<Array<HslRouteTransportTargetEnum>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<HslRouteTransportTargetEnum>;
-  _nin?: Maybe<Array<HslRouteTransportTargetEnum>>;
+  _eq?: InputMaybe<HslRouteTransportTargetEnum>;
+  _in?: InputMaybe<Array<HslRouteTransportTargetEnum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<HslRouteTransportTargetEnum>;
+  _nin?: InputMaybe<Array<HslRouteTransportTargetEnum>>;
 };
 
 /** input type for inserting data into table "hsl_route.transport_target" */
 export type HslRouteTransportTargetInsertInput = {
-  lines?: Maybe<RouteLineArrRelInsertInput>;
-  transport_target?: Maybe<Scalars['String']>;
+  lines?: InputMaybe<RouteLineArrRelInsertInput>;
+  transport_target?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -310,20 +311,20 @@ export type HslRouteTransportTargetMutationResponse = {
 export type HslRouteTransportTargetObjRelInsertInput = {
   data: HslRouteTransportTargetInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<HslRouteTransportTargetOnConflict>;
+  on_conflict?: InputMaybe<HslRouteTransportTargetOnConflict>;
 };
 
 /** on_conflict condition type for table "hsl_route.transport_target" */
 export type HslRouteTransportTargetOnConflict = {
   constraint: HslRouteTransportTargetConstraint;
   update_columns?: Array<HslRouteTransportTargetUpdateColumn>;
-  where?: Maybe<HslRouteTransportTargetBoolExp>;
+  where?: InputMaybe<HslRouteTransportTargetBoolExp>;
 };
 
 /** Ordering options when selecting data from "hsl_route.transport_target". */
 export type HslRouteTransportTargetOrderBy = {
-  lines_aggregate?: Maybe<RouteLineAggregateOrderBy>;
-  transport_target?: Maybe<OrderBy>;
+  lines_aggregate?: InputMaybe<RouteLineAggregateOrderBy>;
+  transport_target?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: hsl_route.transport_target */
@@ -339,7 +340,7 @@ export enum HslRouteTransportTargetSelectColumn {
 
 /** input type for updating data in table "hsl_route.transport_target" */
 export type HslRouteTransportTargetSetInput = {
-  transport_target?: Maybe<Scalars['String']>;
+  transport_target?: InputMaybe<Scalars['String']>;
 };
 
 /** Streaming cursor of the table "hsl_route_transport_target" */
@@ -347,12 +348,12 @@ export type HslRouteTransportTargetStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: HslRouteTransportTargetStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type HslRouteTransportTargetStreamCursorValueInput = {
-  transport_target?: Maybe<Scalars['String']>;
+  transport_target?: InputMaybe<Scalars['String']>;
 };
 
 /** update columns of table "hsl_route.transport_target" */
@@ -363,7 +364,7 @@ export enum HslRouteTransportTargetUpdateColumn {
 
 export type HslRouteTransportTargetUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<HslRouteTransportTargetSetInput>;
+  _set?: InputMaybe<HslRouteTransportTargetSetInput>;
   where: HslRouteTransportTargetBoolExp;
 };
 
@@ -379,24 +380,24 @@ export type InfrastructureNetworkDirection = {
 
 /** The direction in which an e.g. infrastructure link can be traversed */
 export type InfrastructureNetworkDirectionInfrastructureLinksArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 /** The direction in which an e.g. infrastructure link can be traversed */
 export type InfrastructureNetworkDirectionInfrastructureLinksAggregateArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 /** aggregated selection of "infrastructure_network.direction" */
@@ -416,18 +417,18 @@ export type InfrastructureNetworkDirectionAggregateFields = {
 
 /** aggregate fields of "infrastructure_network.direction" */
 export type InfrastructureNetworkDirectionAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "infrastructure_network.direction". All fields are combined with a logical 'AND'. */
 export type InfrastructureNetworkDirectionBoolExp = {
-  _and?: Maybe<Array<InfrastructureNetworkDirectionBoolExp>>;
-  _not?: Maybe<InfrastructureNetworkDirectionBoolExp>;
-  _or?: Maybe<Array<InfrastructureNetworkDirectionBoolExp>>;
-  infrastructure_links?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
-  infrastructure_links_aggregate?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExp>;
-  value?: Maybe<StringComparisonExp>;
+  _and?: InputMaybe<Array<InfrastructureNetworkDirectionBoolExp>>;
+  _not?: InputMaybe<InfrastructureNetworkDirectionBoolExp>;
+  _or?: InputMaybe<Array<InfrastructureNetworkDirectionBoolExp>>;
+  infrastructure_links?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  infrastructure_links_aggregate?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExp>;
+  value?: InputMaybe<StringComparisonExp>;
 };
 
 /** unique or primary key constraints on table "infrastructure_network.direction" */
@@ -444,17 +445,17 @@ export enum InfrastructureNetworkDirectionEnum {
 
 /** Boolean expression to compare columns of type "infrastructure_network_direction_enum". All fields are combined with logical 'AND'. */
 export type InfrastructureNetworkDirectionEnumComparisonExp = {
-  _eq?: Maybe<InfrastructureNetworkDirectionEnum>;
-  _in?: Maybe<Array<InfrastructureNetworkDirectionEnum>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<InfrastructureNetworkDirectionEnum>;
-  _nin?: Maybe<Array<InfrastructureNetworkDirectionEnum>>;
+  _eq?: InputMaybe<InfrastructureNetworkDirectionEnum>;
+  _in?: InputMaybe<Array<InfrastructureNetworkDirectionEnum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<InfrastructureNetworkDirectionEnum>;
+  _nin?: InputMaybe<Array<InfrastructureNetworkDirectionEnum>>;
 };
 
 /** input type for inserting data into table "infrastructure_network.direction" */
 export type InfrastructureNetworkDirectionInsertInput = {
-  infrastructure_links?: Maybe<InfrastructureNetworkInfrastructureLinkArrRelInsertInput>;
-  value?: Maybe<Scalars['String']>;
+  infrastructure_links?: InputMaybe<InfrastructureNetworkInfrastructureLinkArrRelInsertInput>;
+  value?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -482,20 +483,20 @@ export type InfrastructureNetworkDirectionMutationResponse = {
 export type InfrastructureNetworkDirectionObjRelInsertInput = {
   data: InfrastructureNetworkDirectionInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<InfrastructureNetworkDirectionOnConflict>;
+  on_conflict?: InputMaybe<InfrastructureNetworkDirectionOnConflict>;
 };
 
 /** on_conflict condition type for table "infrastructure_network.direction" */
 export type InfrastructureNetworkDirectionOnConflict = {
   constraint: InfrastructureNetworkDirectionConstraint;
   update_columns?: Array<InfrastructureNetworkDirectionUpdateColumn>;
-  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+  where?: InputMaybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
 /** Ordering options when selecting data from "infrastructure_network.direction". */
 export type InfrastructureNetworkDirectionOrderBy = {
-  infrastructure_links_aggregate?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateOrderBy>;
-  value?: Maybe<OrderBy>;
+  infrastructure_links_aggregate?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateOrderBy>;
+  value?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: infrastructure_network.direction */
@@ -511,7 +512,7 @@ export enum InfrastructureNetworkDirectionSelectColumn {
 
 /** input type for updating data in table "infrastructure_network.direction" */
 export type InfrastructureNetworkDirectionSetInput = {
-  value?: Maybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
 };
 
 /** Streaming cursor of the table "infrastructure_network_direction" */
@@ -519,12 +520,12 @@ export type InfrastructureNetworkDirectionStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: InfrastructureNetworkDirectionStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type InfrastructureNetworkDirectionStreamCursorValueInput = {
-  value?: Maybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
 };
 
 /** update columns of table "infrastructure_network.direction" */
@@ -535,7 +536,7 @@ export enum InfrastructureNetworkDirectionUpdateColumn {
 
 export type InfrastructureNetworkDirectionUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<InfrastructureNetworkDirectionSetInput>;
+  _set?: InputMaybe<InfrastructureNetworkDirectionSetInput>;
   where: InfrastructureNetworkDirectionBoolExp;
 };
 
@@ -551,25 +552,27 @@ export type InfrastructureNetworkExternalSource = {
 
 /** An external source from which infrastructure network parts are imported */
 export type InfrastructureNetworkExternalSourceInfrastructureLinksArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 /** An external source from which infrastructure network parts are imported */
 export type InfrastructureNetworkExternalSourceInfrastructureLinksAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-    where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<InfrastructureNetworkInfrastructureLinkOrderBy>
+    >;
+    where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   };
 
 /** aggregated selection of "infrastructure_network.external_source" */
@@ -589,18 +592,18 @@ export type InfrastructureNetworkExternalSourceAggregateFields = {
 
 /** aggregate fields of "infrastructure_network.external_source" */
 export type InfrastructureNetworkExternalSourceAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "infrastructure_network.external_source". All fields are combined with a logical 'AND'. */
 export type InfrastructureNetworkExternalSourceBoolExp = {
-  _and?: Maybe<Array<InfrastructureNetworkExternalSourceBoolExp>>;
-  _not?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
-  _or?: Maybe<Array<InfrastructureNetworkExternalSourceBoolExp>>;
-  infrastructure_links?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
-  infrastructure_links_aggregate?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExp>;
-  value?: Maybe<StringComparisonExp>;
+  _and?: InputMaybe<Array<InfrastructureNetworkExternalSourceBoolExp>>;
+  _not?: InputMaybe<InfrastructureNetworkExternalSourceBoolExp>;
+  _or?: InputMaybe<Array<InfrastructureNetworkExternalSourceBoolExp>>;
+  infrastructure_links?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  infrastructure_links_aggregate?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExp>;
+  value?: InputMaybe<StringComparisonExp>;
 };
 
 /** unique or primary key constraints on table "infrastructure_network.external_source" */
@@ -616,17 +619,17 @@ export enum InfrastructureNetworkExternalSourceEnum {
 
 /** Boolean expression to compare columns of type "infrastructure_network_external_source_enum". All fields are combined with logical 'AND'. */
 export type InfrastructureNetworkExternalSourceEnumComparisonExp = {
-  _eq?: Maybe<InfrastructureNetworkExternalSourceEnum>;
-  _in?: Maybe<Array<InfrastructureNetworkExternalSourceEnum>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<InfrastructureNetworkExternalSourceEnum>;
-  _nin?: Maybe<Array<InfrastructureNetworkExternalSourceEnum>>;
+  _eq?: InputMaybe<InfrastructureNetworkExternalSourceEnum>;
+  _in?: InputMaybe<Array<InfrastructureNetworkExternalSourceEnum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<InfrastructureNetworkExternalSourceEnum>;
+  _nin?: InputMaybe<Array<InfrastructureNetworkExternalSourceEnum>>;
 };
 
 /** input type for inserting data into table "infrastructure_network.external_source" */
 export type InfrastructureNetworkExternalSourceInsertInput = {
-  infrastructure_links?: Maybe<InfrastructureNetworkInfrastructureLinkArrRelInsertInput>;
-  value?: Maybe<Scalars['String']>;
+  infrastructure_links?: InputMaybe<InfrastructureNetworkInfrastructureLinkArrRelInsertInput>;
+  value?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -654,20 +657,20 @@ export type InfrastructureNetworkExternalSourceMutationResponse = {
 export type InfrastructureNetworkExternalSourceObjRelInsertInput = {
   data: InfrastructureNetworkExternalSourceInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<InfrastructureNetworkExternalSourceOnConflict>;
+  on_conflict?: InputMaybe<InfrastructureNetworkExternalSourceOnConflict>;
 };
 
 /** on_conflict condition type for table "infrastructure_network.external_source" */
 export type InfrastructureNetworkExternalSourceOnConflict = {
   constraint: InfrastructureNetworkExternalSourceConstraint;
   update_columns?: Array<InfrastructureNetworkExternalSourceUpdateColumn>;
-  where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
+  where?: InputMaybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
 /** Ordering options when selecting data from "infrastructure_network.external_source". */
 export type InfrastructureNetworkExternalSourceOrderBy = {
-  infrastructure_links_aggregate?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateOrderBy>;
-  value?: Maybe<OrderBy>;
+  infrastructure_links_aggregate?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateOrderBy>;
+  value?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: infrastructure_network.external_source */
@@ -683,7 +686,7 @@ export enum InfrastructureNetworkExternalSourceSelectColumn {
 
 /** input type for updating data in table "infrastructure_network.external_source" */
 export type InfrastructureNetworkExternalSourceSetInput = {
-  value?: Maybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
 };
 
 /** Streaming cursor of the table "infrastructure_network_external_source" */
@@ -691,12 +694,12 @@ export type InfrastructureNetworkExternalSourceStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: InfrastructureNetworkExternalSourceStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type InfrastructureNetworkExternalSourceStreamCursorValueInput = {
-  value?: Maybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
 };
 
 /** update columns of table "infrastructure_network.external_source" */
@@ -707,14 +710,14 @@ export enum InfrastructureNetworkExternalSourceUpdateColumn {
 
 export type InfrastructureNetworkExternalSourceUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<InfrastructureNetworkExternalSourceSetInput>;
+  _set?: InputMaybe<InfrastructureNetworkExternalSourceSetInput>;
   where: InfrastructureNetworkExternalSourceBoolExp;
 };
 
 export type InfrastructureNetworkFindPointDirectionOnLinkArgs = {
-  infrastructure_link_uuid?: Maybe<Scalars['uuid']>;
-  point_max_distance_in_meters?: Maybe<Scalars['float8']>;
-  point_of_interest?: Maybe<Scalars['geography']>;
+  infrastructure_link_uuid?: InputMaybe<Scalars['uuid']>;
+  point_max_distance_in_meters?: InputMaybe<Scalars['float8']>;
+  point_of_interest?: InputMaybe<Scalars['geography']>;
 };
 
 /** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
@@ -755,97 +758,105 @@ export type InfrastructureNetworkInfrastructureLink = {
 /** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
 export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutesArgs =
   {
-    distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
-    where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<RouteInfrastructureLinkAlongRouteSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+    where?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   };
 
 /** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
 export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutesAggregateArgs =
   {
-    distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
-    where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<RouteInfrastructureLinkAlongRouteSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+    where?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   };
 
 /** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
 export type InfrastructureNetworkInfrastructureLinkScheduledStopPointsLocatedOnInfrastructureLinkArgs =
   {
-    distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-    where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<ServicePatternScheduledStopPointSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+    where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
   };
 
 /** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
 export type InfrastructureNetworkInfrastructureLinkScheduledStopPointsLocatedOnInfrastructureLinkAggregateArgs =
   {
-    distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-    where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<ServicePatternScheduledStopPointSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+    where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
   };
 
 /** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
 export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinkArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
     >;
-    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   };
 
 /** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
 export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinkAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
     >;
-    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   };
 
 /** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
 export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinksArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
     >;
-    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   };
 
 /** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
 export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinksAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
     >;
-    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   };
 
 /** aggregated selection of "infrastructure_network.infrastructure_link" */
@@ -856,28 +867,28 @@ export type InfrastructureNetworkInfrastructureLinkAggregate = {
 };
 
 export type InfrastructureNetworkInfrastructureLinkAggregateBoolExp = {
-  avg?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpAvg>;
-  corr?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpCorr>;
-  count?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpCount>;
-  covar_samp?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpCovarSamp>;
-  max?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpMax>;
-  min?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpMin>;
-  stddev_samp?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpStddevSamp>;
-  sum?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpSum>;
-  var_samp?: Maybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpVarSamp>;
+  avg?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpAvg>;
+  corr?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpCorr>;
+  count?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpCount>;
+  covar_samp?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpCovarSamp>;
+  max?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpMax>;
+  min?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpMin>;
+  stddev_samp?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpStddevSamp>;
+  sum?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpSum>;
+  var_samp?: InputMaybe<InfrastructureNetworkInfrastructureLinkAggregateBoolExpVarSamp>;
 };
 
 export type InfrastructureNetworkInfrastructureLinkAggregateBoolExpAvg = {
   arguments: InfrastructureNetworkInfrastructureLinkSelectColumnInfrastructureNetworkInfrastructureLinkAggregateBoolExpAvgArgumentsColumns;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   predicate: Float8ComparisonExp;
 };
 
 export type InfrastructureNetworkInfrastructureLinkAggregateBoolExpCorr = {
   arguments: InfrastructureNetworkInfrastructureLinkAggregateBoolExpCorrArguments;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   predicate: Float8ComparisonExp;
 };
 
@@ -888,16 +899,18 @@ export type InfrastructureNetworkInfrastructureLinkAggregateBoolExpCorrArguments
   };
 
 export type InfrastructureNetworkInfrastructureLinkAggregateBoolExpCount = {
-  arguments?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  arguments?: InputMaybe<
+    Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+  >;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   predicate: IntComparisonExp;
 };
 
 export type InfrastructureNetworkInfrastructureLinkAggregateBoolExpCovarSamp = {
   arguments: InfrastructureNetworkInfrastructureLinkAggregateBoolExpCovarSampArguments;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   predicate: Float8ComparisonExp;
 };
 
@@ -909,37 +922,37 @@ export type InfrastructureNetworkInfrastructureLinkAggregateBoolExpCovarSampArgu
 
 export type InfrastructureNetworkInfrastructureLinkAggregateBoolExpMax = {
   arguments: InfrastructureNetworkInfrastructureLinkSelectColumnInfrastructureNetworkInfrastructureLinkAggregateBoolExpMaxArgumentsColumns;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   predicate: Float8ComparisonExp;
 };
 
 export type InfrastructureNetworkInfrastructureLinkAggregateBoolExpMin = {
   arguments: InfrastructureNetworkInfrastructureLinkSelectColumnInfrastructureNetworkInfrastructureLinkAggregateBoolExpMinArgumentsColumns;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   predicate: Float8ComparisonExp;
 };
 
 export type InfrastructureNetworkInfrastructureLinkAggregateBoolExpStddevSamp =
   {
     arguments: InfrastructureNetworkInfrastructureLinkSelectColumnInfrastructureNetworkInfrastructureLinkAggregateBoolExpStddevSampArgumentsColumns;
-    distinct?: Maybe<Scalars['Boolean']>;
-    filter?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
+    filter?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
     predicate: Float8ComparisonExp;
   };
 
 export type InfrastructureNetworkInfrastructureLinkAggregateBoolExpSum = {
   arguments: InfrastructureNetworkInfrastructureLinkSelectColumnInfrastructureNetworkInfrastructureLinkAggregateBoolExpSumArgumentsColumns;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   predicate: Float8ComparisonExp;
 };
 
 export type InfrastructureNetworkInfrastructureLinkAggregateBoolExpVarSamp = {
   arguments: InfrastructureNetworkInfrastructureLinkSelectColumnInfrastructureNetworkInfrastructureLinkAggregateBoolExpVarSampArgumentsColumns;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   predicate: Float8ComparisonExp;
 };
 
@@ -961,30 +974,32 @@ export type InfrastructureNetworkInfrastructureLinkAggregateFields = {
 
 /** aggregate fields of "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<
+    Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
+  >;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkAggregateOrderBy = {
-  avg?: Maybe<InfrastructureNetworkInfrastructureLinkAvgOrderBy>;
-  count?: Maybe<OrderBy>;
-  max?: Maybe<InfrastructureNetworkInfrastructureLinkMaxOrderBy>;
-  min?: Maybe<InfrastructureNetworkInfrastructureLinkMinOrderBy>;
-  stddev?: Maybe<InfrastructureNetworkInfrastructureLinkStddevOrderBy>;
-  stddev_pop?: Maybe<InfrastructureNetworkInfrastructureLinkStddevPopOrderBy>;
-  stddev_samp?: Maybe<InfrastructureNetworkInfrastructureLinkStddevSampOrderBy>;
-  sum?: Maybe<InfrastructureNetworkInfrastructureLinkSumOrderBy>;
-  var_pop?: Maybe<InfrastructureNetworkInfrastructureLinkVarPopOrderBy>;
-  var_samp?: Maybe<InfrastructureNetworkInfrastructureLinkVarSampOrderBy>;
-  variance?: Maybe<InfrastructureNetworkInfrastructureLinkVarianceOrderBy>;
+  avg?: InputMaybe<InfrastructureNetworkInfrastructureLinkAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<InfrastructureNetworkInfrastructureLinkMaxOrderBy>;
+  min?: InputMaybe<InfrastructureNetworkInfrastructureLinkMinOrderBy>;
+  stddev?: InputMaybe<InfrastructureNetworkInfrastructureLinkStddevOrderBy>;
+  stddev_pop?: InputMaybe<InfrastructureNetworkInfrastructureLinkStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<InfrastructureNetworkInfrastructureLinkStddevSampOrderBy>;
+  sum?: InputMaybe<InfrastructureNetworkInfrastructureLinkSumOrderBy>;
+  var_pop?: InputMaybe<InfrastructureNetworkInfrastructureLinkVarPopOrderBy>;
+  var_samp?: InputMaybe<InfrastructureNetworkInfrastructureLinkVarSampOrderBy>;
+  variance?: InputMaybe<InfrastructureNetworkInfrastructureLinkVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkArrRelInsertInput = {
   data: Array<InfrastructureNetworkInfrastructureLinkInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
+  on_conflict?: InputMaybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
 };
 
 /** aggregate avg on columns */
@@ -997,30 +1012,30 @@ export type InfrastructureNetworkInfrastructureLinkAvgFields = {
 /** order by avg() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkAvgOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<OrderBy>;
+  estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "infrastructure_network.infrastructure_link". All fields are combined with a logical 'AND'. */
 export type InfrastructureNetworkInfrastructureLinkBoolExp = {
-  _and?: Maybe<Array<InfrastructureNetworkInfrastructureLinkBoolExp>>;
-  _not?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
-  _or?: Maybe<Array<InfrastructureNetworkInfrastructureLinkBoolExp>>;
-  direction?: Maybe<InfrastructureNetworkDirectionEnumComparisonExp>;
-  directionByDirection?: Maybe<InfrastructureNetworkDirectionBoolExp>;
-  estimated_length_in_metres?: Maybe<Float8ComparisonExp>;
-  external_link_id?: Maybe<StringComparisonExp>;
-  external_link_source?: Maybe<InfrastructureNetworkExternalSourceEnumComparisonExp>;
-  external_source?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
-  infrastructure_link_along_routes?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
-  infrastructure_link_along_routes_aggregate?: Maybe<RouteInfrastructureLinkAlongRouteAggregateBoolExp>;
-  infrastructure_link_id?: Maybe<UuidComparisonExp>;
-  scheduled_stop_points_located_on_infrastructure_link?: Maybe<ServicePatternScheduledStopPointBoolExp>;
-  scheduled_stop_points_located_on_infrastructure_link_aggregate?: Maybe<ServicePatternScheduledStopPointAggregateBoolExp>;
-  shape?: Maybe<GeographyComparisonExp>;
-  vehicle_submode_on_infrastructure_link?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-  vehicle_submode_on_infrastructure_link_aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateBoolExp>;
-  vehicle_submode_on_infrastructure_links?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-  vehicle_submode_on_infrastructure_links_aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateBoolExp>;
+  _and?: InputMaybe<Array<InfrastructureNetworkInfrastructureLinkBoolExp>>;
+  _not?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  _or?: InputMaybe<Array<InfrastructureNetworkInfrastructureLinkBoolExp>>;
+  direction?: InputMaybe<InfrastructureNetworkDirectionEnumComparisonExp>;
+  directionByDirection?: InputMaybe<InfrastructureNetworkDirectionBoolExp>;
+  estimated_length_in_metres?: InputMaybe<Float8ComparisonExp>;
+  external_link_id?: InputMaybe<StringComparisonExp>;
+  external_link_source?: InputMaybe<InfrastructureNetworkExternalSourceEnumComparisonExp>;
+  external_source?: InputMaybe<InfrastructureNetworkExternalSourceBoolExp>;
+  infrastructure_link_along_routes?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  infrastructure_link_along_routes_aggregate?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateBoolExp>;
+  infrastructure_link_id?: InputMaybe<UuidComparisonExp>;
+  scheduled_stop_points_located_on_infrastructure_link?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
+  scheduled_stop_points_located_on_infrastructure_link_aggregate?: InputMaybe<ServicePatternScheduledStopPointAggregateBoolExp>;
+  shape?: InputMaybe<GeographyComparisonExp>;
+  vehicle_submode_on_infrastructure_link?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  vehicle_submode_on_infrastructure_link_aggregate?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateBoolExp>;
+  vehicle_submode_on_infrastructure_links?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  vehicle_submode_on_infrastructure_links_aggregate?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateBoolExp>;
 };
 
 /** unique or primary key constraints on table "infrastructure_network.infrastructure_link" */
@@ -1034,27 +1049,27 @@ export enum InfrastructureNetworkInfrastructureLinkConstraint {
 /** input type for incrementing numeric columns in table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkIncInput = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Scalars['float8']>;
+  estimated_length_in_metres?: InputMaybe<Scalars['float8']>;
 };
 
 /** input type for inserting data into table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkInsertInput = {
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction?: Maybe<InfrastructureNetworkDirectionEnum>;
-  directionByDirection?: Maybe<InfrastructureNetworkDirectionObjRelInsertInput>;
+  direction?: InputMaybe<InfrastructureNetworkDirectionEnum>;
+  directionByDirection?: InputMaybe<InfrastructureNetworkDirectionObjRelInsertInput>;
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Scalars['float8']>;
-  external_link_id?: Maybe<Scalars['String']>;
-  external_link_source?: Maybe<InfrastructureNetworkExternalSourceEnum>;
-  external_source?: Maybe<InfrastructureNetworkExternalSourceObjRelInsertInput>;
-  infrastructure_link_along_routes?: Maybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
+  estimated_length_in_metres?: InputMaybe<Scalars['float8']>;
+  external_link_id?: InputMaybe<Scalars['String']>;
+  external_link_source?: InputMaybe<InfrastructureNetworkExternalSourceEnum>;
+  external_source?: InputMaybe<InfrastructureNetworkExternalSourceObjRelInsertInput>;
+  infrastructure_link_along_routes?: InputMaybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<Scalars['uuid']>;
-  scheduled_stop_points_located_on_infrastructure_link?: Maybe<ServicePatternScheduledStopPointArrRelInsertInput>;
+  infrastructure_link_id?: InputMaybe<Scalars['uuid']>;
+  scheduled_stop_points_located_on_infrastructure_link?: InputMaybe<ServicePatternScheduledStopPointArrRelInsertInput>;
   /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
-  shape?: Maybe<Scalars['geography']>;
-  vehicle_submode_on_infrastructure_link?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
-  vehicle_submode_on_infrastructure_links?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
+  shape?: InputMaybe<Scalars['geography']>;
+  vehicle_submode_on_infrastructure_link?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
+  vehicle_submode_on_infrastructure_links?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -1070,10 +1085,10 @@ export type InfrastructureNetworkInfrastructureLinkMaxFields = {
 /** order by max() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkMaxOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<OrderBy>;
-  external_link_id?: Maybe<OrderBy>;
+  estimated_length_in_metres?: InputMaybe<OrderBy>;
+  external_link_id?: InputMaybe<OrderBy>;
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<OrderBy>;
+  infrastructure_link_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -1089,10 +1104,10 @@ export type InfrastructureNetworkInfrastructureLinkMinFields = {
 /** order by min() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkMinOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<OrderBy>;
-  external_link_id?: Maybe<OrderBy>;
+  estimated_length_in_metres?: InputMaybe<OrderBy>;
+  external_link_id?: InputMaybe<OrderBy>;
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<OrderBy>;
+  infrastructure_link_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "infrastructure_network.infrastructure_link" */
@@ -1108,30 +1123,30 @@ export type InfrastructureNetworkInfrastructureLinkMutationResponse = {
 export type InfrastructureNetworkInfrastructureLinkObjRelInsertInput = {
   data: InfrastructureNetworkInfrastructureLinkInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
+  on_conflict?: InputMaybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
 };
 
 /** on_conflict condition type for table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkOnConflict = {
   constraint: InfrastructureNetworkInfrastructureLinkConstraint;
   update_columns?: Array<InfrastructureNetworkInfrastructureLinkUpdateColumn>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 /** Ordering options when selecting data from "infrastructure_network.infrastructure_link". */
 export type InfrastructureNetworkInfrastructureLinkOrderBy = {
-  direction?: Maybe<OrderBy>;
-  directionByDirection?: Maybe<InfrastructureNetworkDirectionOrderBy>;
-  estimated_length_in_metres?: Maybe<OrderBy>;
-  external_link_id?: Maybe<OrderBy>;
-  external_link_source?: Maybe<OrderBy>;
-  external_source?: Maybe<InfrastructureNetworkExternalSourceOrderBy>;
-  infrastructure_link_along_routes_aggregate?: Maybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
-  infrastructure_link_id?: Maybe<OrderBy>;
-  scheduled_stop_points_located_on_infrastructure_link_aggregate?: Maybe<ServicePatternScheduledStopPointAggregateOrderBy>;
-  shape?: Maybe<OrderBy>;
-  vehicle_submode_on_infrastructure_link_aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy>;
-  vehicle_submode_on_infrastructure_links_aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy>;
+  direction?: InputMaybe<OrderBy>;
+  directionByDirection?: InputMaybe<InfrastructureNetworkDirectionOrderBy>;
+  estimated_length_in_metres?: InputMaybe<OrderBy>;
+  external_link_id?: InputMaybe<OrderBy>;
+  external_link_source?: InputMaybe<OrderBy>;
+  external_source?: InputMaybe<InfrastructureNetworkExternalSourceOrderBy>;
+  infrastructure_link_along_routes_aggregate?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
+  infrastructure_link_id?: InputMaybe<OrderBy>;
+  scheduled_stop_points_located_on_infrastructure_link_aggregate?: InputMaybe<ServicePatternScheduledStopPointAggregateOrderBy>;
+  shape?: InputMaybe<OrderBy>;
+  vehicle_submode_on_infrastructure_link_aggregate?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy>;
+  vehicle_submode_on_infrastructure_links_aggregate?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy>;
 };
 
 /** primary key columns input for table: infrastructure_network.infrastructure_link */
@@ -1207,15 +1222,15 @@ export enum InfrastructureNetworkInfrastructureLinkSelectColumnInfrastructureNet
 /** input type for updating data in table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkSetInput = {
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction?: Maybe<InfrastructureNetworkDirectionEnum>;
+  direction?: InputMaybe<InfrastructureNetworkDirectionEnum>;
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Scalars['float8']>;
-  external_link_id?: Maybe<Scalars['String']>;
-  external_link_source?: Maybe<InfrastructureNetworkExternalSourceEnum>;
+  estimated_length_in_metres?: InputMaybe<Scalars['float8']>;
+  external_link_id?: InputMaybe<Scalars['String']>;
+  external_link_source?: InputMaybe<InfrastructureNetworkExternalSourceEnum>;
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  infrastructure_link_id?: InputMaybe<Scalars['uuid']>;
   /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
-  shape?: Maybe<Scalars['geography']>;
+  shape?: InputMaybe<Scalars['geography']>;
 };
 
 /** aggregate stddev on columns */
@@ -1228,7 +1243,7 @@ export type InfrastructureNetworkInfrastructureLinkStddevFields = {
 /** order by stddev() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkStddevOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<OrderBy>;
+  estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -1241,7 +1256,7 @@ export type InfrastructureNetworkInfrastructureLinkStddevPopFields = {
 /** order by stddev_pop() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkStddevPopOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<OrderBy>;
+  estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -1254,7 +1269,7 @@ export type InfrastructureNetworkInfrastructureLinkStddevSampFields = {
 /** order by stddev_samp() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkStddevSampOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<OrderBy>;
+  estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "infrastructure_network_infrastructure_link" */
@@ -1262,21 +1277,21 @@ export type InfrastructureNetworkInfrastructureLinkStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: InfrastructureNetworkInfrastructureLinkStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type InfrastructureNetworkInfrastructureLinkStreamCursorValueInput = {
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction?: Maybe<InfrastructureNetworkDirectionEnum>;
+  direction?: InputMaybe<InfrastructureNetworkDirectionEnum>;
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<Scalars['float8']>;
-  external_link_id?: Maybe<Scalars['String']>;
-  external_link_source?: Maybe<InfrastructureNetworkExternalSourceEnum>;
+  estimated_length_in_metres?: InputMaybe<Scalars['float8']>;
+  external_link_id?: InputMaybe<Scalars['String']>;
+  external_link_source?: InputMaybe<InfrastructureNetworkExternalSourceEnum>;
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  infrastructure_link_id?: InputMaybe<Scalars['uuid']>;
   /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
-  shape?: Maybe<Scalars['geography']>;
+  shape?: InputMaybe<Scalars['geography']>;
 };
 
 /** aggregate sum on columns */
@@ -1289,7 +1304,7 @@ export type InfrastructureNetworkInfrastructureLinkSumFields = {
 /** order by sum() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkSumOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<OrderBy>;
+  estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "infrastructure_network.infrastructure_link" */
@@ -1310,9 +1325,9 @@ export enum InfrastructureNetworkInfrastructureLinkUpdateColumn {
 
 export type InfrastructureNetworkInfrastructureLinkUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: Maybe<InfrastructureNetworkInfrastructureLinkIncInput>;
+  _inc?: InputMaybe<InfrastructureNetworkInfrastructureLinkIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<InfrastructureNetworkInfrastructureLinkSetInput>;
+  _set?: InputMaybe<InfrastructureNetworkInfrastructureLinkSetInput>;
   where: InfrastructureNetworkInfrastructureLinkBoolExp;
 };
 
@@ -1326,7 +1341,7 @@ export type InfrastructureNetworkInfrastructureLinkVarPopFields = {
 /** order by var_pop() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkVarPopOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<OrderBy>;
+  estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
@@ -1339,7 +1354,7 @@ export type InfrastructureNetworkInfrastructureLinkVarSampFields = {
 /** order by var_samp() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkVarSampOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<OrderBy>;
+  estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
@@ -1352,11 +1367,11 @@ export type InfrastructureNetworkInfrastructureLinkVarianceFields = {
 /** order by variance() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkVarianceOrderBy = {
   /** The estimated length of the infrastructure link in metres. */
-  estimated_length_in_metres?: Maybe<OrderBy>;
+  estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
 export type InfrastructureNetworkResolvePointToClosestLinkArgs = {
-  geog?: Maybe<Scalars['geography']>;
+  geog?: InputMaybe<Scalars['geography']>;
 };
 
 /** Which infrastructure links are safely traversed by which vehicle submodes? */
@@ -1381,16 +1396,16 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregate = {
 
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateBoolExp =
   {
-    count?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateBoolExpCount>;
+    count?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateBoolExpCount>;
   };
 
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateBoolExpCount =
   {
-    arguments?: Maybe<
+    arguments?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
     >;
-    distinct?: Maybe<Scalars['Boolean']>;
-    filter?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
+    filter?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
     predicate: IntComparisonExp;
   };
 
@@ -1406,18 +1421,18 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateFiel
 /** aggregate fields of "infrastructure_network.vehicle_submode_on_infrastructure_link" */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateFieldsCountArgs =
   {
-    columns?: Maybe<
+    columns?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
     >;
-    distinct?: Maybe<Scalars['Boolean']>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
   };
 
 /** order by aggregate values of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy =
   {
-    count?: Maybe<OrderBy>;
-    max?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxOrderBy>;
-    min?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinOrderBy>;
+    count?: InputMaybe<OrderBy>;
+    max?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxOrderBy>;
+    min?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinOrderBy>;
   };
 
 /** input type for inserting array relation for remote table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
@@ -1425,22 +1440,22 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertI
   {
     data: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput>;
     /** upsert condition */
-    on_conflict?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
+    on_conflict?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
   };
 
 /** Boolean expression to filter rows from the table "infrastructure_network.vehicle_submode_on_infrastructure_link". All fields are combined with a logical 'AND'. */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp = {
-  _and?: Maybe<
+  _and?: InputMaybe<
     Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>
   >;
-  _not?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-  _or?: Maybe<
+  _not?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  _or?: InputMaybe<
     Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>
   >;
-  infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
-  infrastructure_link_id?: Maybe<UuidComparisonExp>;
-  vehicleSubmodeByVehicleSubmode?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
-  vehicle_submode?: Maybe<ReusableComponentsVehicleSubmodeEnumComparisonExp>;
+  infrastructure_link?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  infrastructure_link_id?: InputMaybe<UuidComparisonExp>;
+  vehicleSubmodeByVehicleSubmode?: InputMaybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  vehicle_submode?: InputMaybe<ReusableComponentsVehicleSubmodeEnumComparisonExp>;
 };
 
 /** unique or primary key constraints on table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
@@ -1452,12 +1467,12 @@ export enum InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkConstraint {
 /** input type for inserting data into table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput =
   {
-    infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
+    infrastructure_link?: InputMaybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
     /** The infrastructure link that can be safely traversed by the vehicle submode. */
-    infrastructure_link_id?: Maybe<Scalars['uuid']>;
-    vehicleSubmodeByVehicleSubmode?: Maybe<ReusableComponentsVehicleSubmodeObjRelInsertInput>;
+    infrastructure_link_id?: InputMaybe<Scalars['uuid']>;
+    vehicleSubmodeByVehicleSubmode?: InputMaybe<ReusableComponentsVehicleSubmodeObjRelInsertInput>;
     /** The vehicle submode that can safely traverse the infrastructure link. */
-    vehicle_submode?: Maybe<ReusableComponentsVehicleSubmodeEnum>;
+    vehicle_submode?: InputMaybe<ReusableComponentsVehicleSubmodeEnum>;
   };
 
 /** aggregate max on columns */
@@ -1471,7 +1486,7 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxFields = {
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxOrderBy =
   {
     /** The infrastructure link that can be safely traversed by the vehicle submode. */
-    infrastructure_link_id?: Maybe<OrderBy>;
+    infrastructure_link_id?: InputMaybe<OrderBy>;
   };
 
 /** aggregate min on columns */
@@ -1485,7 +1500,7 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinFields = {
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinOrderBy =
   {
     /** The infrastructure link that can be safely traversed by the vehicle submode. */
-    infrastructure_link_id?: Maybe<OrderBy>;
+    infrastructure_link_id?: InputMaybe<OrderBy>;
   };
 
 /** response of any mutation on the table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
@@ -1503,15 +1518,15 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict =
   {
     constraint: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkConstraint;
     update_columns?: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkUpdateColumn>;
-    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   };
 
 /** Ordering options when selecting data from "infrastructure_network.vehicle_submode_on_infrastructure_link". */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy = {
-  infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkOrderBy>;
-  infrastructure_link_id?: Maybe<OrderBy>;
-  vehicleSubmodeByVehicleSubmode?: Maybe<ReusableComponentsVehicleSubmodeOrderBy>;
-  vehicle_submode?: Maybe<OrderBy>;
+  infrastructure_link?: InputMaybe<InfrastructureNetworkInfrastructureLinkOrderBy>;
+  infrastructure_link_id?: InputMaybe<OrderBy>;
+  vehicleSubmodeByVehicleSubmode?: InputMaybe<ReusableComponentsVehicleSubmodeOrderBy>;
+  vehicle_submode?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: infrastructure_network.vehicle_submode_on_infrastructure_link */
@@ -1534,9 +1549,9 @@ export enum InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn 
 /** input type for updating data in table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput = {
   /** The infrastructure link that can be safely traversed by the vehicle submode. */
-  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  infrastructure_link_id?: InputMaybe<Scalars['uuid']>;
   /** The vehicle submode that can safely traverse the infrastructure link. */
-  vehicle_submode?: Maybe<ReusableComponentsVehicleSubmodeEnum>;
+  vehicle_submode?: InputMaybe<ReusableComponentsVehicleSubmodeEnum>;
 };
 
 /** Streaming cursor of the table "infrastructure_network_vehicle_submode_on_infrastructure_link" */
@@ -1545,16 +1560,16 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkStreamCursorI
     /** Stream column input with initial value */
     initial_value: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkStreamCursorValueInput;
     /** cursor ordering */
-    ordering?: Maybe<CursorOrdering>;
+    ordering?: InputMaybe<CursorOrdering>;
   };
 
 /** Initial value of the column from where the streaming should start */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkStreamCursorValueInput =
   {
     /** The infrastructure link that can be safely traversed by the vehicle submode. */
-    infrastructure_link_id?: Maybe<Scalars['uuid']>;
+    infrastructure_link_id?: InputMaybe<Scalars['uuid']>;
     /** The vehicle submode that can safely traverse the infrastructure link. */
-    vehicle_submode?: Maybe<ReusableComponentsVehicleSubmodeEnum>;
+    vehicle_submode?: InputMaybe<ReusableComponentsVehicleSubmodeEnum>;
   };
 
 /** update columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
@@ -1567,33 +1582,33 @@ export enum InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkUpdateColumn 
 
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput>;
+  _set?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput>;
   where: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp;
 };
 
 /** Boolean expression to compare columns of type "interval". All fields are combined with logical 'AND'. */
 export type IntervalComparisonExp = {
-  _eq?: Maybe<Scalars['interval']>;
-  _gt?: Maybe<Scalars['interval']>;
-  _gte?: Maybe<Scalars['interval']>;
-  _in?: Maybe<Array<Scalars['interval']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['interval']>;
-  _lte?: Maybe<Scalars['interval']>;
-  _neq?: Maybe<Scalars['interval']>;
-  _nin?: Maybe<Array<Scalars['interval']>>;
+  _eq?: InputMaybe<Scalars['interval']>;
+  _gt?: InputMaybe<Scalars['interval']>;
+  _gte?: InputMaybe<Scalars['interval']>;
+  _in?: InputMaybe<Array<Scalars['interval']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['interval']>;
+  _lte?: InputMaybe<Scalars['interval']>;
+  _neq?: InputMaybe<Scalars['interval']>;
+  _nin?: InputMaybe<Array<Scalars['interval']>>;
 };
 
 export type JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs =
   {
-    new_direction?: Maybe<Scalars['String']>;
-    new_label?: Maybe<Scalars['String']>;
-    new_located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
-    new_measured_location?: Maybe<Scalars['geography']>;
-    new_priority?: Maybe<Scalars['Int']>;
-    new_validity_end?: Maybe<Scalars['date']>;
-    new_validity_start?: Maybe<Scalars['date']>;
-    replace_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+    new_direction?: InputMaybe<Scalars['String']>;
+    new_label?: InputMaybe<Scalars['String']>;
+    new_located_on_infrastructure_link_id?: InputMaybe<Scalars['uuid']>;
+    new_measured_location?: InputMaybe<Scalars['geography']>;
+    new_priority?: InputMaybe<Scalars['Int']>;
+    new_validity_end?: InputMaybe<Scalars['date']>;
+    new_validity_start?: InputMaybe<Scalars['date']>;
+    replace_scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
   };
 
 /** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
@@ -1615,52 +1630,56 @@ export type JourneyPatternJourneyPattern = {
 
 /** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
 export type JourneyPatternJourneyPatternJourneyPatternRefsArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>>;
-  where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<
+    Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>
+  >;
+  where?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
 };
 
 /** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
 export type JourneyPatternJourneyPatternJourneyPatternRefsAggregateArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>>;
-  where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<
+    Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>
+  >;
+  where?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
 };
 
 /** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
 export type JourneyPatternJourneyPatternScheduledStopPointInJourneyPatternsArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
     >;
-    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+    where?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
 
 /** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
 export type JourneyPatternJourneyPatternScheduledStopPointInJourneyPatternsAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
     >;
-    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+    where?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
 
 /** aggregated selection of "journey_pattern.journey_pattern" */
@@ -1671,13 +1690,13 @@ export type JourneyPatternJourneyPatternAggregate = {
 };
 
 export type JourneyPatternJourneyPatternAggregateBoolExp = {
-  count?: Maybe<JourneyPatternJourneyPatternAggregateBoolExpCount>;
+  count?: InputMaybe<JourneyPatternJourneyPatternAggregateBoolExpCount>;
 };
 
 export type JourneyPatternJourneyPatternAggregateBoolExpCount = {
-  arguments?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  arguments?: InputMaybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
   predicate: IntComparisonExp;
 };
 
@@ -1691,34 +1710,34 @@ export type JourneyPatternJourneyPatternAggregateFields = {
 
 /** aggregate fields of "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternAggregateOrderBy = {
-  count?: Maybe<OrderBy>;
-  max?: Maybe<JourneyPatternJourneyPatternMaxOrderBy>;
-  min?: Maybe<JourneyPatternJourneyPatternMinOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<JourneyPatternJourneyPatternMaxOrderBy>;
+  min?: InputMaybe<JourneyPatternJourneyPatternMinOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternArrRelInsertInput = {
   data: Array<JourneyPatternJourneyPatternInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<JourneyPatternJourneyPatternOnConflict>;
+  on_conflict?: InputMaybe<JourneyPatternJourneyPatternOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "journey_pattern.journey_pattern". All fields are combined with a logical 'AND'. */
 export type JourneyPatternJourneyPatternBoolExp = {
-  _and?: Maybe<Array<JourneyPatternJourneyPatternBoolExp>>;
-  _not?: Maybe<JourneyPatternJourneyPatternBoolExp>;
-  _or?: Maybe<Array<JourneyPatternJourneyPatternBoolExp>>;
-  journey_pattern_id?: Maybe<UuidComparisonExp>;
-  journey_pattern_route?: Maybe<RouteRouteBoolExp>;
-  on_route_id?: Maybe<UuidComparisonExp>;
-  scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
-  scheduled_stop_point_in_journey_patterns_aggregate?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExp>;
+  _and?: InputMaybe<Array<JourneyPatternJourneyPatternBoolExp>>;
+  _not?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
+  _or?: InputMaybe<Array<JourneyPatternJourneyPatternBoolExp>>;
+  journey_pattern_id?: InputMaybe<UuidComparisonExp>;
+  journey_pattern_route?: InputMaybe<RouteRouteBoolExp>;
+  on_route_id?: InputMaybe<UuidComparisonExp>;
+  scheduled_stop_point_in_journey_patterns?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  scheduled_stop_point_in_journey_patterns_aggregate?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExp>;
 };
 
 /** unique or primary key constraints on table "journey_pattern.journey_pattern" */
@@ -1732,11 +1751,11 @@ export enum JourneyPatternJourneyPatternConstraint {
 /** input type for inserting data into table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternInsertInput = {
   /** The ID of the journey pattern. */
-  journey_pattern_id?: Maybe<Scalars['uuid']>;
-  journey_pattern_route?: Maybe<RouteRouteObjRelInsertInput>;
+  journey_pattern_id?: InputMaybe<Scalars['uuid']>;
+  journey_pattern_route?: InputMaybe<RouteRouteObjRelInsertInput>;
   /** The ID of the route the journey pattern is on. */
-  on_route_id?: Maybe<Scalars['uuid']>;
-  scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
+  on_route_id?: InputMaybe<Scalars['uuid']>;
+  scheduled_stop_point_in_journey_patterns?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -1751,9 +1770,9 @@ export type JourneyPatternJourneyPatternMaxFields = {
 /** order by max() on columns of table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternMaxOrderBy = {
   /** The ID of the journey pattern. */
-  journey_pattern_id?: Maybe<OrderBy>;
+  journey_pattern_id?: InputMaybe<OrderBy>;
   /** The ID of the route the journey pattern is on. */
-  on_route_id?: Maybe<OrderBy>;
+  on_route_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -1768,9 +1787,9 @@ export type JourneyPatternJourneyPatternMinFields = {
 /** order by min() on columns of table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternMinOrderBy = {
   /** The ID of the journey pattern. */
-  journey_pattern_id?: Maybe<OrderBy>;
+  journey_pattern_id?: InputMaybe<OrderBy>;
   /** The ID of the route the journey pattern is on. */
-  on_route_id?: Maybe<OrderBy>;
+  on_route_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "journey_pattern.journey_pattern" */
@@ -1786,22 +1805,22 @@ export type JourneyPatternJourneyPatternMutationResponse = {
 export type JourneyPatternJourneyPatternObjRelInsertInput = {
   data: JourneyPatternJourneyPatternInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<JourneyPatternJourneyPatternOnConflict>;
+  on_conflict?: InputMaybe<JourneyPatternJourneyPatternOnConflict>;
 };
 
 /** on_conflict condition type for table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternOnConflict = {
   constraint: JourneyPatternJourneyPatternConstraint;
   update_columns?: Array<JourneyPatternJourneyPatternUpdateColumn>;
-  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  where?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 /** Ordering options when selecting data from "journey_pattern.journey_pattern". */
 export type JourneyPatternJourneyPatternOrderBy = {
-  journey_pattern_id?: Maybe<OrderBy>;
-  journey_pattern_route?: Maybe<RouteRouteOrderBy>;
-  on_route_id?: Maybe<OrderBy>;
-  scheduled_stop_point_in_journey_patterns_aggregate?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy>;
+  journey_pattern_id?: InputMaybe<OrderBy>;
+  journey_pattern_route?: InputMaybe<RouteRouteOrderBy>;
+  on_route_id?: InputMaybe<OrderBy>;
+  scheduled_stop_point_in_journey_patterns_aggregate?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy>;
 };
 
 /** primary key columns input for table: journey_pattern.journey_pattern */
@@ -1821,9 +1840,9 @@ export enum JourneyPatternJourneyPatternSelectColumn {
 /** input type for updating data in table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternSetInput = {
   /** The ID of the journey pattern. */
-  journey_pattern_id?: Maybe<Scalars['uuid']>;
+  journey_pattern_id?: InputMaybe<Scalars['uuid']>;
   /** The ID of the route the journey pattern is on. */
-  on_route_id?: Maybe<Scalars['uuid']>;
+  on_route_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** Streaming cursor of the table "journey_pattern_journey_pattern" */
@@ -1831,15 +1850,15 @@ export type JourneyPatternJourneyPatternStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: JourneyPatternJourneyPatternStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type JourneyPatternJourneyPatternStreamCursorValueInput = {
   /** The ID of the journey pattern. */
-  journey_pattern_id?: Maybe<Scalars['uuid']>;
+  journey_pattern_id?: InputMaybe<Scalars['uuid']>;
   /** The ID of the route the journey pattern is on. */
-  on_route_id?: Maybe<Scalars['uuid']>;
+  on_route_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** update columns of table "journey_pattern.journey_pattern" */
@@ -1852,7 +1871,7 @@ export enum JourneyPatternJourneyPatternUpdateColumn {
 
 export type JourneyPatternJourneyPatternUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<JourneyPatternJourneyPatternSetInput>;
+  _set?: InputMaybe<JourneyPatternJourneyPatternSetInput>;
   where: JourneyPatternJourneyPatternBoolExp;
 };
 
@@ -1885,33 +1904,37 @@ export type JourneyPatternScheduledStopPointInJourneyPattern = {
 /** The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern. */
 export type JourneyPatternScheduledStopPointInJourneyPatternScheduledStopPointsArgs =
   {
-    distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-    where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<ServicePatternScheduledStopPointSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+    where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
   };
 
 /** The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern. */
 export type JourneyPatternScheduledStopPointInJourneyPatternScheduledStopPointsAggregateArgs =
   {
-    distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-    where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<ServicePatternScheduledStopPointSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+    where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
   };
 
 /** The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern. */
 export type JourneyPatternScheduledStopPointInJourneyPatternViaPointNameI18nArgs =
   {
-    path?: Maybe<Scalars['String']>;
+    path?: InputMaybe<Scalars['String']>;
   };
 
 /** The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern. */
 export type JourneyPatternScheduledStopPointInJourneyPatternViaPointShortNameI18nArgs =
   {
-    path?: Maybe<Scalars['String']>;
+    path?: InputMaybe<Scalars['String']>;
   };
 
 /** aggregated selection of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -1922,34 +1945,34 @@ export type JourneyPatternScheduledStopPointInJourneyPatternAggregate = {
 };
 
 export type JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExp = {
-  bool_and?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolAnd>;
-  bool_or?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolOr>;
-  count?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpCount>;
+  bool_and?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolAnd>;
+  bool_or?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolOr>;
+  count?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpCount>;
 };
 
 export type JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolAnd =
   {
     arguments: JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolAndArgumentsColumns;
-    distinct?: Maybe<Scalars['Boolean']>;
-    filter?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
+    filter?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
     predicate: BooleanComparisonExp;
   };
 
 export type JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolOr =
   {
     arguments: JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolOrArgumentsColumns;
-    distinct?: Maybe<Scalars['Boolean']>;
-    filter?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
+    filter?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
     predicate: BooleanComparisonExp;
   };
 
 export type JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpCount =
   {
-    arguments?: Maybe<
+    arguments?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
     >;
-    distinct?: Maybe<Scalars['Boolean']>;
-    filter?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
+    filter?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
     predicate: IntComparisonExp;
   };
 
@@ -1972,31 +1995,31 @@ export type JourneyPatternScheduledStopPointInJourneyPatternAggregateFields = {
 /** aggregate fields of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternAggregateFieldsCountArgs =
   {
-    columns?: Maybe<
+    columns?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
     >;
-    distinct?: Maybe<Scalars['Boolean']>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
   };
 
 /** order by aggregate values of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy = {
-  avg?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAvgOrderBy>;
-  count?: Maybe<OrderBy>;
-  max?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMaxOrderBy>;
-  min?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMinOrderBy>;
-  stddev?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternStddevOrderBy>;
-  stddev_pop?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternStddevPopOrderBy>;
-  stddev_samp?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternStddevSampOrderBy>;
-  sum?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSumOrderBy>;
-  var_pop?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarPopOrderBy>;
-  var_samp?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarSampOrderBy>;
-  variance?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternVarianceOrderBy>;
+  avg?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternMaxOrderBy>;
+  min?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternMinOrderBy>;
+  stddev?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternStddevOrderBy>;
+  stddev_pop?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternStddevSampOrderBy>;
+  sum?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternSumOrderBy>;
+  var_pop?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternVarPopOrderBy>;
+  var_samp?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternVarSampOrderBy>;
+  variance?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternVarianceOrderBy>;
 };
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type JourneyPatternScheduledStopPointInJourneyPatternAppendInput = {
-  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
-  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_name_i18n?: InputMaybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** input type for inserting array relation for remote table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -2004,7 +2027,7 @@ export type JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput =
   {
     data: Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
     /** upsert condition */
-    on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
+    on_conflict?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
   };
 
 /** aggregate avg on columns */
@@ -2017,26 +2040,30 @@ export type JourneyPatternScheduledStopPointInJourneyPatternAvgFields = {
 /** order by avg() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternAvgOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<OrderBy>;
+  scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "journey_pattern.scheduled_stop_point_in_journey_pattern". All fields are combined with a logical 'AND'. */
 export type JourneyPatternScheduledStopPointInJourneyPatternBoolExp = {
-  _and?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>>;
-  _not?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
-  _or?: Maybe<Array<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>>;
-  is_loading_time_allowed?: Maybe<BooleanComparisonExp>;
-  is_regulated_timing_point?: Maybe<BooleanComparisonExp>;
-  is_used_as_timing_point?: Maybe<BooleanComparisonExp>;
-  is_via_point?: Maybe<BooleanComparisonExp>;
-  journey_pattern?: Maybe<JourneyPatternJourneyPatternBoolExp>;
-  journey_pattern_id?: Maybe<UuidComparisonExp>;
-  scheduled_stop_point_label?: Maybe<StringComparisonExp>;
-  scheduled_stop_point_sequence?: Maybe<IntComparisonExp>;
-  scheduled_stop_points?: Maybe<ServicePatternScheduledStopPointBoolExp>;
-  scheduled_stop_points_aggregate?: Maybe<ServicePatternScheduledStopPointAggregateBoolExp>;
-  via_point_name_i18n?: Maybe<JsonbComparisonExp>;
-  via_point_short_name_i18n?: Maybe<JsonbComparisonExp>;
+  _and?: InputMaybe<
+    Array<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>
+  >;
+  _not?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  _or?: InputMaybe<
+    Array<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>
+  >;
+  is_loading_time_allowed?: InputMaybe<BooleanComparisonExp>;
+  is_regulated_timing_point?: InputMaybe<BooleanComparisonExp>;
+  is_used_as_timing_point?: InputMaybe<BooleanComparisonExp>;
+  is_via_point?: InputMaybe<BooleanComparisonExp>;
+  journey_pattern?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
+  journey_pattern_id?: InputMaybe<UuidComparisonExp>;
+  scheduled_stop_point_label?: InputMaybe<StringComparisonExp>;
+  scheduled_stop_point_sequence?: InputMaybe<IntComparisonExp>;
+  scheduled_stop_points?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
+  scheduled_stop_points_aggregate?: InputMaybe<ServicePatternScheduledStopPointAggregateBoolExp>;
+  via_point_name_i18n?: InputMaybe<JsonbComparisonExp>;
+  via_point_short_name_i18n?: InputMaybe<JsonbComparisonExp>;
 };
 
 /** unique or primary key constraints on table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -2048,47 +2075,47 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternConstraint {
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput =
   {
-    via_point_name_i18n?: Maybe<Array<Scalars['String']>>;
-    via_point_short_name_i18n?: Maybe<Array<Scalars['String']>>;
+    via_point_name_i18n?: InputMaybe<Array<Scalars['String']>>;
+    via_point_short_name_i18n?: InputMaybe<Array<Scalars['String']>>;
   };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput = {
-  via_point_name_i18n?: Maybe<Scalars['Int']>;
-  via_point_short_name_i18n?: Maybe<Scalars['Int']>;
+  via_point_name_i18n?: InputMaybe<Scalars['Int']>;
+  via_point_short_name_i18n?: InputMaybe<Scalars['Int']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput = {
-  via_point_name_i18n?: Maybe<Scalars['String']>;
-  via_point_short_name_i18n?: Maybe<Scalars['String']>;
+  via_point_name_i18n?: InputMaybe<Scalars['String']>;
+  via_point_short_name_i18n?: InputMaybe<Scalars['String']>;
 };
 
 /** input type for incrementing numeric columns in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternIncInput = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
+  scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternInsertInput = {
   /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
-  is_loading_time_allowed?: Maybe<Scalars['Boolean']>;
+  is_loading_time_allowed?: InputMaybe<Scalars['Boolean']>;
   /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
-  is_regulated_timing_point?: Maybe<Scalars['Boolean']>;
+  is_regulated_timing_point?: InputMaybe<Scalars['Boolean']>;
   /** Is this scheduled stop point used as a timing point in the journey pattern? */
-  is_used_as_timing_point?: Maybe<Scalars['Boolean']>;
+  is_used_as_timing_point?: InputMaybe<Scalars['Boolean']>;
   /** Is this scheduled stop point a via point? */
-  is_via_point?: Maybe<Scalars['Boolean']>;
-  journey_pattern?: Maybe<JourneyPatternJourneyPatternObjRelInsertInput>;
+  is_via_point?: InputMaybe<Scalars['Boolean']>;
+  journey_pattern?: InputMaybe<JourneyPatternJourneyPatternObjRelInsertInput>;
   /** The ID of the journey pattern. */
-  journey_pattern_id?: Maybe<Scalars['uuid']>;
-  scheduled_stop_point_label?: Maybe<Scalars['String']>;
+  journey_pattern_id?: InputMaybe<Scalars['uuid']>;
+  scheduled_stop_point_label?: InputMaybe<Scalars['String']>;
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
-  scheduled_stop_points?: Maybe<ServicePatternScheduledStopPointArrRelInsertInput>;
-  via_point_name_i18n?: Maybe<Scalars['localized_string']>;
-  via_point_short_name_i18n?: Maybe<Scalars['localized_string']>;
+  scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']>;
+  scheduled_stop_points?: InputMaybe<ServicePatternScheduledStopPointArrRelInsertInput>;
+  via_point_name_i18n?: InputMaybe<Scalars['localized_string']>;
+  via_point_short_name_i18n?: InputMaybe<Scalars['localized_string']>;
 };
 
 /** aggregate max on columns */
@@ -2104,10 +2131,10 @@ export type JourneyPatternScheduledStopPointInJourneyPatternMaxFields = {
 /** order by max() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternMaxOrderBy = {
   /** The ID of the journey pattern. */
-  journey_pattern_id?: Maybe<OrderBy>;
-  scheduled_stop_point_label?: Maybe<OrderBy>;
+  journey_pattern_id?: InputMaybe<OrderBy>;
+  scheduled_stop_point_label?: InputMaybe<OrderBy>;
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<OrderBy>;
+  scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -2123,10 +2150,10 @@ export type JourneyPatternScheduledStopPointInJourneyPatternMinFields = {
 /** order by min() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternMinOrderBy = {
   /** The ID of the journey pattern. */
-  journey_pattern_id?: Maybe<OrderBy>;
-  scheduled_stop_point_label?: Maybe<OrderBy>;
+  journey_pattern_id?: InputMaybe<OrderBy>;
+  scheduled_stop_point_label?: InputMaybe<OrderBy>;
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<OrderBy>;
+  scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -2142,22 +2169,22 @@ export type JourneyPatternScheduledStopPointInJourneyPatternMutationResponse = {
 export type JourneyPatternScheduledStopPointInJourneyPatternOnConflict = {
   constraint: JourneyPatternScheduledStopPointInJourneyPatternConstraint;
   update_columns?: Array<JourneyPatternScheduledStopPointInJourneyPatternUpdateColumn>;
-  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  where?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
 };
 
 /** Ordering options when selecting data from "journey_pattern.scheduled_stop_point_in_journey_pattern". */
 export type JourneyPatternScheduledStopPointInJourneyPatternOrderBy = {
-  is_loading_time_allowed?: Maybe<OrderBy>;
-  is_regulated_timing_point?: Maybe<OrderBy>;
-  is_used_as_timing_point?: Maybe<OrderBy>;
-  is_via_point?: Maybe<OrderBy>;
-  journey_pattern?: Maybe<JourneyPatternJourneyPatternOrderBy>;
-  journey_pattern_id?: Maybe<OrderBy>;
-  scheduled_stop_point_label?: Maybe<OrderBy>;
-  scheduled_stop_point_sequence?: Maybe<OrderBy>;
-  scheduled_stop_points_aggregate?: Maybe<ServicePatternScheduledStopPointAggregateOrderBy>;
-  via_point_name_i18n?: Maybe<OrderBy>;
-  via_point_short_name_i18n?: Maybe<OrderBy>;
+  is_loading_time_allowed?: InputMaybe<OrderBy>;
+  is_regulated_timing_point?: InputMaybe<OrderBy>;
+  is_used_as_timing_point?: InputMaybe<OrderBy>;
+  is_via_point?: InputMaybe<OrderBy>;
+  journey_pattern?: InputMaybe<JourneyPatternJourneyPatternOrderBy>;
+  journey_pattern_id?: InputMaybe<OrderBy>;
+  scheduled_stop_point_label?: InputMaybe<OrderBy>;
+  scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
+  scheduled_stop_points_aggregate?: InputMaybe<ServicePatternScheduledStopPointAggregateOrderBy>;
+  via_point_name_i18n?: InputMaybe<OrderBy>;
+  via_point_short_name_i18n?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: journey_pattern.scheduled_stop_point_in_journey_pattern */
@@ -2170,8 +2197,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput = {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type JourneyPatternScheduledStopPointInJourneyPatternPrependInput = {
-  via_point_name_i18n?: Maybe<Scalars['jsonb']>;
-  via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
+  via_point_name_i18n?: InputMaybe<Scalars['jsonb']>;
+  via_point_short_name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -2223,20 +2250,20 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyP
 /** input type for updating data in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternSetInput = {
   /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
-  is_loading_time_allowed?: Maybe<Scalars['Boolean']>;
+  is_loading_time_allowed?: InputMaybe<Scalars['Boolean']>;
   /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
-  is_regulated_timing_point?: Maybe<Scalars['Boolean']>;
+  is_regulated_timing_point?: InputMaybe<Scalars['Boolean']>;
   /** Is this scheduled stop point used as a timing point in the journey pattern? */
-  is_used_as_timing_point?: Maybe<Scalars['Boolean']>;
+  is_used_as_timing_point?: InputMaybe<Scalars['Boolean']>;
   /** Is this scheduled stop point a via point? */
-  is_via_point?: Maybe<Scalars['Boolean']>;
+  is_via_point?: InputMaybe<Scalars['Boolean']>;
   /** The ID of the journey pattern. */
-  journey_pattern_id?: Maybe<Scalars['uuid']>;
-  scheduled_stop_point_label?: Maybe<Scalars['String']>;
+  journey_pattern_id?: InputMaybe<Scalars['uuid']>;
+  scheduled_stop_point_label?: InputMaybe<Scalars['String']>;
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
-  via_point_name_i18n?: Maybe<Scalars['localized_string']>;
-  via_point_short_name_i18n?: Maybe<Scalars['localized_string']>;
+  scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']>;
+  via_point_name_i18n?: InputMaybe<Scalars['localized_string']>;
+  via_point_short_name_i18n?: InputMaybe<Scalars['localized_string']>;
 };
 
 /** aggregate stddev on columns */
@@ -2249,7 +2276,7 @@ export type JourneyPatternScheduledStopPointInJourneyPatternStddevFields = {
 /** order by stddev() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternStddevOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<OrderBy>;
+  scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -2262,7 +2289,7 @@ export type JourneyPatternScheduledStopPointInJourneyPatternStddevPopFields = {
 /** order by stddev_pop() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternStddevPopOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<OrderBy>;
+  scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -2276,7 +2303,7 @@ export type JourneyPatternScheduledStopPointInJourneyPatternStddevSampFields = {
 export type JourneyPatternScheduledStopPointInJourneyPatternStddevSampOrderBy =
   {
     /** The order of the scheduled stop point within the journey pattern. */
-    scheduled_stop_point_sequence?: Maybe<OrderBy>;
+    scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
   };
 
 /** Streaming cursor of the table "journey_pattern_scheduled_stop_point_in_journey_pattern" */
@@ -2285,27 +2312,27 @@ export type JourneyPatternScheduledStopPointInJourneyPatternStreamCursorInput =
     /** Stream column input with initial value */
     initial_value: JourneyPatternScheduledStopPointInJourneyPatternStreamCursorValueInput;
     /** cursor ordering */
-    ordering?: Maybe<CursorOrdering>;
+    ordering?: InputMaybe<CursorOrdering>;
   };
 
 /** Initial value of the column from where the streaming should start */
 export type JourneyPatternScheduledStopPointInJourneyPatternStreamCursorValueInput =
   {
     /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
-    is_loading_time_allowed?: Maybe<Scalars['Boolean']>;
+    is_loading_time_allowed?: InputMaybe<Scalars['Boolean']>;
     /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
-    is_regulated_timing_point?: Maybe<Scalars['Boolean']>;
+    is_regulated_timing_point?: InputMaybe<Scalars['Boolean']>;
     /** Is this scheduled stop point used as a timing point in the journey pattern? */
-    is_used_as_timing_point?: Maybe<Scalars['Boolean']>;
+    is_used_as_timing_point?: InputMaybe<Scalars['Boolean']>;
     /** Is this scheduled stop point a via point? */
-    is_via_point?: Maybe<Scalars['Boolean']>;
+    is_via_point?: InputMaybe<Scalars['Boolean']>;
     /** The ID of the journey pattern. */
-    journey_pattern_id?: Maybe<Scalars['uuid']>;
-    scheduled_stop_point_label?: Maybe<Scalars['String']>;
+    journey_pattern_id?: InputMaybe<Scalars['uuid']>;
+    scheduled_stop_point_label?: InputMaybe<Scalars['String']>;
     /** The order of the scheduled stop point within the journey pattern. */
-    scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
-    via_point_name_i18n?: Maybe<Scalars['jsonb']>;
-    via_point_short_name_i18n?: Maybe<Scalars['jsonb']>;
+    scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']>;
+    via_point_name_i18n?: InputMaybe<Scalars['jsonb']>;
+    via_point_short_name_i18n?: InputMaybe<Scalars['jsonb']>;
   };
 
 /** aggregate sum on columns */
@@ -2318,7 +2345,7 @@ export type JourneyPatternScheduledStopPointInJourneyPatternSumFields = {
 /** order by sum() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternSumOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<OrderBy>;
+  scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
@@ -2345,19 +2372,19 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternUpdateColumn {
 
 export type JourneyPatternScheduledStopPointInJourneyPatternUpdates = {
   /** append existing jsonb value of filtered columns with new jsonb value */
-  _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
+  _append?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
   /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-  _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
+  _delete_at_path?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
   /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-  _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
+  _delete_elem?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
   /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-  _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
+  _delete_key?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+  _inc?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
   /** prepend existing jsonb value of filtered columns with new jsonb value */
-  _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
+  _prepend?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
+  _set?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
   where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
 };
 
@@ -2371,7 +2398,7 @@ export type JourneyPatternScheduledStopPointInJourneyPatternVarPopFields = {
 /** order by var_pop() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternVarPopOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<OrderBy>;
+  scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
@@ -2384,7 +2411,7 @@ export type JourneyPatternScheduledStopPointInJourneyPatternVarSampFields = {
 /** order by var_samp() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternVarSampOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<OrderBy>;
+  scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
@@ -2397,35 +2424,35 @@ export type JourneyPatternScheduledStopPointInJourneyPatternVarianceFields = {
 /** order by variance() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternVarianceOrderBy = {
   /** The order of the scheduled stop point within the journey pattern. */
-  scheduled_stop_point_sequence?: Maybe<OrderBy>;
+  scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 export type JsonbCastExp = {
-  String?: Maybe<StringComparisonExp>;
+  String?: InputMaybe<StringComparisonExp>;
 };
 
 /** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
 export type JsonbComparisonExp = {
-  _cast?: Maybe<JsonbCastExp>;
+  _cast?: InputMaybe<JsonbCastExp>;
   /** is the column contained in the given json value */
-  _contained_in?: Maybe<Scalars['jsonb']>;
+  _contained_in?: InputMaybe<Scalars['jsonb']>;
   /** does the column contain the given json value at the top level */
-  _contains?: Maybe<Scalars['jsonb']>;
-  _eq?: Maybe<Scalars['jsonb']>;
-  _gt?: Maybe<Scalars['jsonb']>;
-  _gte?: Maybe<Scalars['jsonb']>;
+  _contains?: InputMaybe<Scalars['jsonb']>;
+  _eq?: InputMaybe<Scalars['jsonb']>;
+  _gt?: InputMaybe<Scalars['jsonb']>;
+  _gte?: InputMaybe<Scalars['jsonb']>;
   /** does the string exist as a top-level key in the column */
-  _has_key?: Maybe<Scalars['String']>;
+  _has_key?: InputMaybe<Scalars['String']>;
   /** do all of these strings exist as top-level keys in the column */
-  _has_keys_all?: Maybe<Array<Scalars['String']>>;
+  _has_keys_all?: InputMaybe<Array<Scalars['String']>>;
   /** do any of these strings exist as top-level keys in the column */
-  _has_keys_any?: Maybe<Array<Scalars['String']>>;
-  _in?: Maybe<Array<Scalars['jsonb']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['jsonb']>;
-  _lte?: Maybe<Scalars['jsonb']>;
-  _neq?: Maybe<Scalars['jsonb']>;
-  _nin?: Maybe<Array<Scalars['jsonb']>>;
+  _has_keys_any?: InputMaybe<Array<Scalars['String']>>;
+  _in?: InputMaybe<Array<Scalars['jsonb']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['jsonb']>;
+  _lte?: InputMaybe<Scalars['jsonb']>;
+  _neq?: InputMaybe<Scalars['jsonb']>;
+  _nin?: InputMaybe<Array<Scalars['jsonb']>>;
 };
 
 /** mutation root */
@@ -2890,222 +2917,222 @@ export type MutationRootDeleteTimingPatternTimingPlaceByPkArgs = {
 /** mutation root */
 export type MutationRootInsertHslRouteTransportTargetArgs = {
   objects: Array<HslRouteTransportTargetInsertInput>;
-  on_conflict?: Maybe<HslRouteTransportTargetOnConflict>;
+  on_conflict?: InputMaybe<HslRouteTransportTargetOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertHslRouteTransportTargetOneArgs = {
   object: HslRouteTransportTargetInsertInput;
-  on_conflict?: Maybe<HslRouteTransportTargetOnConflict>;
+  on_conflict?: InputMaybe<HslRouteTransportTargetOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkDirectionArgs = {
   objects: Array<InfrastructureNetworkDirectionInsertInput>;
-  on_conflict?: Maybe<InfrastructureNetworkDirectionOnConflict>;
+  on_conflict?: InputMaybe<InfrastructureNetworkDirectionOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkDirectionOneArgs = {
   object: InfrastructureNetworkDirectionInsertInput;
-  on_conflict?: Maybe<InfrastructureNetworkDirectionOnConflict>;
+  on_conflict?: InputMaybe<InfrastructureNetworkDirectionOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkExternalSourceArgs = {
   objects: Array<InfrastructureNetworkExternalSourceInsertInput>;
-  on_conflict?: Maybe<InfrastructureNetworkExternalSourceOnConflict>;
+  on_conflict?: InputMaybe<InfrastructureNetworkExternalSourceOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkExternalSourceOneArgs = {
   object: InfrastructureNetworkExternalSourceInsertInput;
-  on_conflict?: Maybe<InfrastructureNetworkExternalSourceOnConflict>;
+  on_conflict?: InputMaybe<InfrastructureNetworkExternalSourceOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkInfrastructureLinkArgs = {
   objects: Array<InfrastructureNetworkInfrastructureLinkInsertInput>;
-  on_conflict?: Maybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
+  on_conflict?: InputMaybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkInfrastructureLinkOneArgs = {
   object: InfrastructureNetworkInfrastructureLinkInsertInput;
-  on_conflict?: Maybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
+  on_conflict?: InputMaybe<InfrastructureNetworkInfrastructureLinkOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs =
   {
     objects: Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput>;
-    on_conflict?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
+    on_conflict?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
   };
 
 /** mutation root */
 export type MutationRootInsertInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOneArgs =
   {
     object: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput;
-    on_conflict?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
+    on_conflict?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOnConflict>;
   };
 
 /** mutation root */
 export type MutationRootInsertJourneyPatternJourneyPatternArgs = {
   objects: Array<JourneyPatternJourneyPatternInsertInput>;
-  on_conflict?: Maybe<JourneyPatternJourneyPatternOnConflict>;
+  on_conflict?: InputMaybe<JourneyPatternJourneyPatternOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertJourneyPatternJourneyPatternOneArgs = {
   object: JourneyPatternJourneyPatternInsertInput;
-  on_conflict?: Maybe<JourneyPatternJourneyPatternOnConflict>;
+  on_conflict?: InputMaybe<JourneyPatternJourneyPatternOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternArgs =
   {
     objects: Array<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
-    on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
+    on_conflict?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
   };
 
 /** mutation root */
 export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternOneArgs =
   {
     object: JourneyPatternScheduledStopPointInJourneyPatternInsertInput;
-    on_conflict?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
+    on_conflict?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
   };
 
 /** mutation root */
 export type MutationRootInsertReusableComponentsVehicleModeArgs = {
   objects: Array<ReusableComponentsVehicleModeInsertInput>;
-  on_conflict?: Maybe<ReusableComponentsVehicleModeOnConflict>;
+  on_conflict?: InputMaybe<ReusableComponentsVehicleModeOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertReusableComponentsVehicleModeOneArgs = {
   object: ReusableComponentsVehicleModeInsertInput;
-  on_conflict?: Maybe<ReusableComponentsVehicleModeOnConflict>;
+  on_conflict?: InputMaybe<ReusableComponentsVehicleModeOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertReusableComponentsVehicleSubmodeArgs = {
   objects: Array<ReusableComponentsVehicleSubmodeInsertInput>;
-  on_conflict?: Maybe<ReusableComponentsVehicleSubmodeOnConflict>;
+  on_conflict?: InputMaybe<ReusableComponentsVehicleSubmodeOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertReusableComponentsVehicleSubmodeOneArgs = {
   object: ReusableComponentsVehicleSubmodeInsertInput;
-  on_conflict?: Maybe<ReusableComponentsVehicleSubmodeOnConflict>;
+  on_conflict?: InputMaybe<ReusableComponentsVehicleSubmodeOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertRouteDirectionArgs = {
   objects: Array<RouteDirectionInsertInput>;
-  on_conflict?: Maybe<RouteDirectionOnConflict>;
+  on_conflict?: InputMaybe<RouteDirectionOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertRouteDirectionOneArgs = {
   object: RouteDirectionInsertInput;
-  on_conflict?: Maybe<RouteDirectionOnConflict>;
+  on_conflict?: InputMaybe<RouteDirectionOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertRouteInfrastructureLinkAlongRouteArgs = {
   objects: Array<RouteInfrastructureLinkAlongRouteInsertInput>;
-  on_conflict?: Maybe<RouteInfrastructureLinkAlongRouteOnConflict>;
+  on_conflict?: InputMaybe<RouteInfrastructureLinkAlongRouteOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertRouteInfrastructureLinkAlongRouteOneArgs = {
   object: RouteInfrastructureLinkAlongRouteInsertInput;
-  on_conflict?: Maybe<RouteInfrastructureLinkAlongRouteOnConflict>;
+  on_conflict?: InputMaybe<RouteInfrastructureLinkAlongRouteOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertRouteLineArgs = {
   objects: Array<RouteLineInsertInput>;
-  on_conflict?: Maybe<RouteLineOnConflict>;
+  on_conflict?: InputMaybe<RouteLineOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertRouteLineOneArgs = {
   object: RouteLineInsertInput;
-  on_conflict?: Maybe<RouteLineOnConflict>;
+  on_conflict?: InputMaybe<RouteLineOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertRouteRouteArgs = {
   objects: Array<RouteRouteInsertInput>;
-  on_conflict?: Maybe<RouteRouteOnConflict>;
+  on_conflict?: InputMaybe<RouteRouteOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertRouteRouteOneArgs = {
   object: RouteRouteInsertInput;
-  on_conflict?: Maybe<RouteRouteOnConflict>;
+  on_conflict?: InputMaybe<RouteRouteOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertRouteTypeOfLineArgs = {
   objects: Array<RouteTypeOfLineInsertInput>;
-  on_conflict?: Maybe<RouteTypeOfLineOnConflict>;
+  on_conflict?: InputMaybe<RouteTypeOfLineOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertRouteTypeOfLineOneArgs = {
   object: RouteTypeOfLineInsertInput;
-  on_conflict?: Maybe<RouteTypeOfLineOnConflict>;
+  on_conflict?: InputMaybe<RouteTypeOfLineOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertServicePatternScheduledStopPointArgs = {
   objects: Array<ServicePatternScheduledStopPointInsertInput>;
-  on_conflict?: Maybe<ServicePatternScheduledStopPointOnConflict>;
+  on_conflict?: InputMaybe<ServicePatternScheduledStopPointOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertServicePatternScheduledStopPointOneArgs = {
   object: ServicePatternScheduledStopPointInsertInput;
-  on_conflict?: Maybe<ServicePatternScheduledStopPointOnConflict>;
+  on_conflict?: InputMaybe<ServicePatternScheduledStopPointOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertServicePatternVehicleModeOnScheduledStopPointArgs =
   {
     objects: Array<ServicePatternVehicleModeOnScheduledStopPointInsertInput>;
-    on_conflict?: Maybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
+    on_conflict?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
   };
 
 /** mutation root */
 export type MutationRootInsertServicePatternVehicleModeOnScheduledStopPointOneArgs =
   {
     object: ServicePatternVehicleModeOnScheduledStopPointInsertInput;
-    on_conflict?: Maybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
+    on_conflict?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
   };
 
 /** mutation root */
 export type MutationRootInsertTimingPatternTimingPlaceArgs = {
   objects: Array<TimingPatternTimingPlaceInsertInput>;
-  on_conflict?: Maybe<TimingPatternTimingPlaceOnConflict>;
+  on_conflict?: InputMaybe<TimingPatternTimingPlaceOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootInsertTimingPatternTimingPlaceOneArgs = {
   object: TimingPatternTimingPlaceInsertInput;
-  on_conflict?: Maybe<TimingPatternTimingPlaceOnConflict>;
+  on_conflict?: InputMaybe<TimingPatternTimingPlaceOnConflict>;
 };
 
 /** mutation root */
 export type MutationRootUpdateHslRouteTransportTargetArgs = {
-  _set?: Maybe<HslRouteTransportTargetSetInput>;
+  _set?: InputMaybe<HslRouteTransportTargetSetInput>;
   where: HslRouteTransportTargetBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateHslRouteTransportTargetByPkArgs = {
-  _set?: Maybe<HslRouteTransportTargetSetInput>;
+  _set?: InputMaybe<HslRouteTransportTargetSetInput>;
   pk_columns: HslRouteTransportTargetPkColumnsInput;
 };
 
@@ -3116,13 +3143,13 @@ export type MutationRootUpdateHslRouteTransportTargetManyArgs = {
 
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkDirectionArgs = {
-  _set?: Maybe<InfrastructureNetworkDirectionSetInput>;
+  _set?: InputMaybe<InfrastructureNetworkDirectionSetInput>;
   where: InfrastructureNetworkDirectionBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkDirectionByPkArgs = {
-  _set?: Maybe<InfrastructureNetworkDirectionSetInput>;
+  _set?: InputMaybe<InfrastructureNetworkDirectionSetInput>;
   pk_columns: InfrastructureNetworkDirectionPkColumnsInput;
 };
 
@@ -3133,13 +3160,13 @@ export type MutationRootUpdateInfrastructureNetworkDirectionManyArgs = {
 
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkExternalSourceArgs = {
-  _set?: Maybe<InfrastructureNetworkExternalSourceSetInput>;
+  _set?: InputMaybe<InfrastructureNetworkExternalSourceSetInput>;
   where: InfrastructureNetworkExternalSourceBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkExternalSourceByPkArgs = {
-  _set?: Maybe<InfrastructureNetworkExternalSourceSetInput>;
+  _set?: InputMaybe<InfrastructureNetworkExternalSourceSetInput>;
   pk_columns: InfrastructureNetworkExternalSourcePkColumnsInput;
 };
 
@@ -3150,16 +3177,16 @@ export type MutationRootUpdateInfrastructureNetworkExternalSourceManyArgs = {
 
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkInfrastructureLinkArgs = {
-  _inc?: Maybe<InfrastructureNetworkInfrastructureLinkIncInput>;
-  _set?: Maybe<InfrastructureNetworkInfrastructureLinkSetInput>;
+  _inc?: InputMaybe<InfrastructureNetworkInfrastructureLinkIncInput>;
+  _set?: InputMaybe<InfrastructureNetworkInfrastructureLinkSetInput>;
   where: InfrastructureNetworkInfrastructureLinkBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkInfrastructureLinkByPkArgs =
   {
-    _inc?: Maybe<InfrastructureNetworkInfrastructureLinkIncInput>;
-    _set?: Maybe<InfrastructureNetworkInfrastructureLinkSetInput>;
+    _inc?: InputMaybe<InfrastructureNetworkInfrastructureLinkIncInput>;
+    _set?: InputMaybe<InfrastructureNetworkInfrastructureLinkSetInput>;
     pk_columns: InfrastructureNetworkInfrastructureLinkPkColumnsInput;
   };
 
@@ -3172,14 +3199,14 @@ export type MutationRootUpdateInfrastructureNetworkInfrastructureLinkManyArgs =
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs =
   {
-    _set?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput>;
+    _set?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput>;
     where: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp;
   };
 
 /** mutation root */
 export type MutationRootUpdateInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs =
   {
-    _set?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput>;
+    _set?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput>;
     pk_columns: InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkPkColumnsInput;
   };
 
@@ -3191,13 +3218,13 @@ export type MutationRootUpdateInfrastructureNetworkVehicleSubmodeOnInfrastructur
 
 /** mutation root */
 export type MutationRootUpdateJourneyPatternJourneyPatternArgs = {
-  _set?: Maybe<JourneyPatternJourneyPatternSetInput>;
+  _set?: InputMaybe<JourneyPatternJourneyPatternSetInput>;
   where: JourneyPatternJourneyPatternBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateJourneyPatternJourneyPatternByPkArgs = {
-  _set?: Maybe<JourneyPatternJourneyPatternSetInput>;
+  _set?: InputMaybe<JourneyPatternJourneyPatternSetInput>;
   pk_columns: JourneyPatternJourneyPatternPkColumnsInput;
 };
 
@@ -3209,26 +3236,26 @@ export type MutationRootUpdateJourneyPatternJourneyPatternManyArgs = {
 /** mutation root */
 export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternArgs =
   {
-    _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
-    _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
-    _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
-    _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
-    _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
-    _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
-    _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
+    _append?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
+    _delete_at_path?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
+    _delete_elem?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
+    _delete_key?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
+    _inc?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+    _prepend?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
+    _set?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
     where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
   };
 
 /** mutation root */
 export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternByPkArgs =
   {
-    _append?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
-    _delete_at_path?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
-    _delete_elem?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
-    _delete_key?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
-    _inc?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
-    _prepend?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
-    _set?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
+    _append?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAppendInput>;
+    _delete_at_path?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput>;
+    _delete_elem?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput>;
+    _delete_key?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput>;
+    _inc?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternIncInput>;
+    _prepend?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternPrependInput>;
+    _set?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternSetInput>;
     pk_columns: JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput;
   };
 
@@ -3240,13 +3267,13 @@ export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternMa
 
 /** mutation root */
 export type MutationRootUpdateReusableComponentsVehicleModeArgs = {
-  _set?: Maybe<ReusableComponentsVehicleModeSetInput>;
+  _set?: InputMaybe<ReusableComponentsVehicleModeSetInput>;
   where: ReusableComponentsVehicleModeBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateReusableComponentsVehicleModeByPkArgs = {
-  _set?: Maybe<ReusableComponentsVehicleModeSetInput>;
+  _set?: InputMaybe<ReusableComponentsVehicleModeSetInput>;
   pk_columns: ReusableComponentsVehicleModePkColumnsInput;
 };
 
@@ -3257,13 +3284,13 @@ export type MutationRootUpdateReusableComponentsVehicleModeManyArgs = {
 
 /** mutation root */
 export type MutationRootUpdateReusableComponentsVehicleSubmodeArgs = {
-  _set?: Maybe<ReusableComponentsVehicleSubmodeSetInput>;
+  _set?: InputMaybe<ReusableComponentsVehicleSubmodeSetInput>;
   where: ReusableComponentsVehicleSubmodeBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateReusableComponentsVehicleSubmodeByPkArgs = {
-  _set?: Maybe<ReusableComponentsVehicleSubmodeSetInput>;
+  _set?: InputMaybe<ReusableComponentsVehicleSubmodeSetInput>;
   pk_columns: ReusableComponentsVehicleSubmodePkColumnsInput;
 };
 
@@ -3274,13 +3301,13 @@ export type MutationRootUpdateReusableComponentsVehicleSubmodeManyArgs = {
 
 /** mutation root */
 export type MutationRootUpdateRouteDirectionArgs = {
-  _set?: Maybe<RouteDirectionSetInput>;
+  _set?: InputMaybe<RouteDirectionSetInput>;
   where: RouteDirectionBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateRouteDirectionByPkArgs = {
-  _set?: Maybe<RouteDirectionSetInput>;
+  _set?: InputMaybe<RouteDirectionSetInput>;
   pk_columns: RouteDirectionPkColumnsInput;
 };
 
@@ -3291,15 +3318,15 @@ export type MutationRootUpdateRouteDirectionManyArgs = {
 
 /** mutation root */
 export type MutationRootUpdateRouteInfrastructureLinkAlongRouteArgs = {
-  _inc?: Maybe<RouteInfrastructureLinkAlongRouteIncInput>;
-  _set?: Maybe<RouteInfrastructureLinkAlongRouteSetInput>;
+  _inc?: InputMaybe<RouteInfrastructureLinkAlongRouteIncInput>;
+  _set?: InputMaybe<RouteInfrastructureLinkAlongRouteSetInput>;
   where: RouteInfrastructureLinkAlongRouteBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateRouteInfrastructureLinkAlongRouteByPkArgs = {
-  _inc?: Maybe<RouteInfrastructureLinkAlongRouteIncInput>;
-  _set?: Maybe<RouteInfrastructureLinkAlongRouteSetInput>;
+  _inc?: InputMaybe<RouteInfrastructureLinkAlongRouteIncInput>;
+  _set?: InputMaybe<RouteInfrastructureLinkAlongRouteSetInput>;
   pk_columns: RouteInfrastructureLinkAlongRoutePkColumnsInput;
 };
 
@@ -3310,25 +3337,25 @@ export type MutationRootUpdateRouteInfrastructureLinkAlongRouteManyArgs = {
 
 /** mutation root */
 export type MutationRootUpdateRouteLineArgs = {
-  _append?: Maybe<RouteLineAppendInput>;
-  _delete_at_path?: Maybe<RouteLineDeleteAtPathInput>;
-  _delete_elem?: Maybe<RouteLineDeleteElemInput>;
-  _delete_key?: Maybe<RouteLineDeleteKeyInput>;
-  _inc?: Maybe<RouteLineIncInput>;
-  _prepend?: Maybe<RouteLinePrependInput>;
-  _set?: Maybe<RouteLineSetInput>;
+  _append?: InputMaybe<RouteLineAppendInput>;
+  _delete_at_path?: InputMaybe<RouteLineDeleteAtPathInput>;
+  _delete_elem?: InputMaybe<RouteLineDeleteElemInput>;
+  _delete_key?: InputMaybe<RouteLineDeleteKeyInput>;
+  _inc?: InputMaybe<RouteLineIncInput>;
+  _prepend?: InputMaybe<RouteLinePrependInput>;
+  _set?: InputMaybe<RouteLineSetInput>;
   where: RouteLineBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateRouteLineByPkArgs = {
-  _append?: Maybe<RouteLineAppendInput>;
-  _delete_at_path?: Maybe<RouteLineDeleteAtPathInput>;
-  _delete_elem?: Maybe<RouteLineDeleteElemInput>;
-  _delete_key?: Maybe<RouteLineDeleteKeyInput>;
-  _inc?: Maybe<RouteLineIncInput>;
-  _prepend?: Maybe<RouteLinePrependInput>;
-  _set?: Maybe<RouteLineSetInput>;
+  _append?: InputMaybe<RouteLineAppendInput>;
+  _delete_at_path?: InputMaybe<RouteLineDeleteAtPathInput>;
+  _delete_elem?: InputMaybe<RouteLineDeleteElemInput>;
+  _delete_key?: InputMaybe<RouteLineDeleteKeyInput>;
+  _inc?: InputMaybe<RouteLineIncInput>;
+  _prepend?: InputMaybe<RouteLinePrependInput>;
+  _set?: InputMaybe<RouteLineSetInput>;
   pk_columns: RouteLinePkColumnsInput;
 };
 
@@ -3339,25 +3366,25 @@ export type MutationRootUpdateRouteLineManyArgs = {
 
 /** mutation root */
 export type MutationRootUpdateRouteRouteArgs = {
-  _append?: Maybe<RouteRouteAppendInput>;
-  _delete_at_path?: Maybe<RouteRouteDeleteAtPathInput>;
-  _delete_elem?: Maybe<RouteRouteDeleteElemInput>;
-  _delete_key?: Maybe<RouteRouteDeleteKeyInput>;
-  _inc?: Maybe<RouteRouteIncInput>;
-  _prepend?: Maybe<RouteRoutePrependInput>;
-  _set?: Maybe<RouteRouteSetInput>;
+  _append?: InputMaybe<RouteRouteAppendInput>;
+  _delete_at_path?: InputMaybe<RouteRouteDeleteAtPathInput>;
+  _delete_elem?: InputMaybe<RouteRouteDeleteElemInput>;
+  _delete_key?: InputMaybe<RouteRouteDeleteKeyInput>;
+  _inc?: InputMaybe<RouteRouteIncInput>;
+  _prepend?: InputMaybe<RouteRoutePrependInput>;
+  _set?: InputMaybe<RouteRouteSetInput>;
   where: RouteRouteBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateRouteRouteByPkArgs = {
-  _append?: Maybe<RouteRouteAppendInput>;
-  _delete_at_path?: Maybe<RouteRouteDeleteAtPathInput>;
-  _delete_elem?: Maybe<RouteRouteDeleteElemInput>;
-  _delete_key?: Maybe<RouteRouteDeleteKeyInput>;
-  _inc?: Maybe<RouteRouteIncInput>;
-  _prepend?: Maybe<RouteRoutePrependInput>;
-  _set?: Maybe<RouteRouteSetInput>;
+  _append?: InputMaybe<RouteRouteAppendInput>;
+  _delete_at_path?: InputMaybe<RouteRouteDeleteAtPathInput>;
+  _delete_elem?: InputMaybe<RouteRouteDeleteElemInput>;
+  _delete_key?: InputMaybe<RouteRouteDeleteKeyInput>;
+  _inc?: InputMaybe<RouteRouteIncInput>;
+  _prepend?: InputMaybe<RouteRoutePrependInput>;
+  _set?: InputMaybe<RouteRouteSetInput>;
   pk_columns: RouteRoutePkColumnsInput;
 };
 
@@ -3368,13 +3395,13 @@ export type MutationRootUpdateRouteRouteManyArgs = {
 
 /** mutation root */
 export type MutationRootUpdateRouteTypeOfLineArgs = {
-  _set?: Maybe<RouteTypeOfLineSetInput>;
+  _set?: InputMaybe<RouteTypeOfLineSetInput>;
   where: RouteTypeOfLineBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateRouteTypeOfLineByPkArgs = {
-  _set?: Maybe<RouteTypeOfLineSetInput>;
+  _set?: InputMaybe<RouteTypeOfLineSetInput>;
   pk_columns: RouteTypeOfLinePkColumnsInput;
 };
 
@@ -3385,15 +3412,15 @@ export type MutationRootUpdateRouteTypeOfLineManyArgs = {
 
 /** mutation root */
 export type MutationRootUpdateServicePatternScheduledStopPointArgs = {
-  _inc?: Maybe<ServicePatternScheduledStopPointIncInput>;
-  _set?: Maybe<ServicePatternScheduledStopPointSetInput>;
+  _inc?: InputMaybe<ServicePatternScheduledStopPointIncInput>;
+  _set?: InputMaybe<ServicePatternScheduledStopPointSetInput>;
   where: ServicePatternScheduledStopPointBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateServicePatternScheduledStopPointByPkArgs = {
-  _inc?: Maybe<ServicePatternScheduledStopPointIncInput>;
-  _set?: Maybe<ServicePatternScheduledStopPointSetInput>;
+  _inc?: InputMaybe<ServicePatternScheduledStopPointIncInput>;
+  _set?: InputMaybe<ServicePatternScheduledStopPointSetInput>;
   pk_columns: ServicePatternScheduledStopPointPkColumnsInput;
 };
 
@@ -3405,14 +3432,14 @@ export type MutationRootUpdateServicePatternScheduledStopPointManyArgs = {
 /** mutation root */
 export type MutationRootUpdateServicePatternVehicleModeOnScheduledStopPointArgs =
   {
-    _set?: Maybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
+    _set?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
     where: ServicePatternVehicleModeOnScheduledStopPointBoolExp;
   };
 
 /** mutation root */
 export type MutationRootUpdateServicePatternVehicleModeOnScheduledStopPointByPkArgs =
   {
-    _set?: Maybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
+    _set?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
     pk_columns: ServicePatternVehicleModeOnScheduledStopPointPkColumnsInput;
   };
 
@@ -3424,23 +3451,23 @@ export type MutationRootUpdateServicePatternVehicleModeOnScheduledStopPointManyA
 
 /** mutation root */
 export type MutationRootUpdateTimingPatternTimingPlaceArgs = {
-  _append?: Maybe<TimingPatternTimingPlaceAppendInput>;
-  _delete_at_path?: Maybe<TimingPatternTimingPlaceDeleteAtPathInput>;
-  _delete_elem?: Maybe<TimingPatternTimingPlaceDeleteElemInput>;
-  _delete_key?: Maybe<TimingPatternTimingPlaceDeleteKeyInput>;
-  _prepend?: Maybe<TimingPatternTimingPlacePrependInput>;
-  _set?: Maybe<TimingPatternTimingPlaceSetInput>;
+  _append?: InputMaybe<TimingPatternTimingPlaceAppendInput>;
+  _delete_at_path?: InputMaybe<TimingPatternTimingPlaceDeleteAtPathInput>;
+  _delete_elem?: InputMaybe<TimingPatternTimingPlaceDeleteElemInput>;
+  _delete_key?: InputMaybe<TimingPatternTimingPlaceDeleteKeyInput>;
+  _prepend?: InputMaybe<TimingPatternTimingPlacePrependInput>;
+  _set?: InputMaybe<TimingPatternTimingPlaceSetInput>;
   where: TimingPatternTimingPlaceBoolExp;
 };
 
 /** mutation root */
 export type MutationRootUpdateTimingPatternTimingPlaceByPkArgs = {
-  _append?: Maybe<TimingPatternTimingPlaceAppendInput>;
-  _delete_at_path?: Maybe<TimingPatternTimingPlaceDeleteAtPathInput>;
-  _delete_elem?: Maybe<TimingPatternTimingPlaceDeleteElemInput>;
-  _delete_key?: Maybe<TimingPatternTimingPlaceDeleteKeyInput>;
-  _prepend?: Maybe<TimingPatternTimingPlacePrependInput>;
-  _set?: Maybe<TimingPatternTimingPlaceSetInput>;
+  _append?: InputMaybe<TimingPatternTimingPlaceAppendInput>;
+  _delete_at_path?: InputMaybe<TimingPatternTimingPlaceDeleteAtPathInput>;
+  _delete_elem?: InputMaybe<TimingPatternTimingPlaceDeleteElemInput>;
+  _delete_key?: InputMaybe<TimingPatternTimingPlaceDeleteKeyInput>;
+  _prepend?: InputMaybe<TimingPatternTimingPlacePrependInput>;
+  _set?: InputMaybe<TimingPatternTimingPlaceSetInput>;
   pk_columns: TimingPatternTimingPlacePkColumnsInput;
 };
 
@@ -3466,15 +3493,15 @@ export enum OrderBy {
 }
 
 export type PassingTimesTimetabledPassingTimeAggregateBoolExp = {
-  count?: Maybe<PassingTimesTimetabledPassingTimeAggregateBoolExpCount>;
+  count?: InputMaybe<PassingTimesTimetabledPassingTimeAggregateBoolExpCount>;
 };
 
 export type PassingTimesTimetabledPassingTimeAggregateBoolExpCount = {
-  arguments?: Maybe<
+  arguments?: InputMaybe<
     Array<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>
   >;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
   predicate: IntComparisonExp;
 };
 
@@ -3598,19 +3625,19 @@ export type QueryRoot = {
 };
 
 export type QueryRootHslRouteTransportTargetArgs = {
-  distinct_on?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<HslRouteTransportTargetOrderBy>>;
-  where?: Maybe<HslRouteTransportTargetBoolExp>;
+  distinct_on?: InputMaybe<Array<HslRouteTransportTargetSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<HslRouteTransportTargetOrderBy>>;
+  where?: InputMaybe<HslRouteTransportTargetBoolExp>;
 };
 
 export type QueryRootHslRouteTransportTargetAggregateArgs = {
-  distinct_on?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<HslRouteTransportTargetOrderBy>>;
-  where?: Maybe<HslRouteTransportTargetBoolExp>;
+  distinct_on?: InputMaybe<Array<HslRouteTransportTargetSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<HslRouteTransportTargetOrderBy>>;
+  where?: InputMaybe<HslRouteTransportTargetBoolExp>;
 };
 
 export type QueryRootHslRouteTransportTargetByPkArgs = {
@@ -3618,19 +3645,19 @@ export type QueryRootHslRouteTransportTargetByPkArgs = {
 };
 
 export type QueryRootInfrastructureNetworkDirectionArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
-  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+  distinct_on?: InputMaybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
 export type QueryRootInfrastructureNetworkDirectionAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
-  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+  distinct_on?: InputMaybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
 export type QueryRootInfrastructureNetworkDirectionByPkArgs = {
@@ -3638,19 +3665,23 @@ export type QueryRootInfrastructureNetworkDirectionByPkArgs = {
 };
 
 export type QueryRootInfrastructureNetworkExternalSourceArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkExternalSourceOrderBy>>;
-  where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
+  distinct_on?: InputMaybe<
+    Array<InfrastructureNetworkExternalSourceSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkExternalSourceOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
 export type QueryRootInfrastructureNetworkExternalSourceAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkExternalSourceOrderBy>>;
-  where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
+  distinct_on?: InputMaybe<
+    Array<InfrastructureNetworkExternalSourceSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkExternalSourceOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
 export type QueryRootInfrastructureNetworkExternalSourceByPkArgs = {
@@ -3659,41 +3690,41 @@ export type QueryRootInfrastructureNetworkExternalSourceByPkArgs = {
 
 export type QueryRootInfrastructureNetworkFindPointDirectionOnLinkArgs = {
   args: InfrastructureNetworkFindPointDirectionOnLinkArgs;
-  distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
-  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+  distinct_on?: InputMaybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
 export type QueryRootInfrastructureNetworkFindPointDirectionOnLinkAggregateArgs =
   {
     args: InfrastructureNetworkFindPointDirectionOnLinkArgs;
-    distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
-    where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+    distinct_on?: InputMaybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+    where?: InputMaybe<InfrastructureNetworkDirectionBoolExp>;
   };
 
 export type QueryRootInfrastructureNetworkInfrastructureLinkArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 export type QueryRootInfrastructureNetworkInfrastructureLinkAggregateArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 export type QueryRootInfrastructureNetworkInfrastructureLinkByPkArgs = {
@@ -3702,51 +3733,53 @@ export type QueryRootInfrastructureNetworkInfrastructureLinkByPkArgs = {
 
 export type QueryRootInfrastructureNetworkResolvePointToClosestLinkArgs = {
   args: InfrastructureNetworkResolvePointToClosestLinkArgs;
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 export type QueryRootInfrastructureNetworkResolvePointToClosestLinkAggregateArgs =
   {
     args: InfrastructureNetworkResolvePointToClosestLinkArgs;
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-    where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<InfrastructureNetworkInfrastructureLinkOrderBy>
+    >;
+    where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   };
 
 export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
     >;
-    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   };
 
 export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
     >;
-    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   };
 
 export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs =
@@ -3758,37 +3791,37 @@ export type QueryRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPk
 export type QueryRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs =
   {
     args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
-    distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-    where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+    distinct_on?: InputMaybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+    where?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
   };
 
 export type QueryRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointAggregateArgs =
   {
     args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
-    distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-    where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+    distinct_on?: InputMaybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+    where?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
   };
 
 export type QueryRootJourneyPatternJourneyPatternArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  distinct_on?: InputMaybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 export type QueryRootJourneyPatternJourneyPatternAggregateArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  distinct_on?: InputMaybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 export type QueryRootJourneyPatternJourneyPatternByPkArgs = {
@@ -3796,28 +3829,28 @@ export type QueryRootJourneyPatternJourneyPatternByPkArgs = {
 };
 
 export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<
     Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
   >;
-  where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  where?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
 };
 
 export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
     >;
-    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+    where?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
 
 export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs =
@@ -3827,19 +3860,19 @@ export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs =
   };
 
 export type QueryRootReusableComponentsVehicleModeArgs = {
-  distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ReusableComponentsVehicleModeOrderBy>>;
-  where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
+  distinct_on?: InputMaybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ReusableComponentsVehicleModeOrderBy>>;
+  where?: InputMaybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 export type QueryRootReusableComponentsVehicleModeAggregateArgs = {
-  distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ReusableComponentsVehicleModeOrderBy>>;
-  where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
+  distinct_on?: InputMaybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ReusableComponentsVehicleModeOrderBy>>;
+  where?: InputMaybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 export type QueryRootReusableComponentsVehicleModeByPkArgs = {
@@ -3847,19 +3880,19 @@ export type QueryRootReusableComponentsVehicleModeByPkArgs = {
 };
 
 export type QueryRootReusableComponentsVehicleSubmodeArgs = {
-  distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
-  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  distinct_on?: InputMaybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
+  where?: InputMaybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 export type QueryRootReusableComponentsVehicleSubmodeAggregateArgs = {
-  distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
-  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  distinct_on?: InputMaybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
+  where?: InputMaybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 export type QueryRootReusableComponentsVehicleSubmodeByPkArgs = {
@@ -3867,19 +3900,19 @@ export type QueryRootReusableComponentsVehicleSubmodeByPkArgs = {
 };
 
 export type QueryRootRouteDirectionArgs = {
-  distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteDirectionOrderBy>>;
-  where?: Maybe<RouteDirectionBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteDirectionOrderBy>>;
+  where?: InputMaybe<RouteDirectionBoolExp>;
 };
 
 export type QueryRootRouteDirectionAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteDirectionOrderBy>>;
-  where?: Maybe<RouteDirectionBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteDirectionOrderBy>>;
+  where?: InputMaybe<RouteDirectionBoolExp>;
 };
 
 export type QueryRootRouteDirectionByPkArgs = {
@@ -3887,19 +3920,23 @@ export type QueryRootRouteDirectionByPkArgs = {
 };
 
 export type QueryRootRouteInfrastructureLinkAlongRouteArgs = {
-  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
-  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  distinct_on?: InputMaybe<
+    Array<RouteInfrastructureLinkAlongRouteSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 export type QueryRootRouteInfrastructureLinkAlongRouteAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
-  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  distinct_on?: InputMaybe<
+    Array<RouteInfrastructureLinkAlongRouteSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 export type QueryRootRouteInfrastructureLinkAlongRouteByPkArgs = {
@@ -3908,19 +3945,19 @@ export type QueryRootRouteInfrastructureLinkAlongRouteByPkArgs = {
 };
 
 export type QueryRootRouteLineArgs = {
-  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteLineOrderBy>>;
-  where?: Maybe<RouteLineBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteLineOrderBy>>;
+  where?: InputMaybe<RouteLineBoolExp>;
 };
 
 export type QueryRootRouteLineAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteLineOrderBy>>;
-  where?: Maybe<RouteLineBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteLineOrderBy>>;
+  where?: InputMaybe<RouteLineBoolExp>;
 };
 
 export type QueryRootRouteLineByPkArgs = {
@@ -3928,19 +3965,19 @@ export type QueryRootRouteLineByPkArgs = {
 };
 
 export type QueryRootRouteRouteArgs = {
-  distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteRouteOrderBy>>;
-  where?: Maybe<RouteRouteBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteRouteSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteRouteOrderBy>>;
+  where?: InputMaybe<RouteRouteBoolExp>;
 };
 
 export type QueryRootRouteRouteAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteRouteOrderBy>>;
-  where?: Maybe<RouteRouteBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteRouteSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteRouteOrderBy>>;
+  where?: InputMaybe<RouteRouteBoolExp>;
 };
 
 export type QueryRootRouteRouteByPkArgs = {
@@ -3948,19 +3985,19 @@ export type QueryRootRouteRouteByPkArgs = {
 };
 
 export type QueryRootRouteTypeOfLineArgs = {
-  distinct_on?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteTypeOfLineOrderBy>>;
-  where?: Maybe<RouteTypeOfLineBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteTypeOfLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteTypeOfLineOrderBy>>;
+  where?: InputMaybe<RouteTypeOfLineBoolExp>;
 };
 
 export type QueryRootRouteTypeOfLineAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteTypeOfLineOrderBy>>;
-  where?: Maybe<RouteTypeOfLineBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteTypeOfLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteTypeOfLineOrderBy>>;
+  where?: InputMaybe<RouteTypeOfLineBoolExp>;
 };
 
 export type QueryRootRouteTypeOfLineByPkArgs = {
@@ -3968,19 +4005,19 @@ export type QueryRootRouteTypeOfLineByPkArgs = {
 };
 
 export type QueryRootServicePatternScheduledStopPointArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  distinct_on?: InputMaybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 export type QueryRootServicePatternScheduledStopPointAggregateArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  distinct_on?: InputMaybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 export type QueryRootServicePatternScheduledStopPointByPkArgs = {
@@ -3988,26 +4025,28 @@ export type QueryRootServicePatternScheduledStopPointByPkArgs = {
 };
 
 export type QueryRootServicePatternVehicleModeOnScheduledStopPointArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<
+    Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>
+  >;
+  where?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
 };
 
 export type QueryRootServicePatternVehicleModeOnScheduledStopPointAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>
     >;
-    where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+    where?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
   };
 
 export type QueryRootServicePatternVehicleModeOnScheduledStopPointByPkArgs = {
@@ -4016,19 +4055,19 @@ export type QueryRootServicePatternVehicleModeOnScheduledStopPointByPkArgs = {
 };
 
 export type QueryRootTimingPatternTimingPlaceArgs = {
-  distinct_on?: Maybe<Array<TimingPatternTimingPlaceSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimingPatternTimingPlaceOrderBy>>;
-  where?: Maybe<TimingPatternTimingPlaceBoolExp>;
+  distinct_on?: InputMaybe<Array<TimingPatternTimingPlaceSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimingPatternTimingPlaceOrderBy>>;
+  where?: InputMaybe<TimingPatternTimingPlaceBoolExp>;
 };
 
 export type QueryRootTimingPatternTimingPlaceAggregateArgs = {
-  distinct_on?: Maybe<Array<TimingPatternTimingPlaceSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimingPatternTimingPlaceOrderBy>>;
-  where?: Maybe<TimingPatternTimingPlaceBoolExp>;
+  distinct_on?: InputMaybe<Array<TimingPatternTimingPlaceSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimingPatternTimingPlaceOrderBy>>;
+  where?: InputMaybe<TimingPatternTimingPlaceBoolExp>;
 };
 
 export type QueryRootTimingPatternTimingPlaceByPkArgs = {
@@ -4048,20 +4087,20 @@ export type ReusableComponentsVehicleMode = {
 
 /** The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
 export type ReusableComponentsVehicleModeVehicleSubmodesArgs = {
-  distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
-  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  distinct_on?: InputMaybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
+  where?: InputMaybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 /** The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
 export type ReusableComponentsVehicleModeVehicleSubmodesAggregateArgs = {
-  distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
-  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  distinct_on?: InputMaybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
+  where?: InputMaybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 /** aggregated selection of "reusable_components.vehicle_mode" */
@@ -4081,18 +4120,18 @@ export type ReusableComponentsVehicleModeAggregateFields = {
 
 /** aggregate fields of "reusable_components.vehicle_mode" */
 export type ReusableComponentsVehicleModeAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "reusable_components.vehicle_mode". All fields are combined with a logical 'AND'. */
 export type ReusableComponentsVehicleModeBoolExp = {
-  _and?: Maybe<Array<ReusableComponentsVehicleModeBoolExp>>;
-  _not?: Maybe<ReusableComponentsVehicleModeBoolExp>;
-  _or?: Maybe<Array<ReusableComponentsVehicleModeBoolExp>>;
-  vehicle_mode?: Maybe<StringComparisonExp>;
-  vehicle_submodes?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
-  vehicle_submodes_aggregate?: Maybe<ReusableComponentsVehicleSubmodeAggregateBoolExp>;
+  _and?: InputMaybe<Array<ReusableComponentsVehicleModeBoolExp>>;
+  _not?: InputMaybe<ReusableComponentsVehicleModeBoolExp>;
+  _or?: InputMaybe<Array<ReusableComponentsVehicleModeBoolExp>>;
+  vehicle_mode?: InputMaybe<StringComparisonExp>;
+  vehicle_submodes?: InputMaybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  vehicle_submodes_aggregate?: InputMaybe<ReusableComponentsVehicleSubmodeAggregateBoolExp>;
 };
 
 /** unique or primary key constraints on table "reusable_components.vehicle_mode" */
@@ -4111,18 +4150,18 @@ export enum ReusableComponentsVehicleModeEnum {
 
 /** Boolean expression to compare columns of type "reusable_components_vehicle_mode_enum". All fields are combined with logical 'AND'. */
 export type ReusableComponentsVehicleModeEnumComparisonExp = {
-  _eq?: Maybe<ReusableComponentsVehicleModeEnum>;
-  _in?: Maybe<Array<ReusableComponentsVehicleModeEnum>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<ReusableComponentsVehicleModeEnum>;
-  _nin?: Maybe<Array<ReusableComponentsVehicleModeEnum>>;
+  _eq?: InputMaybe<ReusableComponentsVehicleModeEnum>;
+  _in?: InputMaybe<Array<ReusableComponentsVehicleModeEnum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<ReusableComponentsVehicleModeEnum>;
+  _nin?: InputMaybe<Array<ReusableComponentsVehicleModeEnum>>;
 };
 
 /** input type for inserting data into table "reusable_components.vehicle_mode" */
 export type ReusableComponentsVehicleModeInsertInput = {
   /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
-  vehicle_mode?: Maybe<Scalars['String']>;
-  vehicle_submodes?: Maybe<ReusableComponentsVehicleSubmodeArrRelInsertInput>;
+  vehicle_mode?: InputMaybe<Scalars['String']>;
+  vehicle_submodes?: InputMaybe<ReusableComponentsVehicleSubmodeArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -4152,20 +4191,20 @@ export type ReusableComponentsVehicleModeMutationResponse = {
 export type ReusableComponentsVehicleModeObjRelInsertInput = {
   data: ReusableComponentsVehicleModeInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<ReusableComponentsVehicleModeOnConflict>;
+  on_conflict?: InputMaybe<ReusableComponentsVehicleModeOnConflict>;
 };
 
 /** on_conflict condition type for table "reusable_components.vehicle_mode" */
 export type ReusableComponentsVehicleModeOnConflict = {
   constraint: ReusableComponentsVehicleModeConstraint;
   update_columns?: Array<ReusableComponentsVehicleModeUpdateColumn>;
-  where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
+  where?: InputMaybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 /** Ordering options when selecting data from "reusable_components.vehicle_mode". */
 export type ReusableComponentsVehicleModeOrderBy = {
-  vehicle_mode?: Maybe<OrderBy>;
-  vehicle_submodes_aggregate?: Maybe<ReusableComponentsVehicleSubmodeAggregateOrderBy>;
+  vehicle_mode?: InputMaybe<OrderBy>;
+  vehicle_submodes_aggregate?: InputMaybe<ReusableComponentsVehicleSubmodeAggregateOrderBy>;
 };
 
 /** primary key columns input for table: reusable_components.vehicle_mode */
@@ -4183,7 +4222,7 @@ export enum ReusableComponentsVehicleModeSelectColumn {
 /** input type for updating data in table "reusable_components.vehicle_mode" */
 export type ReusableComponentsVehicleModeSetInput = {
   /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
-  vehicle_mode?: Maybe<Scalars['String']>;
+  vehicle_mode?: InputMaybe<Scalars['String']>;
 };
 
 /** Streaming cursor of the table "reusable_components_vehicle_mode" */
@@ -4191,13 +4230,13 @@ export type ReusableComponentsVehicleModeStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: ReusableComponentsVehicleModeStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type ReusableComponentsVehicleModeStreamCursorValueInput = {
   /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
-  vehicle_mode?: Maybe<Scalars['String']>;
+  vehicle_mode?: InputMaybe<Scalars['String']>;
 };
 
 /** update columns of table "reusable_components.vehicle_mode" */
@@ -4208,7 +4247,7 @@ export enum ReusableComponentsVehicleModeUpdateColumn {
 
 export type ReusableComponentsVehicleModeUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<ReusableComponentsVehicleModeSetInput>;
+  _set?: InputMaybe<ReusableComponentsVehicleModeSetInput>;
   where: ReusableComponentsVehicleModeBoolExp;
 };
 
@@ -4230,29 +4269,29 @@ export type ReusableComponentsVehicleSubmode = {
 /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
 export type ReusableComponentsVehicleSubmodeVehicleSubmodeOnInfrastructureLinksArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
     >;
-    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   };
 
 /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
 export type ReusableComponentsVehicleSubmodeVehicleSubmodeOnInfrastructureLinksAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
     >;
-    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   };
 
 /** aggregated selection of "reusable_components.vehicle_submode" */
@@ -4263,13 +4302,13 @@ export type ReusableComponentsVehicleSubmodeAggregate = {
 };
 
 export type ReusableComponentsVehicleSubmodeAggregateBoolExp = {
-  count?: Maybe<ReusableComponentsVehicleSubmodeAggregateBoolExpCount>;
+  count?: InputMaybe<ReusableComponentsVehicleSubmodeAggregateBoolExpCount>;
 };
 
 export type ReusableComponentsVehicleSubmodeAggregateBoolExpCount = {
-  arguments?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  arguments?: InputMaybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<ReusableComponentsVehicleSubmodeBoolExp>;
   predicate: IntComparisonExp;
 };
 
@@ -4283,34 +4322,34 @@ export type ReusableComponentsVehicleSubmodeAggregateFields = {
 
 /** aggregate fields of "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeAggregateOrderBy = {
-  count?: Maybe<OrderBy>;
-  max?: Maybe<ReusableComponentsVehicleSubmodeMaxOrderBy>;
-  min?: Maybe<ReusableComponentsVehicleSubmodeMinOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<ReusableComponentsVehicleSubmodeMaxOrderBy>;
+  min?: InputMaybe<ReusableComponentsVehicleSubmodeMinOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeArrRelInsertInput = {
   data: Array<ReusableComponentsVehicleSubmodeInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<ReusableComponentsVehicleSubmodeOnConflict>;
+  on_conflict?: InputMaybe<ReusableComponentsVehicleSubmodeOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "reusable_components.vehicle_submode". All fields are combined with a logical 'AND'. */
 export type ReusableComponentsVehicleSubmodeBoolExp = {
-  _and?: Maybe<Array<ReusableComponentsVehicleSubmodeBoolExp>>;
-  _not?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
-  _or?: Maybe<Array<ReusableComponentsVehicleSubmodeBoolExp>>;
-  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeBoolExp>;
-  vehicle_submode?: Maybe<StringComparisonExp>;
-  vehicle_submode_on_infrastructure_links?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
-  vehicle_submode_on_infrastructure_links_aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateBoolExp>;
+  _and?: InputMaybe<Array<ReusableComponentsVehicleSubmodeBoolExp>>;
+  _not?: InputMaybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  _or?: InputMaybe<Array<ReusableComponentsVehicleSubmodeBoolExp>>;
+  belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnumComparisonExp>;
+  vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeBoolExp>;
+  vehicle_submode?: InputMaybe<StringComparisonExp>;
+  vehicle_submode_on_infrastructure_links?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+  vehicle_submode_on_infrastructure_links_aggregate?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateBoolExp>;
 };
 
 /** unique or primary key constraints on table "reusable_components.vehicle_submode" */
@@ -4336,21 +4375,21 @@ export enum ReusableComponentsVehicleSubmodeEnum {
 
 /** Boolean expression to compare columns of type "reusable_components_vehicle_submode_enum". All fields are combined with logical 'AND'. */
 export type ReusableComponentsVehicleSubmodeEnumComparisonExp = {
-  _eq?: Maybe<ReusableComponentsVehicleSubmodeEnum>;
-  _in?: Maybe<Array<ReusableComponentsVehicleSubmodeEnum>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<ReusableComponentsVehicleSubmodeEnum>;
-  _nin?: Maybe<Array<ReusableComponentsVehicleSubmodeEnum>>;
+  _eq?: InputMaybe<ReusableComponentsVehicleSubmodeEnum>;
+  _in?: InputMaybe<Array<ReusableComponentsVehicleSubmodeEnum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<ReusableComponentsVehicleSubmodeEnum>;
+  _nin?: InputMaybe<Array<ReusableComponentsVehicleSubmodeEnum>>;
 };
 
 /** input type for inserting data into table "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeInsertInput = {
   /** The vehicle mode the vehicle submode belongs to: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
-  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeObjRelInsertInput>;
+  belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
+  vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeObjRelInsertInput>;
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
-  vehicle_submode?: Maybe<Scalars['String']>;
-  vehicle_submode_on_infrastructure_links?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
+  vehicle_submode?: InputMaybe<Scalars['String']>;
+  vehicle_submode_on_infrastructure_links?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -4363,7 +4402,7 @@ export type ReusableComponentsVehicleSubmodeMaxFields = {
 /** order by max() on columns of table "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeMaxOrderBy = {
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
-  vehicle_submode?: Maybe<OrderBy>;
+  vehicle_submode?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -4376,7 +4415,7 @@ export type ReusableComponentsVehicleSubmodeMinFields = {
 /** order by min() on columns of table "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeMinOrderBy = {
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
-  vehicle_submode?: Maybe<OrderBy>;
+  vehicle_submode?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "reusable_components.vehicle_submode" */
@@ -4392,22 +4431,22 @@ export type ReusableComponentsVehicleSubmodeMutationResponse = {
 export type ReusableComponentsVehicleSubmodeObjRelInsertInput = {
   data: ReusableComponentsVehicleSubmodeInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<ReusableComponentsVehicleSubmodeOnConflict>;
+  on_conflict?: InputMaybe<ReusableComponentsVehicleSubmodeOnConflict>;
 };
 
 /** on_conflict condition type for table "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeOnConflict = {
   constraint: ReusableComponentsVehicleSubmodeConstraint;
   update_columns?: Array<ReusableComponentsVehicleSubmodeUpdateColumn>;
-  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  where?: InputMaybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 /** Ordering options when selecting data from "reusable_components.vehicle_submode". */
 export type ReusableComponentsVehicleSubmodeOrderBy = {
-  belonging_to_vehicle_mode?: Maybe<OrderBy>;
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeOrderBy>;
-  vehicle_submode?: Maybe<OrderBy>;
-  vehicle_submode_on_infrastructure_links_aggregate?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy>;
+  belonging_to_vehicle_mode?: InputMaybe<OrderBy>;
+  vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeOrderBy>;
+  vehicle_submode?: InputMaybe<OrderBy>;
+  vehicle_submode_on_infrastructure_links_aggregate?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateOrderBy>;
 };
 
 /** primary key columns input for table: reusable_components.vehicle_submode */
@@ -4427,9 +4466,9 @@ export enum ReusableComponentsVehicleSubmodeSelectColumn {
 /** input type for updating data in table "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeSetInput = {
   /** The vehicle mode the vehicle submode belongs to: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
-  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+  belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
-  vehicle_submode?: Maybe<Scalars['String']>;
+  vehicle_submode?: InputMaybe<Scalars['String']>;
 };
 
 /** Streaming cursor of the table "reusable_components_vehicle_submode" */
@@ -4437,15 +4476,15 @@ export type ReusableComponentsVehicleSubmodeStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: ReusableComponentsVehicleSubmodeStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type ReusableComponentsVehicleSubmodeStreamCursorValueInput = {
   /** The vehicle mode the vehicle submode belongs to: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
-  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+  belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
   /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
-  vehicle_submode?: Maybe<Scalars['String']>;
+  vehicle_submode?: InputMaybe<Scalars['String']>;
 };
 
 /** update columns of table "reusable_components.vehicle_submode" */
@@ -4458,7 +4497,7 @@ export enum ReusableComponentsVehicleSubmodeUpdateColumn {
 
 export type ReusableComponentsVehicleSubmodeUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<ReusableComponentsVehicleSubmodeSetInput>;
+  _set?: InputMaybe<ReusableComponentsVehicleSubmodeSetInput>;
   where: ReusableComponentsVehicleSubmodeBoolExp;
 };
 
@@ -4479,20 +4518,20 @@ export type RouteDirection = {
 
 /** The route directions from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:480 */
 export type RouteDirectionDirectionsArgs = {
-  distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteDirectionOrderBy>>;
-  where?: Maybe<RouteDirectionBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteDirectionOrderBy>>;
+  where?: InputMaybe<RouteDirectionBoolExp>;
 };
 
 /** The route directions from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:480 */
 export type RouteDirectionDirectionsAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteDirectionOrderBy>>;
-  where?: Maybe<RouteDirectionBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteDirectionOrderBy>>;
+  where?: InputMaybe<RouteDirectionBoolExp>;
 };
 
 /** aggregated selection of "route.direction" */
@@ -4503,13 +4542,13 @@ export type RouteDirectionAggregate = {
 };
 
 export type RouteDirectionAggregateBoolExp = {
-  count?: Maybe<RouteDirectionAggregateBoolExpCount>;
+  count?: InputMaybe<RouteDirectionAggregateBoolExpCount>;
 };
 
 export type RouteDirectionAggregateBoolExpCount = {
-  arguments?: Maybe<Array<RouteDirectionSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<RouteDirectionBoolExp>;
+  arguments?: InputMaybe<Array<RouteDirectionSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<RouteDirectionBoolExp>;
   predicate: IntComparisonExp;
 };
 
@@ -4523,34 +4562,34 @@ export type RouteDirectionAggregateFields = {
 
 /** aggregate fields of "route.direction" */
 export type RouteDirectionAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<RouteDirectionSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<RouteDirectionSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "route.direction" */
 export type RouteDirectionAggregateOrderBy = {
-  count?: Maybe<OrderBy>;
-  max?: Maybe<RouteDirectionMaxOrderBy>;
-  min?: Maybe<RouteDirectionMinOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<RouteDirectionMaxOrderBy>;
+  min?: InputMaybe<RouteDirectionMinOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "route.direction" */
 export type RouteDirectionArrRelInsertInput = {
   data: Array<RouteDirectionInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<RouteDirectionOnConflict>;
+  on_conflict?: InputMaybe<RouteDirectionOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "route.direction". All fields are combined with a logical 'AND'. */
 export type RouteDirectionBoolExp = {
-  _and?: Maybe<Array<RouteDirectionBoolExp>>;
-  _not?: Maybe<RouteDirectionBoolExp>;
-  _or?: Maybe<Array<RouteDirectionBoolExp>>;
-  direction?: Maybe<StringComparisonExp>;
-  directionByTheOppositeOfDirection?: Maybe<RouteDirectionBoolExp>;
-  directions?: Maybe<RouteDirectionBoolExp>;
-  directions_aggregate?: Maybe<RouteDirectionAggregateBoolExp>;
-  the_opposite_of_direction?: Maybe<RouteDirectionEnumComparisonExp>;
+  _and?: InputMaybe<Array<RouteDirectionBoolExp>>;
+  _not?: InputMaybe<RouteDirectionBoolExp>;
+  _or?: InputMaybe<Array<RouteDirectionBoolExp>>;
+  direction?: InputMaybe<StringComparisonExp>;
+  directionByTheOppositeOfDirection?: InputMaybe<RouteDirectionBoolExp>;
+  directions?: InputMaybe<RouteDirectionBoolExp>;
+  directions_aggregate?: InputMaybe<RouteDirectionAggregateBoolExp>;
+  the_opposite_of_direction?: InputMaybe<RouteDirectionEnumComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.direction" */
@@ -4580,21 +4619,21 @@ export enum RouteDirectionEnum {
 
 /** Boolean expression to compare columns of type "route_direction_enum". All fields are combined with logical 'AND'. */
 export type RouteDirectionEnumComparisonExp = {
-  _eq?: Maybe<RouteDirectionEnum>;
-  _in?: Maybe<Array<RouteDirectionEnum>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<RouteDirectionEnum>;
-  _nin?: Maybe<Array<RouteDirectionEnum>>;
+  _eq?: InputMaybe<RouteDirectionEnum>;
+  _in?: InputMaybe<Array<RouteDirectionEnum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<RouteDirectionEnum>;
+  _nin?: InputMaybe<Array<RouteDirectionEnum>>;
 };
 
 /** input type for inserting data into table "route.direction" */
 export type RouteDirectionInsertInput = {
   /** The name of the route direction. */
-  direction?: Maybe<Scalars['String']>;
-  directionByTheOppositeOfDirection?: Maybe<RouteDirectionObjRelInsertInput>;
-  directions?: Maybe<RouteDirectionArrRelInsertInput>;
+  direction?: InputMaybe<Scalars['String']>;
+  directionByTheOppositeOfDirection?: InputMaybe<RouteDirectionObjRelInsertInput>;
+  directions?: InputMaybe<RouteDirectionArrRelInsertInput>;
   /** The opposite direction. */
-  the_opposite_of_direction?: Maybe<RouteDirectionEnum>;
+  the_opposite_of_direction?: InputMaybe<RouteDirectionEnum>;
 };
 
 /** aggregate max on columns */
@@ -4607,7 +4646,7 @@ export type RouteDirectionMaxFields = {
 /** order by max() on columns of table "route.direction" */
 export type RouteDirectionMaxOrderBy = {
   /** The name of the route direction. */
-  direction?: Maybe<OrderBy>;
+  direction?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -4620,7 +4659,7 @@ export type RouteDirectionMinFields = {
 /** order by min() on columns of table "route.direction" */
 export type RouteDirectionMinOrderBy = {
   /** The name of the route direction. */
-  direction?: Maybe<OrderBy>;
+  direction?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "route.direction" */
@@ -4636,22 +4675,22 @@ export type RouteDirectionMutationResponse = {
 export type RouteDirectionObjRelInsertInput = {
   data: RouteDirectionInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<RouteDirectionOnConflict>;
+  on_conflict?: InputMaybe<RouteDirectionOnConflict>;
 };
 
 /** on_conflict condition type for table "route.direction" */
 export type RouteDirectionOnConflict = {
   constraint: RouteDirectionConstraint;
   update_columns?: Array<RouteDirectionUpdateColumn>;
-  where?: Maybe<RouteDirectionBoolExp>;
+  where?: InputMaybe<RouteDirectionBoolExp>;
 };
 
 /** Ordering options when selecting data from "route.direction". */
 export type RouteDirectionOrderBy = {
-  direction?: Maybe<OrderBy>;
-  directionByTheOppositeOfDirection?: Maybe<RouteDirectionOrderBy>;
-  directions_aggregate?: Maybe<RouteDirectionAggregateOrderBy>;
-  the_opposite_of_direction?: Maybe<OrderBy>;
+  direction?: InputMaybe<OrderBy>;
+  directionByTheOppositeOfDirection?: InputMaybe<RouteDirectionOrderBy>;
+  directions_aggregate?: InputMaybe<RouteDirectionAggregateOrderBy>;
+  the_opposite_of_direction?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: route.direction */
@@ -4671,9 +4710,9 @@ export enum RouteDirectionSelectColumn {
 /** input type for updating data in table "route.direction" */
 export type RouteDirectionSetInput = {
   /** The name of the route direction. */
-  direction?: Maybe<Scalars['String']>;
+  direction?: InputMaybe<Scalars['String']>;
   /** The opposite direction. */
-  the_opposite_of_direction?: Maybe<RouteDirectionEnum>;
+  the_opposite_of_direction?: InputMaybe<RouteDirectionEnum>;
 };
 
 /** Streaming cursor of the table "route_direction" */
@@ -4681,15 +4720,15 @@ export type RouteDirectionStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: RouteDirectionStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type RouteDirectionStreamCursorValueInput = {
   /** The name of the route direction. */
-  direction?: Maybe<Scalars['String']>;
+  direction?: InputMaybe<Scalars['String']>;
   /** The opposite direction. */
-  the_opposite_of_direction?: Maybe<RouteDirectionEnum>;
+  the_opposite_of_direction?: InputMaybe<RouteDirectionEnum>;
 };
 
 /** update columns of table "route.direction" */
@@ -4702,7 +4741,7 @@ export enum RouteDirectionUpdateColumn {
 
 export type RouteDirectionUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<RouteDirectionSetInput>;
+  _set?: InputMaybe<RouteDirectionSetInput>;
   where: RouteDirectionBoolExp;
 };
 
@@ -4729,29 +4768,29 @@ export type RouteInfrastructureLinkAlongRouteAggregate = {
 };
 
 export type RouteInfrastructureLinkAlongRouteAggregateBoolExp = {
-  bool_and?: Maybe<RouteInfrastructureLinkAlongRouteAggregateBoolExpBoolAnd>;
-  bool_or?: Maybe<RouteInfrastructureLinkAlongRouteAggregateBoolExpBoolOr>;
-  count?: Maybe<RouteInfrastructureLinkAlongRouteAggregateBoolExpCount>;
+  bool_and?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateBoolExpBoolAnd>;
+  bool_or?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateBoolExpBoolOr>;
+  count?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateBoolExpCount>;
 };
 
 export type RouteInfrastructureLinkAlongRouteAggregateBoolExpBoolAnd = {
   arguments: RouteInfrastructureLinkAlongRouteSelectColumnRouteInfrastructureLinkAlongRouteAggregateBoolExpBoolAndArgumentsColumns;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   predicate: BooleanComparisonExp;
 };
 
 export type RouteInfrastructureLinkAlongRouteAggregateBoolExpBoolOr = {
   arguments: RouteInfrastructureLinkAlongRouteSelectColumnRouteInfrastructureLinkAlongRouteAggregateBoolExpBoolOrArgumentsColumns;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   predicate: BooleanComparisonExp;
 };
 
 export type RouteInfrastructureLinkAlongRouteAggregateBoolExpCount = {
-  arguments?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  arguments?: InputMaybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   predicate: IntComparisonExp;
 };
 
@@ -4773,30 +4812,30 @@ export type RouteInfrastructureLinkAlongRouteAggregateFields = {
 
 /** aggregate fields of "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteAggregateOrderBy = {
-  avg?: Maybe<RouteInfrastructureLinkAlongRouteAvgOrderBy>;
-  count?: Maybe<OrderBy>;
-  max?: Maybe<RouteInfrastructureLinkAlongRouteMaxOrderBy>;
-  min?: Maybe<RouteInfrastructureLinkAlongRouteMinOrderBy>;
-  stddev?: Maybe<RouteInfrastructureLinkAlongRouteStddevOrderBy>;
-  stddev_pop?: Maybe<RouteInfrastructureLinkAlongRouteStddevPopOrderBy>;
-  stddev_samp?: Maybe<RouteInfrastructureLinkAlongRouteStddevSampOrderBy>;
-  sum?: Maybe<RouteInfrastructureLinkAlongRouteSumOrderBy>;
-  var_pop?: Maybe<RouteInfrastructureLinkAlongRouteVarPopOrderBy>;
-  var_samp?: Maybe<RouteInfrastructureLinkAlongRouteVarSampOrderBy>;
-  variance?: Maybe<RouteInfrastructureLinkAlongRouteVarianceOrderBy>;
+  avg?: InputMaybe<RouteInfrastructureLinkAlongRouteAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<RouteInfrastructureLinkAlongRouteMaxOrderBy>;
+  min?: InputMaybe<RouteInfrastructureLinkAlongRouteMinOrderBy>;
+  stddev?: InputMaybe<RouteInfrastructureLinkAlongRouteStddevOrderBy>;
+  stddev_pop?: InputMaybe<RouteInfrastructureLinkAlongRouteStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<RouteInfrastructureLinkAlongRouteStddevSampOrderBy>;
+  sum?: InputMaybe<RouteInfrastructureLinkAlongRouteSumOrderBy>;
+  var_pop?: InputMaybe<RouteInfrastructureLinkAlongRouteVarPopOrderBy>;
+  var_samp?: InputMaybe<RouteInfrastructureLinkAlongRouteVarSampOrderBy>;
+  variance?: InputMaybe<RouteInfrastructureLinkAlongRouteVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteArrRelInsertInput = {
   data: Array<RouteInfrastructureLinkAlongRouteInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<RouteInfrastructureLinkAlongRouteOnConflict>;
+  on_conflict?: InputMaybe<RouteInfrastructureLinkAlongRouteOnConflict>;
 };
 
 /** aggregate avg on columns */
@@ -4809,19 +4848,19 @@ export type RouteInfrastructureLinkAlongRouteAvgFields = {
 /** order by avg() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteAvgOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<OrderBy>;
+  infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "route.infrastructure_link_along_route". All fields are combined with a logical 'AND'. */
 export type RouteInfrastructureLinkAlongRouteBoolExp = {
-  _and?: Maybe<Array<RouteInfrastructureLinkAlongRouteBoolExp>>;
-  _not?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
-  _or?: Maybe<Array<RouteInfrastructureLinkAlongRouteBoolExp>>;
-  infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
-  infrastructure_link_id?: Maybe<UuidComparisonExp>;
-  infrastructure_link_sequence?: Maybe<IntComparisonExp>;
-  is_traversal_forwards?: Maybe<BooleanComparisonExp>;
-  route_id?: Maybe<UuidComparisonExp>;
+  _and?: InputMaybe<Array<RouteInfrastructureLinkAlongRouteBoolExp>>;
+  _not?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  _or?: InputMaybe<Array<RouteInfrastructureLinkAlongRouteBoolExp>>;
+  infrastructure_link?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  infrastructure_link_id?: InputMaybe<UuidComparisonExp>;
+  infrastructure_link_sequence?: InputMaybe<IntComparisonExp>;
+  is_traversal_forwards?: InputMaybe<BooleanComparisonExp>;
+  route_id?: InputMaybe<UuidComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.infrastructure_link_along_route" */
@@ -4833,20 +4872,20 @@ export enum RouteInfrastructureLinkAlongRouteConstraint {
 /** input type for incrementing numeric columns in table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteIncInput = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Scalars['Int']>;
+  infrastructure_link_sequence?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteInsertInput = {
-  infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
+  infrastructure_link?: InputMaybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  infrastructure_link_id?: InputMaybe<Scalars['uuid']>;
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Scalars['Int']>;
+  infrastructure_link_sequence?: InputMaybe<Scalars['Int']>;
   /** Is the infrastructure link traversed in the direction of its linestring? */
-  is_traversal_forwards?: Maybe<Scalars['Boolean']>;
+  is_traversal_forwards?: InputMaybe<Scalars['Boolean']>;
   /** The ID of the route. */
-  route_id?: Maybe<Scalars['uuid']>;
+  route_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate max on columns */
@@ -4863,11 +4902,11 @@ export type RouteInfrastructureLinkAlongRouteMaxFields = {
 /** order by max() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteMaxOrderBy = {
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<OrderBy>;
+  infrastructure_link_id?: InputMaybe<OrderBy>;
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<OrderBy>;
+  infrastructure_link_sequence?: InputMaybe<OrderBy>;
   /** The ID of the route. */
-  route_id?: Maybe<OrderBy>;
+  route_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -4884,11 +4923,11 @@ export type RouteInfrastructureLinkAlongRouteMinFields = {
 /** order by min() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteMinOrderBy = {
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<OrderBy>;
+  infrastructure_link_id?: InputMaybe<OrderBy>;
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<OrderBy>;
+  infrastructure_link_sequence?: InputMaybe<OrderBy>;
   /** The ID of the route. */
-  route_id?: Maybe<OrderBy>;
+  route_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "route.infrastructure_link_along_route" */
@@ -4904,16 +4943,16 @@ export type RouteInfrastructureLinkAlongRouteMutationResponse = {
 export type RouteInfrastructureLinkAlongRouteOnConflict = {
   constraint: RouteInfrastructureLinkAlongRouteConstraint;
   update_columns?: Array<RouteInfrastructureLinkAlongRouteUpdateColumn>;
-  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  where?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 /** Ordering options when selecting data from "route.infrastructure_link_along_route". */
 export type RouteInfrastructureLinkAlongRouteOrderBy = {
-  infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkOrderBy>;
-  infrastructure_link_id?: Maybe<OrderBy>;
-  infrastructure_link_sequence?: Maybe<OrderBy>;
-  is_traversal_forwards?: Maybe<OrderBy>;
-  route_id?: Maybe<OrderBy>;
+  infrastructure_link?: InputMaybe<InfrastructureNetworkInfrastructureLinkOrderBy>;
+  infrastructure_link_id?: InputMaybe<OrderBy>;
+  infrastructure_link_sequence?: InputMaybe<OrderBy>;
+  is_traversal_forwards?: InputMaybe<OrderBy>;
+  route_id?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: route.infrastructure_link_along_route */
@@ -4951,13 +4990,13 @@ export enum RouteInfrastructureLinkAlongRouteSelectColumnRouteInfrastructureLink
 /** input type for updating data in table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteSetInput = {
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  infrastructure_link_id?: InputMaybe<Scalars['uuid']>;
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Scalars['Int']>;
+  infrastructure_link_sequence?: InputMaybe<Scalars['Int']>;
   /** Is the infrastructure link traversed in the direction of its linestring? */
-  is_traversal_forwards?: Maybe<Scalars['Boolean']>;
+  is_traversal_forwards?: InputMaybe<Scalars['Boolean']>;
   /** The ID of the route. */
-  route_id?: Maybe<Scalars['uuid']>;
+  route_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate stddev on columns */
@@ -4970,7 +5009,7 @@ export type RouteInfrastructureLinkAlongRouteStddevFields = {
 /** order by stddev() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteStddevOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<OrderBy>;
+  infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -4983,7 +5022,7 @@ export type RouteInfrastructureLinkAlongRouteStddevPopFields = {
 /** order by stddev_pop() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteStddevPopOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<OrderBy>;
+  infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -4996,7 +5035,7 @@ export type RouteInfrastructureLinkAlongRouteStddevSampFields = {
 /** order by stddev_samp() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteStddevSampOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<OrderBy>;
+  infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "route_infrastructure_link_along_route" */
@@ -5004,19 +5043,19 @@ export type RouteInfrastructureLinkAlongRouteStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: RouteInfrastructureLinkAlongRouteStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type RouteInfrastructureLinkAlongRouteStreamCursorValueInput = {
   /** The ID of the infrastructure link. */
-  infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  infrastructure_link_id?: InputMaybe<Scalars['uuid']>;
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<Scalars['Int']>;
+  infrastructure_link_sequence?: InputMaybe<Scalars['Int']>;
   /** Is the infrastructure link traversed in the direction of its linestring? */
-  is_traversal_forwards?: Maybe<Scalars['Boolean']>;
+  is_traversal_forwards?: InputMaybe<Scalars['Boolean']>;
   /** The ID of the route. */
-  route_id?: Maybe<Scalars['uuid']>;
+  route_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate sum on columns */
@@ -5029,7 +5068,7 @@ export type RouteInfrastructureLinkAlongRouteSumFields = {
 /** order by sum() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteSumOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<OrderBy>;
+  infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "route.infrastructure_link_along_route" */
@@ -5046,9 +5085,9 @@ export enum RouteInfrastructureLinkAlongRouteUpdateColumn {
 
 export type RouteInfrastructureLinkAlongRouteUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: Maybe<RouteInfrastructureLinkAlongRouteIncInput>;
+  _inc?: InputMaybe<RouteInfrastructureLinkAlongRouteIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<RouteInfrastructureLinkAlongRouteSetInput>;
+  _set?: InputMaybe<RouteInfrastructureLinkAlongRouteSetInput>;
   where: RouteInfrastructureLinkAlongRouteBoolExp;
 };
 
@@ -5062,7 +5101,7 @@ export type RouteInfrastructureLinkAlongRouteVarPopFields = {
 /** order by var_pop() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteVarPopOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<OrderBy>;
+  infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
@@ -5075,7 +5114,7 @@ export type RouteInfrastructureLinkAlongRouteVarSampFields = {
 /** order by var_samp() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteVarSampOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<OrderBy>;
+  infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
@@ -5088,7 +5127,7 @@ export type RouteInfrastructureLinkAlongRouteVarianceFields = {
 /** order by variance() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteVarianceOrderBy = {
   /** The order of the infrastructure link within the journey pattern. */
-  infrastructure_link_sequence?: Maybe<OrderBy>;
+  infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
 /** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
@@ -5127,30 +5166,30 @@ export type RouteLine = {
 
 /** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
 export type RouteLineLineRoutesArgs = {
-  distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteRouteOrderBy>>;
-  where?: Maybe<RouteRouteBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteRouteSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteRouteOrderBy>>;
+  where?: InputMaybe<RouteRouteBoolExp>;
 };
 
 /** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
 export type RouteLineLineRoutesAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteRouteOrderBy>>;
-  where?: Maybe<RouteRouteBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteRouteSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteRouteOrderBy>>;
+  where?: InputMaybe<RouteRouteBoolExp>;
 };
 
 /** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
 export type RouteLineNameI18nArgs = {
-  path?: Maybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
 export type RouteLineShortNameI18nArgs = {
-  path?: Maybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregated selection of "route.line" */
@@ -5161,13 +5200,13 @@ export type RouteLineAggregate = {
 };
 
 export type RouteLineAggregateBoolExp = {
-  count?: Maybe<RouteLineAggregateBoolExpCount>;
+  count?: InputMaybe<RouteLineAggregateBoolExpCount>;
 };
 
 export type RouteLineAggregateBoolExpCount = {
-  arguments?: Maybe<Array<RouteLineSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<RouteLineBoolExp>;
+  arguments?: InputMaybe<Array<RouteLineSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<RouteLineBoolExp>;
   predicate: IntComparisonExp;
 };
 
@@ -5189,38 +5228,38 @@ export type RouteLineAggregateFields = {
 
 /** aggregate fields of "route.line" */
 export type RouteLineAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<RouteLineSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<RouteLineSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "route.line" */
 export type RouteLineAggregateOrderBy = {
-  avg?: Maybe<RouteLineAvgOrderBy>;
-  count?: Maybe<OrderBy>;
-  max?: Maybe<RouteLineMaxOrderBy>;
-  min?: Maybe<RouteLineMinOrderBy>;
-  stddev?: Maybe<RouteLineStddevOrderBy>;
-  stddev_pop?: Maybe<RouteLineStddevPopOrderBy>;
-  stddev_samp?: Maybe<RouteLineStddevSampOrderBy>;
-  sum?: Maybe<RouteLineSumOrderBy>;
-  var_pop?: Maybe<RouteLineVarPopOrderBy>;
-  var_samp?: Maybe<RouteLineVarSampOrderBy>;
-  variance?: Maybe<RouteLineVarianceOrderBy>;
+  avg?: InputMaybe<RouteLineAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<RouteLineMaxOrderBy>;
+  min?: InputMaybe<RouteLineMinOrderBy>;
+  stddev?: InputMaybe<RouteLineStddevOrderBy>;
+  stddev_pop?: InputMaybe<RouteLineStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<RouteLineStddevSampOrderBy>;
+  sum?: InputMaybe<RouteLineSumOrderBy>;
+  var_pop?: InputMaybe<RouteLineVarPopOrderBy>;
+  var_samp?: InputMaybe<RouteLineVarSampOrderBy>;
+  variance?: InputMaybe<RouteLineVarianceOrderBy>;
 };
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type RouteLineAppendInput = {
   /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<Scalars['jsonb']>;
+  short_name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** input type for inserting array relation for remote table "route.line" */
 export type RouteLineArrRelInsertInput = {
   data: Array<RouteLineInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<RouteLineOnConflict>;
+  on_conflict?: InputMaybe<RouteLineOnConflict>;
 };
 
 /** aggregate avg on columns */
@@ -5233,29 +5272,29 @@ export type RouteLineAvgFields = {
 /** order by avg() on columns of table "route.line" */
 export type RouteLineAvgOrderBy = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "route.line". All fields are combined with a logical 'AND'. */
 export type RouteLineBoolExp = {
-  _and?: Maybe<Array<RouteLineBoolExp>>;
-  _not?: Maybe<RouteLineBoolExp>;
-  _or?: Maybe<Array<RouteLineBoolExp>>;
-  label?: Maybe<StringComparisonExp>;
-  line_id?: Maybe<UuidComparisonExp>;
-  line_routes?: Maybe<RouteRouteBoolExp>;
-  line_routes_aggregate?: Maybe<RouteRouteAggregateBoolExp>;
-  name_i18n?: Maybe<JsonbComparisonExp>;
-  primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
-  priority?: Maybe<IntComparisonExp>;
-  short_name_i18n?: Maybe<JsonbComparisonExp>;
-  transportTargetByTransportTarget?: Maybe<HslRouteTransportTargetBoolExp>;
-  transport_target?: Maybe<HslRouteTransportTargetEnumComparisonExp>;
-  typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineBoolExp>;
-  type_of_line?: Maybe<RouteTypeOfLineEnumComparisonExp>;
-  validity_end?: Maybe<DateComparisonExp>;
-  validity_start?: Maybe<DateComparisonExp>;
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeBoolExp>;
+  _and?: InputMaybe<Array<RouteLineBoolExp>>;
+  _not?: InputMaybe<RouteLineBoolExp>;
+  _or?: InputMaybe<Array<RouteLineBoolExp>>;
+  label?: InputMaybe<StringComparisonExp>;
+  line_id?: InputMaybe<UuidComparisonExp>;
+  line_routes?: InputMaybe<RouteRouteBoolExp>;
+  line_routes_aggregate?: InputMaybe<RouteRouteAggregateBoolExp>;
+  name_i18n?: InputMaybe<JsonbComparisonExp>;
+  primary_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnumComparisonExp>;
+  priority?: InputMaybe<IntComparisonExp>;
+  short_name_i18n?: InputMaybe<JsonbComparisonExp>;
+  transportTargetByTransportTarget?: InputMaybe<HslRouteTransportTargetBoolExp>;
+  transport_target?: InputMaybe<HslRouteTransportTargetEnumComparisonExp>;
+  typeOfLineByTypeOfLine?: InputMaybe<RouteTypeOfLineBoolExp>;
+  type_of_line?: InputMaybe<RouteTypeOfLineEnumComparisonExp>;
+  validity_end?: InputMaybe<DateComparisonExp>;
+  validity_start?: InputMaybe<DateComparisonExp>;
+  vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 /** unique or primary key constraints on table "route.line" */
@@ -5267,58 +5306,58 @@ export enum RouteLineConstraint {
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type RouteLineDeleteAtPathInput = {
   /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<Array<Scalars['String']>>;
+  name_i18n?: InputMaybe<Array<Scalars['String']>>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<Array<Scalars['String']>>;
+  short_name_i18n?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type RouteLineDeleteElemInput = {
   /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<Scalars['Int']>;
+  name_i18n?: InputMaybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<Scalars['Int']>;
+  short_name_i18n?: InputMaybe<Scalars['Int']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type RouteLineDeleteKeyInput = {
   /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<Scalars['String']>;
+  name_i18n?: InputMaybe<Scalars['String']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<Scalars['String']>;
+  short_name_i18n?: InputMaybe<Scalars['String']>;
 };
 
 /** input type for incrementing numeric columns in table "route.line" */
 export type RouteLineIncInput = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "route.line" */
 export type RouteLineInsertInput = {
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
-  label?: Maybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
   /** The ID of the line. */
-  line_id?: Maybe<Scalars['uuid']>;
-  line_routes?: Maybe<RouteRouteArrRelInsertInput>;
+  line_id?: InputMaybe<Scalars['uuid']>;
+  line_routes?: InputMaybe<RouteRouteArrRelInsertInput>;
   /** The name of the line. Placeholder for multilingual strings. */
   name_i18n: Scalars['localized_string'];
   /** The mode of the vehicles used as primary on the line. */
-  primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+  primary_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority?: InputMaybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
   short_name_i18n: Scalars['localized_string'];
-  transportTargetByTransportTarget?: Maybe<HslRouteTransportTargetObjRelInsertInput>;
-  transport_target?: Maybe<HslRouteTransportTargetEnum>;
-  typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineObjRelInsertInput>;
+  transportTargetByTransportTarget?: InputMaybe<HslRouteTransportTargetObjRelInsertInput>;
+  transport_target?: InputMaybe<HslRouteTransportTargetEnum>;
+  typeOfLineByTypeOfLine?: InputMaybe<RouteTypeOfLineObjRelInsertInput>;
   /** The type of the line. */
-  type_of_line?: Maybe<RouteTypeOfLineEnum>;
+  type_of_line?: InputMaybe<RouteTypeOfLineEnum>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['date']>;
+  validity_end?: InputMaybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['date']>;
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeObjRelInsertInput>;
+  validity_start?: InputMaybe<Scalars['date']>;
+  vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeObjRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -5339,15 +5378,15 @@ export type RouteLineMaxFields = {
 /** order by max() on columns of table "route.line" */
 export type RouteLineMaxOrderBy = {
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
-  label?: Maybe<OrderBy>;
+  label?: InputMaybe<OrderBy>;
   /** The ID of the line. */
-  line_id?: Maybe<OrderBy>;
+  line_id?: InputMaybe<OrderBy>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -5368,15 +5407,15 @@ export type RouteLineMinFields = {
 /** order by min() on columns of table "route.line" */
 export type RouteLineMinOrderBy = {
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
-  label?: Maybe<OrderBy>;
+  label?: InputMaybe<OrderBy>;
   /** The ID of the line. */
-  line_id?: Maybe<OrderBy>;
+  line_id?: InputMaybe<OrderBy>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "route.line" */
@@ -5392,32 +5431,32 @@ export type RouteLineMutationResponse = {
 export type RouteLineObjRelInsertInput = {
   data: RouteLineInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<RouteLineOnConflict>;
+  on_conflict?: InputMaybe<RouteLineOnConflict>;
 };
 
 /** on_conflict condition type for table "route.line" */
 export type RouteLineOnConflict = {
   constraint: RouteLineConstraint;
   update_columns?: Array<RouteLineUpdateColumn>;
-  where?: Maybe<RouteLineBoolExp>;
+  where?: InputMaybe<RouteLineBoolExp>;
 };
 
 /** Ordering options when selecting data from "route.line". */
 export type RouteLineOrderBy = {
-  label?: Maybe<OrderBy>;
-  line_id?: Maybe<OrderBy>;
-  line_routes_aggregate?: Maybe<RouteRouteAggregateOrderBy>;
-  name_i18n?: Maybe<OrderBy>;
-  primary_vehicle_mode?: Maybe<OrderBy>;
-  priority?: Maybe<OrderBy>;
-  short_name_i18n?: Maybe<OrderBy>;
-  transportTargetByTransportTarget?: Maybe<HslRouteTransportTargetOrderBy>;
-  transport_target?: Maybe<OrderBy>;
-  typeOfLineByTypeOfLine?: Maybe<RouteTypeOfLineOrderBy>;
-  type_of_line?: Maybe<OrderBy>;
-  validity_end?: Maybe<OrderBy>;
-  validity_start?: Maybe<OrderBy>;
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeOrderBy>;
+  label?: InputMaybe<OrderBy>;
+  line_id?: InputMaybe<OrderBy>;
+  line_routes_aggregate?: InputMaybe<RouteRouteAggregateOrderBy>;
+  name_i18n?: InputMaybe<OrderBy>;
+  primary_vehicle_mode?: InputMaybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
+  short_name_i18n?: InputMaybe<OrderBy>;
+  transportTargetByTransportTarget?: InputMaybe<HslRouteTransportTargetOrderBy>;
+  transport_target?: InputMaybe<OrderBy>;
+  typeOfLineByTypeOfLine?: InputMaybe<RouteTypeOfLineOrderBy>;
+  type_of_line?: InputMaybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
+  vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeOrderBy>;
 };
 
 /** primary key columns input for table: route.line */
@@ -5429,9 +5468,9 @@ export type RouteLinePkColumnsInput = {
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type RouteLinePrependInput = {
   /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<Scalars['jsonb']>;
+  short_name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "route.line" */
@@ -5461,24 +5500,24 @@ export enum RouteLineSelectColumn {
 /** input type for updating data in table "route.line" */
 export type RouteLineSetInput = {
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
-  label?: Maybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
   /** The ID of the line. */
-  line_id?: Maybe<Scalars['uuid']>;
+  line_id?: InputMaybe<Scalars['uuid']>;
   /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<Scalars['localized_string']>;
+  name_i18n?: InputMaybe<Scalars['localized_string']>;
   /** The mode of the vehicles used as primary on the line. */
-  primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+  primary_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority?: InputMaybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<Scalars['localized_string']>;
-  transport_target?: Maybe<HslRouteTransportTargetEnum>;
+  short_name_i18n?: InputMaybe<Scalars['localized_string']>;
+  transport_target?: InputMaybe<HslRouteTransportTargetEnum>;
   /** The type of the line. */
-  type_of_line?: Maybe<RouteTypeOfLineEnum>;
+  type_of_line?: InputMaybe<RouteTypeOfLineEnum>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['date']>;
+  validity_end?: InputMaybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
 };
 
 /** aggregate stddev on columns */
@@ -5491,7 +5530,7 @@ export type RouteLineStddevFields = {
 /** order by stddev() on columns of table "route.line" */
 export type RouteLineStddevOrderBy = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -5504,7 +5543,7 @@ export type RouteLineStddevPopFields = {
 /** order by stddev_pop() on columns of table "route.line" */
 export type RouteLineStddevPopOrderBy = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -5517,7 +5556,7 @@ export type RouteLineStddevSampFields = {
 /** order by stddev_samp() on columns of table "route.line" */
 export type RouteLineStddevSampOrderBy = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "route_line" */
@@ -5525,30 +5564,30 @@ export type RouteLineStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: RouteLineStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type RouteLineStreamCursorValueInput = {
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
-  label?: Maybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
   /** The ID of the line. */
-  line_id?: Maybe<Scalars['uuid']>;
+  line_id?: InputMaybe<Scalars['uuid']>;
   /** The name of the line. Placeholder for multilingual strings. */
-  name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The mode of the vehicles used as primary on the line. */
-  primary_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+  primary_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority?: InputMaybe<Scalars['Int']>;
   /** The shorted name of the line. Placeholder for multilingual strings. */
-  short_name_i18n?: Maybe<Scalars['jsonb']>;
-  transport_target?: Maybe<HslRouteTransportTargetEnum>;
+  short_name_i18n?: InputMaybe<Scalars['jsonb']>;
+  transport_target?: InputMaybe<HslRouteTransportTargetEnum>;
   /** The type of the line. */
-  type_of_line?: Maybe<RouteTypeOfLineEnum>;
+  type_of_line?: InputMaybe<RouteTypeOfLineEnum>;
   /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
-  validity_end?: Maybe<Scalars['date']>;
+  validity_end?: InputMaybe<Scalars['date']>;
   /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
-  validity_start?: Maybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
 };
 
 /** aggregate sum on columns */
@@ -5561,7 +5600,7 @@ export type RouteLineSumFields = {
 /** order by sum() on columns of table "route.line" */
 export type RouteLineSumOrderBy = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "route.line" */
@@ -5590,19 +5629,19 @@ export enum RouteLineUpdateColumn {
 
 export type RouteLineUpdates = {
   /** append existing jsonb value of filtered columns with new jsonb value */
-  _append?: Maybe<RouteLineAppendInput>;
+  _append?: InputMaybe<RouteLineAppendInput>;
   /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-  _delete_at_path?: Maybe<RouteLineDeleteAtPathInput>;
+  _delete_at_path?: InputMaybe<RouteLineDeleteAtPathInput>;
   /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-  _delete_elem?: Maybe<RouteLineDeleteElemInput>;
+  _delete_elem?: InputMaybe<RouteLineDeleteElemInput>;
   /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-  _delete_key?: Maybe<RouteLineDeleteKeyInput>;
+  _delete_key?: InputMaybe<RouteLineDeleteKeyInput>;
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: Maybe<RouteLineIncInput>;
+  _inc?: InputMaybe<RouteLineIncInput>;
   /** prepend existing jsonb value of filtered columns with new jsonb value */
-  _prepend?: Maybe<RouteLinePrependInput>;
+  _prepend?: InputMaybe<RouteLinePrependInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<RouteLineSetInput>;
+  _set?: InputMaybe<RouteLineSetInput>;
   where: RouteLineBoolExp;
 };
 
@@ -5616,7 +5655,7 @@ export type RouteLineVarPopFields = {
 /** order by var_pop() on columns of table "route.line" */
 export type RouteLineVarPopOrderBy = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
@@ -5629,7 +5668,7 @@ export type RouteLineVarSampFields = {
 /** order by var_samp() on columns of table "route.line" */
 export type RouteLineVarSampOrderBy = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
@@ -5642,7 +5681,7 @@ export type RouteLineVarianceFields = {
 /** order by variance() on columns of table "route.line" */
 export type RouteLineVarianceOrderBy = {
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
@@ -5689,68 +5728,72 @@ export type RouteRoute = {
 
 /** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteDescriptionI18nArgs = {
-  path?: Maybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteDestinationNameI18nArgs = {
-  path?: Maybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteDestinationShortNameI18nArgs = {
-  path?: Maybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteInfrastructureLinksAlongRouteArgs = {
-  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
-  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  distinct_on?: InputMaybe<
+    Array<RouteInfrastructureLinkAlongRouteSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 /** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteInfrastructureLinksAlongRouteAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
-  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  distinct_on?: InputMaybe<
+    Array<RouteInfrastructureLinkAlongRouteSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 /** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteNameI18nArgs = {
-  path?: Maybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteOriginNameI18nArgs = {
-  path?: Maybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteOriginShortNameI18nArgs = {
-  path?: Maybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteRouteJourneyPatternsArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  distinct_on?: InputMaybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 /** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRouteRouteJourneyPatternsAggregateArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  distinct_on?: InputMaybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 /** aggregated selection of "route.route" */
@@ -5761,13 +5804,13 @@ export type RouteRouteAggregate = {
 };
 
 export type RouteRouteAggregateBoolExp = {
-  count?: Maybe<RouteRouteAggregateBoolExpCount>;
+  count?: InputMaybe<RouteRouteAggregateBoolExpCount>;
 };
 
 export type RouteRouteAggregateBoolExpCount = {
-  arguments?: Maybe<Array<RouteRouteSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<RouteRouteBoolExp>;
+  arguments?: InputMaybe<Array<RouteRouteSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<RouteRouteBoolExp>;
   predicate: IntComparisonExp;
 };
 
@@ -5789,41 +5832,41 @@ export type RouteRouteAggregateFields = {
 
 /** aggregate fields of "route.route" */
 export type RouteRouteAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<RouteRouteSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<RouteRouteSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "route.route" */
 export type RouteRouteAggregateOrderBy = {
-  avg?: Maybe<RouteRouteAvgOrderBy>;
-  count?: Maybe<OrderBy>;
-  max?: Maybe<RouteRouteMaxOrderBy>;
-  min?: Maybe<RouteRouteMinOrderBy>;
-  stddev?: Maybe<RouteRouteStddevOrderBy>;
-  stddev_pop?: Maybe<RouteRouteStddevPopOrderBy>;
-  stddev_samp?: Maybe<RouteRouteStddevSampOrderBy>;
-  sum?: Maybe<RouteRouteSumOrderBy>;
-  var_pop?: Maybe<RouteRouteVarPopOrderBy>;
-  var_samp?: Maybe<RouteRouteVarSampOrderBy>;
-  variance?: Maybe<RouteRouteVarianceOrderBy>;
+  avg?: InputMaybe<RouteRouteAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<RouteRouteMaxOrderBy>;
+  min?: InputMaybe<RouteRouteMinOrderBy>;
+  stddev?: InputMaybe<RouteRouteStddevOrderBy>;
+  stddev_pop?: InputMaybe<RouteRouteStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<RouteRouteStddevSampOrderBy>;
+  sum?: InputMaybe<RouteRouteSumOrderBy>;
+  var_pop?: InputMaybe<RouteRouteVarPopOrderBy>;
+  var_samp?: InputMaybe<RouteRouteVarSampOrderBy>;
+  variance?: InputMaybe<RouteRouteVarianceOrderBy>;
 };
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type RouteRouteAppendInput = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Scalars['jsonb']>;
-  destination_name_i18n?: Maybe<Scalars['jsonb']>;
-  destination_short_name_i18n?: Maybe<Scalars['jsonb']>;
-  name_i18n?: Maybe<Scalars['jsonb']>;
-  origin_name_i18n?: Maybe<Scalars['jsonb']>;
-  origin_short_name_i18n?: Maybe<Scalars['jsonb']>;
+  description_i18n?: InputMaybe<Scalars['jsonb']>;
+  destination_name_i18n?: InputMaybe<Scalars['jsonb']>;
+  destination_short_name_i18n?: InputMaybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
+  origin_name_i18n?: InputMaybe<Scalars['jsonb']>;
+  origin_short_name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** input type for inserting array relation for remote table "route.route" */
 export type RouteRouteArrRelInsertInput = {
   data: Array<RouteRouteInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<RouteRouteOnConflict>;
+  on_conflict?: InputMaybe<RouteRouteOnConflict>;
 };
 
 /** aggregate avg on columns */
@@ -5838,37 +5881,37 @@ export type RouteRouteAvgFields = {
 /** order by avg() on columns of table "route.route" */
 export type RouteRouteAvgOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
-  variant?: Maybe<OrderBy>;
+  variant?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "route.route". All fields are combined with a logical 'AND'. */
 export type RouteRouteBoolExp = {
-  _and?: Maybe<Array<RouteRouteBoolExp>>;
-  _not?: Maybe<RouteRouteBoolExp>;
-  _or?: Maybe<Array<RouteRouteBoolExp>>;
-  description_i18n?: Maybe<JsonbComparisonExp>;
-  destination_name_i18n?: Maybe<JsonbComparisonExp>;
-  destination_short_name_i18n?: Maybe<JsonbComparisonExp>;
-  direction?: Maybe<RouteDirectionEnumComparisonExp>;
-  infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
-  infrastructure_links_along_route_aggregate?: Maybe<RouteInfrastructureLinkAlongRouteAggregateBoolExp>;
-  label?: Maybe<StringComparisonExp>;
-  name_i18n?: Maybe<JsonbComparisonExp>;
-  on_line_id?: Maybe<UuidComparisonExp>;
-  origin_name_i18n?: Maybe<JsonbComparisonExp>;
-  origin_short_name_i18n?: Maybe<JsonbComparisonExp>;
-  priority?: Maybe<IntComparisonExp>;
-  route_id?: Maybe<UuidComparisonExp>;
-  route_journey_patterns?: Maybe<JourneyPatternJourneyPatternBoolExp>;
-  route_journey_patterns_aggregate?: Maybe<JourneyPatternJourneyPatternAggregateBoolExp>;
-  route_line?: Maybe<RouteLineBoolExp>;
-  route_shape?: Maybe<GeographyComparisonExp>;
-  unique_label?: Maybe<StringComparisonExp>;
-  validity_end?: Maybe<DateComparisonExp>;
-  validity_start?: Maybe<DateComparisonExp>;
-  variant?: Maybe<SmallintComparisonExp>;
+  _and?: InputMaybe<Array<RouteRouteBoolExp>>;
+  _not?: InputMaybe<RouteRouteBoolExp>;
+  _or?: InputMaybe<Array<RouteRouteBoolExp>>;
+  description_i18n?: InputMaybe<JsonbComparisonExp>;
+  destination_name_i18n?: InputMaybe<JsonbComparisonExp>;
+  destination_short_name_i18n?: InputMaybe<JsonbComparisonExp>;
+  direction?: InputMaybe<RouteDirectionEnumComparisonExp>;
+  infrastructure_links_along_route?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  infrastructure_links_along_route_aggregate?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateBoolExp>;
+  label?: InputMaybe<StringComparisonExp>;
+  name_i18n?: InputMaybe<JsonbComparisonExp>;
+  on_line_id?: InputMaybe<UuidComparisonExp>;
+  origin_name_i18n?: InputMaybe<JsonbComparisonExp>;
+  origin_short_name_i18n?: InputMaybe<JsonbComparisonExp>;
+  priority?: InputMaybe<IntComparisonExp>;
+  route_id?: InputMaybe<UuidComparisonExp>;
+  route_journey_patterns?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
+  route_journey_patterns_aggregate?: InputMaybe<JourneyPatternJourneyPatternAggregateBoolExp>;
+  route_line?: InputMaybe<RouteLineBoolExp>;
+  route_shape?: InputMaybe<GeographyComparisonExp>;
+  unique_label?: InputMaybe<StringComparisonExp>;
+  validity_end?: InputMaybe<DateComparisonExp>;
+  validity_start?: InputMaybe<DateComparisonExp>;
+  variant?: InputMaybe<SmallintComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.route" */
@@ -5880,72 +5923,72 @@ export enum RouteRouteConstraint {
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type RouteRouteDeleteAtPathInput = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Array<Scalars['String']>>;
-  destination_name_i18n?: Maybe<Array<Scalars['String']>>;
-  destination_short_name_i18n?: Maybe<Array<Scalars['String']>>;
-  name_i18n?: Maybe<Array<Scalars['String']>>;
-  origin_name_i18n?: Maybe<Array<Scalars['String']>>;
-  origin_short_name_i18n?: Maybe<Array<Scalars['String']>>;
+  description_i18n?: InputMaybe<Array<Scalars['String']>>;
+  destination_name_i18n?: InputMaybe<Array<Scalars['String']>>;
+  destination_short_name_i18n?: InputMaybe<Array<Scalars['String']>>;
+  name_i18n?: InputMaybe<Array<Scalars['String']>>;
+  origin_name_i18n?: InputMaybe<Array<Scalars['String']>>;
+  origin_short_name_i18n?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type RouteRouteDeleteElemInput = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Scalars['Int']>;
-  destination_name_i18n?: Maybe<Scalars['Int']>;
-  destination_short_name_i18n?: Maybe<Scalars['Int']>;
-  name_i18n?: Maybe<Scalars['Int']>;
-  origin_name_i18n?: Maybe<Scalars['Int']>;
-  origin_short_name_i18n?: Maybe<Scalars['Int']>;
+  description_i18n?: InputMaybe<Scalars['Int']>;
+  destination_name_i18n?: InputMaybe<Scalars['Int']>;
+  destination_short_name_i18n?: InputMaybe<Scalars['Int']>;
+  name_i18n?: InputMaybe<Scalars['Int']>;
+  origin_name_i18n?: InputMaybe<Scalars['Int']>;
+  origin_short_name_i18n?: InputMaybe<Scalars['Int']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type RouteRouteDeleteKeyInput = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Scalars['String']>;
-  destination_name_i18n?: Maybe<Scalars['String']>;
-  destination_short_name_i18n?: Maybe<Scalars['String']>;
-  name_i18n?: Maybe<Scalars['String']>;
-  origin_name_i18n?: Maybe<Scalars['String']>;
-  origin_short_name_i18n?: Maybe<Scalars['String']>;
+  description_i18n?: InputMaybe<Scalars['String']>;
+  destination_name_i18n?: InputMaybe<Scalars['String']>;
+  destination_short_name_i18n?: InputMaybe<Scalars['String']>;
+  name_i18n?: InputMaybe<Scalars['String']>;
+  origin_name_i18n?: InputMaybe<Scalars['String']>;
+  origin_short_name_i18n?: InputMaybe<Scalars['String']>;
 };
 
 /** input type for incrementing numeric columns in table "route.route" */
 export type RouteRouteIncInput = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority?: InputMaybe<Scalars['Int']>;
   /** The variant for route definition. */
-  variant?: Maybe<Scalars['smallint']>;
+  variant?: InputMaybe<Scalars['smallint']>;
 };
 
 /** input type for inserting data into table "route.route" */
 export type RouteRouteInsertInput = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Scalars['localized_string']>;
+  description_i18n?: InputMaybe<Scalars['localized_string']>;
   destination_name_i18n: Scalars['localized_string'];
   destination_short_name_i18n: Scalars['localized_string'];
   /** The direction of the route definition. */
-  direction?: Maybe<RouteDirectionEnum>;
-  infrastructure_links_along_route?: Maybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
+  direction?: InputMaybe<RouteDirectionEnum>;
+  infrastructure_links_along_route?: InputMaybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
   /** The label of the route definition. */
   label: Scalars['String'];
   name_i18n: Scalars['localized_string'];
   /** The line to which this route belongs. */
-  on_line_id?: Maybe<Scalars['uuid']>;
+  on_line_id?: InputMaybe<Scalars['uuid']>;
   origin_name_i18n: Scalars['localized_string'];
   origin_short_name_i18n: Scalars['localized_string'];
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority?: InputMaybe<Scalars['Int']>;
   /** The ID of the route. */
-  route_id?: Maybe<Scalars['uuid']>;
-  route_journey_patterns?: Maybe<JourneyPatternJourneyPatternArrRelInsertInput>;
-  route_line?: Maybe<RouteLineObjRelInsertInput>;
+  route_id?: InputMaybe<Scalars['uuid']>;
+  route_journey_patterns?: InputMaybe<JourneyPatternJourneyPatternArrRelInsertInput>;
+  route_line?: InputMaybe<RouteLineObjRelInsertInput>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
-  validity_end?: Maybe<Scalars['date']>;
+  validity_end?: InputMaybe<Scalars['date']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
-  validity_start?: Maybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
   /** The variant for route definition. */
-  variant?: Maybe<Scalars['smallint']>;
+  variant?: InputMaybe<Scalars['smallint']>;
 };
 
 /** aggregate max on columns */
@@ -5972,21 +6015,21 @@ export type RouteRouteMaxFields = {
 /** order by max() on columns of table "route.route" */
 export type RouteRouteMaxOrderBy = {
   /** The label of the route definition. */
-  label?: Maybe<OrderBy>;
+  label?: InputMaybe<OrderBy>;
   /** The line to which this route belongs. */
-  on_line_id?: Maybe<OrderBy>;
+  on_line_id?: InputMaybe<OrderBy>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The ID of the route. */
-  route_id?: Maybe<OrderBy>;
+  route_id?: InputMaybe<OrderBy>;
   /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
-  unique_label?: Maybe<OrderBy>;
+  unique_label?: InputMaybe<OrderBy>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
-  validity_end?: Maybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
-  validity_start?: Maybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
-  variant?: Maybe<OrderBy>;
+  variant?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -6013,21 +6056,21 @@ export type RouteRouteMinFields = {
 /** order by min() on columns of table "route.route" */
 export type RouteRouteMinOrderBy = {
   /** The label of the route definition. */
-  label?: Maybe<OrderBy>;
+  label?: InputMaybe<OrderBy>;
   /** The line to which this route belongs. */
-  on_line_id?: Maybe<OrderBy>;
+  on_line_id?: InputMaybe<OrderBy>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The ID of the route. */
-  route_id?: Maybe<OrderBy>;
+  route_id?: InputMaybe<OrderBy>;
   /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
-  unique_label?: Maybe<OrderBy>;
+  unique_label?: InputMaybe<OrderBy>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
-  validity_end?: Maybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
-  validity_start?: Maybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
-  variant?: Maybe<OrderBy>;
+  variant?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "route.route" */
@@ -6043,37 +6086,37 @@ export type RouteRouteMutationResponse = {
 export type RouteRouteObjRelInsertInput = {
   data: RouteRouteInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<RouteRouteOnConflict>;
+  on_conflict?: InputMaybe<RouteRouteOnConflict>;
 };
 
 /** on_conflict condition type for table "route.route" */
 export type RouteRouteOnConflict = {
   constraint: RouteRouteConstraint;
   update_columns?: Array<RouteRouteUpdateColumn>;
-  where?: Maybe<RouteRouteBoolExp>;
+  where?: InputMaybe<RouteRouteBoolExp>;
 };
 
 /** Ordering options when selecting data from "route.route". */
 export type RouteRouteOrderBy = {
-  description_i18n?: Maybe<OrderBy>;
-  destination_name_i18n?: Maybe<OrderBy>;
-  destination_short_name_i18n?: Maybe<OrderBy>;
-  direction?: Maybe<OrderBy>;
-  infrastructure_links_along_route_aggregate?: Maybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
-  label?: Maybe<OrderBy>;
-  name_i18n?: Maybe<OrderBy>;
-  on_line_id?: Maybe<OrderBy>;
-  origin_name_i18n?: Maybe<OrderBy>;
-  origin_short_name_i18n?: Maybe<OrderBy>;
-  priority?: Maybe<OrderBy>;
-  route_id?: Maybe<OrderBy>;
-  route_journey_patterns_aggregate?: Maybe<JourneyPatternJourneyPatternAggregateOrderBy>;
-  route_line?: Maybe<RouteLineOrderBy>;
-  route_shape?: Maybe<OrderBy>;
-  unique_label?: Maybe<OrderBy>;
-  validity_end?: Maybe<OrderBy>;
-  validity_start?: Maybe<OrderBy>;
-  variant?: Maybe<OrderBy>;
+  description_i18n?: InputMaybe<OrderBy>;
+  destination_name_i18n?: InputMaybe<OrderBy>;
+  destination_short_name_i18n?: InputMaybe<OrderBy>;
+  direction?: InputMaybe<OrderBy>;
+  infrastructure_links_along_route_aggregate?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
+  label?: InputMaybe<OrderBy>;
+  name_i18n?: InputMaybe<OrderBy>;
+  on_line_id?: InputMaybe<OrderBy>;
+  origin_name_i18n?: InputMaybe<OrderBy>;
+  origin_short_name_i18n?: InputMaybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
+  route_id?: InputMaybe<OrderBy>;
+  route_journey_patterns_aggregate?: InputMaybe<JourneyPatternJourneyPatternAggregateOrderBy>;
+  route_line?: InputMaybe<RouteLineOrderBy>;
+  route_shape?: InputMaybe<OrderBy>;
+  unique_label?: InputMaybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
+  variant?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: route.route */
@@ -6085,12 +6128,12 @@ export type RouteRoutePkColumnsInput = {
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type RouteRoutePrependInput = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Scalars['jsonb']>;
-  destination_name_i18n?: Maybe<Scalars['jsonb']>;
-  destination_short_name_i18n?: Maybe<Scalars['jsonb']>;
-  name_i18n?: Maybe<Scalars['jsonb']>;
-  origin_name_i18n?: Maybe<Scalars['jsonb']>;
-  origin_short_name_i18n?: Maybe<Scalars['jsonb']>;
+  description_i18n?: InputMaybe<Scalars['jsonb']>;
+  destination_name_i18n?: InputMaybe<Scalars['jsonb']>;
+  destination_short_name_i18n?: InputMaybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
+  origin_name_i18n?: InputMaybe<Scalars['jsonb']>;
+  origin_short_name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "route.route" */
@@ -6130,28 +6173,28 @@ export enum RouteRouteSelectColumn {
 /** input type for updating data in table "route.route" */
 export type RouteRouteSetInput = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Scalars['localized_string']>;
-  destination_name_i18n?: Maybe<Scalars['localized_string']>;
-  destination_short_name_i18n?: Maybe<Scalars['localized_string']>;
+  description_i18n?: InputMaybe<Scalars['localized_string']>;
+  destination_name_i18n?: InputMaybe<Scalars['localized_string']>;
+  destination_short_name_i18n?: InputMaybe<Scalars['localized_string']>;
   /** The direction of the route definition. */
-  direction?: Maybe<RouteDirectionEnum>;
+  direction?: InputMaybe<RouteDirectionEnum>;
   /** The label of the route definition. */
-  label?: Maybe<Scalars['String']>;
-  name_i18n?: Maybe<Scalars['localized_string']>;
+  label?: InputMaybe<Scalars['String']>;
+  name_i18n?: InputMaybe<Scalars['localized_string']>;
   /** The line to which this route belongs. */
-  on_line_id?: Maybe<Scalars['uuid']>;
-  origin_name_i18n?: Maybe<Scalars['localized_string']>;
-  origin_short_name_i18n?: Maybe<Scalars['localized_string']>;
+  on_line_id?: InputMaybe<Scalars['uuid']>;
+  origin_name_i18n?: InputMaybe<Scalars['localized_string']>;
+  origin_short_name_i18n?: InputMaybe<Scalars['localized_string']>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority?: InputMaybe<Scalars['Int']>;
   /** The ID of the route. */
-  route_id?: Maybe<Scalars['uuid']>;
+  route_id?: InputMaybe<Scalars['uuid']>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
-  validity_end?: Maybe<Scalars['date']>;
+  validity_end?: InputMaybe<Scalars['date']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
-  validity_start?: Maybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
   /** The variant for route definition. */
-  variant?: Maybe<Scalars['smallint']>;
+  variant?: InputMaybe<Scalars['smallint']>;
 };
 
 /** aggregate stddev on columns */
@@ -6166,9 +6209,9 @@ export type RouteRouteStddevFields = {
 /** order by stddev() on columns of table "route.route" */
 export type RouteRouteStddevOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
-  variant?: Maybe<OrderBy>;
+  variant?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -6183,9 +6226,9 @@ export type RouteRouteStddevPopFields = {
 /** order by stddev_pop() on columns of table "route.route" */
 export type RouteRouteStddevPopOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
-  variant?: Maybe<OrderBy>;
+  variant?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -6200,9 +6243,9 @@ export type RouteRouteStddevSampFields = {
 /** order by stddev_samp() on columns of table "route.route" */
 export type RouteRouteStddevSampOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
-  variant?: Maybe<OrderBy>;
+  variant?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "route_route" */
@@ -6210,36 +6253,36 @@ export type RouteRouteStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: RouteRouteStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type RouteRouteStreamCursorValueInput = {
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
-  description_i18n?: Maybe<Scalars['jsonb']>;
-  destination_name_i18n?: Maybe<Scalars['jsonb']>;
-  destination_short_name_i18n?: Maybe<Scalars['jsonb']>;
+  description_i18n?: InputMaybe<Scalars['jsonb']>;
+  destination_name_i18n?: InputMaybe<Scalars['jsonb']>;
+  destination_short_name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The direction of the route definition. */
-  direction?: Maybe<RouteDirectionEnum>;
+  direction?: InputMaybe<RouteDirectionEnum>;
   /** The label of the route definition. */
-  label?: Maybe<Scalars['String']>;
-  name_i18n?: Maybe<Scalars['jsonb']>;
+  label?: InputMaybe<Scalars['String']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The line to which this route belongs. */
-  on_line_id?: Maybe<Scalars['uuid']>;
-  origin_name_i18n?: Maybe<Scalars['jsonb']>;
-  origin_short_name_i18n?: Maybe<Scalars['jsonb']>;
+  on_line_id?: InputMaybe<Scalars['uuid']>;
+  origin_name_i18n?: InputMaybe<Scalars['jsonb']>;
+  origin_short_name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority?: InputMaybe<Scalars['Int']>;
   /** The ID of the route. */
-  route_id?: Maybe<Scalars['uuid']>;
+  route_id?: InputMaybe<Scalars['uuid']>;
   /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
-  unique_label?: Maybe<Scalars['String']>;
+  unique_label?: InputMaybe<Scalars['String']>;
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
-  validity_end?: Maybe<Scalars['date']>;
+  validity_end?: InputMaybe<Scalars['date']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
-  validity_start?: Maybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
   /** The variant for route definition. */
-  variant?: Maybe<Scalars['smallint']>;
+  variant?: InputMaybe<Scalars['smallint']>;
 };
 
 /** aggregate sum on columns */
@@ -6254,9 +6297,9 @@ export type RouteRouteSumFields = {
 /** order by sum() on columns of table "route.route" */
 export type RouteRouteSumOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
-  variant?: Maybe<OrderBy>;
+  variant?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "route.route" */
@@ -6293,19 +6336,19 @@ export enum RouteRouteUpdateColumn {
 
 export type RouteRouteUpdates = {
   /** append existing jsonb value of filtered columns with new jsonb value */
-  _append?: Maybe<RouteRouteAppendInput>;
+  _append?: InputMaybe<RouteRouteAppendInput>;
   /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-  _delete_at_path?: Maybe<RouteRouteDeleteAtPathInput>;
+  _delete_at_path?: InputMaybe<RouteRouteDeleteAtPathInput>;
   /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-  _delete_elem?: Maybe<RouteRouteDeleteElemInput>;
+  _delete_elem?: InputMaybe<RouteRouteDeleteElemInput>;
   /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-  _delete_key?: Maybe<RouteRouteDeleteKeyInput>;
+  _delete_key?: InputMaybe<RouteRouteDeleteKeyInput>;
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: Maybe<RouteRouteIncInput>;
+  _inc?: InputMaybe<RouteRouteIncInput>;
   /** prepend existing jsonb value of filtered columns with new jsonb value */
-  _prepend?: Maybe<RouteRoutePrependInput>;
+  _prepend?: InputMaybe<RouteRoutePrependInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<RouteRouteSetInput>;
+  _set?: InputMaybe<RouteRouteSetInput>;
   where: RouteRouteBoolExp;
 };
 
@@ -6321,9 +6364,9 @@ export type RouteRouteVarPopFields = {
 /** order by var_pop() on columns of table "route.route" */
 export type RouteRouteVarPopOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
-  variant?: Maybe<OrderBy>;
+  variant?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
@@ -6338,9 +6381,9 @@ export type RouteRouteVarSampFields = {
 /** order by var_samp() on columns of table "route.route" */
 export type RouteRouteVarSampOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
-  variant?: Maybe<OrderBy>;
+  variant?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
@@ -6355,9 +6398,9 @@ export type RouteRouteVarianceFields = {
 /** order by variance() on columns of table "route.route" */
 export type RouteRouteVarianceOrderBy = {
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
-  variant?: Maybe<OrderBy>;
+  variant?: InputMaybe<OrderBy>;
 };
 
 /** Type of line. https://www.transmodel-cen.eu/model/EARoot/EA2/EA1/EA3/EA491.htm */
@@ -6376,20 +6419,20 @@ export type RouteTypeOfLine = {
 
 /** Type of line. https://www.transmodel-cen.eu/model/EARoot/EA2/EA1/EA3/EA491.htm */
 export type RouteTypeOfLineLinesArgs = {
-  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteLineOrderBy>>;
-  where?: Maybe<RouteLineBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteLineOrderBy>>;
+  where?: InputMaybe<RouteLineBoolExp>;
 };
 
 /** Type of line. https://www.transmodel-cen.eu/model/EARoot/EA2/EA1/EA3/EA491.htm */
 export type RouteTypeOfLineLinesAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteLineOrderBy>>;
-  where?: Maybe<RouteLineBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteLineOrderBy>>;
+  where?: InputMaybe<RouteLineBoolExp>;
 };
 
 /** aggregated selection of "route.type_of_line" */
@@ -6409,20 +6452,20 @@ export type RouteTypeOfLineAggregateFields = {
 
 /** aggregate fields of "route.type_of_line" */
 export type RouteTypeOfLineAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<RouteTypeOfLineSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Boolean expression to filter rows from the table "route.type_of_line". All fields are combined with a logical 'AND'. */
 export type RouteTypeOfLineBoolExp = {
-  _and?: Maybe<Array<RouteTypeOfLineBoolExp>>;
-  _not?: Maybe<RouteTypeOfLineBoolExp>;
-  _or?: Maybe<Array<RouteTypeOfLineBoolExp>>;
-  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
-  lines?: Maybe<RouteLineBoolExp>;
-  lines_aggregate?: Maybe<RouteLineAggregateBoolExp>;
-  type_of_line?: Maybe<StringComparisonExp>;
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeBoolExp>;
+  _and?: InputMaybe<Array<RouteTypeOfLineBoolExp>>;
+  _not?: InputMaybe<RouteTypeOfLineBoolExp>;
+  _or?: InputMaybe<Array<RouteTypeOfLineBoolExp>>;
+  belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnumComparisonExp>;
+  lines?: InputMaybe<RouteLineBoolExp>;
+  lines_aggregate?: InputMaybe<RouteLineAggregateBoolExp>;
+  type_of_line?: InputMaybe<StringComparisonExp>;
+  vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 /** unique or primary key constraints on table "route.type_of_line" */
@@ -6458,20 +6501,20 @@ export enum RouteTypeOfLineEnum {
 
 /** Boolean expression to compare columns of type "route_type_of_line_enum". All fields are combined with logical 'AND'. */
 export type RouteTypeOfLineEnumComparisonExp = {
-  _eq?: Maybe<RouteTypeOfLineEnum>;
-  _in?: Maybe<Array<RouteTypeOfLineEnum>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _neq?: Maybe<RouteTypeOfLineEnum>;
-  _nin?: Maybe<Array<RouteTypeOfLineEnum>>;
+  _eq?: InputMaybe<RouteTypeOfLineEnum>;
+  _in?: InputMaybe<Array<RouteTypeOfLineEnum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<RouteTypeOfLineEnum>;
+  _nin?: InputMaybe<Array<RouteTypeOfLineEnum>>;
 };
 
 /** input type for inserting data into table "route.type_of_line" */
 export type RouteTypeOfLineInsertInput = {
-  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
-  lines?: Maybe<RouteLineArrRelInsertInput>;
+  belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
+  lines?: InputMaybe<RouteLineArrRelInsertInput>;
   /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
-  type_of_line?: Maybe<Scalars['String']>;
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeObjRelInsertInput>;
+  type_of_line?: InputMaybe<Scalars['String']>;
+  vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeObjRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -6501,22 +6544,22 @@ export type RouteTypeOfLineMutationResponse = {
 export type RouteTypeOfLineObjRelInsertInput = {
   data: RouteTypeOfLineInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<RouteTypeOfLineOnConflict>;
+  on_conflict?: InputMaybe<RouteTypeOfLineOnConflict>;
 };
 
 /** on_conflict condition type for table "route.type_of_line" */
 export type RouteTypeOfLineOnConflict = {
   constraint: RouteTypeOfLineConstraint;
   update_columns?: Array<RouteTypeOfLineUpdateColumn>;
-  where?: Maybe<RouteTypeOfLineBoolExp>;
+  where?: InputMaybe<RouteTypeOfLineBoolExp>;
 };
 
 /** Ordering options when selecting data from "route.type_of_line". */
 export type RouteTypeOfLineOrderBy = {
-  belonging_to_vehicle_mode?: Maybe<OrderBy>;
-  lines_aggregate?: Maybe<RouteLineAggregateOrderBy>;
-  type_of_line?: Maybe<OrderBy>;
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeOrderBy>;
+  belonging_to_vehicle_mode?: InputMaybe<OrderBy>;
+  lines_aggregate?: InputMaybe<RouteLineAggregateOrderBy>;
+  type_of_line?: InputMaybe<OrderBy>;
+  vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeOrderBy>;
 };
 
 /** primary key columns input for table: route.type_of_line */
@@ -6535,9 +6578,9 @@ export enum RouteTypeOfLineSelectColumn {
 
 /** input type for updating data in table "route.type_of_line" */
 export type RouteTypeOfLineSetInput = {
-  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+  belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
   /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
-  type_of_line?: Maybe<Scalars['String']>;
+  type_of_line?: InputMaybe<Scalars['String']>;
 };
 
 /** Streaming cursor of the table "route_type_of_line" */
@@ -6545,14 +6588,14 @@ export type RouteTypeOfLineStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: RouteTypeOfLineStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type RouteTypeOfLineStreamCursorValueInput = {
-  belonging_to_vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+  belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
   /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
-  type_of_line?: Maybe<Scalars['String']>;
+  type_of_line?: InputMaybe<Scalars['String']>;
 };
 
 /** update columns of table "route.type_of_line" */
@@ -6565,20 +6608,20 @@ export enum RouteTypeOfLineUpdateColumn {
 
 export type RouteTypeOfLineUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<RouteTypeOfLineSetInput>;
+  _set?: InputMaybe<RouteTypeOfLineSetInput>;
   where: RouteTypeOfLineBoolExp;
 };
 
 export type ServiceCalendarDayTypeActiveOnDayOfWeekAggregateBoolExp = {
-  count?: Maybe<ServiceCalendarDayTypeActiveOnDayOfWeekAggregateBoolExpCount>;
+  count?: InputMaybe<ServiceCalendarDayTypeActiveOnDayOfWeekAggregateBoolExpCount>;
 };
 
 export type ServiceCalendarDayTypeActiveOnDayOfWeekAggregateBoolExpCount = {
-  arguments?: Maybe<
+  arguments?: InputMaybe<
     Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
   >;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
   predicate: IntComparisonExp;
 };
 
@@ -6626,76 +6669,76 @@ export type ServicePatternScheduledStopPoint = {
 
 /** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointOtherLabelInstancesArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  distinct_on?: InputMaybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 /** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointOtherLabelInstancesAggregateArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  distinct_on?: InputMaybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 /** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
     >;
-    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+    where?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
 
 /** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
     >;
-    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+    where?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
 
 /** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>
     >;
-    where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+    where?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
   };
 
 /** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>
     >;
-    where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+    where?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
   };
 
 /** aggregated selection of "service_pattern.scheduled_stop_point" */
@@ -6706,13 +6749,13 @@ export type ServicePatternScheduledStopPointAggregate = {
 };
 
 export type ServicePatternScheduledStopPointAggregateBoolExp = {
-  count?: Maybe<ServicePatternScheduledStopPointAggregateBoolExpCount>;
+  count?: InputMaybe<ServicePatternScheduledStopPointAggregateBoolExpCount>;
 };
 
 export type ServicePatternScheduledStopPointAggregateBoolExpCount = {
-  arguments?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  arguments?: InputMaybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
   predicate: IntComparisonExp;
 };
 
@@ -6734,30 +6777,30 @@ export type ServicePatternScheduledStopPointAggregateFields = {
 
 /** aggregate fields of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointAggregateOrderBy = {
-  avg?: Maybe<ServicePatternScheduledStopPointAvgOrderBy>;
-  count?: Maybe<OrderBy>;
-  max?: Maybe<ServicePatternScheduledStopPointMaxOrderBy>;
-  min?: Maybe<ServicePatternScheduledStopPointMinOrderBy>;
-  stddev?: Maybe<ServicePatternScheduledStopPointStddevOrderBy>;
-  stddev_pop?: Maybe<ServicePatternScheduledStopPointStddevPopOrderBy>;
-  stddev_samp?: Maybe<ServicePatternScheduledStopPointStddevSampOrderBy>;
-  sum?: Maybe<ServicePatternScheduledStopPointSumOrderBy>;
-  var_pop?: Maybe<ServicePatternScheduledStopPointVarPopOrderBy>;
-  var_samp?: Maybe<ServicePatternScheduledStopPointVarSampOrderBy>;
-  variance?: Maybe<ServicePatternScheduledStopPointVarianceOrderBy>;
+  avg?: InputMaybe<ServicePatternScheduledStopPointAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<ServicePatternScheduledStopPointMaxOrderBy>;
+  min?: InputMaybe<ServicePatternScheduledStopPointMinOrderBy>;
+  stddev?: InputMaybe<ServicePatternScheduledStopPointStddevOrderBy>;
+  stddev_pop?: InputMaybe<ServicePatternScheduledStopPointStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<ServicePatternScheduledStopPointStddevSampOrderBy>;
+  sum?: InputMaybe<ServicePatternScheduledStopPointSumOrderBy>;
+  var_pop?: InputMaybe<ServicePatternScheduledStopPointVarPopOrderBy>;
+  var_samp?: InputMaybe<ServicePatternScheduledStopPointVarSampOrderBy>;
+  variance?: InputMaybe<ServicePatternScheduledStopPointVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointArrRelInsertInput = {
   data: Array<ServicePatternScheduledStopPointInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<ServicePatternScheduledStopPointOnConflict>;
+  on_conflict?: InputMaybe<ServicePatternScheduledStopPointOnConflict>;
 };
 
 /** aggregate avg on columns */
@@ -6768,33 +6811,33 @@ export type ServicePatternScheduledStopPointAvgFields = {
 
 /** order by avg() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointAvgOrderBy = {
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "service_pattern.scheduled_stop_point". All fields are combined with a logical 'AND'. */
 export type ServicePatternScheduledStopPointBoolExp = {
-  _and?: Maybe<Array<ServicePatternScheduledStopPointBoolExp>>;
-  _not?: Maybe<ServicePatternScheduledStopPointBoolExp>;
-  _or?: Maybe<Array<ServicePatternScheduledStopPointBoolExp>>;
-  closest_point_on_infrastructure_link?: Maybe<GeographyComparisonExp>;
-  direction?: Maybe<InfrastructureNetworkDirectionEnumComparisonExp>;
-  label?: Maybe<StringComparisonExp>;
-  located_on_infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
-  located_on_infrastructure_link_id?: Maybe<UuidComparisonExp>;
-  measured_location?: Maybe<GeographyComparisonExp>;
-  other_label_instances?: Maybe<ServicePatternScheduledStopPointBoolExp>;
-  other_label_instances_aggregate?: Maybe<ServicePatternScheduledStopPointAggregateBoolExp>;
-  priority?: Maybe<IntComparisonExp>;
-  relative_distance_from_infrastructure_link_start?: Maybe<Float8ComparisonExp>;
-  scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
-  scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
-  scheduled_stop_point_in_journey_patterns_aggregate?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExp>;
-  timing_place?: Maybe<TimingPatternTimingPlaceBoolExp>;
-  timing_place_id?: Maybe<UuidComparisonExp>;
-  validity_end?: Maybe<DateComparisonExp>;
-  validity_start?: Maybe<DateComparisonExp>;
-  vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
-  vehicle_mode_on_scheduled_stop_point_aggregate?: Maybe<ServicePatternVehicleModeOnScheduledStopPointAggregateBoolExp>;
+  _and?: InputMaybe<Array<ServicePatternScheduledStopPointBoolExp>>;
+  _not?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
+  _or?: InputMaybe<Array<ServicePatternScheduledStopPointBoolExp>>;
+  closest_point_on_infrastructure_link?: InputMaybe<GeographyComparisonExp>;
+  direction?: InputMaybe<InfrastructureNetworkDirectionEnumComparisonExp>;
+  label?: InputMaybe<StringComparisonExp>;
+  located_on_infrastructure_link?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  located_on_infrastructure_link_id?: InputMaybe<UuidComparisonExp>;
+  measured_location?: InputMaybe<GeographyComparisonExp>;
+  other_label_instances?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
+  other_label_instances_aggregate?: InputMaybe<ServicePatternScheduledStopPointAggregateBoolExp>;
+  priority?: InputMaybe<IntComparisonExp>;
+  relative_distance_from_infrastructure_link_start?: InputMaybe<Float8ComparisonExp>;
+  scheduled_stop_point_id?: InputMaybe<UuidComparisonExp>;
+  scheduled_stop_point_in_journey_patterns?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+  scheduled_stop_point_in_journey_patterns_aggregate?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExp>;
+  timing_place?: InputMaybe<TimingPatternTimingPlaceBoolExp>;
+  timing_place_id?: InputMaybe<UuidComparisonExp>;
+  validity_end?: InputMaybe<DateComparisonExp>;
+  validity_start?: InputMaybe<DateComparisonExp>;
+  vehicle_mode_on_scheduled_stop_point?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+  vehicle_mode_on_scheduled_stop_point_aggregate?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointAggregateBoolExp>;
 };
 
 /** unique or primary key constraints on table "service_pattern.scheduled_stop_point" */
@@ -6805,22 +6848,22 @@ export enum ServicePatternScheduledStopPointConstraint {
 
 export type ServicePatternScheduledStopPointInJourneyPatternRefAggregateBoolExp =
   {
-    count?: Maybe<ServicePatternScheduledStopPointInJourneyPatternRefAggregateBoolExpCount>;
+    count?: InputMaybe<ServicePatternScheduledStopPointInJourneyPatternRefAggregateBoolExpCount>;
   };
 
 export type ServicePatternScheduledStopPointInJourneyPatternRefAggregateBoolExpCount =
   {
-    arguments?: Maybe<
+    arguments?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectColumn>
     >;
-    distinct?: Maybe<Scalars['Boolean']>;
-    filter?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
+    filter?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
     predicate: IntComparisonExp;
   };
 
 /** input type for incrementing numeric columns in table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointIncInput = {
-  priority?: Maybe<Scalars['Int']>;
+  priority?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "service_pattern.scheduled_stop_point" */
@@ -6829,24 +6872,24 @@ export type ServicePatternScheduledStopPointInsertInput = {
   direction: InfrastructureNetworkDirectionEnum;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   label: Scalars['String'];
-  located_on_infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
+  located_on_infrastructure_link?: InputMaybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
   /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id: Scalars['uuid'];
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location: Scalars['geography_point'];
-  other_label_instances?: Maybe<ServicePatternScheduledStopPointArrRelInsertInput>;
+  other_label_instances?: InputMaybe<ServicePatternScheduledStopPointArrRelInsertInput>;
   priority: Scalars['Int'];
   /** The ID of the scheduled stop point. */
-  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
-  scheduled_stop_point_in_journey_patterns?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
-  timing_place?: Maybe<TimingPatternTimingPlaceObjRelInsertInput>;
+  scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
+  scheduled_stop_point_in_journey_patterns?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
+  timing_place?: InputMaybe<TimingPatternTimingPlaceObjRelInsertInput>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
-  timing_place_id?: Maybe<Scalars['uuid']>;
+  timing_place_id?: InputMaybe<Scalars['uuid']>;
   /** end of the operating date span in the scheduled stop point's local time */
-  validity_end?: Maybe<Scalars['date']>;
+  validity_end?: InputMaybe<Scalars['date']>;
   /** end of the route's operating date span in the route's local time */
-  validity_start?: Maybe<Scalars['date']>;
-  vehicle_mode_on_scheduled_stop_point?: Maybe<ServicePatternVehicleModeOnScheduledStopPointArrRelInsertInput>;
+  validity_start?: InputMaybe<Scalars['date']>;
+  vehicle_mode_on_scheduled_stop_point?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -6870,18 +6913,18 @@ export type ServicePatternScheduledStopPointMaxFields = {
 /** order by max() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointMaxOrderBy = {
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
-  label?: Maybe<OrderBy>;
+  label?: InputMaybe<OrderBy>;
   /** The infrastructure link on which the stop is located. */
-  located_on_infrastructure_link_id?: Maybe<OrderBy>;
-  priority?: Maybe<OrderBy>;
+  located_on_infrastructure_link_id?: InputMaybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The ID of the scheduled stop point. */
-  scheduled_stop_point_id?: Maybe<OrderBy>;
+  scheduled_stop_point_id?: InputMaybe<OrderBy>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
-  timing_place_id?: Maybe<OrderBy>;
+  timing_place_id?: InputMaybe<OrderBy>;
   /** end of the operating date span in the scheduled stop point's local time */
-  validity_end?: Maybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
   /** end of the route's operating date span in the route's local time */
-  validity_start?: Maybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -6905,18 +6948,18 @@ export type ServicePatternScheduledStopPointMinFields = {
 /** order by min() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointMinOrderBy = {
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
-  label?: Maybe<OrderBy>;
+  label?: InputMaybe<OrderBy>;
   /** The infrastructure link on which the stop is located. */
-  located_on_infrastructure_link_id?: Maybe<OrderBy>;
-  priority?: Maybe<OrderBy>;
+  located_on_infrastructure_link_id?: InputMaybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   /** The ID of the scheduled stop point. */
-  scheduled_stop_point_id?: Maybe<OrderBy>;
+  scheduled_stop_point_id?: InputMaybe<OrderBy>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
-  timing_place_id?: Maybe<OrderBy>;
+  timing_place_id?: InputMaybe<OrderBy>;
   /** end of the operating date span in the scheduled stop point's local time */
-  validity_end?: Maybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
   /** end of the route's operating date span in the route's local time */
-  validity_start?: Maybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "service_pattern.scheduled_stop_point" */
@@ -6932,27 +6975,27 @@ export type ServicePatternScheduledStopPointMutationResponse = {
 export type ServicePatternScheduledStopPointOnConflict = {
   constraint: ServicePatternScheduledStopPointConstraint;
   update_columns?: Array<ServicePatternScheduledStopPointUpdateColumn>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 /** Ordering options when selecting data from "service_pattern.scheduled_stop_point". */
 export type ServicePatternScheduledStopPointOrderBy = {
-  closest_point_on_infrastructure_link?: Maybe<OrderBy>;
-  direction?: Maybe<OrderBy>;
-  label?: Maybe<OrderBy>;
-  located_on_infrastructure_link?: Maybe<InfrastructureNetworkInfrastructureLinkOrderBy>;
-  located_on_infrastructure_link_id?: Maybe<OrderBy>;
-  measured_location?: Maybe<OrderBy>;
-  other_label_instances_aggregate?: Maybe<ServicePatternScheduledStopPointAggregateOrderBy>;
-  priority?: Maybe<OrderBy>;
-  relative_distance_from_infrastructure_link_start?: Maybe<OrderBy>;
-  scheduled_stop_point_id?: Maybe<OrderBy>;
-  scheduled_stop_point_in_journey_patterns_aggregate?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy>;
-  timing_place?: Maybe<TimingPatternTimingPlaceOrderBy>;
-  timing_place_id?: Maybe<OrderBy>;
-  validity_end?: Maybe<OrderBy>;
-  validity_start?: Maybe<OrderBy>;
-  vehicle_mode_on_scheduled_stop_point_aggregate?: Maybe<ServicePatternVehicleModeOnScheduledStopPointAggregateOrderBy>;
+  closest_point_on_infrastructure_link?: InputMaybe<OrderBy>;
+  direction?: InputMaybe<OrderBy>;
+  label?: InputMaybe<OrderBy>;
+  located_on_infrastructure_link?: InputMaybe<InfrastructureNetworkInfrastructureLinkOrderBy>;
+  located_on_infrastructure_link_id?: InputMaybe<OrderBy>;
+  measured_location?: InputMaybe<OrderBy>;
+  other_label_instances_aggregate?: InputMaybe<ServicePatternScheduledStopPointAggregateOrderBy>;
+  priority?: InputMaybe<OrderBy>;
+  relative_distance_from_infrastructure_link_start?: InputMaybe<OrderBy>;
+  scheduled_stop_point_id?: InputMaybe<OrderBy>;
+  scheduled_stop_point_in_journey_patterns_aggregate?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy>;
+  timing_place?: InputMaybe<TimingPatternTimingPlaceOrderBy>;
+  timing_place_id?: InputMaybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
+  vehicle_mode_on_scheduled_stop_point_aggregate?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointAggregateOrderBy>;
 };
 
 /** primary key columns input for table: service_pattern.scheduled_stop_point */
@@ -6986,22 +7029,22 @@ export enum ServicePatternScheduledStopPointSelectColumn {
 /** input type for updating data in table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointSetInput = {
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction?: Maybe<InfrastructureNetworkDirectionEnum>;
+  direction?: InputMaybe<InfrastructureNetworkDirectionEnum>;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
-  label?: Maybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
   /** The infrastructure link on which the stop is located. */
-  located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  located_on_infrastructure_link_id?: InputMaybe<Scalars['uuid']>;
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
-  measured_location?: Maybe<Scalars['geography_point']>;
-  priority?: Maybe<Scalars['Int']>;
+  measured_location?: InputMaybe<Scalars['geography_point']>;
+  priority?: InputMaybe<Scalars['Int']>;
   /** The ID of the scheduled stop point. */
-  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
-  timing_place_id?: Maybe<Scalars['uuid']>;
+  timing_place_id?: InputMaybe<Scalars['uuid']>;
   /** end of the operating date span in the scheduled stop point's local time */
-  validity_end?: Maybe<Scalars['date']>;
+  validity_end?: InputMaybe<Scalars['date']>;
   /** end of the route's operating date span in the route's local time */
-  validity_start?: Maybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
 };
 
 /** aggregate stddev on columns */
@@ -7012,7 +7055,7 @@ export type ServicePatternScheduledStopPointStddevFields = {
 
 /** order by stddev() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointStddevOrderBy = {
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -7023,7 +7066,7 @@ export type ServicePatternScheduledStopPointStddevPopFields = {
 
 /** order by stddev_pop() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointStddevPopOrderBy = {
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -7034,7 +7077,7 @@ export type ServicePatternScheduledStopPointStddevSampFields = {
 
 /** order by stddev_samp() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointStddevSampOrderBy = {
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "service_pattern_scheduled_stop_point" */
@@ -7042,28 +7085,28 @@ export type ServicePatternScheduledStopPointStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: ServicePatternScheduledStopPointStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type ServicePatternScheduledStopPointStreamCursorValueInput = {
   /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
-  direction?: Maybe<InfrastructureNetworkDirectionEnum>;
+  direction?: InputMaybe<InfrastructureNetworkDirectionEnum>;
   /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
-  label?: Maybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
   /** The infrastructure link on which the stop is located. */
-  located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
+  located_on_infrastructure_link_id?: InputMaybe<Scalars['uuid']>;
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
-  measured_location?: Maybe<Scalars['geography']>;
-  priority?: Maybe<Scalars['Int']>;
+  measured_location?: InputMaybe<Scalars['geography']>;
+  priority?: InputMaybe<Scalars['Int']>;
   /** The ID of the scheduled stop point. */
-  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
-  timing_place_id?: Maybe<Scalars['uuid']>;
+  timing_place_id?: InputMaybe<Scalars['uuid']>;
   /** end of the operating date span in the scheduled stop point's local time */
-  validity_end?: Maybe<Scalars['date']>;
+  validity_end?: InputMaybe<Scalars['date']>;
   /** end of the route's operating date span in the route's local time */
-  validity_start?: Maybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
 };
 
 /** aggregate sum on columns */
@@ -7074,7 +7117,7 @@ export type ServicePatternScheduledStopPointSumFields = {
 
 /** order by sum() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointSumOrderBy = {
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "service_pattern.scheduled_stop_point" */
@@ -7101,9 +7144,9 @@ export enum ServicePatternScheduledStopPointUpdateColumn {
 
 export type ServicePatternScheduledStopPointUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: Maybe<ServicePatternScheduledStopPointIncInput>;
+  _inc?: InputMaybe<ServicePatternScheduledStopPointIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<ServicePatternScheduledStopPointSetInput>;
+  _set?: InputMaybe<ServicePatternScheduledStopPointSetInput>;
   where: ServicePatternScheduledStopPointBoolExp;
 };
 
@@ -7115,7 +7158,7 @@ export type ServicePatternScheduledStopPointVarPopFields = {
 
 /** order by var_pop() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointVarPopOrderBy = {
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
@@ -7126,7 +7169,7 @@ export type ServicePatternScheduledStopPointVarSampFields = {
 
 /** order by var_samp() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointVarSampOrderBy = {
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
@@ -7137,7 +7180,7 @@ export type ServicePatternScheduledStopPointVarianceFields = {
 
 /** order by variance() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointVarianceOrderBy = {
-  priority?: Maybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
 };
 
 /** Which scheduled stop points are serviced by which vehicle modes? */
@@ -7157,16 +7200,16 @@ export type ServicePatternVehicleModeOnScheduledStopPointAggregate = {
 };
 
 export type ServicePatternVehicleModeOnScheduledStopPointAggregateBoolExp = {
-  count?: Maybe<ServicePatternVehicleModeOnScheduledStopPointAggregateBoolExpCount>;
+  count?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointAggregateBoolExpCount>;
 };
 
 export type ServicePatternVehicleModeOnScheduledStopPointAggregateBoolExpCount =
   {
-    arguments?: Maybe<
+    arguments?: InputMaybe<
       Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
     >;
-    distinct?: Maybe<Scalars['Boolean']>;
-    filter?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
+    filter?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
     predicate: IntComparisonExp;
   };
 
@@ -7181,33 +7224,35 @@ export type ServicePatternVehicleModeOnScheduledStopPointAggregateFields = {
 /** aggregate fields of "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPointAggregateFieldsCountArgs =
   {
-    columns?: Maybe<
+    columns?: InputMaybe<
       Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
     >;
-    distinct?: Maybe<Scalars['Boolean']>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
   };
 
 /** order by aggregate values of table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPointAggregateOrderBy = {
-  count?: Maybe<OrderBy>;
-  max?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMaxOrderBy>;
-  min?: Maybe<ServicePatternVehicleModeOnScheduledStopPointMinOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointMaxOrderBy>;
+  min?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointMinOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPointArrRelInsertInput = {
   data: Array<ServicePatternVehicleModeOnScheduledStopPointInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
+  on_conflict?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "service_pattern.vehicle_mode_on_scheduled_stop_point". All fields are combined with a logical 'AND'. */
 export type ServicePatternVehicleModeOnScheduledStopPointBoolExp = {
-  _and?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointBoolExp>>;
-  _not?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
-  _or?: Maybe<Array<ServicePatternVehicleModeOnScheduledStopPointBoolExp>>;
-  scheduled_stop_point_id?: Maybe<UuidComparisonExp>;
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnumComparisonExp>;
+  _and?: InputMaybe<
+    Array<ServicePatternVehicleModeOnScheduledStopPointBoolExp>
+  >;
+  _not?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+  _or?: InputMaybe<Array<ServicePatternVehicleModeOnScheduledStopPointBoolExp>>;
+  scheduled_stop_point_id?: InputMaybe<UuidComparisonExp>;
+  vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnumComparisonExp>;
 };
 
 /** unique or primary key constraints on table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
@@ -7219,9 +7264,9 @@ export enum ServicePatternVehicleModeOnScheduledStopPointConstraint {
 /** input type for inserting data into table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPointInsertInput = {
   /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
   /** The vehicle mode servicing the scheduled stop point. */
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+  vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
 };
 
 /** aggregate max on columns */
@@ -7234,7 +7279,7 @@ export type ServicePatternVehicleModeOnScheduledStopPointMaxFields = {
 /** order by max() on columns of table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPointMaxOrderBy = {
   /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id?: Maybe<OrderBy>;
+  scheduled_stop_point_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -7247,7 +7292,7 @@ export type ServicePatternVehicleModeOnScheduledStopPointMinFields = {
 /** order by min() on columns of table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPointMinOrderBy = {
   /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id?: Maybe<OrderBy>;
+  scheduled_stop_point_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
@@ -7263,13 +7308,13 @@ export type ServicePatternVehicleModeOnScheduledStopPointMutationResponse = {
 export type ServicePatternVehicleModeOnScheduledStopPointOnConflict = {
   constraint: ServicePatternVehicleModeOnScheduledStopPointConstraint;
   update_columns?: Array<ServicePatternVehicleModeOnScheduledStopPointUpdateColumn>;
-  where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+  where?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
 };
 
 /** Ordering options when selecting data from "service_pattern.vehicle_mode_on_scheduled_stop_point". */
 export type ServicePatternVehicleModeOnScheduledStopPointOrderBy = {
-  scheduled_stop_point_id?: Maybe<OrderBy>;
-  vehicle_mode?: Maybe<OrderBy>;
+  scheduled_stop_point_id?: InputMaybe<OrderBy>;
+  vehicle_mode?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: service_pattern.vehicle_mode_on_scheduled_stop_point */
@@ -7291,9 +7336,9 @@ export enum ServicePatternVehicleModeOnScheduledStopPointSelectColumn {
 /** input type for updating data in table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPointSetInput = {
   /** The scheduled stop point that is serviced by the vehicle mode. */
-  scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
   /** The vehicle mode servicing the scheduled stop point. */
-  vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+  vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
 };
 
 /** Streaming cursor of the table "service_pattern_vehicle_mode_on_scheduled_stop_point" */
@@ -7301,16 +7346,16 @@ export type ServicePatternVehicleModeOnScheduledStopPointStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: ServicePatternVehicleModeOnScheduledStopPointStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type ServicePatternVehicleModeOnScheduledStopPointStreamCursorValueInput =
   {
     /** The scheduled stop point that is serviced by the vehicle mode. */
-    scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+    scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
     /** The vehicle mode servicing the scheduled stop point. */
-    vehicle_mode?: Maybe<ReusableComponentsVehicleModeEnum>;
+    vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
   };
 
 /** update columns of table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
@@ -7323,27 +7368,27 @@ export enum ServicePatternVehicleModeOnScheduledStopPointUpdateColumn {
 
 export type ServicePatternVehicleModeOnScheduledStopPointUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
+  _set?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointSetInput>;
   where: ServicePatternVehicleModeOnScheduledStopPointBoolExp;
 };
 
 /** Boolean expression to compare columns of type "smallint". All fields are combined with logical 'AND'. */
 export type SmallintComparisonExp = {
-  _eq?: Maybe<Scalars['smallint']>;
-  _gt?: Maybe<Scalars['smallint']>;
-  _gte?: Maybe<Scalars['smallint']>;
-  _in?: Maybe<Array<Scalars['smallint']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['smallint']>;
-  _lte?: Maybe<Scalars['smallint']>;
-  _neq?: Maybe<Scalars['smallint']>;
-  _nin?: Maybe<Array<Scalars['smallint']>>;
+  _eq?: InputMaybe<Scalars['smallint']>;
+  _gt?: InputMaybe<Scalars['smallint']>;
+  _gte?: InputMaybe<Scalars['smallint']>;
+  _in?: InputMaybe<Array<Scalars['smallint']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['smallint']>;
+  _lte?: InputMaybe<Scalars['smallint']>;
+  _neq?: InputMaybe<Scalars['smallint']>;
+  _nin?: InputMaybe<Array<Scalars['smallint']>>;
 };
 
 export type StDWithinGeographyInput = {
   distance: Scalars['Float'];
   from: Scalars['geography'];
-  use_spheroid?: Maybe<Scalars['Boolean']>;
+  use_spheroid?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type StDWithinInput = {
@@ -7505,19 +7550,19 @@ export type SubscriptionRoot = {
 };
 
 export type SubscriptionRootHslRouteTransportTargetArgs = {
-  distinct_on?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<HslRouteTransportTargetOrderBy>>;
-  where?: Maybe<HslRouteTransportTargetBoolExp>;
+  distinct_on?: InputMaybe<Array<HslRouteTransportTargetSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<HslRouteTransportTargetOrderBy>>;
+  where?: InputMaybe<HslRouteTransportTargetBoolExp>;
 };
 
 export type SubscriptionRootHslRouteTransportTargetAggregateArgs = {
-  distinct_on?: Maybe<Array<HslRouteTransportTargetSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<HslRouteTransportTargetOrderBy>>;
-  where?: Maybe<HslRouteTransportTargetBoolExp>;
+  distinct_on?: InputMaybe<Array<HslRouteTransportTargetSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<HslRouteTransportTargetOrderBy>>;
+  where?: InputMaybe<HslRouteTransportTargetBoolExp>;
 };
 
 export type SubscriptionRootHslRouteTransportTargetByPkArgs = {
@@ -7526,24 +7571,24 @@ export type SubscriptionRootHslRouteTransportTargetByPkArgs = {
 
 export type SubscriptionRootHslRouteTransportTargetStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<HslRouteTransportTargetStreamCursorInput>>;
-  where?: Maybe<HslRouteTransportTargetBoolExp>;
+  cursor: Array<InputMaybe<HslRouteTransportTargetStreamCursorInput>>;
+  where?: InputMaybe<HslRouteTransportTargetBoolExp>;
 };
 
 export type SubscriptionRootInfrastructureNetworkDirectionArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
-  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+  distinct_on?: InputMaybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
 export type SubscriptionRootInfrastructureNetworkDirectionAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
-  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+  distinct_on?: InputMaybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
 export type SubscriptionRootInfrastructureNetworkDirectionByPkArgs = {
@@ -7552,24 +7597,28 @@ export type SubscriptionRootInfrastructureNetworkDirectionByPkArgs = {
 
 export type SubscriptionRootInfrastructureNetworkDirectionStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<InfrastructureNetworkDirectionStreamCursorInput>>;
-  where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+  cursor: Array<InputMaybe<InfrastructureNetworkDirectionStreamCursorInput>>;
+  where?: InputMaybe<InfrastructureNetworkDirectionBoolExp>;
 };
 
 export type SubscriptionRootInfrastructureNetworkExternalSourceArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkExternalSourceOrderBy>>;
-  where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
+  distinct_on?: InputMaybe<
+    Array<InfrastructureNetworkExternalSourceSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkExternalSourceOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
 export type SubscriptionRootInfrastructureNetworkExternalSourceAggregateArgs = {
-  distinct_on?: Maybe<Array<InfrastructureNetworkExternalSourceSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkExternalSourceOrderBy>>;
-  where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
+  distinct_on?: InputMaybe<
+    Array<InfrastructureNetworkExternalSourceSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkExternalSourceOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
 export type SubscriptionRootInfrastructureNetworkExternalSourceByPkArgs = {
@@ -7578,49 +7627,53 @@ export type SubscriptionRootInfrastructureNetworkExternalSourceByPkArgs = {
 
 export type SubscriptionRootInfrastructureNetworkExternalSourceStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<InfrastructureNetworkExternalSourceStreamCursorInput>>;
-  where?: Maybe<InfrastructureNetworkExternalSourceBoolExp>;
+  cursor: Array<
+    InputMaybe<InfrastructureNetworkExternalSourceStreamCursorInput>
+  >;
+  where?: InputMaybe<InfrastructureNetworkExternalSourceBoolExp>;
 };
 
 export type SubscriptionRootInfrastructureNetworkFindPointDirectionOnLinkArgs =
   {
     args: InfrastructureNetworkFindPointDirectionOnLinkArgs;
-    distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
-    where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+    distinct_on?: InputMaybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+    where?: InputMaybe<InfrastructureNetworkDirectionBoolExp>;
   };
 
 export type SubscriptionRootInfrastructureNetworkFindPointDirectionOnLinkAggregateArgs =
   {
     args: InfrastructureNetworkFindPointDirectionOnLinkArgs;
-    distinct_on?: Maybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<InfrastructureNetworkDirectionOrderBy>>;
-    where?: Maybe<InfrastructureNetworkDirectionBoolExp>;
+    distinct_on?: InputMaybe<Array<InfrastructureNetworkDirectionSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<InfrastructureNetworkDirectionOrderBy>>;
+    where?: InputMaybe<InfrastructureNetworkDirectionBoolExp>;
   };
 
 export type SubscriptionRootInfrastructureNetworkInfrastructureLinkArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-  where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
+  where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
 };
 
 export type SubscriptionRootInfrastructureNetworkInfrastructureLinkAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-    where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<InfrastructureNetworkInfrastructureLinkOrderBy>
+    >;
+    where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   };
 
 export type SubscriptionRootInfrastructureNetworkInfrastructureLinkByPkArgs = {
@@ -7631,59 +7684,63 @@ export type SubscriptionRootInfrastructureNetworkInfrastructureLinkStreamArgs =
   {
     batch_size: Scalars['Int'];
     cursor: Array<
-      Maybe<InfrastructureNetworkInfrastructureLinkStreamCursorInput>
+      InputMaybe<InfrastructureNetworkInfrastructureLinkStreamCursorInput>
     >;
-    where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   };
 
 export type SubscriptionRootInfrastructureNetworkResolvePointToClosestLinkArgs =
   {
     args: InfrastructureNetworkResolvePointToClosestLinkArgs;
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-    where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<InfrastructureNetworkInfrastructureLinkOrderBy>
+    >;
+    where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   };
 
 export type SubscriptionRootInfrastructureNetworkResolvePointToClosestLinkAggregateArgs =
   {
     args: InfrastructureNetworkResolvePointToClosestLinkArgs;
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<InfrastructureNetworkInfrastructureLinkOrderBy>>;
-    where?: Maybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<InfrastructureNetworkInfrastructureLinkOrderBy>
+    >;
+    where?: InputMaybe<InfrastructureNetworkInfrastructureLinkBoolExp>;
   };
 
 export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
     >;
-    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   };
 
 export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy>
     >;
-    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   };
 
 export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureLinkByPkArgs =
@@ -7696,45 +7753,45 @@ export type SubscriptionRootInfrastructureNetworkVehicleSubmodeOnInfrastructureL
   {
     batch_size: Scalars['Int'];
     cursor: Array<
-      Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkStreamCursorInput>
+      InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkStreamCursorInput>
     >;
-    where?: Maybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
+    where?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkBoolExp>;
   };
 
 export type SubscriptionRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs =
   {
     args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
-    distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-    where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+    distinct_on?: InputMaybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+    where?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
   };
 
 export type SubscriptionRootJourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointAggregateArgs =
   {
     args: JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs;
-    distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-    where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+    distinct_on?: InputMaybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+    where?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
   };
 
 export type SubscriptionRootJourneyPatternJourneyPatternArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  distinct_on?: InputMaybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 export type SubscriptionRootJourneyPatternJourneyPatternAggregateArgs = {
-  distinct_on?: Maybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<JourneyPatternJourneyPatternOrderBy>>;
-  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  distinct_on?: InputMaybe<Array<JourneyPatternJourneyPatternSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<JourneyPatternJourneyPatternOrderBy>>;
+  where?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 export type SubscriptionRootJourneyPatternJourneyPatternByPkArgs = {
@@ -7743,34 +7800,34 @@ export type SubscriptionRootJourneyPatternJourneyPatternByPkArgs = {
 
 export type SubscriptionRootJourneyPatternJourneyPatternStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<JourneyPatternJourneyPatternStreamCursorInput>>;
-  where?: Maybe<JourneyPatternJourneyPatternBoolExp>;
+  cursor: Array<InputMaybe<JourneyPatternJourneyPatternStreamCursorInput>>;
+  where?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
 };
 
 export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
     >;
-    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+    where?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
 
 export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<JourneyPatternScheduledStopPointInJourneyPatternOrderBy>
     >;
-    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+    where?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
 
 export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs =
@@ -7783,25 +7840,25 @@ export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternStre
   {
     batch_size: Scalars['Int'];
     cursor: Array<
-      Maybe<JourneyPatternScheduledStopPointInJourneyPatternStreamCursorInput>
+      InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternStreamCursorInput>
     >;
-    where?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+    where?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
 
 export type SubscriptionRootReusableComponentsVehicleModeArgs = {
-  distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ReusableComponentsVehicleModeOrderBy>>;
-  where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
+  distinct_on?: InputMaybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ReusableComponentsVehicleModeOrderBy>>;
+  where?: InputMaybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 export type SubscriptionRootReusableComponentsVehicleModeAggregateArgs = {
-  distinct_on?: Maybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ReusableComponentsVehicleModeOrderBy>>;
-  where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
+  distinct_on?: InputMaybe<Array<ReusableComponentsVehicleModeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ReusableComponentsVehicleModeOrderBy>>;
+  where?: InputMaybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 export type SubscriptionRootReusableComponentsVehicleModeByPkArgs = {
@@ -7810,24 +7867,24 @@ export type SubscriptionRootReusableComponentsVehicleModeByPkArgs = {
 
 export type SubscriptionRootReusableComponentsVehicleModeStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<ReusableComponentsVehicleModeStreamCursorInput>>;
-  where?: Maybe<ReusableComponentsVehicleModeBoolExp>;
+  cursor: Array<InputMaybe<ReusableComponentsVehicleModeStreamCursorInput>>;
+  where?: InputMaybe<ReusableComponentsVehicleModeBoolExp>;
 };
 
 export type SubscriptionRootReusableComponentsVehicleSubmodeArgs = {
-  distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
-  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  distinct_on?: InputMaybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
+  where?: InputMaybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 export type SubscriptionRootReusableComponentsVehicleSubmodeAggregateArgs = {
-  distinct_on?: Maybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
-  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  distinct_on?: InputMaybe<Array<ReusableComponentsVehicleSubmodeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ReusableComponentsVehicleSubmodeOrderBy>>;
+  where?: InputMaybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 export type SubscriptionRootReusableComponentsVehicleSubmodeByPkArgs = {
@@ -7836,24 +7893,24 @@ export type SubscriptionRootReusableComponentsVehicleSubmodeByPkArgs = {
 
 export type SubscriptionRootReusableComponentsVehicleSubmodeStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<ReusableComponentsVehicleSubmodeStreamCursorInput>>;
-  where?: Maybe<ReusableComponentsVehicleSubmodeBoolExp>;
+  cursor: Array<InputMaybe<ReusableComponentsVehicleSubmodeStreamCursorInput>>;
+  where?: InputMaybe<ReusableComponentsVehicleSubmodeBoolExp>;
 };
 
 export type SubscriptionRootRouteDirectionArgs = {
-  distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteDirectionOrderBy>>;
-  where?: Maybe<RouteDirectionBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteDirectionOrderBy>>;
+  where?: InputMaybe<RouteDirectionBoolExp>;
 };
 
 export type SubscriptionRootRouteDirectionAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteDirectionSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteDirectionOrderBy>>;
-  where?: Maybe<RouteDirectionBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteDirectionOrderBy>>;
+  where?: InputMaybe<RouteDirectionBoolExp>;
 };
 
 export type SubscriptionRootRouteDirectionByPkArgs = {
@@ -7862,24 +7919,28 @@ export type SubscriptionRootRouteDirectionByPkArgs = {
 
 export type SubscriptionRootRouteDirectionStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<RouteDirectionStreamCursorInput>>;
-  where?: Maybe<RouteDirectionBoolExp>;
+  cursor: Array<InputMaybe<RouteDirectionStreamCursorInput>>;
+  where?: InputMaybe<RouteDirectionBoolExp>;
 };
 
 export type SubscriptionRootRouteInfrastructureLinkAlongRouteArgs = {
-  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
-  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  distinct_on?: InputMaybe<
+    Array<RouteInfrastructureLinkAlongRouteSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 export type SubscriptionRootRouteInfrastructureLinkAlongRouteAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteInfrastructureLinkAlongRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
-  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  distinct_on?: InputMaybe<
+    Array<RouteInfrastructureLinkAlongRouteSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteInfrastructureLinkAlongRouteOrderBy>>;
+  where?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 export type SubscriptionRootRouteInfrastructureLinkAlongRouteByPkArgs = {
@@ -7889,24 +7950,24 @@ export type SubscriptionRootRouteInfrastructureLinkAlongRouteByPkArgs = {
 
 export type SubscriptionRootRouteInfrastructureLinkAlongRouteStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<RouteInfrastructureLinkAlongRouteStreamCursorInput>>;
-  where?: Maybe<RouteInfrastructureLinkAlongRouteBoolExp>;
+  cursor: Array<InputMaybe<RouteInfrastructureLinkAlongRouteStreamCursorInput>>;
+  where?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
 };
 
 export type SubscriptionRootRouteLineArgs = {
-  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteLineOrderBy>>;
-  where?: Maybe<RouteLineBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteLineOrderBy>>;
+  where?: InputMaybe<RouteLineBoolExp>;
 };
 
 export type SubscriptionRootRouteLineAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteLineSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteLineOrderBy>>;
-  where?: Maybe<RouteLineBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteLineOrderBy>>;
+  where?: InputMaybe<RouteLineBoolExp>;
 };
 
 export type SubscriptionRootRouteLineByPkArgs = {
@@ -7915,24 +7976,24 @@ export type SubscriptionRootRouteLineByPkArgs = {
 
 export type SubscriptionRootRouteLineStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<RouteLineStreamCursorInput>>;
-  where?: Maybe<RouteLineBoolExp>;
+  cursor: Array<InputMaybe<RouteLineStreamCursorInput>>;
+  where?: InputMaybe<RouteLineBoolExp>;
 };
 
 export type SubscriptionRootRouteRouteArgs = {
-  distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteRouteOrderBy>>;
-  where?: Maybe<RouteRouteBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteRouteSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteRouteOrderBy>>;
+  where?: InputMaybe<RouteRouteBoolExp>;
 };
 
 export type SubscriptionRootRouteRouteAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteRouteSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteRouteOrderBy>>;
-  where?: Maybe<RouteRouteBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteRouteSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteRouteOrderBy>>;
+  where?: InputMaybe<RouteRouteBoolExp>;
 };
 
 export type SubscriptionRootRouteRouteByPkArgs = {
@@ -7941,24 +8002,24 @@ export type SubscriptionRootRouteRouteByPkArgs = {
 
 export type SubscriptionRootRouteRouteStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<RouteRouteStreamCursorInput>>;
-  where?: Maybe<RouteRouteBoolExp>;
+  cursor: Array<InputMaybe<RouteRouteStreamCursorInput>>;
+  where?: InputMaybe<RouteRouteBoolExp>;
 };
 
 export type SubscriptionRootRouteTypeOfLineArgs = {
-  distinct_on?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteTypeOfLineOrderBy>>;
-  where?: Maybe<RouteTypeOfLineBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteTypeOfLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteTypeOfLineOrderBy>>;
+  where?: InputMaybe<RouteTypeOfLineBoolExp>;
 };
 
 export type SubscriptionRootRouteTypeOfLineAggregateArgs = {
-  distinct_on?: Maybe<Array<RouteTypeOfLineSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<RouteTypeOfLineOrderBy>>;
-  where?: Maybe<RouteTypeOfLineBoolExp>;
+  distinct_on?: InputMaybe<Array<RouteTypeOfLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteTypeOfLineOrderBy>>;
+  where?: InputMaybe<RouteTypeOfLineBoolExp>;
 };
 
 export type SubscriptionRootRouteTypeOfLineByPkArgs = {
@@ -7967,24 +8028,24 @@ export type SubscriptionRootRouteTypeOfLineByPkArgs = {
 
 export type SubscriptionRootRouteTypeOfLineStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<RouteTypeOfLineStreamCursorInput>>;
-  where?: Maybe<RouteTypeOfLineBoolExp>;
+  cursor: Array<InputMaybe<RouteTypeOfLineStreamCursorInput>>;
+  where?: InputMaybe<RouteTypeOfLineBoolExp>;
 };
 
 export type SubscriptionRootServicePatternScheduledStopPointArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  distinct_on?: InputMaybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 export type SubscriptionRootServicePatternScheduledStopPointAggregateArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  distinct_on?: InputMaybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 export type SubscriptionRootServicePatternScheduledStopPointByPkArgs = {
@@ -7993,34 +8054,34 @@ export type SubscriptionRootServicePatternScheduledStopPointByPkArgs = {
 
 export type SubscriptionRootServicePatternScheduledStopPointStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<ServicePatternScheduledStopPointStreamCursorInput>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  cursor: Array<InputMaybe<ServicePatternScheduledStopPointStreamCursorInput>>;
+  where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>
     >;
-    where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+    where?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
   };
 
 export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<ServicePatternVehicleModeOnScheduledStopPointOrderBy>
     >;
-    where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+    where?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
   };
 
 export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointByPkArgs =
@@ -8033,25 +8094,25 @@ export type SubscriptionRootServicePatternVehicleModeOnScheduledStopPointStreamA
   {
     batch_size: Scalars['Int'];
     cursor: Array<
-      Maybe<ServicePatternVehicleModeOnScheduledStopPointStreamCursorInput>
+      InputMaybe<ServicePatternVehicleModeOnScheduledStopPointStreamCursorInput>
     >;
-    where?: Maybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
+    where?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointBoolExp>;
   };
 
 export type SubscriptionRootTimingPatternTimingPlaceArgs = {
-  distinct_on?: Maybe<Array<TimingPatternTimingPlaceSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimingPatternTimingPlaceOrderBy>>;
-  where?: Maybe<TimingPatternTimingPlaceBoolExp>;
+  distinct_on?: InputMaybe<Array<TimingPatternTimingPlaceSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimingPatternTimingPlaceOrderBy>>;
+  where?: InputMaybe<TimingPatternTimingPlaceBoolExp>;
 };
 
 export type SubscriptionRootTimingPatternTimingPlaceAggregateArgs = {
-  distinct_on?: Maybe<Array<TimingPatternTimingPlaceSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimingPatternTimingPlaceOrderBy>>;
-  where?: Maybe<TimingPatternTimingPlaceBoolExp>;
+  distinct_on?: InputMaybe<Array<TimingPatternTimingPlaceSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimingPatternTimingPlaceOrderBy>>;
+  where?: InputMaybe<TimingPatternTimingPlaceBoolExp>;
 };
 
 export type SubscriptionRootTimingPatternTimingPlaceByPkArgs = {
@@ -8060,21 +8121,21 @@ export type SubscriptionRootTimingPatternTimingPlaceByPkArgs = {
 
 export type SubscriptionRootTimingPatternTimingPlaceStreamArgs = {
   batch_size: Scalars['Int'];
-  cursor: Array<Maybe<TimingPatternTimingPlaceStreamCursorInput>>;
-  where?: Maybe<TimingPatternTimingPlaceBoolExp>;
+  cursor: Array<InputMaybe<TimingPatternTimingPlaceStreamCursorInput>>;
+  where?: InputMaybe<TimingPatternTimingPlaceBoolExp>;
 };
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type TimestamptzComparisonExp = {
-  _eq?: Maybe<Scalars['timestamptz']>;
-  _gt?: Maybe<Scalars['timestamptz']>;
-  _gte?: Maybe<Scalars['timestamptz']>;
-  _in?: Maybe<Array<Scalars['timestamptz']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['timestamptz']>;
-  _lte?: Maybe<Scalars['timestamptz']>;
-  _neq?: Maybe<Scalars['timestamptz']>;
-  _nin?: Maybe<Array<Scalars['timestamptz']>>;
+  _eq?: InputMaybe<Scalars['timestamptz']>;
+  _gt?: InputMaybe<Scalars['timestamptz']>;
+  _gte?: InputMaybe<Scalars['timestamptz']>;
+  _in?: InputMaybe<Array<Scalars['timestamptz']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['timestamptz']>;
+  _lte?: InputMaybe<Scalars['timestamptz']>;
+  _neq?: InputMaybe<Scalars['timestamptz']>;
+  _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
 };
 
 /** ordering argument of a cursor */
@@ -8109,52 +8170,52 @@ export type TimetablesJourneyPatternJourneyPatternRef = {
 /** Reference to a given snapshot of a JOURNEY PATTERN for a given operating day. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
 export type TimetablesJourneyPatternJourneyPatternRefScheduledStopPointInJourneyPatternRefsArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOrderBy>
     >;
-    where?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+    where?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
   };
 
 /** Reference to a given snapshot of a JOURNEY PATTERN for a given operating day. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
 export type TimetablesJourneyPatternJourneyPatternRefScheduledStopPointInJourneyPatternRefsAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOrderBy>
     >;
-    where?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+    where?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
   };
 
 /** Reference to a given snapshot of a JOURNEY PATTERN for a given operating day. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
 export type TimetablesJourneyPatternJourneyPatternRefVehicleJourneysArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<TimetablesVehicleJourneyVehicleJourneySelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
-  where?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
+  where?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
 };
 
 /** Reference to a given snapshot of a JOURNEY PATTERN for a given operating day. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
 export type TimetablesJourneyPatternJourneyPatternRefVehicleJourneysAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleJourneyVehicleJourneySelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
-    where?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
   };
 
 /** aggregated selection of "journey_pattern.journey_pattern_ref" */
@@ -8175,25 +8236,25 @@ export type TimetablesJourneyPatternJourneyPatternRefAggregateFields = {
 /** aggregate fields of "journey_pattern.journey_pattern_ref" */
 export type TimetablesJourneyPatternJourneyPatternRefAggregateFieldsCountArgs =
   {
-    columns?: Maybe<
+    columns?: InputMaybe<
       Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
     >;
-    distinct?: Maybe<Scalars['Boolean']>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
   };
 
 /** Boolean expression to filter rows from the table "journey_pattern.journey_pattern_ref". All fields are combined with a logical 'AND'. */
 export type TimetablesJourneyPatternJourneyPatternRefBoolExp = {
-  _and?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefBoolExp>>;
-  _not?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
-  _or?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefBoolExp>>;
-  journey_pattern_id?: Maybe<UuidComparisonExp>;
-  journey_pattern_ref_id?: Maybe<UuidComparisonExp>;
-  observation_timestamp?: Maybe<TimestamptzComparisonExp>;
-  scheduled_stop_point_in_journey_pattern_refs?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
-  scheduled_stop_point_in_journey_pattern_refs_aggregate?: Maybe<ServicePatternScheduledStopPointInJourneyPatternRefAggregateBoolExp>;
-  snapshot_timestamp?: Maybe<TimestamptzComparisonExp>;
-  vehicle_journeys?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
-  vehicle_journeys_aggregate?: Maybe<VehicleJourneyVehicleJourneyAggregateBoolExp>;
+  _and?: InputMaybe<Array<TimetablesJourneyPatternJourneyPatternRefBoolExp>>;
+  _not?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+  _or?: InputMaybe<Array<TimetablesJourneyPatternJourneyPatternRefBoolExp>>;
+  journey_pattern_id?: InputMaybe<UuidComparisonExp>;
+  journey_pattern_ref_id?: InputMaybe<UuidComparisonExp>;
+  observation_timestamp?: InputMaybe<TimestamptzComparisonExp>;
+  scheduled_stop_point_in_journey_pattern_refs?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+  scheduled_stop_point_in_journey_pattern_refs_aggregate?: InputMaybe<ServicePatternScheduledStopPointInJourneyPatternRefAggregateBoolExp>;
+  snapshot_timestamp?: InputMaybe<TimestamptzComparisonExp>;
+  vehicle_journeys?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+  vehicle_journeys_aggregate?: InputMaybe<VehicleJourneyVehicleJourneyAggregateBoolExp>;
 };
 
 /** unique or primary key constraints on table "journey_pattern.journey_pattern_ref" */
@@ -8205,14 +8266,14 @@ export enum TimetablesJourneyPatternJourneyPatternRefConstraint {
 /** input type for inserting data into table "journey_pattern.journey_pattern_ref" */
 export type TimetablesJourneyPatternJourneyPatternRefInsertInput = {
   /** The ID of the referenced JOURNEY PATTERN */
-  journey_pattern_id?: Maybe<Scalars['uuid']>;
-  journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
+  journey_pattern_id?: InputMaybe<Scalars['uuid']>;
+  journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
   /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
-  observation_timestamp?: Maybe<Scalars['timestamptz']>;
-  scheduled_stop_point_in_journey_pattern_refs?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefArrRelInsertInput>;
+  observation_timestamp?: InputMaybe<Scalars['timestamptz']>;
+  scheduled_stop_point_in_journey_pattern_refs?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefArrRelInsertInput>;
   /** The timestamp when the snapshot was taken */
-  snapshot_timestamp?: Maybe<Scalars['timestamptz']>;
-  vehicle_journeys?: Maybe<TimetablesVehicleJourneyVehicleJourneyArrRelInsertInput>;
+  snapshot_timestamp?: InputMaybe<Scalars['timestamptz']>;
+  vehicle_journeys?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -8252,24 +8313,24 @@ export type TimetablesJourneyPatternJourneyPatternRefMutationResponse = {
 export type TimetablesJourneyPatternJourneyPatternRefObjRelInsertInput = {
   data: TimetablesJourneyPatternJourneyPatternRefInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<TimetablesJourneyPatternJourneyPatternRefOnConflict>;
+  on_conflict?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefOnConflict>;
 };
 
 /** on_conflict condition type for table "journey_pattern.journey_pattern_ref" */
 export type TimetablesJourneyPatternJourneyPatternRefOnConflict = {
   constraint: TimetablesJourneyPatternJourneyPatternRefConstraint;
   update_columns?: Array<TimetablesJourneyPatternJourneyPatternRefUpdateColumn>;
-  where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+  where?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
 };
 
 /** Ordering options when selecting data from "journey_pattern.journey_pattern_ref". */
 export type TimetablesJourneyPatternJourneyPatternRefOrderBy = {
-  journey_pattern_id?: Maybe<OrderBy>;
-  journey_pattern_ref_id?: Maybe<OrderBy>;
-  observation_timestamp?: Maybe<OrderBy>;
-  scheduled_stop_point_in_journey_pattern_refs_aggregate?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefAggregateOrderBy>;
-  snapshot_timestamp?: Maybe<OrderBy>;
-  vehicle_journeys_aggregate?: Maybe<TimetablesVehicleJourneyVehicleJourneyAggregateOrderBy>;
+  journey_pattern_id?: InputMaybe<OrderBy>;
+  journey_pattern_ref_id?: InputMaybe<OrderBy>;
+  observation_timestamp?: InputMaybe<OrderBy>;
+  scheduled_stop_point_in_journey_pattern_refs_aggregate?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefAggregateOrderBy>;
+  snapshot_timestamp?: InputMaybe<OrderBy>;
+  vehicle_journeys_aggregate?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyAggregateOrderBy>;
 };
 
 /** primary key columns input for table: journey_pattern.journey_pattern_ref */
@@ -8292,12 +8353,12 @@ export enum TimetablesJourneyPatternJourneyPatternRefSelectColumn {
 /** input type for updating data in table "journey_pattern.journey_pattern_ref" */
 export type TimetablesJourneyPatternJourneyPatternRefSetInput = {
   /** The ID of the referenced JOURNEY PATTERN */
-  journey_pattern_id?: Maybe<Scalars['uuid']>;
-  journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
+  journey_pattern_id?: InputMaybe<Scalars['uuid']>;
+  journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
   /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
-  observation_timestamp?: Maybe<Scalars['timestamptz']>;
+  observation_timestamp?: InputMaybe<Scalars['timestamptz']>;
   /** The timestamp when the snapshot was taken */
-  snapshot_timestamp?: Maybe<Scalars['timestamptz']>;
+  snapshot_timestamp?: InputMaybe<Scalars['timestamptz']>;
 };
 
 /** Streaming cursor of the table "journey_pattern_journey_pattern_ref" */
@@ -8305,18 +8366,18 @@ export type TimetablesJourneyPatternJourneyPatternRefStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: TimetablesJourneyPatternJourneyPatternRefStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<TimetablesCursorOrdering>;
+  ordering?: InputMaybe<TimetablesCursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesJourneyPatternJourneyPatternRefStreamCursorValueInput = {
   /** The ID of the referenced JOURNEY PATTERN */
-  journey_pattern_id?: Maybe<Scalars['uuid']>;
-  journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
+  journey_pattern_id?: InputMaybe<Scalars['uuid']>;
+  journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
   /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
-  observation_timestamp?: Maybe<Scalars['timestamptz']>;
+  observation_timestamp?: InputMaybe<Scalars['timestamptz']>;
   /** The timestamp when the snapshot was taken */
-  snapshot_timestamp?: Maybe<Scalars['timestamptz']>;
+  snapshot_timestamp?: InputMaybe<Scalars['timestamptz']>;
 };
 
 /** update columns of table "journey_pattern.journey_pattern_ref" */
@@ -8333,7 +8394,7 @@ export enum TimetablesJourneyPatternJourneyPatternRefUpdateColumn {
 
 export type TimetablesJourneyPatternJourneyPatternRefUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<TimetablesJourneyPatternJourneyPatternRefSetInput>;
+  _set?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefSetInput>;
   where: TimetablesJourneyPatternJourneyPatternRefBoolExp;
 };
 
@@ -8375,39 +8436,39 @@ export type TimetablesPassingTimesTimetabledPassingTimeAggregateFields = {
 /** aggregate fields of "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeAggregateFieldsCountArgs =
   {
-    columns?: Maybe<
+    columns?: InputMaybe<
       Array<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>
     >;
-    distinct?: Maybe<Scalars['Boolean']>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
   };
 
 /** order by aggregate values of table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeAggregateOrderBy = {
-  count?: Maybe<OrderBy>;
-  max?: Maybe<TimetablesPassingTimesTimetabledPassingTimeMaxOrderBy>;
-  min?: Maybe<TimetablesPassingTimesTimetabledPassingTimeMinOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeMaxOrderBy>;
+  min?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeMinOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeArrRelInsertInput = {
   data: Array<TimetablesPassingTimesTimetabledPassingTimeInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<TimetablesPassingTimesTimetabledPassingTimeOnConflict>;
+  on_conflict?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "passing_times.timetabled_passing_time". All fields are combined with a logical 'AND'. */
 export type TimetablesPassingTimesTimetabledPassingTimeBoolExp = {
-  _and?: Maybe<Array<TimetablesPassingTimesTimetabledPassingTimeBoolExp>>;
-  _not?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
-  _or?: Maybe<Array<TimetablesPassingTimesTimetabledPassingTimeBoolExp>>;
-  arrival_time?: Maybe<IntervalComparisonExp>;
-  departure_time?: Maybe<IntervalComparisonExp>;
-  passing_time?: Maybe<IntervalComparisonExp>;
-  scheduled_stop_point_in_journey_pattern_ref?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
-  scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<UuidComparisonExp>;
-  timetabled_passing_time_id?: Maybe<UuidComparisonExp>;
-  vehicle_journey?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
-  vehicle_journey_id?: Maybe<UuidComparisonExp>;
+  _and?: InputMaybe<Array<TimetablesPassingTimesTimetabledPassingTimeBoolExp>>;
+  _not?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+  _or?: InputMaybe<Array<TimetablesPassingTimesTimetabledPassingTimeBoolExp>>;
+  arrival_time?: InputMaybe<IntervalComparisonExp>;
+  departure_time?: InputMaybe<IntervalComparisonExp>;
+  passing_time?: InputMaybe<IntervalComparisonExp>;
+  scheduled_stop_point_in_journey_pattern_ref?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+  scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<UuidComparisonExp>;
+  timetabled_passing_time_id?: InputMaybe<UuidComparisonExp>;
+  vehicle_journey?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+  vehicle_journey_id?: InputMaybe<UuidComparisonExp>;
 };
 
 /** unique or primary key constraints on table "passing_times.timetabled_passing_time" */
@@ -8419,16 +8480,16 @@ export enum TimetablesPassingTimesTimetabledPassingTimeConstraint {
 /** input type for inserting data into table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeInsertInput = {
   /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey. */
-  arrival_time?: Maybe<Scalars['interval']>;
+  arrival_time?: InputMaybe<Scalars['interval']>;
   /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey. */
-  departure_time?: Maybe<Scalars['interval']>;
-  scheduled_stop_point_in_journey_pattern_ref?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefObjRelInsertInput>;
+  departure_time?: InputMaybe<Scalars['interval']>;
+  scheduled_stop_point_in_journey_pattern_ref?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefObjRelInsertInput>;
   /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
-  scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
-  timetabled_passing_time_id?: Maybe<Scalars['uuid']>;
-  vehicle_journey?: Maybe<TimetablesVehicleJourneyVehicleJourneyObjRelInsertInput>;
+  scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
+  timetabled_passing_time_id?: InputMaybe<Scalars['uuid']>;
+  vehicle_journey?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyObjRelInsertInput>;
   /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
-  vehicle_journey_id?: Maybe<Scalars['uuid']>;
+  vehicle_journey_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate max on columns */
@@ -8444,10 +8505,10 @@ export type TimetablesPassingTimesTimetabledPassingTimeMaxFields = {
 /** order by max() on columns of table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeMaxOrderBy = {
   /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
-  scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<OrderBy>;
-  timetabled_passing_time_id?: Maybe<OrderBy>;
+  scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<OrderBy>;
+  timetabled_passing_time_id?: InputMaybe<OrderBy>;
   /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
-  vehicle_journey_id?: Maybe<OrderBy>;
+  vehicle_journey_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -8463,10 +8524,10 @@ export type TimetablesPassingTimesTimetabledPassingTimeMinFields = {
 /** order by min() on columns of table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeMinOrderBy = {
   /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
-  scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<OrderBy>;
-  timetabled_passing_time_id?: Maybe<OrderBy>;
+  scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<OrderBy>;
+  timetabled_passing_time_id?: InputMaybe<OrderBy>;
   /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
-  vehicle_journey_id?: Maybe<OrderBy>;
+  vehicle_journey_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "passing_times.timetabled_passing_time" */
@@ -8482,19 +8543,19 @@ export type TimetablesPassingTimesTimetabledPassingTimeMutationResponse = {
 export type TimetablesPassingTimesTimetabledPassingTimeOnConflict = {
   constraint: TimetablesPassingTimesTimetabledPassingTimeConstraint;
   update_columns?: Array<TimetablesPassingTimesTimetabledPassingTimeUpdateColumn>;
-  where?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+  where?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
 };
 
 /** Ordering options when selecting data from "passing_times.timetabled_passing_time". */
 export type TimetablesPassingTimesTimetabledPassingTimeOrderBy = {
-  arrival_time?: Maybe<OrderBy>;
-  departure_time?: Maybe<OrderBy>;
-  passing_time?: Maybe<OrderBy>;
-  scheduled_stop_point_in_journey_pattern_ref?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOrderBy>;
-  scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<OrderBy>;
-  timetabled_passing_time_id?: Maybe<OrderBy>;
-  vehicle_journey?: Maybe<TimetablesVehicleJourneyVehicleJourneyOrderBy>;
-  vehicle_journey_id?: Maybe<OrderBy>;
+  arrival_time?: InputMaybe<OrderBy>;
+  departure_time?: InputMaybe<OrderBy>;
+  passing_time?: InputMaybe<OrderBy>;
+  scheduled_stop_point_in_journey_pattern_ref?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOrderBy>;
+  scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<OrderBy>;
+  timetabled_passing_time_id?: InputMaybe<OrderBy>;
+  vehicle_journey?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyOrderBy>;
+  vehicle_journey_id?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: passing_times.timetabled_passing_time */
@@ -8521,14 +8582,14 @@ export enum TimetablesPassingTimesTimetabledPassingTimeSelectColumn {
 /** input type for updating data in table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeSetInput = {
   /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey. */
-  arrival_time?: Maybe<Scalars['interval']>;
+  arrival_time?: InputMaybe<Scalars['interval']>;
   /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey. */
-  departure_time?: Maybe<Scalars['interval']>;
+  departure_time?: InputMaybe<Scalars['interval']>;
   /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
-  scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
-  timetabled_passing_time_id?: Maybe<Scalars['uuid']>;
+  scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
+  timetabled_passing_time_id?: InputMaybe<Scalars['uuid']>;
   /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
-  vehicle_journey_id?: Maybe<Scalars['uuid']>;
+  vehicle_journey_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** Streaming cursor of the table "passing_times_timetabled_passing_time" */
@@ -8536,23 +8597,25 @@ export type TimetablesPassingTimesTimetabledPassingTimeStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: TimetablesPassingTimesTimetabledPassingTimeStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<TimetablesCursorOrdering>;
+  ordering?: InputMaybe<TimetablesCursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesPassingTimesTimetabledPassingTimeStreamCursorValueInput =
   {
     /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey. */
-    arrival_time?: Maybe<Scalars['interval']>;
+    arrival_time?: InputMaybe<Scalars['interval']>;
     /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey. */
-    departure_time?: Maybe<Scalars['interval']>;
+    departure_time?: InputMaybe<Scalars['interval']>;
     /** The time when the vehicle can be considered as passing a SCHEDULED STOP POINT. Computed field to ease development; it can never be NULL. */
-    passing_time?: Maybe<Scalars['interval']>;
+    passing_time?: InputMaybe<Scalars['interval']>;
     /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
-    scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
-    timetabled_passing_time_id?: Maybe<Scalars['uuid']>;
+    scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<
+      Scalars['uuid']
+    >;
+    timetabled_passing_time_id?: InputMaybe<Scalars['uuid']>;
     /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
-    vehicle_journey_id?: Maybe<Scalars['uuid']>;
+    vehicle_journey_id?: InputMaybe<Scalars['uuid']>;
   };
 
 /** update columns of table "passing_times.timetabled_passing_time" */
@@ -8571,7 +8634,7 @@ export enum TimetablesPassingTimesTimetabledPassingTimeUpdateColumn {
 
 export type TimetablesPassingTimesTimetabledPassingTimeUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<TimetablesPassingTimesTimetabledPassingTimeSetInput>;
+  _set?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeSetInput>;
   where: TimetablesPassingTimesTimetabledPassingTimeBoolExp;
 };
 
@@ -8595,55 +8658,55 @@ export type TimetablesServiceCalendarDayType = {
 
 /** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
 export type TimetablesServiceCalendarDayTypeActiveOnDaysOfWeekArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<
     Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy>
   >;
-  where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+  where?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
 };
 
 /** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
 export type TimetablesServiceCalendarDayTypeActiveOnDaysOfWeekAggregateArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<
     Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy>
   >;
-  where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+  where?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
 };
 
 /** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
 export type TimetablesServiceCalendarDayTypeNameI18nArgs = {
-  path?: Maybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
 export type TimetablesServiceCalendarDayTypeVehicleServicesArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-  where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+  where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
 };
 
 /** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
 export type TimetablesServiceCalendarDayTypeVehicleServicesAggregateArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-  where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+  where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
 };
 
 /** Tells on which days of week a particular DAY TYPE is active */
@@ -8683,26 +8746,26 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateFields = {
 /** aggregate fields of "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateFieldsCountArgs =
   {
-    columns?: Maybe<
+    columns?: InputMaybe<
       Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
     >;
-    distinct?: Maybe<Scalars['Boolean']>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
   };
 
 /** order by aggregate values of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateOrderBy =
   {
-    avg?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAvgOrderBy>;
-    count?: Maybe<OrderBy>;
-    max?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMaxOrderBy>;
-    min?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMinOrderBy>;
-    stddev?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevOrderBy>;
-    stddev_pop?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevPopOrderBy>;
-    stddev_samp?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevSampOrderBy>;
-    sum?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSumOrderBy>;
-    var_pop?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarPopOrderBy>;
-    var_samp?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarSampOrderBy>;
-    variance?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarianceOrderBy>;
+    avg?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAvgOrderBy>;
+    count?: InputMaybe<OrderBy>;
+    max?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMaxOrderBy>;
+    min?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMinOrderBy>;
+    stddev?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevOrderBy>;
+    stddev_pop?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevPopOrderBy>;
+    stddev_samp?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevSampOrderBy>;
+    sum?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSumOrderBy>;
+    var_pop?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarPopOrderBy>;
+    var_samp?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarSampOrderBy>;
+    variance?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarianceOrderBy>;
   };
 
 /** input type for inserting array relation for remote table "service_calendar.day_type_active_on_day_of_week" */
@@ -8710,7 +8773,7 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekArrRelInsertInput =
   {
     data: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekInsertInput>;
     /** upsert condition */
-    on_conflict?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOnConflict>;
+    on_conflict?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOnConflict>;
   };
 
 /** aggregate avg on columns */
@@ -8723,17 +8786,21 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAvgFields = {
 /** order by avg() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAvgOrderBy = {
   /** ISO week day definition (1 = Monday, 7 = Sunday) */
-  day_of_week?: Maybe<OrderBy>;
+  day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "service_calendar.day_type_active_on_day_of_week". All fields are combined with a logical 'AND'. */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp = {
-  _and?: Maybe<Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>>;
-  _not?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
-  _or?: Maybe<Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>>;
-  day_of_week?: Maybe<IntComparisonExp>;
-  day_type?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
-  day_type_id?: Maybe<UuidComparisonExp>;
+  _and?: InputMaybe<
+    Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>
+  >;
+  _not?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+  _or?: InputMaybe<
+    Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>
+  >;
+  day_of_week?: InputMaybe<IntComparisonExp>;
+  day_type?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  day_type_id?: InputMaybe<UuidComparisonExp>;
 };
 
 /** unique or primary key constraints on table "service_calendar.day_type_active_on_day_of_week" */
@@ -8745,16 +8812,16 @@ export enum TimetablesServiceCalendarDayTypeActiveOnDayOfWeekConstraint {
 /** input type for incrementing numeric columns in table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekIncInput = {
   /** ISO week day definition (1 = Monday, 7 = Sunday) */
-  day_of_week?: Maybe<Scalars['Int']>;
+  day_of_week?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekInsertInput = {
   /** ISO week day definition (1 = Monday, 7 = Sunday) */
-  day_of_week?: Maybe<Scalars['Int']>;
-  day_type?: Maybe<TimetablesServiceCalendarDayTypeObjRelInsertInput>;
+  day_of_week?: InputMaybe<Scalars['Int']>;
+  day_type?: InputMaybe<TimetablesServiceCalendarDayTypeObjRelInsertInput>;
   /** The DAY TYPE for which we define the activeness */
-  day_type_id?: Maybe<Scalars['uuid']>;
+  day_type_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate max on columns */
@@ -8769,9 +8836,9 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMaxFields = {
 /** order by max() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMaxOrderBy = {
   /** ISO week day definition (1 = Monday, 7 = Sunday) */
-  day_of_week?: Maybe<OrderBy>;
+  day_of_week?: InputMaybe<OrderBy>;
   /** The DAY TYPE for which we define the activeness */
-  day_type_id?: Maybe<OrderBy>;
+  day_type_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -8786,9 +8853,9 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMinFields = {
 /** order by min() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMinOrderBy = {
   /** ISO week day definition (1 = Monday, 7 = Sunday) */
-  day_of_week?: Maybe<OrderBy>;
+  day_of_week?: InputMaybe<OrderBy>;
   /** The DAY TYPE for which we define the activeness */
-  day_type_id?: Maybe<OrderBy>;
+  day_type_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "service_calendar.day_type_active_on_day_of_week" */
@@ -8805,14 +8872,14 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMutationResponse =
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOnConflict = {
   constraint: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekConstraint;
   update_columns?: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekUpdateColumn>;
-  where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+  where?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
 };
 
 /** Ordering options when selecting data from "service_calendar.day_type_active_on_day_of_week". */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy = {
-  day_of_week?: Maybe<OrderBy>;
-  day_type?: Maybe<TimetablesServiceCalendarDayTypeOrderBy>;
-  day_type_id?: Maybe<OrderBy>;
+  day_of_week?: InputMaybe<OrderBy>;
+  day_type?: InputMaybe<TimetablesServiceCalendarDayTypeOrderBy>;
+  day_type_id?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: service_calendar.day_type_active_on_day_of_week */
@@ -8834,9 +8901,9 @@ export enum TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn {
 /** input type for updating data in table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSetInput = {
   /** ISO week day definition (1 = Monday, 7 = Sunday) */
-  day_of_week?: Maybe<Scalars['Int']>;
+  day_of_week?: InputMaybe<Scalars['Int']>;
   /** The DAY TYPE for which we define the activeness */
-  day_type_id?: Maybe<Scalars['uuid']>;
+  day_type_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate stddev on columns */
@@ -8849,7 +8916,7 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevFields = {
 /** order by stddev() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevOrderBy = {
   /** ISO week day definition (1 = Monday, 7 = Sunday) */
-  day_of_week?: Maybe<OrderBy>;
+  day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -8863,7 +8930,7 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevPopFields = {
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevPopOrderBy =
   {
     /** ISO week day definition (1 = Monday, 7 = Sunday) */
-    day_of_week?: Maybe<OrderBy>;
+    day_of_week?: InputMaybe<OrderBy>;
   };
 
 /** aggregate stddev_samp on columns */
@@ -8878,7 +8945,7 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevSampFields =
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevSampOrderBy =
   {
     /** ISO week day definition (1 = Monday, 7 = Sunday) */
-    day_of_week?: Maybe<OrderBy>;
+    day_of_week?: InputMaybe<OrderBy>;
   };
 
 /** Streaming cursor of the table "service_calendar_day_type_active_on_day_of_week" */
@@ -8887,16 +8954,16 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStreamCursorInput =
     /** Stream column input with initial value */
     initial_value: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStreamCursorValueInput;
     /** cursor ordering */
-    ordering?: Maybe<TimetablesCursorOrdering>;
+    ordering?: InputMaybe<TimetablesCursorOrdering>;
   };
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStreamCursorValueInput =
   {
     /** ISO week day definition (1 = Monday, 7 = Sunday) */
-    day_of_week?: Maybe<Scalars['Int']>;
+    day_of_week?: InputMaybe<Scalars['Int']>;
     /** The DAY TYPE for which we define the activeness */
-    day_type_id?: Maybe<Scalars['uuid']>;
+    day_type_id?: InputMaybe<Scalars['uuid']>;
   };
 
 /** aggregate sum on columns */
@@ -8909,7 +8976,7 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSumFields = {
 /** order by sum() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSumOrderBy = {
   /** ISO week day definition (1 = Monday, 7 = Sunday) */
-  day_of_week?: Maybe<OrderBy>;
+  day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "service_calendar.day_type_active_on_day_of_week" */
@@ -8922,9 +8989,9 @@ export enum TimetablesServiceCalendarDayTypeActiveOnDayOfWeekUpdateColumn {
 
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekIncInput>;
+  _inc?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSetInput>;
+  _set?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSetInput>;
   where: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp;
 };
 
@@ -8938,7 +9005,7 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarPopFields = {
 /** order by var_pop() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarPopOrderBy = {
   /** ISO week day definition (1 = Monday, 7 = Sunday) */
-  day_of_week?: Maybe<OrderBy>;
+  day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
@@ -8951,7 +9018,7 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarSampFields = {
 /** order by var_samp() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarSampOrderBy = {
   /** ISO week day definition (1 = Monday, 7 = Sunday) */
-  day_of_week?: Maybe<OrderBy>;
+  day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
@@ -8964,7 +9031,7 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarianceFields = {
 /** order by variance() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarianceOrderBy = {
   /** ISO week day definition (1 = Monday, 7 = Sunday) */
-  day_of_week?: Maybe<OrderBy>;
+  day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** aggregated selection of "service_calendar.day_type" */
@@ -8984,28 +9051,28 @@ export type TimetablesServiceCalendarDayTypeAggregateFields = {
 
 /** aggregate fields of "service_calendar.day_type" */
 export type TimetablesServiceCalendarDayTypeAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesServiceCalendarDayTypeAppendInput = {
   /** Human-readable name for the DAY TYPE */
-  name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** Boolean expression to filter rows from the table "service_calendar.day_type". All fields are combined with a logical 'AND'. */
 export type TimetablesServiceCalendarDayTypeBoolExp = {
-  _and?: Maybe<Array<TimetablesServiceCalendarDayTypeBoolExp>>;
-  _not?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
-  _or?: Maybe<Array<TimetablesServiceCalendarDayTypeBoolExp>>;
-  active_on_days_of_week?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
-  active_on_days_of_week_aggregate?: Maybe<ServiceCalendarDayTypeActiveOnDayOfWeekAggregateBoolExp>;
-  day_type_id?: Maybe<UuidComparisonExp>;
-  label?: Maybe<StringComparisonExp>;
-  name_i18n?: Maybe<JsonbComparisonExp>;
-  vehicle_services?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
-  vehicle_services_aggregate?: Maybe<VehicleServiceVehicleServiceAggregateBoolExp>;
+  _and?: InputMaybe<Array<TimetablesServiceCalendarDayTypeBoolExp>>;
+  _not?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  _or?: InputMaybe<Array<TimetablesServiceCalendarDayTypeBoolExp>>;
+  active_on_days_of_week?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+  active_on_days_of_week_aggregate?: InputMaybe<ServiceCalendarDayTypeActiveOnDayOfWeekAggregateBoolExp>;
+  day_type_id?: InputMaybe<UuidComparisonExp>;
+  label?: InputMaybe<StringComparisonExp>;
+  name_i18n?: InputMaybe<JsonbComparisonExp>;
+  vehicle_services?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+  vehicle_services_aggregate?: InputMaybe<VehicleServiceVehicleServiceAggregateBoolExp>;
 };
 
 /** unique or primary key constraints on table "service_calendar.day_type" */
@@ -9019,30 +9086,30 @@ export enum TimetablesServiceCalendarDayTypeConstraint {
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type TimetablesServiceCalendarDayTypeDeleteAtPathInput = {
   /** Human-readable name for the DAY TYPE */
-  name_i18n?: Maybe<Array<Scalars['String']>>;
+  name_i18n?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type TimetablesServiceCalendarDayTypeDeleteElemInput = {
   /** Human-readable name for the DAY TYPE */
-  name_i18n?: Maybe<Scalars['Int']>;
+  name_i18n?: InputMaybe<Scalars['Int']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type TimetablesServiceCalendarDayTypeDeleteKeyInput = {
   /** Human-readable name for the DAY TYPE */
-  name_i18n?: Maybe<Scalars['String']>;
+  name_i18n?: InputMaybe<Scalars['String']>;
 };
 
 /** input type for inserting data into table "service_calendar.day_type" */
 export type TimetablesServiceCalendarDayTypeInsertInput = {
-  active_on_days_of_week?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekArrRelInsertInput>;
-  day_type_id?: Maybe<Scalars['uuid']>;
+  active_on_days_of_week?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekArrRelInsertInput>;
+  day_type_id?: InputMaybe<Scalars['uuid']>;
   /** The label for the DAY TYPE. Used for identifying the DAY TYPE when importing data from Hastus. Includes both basic (e.g. "Monday-Thursday") and special ("Easter Sunday") day types */
-  label?: Maybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
   /** Human-readable name for the DAY TYPE */
-  name_i18n?: Maybe<Scalars['jsonb']>;
-  vehicle_services?: Maybe<TimetablesVehicleServiceVehicleServiceArrRelInsertInput>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
+  vehicle_services?: InputMaybe<TimetablesVehicleServiceVehicleServiceArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -9074,23 +9141,23 @@ export type TimetablesServiceCalendarDayTypeMutationResponse = {
 export type TimetablesServiceCalendarDayTypeObjRelInsertInput = {
   data: TimetablesServiceCalendarDayTypeInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<TimetablesServiceCalendarDayTypeOnConflict>;
+  on_conflict?: InputMaybe<TimetablesServiceCalendarDayTypeOnConflict>;
 };
 
 /** on_conflict condition type for table "service_calendar.day_type" */
 export type TimetablesServiceCalendarDayTypeOnConflict = {
   constraint: TimetablesServiceCalendarDayTypeConstraint;
   update_columns?: Array<TimetablesServiceCalendarDayTypeUpdateColumn>;
-  where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  where?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
 };
 
 /** Ordering options when selecting data from "service_calendar.day_type". */
 export type TimetablesServiceCalendarDayTypeOrderBy = {
-  active_on_days_of_week_aggregate?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateOrderBy>;
-  day_type_id?: Maybe<OrderBy>;
-  label?: Maybe<OrderBy>;
-  name_i18n?: Maybe<OrderBy>;
-  vehicle_services_aggregate?: Maybe<TimetablesVehicleServiceVehicleServiceAggregateOrderBy>;
+  active_on_days_of_week_aggregate?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateOrderBy>;
+  day_type_id?: InputMaybe<OrderBy>;
+  label?: InputMaybe<OrderBy>;
+  name_i18n?: InputMaybe<OrderBy>;
+  vehicle_services_aggregate?: InputMaybe<TimetablesVehicleServiceVehicleServiceAggregateOrderBy>;
 };
 
 /** primary key columns input for table: service_calendar.day_type */
@@ -9101,7 +9168,7 @@ export type TimetablesServiceCalendarDayTypePkColumnsInput = {
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesServiceCalendarDayTypePrependInput = {
   /** Human-readable name for the DAY TYPE */
-  name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "service_calendar.day_type" */
@@ -9116,11 +9183,11 @@ export enum TimetablesServiceCalendarDayTypeSelectColumn {
 
 /** input type for updating data in table "service_calendar.day_type" */
 export type TimetablesServiceCalendarDayTypeSetInput = {
-  day_type_id?: Maybe<Scalars['uuid']>;
+  day_type_id?: InputMaybe<Scalars['uuid']>;
   /** The label for the DAY TYPE. Used for identifying the DAY TYPE when importing data from Hastus. Includes both basic (e.g. "Monday-Thursday") and special ("Easter Sunday") day types */
-  label?: Maybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
   /** Human-readable name for the DAY TYPE */
-  name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** Streaming cursor of the table "service_calendar_day_type" */
@@ -9128,16 +9195,16 @@ export type TimetablesServiceCalendarDayTypeStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: TimetablesServiceCalendarDayTypeStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<TimetablesCursorOrdering>;
+  ordering?: InputMaybe<TimetablesCursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesServiceCalendarDayTypeStreamCursorValueInput = {
-  day_type_id?: Maybe<Scalars['uuid']>;
+  day_type_id?: InputMaybe<Scalars['uuid']>;
   /** The label for the DAY TYPE. Used for identifying the DAY TYPE when importing data from Hastus. Includes both basic (e.g. "Monday-Thursday") and special ("Easter Sunday") day types */
-  label?: Maybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
   /** Human-readable name for the DAY TYPE */
-  name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** update columns of table "service_calendar.day_type" */
@@ -9152,22 +9219,22 @@ export enum TimetablesServiceCalendarDayTypeUpdateColumn {
 
 export type TimetablesServiceCalendarDayTypeUpdates = {
   /** append existing jsonb value of filtered columns with new jsonb value */
-  _append?: Maybe<TimetablesServiceCalendarDayTypeAppendInput>;
+  _append?: InputMaybe<TimetablesServiceCalendarDayTypeAppendInput>;
   /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-  _delete_at_path?: Maybe<TimetablesServiceCalendarDayTypeDeleteAtPathInput>;
+  _delete_at_path?: InputMaybe<TimetablesServiceCalendarDayTypeDeleteAtPathInput>;
   /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-  _delete_elem?: Maybe<TimetablesServiceCalendarDayTypeDeleteElemInput>;
+  _delete_elem?: InputMaybe<TimetablesServiceCalendarDayTypeDeleteElemInput>;
   /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-  _delete_key?: Maybe<TimetablesServiceCalendarDayTypeDeleteKeyInput>;
+  _delete_key?: InputMaybe<TimetablesServiceCalendarDayTypeDeleteKeyInput>;
   /** prepend existing jsonb value of filtered columns with new jsonb value */
-  _prepend?: Maybe<TimetablesServiceCalendarDayTypePrependInput>;
+  _prepend?: InputMaybe<TimetablesServiceCalendarDayTypePrependInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<TimetablesServiceCalendarDayTypeSetInput>;
+  _set?: InputMaybe<TimetablesServiceCalendarDayTypeSetInput>;
   where: TimetablesServiceCalendarDayTypeBoolExp;
 };
 
 export type TimetablesServiceCalendarGetActiveDayTypesForDateArgs = {
-  observation_date?: Maybe<Scalars['date']>;
+  observation_date?: InputMaybe<Scalars['date']>;
 };
 
 /** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
@@ -9191,25 +9258,29 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRef = {
 /** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefTimetabledPassingTimesArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>>;
-    where?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>
+    >;
+    where?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
   };
 
 /** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefTimetabledPassingTimesAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>>;
-    where?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>
+    >;
+    where?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
   };
 
 /** aggregated selection of "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -9240,26 +9311,26 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefAggrega
 /** aggregate fields of "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefAggregateFieldsCountArgs =
   {
-    columns?: Maybe<
+    columns?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectColumn>
     >;
-    distinct?: Maybe<Scalars['Boolean']>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
   };
 
 /** order by aggregate values of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefAggregateOrderBy =
   {
-    avg?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefAvgOrderBy>;
-    count?: Maybe<OrderBy>;
-    max?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefMaxOrderBy>;
-    min?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefMinOrderBy>;
-    stddev?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevOrderBy>;
-    stddev_pop?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevPopOrderBy>;
-    stddev_samp?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevSampOrderBy>;
-    sum?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSumOrderBy>;
-    var_pop?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarPopOrderBy>;
-    var_samp?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarSampOrderBy>;
-    variance?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarianceOrderBy>;
+    avg?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefAvgOrderBy>;
+    count?: InputMaybe<OrderBy>;
+    max?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefMaxOrderBy>;
+    min?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefMinOrderBy>;
+    stddev?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevOrderBy>;
+    stddev_pop?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevPopOrderBy>;
+    stddev_samp?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevSampOrderBy>;
+    sum?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSumOrderBy>;
+    var_pop?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarPopOrderBy>;
+    var_samp?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarSampOrderBy>;
+    variance?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarianceOrderBy>;
   };
 
 /** input type for inserting array relation for remote table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -9267,7 +9338,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefArrRelI
   {
     data: Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefInsertInput>;
     /** upsert condition */
-    on_conflict?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOnConflict>;
+    on_conflict?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOnConflict>;
   };
 
 /** aggregate avg on columns */
@@ -9282,26 +9353,26 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefAvgFiel
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefAvgOrderBy =
   {
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<OrderBy>;
+    scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
   };
 
 /** Boolean expression to filter rows from the table "service_pattern.scheduled_stop_point_in_journey_pattern_ref". All fields are combined with a logical 'AND'. */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp =
   {
-    _and?: Maybe<
+    _and?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>
     >;
-    _not?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
-    _or?: Maybe<
+    _not?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+    _or?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>
     >;
-    journey_pattern_ref?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
-    journey_pattern_ref_id?: Maybe<UuidComparisonExp>;
-    scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<UuidComparisonExp>;
-    scheduled_stop_point_label?: Maybe<StringComparisonExp>;
-    scheduled_stop_point_sequence?: Maybe<IntComparisonExp>;
-    timetabled_passing_times?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
-    timetabled_passing_times_aggregate?: Maybe<PassingTimesTimetabledPassingTimeAggregateBoolExp>;
+    journey_pattern_ref?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+    journey_pattern_ref_id?: InputMaybe<UuidComparisonExp>;
+    scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<UuidComparisonExp>;
+    scheduled_stop_point_label?: InputMaybe<StringComparisonExp>;
+    scheduled_stop_point_sequence?: InputMaybe<IntComparisonExp>;
+    timetabled_passing_times?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+    timetabled_passing_times_aggregate?: InputMaybe<PassingTimesTimetabledPassingTimeAggregateBoolExp>;
   };
 
 /** unique or primary key constraints on table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -9316,21 +9387,23 @@ export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefConstra
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefIncInput =
   {
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
+    scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']>;
   };
 
 /** input type for inserting data into table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefInsertInput =
   {
-    journey_pattern_ref?: Maybe<TimetablesJourneyPatternJourneyPatternRefObjRelInsertInput>;
+    journey_pattern_ref?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefObjRelInsertInput>;
     /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
-    journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
-    scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
+    journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
+    scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<
+      Scalars['uuid']
+    >;
     /** The label of the SCHEDULED STOP POINT */
-    scheduled_stop_point_label?: Maybe<Scalars['String']>;
+    scheduled_stop_point_label?: InputMaybe<Scalars['String']>;
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
-    timetabled_passing_times?: Maybe<TimetablesPassingTimesTimetabledPassingTimeArrRelInsertInput>;
+    scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']>;
+    timetabled_passing_times?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeArrRelInsertInput>;
   };
 
 /** aggregate max on columns */
@@ -9350,12 +9423,12 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMaxFiel
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMaxOrderBy =
   {
     /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
-    journey_pattern_ref_id?: Maybe<OrderBy>;
-    scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<OrderBy>;
+    journey_pattern_ref_id?: InputMaybe<OrderBy>;
+    scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<OrderBy>;
     /** The label of the SCHEDULED STOP POINT */
-    scheduled_stop_point_label?: Maybe<OrderBy>;
+    scheduled_stop_point_label?: InputMaybe<OrderBy>;
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<OrderBy>;
+    scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
   };
 
 /** aggregate min on columns */
@@ -9375,12 +9448,12 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMinFiel
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMinOrderBy =
   {
     /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
-    journey_pattern_ref_id?: Maybe<OrderBy>;
-    scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<OrderBy>;
+    journey_pattern_ref_id?: InputMaybe<OrderBy>;
+    scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<OrderBy>;
     /** The label of the SCHEDULED STOP POINT */
-    scheduled_stop_point_label?: Maybe<OrderBy>;
+    scheduled_stop_point_label?: InputMaybe<OrderBy>;
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<OrderBy>;
+    scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
   };
 
 /** response of any mutation on the table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -9398,7 +9471,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefObjRelI
   {
     data: TimetablesServicePatternScheduledStopPointInJourneyPatternRefInsertInput;
     /** upsert condition */
-    on_conflict?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOnConflict>;
+    on_conflict?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOnConflict>;
   };
 
 /** on_conflict condition type for table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -9406,18 +9479,18 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefOnConfl
   {
     constraint: TimetablesServicePatternScheduledStopPointInJourneyPatternRefConstraint;
     update_columns?: Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefUpdateColumn>;
-    where?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+    where?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
   };
 
 /** Ordering options when selecting data from "service_pattern.scheduled_stop_point_in_journey_pattern_ref". */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefOrderBy =
   {
-    journey_pattern_ref?: Maybe<TimetablesJourneyPatternJourneyPatternRefOrderBy>;
-    journey_pattern_ref_id?: Maybe<OrderBy>;
-    scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<OrderBy>;
-    scheduled_stop_point_label?: Maybe<OrderBy>;
-    scheduled_stop_point_sequence?: Maybe<OrderBy>;
-    timetabled_passing_times_aggregate?: Maybe<TimetablesPassingTimesTimetabledPassingTimeAggregateOrderBy>;
+    journey_pattern_ref?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefOrderBy>;
+    journey_pattern_ref_id?: InputMaybe<OrderBy>;
+    scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<OrderBy>;
+    scheduled_stop_point_label?: InputMaybe<OrderBy>;
+    scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
+    timetabled_passing_times_aggregate?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeAggregateOrderBy>;
   };
 
 /** primary key columns input for table: service_pattern.scheduled_stop_point_in_journey_pattern_ref */
@@ -9442,12 +9515,14 @@ export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectC
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefSetInput =
   {
     /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
-    journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
-    scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
+    journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
+    scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<
+      Scalars['uuid']
+    >;
     /** The label of the SCHEDULED STOP POINT */
-    scheduled_stop_point_label?: Maybe<Scalars['String']>;
+    scheduled_stop_point_label?: InputMaybe<Scalars['String']>;
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
+    scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']>;
   };
 
 /** aggregate stddev on columns */
@@ -9462,7 +9537,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevF
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevOrderBy =
   {
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<OrderBy>;
+    scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
   };
 
 /** aggregate stddev_pop on columns */
@@ -9477,7 +9552,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevP
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevPopOrderBy =
   {
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<OrderBy>;
+    scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
   };
 
 /** aggregate stddev_samp on columns */
@@ -9492,7 +9567,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevS
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevSampOrderBy =
   {
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<OrderBy>;
+    scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
   };
 
 /** Streaming cursor of the table "service_pattern_scheduled_stop_point_in_journey_pattern_ref" */
@@ -9501,19 +9576,21 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStreamC
     /** Stream column input with initial value */
     initial_value: TimetablesServicePatternScheduledStopPointInJourneyPatternRefStreamCursorValueInput;
     /** cursor ordering */
-    ordering?: Maybe<TimetablesCursorOrdering>;
+    ordering?: InputMaybe<TimetablesCursorOrdering>;
   };
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStreamCursorValueInput =
   {
     /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
-    journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
-    scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
+    journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
+    scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<
+      Scalars['uuid']
+    >;
     /** The label of the SCHEDULED STOP POINT */
-    scheduled_stop_point_label?: Maybe<Scalars['String']>;
+    scheduled_stop_point_label?: InputMaybe<Scalars['String']>;
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
+    scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']>;
   };
 
 /** aggregate sum on columns */
@@ -9528,7 +9605,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefSumFiel
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefSumOrderBy =
   {
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<OrderBy>;
+    scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
   };
 
 /** update columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -9546,9 +9623,9 @@ export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefUpdateC
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefUpdates =
   {
     /** increments the numeric columns with given value of the filtered values */
-    _inc?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefIncInput>;
+    _inc?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefIncInput>;
     /** sets the columns of the filtered rows to the given values */
-    _set?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSetInput>;
+    _set?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSetInput>;
     where: TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp;
   };
 
@@ -9564,7 +9641,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarPopF
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarPopOrderBy =
   {
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<OrderBy>;
+    scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
   };
 
 /** aggregate var_samp on columns */
@@ -9579,7 +9656,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarSamp
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarSampOrderBy =
   {
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<OrderBy>;
+    scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
   };
 
 /** aggregate variance on columns */
@@ -9594,7 +9671,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarianc
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarianceOrderBy =
   {
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
-    scheduled_stop_point_sequence?: Maybe<OrderBy>;
+    scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
   };
 
 export type TimetablesTimetablesMutationFrontend = {
@@ -9843,120 +9920,120 @@ export type TimetablesTimetablesMutationFrontendTimetablesDeleteVehicleServiceVe
 export type TimetablesTimetablesMutationFrontendTimetablesInsertJourneyPatternJourneyPatternRefArgs =
   {
     objects: Array<TimetablesJourneyPatternJourneyPatternRefInsertInput>;
-    on_conflict?: Maybe<TimetablesJourneyPatternJourneyPatternRefOnConflict>;
+    on_conflict?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertJourneyPatternJourneyPatternRefOneArgs =
   {
     object: TimetablesJourneyPatternJourneyPatternRefInsertInput;
-    on_conflict?: Maybe<TimetablesJourneyPatternJourneyPatternRefOnConflict>;
+    on_conflict?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertPassingTimesTimetabledPassingTimeArgs =
   {
     objects: Array<TimetablesPassingTimesTimetabledPassingTimeInsertInput>;
-    on_conflict?: Maybe<TimetablesPassingTimesTimetabledPassingTimeOnConflict>;
+    on_conflict?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertPassingTimesTimetabledPassingTimeOneArgs =
   {
     object: TimetablesPassingTimesTimetabledPassingTimeInsertInput;
-    on_conflict?: Maybe<TimetablesPassingTimesTimetabledPassingTimeOnConflict>;
+    on_conflict?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertServiceCalendarDayTypeArgs =
   {
     objects: Array<TimetablesServiceCalendarDayTypeInsertInput>;
-    on_conflict?: Maybe<TimetablesServiceCalendarDayTypeOnConflict>;
+    on_conflict?: InputMaybe<TimetablesServiceCalendarDayTypeOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertServiceCalendarDayTypeActiveOnDayOfWeekArgs =
   {
     objects: Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekInsertInput>;
-    on_conflict?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOnConflict>;
+    on_conflict?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertServiceCalendarDayTypeActiveOnDayOfWeekOneArgs =
   {
     object: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekInsertInput;
-    on_conflict?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOnConflict>;
+    on_conflict?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertServiceCalendarDayTypeOneArgs =
   {
     object: TimetablesServiceCalendarDayTypeInsertInput;
-    on_conflict?: Maybe<TimetablesServiceCalendarDayTypeOnConflict>;
+    on_conflict?: InputMaybe<TimetablesServiceCalendarDayTypeOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertServicePatternScheduledStopPointInJourneyPatternRefArgs =
   {
     objects: Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefInsertInput>;
-    on_conflict?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOnConflict>;
+    on_conflict?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertServicePatternScheduledStopPointInJourneyPatternRefOneArgs =
   {
     object: TimetablesServicePatternScheduledStopPointInJourneyPatternRefInsertInput;
-    on_conflict?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOnConflict>;
+    on_conflict?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertVehicleJourneyVehicleJourneyArgs =
   {
     objects: Array<TimetablesVehicleJourneyVehicleJourneyInsertInput>;
-    on_conflict?: Maybe<TimetablesVehicleJourneyVehicleJourneyOnConflict>;
+    on_conflict?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertVehicleJourneyVehicleJourneyOneArgs =
   {
     object: TimetablesVehicleJourneyVehicleJourneyInsertInput;
-    on_conflict?: Maybe<TimetablesVehicleJourneyVehicleJourneyOnConflict>;
+    on_conflict?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertVehicleScheduleVehicleScheduleFrameArgs =
   {
     objects: Array<TimetablesVehicleScheduleVehicleScheduleFrameInsertInput>;
-    on_conflict?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameOnConflict>;
+    on_conflict?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertVehicleScheduleVehicleScheduleFrameOneArgs =
   {
     object: TimetablesVehicleScheduleVehicleScheduleFrameInsertInput;
-    on_conflict?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameOnConflict>;
+    on_conflict?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertVehicleServiceBlockArgs =
   {
     objects: Array<TimetablesVehicleServiceBlockInsertInput>;
-    on_conflict?: Maybe<TimetablesVehicleServiceBlockOnConflict>;
+    on_conflict?: InputMaybe<TimetablesVehicleServiceBlockOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertVehicleServiceBlockOneArgs =
   {
     object: TimetablesVehicleServiceBlockInsertInput;
-    on_conflict?: Maybe<TimetablesVehicleServiceBlockOnConflict>;
+    on_conflict?: InputMaybe<TimetablesVehicleServiceBlockOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertVehicleServiceVehicleServiceArgs =
   {
     objects: Array<TimetablesVehicleServiceVehicleServiceInsertInput>;
-    on_conflict?: Maybe<TimetablesVehicleServiceVehicleServiceOnConflict>;
+    on_conflict?: InputMaybe<TimetablesVehicleServiceVehicleServiceOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertVehicleServiceVehicleServiceOneArgs =
   {
     object: TimetablesVehicleServiceVehicleServiceInsertInput;
-    on_conflict?: Maybe<TimetablesVehicleServiceVehicleServiceOnConflict>;
+    on_conflict?: InputMaybe<TimetablesVehicleServiceVehicleServiceOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateJourneyPatternJourneyPatternRefArgs =
   {
-    _set?: Maybe<TimetablesJourneyPatternJourneyPatternRefSetInput>;
+    _set?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefSetInput>;
     where: TimetablesJourneyPatternJourneyPatternRefBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateJourneyPatternJourneyPatternRefByPkArgs =
   {
-    _set?: Maybe<TimetablesJourneyPatternJourneyPatternRefSetInput>;
+    _set?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefSetInput>;
     pk_columns: TimetablesJourneyPatternJourneyPatternRefPkColumnsInput;
   };
 
@@ -9967,13 +10044,13 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateJourneyPatternJo
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdatePassingTimesTimetabledPassingTimeArgs =
   {
-    _set?: Maybe<TimetablesPassingTimesTimetabledPassingTimeSetInput>;
+    _set?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeSetInput>;
     where: TimetablesPassingTimesTimetabledPassingTimeBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdatePassingTimesTimetabledPassingTimeByPkArgs =
   {
-    _set?: Maybe<TimetablesPassingTimesTimetabledPassingTimeSetInput>;
+    _set?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeSetInput>;
     pk_columns: TimetablesPassingTimesTimetabledPassingTimePkColumnsInput;
   };
 
@@ -9984,26 +10061,26 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdatePassingTimesTime
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarDayTypeArgs =
   {
-    _append?: Maybe<TimetablesServiceCalendarDayTypeAppendInput>;
-    _delete_at_path?: Maybe<TimetablesServiceCalendarDayTypeDeleteAtPathInput>;
-    _delete_elem?: Maybe<TimetablesServiceCalendarDayTypeDeleteElemInput>;
-    _delete_key?: Maybe<TimetablesServiceCalendarDayTypeDeleteKeyInput>;
-    _prepend?: Maybe<TimetablesServiceCalendarDayTypePrependInput>;
-    _set?: Maybe<TimetablesServiceCalendarDayTypeSetInput>;
+    _append?: InputMaybe<TimetablesServiceCalendarDayTypeAppendInput>;
+    _delete_at_path?: InputMaybe<TimetablesServiceCalendarDayTypeDeleteAtPathInput>;
+    _delete_elem?: InputMaybe<TimetablesServiceCalendarDayTypeDeleteElemInput>;
+    _delete_key?: InputMaybe<TimetablesServiceCalendarDayTypeDeleteKeyInput>;
+    _prepend?: InputMaybe<TimetablesServiceCalendarDayTypePrependInput>;
+    _set?: InputMaybe<TimetablesServiceCalendarDayTypeSetInput>;
     where: TimetablesServiceCalendarDayTypeBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarDayTypeActiveOnDayOfWeekArgs =
   {
-    _inc?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekIncInput>;
-    _set?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSetInput>;
+    _inc?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekIncInput>;
+    _set?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSetInput>;
     where: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarDayTypeActiveOnDayOfWeekByPkArgs =
   {
-    _inc?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekIncInput>;
-    _set?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSetInput>;
+    _inc?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekIncInput>;
+    _set?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSetInput>;
     pk_columns: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekPkColumnsInput;
   };
 
@@ -10014,12 +10091,12 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarD
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarDayTypeByPkArgs =
   {
-    _append?: Maybe<TimetablesServiceCalendarDayTypeAppendInput>;
-    _delete_at_path?: Maybe<TimetablesServiceCalendarDayTypeDeleteAtPathInput>;
-    _delete_elem?: Maybe<TimetablesServiceCalendarDayTypeDeleteElemInput>;
-    _delete_key?: Maybe<TimetablesServiceCalendarDayTypeDeleteKeyInput>;
-    _prepend?: Maybe<TimetablesServiceCalendarDayTypePrependInput>;
-    _set?: Maybe<TimetablesServiceCalendarDayTypeSetInput>;
+    _append?: InputMaybe<TimetablesServiceCalendarDayTypeAppendInput>;
+    _delete_at_path?: InputMaybe<TimetablesServiceCalendarDayTypeDeleteAtPathInput>;
+    _delete_elem?: InputMaybe<TimetablesServiceCalendarDayTypeDeleteElemInput>;
+    _delete_key?: InputMaybe<TimetablesServiceCalendarDayTypeDeleteKeyInput>;
+    _prepend?: InputMaybe<TimetablesServiceCalendarDayTypePrependInput>;
+    _set?: InputMaybe<TimetablesServiceCalendarDayTypeSetInput>;
     pk_columns: TimetablesServiceCalendarDayTypePkColumnsInput;
   };
 
@@ -10030,15 +10107,15 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarD
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateServicePatternScheduledStopPointInJourneyPatternRefArgs =
   {
-    _inc?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefIncInput>;
-    _set?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSetInput>;
+    _inc?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefIncInput>;
+    _set?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSetInput>;
     where: TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateServicePatternScheduledStopPointInJourneyPatternRefByPkArgs =
   {
-    _inc?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefIncInput>;
-    _set?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSetInput>;
+    _inc?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefIncInput>;
+    _set?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSetInput>;
     pk_columns: TimetablesServicePatternScheduledStopPointInJourneyPatternRefPkColumnsInput;
   };
 
@@ -10049,13 +10126,13 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateServicePatternSc
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleJourneyVehicleJourneyArgs =
   {
-    _set?: Maybe<TimetablesVehicleJourneyVehicleJourneySetInput>;
+    _set?: InputMaybe<TimetablesVehicleJourneyVehicleJourneySetInput>;
     where: TimetablesVehicleJourneyVehicleJourneyBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleJourneyVehicleJourneyByPkArgs =
   {
-    _set?: Maybe<TimetablesVehicleJourneyVehicleJourneySetInput>;
+    _set?: InputMaybe<TimetablesVehicleJourneyVehicleJourneySetInput>;
     pk_columns: TimetablesVehicleJourneyVehicleJourneyPkColumnsInput;
   };
 
@@ -10066,25 +10143,25 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleJourneyVe
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleScheduleVehicleScheduleFrameArgs =
   {
-    _append?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameAppendInput>;
-    _delete_at_path?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteAtPathInput>;
-    _delete_elem?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteElemInput>;
-    _delete_key?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput>;
-    _inc?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameIncInput>;
-    _prepend?: Maybe<TimetablesVehicleScheduleVehicleScheduleFramePrependInput>;
-    _set?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameSetInput>;
+    _append?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameAppendInput>;
+    _delete_at_path?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteAtPathInput>;
+    _delete_elem?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteElemInput>;
+    _delete_key?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput>;
+    _inc?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameIncInput>;
+    _prepend?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFramePrependInput>;
+    _set?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameSetInput>;
     where: TimetablesVehicleScheduleVehicleScheduleFrameBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleScheduleVehicleScheduleFrameByPkArgs =
   {
-    _append?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameAppendInput>;
-    _delete_at_path?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteAtPathInput>;
-    _delete_elem?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteElemInput>;
-    _delete_key?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput>;
-    _inc?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameIncInput>;
-    _prepend?: Maybe<TimetablesVehicleScheduleVehicleScheduleFramePrependInput>;
-    _set?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameSetInput>;
+    _append?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameAppendInput>;
+    _delete_at_path?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteAtPathInput>;
+    _delete_elem?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteElemInput>;
+    _delete_key?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput>;
+    _inc?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameIncInput>;
+    _prepend?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFramePrependInput>;
+    _set?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameSetInput>;
     pk_columns: TimetablesVehicleScheduleVehicleScheduleFramePkColumnsInput;
   };
 
@@ -10095,13 +10172,13 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleScheduleV
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleServiceBlockArgs =
   {
-    _set?: Maybe<TimetablesVehicleServiceBlockSetInput>;
+    _set?: InputMaybe<TimetablesVehicleServiceBlockSetInput>;
     where: TimetablesVehicleServiceBlockBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleServiceBlockByPkArgs =
   {
-    _set?: Maybe<TimetablesVehicleServiceBlockSetInput>;
+    _set?: InputMaybe<TimetablesVehicleServiceBlockSetInput>;
     pk_columns: TimetablesVehicleServiceBlockPkColumnsInput;
   };
 
@@ -10112,13 +10189,13 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleServiceBl
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleServiceVehicleServiceArgs =
   {
-    _set?: Maybe<TimetablesVehicleServiceVehicleServiceSetInput>;
+    _set?: InputMaybe<TimetablesVehicleServiceVehicleServiceSetInput>;
     where: TimetablesVehicleServiceVehicleServiceBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleServiceVehicleServiceByPkArgs =
   {
-    _set?: Maybe<TimetablesVehicleServiceVehicleServiceSetInput>;
+    _set?: InputMaybe<TimetablesVehicleServiceVehicleServiceSetInput>;
     pk_columns: TimetablesVehicleServiceVehicleServicePkColumnsInput;
   };
 
@@ -10195,24 +10272,28 @@ export type TimetablesTimetablesQuery = {
 
 export type TimetablesTimetablesQueryTimetablesJourneyPatternJourneyPatternRefArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>>;
-    where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>
+    >;
+    where?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesJourneyPatternJourneyPatternRefAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>>;
-    where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>
+    >;
+    where?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesJourneyPatternJourneyPatternRefByPkArgs =
@@ -10222,24 +10303,28 @@ export type TimetablesTimetablesQueryTimetablesJourneyPatternJourneyPatternRefBy
 
 export type TimetablesTimetablesQueryTimetablesPassingTimesTimetabledPassingTimeArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>>;
-    where?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>
+    >;
+    where?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesPassingTimesTimetabledPassingTimeAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>>;
-    where?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>
+    >;
+    where?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesPassingTimesTimetabledPassingTimeByPkArgs =
@@ -10248,37 +10333,37 @@ export type TimetablesTimetablesQueryTimetablesPassingTimesTimetabledPassingTime
   };
 
 export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeArgs = {
-  distinct_on?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
-  where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  distinct_on?: InputMaybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
+  where?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
 };
 
 export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeActiveOnDayOfWeekArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy>
     >;
-    where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy>
     >;
-    where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeActiveOnDayOfWeekByPkArgs =
@@ -10289,11 +10374,13 @@ export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeActiveOnDay
 
 export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeAggregateArgs =
   {
-    distinct_on?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
-    where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<TimetablesServiceCalendarDayTypeSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeByPkArgs =
@@ -10304,47 +10391,51 @@ export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeByPkArgs =
 export type TimetablesTimetablesQueryTimetablesServiceCalendarGetActiveDayTypesForDateArgs =
   {
     args: TimetablesServiceCalendarGetActiveDayTypesForDateArgs;
-    distinct_on?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
-    where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<TimetablesServiceCalendarDayTypeSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesServiceCalendarGetActiveDayTypesForDateAggregateArgs =
   {
     args: TimetablesServiceCalendarGetActiveDayTypesForDateArgs;
-    distinct_on?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
-    where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<TimetablesServiceCalendarDayTypeSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesServicePatternScheduledStopPointInJourneyPatternRefArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOrderBy>
     >;
-    where?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+    where?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesServicePatternScheduledStopPointInJourneyPatternRefAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOrderBy>
     >;
-    where?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+    where?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesServicePatternScheduledStopPointInJourneyPatternRefByPkArgs =
@@ -10354,24 +10445,24 @@ export type TimetablesTimetablesQueryTimetablesServicePatternScheduledStopPointI
 
 export type TimetablesTimetablesQueryTimetablesVehicleJourneyVehicleJourneyArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleJourneyVehicleJourneySelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
-    where?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesVehicleJourneyVehicleJourneyAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleJourneyVehicleJourneySelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
-    where?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesVehicleJourneyVehicleJourneyByPkArgs =
@@ -10381,28 +10472,28 @@ export type TimetablesTimetablesQueryTimetablesVehicleJourneyVehicleJourneyByPkA
 
 export type TimetablesTimetablesQueryTimetablesVehicleScheduleVehicleScheduleFrameArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesVehicleScheduleVehicleScheduleFrameOrderBy>
     >;
-    where?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
+    where?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesVehicleScheduleVehicleScheduleFrameAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesVehicleScheduleVehicleScheduleFrameOrderBy>
     >;
-    where?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
+    where?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesVehicleScheduleVehicleScheduleFrameByPkArgs =
@@ -10411,20 +10502,20 @@ export type TimetablesTimetablesQueryTimetablesVehicleScheduleVehicleScheduleFra
   };
 
 export type TimetablesTimetablesQueryTimetablesVehicleServiceBlockArgs = {
-  distinct_on?: Maybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
-  where?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
+  distinct_on?: InputMaybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
+  where?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
 };
 
 export type TimetablesTimetablesQueryTimetablesVehicleServiceBlockAggregateArgs =
   {
-    distinct_on?: Maybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
-    where?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
+    distinct_on?: InputMaybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesVehicleServiceBlockByPkArgs = {
@@ -10434,47 +10525,47 @@ export type TimetablesTimetablesQueryTimetablesVehicleServiceBlockByPkArgs = {
 export type TimetablesTimetablesQueryTimetablesVehicleServiceGetVehicleServicesForDateArgs =
   {
     args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesVehicleServiceGetVehicleServicesForDateAggregateArgs =
   {
     args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesVehicleServiceVehicleServiceArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesVehicleServiceVehicleServiceAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesVehicleServiceVehicleServiceByPkArgs =
@@ -10568,24 +10659,28 @@ export type TimetablesTimetablesSubscription = {
 
 export type TimetablesTimetablesSubscriptionTimetablesJourneyPatternJourneyPatternRefArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>>;
-    where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>
+    >;
+    where?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesJourneyPatternJourneyPatternRefAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesJourneyPatternJourneyPatternRefSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>>;
-    where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<TimetablesJourneyPatternJourneyPatternRefOrderBy>
+    >;
+    where?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesJourneyPatternJourneyPatternRefByPkArgs =
@@ -10597,31 +10692,35 @@ export type TimetablesTimetablesSubscriptionTimetablesJourneyPatternJourneyPatte
   {
     batch_size: Scalars['Int'];
     cursor: Array<
-      Maybe<TimetablesJourneyPatternJourneyPatternRefStreamCursorInput>
+      InputMaybe<TimetablesJourneyPatternJourneyPatternRefStreamCursorInput>
     >;
-    where?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+    where?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesPassingTimesTimetabledPassingTimeArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>>;
-    where?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>
+    >;
+    where?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesPassingTimesTimetabledPassingTimeAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>>;
-    where?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>
+    >;
+    where?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesPassingTimesTimetabledPassingTimeByPkArgs =
@@ -10633,44 +10732,46 @@ export type TimetablesTimetablesSubscriptionTimetablesPassingTimesTimetabledPass
   {
     batch_size: Scalars['Int'];
     cursor: Array<
-      Maybe<TimetablesPassingTimesTimetabledPassingTimeStreamCursorInput>
+      InputMaybe<TimetablesPassingTimesTimetabledPassingTimeStreamCursorInput>
     >;
-    where?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+    where?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeArgs =
   {
-    distinct_on?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
-    where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<TimetablesServiceCalendarDayTypeSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeActiveOnDayOfWeekArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy>
     >;
-    where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy>
     >;
-    where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeActiveOnDayOfWeekByPkArgs =
@@ -10683,18 +10784,20 @@ export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeActi
   {
     batch_size: Scalars['Int'];
     cursor: Array<
-      Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStreamCursorInput>
+      InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStreamCursorInput>
     >;
-    where?: Maybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeAggregateArgs =
   {
-    distinct_on?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
-    where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<TimetablesServiceCalendarDayTypeSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeByPkArgs =
@@ -10705,54 +10808,60 @@ export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeByPk
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeStreamArgs =
   {
     batch_size: Scalars['Int'];
-    cursor: Array<Maybe<TimetablesServiceCalendarDayTypeStreamCursorInput>>;
-    where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+    cursor: Array<
+      InputMaybe<TimetablesServiceCalendarDayTypeStreamCursorInput>
+    >;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarGetActiveDayTypesForDateArgs =
   {
     args: TimetablesServiceCalendarGetActiveDayTypesForDateArgs;
-    distinct_on?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
-    where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<TimetablesServiceCalendarDayTypeSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarGetActiveDayTypesForDateAggregateArgs =
   {
     args: TimetablesServiceCalendarGetActiveDayTypesForDateArgs;
-    distinct_on?: Maybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
-    where?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
+    distinct_on?: InputMaybe<
+      Array<TimetablesServiceCalendarDayTypeSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesServiceCalendarDayTypeOrderBy>>;
+    where?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServicePatternScheduledStopPointInJourneyPatternRefArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOrderBy>
     >;
-    where?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+    where?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServicePatternScheduledStopPointInJourneyPatternRefAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRefOrderBy>
     >;
-    where?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+    where?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServicePatternScheduledStopPointInJourneyPatternRefByPkArgs =
@@ -10764,31 +10873,31 @@ export type TimetablesTimetablesSubscriptionTimetablesServicePatternScheduledSto
   {
     batch_size: Scalars['Int'];
     cursor: Array<
-      Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefStreamCursorInput>
+      InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefStreamCursorInput>
     >;
-    where?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+    where?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleJourneyVehicleJourneyArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleJourneyVehicleJourneySelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
-    where?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleJourneyVehicleJourneyAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleJourneyVehicleJourneySelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
-    where?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleJourneyVehicleJourneyByPkArgs =
@@ -10800,35 +10909,35 @@ export type TimetablesTimetablesSubscriptionTimetablesVehicleJourneyVehicleJourn
   {
     batch_size: Scalars['Int'];
     cursor: Array<
-      Maybe<TimetablesVehicleJourneyVehicleJourneyStreamCursorInput>
+      InputMaybe<TimetablesVehicleJourneyVehicleJourneyStreamCursorInput>
     >;
-    where?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+    where?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleScheduleVehicleScheduleFrameArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesVehicleScheduleVehicleScheduleFrameOrderBy>
     >;
-    where?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
+    where?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleScheduleVehicleScheduleFrameAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
       Array<TimetablesVehicleScheduleVehicleScheduleFrameOrderBy>
     >;
-    where?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
+    where?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleScheduleVehicleScheduleFrameByPkArgs =
@@ -10840,27 +10949,27 @@ export type TimetablesTimetablesSubscriptionTimetablesVehicleScheduleVehicleSche
   {
     batch_size: Scalars['Int'];
     cursor: Array<
-      Maybe<TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorInput>
+      InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorInput>
     >;
-    where?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
+    where?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceBlockArgs =
   {
-    distinct_on?: Maybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
-    where?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
+    distinct_on?: InputMaybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceBlockAggregateArgs =
   {
-    distinct_on?: Maybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
-    where?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
+    distinct_on?: InputMaybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceBlockByPkArgs =
@@ -10871,54 +10980,54 @@ export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceBlockByPkArg
 export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceBlockStreamArgs =
   {
     batch_size: Scalars['Int'];
-    cursor: Array<Maybe<TimetablesVehicleServiceBlockStreamCursorInput>>;
-    where?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
+    cursor: Array<InputMaybe<TimetablesVehicleServiceBlockStreamCursorInput>>;
+    where?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceGetVehicleServicesForDateArgs =
   {
     args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceGetVehicleServicesForDateAggregateArgs =
   {
     args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceVehicleServiceArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceVehicleServiceAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceVehicleServiceByPkArgs =
@@ -10930,9 +11039,9 @@ export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceVehicleServi
   {
     batch_size: Scalars['Int'];
     cursor: Array<
-      Maybe<TimetablesVehicleServiceVehicleServiceStreamCursorInput>
+      InputMaybe<TimetablesVehicleServiceVehicleServiceStreamCursorInput>
     >;
-    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   };
 
 /** The planned movement of a public transport vehicle on a DAY TYPE from the start point to the end point of a JOURNEY PATTERN on a specified ROUTE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:1:1:831  */
@@ -10959,25 +11068,29 @@ export type TimetablesVehicleJourneyVehicleJourney = {
 
 /** The planned movement of a public transport vehicle on a DAY TYPE from the start point to the end point of a JOURNEY PATTERN on a specified ROUTE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:1:1:831  */
 export type TimetablesVehicleJourneyVehicleJourneyTimetabledPassingTimesArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>>;
-  where?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<
+    Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>
+  >;
+  where?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
 };
 
 /** The planned movement of a public transport vehicle on a DAY TYPE from the start point to the end point of a JOURNEY PATTERN on a specified ROUTE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:1:1:831  */
 export type TimetablesVehicleJourneyVehicleJourneyTimetabledPassingTimesAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>>;
-    where?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<TimetablesPassingTimesTimetabledPassingTimeOrderBy>
+    >;
+    where?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
   };
 
 /** aggregated selection of "vehicle_journey.vehicle_journey" */
@@ -10997,38 +11110,40 @@ export type TimetablesVehicleJourneyVehicleJourneyAggregateFields = {
 
 /** aggregate fields of "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneySelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<
+    Array<TimetablesVehicleJourneyVehicleJourneySelectColumn>
+  >;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyAggregateOrderBy = {
-  count?: Maybe<OrderBy>;
-  max?: Maybe<TimetablesVehicleJourneyVehicleJourneyMaxOrderBy>;
-  min?: Maybe<TimetablesVehicleJourneyVehicleJourneyMinOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyMaxOrderBy>;
+  min?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyMinOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyArrRelInsertInput = {
   data: Array<TimetablesVehicleJourneyVehicleJourneyInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<TimetablesVehicleJourneyVehicleJourneyOnConflict>;
+  on_conflict?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "vehicle_journey.vehicle_journey". All fields are combined with a logical 'AND'. */
 export type TimetablesVehicleJourneyVehicleJourneyBoolExp = {
-  _and?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneyBoolExp>>;
-  _not?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
-  _or?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneyBoolExp>>;
-  block?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
-  block_id?: Maybe<UuidComparisonExp>;
-  end_time?: Maybe<StringComparisonExp>;
-  journey_pattern_ref?: Maybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
-  journey_pattern_ref_id?: Maybe<UuidComparisonExp>;
-  start_time?: Maybe<StringComparisonExp>;
-  timetabled_passing_times?: Maybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
-  timetabled_passing_times_aggregate?: Maybe<PassingTimesTimetabledPassingTimeAggregateBoolExp>;
-  vehicle_journey_id?: Maybe<UuidComparisonExp>;
+  _and?: InputMaybe<Array<TimetablesVehicleJourneyVehicleJourneyBoolExp>>;
+  _not?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+  _or?: InputMaybe<Array<TimetablesVehicleJourneyVehicleJourneyBoolExp>>;
+  block?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
+  block_id?: InputMaybe<UuidComparisonExp>;
+  end_time?: InputMaybe<StringComparisonExp>;
+  journey_pattern_ref?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
+  journey_pattern_ref_id?: InputMaybe<UuidComparisonExp>;
+  start_time?: InputMaybe<StringComparisonExp>;
+  timetabled_passing_times?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+  timetabled_passing_times_aggregate?: InputMaybe<PassingTimesTimetabledPassingTimeAggregateBoolExp>;
+  vehicle_journey_id?: InputMaybe<UuidComparisonExp>;
 };
 
 /** unique or primary key constraints on table "vehicle_journey.vehicle_journey" */
@@ -11039,14 +11154,14 @@ export enum TimetablesVehicleJourneyVehicleJourneyConstraint {
 
 /** input type for inserting data into table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyInsertInput = {
-  block?: Maybe<TimetablesVehicleServiceBlockObjRelInsertInput>;
+  block?: InputMaybe<TimetablesVehicleServiceBlockObjRelInsertInput>;
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
-  block_id?: Maybe<Scalars['uuid']>;
-  journey_pattern_ref?: Maybe<TimetablesJourneyPatternJourneyPatternRefObjRelInsertInput>;
+  block_id?: InputMaybe<Scalars['uuid']>;
+  journey_pattern_ref?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefObjRelInsertInput>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
-  journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
-  timetabled_passing_times?: Maybe<TimetablesPassingTimesTimetabledPassingTimeArrRelInsertInput>;
-  vehicle_journey_id?: Maybe<Scalars['uuid']>;
+  journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
+  timetabled_passing_times?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeArrRelInsertInput>;
+  vehicle_journey_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate max on columns */
@@ -11062,10 +11177,10 @@ export type TimetablesVehicleJourneyVehicleJourneyMaxFields = {
 /** order by max() on columns of table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyMaxOrderBy = {
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
-  block_id?: Maybe<OrderBy>;
+  block_id?: InputMaybe<OrderBy>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
-  journey_pattern_ref_id?: Maybe<OrderBy>;
-  vehicle_journey_id?: Maybe<OrderBy>;
+  journey_pattern_ref_id?: InputMaybe<OrderBy>;
+  vehicle_journey_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -11081,10 +11196,10 @@ export type TimetablesVehicleJourneyVehicleJourneyMinFields = {
 /** order by min() on columns of table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyMinOrderBy = {
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
-  block_id?: Maybe<OrderBy>;
+  block_id?: InputMaybe<OrderBy>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
-  journey_pattern_ref_id?: Maybe<OrderBy>;
-  vehicle_journey_id?: Maybe<OrderBy>;
+  journey_pattern_ref_id?: InputMaybe<OrderBy>;
+  vehicle_journey_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "vehicle_journey.vehicle_journey" */
@@ -11100,26 +11215,26 @@ export type TimetablesVehicleJourneyVehicleJourneyMutationResponse = {
 export type TimetablesVehicleJourneyVehicleJourneyObjRelInsertInput = {
   data: TimetablesVehicleJourneyVehicleJourneyInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<TimetablesVehicleJourneyVehicleJourneyOnConflict>;
+  on_conflict?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyOnConflict>;
 };
 
 /** on_conflict condition type for table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyOnConflict = {
   constraint: TimetablesVehicleJourneyVehicleJourneyConstraint;
   update_columns?: Array<TimetablesVehicleJourneyVehicleJourneyUpdateColumn>;
-  where?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+  where?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
 };
 
 /** Ordering options when selecting data from "vehicle_journey.vehicle_journey". */
 export type TimetablesVehicleJourneyVehicleJourneyOrderBy = {
-  block?: Maybe<TimetablesVehicleServiceBlockOrderBy>;
-  block_id?: Maybe<OrderBy>;
-  end_time?: Maybe<OrderBy>;
-  journey_pattern_ref?: Maybe<TimetablesJourneyPatternJourneyPatternRefOrderBy>;
-  journey_pattern_ref_id?: Maybe<OrderBy>;
-  start_time?: Maybe<OrderBy>;
-  timetabled_passing_times_aggregate?: Maybe<TimetablesPassingTimesTimetabledPassingTimeAggregateOrderBy>;
-  vehicle_journey_id?: Maybe<OrderBy>;
+  block?: InputMaybe<TimetablesVehicleServiceBlockOrderBy>;
+  block_id?: InputMaybe<OrderBy>;
+  end_time?: InputMaybe<OrderBy>;
+  journey_pattern_ref?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefOrderBy>;
+  journey_pattern_ref_id?: InputMaybe<OrderBy>;
+  start_time?: InputMaybe<OrderBy>;
+  timetabled_passing_times_aggregate?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeAggregateOrderBy>;
+  vehicle_journey_id?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: vehicle_journey.vehicle_journey */
@@ -11140,10 +11255,10 @@ export enum TimetablesVehicleJourneyVehicleJourneySelectColumn {
 /** input type for updating data in table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneySetInput = {
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
-  block_id?: Maybe<Scalars['uuid']>;
+  block_id?: InputMaybe<Scalars['uuid']>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
-  journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
-  vehicle_journey_id?: Maybe<Scalars['uuid']>;
+  journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
+  vehicle_journey_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** Streaming cursor of the table "vehicle_journey_vehicle_journey" */
@@ -11151,16 +11266,16 @@ export type TimetablesVehicleJourneyVehicleJourneyStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: TimetablesVehicleJourneyVehicleJourneyStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<TimetablesCursorOrdering>;
+  ordering?: InputMaybe<TimetablesCursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleJourneyVehicleJourneyStreamCursorValueInput = {
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
-  block_id?: Maybe<Scalars['uuid']>;
+  block_id?: InputMaybe<Scalars['uuid']>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
-  journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
-  vehicle_journey_id?: Maybe<Scalars['uuid']>;
+  journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
+  vehicle_journey_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** update columns of table "vehicle_journey.vehicle_journey" */
@@ -11175,7 +11290,7 @@ export enum TimetablesVehicleJourneyVehicleJourneyUpdateColumn {
 
 export type TimetablesVehicleJourneyVehicleJourneyUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<TimetablesVehicleJourneyVehicleJourneySetInput>;
+  _set?: InputMaybe<TimetablesVehicleJourneyVehicleJourneySetInput>;
   where: TimetablesVehicleJourneyVehicleJourneyBoolExp;
 };
 
@@ -11199,30 +11314,30 @@ export type TimetablesVehicleScheduleVehicleScheduleFrame = {
 
 /** A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993  */
 export type TimetablesVehicleScheduleVehicleScheduleFrameNameI18nArgs = {
-  path?: Maybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993  */
 export type TimetablesVehicleScheduleVehicleScheduleFrameVehicleServicesArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-  where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+  where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
 };
 
 /** A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993  */
 export type TimetablesVehicleScheduleVehicleScheduleFrameVehicleServicesAggregateArgs =
   {
-    distinct_on?: Maybe<
+    distinct_on?: InputMaybe<
       Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
     >;
-    limit?: Maybe<Scalars['Int']>;
-    offset?: Maybe<Scalars['Int']>;
-    order_by?: Maybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
+    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   };
 
 /** aggregated selection of "vehicle_schedule.vehicle_schedule_frame" */
@@ -11251,16 +11366,16 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameAggregateFields = {
 /** aggregate fields of "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameAggregateFieldsCountArgs =
   {
-    columns?: Maybe<
+    columns?: InputMaybe<
       Array<TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn>
     >;
-    distinct?: Maybe<Scalars['Boolean']>;
+    distinct?: InputMaybe<Scalars['Boolean']>;
   };
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesVehicleScheduleVehicleScheduleFrameAppendInput = {
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** aggregate avg on columns */
@@ -11272,16 +11387,18 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameAvgFields = {
 
 /** Boolean expression to filter rows from the table "vehicle_schedule.vehicle_schedule_frame". All fields are combined with a logical 'AND'. */
 export type TimetablesVehicleScheduleVehicleScheduleFrameBoolExp = {
-  _and?: Maybe<Array<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>>;
-  _not?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
-  _or?: Maybe<Array<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>>;
-  name_i18n?: Maybe<JsonbComparisonExp>;
-  priority?: Maybe<IntComparisonExp>;
-  validity_end?: Maybe<DateComparisonExp>;
-  validity_start?: Maybe<DateComparisonExp>;
-  vehicle_schedule_frame_id?: Maybe<UuidComparisonExp>;
-  vehicle_services?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
-  vehicle_services_aggregate?: Maybe<VehicleServiceVehicleServiceAggregateBoolExp>;
+  _and?: InputMaybe<
+    Array<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>
+  >;
+  _not?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
+  _or?: InputMaybe<Array<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>>;
+  name_i18n?: InputMaybe<JsonbComparisonExp>;
+  priority?: InputMaybe<IntComparisonExp>;
+  validity_end?: InputMaybe<DateComparisonExp>;
+  validity_start?: InputMaybe<DateComparisonExp>;
+  vehicle_schedule_frame_id?: InputMaybe<UuidComparisonExp>;
+  vehicle_services?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+  vehicle_services_aggregate?: InputMaybe<VehicleServiceVehicleServiceAggregateBoolExp>;
 };
 
 /** unique or primary key constraints on table "vehicle_schedule.vehicle_schedule_frame" */
@@ -11293,39 +11410,39 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameConstraint {
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type TimetablesVehicleScheduleVehicleScheduleFrameDeleteAtPathInput = {
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  name_i18n?: Maybe<Array<Scalars['String']>>;
+  name_i18n?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type TimetablesVehicleScheduleVehicleScheduleFrameDeleteElemInput = {
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  name_i18n?: Maybe<Scalars['Int']>;
+  name_i18n?: InputMaybe<Scalars['Int']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput = {
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  name_i18n?: Maybe<Scalars['String']>;
+  name_i18n?: InputMaybe<Scalars['String']>;
 };
 
 /** input type for incrementing numeric columns in table "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameIncInput = {
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameInsertInput = {
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority?: InputMaybe<Scalars['Int']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
-  validity_end?: Maybe<Scalars['date']>;
+  validity_end?: InputMaybe<Scalars['date']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
-  validity_start?: Maybe<Scalars['date']>;
-  vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
-  vehicle_services?: Maybe<TimetablesVehicleServiceVehicleServiceArrRelInsertInput>;
+  validity_start?: InputMaybe<Scalars['date']>;
+  vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
+  vehicle_services?: InputMaybe<TimetablesVehicleServiceVehicleServiceArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -11365,24 +11482,24 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameMutationResponse = {
 export type TimetablesVehicleScheduleVehicleScheduleFrameObjRelInsertInput = {
   data: TimetablesVehicleScheduleVehicleScheduleFrameInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameOnConflict>;
+  on_conflict?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameOnConflict>;
 };
 
 /** on_conflict condition type for table "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameOnConflict = {
   constraint: TimetablesVehicleScheduleVehicleScheduleFrameConstraint;
   update_columns?: Array<TimetablesVehicleScheduleVehicleScheduleFrameUpdateColumn>;
-  where?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
+  where?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
 };
 
 /** Ordering options when selecting data from "vehicle_schedule.vehicle_schedule_frame". */
 export type TimetablesVehicleScheduleVehicleScheduleFrameOrderBy = {
-  name_i18n?: Maybe<OrderBy>;
-  priority?: Maybe<OrderBy>;
-  validity_end?: Maybe<OrderBy>;
-  validity_start?: Maybe<OrderBy>;
-  vehicle_schedule_frame_id?: Maybe<OrderBy>;
-  vehicle_services_aggregate?: Maybe<TimetablesVehicleServiceVehicleServiceAggregateOrderBy>;
+  name_i18n?: InputMaybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
+  vehicle_schedule_frame_id?: InputMaybe<OrderBy>;
+  vehicle_services_aggregate?: InputMaybe<TimetablesVehicleServiceVehicleServiceAggregateOrderBy>;
 };
 
 /** primary key columns input for table: vehicle_schedule.vehicle_schedule_frame */
@@ -11393,7 +11510,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFramePkColumnsInput = {
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesVehicleScheduleVehicleScheduleFramePrependInput = {
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "vehicle_schedule.vehicle_schedule_frame" */
@@ -11413,14 +11530,14 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn {
 /** input type for updating data in table "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameSetInput = {
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  name_i18n?: Maybe<Scalars['jsonb']>;
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
-  priority?: Maybe<Scalars['Int']>;
+  priority?: InputMaybe<Scalars['Int']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
-  validity_end?: Maybe<Scalars['date']>;
+  validity_end?: InputMaybe<Scalars['date']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
-  validity_start?: Maybe<Scalars['date']>;
-  vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
+  validity_start?: InputMaybe<Scalars['date']>;
+  vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate stddev on columns */
@@ -11449,21 +11566,21 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<TimetablesCursorOrdering>;
+  ordering?: InputMaybe<TimetablesCursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorValueInput =
   {
     /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-    name_i18n?: Maybe<Scalars['jsonb']>;
+    name_i18n?: InputMaybe<Scalars['jsonb']>;
     /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
-    priority?: Maybe<Scalars['Int']>;
+    priority?: InputMaybe<Scalars['Int']>;
     /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
-    validity_end?: Maybe<Scalars['date']>;
+    validity_end?: InputMaybe<Scalars['date']>;
     /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
-    validity_start?: Maybe<Scalars['date']>;
-    vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
+    validity_start?: InputMaybe<Scalars['date']>;
+    vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
   };
 
 /** aggregate sum on columns */
@@ -11489,19 +11606,19 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameUpdateColumn {
 
 export type TimetablesVehicleScheduleVehicleScheduleFrameUpdates = {
   /** append existing jsonb value of filtered columns with new jsonb value */
-  _append?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameAppendInput>;
+  _append?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameAppendInput>;
   /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-  _delete_at_path?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteAtPathInput>;
+  _delete_at_path?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteAtPathInput>;
   /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-  _delete_elem?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteElemInput>;
+  _delete_elem?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteElemInput>;
   /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-  _delete_key?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput>;
+  _delete_key?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput>;
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameIncInput>;
+  _inc?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameIncInput>;
   /** prepend existing jsonb value of filtered columns with new jsonb value */
-  _prepend?: Maybe<TimetablesVehicleScheduleVehicleScheduleFramePrependInput>;
+  _prepend?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFramePrependInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameSetInput>;
+  _set?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameSetInput>;
   where: TimetablesVehicleScheduleVehicleScheduleFrameBoolExp;
 };
 
@@ -11542,24 +11659,24 @@ export type TimetablesVehicleServiceBlock = {
 
 /** The work of a vehicle from the time it leaves a PARKING POINT after parking until its next return to park at a PARKING POINT. Any subsequent departure from a PARKING POINT after parking marks the start of a new BLOCK. The period of a BLOCK has to be covered by DUTies. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:958  */
 export type TimetablesVehicleServiceBlockVehicleJourneysArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<TimetablesVehicleJourneyVehicleJourneySelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
-  where?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
+  where?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
 };
 
 /** The work of a vehicle from the time it leaves a PARKING POINT after parking until its next return to park at a PARKING POINT. Any subsequent departure from a PARKING POINT after parking marks the start of a new BLOCK. The period of a BLOCK has to be covered by DUTies. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:958  */
 export type TimetablesVehicleServiceBlockVehicleJourneysAggregateArgs = {
-  distinct_on?: Maybe<
+  distinct_on?: InputMaybe<
     Array<TimetablesVehicleJourneyVehicleJourneySelectColumn>
   >;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
-  where?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesVehicleJourneyVehicleJourneyOrderBy>>;
+  where?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
 };
 
 /** aggregated selection of "vehicle_service.block" */
@@ -11579,34 +11696,34 @@ export type TimetablesVehicleServiceBlockAggregateFields = {
 
 /** aggregate fields of "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockAggregateOrderBy = {
-  count?: Maybe<OrderBy>;
-  max?: Maybe<TimetablesVehicleServiceBlockMaxOrderBy>;
-  min?: Maybe<TimetablesVehicleServiceBlockMinOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<TimetablesVehicleServiceBlockMaxOrderBy>;
+  min?: InputMaybe<TimetablesVehicleServiceBlockMinOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockArrRelInsertInput = {
   data: Array<TimetablesVehicleServiceBlockInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<TimetablesVehicleServiceBlockOnConflict>;
+  on_conflict?: InputMaybe<TimetablesVehicleServiceBlockOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "vehicle_service.block". All fields are combined with a logical 'AND'. */
 export type TimetablesVehicleServiceBlockBoolExp = {
-  _and?: Maybe<Array<TimetablesVehicleServiceBlockBoolExp>>;
-  _not?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
-  _or?: Maybe<Array<TimetablesVehicleServiceBlockBoolExp>>;
-  block_id?: Maybe<UuidComparisonExp>;
-  vehicle_journeys?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
-  vehicle_journeys_aggregate?: Maybe<VehicleJourneyVehicleJourneyAggregateBoolExp>;
-  vehicle_service?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
-  vehicle_service_id?: Maybe<UuidComparisonExp>;
+  _and?: InputMaybe<Array<TimetablesVehicleServiceBlockBoolExp>>;
+  _not?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
+  _or?: InputMaybe<Array<TimetablesVehicleServiceBlockBoolExp>>;
+  block_id?: InputMaybe<UuidComparisonExp>;
+  vehicle_journeys?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+  vehicle_journeys_aggregate?: InputMaybe<VehicleJourneyVehicleJourneyAggregateBoolExp>;
+  vehicle_service?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+  vehicle_service_id?: InputMaybe<UuidComparisonExp>;
 };
 
 /** unique or primary key constraints on table "vehicle_service.block" */
@@ -11617,11 +11734,11 @@ export enum TimetablesVehicleServiceBlockConstraint {
 
 /** input type for inserting data into table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockInsertInput = {
-  block_id?: Maybe<Scalars['uuid']>;
-  vehicle_journeys?: Maybe<TimetablesVehicleJourneyVehicleJourneyArrRelInsertInput>;
-  vehicle_service?: Maybe<TimetablesVehicleServiceVehicleServiceObjRelInsertInput>;
+  block_id?: InputMaybe<Scalars['uuid']>;
+  vehicle_journeys?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyArrRelInsertInput>;
+  vehicle_service?: InputMaybe<TimetablesVehicleServiceVehicleServiceObjRelInsertInput>;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
-  vehicle_service_id?: Maybe<Scalars['uuid']>;
+  vehicle_service_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate max on columns */
@@ -11634,9 +11751,9 @@ export type TimetablesVehicleServiceBlockMaxFields = {
 
 /** order by max() on columns of table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockMaxOrderBy = {
-  block_id?: Maybe<OrderBy>;
+  block_id?: InputMaybe<OrderBy>;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
-  vehicle_service_id?: Maybe<OrderBy>;
+  vehicle_service_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -11649,9 +11766,9 @@ export type TimetablesVehicleServiceBlockMinFields = {
 
 /** order by min() on columns of table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockMinOrderBy = {
-  block_id?: Maybe<OrderBy>;
+  block_id?: InputMaybe<OrderBy>;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
-  vehicle_service_id?: Maybe<OrderBy>;
+  vehicle_service_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "vehicle_service.block" */
@@ -11667,22 +11784,22 @@ export type TimetablesVehicleServiceBlockMutationResponse = {
 export type TimetablesVehicleServiceBlockObjRelInsertInput = {
   data: TimetablesVehicleServiceBlockInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<TimetablesVehicleServiceBlockOnConflict>;
+  on_conflict?: InputMaybe<TimetablesVehicleServiceBlockOnConflict>;
 };
 
 /** on_conflict condition type for table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockOnConflict = {
   constraint: TimetablesVehicleServiceBlockConstraint;
   update_columns?: Array<TimetablesVehicleServiceBlockUpdateColumn>;
-  where?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
+  where?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
 };
 
 /** Ordering options when selecting data from "vehicle_service.block". */
 export type TimetablesVehicleServiceBlockOrderBy = {
-  block_id?: Maybe<OrderBy>;
-  vehicle_journeys_aggregate?: Maybe<TimetablesVehicleJourneyVehicleJourneyAggregateOrderBy>;
-  vehicle_service?: Maybe<TimetablesVehicleServiceVehicleServiceOrderBy>;
-  vehicle_service_id?: Maybe<OrderBy>;
+  block_id?: InputMaybe<OrderBy>;
+  vehicle_journeys_aggregate?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyAggregateOrderBy>;
+  vehicle_service?: InputMaybe<TimetablesVehicleServiceVehicleServiceOrderBy>;
+  vehicle_service_id?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: vehicle_service.block */
@@ -11700,9 +11817,9 @@ export enum TimetablesVehicleServiceBlockSelectColumn {
 
 /** input type for updating data in table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockSetInput = {
-  block_id?: Maybe<Scalars['uuid']>;
+  block_id?: InputMaybe<Scalars['uuid']>;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
-  vehicle_service_id?: Maybe<Scalars['uuid']>;
+  vehicle_service_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** Streaming cursor of the table "vehicle_service_block" */
@@ -11710,14 +11827,14 @@ export type TimetablesVehicleServiceBlockStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: TimetablesVehicleServiceBlockStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<TimetablesCursorOrdering>;
+  ordering?: InputMaybe<TimetablesCursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleServiceBlockStreamCursorValueInput = {
-  block_id?: Maybe<Scalars['uuid']>;
+  block_id?: InputMaybe<Scalars['uuid']>;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
-  vehicle_service_id?: Maybe<Scalars['uuid']>;
+  vehicle_service_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** update columns of table "vehicle_service.block" */
@@ -11730,12 +11847,12 @@ export enum TimetablesVehicleServiceBlockUpdateColumn {
 
 export type TimetablesVehicleServiceBlockUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<TimetablesVehicleServiceBlockSetInput>;
+  _set?: InputMaybe<TimetablesVehicleServiceBlockSetInput>;
   where: TimetablesVehicleServiceBlockBoolExp;
 };
 
 export type TimetablesVehicleServiceGetVehicleServicesForDateArgs = {
-  observation_date?: Maybe<Scalars['date']>;
+  observation_date?: InputMaybe<Scalars['date']>;
 };
 
 /** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
@@ -11758,20 +11875,20 @@ export type TimetablesVehicleServiceVehicleService = {
 
 /** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
 export type TimetablesVehicleServiceVehicleServiceBlocksArgs = {
-  distinct_on?: Maybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
-  where?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
+  distinct_on?: InputMaybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
+  where?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
 };
 
 /** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
 export type TimetablesVehicleServiceVehicleServiceBlocksAggregateArgs = {
-  distinct_on?: Maybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
-  where?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
+  distinct_on?: InputMaybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
+  where?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
 };
 
 /** aggregated selection of "vehicle_service.vehicle_service" */
@@ -11791,36 +11908,38 @@ export type TimetablesVehicleServiceVehicleServiceAggregateFields = {
 
 /** aggregate fields of "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<TimetablesVehicleServiceVehicleServiceSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<
+    Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
+  >;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceAggregateOrderBy = {
-  count?: Maybe<OrderBy>;
-  max?: Maybe<TimetablesVehicleServiceVehicleServiceMaxOrderBy>;
-  min?: Maybe<TimetablesVehicleServiceVehicleServiceMinOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<TimetablesVehicleServiceVehicleServiceMaxOrderBy>;
+  min?: InputMaybe<TimetablesVehicleServiceVehicleServiceMinOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceArrRelInsertInput = {
   data: Array<TimetablesVehicleServiceVehicleServiceInsertInput>;
   /** upsert condition */
-  on_conflict?: Maybe<TimetablesVehicleServiceVehicleServiceOnConflict>;
+  on_conflict?: InputMaybe<TimetablesVehicleServiceVehicleServiceOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "vehicle_service.vehicle_service". All fields are combined with a logical 'AND'. */
 export type TimetablesVehicleServiceVehicleServiceBoolExp = {
-  _and?: Maybe<Array<TimetablesVehicleServiceVehicleServiceBoolExp>>;
-  _not?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
-  _or?: Maybe<Array<TimetablesVehicleServiceVehicleServiceBoolExp>>;
-  blocks?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
-  blocks_aggregate?: Maybe<VehicleServiceBlockAggregateBoolExp>;
-  day_type?: Maybe<TimetablesServiceCalendarDayTypeBoolExp>;
-  day_type_id?: Maybe<UuidComparisonExp>;
-  vehicle_schedule_frame?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
-  vehicle_schedule_frame_id?: Maybe<UuidComparisonExp>;
-  vehicle_service_id?: Maybe<UuidComparisonExp>;
+  _and?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceBoolExp>>;
+  _not?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+  _or?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceBoolExp>>;
+  blocks?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
+  blocks_aggregate?: InputMaybe<VehicleServiceBlockAggregateBoolExp>;
+  day_type?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  day_type_id?: InputMaybe<UuidComparisonExp>;
+  vehicle_schedule_frame?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
+  vehicle_schedule_frame_id?: InputMaybe<UuidComparisonExp>;
+  vehicle_service_id?: InputMaybe<UuidComparisonExp>;
 };
 
 /** unique or primary key constraints on table "vehicle_service.vehicle_service" */
@@ -11831,14 +11950,14 @@ export enum TimetablesVehicleServiceVehicleServiceConstraint {
 
 /** input type for inserting data into table "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceInsertInput = {
-  blocks?: Maybe<TimetablesVehicleServiceBlockArrRelInsertInput>;
-  day_type?: Maybe<TimetablesServiceCalendarDayTypeObjRelInsertInput>;
+  blocks?: InputMaybe<TimetablesVehicleServiceBlockArrRelInsertInput>;
+  day_type?: InputMaybe<TimetablesServiceCalendarDayTypeObjRelInsertInput>;
   /** The DAY TYPE for the VEHICLE SERVICE. */
-  day_type_id?: Maybe<Scalars['uuid']>;
-  vehicle_schedule_frame?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameObjRelInsertInput>;
+  day_type_id?: InputMaybe<Scalars['uuid']>;
+  vehicle_schedule_frame?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameObjRelInsertInput>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
-  vehicle_service_id?: Maybe<Scalars['uuid']>;
+  vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
+  vehicle_service_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate max on columns */
@@ -11854,10 +11973,10 @@ export type TimetablesVehicleServiceVehicleServiceMaxFields = {
 /** order by max() on columns of table "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceMaxOrderBy = {
   /** The DAY TYPE for the VEHICLE SERVICE. */
-  day_type_id?: Maybe<OrderBy>;
+  day_type_id?: InputMaybe<OrderBy>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  vehicle_schedule_frame_id?: Maybe<OrderBy>;
-  vehicle_service_id?: Maybe<OrderBy>;
+  vehicle_schedule_frame_id?: InputMaybe<OrderBy>;
+  vehicle_service_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -11873,10 +11992,10 @@ export type TimetablesVehicleServiceVehicleServiceMinFields = {
 /** order by min() on columns of table "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceMinOrderBy = {
   /** The DAY TYPE for the VEHICLE SERVICE. */
-  day_type_id?: Maybe<OrderBy>;
+  day_type_id?: InputMaybe<OrderBy>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  vehicle_schedule_frame_id?: Maybe<OrderBy>;
-  vehicle_service_id?: Maybe<OrderBy>;
+  vehicle_schedule_frame_id?: InputMaybe<OrderBy>;
+  vehicle_service_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "vehicle_service.vehicle_service" */
@@ -11892,24 +12011,24 @@ export type TimetablesVehicleServiceVehicleServiceMutationResponse = {
 export type TimetablesVehicleServiceVehicleServiceObjRelInsertInput = {
   data: TimetablesVehicleServiceVehicleServiceInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<TimetablesVehicleServiceVehicleServiceOnConflict>;
+  on_conflict?: InputMaybe<TimetablesVehicleServiceVehicleServiceOnConflict>;
 };
 
 /** on_conflict condition type for table "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceOnConflict = {
   constraint: TimetablesVehicleServiceVehicleServiceConstraint;
   update_columns?: Array<TimetablesVehicleServiceVehicleServiceUpdateColumn>;
-  where?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+  where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
 };
 
 /** Ordering options when selecting data from "vehicle_service.vehicle_service". */
 export type TimetablesVehicleServiceVehicleServiceOrderBy = {
-  blocks_aggregate?: Maybe<TimetablesVehicleServiceBlockAggregateOrderBy>;
-  day_type?: Maybe<TimetablesServiceCalendarDayTypeOrderBy>;
-  day_type_id?: Maybe<OrderBy>;
-  vehicle_schedule_frame?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrameOrderBy>;
-  vehicle_schedule_frame_id?: Maybe<OrderBy>;
-  vehicle_service_id?: Maybe<OrderBy>;
+  blocks_aggregate?: InputMaybe<TimetablesVehicleServiceBlockAggregateOrderBy>;
+  day_type?: InputMaybe<TimetablesServiceCalendarDayTypeOrderBy>;
+  day_type_id?: InputMaybe<OrderBy>;
+  vehicle_schedule_frame?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameOrderBy>;
+  vehicle_schedule_frame_id?: InputMaybe<OrderBy>;
+  vehicle_service_id?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: vehicle_service.vehicle_service */
@@ -11930,10 +12049,10 @@ export enum TimetablesVehicleServiceVehicleServiceSelectColumn {
 /** input type for updating data in table "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceSetInput = {
   /** The DAY TYPE for the VEHICLE SERVICE. */
-  day_type_id?: Maybe<Scalars['uuid']>;
+  day_type_id?: InputMaybe<Scalars['uuid']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
-  vehicle_service_id?: Maybe<Scalars['uuid']>;
+  vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
+  vehicle_service_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** Streaming cursor of the table "vehicle_service_vehicle_service" */
@@ -11941,16 +12060,16 @@ export type TimetablesVehicleServiceVehicleServiceStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: TimetablesVehicleServiceVehicleServiceStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<TimetablesCursorOrdering>;
+  ordering?: InputMaybe<TimetablesCursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleServiceVehicleServiceStreamCursorValueInput = {
   /** The DAY TYPE for the VEHICLE SERVICE. */
-  day_type_id?: Maybe<Scalars['uuid']>;
+  day_type_id?: InputMaybe<Scalars['uuid']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
-  vehicle_service_id?: Maybe<Scalars['uuid']>;
+  vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
+  vehicle_service_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** update columns of table "vehicle_service.vehicle_service" */
@@ -11965,7 +12084,7 @@ export enum TimetablesVehicleServiceVehicleServiceUpdateColumn {
 
 export type TimetablesVehicleServiceVehicleServiceUpdates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<TimetablesVehicleServiceVehicleServiceSetInput>;
+  _set?: InputMaybe<TimetablesVehicleServiceVehicleServiceSetInput>;
   where: TimetablesVehicleServiceVehicleServiceBoolExp;
 };
 
@@ -11983,25 +12102,25 @@ export type TimingPatternTimingPlace = {
 
 /** A set of SCHEDULED STOP POINTs against which the timing information necessary to build schedules may be recorded. In HSL context this is "Hastus paikka". Based on Transmodel entity TIMING POINT: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:2:709  */
 export type TimingPatternTimingPlaceDescriptionArgs = {
-  path?: Maybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** A set of SCHEDULED STOP POINTs against which the timing information necessary to build schedules may be recorded. In HSL context this is "Hastus paikka". Based on Transmodel entity TIMING POINT: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:2:709  */
 export type TimingPatternTimingPlaceScheduledStopPointsArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  distinct_on?: InputMaybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 /** A set of SCHEDULED STOP POINTs against which the timing information necessary to build schedules may be recorded. In HSL context this is "Hastus paikka". Based on Transmodel entity TIMING POINT: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:2:709  */
 export type TimingPatternTimingPlaceScheduledStopPointsAggregateArgs = {
-  distinct_on?: Maybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<ServicePatternScheduledStopPointOrderBy>>;
-  where?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  distinct_on?: InputMaybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+  where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
 };
 
 /** aggregated selection of "timing_pattern.timing_place" */
@@ -12021,25 +12140,25 @@ export type TimingPatternTimingPlaceAggregateFields = {
 
 /** aggregate fields of "timing_pattern.timing_place" */
 export type TimingPatternTimingPlaceAggregateFieldsCountArgs = {
-  columns?: Maybe<Array<TimingPatternTimingPlaceSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
+  columns?: InputMaybe<Array<TimingPatternTimingPlaceSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type TimingPatternTimingPlaceAppendInput = {
-  description?: Maybe<Scalars['jsonb']>;
+  description?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** Boolean expression to filter rows from the table "timing_pattern.timing_place". All fields are combined with a logical 'AND'. */
 export type TimingPatternTimingPlaceBoolExp = {
-  _and?: Maybe<Array<TimingPatternTimingPlaceBoolExp>>;
-  _not?: Maybe<TimingPatternTimingPlaceBoolExp>;
-  _or?: Maybe<Array<TimingPatternTimingPlaceBoolExp>>;
-  description?: Maybe<JsonbComparisonExp>;
-  label?: Maybe<StringComparisonExp>;
-  scheduled_stop_points?: Maybe<ServicePatternScheduledStopPointBoolExp>;
-  scheduled_stop_points_aggregate?: Maybe<ServicePatternScheduledStopPointAggregateBoolExp>;
-  timing_place_id?: Maybe<UuidComparisonExp>;
+  _and?: InputMaybe<Array<TimingPatternTimingPlaceBoolExp>>;
+  _not?: InputMaybe<TimingPatternTimingPlaceBoolExp>;
+  _or?: InputMaybe<Array<TimingPatternTimingPlaceBoolExp>>;
+  description?: InputMaybe<JsonbComparisonExp>;
+  label?: InputMaybe<StringComparisonExp>;
+  scheduled_stop_points?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
+  scheduled_stop_points_aggregate?: InputMaybe<ServicePatternScheduledStopPointAggregateBoolExp>;
+  timing_place_id?: InputMaybe<UuidComparisonExp>;
 };
 
 /** unique or primary key constraints on table "timing_pattern.timing_place" */
@@ -12052,25 +12171,25 @@ export enum TimingPatternTimingPlaceConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type TimingPatternTimingPlaceDeleteAtPathInput = {
-  description?: Maybe<Array<Scalars['String']>>;
+  description?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type TimingPatternTimingPlaceDeleteElemInput = {
-  description?: Maybe<Scalars['Int']>;
+  description?: InputMaybe<Scalars['Int']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type TimingPatternTimingPlaceDeleteKeyInput = {
-  description?: Maybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
 };
 
 /** input type for inserting data into table "timing_pattern.timing_place" */
 export type TimingPatternTimingPlaceInsertInput = {
-  description?: Maybe<Scalars['jsonb']>;
-  label?: Maybe<Scalars['String']>;
-  scheduled_stop_points?: Maybe<ServicePatternScheduledStopPointArrRelInsertInput>;
-  timing_place_id?: Maybe<Scalars['uuid']>;
+  description?: InputMaybe<Scalars['jsonb']>;
+  label?: InputMaybe<Scalars['String']>;
+  scheduled_stop_points?: InputMaybe<ServicePatternScheduledStopPointArrRelInsertInput>;
+  timing_place_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate max on columns */
@@ -12100,22 +12219,22 @@ export type TimingPatternTimingPlaceMutationResponse = {
 export type TimingPatternTimingPlaceObjRelInsertInput = {
   data: TimingPatternTimingPlaceInsertInput;
   /** upsert condition */
-  on_conflict?: Maybe<TimingPatternTimingPlaceOnConflict>;
+  on_conflict?: InputMaybe<TimingPatternTimingPlaceOnConflict>;
 };
 
 /** on_conflict condition type for table "timing_pattern.timing_place" */
 export type TimingPatternTimingPlaceOnConflict = {
   constraint: TimingPatternTimingPlaceConstraint;
   update_columns?: Array<TimingPatternTimingPlaceUpdateColumn>;
-  where?: Maybe<TimingPatternTimingPlaceBoolExp>;
+  where?: InputMaybe<TimingPatternTimingPlaceBoolExp>;
 };
 
 /** Ordering options when selecting data from "timing_pattern.timing_place". */
 export type TimingPatternTimingPlaceOrderBy = {
-  description?: Maybe<OrderBy>;
-  label?: Maybe<OrderBy>;
-  scheduled_stop_points_aggregate?: Maybe<ServicePatternScheduledStopPointAggregateOrderBy>;
-  timing_place_id?: Maybe<OrderBy>;
+  description?: InputMaybe<OrderBy>;
+  label?: InputMaybe<OrderBy>;
+  scheduled_stop_points_aggregate?: InputMaybe<ServicePatternScheduledStopPointAggregateOrderBy>;
+  timing_place_id?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: timing_pattern.timing_place */
@@ -12125,7 +12244,7 @@ export type TimingPatternTimingPlacePkColumnsInput = {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type TimingPatternTimingPlacePrependInput = {
-  description?: Maybe<Scalars['jsonb']>;
+  description?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "timing_pattern.timing_place" */
@@ -12140,9 +12259,9 @@ export enum TimingPatternTimingPlaceSelectColumn {
 
 /** input type for updating data in table "timing_pattern.timing_place" */
 export type TimingPatternTimingPlaceSetInput = {
-  description?: Maybe<Scalars['jsonb']>;
-  label?: Maybe<Scalars['String']>;
-  timing_place_id?: Maybe<Scalars['uuid']>;
+  description?: InputMaybe<Scalars['jsonb']>;
+  label?: InputMaybe<Scalars['String']>;
+  timing_place_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** Streaming cursor of the table "timing_pattern_timing_place" */
@@ -12150,14 +12269,14 @@ export type TimingPatternTimingPlaceStreamCursorInput = {
   /** Stream column input with initial value */
   initial_value: TimingPatternTimingPlaceStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: Maybe<CursorOrdering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
 export type TimingPatternTimingPlaceStreamCursorValueInput = {
-  description?: Maybe<Scalars['jsonb']>;
-  label?: Maybe<Scalars['String']>;
-  timing_place_id?: Maybe<Scalars['uuid']>;
+  description?: InputMaybe<Scalars['jsonb']>;
+  label?: InputMaybe<Scalars['String']>;
+  timing_place_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** update columns of table "timing_pattern.timing_place" */
@@ -12172,31 +12291,31 @@ export enum TimingPatternTimingPlaceUpdateColumn {
 
 export type TimingPatternTimingPlaceUpdates = {
   /** append existing jsonb value of filtered columns with new jsonb value */
-  _append?: Maybe<TimingPatternTimingPlaceAppendInput>;
+  _append?: InputMaybe<TimingPatternTimingPlaceAppendInput>;
   /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-  _delete_at_path?: Maybe<TimingPatternTimingPlaceDeleteAtPathInput>;
+  _delete_at_path?: InputMaybe<TimingPatternTimingPlaceDeleteAtPathInput>;
   /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-  _delete_elem?: Maybe<TimingPatternTimingPlaceDeleteElemInput>;
+  _delete_elem?: InputMaybe<TimingPatternTimingPlaceDeleteElemInput>;
   /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-  _delete_key?: Maybe<TimingPatternTimingPlaceDeleteKeyInput>;
+  _delete_key?: InputMaybe<TimingPatternTimingPlaceDeleteKeyInput>;
   /** prepend existing jsonb value of filtered columns with new jsonb value */
-  _prepend?: Maybe<TimingPatternTimingPlacePrependInput>;
+  _prepend?: InputMaybe<TimingPatternTimingPlacePrependInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: Maybe<TimingPatternTimingPlaceSetInput>;
+  _set?: InputMaybe<TimingPatternTimingPlaceSetInput>;
   where: TimingPatternTimingPlaceBoolExp;
 };
 
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
 export type UuidComparisonExp = {
-  _eq?: Maybe<Scalars['uuid']>;
-  _gt?: Maybe<Scalars['uuid']>;
-  _gte?: Maybe<Scalars['uuid']>;
-  _in?: Maybe<Array<Scalars['uuid']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['uuid']>;
-  _lte?: Maybe<Scalars['uuid']>;
-  _neq?: Maybe<Scalars['uuid']>;
-  _nin?: Maybe<Array<Scalars['uuid']>>;
+  _eq?: InputMaybe<Scalars['uuid']>;
+  _gt?: InputMaybe<Scalars['uuid']>;
+  _gte?: InputMaybe<Scalars['uuid']>;
+  _in?: InputMaybe<Array<Scalars['uuid']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['uuid']>;
+  _lte?: InputMaybe<Scalars['uuid']>;
+  _neq?: InputMaybe<Scalars['uuid']>;
+  _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
 export type ValidityPeriod = {
@@ -12205,35 +12324,39 @@ export type ValidityPeriod = {
 };
 
 export type VehicleJourneyVehicleJourneyAggregateBoolExp = {
-  count?: Maybe<VehicleJourneyVehicleJourneyAggregateBoolExpCount>;
+  count?: InputMaybe<VehicleJourneyVehicleJourneyAggregateBoolExpCount>;
 };
 
 export type VehicleJourneyVehicleJourneyAggregateBoolExpCount = {
-  arguments?: Maybe<Array<TimetablesVehicleJourneyVehicleJourneySelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+  arguments?: InputMaybe<
+    Array<TimetablesVehicleJourneyVehicleJourneySelectColumn>
+  >;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
   predicate: IntComparisonExp;
 };
 
 export type VehicleServiceBlockAggregateBoolExp = {
-  count?: Maybe<VehicleServiceBlockAggregateBoolExpCount>;
+  count?: InputMaybe<VehicleServiceBlockAggregateBoolExpCount>;
 };
 
 export type VehicleServiceBlockAggregateBoolExpCount = {
-  arguments?: Maybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<TimetablesVehicleServiceBlockBoolExp>;
+  arguments?: InputMaybe<Array<TimetablesVehicleServiceBlockSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
   predicate: IntComparisonExp;
 };
 
 export type VehicleServiceVehicleServiceAggregateBoolExp = {
-  count?: Maybe<VehicleServiceVehicleServiceAggregateBoolExpCount>;
+  count?: InputMaybe<VehicleServiceVehicleServiceAggregateBoolExpCount>;
 };
 
 export type VehicleServiceVehicleServiceAggregateBoolExpCount = {
-  arguments?: Maybe<Array<TimetablesVehicleServiceVehicleServiceSelectColumn>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-  filter?: Maybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
+  arguments?: InputMaybe<
+    Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
+  >;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   predicate: IntComparisonExp;
 };
 
@@ -12244,15 +12367,15 @@ export type LineTableRowFragment = {
   priority: number;
   line_id: UUID;
   label: string;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
   line_routes: Array<{
     __typename?: 'route_route';
     route_id: UUID;
-    route_shape?: GeoJSON.LineString | null | undefined;
+    route_shape?: GeoJSON.LineString | null;
     label: string;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     route_journey_patterns: Array<{
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
@@ -12274,12 +12397,12 @@ export type RouteTableRowFragment = {
   direction: RouteDirectionEnum;
   priority: number;
   on_line_id: UUID;
-  variant?: number | null | undefined;
+  variant?: number | null;
   route_id: UUID;
   label: string;
-  route_shape?: GeoJSON.LineString | null | undefined;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
+  route_shape?: GeoJSON.LineString | null;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
   route_journey_patterns: Array<{
     __typename?: 'journey_pattern_journey_pattern';
     journey_pattern_id: UUID;
@@ -12300,1372 +12423,22 @@ export type GetRouteWithInfrastructureLinksQueryVariables = Exact<{
 
 export type GetRouteWithInfrastructureLinksQuery = {
   __typename?: 'query_root';
-  route_route_by_pk?:
-    | {
-        __typename?: 'route_route';
-        route_id: UUID;
-        name_i18n: LocalizedString;
-        description_i18n?: LocalizedString | null | undefined;
-        origin_name_i18n: LocalizedString;
-        origin_short_name_i18n: LocalizedString;
-        destination_name_i18n: LocalizedString;
-        destination_short_name_i18n: LocalizedString;
-        route_shape?: GeoJSON.LineString | null | undefined;
-        on_line_id: UUID;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-        priority: number;
-        label: string;
-        variant?: number | null | undefined;
-        direction: RouteDirectionEnum;
-        route_line: {
-          __typename?: 'route_line';
-          line_id: UUID;
-          name_i18n: LocalizedString;
-          short_name_i18n: LocalizedString;
-          primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-          type_of_line: RouteTypeOfLineEnum;
-          transport_target: HslRouteTransportTargetEnum;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
-          priority: number;
-          label: string;
-        };
-        infrastructure_links_along_route: Array<{
-          __typename?: 'route_infrastructure_link_along_route';
-          route_id: UUID;
-          infrastructure_link_sequence: number;
-          infrastructure_link_id: UUID;
-          is_traversal_forwards: boolean;
-          infrastructure_link: {
-            __typename?: 'infrastructure_network_infrastructure_link';
-            infrastructure_link_id: UUID;
-            shape: GeoJSON.LineString;
-            direction: InfrastructureNetworkDirectionEnum;
-          };
-        }>;
-        route_journey_patterns: Array<{
-          __typename?: 'journey_pattern_journey_pattern';
-          journey_pattern_id: UUID;
-          on_route_id: UUID;
-          scheduled_stop_point_in_journey_patterns: Array<{
-            __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-            journey_pattern_id: UUID;
-            scheduled_stop_point_label: string;
-            scheduled_stop_point_sequence: number;
-            is_used_as_timing_point: boolean;
-            is_regulated_timing_point: boolean;
-            is_loading_time_allowed: boolean;
-            is_via_point: boolean;
-            via_point_name_i18n?: LocalizedString | null | undefined;
-            via_point_short_name_i18n?: LocalizedString | null | undefined;
-            scheduled_stop_points: Array<{
-              __typename?: 'service_pattern_scheduled_stop_point';
-              priority: number;
-              direction: InfrastructureNetworkDirectionEnum;
-              scheduled_stop_point_id: UUID;
-              label: string;
-              validity_start?: luxon.DateTime | null | undefined;
-              validity_end?: luxon.DateTime | null | undefined;
-              located_on_infrastructure_link_id: UUID;
-            }>;
-            journey_pattern: {
-              __typename?: 'journey_pattern_journey_pattern';
-              journey_pattern_id: UUID;
-              on_route_id: UUID;
-            };
-          }>;
-        }>;
-      }
-    | null
-    | undefined;
-};
-
-export type StopPopupInfoFragment = {
-  __typename?: 'service_pattern_scheduled_stop_point';
-  label: string;
-  priority: number;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
-  measured_location: GeoJSON.Point;
-};
-
-export type ListChangingRoutesQueryVariables = Exact<{
-  limit?: Maybe<Scalars['Int']>;
-}>;
-
-export type ListChangingRoutesQuery = {
-  __typename?: 'query_root';
-  route_route: Array<{
-    __typename?: 'route_route';
-    name_i18n: LocalizedString;
-    direction: RouteDirectionEnum;
-    priority: number;
-    on_line_id: UUID;
-    variant?: number | null | undefined;
-    route_id: UUID;
-    label: string;
-    route_shape?: GeoJSON.LineString | null | undefined;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    route_journey_patterns: Array<{
-      __typename?: 'journey_pattern_journey_pattern';
-      journey_pattern_id: UUID;
-      journey_pattern_refs: Array<{
-        __typename?: 'timetables_journey_pattern_journey_pattern_ref';
-        journey_pattern_ref_id: UUID;
-        vehicle_journeys: Array<{
-          __typename?: 'timetables_vehicle_journey_vehicle_journey';
-          vehicle_journey_id: UUID;
-        }>;
-      }>;
-    }>;
-  }>;
-};
-
-export type ListOwnLinesQueryVariables = Exact<{
-  limit?: Maybe<Scalars['Int']>;
-}>;
-
-export type ListOwnLinesQuery = {
-  __typename?: 'query_root';
-  route_line: Array<{
-    __typename?: 'route_line';
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
-    priority: number;
-    line_id: UUID;
-    label: string;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    line_routes: Array<{
-      __typename?: 'route_route';
-      route_id: UUID;
-      route_shape?: GeoJSON.LineString | null | undefined;
-      label: string;
-      validity_start?: luxon.DateTime | null | undefined;
-      validity_end?: luxon.DateTime | null | undefined;
-      route_journey_patterns: Array<{
-        __typename?: 'journey_pattern_journey_pattern';
-        journey_pattern_id: UUID;
-        journey_pattern_refs: Array<{
-          __typename?: 'timetables_journey_pattern_journey_pattern_ref';
-          journey_pattern_ref_id: UUID;
-          vehicle_journeys: Array<{
-            __typename?: 'timetables_vehicle_journey_vehicle_journey';
-            vehicle_journey_id: UUID;
-          }>;
-        }>;
-      }>;
-    }>;
-  }>;
-};
-
-export type ScheduledStopPointWithTimingSettingsFragment = {
-  __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-  journey_pattern_id: UUID;
-  scheduled_stop_point_label: string;
-  scheduled_stop_point_sequence: number;
-  is_used_as_timing_point: boolean;
-  is_regulated_timing_point: boolean;
-  is_loading_time_allowed: boolean;
-  is_via_point: boolean;
-  via_point_name_i18n?: LocalizedString | null | undefined;
-  via_point_short_name_i18n?: LocalizedString | null | undefined;
-  journey_pattern: {
-    __typename?: 'journey_pattern_journey_pattern';
-    journey_pattern_id: UUID;
-    on_route_id: UUID;
-    journey_pattern_route?:
-      | { __typename?: 'route_route'; route_id: UUID; label: string }
-      | null
-      | undefined;
-  };
-  scheduled_stop_points: Array<{
-    __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    timing_place_id?: UUID | null | undefined;
-  }>;
-};
-
-export type GetScheduledStopPointWithTimingSettingsQueryVariables = Exact<{
-  journeyPatternId: Scalars['uuid'];
-  stopLabel: Scalars['String'];
-  sequence: Scalars['Int'];
-}>;
-
-export type GetScheduledStopPointWithTimingSettingsQuery = {
-  __typename?: 'query_root';
-  journey_pattern_scheduled_stop_point_in_journey_pattern: Array<{
-    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-    journey_pattern_id: UUID;
-    scheduled_stop_point_label: string;
-    scheduled_stop_point_sequence: number;
-    is_used_as_timing_point: boolean;
-    is_regulated_timing_point: boolean;
-    is_loading_time_allowed: boolean;
-    is_via_point: boolean;
-    via_point_name_i18n?: LocalizedString | null | undefined;
-    via_point_short_name_i18n?: LocalizedString | null | undefined;
-    journey_pattern: {
-      __typename?: 'journey_pattern_journey_pattern';
-      journey_pattern_id: UUID;
-      on_route_id: UUID;
-      journey_pattern_route?:
-        | { __typename?: 'route_route'; route_id: UUID; label: string }
-        | null
-        | undefined;
-    };
-    scheduled_stop_points: Array<{
-      __typename?: 'service_pattern_scheduled_stop_point';
-      scheduled_stop_point_id: UUID;
-      timing_place_id?: UUID | null | undefined;
-    }>;
-  }>;
-};
-
-export type VehicleJourneyByStopFragment = {
-  __typename?: 'timetables_vehicle_journey_vehicle_journey';
-  journey_pattern_ref_id: UUID;
-  vehicle_journey_id: UUID;
-  timetabled_passing_times: Array<{
-    __typename?: 'timetables_passing_times_timetabled_passing_time';
-    arrival_time?: luxon.Duration | null | undefined;
-    departure_time?: luxon.Duration | null | undefined;
-    passing_time: luxon.Duration;
-    scheduled_stop_point_in_journey_pattern_ref_id: UUID;
-    timetabled_passing_time_id: UUID;
-    vehicle_journey_id: UUID;
-    scheduled_stop_point_in_journey_pattern_ref: {
-      __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
-      scheduled_stop_point_in_journey_pattern_ref_id: UUID;
-      scheduled_stop_point_label: string;
-    };
-  }>;
-};
-
-export type PassingTimeByStopFragment = {
-  __typename?: 'timetables_passing_times_timetabled_passing_time';
-  arrival_time?: luxon.Duration | null | undefined;
-  departure_time?: luxon.Duration | null | undefined;
-  passing_time: luxon.Duration;
-  scheduled_stop_point_in_journey_pattern_ref_id: UUID;
-  timetabled_passing_time_id: UUID;
-  vehicle_journey_id: UUID;
-  scheduled_stop_point_in_journey_pattern_ref: {
-    __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
-    scheduled_stop_point_in_journey_pattern_ref_id: UUID;
-    scheduled_stop_point_label: string;
-  };
-};
-
-export type GetVehicleJourneysQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetVehicleJourneysQuery = {
-  __typename?: 'query_root';
-  timetables?:
-    | {
-        __typename?: 'timetables_timetables_query';
-        timetables_vehicle_journey_vehicle_journey: Array<{
-          __typename?: 'timetables_vehicle_journey_vehicle_journey';
-          journey_pattern_ref_id: UUID;
-          vehicle_journey_id: UUID;
-          timetabled_passing_times: Array<{
-            __typename?: 'timetables_passing_times_timetabled_passing_time';
-            arrival_time?: luxon.Duration | null | undefined;
-            departure_time?: luxon.Duration | null | undefined;
-            passing_time: luxon.Duration;
-            scheduled_stop_point_in_journey_pattern_ref_id: UUID;
-            timetabled_passing_time_id: UUID;
-            vehicle_journey_id: UUID;
-            scheduled_stop_point_in_journey_pattern_ref: {
-              __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
-              scheduled_stop_point_in_journey_pattern_ref_id: UUID;
-              scheduled_stop_point_label: string;
-            };
-          }>;
-        }>;
-      }
-    | null
-    | undefined;
-};
-
-export type RouteInfraLinkFieldsFragment = {
-  __typename?: 'infrastructure_network_infrastructure_link';
-  external_link_id: string;
-  infrastructure_link_id: UUID;
-  shape: GeoJSON.LineString;
-  direction: InfrastructureNetworkDirectionEnum;
-  scheduled_stop_points_located_on_infrastructure_link: Array<{
-    __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    label: string;
-    measured_location: GeoJSON.Point;
-    located_on_infrastructure_link_id: UUID;
-    direction: InfrastructureNetworkDirectionEnum;
-    relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    timing_place_id?: UUID | null | undefined;
-    other_label_instances: Array<{
-      __typename?: 'service_pattern_scheduled_stop_point';
-      priority: number;
-      direction: InfrastructureNetworkDirectionEnum;
-      scheduled_stop_point_id: UUID;
-      label: string;
-      validity_start?: luxon.DateTime | null | undefined;
-      validity_end?: luxon.DateTime | null | undefined;
-      located_on_infrastructure_link_id: UUID;
-    }>;
-    scheduled_stop_point_in_journey_patterns: Array<{
-      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-      journey_pattern_id: UUID;
-      scheduled_stop_point_label: string;
-      scheduled_stop_point_sequence: number;
-      is_used_as_timing_point: boolean;
-      is_regulated_timing_point: boolean;
-      is_loading_time_allowed: boolean;
-      is_via_point: boolean;
-      via_point_name_i18n?: LocalizedString | null | undefined;
-      via_point_short_name_i18n?: LocalizedString | null | undefined;
-      journey_pattern: {
-        __typename?: 'journey_pattern_journey_pattern';
-        journey_pattern_id: UUID;
-        on_route_id: UUID;
-      };
-    }>;
-    vehicle_mode_on_scheduled_stop_point: Array<{
-      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-      vehicle_mode: ReusableComponentsVehicleModeEnum;
-    }>;
-  }>;
-};
-
-export type InfrastructureLinkAllFieldsFragment = {
-  __typename?: 'infrastructure_network_infrastructure_link';
-  infrastructure_link_id: UUID;
-  direction: InfrastructureNetworkDirectionEnum;
-  shape: GeoJSON.LineString;
-  estimated_length_in_metres?: number | null | undefined;
-  external_link_id: string;
-  external_link_source: InfrastructureNetworkExternalSourceEnum;
-};
-
-export type InfraLinkMatchingFieldsFragment = {
-  __typename?: 'infrastructure_network_infrastructure_link';
-  external_link_id: string;
-  infrastructure_link_id: UUID;
-  shape: GeoJSON.LineString;
-  direction: InfrastructureNetworkDirectionEnum;
-};
-
-export type QueryClosestLinkQueryVariables = Exact<{
-  point?: Maybe<Scalars['geography']>;
-}>;
-
-export type QueryClosestLinkQuery = {
-  __typename?: 'query_root';
-  infrastructure_network_resolve_point_to_closest_link: Array<{
-    __typename?: 'infrastructure_network_infrastructure_link';
-    infrastructure_link_id: UUID;
-    direction: InfrastructureNetworkDirectionEnum;
-    shape: GeoJSON.LineString;
-    estimated_length_in_metres?: number | null | undefined;
-    external_link_id: string;
-    external_link_source: InfrastructureNetworkExternalSourceEnum;
-  }>;
-};
-
-export type QueryPointDirectionOnLinkQueryVariables = Exact<{
-  point_of_interest?: Maybe<Scalars['geography']>;
-  infrastructure_link_uuid?: Maybe<Scalars['uuid']>;
-  point_max_distance_in_meters?: Maybe<Scalars['float8']>;
-}>;
-
-export type QueryPointDirectionOnLinkQuery = {
-  __typename?: 'query_root';
-  infrastructure_network_find_point_direction_on_link: Array<{
-    __typename?: 'infrastructure_network_direction';
-    value: InfrastructureNetworkDirectionEnum;
-  }>;
-};
-
-export type GetStopsAlongInfrastructureLinksQueryVariables = Exact<{
-  infrastructure_link_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
-}>;
-
-export type GetStopsAlongInfrastructureLinksQuery = {
-  __typename?: 'query_root';
-  service_pattern_scheduled_stop_point: Array<{
-    __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    label: string;
-    measured_location: GeoJSON.Point;
-    located_on_infrastructure_link_id: UUID;
-    direction: InfrastructureNetworkDirectionEnum;
-    relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    timing_place_id?: UUID | null | undefined;
-    vehicle_mode_on_scheduled_stop_point: Array<{
-      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-      vehicle_mode: ReusableComponentsVehicleModeEnum;
-    }>;
-  }>;
-};
-
-export type ScheduledStopPointInJourneyPatternAllFieldsFragment = {
-  __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-  journey_pattern_id: UUID;
-  scheduled_stop_point_label: string;
-  scheduled_stop_point_sequence: number;
-  is_used_as_timing_point: boolean;
-  is_regulated_timing_point: boolean;
-  is_loading_time_allowed: boolean;
-  is_via_point: boolean;
-  via_point_name_i18n?: LocalizedString | null | undefined;
-  via_point_short_name_i18n?: LocalizedString | null | undefined;
-  journey_pattern: {
-    __typename?: 'journey_pattern_journey_pattern';
-    journey_pattern_id: UUID;
-    on_route_id: UUID;
-  };
-};
-
-export type JourneyPatternWithStopsFragment = {
-  __typename?: 'journey_pattern_journey_pattern';
-  journey_pattern_id: UUID;
-  on_route_id: UUID;
-  scheduled_stop_point_in_journey_patterns: Array<{
-    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-    journey_pattern_id: UUID;
-    scheduled_stop_point_label: string;
-    scheduled_stop_point_sequence: number;
-    is_used_as_timing_point: boolean;
-    is_regulated_timing_point: boolean;
-    is_loading_time_allowed: boolean;
-    is_via_point: boolean;
-    via_point_name_i18n?: LocalizedString | null | undefined;
-    via_point_short_name_i18n?: LocalizedString | null | undefined;
-    scheduled_stop_points: Array<{
-      __typename?: 'service_pattern_scheduled_stop_point';
-      priority: number;
-      direction: InfrastructureNetworkDirectionEnum;
-      scheduled_stop_point_id: UUID;
-      label: string;
-      validity_start?: luxon.DateTime | null | undefined;
-      validity_end?: luxon.DateTime | null | undefined;
-      located_on_infrastructure_link_id: UUID;
-    }>;
-    journey_pattern: {
-      __typename?: 'journey_pattern_journey_pattern';
-      journey_pattern_id: UUID;
-      on_route_id: UUID;
-    };
-  }>;
-};
-
-export type PatchScheduledStopPointViaInfoMutationVariables = Exact<{
-  stopLabel: Scalars['String'];
-  journeyPatternId: Scalars['uuid'];
-  patch: JourneyPatternScheduledStopPointInJourneyPatternSetInput;
-}>;
-
-export type PatchScheduledStopPointViaInfoMutation = {
-  __typename?: 'mutation_root';
-  update_journey_pattern_scheduled_stop_point_in_journey_pattern?:
-    | {
-        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
-        returning: Array<{
-          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-          journey_pattern_id: UUID;
-          scheduled_stop_point_label: string;
-          scheduled_stop_point_sequence: number;
-          is_used_as_timing_point: boolean;
-          is_regulated_timing_point: boolean;
-          is_loading_time_allowed: boolean;
-          is_via_point: boolean;
-          via_point_name_i18n?: LocalizedString | null | undefined;
-          via_point_short_name_i18n?: LocalizedString | null | undefined;
-          journey_pattern: {
-            __typename?: 'journey_pattern_journey_pattern';
-            journey_pattern_id: UUID;
-            on_route_id: UUID;
-          };
-        }>;
-      }
-    | null
-    | undefined;
-};
-
-export type RemoveScheduledStopPointViaInfoMutationVariables = Exact<{
-  stopLabel: Scalars['String'];
-  journeyPatternId: Scalars['uuid'];
-}>;
-
-export type RemoveScheduledStopPointViaInfoMutation = {
-  __typename?: 'mutation_root';
-  update_journey_pattern_scheduled_stop_point_in_journey_pattern?:
-    | {
-        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
-        returning: Array<{
-          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-          journey_pattern_id: UUID;
-          scheduled_stop_point_label: string;
-          scheduled_stop_point_sequence: number;
-          is_used_as_timing_point: boolean;
-          is_regulated_timing_point: boolean;
-          is_loading_time_allowed: boolean;
-          is_via_point: boolean;
-          via_point_name_i18n?: LocalizedString | null | undefined;
-          via_point_short_name_i18n?: LocalizedString | null | undefined;
-          journey_pattern: {
-            __typename?: 'journey_pattern_journey_pattern';
-            journey_pattern_id: UUID;
-            on_route_id: UUID;
-          };
-        }>;
-      }
-    | null
-    | undefined;
-};
-
-export type GetScheduledStopPointWithViaInfoQueryVariables = Exact<{
-  journeyPatternId: Scalars['uuid'];
-  stopLabel: Scalars['String'];
-}>;
-
-export type GetScheduledStopPointWithViaInfoQuery = {
-  __typename?: 'query_root';
-  journey_pattern_scheduled_stop_point_in_journey_pattern: Array<{
-    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-    journey_pattern_id: UUID;
-    scheduled_stop_point_label: string;
-    scheduled_stop_point_sequence: number;
-    is_used_as_timing_point: boolean;
-    is_regulated_timing_point: boolean;
-    is_loading_time_allowed: boolean;
-    is_via_point: boolean;
-    via_point_name_i18n?: LocalizedString | null | undefined;
-    via_point_short_name_i18n?: LocalizedString | null | undefined;
-    journey_pattern: {
-      __typename?: 'journey_pattern_journey_pattern';
-      journey_pattern_id: UUID;
-      on_route_id: UUID;
-      journey_pattern_route?:
-        | { __typename?: 'route_route'; route_id: UUID; label: string }
-        | null
-        | undefined;
-    };
-  }>;
-};
-
-export type LineDefaultFieldsFragment = {
-  __typename?: 'route_line';
-  line_id: UUID;
-  label: string;
-  name_i18n: LocalizedString;
-  short_name_i18n: LocalizedString;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
-};
-
-export type LineAllFieldsFragment = {
-  __typename?: 'route_line';
-  line_id: UUID;
-  name_i18n: LocalizedString;
-  short_name_i18n: LocalizedString;
-  primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-  type_of_line: RouteTypeOfLineEnum;
-  transport_target: HslRouteTransportTargetEnum;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
-  priority: number;
-  label: string;
-};
-
-export type RouteValidityFragment = {
-  __typename?: 'route_route';
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
-  priority: number;
-};
-
-export type RouteAllFieldsFragment = {
-  __typename?: 'route_route';
-  route_id: UUID;
-  name_i18n: LocalizedString;
-  description_i18n?: LocalizedString | null | undefined;
-  origin_name_i18n: LocalizedString;
-  origin_short_name_i18n: LocalizedString;
-  destination_name_i18n: LocalizedString;
-  destination_short_name_i18n: LocalizedString;
-  route_shape?: GeoJSON.LineString | null | undefined;
-  on_line_id: UUID;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
-  priority: number;
-  label: string;
-  variant?: number | null | undefined;
-  direction: RouteDirectionEnum;
-};
-
-export type RouteDefaultFieldsFragment = {
-  __typename?: 'route_route';
-  route_id: UUID;
-  name_i18n: LocalizedString;
-  description_i18n?: LocalizedString | null | undefined;
-  origin_name_i18n: LocalizedString;
-  origin_short_name_i18n: LocalizedString;
-  destination_name_i18n: LocalizedString;
-  destination_short_name_i18n: LocalizedString;
-  on_line_id: UUID;
-  label: string;
-  variant?: number | null | undefined;
-  priority: number;
-};
-
-export type RouteWithJourneyPatternStopsFragment = {
-  __typename?: 'route_route';
-  route_id: UUID;
-  name_i18n: LocalizedString;
-  description_i18n?: LocalizedString | null | undefined;
-  origin_name_i18n: LocalizedString;
-  origin_short_name_i18n: LocalizedString;
-  destination_name_i18n: LocalizedString;
-  destination_short_name_i18n: LocalizedString;
-  route_shape?: GeoJSON.LineString | null | undefined;
-  on_line_id: UUID;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
-  priority: number;
-  label: string;
-  variant?: number | null | undefined;
-  direction: RouteDirectionEnum;
-  route_journey_patterns: Array<{
-    __typename?: 'journey_pattern_journey_pattern';
-    journey_pattern_id: UUID;
-    on_route_id: UUID;
-    scheduled_stop_point_in_journey_patterns: Array<{
-      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-      journey_pattern_id: UUID;
-      scheduled_stop_point_label: string;
-      scheduled_stop_point_sequence: number;
-      is_used_as_timing_point: boolean;
-      is_regulated_timing_point: boolean;
-      is_loading_time_allowed: boolean;
-      is_via_point: boolean;
-      via_point_name_i18n?: LocalizedString | null | undefined;
-      via_point_short_name_i18n?: LocalizedString | null | undefined;
-      scheduled_stop_points: Array<{
-        __typename?: 'service_pattern_scheduled_stop_point';
-        priority: number;
-        direction: InfrastructureNetworkDirectionEnum;
-        scheduled_stop_point_id: UUID;
-        label: string;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-        located_on_infrastructure_link_id: UUID;
-      }>;
-      journey_pattern: {
-        __typename?: 'journey_pattern_journey_pattern';
-        journey_pattern_id: UUID;
-        on_route_id: UUID;
-      };
-    }>;
-  }>;
-};
-
-export type RouteWithInfrastructureLinksFragment = {
-  __typename?: 'route_route';
-  route_id: UUID;
-  name_i18n: LocalizedString;
-  description_i18n?: LocalizedString | null | undefined;
-  origin_name_i18n: LocalizedString;
-  origin_short_name_i18n: LocalizedString;
-  destination_name_i18n: LocalizedString;
-  destination_short_name_i18n: LocalizedString;
-  route_shape?: GeoJSON.LineString | null | undefined;
-  on_line_id: UUID;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
-  priority: number;
-  label: string;
-  variant?: number | null | undefined;
-  direction: RouteDirectionEnum;
-  route_line: {
-    __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
-    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-    type_of_line: RouteTypeOfLineEnum;
-    transport_target: HslRouteTransportTargetEnum;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    label: string;
-  };
-  infrastructure_links_along_route: Array<{
-    __typename?: 'route_infrastructure_link_along_route';
-    route_id: UUID;
-    infrastructure_link_sequence: number;
-    infrastructure_link_id: UUID;
-    is_traversal_forwards: boolean;
-    infrastructure_link: {
-      __typename?: 'infrastructure_network_infrastructure_link';
-      infrastructure_link_id: UUID;
-      shape: GeoJSON.LineString;
-      direction: InfrastructureNetworkDirectionEnum;
-    };
-  }>;
-  route_journey_patterns: Array<{
-    __typename?: 'journey_pattern_journey_pattern';
-    journey_pattern_id: UUID;
-    on_route_id: UUID;
-    scheduled_stop_point_in_journey_patterns: Array<{
-      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-      journey_pattern_id: UUID;
-      scheduled_stop_point_label: string;
-      scheduled_stop_point_sequence: number;
-      is_used_as_timing_point: boolean;
-      is_regulated_timing_point: boolean;
-      is_loading_time_allowed: boolean;
-      is_via_point: boolean;
-      via_point_name_i18n?: LocalizedString | null | undefined;
-      via_point_short_name_i18n?: LocalizedString | null | undefined;
-      scheduled_stop_points: Array<{
-        __typename?: 'service_pattern_scheduled_stop_point';
-        priority: number;
-        direction: InfrastructureNetworkDirectionEnum;
-        scheduled_stop_point_id: UUID;
-        label: string;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-        located_on_infrastructure_link_id: UUID;
-      }>;
-      journey_pattern: {
-        __typename?: 'journey_pattern_journey_pattern';
-        journey_pattern_id: UUID;
-        on_route_id: UUID;
-      };
-    }>;
-  }>;
-};
-
-export type GetLineDetailsByIdQueryVariables = Exact<{
-  line_id: Scalars['uuid'];
-}>;
-
-export type GetLineDetailsByIdQuery = {
-  __typename?: 'query_root';
-  route_line_by_pk?:
-    | {
-        __typename?: 'route_line';
-        line_id: UUID;
-        name_i18n: LocalizedString;
-        short_name_i18n: LocalizedString;
-        primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-        type_of_line: RouteTypeOfLineEnum;
-        transport_target: HslRouteTransportTargetEnum;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-        priority: number;
-        label: string;
-      }
-    | null
-    | undefined;
-};
-
-export type GetLineValidityPeriodByIdQueryVariables = Exact<{
-  line_id: Scalars['uuid'];
-}>;
-
-export type GetLineValidityPeriodByIdQuery = {
-  __typename?: 'query_root';
-  route_line_by_pk?:
-    | {
-        __typename?: 'route_line';
-        line_id: UUID;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-      }
-    | null
-    | undefined;
-};
-
-export type GetLinesByValidityQueryVariables = Exact<{
-  filter?: Maybe<RouteLineBoolExp>;
-}>;
-
-export type GetLinesByValidityQuery = {
-  __typename?: 'query_root';
-  route_line: Array<{
-    __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
-    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-    type_of_line: RouteTypeOfLineEnum;
-    transport_target: HslRouteTransportTargetEnum;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    label: string;
-  }>;
-};
-
-export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
-  line_id: Scalars['uuid'];
-}>;
-
-export type GetLineDetailsWithRoutesByIdQuery = {
-  __typename?: 'query_root';
-  route_line_by_pk?:
-    | {
-        __typename?: 'route_line';
-        line_id: UUID;
-        name_i18n: LocalizedString;
-        short_name_i18n: LocalizedString;
-        primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-        type_of_line: RouteTypeOfLineEnum;
-        transport_target: HslRouteTransportTargetEnum;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-        priority: number;
-        label: string;
-        line_routes: Array<{
-          __typename?: 'route_route';
-          route_id: UUID;
-          name_i18n: LocalizedString;
-          description_i18n?: LocalizedString | null | undefined;
-          origin_name_i18n: LocalizedString;
-          origin_short_name_i18n: LocalizedString;
-          destination_name_i18n: LocalizedString;
-          destination_short_name_i18n: LocalizedString;
-          route_shape?: GeoJSON.LineString | null | undefined;
-          on_line_id: UUID;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
-          priority: number;
-          label: string;
-          variant?: number | null | undefined;
-          direction: RouteDirectionEnum;
-          infrastructure_links_along_route: Array<{
-            __typename?: 'route_infrastructure_link_along_route';
-            route_id: UUID;
-            infrastructure_link_id: UUID;
-            infrastructure_link_sequence: number;
-            is_traversal_forwards: boolean;
-            infrastructure_link: {
-              __typename?: 'infrastructure_network_infrastructure_link';
-              infrastructure_link_id: UUID;
-              scheduled_stop_points_located_on_infrastructure_link: Array<{
-                __typename?: 'service_pattern_scheduled_stop_point';
-                scheduled_stop_point_id: UUID;
-                label: string;
-                measured_location: GeoJSON.Point;
-                located_on_infrastructure_link_id: UUID;
-                direction: InfrastructureNetworkDirectionEnum;
-                relative_distance_from_infrastructure_link_start: number;
-                closest_point_on_infrastructure_link?:
-                  | GeoJSON.Point
-                  | null
-                  | undefined;
-                validity_start?: luxon.DateTime | null | undefined;
-                validity_end?: luxon.DateTime | null | undefined;
-                priority: number;
-                timing_place_id?: UUID | null | undefined;
-                scheduled_stop_point_in_journey_patterns: Array<{
-                  __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-                  journey_pattern_id: UUID;
-                  scheduled_stop_point_label: string;
-                  scheduled_stop_point_sequence: number;
-                  is_used_as_timing_point: boolean;
-                  is_regulated_timing_point: boolean;
-                  is_loading_time_allowed: boolean;
-                  is_via_point: boolean;
-                  via_point_name_i18n?: LocalizedString | null | undefined;
-                  via_point_short_name_i18n?:
-                    | LocalizedString
-                    | null
-                    | undefined;
-                  journey_pattern: {
-                    __typename?: 'journey_pattern_journey_pattern';
-                    journey_pattern_id: UUID;
-                    on_route_id: UUID;
-                  };
-                }>;
-                other_label_instances: Array<{
-                  __typename?: 'service_pattern_scheduled_stop_point';
-                  priority: number;
-                  direction: InfrastructureNetworkDirectionEnum;
-                  scheduled_stop_point_id: UUID;
-                  label: string;
-                  validity_start?: luxon.DateTime | null | undefined;
-                  validity_end?: luxon.DateTime | null | undefined;
-                  located_on_infrastructure_link_id: UUID;
-                }>;
-                vehicle_mode_on_scheduled_stop_point: Array<{
-                  __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-                  vehicle_mode: ReusableComponentsVehicleModeEnum;
-                }>;
-              }>;
-            };
-          }>;
-        }>;
-      }
-    | null
-    | undefined;
-};
-
-export type GetHighestPriorityLineDetailsWithRoutesQueryVariables = Exact<{
-  lineFilters?: Maybe<RouteLineBoolExp>;
-  lineRouteFilters?: Maybe<RouteRouteBoolExp>;
-  routeStopFilters?: Maybe<ServicePatternScheduledStopPointBoolExp>;
-}>;
-
-export type GetHighestPriorityLineDetailsWithRoutesQuery = {
-  __typename?: 'query_root';
-  route_line: Array<{
-    __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
-    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-    type_of_line: RouteTypeOfLineEnum;
-    transport_target: HslRouteTransportTargetEnum;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    label: string;
-    line_routes: Array<{
-      __typename?: 'route_route';
-      route_id: UUID;
-      name_i18n: LocalizedString;
-      description_i18n?: LocalizedString | null | undefined;
-      origin_name_i18n: LocalizedString;
-      origin_short_name_i18n: LocalizedString;
-      destination_name_i18n: LocalizedString;
-      destination_short_name_i18n: LocalizedString;
-      route_shape?: GeoJSON.LineString | null | undefined;
-      on_line_id: UUID;
-      validity_start?: luxon.DateTime | null | undefined;
-      validity_end?: luxon.DateTime | null | undefined;
-      priority: number;
-      label: string;
-      variant?: number | null | undefined;
-      direction: RouteDirectionEnum;
-      infrastructure_links_along_route: Array<{
-        __typename?: 'route_infrastructure_link_along_route';
-        route_id: UUID;
-        infrastructure_link_id: UUID;
-        infrastructure_link_sequence: number;
-        is_traversal_forwards: boolean;
-        infrastructure_link: {
-          __typename?: 'infrastructure_network_infrastructure_link';
-          infrastructure_link_id: UUID;
-          scheduled_stop_points_located_on_infrastructure_link: Array<{
-            __typename?: 'service_pattern_scheduled_stop_point';
-            scheduled_stop_point_id: UUID;
-            label: string;
-            measured_location: GeoJSON.Point;
-            located_on_infrastructure_link_id: UUID;
-            direction: InfrastructureNetworkDirectionEnum;
-            relative_distance_from_infrastructure_link_start: number;
-            closest_point_on_infrastructure_link?:
-              | GeoJSON.Point
-              | null
-              | undefined;
-            validity_start?: luxon.DateTime | null | undefined;
-            validity_end?: luxon.DateTime | null | undefined;
-            priority: number;
-            timing_place_id?: UUID | null | undefined;
-            other_label_instances: Array<{
-              __typename?: 'service_pattern_scheduled_stop_point';
-              priority: number;
-              direction: InfrastructureNetworkDirectionEnum;
-              scheduled_stop_point_id: UUID;
-              label: string;
-              validity_start?: luxon.DateTime | null | undefined;
-              validity_end?: luxon.DateTime | null | undefined;
-              located_on_infrastructure_link_id: UUID;
-            }>;
-            scheduled_stop_point_in_journey_patterns: Array<{
-              __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-              journey_pattern_id: UUID;
-              scheduled_stop_point_label: string;
-              scheduled_stop_point_sequence: number;
-              is_used_as_timing_point: boolean;
-              is_regulated_timing_point: boolean;
-              is_loading_time_allowed: boolean;
-              is_via_point: boolean;
-              via_point_name_i18n?: LocalizedString | null | undefined;
-              via_point_short_name_i18n?: LocalizedString | null | undefined;
-              journey_pattern: {
-                __typename?: 'journey_pattern_journey_pattern';
-                journey_pattern_id: UUID;
-                on_route_id: UUID;
-              };
-            }>;
-            vehicle_mode_on_scheduled_stop_point: Array<{
-              __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-              vehicle_mode: ReusableComponentsVehicleModeEnum;
-            }>;
-          }>;
-        };
-      }>;
-      route_journey_patterns: Array<{
-        __typename?: 'journey_pattern_journey_pattern';
-        journey_pattern_id: UUID;
-      }>;
-    }>;
-  }>;
-};
-
-export type GetRoutesWithStopsQueryVariables = Exact<{
-  routeFilters?: Maybe<RouteRouteBoolExp>;
-}>;
-
-export type GetRoutesWithStopsQuery = {
-  __typename?: 'query_root';
-  route_route: Array<{
+  route_route_by_pk?: {
     __typename?: 'route_route';
     route_id: UUID;
     name_i18n: LocalizedString;
-    description_i18n?: LocalizedString | null | undefined;
+    description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null | undefined;
+    route_shape?: GeoJSON.LineString | null;
     on_line_id: UUID;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     priority: number;
     label: string;
-    variant?: number | null | undefined;
-    direction: RouteDirectionEnum;
-    route_line: { __typename?: 'route_line'; line_id: UUID };
-    infrastructure_links_along_route: Array<{
-      __typename?: 'route_infrastructure_link_along_route';
-      route_id: UUID;
-      infrastructure_link_id: UUID;
-      infrastructure_link_sequence: number;
-      is_traversal_forwards: boolean;
-      infrastructure_link: {
-        __typename?: 'infrastructure_network_infrastructure_link';
-        infrastructure_link_id: UUID;
-        scheduled_stop_points_located_on_infrastructure_link: Array<{
-          __typename?: 'service_pattern_scheduled_stop_point';
-          scheduled_stop_point_id: UUID;
-          label: string;
-          measured_location: GeoJSON.Point;
-          located_on_infrastructure_link_id: UUID;
-          direction: InfrastructureNetworkDirectionEnum;
-          relative_distance_from_infrastructure_link_start: number;
-          closest_point_on_infrastructure_link?:
-            | GeoJSON.Point
-            | null
-            | undefined;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
-          priority: number;
-          timing_place_id?: UUID | null | undefined;
-          scheduled_stop_point_in_journey_patterns: Array<{
-            __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-            journey_pattern_id: UUID;
-            scheduled_stop_point_label: string;
-            scheduled_stop_point_sequence: number;
-            is_used_as_timing_point: boolean;
-            is_regulated_timing_point: boolean;
-            is_loading_time_allowed: boolean;
-            is_via_point: boolean;
-            via_point_name_i18n?: LocalizedString | null | undefined;
-            via_point_short_name_i18n?: LocalizedString | null | undefined;
-            journey_pattern: {
-              __typename?: 'journey_pattern_journey_pattern';
-              journey_pattern_id: UUID;
-              on_route_id: UUID;
-            };
-          }>;
-          vehicle_mode_on_scheduled_stop_point: Array<{
-            __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-            vehicle_mode: ReusableComponentsVehicleModeEnum;
-          }>;
-        }>;
-      };
-    }>;
-  }>;
-};
-
-export type GetRouteDetailsByIdQueryVariables = Exact<{
-  routeId: Scalars['uuid'];
-}>;
-
-export type GetRouteDetailsByIdQuery = {
-  __typename?: 'query_root';
-  route_route_by_pk?:
-    | {
-        __typename?: 'route_route';
-        route_id: UUID;
-        name_i18n: LocalizedString;
-        description_i18n?: LocalizedString | null | undefined;
-        origin_name_i18n: LocalizedString;
-        origin_short_name_i18n: LocalizedString;
-        destination_name_i18n: LocalizedString;
-        destination_short_name_i18n: LocalizedString;
-        route_shape?: GeoJSON.LineString | null | undefined;
-        on_line_id: UUID;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-        priority: number;
-        label: string;
-        variant?: number | null | undefined;
-        direction: RouteDirectionEnum;
-        route_line: {
-          __typename?: 'route_line';
-          line_id: UUID;
-          name_i18n: LocalizedString;
-          short_name_i18n: LocalizedString;
-          primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-          type_of_line: RouteTypeOfLineEnum;
-          transport_target: HslRouteTransportTargetEnum;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
-          priority: number;
-          label: string;
-        };
-        route_journey_patterns: Array<{
-          __typename?: 'journey_pattern_journey_pattern';
-          journey_pattern_id: UUID;
-          on_route_id: UUID;
-          scheduled_stop_point_in_journey_patterns: Array<{
-            __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-            journey_pattern_id: UUID;
-            scheduled_stop_point_label: string;
-            scheduled_stop_point_sequence: number;
-            is_used_as_timing_point: boolean;
-            is_regulated_timing_point: boolean;
-            is_loading_time_allowed: boolean;
-            is_via_point: boolean;
-            via_point_name_i18n?: LocalizedString | null | undefined;
-            via_point_short_name_i18n?: LocalizedString | null | undefined;
-            scheduled_stop_points: Array<{
-              __typename?: 'service_pattern_scheduled_stop_point';
-              priority: number;
-              direction: InfrastructureNetworkDirectionEnum;
-              scheduled_stop_point_id: UUID;
-              label: string;
-              validity_start?: luxon.DateTime | null | undefined;
-              validity_end?: luxon.DateTime | null | undefined;
-              located_on_infrastructure_link_id: UUID;
-            }>;
-            journey_pattern: {
-              __typename?: 'journey_pattern_journey_pattern';
-              journey_pattern_id: UUID;
-              on_route_id: UUID;
-            };
-          }>;
-        }>;
-      }
-    | null
-    | undefined;
-};
-
-export type GetRouteDetailsByIdsQueryVariables = Exact<{
-  route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
-}>;
-
-export type GetRouteDetailsByIdsQuery = {
-  __typename?: 'query_root';
-  route_route: Array<{
-    __typename?: 'route_route';
-    route_id: UUID;
-    name_i18n: LocalizedString;
-    description_i18n?: LocalizedString | null | undefined;
-    origin_name_i18n: LocalizedString;
-    origin_short_name_i18n: LocalizedString;
-    destination_name_i18n: LocalizedString;
-    destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null | undefined;
-    on_line_id: UUID;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    label: string;
-    variant?: number | null | undefined;
-    direction: RouteDirectionEnum;
-    infrastructure_links_along_route: Array<{
-      __typename?: 'route_infrastructure_link_along_route';
-      route_id: UUID;
-      infrastructure_link_id: UUID;
-      infrastructure_link_sequence: number;
-      is_traversal_forwards: boolean;
-      infrastructure_link: {
-        __typename?: 'infrastructure_network_infrastructure_link';
-        infrastructure_link_id: UUID;
-        scheduled_stop_points_located_on_infrastructure_link: Array<{
-          __typename?: 'service_pattern_scheduled_stop_point';
-          scheduled_stop_point_id: UUID;
-          label: string;
-          measured_location: GeoJSON.Point;
-          located_on_infrastructure_link_id: UUID;
-          direction: InfrastructureNetworkDirectionEnum;
-          relative_distance_from_infrastructure_link_start: number;
-          closest_point_on_infrastructure_link?:
-            | GeoJSON.Point
-            | null
-            | undefined;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
-          priority: number;
-          timing_place_id?: UUID | null | undefined;
-          scheduled_stop_point_in_journey_patterns: Array<{
-            __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-            journey_pattern_id: UUID;
-            scheduled_stop_point_label: string;
-            scheduled_stop_point_sequence: number;
-            is_used_as_timing_point: boolean;
-            is_regulated_timing_point: boolean;
-            is_loading_time_allowed: boolean;
-            is_via_point: boolean;
-            via_point_name_i18n?: LocalizedString | null | undefined;
-            via_point_short_name_i18n?: LocalizedString | null | undefined;
-            journey_pattern: {
-              __typename?: 'journey_pattern_journey_pattern';
-              journey_pattern_id: UUID;
-              on_route_id: UUID;
-            };
-          }>;
-          vehicle_mode_on_scheduled_stop_point: Array<{
-            __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-            vehicle_mode: ReusableComponentsVehicleModeEnum;
-          }>;
-        }>;
-      };
-    }>;
-    route_line: {
-      __typename?: 'route_line';
-      line_id: UUID;
-      label: string;
-      primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-    };
-  }>;
-};
-
-export type GetRouteRenderInfoByIdQueryVariables = Exact<{
-  routeId: Scalars['uuid'];
-}>;
-
-export type GetRouteRenderInfoByIdQuery = {
-  __typename?: 'query_root';
-  route_route_by_pk?:
-    | {
-        __typename?: 'route_route';
-        route_id: UUID;
-        route_shape?: GeoJSON.LineString | null | undefined;
-        route_line: {
-          __typename?: 'route_line';
-          line_id: UUID;
-          primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-        };
-      }
-    | null
-    | undefined;
-};
-
-export type GetRouteDetailsByLabelsQueryVariables = Exact<{
-  labels?: Maybe<Array<Scalars['String']> | Scalars['String']>;
-  date?: Maybe<Scalars['date']>;
-}>;
-
-export type GetRouteDetailsByLabelsQuery = {
-  __typename?: 'query_root';
-  route_route: Array<{
-    __typename?: 'route_route';
-    route_id: UUID;
-    name_i18n: LocalizedString;
-    description_i18n?: LocalizedString | null | undefined;
-    origin_name_i18n: LocalizedString;
-    origin_short_name_i18n: LocalizedString;
-    destination_name_i18n: LocalizedString;
-    destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null | undefined;
-    on_line_id: UUID;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    label: string;
-    variant?: number | null | undefined;
-    direction: RouteDirectionEnum;
-    route_line: {
-      __typename?: 'route_line';
-      line_id: UUID;
-      label: string;
-      primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-    };
-    route_journey_patterns: Array<{
-      __typename?: 'journey_pattern_journey_pattern';
-      journey_pattern_id: UUID;
-      on_route_id: UUID;
-      scheduled_stop_point_in_journey_patterns: Array<{
-        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-        journey_pattern_id: UUID;
-        scheduled_stop_point_label: string;
-        scheduled_stop_point_sequence: number;
-        is_used_as_timing_point: boolean;
-        is_regulated_timing_point: boolean;
-        is_loading_time_allowed: boolean;
-        is_via_point: boolean;
-        via_point_name_i18n?: LocalizedString | null | undefined;
-        via_point_short_name_i18n?: LocalizedString | null | undefined;
-        scheduled_stop_points: Array<{
-          __typename?: 'service_pattern_scheduled_stop_point';
-          priority: number;
-          direction: InfrastructureNetworkDirectionEnum;
-          scheduled_stop_point_id: UUID;
-          label: string;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
-          located_on_infrastructure_link_id: UUID;
-        }>;
-        journey_pattern: {
-          __typename?: 'journey_pattern_journey_pattern';
-          journey_pattern_id: UUID;
-          on_route_id: UUID;
-        };
-      }>;
-    }>;
-  }>;
-};
-
-export type GetRoutesWithInfrastructureLinksQueryVariables = Exact<{
-  route_ids?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
-}>;
-
-export type GetRoutesWithInfrastructureLinksQuery = {
-  __typename?: 'query_root';
-  route_route: Array<{
-    __typename?: 'route_route';
-    route_id: UUID;
-    name_i18n: LocalizedString;
-    description_i18n?: LocalizedString | null | undefined;
-    origin_name_i18n: LocalizedString;
-    origin_short_name_i18n: LocalizedString;
-    destination_name_i18n: LocalizedString;
-    destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null | undefined;
-    on_line_id: UUID;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
-    priority: number;
-    label: string;
-    variant?: number | null | undefined;
+    variant?: number | null;
     direction: RouteDirectionEnum;
     route_line: {
       __typename?: 'route_line';
@@ -13675,8 +12448,8 @@ export type GetRoutesWithInfrastructureLinksQuery = {
       primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
       type_of_line: RouteTypeOfLineEnum;
       transport_target: HslRouteTransportTargetEnum;
-      validity_start?: luxon.DateTime | null | undefined;
-      validity_end?: luxon.DateTime | null | undefined;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
       priority: number;
       label: string;
     };
@@ -13706,16 +12479,1329 @@ export type GetRoutesWithInfrastructureLinksQuery = {
         is_regulated_timing_point: boolean;
         is_loading_time_allowed: boolean;
         is_via_point: boolean;
-        via_point_name_i18n?: LocalizedString | null | undefined;
-        via_point_short_name_i18n?: LocalizedString | null | undefined;
+        via_point_name_i18n?: LocalizedString | null;
+        via_point_short_name_i18n?: LocalizedString | null;
         scheduled_stop_points: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
           priority: number;
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          located_on_infrastructure_link_id: UUID;
+        }>;
+        journey_pattern: {
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+        };
+      }>;
+    }>;
+  } | null;
+};
+
+export type StopPopupInfoFragment = {
+  __typename?: 'service_pattern_scheduled_stop_point';
+  label: string;
+  priority: number;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  measured_location: GeoJSON.Point;
+};
+
+export type ListChangingRoutesQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']>;
+}>;
+
+export type ListChangingRoutesQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    name_i18n: LocalizedString;
+    direction: RouteDirectionEnum;
+    priority: number;
+    on_line_id: UUID;
+    variant?: number | null;
+    route_id: UUID;
+    label: string;
+    route_shape?: GeoJSON.LineString | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      journey_pattern_refs: Array<{
+        __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+        journey_pattern_ref_id: UUID;
+        vehicle_journeys: Array<{
+          __typename?: 'timetables_vehicle_journey_vehicle_journey';
+          vehicle_journey_id: UUID;
+        }>;
+      }>;
+    }>;
+  }>;
+};
+
+export type ListOwnLinesQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']>;
+}>;
+
+export type ListOwnLinesQuery = {
+  __typename?: 'query_root';
+  route_line: Array<{
+    __typename?: 'route_line';
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    priority: number;
+    line_id: UUID;
+    label: string;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    line_routes: Array<{
+      __typename?: 'route_route';
+      route_id: UUID;
+      route_shape?: GeoJSON.LineString | null;
+      label: string;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      route_journey_patterns: Array<{
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        journey_pattern_refs: Array<{
+          __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+          journey_pattern_ref_id: UUID;
+          vehicle_journeys: Array<{
+            __typename?: 'timetables_vehicle_journey_vehicle_journey';
+            vehicle_journey_id: UUID;
+          }>;
+        }>;
+      }>;
+    }>;
+  }>;
+};
+
+export type ScheduledStopPointWithTimingSettingsFragment = {
+  __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+  journey_pattern_id: UUID;
+  scheduled_stop_point_label: string;
+  scheduled_stop_point_sequence: number;
+  is_used_as_timing_point: boolean;
+  is_regulated_timing_point: boolean;
+  is_loading_time_allowed: boolean;
+  is_via_point: boolean;
+  via_point_name_i18n?: LocalizedString | null;
+  via_point_short_name_i18n?: LocalizedString | null;
+  journey_pattern: {
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+    on_route_id: UUID;
+    journey_pattern_route?: {
+      __typename?: 'route_route';
+      route_id: UUID;
+      label: string;
+    } | null;
+  };
+  scheduled_stop_points: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    timing_place_id?: UUID | null;
+  }>;
+};
+
+export type GetScheduledStopPointWithTimingSettingsQueryVariables = Exact<{
+  journeyPatternId: Scalars['uuid'];
+  stopLabel: Scalars['String'];
+  sequence: Scalars['Int'];
+}>;
+
+export type GetScheduledStopPointWithTimingSettingsQuery = {
+  __typename?: 'query_root';
+  journey_pattern_scheduled_stop_point_in_journey_pattern: Array<{
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+    journey_pattern_id: UUID;
+    scheduled_stop_point_label: string;
+    scheduled_stop_point_sequence: number;
+    is_used_as_timing_point: boolean;
+    is_regulated_timing_point: boolean;
+    is_loading_time_allowed: boolean;
+    is_via_point: boolean;
+    via_point_name_i18n?: LocalizedString | null;
+    via_point_short_name_i18n?: LocalizedString | null;
+    journey_pattern: {
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      journey_pattern_route?: {
+        __typename?: 'route_route';
+        route_id: UUID;
+        label: string;
+      } | null;
+    };
+    scheduled_stop_points: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point';
+      scheduled_stop_point_id: UUID;
+      timing_place_id?: UUID | null;
+    }>;
+  }>;
+};
+
+export type VehicleJourneyByStopFragment = {
+  __typename?: 'timetables_vehicle_journey_vehicle_journey';
+  journey_pattern_ref_id: UUID;
+  vehicle_journey_id: UUID;
+  timetabled_passing_times: Array<{
+    __typename?: 'timetables_passing_times_timetabled_passing_time';
+    arrival_time?: luxon.Duration | null;
+    departure_time?: luxon.Duration | null;
+    passing_time: luxon.Duration;
+    scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+    timetabled_passing_time_id: UUID;
+    vehicle_journey_id: UUID;
+    scheduled_stop_point_in_journey_pattern_ref: {
+      __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
+      scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+      scheduled_stop_point_label: string;
+    };
+  }>;
+};
+
+export type PassingTimeByStopFragment = {
+  __typename?: 'timetables_passing_times_timetabled_passing_time';
+  arrival_time?: luxon.Duration | null;
+  departure_time?: luxon.Duration | null;
+  passing_time: luxon.Duration;
+  scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+  timetabled_passing_time_id: UUID;
+  vehicle_journey_id: UUID;
+  scheduled_stop_point_in_journey_pattern_ref: {
+    __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
+    scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+    scheduled_stop_point_label: string;
+  };
+};
+
+export type GetVehicleJourneysQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetVehicleJourneysQuery = {
+  __typename?: 'query_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_query';
+    timetables_vehicle_journey_vehicle_journey: Array<{
+      __typename?: 'timetables_vehicle_journey_vehicle_journey';
+      journey_pattern_ref_id: UUID;
+      vehicle_journey_id: UUID;
+      timetabled_passing_times: Array<{
+        __typename?: 'timetables_passing_times_timetabled_passing_time';
+        arrival_time?: luxon.Duration | null;
+        departure_time?: luxon.Duration | null;
+        passing_time: luxon.Duration;
+        scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+        timetabled_passing_time_id: UUID;
+        vehicle_journey_id: UUID;
+        scheduled_stop_point_in_journey_pattern_ref: {
+          __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
+          scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+          scheduled_stop_point_label: string;
+        };
+      }>;
+    }>;
+  } | null;
+};
+
+export type RouteInfraLinkFieldsFragment = {
+  __typename?: 'infrastructure_network_infrastructure_link';
+  external_link_id: string;
+  infrastructure_link_id: UUID;
+  shape: GeoJSON.LineString;
+  direction: InfrastructureNetworkDirectionEnum;
+  scheduled_stop_points_located_on_infrastructure_link: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    measured_location: GeoJSON.Point;
+    located_on_infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    relative_distance_from_infrastructure_link_start: number;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    timing_place_id?: UUID | null;
+    other_label_instances: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point';
+      priority: number;
+      direction: InfrastructureNetworkDirectionEnum;
+      scheduled_stop_point_id: UUID;
+      label: string;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      located_on_infrastructure_link_id: UUID;
+    }>;
+    scheduled_stop_point_in_journey_patterns: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
+      is_via_point: boolean;
+      via_point_name_i18n?: LocalizedString | null;
+      via_point_short_name_i18n?: LocalizedString | null;
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+      };
+    }>;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
+  }>;
+};
+
+export type InfrastructureLinkAllFieldsFragment = {
+  __typename?: 'infrastructure_network_infrastructure_link';
+  infrastructure_link_id: UUID;
+  direction: InfrastructureNetworkDirectionEnum;
+  shape: GeoJSON.LineString;
+  estimated_length_in_metres?: number | null;
+  external_link_id: string;
+  external_link_source: InfrastructureNetworkExternalSourceEnum;
+};
+
+export type InfraLinkMatchingFieldsFragment = {
+  __typename?: 'infrastructure_network_infrastructure_link';
+  external_link_id: string;
+  infrastructure_link_id: UUID;
+  shape: GeoJSON.LineString;
+  direction: InfrastructureNetworkDirectionEnum;
+};
+
+export type QueryClosestLinkQueryVariables = Exact<{
+  point?: InputMaybe<Scalars['geography']>;
+}>;
+
+export type QueryClosestLinkQuery = {
+  __typename?: 'query_root';
+  infrastructure_network_resolve_point_to_closest_link: Array<{
+    __typename?: 'infrastructure_network_infrastructure_link';
+    infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    shape: GeoJSON.LineString;
+    estimated_length_in_metres?: number | null;
+    external_link_id: string;
+    external_link_source: InfrastructureNetworkExternalSourceEnum;
+  }>;
+};
+
+export type QueryPointDirectionOnLinkQueryVariables = Exact<{
+  point_of_interest?: InputMaybe<Scalars['geography']>;
+  infrastructure_link_uuid?: InputMaybe<Scalars['uuid']>;
+  point_max_distance_in_meters?: InputMaybe<Scalars['float8']>;
+}>;
+
+export type QueryPointDirectionOnLinkQuery = {
+  __typename?: 'query_root';
+  infrastructure_network_find_point_direction_on_link: Array<{
+    __typename?: 'infrastructure_network_direction';
+    value: InfrastructureNetworkDirectionEnum;
+  }>;
+};
+
+export type GetStopsAlongInfrastructureLinksQueryVariables = Exact<{
+  infrastructure_link_ids?: InputMaybe<
+    Array<Scalars['uuid']> | Scalars['uuid']
+  >;
+}>;
+
+export type GetStopsAlongInfrastructureLinksQuery = {
+  __typename?: 'query_root';
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    measured_location: GeoJSON.Point;
+    located_on_infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    relative_distance_from_infrastructure_link_start: number;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    timing_place_id?: UUID | null;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
+  }>;
+};
+
+export type ScheduledStopPointInJourneyPatternAllFieldsFragment = {
+  __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+  journey_pattern_id: UUID;
+  scheduled_stop_point_label: string;
+  scheduled_stop_point_sequence: number;
+  is_used_as_timing_point: boolean;
+  is_regulated_timing_point: boolean;
+  is_loading_time_allowed: boolean;
+  is_via_point: boolean;
+  via_point_name_i18n?: LocalizedString | null;
+  via_point_short_name_i18n?: LocalizedString | null;
+  journey_pattern: {
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+    on_route_id: UUID;
+  };
+};
+
+export type JourneyPatternWithStopsFragment = {
+  __typename?: 'journey_pattern_journey_pattern';
+  journey_pattern_id: UUID;
+  on_route_id: UUID;
+  scheduled_stop_point_in_journey_patterns: Array<{
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+    journey_pattern_id: UUID;
+    scheduled_stop_point_label: string;
+    scheduled_stop_point_sequence: number;
+    is_used_as_timing_point: boolean;
+    is_regulated_timing_point: boolean;
+    is_loading_time_allowed: boolean;
+    is_via_point: boolean;
+    via_point_name_i18n?: LocalizedString | null;
+    via_point_short_name_i18n?: LocalizedString | null;
+    scheduled_stop_points: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point';
+      priority: number;
+      direction: InfrastructureNetworkDirectionEnum;
+      scheduled_stop_point_id: UUID;
+      label: string;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      located_on_infrastructure_link_id: UUID;
+    }>;
+    journey_pattern: {
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+    };
+  }>;
+};
+
+export type PatchScheduledStopPointViaInfoMutationVariables = Exact<{
+  stopLabel: Scalars['String'];
+  journeyPatternId: Scalars['uuid'];
+  patch: JourneyPatternScheduledStopPointInJourneyPatternSetInput;
+}>;
+
+export type PatchScheduledStopPointViaInfoMutation = {
+  __typename?: 'mutation_root';
+  update_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+    returning: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
+      is_via_point: boolean;
+      via_point_name_i18n?: LocalizedString | null;
+      via_point_short_name_i18n?: LocalizedString | null;
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+      };
+    }>;
+  } | null;
+};
+
+export type RemoveScheduledStopPointViaInfoMutationVariables = Exact<{
+  stopLabel: Scalars['String'];
+  journeyPatternId: Scalars['uuid'];
+}>;
+
+export type RemoveScheduledStopPointViaInfoMutation = {
+  __typename?: 'mutation_root';
+  update_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+    returning: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
+      is_via_point: boolean;
+      via_point_name_i18n?: LocalizedString | null;
+      via_point_short_name_i18n?: LocalizedString | null;
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+      };
+    }>;
+  } | null;
+};
+
+export type GetScheduledStopPointWithViaInfoQueryVariables = Exact<{
+  journeyPatternId: Scalars['uuid'];
+  stopLabel: Scalars['String'];
+}>;
+
+export type GetScheduledStopPointWithViaInfoQuery = {
+  __typename?: 'query_root';
+  journey_pattern_scheduled_stop_point_in_journey_pattern: Array<{
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+    journey_pattern_id: UUID;
+    scheduled_stop_point_label: string;
+    scheduled_stop_point_sequence: number;
+    is_used_as_timing_point: boolean;
+    is_regulated_timing_point: boolean;
+    is_loading_time_allowed: boolean;
+    is_via_point: boolean;
+    via_point_name_i18n?: LocalizedString | null;
+    via_point_short_name_i18n?: LocalizedString | null;
+    journey_pattern: {
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      journey_pattern_route?: {
+        __typename?: 'route_route';
+        route_id: UUID;
+        label: string;
+      } | null;
+    };
+  }>;
+};
+
+export type LineDefaultFieldsFragment = {
+  __typename?: 'route_line';
+  line_id: UUID;
+  label: string;
+  name_i18n: LocalizedString;
+  short_name_i18n: LocalizedString;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+};
+
+export type LineAllFieldsFragment = {
+  __typename?: 'route_line';
+  line_id: UUID;
+  name_i18n: LocalizedString;
+  short_name_i18n: LocalizedString;
+  primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+  type_of_line: RouteTypeOfLineEnum;
+  transport_target: HslRouteTransportTargetEnum;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  priority: number;
+  label: string;
+};
+
+export type RouteValidityFragment = {
+  __typename?: 'route_route';
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  priority: number;
+};
+
+export type RouteAllFieldsFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  name_i18n: LocalizedString;
+  description_i18n?: LocalizedString | null;
+  origin_name_i18n: LocalizedString;
+  origin_short_name_i18n: LocalizedString;
+  destination_name_i18n: LocalizedString;
+  destination_short_name_i18n: LocalizedString;
+  route_shape?: GeoJSON.LineString | null;
+  on_line_id: UUID;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  priority: number;
+  label: string;
+  variant?: number | null;
+  direction: RouteDirectionEnum;
+};
+
+export type RouteDefaultFieldsFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  name_i18n: LocalizedString;
+  description_i18n?: LocalizedString | null;
+  origin_name_i18n: LocalizedString;
+  origin_short_name_i18n: LocalizedString;
+  destination_name_i18n: LocalizedString;
+  destination_short_name_i18n: LocalizedString;
+  on_line_id: UUID;
+  label: string;
+  variant?: number | null;
+  priority: number;
+};
+
+export type RouteWithJourneyPatternStopsFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  name_i18n: LocalizedString;
+  description_i18n?: LocalizedString | null;
+  origin_name_i18n: LocalizedString;
+  origin_short_name_i18n: LocalizedString;
+  destination_name_i18n: LocalizedString;
+  destination_short_name_i18n: LocalizedString;
+  route_shape?: GeoJSON.LineString | null;
+  on_line_id: UUID;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  priority: number;
+  label: string;
+  variant?: number | null;
+  direction: RouteDirectionEnum;
+  route_journey_patterns: Array<{
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+    on_route_id: UUID;
+    scheduled_stop_point_in_journey_patterns: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
+      is_via_point: boolean;
+      via_point_name_i18n?: LocalizedString | null;
+      via_point_short_name_i18n?: LocalizedString | null;
+      scheduled_stop_points: Array<{
+        __typename?: 'service_pattern_scheduled_stop_point';
+        priority: number;
+        direction: InfrastructureNetworkDirectionEnum;
+        scheduled_stop_point_id: UUID;
+        label: string;
+        validity_start?: luxon.DateTime | null;
+        validity_end?: luxon.DateTime | null;
+        located_on_infrastructure_link_id: UUID;
+      }>;
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+      };
+    }>;
+  }>;
+};
+
+export type RouteWithInfrastructureLinksFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  name_i18n: LocalizedString;
+  description_i18n?: LocalizedString | null;
+  origin_name_i18n: LocalizedString;
+  origin_short_name_i18n: LocalizedString;
+  destination_name_i18n: LocalizedString;
+  destination_short_name_i18n: LocalizedString;
+  route_shape?: GeoJSON.LineString | null;
+  on_line_id: UUID;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  priority: number;
+  label: string;
+  variant?: number | null;
+  direction: RouteDirectionEnum;
+  route_line: {
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    type_of_line: RouteTypeOfLineEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+  };
+  infrastructure_links_along_route: Array<{
+    __typename?: 'route_infrastructure_link_along_route';
+    route_id: UUID;
+    infrastructure_link_sequence: number;
+    infrastructure_link_id: UUID;
+    is_traversal_forwards: boolean;
+    infrastructure_link: {
+      __typename?: 'infrastructure_network_infrastructure_link';
+      infrastructure_link_id: UUID;
+      shape: GeoJSON.LineString;
+      direction: InfrastructureNetworkDirectionEnum;
+    };
+  }>;
+  route_journey_patterns: Array<{
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+    on_route_id: UUID;
+    scheduled_stop_point_in_journey_patterns: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
+      is_via_point: boolean;
+      via_point_name_i18n?: LocalizedString | null;
+      via_point_short_name_i18n?: LocalizedString | null;
+      scheduled_stop_points: Array<{
+        __typename?: 'service_pattern_scheduled_stop_point';
+        priority: number;
+        direction: InfrastructureNetworkDirectionEnum;
+        scheduled_stop_point_id: UUID;
+        label: string;
+        validity_start?: luxon.DateTime | null;
+        validity_end?: luxon.DateTime | null;
+        located_on_infrastructure_link_id: UUID;
+      }>;
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+      };
+    }>;
+  }>;
+};
+
+export type GetLineDetailsByIdQueryVariables = Exact<{
+  line_id: Scalars['uuid'];
+}>;
+
+export type GetLineDetailsByIdQuery = {
+  __typename?: 'query_root';
+  route_line_by_pk?: {
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    type_of_line: RouteTypeOfLineEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+  } | null;
+};
+
+export type GetLineValidityPeriodByIdQueryVariables = Exact<{
+  line_id: Scalars['uuid'];
+}>;
+
+export type GetLineValidityPeriodByIdQuery = {
+  __typename?: 'query_root';
+  route_line_by_pk?: {
+    __typename?: 'route_line';
+    line_id: UUID;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+  } | null;
+};
+
+export type GetLinesByValidityQueryVariables = Exact<{
+  filter?: InputMaybe<RouteLineBoolExp>;
+}>;
+
+export type GetLinesByValidityQuery = {
+  __typename?: 'query_root';
+  route_line: Array<{
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    type_of_line: RouteTypeOfLineEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+  }>;
+};
+
+export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
+  line_id: Scalars['uuid'];
+}>;
+
+export type GetLineDetailsWithRoutesByIdQuery = {
+  __typename?: 'query_root';
+  route_line_by_pk?: {
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    type_of_line: RouteTypeOfLineEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+    line_routes: Array<{
+      __typename?: 'route_route';
+      route_id: UUID;
+      name_i18n: LocalizedString;
+      description_i18n?: LocalizedString | null;
+      origin_name_i18n: LocalizedString;
+      origin_short_name_i18n: LocalizedString;
+      destination_name_i18n: LocalizedString;
+      destination_short_name_i18n: LocalizedString;
+      route_shape?: GeoJSON.LineString | null;
+      on_line_id: UUID;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      priority: number;
+      label: string;
+      variant?: number | null;
+      direction: RouteDirectionEnum;
+      infrastructure_links_along_route: Array<{
+        __typename?: 'route_infrastructure_link_along_route';
+        route_id: UUID;
+        infrastructure_link_id: UUID;
+        infrastructure_link_sequence: number;
+        is_traversal_forwards: boolean;
+        infrastructure_link: {
+          __typename?: 'infrastructure_network_infrastructure_link';
+          infrastructure_link_id: UUID;
+          scheduled_stop_points_located_on_infrastructure_link: Array<{
+            __typename?: 'service_pattern_scheduled_stop_point';
+            scheduled_stop_point_id: UUID;
+            label: string;
+            measured_location: GeoJSON.Point;
+            located_on_infrastructure_link_id: UUID;
+            direction: InfrastructureNetworkDirectionEnum;
+            relative_distance_from_infrastructure_link_start: number;
+            closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+            validity_start?: luxon.DateTime | null;
+            validity_end?: luxon.DateTime | null;
+            priority: number;
+            timing_place_id?: UUID | null;
+            scheduled_stop_point_in_journey_patterns: Array<{
+              __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+              journey_pattern_id: UUID;
+              scheduled_stop_point_label: string;
+              scheduled_stop_point_sequence: number;
+              is_used_as_timing_point: boolean;
+              is_regulated_timing_point: boolean;
+              is_loading_time_allowed: boolean;
+              is_via_point: boolean;
+              via_point_name_i18n?: LocalizedString | null;
+              via_point_short_name_i18n?: LocalizedString | null;
+              journey_pattern: {
+                __typename?: 'journey_pattern_journey_pattern';
+                journey_pattern_id: UUID;
+                on_route_id: UUID;
+              };
+            }>;
+            other_label_instances: Array<{
+              __typename?: 'service_pattern_scheduled_stop_point';
+              priority: number;
+              direction: InfrastructureNetworkDirectionEnum;
+              scheduled_stop_point_id: UUID;
+              label: string;
+              validity_start?: luxon.DateTime | null;
+              validity_end?: luxon.DateTime | null;
+              located_on_infrastructure_link_id: UUID;
+            }>;
+            vehicle_mode_on_scheduled_stop_point: Array<{
+              __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+              vehicle_mode: ReusableComponentsVehicleModeEnum;
+            }>;
+          }>;
+        };
+      }>;
+    }>;
+  } | null;
+};
+
+export type GetHighestPriorityLineDetailsWithRoutesQueryVariables = Exact<{
+  lineFilters?: InputMaybe<RouteLineBoolExp>;
+  lineRouteFilters?: InputMaybe<RouteRouteBoolExp>;
+  routeStopFilters?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
+}>;
+
+export type GetHighestPriorityLineDetailsWithRoutesQuery = {
+  __typename?: 'query_root';
+  route_line: Array<{
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    type_of_line: RouteTypeOfLineEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+    line_routes: Array<{
+      __typename?: 'route_route';
+      route_id: UUID;
+      name_i18n: LocalizedString;
+      description_i18n?: LocalizedString | null;
+      origin_name_i18n: LocalizedString;
+      origin_short_name_i18n: LocalizedString;
+      destination_name_i18n: LocalizedString;
+      destination_short_name_i18n: LocalizedString;
+      route_shape?: GeoJSON.LineString | null;
+      on_line_id: UUID;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      priority: number;
+      label: string;
+      variant?: number | null;
+      direction: RouteDirectionEnum;
+      infrastructure_links_along_route: Array<{
+        __typename?: 'route_infrastructure_link_along_route';
+        route_id: UUID;
+        infrastructure_link_id: UUID;
+        infrastructure_link_sequence: number;
+        is_traversal_forwards: boolean;
+        infrastructure_link: {
+          __typename?: 'infrastructure_network_infrastructure_link';
+          infrastructure_link_id: UUID;
+          scheduled_stop_points_located_on_infrastructure_link: Array<{
+            __typename?: 'service_pattern_scheduled_stop_point';
+            scheduled_stop_point_id: UUID;
+            label: string;
+            measured_location: GeoJSON.Point;
+            located_on_infrastructure_link_id: UUID;
+            direction: InfrastructureNetworkDirectionEnum;
+            relative_distance_from_infrastructure_link_start: number;
+            closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+            validity_start?: luxon.DateTime | null;
+            validity_end?: luxon.DateTime | null;
+            priority: number;
+            timing_place_id?: UUID | null;
+            other_label_instances: Array<{
+              __typename?: 'service_pattern_scheduled_stop_point';
+              priority: number;
+              direction: InfrastructureNetworkDirectionEnum;
+              scheduled_stop_point_id: UUID;
+              label: string;
+              validity_start?: luxon.DateTime | null;
+              validity_end?: luxon.DateTime | null;
+              located_on_infrastructure_link_id: UUID;
+            }>;
+            scheduled_stop_point_in_journey_patterns: Array<{
+              __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+              journey_pattern_id: UUID;
+              scheduled_stop_point_label: string;
+              scheduled_stop_point_sequence: number;
+              is_used_as_timing_point: boolean;
+              is_regulated_timing_point: boolean;
+              is_loading_time_allowed: boolean;
+              is_via_point: boolean;
+              via_point_name_i18n?: LocalizedString | null;
+              via_point_short_name_i18n?: LocalizedString | null;
+              journey_pattern: {
+                __typename?: 'journey_pattern_journey_pattern';
+                journey_pattern_id: UUID;
+                on_route_id: UUID;
+              };
+            }>;
+            vehicle_mode_on_scheduled_stop_point: Array<{
+              __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+              vehicle_mode: ReusableComponentsVehicleModeEnum;
+            }>;
+          }>;
+        };
+      }>;
+      route_journey_patterns: Array<{
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+      }>;
+    }>;
+  }>;
+};
+
+export type GetRoutesWithStopsQueryVariables = Exact<{
+  routeFilters?: InputMaybe<RouteRouteBoolExp>;
+}>;
+
+export type GetRoutesWithStopsQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+    variant?: number | null;
+    direction: RouteDirectionEnum;
+    route_line: { __typename?: 'route_line'; line_id: UUID };
+    infrastructure_links_along_route: Array<{
+      __typename?: 'route_infrastructure_link_along_route';
+      route_id: UUID;
+      infrastructure_link_id: UUID;
+      infrastructure_link_sequence: number;
+      is_traversal_forwards: boolean;
+      infrastructure_link: {
+        __typename?: 'infrastructure_network_infrastructure_link';
+        infrastructure_link_id: UUID;
+        scheduled_stop_points_located_on_infrastructure_link: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          scheduled_stop_point_id: UUID;
+          label: string;
+          measured_location: GeoJSON.Point;
+          located_on_infrastructure_link_id: UUID;
+          direction: InfrastructureNetworkDirectionEnum;
+          relative_distance_from_infrastructure_link_start: number;
+          closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          priority: number;
+          timing_place_id?: UUID | null;
+          scheduled_stop_point_in_journey_patterns: Array<{
+            __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+            journey_pattern_id: UUID;
+            scheduled_stop_point_label: string;
+            scheduled_stop_point_sequence: number;
+            is_used_as_timing_point: boolean;
+            is_regulated_timing_point: boolean;
+            is_loading_time_allowed: boolean;
+            is_via_point: boolean;
+            via_point_name_i18n?: LocalizedString | null;
+            via_point_short_name_i18n?: LocalizedString | null;
+            journey_pattern: {
+              __typename?: 'journey_pattern_journey_pattern';
+              journey_pattern_id: UUID;
+              on_route_id: UUID;
+            };
+          }>;
+          vehicle_mode_on_scheduled_stop_point: Array<{
+            __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+            vehicle_mode: ReusableComponentsVehicleModeEnum;
+          }>;
+        }>;
+      };
+    }>;
+  }>;
+};
+
+export type GetRouteDetailsByIdQueryVariables = Exact<{
+  routeId: Scalars['uuid'];
+}>;
+
+export type GetRouteDetailsByIdQuery = {
+  __typename?: 'query_root';
+  route_route_by_pk?: {
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+    variant?: number | null;
+    direction: RouteDirectionEnum;
+    route_line: {
+      __typename?: 'route_line';
+      line_id: UUID;
+      name_i18n: LocalizedString;
+      short_name_i18n: LocalizedString;
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+      type_of_line: RouteTypeOfLineEnum;
+      transport_target: HslRouteTransportTargetEnum;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      priority: number;
+      label: string;
+    };
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_label: string;
+        scheduled_stop_point_sequence: number;
+        is_used_as_timing_point: boolean;
+        is_regulated_timing_point: boolean;
+        is_loading_time_allowed: boolean;
+        is_via_point: boolean;
+        via_point_name_i18n?: LocalizedString | null;
+        via_point_short_name_i18n?: LocalizedString | null;
+        scheduled_stop_points: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          located_on_infrastructure_link_id: UUID;
+        }>;
+        journey_pattern: {
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+        };
+      }>;
+    }>;
+  } | null;
+};
+
+export type GetRouteDetailsByIdsQueryVariables = Exact<{
+  route_ids?: InputMaybe<Array<Scalars['uuid']> | Scalars['uuid']>;
+}>;
+
+export type GetRouteDetailsByIdsQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+    variant?: number | null;
+    direction: RouteDirectionEnum;
+    infrastructure_links_along_route: Array<{
+      __typename?: 'route_infrastructure_link_along_route';
+      route_id: UUID;
+      infrastructure_link_id: UUID;
+      infrastructure_link_sequence: number;
+      is_traversal_forwards: boolean;
+      infrastructure_link: {
+        __typename?: 'infrastructure_network_infrastructure_link';
+        infrastructure_link_id: UUID;
+        scheduled_stop_points_located_on_infrastructure_link: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          scheduled_stop_point_id: UUID;
+          label: string;
+          measured_location: GeoJSON.Point;
+          located_on_infrastructure_link_id: UUID;
+          direction: InfrastructureNetworkDirectionEnum;
+          relative_distance_from_infrastructure_link_start: number;
+          closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          priority: number;
+          timing_place_id?: UUID | null;
+          scheduled_stop_point_in_journey_patterns: Array<{
+            __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+            journey_pattern_id: UUID;
+            scheduled_stop_point_label: string;
+            scheduled_stop_point_sequence: number;
+            is_used_as_timing_point: boolean;
+            is_regulated_timing_point: boolean;
+            is_loading_time_allowed: boolean;
+            is_via_point: boolean;
+            via_point_name_i18n?: LocalizedString | null;
+            via_point_short_name_i18n?: LocalizedString | null;
+            journey_pattern: {
+              __typename?: 'journey_pattern_journey_pattern';
+              journey_pattern_id: UUID;
+              on_route_id: UUID;
+            };
+          }>;
+          vehicle_mode_on_scheduled_stop_point: Array<{
+            __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+            vehicle_mode: ReusableComponentsVehicleModeEnum;
+          }>;
+        }>;
+      };
+    }>;
+    route_line: {
+      __typename?: 'route_line';
+      line_id: UUID;
+      label: string;
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    };
+  }>;
+};
+
+export type GetRouteRenderInfoByIdQueryVariables = Exact<{
+  routeId: Scalars['uuid'];
+}>;
+
+export type GetRouteRenderInfoByIdQuery = {
+  __typename?: 'query_root';
+  route_route_by_pk?: {
+    __typename?: 'route_route';
+    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null;
+    route_line: {
+      __typename?: 'route_line';
+      line_id: UUID;
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    };
+  } | null;
+};
+
+export type GetRouteDetailsByLabelsQueryVariables = Exact<{
+  labels?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
+  date?: InputMaybe<Scalars['date']>;
+}>;
+
+export type GetRouteDetailsByLabelsQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+    variant?: number | null;
+    direction: RouteDirectionEnum;
+    route_line: {
+      __typename?: 'route_line';
+      line_id: UUID;
+      label: string;
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    };
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_label: string;
+        scheduled_stop_point_sequence: number;
+        is_used_as_timing_point: boolean;
+        is_regulated_timing_point: boolean;
+        is_loading_time_allowed: boolean;
+        is_via_point: boolean;
+        via_point_name_i18n?: LocalizedString | null;
+        via_point_short_name_i18n?: LocalizedString | null;
+        scheduled_stop_points: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          located_on_infrastructure_link_id: UUID;
+        }>;
+        journey_pattern: {
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+        };
+      }>;
+    }>;
+  }>;
+};
+
+export type GetRoutesWithInfrastructureLinksQueryVariables = Exact<{
+  route_ids?: InputMaybe<Array<Scalars['uuid']> | Scalars['uuid']>;
+}>;
+
+export type GetRoutesWithInfrastructureLinksQuery = {
+  __typename?: 'query_root';
+  route_route: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+    variant?: number | null;
+    direction: RouteDirectionEnum;
+    route_line: {
+      __typename?: 'route_line';
+      line_id: UUID;
+      name_i18n: LocalizedString;
+      short_name_i18n: LocalizedString;
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+      type_of_line: RouteTypeOfLineEnum;
+      transport_target: HslRouteTransportTargetEnum;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      priority: number;
+      label: string;
+    };
+    infrastructure_links_along_route: Array<{
+      __typename?: 'route_infrastructure_link_along_route';
+      route_id: UUID;
+      infrastructure_link_sequence: number;
+      infrastructure_link_id: UUID;
+      is_traversal_forwards: boolean;
+      infrastructure_link: {
+        __typename?: 'infrastructure_network_infrastructure_link';
+        infrastructure_link_id: UUID;
+        shape: GeoJSON.LineString;
+        direction: InfrastructureNetworkDirectionEnum;
+      };
+    }>;
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_label: string;
+        scheduled_stop_point_sequence: number;
+        is_used_as_timing_point: boolean;
+        is_regulated_timing_point: boolean;
+        is_loading_time_allowed: boolean;
+        is_via_point: boolean;
+        via_point_name_i18n?: LocalizedString | null;
+        via_point_short_name_i18n?: LocalizedString | null;
+        scheduled_stop_points: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
         }>;
         journey_pattern: {
@@ -13729,25 +13815,25 @@ export type GetRoutesWithInfrastructureLinksQuery = {
 };
 
 export type GetRoutesByValidityQueryVariables = Exact<{
-  filter?: Maybe<RouteRouteBoolExp>;
+  filter?: InputMaybe<RouteRouteBoolExp>;
 }>;
 
 export type GetRoutesByValidityQuery = {
   __typename?: 'query_root';
   route_route: Array<{
     __typename?: 'route_route';
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     route_id: UUID;
     name_i18n: LocalizedString;
-    description_i18n?: LocalizedString | null | undefined;
+    description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
     on_line_id: UUID;
     label: string;
-    variant?: number | null | undefined;
+    variant?: number | null;
     priority: number;
   }>;
 };
@@ -13758,19 +13844,16 @@ export type InsertLineOneMutationVariables = Exact<{
 
 export type InsertLineOneMutation = {
   __typename?: 'mutation_root';
-  insert_route_line_one?:
-    | {
-        __typename?: 'route_line';
-        line_id: UUID;
-        label: string;
-        priority: number;
-        primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-        transport_target: HslRouteTransportTargetEnum;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-      }
-    | null
-    | undefined;
+  insert_route_line_one?: {
+    __typename?: 'route_line';
+    line_id: UUID;
+    label: string;
+    priority: number;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+  } | null;
 };
 
 export type PatchLineMutationVariables = Exact<{
@@ -13780,22 +13863,19 @@ export type PatchLineMutationVariables = Exact<{
 
 export type PatchLineMutation = {
   __typename?: 'mutation_root';
-  update_route_line_by_pk?:
-    | {
-        __typename?: 'route_line';
-        line_id: UUID;
-        name_i18n: LocalizedString;
-        short_name_i18n: LocalizedString;
-        primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-        type_of_line: RouteTypeOfLineEnum;
-        transport_target: HslRouteTransportTargetEnum;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-        priority: number;
-        label: string;
-      }
-    | null
-    | undefined;
+  update_route_line_by_pk?: {
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    type_of_line: RouteTypeOfLineEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+  } | null;
 };
 
 export type InsertRouteOneMutationVariables = Exact<{
@@ -13804,27 +13884,24 @@ export type InsertRouteOneMutationVariables = Exact<{
 
 export type InsertRouteOneMutation = {
   __typename?: 'mutation_root';
-  insert_route_route_one?:
-    | {
-        __typename?: 'route_route';
-        route_id: UUID;
-        name_i18n: LocalizedString;
-        description_i18n?: LocalizedString | null | undefined;
-        origin_name_i18n: LocalizedString;
-        origin_short_name_i18n: LocalizedString;
-        destination_name_i18n: LocalizedString;
-        destination_short_name_i18n: LocalizedString;
-        route_shape?: GeoJSON.LineString | null | undefined;
-        on_line_id: UUID;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-        priority: number;
-        label: string;
-        variant?: number | null | undefined;
-        direction: RouteDirectionEnum;
-      }
-    | null
-    | undefined;
+  insert_route_route_one?: {
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+    variant?: number | null;
+    direction: RouteDirectionEnum;
+  } | null;
 };
 
 export type PatchRouteMutationVariables = Exact<{
@@ -13834,30 +13911,27 @@ export type PatchRouteMutationVariables = Exact<{
 
 export type PatchRouteMutation = {
   __typename?: 'mutation_root';
-  update_route_route?:
-    | {
-        __typename?: 'route_route_mutation_response';
-        returning: Array<{
-          __typename?: 'route_route';
-          route_id: UUID;
-          name_i18n: LocalizedString;
-          description_i18n?: LocalizedString | null | undefined;
-          origin_name_i18n: LocalizedString;
-          origin_short_name_i18n: LocalizedString;
-          destination_name_i18n: LocalizedString;
-          destination_short_name_i18n: LocalizedString;
-          route_shape?: GeoJSON.LineString | null | undefined;
-          on_line_id: UUID;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
-          priority: number;
-          label: string;
-          variant?: number | null | undefined;
-          direction: RouteDirectionEnum;
-        }>;
-      }
-    | null
-    | undefined;
+  update_route_route?: {
+    __typename?: 'route_route_mutation_response';
+    returning: Array<{
+      __typename?: 'route_route';
+      route_id: UUID;
+      name_i18n: LocalizedString;
+      description_i18n?: LocalizedString | null;
+      origin_name_i18n: LocalizedString;
+      origin_short_name_i18n: LocalizedString;
+      destination_name_i18n: LocalizedString;
+      destination_short_name_i18n: LocalizedString;
+      route_shape?: GeoJSON.LineString | null;
+      on_line_id: UUID;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      priority: number;
+      label: string;
+      variant?: number | null;
+      direction: RouteDirectionEnum;
+    }>;
+  } | null;
 };
 
 export type DeleteRouteMutationVariables = Exact<{
@@ -13866,13 +13940,10 @@ export type DeleteRouteMutationVariables = Exact<{
 
 export type DeleteRouteMutation = {
   __typename?: 'mutation_root';
-  delete_route_route?:
-    | {
-        __typename?: 'route_route_mutation_response';
-        returning: Array<{ __typename?: 'route_route'; route_id: UUID }>;
-      }
-    | null
-    | undefined;
+  delete_route_route?: {
+    __typename?: 'route_route_mutation_response';
+    returning: Array<{ __typename?: 'route_route'; route_id: UUID }>;
+  } | null;
 };
 
 export type GetScheduledStopsOnRouteQueryVariables = Exact<{
@@ -13894,8 +13965,8 @@ export type GetScheduledStopsOnRouteQuery = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
+        validity_start?: luxon.DateTime | null;
+        validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
       }>;
     }>;
@@ -13908,8 +13979,8 @@ export type ScheduledStopPointDefaultFieldsFragment = {
   direction: InfrastructureNetworkDirectionEnum;
   scheduled_stop_point_id: UUID;
   label: string;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
   located_on_infrastructure_link_id: UUID;
 };
 
@@ -13921,11 +13992,11 @@ export type ScheduledStopPointAllFieldsFragment = {
   located_on_infrastructure_link_id: UUID;
   direction: InfrastructureNetworkDirectionEnum;
   relative_distance_from_infrastructure_link_start: number;
-  closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
+  closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
   priority: number;
-  timing_place_id?: UUID | null | undefined;
+  timing_place_id?: UUID | null;
   vehicle_mode_on_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
     vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -13940,11 +14011,11 @@ export type StopWithJourneyPatternFieldsFragment = {
   located_on_infrastructure_link_id: UUID;
   direction: InfrastructureNetworkDirectionEnum;
   relative_distance_from_infrastructure_link_start: number;
-  closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
+  closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
   priority: number;
-  timing_place_id?: UUID | null | undefined;
+  timing_place_id?: UUID | null;
   scheduled_stop_point_in_journey_patterns: Array<{
     __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
     journey_pattern_id: UUID;
@@ -13954,8 +14025,8 @@ export type StopWithJourneyPatternFieldsFragment = {
     is_regulated_timing_point: boolean;
     is_loading_time_allowed: boolean;
     is_via_point: boolean;
-    via_point_name_i18n?: LocalizedString | null | undefined;
-    via_point_short_name_i18n?: LocalizedString | null | undefined;
+    via_point_name_i18n?: LocalizedString | null;
+    via_point_short_name_i18n?: LocalizedString | null;
     journey_pattern: {
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
@@ -13976,19 +14047,19 @@ export type RouteStopFieldsFragment = {
   located_on_infrastructure_link_id: UUID;
   direction: InfrastructureNetworkDirectionEnum;
   relative_distance_from_infrastructure_link_start: number;
-  closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
+  closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
   priority: number;
-  timing_place_id?: UUID | null | undefined;
+  timing_place_id?: UUID | null;
   other_label_instances: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
     priority: number;
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
     label: string;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
   }>;
   scheduled_stop_point_in_journey_patterns: Array<{
@@ -14000,8 +14071,8 @@ export type RouteStopFieldsFragment = {
     is_regulated_timing_point: boolean;
     is_loading_time_allowed: boolean;
     is_via_point: boolean;
-    via_point_name_i18n?: LocalizedString | null | undefined;
-    via_point_short_name_i18n?: LocalizedString | null | undefined;
+    via_point_name_i18n?: LocalizedString | null;
+    via_point_short_name_i18n?: LocalizedString | null;
     journey_pattern: {
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
@@ -14020,20 +14091,17 @@ export type RemoveStopMutationVariables = Exact<{
 
 export type RemoveStopMutation = {
   __typename?: 'mutation_root';
-  delete_service_pattern_scheduled_stop_point?:
-    | {
-        __typename?: 'service_pattern_scheduled_stop_point_mutation_response';
-        returning: Array<{
-          __typename?: 'service_pattern_scheduled_stop_point';
-          scheduled_stop_point_id: UUID;
-        }>;
-      }
-    | null
-    | undefined;
+  delete_service_pattern_scheduled_stop_point?: {
+    __typename?: 'service_pattern_scheduled_stop_point_mutation_response';
+    returning: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point';
+      scheduled_stop_point_id: UUID;
+    }>;
+  } | null;
 };
 
 export type GetStopsByLocationQueryVariables = Exact<{
-  measured_location_filter?: Maybe<GeographyComparisonExp>;
+  measured_location_filter?: InputMaybe<GeographyComparisonExp>;
 }>;
 
 export type GetStopsByLocationQuery = {
@@ -14046,11 +14114,11 @@ export type GetStopsByLocationQuery = {
     located_on_infrastructure_link_id: UUID;
     direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     priority: number;
-    timing_place_id?: UUID | null | undefined;
+    timing_place_id?: UUID | null;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -14059,7 +14127,7 @@ export type GetStopsByLocationQuery = {
 };
 
 export type GetStopsByValidityQueryVariables = Exact<{
-  filter?: Maybe<ServicePatternScheduledStopPointBoolExp>;
+  filter?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
 }>;
 
 export type GetStopsByValidityQuery = {
@@ -14072,11 +14140,11 @@ export type GetStopsByValidityQuery = {
     located_on_infrastructure_link_id: UUID;
     direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     priority: number;
-    timing_place_id?: UUID | null | undefined;
+    timing_place_id?: UUID | null;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -14085,7 +14153,7 @@ export type GetStopsByValidityQuery = {
 };
 
 export type GetStopsByIdsQueryVariables = Exact<{
-  stopIds?: Maybe<Array<Scalars['uuid']> | Scalars['uuid']>;
+  stopIds?: InputMaybe<Array<Scalars['uuid']> | Scalars['uuid']>;
 }>;
 
 export type GetStopsByIdsQuery = {
@@ -14098,11 +14166,11 @@ export type GetStopsByIdsQuery = {
     located_on_infrastructure_link_id: UUID;
     direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     priority: number;
-    timing_place_id?: UUID | null | undefined;
+    timing_place_id?: UUID | null;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -14111,7 +14179,7 @@ export type GetStopsByIdsQuery = {
 };
 
 export type GetStopsByLabelsQueryVariables = Exact<{
-  stopLabels?: Maybe<Array<Scalars['String']> | Scalars['String']>;
+  stopLabels?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
 }>;
 
 export type GetStopsByLabelsQuery = {
@@ -14124,11 +14192,11 @@ export type GetStopsByLabelsQuery = {
     located_on_infrastructure_link_id: UUID;
     direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     priority: number;
-    timing_place_id?: UUID | null | undefined;
+    timing_place_id?: UUID | null;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -14142,20 +14210,17 @@ export type InsertStopMutationVariables = Exact<{
 
 export type InsertStopMutation = {
   __typename?: 'mutation_root';
-  insert_service_pattern_scheduled_stop_point_one?:
-    | {
-        __typename?: 'service_pattern_scheduled_stop_point';
-        scheduled_stop_point_id: UUID;
-        located_on_infrastructure_link_id: UUID;
-        direction: InfrastructureNetworkDirectionEnum;
-        priority: number;
-        measured_location: GeoJSON.Point;
-        label: string;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-      }
-    | null
-    | undefined;
+  insert_service_pattern_scheduled_stop_point_one?: {
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    located_on_infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    priority: number;
+    measured_location: GeoJSON.Point;
+    label: string;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+  } | null;
 };
 
 export type EditStopMutationVariables = Exact<{
@@ -14167,56 +14232,47 @@ export type EditStopMutationVariables = Exact<{
 
 export type EditStopMutation = {
   __typename?: 'mutation_root';
-  update_service_pattern_scheduled_stop_point?:
-    | {
-        __typename?: 'service_pattern_scheduled_stop_point_mutation_response';
-        returning: Array<{
-          __typename?: 'service_pattern_scheduled_stop_point';
-          scheduled_stop_point_id: UUID;
-          label: string;
-          measured_location: GeoJSON.Point;
-          located_on_infrastructure_link_id: UUID;
-          direction: InfrastructureNetworkDirectionEnum;
-          relative_distance_from_infrastructure_link_start: number;
-          closest_point_on_infrastructure_link?:
-            | GeoJSON.Point
-            | null
-            | undefined;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
-          priority: number;
-          timing_place_id?: UUID | null | undefined;
-          vehicle_mode_on_scheduled_stop_point: Array<{
-            __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-            vehicle_mode: ReusableComponentsVehicleModeEnum;
-          }>;
-        }>;
-      }
-    | null
-    | undefined;
-  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?:
-    | {
-        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
-        returning: Array<{
-          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-          journey_pattern_id: UUID;
-          scheduled_stop_point_label: string;
-          scheduled_stop_point_sequence: number;
-          is_used_as_timing_point: boolean;
-          is_regulated_timing_point: boolean;
-          is_loading_time_allowed: boolean;
-          is_via_point: boolean;
-          via_point_name_i18n?: LocalizedString | null | undefined;
-          via_point_short_name_i18n?: LocalizedString | null | undefined;
-          journey_pattern: {
-            __typename?: 'journey_pattern_journey_pattern';
-            journey_pattern_id: UUID;
-            on_route_id: UUID;
-          };
-        }>;
-      }
-    | null
-    | undefined;
+  update_service_pattern_scheduled_stop_point?: {
+    __typename?: 'service_pattern_scheduled_stop_point_mutation_response';
+    returning: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point';
+      scheduled_stop_point_id: UUID;
+      label: string;
+      measured_location: GeoJSON.Point;
+      located_on_infrastructure_link_id: UUID;
+      direction: InfrastructureNetworkDirectionEnum;
+      relative_distance_from_infrastructure_link_start: number;
+      closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      priority: number;
+      timing_place_id?: UUID | null;
+      vehicle_mode_on_scheduled_stop_point: Array<{
+        __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+        vehicle_mode: ReusableComponentsVehicleModeEnum;
+      }>;
+    }>;
+  } | null;
+  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+    returning: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
+      is_via_point: boolean;
+      via_point_name_i18n?: LocalizedString | null;
+      via_point_short_name_i18n?: LocalizedString | null;
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+      };
+    }>;
+  } | null;
 };
 
 export type GetStopWithRouteGraphDataByIdQueryVariables = Exact<{
@@ -14233,11 +14289,11 @@ export type GetStopWithRouteGraphDataByIdQuery = {
     located_on_infrastructure_link_id: UUID;
     direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
-    closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     priority: number;
-    timing_place_id?: UUID | null | undefined;
+    timing_place_id?: UUID | null;
     scheduled_stop_point_in_journey_patterns: Array<{
       __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
       journey_pattern_id: UUID;
@@ -14247,35 +14303,32 @@ export type GetStopWithRouteGraphDataByIdQuery = {
       is_regulated_timing_point: boolean;
       is_loading_time_allowed: boolean;
       is_via_point: boolean;
-      via_point_name_i18n?: LocalizedString | null | undefined;
-      via_point_short_name_i18n?: LocalizedString | null | undefined;
+      via_point_name_i18n?: LocalizedString | null;
+      via_point_short_name_i18n?: LocalizedString | null;
       journey_pattern: {
         __typename?: 'journey_pattern_journey_pattern';
         journey_pattern_id: UUID;
         on_route_id: UUID;
-        journey_pattern_route?:
-          | {
-              __typename?: 'route_route';
-              route_id: UUID;
-              name_i18n: LocalizedString;
-              description_i18n?: LocalizedString | null | undefined;
-              origin_name_i18n: LocalizedString;
-              origin_short_name_i18n: LocalizedString;
-              destination_name_i18n: LocalizedString;
-              destination_short_name_i18n: LocalizedString;
-              on_line_id: UUID;
-              label: string;
-              variant?: number | null | undefined;
-              priority: number;
-              infrastructure_links_along_route: Array<{
-                __typename?: 'route_infrastructure_link_along_route';
-                route_id: UUID;
-                infrastructure_link_id: UUID;
-                infrastructure_link_sequence: number;
-              }>;
-            }
-          | null
-          | undefined;
+        journey_pattern_route?: {
+          __typename?: 'route_route';
+          route_id: UUID;
+          name_i18n: LocalizedString;
+          description_i18n?: LocalizedString | null;
+          origin_name_i18n: LocalizedString;
+          origin_short_name_i18n: LocalizedString;
+          destination_name_i18n: LocalizedString;
+          destination_short_name_i18n: LocalizedString;
+          on_line_id: UUID;
+          label: string;
+          variant?: number | null;
+          priority: number;
+          infrastructure_links_along_route: Array<{
+            __typename?: 'route_infrastructure_link_along_route';
+            route_id: UUID;
+            infrastructure_link_id: UUID;
+            infrastructure_link_sequence: number;
+          }>;
+        } | null;
       };
     }>;
     vehicle_mode_on_scheduled_stop_point: Array<{
@@ -14289,11 +14342,11 @@ export type GetRoutesBrokenByStopChangeQueryVariables = Exact<{
   new_located_on_infrastructure_link_id: Scalars['uuid'];
   new_direction: Scalars['String'];
   new_label: Scalars['String'];
-  new_validity_start?: Maybe<Scalars['date']>;
-  new_validity_end?: Maybe<Scalars['date']>;
+  new_validity_start?: InputMaybe<Scalars['date']>;
+  new_validity_end?: InputMaybe<Scalars['date']>;
   new_priority: Scalars['Int'];
   new_measured_location: Scalars['geography'];
-  replace_scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  replace_scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
 }>;
 
 export type GetRoutesBrokenByStopChangeQuery = {
@@ -14301,27 +14354,24 @@ export type GetRoutesBrokenByStopChangeQuery = {
   journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point: Array<{
     __typename?: 'journey_pattern_journey_pattern';
     journey_pattern_id: UUID;
-    journey_pattern_route?:
-      | {
-          __typename?: 'route_route';
-          route_id: UUID;
-          name_i18n: LocalizedString;
-          description_i18n?: LocalizedString | null | undefined;
-          origin_name_i18n: LocalizedString;
-          origin_short_name_i18n: LocalizedString;
-          destination_name_i18n: LocalizedString;
-          destination_short_name_i18n: LocalizedString;
-          route_shape?: GeoJSON.LineString | null | undefined;
-          on_line_id: UUID;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
-          priority: number;
-          label: string;
-          variant?: number | null | undefined;
-          direction: RouteDirectionEnum;
-        }
-      | null
-      | undefined;
+    journey_pattern_route?: {
+      __typename?: 'route_route';
+      route_id: UUID;
+      name_i18n: LocalizedString;
+      description_i18n?: LocalizedString | null;
+      origin_name_i18n: LocalizedString;
+      origin_short_name_i18n: LocalizedString;
+      destination_name_i18n: LocalizedString;
+      destination_short_name_i18n: LocalizedString;
+      route_shape?: GeoJSON.LineString | null;
+      on_line_id: UUID;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      priority: number;
+      label: string;
+      variant?: number | null;
+      direction: RouteDirectionEnum;
+    } | null;
   }>;
 };
 
@@ -14338,60 +14388,48 @@ export type UpdateRouteGeometryMutationVariables = Exact<{
 
 export type UpdateRouteGeometryMutation = {
   __typename?: 'mutation_root';
-  delete_route_infrastructure_link_along_route?:
-    | {
-        __typename?: 'route_infrastructure_link_along_route_mutation_response';
-        returning: Array<{
-          __typename?: 'route_infrastructure_link_along_route';
-          infrastructure_link_id: UUID;
-          infrastructure_link_sequence: number;
-          route_id: UUID;
-        }>;
-      }
-    | null
-    | undefined;
-  insert_route_infrastructure_link_along_route?:
-    | {
-        __typename?: 'route_infrastructure_link_along_route_mutation_response';
-        returning: Array<{
-          __typename?: 'route_infrastructure_link_along_route';
-          route_id: UUID;
-          infrastructure_link_id: UUID;
-          infrastructure_link_sequence: number;
-          is_traversal_forwards: boolean;
-          infrastructure_link: {
-            __typename?: 'infrastructure_network_infrastructure_link';
-            infrastructure_link_id: UUID;
-            shape: GeoJSON.LineString;
-          };
-        }>;
-      }
-    | null
-    | undefined;
-  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?:
-    | {
-        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
-        returning: Array<{
-          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-          scheduled_stop_point_label: string;
-          scheduled_stop_point_sequence: number;
-          journey_pattern_id: UUID;
-        }>;
-      }
-    | null
-    | undefined;
-  insert_journey_pattern_scheduled_stop_point_in_journey_pattern?:
-    | {
-        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
-        returning: Array<{
-          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-          scheduled_stop_point_label: string;
-          scheduled_stop_point_sequence: number;
-          journey_pattern_id: UUID;
-        }>;
-      }
-    | null
-    | undefined;
+  delete_route_infrastructure_link_along_route?: {
+    __typename?: 'route_infrastructure_link_along_route_mutation_response';
+    returning: Array<{
+      __typename?: 'route_infrastructure_link_along_route';
+      infrastructure_link_id: UUID;
+      infrastructure_link_sequence: number;
+      route_id: UUID;
+    }>;
+  } | null;
+  insert_route_infrastructure_link_along_route?: {
+    __typename?: 'route_infrastructure_link_along_route_mutation_response';
+    returning: Array<{
+      __typename?: 'route_infrastructure_link_along_route';
+      route_id: UUID;
+      infrastructure_link_id: UUID;
+      infrastructure_link_sequence: number;
+      is_traversal_forwards: boolean;
+      infrastructure_link: {
+        __typename?: 'infrastructure_network_infrastructure_link';
+        infrastructure_link_id: UUID;
+        shape: GeoJSON.LineString;
+      };
+    }>;
+  } | null;
+  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+    returning: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      journey_pattern_id: UUID;
+    }>;
+  } | null;
+  insert_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+    returning: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      journey_pattern_id: UUID;
+    }>;
+  } | null;
 };
 
 export type UpdateRouteJourneyPatternMutationVariables = Exact<{
@@ -14403,34 +14441,28 @@ export type UpdateRouteJourneyPatternMutationVariables = Exact<{
 
 export type UpdateRouteJourneyPatternMutation = {
   __typename?: 'mutation_root';
-  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?:
-    | {
-        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
-        returning: Array<{
-          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-          scheduled_stop_point_label: string;
-          scheduled_stop_point_sequence: number;
-          journey_pattern_id: UUID;
-        }>;
-      }
-    | null
-    | undefined;
-  insert_journey_pattern_scheduled_stop_point_in_journey_pattern?:
-    | {
-        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
-        returning: Array<{
-          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-          scheduled_stop_point_label: string;
-          scheduled_stop_point_sequence: number;
-          journey_pattern_id: UUID;
-        }>;
-      }
-    | null
-    | undefined;
+  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+    returning: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      journey_pattern_id: UUID;
+    }>;
+  } | null;
+  insert_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+    returning: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      journey_pattern_id: UUID;
+    }>;
+  } | null;
 };
 
 export type GetLinksWithStopsByExternalLinkIdsQueryVariables = Exact<{
-  externalLinkIds?: Maybe<Array<Scalars['String']> | Scalars['String']>;
+  externalLinkIds?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
 }>;
 
 export type GetLinksWithStopsByExternalLinkIdsQuery = {
@@ -14449,19 +14481,19 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
       located_on_infrastructure_link_id: UUID;
       direction: InfrastructureNetworkDirectionEnum;
       relative_distance_from_infrastructure_link_start: number;
-      closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-      validity_start?: luxon.DateTime | null | undefined;
-      validity_end?: luxon.DateTime | null | undefined;
+      closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
       priority: number;
-      timing_place_id?: UUID | null | undefined;
+      timing_place_id?: UUID | null;
       other_label_instances: Array<{
         __typename?: 'service_pattern_scheduled_stop_point';
         priority: number;
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
+        validity_start?: luxon.DateTime | null;
+        validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
       }>;
       scheduled_stop_point_in_journey_patterns: Array<{
@@ -14473,8 +14505,8 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
         is_regulated_timing_point: boolean;
         is_loading_time_allowed: boolean;
         is_via_point: boolean;
-        via_point_name_i18n?: LocalizedString | null | undefined;
-        via_point_short_name_i18n?: LocalizedString | null | undefined;
+        via_point_name_i18n?: LocalizedString | null;
+        via_point_short_name_i18n?: LocalizedString | null;
         journey_pattern: {
           __typename?: 'journey_pattern_journey_pattern';
           journey_pattern_id: UUID;
@@ -14490,8 +14522,8 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
 };
 
 export type GetLineRoutesByLabelQueryVariables = Exact<{
-  lineFilters?: Maybe<RouteLineBoolExp>;
-  lineRouteFilters?: Maybe<RouteRouteBoolExp>;
+  lineFilters?: InputMaybe<RouteLineBoolExp>;
+  lineRouteFilters?: InputMaybe<RouteRouteBoolExp>;
 }>;
 
 export type GetLineRoutesByLabelQuery = {
@@ -14503,9 +14535,9 @@ export type GetLineRoutesByLabelQuery = {
       __typename?: 'route_route';
       route_id: UUID;
       label: string;
-      variant?: number | null | undefined;
-      validity_start?: luxon.DateTime | null | undefined;
-      validity_end?: luxon.DateTime | null | undefined;
+      variant?: number | null;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
       priority: number;
       direction: RouteDirectionEnum;
       route_journey_patterns: Array<{
@@ -14523,7 +14555,7 @@ export type GetLineRoutesByLabelQuery = {
 };
 
 export type GetRouteByFiltersQueryVariables = Exact<{
-  routeFilters?: Maybe<RouteRouteBoolExp>;
+  routeFilters?: InputMaybe<RouteRouteBoolExp>;
 }>;
 
 export type GetRouteByFiltersQuery = {
@@ -14532,9 +14564,9 @@ export type GetRouteByFiltersQuery = {
     __typename?: 'route_route';
     route_id: UUID;
     label: string;
-    variant?: number | null | undefined;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    variant?: number | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     priority: number;
     direction: RouteDirectionEnum;
     route_journey_patterns: Array<{
@@ -14554,9 +14586,9 @@ export type DisplayedRouteFragment = {
   __typename?: 'route_route';
   route_id: UUID;
   label: string;
-  variant?: number | null | undefined;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
+  variant?: number | null;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
   priority: number;
   direction: RouteDirectionEnum;
   route_journey_patterns: Array<{
@@ -14576,28 +14608,28 @@ export type RouteMetadataFragment = {
   name_i18n: LocalizedString;
   label: string;
   priority: number;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
   direction: RouteDirectionEnum;
-  variant?: number | null | undefined;
+  variant?: number | null;
 };
 
 export type RouteWithInfrastructureLinksWithStopsFragment = {
   __typename?: 'route_route';
   route_id: UUID;
   name_i18n: LocalizedString;
-  description_i18n?: LocalizedString | null | undefined;
+  description_i18n?: LocalizedString | null;
   origin_name_i18n: LocalizedString;
   origin_short_name_i18n: LocalizedString;
   destination_name_i18n: LocalizedString;
   destination_short_name_i18n: LocalizedString;
-  route_shape?: GeoJSON.LineString | null | undefined;
+  route_shape?: GeoJSON.LineString | null;
   on_line_id: UUID;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
   priority: number;
   label: string;
-  variant?: number | null | undefined;
+  variant?: number | null;
   direction: RouteDirectionEnum;
   route_line: {
     __typename?: 'route_line';
@@ -14607,8 +14639,8 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
     primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
     type_of_line: RouteTypeOfLineEnum;
     transport_target: HslRouteTransportTargetEnum;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     priority: number;
     label: string;
   };
@@ -14632,19 +14664,19 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
         located_on_infrastructure_link_id: UUID;
         direction: InfrastructureNetworkDirectionEnum;
         relative_distance_from_infrastructure_link_start: number;
-        closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
+        closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+        validity_start?: luxon.DateTime | null;
+        validity_end?: luxon.DateTime | null;
         priority: number;
-        timing_place_id?: UUID | null | undefined;
+        timing_place_id?: UUID | null;
         other_label_instances: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
           priority: number;
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
         }>;
         scheduled_stop_point_in_journey_patterns: Array<{
@@ -14656,8 +14688,8 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
           is_regulated_timing_point: boolean;
           is_loading_time_allowed: boolean;
           is_via_point: boolean;
-          via_point_name_i18n?: LocalizedString | null | undefined;
-          via_point_short_name_i18n?: LocalizedString | null | undefined;
+          via_point_name_i18n?: LocalizedString | null;
+          via_point_short_name_i18n?: LocalizedString | null;
           journey_pattern: {
             __typename?: 'journey_pattern_journey_pattern';
             journey_pattern_id: UUID;
@@ -14684,16 +14716,16 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
       is_regulated_timing_point: boolean;
       is_loading_time_allowed: boolean;
       is_via_point: boolean;
-      via_point_name_i18n?: LocalizedString | null | undefined;
-      via_point_short_name_i18n?: LocalizedString | null | undefined;
+      via_point_name_i18n?: LocalizedString | null;
+      via_point_short_name_i18n?: LocalizedString | null;
       scheduled_stop_points: Array<{
         __typename?: 'service_pattern_scheduled_stop_point';
         priority: number;
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
+        validity_start?: luxon.DateTime | null;
+        validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
       }>;
       journey_pattern: {
@@ -14725,19 +14757,19 @@ export type InfraLinkAlongRouteWithStopsFragment = {
       located_on_infrastructure_link_id: UUID;
       direction: InfrastructureNetworkDirectionEnum;
       relative_distance_from_infrastructure_link_start: number;
-      closest_point_on_infrastructure_link?: GeoJSON.Point | null | undefined;
-      validity_start?: luxon.DateTime | null | undefined;
-      validity_end?: luxon.DateTime | null | undefined;
+      closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
       priority: number;
-      timing_place_id?: UUID | null | undefined;
+      timing_place_id?: UUID | null;
       other_label_instances: Array<{
         __typename?: 'service_pattern_scheduled_stop_point';
         priority: number;
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
+        validity_start?: luxon.DateTime | null;
+        validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
       }>;
       scheduled_stop_point_in_journey_patterns: Array<{
@@ -14749,8 +14781,8 @@ export type InfraLinkAlongRouteWithStopsFragment = {
         is_regulated_timing_point: boolean;
         is_loading_time_allowed: boolean;
         is_via_point: boolean;
-        via_point_name_i18n?: LocalizedString | null | undefined;
-        via_point_short_name_i18n?: LocalizedString | null | undefined;
+        via_point_name_i18n?: LocalizedString | null;
+        via_point_short_name_i18n?: LocalizedString | null;
         journey_pattern: {
           __typename?: 'journey_pattern_journey_pattern';
           journey_pattern_id: UUID;
@@ -14771,103 +14803,71 @@ export type GetRouteWithInfrastructureLinksWithStopsQueryVariables = Exact<{
 
 export type GetRouteWithInfrastructureLinksWithStopsQuery = {
   __typename?: 'query_root';
-  route_route_by_pk?:
-    | {
-        __typename?: 'route_route';
-        route_id: UUID;
-        name_i18n: LocalizedString;
-        description_i18n?: LocalizedString | null | undefined;
-        origin_name_i18n: LocalizedString;
-        origin_short_name_i18n: LocalizedString;
-        destination_name_i18n: LocalizedString;
-        destination_short_name_i18n: LocalizedString;
-        route_shape?: GeoJSON.LineString | null | undefined;
-        on_line_id: UUID;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-        priority: number;
-        label: string;
-        variant?: number | null | undefined;
-        direction: RouteDirectionEnum;
-        route_line: {
-          __typename?: 'route_line';
-          line_id: UUID;
-          name_i18n: LocalizedString;
-          short_name_i18n: LocalizedString;
-          primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-          type_of_line: RouteTypeOfLineEnum;
-          transport_target: HslRouteTransportTargetEnum;
-          validity_start?: luxon.DateTime | null | undefined;
-          validity_end?: luxon.DateTime | null | undefined;
-          priority: number;
+  route_route_by_pk?: {
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+    variant?: number | null;
+    direction: RouteDirectionEnum;
+    route_line: {
+      __typename?: 'route_line';
+      line_id: UUID;
+      name_i18n: LocalizedString;
+      short_name_i18n: LocalizedString;
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+      type_of_line: RouteTypeOfLineEnum;
+      transport_target: HslRouteTransportTargetEnum;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      priority: number;
+      label: string;
+    };
+    infrastructure_links_along_route: Array<{
+      __typename?: 'route_infrastructure_link_along_route';
+      route_id: UUID;
+      infrastructure_link_sequence: number;
+      infrastructure_link_id: UUID;
+      is_traversal_forwards: boolean;
+      infrastructure_link: {
+        __typename?: 'infrastructure_network_infrastructure_link';
+        external_link_id: string;
+        infrastructure_link_id: UUID;
+        shape: GeoJSON.LineString;
+        direction: InfrastructureNetworkDirectionEnum;
+        scheduled_stop_points_located_on_infrastructure_link: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          scheduled_stop_point_id: UUID;
           label: string;
-        };
-        infrastructure_links_along_route: Array<{
-          __typename?: 'route_infrastructure_link_along_route';
-          route_id: UUID;
-          infrastructure_link_sequence: number;
-          infrastructure_link_id: UUID;
-          is_traversal_forwards: boolean;
-          infrastructure_link: {
-            __typename?: 'infrastructure_network_infrastructure_link';
-            external_link_id: string;
-            infrastructure_link_id: UUID;
-            shape: GeoJSON.LineString;
+          measured_location: GeoJSON.Point;
+          located_on_infrastructure_link_id: UUID;
+          direction: InfrastructureNetworkDirectionEnum;
+          relative_distance_from_infrastructure_link_start: number;
+          closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          priority: number;
+          timing_place_id?: UUID | null;
+          other_label_instances: Array<{
+            __typename?: 'service_pattern_scheduled_stop_point';
+            priority: number;
             direction: InfrastructureNetworkDirectionEnum;
-            scheduled_stop_points_located_on_infrastructure_link: Array<{
-              __typename?: 'service_pattern_scheduled_stop_point';
-              scheduled_stop_point_id: UUID;
-              label: string;
-              measured_location: GeoJSON.Point;
-              located_on_infrastructure_link_id: UUID;
-              direction: InfrastructureNetworkDirectionEnum;
-              relative_distance_from_infrastructure_link_start: number;
-              closest_point_on_infrastructure_link?:
-                | GeoJSON.Point
-                | null
-                | undefined;
-              validity_start?: luxon.DateTime | null | undefined;
-              validity_end?: luxon.DateTime | null | undefined;
-              priority: number;
-              timing_place_id?: UUID | null | undefined;
-              other_label_instances: Array<{
-                __typename?: 'service_pattern_scheduled_stop_point';
-                priority: number;
-                direction: InfrastructureNetworkDirectionEnum;
-                scheduled_stop_point_id: UUID;
-                label: string;
-                validity_start?: luxon.DateTime | null | undefined;
-                validity_end?: luxon.DateTime | null | undefined;
-                located_on_infrastructure_link_id: UUID;
-              }>;
-              scheduled_stop_point_in_journey_patterns: Array<{
-                __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-                journey_pattern_id: UUID;
-                scheduled_stop_point_label: string;
-                scheduled_stop_point_sequence: number;
-                is_used_as_timing_point: boolean;
-                is_regulated_timing_point: boolean;
-                is_loading_time_allowed: boolean;
-                is_via_point: boolean;
-                via_point_name_i18n?: LocalizedString | null | undefined;
-                via_point_short_name_i18n?: LocalizedString | null | undefined;
-                journey_pattern: {
-                  __typename?: 'journey_pattern_journey_pattern';
-                  journey_pattern_id: UUID;
-                  on_route_id: UUID;
-                };
-              }>;
-              vehicle_mode_on_scheduled_stop_point: Array<{
-                __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-                vehicle_mode: ReusableComponentsVehicleModeEnum;
-              }>;
-            }>;
-          };
-        }>;
-        route_journey_patterns: Array<{
-          __typename?: 'journey_pattern_journey_pattern';
-          journey_pattern_id: UUID;
-          on_route_id: UUID;
+            scheduled_stop_point_id: UUID;
+            label: string;
+            validity_start?: luxon.DateTime | null;
+            validity_end?: luxon.DateTime | null;
+            located_on_infrastructure_link_id: UUID;
+          }>;
           scheduled_stop_point_in_journey_patterns: Array<{
             __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
             journey_pattern_id: UUID;
@@ -14877,35 +14877,61 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
             is_regulated_timing_point: boolean;
             is_loading_time_allowed: boolean;
             is_via_point: boolean;
-            via_point_name_i18n?: LocalizedString | null | undefined;
-            via_point_short_name_i18n?: LocalizedString | null | undefined;
-            scheduled_stop_points: Array<{
-              __typename?: 'service_pattern_scheduled_stop_point';
-              priority: number;
-              direction: InfrastructureNetworkDirectionEnum;
-              scheduled_stop_point_id: UUID;
-              label: string;
-              validity_start?: luxon.DateTime | null | undefined;
-              validity_end?: luxon.DateTime | null | undefined;
-              located_on_infrastructure_link_id: UUID;
-            }>;
+            via_point_name_i18n?: LocalizedString | null;
+            via_point_short_name_i18n?: LocalizedString | null;
             journey_pattern: {
               __typename?: 'journey_pattern_journey_pattern';
               journey_pattern_id: UUID;
               on_route_id: UUID;
             };
           }>;
+          vehicle_mode_on_scheduled_stop_point: Array<{
+            __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+            vehicle_mode: ReusableComponentsVehicleModeEnum;
+          }>;
         }>;
-      }
-    | null
-    | undefined;
+      };
+    }>;
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_label: string;
+        scheduled_stop_point_sequence: number;
+        is_used_as_timing_point: boolean;
+        is_regulated_timing_point: boolean;
+        is_loading_time_allowed: boolean;
+        is_via_point: boolean;
+        via_point_name_i18n?: LocalizedString | null;
+        via_point_short_name_i18n?: LocalizedString | null;
+        scheduled_stop_points: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          located_on_infrastructure_link_id: UUID;
+        }>;
+        journey_pattern: {
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+        };
+      }>;
+    }>;
+  } | null;
 };
 
 export type SearchLinesAndRoutesQueryVariables = Exact<{
-  lineFilter?: Maybe<RouteLineBoolExp>;
-  routeFilter?: Maybe<RouteRouteBoolExp>;
-  lineOrderBy?: Maybe<Array<RouteLineOrderBy> | RouteLineOrderBy>;
-  routeOrderBy?: Maybe<Array<RouteRouteOrderBy> | RouteRouteOrderBy>;
+  lineFilter?: InputMaybe<RouteLineBoolExp>;
+  routeFilter?: InputMaybe<RouteRouteBoolExp>;
+  lineOrderBy?: InputMaybe<Array<RouteLineOrderBy> | RouteLineOrderBy>;
+  routeOrderBy?: InputMaybe<Array<RouteRouteOrderBy> | RouteRouteOrderBy>;
 }>;
 
 export type SearchLinesAndRoutesQuery = {
@@ -14917,15 +14943,15 @@ export type SearchLinesAndRoutesQuery = {
     priority: number;
     line_id: UUID;
     label: string;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     line_routes: Array<{
       __typename?: 'route_route';
       route_id: UUID;
-      route_shape?: GeoJSON.LineString | null | undefined;
+      route_shape?: GeoJSON.LineString | null;
       label: string;
-      validity_start?: luxon.DateTime | null | undefined;
-      validity_end?: luxon.DateTime | null | undefined;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
       route_journey_patterns: Array<{
         __typename?: 'journey_pattern_journey_pattern';
         journey_pattern_id: UUID;
@@ -14946,12 +14972,12 @@ export type SearchLinesAndRoutesQuery = {
     direction: RouteDirectionEnum;
     priority: number;
     on_line_id: UUID;
-    variant?: number | null | undefined;
+    variant?: number | null;
     route_id: UUID;
     label: string;
-    route_shape?: GeoJSON.LineString | null | undefined;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    route_shape?: GeoJSON.LineString | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     route_journey_patterns: Array<{
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
@@ -14976,29 +15002,26 @@ export type PatchScheduledStopPointTimingSettingsMutationVariables = Exact<{
 
 export type PatchScheduledStopPointTimingSettingsMutation = {
   __typename?: 'mutation_root';
-  update_journey_pattern_scheduled_stop_point_in_journey_pattern?:
-    | {
-        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
-        returning: Array<{
-          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-          journey_pattern_id: UUID;
-          scheduled_stop_point_label: string;
-          scheduled_stop_point_sequence: number;
-          is_used_as_timing_point: boolean;
-          is_regulated_timing_point: boolean;
-          is_loading_time_allowed: boolean;
-          is_via_point: boolean;
-          via_point_name_i18n?: LocalizedString | null | undefined;
-          via_point_short_name_i18n?: LocalizedString | null | undefined;
-          journey_pattern: {
-            __typename?: 'journey_pattern_journey_pattern';
-            journey_pattern_id: UUID;
-            on_route_id: UUID;
-          };
-        }>;
-      }
-    | null
-    | undefined;
+  update_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+    returning: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
+      is_via_point: boolean;
+      via_point_name_i18n?: LocalizedString | null;
+      via_point_short_name_i18n?: LocalizedString | null;
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+      };
+    }>;
+  } | null;
 };
 
 export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables =
@@ -15017,15 +15040,12 @@ export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery = {
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
       on_route_id: UUID;
-      journey_pattern_route?:
-        | {
-            __typename?: 'route_route';
-            route_id: UUID;
-            label: string;
-            variant?: number | null | undefined;
-          }
-        | null
-        | undefined;
+      journey_pattern_route?: {
+        __typename?: 'route_route';
+        route_id: UUID;
+        label: string;
+        variant?: number | null;
+      } | null;
     };
   }>;
 };
@@ -15061,44 +15081,41 @@ export type GetStagingVehicleScheduleFramesQueryVariables = Exact<{
 
 export type GetStagingVehicleScheduleFramesQuery = {
   __typename?: 'query_root';
-  timetables?:
-    | {
-        __typename?: 'timetables_timetables_query';
-        timetables_vehicle_schedule_vehicle_schedule_frame: Array<{
+  timetables?: {
+    __typename?: 'timetables_timetables_query';
+    timetables_vehicle_schedule_vehicle_schedule_frame: Array<{
+      __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+      validity_end?: luxon.DateTime | null;
+      validity_start?: luxon.DateTime | null;
+      name_i18n: any;
+      vehicle_schedule_frame_id: UUID;
+      priority: number;
+      vehicle_services: Array<{
+        __typename?: 'timetables_vehicle_service_vehicle_service';
+        vehicle_service_id: UUID;
+        vehicle_schedule_frame: {
           __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-          validity_end?: luxon.DateTime | null | undefined;
-          validity_start?: luxon.DateTime | null | undefined;
-          name_i18n: any;
           vehicle_schedule_frame_id: UUID;
           priority: number;
-          vehicle_services: Array<{
-            __typename?: 'timetables_vehicle_service_vehicle_service';
-            vehicle_service_id: UUID;
-            vehicle_schedule_frame: {
-              __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-              vehicle_schedule_frame_id: UUID;
-              priority: number;
-            };
-            day_type: {
-              __typename?: 'timetables_service_calendar_day_type';
-              day_type_id: UUID;
-              label: string;
-              name_i18n: any;
-            };
-            blocks: Array<{
-              __typename?: 'timetables_vehicle_service_block';
-              block_id: UUID;
-              vehicle_journeys: Array<{
-                __typename?: 'timetables_vehicle_journey_vehicle_journey';
-                start_time: luxon.Duration;
-                vehicle_journey_id: UUID;
-              }>;
-            }>;
+        };
+        day_type: {
+          __typename?: 'timetables_service_calendar_day_type';
+          day_type_id: UUID;
+          label: string;
+          name_i18n: any;
+        };
+        blocks: Array<{
+          __typename?: 'timetables_vehicle_service_block';
+          block_id: UUID;
+          vehicle_journeys: Array<{
+            __typename?: 'timetables_vehicle_journey_vehicle_journey';
+            start_time: luxon.Duration;
+            vehicle_journey_id: UUID;
           }>;
         }>;
-      }
-    | null
-    | undefined;
+      }>;
+    }>;
+  } | null;
 };
 
 export type ChangeStagingVehicleScheduleFramePriorityMutationVariables = Exact<{
@@ -15107,39 +15124,33 @@ export type ChangeStagingVehicleScheduleFramePriorityMutationVariables = Exact<{
 
 export type ChangeStagingVehicleScheduleFramePriorityMutation = {
   __typename?: 'mutation_root';
-  timetables?:
-    | {
-        __typename?: 'timetables_timetables_mutation_frontend';
-        timetables_update_vehicle_schedule_vehicle_schedule_frame?:
-          | {
-              __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response';
-              returning: Array<{
-                __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-                priority: number;
-                validity_end?: luxon.DateTime | null | undefined;
-                validity_start?: luxon.DateTime | null | undefined;
-                name_i18n: any;
-                vehicle_schedule_frame_id: UUID;
-              }>;
-            }
-          | null
-          | undefined;
-      }
-    | null
-    | undefined;
+  timetables?: {
+    __typename?: 'timetables_timetables_mutation_frontend';
+    timetables_update_vehicle_schedule_vehicle_schedule_frame?: {
+      __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response';
+      returning: Array<{
+        __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+        priority: number;
+        validity_end?: luxon.DateTime | null;
+        validity_start?: luxon.DateTime | null;
+        name_i18n: any;
+        vehicle_schedule_frame_id: UUID;
+      }>;
+    } | null;
+  } | null;
 };
 
 export type NewTimingPlaceFragment = {
   __typename?: 'timing_pattern_timing_place';
   label: string;
-  description?: any | null | undefined;
+  description?: any | null;
 };
 
 export type CreatedTimingPlaceFragment = {
   __typename?: 'timing_pattern_timing_place';
   timing_place_id: UUID;
   label: string;
-  description?: any | null | undefined;
+  description?: any | null;
 };
 
 export type InsertTimingPlaceMutationVariables = Exact<{
@@ -15148,15 +15159,12 @@ export type InsertTimingPlaceMutationVariables = Exact<{
 
 export type InsertTimingPlaceMutation = {
   __typename?: 'mutation_root';
-  insert_timing_pattern_timing_place_one?:
-    | {
-        __typename?: 'timing_pattern_timing_place';
-        timing_place_id: UUID;
-        label: string;
-        description?: any | null | undefined;
-      }
-    | null
-    | undefined;
+  insert_timing_pattern_timing_place_one?: {
+    __typename?: 'timing_pattern_timing_place';
+    timing_place_id: UUID;
+    label: string;
+    description?: any | null;
+  } | null;
 };
 
 export type GetTimingPlacesByLabelQueryVariables = Exact<{
@@ -15169,7 +15177,7 @@ export type GetTimingPlacesByLabelQuery = {
     __typename?: 'timing_pattern_timing_place';
     timing_place_id: UUID;
     label: string;
-    description?: any | null | undefined;
+    description?: any | null;
   }>;
 };
 
@@ -15185,8 +15193,8 @@ export type GetLinesForComboboxQuery = {
     line_id: UUID;
     name_i18n: LocalizedString;
     label: string;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
   }>;
 };
 
@@ -15196,17 +15204,14 @@ export type GetSelectedLineDetailsByIdQueryVariables = Exact<{
 
 export type GetSelectedLineDetailsByIdQuery = {
   __typename?: 'query_root';
-  route_line_by_pk?:
-    | {
-        __typename?: 'route_line';
-        line_id: UUID;
-        name_i18n: LocalizedString;
-        label: string;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-      }
-    | null
-    | undefined;
+  route_line_by_pk?: {
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    label: string;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+  } | null;
 };
 
 export type LineForComboboxFragment = {
@@ -15214,14 +15219,14 @@ export type LineForComboboxFragment = {
   line_id: UUID;
   name_i18n: LocalizedString;
   label: string;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
 };
 
 export type GetRouteDetailsByLabelWildcardQueryVariables = Exact<{
   labelPattern: Scalars['String'];
-  date?: Maybe<Scalars['date']>;
-  priorities?: Maybe<Array<Scalars['Int']> | Scalars['Int']>;
+  date?: InputMaybe<Scalars['date']>;
+  priorities?: InputMaybe<Array<Scalars['Int']> | Scalars['Int']>;
 }>;
 
 export type GetRouteDetailsByLabelWildcardQuery = {
@@ -15230,18 +15235,18 @@ export type GetRouteDetailsByLabelWildcardQuery = {
     __typename?: 'route_route';
     route_id: UUID;
     name_i18n: LocalizedString;
-    description_i18n?: LocalizedString | null | undefined;
+    description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null | undefined;
+    route_shape?: GeoJSON.LineString | null;
     on_line_id: UUID;
-    validity_start?: luxon.DateTime | null | undefined;
-    validity_end?: luxon.DateTime | null | undefined;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     priority: number;
     label: string;
-    variant?: number | null | undefined;
+    variant?: number | null;
     direction: RouteDirectionEnum;
   }>;
 };
@@ -15252,27 +15257,24 @@ export type GetSelectedRouteDetailsByIdQueryVariables = Exact<{
 
 export type GetSelectedRouteDetailsByIdQuery = {
   __typename?: 'query_root';
-  route_route_by_pk?:
-    | {
-        __typename?: 'route_route';
-        route_id: UUID;
-        name_i18n: LocalizedString;
-        description_i18n?: LocalizedString | null | undefined;
-        origin_name_i18n: LocalizedString;
-        origin_short_name_i18n: LocalizedString;
-        destination_name_i18n: LocalizedString;
-        destination_short_name_i18n: LocalizedString;
-        route_shape?: GeoJSON.LineString | null | undefined;
-        on_line_id: UUID;
-        validity_start?: luxon.DateTime | null | undefined;
-        validity_end?: luxon.DateTime | null | undefined;
-        priority: number;
-        label: string;
-        variant?: number | null | undefined;
-        direction: RouteDirectionEnum;
-      }
-    | null
-    | undefined;
+  route_route_by_pk?: {
+    __typename?: 'route_route';
+    route_id: UUID;
+    name_i18n: LocalizedString;
+    description_i18n?: LocalizedString | null;
+    origin_name_i18n: LocalizedString;
+    origin_short_name_i18n: LocalizedString;
+    destination_name_i18n: LocalizedString;
+    destination_short_name_i18n: LocalizedString;
+    route_shape?: GeoJSON.LineString | null;
+    on_line_id: UUID;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+    variant?: number | null;
+    direction: RouteDirectionEnum;
+  } | null;
 };
 
 export type GetTimingPlacesForComboboxQueryVariables = Exact<{
@@ -15285,7 +15287,7 @@ export type GetTimingPlacesForComboboxQuery = {
     __typename?: 'timing_pattern_timing_place';
     timing_place_id: UUID;
     label: string;
-    description?: any | null | undefined;
+    description?: any | null;
   }>;
 };
 
@@ -15295,43 +15297,40 @@ export type GetSelectedTimingPlaceDetailsByIdQueryVariables = Exact<{
 
 export type GetSelectedTimingPlaceDetailsByIdQuery = {
   __typename?: 'query_root';
-  timing_pattern_timing_place_by_pk?:
-    | {
-        __typename?: 'timing_pattern_timing_place';
-        timing_place_id: UUID;
-        label: string;
-        description?: any | null | undefined;
-      }
-    | null
-    | undefined;
+  timing_pattern_timing_place_by_pk?: {
+    __typename?: 'timing_pattern_timing_place';
+    timing_place_id: UUID;
+    label: string;
+    description?: any | null;
+  } | null;
 };
 
 export type TimingPlaceForComboboxFragment = {
   __typename?: 'timing_pattern_timing_place';
   timing_place_id: UUID;
   label: string;
-  description?: any | null | undefined;
+  description?: any | null;
 };
 
 export type RouteInformationForMapFragment = {
   __typename?: 'route_route';
   route_id: UUID;
   label: string;
-  route_shape?: GeoJSON.LineString | null | undefined;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
+  route_shape?: GeoJSON.LineString | null;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
 };
 
 export type LineInformationForMapFragment = {
   __typename?: 'route_line';
   line_id: UUID;
   label: string;
-  validity_start?: luxon.DateTime | null | undefined;
-  validity_end?: luxon.DateTime | null | undefined;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
   line_routes: Array<{
     __typename?: 'route_route';
     route_id: UUID;
-    route_shape?: GeoJSON.LineString | null | undefined;
+    route_shape?: GeoJSON.LineString | null;
   }>;
 };
 
@@ -15363,8 +15362,8 @@ export type VehicleJourneyWithServiceFragment = {
       vehicle_schedule_frame: {
         __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
         vehicle_schedule_frame_id: UUID;
-        validity_end?: luxon.DateTime | null | undefined;
-        validity_start?: luxon.DateTime | null | undefined;
+        validity_end?: luxon.DateTime | null;
+        validity_start?: luxon.DateTime | null;
         priority: number;
         name_i18n: any;
       };
@@ -15385,51 +15384,48 @@ export type GetTimetablesForOperationDayQueryVariables = Exact<{
 
 export type GetTimetablesForOperationDayQuery = {
   __typename?: 'query_root';
-  timetables?:
-    | {
-        __typename?: 'timetables_timetables_query';
-        timetables_vehicle_journey_vehicle_journey: Array<{
-          __typename?: 'timetables_vehicle_journey_vehicle_journey';
-          vehicle_journey_id: UUID;
-          start_time: luxon.Duration;
-          end_time: luxon.Duration;
-          journey_pattern_ref: {
-            __typename?: 'timetables_journey_pattern_journey_pattern_ref';
-            journey_pattern_ref_id: UUID;
-            journey_pattern_id: UUID;
-          };
-          block: {
-            __typename?: 'timetables_vehicle_service_block';
-            block_id: UUID;
-            vehicle_service_id: UUID;
-            vehicle_service: {
-              __typename?: 'timetables_vehicle_service_vehicle_service';
-              vehicle_service_id: UUID;
-              day_type_id: UUID;
-              vehicle_schedule_frame: {
-                __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-                vehicle_schedule_frame_id: UUID;
-                validity_end?: luxon.DateTime | null | undefined;
-                validity_start?: luxon.DateTime | null | undefined;
-                priority: number;
-                name_i18n: any;
-              };
-              day_type: {
-                __typename?: 'timetables_service_calendar_day_type';
-                day_type_id: UUID;
-                label: string;
-                name_i18n: any;
-              };
-            };
-          };
-        }>;
-        timetables_vehicle_service_get_vehicle_services_for_date: Array<{
+  timetables?: {
+    __typename?: 'timetables_timetables_query';
+    timetables_vehicle_journey_vehicle_journey: Array<{
+      __typename?: 'timetables_vehicle_journey_vehicle_journey';
+      vehicle_journey_id: UUID;
+      start_time: luxon.Duration;
+      end_time: luxon.Duration;
+      journey_pattern_ref: {
+        __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+        journey_pattern_ref_id: UUID;
+        journey_pattern_id: UUID;
+      };
+      block: {
+        __typename?: 'timetables_vehicle_service_block';
+        block_id: UUID;
+        vehicle_service_id: UUID;
+        vehicle_service: {
           __typename?: 'timetables_vehicle_service_vehicle_service';
           vehicle_service_id: UUID;
-        }>;
-      }
-    | null
-    | undefined;
+          day_type_id: UUID;
+          vehicle_schedule_frame: {
+            __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+            vehicle_schedule_frame_id: UUID;
+            validity_end?: luxon.DateTime | null;
+            validity_start?: luxon.DateTime | null;
+            priority: number;
+            name_i18n: any;
+          };
+          day_type: {
+            __typename?: 'timetables_service_calendar_day_type';
+            day_type_id: UUID;
+            label: string;
+            name_i18n: any;
+          };
+        };
+      };
+    }>;
+    timetables_vehicle_service_get_vehicle_services_for_date: Array<{
+      __typename?: 'timetables_vehicle_service_vehicle_service';
+      vehicle_service_id: UUID;
+    }>;
+  } | null;
 };
 
 export type JourneyPatternStopFragment = {
@@ -15438,8 +15434,8 @@ export type JourneyPatternStopFragment = {
   scheduled_stop_point_sequence: number;
   is_used_as_timing_point: boolean;
   is_via_point: boolean;
-  via_point_name_i18n?: LocalizedString | null | undefined;
-  via_point_short_name_i18n?: LocalizedString | null | undefined;
+  via_point_name_i18n?: LocalizedString | null;
+  via_point_short_name_i18n?: LocalizedString | null;
 };
 
 export const LineInformationForMapFragmentDoc = gql`
