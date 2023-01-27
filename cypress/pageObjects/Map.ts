@@ -1,5 +1,4 @@
 import { Priority } from '@hsl/jore4-test-db-manager';
-import times from 'lodash/times';
 import qs from 'qs';
 import { StopPopUp } from './StopPopUp';
 
@@ -13,7 +12,7 @@ export class Map {
   stopPopUp = new StopPopUp();
 
   zoomIn(n = 1) {
-    times(n, () => cy.getByTestId('modalMap').type('+'));
+    Cypress._.times(n, () => cy.getByTestId('modalMap').type('+'));
     this.getLoader().should('not.exist');
     cy.wait('@gqlGetStopsByLocation');
   }
