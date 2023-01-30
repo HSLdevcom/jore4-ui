@@ -153,6 +153,7 @@ export const Maplibre: FunctionComponent<Props> = ({
       interactiveLayerIds={interactiveLayerIds}
       // Increased click radius to make it easier to click a route on map
       clickRadius={3}
+      transitionDuration={0}
     >
       {children}
       <NavigationControl style={navStyle} showCompass={false} />
