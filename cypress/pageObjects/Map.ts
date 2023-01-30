@@ -13,14 +13,8 @@ export class Map {
 
   zoomIn(n = 1) {
     Cypress._.times(n, () => cy.getByTestId('modalMap').type('+'));
-    this.getLoader().should('not.exist');
+    this.waitForLoadToComplete();
     cy.wait('@gqlGetStopsByLocation');
-  }
-
-  // Wait for a map marker to appear on the map
-  // This might take long as we need many HTTP requests to initialize the map view
-  waitForMapToLoad() {
-    this.getNthMarker(1);
   }
 
   getNthMarker(markerNumber: number, options?: Partial<Cypress.Timeoutable>) {
@@ -77,14 +71,18 @@ export class Map {
           lng: params.lng,
         })}`,
       );
-      this.getLoader().should('not.exist');
+      this.waitForLoadToComplete();
       return;
     }
     cy.visit('/routes?mapOpen=true');
-    this.getLoader().should('not.exist');
+    this.waitForLoadToComplete();
   }
 
   getLoader() {
     return cy.getByTestId('MapLoader::loader');
+  }
+
+  waitForLoadToComplete() {
+    return this.getLoader().should('not.exist');
   }
 }

@@ -209,7 +209,7 @@ describe('Edit route geometry', () => {
 
     searchResultsPage.getShowRouteOnMapButton().click();
 
-    map.getLoader().should('not.exist');
+    map.waitForLoadToComplete();
 
     map.zoomIn(2);
 

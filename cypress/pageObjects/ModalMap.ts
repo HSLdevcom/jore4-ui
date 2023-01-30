@@ -80,7 +80,7 @@ export class ModalMap {
     routePoints: ClickPointNearMapMarker[];
     omittedStops?: string[];
   }) => {
-    this.map.getLoader().should('not.exist');
+    this.map.waitForLoadToComplete();
 
     this.mapFooter.createRoute();
 

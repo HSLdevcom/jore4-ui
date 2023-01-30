@@ -138,7 +138,7 @@ describe('Stop editing tests', () => {
 
     mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-    map.getLoader().should('not.exist');
+    map.waitForLoadToComplete();
 
     map
       .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
@@ -156,7 +156,7 @@ describe('Stop editing tests', () => {
 
     toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
-    map.getLoader().should('not.exist');
+    map.waitForLoadToComplete();
 
     map
       .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
@@ -171,7 +171,7 @@ describe('Stop editing tests', () => {
   it('Should delete a stop', { scrollBehavior: 'bottom' }, () => {
     mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-    map.getLoader().should('not.exist');
+    map.waitForLoadToComplete();
 
     map
       .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
@@ -210,7 +210,7 @@ describe('Stop editing tests', () => {
 
     mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-    map.getLoader().should('not.exist');
+    map.waitForLoadToComplete();
 
     map
       .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
@@ -262,7 +262,7 @@ describe('Stop editing tests', () => {
     () => {
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.getLoader().should('not.exist');
+      map.waitForLoadToComplete();
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)

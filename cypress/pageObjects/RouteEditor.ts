@@ -49,7 +49,7 @@ export class RouteEditor {
    */
   editOneRoutePoint(values: MoveRouteEditHandleInfo) {
     this.mapFooter.editRoute();
-    this.map.getLoader().should('not.exist');
+    this.map.waitForLoadToComplete();
     // Force click because element might be covered by some other element, like a stop circle
     this.getRouteDashedLine().click('topLeft', { force: true });
     this.moveRouteEditHandle(values);
