@@ -18,12 +18,6 @@ export class Map {
     cy.wait('@gqlGetStopsByLocation');
   }
 
-  // Wait for a map marker to appear on the map
-  // This might take long as we need many HTTP requests to initialize the map view
-  waitForMapToLoad() {
-    this.getNthMarker(1);
-  }
-
   getNthMarker(markerNumber: number, options?: Partial<Cypress.Timeoutable>) {
     return cy
       .get(`.overlays>.mapboxgl-marker:nth-of-type(${markerNumber})`, options)

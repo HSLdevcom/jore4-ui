@@ -170,7 +170,7 @@ describe('Route creation', () => {
 
     mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-    map.waitForMapToLoad();
+    map.getLoader().should('not.exist');
   });
 
   afterEach(() => {
