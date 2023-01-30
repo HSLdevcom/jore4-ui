@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-import { i18n } from './i18n';
 import {
   findEarliestTime,
   findLatestTime,
@@ -9,9 +8,6 @@ import {
 } from './time';
 
 describe(`${formatDate.name}()`, () => {
-  beforeEach(() => {
-    i18n.changeLanguage('fi-FI');
-  });
   // These tests temporariry disabled as we had to hard-code
   // used date and datetime formats instead of using localized
   // ones in order to do temporary workaround for flaky
@@ -20,6 +16,10 @@ describe(`${formatDate.name}()`, () => {
   // depending on ci machine that ran the test.
   // eslint-disable-next-line jest/no-commented-out-tests
   /*
+  beforeEach(() => {
+    i18n.changeLanguage('fi-FI');
+  });
+
   const isoDate = '2017-04-20T11:32:00.000Z';
   test('Should be able to format dates from ISO string inputs', () => {
     const output = formatDate(DateTime.DATETIME_FULL, isoDate);
