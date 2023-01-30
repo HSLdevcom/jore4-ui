@@ -33,7 +33,7 @@ const testRouteLabels = {
 const testInfraLinks = [
   {
     id: '73bc2df9-f5af-4c38-a1dd-5ed1f71c90a8',
-    coordinates: [24.92492146851626, 60.1634759878872, 0],
+    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
   },
   {
     id: 'ea69415a-9c54-4327-8836-f38b36d8fa99',
@@ -194,9 +194,7 @@ describe('Edit route geometry', () => {
     clearDatabase();
   });
 
-  // Skip this test until CI is stable
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip("Should edit a route's shape", { scrollBehavior: 'bottom' }, () => {
+  it("Should edit a route's shape", { scrollBehavior: 'bottom' }, () => {
     const moveHandleInfo: MoveRouteEditHandleInfo = {
       handleIndex: 2,
       deltaX: 10,
@@ -213,7 +211,7 @@ describe('Edit route geometry', () => {
 
     map.getLoader().should('not.exist');
 
-    map.zoomIn(3);
+    map.zoomIn(2);
 
     routeStopsOverlay.routeShouldBeSelected(routes[0].label);
 
