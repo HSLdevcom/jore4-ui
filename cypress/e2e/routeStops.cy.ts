@@ -206,10 +206,7 @@ describe('Line details page: stops on route', () => {
     // Input via info to form
     routeStopsTable.viaForm.getViaFinnishNameInput().type('Via-piste');
     routeStopsTable.viaForm.getViaSwedishNameInput().type('Via punkt');
-    routeStopsTable.viaForm
-      .getViaFinnishShortNameInput()
-      .clear()
-      .type('Lyhyt nimi');
+    routeStopsTable.viaForm.getViaFinnishShortNameInput().type('Lyhyt nimi');
     routeStopsTable.viaForm.getViaSwedishShortNameInput().type('Kort namn');
     // Save via info form
     routeStopsTable.viaForm.getSaveButton().click();
