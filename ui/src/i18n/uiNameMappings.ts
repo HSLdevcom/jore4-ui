@@ -5,7 +5,7 @@ import {
   RouteTypeOfLineEnum,
 } from '../generated/graphql';
 import { i18n } from '../i18n';
-import { Priority } from '../types/enums';
+import { Priority, TimetablePriority } from '../types/enums';
 import { RouteDirection } from '../types/RouteDirection';
 import { AllOptionEnum } from '../utils';
 
@@ -14,6 +14,17 @@ export const mapPriorityToUiName = (key: Priority) => {
     [Priority.Standard]: i18n.t('priority.standard'),
     [Priority.Temporary]: i18n.t('priority.temporary'),
     [Priority.Draft]: i18n.t('priority.draft'),
+  };
+  return uiStrings[key];
+};
+
+export const mapTimetablePriorityToUiName = (key: TimetablePriority) => {
+  const uiStrings: Record<TimetablePriority, string> = {
+    [TimetablePriority.Standard]: i18n.t('priority.standard'),
+    [TimetablePriority.Temporary]: i18n.t('priority.temporary'),
+    [TimetablePriority.Draft]: i18n.t('priority.draft'),
+    [TimetablePriority.Special]: i18n.t('priority.special'),
+    [TimetablePriority.Staging]: '', // NOTE: staging priorities are not intented to be shown in UI
   };
   return uiStrings[key];
 };

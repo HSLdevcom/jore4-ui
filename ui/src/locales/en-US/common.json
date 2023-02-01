@@ -176,7 +176,8 @@
     "label": "Priority",
     "standard": "Standard",
     "temporary": "Temporary",
-    "draft": "Draft"
+    "draft": "Draft",
+    "special": "Special"
   },
   "validityPeriod": {
     "validityStart": "Starts",
@@ -293,7 +294,14 @@
     "importFromHastus": "Import from Hastus",
     "importTimetablesFromHastus": "Import timetables from Hastus",
     "openPreview": "Open preview",
-    "importSuccess": "Timetables imported successfully!"
+    "importSuccess": "Timetables imported successfully!",
+    "showVersions": "Show versions",
+    "versionsTitle": "Timetable versions",
+    "operatingCalendar": "Operating calendar",
+    "drafts": "Drafts",
+    "noDrafts": "No drafts",
+    "noTimetables": "No timetables",
+    "inEffect": "In effect"
   },
   "timetablesPreview": {
     "preview": "Preview",
@@ -304,6 +312,16 @@
     "contentUsage": "Content usage",
     "fileContent": "File content",
     "blockCount": "{{ count }} blocks"
+  },
+  "timetableVersionsTableHeaders": {
+    "status": "Status",
+    "dayType": "Day type",
+    "validityStart": "Starts",
+    "validityEnd": "Ends",
+    "label": "Label",
+    "version": "Version",
+    "modified": "Modified",
+    "modifier": "Modifier"
   },
   "confirmTimetablesImportModal": {
     "title": "Save changes",
