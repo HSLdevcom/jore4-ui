@@ -1,9 +1,14 @@
 import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { useGetVehicleJourneysQuery } from '../../../generated/graphql';
-import { useGetLineDetails } from '../../../hooks';
-import { Column, Container, Row } from '../../../layoutComponents';
+import {
+  useGetLineDetails,
+  useTimetableVersionsReturnToQueryParam,
+} from '../../../hooks';
+import { Container } from '../../../layoutComponents';
+import { SimpleButton } from '../../../uiComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
+import { FormColumn, FormRow } from '../../forms/common';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';
 import { PassingTimesByStopTable } from '../passing-times-by-stop';
 import { VehicleRouteTimetables } from './VehicleRouteTimetables';
@@ -23,6 +28,8 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
 
   const { line } = useGetLineDetails();
 
+  const { getVersionsUrl } = useTimetableVersionsReturnToQueryParam();
+
   // Just get all vehicle journeys from back end as test data
   // TODO: Use PassingTimesByStopTable in the right place and fetch correct data
   const vehicleJourneysResult = useGetVehicleJourneysQuery();
@@ -39,11 +46,19 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
         </h1>
       </PageHeader>
       <div className="mx-12 my-8">
-        <Row className="mb-8">
-          <Column>
-            <ObservationDateControl />
-          </Column>
-        </Row>
+        <FormRow mdColumns={2} className="mb-8 ">
+          <ObservationDateControl className="max-w-max" />
+          <FormColumn className="items-end justify-end">
+            {line && (
+              <SimpleButton
+                inverted
+                href={getVersionsUrl(line.label, line.line_id)}
+              >
+                {t('timetables.showVersions')}
+              </SimpleButton>
+            )}
+          </FormColumn>
+        </FormRow>
         <VehicleRouteTimetables routes={line?.line_routes || []} />
       </div>
       <Container className="space-y-10 pt-10">

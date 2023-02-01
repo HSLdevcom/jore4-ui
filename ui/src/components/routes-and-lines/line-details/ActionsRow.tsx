@@ -1,19 +1,12 @@
-import qs from 'qs';
 import { useTranslation } from 'react-i18next';
-import { RouteLine } from '../../../generated/graphql';
-import { useGetLineDetails } from '../../../hooks';
+import {
+  useGetLineDetails,
+  useRoutesAndLinesDraftReturnToQueryParam,
+} from '../../../hooks';
 import { Column, Container } from '../../../layoutComponents';
-import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormRow } from '../../forms/common';
-
-const getDraftsUrlWithReturnToQueryString = (line: RouteLine) => {
-  const draftUrl = routeDetails[Path.lineDrafts].getLink(line.label);
-  const returnToQueryString = qs.stringify({ returnTo: line.line_id });
-
-  return `${draftUrl}?${returnToQueryString}`;
-};
 
 export const ActionsRow = ({
   className = '',
@@ -23,6 +16,7 @@ export const ActionsRow = ({
   const { t } = useTranslation();
 
   const { line } = useGetLineDetails();
+  const { getDraftsUrl } = useRoutesAndLinesDraftReturnToQueryParam();
 
   return (
     <Container className={className}>
@@ -32,7 +26,7 @@ export const ActionsRow = ({
           <Column className="items-end justify-end">
             <SimpleButton
               inverted
-              href={getDraftsUrlWithReturnToQueryString(line)}
+              href={getDraftsUrl(line.label, line.line_id)}
             >
               {t('lines.showDrafts')}
             </SimpleButton>

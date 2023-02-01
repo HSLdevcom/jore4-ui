@@ -102,13 +102,14 @@ export const SearchContainer = (): JSX.Element => {
               priorities={searchConditions.priorities}
             />
             <Column className="justify-self-end">
-              <ObservationDateInput
-                value={searchConditions.observationDate}
-                onChange={onChangeDate}
-                className="flex-1"
-                required
-                testId={testIds.observationDateInput}
-              />
+              <Row className="flex-1">
+                <ObservationDateInput
+                  value={searchConditions.observationDate}
+                  onChange={onChangeDate}
+                  required
+                  testId={testIds.observationDateInput}
+                />
+              </Row>
             </Column>
           </FormRow>
         </div>
