@@ -37,7 +37,8 @@ export class StopForm {
   }
 
   selectTimingPlace(timingPlaceName: string) {
-    this.getTimingPlaceDropdown().click();
+    // type to form to make sure that desired timing place is visible
+    this.getTimingPlaceDropdown().type(timingPlaceName);
     this.getTimingPlaceDropdown().find('li').contains(timingPlaceName).click();
   }
 
