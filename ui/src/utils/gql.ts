@@ -5,7 +5,7 @@ import {
   RouteTypeOfLineEnum,
 } from '../generated/graphql';
 import { Viewport } from '../redux/types/modalMap';
-import { Priority } from '../types/enums';
+import { Priority, TimetablePriority } from '../types/enums';
 
 /** Builds an object for gql to filter out all
  * results which are not active on the given date
@@ -43,8 +43,19 @@ export const buildPriorityEqualGqlFilter = (priority: Priority) => ({
   },
 });
 
-/** Builds an object for gql to filter out all but the given priority */
+/** Builds an object for gql to filter out all but the given Priority */
 export const buildPriorityInGqlFilter = (priorities: Priority[]) => ({
+  priority: {
+    _in: priorities,
+  },
+});
+
+/**
+ * Builds an object for gql to filter out all but the given TimetablePriority
+ */
+export const buildTimetablePriorityInGqlFilter = (
+  priorities: TimetablePriority[],
+) => ({
   priority: {
     _in: priorities,
   },

@@ -176,7 +176,8 @@
     "label": "Prioriteetti",
     "standard": "Perusversio",
     "temporary": "Väliaikainen",
-    "draft": "Luonnos"
+    "draft": "Luonnos",
+    "special": "Erityispäivä"
   },
   "validityPeriod": {
     "validityStart": "Alkaa",
@@ -293,7 +294,14 @@
     "importFromHastus": "Tuo Hastuksesta",
     "importTimetablesFromHastus": "Tuo aikataulut Hastuksesta",
     "openPreview": "Avaa esikatselu",
-    "importSuccess": "Aikataulujen tuonti onnistui!"
+    "importSuccess": "Aikataulujen tuonti onnistui!",
+    "showVersions": "Näytä versiot",
+    "versionsTitle": "Aikatauluversiot",
+    "operatingCalendar": "Liikennöintikalenteri",
+    "drafts": "Luonnokset",
+    "noDrafts": "Ei luonnoksia",
+    "noTimetables": "Ei aikatauluja",
+    "inEffect": "Voimassa"
   },
   "timetablesPreview": {
     "preview": "Esikatselu",
@@ -304,6 +312,16 @@
     "contentUsage": "Sisällön käyttö",
     "fileContent": "Tiedoston sisältö",
     "blockCount": "{{ count }} autokiertoa"
+  },
+  "timetableVersionsTableHeaders": {
+    "status": "Tila",
+    "dayType": "Päivätyyppi",
+    "validityStart": "Alkaa",
+    "validityEnd": "Päättyy",
+    "label": "Tunnus",
+    "version": "Versio",
+    "modified": "Muokattu",
+    "modifier": "Muokkaaja"
   },
   "confirmTimetablesImportModal": {
     "title": "Tallenna muutos",

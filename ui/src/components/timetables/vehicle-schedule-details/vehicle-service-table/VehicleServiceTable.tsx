@@ -31,7 +31,7 @@ export const VehicleServiceTable = ({
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
-  const getHeadingBgColor = (key: TimetablePriority) => {
+  const getTimetableHeadingBgColor = (key: TimetablePriority) => {
     const bgColors: Record<TimetablePriority, string> = {
       [TimetablePriority.Standard]: 'bg-hsl-dark-green',
       [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
@@ -75,7 +75,7 @@ export const VehicleServiceTable = ({
   return (
     <div>
       <Row
-        className={`mb-4 rounded-md bg-opacity-50 px-4 py-1 text-hsl-dark-80 ${getHeadingBgColor(
+        className={`mb-4 rounded-md bg-opacity-50 px-4 py-1 text-hsl-dark-80 ${getTimetableHeadingBgColor(
           priority,
         )}`}
       >
