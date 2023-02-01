@@ -9,6 +9,7 @@ import { parseI18nField } from '../../../../i18n/utils';
 import { Column, Row, Visible } from '../../../../layoutComponents';
 import { mapToShortDateTime } from '../../../../time';
 import { TimetablePriority } from '../../../../types/enums';
+import { getTimetableHeadingBgColor } from '../../../../utils/colors';
 import {
   VehicleServiceRowData,
   VehicleServiceTableRow,
@@ -30,17 +31,6 @@ export const VehicleServiceTable = ({
   vehicleJourneys,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
-
-  const getHeadingBgColor = (key: TimetablePriority) => {
-    const bgColors: Record<TimetablePriority, string> = {
-      [TimetablePriority.Standard]: 'bg-hsl-dark-green',
-      [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
-      [TimetablePriority.Special]: 'bg-hsl-light-purple',
-      [TimetablePriority.Draft]: 'bg-background',
-      [TimetablePriority.Staging]: 'bg-hsl-red',
-    };
-    return bgColors[key];
-  };
 
   const getOddRowColor = (key: TimetablePriority) => {
     const bgColors: Record<TimetablePriority, string> = {
@@ -75,7 +65,7 @@ export const VehicleServiceTable = ({
   return (
     <div>
       <Row
-        className={`mb-4 rounded-md bg-opacity-50 px-4 py-1 text-hsl-dark-80 ${getHeadingBgColor(
+        className={`mb-4 rounded-md bg-opacity-50 px-4 py-1 text-hsl-dark-80 ${getTimetableHeadingBgColor(
           priority,
         )}`}
       >

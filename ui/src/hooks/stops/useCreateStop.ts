@@ -8,10 +8,10 @@ import {
 import { StopWithLocation } from '../../graphql';
 import { OptionalKeys } from '../../types';
 import {
+  getRouteLabelVariantText,
   IncompatibleWithExistingRoutesError,
   removeFromApolloCache,
 } from '../../utils';
-import { getRouteLabelVariantText } from '../../utils/route';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { BrokenRouteCheckParams, useEditStop } from './useEditStop';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
