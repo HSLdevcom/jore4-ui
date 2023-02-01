@@ -22,19 +22,25 @@ export class ChangeValidityForm {
   assertSelectedPriority(priority: Priority | undefined) {
     switch (priority) {
       case Priority.Draft:
-        cy.getByTestId('PriorityForm::draftPriorityButton')
-          .get('[data-selected="true"]')
-          .should('exist');
+        cy.getByTestId('PriorityForm::draftPriorityButton').should(
+          'have.attr',
+          'data-selected',
+          'true',
+        );
         break;
       case Priority.Temporary:
-        cy.getByTestId('PriorityForm::temporaryPriorityButton')
-          .get('[data-selected="true"]')
-          .should('exist');
+        cy.getByTestId('PriorityForm::temporaryPriorityButton').should(
+          'have.attr',
+          'data-selected',
+          'true',
+        );
         break;
       case Priority.Standard:
-        cy.getByTestId('PriorityForm::standardPriorityButton')
-          .get('[data-selected="true"]')
-          .should('exist');
+        cy.getByTestId('PriorityForm::standardPriorityButton').should(
+          'have.attr',
+          'data-selected',
+          'true',
+        );
         break;
       default:
         throw new Error(`Unknown priority "${priority}"`);
