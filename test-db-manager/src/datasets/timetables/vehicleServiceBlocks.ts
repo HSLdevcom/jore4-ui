@@ -26,16 +26,4 @@ export const seedVehicleServiceBlocks: VehicleServiceBlockInsertInput[] = [
   buildVehicleServiceBlock({
     vehicleServiceId: seedVehicleServices[2].vehicle_service_id,
   }),
-  // Vehicle 2 Mon-Fri
-  buildVehicleServiceBlock({
-    vehicleServiceId: seedVehicleServices[0].vehicle_service_id,
-  }),
-  // Vehicle 2 Sat
-  buildVehicleServiceBlock({
-    vehicleServiceId: seedVehicleServices[1].vehicle_service_id,
-  }),
-  // Vehicle 2 Sun
-  buildVehicleServiceBlock({
-    vehicleServiceId: seedVehicleServices[2].vehicle_service_id,
-  }),
 ];

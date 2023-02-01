@@ -37,26 +37,4 @@ export const seedVehicleScheduleFrames: VehicleScheduleFrameInsertInput[] = [
     id: '7bdb824f-5461-4049-9668-254e8e3172db',
     ...validityPeriodWinter2324,
   }),
-  // single day type, standard priority
-  buildVehicleScheduleFrame({
-    id: '06ccb63d-a8dc-4020-a569-4d83f61a6cdb',
-    ...validityPeriodWinter2324,
-  }),
-  // single day type, higher priority
-  buildVehicleScheduleFrame({
-    id: 'de793c02-cea8-4956-8b50-1c3db2806402',
-    ...validityPeriodWinter2324,
-    priority: TimetablePriority.Special,
-  }),
-  // mon-sun, standard priority
-  buildVehicleScheduleFrame({
-    id: '580ab4e0-817a-479e-8a4b-99704ca4904b',
-    ...validityPeriodWinter2324,
-  }),
-  // mon-sun, higher priority
-  buildVehicleScheduleFrame({
-    id: '77c0c8c5-8d78-43ec-b0d2-561f0be11635',
-    ...validityPeriodWinter2324,
-    priority: TimetablePriority.Special,
-  }),
 ];

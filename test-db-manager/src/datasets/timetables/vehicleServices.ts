@@ -47,22 +47,4 @@ export const seedVehicleServices: VehicleServiceInsertInput[] = [
     day_type_id: SUN_DAY_TYPE,
     vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
   },
-  // vehicle 2, Mon-Fri
-  {
-    vehicle_service_id: uuid(),
-    day_type_id: MON_FRI_DAY_TYPE,
-    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
-  },
-  // vehicle 2, Sat
-  {
-    vehicle_service_id: uuid(),
-    day_type_id: SAT_DAY_TYPE,
-    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
-  },
-  // vehicle 2, Sun
-  {
-    vehicle_service_id: uuid(),
-    day_type_id: SUN_DAY_TYPE,
-    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
-  },
 ];
