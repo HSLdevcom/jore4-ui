@@ -1,4 +1,5 @@
 export * from './line-details';
+export * from './line-timetable-versions';
 export * from './lines';
 export * from './mutationHook';
 export * from './redux';

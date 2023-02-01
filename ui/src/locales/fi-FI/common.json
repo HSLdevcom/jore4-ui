@@ -176,7 +176,9 @@
     "label": "Prioriteetti",
     "standard": "Perusversio",
     "temporary": "Väliaikainen",
-    "draft": "Luonnos"
+    "draft": "Luonnos",
+    "special": "Special",
+    "staging": "Staging"
   },
   "validityPeriod": {
     "validityStart": "Alkaa",
@@ -291,7 +293,24 @@
     "noService": "Ei vuoroja",
     "at": "klo {{ time }}",
     "importFromHastus": "Tuo Hastuksesta",
-    "importTimetablesFromHastus": "Tuo aikataulut Hastuksesta"
+    "importTimetablesFromHastus": "Tuo aikataulut Hastuksesta",
+    "showVersions": "Näytä versiot",
+    "versionsTitle": "Aikatauluversiot",
+    "operatingCalendar": "Liikennöintikalenteri",
+    "drafts": "Luonnokset",
+    "noDrafts": "Ei luonnoksia",
+    "noTimetables": "Ei aikatauluja",
+    "inEffect": "Voimassa"
+  },
+  "timetableVersionsTableHeaders": {
+    "status": "Status",
+    "dayType": "Päivätyyppi",
+    "validityStart": "Alkaa",
+    "validityEnd": "Päättyy",
+    "label": "Tunnus",
+    "version": "Versio",
+    "modified": "Muokattu",
+    "modifier": "Muokkaaja"
   },
   "confirmTimetablesImportModal": {
     "title": "Tallenna muutos",
