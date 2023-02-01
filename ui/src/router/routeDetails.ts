@@ -15,6 +15,7 @@ export enum Path {
   lineTimetables = '/timetables/lines/:id',
   timetablesImport = '/timetables/import',
   timetablesImportPreview = '/timetables/import/preview',
+  lineTimetableVersions = '/timetables/lines/:label/versions',
   fallback = '*',
 }
 
@@ -106,6 +107,10 @@ export const routeDetails: Record<Path, RouteDetail> = {
   [Path.timetablesImportPreview]: {
     getLink: () => Path.timetablesImportPreview,
     translationKey: 'timetables.importPreview',
+  },
+  [Path.lineTimetableVersions]: {
+    getLink: (label: string) =>
+      Path.lineTimetableVersions.replace(':label', label),
     includeInNav: false,
   },
   [Path.fallback]: {

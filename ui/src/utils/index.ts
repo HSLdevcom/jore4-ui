@@ -10,6 +10,7 @@ export * from './journeyPattern';
 export * from './localizedString';
 export * from './logger';
 export * from './object';
+export * from './route';
 export * from './routeShape';
 export * from './search';
 export * from './servicePattern';
