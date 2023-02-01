@@ -7,7 +7,8 @@ import {
   seedVehicleServiceBlocks,
   seedVehicleServices,
 } from './datasets/timetables';
-import { populateTimetablesDb, TimetablesResources } from './db-helpers';
+import { buildStagingSeed } from './datasets/timetables/staging';
+import { TimetablesResources, populateTimetablesDb } from './db-helpers';
 
 const seedTimetablesResources: TimetablesResources = {
   journeyPatternRefs: seedJourneyPatternRefs,
@@ -21,6 +22,10 @@ const seedTimetablesResources: TimetablesResources = {
 
 const seedTimetables = async (resources: TimetablesResources) => {
   await populateTimetablesDb(resources);
+
+  const stagingTimeTables = buildStagingSeed(seedStopsInJourneyPatternRefs);
+
+  await populateTimetablesDb(stagingTimeTables);
 };
 
 const seedDb = async () => {

@@ -26,7 +26,7 @@ const DIRECTION2_STOP_LABELS = seedStopsInJourneyPatternRefsByJourneyPattern[
   seedJourneyPatternRefs[1].journey_pattern_ref_id
 ].map((item) => item.scheduled_stop_point_label);
 
-const findStopIdByLabel = (
+export const findStopIdByLabel = (
   label: string,
   knownStops: StopInJourneyPatternRefInsertInput[] = seedStopsInJourneyPatternRefs,
 ) => {
