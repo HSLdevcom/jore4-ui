@@ -1,6 +1,4 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useRef } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { useLoader, useToggle } from '../../../hooks';
@@ -12,15 +10,10 @@ import { TimetablePriority } from '../../../types/Priority';
 import { AccordionButton, SimpleButton } from '../../../uiComponents';
 import { showSuccessToast, submitFormByRef } from '../../../utils';
 import {
-  PriorityForm,
-  PriorityFormState,
-  priorityFormSchema,
-} from '../../forms/common';
+  ConfirmPreviewedTimetablesImportForm,
+  FormState,
+} from './ConfirmPreviewedTimetablesImportForm';
 import { ImportContentsView } from './ImportContentsView';
-
-const schema = priorityFormSchema;
-
-type FormState = PriorityFormState;
 
 const testIds = {
   toggleShowStagingTimetables:
@@ -42,13 +35,6 @@ export const PreviewTimetablesPage = (): JSX.Element => {
   const importedTimetablesExist = vehicleJourneyCount > 0;
 
   const formRef = useRef<ExplicitAny>(null);
-
-  const methods = useForm<FormState>({
-    defaultValues: undefined,
-    resolver: zodResolver(schema),
-  });
-
-  const { handleSubmit } = methods;
 
   const onSave = () => {
     submitFormByRef(formRef);
@@ -103,16 +89,10 @@ export const PreviewTimetablesPage = (): JSX.Element => {
         </Row>
         <Row className="items-center space-x-14 py-9 px-16">
           <h3>{t('timetablesPreview.contentUsage')}</h3>
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <FormProvider {...methods}>
-            <form
-              id="save-timetables-form"
-              onSubmit={handleSubmit(onSubmit)}
-              ref={formRef}
-            >
-              <PriorityForm showLabel={false} />
-            </form>
-          </FormProvider>
+          <ConfirmPreviewedTimetablesImportForm
+            ref={formRef}
+            onSubmit={onSubmit}
+          />
         </Row>
         <Visible visible={showStagingTimetables}>
           <div className="items-center space-x-14 rounded-b-sm bg-hsl-neutral-blue py-9 px-16">
