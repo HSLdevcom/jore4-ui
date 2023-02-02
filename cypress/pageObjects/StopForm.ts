@@ -42,6 +42,10 @@ export class StopForm {
   selectTimingPlace(timingPlaceName: string) {
     // type to form to make sure that desired timing place is visible
     this.getTimingPlaceDropdown().type(timingPlaceName);
+    // Wait for the search results before trying to find the result list item
+    cy.wait('@gqlGetTimingPlacesForCombobox')
+      .its('response.statusCode')
+      .should('equal', 200);
     this.getTimingPlaceDropdown().find('li').contains(timingPlaceName).click();
   }
 

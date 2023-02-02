@@ -282,9 +282,15 @@ describe('Stop editing tests', () => {
         .click();
       map.stopPopUp.getEditButton().click();
 
+      stopForm.getTimingPlaceDropdown().type(testTimingPlaceLabels.label1);
+
+      // Wait for the search results before trying to find the result list item
+      cy.wait('@gqlGetTimingPlacesForCombobox')
+        .its('response.statusCode')
+        .should('equal', 200);
+
       stopForm
         .getTimingPlaceDropdown()
-        .click()
         .find('ul')
         .should('contain', testTimingPlaceLabels.label1);
     },
