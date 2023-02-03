@@ -49,99 +49,104 @@ const deleteCreatedResources = () => {
   removeFromDbHelper(dbResources);
 };
 
-describe('Verify that route and line search works', () => {
-  let searchResultsPage: SearchResultsPage;
-  let routesAndLinesPage: RoutesAndLinesPage;
+describe(
+  // eslint-disable-next-line jest/valid-describe-callback
+  'Verify that route and line search works',
+  { testIsolation: false },
+  () => {
+    let searchResultsPage: SearchResultsPage;
+    let routesAndLinesPage: RoutesAndLinesPage;
 
-  before(() => {
-    searchResultsPage = new SearchResultsPage();
-    routesAndLinesPage = new RoutesAndLinesPage();
-    deleteCreatedResources();
-    insertToDbHelper(dbResources);
-    cy.visit('/routes');
-  });
+    before(() => {
+      searchResultsPage = new SearchResultsPage();
+      routesAndLinesPage = new RoutesAndLinesPage();
+      deleteCreatedResources();
+      insertToDbHelper(dbResources);
+      cy.visit('/routes');
+    });
 
-  after(() => {
-    deleteCreatedResources();
-  });
+    after(() => {
+      deleteCreatedResources();
+    });
 
-  beforeEach(() => {
-    cy.setupTests();
-    cy.mockLogin();
-    routesAndLinesPage.getRoutesAndLinesSearchInput().clear();
-  });
+    beforeEach(() => {
+      cy.setupTests();
+      cy.mockLogin();
+      routesAndLinesPage.getRoutesAndLinesSearchInput().clear();
+    });
 
-  it('Searches line with exact ID', () => {
-    routesAndLinesPage
-      .getRoutesAndLinesSearchInput()
-      .type(`${lines[0].label}{enter}`);
-    cy.wait('@gqlSearchLinesAndRoutes');
-    searchResultsPage
-      .getSearchResultsContainer()
-      .should('contain', 'hakutulosta');
-    searchResultsPage
-      .getLinesSearchResultTable()
-      .should('contain', `line ${lines[0].label}`);
-    searchResultsPage
-      .getLinesSearchResultTable()
-      .should('not.contain', `line ${lines[1].label}`);
-    searchResultsPage
-      .getLinesSearchResultTable()
-      .should('not.contain', `line ${lines[2].label}`);
-  });
+    it('Searches line with exact ID', () => {
+      routesAndLinesPage
+        .getRoutesAndLinesSearchInput()
+        .type(`${lines[0].label}{enter}`);
+      cy.wait('@gqlSearchLinesAndRoutes');
+      searchResultsPage
+        .getSearchResultsContainer()
+        .should('contain', 'hakutulosta');
+      searchResultsPage
+        .getLinesSearchResultTable()
+        .should('contain', `line ${lines[0].label}`);
+      searchResultsPage
+        .getLinesSearchResultTable()
+        .should('not.contain', `line ${lines[1].label}`);
+      searchResultsPage
+        .getLinesSearchResultTable()
+        .should('not.contain', `line ${lines[2].label}`);
+    });
 
-  it('Searches line with asterisk', () => {
-    routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
-    cy.wait('@gqlSearchLinesAndRoutes');
-    searchResultsPage
-      .getSearchResultsContainer()
-      .should('contain', 'hakutulosta');
-    searchResultsPage
-      .getLinesSearchResultTable()
-      .should('contain', `line ${lines[0].label}`);
-    searchResultsPage
-      .getLinesSearchResultTable()
-      .should('contain', `line ${lines[2].label}`);
-    searchResultsPage
-      .getLinesSearchResultTable()
-      .should('not.contain', `line ${lines[1].label}`);
-  });
+    it('Searches line with asterisk', () => {
+      routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
+      cy.wait('@gqlSearchLinesAndRoutes');
+      searchResultsPage
+        .getSearchResultsContainer()
+        .should('contain', 'hakutulosta');
+      searchResultsPage
+        .getLinesSearchResultTable()
+        .should('contain', `line ${lines[0].label}`);
+      searchResultsPage
+        .getLinesSearchResultTable()
+        .should('contain', `line ${lines[2].label}`);
+      searchResultsPage
+        .getLinesSearchResultTable()
+        .should('not.contain', `line ${lines[1].label}`);
+    });
 
-  it('Searches route with exact ID', () => {
-    routesAndLinesPage
-      .getRoutesAndLinesSearchInput()
-      .type(`${routes[0].label}{enter}`);
-    cy.wait('@gqlSearchLinesAndRoutes');
-    searchResultsPage
-      .getSearchResultsContainer()
-      .should('contain', 'hakutulosta');
-    searchResultsPage.getRoutesResultsButton().click();
-    searchResultsPage
-      .getRoutesSearchResultTable()
-      .should('contain', `route ${routes[0].label}`);
-    searchResultsPage
-      .getRoutesSearchResultTable()
-      .should('not.contain', `route ${routes[1].label}`);
-    searchResultsPage
-      .getRoutesSearchResultTable()
-      .should('not.contain', `route ${routes[2].label}`);
-  });
+    it('Searches route with exact ID', () => {
+      routesAndLinesPage
+        .getRoutesAndLinesSearchInput()
+        .type(`${routes[0].label}{enter}`);
+      cy.wait('@gqlSearchLinesAndRoutes');
+      searchResultsPage
+        .getSearchResultsContainer()
+        .should('contain', 'hakutulosta');
+      searchResultsPage.getRoutesResultsButton().click();
+      searchResultsPage
+        .getRoutesSearchResultTable()
+        .should('contain', `route ${routes[0].label}`);
+      searchResultsPage
+        .getRoutesSearchResultTable()
+        .should('not.contain', `route ${routes[1].label}`);
+      searchResultsPage
+        .getRoutesSearchResultTable()
+        .should('not.contain', `route ${routes[2].label}`);
+    });
 
-  it('Searches route with asterisk', () => {
-    routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
-    cy.wait('@gqlSearchLinesAndRoutes');
-    searchResultsPage
-      .getSearchResultsContainer()
-      .should('contain', 'hakutulosta');
-    searchResultsPage.getRoutesResultsButton().click();
-    searchResultsPage
-      .getRoutesSearchResultTable()
-      .should('contain', `route ${routes[0].label}`);
-    searchResultsPage
-      .getRoutesSearchResultTable()
-      .should('contain', `route ${routes[1].label}`);
-    searchResultsPage
-      .getRoutesSearchResultTable()
-      .should('not.contain', `route ${routes[2].label}`);
-  });
-});
+    it('Searches route with asterisk', () => {
+      routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
+      cy.wait('@gqlSearchLinesAndRoutes');
+      searchResultsPage
+        .getSearchResultsContainer()
+        .should('contain', 'hakutulosta');
+      searchResultsPage.getRoutesResultsButton().click();
+      searchResultsPage
+        .getRoutesSearchResultTable()
+        .should('contain', `route ${routes[0].label}`);
+      searchResultsPage
+        .getRoutesSearchResultTable()
+        .should('contain', `route ${routes[1].label}`);
+      searchResultsPage
+        .getRoutesSearchResultTable()
+        .should('not.contain', `route ${routes[2].label}`);
+    });
+  },
+);
