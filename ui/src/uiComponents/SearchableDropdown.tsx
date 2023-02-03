@@ -1,5 +1,3 @@
-import debounce from 'lodash/debounce';
-import { useState } from 'react';
 import {
   Combobox,
   ComboboxEvent,
@@ -7,11 +5,10 @@ import {
   ComboboxOptionRenderer,
 } from './Combobox';
 
-const DEBOUNCE_DELAY_MS = 300;
-
 interface Props<T> extends ComboboxInputProps {
   id?: string;
   testId?: string;
+  query: string;
   selectedItem: T | undefined;
   onQueryChange: (query: string) => void;
   mapToButtonContent: (displayedItem?: T) => JSX.Element;
@@ -22,54 +19,42 @@ interface Props<T> extends ComboboxInputProps {
 export const SearchableDropdown = <T extends ExplicitAny>({
   selectedItem,
   options,
+  query,
   onChange,
   mapToButtonContent,
   nullOptionRender,
   onQueryChange: parentOnQueryChange,
   ...otherProps
 }: Props<T>): JSX.Element => {
-  // Query value is debounced because we do async call on query change.
-  // We need to know the not debounced query value to determine what to show in the
-  // combobox search input, therefore track with separate state variable whether or
-  // not the query is empty.
-  const [isQueryEmpty, setIsQueryEmpty] = useState(true);
-
-  const debouncedSetQuery = debounce(
-    (str) => parentOnQueryChange(str),
-    DEBOUNCE_DELAY_MS,
-  );
-
-  const onQueryChange = (str: string) => {
-    setIsQueryEmpty(str === '');
-    debouncedSetQuery(str);
-  };
-
-  const onItemSelected = (e: ComboboxEvent) => {
-    onChange(e);
-    // Query is reset on item selection
-    setIsQueryEmpty(true);
-  };
-
   const nullOption = nullOptionRender
     ? { key: 'none', value: null, render: nullOptionRender }
     : undefined;
 
-  // Add null option to options if dropdown is nullable and if
-  // no search word exists
-  const allOptions = [
-    ...(nullOption && isQueryEmpty ? [nullOption] : []),
-    ...options,
-  ];
+  const onItemSelected = (e: ComboboxEvent) => {
+    parentOnQueryChange('');
+    onChange(e);
+  };
+
+  const onQueryChange = (str: string) => {
+    parentOnQueryChange(str);
+  };
+
+  const onBlur = () => {
+    parentOnQueryChange('');
+  };
+
+  // Add null option to options if dropdown is nullable
+  const allOptions = [...(nullOption ? [nullOption] : []), ...options];
 
   return (
     <Combobox
-      buttonContent={isQueryEmpty ? mapToButtonContent(selectedItem) : null}
+      buttonContent={query === '' ? mapToButtonContent(selectedItem) : null}
       options={allOptions}
       onChange={onItemSelected}
       onQueryChange={onQueryChange}
-      nullable={!!nullOptionRender}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...otherProps}
+      onBlur={onBlur}
     />
   );
 };

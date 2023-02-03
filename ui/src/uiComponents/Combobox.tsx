@@ -2,7 +2,7 @@ import { Combobox as HUICombobox, Transition } from '@headlessui/react';
 import { Fragment, ReactNode } from 'react';
 import { Noop } from 'react-hook-form';
 import { MdCheck, MdSearch } from 'react-icons/md';
-import { OptionRenderPropArg, dropdownTransition } from './Listbox';
+import { dropdownTransition, OptionRenderPropArg } from './Listbox';
 
 export const testIds = {
   input: (testId: string) => `${testId}::input`,
@@ -43,13 +43,28 @@ export const Combobox = ({
   options,
   value,
   onChange,
-  onBlur,
+  onBlur: onBlurParent,
   onQueryChange,
-  nullable = false,
 }: Props): JSX.Element => {
   const onItemSelected = (val: string) => {
     const event: ComboboxEvent = { target: { value: val } };
     onChange(event);
+  };
+
+  /**
+   * HUI Combobox is somewhat weirldy implemented and clicking an option inside the combobox
+   * will trigger onBlur event which will cause a flickering inside the texts that are shown
+   * in the combobox. This is why we want to prevent the default when selecting item from the
+   * options. Only if we really focus out (click outside the combobox) we want to trigger
+   * onBlur event.
+   */
+  const onBlur = (e: React.FocusEvent) => {
+    const relatedTarget = e.relatedTarget as HTMLElement;
+    if (relatedTarget?.role === 'option') {
+      e.preventDefault();
+    } else if (onBlurParent) {
+      onBlurParent();
+    }
   };
 
   return (
@@ -61,7 +76,6 @@ export const Combobox = ({
       onChange={onItemSelected}
       onBlur={onBlur}
       data-testid={testId}
-      nullable={nullable}
     >
       {({ open }) => (
         <>

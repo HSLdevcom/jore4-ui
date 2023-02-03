@@ -71,6 +71,7 @@ export const ChooseRouteDropdown = ({
     <SearchableDropdown
       id="choose-route-combobox"
       testId={testId}
+      query={query}
       mapToButtonContent={mapToButtonContent}
       options={options}
       value={value}
