@@ -60,6 +60,7 @@ export const ChooseTimingPlaceDropdown = ({
   return (
     <SearchableDropdown
       id="choose-timing-place-combobox"
+      query={query}
       testId={testId}
       mapToButtonContent={mapToButtonContent}
       nullOptionRender={nullOptionRender}
