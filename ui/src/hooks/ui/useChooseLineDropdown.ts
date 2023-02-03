@@ -7,6 +7,7 @@ import {
   useGetSelectedLineDetailsByIdQuery,
 } from '../../generated/graphql';
 import { mapToSqlLikeValue, mapToVariables } from '../../utils';
+import { useDebouncedString } from '../useDebouncedString';
 
 const GQL_GET_LINES_FOR_COMBOBOX = gql`
   query GetLinesForCombobox($labelPattern: String!, $date: date!) {
@@ -54,9 +55,13 @@ export const useChooseLineDropdown = (
 } => {
   const [today] = useState(DateTime.now());
 
+  const [debouncedQuery] = useDebouncedString(query, 300);
+
+  const [lines, setLines] = useState<LineForComboboxFragment[]>(Array);
+
   const linesResult = useGetLinesForComboboxQuery(
     mapToVariables({
-      labelPattern: `${mapToSqlLikeValue(query)}%`,
+      labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%`,
       date: observationDate || today.toISO(),
     }),
   );
@@ -73,11 +78,21 @@ export const useChooseLineDropdown = (
     | LineForComboboxFragment
     | undefined;
 
-  const lines = (linesResult.data?.route_line ||
-    []) as LineForComboboxFragment[];
+  if (
+    !linesResult.loading &&
+    linesResult.data &&
+    linesResult.data.route_line !== lines
+  ) {
+    setLines(linesResult.data.route_line);
+  }
+
+  // While fetching the selected line, we can use the data from lines
+  const displayedSelectedLine = selectedLineResult.loading
+    ? lines.find((line) => line.line_id === lineId)
+    : selectedLine;
 
   return {
     lines,
-    selectedLine,
+    selectedLine: displayedSelectedLine,
   };
 };
