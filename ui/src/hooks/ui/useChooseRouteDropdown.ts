@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import { DateTime } from 'luxon';
+import { useState } from 'react';
 import {
   RouteAllFieldsFragment,
   useGetRouteDetailsByLabelWildcardQuery,
@@ -7,6 +8,7 @@ import {
 } from '../../generated/graphql';
 import { Priority } from '../../types/enums';
 import { mapToSqlLikeValue, mapToVariables } from '../../utils';
+import { useDebouncedString } from '../useDebouncedString';
 
 const GQL_GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`
   query GetRouteDetailsByLabelWildcard(
@@ -53,9 +55,12 @@ export const useChooseRouteDropdown = ({
   priorities,
   routeId,
 }: Props) => {
+  const [debouncedQuery] = useDebouncedString(query, 300);
+
+  const [routes, setRoutes] = useState<RouteAllFieldsFragment[]>(Array);
   const routesResult = useGetRouteDetailsByLabelWildcardQuery(
     mapToVariables({
-      labelPattern: `${mapToSqlLikeValue(query)}%`,
+      labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%`,
       date: observationDate.toISO(),
       priorities,
     }),
@@ -69,12 +74,18 @@ export const useChooseRouteDropdown = ({
     variables: { routeId: routeId! },
   });
 
+  if (routesResult.loading && routesResult.data?.route_route !== routes) {
+    setRoutes(routesResult.data?.route_route as RouteAllFieldsFragment[]);
+  }
+
   const selectedRoute = selectedRouteResult.data?.route_route_by_pk as
     | RouteAllFieldsFragment
     | undefined;
 
-  const routes = (routesResult.data?.route_route ||
-    []) as RouteAllFieldsFragment[];
+  // While fetching the selected route, we can use the data from routes
+  const displayedSelectedRoute = selectedRouteResult.loading
+    ? routes.find((route) => route.route_id === routeId)
+    : selectedRoute;
 
-  return { routes, selectedRoute };
+  return { routes, selectedRoute: displayedSelectedRoute };
 };

@@ -4,24 +4,29 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
 <DocumentFragment>
   <div
     class="relative w-full"
+    data-headlessui-state="open"
     data-testid="ChooseLineDropdown1"
     id="choose-line-combobox"
   >
     <input
-      aria-activedescendant="headlessui-combobox-option-:r8:"
-      aria-controls="headlessui-combobox-options-:r7:"
+      aria-activedescendant="headlessui-combobox-option-:r7:"
+      aria-autocomplete="list"
+      aria-controls="headlessui-combobox-options-:r6:"
       aria-expanded="true"
       class="input-element relative h-full w-full"
+      data-headlessui-state="open"
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r4:"
       role="combobox"
       type="text"
+      value=""
     />
     <button
-      aria-controls="headlessui-combobox-options-:r7:"
+      aria-controls="headlessui-combobox-options-:r6:"
       aria-expanded="true"
-      aria-haspopup="true"
+      aria-haspopup="listbox"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      data-headlessui-state="open"
       data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-:r5:"
       tabindex="-1"
@@ -56,15 +61,16 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
       />
     </button>
     <ul
-      aria-activedescendant="headlessui-combobox-option-:r8:"
       aria-labelledby="headlessui-combobox-button-:r5:"
       class="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
-      id="headlessui-combobox-options-:r7:"
+      data-headlessui-state="open"
+      id="headlessui-combobox-options-:r6:"
       role="listbox"
     >
       <li
         aria-selected="true"
-        id="headlessui-combobox-option-:r8:"
+        data-headlessui-state="active selected"
+        id="headlessui-combobox-option-:r7:"
         role="option"
         tabindex="-1"
       >
@@ -102,7 +108,9 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
         </span>
       </li>
       <li
-        id="headlessui-combobox-option-:r9:"
+        aria-selected="false"
+        data-headlessui-state=""
+        id="headlessui-combobox-option-:r8:"
         role="option"
         tabindex="-1"
       >
@@ -148,21 +156,26 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
 <DocumentFragment>
   <div
     class="relative w-full"
+    data-headlessui-state=""
     data-testid="ChooseLineDropdown1"
     id="choose-line-combobox"
   >
     <input
+      aria-autocomplete="list"
       aria-expanded="false"
       class="input-element relative h-full w-full"
+      data-headlessui-state=""
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r0:"
       role="combobox"
       type="text"
+      value=""
     />
     <button
       aria-expanded="false"
-      aria-haspopup="true"
+      aria-haspopup="listbox"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      data-headlessui-state=""
       data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-:r1:"
       tabindex="-1"
@@ -204,21 +217,26 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
 <DocumentFragment>
   <div
     class="relative w-full"
+    data-headlessui-state=""
     data-testid="ChooseLineDropdown1"
     id="choose-line-combobox"
   >
     <input
+      aria-autocomplete="list"
       aria-expanded="false"
       class="input-element relative h-full w-full"
+      data-headlessui-state=""
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r0:"
       role="combobox"
       type="text"
+      value=""
     />
     <button
       aria-expanded="false"
-      aria-haspopup="true"
+      aria-haspopup="listbox"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      data-headlessui-state=""
       data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-:r1:"
       tabindex="-1"
@@ -260,21 +278,26 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
 <DocumentFragment>
   <div
     class="relative w-full"
+    data-headlessui-state=""
     data-testid="ChooseLineDropdown1"
     id="choose-line-combobox"
   >
     <input
+      aria-autocomplete="list"
       aria-expanded="false"
       class="input-element relative h-full w-full"
+      data-headlessui-state=""
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r2:"
       role="combobox"
       type="text"
+      value=""
     />
     <button
       aria-expanded="false"
-      aria-haspopup="true"
+      aria-haspopup="listbox"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      data-headlessui-state=""
       data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-:r3:"
       tabindex="-1"
@@ -316,21 +339,26 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
 <DocumentFragment>
   <div
     class="relative w-full"
+    data-headlessui-state=""
     data-testid="ChooseLineDropdown1"
     id="choose-line-combobox"
   >
     <input
+      aria-autocomplete="list"
       aria-expanded="false"
       class="input-element relative h-full w-full"
+      data-headlessui-state=""
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r2:"
       role="combobox"
       type="text"
+      value=""
     />
     <button
       aria-expanded="false"
-      aria-haspopup="true"
+      aria-haspopup="listbox"
       class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      data-headlessui-state=""
       data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-:r3:"
       tabindex="-1"

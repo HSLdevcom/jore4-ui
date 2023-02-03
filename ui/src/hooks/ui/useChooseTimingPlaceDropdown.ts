@@ -1,4 +1,6 @@
 import { gql } from '@apollo/client';
+import { useState } from 'react';
+import { useDebouncedString } from '..';
 import {
   TimingPlaceForComboboxFragment,
   useGetSelectedTimingPlaceDetailsByIdQuery,
@@ -41,9 +43,13 @@ export const useChooseTimingPlaceDropdown = (
   timingPlaces: TimingPlaceForComboboxFragment[];
   selectedTimingPlace?: TimingPlaceForComboboxFragment;
 } => {
+  const [debouncedQuery] = useDebouncedString(query, 300);
+
+  const [timingPlaces, setTimingPlaces] =
+    useState<TimingPlaceForComboboxFragment[]>(Array);
   const timingPlacesResult = useGetTimingPlacesForComboboxQuery(
     mapToVariables({
-      labelPattern: `${mapToSqlLikeValue(query)}%`,
+      labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%`,
     }),
   );
 
@@ -55,16 +61,28 @@ export const useChooseTimingPlaceDropdown = (
     variables: { timing_place_id: timingPlaceId! },
   });
 
+  if (
+    !timingPlacesResult.loading &&
+    timingPlacesResult.data?.timing_pattern_timing_place !== timingPlaces
+  ) {
+    setTimingPlaces(
+      timingPlacesResult.data
+        ?.timing_pattern_timing_place as TimingPlaceForComboboxFragment[],
+    );
+  }
+
   const selectedTimingPlace = selectedTimingPlaceResults.data
     ?.timing_pattern_timing_place_by_pk as
     | TimingPlaceForComboboxFragment
     | undefined;
 
-  const timingPlaces = (timingPlacesResult.data?.timing_pattern_timing_place ||
-    []) as TimingPlaceForComboboxFragment[];
+  // While fetching the selected timingplace, we can use the data from timingPlaces
+  const displayedSelectedTimingPlace = selectedTimingPlaceResults.loading
+    ? timingPlaces.find((tp) => tp.timing_place_id === timingPlaceId)
+    : selectedTimingPlace;
 
   return {
     timingPlaces,
-    selectedTimingPlace,
+    selectedTimingPlace: displayedSelectedTimingPlace,
   };
 };

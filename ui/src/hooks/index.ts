@@ -12,6 +12,7 @@ export * from './ui';
 export * from './urlQuery';
 export * from './useAsyncQuery';
 export * from './useCheckValidityAndPriorityConflicts';
+export * from './useDebouncedString';
 export * from './usePagination';
 export * from './useShowRoutesOnModal';
 export * from './useToggle';

@@ -16,6 +16,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
         aria-checked="false"
         aria-labelledby="headlessui-label-:r0:"
         class=" border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
+        data-headlessui-state=""
         data-testid="show-unused-stops-switch"
         id="headlessui-switch-:r1:"
         role="switch"
@@ -224,6 +225,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         aria-checked="false"
         aria-labelledby="headlessui-label-:r0:"
         class=" border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
+        data-headlessui-state=""
         data-testid="show-unused-stops-switch"
         id="headlessui-switch-:r1:"
         role="switch"
@@ -479,11 +481,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           <td>
             <div
               class="relative"
+              data-headlessui-state=""
             >
               <button
                 aria-expanded="false"
-                aria-haspopup="true"
+                aria-haspopup="menu"
                 class="mx-auto flex items-center px-3 focus:outline-none"
+                data-headlessui-state=""
                 data-testid="StopActionsDrowdown::menu"
                 id="headlessui-menu-button-:r2:"
                 type="button"
@@ -579,11 +583,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           <td>
             <div
               class="relative"
+              data-headlessui-state=""
             >
               <button
                 aria-expanded="false"
-                aria-haspopup="true"
+                aria-haspopup="menu"
                 class="mx-auto flex items-center px-3 focus:outline-none"
+                data-headlessui-state=""
                 data-testid="StopActionsDrowdown::menu"
                 id="headlessui-menu-button-:r3:"
                 type="button"
@@ -632,6 +638,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         aria-checked="true"
         aria-labelledby="headlessui-label-:r0:"
         class=" border-brand bg-brand relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
+        data-headlessui-state="checked"
         data-testid="show-unused-stops-switch"
         id="headlessui-switch-:r1:"
         role="switch"
@@ -887,11 +894,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           <td>
             <div
               class="relative"
+              data-headlessui-state=""
             >
               <button
                 aria-expanded="false"
-                aria-haspopup="true"
+                aria-haspopup="menu"
                 class="mx-auto flex items-center px-3 focus:outline-none"
+                data-headlessui-state=""
                 data-testid="StopActionsDrowdown::menu"
                 id="headlessui-menu-button-:r2:"
                 type="button"
@@ -987,11 +996,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           <td>
             <div
               class="relative"
+              data-headlessui-state=""
             >
               <button
                 aria-expanded="false"
-                aria-haspopup="true"
+                aria-haspopup="menu"
                 class="mx-auto flex items-center px-3 focus:outline-none"
+                data-headlessui-state=""
                 data-testid="StopActionsDrowdown::menu"
                 id="headlessui-menu-button-:r4:"
                 type="button"
@@ -1087,11 +1098,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           <td>
             <div
               class="relative"
+              data-headlessui-state=""
             >
               <button
                 aria-expanded="false"
-                aria-haspopup="true"
+                aria-haspopup="menu"
                 class="mx-auto flex items-center px-3 focus:outline-none"
+                data-headlessui-state=""
                 data-testid="StopActionsDrowdown::menu"
                 id="headlessui-menu-button-:r5:"
                 type="button"

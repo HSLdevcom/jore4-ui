@@ -43,13 +43,30 @@ export const Combobox = ({
   options,
   value,
   onChange,
-  onBlur,
+  onBlur: onBlurParent,
   onQueryChange,
-  nullable = false,
 }: Props): JSX.Element => {
   const onItemSelected = (val: string) => {
     const event: ComboboxEvent = { target: { value: val } };
     onChange(event);
+  };
+
+  /**
+   * HUI Combobox is somewhat weirldy implemented and clicking an option inside the combobox
+   * will trigger onBlur event which will cause a flickering inside the texts that are shown
+   * in the combobox. This is why we ant to prevent the default when selecting item from the
+   * options. Only if we really focus out (click outside the combobox) we want to trigger
+   * onBlur event.
+   */
+  // Not sure what is the type of the event. This is little bit of a hack, but could not
+  // think of a better solution.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onBlur = (e: any) => {
+    if (e.relatedTarget?.role === 'option') {
+      e.preventDefault();
+    } else if (onBlurParent) {
+      onBlurParent();
+    }
   };
 
   return (
@@ -61,7 +78,6 @@ export const Combobox = ({
       onChange={onItemSelected}
       onBlur={onBlur}
       data-testid={testId}
-      nullable={nullable}
     >
       {({ open }) => (
         <>

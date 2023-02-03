@@ -57,6 +57,7 @@ export const ChooseLineDropdown = ({
     <SearchableDropdown
       id="choose-line-combobox"
       testId={testId}
+      query={query}
       mapToButtonContent={mapToButtonContent}
       options={options}
       value={value}
