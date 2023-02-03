@@ -72,9 +72,19 @@ export class Map {
         })}`,
       );
       this.waitForLoadToComplete();
+      cy.wait([
+        '@gqlGetRoutesWithInfrastructureLinks',
+        '@gqlGetStopsByLocation',
+        '@gqlGetStopsByLocation',
+      ]);
       return;
     }
     cy.visit('/routes?mapOpen=true');
+    cy.wait([
+      '@gqlGetRoutesWithInfrastructureLinks',
+      '@gqlGetStopsByLocation',
+      '@gqlGetStopsByLocation',
+    ]);
     this.waitForLoadToComplete();
   }
 
