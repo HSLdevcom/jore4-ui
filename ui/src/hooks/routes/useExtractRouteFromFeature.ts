@@ -23,7 +23,7 @@ import {
   RouteInfraLink,
 } from '../../graphql';
 import { areValidityPeriodsOverlapping } from '../../time';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 import {
   mapGeoJSONtoFeature,
   relativeAlong,

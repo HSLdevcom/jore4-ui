@@ -5,7 +5,7 @@ import {
   ScheduledStopPointDefaultFieldsFragment,
 } from '../../generated/graphql';
 import { parseDate } from '../../time';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 
 enum AlertLevel {
   NoAlert,

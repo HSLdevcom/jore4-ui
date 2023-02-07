@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Column, Row } from '../../../../layoutComponents';
-import { Priority } from '../../../../types/Priority';
+import { Priority } from '../../../../types/enums';
 import { SimpleButton } from '../../../../uiComponents';
 
 type Props = {

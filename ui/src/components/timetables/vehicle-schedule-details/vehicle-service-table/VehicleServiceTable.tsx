@@ -8,7 +8,7 @@ import {
 import { parseI18nField } from '../../../../i18n/utils';
 import { Column, Row, Visible } from '../../../../layoutComponents';
 import { mapToShortDateTime } from '../../../../time';
-import { TimetablePriority } from '../../../../types/Priority';
+import { TimetablePriority } from '../../../../types/enums';
 import {
   VehicleServiceRowData,
   VehicleServiceTableRow,

@@ -11,7 +11,7 @@ import {
   useGetRoutesByValidityAsyncQuery,
   useGetStopsByValidityAsyncQuery,
 } from '../generated/graphql';
-import { Priority } from '../types/Priority';
+import { Priority } from '../types/enums';
 import { buildVariantGqlFilter } from '../utils';
 
 export interface CommonParams {

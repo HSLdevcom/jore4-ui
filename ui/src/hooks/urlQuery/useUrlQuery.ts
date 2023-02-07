@@ -11,7 +11,7 @@ import {
   RouteTypeOfLineEnum,
 } from '../../generated/graphql';
 import { parseDate } from '../../time';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 import { DisplayedSearchResultType } from '../../utils/enum';
 
 export enum QueryParameterName {

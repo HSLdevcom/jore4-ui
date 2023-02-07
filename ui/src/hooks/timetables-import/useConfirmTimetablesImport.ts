@@ -4,7 +4,7 @@ import {
   useChangeStagingVehicleScheduleFramePriorityMutation,
   useGetStagingVehicleScheduleFramesQuery,
 } from '../../generated/graphql';
-import { TimetablePriority } from '../../types/Priority';
+import { TimetablePriority } from '../../types/enums';
 import { mapToVariables } from '../../utils';
 
 const GQL_VEHICLE_SERVICES_FRAGMENT = gql`

@@ -7,7 +7,7 @@ import {
 } from '../../generated/graphql';
 import { mapRouteResultToRoutes } from '../../graphql';
 import { isDateInRange } from '../../time';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 import {
   buildPriorityEqualGqlFilter,
   buildRouteLineLabelGqlFilter,

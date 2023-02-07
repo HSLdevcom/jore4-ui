@@ -8,7 +8,7 @@ import {
   setShowStopFilterOverlayAction,
   setStopFilterAction,
 } from '../../redux';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 import {
   filterHighestPriorityCurrentStops,
   hasPriority,

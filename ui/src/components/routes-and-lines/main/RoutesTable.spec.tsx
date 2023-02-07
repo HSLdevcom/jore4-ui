@@ -4,7 +4,7 @@ import {
   RouteDirectionEnum,
   RouteTableRowFragment,
 } from '../../../generated/graphql';
-import { Priority } from '../../../types/Priority';
+import { Priority } from '../../../types/enums';
 import { render } from '../../../utils/test-utils';
 import { RouteLineTableRowVariant, RouteTableRow } from '../../common';
 import { LineTableRow } from '../../common/LineTableRow';

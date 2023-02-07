@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConfirmTimetablesImport } from '../../../hooks/timetables-import/useConfirmTimetablesImport';
-import { TimetablePriority } from '../../../types/Priority';
+import { TimetablePriority } from '../../../types/enums';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import {
   ConfirmTimetablesImportForm,

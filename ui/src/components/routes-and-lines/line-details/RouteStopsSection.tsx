@@ -8,7 +8,7 @@ import {
   useEditRouteJourneyPattern,
   useObservationDateQueryParam,
 } from '../../../hooks';
-import { Priority } from '../../../types/Priority';
+import { Priority } from '../../../types/enums';
 import {
   filterHighestPriorityCurrentStops,
   showDangerToast,

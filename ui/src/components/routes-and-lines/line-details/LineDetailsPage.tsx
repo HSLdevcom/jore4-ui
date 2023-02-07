@@ -17,7 +17,7 @@ import {
   selectIsViaModalOpen,
   setLineInfoAction,
 } from '../../../redux';
-import { Priority } from '../../../types/Priority';
+import { Priority } from '../../../types/enums';
 import { isPastEntity } from '../../../utils';
 import { PageHeader } from '../common/PageHeader';
 import { TimingSettingsModal } from '../stop-timing-settings/TimingSettingsModal';

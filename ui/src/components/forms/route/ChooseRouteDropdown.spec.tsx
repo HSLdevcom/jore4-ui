@@ -7,7 +7,7 @@ import {
   GetRouteDetailsByLabelWildcardQuery,
   RouteDirectionEnum,
 } from '../../../generated/graphql';
-import { Priority } from '../../../types/Priority';
+import { Priority } from '../../../types/enums';
 import { render, sleep } from '../../../utils/test-utils';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 

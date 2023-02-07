@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { RiDraftLine } from 'react-icons/ri';
 import { Maybe } from '../../generated/graphql';
 import { mapPriorityToUiName } from '../../i18n/uiNameMappings';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 import { mapToValidityPeriod } from '../../utils';
 
 export const PriorityBadge = ({

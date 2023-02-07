@@ -5,7 +5,7 @@ import {
   RouteTypeOfLineEnum,
 } from '../generated/graphql';
 import { i18n } from '../i18n';
-import { Priority } from '../types/Priority';
+import { Priority } from '../types/enums';
 import { RouteDirection } from '../types/RouteDirection';
 import { AllOptionEnum } from '../utils';
 
