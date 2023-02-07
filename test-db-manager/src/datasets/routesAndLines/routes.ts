@@ -5,6 +5,7 @@ import {
   RouteInfrastructureLinkAlongRouteInsertInput,
   RouteRouteInsertInput,
 } from '../../generated/graphql';
+import { Priority } from '../../types';
 import { infrastructureLinks } from './infrastructureLinks';
 import { lines } from './lines';
 
@@ -14,7 +15,7 @@ export const routes: RouteRouteInsertInput[] = [
     route_id: '61bef596-84a0-40ea-b818-423d6b9b1fcf',
     on_line_id: lines[0].line_id,
     direction: RouteDirectionEnum.Northbound,
-    priority: 10,
+    priority: Priority.Standard,
     validity_start: DateTime.fromISO('2044-05-02 23:11:32Z'),
     validity_end: null,
   },
@@ -23,7 +24,7 @@ export const routes: RouteRouteInsertInput[] = [
     route_id: '91994146-0569-44be-b2f1-da3c073d416c',
     on_line_id: lines[1].line_id,
     direction: RouteDirectionEnum.Southbound,
-    priority: 20,
+    priority: Priority.Temporary,
     validity_start: DateTime.fromISO('2044-06-02 23:11:32Z'),
     validity_end: DateTime.fromISO('2045-04-02 23:11:32Z'),
   },

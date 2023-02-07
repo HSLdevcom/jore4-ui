@@ -21,7 +21,7 @@ describe(`<${RoutesTable.name} />`, () => {
       ...buildRoute({ label: '1' }),
       route_id: route1Id,
       on_line_id: lineId,
-      priority: 10,
+      priority: Priority.Standard,
       direction: RouteDirectionEnum.Outbound,
       route_journey_patterns: [],
     },
