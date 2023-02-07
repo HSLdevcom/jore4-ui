@@ -27,6 +27,8 @@ const testIds = {
   lastEdited: 'RouteStopsHeaderRow::lastEdited',
   showRouteButton: 'RouteStopsHeaderRow::showRouteButton',
   toggleAccordion: 'RouteStopsHeaderRow::toggleAccordion',
+  editRouteButton: (routeName?: string) =>
+    `RouteStopsHeaderRow::editRouteButton::${routeName}`,
 };
 
 interface Props {
@@ -80,7 +82,7 @@ export const RouteStopsHeaderRow = ({
               route.route_id,
               observationDate.toISODate(),
             )}
-            testId="edit-route-button"
+            testId={testIds.editRouteButton(route.name_i18n?.fi_FI)}
           />
         </Row>
       </td>

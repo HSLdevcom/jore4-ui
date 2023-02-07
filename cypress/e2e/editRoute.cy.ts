@@ -18,6 +18,7 @@ import { insertToDbHelper, removeFromDbHelper } from '../utils';
 const routeFormTestInputs = {
   finnishName: 'Muokattu reitin nimi',
   label: 'Muokattu label',
+  hiddenVariant: '9191',
   direction: RouteDirectionEnum.Outbound,
 };
 
@@ -88,6 +89,7 @@ describe('Route meta information editing', () => {
   });
 
   it("Edits a routes's information", () => {
+    // Edit the route's information
     editRoutePage.routePropertiesForm.fillRouteProperties(routeFormTestInputs);
     editRoutePage.terminusNamesInputs.fillTerminusNameInputsForm(
       originTestInputs,
@@ -100,6 +102,7 @@ describe('Route meta information editing', () => {
 
     editRoutePage.getSaveRouteButton().click();
 
+    // Verify information after transitioning to the line details page
     lineDetailsPage.routeStopsTable
       .getRouteName()
       .should('contain', routeFormTestInputs.finnishName);
@@ -113,7 +116,11 @@ describe('Route meta information editing', () => {
       .getRouteValidityPeriod(routeFormTestInputs.label)
       .should('contain', '1.1.2022 - 31.12.2030');
 
+    // Verfify rest of the information from the edit route page
     editRoutePage.visit(routes[0].route_id);
+    editRoutePage.routePropertiesForm
+      .getHiddenVariantInput()
+      .should('have.value', '9191');
     editRoutePage.terminusNamesInputs.verifyOriginValues(originTestInputs);
     editRoutePage.terminusNamesInputs.verifyDestinationValues(
       destinationTestInputs,

@@ -16,6 +16,7 @@ export interface RouteFormInfo
     PriorityFormInfo {
   finnishName?: string;
   label?: string;
+  hiddenVariant?: string;
   direction?: RouteDirectionEnum;
   line?: string;
   templateRoute?: {
@@ -80,6 +81,9 @@ export class RoutePropertiesForm {
     if (values.label) {
       this.getLabelInput().clear().type(values.label);
     }
+    if (values.hiddenVariant) {
+      this.getHiddenVariantInput().clear().type(values.hiddenVariant);
+    }
     if (values.direction) {
       this.selectDirection(values.direction);
     }
@@ -113,5 +117,9 @@ export class RoutePropertiesForm {
     }
 
     this.changeValidityForm.fillForm(values);
+  }
+
+  getHiddenVariantInput() {
+    return cy.getByTestId('RoutePropertiesFormComponent::variant');
   }
 }
