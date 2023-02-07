@@ -21,6 +21,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  _uuid: any;
   date: luxon.DateTime;
   float8: number;
   geography: GeoJSON.Geometry;
@@ -186,6 +187,260 @@ export type GeometryComparisonExp = {
   _st_touches?: InputMaybe<Scalars['geometry']>;
   /** is the column contained in the given geometry value */
   _st_within?: InputMaybe<Scalars['geometry']>;
+};
+
+/** Legacy, avoid using. Main use nowadays is to enable support for eg. data exports that still need this. Originally this was used to represent the primary region for routes/lines. */
+export type HslRouteLegacyHslMunicipalityCode = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code';
+  hsl_municipality: Scalars['String'];
+  jore3_code: Scalars['smallint'];
+  /** An array relationship */
+  lines: Array<RouteLine>;
+  /** An aggregate relationship */
+  lines_aggregate: RouteLineAggregate;
+  /** An array relationship */
+  routes: Array<RouteRoute>;
+  /** An aggregate relationship */
+  routes_aggregate: RouteRouteAggregate;
+};
+
+/** Legacy, avoid using. Main use nowadays is to enable support for eg. data exports that still need this. Originally this was used to represent the primary region for routes/lines. */
+export type HslRouteLegacyHslMunicipalityCodeLinesArgs = {
+  distinct_on?: InputMaybe<Array<RouteLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteLineOrderBy>>;
+  where?: InputMaybe<RouteLineBoolExp>;
+};
+
+/** Legacy, avoid using. Main use nowadays is to enable support for eg. data exports that still need this. Originally this was used to represent the primary region for routes/lines. */
+export type HslRouteLegacyHslMunicipalityCodeLinesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<RouteLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteLineOrderBy>>;
+  where?: InputMaybe<RouteLineBoolExp>;
+};
+
+/** Legacy, avoid using. Main use nowadays is to enable support for eg. data exports that still need this. Originally this was used to represent the primary region for routes/lines. */
+export type HslRouteLegacyHslMunicipalityCodeRoutesArgs = {
+  distinct_on?: InputMaybe<Array<RouteRouteSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteRouteOrderBy>>;
+  where?: InputMaybe<RouteRouteBoolExp>;
+};
+
+/** Legacy, avoid using. Main use nowadays is to enable support for eg. data exports that still need this. Originally this was used to represent the primary region for routes/lines. */
+export type HslRouteLegacyHslMunicipalityCodeRoutesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<RouteRouteSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<RouteRouteOrderBy>>;
+  where?: InputMaybe<RouteRouteBoolExp>;
+};
+
+/** aggregated selection of "hsl_route.legacy_hsl_municipality_code" */
+export type HslRouteLegacyHslMunicipalityCodeAggregate = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_aggregate';
+  aggregate?: Maybe<HslRouteLegacyHslMunicipalityCodeAggregateFields>;
+  nodes: Array<HslRouteLegacyHslMunicipalityCode>;
+};
+
+/** aggregate fields of "hsl_route.legacy_hsl_municipality_code" */
+export type HslRouteLegacyHslMunicipalityCodeAggregateFields = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_aggregate_fields';
+  avg?: Maybe<HslRouteLegacyHslMunicipalityCodeAvgFields>;
+  count: Scalars['Int'];
+  max?: Maybe<HslRouteLegacyHslMunicipalityCodeMaxFields>;
+  min?: Maybe<HslRouteLegacyHslMunicipalityCodeMinFields>;
+  stddev?: Maybe<HslRouteLegacyHslMunicipalityCodeStddevFields>;
+  stddev_pop?: Maybe<HslRouteLegacyHslMunicipalityCodeStddevPopFields>;
+  stddev_samp?: Maybe<HslRouteLegacyHslMunicipalityCodeStddevSampFields>;
+  sum?: Maybe<HslRouteLegacyHslMunicipalityCodeSumFields>;
+  var_pop?: Maybe<HslRouteLegacyHslMunicipalityCodeVarPopFields>;
+  var_samp?: Maybe<HslRouteLegacyHslMunicipalityCodeVarSampFields>;
+  variance?: Maybe<HslRouteLegacyHslMunicipalityCodeVarianceFields>;
+};
+
+/** aggregate fields of "hsl_route.legacy_hsl_municipality_code" */
+export type HslRouteLegacyHslMunicipalityCodeAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<HslRouteLegacyHslMunicipalityCodeSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type HslRouteLegacyHslMunicipalityCodeAvgFields = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_avg_fields';
+  jore3_code?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "hsl_route.legacy_hsl_municipality_code". All fields are combined with a logical 'AND'. */
+export type HslRouteLegacyHslMunicipalityCodeBoolExp = {
+  _and?: InputMaybe<Array<HslRouteLegacyHslMunicipalityCodeBoolExp>>;
+  _not?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
+  _or?: InputMaybe<Array<HslRouteLegacyHslMunicipalityCodeBoolExp>>;
+  hsl_municipality?: InputMaybe<StringComparisonExp>;
+  jore3_code?: InputMaybe<SmallintComparisonExp>;
+  lines?: InputMaybe<RouteLineBoolExp>;
+  lines_aggregate?: InputMaybe<RouteLineAggregateBoolExp>;
+  routes?: InputMaybe<RouteRouteBoolExp>;
+  routes_aggregate?: InputMaybe<RouteRouteAggregateBoolExp>;
+};
+
+/** unique or primary key constraints on table "hsl_route.legacy_hsl_municipality_code" */
+export enum HslRouteLegacyHslMunicipalityCodeConstraint {
+  /** unique or primary key constraint on columns "hsl_municipality" */
+  LegacyHslMunicipalityCodePkey = 'legacy_hsl_municipality_code_pkey',
+}
+
+/** input type for incrementing numeric columns in table "hsl_route.legacy_hsl_municipality_code" */
+export type HslRouteLegacyHslMunicipalityCodeIncInput = {
+  jore3_code?: InputMaybe<Scalars['smallint']>;
+};
+
+/** input type for inserting data into table "hsl_route.legacy_hsl_municipality_code" */
+export type HslRouteLegacyHslMunicipalityCodeInsertInput = {
+  hsl_municipality?: InputMaybe<Scalars['String']>;
+  jore3_code?: InputMaybe<Scalars['smallint']>;
+  lines?: InputMaybe<RouteLineArrRelInsertInput>;
+  routes?: InputMaybe<RouteRouteArrRelInsertInput>;
+};
+
+/** aggregate max on columns */
+export type HslRouteLegacyHslMunicipalityCodeMaxFields = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_max_fields';
+  hsl_municipality?: Maybe<Scalars['String']>;
+  jore3_code?: Maybe<Scalars['smallint']>;
+};
+
+/** aggregate min on columns */
+export type HslRouteLegacyHslMunicipalityCodeMinFields = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_min_fields';
+  hsl_municipality?: Maybe<Scalars['String']>;
+  jore3_code?: Maybe<Scalars['smallint']>;
+};
+
+/** response of any mutation on the table "hsl_route.legacy_hsl_municipality_code" */
+export type HslRouteLegacyHslMunicipalityCodeMutationResponse = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<HslRouteLegacyHslMunicipalityCode>;
+};
+
+/** input type for inserting object relation for remote table "hsl_route.legacy_hsl_municipality_code" */
+export type HslRouteLegacyHslMunicipalityCodeObjRelInsertInput = {
+  data: HslRouteLegacyHslMunicipalityCodeInsertInput;
+  /** upsert condition */
+  on_conflict?: InputMaybe<HslRouteLegacyHslMunicipalityCodeOnConflict>;
+};
+
+/** on_conflict condition type for table "hsl_route.legacy_hsl_municipality_code" */
+export type HslRouteLegacyHslMunicipalityCodeOnConflict = {
+  constraint: HslRouteLegacyHslMunicipalityCodeConstraint;
+  update_columns?: Array<HslRouteLegacyHslMunicipalityCodeUpdateColumn>;
+  where?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
+};
+
+/** Ordering options when selecting data from "hsl_route.legacy_hsl_municipality_code". */
+export type HslRouteLegacyHslMunicipalityCodeOrderBy = {
+  hsl_municipality?: InputMaybe<OrderBy>;
+  jore3_code?: InputMaybe<OrderBy>;
+  lines_aggregate?: InputMaybe<RouteLineAggregateOrderBy>;
+  routes_aggregate?: InputMaybe<RouteRouteAggregateOrderBy>;
+};
+
+/** primary key columns input for table: hsl_route.legacy_hsl_municipality_code */
+export type HslRouteLegacyHslMunicipalityCodePkColumnsInput = {
+  hsl_municipality: Scalars['String'];
+};
+
+/** select columns of table "hsl_route.legacy_hsl_municipality_code" */
+export enum HslRouteLegacyHslMunicipalityCodeSelectColumn {
+  /** column name */
+  HslMunicipality = 'hsl_municipality',
+  /** column name */
+  Jore3Code = 'jore3_code',
+}
+
+/** input type for updating data in table "hsl_route.legacy_hsl_municipality_code" */
+export type HslRouteLegacyHslMunicipalityCodeSetInput = {
+  hsl_municipality?: InputMaybe<Scalars['String']>;
+  jore3_code?: InputMaybe<Scalars['smallint']>;
+};
+
+/** aggregate stddev on columns */
+export type HslRouteLegacyHslMunicipalityCodeStddevFields = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_stddev_fields';
+  jore3_code?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type HslRouteLegacyHslMunicipalityCodeStddevPopFields = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_stddev_pop_fields';
+  jore3_code?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type HslRouteLegacyHslMunicipalityCodeStddevSampFields = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_stddev_samp_fields';
+  jore3_code?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "hsl_route_legacy_hsl_municipality_code" */
+export type HslRouteLegacyHslMunicipalityCodeStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: HslRouteLegacyHslMunicipalityCodeStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type HslRouteLegacyHslMunicipalityCodeStreamCursorValueInput = {
+  hsl_municipality?: InputMaybe<Scalars['String']>;
+  jore3_code?: InputMaybe<Scalars['smallint']>;
+};
+
+/** aggregate sum on columns */
+export type HslRouteLegacyHslMunicipalityCodeSumFields = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_sum_fields';
+  jore3_code?: Maybe<Scalars['smallint']>;
+};
+
+/** update columns of table "hsl_route.legacy_hsl_municipality_code" */
+export enum HslRouteLegacyHslMunicipalityCodeUpdateColumn {
+  /** column name */
+  HslMunicipality = 'hsl_municipality',
+  /** column name */
+  Jore3Code = 'jore3_code',
+}
+
+export type HslRouteLegacyHslMunicipalityCodeUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<HslRouteLegacyHslMunicipalityCodeIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<HslRouteLegacyHslMunicipalityCodeSetInput>;
+  where: HslRouteLegacyHslMunicipalityCodeBoolExp;
+};
+
+/** aggregate var_pop on columns */
+export type HslRouteLegacyHslMunicipalityCodeVarPopFields = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_var_pop_fields';
+  jore3_code?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type HslRouteLegacyHslMunicipalityCodeVarSampFields = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_var_samp_fields';
+  jore3_code?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type HslRouteLegacyHslMunicipalityCodeVarianceFields = {
+  __typename?: 'hsl_route_legacy_hsl_municipality_code_variance_fields';
+  jore3_code?: Maybe<Scalars['Float']>;
 };
 
 /** Transport target, can be used e.g. for cost sharing. */
@@ -2458,6 +2713,10 @@ export type JsonbComparisonExp = {
 /** mutation root */
 export type MutationRoot = {
   __typename?: 'mutation_root';
+  /** delete data from the table: "hsl_route.legacy_hsl_municipality_code" */
+  delete_hsl_route_legacy_hsl_municipality_code?: Maybe<HslRouteLegacyHslMunicipalityCodeMutationResponse>;
+  /** delete single row from the table: "hsl_route.legacy_hsl_municipality_code" */
+  delete_hsl_route_legacy_hsl_municipality_code_by_pk?: Maybe<HslRouteLegacyHslMunicipalityCode>;
   /** delete data from the table: "hsl_route.transport_target" */
   delete_hsl_route_transport_target?: Maybe<HslRouteTransportTargetMutationResponse>;
   /** delete single row from the table: "hsl_route.transport_target" */
@@ -2514,6 +2773,10 @@ export type MutationRoot = {
   delete_route_type_of_line?: Maybe<RouteTypeOfLineMutationResponse>;
   /** delete single row from the table: "route.type_of_line" */
   delete_route_type_of_line_by_pk?: Maybe<RouteTypeOfLine>;
+  /** delete data from the table: "service_pattern.distance_between_stops_calculation" */
+  delete_service_pattern_distance_between_stops_calculation?: Maybe<ServicePatternDistanceBetweenStopsCalculationMutationResponse>;
+  /** delete single row from the table: "service_pattern.distance_between_stops_calculation" */
+  delete_service_pattern_distance_between_stops_calculation_by_pk?: Maybe<ServicePatternDistanceBetweenStopsCalculation>;
   /** delete data from the table: "service_pattern.scheduled_stop_point" */
   delete_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** delete single row from the table: "service_pattern.scheduled_stop_point" */
@@ -2526,6 +2789,10 @@ export type MutationRoot = {
   delete_timing_pattern_timing_place?: Maybe<TimingPatternTimingPlaceMutationResponse>;
   /** delete single row from the table: "timing_pattern.timing_place" */
   delete_timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
+  /** insert data into the table: "hsl_route.legacy_hsl_municipality_code" */
+  insert_hsl_route_legacy_hsl_municipality_code?: Maybe<HslRouteLegacyHslMunicipalityCodeMutationResponse>;
+  /** insert a single row into the table: "hsl_route.legacy_hsl_municipality_code" */
+  insert_hsl_route_legacy_hsl_municipality_code_one?: Maybe<HslRouteLegacyHslMunicipalityCode>;
   /** insert data into the table: "hsl_route.transport_target" */
   insert_hsl_route_transport_target?: Maybe<HslRouteTransportTargetMutationResponse>;
   /** insert a single row into the table: "hsl_route.transport_target" */
@@ -2582,6 +2849,10 @@ export type MutationRoot = {
   insert_route_type_of_line?: Maybe<RouteTypeOfLineMutationResponse>;
   /** insert a single row into the table: "route.type_of_line" */
   insert_route_type_of_line_one?: Maybe<RouteTypeOfLine>;
+  /** insert data into the table: "service_pattern.distance_between_stops_calculation" */
+  insert_service_pattern_distance_between_stops_calculation?: Maybe<ServicePatternDistanceBetweenStopsCalculationMutationResponse>;
+  /** insert a single row into the table: "service_pattern.distance_between_stops_calculation" */
+  insert_service_pattern_distance_between_stops_calculation_one?: Maybe<ServicePatternDistanceBetweenStopsCalculation>;
   /** insert data into the table: "service_pattern.scheduled_stop_point" */
   insert_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** insert a single row into the table: "service_pattern.scheduled_stop_point" */
@@ -2595,6 +2866,14 @@ export type MutationRoot = {
   /** insert a single row into the table: "timing_pattern.timing_place" */
   insert_timing_pattern_timing_place_one?: Maybe<TimingPatternTimingPlace>;
   timetables?: Maybe<TimetablesTimetablesMutationFrontend>;
+  /** update data of the table: "hsl_route.legacy_hsl_municipality_code" */
+  update_hsl_route_legacy_hsl_municipality_code?: Maybe<HslRouteLegacyHslMunicipalityCodeMutationResponse>;
+  /** update single row of the table: "hsl_route.legacy_hsl_municipality_code" */
+  update_hsl_route_legacy_hsl_municipality_code_by_pk?: Maybe<HslRouteLegacyHslMunicipalityCode>;
+  /** update multiples rows of table: "hsl_route.legacy_hsl_municipality_code" */
+  update_hsl_route_legacy_hsl_municipality_code_many?: Maybe<
+    Array<Maybe<HslRouteLegacyHslMunicipalityCodeMutationResponse>>
+  >;
   /** update data of the table: "hsl_route.transport_target" */
   update_hsl_route_transport_target?: Maybe<HslRouteTransportTargetMutationResponse>;
   /** update single row of the table: "hsl_route.transport_target" */
@@ -2707,6 +2986,14 @@ export type MutationRoot = {
   update_route_type_of_line_many?: Maybe<
     Array<Maybe<RouteTypeOfLineMutationResponse>>
   >;
+  /** update data of the table: "service_pattern.distance_between_stops_calculation" */
+  update_service_pattern_distance_between_stops_calculation?: Maybe<ServicePatternDistanceBetweenStopsCalculationMutationResponse>;
+  /** update single row of the table: "service_pattern.distance_between_stops_calculation" */
+  update_service_pattern_distance_between_stops_calculation_by_pk?: Maybe<ServicePatternDistanceBetweenStopsCalculation>;
+  /** update multiples rows of table: "service_pattern.distance_between_stops_calculation" */
+  update_service_pattern_distance_between_stops_calculation_many?: Maybe<
+    Array<Maybe<ServicePatternDistanceBetweenStopsCalculationMutationResponse>>
+  >;
   /** update data of the table: "service_pattern.scheduled_stop_point" */
   update_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** update single row of the table: "service_pattern.scheduled_stop_point" */
@@ -2731,6 +3018,16 @@ export type MutationRoot = {
   update_timing_pattern_timing_place_many?: Maybe<
     Array<Maybe<TimingPatternTimingPlaceMutationResponse>>
   >;
+};
+
+/** mutation root */
+export type MutationRootDeleteHslRouteLegacyHslMunicipalityCodeArgs = {
+  where: HslRouteLegacyHslMunicipalityCodeBoolExp;
+};
+
+/** mutation root */
+export type MutationRootDeleteHslRouteLegacyHslMunicipalityCodeByPkArgs = {
+  hsl_municipality: Scalars['String'];
 };
 
 /** mutation root */
@@ -2882,6 +3179,21 @@ export type MutationRootDeleteRouteTypeOfLineByPkArgs = {
 };
 
 /** mutation root */
+export type MutationRootDeleteServicePatternDistanceBetweenStopsCalculationArgs =
+  {
+    where: ServicePatternDistanceBetweenStopsCalculationBoolExp;
+  };
+
+/** mutation root */
+export type MutationRootDeleteServicePatternDistanceBetweenStopsCalculationByPkArgs =
+  {
+    journey_pattern_id: Scalars['uuid'];
+    observation_date: Scalars['date'];
+    route_priority: Scalars['Int'];
+    stop_interval_sequence: Scalars['Int'];
+  };
+
+/** mutation root */
 export type MutationRootDeleteServicePatternScheduledStopPointArgs = {
   where: ServicePatternScheduledStopPointBoolExp;
 };
@@ -2912,6 +3224,18 @@ export type MutationRootDeleteTimingPatternTimingPlaceArgs = {
 /** mutation root */
 export type MutationRootDeleteTimingPatternTimingPlaceByPkArgs = {
   timing_place_id: Scalars['uuid'];
+};
+
+/** mutation root */
+export type MutationRootInsertHslRouteLegacyHslMunicipalityCodeArgs = {
+  objects: Array<HslRouteLegacyHslMunicipalityCodeInsertInput>;
+  on_conflict?: InputMaybe<HslRouteLegacyHslMunicipalityCodeOnConflict>;
+};
+
+/** mutation root */
+export type MutationRootInsertHslRouteLegacyHslMunicipalityCodeOneArgs = {
+  object: HslRouteLegacyHslMunicipalityCodeInsertInput;
+  on_conflict?: InputMaybe<HslRouteLegacyHslMunicipalityCodeOnConflict>;
 };
 
 /** mutation root */
@@ -3087,6 +3411,20 @@ export type MutationRootInsertRouteTypeOfLineOneArgs = {
 };
 
 /** mutation root */
+export type MutationRootInsertServicePatternDistanceBetweenStopsCalculationArgs =
+  {
+    objects: Array<ServicePatternDistanceBetweenStopsCalculationInsertInput>;
+    on_conflict?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationOnConflict>;
+  };
+
+/** mutation root */
+export type MutationRootInsertServicePatternDistanceBetweenStopsCalculationOneArgs =
+  {
+    object: ServicePatternDistanceBetweenStopsCalculationInsertInput;
+    on_conflict?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationOnConflict>;
+  };
+
+/** mutation root */
 export type MutationRootInsertServicePatternScheduledStopPointArgs = {
   objects: Array<ServicePatternScheduledStopPointInsertInput>;
   on_conflict?: InputMaybe<ServicePatternScheduledStopPointOnConflict>;
@@ -3122,6 +3460,25 @@ export type MutationRootInsertTimingPatternTimingPlaceArgs = {
 export type MutationRootInsertTimingPatternTimingPlaceOneArgs = {
   object: TimingPatternTimingPlaceInsertInput;
   on_conflict?: InputMaybe<TimingPatternTimingPlaceOnConflict>;
+};
+
+/** mutation root */
+export type MutationRootUpdateHslRouteLegacyHslMunicipalityCodeArgs = {
+  _inc?: InputMaybe<HslRouteLegacyHslMunicipalityCodeIncInput>;
+  _set?: InputMaybe<HslRouteLegacyHslMunicipalityCodeSetInput>;
+  where: HslRouteLegacyHslMunicipalityCodeBoolExp;
+};
+
+/** mutation root */
+export type MutationRootUpdateHslRouteLegacyHslMunicipalityCodeByPkArgs = {
+  _inc?: InputMaybe<HslRouteLegacyHslMunicipalityCodeIncInput>;
+  _set?: InputMaybe<HslRouteLegacyHslMunicipalityCodeSetInput>;
+  pk_columns: HslRouteLegacyHslMunicipalityCodePkColumnsInput;
+};
+
+/** mutation root */
+export type MutationRootUpdateHslRouteLegacyHslMunicipalityCodeManyArgs = {
+  updates: Array<HslRouteLegacyHslMunicipalityCodeUpdates>;
 };
 
 /** mutation root */
@@ -3411,6 +3768,28 @@ export type MutationRootUpdateRouteTypeOfLineManyArgs = {
 };
 
 /** mutation root */
+export type MutationRootUpdateServicePatternDistanceBetweenStopsCalculationArgs =
+  {
+    _inc?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationIncInput>;
+    _set?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationSetInput>;
+    where: ServicePatternDistanceBetweenStopsCalculationBoolExp;
+  };
+
+/** mutation root */
+export type MutationRootUpdateServicePatternDistanceBetweenStopsCalculationByPkArgs =
+  {
+    _inc?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationIncInput>;
+    _set?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationSetInput>;
+    pk_columns: ServicePatternDistanceBetweenStopsCalculationPkColumnsInput;
+  };
+
+/** mutation root */
+export type MutationRootUpdateServicePatternDistanceBetweenStopsCalculationManyArgs =
+  {
+    updates: Array<ServicePatternDistanceBetweenStopsCalculationUpdates>;
+  };
+
+/** mutation root */
 export type MutationRootUpdateServicePatternScheduledStopPointArgs = {
   _inc?: InputMaybe<ServicePatternScheduledStopPointIncInput>;
   _set?: InputMaybe<ServicePatternScheduledStopPointSetInput>;
@@ -3507,6 +3886,12 @@ export type PassingTimesTimetabledPassingTimeAggregateBoolExpCount = {
 
 export type QueryRoot = {
   __typename?: 'query_root';
+  /** fetch data from the table: "hsl_route.legacy_hsl_municipality_code" */
+  hsl_route_legacy_hsl_municipality_code: Array<HslRouteLegacyHslMunicipalityCode>;
+  /** fetch aggregated fields from the table: "hsl_route.legacy_hsl_municipality_code" */
+  hsl_route_legacy_hsl_municipality_code_aggregate: HslRouteLegacyHslMunicipalityCodeAggregate;
+  /** fetch data from the table: "hsl_route.legacy_hsl_municipality_code" using primary key columns */
+  hsl_route_legacy_hsl_municipality_code_by_pk?: Maybe<HslRouteLegacyHslMunicipalityCode>;
   /** fetch data from the table: "hsl_route.transport_target" */
   hsl_route_transport_target: Array<HslRouteTransportTarget>;
   /** fetch aggregated fields from the table: "hsl_route.transport_target" */
@@ -3603,6 +3988,20 @@ export type QueryRoot = {
   route_type_of_line_aggregate: RouteTypeOfLineAggregate;
   /** fetch data from the table: "route.type_of_line" using primary key columns */
   route_type_of_line_by_pk?: Maybe<RouteTypeOfLine>;
+  /** fetch data from the table: "service_pattern.distance_between_stops_calculation" */
+  service_pattern_distance_between_stops_calculation: Array<ServicePatternDistanceBetweenStopsCalculation>;
+  /** fetch aggregated fields from the table: "service_pattern.distance_between_stops_calculation" */
+  service_pattern_distance_between_stops_calculation_aggregate: ServicePatternDistanceBetweenStopsCalculationAggregate;
+  /** fetch data from the table: "service_pattern.distance_between_stops_calculation" using primary key columns */
+  service_pattern_distance_between_stops_calculation_by_pk?: Maybe<ServicePatternDistanceBetweenStopsCalculation>;
+  /** execute function "service_pattern.get_distances_between_stop_points_by_routes" which returns "service_pattern.distance_between_stops_calculation" */
+  service_pattern_get_distances_between_stop_points_by_routes: Array<ServicePatternDistanceBetweenStopsCalculation>;
+  /** execute function "service_pattern.get_distances_between_stop_points_by_routes" and query aggregates on result of table type "service_pattern.distance_between_stops_calculation" */
+  service_pattern_get_distances_between_stop_points_by_routes_aggregate: ServicePatternDistanceBetweenStopsCalculationAggregate;
+  /** execute function "service_pattern.get_distances_between_stop_points_in_journey_patterns" which returns "service_pattern.distance_between_stops_calculation" */
+  service_pattern_get_distances_between_stop_points_in_journey_patterns: Array<ServicePatternDistanceBetweenStopsCalculation>;
+  /** execute function "service_pattern.get_distances_between_stop_points_in_journey_patterns" and query aggregates on result of table type "service_pattern.distance_between_stops_calculation" */
+  service_pattern_get_distances_between_stop_points_in_journey_patterns_aggregate: ServicePatternDistanceBetweenStopsCalculationAggregate;
   /** fetch data from the table: "service_pattern.scheduled_stop_point" */
   service_pattern_scheduled_stop_point: Array<ServicePatternScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point" */
@@ -3622,6 +4021,30 @@ export type QueryRoot = {
   timing_pattern_timing_place_aggregate: TimingPatternTimingPlaceAggregate;
   /** fetch data from the table: "timing_pattern.timing_place" using primary key columns */
   timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
+};
+
+export type QueryRootHslRouteLegacyHslMunicipalityCodeArgs = {
+  distinct_on?: InputMaybe<
+    Array<HslRouteLegacyHslMunicipalityCodeSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<HslRouteLegacyHslMunicipalityCodeOrderBy>>;
+  where?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
+};
+
+export type QueryRootHslRouteLegacyHslMunicipalityCodeAggregateArgs = {
+  distinct_on?: InputMaybe<
+    Array<HslRouteLegacyHslMunicipalityCodeSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<HslRouteLegacyHslMunicipalityCodeOrderBy>>;
+  where?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
+};
+
+export type QueryRootHslRouteLegacyHslMunicipalityCodeByPkArgs = {
+  hsl_municipality: Scalars['String'];
 };
 
 export type QueryRootHslRouteTransportTargetArgs = {
@@ -4003,6 +4426,93 @@ export type QueryRootRouteTypeOfLineAggregateArgs = {
 export type QueryRootRouteTypeOfLineByPkArgs = {
   type_of_line: Scalars['String'];
 };
+
+export type QueryRootServicePatternDistanceBetweenStopsCalculationArgs = {
+  distinct_on?: InputMaybe<
+    Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<
+    Array<ServicePatternDistanceBetweenStopsCalculationOrderBy>
+  >;
+  where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+};
+
+export type QueryRootServicePatternDistanceBetweenStopsCalculationAggregateArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationOrderBy>
+    >;
+    where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+  };
+
+export type QueryRootServicePatternDistanceBetweenStopsCalculationByPkArgs = {
+  journey_pattern_id: Scalars['uuid'];
+  observation_date: Scalars['date'];
+  route_priority: Scalars['Int'];
+  stop_interval_sequence: Scalars['Int'];
+};
+
+export type QueryRootServicePatternGetDistancesBetweenStopPointsByRoutesArgs = {
+  args: ServicePatternGetDistancesBetweenStopPointsByRoutesArgs;
+  distinct_on?: InputMaybe<
+    Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<
+    Array<ServicePatternDistanceBetweenStopsCalculationOrderBy>
+  >;
+  where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+};
+
+export type QueryRootServicePatternGetDistancesBetweenStopPointsByRoutesAggregateArgs =
+  {
+    args: ServicePatternGetDistancesBetweenStopPointsByRoutesArgs;
+    distinct_on?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationOrderBy>
+    >;
+    where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+  };
+
+export type QueryRootServicePatternGetDistancesBetweenStopPointsInJourneyPatternsArgs =
+  {
+    args: ServicePatternGetDistancesBetweenStopPointsInJourneyPatternsArgs;
+    distinct_on?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationOrderBy>
+    >;
+    where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+  };
+
+export type QueryRootServicePatternGetDistancesBetweenStopPointsInJourneyPatternsAggregateArgs =
+  {
+    args: ServicePatternGetDistancesBetweenStopPointsInJourneyPatternsArgs;
+    distinct_on?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationOrderBy>
+    >;
+    where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+  };
 
 export type QueryRootServicePatternScheduledStopPointArgs = {
   distinct_on?: InputMaybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
@@ -5135,6 +5645,10 @@ export type RouteLine = {
   __typename?: 'route_line';
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label: Scalars['String'];
+  /** An object relationship */
+  legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: Maybe<HslRouteLegacyHslMunicipalityCode>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: Maybe<Scalars['String']>;
   /** The ID of the line. */
   line_id: Scalars['uuid'];
   /** An array relationship */
@@ -5281,6 +5795,8 @@ export type RouteLineBoolExp = {
   _not?: InputMaybe<RouteLineBoolExp>;
   _or?: InputMaybe<Array<RouteLineBoolExp>>;
   label?: InputMaybe<StringComparisonExp>;
+  legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
+  legacy_hsl_municipality_code?: InputMaybe<StringComparisonExp>;
   line_id?: InputMaybe<UuidComparisonExp>;
   line_routes?: InputMaybe<RouteRouteBoolExp>;
   line_routes_aggregate?: InputMaybe<RouteRouteAggregateBoolExp>;
@@ -5337,6 +5853,9 @@ export type RouteLineIncInput = {
 export type RouteLineInsertInput = {
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: InputMaybe<Scalars['String']>;
+  legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeObjRelInsertInput>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: InputMaybe<Scalars['String']>;
   /** The ID of the line. */
   line_id?: InputMaybe<Scalars['uuid']>;
   line_routes?: InputMaybe<RouteRouteArrRelInsertInput>;
@@ -5365,6 +5884,8 @@ export type RouteLineMaxFields = {
   __typename?: 'route_line_max_fields';
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: Maybe<Scalars['String']>;
   /** The ID of the line. */
   line_id?: Maybe<Scalars['uuid']>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
@@ -5379,6 +5900,8 @@ export type RouteLineMaxFields = {
 export type RouteLineMaxOrderBy = {
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: InputMaybe<OrderBy>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
   /** The ID of the line. */
   line_id?: InputMaybe<OrderBy>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
@@ -5394,6 +5917,8 @@ export type RouteLineMinFields = {
   __typename?: 'route_line_min_fields';
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: Maybe<Scalars['String']>;
   /** The ID of the line. */
   line_id?: Maybe<Scalars['uuid']>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
@@ -5408,6 +5933,8 @@ export type RouteLineMinFields = {
 export type RouteLineMinOrderBy = {
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: InputMaybe<OrderBy>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
   /** The ID of the line. */
   line_id?: InputMaybe<OrderBy>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
@@ -5444,6 +5971,8 @@ export type RouteLineOnConflict = {
 /** Ordering options when selecting data from "route.line". */
 export type RouteLineOrderBy = {
   label?: InputMaybe<OrderBy>;
+  legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeOrderBy>;
+  legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
   line_id?: InputMaybe<OrderBy>;
   line_routes_aggregate?: InputMaybe<RouteRouteAggregateOrderBy>;
   name_i18n?: InputMaybe<OrderBy>;
@@ -5478,6 +6007,8 @@ export enum RouteLineSelectColumn {
   /** column name */
   Label = 'label',
   /** column name */
+  LegacyHslMunicipalityCode = 'legacy_hsl_municipality_code',
+  /** column name */
   LineId = 'line_id',
   /** column name */
   NameI18n = 'name_i18n',
@@ -5501,6 +6032,8 @@ export enum RouteLineSelectColumn {
 export type RouteLineSetInput = {
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: InputMaybe<Scalars['String']>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: InputMaybe<Scalars['String']>;
   /** The ID of the line. */
   line_id?: InputMaybe<Scalars['uuid']>;
   /** The name of the line. Placeholder for multilingual strings. */
@@ -5571,6 +6104,8 @@ export type RouteLineStreamCursorInput = {
 export type RouteLineStreamCursorValueInput = {
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: InputMaybe<Scalars['String']>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: InputMaybe<Scalars['String']>;
   /** The ID of the line. */
   line_id?: InputMaybe<Scalars['uuid']>;
   /** The name of the line. Placeholder for multilingual strings. */
@@ -5607,6 +6142,8 @@ export type RouteLineSumOrderBy = {
 export enum RouteLineUpdateColumn {
   /** column name */
   Label = 'label',
+  /** column name */
+  LegacyHslMunicipalityCode = 'legacy_hsl_municipality_code',
   /** column name */
   LineId = 'line_id',
   /** column name */
@@ -5699,6 +6236,10 @@ export type RouteRoute = {
   infrastructure_links_along_route_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
   /** The label of the route definition. */
   label: Scalars['String'];
+  /** An object relationship */
+  legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: Maybe<HslRouteLegacyHslMunicipalityCode>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: Maybe<Scalars['String']>;
   name_i18n: Scalars['localized_string'];
   /** The line to which this route belongs. */
   on_line_id: Scalars['uuid'];
@@ -5898,6 +6439,8 @@ export type RouteRouteBoolExp = {
   infrastructure_links_along_route?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   infrastructure_links_along_route_aggregate?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateBoolExp>;
   label?: InputMaybe<StringComparisonExp>;
+  legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
+  legacy_hsl_municipality_code?: InputMaybe<StringComparisonExp>;
   name_i18n?: InputMaybe<JsonbComparisonExp>;
   on_line_id?: InputMaybe<UuidComparisonExp>;
   origin_name_i18n?: InputMaybe<JsonbComparisonExp>;
@@ -5972,6 +6515,9 @@ export type RouteRouteInsertInput = {
   infrastructure_links_along_route?: InputMaybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
   /** The label of the route definition. */
   label: Scalars['String'];
+  legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeObjRelInsertInput>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: InputMaybe<Scalars['String']>;
   name_i18n: Scalars['localized_string'];
   /** The line to which this route belongs. */
   on_line_id?: InputMaybe<Scalars['uuid']>;
@@ -5996,6 +6542,8 @@ export type RouteRouteMaxFields = {
   __typename?: 'route_route_max_fields';
   /** The label of the route definition. */
   label?: Maybe<Scalars['String']>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: Maybe<Scalars['String']>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
@@ -6016,6 +6564,8 @@ export type RouteRouteMaxFields = {
 export type RouteRouteMaxOrderBy = {
   /** The label of the route definition. */
   label?: InputMaybe<OrderBy>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
   /** The line to which this route belongs. */
   on_line_id?: InputMaybe<OrderBy>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
@@ -6037,6 +6587,8 @@ export type RouteRouteMinFields = {
   __typename?: 'route_route_min_fields';
   /** The label of the route definition. */
   label?: Maybe<Scalars['String']>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: Maybe<Scalars['String']>;
   /** The line to which this route belongs. */
   on_line_id?: Maybe<Scalars['uuid']>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
@@ -6057,6 +6609,8 @@ export type RouteRouteMinFields = {
 export type RouteRouteMinOrderBy = {
   /** The label of the route definition. */
   label?: InputMaybe<OrderBy>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
   /** The line to which this route belongs. */
   on_line_id?: InputMaybe<OrderBy>;
   /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
@@ -6104,6 +6658,8 @@ export type RouteRouteOrderBy = {
   direction?: InputMaybe<OrderBy>;
   infrastructure_links_along_route_aggregate?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
   label?: InputMaybe<OrderBy>;
+  legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeOrderBy>;
+  legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
   name_i18n?: InputMaybe<OrderBy>;
   on_line_id?: InputMaybe<OrderBy>;
   origin_name_i18n?: InputMaybe<OrderBy>;
@@ -6149,6 +6705,8 @@ export enum RouteRouteSelectColumn {
   /** column name */
   Label = 'label',
   /** column name */
+  LegacyHslMunicipalityCode = 'legacy_hsl_municipality_code',
+  /** column name */
   NameI18n = 'name_i18n',
   /** column name */
   OnLineId = 'on_line_id',
@@ -6180,6 +6738,8 @@ export type RouteRouteSetInput = {
   direction?: InputMaybe<RouteDirectionEnum>;
   /** The label of the route definition. */
   label?: InputMaybe<Scalars['String']>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: InputMaybe<Scalars['String']>;
   name_i18n?: InputMaybe<Scalars['localized_string']>;
   /** The line to which this route belongs. */
   on_line_id?: InputMaybe<Scalars['uuid']>;
@@ -6266,6 +6826,8 @@ export type RouteRouteStreamCursorValueInput = {
   direction?: InputMaybe<RouteDirectionEnum>;
   /** The label of the route definition. */
   label?: InputMaybe<Scalars['String']>;
+  /** Defines the legacy municipality that is mainly used for data exports. */
+  legacy_hsl_municipality_code?: InputMaybe<Scalars['String']>;
   name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The line to which this route belongs. */
   on_line_id?: InputMaybe<Scalars['uuid']>;
@@ -6314,6 +6876,8 @@ export enum RouteRouteUpdateColumn {
   Direction = 'direction',
   /** column name */
   Label = 'label',
+  /** column name */
+  LegacyHslMunicipalityCode = 'legacy_hsl_municipality_code',
   /** column name */
   NameI18n = 'name_i18n',
   /** column name */
@@ -6623,6 +7187,390 @@ export type ServiceCalendarDayTypeActiveOnDayOfWeekAggregateBoolExpCount = {
   distinct?: InputMaybe<Scalars['Boolean']>;
   filter?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp>;
   predicate: IntComparisonExp;
+};
+
+/** A dummy table that models the results of calculating the lengths of stop intervals from the given journey patterns. The table exists due to the limitations of Hasura and there is no intention to insert anything to it. */
+export type ServicePatternDistanceBetweenStopsCalculation = {
+  __typename?: 'service_pattern_distance_between_stops_calculation';
+  /** The length of the stop interval in metres. */
+  distance_in_metres: Scalars['float8'];
+  /** The label of the end stop of the stop interval. */
+  end_stop_label: Scalars['String'];
+  /** The ID of the journey pattern. */
+  journey_pattern_id: Scalars['uuid'];
+  /** The observation date for the state of the route related to the journey pattern. */
+  observation_date: Scalars['date'];
+  /** The ID of the route related to the journey pattern. */
+  route_id: Scalars['uuid'];
+  /** The priority of the route related to the journey pattern. */
+  route_priority: Scalars['Int'];
+  /** The label of the start stop of the stop interval. */
+  start_stop_label: Scalars['String'];
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence: Scalars['Int'];
+};
+
+/** aggregated selection of "service_pattern.distance_between_stops_calculation" */
+export type ServicePatternDistanceBetweenStopsCalculationAggregate = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_aggregate';
+  aggregate?: Maybe<ServicePatternDistanceBetweenStopsCalculationAggregateFields>;
+  nodes: Array<ServicePatternDistanceBetweenStopsCalculation>;
+};
+
+/** aggregate fields of "service_pattern.distance_between_stops_calculation" */
+export type ServicePatternDistanceBetweenStopsCalculationAggregateFields = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_aggregate_fields';
+  avg?: Maybe<ServicePatternDistanceBetweenStopsCalculationAvgFields>;
+  count: Scalars['Int'];
+  max?: Maybe<ServicePatternDistanceBetweenStopsCalculationMaxFields>;
+  min?: Maybe<ServicePatternDistanceBetweenStopsCalculationMinFields>;
+  stddev?: Maybe<ServicePatternDistanceBetweenStopsCalculationStddevFields>;
+  stddev_pop?: Maybe<ServicePatternDistanceBetweenStopsCalculationStddevPopFields>;
+  stddev_samp?: Maybe<ServicePatternDistanceBetweenStopsCalculationStddevSampFields>;
+  sum?: Maybe<ServicePatternDistanceBetweenStopsCalculationSumFields>;
+  var_pop?: Maybe<ServicePatternDistanceBetweenStopsCalculationVarPopFields>;
+  var_samp?: Maybe<ServicePatternDistanceBetweenStopsCalculationVarSampFields>;
+  variance?: Maybe<ServicePatternDistanceBetweenStopsCalculationVarianceFields>;
+};
+
+/** aggregate fields of "service_pattern.distance_between_stops_calculation" */
+export type ServicePatternDistanceBetweenStopsCalculationAggregateFieldsCountArgs =
+  {
+    columns?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+    >;
+    distinct?: InputMaybe<Scalars['Boolean']>;
+  };
+
+/** aggregate avg on columns */
+export type ServicePatternDistanceBetweenStopsCalculationAvgFields = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_avg_fields';
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: Maybe<Scalars['Float']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: Maybe<Scalars['Float']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "service_pattern.distance_between_stops_calculation". All fields are combined with a logical 'AND'. */
+export type ServicePatternDistanceBetweenStopsCalculationBoolExp = {
+  _and?: InputMaybe<
+    Array<ServicePatternDistanceBetweenStopsCalculationBoolExp>
+  >;
+  _not?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+  _or?: InputMaybe<Array<ServicePatternDistanceBetweenStopsCalculationBoolExp>>;
+  distance_in_metres?: InputMaybe<Float8ComparisonExp>;
+  end_stop_label?: InputMaybe<StringComparisonExp>;
+  journey_pattern_id?: InputMaybe<UuidComparisonExp>;
+  observation_date?: InputMaybe<DateComparisonExp>;
+  route_id?: InputMaybe<UuidComparisonExp>;
+  route_priority?: InputMaybe<IntComparisonExp>;
+  start_stop_label?: InputMaybe<StringComparisonExp>;
+  stop_interval_sequence?: InputMaybe<IntComparisonExp>;
+};
+
+/** unique or primary key constraints on table "service_pattern.distance_between_stops_calculation" */
+export enum ServicePatternDistanceBetweenStopsCalculationConstraint {
+  /** unique or primary key constraint on columns "route_priority", "stop_interval_sequence", "observation_date", "journey_pattern_id" */
+  DistanceBetweenStopsCalculationPkey = 'distance_between_stops_calculation_pkey',
+}
+
+/** input type for incrementing numeric columns in table "service_pattern.distance_between_stops_calculation" */
+export type ServicePatternDistanceBetweenStopsCalculationIncInput = {
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: InputMaybe<Scalars['float8']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: InputMaybe<Scalars['Int']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "service_pattern.distance_between_stops_calculation" */
+export type ServicePatternDistanceBetweenStopsCalculationInsertInput = {
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: InputMaybe<Scalars['float8']>;
+  /** The label of the end stop of the stop interval. */
+  end_stop_label?: InputMaybe<Scalars['String']>;
+  /** The ID of the journey pattern. */
+  journey_pattern_id?: InputMaybe<Scalars['uuid']>;
+  /** The observation date for the state of the route related to the journey pattern. */
+  observation_date?: InputMaybe<Scalars['date']>;
+  /** The ID of the route related to the journey pattern. */
+  route_id?: InputMaybe<Scalars['uuid']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: InputMaybe<Scalars['Int']>;
+  /** The label of the start stop of the stop interval. */
+  start_stop_label?: InputMaybe<Scalars['String']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate max on columns */
+export type ServicePatternDistanceBetweenStopsCalculationMaxFields = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_max_fields';
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: Maybe<Scalars['float8']>;
+  /** The label of the end stop of the stop interval. */
+  end_stop_label?: Maybe<Scalars['String']>;
+  /** The ID of the journey pattern. */
+  journey_pattern_id?: Maybe<Scalars['uuid']>;
+  /** The observation date for the state of the route related to the journey pattern. */
+  observation_date?: Maybe<Scalars['date']>;
+  /** The ID of the route related to the journey pattern. */
+  route_id?: Maybe<Scalars['uuid']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: Maybe<Scalars['Int']>;
+  /** The label of the start stop of the stop interval. */
+  start_stop_label?: Maybe<Scalars['String']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: Maybe<Scalars['Int']>;
+};
+
+/** aggregate min on columns */
+export type ServicePatternDistanceBetweenStopsCalculationMinFields = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_min_fields';
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: Maybe<Scalars['float8']>;
+  /** The label of the end stop of the stop interval. */
+  end_stop_label?: Maybe<Scalars['String']>;
+  /** The ID of the journey pattern. */
+  journey_pattern_id?: Maybe<Scalars['uuid']>;
+  /** The observation date for the state of the route related to the journey pattern. */
+  observation_date?: Maybe<Scalars['date']>;
+  /** The ID of the route related to the journey pattern. */
+  route_id?: Maybe<Scalars['uuid']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: Maybe<Scalars['Int']>;
+  /** The label of the start stop of the stop interval. */
+  start_stop_label?: Maybe<Scalars['String']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: Maybe<Scalars['Int']>;
+};
+
+/** response of any mutation on the table "service_pattern.distance_between_stops_calculation" */
+export type ServicePatternDistanceBetweenStopsCalculationMutationResponse = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<ServicePatternDistanceBetweenStopsCalculation>;
+};
+
+/** on_conflict condition type for table "service_pattern.distance_between_stops_calculation" */
+export type ServicePatternDistanceBetweenStopsCalculationOnConflict = {
+  constraint: ServicePatternDistanceBetweenStopsCalculationConstraint;
+  update_columns?: Array<ServicePatternDistanceBetweenStopsCalculationUpdateColumn>;
+  where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+};
+
+/** Ordering options when selecting data from "service_pattern.distance_between_stops_calculation". */
+export type ServicePatternDistanceBetweenStopsCalculationOrderBy = {
+  distance_in_metres?: InputMaybe<OrderBy>;
+  end_stop_label?: InputMaybe<OrderBy>;
+  journey_pattern_id?: InputMaybe<OrderBy>;
+  observation_date?: InputMaybe<OrderBy>;
+  route_id?: InputMaybe<OrderBy>;
+  route_priority?: InputMaybe<OrderBy>;
+  start_stop_label?: InputMaybe<OrderBy>;
+  stop_interval_sequence?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: service_pattern.distance_between_stops_calculation */
+export type ServicePatternDistanceBetweenStopsCalculationPkColumnsInput = {
+  /** The ID of the journey pattern. */
+  journey_pattern_id: Scalars['uuid'];
+  /** The observation date for the state of the route related to the journey pattern. */
+  observation_date: Scalars['date'];
+  /** The priority of the route related to the journey pattern. */
+  route_priority: Scalars['Int'];
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence: Scalars['Int'];
+};
+
+/** select columns of table "service_pattern.distance_between_stops_calculation" */
+export enum ServicePatternDistanceBetweenStopsCalculationSelectColumn {
+  /** column name */
+  DistanceInMetres = 'distance_in_metres',
+  /** column name */
+  EndStopLabel = 'end_stop_label',
+  /** column name */
+  JourneyPatternId = 'journey_pattern_id',
+  /** column name */
+  ObservationDate = 'observation_date',
+  /** column name */
+  RouteId = 'route_id',
+  /** column name */
+  RoutePriority = 'route_priority',
+  /** column name */
+  StartStopLabel = 'start_stop_label',
+  /** column name */
+  StopIntervalSequence = 'stop_interval_sequence',
+}
+
+/** input type for updating data in table "service_pattern.distance_between_stops_calculation" */
+export type ServicePatternDistanceBetweenStopsCalculationSetInput = {
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: InputMaybe<Scalars['float8']>;
+  /** The label of the end stop of the stop interval. */
+  end_stop_label?: InputMaybe<Scalars['String']>;
+  /** The ID of the journey pattern. */
+  journey_pattern_id?: InputMaybe<Scalars['uuid']>;
+  /** The observation date for the state of the route related to the journey pattern. */
+  observation_date?: InputMaybe<Scalars['date']>;
+  /** The ID of the route related to the journey pattern. */
+  route_id?: InputMaybe<Scalars['uuid']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: InputMaybe<Scalars['Int']>;
+  /** The label of the start stop of the stop interval. */
+  start_stop_label?: InputMaybe<Scalars['String']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate stddev on columns */
+export type ServicePatternDistanceBetweenStopsCalculationStddevFields = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_stddev_fields';
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: Maybe<Scalars['Float']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: Maybe<Scalars['Float']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type ServicePatternDistanceBetweenStopsCalculationStddevPopFields = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_stddev_pop_fields';
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: Maybe<Scalars['Float']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: Maybe<Scalars['Float']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type ServicePatternDistanceBetweenStopsCalculationStddevSampFields = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_stddev_samp_fields';
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: Maybe<Scalars['Float']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: Maybe<Scalars['Float']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "service_pattern_distance_between_stops_calculation" */
+export type ServicePatternDistanceBetweenStopsCalculationStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: ServicePatternDistanceBetweenStopsCalculationStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type ServicePatternDistanceBetweenStopsCalculationStreamCursorValueInput =
+  {
+    /** The length of the stop interval in metres. */
+    distance_in_metres?: InputMaybe<Scalars['float8']>;
+    /** The label of the end stop of the stop interval. */
+    end_stop_label?: InputMaybe<Scalars['String']>;
+    /** The ID of the journey pattern. */
+    journey_pattern_id?: InputMaybe<Scalars['uuid']>;
+    /** The observation date for the state of the route related to the journey pattern. */
+    observation_date?: InputMaybe<Scalars['date']>;
+    /** The ID of the route related to the journey pattern. */
+    route_id?: InputMaybe<Scalars['uuid']>;
+    /** The priority of the route related to the journey pattern. */
+    route_priority?: InputMaybe<Scalars['Int']>;
+    /** The label of the start stop of the stop interval. */
+    start_stop_label?: InputMaybe<Scalars['String']>;
+    /** The sequence number of the stop interval within the journey pattern. */
+    stop_interval_sequence?: InputMaybe<Scalars['Int']>;
+  };
+
+/** aggregate sum on columns */
+export type ServicePatternDistanceBetweenStopsCalculationSumFields = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_sum_fields';
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: Maybe<Scalars['float8']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: Maybe<Scalars['Int']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "service_pattern.distance_between_stops_calculation" */
+export enum ServicePatternDistanceBetweenStopsCalculationUpdateColumn {
+  /** column name */
+  DistanceInMetres = 'distance_in_metres',
+  /** column name */
+  EndStopLabel = 'end_stop_label',
+  /** column name */
+  JourneyPatternId = 'journey_pattern_id',
+  /** column name */
+  ObservationDate = 'observation_date',
+  /** column name */
+  RouteId = 'route_id',
+  /** column name */
+  RoutePriority = 'route_priority',
+  /** column name */
+  StartStopLabel = 'start_stop_label',
+  /** column name */
+  StopIntervalSequence = 'stop_interval_sequence',
+}
+
+export type ServicePatternDistanceBetweenStopsCalculationUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationSetInput>;
+  where: ServicePatternDistanceBetweenStopsCalculationBoolExp;
+};
+
+/** aggregate var_pop on columns */
+export type ServicePatternDistanceBetweenStopsCalculationVarPopFields = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_var_pop_fields';
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: Maybe<Scalars['Float']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: Maybe<Scalars['Float']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type ServicePatternDistanceBetweenStopsCalculationVarSampFields = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_var_samp_fields';
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: Maybe<Scalars['Float']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: Maybe<Scalars['Float']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type ServicePatternDistanceBetweenStopsCalculationVarianceFields = {
+  __typename?: 'service_pattern_distance_between_stops_calculation_variance_fields';
+  /** The length of the stop interval in metres. */
+  distance_in_metres?: Maybe<Scalars['Float']>;
+  /** The priority of the route related to the journey pattern. */
+  route_priority?: Maybe<Scalars['Float']>;
+  /** The sequence number of the stop interval within the journey pattern. */
+  stop_interval_sequence?: Maybe<Scalars['Float']>;
+};
+
+export type ServicePatternGetDistancesBetweenStopPointsByRoutesArgs = {
+  observation_date?: InputMaybe<Scalars['date']>;
+  route_ids?: InputMaybe<Scalars['_uuid']>;
+};
+
+export type ServicePatternGetDistancesBetweenStopPointsInJourneyPatternsArgs = {
+  include_draft_stops?: InputMaybe<Scalars['Boolean']>;
+  journey_pattern_ids?: InputMaybe<Scalars['_uuid']>;
+  observation_date?: InputMaybe<Scalars['date']>;
 };
 
 /** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
@@ -7398,6 +8346,14 @@ export type StDWithinInput = {
 
 export type SubscriptionRoot = {
   __typename?: 'subscription_root';
+  /** fetch data from the table: "hsl_route.legacy_hsl_municipality_code" */
+  hsl_route_legacy_hsl_municipality_code: Array<HslRouteLegacyHslMunicipalityCode>;
+  /** fetch aggregated fields from the table: "hsl_route.legacy_hsl_municipality_code" */
+  hsl_route_legacy_hsl_municipality_code_aggregate: HslRouteLegacyHslMunicipalityCodeAggregate;
+  /** fetch data from the table: "hsl_route.legacy_hsl_municipality_code" using primary key columns */
+  hsl_route_legacy_hsl_municipality_code_by_pk?: Maybe<HslRouteLegacyHslMunicipalityCode>;
+  /** fetch data from the table in a streaming manner: "hsl_route.legacy_hsl_municipality_code" */
+  hsl_route_legacy_hsl_municipality_code_stream: Array<HslRouteLegacyHslMunicipalityCode>;
   /** fetch data from the table: "hsl_route.transport_target" */
   hsl_route_transport_target: Array<HslRouteTransportTarget>;
   /** fetch aggregated fields from the table: "hsl_route.transport_target" */
@@ -7522,6 +8478,22 @@ export type SubscriptionRoot = {
   route_type_of_line_by_pk?: Maybe<RouteTypeOfLine>;
   /** fetch data from the table in a streaming manner: "route.type_of_line" */
   route_type_of_line_stream: Array<RouteTypeOfLine>;
+  /** fetch data from the table: "service_pattern.distance_between_stops_calculation" */
+  service_pattern_distance_between_stops_calculation: Array<ServicePatternDistanceBetweenStopsCalculation>;
+  /** fetch aggregated fields from the table: "service_pattern.distance_between_stops_calculation" */
+  service_pattern_distance_between_stops_calculation_aggregate: ServicePatternDistanceBetweenStopsCalculationAggregate;
+  /** fetch data from the table: "service_pattern.distance_between_stops_calculation" using primary key columns */
+  service_pattern_distance_between_stops_calculation_by_pk?: Maybe<ServicePatternDistanceBetweenStopsCalculation>;
+  /** fetch data from the table in a streaming manner: "service_pattern.distance_between_stops_calculation" */
+  service_pattern_distance_between_stops_calculation_stream: Array<ServicePatternDistanceBetweenStopsCalculation>;
+  /** execute function "service_pattern.get_distances_between_stop_points_by_routes" which returns "service_pattern.distance_between_stops_calculation" */
+  service_pattern_get_distances_between_stop_points_by_routes: Array<ServicePatternDistanceBetweenStopsCalculation>;
+  /** execute function "service_pattern.get_distances_between_stop_points_by_routes" and query aggregates on result of table type "service_pattern.distance_between_stops_calculation" */
+  service_pattern_get_distances_between_stop_points_by_routes_aggregate: ServicePatternDistanceBetweenStopsCalculationAggregate;
+  /** execute function "service_pattern.get_distances_between_stop_points_in_journey_patterns" which returns "service_pattern.distance_between_stops_calculation" */
+  service_pattern_get_distances_between_stop_points_in_journey_patterns: Array<ServicePatternDistanceBetweenStopsCalculation>;
+  /** execute function "service_pattern.get_distances_between_stop_points_in_journey_patterns" and query aggregates on result of table type "service_pattern.distance_between_stops_calculation" */
+  service_pattern_get_distances_between_stop_points_in_journey_patterns_aggregate: ServicePatternDistanceBetweenStopsCalculationAggregate;
   /** fetch data from the table: "service_pattern.scheduled_stop_point" */
   service_pattern_scheduled_stop_point: Array<ServicePatternScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point" */
@@ -7547,6 +8519,36 @@ export type SubscriptionRoot = {
   timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
   /** fetch data from the table in a streaming manner: "timing_pattern.timing_place" */
   timing_pattern_timing_place_stream: Array<TimingPatternTimingPlace>;
+};
+
+export type SubscriptionRootHslRouteLegacyHslMunicipalityCodeArgs = {
+  distinct_on?: InputMaybe<
+    Array<HslRouteLegacyHslMunicipalityCodeSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<HslRouteLegacyHslMunicipalityCodeOrderBy>>;
+  where?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
+};
+
+export type SubscriptionRootHslRouteLegacyHslMunicipalityCodeAggregateArgs = {
+  distinct_on?: InputMaybe<
+    Array<HslRouteLegacyHslMunicipalityCodeSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<HslRouteLegacyHslMunicipalityCodeOrderBy>>;
+  where?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
+};
+
+export type SubscriptionRootHslRouteLegacyHslMunicipalityCodeByPkArgs = {
+  hsl_municipality: Scalars['String'];
+};
+
+export type SubscriptionRootHslRouteLegacyHslMunicipalityCodeStreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<HslRouteLegacyHslMunicipalityCodeStreamCursorInput>>;
+  where?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
 };
 
 export type SubscriptionRootHslRouteTransportTargetArgs = {
@@ -8031,6 +9033,105 @@ export type SubscriptionRootRouteTypeOfLineStreamArgs = {
   cursor: Array<InputMaybe<RouteTypeOfLineStreamCursorInput>>;
   where?: InputMaybe<RouteTypeOfLineBoolExp>;
 };
+
+export type SubscriptionRootServicePatternDistanceBetweenStopsCalculationArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationOrderBy>
+    >;
+    where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+  };
+
+export type SubscriptionRootServicePatternDistanceBetweenStopsCalculationAggregateArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationOrderBy>
+    >;
+    where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+  };
+
+export type SubscriptionRootServicePatternDistanceBetweenStopsCalculationByPkArgs =
+  {
+    journey_pattern_id: Scalars['uuid'];
+    observation_date: Scalars['date'];
+    route_priority: Scalars['Int'];
+    stop_interval_sequence: Scalars['Int'];
+  };
+
+export type SubscriptionRootServicePatternDistanceBetweenStopsCalculationStreamArgs =
+  {
+    batch_size: Scalars['Int'];
+    cursor: Array<
+      InputMaybe<ServicePatternDistanceBetweenStopsCalculationStreamCursorInput>
+    >;
+    where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+  };
+
+export type SubscriptionRootServicePatternGetDistancesBetweenStopPointsByRoutesArgs =
+  {
+    args: ServicePatternGetDistancesBetweenStopPointsByRoutesArgs;
+    distinct_on?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationOrderBy>
+    >;
+    where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+  };
+
+export type SubscriptionRootServicePatternGetDistancesBetweenStopPointsByRoutesAggregateArgs =
+  {
+    args: ServicePatternGetDistancesBetweenStopPointsByRoutesArgs;
+    distinct_on?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationOrderBy>
+    >;
+    where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+  };
+
+export type SubscriptionRootServicePatternGetDistancesBetweenStopPointsInJourneyPatternsArgs =
+  {
+    args: ServicePatternGetDistancesBetweenStopPointsInJourneyPatternsArgs;
+    distinct_on?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationOrderBy>
+    >;
+    where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+  };
+
+export type SubscriptionRootServicePatternGetDistancesBetweenStopPointsInJourneyPatternsAggregateArgs =
+  {
+    args: ServicePatternGetDistancesBetweenStopPointsInJourneyPatternsArgs;
+    distinct_on?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<
+      Array<ServicePatternDistanceBetweenStopsCalculationOrderBy>
+    >;
+    where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+  };
 
 export type SubscriptionRootServicePatternScheduledStopPointArgs = {
   distinct_on?: InputMaybe<Array<ServicePatternScheduledStopPointSelectColumn>>;
