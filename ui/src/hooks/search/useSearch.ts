@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 import { DisplayedSearchResultType } from '../../utils';
 import { QueryParameter, QueryParameterTypes, useUrlQuery } from '../urlQuery';
 import { useBasePath } from '../useBasePath';

@@ -14,7 +14,7 @@ import {
   selectSelectedStopId,
 } from '../../redux';
 import { RequiredKeys } from '../../types';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 import { filterHighestPriorityCurrentStops, mapToVariables } from '../../utils';
 import { useAppSelector } from '../redux';
 import { useGetDisplayedRoutes } from '../routes';

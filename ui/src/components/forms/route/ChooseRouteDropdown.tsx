@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { RouteAllFieldsFragment } from '../../../generated/graphql';
 import { useChooseRouteDropdown } from '../../../hooks';
 import { MAX_DATE, MIN_DATE } from '../../../time';
-import { Priority } from '../../../types/Priority';
+import { Priority } from '../../../types/enums';
 import { ComboboxInputProps, SearchableDropdown } from '../../../uiComponents';
 import { DateRange } from '../common/DateRange';
 

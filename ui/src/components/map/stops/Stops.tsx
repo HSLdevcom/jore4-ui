@@ -31,7 +31,7 @@ import {
   setSelectedStopIdAction,
 } from '../../../redux';
 import { Coords } from '../../../types';
-import { Priority } from '../../../types/Priority';
+import { Priority } from '../../../types/enums';
 import {
   buildWithinViewportGqlFilter,
   mapLngLatToGeoJSON,

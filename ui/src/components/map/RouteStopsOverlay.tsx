@@ -13,7 +13,7 @@ import {
   selectMapRouteEditor,
   setRouteMetadataFormOpenAction,
 } from '../../redux';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 import { EditButton } from '../../uiComponents';
 import {
   filterDistinctConsecutiveStops,

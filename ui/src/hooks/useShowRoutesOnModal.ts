@@ -8,7 +8,7 @@ import {
 } from '../generated/graphql';
 import { resetMapState, setSelectedRouteIdAction } from '../redux';
 import { isDateInRange } from '../time';
-import { Priority } from '../types/Priority';
+import { Priority } from '../types/enums';
 import { getRouteShapeFirstCoordinates } from '../utils/routeShape';
 import { useAppDispatch } from './redux';
 import {

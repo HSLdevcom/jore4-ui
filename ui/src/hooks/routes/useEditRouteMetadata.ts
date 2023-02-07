@@ -10,7 +10,7 @@ import {
   usePatchRouteMutation,
 } from '../../generated/graphql';
 import { mapToISODate, MIN_DATE } from '../../time';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 import { RouteDirection } from '../../types/RouteDirection';
 import {
   defaultLocalizedString,

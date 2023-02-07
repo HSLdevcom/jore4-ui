@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { DateTime } from 'luxon';
-import { Priority } from '../types/Priority';
+import { Priority } from '../types/enums';
 
 interface CommonExportParams {
   readonly labels: string[];

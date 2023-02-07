@@ -10,7 +10,7 @@ import {
   useGetTimetablesForOperationDayAsyncQuery,
 } from '../../generated/graphql';
 import { findEarliestTime, findLatestTime } from '../../time';
-import { TimetablePriority } from '../../types/Priority';
+import { TimetablePriority } from '../../types/enums';
 import { useObservationDateQueryParam } from '../urlQuery';
 
 const GQL_DAY_TYPE_FRAGMENT = gql`

@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import { HELSINKI_CITY_CENTER_COORDINATES } from '../../redux';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
 const DEFAULT_ZOOM = 13 as const;

@@ -2,7 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { Row } from '../../../layoutComponents';
-import { Priority } from '../../../types/Priority';
+import { Priority } from '../../../types/enums';
 import { requiredString } from './customZodSchemas';
 import { FormColumn } from './FormColumn';
 import { FormRow } from './FormRow';

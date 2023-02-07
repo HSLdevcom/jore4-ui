@@ -5,7 +5,7 @@ import {
   useGetRouteDetailsByLabelWildcardQuery,
   useGetSelectedRouteDetailsByIdQuery,
 } from '../../generated/graphql';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 import { mapToSqlLikeValue, mapToVariables } from '../../utils';
 
 const GQL_GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`

@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { Row } from '../../../layoutComponents';
-import { Priority } from '../../../types/Priority';
+import { Priority } from '../../../types/enums';
 import { FormContainer, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
 import {

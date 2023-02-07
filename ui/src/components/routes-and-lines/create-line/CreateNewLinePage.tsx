@@ -9,7 +9,7 @@ import { mapInsertLineOneResult } from '../../../graphql';
 import { useCreateLine } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { Priority } from '../../../types/Priority';
+import { Priority } from '../../../types/enums';
 import { showSuccessToast } from '../../../utils';
 import { FormState, LineForm } from '../../forms/line/LineForm';
 import {

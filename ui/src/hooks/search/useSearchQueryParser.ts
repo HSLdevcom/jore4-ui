@@ -3,7 +3,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
 } from '../../generated/graphql';
-import { Priority } from '../../types/Priority';
+import { Priority } from '../../types/enums';
 import { AllOptionEnum, DisplayedSearchResultType } from '../../utils/enum';
 import { useUrlQuery } from '../urlQuery/useUrlQuery';
 

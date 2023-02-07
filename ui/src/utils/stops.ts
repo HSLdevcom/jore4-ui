@@ -7,7 +7,7 @@ import {
   ScheduledStopPointAllFieldsFragment,
   ScheduledStopPointDefaultFieldsFragment,
 } from '../generated/graphql';
-import { Priority } from '../types/Priority';
+import { Priority } from '../types/enums';
 import { isCurrentEntity } from './validity';
 
 const sortStopsByTraversalForwards = <

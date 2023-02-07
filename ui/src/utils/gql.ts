@@ -5,7 +5,7 @@ import {
   RouteTypeOfLineEnum,
 } from '../generated/graphql';
 import { Viewport } from '../redux/types/modalMap';
-import { Priority } from '../types/Priority';
+import { Priority } from '../types/enums';
 
 /** Builds an object for gql to filter out all
  * results which are not active on the given date
