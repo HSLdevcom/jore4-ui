@@ -9,7 +9,11 @@ import {
   ServicePatternScheduledStopPointInsertInput,
   TimingPatternTimingPlaceInsertInput,
 } from '../generated/graphql';
-import { Priority, StopInJourneyPatternInsertInput } from '../types';
+import {
+  LegacyHslMunicipality,
+  Priority,
+  StopInJourneyPatternInsertInput,
+} from '../types';
 
 export const buildLocalizedString = (str: string): LocalizedString => ({
   fi_FI: str,
@@ -31,6 +35,7 @@ export const buildRoute = (
     ),
     priority: Priority.Standard,
     direction: RouteDirectionEnum.Inbound,
+    legacy_hsl_municipality_code: LegacyHslMunicipality.Helsinki,
     ...requiredFields,
   };
 };
@@ -48,6 +53,7 @@ export const buildLine = (
     type_of_line: RouteTypeOfLineEnum.RegionalBusService,
     validity_start: null,
     validity_end: null,
+    legacy_hsl_municipality_code: LegacyHslMunicipality.Helsinki,
     ...requiredFields,
   };
 };

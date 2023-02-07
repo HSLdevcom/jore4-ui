@@ -1,3 +1,17 @@
+// Represents the values of hsl_municipality in LegacyHslMunicipalityCode table.
+export enum LegacyHslMunicipality {
+  LegacyNotUsed = 'legacy_not_used',
+  Helsinki = 'helsinki',
+  Espoo = 'espoo',
+  TrainOrMetro = 'train_or_metro',
+  Vantaa = 'vantaa',
+  EspoonVantaaRegional = 'espoon_vantaa_regional',
+  KirkkonummiAndSiuntio = 'kirkkonummi_and_siuntio',
+  ULines = 'u_lines',
+  TestingNotUsed = 'testing_not_used',
+  TuusulaKeravaSipoo = 'tuusula_kerava_sipoo',
+}
+
 export enum Priority {
   Standard = 10, // used for "normal" in-use entities (e.g. routes, lines, stops)
   Temporary = 20, // overrides Standard, used for temporary adjustments
