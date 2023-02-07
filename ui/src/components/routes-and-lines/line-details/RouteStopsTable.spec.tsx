@@ -9,6 +9,7 @@ import {
   GqlQueryResult,
   mapLineDetailsWithRoutesResult,
 } from '../../../graphql';
+import { Priority } from '../../../types/enums';
 import { render } from '../../../utils/test-utils';
 import { RouteStopsTable } from './RouteStopsTable';
 
@@ -27,7 +28,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
         transport_target: 'helsinki_internal_traffic',
         validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
         validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),
-        priority: 10,
+        priority: Priority.Standard,
         label: '65',
         __typename: 'route_line',
         line_routes: [
@@ -68,7 +69,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
             on_line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
             validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
             validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),
-            priority: 10,
+            priority: Priority.Standard,
             label: '65 itään',
             direction: 'outbound',
             __typename: 'route_route',
@@ -83,7 +84,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                     'c63b749f-5060-4710-8b07-ec9ac017cb5f',
                   scheduled_stop_points_located_on_infrastructure_link: [
                     {
-                      priority: 10,
+                      priority: Priority.Standard,
                       scheduled_stop_point_id:
                         'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                       label: 'pysäkki A',
@@ -115,7 +116,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           direction: InfrastructureNetworkDirectionEnum.Forward,
                           located_on_infrastructure_link_id:
                             'c63b749f-5060-4710-8b07-ec9ac017cb5f',
-                          priority: 10,
+                          priority: Priority.Standard,
                           scheduled_stop_point_id:
                             'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                           label: 'pysäkki A',
@@ -144,7 +145,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                     '2feba2ae-c7af-4034-a299-9e592e67358f',
                   scheduled_stop_points_located_on_infrastructure_link: [
                     {
-                      priority: 10,
+                      priority: Priority.Standard,
                       scheduled_stop_point_id:
                         '4d294d62-df17-46ff-9248-23f66f17fa87',
                       label: 'pysäkki B',
@@ -162,7 +163,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           direction: InfrastructureNetworkDirectionEnum.Forward,
                           located_on_infrastructure_link_id:
                             '2feba2ae-c7af-4034-a299-9e592e67358f',
-                          priority: 10,
+                          priority: Priority.Standard,
                           scheduled_stop_point_id:
                             '4d294d62-df17-46ff-9248-23f66f17fa87',
                           label: 'pysäkki B',
@@ -191,7 +192,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                     'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
                   scheduled_stop_points_located_on_infrastructure_link: [
                     {
-                      priority: 10,
+                      priority: Priority.Standard,
                       scheduled_stop_point_id:
                         'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                       label: 'pysäkki C',
@@ -224,7 +225,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           label: 'pysäkki C',
                           located_on_infrastructure_link_id:
                             'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
-                          priority: 10,
+                          priority: Priority.Standard,
                           scheduled_stop_point_id:
                             'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                           validity_start: DateTime.fromISO(
