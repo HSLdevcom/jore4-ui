@@ -30,11 +30,25 @@ const validityPeriodWinter2324 = {
   validityStart: DateTime.fromISO('2023-08-15T00:00:00+00:00'),
   validityEnd: DateTime.fromISO('2024-06-04T00:00:00+00:00'),
 };
+const validityPeriodDecember23 = {
+  name: 'Joulu 2023',
+  validityStart: DateTime.fromISO('2023-12-01T00:00:00+00:00'),
+  validityEnd: DateTime.fromISO('2023-12-31T00:00:00+00:00'),
+};
 
-export const seedVehicleScheduleFrames: VehicleScheduleFrameInsertInput[] = [
-  // basic case
-  buildVehicleScheduleFrame({
+export const seedVehicleScheduleFramesByName = {
+  // winter 2023-2024
+  winter2324: buildVehicleScheduleFrame({
     id: '7bdb824f-5461-4049-9668-254e8e3172db',
     ...validityPeriodWinter2324,
   }),
-];
+  // December 2023, higher priority
+  december23: buildVehicleScheduleFrame({
+    id: 'dbe63cd7-689c-40e4-bff1-f25e86206172',
+    priority: TimetablePriority.Special,
+    ...validityPeriodDecember23,
+  }),
+};
+
+export const seedVehicleScheduleFrames: VehicleScheduleFrameInsertInput[] =
+  Object.values(seedVehicleScheduleFramesByName);

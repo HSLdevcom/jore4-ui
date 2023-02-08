@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { VehicleServiceInsertInput } from '../../types';
-import { seedVehicleScheduleFrames } from './vehicleScheduleFrames';
+import { seedVehicleScheduleFramesByName } from './vehicleScheduleFrames';
 
 // NOTE: These magical day type id's are populated in hasura.
 // Maybe rather populate day type here and refer to it.
@@ -26,25 +26,38 @@ const SUN_DAY_TYPE = '0e1855f1-dfca-4900-a118-f608aa07e939';
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
 const basicVehicleScheduleFrameId =
-  seedVehicleScheduleFrames[0].vehicle_schedule_frame_id;
+  seedVehicleScheduleFramesByName.winter2324.vehicle_schedule_frame_id;
 
-export const seedVehicleServices: VehicleServiceInsertInput[] = [
+const dec23VehicleScheduleFrameId =
+  seedVehicleScheduleFramesByName.december23.vehicle_schedule_frame_id;
+
+export const seedVehicleServicesByName = {
   // vehicle 1, Mon-Fri
-  {
+  v1MonFri: {
     vehicle_service_id: uuid(),
     day_type_id: MON_FRI_DAY_TYPE,
     vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
   },
   // vehicle 1, Sat
-  {
+  v1Sat: {
     vehicle_service_id: uuid(),
     day_type_id: SAT_DAY_TYPE,
     vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
   },
   // vehicle 1, Sun
-  {
+  v1Sun: {
     vehicle_service_id: uuid(),
     day_type_id: SUN_DAY_TYPE,
     vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
   },
-];
+  // vehicle 1, December 2023
+  v1Dec2023: {
+    vehicle_service_id: uuid(),
+    day_type_id: MON_FRI_DAY_TYPE,
+    vehicle_schedule_frame_id: dec23VehicleScheduleFrameId,
+  },
+};
+
+export const seedVehicleServices: VehicleServiceInsertInput[] = Object.values(
+  seedVehicleServicesByName,
+);

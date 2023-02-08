@@ -2,11 +2,12 @@ import times from 'lodash/times';
 import { v4 as uuid } from 'uuid';
 import { VehicleJourneyInsertInput } from '../../types';
 import { seedJourneyPatternRefs } from './journeyPatternRefs';
-import { seedVehicleServiceBlocks } from './vehicleServiceBlocks';
+import { seedVehicleServiceBlocksByName } from './vehicleServiceBlocks';
 
-const monFriBlockId = seedVehicleServiceBlocks[0].block_id;
-const satBlockId = seedVehicleServiceBlocks[1].block_id;
-const sunBlockId = seedVehicleServiceBlocks[2].block_id;
+const monFriBlockId = seedVehicleServiceBlocksByName.v1MonFri.block_id;
+const satBlockId = seedVehicleServiceBlocksByName.v1Sat.block_id;
+const sunBlockId = seedVehicleServiceBlocksByName.v1Sun.block_id;
+const decBlockId = seedVehicleServiceBlocksByName.v1December23.block_id;
 
 const buildVehicleJourney = ({
   vehicleJourneyId,
@@ -38,4 +39,11 @@ export const seedVehicleJourneys: VehicleJourneyInsertInput[] = [
   ),
   // journey 30, belongs to service block (Vehicle 1 Sun)
   buildVehicleJourney({ vehicleJourneyId: uuid(), blockId: sunBlockId }),
+  // journeys 31-40 (Vehicle 1 Mon-Fri December 2023, special priority)
+  ...times(10, () =>
+    buildVehicleJourney({
+      vehicleJourneyId: uuid(),
+      blockId: decBlockId,
+    }),
+  ),
 ];

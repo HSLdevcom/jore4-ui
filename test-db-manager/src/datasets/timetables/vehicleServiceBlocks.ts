@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { VehicleServiceBlockInsertInput } from '../../types';
-import { seedVehicleServices } from './vehicleServices';
+import { seedVehicleServicesByName } from './vehicleServices';
 
 const buildVehicleServiceBlock = ({
   blockId = uuid(),
@@ -13,17 +13,24 @@ const buildVehicleServiceBlock = ({
   block_id: blockId,
 });
 
-export const seedVehicleServiceBlocks: VehicleServiceBlockInsertInput[] = [
+export const seedVehicleServiceBlocksByName = {
   // Vehicle 1 Mon-Fri
-  buildVehicleServiceBlock({
-    vehicleServiceId: seedVehicleServices[0].vehicle_service_id,
+  v1MonFri: buildVehicleServiceBlock({
+    vehicleServiceId: seedVehicleServicesByName.v1MonFri.vehicle_service_id,
   }),
   // Vehicle 1 Sat
-  buildVehicleServiceBlock({
-    vehicleServiceId: seedVehicleServices[1].vehicle_service_id,
+  v1Sat: buildVehicleServiceBlock({
+    vehicleServiceId: seedVehicleServicesByName.v1Sat.vehicle_service_id,
   }),
   // Vehicle 1 Sun
-  buildVehicleServiceBlock({
-    vehicleServiceId: seedVehicleServices[2].vehicle_service_id,
+  v1Sun: buildVehicleServiceBlock({
+    vehicleServiceId: seedVehicleServicesByName.v1Sun.vehicle_service_id,
   }),
-];
+  // Vehicle 1 Chirstmas
+  v1December23: buildVehicleServiceBlock({
+    vehicleServiceId: seedVehicleServicesByName.v1Dec2023.vehicle_service_id,
+  }),
+};
+
+export const seedVehicleServiceBlocks: VehicleServiceBlockInsertInput[] =
+  Object.values(seedVehicleServiceBlocksByName);

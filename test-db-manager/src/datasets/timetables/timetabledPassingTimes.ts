@@ -232,8 +232,18 @@ const seedTimetabledPassingTimesSun: TimetabledPassingTimeInsertInput[] = [
   }),
 ];
 
+const seedTimetabledPassingTimesDecember23: TimetabledPassingTimeInsertInput[] =
+  [
+    ...buildBulkJourneys({
+      vehicleJourneyIds: seedVehicleJourneyIds.slice(30, 40),
+      blockStartTime: Duration.fromISO('PT8H0M'),
+      scheduledStopLabels: DIRECTION1_STOP_LABELS,
+    }),
+  ];
+
 export const seedTimetabledPassingTimes: TimetabledPassingTimeInsertInput[] = [
   ...seedTimetabledPassingTimesMonFri,
   ...seedTimetabledPassingTimesSat,
   ...seedTimetabledPassingTimesSun,
+  ...seedTimetabledPassingTimesDecember23,
 ];
