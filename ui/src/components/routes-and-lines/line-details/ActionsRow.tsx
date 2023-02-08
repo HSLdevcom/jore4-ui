@@ -1,14 +1,11 @@
-import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useTranslation } from 'react-i18next';
 import { RouteLine } from '../../../generated/graphql';
-import {
-  useGetLineDetails,
-  useObservationDateQueryParam,
-} from '../../../hooks';
+import { useGetLineDetails } from '../../../hooks';
 import { Column, Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
+import { ObservationDateControl } from '../../common/ObservationDateControl';
 
 const getDraftsUrlWithReturnToQueryString = (line: RouteLine) => {
   const draftUrl = routeDetails[Path.lineDrafts].getLink(line.label);
@@ -26,28 +23,11 @@ export const ActionsRow = ({
 
   const { line } = useGetLineDetails();
 
-  const { observationDate, setObservationDateToUrl } =
-    useObservationDateQueryParam();
-
-  const onDateChange = (value: string) => {
-    setObservationDateToUrl(DateTime.fromISO(value));
-  };
-
-  const dateInputId = 'observation-date-input';
-
   return (
     <Container className={className}>
       <Row>
         <Column className="w-1/4">
-          <label htmlFor={dateInputId}>{t('filters.observationDate')}</label>
-          <input
-            type="date"
-            required
-            value={observationDate.toISODate()}
-            onChange={(e) => onDateChange(e.target.value)}
-            className="flex-1"
-            id={dateInputId}
-          />
+          <ObservationDateControl className="flex-1" />
         </Column>
 
         {line && (

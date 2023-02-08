@@ -5,12 +5,18 @@ interface Props {
   value: DateTime;
   onChange: (value: DateTime) => void;
   className?: string;
+  testId?: string;
+  required?: boolean;
+  disabled?: boolean;
 }
 
 export const ObservationDateInput = ({
   value,
   onChange,
   className = '',
+  testId,
+  required = false,
+  disabled = false,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const dateInputId = 'observation-date-input';
@@ -23,6 +29,9 @@ export const ObservationDateInput = ({
         onChange={(e) => onChange(DateTime.fromISO(e.target.value))}
         id={dateInputId}
         className={className}
+        data-testid={testId}
+        required={required}
+        disabled={disabled}
       />
     </>
   );

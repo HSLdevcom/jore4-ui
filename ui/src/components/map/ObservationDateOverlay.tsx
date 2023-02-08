@@ -1,15 +1,9 @@
-import { DateTime } from 'luxon';
-import { ChangeEvent } from 'react';
-import { useTranslation } from 'react-i18next';
 import { MdLayers } from 'react-icons/md';
-import {
-  useAppSelector,
-  useFilterStops,
-  useObservationDateQueryParam,
-} from '../../hooks';
+import { useAppSelector, useFilterStops } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
 import { selectHasChangesInProgress } from '../../redux';
 import { IconButton } from '../../uiComponents';
+import { ObservationDateControl } from '../common/ObservationDateControl';
 import { MapOverlay } from './MapOverlay';
 
 interface Props {
@@ -17,45 +11,23 @@ interface Props {
 }
 
 export const ObservationDateOverlay = ({ className = '' }: Props) => {
-  const { t } = useTranslation();
-
-  const { observationDate, setObservationDateToUrl } =
-    useObservationDateQueryParam();
-
   const { toggleShowFilters } = useFilterStops();
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
-
-  const onObservationDateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-
-    // Do not allow setting empty value to observation date
-    if (!value) {
-      return;
-    }
-
-    setObservationDateToUrl(DateTime.fromISO(value));
-  };
-
-  const dateInputId = 'observation-date-input';
 
   return (
     <MapOverlay className={`${className} rounded`}>
       <Column className="space-y-1 p-3">
-        <label htmlFor={dateInputId}>{t('filters.observationDate')}</label>
-        <Row className="space-x-1">
-          <input
-            type="date"
-            value={observationDate.toISODate()}
-            onChange={onObservationDateChange}
-            className="flex-1"
-            disabled={hasChangesInProgress}
-            id={dateInputId}
-          />
-          <IconButton
-            className="block h-11 w-11 self-stretch rounded-md border border-black"
-            icon={<MdLayers className="text-2xl text-tweaked-brand" />}
-            onClick={toggleShowFilters}
-          />
+        <Row className="items-end space-x-1">
+          <Column className="w-full">
+            <ObservationDateControl disabled={hasChangesInProgress} />
+          </Column>
+          <Column>
+            <IconButton
+              className="block h-11 w-11 self-stretch rounded-md border border-black"
+              icon={<MdLayers className="text-2xl text-tweaked-brand" />}
+              onClick={toggleShowFilters}
+            />
+          </Column>
         </Row>
       </Column>
     </MapOverlay>
