@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Column, Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
 import { SimpleButton, ValueFn } from '../../../uiComponents';
+import { ObservationDateInput } from '../common';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 interface Props {
@@ -61,16 +62,11 @@ export const TemplateRouteSelector = ({
         </Column>
       </Row>
       <Column className="mb-4">
-        <label htmlFor="template-route-observation-date">
-          {t('filters.observationDate')}
-        </label>
-        <input
-          id="template-route-observation-date"
-          type="date"
-          value={observationDate.toISODate()}
-          onChange={(e) => setObservationDate(DateTime.fromISO(e.target.value))}
+        <ObservationDateInput
+          value={observationDate}
+          onChange={setObservationDate}
+          testId={testIds.observationDateInput}
           className="flex-1"
-          data-testid={testIds.observationDateInput}
         />
       </Column>
       <label htmlFor="choose-route-combobox">{t('routes.label')}</label>

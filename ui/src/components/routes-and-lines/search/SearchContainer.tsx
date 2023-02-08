@@ -9,7 +9,7 @@ import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import { ChevronToggle, SimpleButton } from '../../../uiComponents';
 import { AllOptionEnum } from '../../../utils';
 import { SearchInput } from '../../common/search';
-import { FormRow } from '../../forms/common';
+import { FormRow, ObservationDateInput } from '../../forms/common';
 import { LineTypeDropdown } from '../../forms/line/LineTypeDropdown';
 import { VehicleModeDropdown } from '../../forms/line/VehicleModeDropdown';
 import { PriorityCondition } from './conditions/PriorityCondition';
@@ -22,6 +22,7 @@ export const SearchContainer = (): JSX.Element => {
   const testIds = {
     searchInput: 'SearchContainer::SearchInput',
     toggleExpand: 'SearchContainer::ChevronToggle',
+    observationDateInput: 'SearchContainer::ObservationDateInput',
   };
 
   const onChangeLabel = (value: string) => {
@@ -39,16 +40,12 @@ export const SearchContainer = (): JSX.Element => {
     setSearchCondition(SearchQueryParameterNames.TypeOfLine, e.target.value);
   };
 
-  const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchCondition(
-      SearchQueryParameterNames.ObservationDate,
-      DateTime.fromISO(e.target.value),
-    );
+  const onChangeDate = (dateTime: DateTime) => {
+    setSearchCondition(SearchQueryParameterNames.ObservationDate, dateTime);
   };
 
   const vehicleModeDropdownId = 'search.primaryVehicleMode';
   const typeOfLineDropdownId = 'search.typeOfLine';
-  const observationDateId = 'search.observationDate';
 
   return (
     <Container className="py-10">
@@ -105,16 +102,12 @@ export const SearchContainer = (): JSX.Element => {
               priorities={searchConditions.priorities}
             />
             <Column className="justify-self-end">
-              <label htmlFor={observationDateId}>
-                {t('filters.observationDate')}
-              </label>
-              <input
-                type="date"
-                required
-                value={searchConditions.observationDate.toISODate()}
+              <ObservationDateInput
+                value={searchConditions.observationDate}
                 onChange={onChangeDate}
                 className="flex-1"
-                id={observationDateId}
+                required
+                testId={testIds.observationDateInput}
               />
             </Column>
           </FormRow>

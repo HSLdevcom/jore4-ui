@@ -1,12 +1,11 @@
-import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router';
-import { useObservationDateQueryParam, useUrlQuery } from '../../../hooks';
+import { useUrlQuery } from '../../../hooks';
 import { useGetLineDraftDetails } from '../../../hooks/line-drafts/useGetLineDraftDetails';
 import { Column, Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { CloseIconButton } from '../../../uiComponents';
-import { ObservationDateInput } from '../../forms/common';
+import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { RouteStopsTable } from '../line-details/RouteStopsTable';
 
 export const LineDraftsPage = (): JSX.Element => {
@@ -14,8 +13,6 @@ export const LineDraftsPage = (): JSX.Element => {
   const history = useHistory();
   const { label } = useParams<{ label: string }>();
   const { queryParams } = useUrlQuery();
-  const { observationDate, setObservationDateToUrl } =
-    useObservationDateQueryParam();
   const { routes } = useGetLineDraftDetails();
 
   const onClose = () => {
@@ -27,10 +24,6 @@ export const LineDraftsPage = (): JSX.Element => {
     history.push({
       pathname,
     });
-  };
-
-  const onDateChange = (value: DateTime) => {
-    setObservationDateToUrl(value);
   };
 
   return (
@@ -45,11 +38,7 @@ export const LineDraftsPage = (): JSX.Element => {
       </Row>
       <Row>
         <Column className="w-1/4">
-          <ObservationDateInput
-            value={observationDate}
-            onChange={onDateChange}
-            className="flex-1"
-          />
+          <ObservationDateControl className="flex-1" />
         </Column>
       </Row>
 

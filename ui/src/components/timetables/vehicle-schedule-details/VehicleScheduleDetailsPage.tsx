@@ -1,13 +1,9 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { useGetVehicleJourneysQuery } from '../../../generated/graphql';
-import {
-  useGetLineDetails,
-  useObservationDateQueryParam,
-} from '../../../hooks';
+import { useGetLineDetails } from '../../../hooks';
 import { Column, Container, Row } from '../../../layoutComponents';
-import { ObservationDateInput } from '../../forms/common';
+import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';
 import { PassingTimesByStopTable } from '../passing-times-by-stop';
 import { VehicleRouteTimetables } from './VehicleRouteTimetables';
@@ -34,12 +30,6 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
     vehicleJourneysResult.data?.timetables
       ?.timetables_vehicle_journey_vehicle_journey || [];
 
-  const { observationDate, setObservationDateToUrl } =
-    useObservationDateQueryParam();
-  const onDateChange = (date: DateTime) => {
-    setObservationDateToUrl(date);
-  };
-
   return (
     <div>
       <PageHeader>
@@ -51,10 +41,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
       <div className="mx-12 my-8">
         <Row className="mb-8">
           <Column>
-            <ObservationDateInput
-              value={observationDate}
-              onChange={onDateChange}
-            />
+            <ObservationDateControl />
           </Column>
         </Row>
         <VehicleRouteTimetables routes={line?.line_routes || []} />
