@@ -49,12 +49,6 @@ describe('Stop creation tests', () => {
   let mapFilterPanel: FilterPanel;
   let changeValidityForm: ChangeValidityForm;
 
-  before(() => {
-    cy.fixture('infraLinks/infraLinks.sql').then((infraLinksQuery) => {
-      cy.task('executeRawDbQuery', { query: infraLinksQuery });
-    });
-  });
-
   beforeEach(() => {
     clearDatabase();
     insertToDbHelper(dbResources);

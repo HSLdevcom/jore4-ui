@@ -192,12 +192,6 @@ describe('Route creation', () => {
   let routeStopsOverlay: RouteStopsOverlay;
   let routeEditor: RouteEditor;
 
-  before(() => {
-    cy.fixture('infraLinks/infraLinks.sql').then((infraLinksQuery) => {
-      cy.task('executeRawDbQuery', { query: infraLinksQuery });
-    });
-  });
-
   beforeEach(() => {
     modalMap = new ModalMap();
     const mapFilterPanel = new FilterPanel();
