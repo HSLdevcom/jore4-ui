@@ -103,12 +103,6 @@ describe('Stop editing tests', () => {
   let stopForm: StopForm;
   let toast: Toast;
 
-  before(() => {
-    cy.fixture('infraLinks/infraLinks.sql').then((infraLinksQuery) => {
-      cy.task('executeRawDbQuery', { query: infraLinksQuery });
-    });
-  });
-
   beforeEach(() => {
     clearDatabase();
     insertToDbHelper(dbResources);
