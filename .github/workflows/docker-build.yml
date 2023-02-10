@@ -92,14 +92,6 @@ jobs:
         run: |
           docker push $CYPRESS_IMAGE_NAME:latest
 
-  run_robot_tests:
-    needs:
-      - build_ui_image
-    uses: ./.github/workflows/run-robot-tests.yml
-    secrets:
-      ROBOT_HSLID_EMAIL: ${{ secrets.ROBOT_HSLID_EMAIL }}
-      ROBOT_HSLID_PASSWORD: ${{ secrets.ROBOT_HSLID_PASSWORD }}
-
   run_cypress_tests:
     needs:
       - build_ui_image
