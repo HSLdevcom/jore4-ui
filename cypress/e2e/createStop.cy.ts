@@ -6,7 +6,6 @@ import {
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { ChangeValidityForm, ModalMap } from '../pageObjects';
-import { FilterPanel } from '../pageObjects/FilterPanel';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteStopsByLabel } from './utils';
 
@@ -46,7 +45,6 @@ const clearDatabase = () => {
 
 describe('Stop creation tests', () => {
   let modalMap: ModalMap;
-  let mapFilterPanel: FilterPanel;
   let changeValidityForm: ChangeValidityForm;
 
   beforeEach(() => {
@@ -54,7 +52,6 @@ describe('Stop creation tests', () => {
     insertToDbHelper(dbResources);
 
     modalMap = new ModalMap();
-    mapFilterPanel = new FilterPanel();
     changeValidityForm = new ChangeValidityForm();
 
     cy.setupTests();
@@ -88,7 +85,7 @@ describe('Stop creation tests', () => {
 
     modalMap.checkStopSubmitSuccessToast();
 
-    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    modalMap.filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
     cy.getByTestId(
       `Map::Stops::stopMarker::${testStopLabels.testLabel1}_Standard`,
@@ -126,7 +123,9 @@ describe('Stop creation tests', () => {
         lng: 24.918451016960763,
       });
 
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      modalMap.filterPanel.toggleShowStops(
+        ReusableComponentsVehicleModeEnum.Bus,
+      );
 
       cy.getByTestId(
         `Map::Stops::stopMarker::${testStopLabels.manualCoordinatesLabel}_Standard`,
@@ -155,7 +154,9 @@ describe('Stop creation tests', () => {
 
       modalMap.checkStopSubmitSuccessToast();
 
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      modalMap.filterPanel.toggleShowStops(
+        ReusableComponentsVehicleModeEnum.Bus,
+      );
 
       cy.getByTestId(
         `Map::Stops::stopMarker::${testStopLabels.endDateLabel}_Standard`,
@@ -192,7 +193,9 @@ describe('Stop creation tests', () => {
 
       modalMap.checkStopSubmitSuccessToast();
 
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      modalMap.filterPanel.toggleShowStops(
+        ReusableComponentsVehicleModeEnum.Bus,
+      );
 
       cy.getByTestId(
         `Map::Stops::stopMarker::${testStopLabels.timingPlaceLabel}_Standard`,

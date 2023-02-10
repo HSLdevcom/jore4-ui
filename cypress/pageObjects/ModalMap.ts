@@ -1,4 +1,5 @@
 import { EditRouteModal } from './EditRouteModal';
+import { FilterPanel } from './FilterPanel';
 import { ClickPointNearMapMarker, Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { RouteEditor } from './RouteEditor';
@@ -23,6 +24,8 @@ export class ModalMap {
   toast = new Toast();
 
   routeEditor = new RouteEditor();
+
+  filterPanel = new FilterPanel();
 
   /**
    * Creates stop using ClickPointNear stop.

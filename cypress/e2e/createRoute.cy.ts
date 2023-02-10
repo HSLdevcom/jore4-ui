@@ -16,8 +16,6 @@ import {
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { ModalMap, RouteEditor } from '../pageObjects';
-import { FilterPanel } from '../pageObjects/FilterPanel';
-import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteRoutesByLabel } from './utils';
 
@@ -189,18 +187,15 @@ const clearDatabase = () => {
 
 describe('Route creation', () => {
   let modalMap: ModalMap;
-  let routeStopsOverlay: RouteStopsOverlay;
   let routeEditor: RouteEditor;
 
   beforeEach(() => {
     modalMap = new ModalMap();
-    const mapFilterPanel = new FilterPanel();
+    routeEditor = new RouteEditor();
 
     clearDatabase();
     insertToDbHelper(dbResources);
 
-    routeStopsOverlay = new RouteStopsOverlay();
-    routeEditor = new RouteEditor();
     cy.setupTests();
     cy.mockLogin();
 
@@ -213,7 +208,7 @@ describe('Route creation', () => {
       lng: mapLocation.lng,
     });
 
-    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    modalMap.filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
     modalMap.map.waitForLoadToComplete();
   });
@@ -223,11 +218,9 @@ describe('Route creation', () => {
   });
 
   it('Should create a new route', { scrollBehavior: 'bottom' }, () => {
-    const routeName = 'Testireitti 1';
-
     modalMap.createRoute({
       routeFormInfo: {
-        finnishName: routeName,
+        finnishName: 'Testireitti 1',
         label: testRouteLabels.label1,
         variant: '56',
         direction: RouteDirectionEnum.Outbound,
@@ -254,18 +247,17 @@ describe('Route creation', () => {
 
     routeEditor.checkRouteSubmitSuccessToast();
 
-    routeStopsOverlay.routeShouldBeSelected(routeName);
+    modalMap.routeStopsOverlay.routeShouldBeSelected('Testireitti 1');
   });
 
   it(
     'Should create a new route and leave out one stop',
     { scrollBehavior: 'bottom' },
     () => {
-      const routeName = 'Testireitti 2';
       const omittedStopsLabels = [stops[1].label];
       modalMap.createRoute({
         routeFormInfo: {
-          finnishName: routeName,
+          finnishName: 'Testireitti 2',
           label: testRouteLabels.label2,
           direction: RouteDirectionEnum.Inbound,
           line: String(lines[1].label),
@@ -292,9 +284,11 @@ describe('Route creation', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected(routeName);
+      modalMap.routeStopsOverlay.routeShouldBeSelected('Testireitti 2');
 
-      routeStopsOverlay.stopsShouldNotBeIncludedInRoute(omittedStopsLabels);
+      modalMap.routeStopsOverlay.stopsShouldNotBeIncludedInRoute(
+        omittedStopsLabels,
+      );
     },
   );
 
@@ -302,11 +296,10 @@ describe('Route creation', () => {
     'Should not let the user create a route with only one stop',
     { scrollBehavior: 'bottom' },
     () => {
-      const routeName = 'Testireitti 3';
       const omittedStopsLabels = [stops[1].label, stops[2].label];
       modalMap.createRoute({
         routeFormInfo: {
-          finnishName: routeName,
+          finnishName: 'Testireitti 3',
           label: testRouteLabels.label3,
           direction: RouteDirectionEnum.Outbound,
           line: String(lines[2].label),
@@ -337,11 +330,9 @@ describe('Route creation', () => {
     'Should create new route with an indefinite validity end date',
     { scrollBehavior: 'bottom' },
     () => {
-      const routeName = 'Testireitti 4';
-
       modalMap.createRoute({
         routeFormInfo: {
-          finnishName: routeName,
+          finnishName: 'Testireitti 4',
           label: testRouteLabels.label4,
           direction: RouteDirectionEnum.Outbound,
           line: String(lines[3].label),
@@ -366,7 +357,7 @@ describe('Route creation', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected(routeName);
+      modalMap.routeStopsOverlay.routeShouldBeSelected('Testireitti 4');
     },
   );
 
@@ -397,14 +388,14 @@ describe('Route creation', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected(testRouteLabels.label5);
+      modalMap.routeStopsOverlay.routeShouldBeSelected(testRouteLabels.label5);
 
       // Verify that the stops from the template route are included in the new route
       // and that the stop count is correct
-      routeStopsOverlay.stopsShouldBeIncludedInRoute(
+      modalMap.routeStopsOverlay.stopsShouldBeIncludedInRoute(
         stops.map((item) => item.label),
       );
-      routeStopsOverlay.assertRouteStopCount(3);
+      modalMap.routeStopsOverlay.assertRouteStopCount(3);
     },
   );
 });
