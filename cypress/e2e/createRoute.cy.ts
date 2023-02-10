@@ -17,8 +17,6 @@ import {
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
 import { ModalMap, RouteEditor } from '../pageObjects';
-import { FilterPanel } from '../pageObjects/FilterPanel';
-import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteRoutesByLabel } from './utils';
 
@@ -177,10 +175,8 @@ const dbResources = {
   stopsInJourneyPattern,
 };
 
-const stopTestIds = {
-  testStop1: `Map::Stops::stopMarker::${stops[0].label}_Standard`,
-  testStop2: `Map::Stops::stopMarker::${stops[1].label}_Standard`,
-  testStop3: `Map::Stops::stopMarker::${stops[2].label}_Standard`,
+const stopTestId = (label: string, priority: Priority) => {
+  return `Map::Stops::stopMarker::${label}_${Priority[priority]}`;
 };
 
 const clearDatabase = () => {
@@ -190,18 +186,15 @@ const clearDatabase = () => {
 
 describe('Route creation', () => {
   let modalMap: ModalMap;
-  let routeStopsOverlay: RouteStopsOverlay;
   let routeEditor: RouteEditor;
 
   beforeEach(() => {
     modalMap = new ModalMap();
-    const mapFilterPanel = new FilterPanel();
+    routeEditor = new RouteEditor();
 
     clearDatabase();
     insertToDbHelper(dbResources);
 
-    routeStopsOverlay = new RouteStopsOverlay();
-    routeEditor = new RouteEditor();
     cy.setupTests();
     cy.mockLogin();
 
@@ -214,7 +207,7 @@ describe('Route creation', () => {
       lng: mapLocation.lng,
     });
 
-    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    modalMap.filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
     modalMap.map.waitForLoadToComplete();
   });
@@ -230,15 +223,14 @@ describe('Route creation', () => {
       scrollBehavior: 'bottom',
     },
     () => {
-      const routeName = 'Testireitti 1';
-
       modalMap.createRoute({
         routeFormInfo: {
-          finnishName: routeName,
+          finnishName: 'Testireitti 1',
           label: testRouteLabels.label1,
           variant: '56',
           direction: RouteDirectionEnum.Outbound,
-          line: String(lines[0].label),
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          line: lines[0].label!,
           validityStartISODate: '2022-01-01',
           validityEndISODate: '2025-12-01',
           priority: Priority.Standard,
@@ -247,12 +239,12 @@ describe('Route creation', () => {
           {
             rightOffset: -10,
             downOffset: 25,
-            mapMarkerTestId: stopTestIds.testStop1,
+            mapMarkerTestId: stopTestId(stops[0].label, stops[0].priority),
           },
           {
             rightOffset: 35,
             downOffset: -20,
-            mapMarkerTestId: stopTestIds.testStop3,
+            mapMarkerTestId: stopTestId(stops[2].label, stops[2].priority),
           },
         ],
       });
@@ -261,7 +253,7 @@ describe('Route creation', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected(routeName);
+      modalMap.routeStopsOverlay.routeShouldBeSelected('Testireitti 1');
     },
   );
 
@@ -269,14 +261,14 @@ describe('Route creation', () => {
     'Should create a new route and leave out one stop',
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
-      const routeName = 'Testireitti 2';
       const omittedStopsLabels = [stops[1].label];
       modalMap.createRoute({
         routeFormInfo: {
-          finnishName: routeName,
+          finnishName: 'Testireitti 2',
           label: testRouteLabels.label2,
           direction: RouteDirectionEnum.Inbound,
-          line: String(lines[1].label),
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          line: lines[1].label!,
           validityStartISODate: '2022-01-01',
           validityEndISODate: '2025-12-01',
           priority: Priority.Standard,
@@ -285,12 +277,12 @@ describe('Route creation', () => {
           {
             rightOffset: -10,
             downOffset: 25,
-            mapMarkerTestId: stopTestIds.testStop1,
+            mapMarkerTestId: stopTestId(stops[0].label, stops[0].priority),
           },
           {
             rightOffset: 35,
             downOffset: -20,
-            mapMarkerTestId: stopTestIds.testStop3,
+            mapMarkerTestId: stopTestId(stops[2].label, stops[2].priority),
           },
         ],
         omittedStops: omittedStopsLabels,
@@ -300,9 +292,11 @@ describe('Route creation', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected(routeName);
+      modalMap.routeStopsOverlay.routeShouldBeSelected('Testireitti 2');
 
-      routeStopsOverlay.stopsShouldNotBeIncludedInRoute(omittedStopsLabels);
+      modalMap.routeStopsOverlay.stopsShouldNotBeIncludedInRoute(
+        omittedStopsLabels,
+      );
     },
   );
 
@@ -310,14 +304,14 @@ describe('Route creation', () => {
     'Should not let the user create a route with only one stop',
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
-      const routeName = 'Testireitti 3';
       const omittedStopsLabels = [stops[1].label, stops[2].label];
       modalMap.createRoute({
         routeFormInfo: {
-          finnishName: routeName,
+          finnishName: 'Testireitti 3',
           label: testRouteLabels.label3,
           direction: RouteDirectionEnum.Outbound,
-          line: String(lines[2].label),
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          line: lines[2].label!,
           validityStartISODate: '2022-01-01',
           validityEndISODate: '2025-12-01',
           priority: Priority.Standard,
@@ -326,12 +320,12 @@ describe('Route creation', () => {
           {
             rightOffset: -10,
             downOffset: 25,
-            mapMarkerTestId: stopTestIds.testStop1,
+            mapMarkerTestId: stopTestId(stops[0].label, stops[0].priority),
           },
           {
             rightOffset: 35,
             downOffset: -20,
-            mapMarkerTestId: stopTestIds.testStop3,
+            mapMarkerTestId: stopTestId(stops[2].label, stops[2].priority),
           },
         ],
         omittedStops: omittedStopsLabels,
@@ -345,14 +339,13 @@ describe('Route creation', () => {
     'Should create new route with an indefinite validity end date',
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
-      const routeName = 'Testireitti 4';
-
       modalMap.createRoute({
         routeFormInfo: {
-          finnishName: routeName,
+          finnishName: 'Testireitti 4',
           label: testRouteLabels.label4,
           direction: RouteDirectionEnum.Outbound,
-          line: String(lines[3].label),
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          line: lines[3].label!,
           validityStartISODate: '2022-01-01',
           priority: Priority.Standard,
         },
@@ -360,12 +353,12 @@ describe('Route creation', () => {
           {
             rightOffset: -10,
             downOffset: 30,
-            mapMarkerTestId: stopTestIds.testStop1,
+            mapMarkerTestId: stopTestId(stops[0].label, stops[0].priority),
           },
           {
             rightOffset: 35,
             downOffset: -10,
-            mapMarkerTestId: stopTestIds.testStop3,
+            mapMarkerTestId: stopTestId(stops[2].label, stops[2].priority),
           },
         ],
       });
@@ -374,7 +367,7 @@ describe('Route creation', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected(routeName);
+      modalMap.routeStopsOverlay.routeShouldBeSelected('Testireitti 4');
     },
   );
 
@@ -387,7 +380,8 @@ describe('Route creation', () => {
           finnishName: 'Reitin pohjalta luotu reitti',
           label: testRouteLabels.label5,
           direction: RouteDirectionEnum.Outbound,
-          line: String(lines[0].label),
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          line: lines[0].label!,
           templateRoute: {
             templateRouteSelectorInfo: {
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -405,14 +399,14 @@ describe('Route creation', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected(testRouteLabels.label5);
+      modalMap.routeStopsOverlay.routeShouldBeSelected(testRouteLabels.label5);
 
       // Verify that the stops from the template route are included in the new route
       // and that the stop count is correct
-      routeStopsOverlay.stopsShouldBeIncludedInRoute(
+      modalMap.routeStopsOverlay.stopsShouldBeIncludedInRoute(
         stops.map((item) => item.label),
       );
-      routeStopsOverlay.assertRouteStopCount(3);
+      modalMap.routeStopsOverlay.assertRouteStopCount(3);
     },
   );
 });
