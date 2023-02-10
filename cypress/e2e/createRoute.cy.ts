@@ -235,7 +235,7 @@ describe('Route creation', () => {
       routeFormInfo: {
         finnishName: routeName,
         label: testRouteLabels.label1,
-        hiddenVariant: '56',
+        variant: '56',
         direction: RouteDirectionEnum.Outbound,
         line: String(lines[0].label),
         validityStartISODate: '2022-01-01',

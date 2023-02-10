@@ -18,7 +18,7 @@ import { insertToDbHelper, removeFromDbHelper } from '../utils';
 const routeFormTestInputs = {
   finnishName: 'Muokattu reitin nimi',
   label: 'Muokattu label',
-  hiddenVariant: '9191',
+  variant: '9191',
   direction: RouteDirectionEnum.Outbound,
 };
 
@@ -116,10 +116,10 @@ describe('Route meta information editing', () => {
       .getRouteValidityPeriod(routeFormTestInputs.label)
       .should('contain', '1.1.2022 - 31.12.2030');
 
-    // Verfify rest of the information from the edit route page
+    // Verify rest of the information from the edit route page
     editRoutePage.visit(routes[0].route_id);
     editRoutePage.routePropertiesForm
-      .getHiddenVariantInput()
+      .getVariantInput()
       .should('have.value', '9191');
     editRoutePage.terminusNamesInputs.verifyOriginValues(originTestInputs);
     editRoutePage.terminusNamesInputs.verifyDestinationValues(
