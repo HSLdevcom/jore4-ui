@@ -25,6 +25,7 @@ export default defineConfig({
       // Default is 0
       openMode: 0,
     },
+    experimentalInteractiveRunEvents: true,
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {
