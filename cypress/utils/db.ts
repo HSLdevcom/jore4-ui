@@ -82,7 +82,7 @@ export const insertToDbHelper = ({
   stopsInJourneyPattern,
 }: SupportedResources) => {
   if (infraLinks) {
-    cy.task('hasuraApi', mapToCreateInfraLinksMutation(infraLinks)).then(
+    cy.task('hasuraAPI', mapToCreateInfraLinksMutation(infraLinks)).then(
       (res) => handleResponse('Inserting infra links', res),
     );
   }
@@ -95,40 +95,40 @@ export const insertToDbHelper = ({
     );
   }
   if (lines) {
-    cy.task('hasuraApi', mapToCreateLinesMutation(lines)).then((res) =>
+    cy.task('hasuraAPI', mapToCreateLinesMutation(lines)).then((res) =>
       handleResponse('Inserting lines', res),
     );
   }
   if (timingPlaces) {
-    cy.task('hasuraApi', mapToCreateTimingPlacesMutation(timingPlaces)).then(
+    cy.task('hasuraAPI', mapToCreateTimingPlacesMutation(timingPlaces)).then(
       (res) => handleResponse('Inserting timing places', res),
     );
   }
   if (stops) {
-    cy.task('hasuraApi', mapToCreateStopsMutation(stops)).then((res) =>
+    cy.task('hasuraAPI', mapToCreateStopsMutation(stops)).then((res) =>
       handleResponse('Inserting stops', res),
     );
   }
   if (routes) {
-    cy.task('hasuraApi', mapToCreateRoutesMutation(routes)).then((res) =>
+    cy.task('hasuraAPI', mapToCreateRoutesMutation(routes)).then((res) =>
       handleResponse('Inserting routes', res),
     );
   }
   if (infraLinksAlongRoute) {
     cy.task(
-      'hasuraApi',
+      'hasuraAPI',
       mapToCreateInfraLinkAlongRouteMutation(infraLinksAlongRoute),
     ).then((res) => handleResponse('Inserting infra links along route', res));
   }
   if (journeyPatterns) {
     cy.task(
-      'hasuraApi',
+      'hasuraAPI',
       mapToCreateJourneyPatternsMutation(journeyPatterns),
     ).then((res) => handleResponse('Inserting journey patterns', res));
   }
   if (stopsInJourneyPattern) {
     cy.task(
-      'hasuraApi',
+      'hasuraAPI',
       mapToCreateStopsOnJourneyPatternMutation(stopsInJourneyPattern),
     ).then((res) => handleResponse('Inserting stops in journey pattern', res));
   }
@@ -147,19 +147,19 @@ export const removeFromDbHelper = ({
 }: SupportedResources) => {
   if (routes) {
     cy.task(
-      'hasuraApi',
+      'hasuraAPI',
       mapToDeleteRoutesMutation(routes.map((route) => route.route_id)),
     ).then((res) => handleResponse('Removing route', res));
   }
   if (lines) {
     cy.task(
-      'hasuraApi',
+      'hasuraAPI',
       mapToDeleteLinesMutation(lines.map((line) => line.line_id)),
     ).then((res) => handleResponse('Removing line', res));
   }
   if (stops) {
     cy.task(
-      'hasuraApi',
+      'hasuraAPI',
       mapToDeleteStopsMutation(
         stops.map((item) => item.scheduled_stop_point_id),
       ),
@@ -175,7 +175,7 @@ export const removeFromDbHelper = ({
   }
   if (infraLinks) {
     cy.task(
-      'hasuraApi',
+      'hasuraAPI',
       mapToDeleteInfraLinksMutation(
         infraLinks.map((item) => item.infrastructure_link_id),
       ),
@@ -183,7 +183,7 @@ export const removeFromDbHelper = ({
   }
   if (infraLinksAlongRoute) {
     cy.task(
-      'hasuraApi',
+      'hasuraAPI',
       mapToDeleteInfraLinksAlongRouteMutation(
         infraLinksAlongRoute.map((item) => item.infrastructure_link_id),
       ),
@@ -191,7 +191,7 @@ export const removeFromDbHelper = ({
   }
   if (journeyPatterns) {
     cy.task(
-      'hasuraApi',
+      'hasuraAPI',
       mapToDeleteJourneyPatternsMutation(
         journeyPatterns.map((item) => item.journey_pattern_id),
       ),
@@ -199,7 +199,7 @@ export const removeFromDbHelper = ({
   }
   if (stopsInJourneyPattern) {
     cy.task(
-      'hasuraApi',
+      'hasuraAPI',
       mapToDeleteStopsInJourneyPatternMutation(
         stopsInJourneyPattern.map((item) => item.journey_pattern_id),
       ),
@@ -207,7 +207,7 @@ export const removeFromDbHelper = ({
   }
   if (timingPlaces) {
     cy.task(
-      'hasuraApi',
+      'hasuraAPI',
       mapToDeleteTimingPlacesMutation(
         timingPlaces.map((timingPlace) => timingPlace.timing_place_id),
       ),
