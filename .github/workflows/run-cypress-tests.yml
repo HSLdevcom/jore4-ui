@@ -19,24 +19,14 @@ jobs:
       - name: Extract metadata to env variables
         uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
 
-      - name: start e2e env
+      - name: Start e2e env
         uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
         with:
-          ui_version: $IMAGE_NAME:$COMMIT_ID
+          ui_version: '${{ env.IMAGE_NAME }}:${{ env.COMMIT_ID }}'
+          cypress_version: '${{ env.CYPRESS_IMAGE_NAME }}:${{ env.COMMIT_ID }}'
 
-      - name: Verify that all services are up and running
-        uses: HSLdevcom/jore4-tools/github-actions/healthcheck@healthcheck-v1
-        with:
-          command: '[ -z "$(docker ps -q --filter health=unhealthy --filter health=starting)" ]'
-
-      - name: Run the the docker image containing the cypress tests
-        run: |
-          # pin the just-built version of the cypress image
-          export CYPRESS_DOCKER_IMAGE="$CYPRESS_IMAGE_NAME:$COMMIT_ID"
-
-          # run the e2e tests from the docker image
-          # note: need to explicitly name the container here to be able to reference it later
-          docker-compose -f ./docker/docker-compose.cypress.yml run --name cypress jore4-cypress yarn test:e2e
+      - name: Run e2e tests from github action
+        uses: ./github-actions/run-cypress-tests
 
       - name: Retrieve test reports from container
         if: always()

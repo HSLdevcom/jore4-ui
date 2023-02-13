@@ -15,12 +15,9 @@ runs:
           # Get current date as a postfix for individual runs
           CURRENT_DATE=$(date +%s)
 
-          # Run tests
-          docker run \
-            --name "cypress-tests" \
-            --network="host" \
-            hsldevcom/jore4-cypress:latest \
-            bash -c "cypress run --browser chrome"
+          # Run tests using the e2e docker bundle's cypress container
+          docker exec cypress \
+            bash -c "yarn test:e2e"
 
           # Retrieve test results from docker container to the reports folder
           docker cp cypress-tests:/reports/. "${{ github.workspace }}/reports/${CURRENT_DATE}/" || echo "No reports"
