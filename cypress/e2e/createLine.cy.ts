@@ -39,7 +39,7 @@ describe('Verify that creating new line works', () => {
 
     lineDetailsPage.lineValidityPeriod
       .getLineValidityPeriod()
-      .should('contain', '1.1.2022 - 1.1.2050');
+      .should('contain', '1.1.2022 - 1.1.2051');
     lineDetailsPage.getLineName().should('contain', 'Testilinja FI');
     lineDetailsPage.getLineLabel().should('contain', '7327');
     lineDetailsPage
