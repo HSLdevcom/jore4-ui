@@ -5,22 +5,16 @@ runs:
   using: 'composite'
   steps:
     - name: Run Cypress tests in started environment
-      # I have checked the code of this github action and haven't found anything malicous in it. (Tamas Pallos @ 7.6.2022)
-      uses: nick-fields/retry@02a3f09f1566ff8b95fd3b7896b51296ac01e264
-      with:
-        timeout_minutes: 30
-        max_attempts: 3
-        shell: bash
-        command: |
-          # Get current date as a postfix for individual runs
-          CURRENT_DATE=$(date +%s)
+      run: |
+        # Get current date as a postfix for individual runs
+        CURRENT_DATE=$(date +%s)
 
-          # Run tests using the e2e docker bundle's cypress container
-          docker exec cypress \
-            bash -c "yarn test:e2e"
+        # Run tests using the e2e docker bundle's cypress container
+        docker exec cypress \
+          bash -c "yarn test:e2e"
 
-          # Retrieve test results from docker container to the reports folder
-          docker cp cypress-tests:/reports/. "${{ github.workspace }}/reports/${CURRENT_DATE}/" || echo "No reports"
+        # Retrieve test results from docker container to the reports folder
+        docker cp cypress-tests:/reports/. "${{ github.workspace }}/reports/${CURRENT_DATE}/" || echo "No reports"
 
-          # Cleanup test container
-          docker rm --force cypress-tests
+        # Cleanup test container
+        docker rm --force cypress-tests
