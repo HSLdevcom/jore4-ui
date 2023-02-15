@@ -1062,6 +1062,15 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
+"@cypress/grep@^3.1.4":
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@cypress/grep/-/grep-3.1.4.tgz#4aa5ab9559705079d991079b96395f745e47c1e0"
+  integrity sha512-3xpuuHJQKF/KIyF8dFVIO1qeH2+w67yLjknD68GxtehJAy2AqY+AdICwT4LS6tXrXlhjZLNNA21MT+FcT3+tUA==
+  dependencies:
+    debug "^4.3.4"
+    find-test-names "^1.19.0"
+    globby "^11.0.4"
+
 "@cypress/request@^2.88.10":
   version "2.88.10"
   resolved "https://registry.yarnpkg.com/@cypress/request/-/request-2.88.10.tgz#b66d76b07f860d3a4b8d7a0604d020c662752cce"
@@ -5640,6 +5649,17 @@ finalhandler@~1.1.2:
     statuses "~1.5.0"
     unpipe "~1.0.0"
 
+find-test-names@^1.19.0:
+  version "1.26.0"
+  resolved "https://registry.yarnpkg.com/find-test-names/-/find-test-names-1.26.0.tgz#2d0ca36f7f2bd95d5d1fb20294e19d3c787f9254"
+  integrity sha512-66rRIMQECIwozeX9bEZO0HvhdRnoElq+uwlmsjqWZreJTRlcY5sp9iquVIjJBJ0jUeV6U4t/Hh2pm6p5fBumfw==
+  dependencies:
+    "@babel/parser" "^7.16.5"
+    acorn-walk "^8.2.0"
+    debug "^4.3.3"
+    globby "^11.0.4"
+    simple-bin-help "^1.8.0"
+
 find-test-names@^1.22.2:
   version "1.22.2"
   resolved "https://registry.yarnpkg.com/find-test-names/-/find-test-names-1.22.2.tgz#fdc9b3a3bd78204181318955d199993d56cb1c50"
@@ -9635,6 +9655,11 @@ simple-bin-help@^1.7.7:
     debug "3.2.7"
     update-notifier "5.1.0"
     word-wrap "1.2.3"
+
+simple-bin-help@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/simple-bin-help/-/simple-bin-help-1.8.0.tgz#21bb82c6bccd9fa8678f9c0fadf2956b54e2160a"
+  integrity sha512-0LxHn+P1lF5r2WwVB/za3hLRIsYoLaNq1CXqjbrs3ZvLuvlWnRKrUjEWzV7umZL7hpQ7xULiQMV+0iXdRa5iFg==
 
 sisteransi@^1.0.5:
   version "1.0.5"

@@ -1,13 +1,26 @@
 name: 'E2E Cypress tests'
 description: 'Runs e2e tests'
+inputs:
+  test-tags:
+    description: Specify a string of tags for tests to be run in format '@smoke'. To specify multiple tags, use format '@routes @smoke'.
+    required: false
+    default: ''
 
 runs:
   using: 'composite'
   steps:
-    - name: Run tests using the e2e docker bundle's cypress container
+    - name: Run all tests using the e2e docker bundle's cypress container
+      if: inputs.test-tags == ''
       run: |
         docker exec cypress \
           bash -c "yarn test:e2e"
+      shell: bash
+
+    - name: Run tests that have the provided tags
+      if: startsWith(inputs.test-tags, '@')
+      run: |
+        docker exec cypress \
+          bash -c "yarn test:e2e --env grepTags='${{ inputs.test-tags }}'"
       shell: bash
 
     - name: Retrieve test reports from container
