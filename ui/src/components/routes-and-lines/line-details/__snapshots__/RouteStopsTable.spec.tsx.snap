@@ -148,30 +148,40 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
           <td
             class="w-20 border-l-4 border-r-4 border-white text-center"
           >
-            <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-              data-testid="RouteStopsHeaderRow::showRouteButton"
-              type="button"
+            <div
+              class="group relative flex justify-center"
             >
-              <svg
-                class="text-2xl inline text-center"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs 
+        text-white transition-all group-hover:scale-100 bottom-11 delay-700"
               >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
-                />
-              </svg>
-            </button>
+                Näytä kartalla
+              </span>
+              <button
+                class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
+                data-testid="RouteStopsHeaderRow::showRouteButton"
+                type="button"
+              >
+                <svg
+                  class="text-2xl inline text-center"
+                  fill="currentColor"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0 0h24v24H0z"
+                    fill="none"
+                  />
+                  <path
+                    d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+                  />
+                </svg>
+              </button>
+            </div>
           </td>
           <td
             class="w-20"
@@ -356,30 +366,40 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           <td
             class="w-20 border-l-4 border-r-4 border-white text-center"
           >
-            <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-              data-testid="RouteStopsHeaderRow::showRouteButton"
-              type="button"
+            <div
+              class="group relative flex justify-center"
             >
-              <svg
-                class="text-2xl inline text-center"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs 
+        text-white transition-all group-hover:scale-100 bottom-11 delay-700"
               >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
-                />
-              </svg>
-            </button>
+                Näytä kartalla
+              </span>
+              <button
+                class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
+                data-testid="RouteStopsHeaderRow::showRouteButton"
+                type="button"
+              >
+                <svg
+                  class="text-2xl inline text-center"
+                  fill="currentColor"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0 0h24v24H0z"
+                    fill="none"
+                  />
+                  <path
+                    d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+                  />
+                </svg>
+              </button>
+            </div>
           </td>
           <td
             class="w-20"
@@ -764,30 +784,40 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           <td
             class="w-20 border-l-4 border-r-4 border-white text-center"
           >
-            <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-              data-testid="RouteStopsHeaderRow::showRouteButton"
-              type="button"
+            <div
+              class="group relative flex justify-center"
             >
-              <svg
-                class="text-2xl inline text-center"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs 
+        text-white transition-all group-hover:scale-100 bottom-11 delay-700"
               >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
-                />
-              </svg>
-            </button>
+                Näytä kartalla
+              </span>
+              <button
+                class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
+                data-testid="RouteStopsHeaderRow::showRouteButton"
+                type="button"
+              >
+                <svg
+                  class="text-2xl inline text-center"
+                  fill="currentColor"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0 0h24v24H0z"
+                    fill="none"
+                  />
+                  <path
+                    d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+                  />
+                </svg>
+              </button>
+            </div>
           </td>
           <td
             class="w-20"
