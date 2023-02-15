@@ -4,6 +4,7 @@ import {
   LineInsertInput,
   RouteInsertInput,
 } from '@hsl/jore4-test-db-manager';
+import { Tag } from '../enums/tags';
 import { RoutesAndLinesPage, SearchResultsPage } from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 
@@ -75,26 +76,34 @@ describe(
       routesAndLinesPage.getRoutesAndLinesSearchInput().clear();
     });
 
-    it('Searches line with exact ID', () => {
-      routesAndLinesPage
-        .getRoutesAndLinesSearchInput()
-        .type(`${lines[0].label}{enter}`);
-      cy.wait('@gqlSearchLinesAndRoutes');
-      searchResultsPage
-        .getSearchResultsContainer()
-        .should('contain', 'hakutulosta');
-      searchResultsPage
-        .getLinesSearchResultTable()
-        .should('contain', `line ${lines[0].label}`);
-      searchResultsPage
-        .getLinesSearchResultTable()
-        .should('not.contain', `line ${lines[1].label}`);
-      searchResultsPage
-        .getLinesSearchResultTable()
-        .should('not.contain', `line ${lines[2].label}`);
-    });
+    it(
+      'Searches line with exact ID',
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      { tags: [Tag.Lines, Tag.sanity] },
+      () => {
+        routesAndLinesPage
+          .getRoutesAndLinesSearchInput()
+          .type(`${lines[0].label}{enter}`);
+        cy.wait('@gqlSearchLinesAndRoutes');
+        searchResultsPage
+          .getSearchResultsContainer()
+          .should('contain', 'hakutulosta');
+        searchResultsPage
+          .getLinesSearchResultTable()
+          .should('contain', `line ${lines[0].label}`);
+        searchResultsPage
+          .getLinesSearchResultTable()
+          .should('not.contain', `line ${lines[1].label}`);
+        searchResultsPage
+          .getLinesSearchResultTable()
+          .should('not.contain', `line ${lines[2].label}`);
+      },
+    );
 
-    it('Searches line with asterisk', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    it('Searches line with asterisk', { tags: Tag.Lines }, () => {
       routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
       cy.wait('@gqlSearchLinesAndRoutes');
       searchResultsPage
@@ -111,7 +120,9 @@ describe(
         .should('not.contain', `line ${lines[1].label}`);
     });
 
-    it('Searches route with exact ID', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    it('Searches route with exact ID', { tags: Tag.Lines }, () => {
       routesAndLinesPage
         .getRoutesAndLinesSearchInput()
         .type(`${routes[0].label}{enter}`);
@@ -131,7 +142,9 @@ describe(
         .should('not.contain', `route ${routes[2].label}`);
     });
 
-    it('Searches route with asterisk', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    it('Searches route with asterisk', { tags: Tag.Lines }, () => {
       routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
       cy.wait('@gqlSearchLinesAndRoutes');
       searchResultsPage
