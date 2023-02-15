@@ -14,6 +14,7 @@ import {
   VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
+import { Tag } from '../enums';
 import {
   Map,
   MapFooter,
@@ -201,45 +202,51 @@ describe('Edit route geometry', () => {
     clearDatabase();
   });
 
-  it("Should edit a route's shape", { scrollBehavior: 'bottom' }, () => {
-    cy.visit('/routes');
-    routesAndLinesPage
-      .getRoutesAndLinesSearchInput()
-      .type(`${routes[0].label}{enter}`);
+  it(
+    "Should edit a route's shape",
 
-    searchResultsPage.getRoutesResultsButton().click();
+    { tags: [Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    () => {
+      cy.visit('/routes');
+      routesAndLinesPage
+        .getRoutesAndLinesSearchInput()
+        .type(`${routes[0].label}{enter}`);
 
-    searchResultsPage.getShowRouteOnMapButton().click();
+      searchResultsPage.getRoutesResultsButton().click();
 
-    map.waitForLoadToComplete();
+      searchResultsPage.getShowRouteOnMapButton().click();
 
-    map.zoomIn(2);
+      map.waitForLoadToComplete();
 
-    routeStopsOverlay.routeShouldBeSelected(routes[0].label);
+      map.zoomIn(2);
 
-    routeStopsOverlay.stopsShouldBeIncludedInRoute(
-      stops.map((item) => item.label),
-    );
+      routeStopsOverlay.routeShouldBeSelected(routes[0].label);
 
-    // Route is edited so that the second stop is not included
-    routeEditor.editOneRoutePoint({
-      handleIndex: 2,
-      deltaX: 10,
-      deltaY: -90,
-    });
+      routeStopsOverlay.stopsShouldBeIncludedInRoute(
+        stops.map((item) => item.label),
+      );
 
-    mapFooter.save();
+      // Route is edited so that the second stop is not included
+      routeEditor.editOneRoutePoint({
+        handleIndex: 2,
+        deltaX: 10,
+        deltaY: -90,
+      });
 
-    routeEditor.checkRouteSubmitSuccessToast();
+      mapFooter.save();
 
-    routeStopsOverlay.routeShouldBeSelected(routes[0].label);
+      routeEditor.checkRouteSubmitSuccessToast();
 
-    routeStopsOverlay.stopsShouldNotBeIncludedInRoute([stops[1].label]);
-  });
+      routeStopsOverlay.routeShouldBeSelected(routes[0].label);
+
+      routeStopsOverlay.stopsShouldNotBeIncludedInRoute([stops[1].label]);
+    },
+  );
 
   it(
     'Should edit route shape correctly when creating new route with template',
-    { scrollBehavior: 'bottom' },
+
+    { tags: [Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
       // Location where all test stops and routes are visible.
       const mapLocation = { lng: 24.929689228090112, lat: 60.16495016651525 };

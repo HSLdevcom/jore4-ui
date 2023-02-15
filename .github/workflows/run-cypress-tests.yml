@@ -33,3 +33,5 @@ jobs:
 
       - name: Run e2e tests from github action
         uses: ./github-actions/run-cypress-tests
+        with:
+          test-tags: ''
