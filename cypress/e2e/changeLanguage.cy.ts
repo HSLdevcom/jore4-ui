@@ -1,4 +1,5 @@
 import { Navbar } from '../pageObjects';
+import { tags } from './utils/tags';
 
 describe('Verify that language changing works', () => {
   let navbar: Navbar;
@@ -9,7 +10,10 @@ describe('Verify that language changing works', () => {
     cy.mockLogin();
     cy.visit('/');
   });
-  it('Changes language from FI to EN', () => {
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  it('Changes language from FI to EN', { tags: tags.sanity }, () => {
     // Language is FI by default
     navbar.getLanguageDropdown().should('have.text', 'FI');
     navbar.getMainPageLink().should('have.text', 'Etusivu');

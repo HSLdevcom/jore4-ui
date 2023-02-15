@@ -14,6 +14,7 @@ import {
   Toast,
 } from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
+import { tags } from './utils/tags';
 
 const routeFormTestInputs = {
   finnishName: 'Muokattu reitin nimi',
@@ -88,7 +89,9 @@ describe('Route meta information editing', () => {
     deleteCreatedResources();
   });
 
-  it("Edits a routes's information", () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  it("Edits a routes's information", { tags: tags.routes }, () => {
     // Edit the route's information
     editRoutePage.routePropertiesForm.fillRouteProperties(routeFormTestInputs);
     editRoutePage.terminusNamesInputs.fillTerminusNameInputsForm(
@@ -127,7 +130,9 @@ describe('Route meta information editing', () => {
     );
   });
 
-  it('Deletes a route', () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  it('Deletes a route', { tags: tags.routes }, () => {
     editRoutePage.routePropertiesForm.getForm().should('be.visible');
     editRoutePage.getDeleteRouteButton().click();
     editRoutePage.confirmationDialog.getConfirmButton().click();

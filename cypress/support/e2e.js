@@ -16,5 +16,10 @@
 // Import commands.js using ES2015 syntax:
 import './commands';
 
+// eslint-disable-next-line import/no-extraneous-dependencies, @typescript-eslint/no-var-requires
+const registerCypressGrep = require('@cypress/grep');
+
+registerCypressGrep();
+
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

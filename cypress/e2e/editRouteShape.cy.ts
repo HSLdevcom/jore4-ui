@@ -25,6 +25,7 @@ import {
 import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteRoutesByLabel } from './utils';
+import { tags } from './utils/tags';
 
 const testRouteLabels = {
   label1: 'T-reitti 1',
@@ -201,45 +202,53 @@ describe('Edit route geometry', () => {
     clearDatabase();
   });
 
-  it("Should edit a route's shape", { scrollBehavior: 'bottom' }, () => {
-    cy.visit('/routes');
-    routesAndLinesPage
-      .getRoutesAndLinesSearchInput()
-      .type(`${routes[0].label}{enter}`);
+  it(
+    "Should edit a route's shape",
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    { tags: [tags.routes, tags.network], scrollBehavior: 'bottom' },
+    () => {
+      cy.visit('/routes');
+      routesAndLinesPage
+        .getRoutesAndLinesSearchInput()
+        .type(`${routes[0].label}{enter}`);
 
-    searchResultsPage.getRoutesResultsButton().click();
+      searchResultsPage.getRoutesResultsButton().click();
 
-    searchResultsPage.getShowRouteOnMapButton().click();
+      searchResultsPage.getShowRouteOnMapButton().click();
 
-    map.waitForLoadToComplete();
+      map.waitForLoadToComplete();
 
-    map.zoomIn(2);
+      map.zoomIn(2);
 
-    routeStopsOverlay.routeShouldBeSelected(routes[0].label);
+      routeStopsOverlay.routeShouldBeSelected(routes[0].label);
 
-    routeStopsOverlay.stopsShouldBeIncludedInRoute(
-      stops.map((item) => item.label),
-    );
+      routeStopsOverlay.stopsShouldBeIncludedInRoute(
+        stops.map((item) => item.label),
+      );
 
-    // Route is edited so that the second stop is not included
-    routeEditor.editOneRoutePoint({
-      handleIndex: 2,
-      deltaX: 10,
-      deltaY: -90,
-    });
+      // Route is edited so that the second stop is not included
+      routeEditor.editOneRoutePoint({
+        handleIndex: 2,
+        deltaX: 10,
+        deltaY: -90,
+      });
 
-    mapFooter.save();
+      mapFooter.save();
 
-    routeEditor.checkRouteSubmitSuccessToast();
+      routeEditor.checkRouteSubmitSuccessToast();
 
-    routeStopsOverlay.routeShouldBeSelected(routes[0].label);
+      routeStopsOverlay.routeShouldBeSelected(routes[0].label);
 
-    routeStopsOverlay.stopsShouldNotBeIncludedInRoute([stops[1].label]);
-  });
+      routeStopsOverlay.stopsShouldNotBeIncludedInRoute([stops[1].label]);
+    },
+  );
 
   it(
     'Should edit route shape correctly when creating new route with template',
-    { scrollBehavior: 'bottom' },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    { tags: [tags.routes, tags.network], scrollBehavior: 'bottom' },
     () => {
       // Location where all test stops and routes are visible.
       const mapLocation = { lng: 24.929689228090112, lat: 60.16495016651525 };

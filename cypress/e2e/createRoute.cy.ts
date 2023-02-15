@@ -20,6 +20,7 @@ import { FilterPanel } from '../pageObjects/FilterPanel';
 import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteRoutesByLabel } from './utils';
+import { tags } from './utils/tags';
 
 const testRouteLabels = {
   label1: 'T-reitti 1',
@@ -222,44 +223,56 @@ describe('Route creation', () => {
     clearDatabase();
   });
 
-  it('Should create a new route', { scrollBehavior: 'bottom' }, () => {
-    const routeName = 'Testireitti 1';
+  it(
+    'Should create a new route',
 
-    modalMap.createRoute({
-      routeFormInfo: {
-        finnishName: routeName,
-        label: testRouteLabels.label1,
-        variant: '56',
-        direction: RouteDirectionEnum.Outbound,
-        line: String(lines[0].label),
-        validityStartISODate: '2022-01-01',
-        validityEndISODate: '2025-12-01',
-        priority: Priority.Standard,
-      },
-      routePoints: [
-        {
-          rightOffset: -10,
-          downOffset: 25,
-          mapMarkerTestId: stopTestIds.testStop1,
+    {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      tags: [tags.sanity, tags.routes, tags.network],
+      scrollBehavior: 'bottom',
+    },
+    () => {
+      const routeName = 'Testireitti 1';
+
+      modalMap.createRoute({
+        routeFormInfo: {
+          finnishName: routeName,
+          label: testRouteLabels.label1,
+          variant: '56',
+          direction: RouteDirectionEnum.Outbound,
+          line: String(lines[0].label),
+          validityStartISODate: '2022-01-01',
+          validityEndISODate: '2025-12-01',
+          priority: Priority.Standard,
         },
-        {
-          rightOffset: 35,
-          downOffset: -20,
-          mapMarkerTestId: stopTestIds.testStop3,
-        },
-      ],
-    });
+        routePoints: [
+          {
+            rightOffset: -10,
+            downOffset: 25,
+            mapMarkerTestId: stopTestIds.testStop1,
+          },
+          {
+            rightOffset: 35,
+            downOffset: -20,
+            mapMarkerTestId: stopTestIds.testStop3,
+          },
+        ],
+      });
 
-    routeEditor.gqlRouteShouldBeCreatedSuccessfully();
+      routeEditor.gqlRouteShouldBeCreatedSuccessfully();
 
-    routeEditor.checkRouteSubmitSuccessToast();
+      routeEditor.checkRouteSubmitSuccessToast();
 
-    routeStopsOverlay.routeShouldBeSelected(routeName);
-  });
+      routeStopsOverlay.routeShouldBeSelected(routeName);
+    },
+  );
 
   it(
     'Should create a new route and leave out one stop',
-    { scrollBehavior: 'bottom' },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    { tags: [tags.map, tags.routes, tags.network], scrollBehavior: 'bottom' },
     () => {
       const routeName = 'Testireitti 2';
       const omittedStopsLabels = [stops[1].label];
@@ -300,7 +313,9 @@ describe('Route creation', () => {
 
   it(
     'Should not let the user create a route with only one stop',
-    { scrollBehavior: 'bottom' },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    { tags: [tags.map, tags.routes, tags.network], scrollBehavior: 'bottom' },
     () => {
       const routeName = 'Testireitti 3';
       const omittedStopsLabels = [stops[1].label, stops[2].label];
@@ -335,7 +350,9 @@ describe('Route creation', () => {
 
   it(
     'Should create new route with an indefinite validity end date',
-    { scrollBehavior: 'bottom' },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    { tags: [tags.map, tags.routes, tags.network], scrollBehavior: 'bottom' },
     () => {
       const routeName = 'Testireitti 4';
 
@@ -372,7 +389,9 @@ describe('Route creation', () => {
 
   it(
     'Should create a new route using an existing route as a template',
-    { scrollBehavior: 'bottom' },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    { tags: [tags.map, tags.routes, tags.network], scrollBehavior: 'bottom' },
     () => {
       modalMap.createRoute({
         routeFormInfo: {
