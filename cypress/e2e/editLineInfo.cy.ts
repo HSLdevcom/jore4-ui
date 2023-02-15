@@ -3,6 +3,7 @@ import {
   LineInsertInput,
   Priority,
 } from '@hsl/jore4-test-db-manager';
+import { Tag } from '../enums';
 import { LineDetailsPage, LineForm } from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 
@@ -47,27 +48,31 @@ describe('Line editing', () => {
     deleteCreatedResources();
   });
 
-  it("Edits a line's name, label and priority", () => {
-    lineDetailsPage.getEditLineButton().click();
-    lineForm.getLabelInput().clear().type(testInputs.newLabel);
-    lineForm.getFinnishNameInput().clear().type(testInputs.newName);
-    lineForm.selectTransportTarget('Helsingin sisäinen liikenne');
-    lineForm.selectVehicleType('Bussi');
-    lineForm.selectLineType('Peruslinja');
+  it(
+    "Edits a line's name, label and priority",
+    { tags: [Tag.Smoke, Tag.Lines] },
+    () => {
+      lineDetailsPage.getEditLineButton().click();
+      lineForm.getLabelInput().clear().type(testInputs.newLabel);
+      lineForm.getFinnishNameInput().clear().type(testInputs.newName);
+      lineForm.selectTransportTarget('Helsingin sisäinen liikenne');
+      lineForm.selectVehicleType('Bussi');
+      lineForm.selectLineType('Peruslinja');
 
-    lineForm.priorityForm.setAsDraft();
-    lineForm.changeValidityForm.setStartDate('2022-01-01');
+      lineForm.priorityForm.setAsDraft();
+      lineForm.changeValidityForm.setStartDate('2022-01-01');
 
-    lineForm.save();
-    lineForm.checkLineSubmitSuccess();
+      lineForm.save();
+      lineForm.checkLineSubmitSuccess();
 
-    lineDetailsPage.getLineName().should('have.text', testInputs.newName);
-    lineDetailsPage.getLineLabel().should('have.text', testInputs.newLabel);
-    lineDetailsPage.lineValidityPeriod
-      .getLinePriority()
-      .should('have.text', testInputs.newPriority);
-    lineDetailsPage.lineValidityPeriod
-      .getLineValidityPeriod()
-      .should('have.text', '1.1.2022 - ');
-  });
+      lineDetailsPage.getLineName().should('have.text', testInputs.newName);
+      lineDetailsPage.getLineLabel().should('have.text', testInputs.newLabel);
+      lineDetailsPage.lineValidityPeriod
+        .getLinePriority()
+        .should('have.text', testInputs.newPriority);
+      lineDetailsPage.lineValidityPeriod
+        .getLineValidityPeriod()
+        .should('have.text', '1.1.2022 - ');
+    },
+  );
 });

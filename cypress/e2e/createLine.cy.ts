@@ -1,4 +1,5 @@
 import { Priority } from '@hsl/jore4-test-db-manager';
+import { Tag } from '../enums';
 import { LineDetailsPage, LineForm } from '../pageObjects';
 import { deleteLineByLabel } from './utils';
 
@@ -20,7 +21,8 @@ describe('Verify that creating new line works', () => {
   after(() => {
     deleteLineByLabel('7327');
   });
-  it('Creates new line as expected', () => {
+
+  it('Creates new line as expected', { tags: [Tag.Smoke, Tag.Lines] }, () => {
     lineForm.getLabelInput().type('7327');
     lineForm.getFinnishNameInput().type('Testilinja FI');
     lineForm.getSwedishNameInput().type('Testilinja SV');

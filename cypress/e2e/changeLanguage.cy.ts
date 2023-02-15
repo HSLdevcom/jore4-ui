@@ -1,3 +1,4 @@
+import { Tag } from '../enums';
 import { Navbar } from '../pageObjects';
 
 describe('Verify that language changing works', () => {
@@ -9,7 +10,8 @@ describe('Verify that language changing works', () => {
     cy.mockLogin();
     cy.visit('/');
   });
-  it('Changes language from FI to EN', () => {
+
+  it('Changes language from FI to EN', { tags: Tag.Smoke }, () => {
     // Language is FI by default
     navbar.getLanguageDropdown().should('have.text', 'FI');
     navbar.getMainPageLink().should('have.text', 'Etusivu');
