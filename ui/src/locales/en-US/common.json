@@ -139,7 +139,8 @@
     "deleteRoute": "Remove route",
     "location": "Location",
     "latitude": "Latitude",
-    "longitude": "Longitude"
+    "longitude": "Longitude",
+    "showOnMap": "Show on map"
   },
   "saveChangesModal": {
     "title": "Save changes",
