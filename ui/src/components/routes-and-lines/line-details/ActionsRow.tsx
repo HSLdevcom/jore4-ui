@@ -2,10 +2,11 @@ import qs from 'qs';
 import { useTranslation } from 'react-i18next';
 import { RouteLine } from '../../../generated/graphql';
 import { useGetLineDetails } from '../../../hooks';
-import { Column, Container, Row } from '../../../layoutComponents';
+import { Column, Container } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
+import { FormRow } from '../../forms/common';
 
 const getDraftsUrlWithReturnToQueryString = (line: RouteLine) => {
   const draftUrl = routeDetails[Path.lineDrafts].getLink(line.label);
@@ -25,21 +26,21 @@ export const ActionsRow = ({
 
   return (
     <Container className={className}>
-      <Row>
+      <FormRow mdColumns={2}>
         <Column className="w-1/4">
           <ObservationDateControl className="flex-1" />
         </Column>
-
         {line && (
-          <SimpleButton
-            containerClassName="ml-auto"
-            inverted
-            href={getDraftsUrlWithReturnToQueryString(line)}
-          >
-            {t('lines.showDrafts')}
-          </SimpleButton>
+          <Column className="items-end justify-end">
+            <SimpleButton
+              inverted
+              href={getDraftsUrlWithReturnToQueryString(line)}
+            >
+              {t('lines.showDrafts')}
+            </SimpleButton>
+          </Column>
         )}
-      </Row>
+      </FormRow>
     </Container>
   );
 };
