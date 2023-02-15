@@ -139,7 +139,8 @@
     "deleteRoute": "Poista reitti",
     "location": "Sijainti",
     "latitude": "Latitude",
-    "longitude": "Longitude"
+    "longitude": "Longitude",
+    "showOnMap": "Näytä kartalla"
   },
   "saveChangesModal": {
     "title": "Tallenna muutos",
