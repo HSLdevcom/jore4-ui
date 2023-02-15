@@ -4,6 +4,7 @@ import {
   LineInsertInput,
   RouteInsertInput,
 } from '@hsl/jore4-test-db-manager';
+import { Tag } from '../enums';
 import { RoutesAndLinesPage, SearchResultsPage } from '../pageObjects';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 
@@ -75,7 +76,7 @@ describe(
       routesAndLinesPage.getRoutesAndLinesSearchInput().clear();
     });
 
-    it('Searches line with exact ID', () => {
+    it('Searches line with exact ID', { tags: [Tag.Lines, Tag.Smoke] }, () => {
       routesAndLinesPage
         .getRoutesAndLinesSearchInput()
         .type(`${lines[0].label}{enter}`);
@@ -94,7 +95,7 @@ describe(
         .should('not.contain', `line ${lines[2].label}`);
     });
 
-    it('Searches line with asterisk', () => {
+    it('Searches line with asterisk', { tags: Tag.Lines }, () => {
       routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
       cy.wait('@gqlSearchLinesAndRoutes');
       searchResultsPage
@@ -111,7 +112,7 @@ describe(
         .should('not.contain', `line ${lines[1].label}`);
     });
 
-    it('Searches route with exact ID', () => {
+    it('Searches route with exact ID', { tags: Tag.Lines }, () => {
       routesAndLinesPage
         .getRoutesAndLinesSearchInput()
         .type(`${routes[0].label}{enter}`);
@@ -131,7 +132,7 @@ describe(
         .should('not.contain', `route ${routes[2].label}`);
     });
 
-    it('Searches route with asterisk', () => {
+    it('Searches route with asterisk', { tags: Tag.Lines }, () => {
       routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
       cy.wait('@gqlSearchLinesAndRoutes');
       searchResultsPage

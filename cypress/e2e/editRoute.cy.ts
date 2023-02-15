@@ -5,6 +5,7 @@ import {
   RouteInsertInput,
   RouteDirectionEnum,
 } from '@hsl/jore4-test-db-manager';
+import { Tag } from '../enums';
 import {
   EditRoutePage,
   LineDetailsPage,
@@ -88,7 +89,7 @@ describe('Route meta information editing', () => {
     deleteCreatedResources();
   });
 
-  it("Edits a routes's information", () => {
+  it("Edits a routes's information", { tags: Tag.Routes }, () => {
     // Edit the route's information
     editRoutePage.routePropertiesForm.fillRouteProperties(routeFormTestInputs);
     editRoutePage.terminusNamesInputs.fillTerminusNameInputsForm(
@@ -127,7 +128,7 @@ describe('Route meta information editing', () => {
     );
   });
 
-  it('Deletes a route', () => {
+  it('Deletes a route', { tags: Tag.Routes }, () => {
     editRoutePage.routePropertiesForm.getForm().should('be.visible');
     editRoutePage.getDeleteRouteButton().click();
     editRoutePage.confirmationDialog.getConfirmButton().click();
