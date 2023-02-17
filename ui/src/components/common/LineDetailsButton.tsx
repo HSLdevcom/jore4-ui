@@ -21,10 +21,9 @@ export const LineDetailsButton = ({
   className = '',
 }: Props): JSX.Element => {
   const history = useHistory();
+
   const onClick = () => {
-    history.push({
-      pathname: routeDetails[Path.lineDetails].getLink(lineId, routeLabel),
-    });
+    history.push(routeDetails[Path.lineDetails].getLink(lineId, routeLabel));
   };
   return (
     <IconButton

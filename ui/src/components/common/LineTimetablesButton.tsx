@@ -23,10 +23,9 @@ export const LineTimetablesButton = ({
 }: Props): JSX.Element => {
   const disabledStyle = '!bg-background opacity-70 pointer-events-none';
   const history = useHistory();
+
   const onClick = () => {
-    history.push({
-      pathname: routeDetails[Path.lineTimetables].getLink(lineId, routeLabel),
-    });
+    history.push(routeDetails[Path.lineTimetables].getLink(lineId, routeLabel));
   };
   return (
     <IconButton
