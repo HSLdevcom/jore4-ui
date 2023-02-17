@@ -1,4 +1,6 @@
+import qs from 'qs';
 import { useHistory } from 'react-router-dom';
+import { QueryParameterName } from '../../hooks';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { IconButton } from '../../uiComponents/IconButton';
 import { commonHoverStyle } from '../../uiComponents/SimpleButton';
@@ -21,9 +23,17 @@ export const LineDetailsButton = ({
   className = '',
 }: Props): JSX.Element => {
   const history = useHistory();
+
   const onClick = () => {
+    // NOTE: We cannot use routeDetails[Path.lineDetails].getLink(lineId, routeLabel) with this
+    // bevause the the pathname and the search (queryParams) has to be separated in history.push()
     history.push({
-      pathname: routeDetails[Path.lineDetails].getLink(lineId, routeLabel),
+      pathname: routeDetails[Path.lineDetails].getLink(lineId),
+      search: routeLabel
+        ? `?${qs.stringify({
+            [QueryParameterName.RouteLabels]: routeLabel,
+          })}`
+        : '',
     });
   };
   return (
