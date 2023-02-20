@@ -67,7 +67,7 @@ const buildScalarMappingLink = () => {
 const getGraphqlUrl = (isTesting: boolean, isWebsocket: boolean) => {
   const path = '/api/graphql/v1/graphql';
   if (isTesting) {
-    return `http://localhost:3300${path}`;
+    return `http://127.0.0.1:3300${path}`;
   }
   if (isWebsocket) {
     return mapHttpToWs(`${window.location.origin}${path}`);
