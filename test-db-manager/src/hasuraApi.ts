@@ -10,7 +10,7 @@ export const hasuraApi = async (jsonPayload: unknown): Promise<unknown> => {
     },
   };
   return fetch(
-    process.env.HASURA_API_URL || 'http://localhost:3201/v1/graphql',
+    process.env.HASURA_API_URL || 'http://127.0.0.1:3201/v1/graphql',
     req,
   ).then((response) => response.json());
 };
