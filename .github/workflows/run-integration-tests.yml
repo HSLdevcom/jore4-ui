@@ -21,6 +21,10 @@ jobs:
       - name: start e2e env
         uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - name: Build test db manager module
         run: yarn ws:db build
 

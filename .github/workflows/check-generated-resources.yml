@@ -12,6 +12,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - name: Setup caching for node_modules
         uses: actions/cache@v2
         with:
