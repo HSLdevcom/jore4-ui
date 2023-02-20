@@ -13499,6 +13499,7 @@ export type RouteTableRowFragment = {
   priority: number;
   on_line_id: UUID;
   variant?: number | null;
+  unique_label?: string | null;
   route_id: UUID;
   label: string;
   route_shape?: GeoJSON.LineString | null;
@@ -13624,6 +13625,7 @@ export type ListChangingRoutesQuery = {
     priority: number;
     on_line_id: UUID;
     variant?: number | null;
+    unique_label?: string | null;
     route_id: UUID;
     label: string;
     route_shape?: GeoJSON.LineString | null;
@@ -16074,6 +16076,7 @@ export type SearchLinesAndRoutesQuery = {
     priority: number;
     on_line_id: UUID;
     variant?: number | null;
+    unique_label?: string | null;
     route_id: UUID;
     label: string;
     route_shape?: GeoJSON.LineString | null;
@@ -16829,6 +16832,7 @@ export const RouteTableRowFragmentDoc = gql`
     priority
     on_line_id
     variant
+    unique_label
     route_journey_patterns {
       journey_pattern_id
       journey_pattern_refs {

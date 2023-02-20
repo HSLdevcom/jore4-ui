@@ -24,6 +24,7 @@ const GQL_ROUTE_TABLE_ROW = gql`
     priority
     on_line_id
     variant
+    unique_label
     route_journey_patterns {
       journey_pattern_id
       journey_pattern_refs {

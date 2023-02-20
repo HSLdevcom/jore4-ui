@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import {
   LineTableRowFragment,
+  RouteDirectionEnum,
   RouteTableRowFragment,
   useSearchLinesAndRoutesQuery,
 } from '../../generated/graphql';
@@ -46,25 +47,44 @@ export const useSearchResults = (): {
   const lines = (result.data?.route_line || []) as LineTableRowFragment[];
   const routes = (result.data?.route_route || []) as RouteTableRowFragment[];
 
-  const getResultCount = () => {
-    switch (parsedSearchQueryParameters.filter.displayedType) {
-      case DisplayedSearchResultType.Lines:
-        return lines?.length;
-      case DisplayedSearchResultType.Routes:
-        return routes?.length;
-      default:
-        // eslint-disable-next-line no-console
-        console.error(
-          `Error: ${parsedSearchQueryParameters.filter.displayedType} does not exist.`,
+  // Reduce routes to only have the 'Outbound' versions of the routes if there are two
+  // versions of the route
+  const reducedRoutes = routes.reduce(
+    (acc: RouteTableRowFragment[], current) => {
+      const duplicateUniqueLabelExists = acc.some(
+        (route) => route.unique_label === current.unique_label,
+      );
+
+      if (!duplicateUniqueLabelExists) {
+        return [...acc, current];
+      }
+
+      // In case we have two directions of the same route, we want to show the details of
+      // the Outbound routes. So if the 'current' is 'Outbound', it means that the
+      // route inside 'acc' is 'Inbound' and needs to be replaced.
+      if (current.direction === RouteDirectionEnum.Outbound) {
+        const filtered = acc.filter(
+          (r) => r.unique_label !== current.unique_label,
         );
-        return 0;
-    }
+        return [...filtered, current];
+      }
+      // If the 'currrent' is 'Inbound', it means that 'acc' already has the 'Outbound'
+      // version of the route.
+      return acc;
+    },
+    [],
+  );
+
+  const resultCounts: Record<DisplayedSearchResultType, number> = {
+    [DisplayedSearchResultType.Lines]: lines.length,
+    [DisplayedSearchResultType.Routes]: reducedRoutes.length,
   };
+  const resultType = parsedSearchQueryParameters.filter.displayedType;
 
   return {
     lines,
-    routes,
-    resultCount: getResultCount(),
-    resultType: parsedSearchQueryParameters.filter.displayedType,
+    routes: reducedRoutes,
+    resultCount: resultCounts[resultType],
+    resultType,
   };
 };
