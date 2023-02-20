@@ -1,4 +1,4 @@
-FROM node:16.13.2-alpine AS build
+FROM node:18.14.1-alpine3.17 AS build
 WORKDIR /app
 COPY package.json yarn.lock ./
 COPY ./ui/package.json ./ui/
@@ -14,7 +14,7 @@ ARG NEXT_PUBLIC_GIT_HASH=unknown
 RUN yarn ws:db run build
 RUN yarn ws:ui run build
 
-FROM nginx:1.19.6-alpine
+FROM nginx:1.23.3-alpine
 EXPOSE 80
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/ui/out /usr/share/nginx/html
