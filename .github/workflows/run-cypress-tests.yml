@@ -13,6 +13,12 @@ jobs:
       CYPRESS_IMAGE_NAME: hsldevcom/jore4-cypress
 
     steps:
+      - name: Collect Workflow Telemetry
+        uses: runforesight/foresight-workflow-kit-action@v1
+        if: ${{ always() }}
+        with:
+          api_key: ${{ secrets.FORESIGHT_GITHUB_ACTIONS }}
+
       - name: Checkout code
         uses: actions/checkout@v3
 
