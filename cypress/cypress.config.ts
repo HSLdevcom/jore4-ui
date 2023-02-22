@@ -12,6 +12,11 @@ export default defineConfig({
     fixturesFolder: 'fixtures',
     screenshotsFolder: 'reports/screenshots',
     videosFolder: 'reports/videos',
+    reporter: 'junit',
+    reporterOptions: {
+      mochaFile: 'reports/junit/jore4-e2e-[hash].xml',
+      toConsole: false,
+    },
     video: false,
     defaultCommandTimeout: 20000,
     viewportWidth: 1920,
