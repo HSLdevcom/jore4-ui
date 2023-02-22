@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Collect Workflow Telemetry
         uses: runforesight/foresight-workflow-kit-action@v1
-        if: ${{ always() }}
+        if: always()
         with:
           api_key: ${{ secrets.FORESIGHT_GITHUB_ACTIONS }}
 
@@ -35,3 +35,15 @@ jobs:
         uses: HSLdevcom/jore4-tools/github-actions/run-cypress-tests@run-cypress-tests-v1
         with:
           test-tags: ''
+
+      - name: Foresight Test Results
+        uses: runforesight/foresight-test-kit-action@v1
+        if: always()
+        with:
+          # api_key is optional if you add on public repository
+          api_key: ${{ secrets.FORESIGHT_GITHUB_ACTIONS }}
+          # following 3 options are required if you want to use test monitoring features
+          test_format: JUNIT
+          test_framework: CYPRESS
+          # path to your test reports e.g. ./results/foresight-test-*.xml
+          test_path: ${{ github.workspace }}/cypress/reports/junit/jore4-e2e-*.xml
