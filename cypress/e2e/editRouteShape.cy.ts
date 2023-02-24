@@ -218,8 +218,8 @@ describe('Edit route geometry', () => {
     { tags: [Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
       cy.visit('/routes');
-      routesAndLinesPage
-        .getRoutesAndLinesSearchInput()
+      routesAndLinesPage.searchContainer
+        .getSearchInput()
         .type(`${routes[0].label}{enter}`);
 
       searchResultsPage.getRoutesResultsButton().click();

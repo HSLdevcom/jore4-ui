@@ -1,4 +1,8 @@
+import { ExportToolBar } from './ExportToolBar';
+
 export class SearchResultsPage {
+  exportToolBar = new ExportToolBar();
+
   getRoutesSearchResultTable() {
     return cy.getByTestId('RoutesList::table');
   }
@@ -21,5 +25,9 @@ export class SearchResultsPage {
 
   getShowRouteOnMapButton() {
     return cy.getByTestId('RouteTableRow::showRoute');
+  }
+
+  getSelectionCheckbox(label: string) {
+    return cy.getByTestId(`SearchResultsPage::selectionCheckbox::${label}`);
   }
 }

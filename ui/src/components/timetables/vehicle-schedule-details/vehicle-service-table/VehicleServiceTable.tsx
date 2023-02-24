@@ -19,7 +19,7 @@ interface Props {
 }
 
 const testIds = {
-  timetable: 'Timetable::table',
+  timetable: 'VehicleServiceTable::table',
 };
 
 export const getTimetableHeadingBgColor = (key: TimetablePriority) => {
