@@ -14,6 +14,11 @@ import { LineDetailsButton } from './LineDetailsButton';
 import { LineTimetablesButton } from './LineTimetablesButton';
 import { RouteLabel } from './RouteLabel';
 
+const testIds = {
+  checkbox: (uniqueLabel: string) =>
+    `RouteLineTableRow::checkbox::${uniqueLabel}`,
+};
+
 export enum RouteLineTableRowVariant {
   Timetables,
   RoutesAndLines,
@@ -121,6 +126,7 @@ export const RouteLineTableRow = ({
             checked={isSelected}
             onChange={onSelectChanged}
             disabled={selectionDisabled}
+            data-testid={testIds.checkbox(`${rowItem.label}_${rowVariant}`)}
           />
         </td>
       </Visible>

@@ -3,6 +3,11 @@ import { Column, Row } from '../../../../layoutComponents';
 import { Priority } from '../../../../types/enums';
 import { SimpleButton } from '../../../../uiComponents';
 
+const testIds = {
+  priorityButton: (testIdPrefix: string) =>
+    `PriorityCondition::${testIdPrefix}PriorityButton`,
+};
+
 type Props = {
   priorities: Priority[];
   onClick: (attributeName: string, value: Priority[]) => void;
@@ -47,6 +52,7 @@ export const PriorityCondition = ({
             selected={priorities.includes(item.priority)}
             inverted={!priorities.includes(item.priority)}
             key={item.priority}
+            testId={testIds.priorityButton(Priority[item.priority])}
           >
             {item.label}
           </SimpleButton>

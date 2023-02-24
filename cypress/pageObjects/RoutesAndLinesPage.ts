@@ -1,5 +1,5 @@
+import { SearchContainer } from './SearchContainer';
+
 export class RoutesAndLinesPage {
-  getRoutesAndLinesSearchInput() {
-    return cy.getByTestId('SearchContainer::SearchInput');
-  }
+  searchContainer = new SearchContainer();
 }

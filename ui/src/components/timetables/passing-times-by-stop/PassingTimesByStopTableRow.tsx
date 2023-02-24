@@ -49,7 +49,7 @@ const GQL_PASSING_TIME = gql`
 export const cellClassNames = 'border border-brand p-1 px-3';
 
 const testIds = {
-  tr: 'PassingTimesByStopTableRow',
+  tableRow: (stopLabel: string) => `PassingTimesByStopTableRow::${stopLabel}`,
 };
 
 type Props = {
@@ -90,7 +90,10 @@ export const PassingTimesByStopTableRow = ({
   const isUsedAsTimingPoint = journeyPatternStop?.is_used_as_timing_point;
 
   return (
-    <tr className="odd:bg-hsl-neutral-blue" data-testid={testIds.tr}>
+    <tr
+      className="odd:bg-hsl-neutral-blue"
+      data-testid={testIds.tableRow(label)}
+    >
       <td className={`py-3 ${cellClassNames}`}>
         <Column>
           <h5>{label}</h5>

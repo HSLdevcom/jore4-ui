@@ -3,6 +3,10 @@ export class Navbar {
     return cy.getByTestId('NavLinks::routes.root');
   }
 
+  get timeTablesLink() {
+    return cy.getByTestId('NavLinks::timetables.timetables');
+  }
+
   getLanguageDropdown() {
     return cy.getByTestId('LanguageDropdown::toggleDropdown');
   }

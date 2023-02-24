@@ -1,15 +1,19 @@
 import {
+  e2eDatabaseConfig,
+  timetablesDatabaseConfig,
   getDbConnection,
   hasuraApi,
   truncateDb,
 } from '@hsl/jore4-test-db-manager';
+import * as fs from 'fs';
 
-const db = getDbConnection();
+const jore4db = getDbConnection(e2eDatabaseConfig);
+const timetablesDb = getDbConnection(timetablesDatabaseConfig);
 
 export const checkDbConnection = () => {
   // Example about direct access to db
   return (
-    db
+    jore4db
       .raw('SELECT 1')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .then((res: any) => {
@@ -32,15 +36,33 @@ export const checkDbConnection = () => {
 };
 
 export const truncateDatabase = () => {
-  return truncateDb(db);
+  return truncateDb(jore4db);
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const executeRawDbQuery = ({ query, bindings }: any) => {
-  return db.raw(query, bindings);
+  return jore4db.raw(query, bindings);
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const hasuraAPI = (request: any) => {
   return hasuraApi(request);
+};
+
+export const truncateTimetablesDatabase = () => {
+  const truncateQuery = fs.readFileSync(
+    'fixtures/truncateTimetables/truncateTimetables.sql',
+    'utf8',
+  );
+  return timetablesDb.raw(truncateQuery);
+};
+
+export const deleteFile = (filePath: string) => {
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+    return true;
+  }
+  // eslint-disable-next-line no-console
+  console.log('File does not exist.');
+  return false;
 };
