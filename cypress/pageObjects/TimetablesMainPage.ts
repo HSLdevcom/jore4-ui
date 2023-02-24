@@ -2,7 +2,7 @@ import { ExportToolBar } from './ExportToolBar';
 import { RouteLineTableRow } from './RouteLineTableRow';
 import { SearchContainer } from './SearchContainer';
 
-export class RoutesAndLinesPage {
+export class TimetablesMainpage {
   searchContainer = new SearchContainer();
 
   exportToolBar = new ExportToolBar();
