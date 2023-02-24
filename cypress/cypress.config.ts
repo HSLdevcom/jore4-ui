@@ -10,6 +10,7 @@ export default defineConfig({
     fixturesFolder: 'fixtures',
     screenshotsFolder: 'reports/screenshots',
     videosFolder: 'reports/videos',
+    downloadsFolder: 'downloads',
     video: false,
     defaultCommandTimeout: 20000,
     viewportWidth: 1920,

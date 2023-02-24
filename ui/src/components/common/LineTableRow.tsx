@@ -99,6 +99,7 @@ export const LineTableRow = ({
       onSelectChanged={isSelectable ? onSelectChanged : undefined}
       isSelected={isSelected}
       selectionDisabled={!hasRoutes}
+      testId={line.label}
     />
   );
 };

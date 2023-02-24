@@ -137,8 +137,8 @@ describe('Route meta information editing', () => {
     editRoutePage.visit(routes[0].route_id);
     editRoutePage.routePropertiesForm.getForm().should('not.exist');
     cy.visit('/routes');
-    routesAndLinesPage
-      .getRoutesAndLinesSearchInput()
+    routesAndLinesPage.searchContainer
+      .getSearchInput()
       .type(`${routes[0].label}{enter}`);
     cy.wait('@gqlSearchLinesAndRoutes');
     searchResultsPage.getRoutesResultsButton().click();

@@ -18,6 +18,11 @@ import {
 import { SimpleSmallButton } from '../../../uiComponents';
 import { DisplayedSearchResultType } from '../../../utils';
 
+const testIds = {
+  toggleSelectingButton: 'ExportToolBar::toggleSelectingButton',
+  exportSelectedButton: 'ExportToolBar::exportSelectedButton',
+};
+
 export const ExportToolbar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -91,6 +96,7 @@ export const ExportToolbar = (): JSX.Element => {
             : 'export.startSelecting',
         )}
         className="!rounded-full"
+        testId={testIds.toggleSelectingButton}
       />
       <Visible visible={isSelectingRoutesForExport}>
         <SimpleSmallButton
@@ -103,6 +109,7 @@ export const ExportToolbar = (): JSX.Element => {
               : 'export.exportSelected',
           )}
           className="!rounded-full"
+          testId={testIds.exportSelectedButton}
         />
       </Visible>
     </Row>
