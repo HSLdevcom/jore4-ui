@@ -24,7 +24,7 @@ export enum QueryParameterName {
   LineLabel = 'lineLabel',
   RouteId = 'routeId',
   ShowSelectedDaySituation = 'showSelectedDaySituation',
-  Priorities = 'routePriorities',
+  RoutePriorities = 'routePriorities',
 }
 
 export type QueryParameter<TType> = { paramName: string; value: TType };

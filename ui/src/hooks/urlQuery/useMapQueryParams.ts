@@ -94,7 +94,7 @@ export const useMapQueryParams = () => {
           value: showSelectedDaySituation,
         },
         {
-          paramName: QueryParameterName.Priorities,
+          paramName: QueryParameterName.RoutePriorities,
           value: priorities,
         },
       ],
@@ -112,7 +112,7 @@ export const useMapQueryParams = () => {
         QueryParameterName.LineLabel,
         QueryParameterName.RouteId,
         QueryParameterName.ShowSelectedDaySituation,
-        QueryParameterName.Priorities,
+        QueryParameterName.RoutePriorities,
       ],
     });
   };
@@ -136,7 +136,7 @@ export const useMapQueryParams = () => {
     QueryParameterName.ShowSelectedDaySituation,
   );
   const priorities = getPriorityArrayFromUrlQuery(
-    QueryParameterName.Priorities,
+    QueryParameterName.RoutePriorities,
   );
 
   const setRouteId = (id: UUID) => {
