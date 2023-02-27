@@ -16658,6 +16658,7 @@ export type VehicleJourneyWithServiceFragment = {
   vehicle_journey_id: UUID;
   start_time: luxon.Duration;
   end_time: luxon.Duration;
+  journey_pattern_ref_id: UUID;
   journey_pattern_ref: {
     __typename?: 'timetables_journey_pattern_journey_pattern_ref';
     journey_pattern_ref_id: UUID;
@@ -16687,6 +16688,20 @@ export type VehicleJourneyWithServiceFragment = {
       };
     };
   };
+  timetabled_passing_times: Array<{
+    __typename?: 'timetables_passing_times_timetabled_passing_time';
+    arrival_time?: luxon.Duration | null;
+    departure_time?: luxon.Duration | null;
+    passing_time: luxon.Duration;
+    scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+    timetabled_passing_time_id: UUID;
+    vehicle_journey_id: UUID;
+    scheduled_stop_point_in_journey_pattern_ref: {
+      __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
+      scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+      scheduled_stop_point_label: string;
+    };
+  }>;
 };
 
 export type GetTimetablesForOperationDayQueryVariables = Exact<{
@@ -16703,6 +16718,7 @@ export type GetTimetablesForOperationDayQuery = {
       vehicle_journey_id: UUID;
       start_time: luxon.Duration;
       end_time: luxon.Duration;
+      journey_pattern_ref_id: UUID;
       journey_pattern_ref: {
         __typename?: 'timetables_journey_pattern_journey_pattern_ref';
         journey_pattern_ref_id: UUID;
@@ -16732,6 +16748,20 @@ export type GetTimetablesForOperationDayQuery = {
           };
         };
       };
+      timetabled_passing_times: Array<{
+        __typename?: 'timetables_passing_times_timetabled_passing_time';
+        arrival_time?: luxon.Duration | null;
+        departure_time?: luxon.Duration | null;
+        passing_time: luxon.Duration;
+        scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+        timetabled_passing_time_id: UUID;
+        vehicle_journey_id: UUID;
+        scheduled_stop_point_in_journey_pattern_ref: {
+          __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
+          scheduled_stop_point_in_journey_pattern_ref_id: UUID;
+          scheduled_stop_point_label: string;
+        };
+      }>;
     }>;
     timetables_vehicle_service_get_vehicle_services_for_date: Array<{
       __typename?: 'timetables_vehicle_service_vehicle_service';
@@ -16855,30 +16885,6 @@ export const ScheduledStopPointWithTimingSettingsFragmentDoc = gql`
     }
   }
   ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
-`;
-export const PassingTimeByStopFragmentDoc = gql`
-  fragment passing_time_by_stop on timetables_passing_times_timetabled_passing_time {
-    arrival_time
-    departure_time
-    passing_time
-    scheduled_stop_point_in_journey_pattern_ref_id
-    timetabled_passing_time_id
-    vehicle_journey_id
-    scheduled_stop_point_in_journey_pattern_ref {
-      scheduled_stop_point_in_journey_pattern_ref_id
-      scheduled_stop_point_label
-    }
-  }
-`;
-export const VehicleJourneyByStopFragmentDoc = gql`
-  fragment vehicle_journey_by_stop on timetables_vehicle_journey_vehicle_journey {
-    timetabled_passing_times {
-      ...passing_time_by_stop
-    }
-    journey_pattern_ref_id
-    vehicle_journey_id
-  }
-  ${PassingTimeByStopFragmentDoc}
 `;
 export const InfraLinkMatchingFieldsFragmentDoc = gql`
   fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
@@ -17226,6 +17232,30 @@ export const TimingPlaceForComboboxFragmentDoc = gql`
     description
   }
 `;
+export const PassingTimeByStopFragmentDoc = gql`
+  fragment passing_time_by_stop on timetables_passing_times_timetabled_passing_time {
+    arrival_time
+    departure_time
+    passing_time
+    scheduled_stop_point_in_journey_pattern_ref_id
+    timetabled_passing_time_id
+    vehicle_journey_id
+    scheduled_stop_point_in_journey_pattern_ref {
+      scheduled_stop_point_in_journey_pattern_ref_id
+      scheduled_stop_point_label
+    }
+  }
+`;
+export const VehicleJourneyByStopFragmentDoc = gql`
+  fragment vehicle_journey_by_stop on timetables_vehicle_journey_vehicle_journey {
+    timetabled_passing_times {
+      ...passing_time_by_stop
+    }
+    journey_pattern_ref_id
+    vehicle_journey_id
+  }
+  ${PassingTimeByStopFragmentDoc}
+`;
 export const VehicleJourneyWithServiceFragmentDoc = gql`
   fragment vehicle_journey_with_service on timetables_vehicle_journey_vehicle_journey {
     vehicle_journey_id
@@ -17253,8 +17283,10 @@ export const VehicleJourneyWithServiceFragmentDoc = gql`
         }
       }
     }
+    ...vehicle_journey_by_stop
   }
   ${DayTypeAllFieldsFragmentDoc}
+  ${VehicleJourneyByStopFragmentDoc}
 `;
 export const JourneyPatternStopFragmentDoc = gql`
   fragment journey_pattern_stop on journey_pattern_scheduled_stop_point_in_journey_pattern {

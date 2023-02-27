@@ -18,6 +18,7 @@ interface Props {
   priority: TimetablePriority;
   dayType: DayTypeAllFieldsFragment;
   vehicleJourneys: VehicleJourneyWithServiceFragment[];
+  onClick: () => void;
 }
 
 const testIds = {
@@ -28,6 +29,7 @@ export const VehicleServiceTable = ({
   priority,
   dayType,
   vehicleJourneys,
+  onClick,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
@@ -73,7 +75,7 @@ export const VehicleServiceTable = ({
   const hasVehicleJourneys = !!rowData.length;
 
   return (
-    <div>
+    <div onClick={onClick} onKeyPress={onClick} role="button" tabIndex={0}>
       <Row
         className={`mb-4 rounded-md bg-opacity-50 px-4 py-1 text-hsl-dark-80 ${getTimetableHeadingBgColor(
           priority,

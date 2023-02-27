@@ -48,6 +48,7 @@ const GQL_VEHICLE_JOURNEY_WITH_SERVICE_FRAGMENT = gql`
         }
       }
     }
+    ...vehicle_journey_by_stop
   }
 `;
 

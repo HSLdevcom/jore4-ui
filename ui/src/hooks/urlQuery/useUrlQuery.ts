@@ -25,6 +25,8 @@ export enum QueryParameterName {
   RouteId = 'routeId',
   ShowSelectedDaySituation = 'showSelectedDaySituation',
   RoutePriorities = 'routePriorities',
+  TimetablesViewName = 'timetablesView',
+  DayType = 'dayType',
 }
 
 export type QueryParameter<TType> = { paramName: string; value: TType };
