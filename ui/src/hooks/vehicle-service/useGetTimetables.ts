@@ -48,6 +48,7 @@ const GQL_VEHICLE_JOURNEY_WITH_SERVICE_FRAGMENT = gql`
         }
       }
     }
+    ...vehicle_journey_by_stop
   }
 `;
 
@@ -94,10 +95,11 @@ const getVehicleServiceIdsOnObservationDate = (timetables: Timetables) => {
   return vehicleServiceIdsOnObservationDate;
 };
 
-interface VehicleJourneyGroup {
+export interface VehicleJourneyGroup {
   priority: TimetablePriority;
   dayType: DayTypeAllFieldsFragment;
   vehicleJourneys: VehicleJourneyWithServiceFragment[];
+  validity: Validity;
 }
 
 const groupVehicleJourneys = (
@@ -117,22 +119,28 @@ const groupVehicleJourneys = (
       ),
     (vehicleJourneys) =>
       vehicleJourneys.reduce<VehicleJourneyGroup[]>((groups, item) => {
+        const { vehicle_service: vehicleService } = item.block;
+        const { vehicle_schedule_frame: vehicleScheduleFrame } = vehicleService;
+
         const foundGroup = groups.find(
           (group) =>
-            group.dayType === item.block.vehicle_service.day_type &&
-            group.priority ===
-              item.block.vehicle_service.vehicle_schedule_frame.priority,
+            group.dayType === vehicleService.day_type &&
+            group.priority === vehicleScheduleFrame.priority,
         );
         if (foundGroup) {
           foundGroup.vehicleJourneys.push(item);
           return groups;
         }
+
         return [
           ...groups,
           {
-            dayType: item.block.vehicle_service.day_type,
-            priority:
-              item.block.vehicle_service.vehicle_schedule_frame.priority,
+            dayType: vehicleService.day_type,
+            priority: vehicleScheduleFrame.priority,
+            validity: {
+              validityStart: vehicleScheduleFrame.validity_start,
+              validityEnd: vehicleScheduleFrame.validity_end,
+            },
             vehicleJourneys: [item],
           },
         ];
