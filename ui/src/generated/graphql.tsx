@@ -13782,34 +13782,6 @@ export type PassingTimeByStopFragment = {
   };
 };
 
-export type GetVehicleJourneysQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetVehicleJourneysQuery = {
-  __typename?: 'query_root';
-  timetables?: {
-    __typename?: 'timetables_timetables_query';
-    timetables_vehicle_journey_vehicle_journey: Array<{
-      __typename?: 'timetables_vehicle_journey_vehicle_journey';
-      journey_pattern_ref_id: UUID;
-      vehicle_journey_id: UUID;
-      timetabled_passing_times: Array<{
-        __typename?: 'timetables_passing_times_timetabled_passing_time';
-        arrival_time?: luxon.Duration | null;
-        departure_time?: luxon.Duration | null;
-        passing_time: luxon.Duration;
-        scheduled_stop_point_in_journey_pattern_ref_id: UUID;
-        timetabled_passing_time_id: UUID;
-        vehicle_journey_id: UUID;
-        scheduled_stop_point_in_journey_pattern_ref: {
-          __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
-          scheduled_stop_point_in_journey_pattern_ref_id: UUID;
-          scheduled_stop_point_label: string;
-        };
-      }>;
-    }>;
-  } | null;
-};
-
 export type RouteInfraLinkFieldsFragment = {
   __typename?: 'infrastructure_network_infrastructure_link';
   external_link_id: string;
@@ -17548,66 +17520,6 @@ export type GetScheduledStopPointWithTimingSettingsQueryResult =
     GetScheduledStopPointWithTimingSettingsQuery,
     GetScheduledStopPointWithTimingSettingsQueryVariables
   >;
-export const GetVehicleJourneysDocument = gql`
-  query GetVehicleJourneys {
-    timetables {
-      timetables_vehicle_journey_vehicle_journey {
-        ...vehicle_journey_by_stop
-      }
-    }
-  }
-  ${VehicleJourneyByStopFragmentDoc}
-`;
-
-/**
- * __useGetVehicleJourneysQuery__
- *
- * To run a query within a React component, call `useGetVehicleJourneysQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetVehicleJourneysQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetVehicleJourneysQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetVehicleJourneysQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetVehicleJourneysQuery,
-    GetVehicleJourneysQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GetVehicleJourneysQuery,
-    GetVehicleJourneysQueryVariables
-  >(GetVehicleJourneysDocument, options);
-}
-export function useGetVehicleJourneysLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetVehicleJourneysQuery,
-    GetVehicleJourneysQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetVehicleJourneysQuery,
-    GetVehicleJourneysQueryVariables
-  >(GetVehicleJourneysDocument, options);
-}
-export type GetVehicleJourneysQueryHookResult = ReturnType<
-  typeof useGetVehicleJourneysQuery
->;
-export type GetVehicleJourneysLazyQueryHookResult = ReturnType<
-  typeof useGetVehicleJourneysLazyQuery
->;
-export type GetVehicleJourneysQueryResult = Apollo.QueryResult<
-  GetVehicleJourneysQuery,
-  GetVehicleJourneysQueryVariables
->;
 export const QueryClosestLinkDocument = gql`
   query QueryClosestLink($point: geography) {
     infrastructure_network_resolve_point_to_closest_link(
@@ -21244,15 +21156,6 @@ export function useGetScheduledStopPointWithTimingSettingsAsyncQuery() {
 }
 export type GetScheduledStopPointWithTimingSettingsAsyncQueryHookResult =
   ReturnType<typeof useGetScheduledStopPointWithTimingSettingsAsyncQuery>;
-export function useGetVehicleJourneysAsyncQuery() {
-  return useAsyncQuery<
-    GetVehicleJourneysQuery,
-    GetVehicleJourneysQueryVariables
-  >(GetVehicleJourneysDocument);
-}
-export type GetVehicleJourneysAsyncQueryHookResult = ReturnType<
-  typeof useGetVehicleJourneysAsyncQuery
->;
 export function useQueryClosestLinkAsyncQuery() {
   return useAsyncQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(
     QueryClosestLinkDocument,
