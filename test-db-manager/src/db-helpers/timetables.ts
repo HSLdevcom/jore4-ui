@@ -39,7 +39,7 @@ export interface TimetablesResources {
 const responseLogger = (message: string, res: any) => {
   if (res.errors) {
     // eslint-disable-next-line no-console
-    console.log(`${message}:`, res);
+    console.log(`${message}:`, JSON.stringify(res, null, 2));
   }
 };
 
