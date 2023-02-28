@@ -9572,6 +9572,8 @@ export type TimetablesPassingTimesTimetabledPassingTimeBoolExp = {
 export enum TimetablesPassingTimesTimetabledPassingTimeConstraint {
   /** unique or primary key constraint on columns "timetabled_passing_time_id" */
   TimetabledPassingTimePkey = 'timetabled_passing_time_pkey',
+  /** unique or primary key constraint on columns "vehicle_journey_id", "scheduled_stop_point_in_journey_pattern_ref_id" */
+  TimetabledPassingTimeStopPointUniqueIdx = 'timetabled_passing_time_stop_point_unique_idx',
 }
 
 /** input type for inserting data into table "passing_times.timetabled_passing_time" */
@@ -11223,12 +11225,22 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateServicePatternSc
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleJourneyVehicleJourneyArgs =
   {
+    _append?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyAppendInput>;
+    _delete_at_path?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyDeleteAtPathInput>;
+    _delete_elem?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyDeleteElemInput>;
+    _delete_key?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyDeleteKeyInput>;
+    _prepend?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyPrependInput>;
     _set?: InputMaybe<TimetablesVehicleJourneyVehicleJourneySetInput>;
     where: TimetablesVehicleJourneyVehicleJourneyBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleJourneyVehicleJourneyByPkArgs =
   {
+    _append?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyAppendInput>;
+    _delete_at_path?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyDeleteAtPathInput>;
+    _delete_elem?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyDeleteElemInput>;
+    _delete_key?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyDeleteKeyInput>;
+    _prepend?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyPrependInput>;
     _set?: InputMaybe<TimetablesVehicleJourneyVehicleJourneySetInput>;
     pk_columns: TimetablesVehicleJourneyVehicleJourneyPkColumnsInput;
   };
@@ -11286,12 +11298,22 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleServiceBl
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleServiceVehicleServiceArgs =
   {
+    _append?: InputMaybe<TimetablesVehicleServiceVehicleServiceAppendInput>;
+    _delete_at_path?: InputMaybe<TimetablesVehicleServiceVehicleServiceDeleteAtPathInput>;
+    _delete_elem?: InputMaybe<TimetablesVehicleServiceVehicleServiceDeleteElemInput>;
+    _delete_key?: InputMaybe<TimetablesVehicleServiceVehicleServiceDeleteKeyInput>;
+    _prepend?: InputMaybe<TimetablesVehicleServiceVehicleServicePrependInput>;
     _set?: InputMaybe<TimetablesVehicleServiceVehicleServiceSetInput>;
     where: TimetablesVehicleServiceVehicleServiceBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateVehicleServiceVehicleServiceByPkArgs =
   {
+    _append?: InputMaybe<TimetablesVehicleServiceVehicleServiceAppendInput>;
+    _delete_at_path?: InputMaybe<TimetablesVehicleServiceVehicleServiceDeleteAtPathInput>;
+    _delete_elem?: InputMaybe<TimetablesVehicleServiceVehicleServiceDeleteElemInput>;
+    _delete_key?: InputMaybe<TimetablesVehicleServiceVehicleServiceDeleteKeyInput>;
+    _prepend?: InputMaybe<TimetablesVehicleServiceVehicleServicePrependInput>;
     _set?: InputMaybe<TimetablesVehicleServiceVehicleServiceSetInput>;
     pk_columns: TimetablesVehicleServiceVehicleServicePkColumnsInput;
   };
@@ -12148,19 +12170,40 @@ export type TimetablesVehicleJourneyVehicleJourney = {
   block: TimetablesVehicleServiceBlock;
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id: Scalars['uuid'];
+  /** Displayed name of the journey. */
+  displayed_name?: Maybe<Scalars['String']>;
   /** A computed field, executes function "vehicle_journey.vehicle_journey_end_time" */
   end_time: Scalars['interval'];
+  /** Is the journey a backup journey. */
+  is_backup_journey: Scalars['Boolean'];
+  /** Is the journey an extra journey. */
+  is_extra_journey: Scalars['Boolean'];
+  /** It is required to use the same vehicle type as required in vehicle service. */
+  is_vehicle_type_mandatory: Scalars['Boolean'];
+  /** Name that user can give to the vehicle journey. */
+  journey_name_i18n?: Maybe<Scalars['jsonb']>;
   /** An object relationship */
   journey_pattern_ref: TimetablesJourneyPatternJourneyPatternRef;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   journey_pattern_ref_id: Scalars['uuid'];
+  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
+  journey_type: Scalars['String'];
+  /** LAYOVER TIMEs describe a certain time allowance that may be given at the end of each VEHICLE JOURNEY, before starting the next one, to compensate delays or for other purposes (e.g. rest time for the driver). This “layover time” can be regarded as a buffer time, which may or may not be actually consumed in real time operation. */
+  layover_time?: Maybe<Scalars['interval']>;
   /** A computed field, executes function "vehicle_journey.vehicle_journey_start_time" */
   start_time: Scalars['interval'];
   /** An array relationship */
   timetabled_passing_times: Array<TimetablesPassingTimesTimetabledPassingTime>;
   /** An aggregate relationship */
   timetabled_passing_times_aggregate: TimetablesPassingTimesTimetabledPassingTimeAggregate;
+  /** Turnaround time is the time taken by a vehicle to proceed from the end of a ROUTE to the start of another. */
+  turnaround_time?: Maybe<Scalars['interval']>;
   vehicle_journey_id: Scalars['uuid'];
+};
+
+/** The planned movement of a public transport vehicle on a DAY TYPE from the start point to the end point of a JOURNEY PATTERN on a specified ROUTE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:1:1:831  */
+export type TimetablesVehicleJourneyVehicleJourneyJourneyNameI18nArgs = {
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** The planned movement of a public transport vehicle on a DAY TYPE from the start point to the end point of a JOURNEY PATTERN on a specified ROUTE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:1:1:831  */
@@ -12220,6 +12263,12 @@ export type TimetablesVehicleJourneyVehicleJourneyAggregateOrderBy = {
   min?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyMinOrderBy>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type TimetablesVehicleJourneyVehicleJourneyAppendInput = {
+  /** Name that user can give to the vehicle journey. */
+  journey_name_i18n?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting array relation for remote table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyArrRelInsertInput = {
   data: Array<TimetablesVehicleJourneyVehicleJourneyInsertInput>;
@@ -12234,12 +12283,20 @@ export type TimetablesVehicleJourneyVehicleJourneyBoolExp = {
   _or?: InputMaybe<Array<TimetablesVehicleJourneyVehicleJourneyBoolExp>>;
   block?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
   block_id?: InputMaybe<UuidComparisonExp>;
+  displayed_name?: InputMaybe<StringComparisonExp>;
   end_time?: InputMaybe<StringComparisonExp>;
+  is_backup_journey?: InputMaybe<BooleanComparisonExp>;
+  is_extra_journey?: InputMaybe<BooleanComparisonExp>;
+  is_vehicle_type_mandatory?: InputMaybe<BooleanComparisonExp>;
+  journey_name_i18n?: InputMaybe<JsonbComparisonExp>;
   journey_pattern_ref?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefBoolExp>;
   journey_pattern_ref_id?: InputMaybe<UuidComparisonExp>;
+  journey_type?: InputMaybe<StringComparisonExp>;
+  layover_time?: InputMaybe<IntervalComparisonExp>;
   start_time?: InputMaybe<StringComparisonExp>;
   timetabled_passing_times?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
   timetabled_passing_times_aggregate?: InputMaybe<PassingTimesTimetabledPassingTimeAggregateBoolExp>;
+  turnaround_time?: InputMaybe<IntervalComparisonExp>;
   vehicle_journey_id?: InputMaybe<UuidComparisonExp>;
 };
 
@@ -12249,15 +12306,49 @@ export enum TimetablesVehicleJourneyVehicleJourneyConstraint {
   VehicleJourneyPkey = 'vehicle_journey_pkey',
 }
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type TimetablesVehicleJourneyVehicleJourneyDeleteAtPathInput = {
+  /** Name that user can give to the vehicle journey. */
+  journey_name_i18n?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type TimetablesVehicleJourneyVehicleJourneyDeleteElemInput = {
+  /** Name that user can give to the vehicle journey. */
+  journey_name_i18n?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type TimetablesVehicleJourneyVehicleJourneyDeleteKeyInput = {
+  /** Name that user can give to the vehicle journey. */
+  journey_name_i18n?: InputMaybe<Scalars['String']>;
+};
+
 /** input type for inserting data into table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyInsertInput = {
   block?: InputMaybe<TimetablesVehicleServiceBlockObjRelInsertInput>;
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: InputMaybe<Scalars['uuid']>;
+  /** Displayed name of the journey. */
+  displayed_name?: InputMaybe<Scalars['String']>;
+  /** Is the journey a backup journey. */
+  is_backup_journey?: InputMaybe<Scalars['Boolean']>;
+  /** Is the journey an extra journey. */
+  is_extra_journey?: InputMaybe<Scalars['Boolean']>;
+  /** It is required to use the same vehicle type as required in vehicle service. */
+  is_vehicle_type_mandatory?: InputMaybe<Scalars['Boolean']>;
+  /** Name that user can give to the vehicle journey. */
+  journey_name_i18n?: InputMaybe<Scalars['jsonb']>;
   journey_pattern_ref?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefObjRelInsertInput>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
+  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
+  journey_type?: InputMaybe<Scalars['String']>;
+  /** LAYOVER TIMEs describe a certain time allowance that may be given at the end of each VEHICLE JOURNEY, before starting the next one, to compensate delays or for other purposes (e.g. rest time for the driver). This “layover time” can be regarded as a buffer time, which may or may not be actually consumed in real time operation. */
+  layover_time?: InputMaybe<Scalars['interval']>;
   timetabled_passing_times?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeArrRelInsertInput>;
+  /** Turnaround time is the time taken by a vehicle to proceed from the end of a ROUTE to the start of another. */
+  turnaround_time?: InputMaybe<Scalars['interval']>;
   vehicle_journey_id?: InputMaybe<Scalars['uuid']>;
 };
 
@@ -12266,8 +12357,12 @@ export type TimetablesVehicleJourneyVehicleJourneyMaxFields = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey_max_fields';
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: Maybe<Scalars['uuid']>;
+  /** Displayed name of the journey. */
+  displayed_name?: Maybe<Scalars['String']>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
+  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
+  journey_type?: Maybe<Scalars['String']>;
   vehicle_journey_id?: Maybe<Scalars['uuid']>;
 };
 
@@ -12275,8 +12370,12 @@ export type TimetablesVehicleJourneyVehicleJourneyMaxFields = {
 export type TimetablesVehicleJourneyVehicleJourneyMaxOrderBy = {
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: InputMaybe<OrderBy>;
+  /** Displayed name of the journey. */
+  displayed_name?: InputMaybe<OrderBy>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   journey_pattern_ref_id?: InputMaybe<OrderBy>;
+  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
+  journey_type?: InputMaybe<OrderBy>;
   vehicle_journey_id?: InputMaybe<OrderBy>;
 };
 
@@ -12285,8 +12384,12 @@ export type TimetablesVehicleJourneyVehicleJourneyMinFields = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey_min_fields';
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: Maybe<Scalars['uuid']>;
+  /** Displayed name of the journey. */
+  displayed_name?: Maybe<Scalars['String']>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
+  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
+  journey_type?: Maybe<Scalars['String']>;
   vehicle_journey_id?: Maybe<Scalars['uuid']>;
 };
 
@@ -12294,8 +12397,12 @@ export type TimetablesVehicleJourneyVehicleJourneyMinFields = {
 export type TimetablesVehicleJourneyVehicleJourneyMinOrderBy = {
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: InputMaybe<OrderBy>;
+  /** Displayed name of the journey. */
+  displayed_name?: InputMaybe<OrderBy>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   journey_pattern_ref_id?: InputMaybe<OrderBy>;
+  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
+  journey_type?: InputMaybe<OrderBy>;
   vehicle_journey_id?: InputMaybe<OrderBy>;
 };
 
@@ -12326,11 +12433,19 @@ export type TimetablesVehicleJourneyVehicleJourneyOnConflict = {
 export type TimetablesVehicleJourneyVehicleJourneyOrderBy = {
   block?: InputMaybe<TimetablesVehicleServiceBlockOrderBy>;
   block_id?: InputMaybe<OrderBy>;
+  displayed_name?: InputMaybe<OrderBy>;
   end_time?: InputMaybe<OrderBy>;
+  is_backup_journey?: InputMaybe<OrderBy>;
+  is_extra_journey?: InputMaybe<OrderBy>;
+  is_vehicle_type_mandatory?: InputMaybe<OrderBy>;
+  journey_name_i18n?: InputMaybe<OrderBy>;
   journey_pattern_ref?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefOrderBy>;
   journey_pattern_ref_id?: InputMaybe<OrderBy>;
+  journey_type?: InputMaybe<OrderBy>;
+  layover_time?: InputMaybe<OrderBy>;
   start_time?: InputMaybe<OrderBy>;
   timetabled_passing_times_aggregate?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeAggregateOrderBy>;
+  turnaround_time?: InputMaybe<OrderBy>;
   vehicle_journey_id?: InputMaybe<OrderBy>;
 };
 
@@ -12339,22 +12454,80 @@ export type TimetablesVehicleJourneyVehicleJourneyPkColumnsInput = {
   vehicle_journey_id: Scalars['uuid'];
 };
 
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type TimetablesVehicleJourneyVehicleJourneyPrependInput = {
+  /** Name that user can give to the vehicle journey. */
+  journey_name_i18n?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** select columns of table "vehicle_journey.vehicle_journey" */
 export enum TimetablesVehicleJourneyVehicleJourneySelectColumn {
   /** column name */
   BlockId = 'block_id',
   /** column name */
+  DisplayedName = 'displayed_name',
+  /** column name */
+  IsBackupJourney = 'is_backup_journey',
+  /** column name */
+  IsExtraJourney = 'is_extra_journey',
+  /** column name */
+  IsVehicleTypeMandatory = 'is_vehicle_type_mandatory',
+  /** column name */
+  JourneyNameI18n = 'journey_name_i18n',
+  /** column name */
   JourneyPatternRefId = 'journey_pattern_ref_id',
   /** column name */
+  JourneyType = 'journey_type',
+  /** column name */
+  LayoverTime = 'layover_time',
+  /** column name */
+  TurnaroundTime = 'turnaround_time',
+  /** column name */
   VehicleJourneyId = 'vehicle_journey_id',
+}
+
+/** select "vehicle_journey_vehicle_journey_aggregate_bool_exp_bool_and_arguments_columns" columns of table "vehicle_journey.vehicle_journey" */
+export enum TimetablesVehicleJourneyVehicleJourneySelectColumnVehicleJourneyVehicleJourneyAggregateBoolExpBoolAndArgumentsColumns {
+  /** column name */
+  IsBackupJourney = 'is_backup_journey',
+  /** column name */
+  IsExtraJourney = 'is_extra_journey',
+  /** column name */
+  IsVehicleTypeMandatory = 'is_vehicle_type_mandatory',
+}
+
+/** select "vehicle_journey_vehicle_journey_aggregate_bool_exp_bool_or_arguments_columns" columns of table "vehicle_journey.vehicle_journey" */
+export enum TimetablesVehicleJourneyVehicleJourneySelectColumnVehicleJourneyVehicleJourneyAggregateBoolExpBoolOrArgumentsColumns {
+  /** column name */
+  IsBackupJourney = 'is_backup_journey',
+  /** column name */
+  IsExtraJourney = 'is_extra_journey',
+  /** column name */
+  IsVehicleTypeMandatory = 'is_vehicle_type_mandatory',
 }
 
 /** input type for updating data in table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneySetInput = {
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: InputMaybe<Scalars['uuid']>;
+  /** Displayed name of the journey. */
+  displayed_name?: InputMaybe<Scalars['String']>;
+  /** Is the journey a backup journey. */
+  is_backup_journey?: InputMaybe<Scalars['Boolean']>;
+  /** Is the journey an extra journey. */
+  is_extra_journey?: InputMaybe<Scalars['Boolean']>;
+  /** It is required to use the same vehicle type as required in vehicle service. */
+  is_vehicle_type_mandatory?: InputMaybe<Scalars['Boolean']>;
+  /** Name that user can give to the vehicle journey. */
+  journey_name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
+  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
+  journey_type?: InputMaybe<Scalars['String']>;
+  /** LAYOVER TIMEs describe a certain time allowance that may be given at the end of each VEHICLE JOURNEY, before starting the next one, to compensate delays or for other purposes (e.g. rest time for the driver). This “layover time” can be regarded as a buffer time, which may or may not be actually consumed in real time operation. */
+  layover_time?: InputMaybe<Scalars['interval']>;
+  /** Turnaround time is the time taken by a vehicle to proceed from the end of a ROUTE to the start of another. */
+  turnaround_time?: InputMaybe<Scalars['interval']>;
   vehicle_journey_id?: InputMaybe<Scalars['uuid']>;
 };
 
@@ -12370,8 +12543,24 @@ export type TimetablesVehicleJourneyVehicleJourneyStreamCursorInput = {
 export type TimetablesVehicleJourneyVehicleJourneyStreamCursorValueInput = {
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: InputMaybe<Scalars['uuid']>;
+  /** Displayed name of the journey. */
+  displayed_name?: InputMaybe<Scalars['String']>;
+  /** Is the journey a backup journey. */
+  is_backup_journey?: InputMaybe<Scalars['Boolean']>;
+  /** Is the journey an extra journey. */
+  is_extra_journey?: InputMaybe<Scalars['Boolean']>;
+  /** It is required to use the same vehicle type as required in vehicle service. */
+  is_vehicle_type_mandatory?: InputMaybe<Scalars['Boolean']>;
+  /** Name that user can give to the vehicle journey. */
+  journey_name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
+  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
+  journey_type?: InputMaybe<Scalars['String']>;
+  /** LAYOVER TIMEs describe a certain time allowance that may be given at the end of each VEHICLE JOURNEY, before starting the next one, to compensate delays or for other purposes (e.g. rest time for the driver). This “layover time” can be regarded as a buffer time, which may or may not be actually consumed in real time operation. */
+  layover_time?: InputMaybe<Scalars['interval']>;
+  /** Turnaround time is the time taken by a vehicle to proceed from the end of a ROUTE to the start of another. */
+  turnaround_time?: InputMaybe<Scalars['interval']>;
   vehicle_journey_id?: InputMaybe<Scalars['uuid']>;
 };
 
@@ -12380,12 +12569,38 @@ export enum TimetablesVehicleJourneyVehicleJourneyUpdateColumn {
   /** column name */
   BlockId = 'block_id',
   /** column name */
+  DisplayedName = 'displayed_name',
+  /** column name */
+  IsBackupJourney = 'is_backup_journey',
+  /** column name */
+  IsExtraJourney = 'is_extra_journey',
+  /** column name */
+  IsVehicleTypeMandatory = 'is_vehicle_type_mandatory',
+  /** column name */
+  JourneyNameI18n = 'journey_name_i18n',
+  /** column name */
   JourneyPatternRefId = 'journey_pattern_ref_id',
+  /** column name */
+  JourneyType = 'journey_type',
+  /** column name */
+  LayoverTime = 'layover_time',
+  /** column name */
+  TurnaroundTime = 'turnaround_time',
   /** column name */
   VehicleJourneyId = 'vehicle_journey_id',
 }
 
 export type TimetablesVehicleJourneyVehicleJourneyUpdates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyAppendInput>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyDeleteAtPathInput>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyDeleteElemInput>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyDeleteKeyInput>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyPrependInput>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<TimetablesVehicleJourneyVehicleJourneySetInput>;
   where: TimetablesVehicleJourneyVehicleJourneyBoolExp;
@@ -12394,8 +12609,14 @@ export type TimetablesVehicleJourneyVehicleJourneyUpdates = {
 /** A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993  */
 export type TimetablesVehicleScheduleVehicleScheduleFrame = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
+  booking_description_i18n?: Maybe<Scalars['jsonb']>;
+  /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
+  booking_label: Scalars['String'];
+  /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
+  label: Scalars['String'];
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
-  name_i18n: Scalars['jsonb'];
+  name_i18n?: Maybe<Scalars['jsonb']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   priority: Scalars['Int'];
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
@@ -12408,6 +12629,12 @@ export type TimetablesVehicleScheduleVehicleScheduleFrame = {
   /** An aggregate relationship */
   vehicle_services_aggregate: TimetablesVehicleServiceVehicleServiceAggregate;
 };
+
+/** A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993  */
+export type TimetablesVehicleScheduleVehicleScheduleFrameBookingDescriptionI18nArgs =
+  {
+    path?: InputMaybe<Scalars['String']>;
+  };
 
 /** A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993  */
 export type TimetablesVehicleScheduleVehicleScheduleFrameNameI18nArgs = {
@@ -12471,6 +12698,8 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameAggregateFieldsCountArg
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesVehicleScheduleVehicleScheduleFrameAppendInput = {
+  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
+  booking_description_i18n?: InputMaybe<Scalars['jsonb']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
@@ -12489,6 +12718,9 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameBoolExp = {
   >;
   _not?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
   _or?: InputMaybe<Array<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>>;
+  booking_description_i18n?: InputMaybe<JsonbComparisonExp>;
+  booking_label?: InputMaybe<StringComparisonExp>;
+  label?: InputMaybe<StringComparisonExp>;
   name_i18n?: InputMaybe<JsonbComparisonExp>;
   priority?: InputMaybe<IntComparisonExp>;
   validity_end?: InputMaybe<DateComparisonExp>;
@@ -12506,18 +12738,24 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type TimetablesVehicleScheduleVehicleScheduleFrameDeleteAtPathInput = {
+  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
+  booking_description_i18n?: InputMaybe<Array<Scalars['String']>>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type TimetablesVehicleScheduleVehicleScheduleFrameDeleteElemInput = {
+  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
+  booking_description_i18n?: InputMaybe<Scalars['Int']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: InputMaybe<Scalars['Int']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput = {
+  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
+  booking_description_i18n?: InputMaybe<Scalars['String']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: InputMaybe<Scalars['String']>;
 };
@@ -12530,6 +12768,12 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameIncInput = {
 
 /** input type for inserting data into table "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameInsertInput = {
+  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
+  booking_description_i18n?: InputMaybe<Scalars['jsonb']>;
+  /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
+  booking_label?: InputMaybe<Scalars['String']>;
+  /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
+  label?: InputMaybe<Scalars['String']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
@@ -12545,6 +12789,10 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameInsertInput = {
 /** aggregate max on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameMaxFields = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_max_fields';
+  /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
+  booking_label?: Maybe<Scalars['String']>;
+  /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
+  label?: Maybe<Scalars['String']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
@@ -12557,6 +12805,10 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameMaxFields = {
 /** aggregate min on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameMinFields = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_min_fields';
+  /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
+  booking_label?: Maybe<Scalars['String']>;
+  /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
+  label?: Maybe<Scalars['String']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
   /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
@@ -12591,6 +12843,9 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameOnConflict = {
 
 /** Ordering options when selecting data from "vehicle_schedule.vehicle_schedule_frame". */
 export type TimetablesVehicleScheduleVehicleScheduleFrameOrderBy = {
+  booking_description_i18n?: InputMaybe<OrderBy>;
+  booking_label?: InputMaybe<OrderBy>;
+  label?: InputMaybe<OrderBy>;
   name_i18n?: InputMaybe<OrderBy>;
   priority?: InputMaybe<OrderBy>;
   validity_end?: InputMaybe<OrderBy>;
@@ -12606,12 +12861,20 @@ export type TimetablesVehicleScheduleVehicleScheduleFramePkColumnsInput = {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesVehicleScheduleVehicleScheduleFramePrependInput = {
+  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
+  booking_description_i18n?: InputMaybe<Scalars['jsonb']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "vehicle_schedule.vehicle_schedule_frame" */
 export enum TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn {
+  /** column name */
+  BookingDescriptionI18n = 'booking_description_i18n',
+  /** column name */
+  BookingLabel = 'booking_label',
+  /** column name */
+  Label = 'label',
   /** column name */
   NameI18n = 'name_i18n',
   /** column name */
@@ -12626,6 +12889,12 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn {
 
 /** input type for updating data in table "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameSetInput = {
+  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
+  booking_description_i18n?: InputMaybe<Scalars['jsonb']>;
+  /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
+  booking_label?: InputMaybe<Scalars['String']>;
+  /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
+  label?: InputMaybe<Scalars['String']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
@@ -12669,6 +12938,12 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorValueInput =
   {
+    /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
+    booking_description_i18n?: InputMaybe<Scalars['jsonb']>;
+    /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
+    booking_label?: InputMaybe<Scalars['String']>;
+    /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
+    label?: InputMaybe<Scalars['String']>;
     /** Human-readable name for the VEHICLE SCHEDULE FRAME */
     name_i18n?: InputMaybe<Scalars['jsonb']>;
     /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
@@ -12689,6 +12964,12 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameSumFields = {
 
 /** update columns of table "vehicle_schedule.vehicle_schedule_frame" */
 export enum TimetablesVehicleScheduleVehicleScheduleFrameUpdateColumn {
+  /** column name */
+  BookingDescriptionI18n = 'booking_description_i18n',
+  /** column name */
+  BookingLabel = 'booking_label',
+  /** column name */
+  Label = 'label',
   /** column name */
   NameI18n = 'name_i18n',
   /** column name */
@@ -12744,6 +13025,10 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameVarianceFields = {
 export type TimetablesVehicleServiceBlock = {
   __typename?: 'timetables_vehicle_service_block';
   block_id: Scalars['uuid'];
+  /** Finishing time after end of vehicle service block. */
+  finishing_time?: Maybe<Scalars['interval']>;
+  /** Preparation time before start of vehicle service block. */
+  preparing_time?: Maybe<Scalars['interval']>;
   /** An array relationship */
   vehicle_journeys: Array<TimetablesVehicleJourneyVehicleJourney>;
   /** An aggregate relationship */
@@ -12752,6 +13037,8 @@ export type TimetablesVehicleServiceBlock = {
   vehicle_service: TimetablesVehicleServiceVehicleService;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
   vehicle_service_id: Scalars['uuid'];
+  /** Reference to vehicle_type.vehicle_type. */
+  vehicle_type_id?: Maybe<Scalars['uuid']>;
 };
 
 /** The work of a vehicle from the time it leaves a PARKING POINT after parking until its next return to park at a PARKING POINT. Any subsequent departure from a PARKING POINT after parking marks the start of a new BLOCK. The period of a BLOCK has to be covered by DUTies. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:958  */
@@ -12817,10 +13104,13 @@ export type TimetablesVehicleServiceBlockBoolExp = {
   _not?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
   _or?: InputMaybe<Array<TimetablesVehicleServiceBlockBoolExp>>;
   block_id?: InputMaybe<UuidComparisonExp>;
+  finishing_time?: InputMaybe<IntervalComparisonExp>;
+  preparing_time?: InputMaybe<IntervalComparisonExp>;
   vehicle_journeys?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
   vehicle_journeys_aggregate?: InputMaybe<VehicleJourneyVehicleJourneyAggregateBoolExp>;
   vehicle_service?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
   vehicle_service_id?: InputMaybe<UuidComparisonExp>;
+  vehicle_type_id?: InputMaybe<UuidComparisonExp>;
 };
 
 /** unique or primary key constraints on table "vehicle_service.block" */
@@ -12832,10 +13122,16 @@ export enum TimetablesVehicleServiceBlockConstraint {
 /** input type for inserting data into table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockInsertInput = {
   block_id?: InputMaybe<Scalars['uuid']>;
+  /** Finishing time after end of vehicle service block. */
+  finishing_time?: InputMaybe<Scalars['interval']>;
+  /** Preparation time before start of vehicle service block. */
+  preparing_time?: InputMaybe<Scalars['interval']>;
   vehicle_journeys?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyArrRelInsertInput>;
   vehicle_service?: InputMaybe<TimetablesVehicleServiceVehicleServiceObjRelInsertInput>;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
   vehicle_service_id?: InputMaybe<Scalars['uuid']>;
+  /** Reference to vehicle_type.vehicle_type. */
+  vehicle_type_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate max on columns */
@@ -12844,6 +13140,8 @@ export type TimetablesVehicleServiceBlockMaxFields = {
   block_id?: Maybe<Scalars['uuid']>;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
   vehicle_service_id?: Maybe<Scalars['uuid']>;
+  /** Reference to vehicle_type.vehicle_type. */
+  vehicle_type_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by max() on columns of table "vehicle_service.block" */
@@ -12851,6 +13149,8 @@ export type TimetablesVehicleServiceBlockMaxOrderBy = {
   block_id?: InputMaybe<OrderBy>;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
   vehicle_service_id?: InputMaybe<OrderBy>;
+  /** Reference to vehicle_type.vehicle_type. */
+  vehicle_type_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -12859,6 +13159,8 @@ export type TimetablesVehicleServiceBlockMinFields = {
   block_id?: Maybe<Scalars['uuid']>;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
   vehicle_service_id?: Maybe<Scalars['uuid']>;
+  /** Reference to vehicle_type.vehicle_type. */
+  vehicle_type_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by min() on columns of table "vehicle_service.block" */
@@ -12866,6 +13168,8 @@ export type TimetablesVehicleServiceBlockMinOrderBy = {
   block_id?: InputMaybe<OrderBy>;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
   vehicle_service_id?: InputMaybe<OrderBy>;
+  /** Reference to vehicle_type.vehicle_type. */
+  vehicle_type_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "vehicle_service.block" */
@@ -12894,9 +13198,12 @@ export type TimetablesVehicleServiceBlockOnConflict = {
 /** Ordering options when selecting data from "vehicle_service.block". */
 export type TimetablesVehicleServiceBlockOrderBy = {
   block_id?: InputMaybe<OrderBy>;
+  finishing_time?: InputMaybe<OrderBy>;
+  preparing_time?: InputMaybe<OrderBy>;
   vehicle_journeys_aggregate?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyAggregateOrderBy>;
   vehicle_service?: InputMaybe<TimetablesVehicleServiceVehicleServiceOrderBy>;
   vehicle_service_id?: InputMaybe<OrderBy>;
+  vehicle_type_id?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: vehicle_service.block */
@@ -12909,14 +13216,26 @@ export enum TimetablesVehicleServiceBlockSelectColumn {
   /** column name */
   BlockId = 'block_id',
   /** column name */
+  FinishingTime = 'finishing_time',
+  /** column name */
+  PreparingTime = 'preparing_time',
+  /** column name */
   VehicleServiceId = 'vehicle_service_id',
+  /** column name */
+  VehicleTypeId = 'vehicle_type_id',
 }
 
 /** input type for updating data in table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockSetInput = {
   block_id?: InputMaybe<Scalars['uuid']>;
+  /** Finishing time after end of vehicle service block. */
+  finishing_time?: InputMaybe<Scalars['interval']>;
+  /** Preparation time before start of vehicle service block. */
+  preparing_time?: InputMaybe<Scalars['interval']>;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
   vehicle_service_id?: InputMaybe<Scalars['uuid']>;
+  /** Reference to vehicle_type.vehicle_type. */
+  vehicle_type_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** Streaming cursor of the table "vehicle_service_block" */
@@ -12930,8 +13249,14 @@ export type TimetablesVehicleServiceBlockStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleServiceBlockStreamCursorValueInput = {
   block_id?: InputMaybe<Scalars['uuid']>;
+  /** Finishing time after end of vehicle service block. */
+  finishing_time?: InputMaybe<Scalars['interval']>;
+  /** Preparation time before start of vehicle service block. */
+  preparing_time?: InputMaybe<Scalars['interval']>;
   /** The VEHICLE SERVICE to which this BLOCK belongs. */
   vehicle_service_id?: InputMaybe<Scalars['uuid']>;
+  /** Reference to vehicle_type.vehicle_type. */
+  vehicle_type_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** update columns of table "vehicle_service.block" */
@@ -12939,7 +13264,13 @@ export enum TimetablesVehicleServiceBlockUpdateColumn {
   /** column name */
   BlockId = 'block_id',
   /** column name */
+  FinishingTime = 'finishing_time',
+  /** column name */
+  PreparingTime = 'preparing_time',
+  /** column name */
   VehicleServiceId = 'vehicle_service_id',
+  /** column name */
+  VehicleTypeId = 'vehicle_type_id',
 }
 
 export type TimetablesVehicleServiceBlockUpdates = {
@@ -12963,6 +13294,8 @@ export type TimetablesVehicleServiceVehicleService = {
   day_type: TimetablesServiceCalendarDayType;
   /** The DAY TYPE for the VEHICLE SERVICE. */
   day_type_id: Scalars['uuid'];
+  /** Name for vehicle service. */
+  name_i18n?: Maybe<Scalars['jsonb']>;
   /** An object relationship */
   vehicle_schedule_frame: TimetablesVehicleScheduleVehicleScheduleFrame;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
@@ -12986,6 +13319,11 @@ export type TimetablesVehicleServiceVehicleServiceBlocksAggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<TimetablesVehicleServiceBlockOrderBy>>;
   where?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
+};
+
+/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
+export type TimetablesVehicleServiceVehicleServiceNameI18nArgs = {
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregated selection of "vehicle_service.vehicle_service" */
@@ -13018,6 +13356,12 @@ export type TimetablesVehicleServiceVehicleServiceAggregateOrderBy = {
   min?: InputMaybe<TimetablesVehicleServiceVehicleServiceMinOrderBy>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type TimetablesVehicleServiceVehicleServiceAppendInput = {
+  /** Name for vehicle service. */
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting array relation for remote table "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceArrRelInsertInput = {
   data: Array<TimetablesVehicleServiceVehicleServiceInsertInput>;
@@ -13034,6 +13378,7 @@ export type TimetablesVehicleServiceVehicleServiceBoolExp = {
   blocks_aggregate?: InputMaybe<VehicleServiceBlockAggregateBoolExp>;
   day_type?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
   day_type_id?: InputMaybe<UuidComparisonExp>;
+  name_i18n?: InputMaybe<JsonbComparisonExp>;
   vehicle_schedule_frame?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
   vehicle_schedule_frame_id?: InputMaybe<UuidComparisonExp>;
   vehicle_service_id?: InputMaybe<UuidComparisonExp>;
@@ -13045,12 +13390,32 @@ export enum TimetablesVehicleServiceVehicleServiceConstraint {
   VehicleServicePkey = 'vehicle_service_pkey',
 }
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type TimetablesVehicleServiceVehicleServiceDeleteAtPathInput = {
+  /** Name for vehicle service. */
+  name_i18n?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type TimetablesVehicleServiceVehicleServiceDeleteElemInput = {
+  /** Name for vehicle service. */
+  name_i18n?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type TimetablesVehicleServiceVehicleServiceDeleteKeyInput = {
+  /** Name for vehicle service. */
+  name_i18n?: InputMaybe<Scalars['String']>;
+};
+
 /** input type for inserting data into table "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceInsertInput = {
   blocks?: InputMaybe<TimetablesVehicleServiceBlockArrRelInsertInput>;
   day_type?: InputMaybe<TimetablesServiceCalendarDayTypeObjRelInsertInput>;
   /** The DAY TYPE for the VEHICLE SERVICE. */
   day_type_id?: InputMaybe<Scalars['uuid']>;
+  /** Name for vehicle service. */
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
   vehicle_schedule_frame?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameObjRelInsertInput>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
@@ -13123,6 +13488,7 @@ export type TimetablesVehicleServiceVehicleServiceOrderBy = {
   blocks_aggregate?: InputMaybe<TimetablesVehicleServiceBlockAggregateOrderBy>;
   day_type?: InputMaybe<TimetablesServiceCalendarDayTypeOrderBy>;
   day_type_id?: InputMaybe<OrderBy>;
+  name_i18n?: InputMaybe<OrderBy>;
   vehicle_schedule_frame?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameOrderBy>;
   vehicle_schedule_frame_id?: InputMaybe<OrderBy>;
   vehicle_service_id?: InputMaybe<OrderBy>;
@@ -13133,10 +13499,18 @@ export type TimetablesVehicleServiceVehicleServicePkColumnsInput = {
   vehicle_service_id: Scalars['uuid'];
 };
 
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type TimetablesVehicleServiceVehicleServicePrependInput = {
+  /** Name for vehicle service. */
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** select columns of table "vehicle_service.vehicle_service" */
 export enum TimetablesVehicleServiceVehicleServiceSelectColumn {
   /** column name */
   DayTypeId = 'day_type_id',
+  /** column name */
+  NameI18n = 'name_i18n',
   /** column name */
   VehicleScheduleFrameId = 'vehicle_schedule_frame_id',
   /** column name */
@@ -13147,6 +13521,8 @@ export enum TimetablesVehicleServiceVehicleServiceSelectColumn {
 export type TimetablesVehicleServiceVehicleServiceSetInput = {
   /** The DAY TYPE for the VEHICLE SERVICE. */
   day_type_id?: InputMaybe<Scalars['uuid']>;
+  /** Name for vehicle service. */
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
   vehicle_service_id?: InputMaybe<Scalars['uuid']>;
@@ -13164,6 +13540,8 @@ export type TimetablesVehicleServiceVehicleServiceStreamCursorInput = {
 export type TimetablesVehicleServiceVehicleServiceStreamCursorValueInput = {
   /** The DAY TYPE for the VEHICLE SERVICE. */
   day_type_id?: InputMaybe<Scalars['uuid']>;
+  /** Name for vehicle service. */
+  name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
   vehicle_service_id?: InputMaybe<Scalars['uuid']>;
@@ -13174,12 +13552,24 @@ export enum TimetablesVehicleServiceVehicleServiceUpdateColumn {
   /** column name */
   DayTypeId = 'day_type_id',
   /** column name */
+  NameI18n = 'name_i18n',
+  /** column name */
   VehicleScheduleFrameId = 'vehicle_schedule_frame_id',
   /** column name */
   VehicleServiceId = 'vehicle_service_id',
 }
 
 export type TimetablesVehicleServiceVehicleServiceUpdates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<TimetablesVehicleServiceVehicleServiceAppendInput>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<TimetablesVehicleServiceVehicleServiceDeleteAtPathInput>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<TimetablesVehicleServiceVehicleServiceDeleteElemInput>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<TimetablesVehicleServiceVehicleServiceDeleteKeyInput>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<TimetablesVehicleServiceVehicleServicePrependInput>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<TimetablesVehicleServiceVehicleServiceSetInput>;
   where: TimetablesVehicleServiceVehicleServiceBoolExp;
@@ -13421,7 +13811,23 @@ export type ValidityPeriod = {
 };
 
 export type VehicleJourneyVehicleJourneyAggregateBoolExp = {
+  bool_and?: InputMaybe<VehicleJourneyVehicleJourneyAggregateBoolExpBoolAnd>;
+  bool_or?: InputMaybe<VehicleJourneyVehicleJourneyAggregateBoolExpBoolOr>;
   count?: InputMaybe<VehicleJourneyVehicleJourneyAggregateBoolExpCount>;
+};
+
+export type VehicleJourneyVehicleJourneyAggregateBoolExpBoolAnd = {
+  arguments: TimetablesVehicleJourneyVehicleJourneySelectColumnVehicleJourneyVehicleJourneyAggregateBoolExpBoolAndArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+  predicate: BooleanComparisonExp;
+};
+
+export type VehicleJourneyVehicleJourneyAggregateBoolExpBoolOr = {
+  arguments: TimetablesVehicleJourneyVehicleJourneySelectColumnVehicleJourneyVehicleJourneyAggregateBoolExpBoolOrArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+  predicate: BooleanComparisonExp;
 };
 
 export type VehicleJourneyVehicleJourneyAggregateBoolExpCount = {
