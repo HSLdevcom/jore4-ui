@@ -12,6 +12,12 @@ export enum LegacyHslMunicipality {
   TuusulaKeravaSipoo = 'tuusula_kerava_sipoo',
 }
 
+export enum JourneyType {
+  Standard = 'STANDARD',
+  DryRun = 'DRY_RUN',
+  ServiceJourney = 'SERVICE_JOURNEY',
+}
+
 export enum Priority {
   Standard = 10, // used for "normal" in-use entities (e.g. routes, lines, stops)
   Temporary = 20, // overrides Standard, used for temporary adjustments
