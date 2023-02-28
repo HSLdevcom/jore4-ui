@@ -59,25 +59,26 @@ const buildTimetabledPassingTimesForJourney = ({
   stopInterval = Duration.fromISO('PT5M'),
   waitTimeOnStops = Duration.fromISO('PT0M'),
 }: TimetabledPassingTimesForJourney): TimetabledPassingTimeInsertInput[] => {
-  let arrivalTime: Duration = null;
-  let departureTime: Duration = journeyStartTime;
   const passingTimes = [];
+  let currentTime = journeyStartTime; // Keep track of progress between loops.
   scheduledStopLabels.forEach((item, index) => {
+    const arrivalTime: Duration = currentTime;
+    const departureTime = currentTime.plus({
+      minutes: waitTimeOnStops.as('minutes'),
+    });
+    currentTime = departureTime.plus({ minutes: stopInterval.as('minutes') });
+
     passingTimes.push(
       buildTimetabledPassingTime({
         vehicleJourneyId,
         stopInJourneyPatternRefId: findStopIdByLabel(item),
-        // arrival time is set to null if is it same as departure time
-        arrivalTime: arrivalTime?.equals(departureTime) ? null : arrivalTime,
-        departureTime,
+        arrivalTime: index === 0 ? null : arrivalTime,
+        departureTime:
+          index === scheduledStopLabels.length - 1 ? null : departureTime,
       }),
     );
-    arrivalTime = departureTime.plus(stopInterval);
-    departureTime =
-      index === scheduledStopLabels.length - 1
-        ? null
-        : arrivalTime.plus(waitTimeOnStops);
   });
+
   return passingTimes;
 };
 
@@ -138,13 +139,13 @@ const seedTimetabledPassingTimesMonFri: TimetabledPassingTimeInsertInput[] = [
   {
     vehicle_journey_id: journey1Id,
     scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H2205'),
-    arrival_time: null,
+    arrival_time: Duration.fromISO('PT7H38M'),
     departure_time: Duration.fromISO('PT7H38M'),
   },
   {
     vehicle_journey_id: journey1Id,
     scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H2206'),
-    arrival_time: null,
+    arrival_time: Duration.fromISO('PT7H48M'),
     departure_time: Duration.fromISO('PT7H48M'),
   },
   {
