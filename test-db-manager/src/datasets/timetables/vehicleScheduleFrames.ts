@@ -10,28 +10,41 @@ const buildVehicleScheduleFrame = ({
   name,
   validityStart,
   validityEnd,
+  label,
+  bookingLabel,
+  bookingDescription = name,
   priority = TimetablePriority.Standard,
 }: {
   id: UUID;
   name: string;
   validityStart: DateTime;
   validityEnd: DateTime;
+  label: string;
+  bookingLabel: string;
+  bookingDescription?: string;
   priority?: TimetablePriority;
 }): VehicleScheduleFrameInsertInput => ({
   vehicle_schedule_frame_id: id,
   name_i18n: buildLocalizedString(name),
   validity_start: validityStart,
   validity_end: validityEnd,
+  label,
+  booking_label: bookingLabel,
+  booking_description_i18n: buildLocalizedString(bookingDescription),
   priority,
 });
 
 const validityPeriodWinter2324 = {
   name: '2023 Syksy - 2024 Kevät',
+  label: '1023',
+  bookingLabel: '23SYK',
   validityStart: DateTime.fromISO('2023-08-15T00:00:00+00:00'),
   validityEnd: DateTime.fromISO('2024-06-04T00:00:00+00:00'),
 };
 const validityPeriodDecember23 = {
   name: 'Joulu 2023',
+  label: '2046',
+  bookingLabel: '23JOU',
   validityStart: DateTime.fromISO('2023-12-01T00:00:00+00:00'),
   validityEnd: DateTime.fromISO('2023-12-31T00:00:00+00:00'),
 };
