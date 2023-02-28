@@ -60111,6 +60111,12 @@
             "description": "unique or primary key constraint on columns \"timetabled_passing_time_id\"",
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "timetabled_passing_time_stop_point_unique_idx",
+            "description": "unique or primary key constraint on columns \"vehicle_journey_id\", \"scheduled_stop_point_in_journey_pattern_ref_id\"",
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "possibleTypes": null
@@ -68399,6 +68405,66 @@
             "description": "update data of the table: \"vehicle_journey.vehicle_journey\"",
             "args": [
               {
+                "name": "_append",
+                "description": "append existing jsonb value of filtered columns with new jsonb value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_journey_vehicle_journey_append_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_at_path",
+                "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_journey_vehicle_journey_delete_at_path_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_elem",
+                "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_journey_vehicle_journey_delete_elem_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_key",
+                "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_journey_vehicle_journey_delete_key_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_prepend",
+                "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_journey_vehicle_journey_prepend_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
@@ -68439,6 +68505,66 @@
             "name": "timetables_update_vehicle_journey_vehicle_journey_by_pk",
             "description": "update single row of the table: \"vehicle_journey.vehicle_journey\"",
             "args": [
+              {
+                "name": "_append",
+                "description": "append existing jsonb value of filtered columns with new jsonb value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_journey_vehicle_journey_append_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_at_path",
+                "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_journey_vehicle_journey_delete_at_path_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_elem",
+                "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_journey_vehicle_journey_delete_elem_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_key",
+                "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_journey_vehicle_journey_delete_key_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_prepend",
+                "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_journey_vehicle_journey_prepend_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
@@ -68912,6 +69038,66 @@
             "description": "update data of the table: \"vehicle_service.vehicle_service\"",
             "args": [
               {
+                "name": "_append",
+                "description": "append existing jsonb value of filtered columns with new jsonb value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_service_vehicle_service_append_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_at_path",
+                "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_service_vehicle_service_delete_at_path_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_elem",
+                "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_service_vehicle_service_delete_elem_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_key",
+                "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_service_vehicle_service_delete_key_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_prepend",
+                "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_service_vehicle_service_prepend_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
@@ -68952,6 +69138,66 @@
             "name": "timetables_update_vehicle_service_vehicle_service_by_pk",
             "description": "update single row of the table: \"vehicle_service.vehicle_service\"",
             "args": [
+              {
+                "name": "_append",
+                "description": "append existing jsonb value of filtered columns with new jsonb value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_service_vehicle_service_append_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_at_path",
+                "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_service_vehicle_service_delete_at_path_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_elem",
+                "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_service_vehicle_service_delete_elem_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_delete_key",
+                "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_service_vehicle_service_delete_key_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "_prepend",
+                "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "timetables_vehicle_service_vehicle_service_prepend_input",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
@@ -74703,6 +74949,18 @@
             "deprecationReason": null
           },
           {
+            "name": "displayed_name",
+            "description": "Displayed name of the journey.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "end_time",
             "description": "A computed field, executes function \"vehicle_journey.vehicle_journey_end_time\"",
             "args": [],
@@ -74714,6 +74972,79 @@
                 "name": "interval",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_backup_journey",
+            "description": "Is the journey a backup journey.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_extra_journey",
+            "description": "Is the journey an extra journey.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_vehicle_type_mandatory",
+            "description": "It is required to use the same vehicle type as required in vehicle service.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_name_i18n",
+            "description": "Name that user can give to the vehicle journey.",
+            "args": [
+              {
+                "name": "path",
+                "description": "JSON select path",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -74746,6 +75077,34 @@
                 "name": "uuid",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_type",
+            "description": "STANDARD | DRY_RUN | SERVICE_JOURNEY",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "layover_time",
+            "description": "LAYOVER TIMEs describe a certain time allowance that may be given at the end of each VEHICLE JOURNEY, before starting the next one, to compensate delays or for other purposes (e.g. rest time for the driver). This “layover time” can be regarded as a buffer time, which may or may not be actually consumed in real time operation.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -74961,6 +75320,18 @@
             "deprecationReason": null
           },
           {
+            "name": "turnaround_time",
+            "description": "Turnaround time is the time taken by a vehicle to proceed from the end of a ROUTE to the start of another.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_journey_id",
             "description": null,
             "args": [],
@@ -75162,6 +75533,29 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "timetables_vehicle_journey_vehicle_journey_append_input",
+        "description": "append existing jsonb value of filtered columns with new jsonb value",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "journey_name_i18n",
+            "description": "Name that user can give to the vehicle journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "timetables_vehicle_journey_vehicle_journey_arr_rel_insert_input",
         "description": "input type for inserting array relation for remote table \"vehicle_journey.vehicle_journey\"",
         "fields": null,
@@ -75290,11 +75684,71 @@
             "deprecationReason": null
           },
           {
+            "name": "displayed_name",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "end_time",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_backup_journey",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Boolean_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_extra_journey",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Boolean_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_vehicle_type_mandatory",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Boolean_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_name_i18n",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "jsonb_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -75319,6 +75773,30 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "uuid_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_type",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "layover_time",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "interval_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -75362,6 +75840,18 @@
             "deprecationReason": null
           },
           {
+            "name": "turnaround_time",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "interval_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_journey_id",
             "description": null,
             "type": {
@@ -75397,6 +75887,83 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "timetables_vehicle_journey_vehicle_journey_delete_at_path_input",
+        "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "journey_name_i18n",
+            "description": "Name that user can give to the vehicle journey.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timetables_vehicle_journey_vehicle_journey_delete_elem_input",
+        "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "journey_name_i18n",
+            "description": "Name that user can give to the vehicle journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timetables_vehicle_journey_vehicle_journey_delete_key_input",
+        "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "journey_name_i18n",
+            "description": "Name that user can give to the vehicle journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "timetables_vehicle_journey_vehicle_journey_insert_input",
         "description": "input type for inserting data into table \"vehicle_journey.vehicle_journey\"",
         "fields": null,
@@ -75419,6 +75986,66 @@
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "displayed_name",
+            "description": "Displayed name of the journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_backup_journey",
+            "description": "Is the journey a backup journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_extra_journey",
+            "description": "Is the journey an extra journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_vehicle_type_mandatory",
+            "description": "It is required to use the same vehicle type as required in vehicle service.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_name_i18n",
+            "description": "Name that user can give to the vehicle journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
               "ofType": null
             },
             "defaultValue": null,
@@ -75450,11 +76077,47 @@
             "deprecationReason": null
           },
           {
+            "name": "journey_type",
+            "description": "STANDARD | DRY_RUN | SERVICE_JOURNEY",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "layover_time",
+            "description": "LAYOVER TIMEs describe a certain time allowance that may be given at the end of each VEHICLE JOURNEY, before starting the next one, to compensate delays or for other purposes (e.g. rest time for the driver). This “layover time” can be regarded as a buffer time, which may or may not be actually consumed in real time operation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "timetabled_passing_times",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "timetables_passing_times_timetabled_passing_time_arr_rel_insert_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "turnaround_time",
+            "description": "Turnaround time is the time taken by a vehicle to proceed from the end of a ROUTE to the start of another.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
               "ofType": null
             },
             "defaultValue": null,
@@ -75496,12 +76159,36 @@
             "deprecationReason": null
           },
           {
+            "name": "displayed_name",
+            "description": "Displayed name of the journey.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "journey_pattern_ref_id",
             "description": "The JOURNEY PATTERN on which the VEHICLE JOURNEY travels",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_type",
+            "description": "STANDARD | DRY_RUN | SERVICE_JOURNEY",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -75544,8 +76231,32 @@
             "deprecationReason": null
           },
           {
+            "name": "displayed_name",
+            "description": "Displayed name of the journey.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "journey_pattern_ref_id",
             "description": "The JOURNEY PATTERN on which the VEHICLE JOURNEY travels",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_type",
+            "description": "STANDARD | DRY_RUN | SERVICE_JOURNEY",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -75590,12 +76301,36 @@
             "deprecationReason": null
           },
           {
+            "name": "displayed_name",
+            "description": "Displayed name of the journey.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "journey_pattern_ref_id",
             "description": "The JOURNEY PATTERN on which the VEHICLE JOURNEY travels",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_type",
+            "description": "STANDARD | DRY_RUN | SERVICE_JOURNEY",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -75638,8 +76373,32 @@
             "deprecationReason": null
           },
           {
+            "name": "displayed_name",
+            "description": "Displayed name of the journey.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "journey_pattern_ref_id",
             "description": "The JOURNEY PATTERN on which the VEHICLE JOURNEY travels",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_type",
+            "description": "STANDARD | DRY_RUN | SERVICE_JOURNEY",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -75850,7 +76609,67 @@
             "deprecationReason": null
           },
           {
+            "name": "displayed_name",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "end_time",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_backup_journey",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_extra_journey",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_vehicle_type_mandatory",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_name_i18n",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -75886,6 +76705,30 @@
             "deprecationReason": null
           },
           {
+            "name": "journey_type",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "layover_time",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "start_time",
             "description": null,
             "type": {
@@ -75903,6 +76746,18 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "timetables_passing_times_timetabled_passing_time_aggregate_order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "turnaround_time",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -75954,6 +76809,29 @@
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "timetables_vehicle_journey_vehicle_journey_prepend_input",
+        "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "journey_name_i18n",
+            "description": "Name that user can give to the vehicle journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "ENUM",
         "name": "timetables_vehicle_journey_vehicle_journey_select_column",
         "description": "select columns of table \"vehicle_journey.vehicle_journey\"",
@@ -75968,13 +76846,119 @@
             "deprecationReason": null
           },
           {
+            "name": "displayed_name",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_backup_journey",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_extra_journey",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_vehicle_type_mandatory",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_name_i18n",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "journey_pattern_ref_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
+            "name": "journey_type",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "layover_time",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "turnaround_time",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_journey_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "timetables_vehicle_journey_vehicle_journey_select_column_vehicle_journey_vehicle_journey_aggregate_bool_exp_bool_and_arguments_columns",
+        "description": "select \"vehicle_journey_vehicle_journey_aggregate_bool_exp_bool_and_arguments_columns\" columns of table \"vehicle_journey.vehicle_journey\"",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "is_backup_journey",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_extra_journey",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_vehicle_type_mandatory",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "timetables_vehicle_journey_vehicle_journey_select_column_vehicle_journey_vehicle_journey_aggregate_bool_exp_bool_or_arguments_columns",
+        "description": "select \"vehicle_journey_vehicle_journey_aggregate_bool_exp_bool_or_arguments_columns\" columns of table \"vehicle_journey.vehicle_journey\"",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "is_backup_journey",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_extra_journey",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_vehicle_type_mandatory",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -76001,11 +76985,107 @@
             "deprecationReason": null
           },
           {
+            "name": "displayed_name",
+            "description": "Displayed name of the journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_backup_journey",
+            "description": "Is the journey a backup journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_extra_journey",
+            "description": "Is the journey an extra journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_vehicle_type_mandatory",
+            "description": "It is required to use the same vehicle type as required in vehicle service.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_name_i18n",
+            "description": "Name that user can give to the vehicle journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "journey_pattern_ref_id",
             "description": "The JOURNEY PATTERN on which the VEHICLE JOURNEY travels",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_type",
+            "description": "STANDARD | DRY_RUN | SERVICE_JOURNEY",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "layover_time",
+            "description": "LAYOVER TIMEs describe a certain time allowance that may be given at the end of each VEHICLE JOURNEY, before starting the next one, to compensate delays or for other purposes (e.g. rest time for the driver). This “layover time” can be regarded as a buffer time, which may or may not be actually consumed in real time operation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "turnaround_time",
+            "description": "Turnaround time is the time taken by a vehicle to proceed from the end of a ROUTE to the start of another.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
               "ofType": null
             },
             "defaultValue": null,
@@ -76087,11 +77167,107 @@
             "deprecationReason": null
           },
           {
+            "name": "displayed_name",
+            "description": "Displayed name of the journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_backup_journey",
+            "description": "Is the journey a backup journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_extra_journey",
+            "description": "Is the journey an extra journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_vehicle_type_mandatory",
+            "description": "It is required to use the same vehicle type as required in vehicle service.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_name_i18n",
+            "description": "Name that user can give to the vehicle journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "journey_pattern_ref_id",
             "description": "The JOURNEY PATTERN on which the VEHICLE JOURNEY travels",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_type",
+            "description": "STANDARD | DRY_RUN | SERVICE_JOURNEY",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "layover_time",
+            "description": "LAYOVER TIMEs describe a certain time allowance that may be given at the end of each VEHICLE JOURNEY, before starting the next one, to compensate delays or for other purposes (e.g. rest time for the driver). This “layover time” can be regarded as a buffer time, which may or may not be actually consumed in real time operation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "turnaround_time",
+            "description": "Turnaround time is the time taken by a vehicle to proceed from the end of a ROUTE to the start of another.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
               "ofType": null
             },
             "defaultValue": null,
@@ -76130,7 +77306,55 @@
             "deprecationReason": null
           },
           {
+            "name": "displayed_name",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_backup_journey",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_extra_journey",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "is_vehicle_type_mandatory",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_name_i18n",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "journey_pattern_ref_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "journey_type",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "layover_time",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "turnaround_time",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -76150,6 +77374,66 @@
         "description": null,
         "fields": null,
         "inputFields": [
+          {
+            "name": "_append",
+            "description": "append existing jsonb value of filtered columns with new jsonb value",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timetables_vehicle_journey_vehicle_journey_append_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_delete_at_path",
+            "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timetables_vehicle_journey_vehicle_journey_delete_at_path_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_delete_elem",
+            "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timetables_vehicle_journey_vehicle_journey_delete_elem_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_delete_key",
+            "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timetables_vehicle_journey_vehicle_journey_delete_key_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_prepend",
+            "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timetables_vehicle_journey_vehicle_journey_prepend_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "_set",
             "description": "sets the columns of the filtered rows to the given values",
@@ -76189,6 +77473,63 @@
         "description": "A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993 ",
         "fields": [
           {
+            "name": "booking_description_i18n",
+            "description": "Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus.",
+            "args": [
+              {
+                "name": "path",
+                "description": "JSON select path",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "booking_label",
+            "description": "Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
             "args": [
@@ -76206,13 +77547,9 @@
               }
             ],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "jsonb",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -76707,6 +78044,18 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "booking_description_i18n",
+            "description": "Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
             "type": {
@@ -76799,6 +78148,42 @@
                   "ofType": null
                 }
               }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "booking_description_i18n",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "jsonb_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "booking_label",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -76917,6 +78302,26 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "booking_description_i18n",
+            "description": "Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
             "type": {
@@ -76948,6 +78353,18 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "booking_description_i18n",
+            "description": "Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
             "type": {
@@ -76970,6 +78387,18 @@
         "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
         "fields": null,
         "inputFields": [
+          {
+            "name": "booking_description_i18n",
+            "description": "Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
@@ -77016,6 +78445,42 @@
         "description": "input type for inserting data into table \"vehicle_schedule.vehicle_schedule_frame\"",
         "fields": null,
         "inputFields": [
+          {
+            "name": "booking_description_i18n",
+            "description": "Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "booking_label",
+            "description": "Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
@@ -77099,6 +78564,30 @@
         "description": "aggregate max on columns",
         "fields": [
           {
+            "name": "booking_label",
+            "description": "Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "priority",
             "description": "The priority of the timetable definition. The definition may be overridden by higher priority definitions.",
             "args": [],
@@ -77157,6 +78646,30 @@
         "name": "timetables_vehicle_schedule_vehicle_schedule_frame_min_fields",
         "description": "aggregate min on columns",
         "fields": [
+          {
+            "name": "booking_label",
+            "description": "Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "priority",
             "description": "The priority of the timetable definition. The definition may be overridden by higher priority definitions.",
@@ -77371,6 +78884,42 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "booking_description_i18n",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "booking_label",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name_i18n",
             "description": null,
             "type": {
@@ -77481,6 +79030,18 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "booking_description_i18n",
+            "description": "Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
             "type": {
@@ -77505,6 +79066,24 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
+          {
+            "name": "booking_description_i18n",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "booking_label",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "name_i18n",
             "description": "column name",
@@ -77544,6 +79123,42 @@
         "description": "input type for updating data in table \"vehicle_schedule.vehicle_schedule_frame\"",
         "fields": null,
         "inputFields": [
+          {
+            "name": "booking_description_i18n",
+            "description": "Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "booking_label",
+            "description": "Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
@@ -77724,6 +79339,42 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "booking_description_i18n",
+            "description": "Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "booking_label",
+            "description": "Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name_i18n",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
             "type": {
@@ -77819,6 +79470,24 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
+          {
+            "name": "booking_description_i18n",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "booking_label",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "name_i18n",
             "description": "column name",
@@ -78054,6 +79723,30 @@
             "deprecationReason": null
           },
           {
+            "name": "finishing_time",
+            "description": "Finishing time after end of vehicle service block.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "preparing_time",
+            "description": "Preparation time before start of vehicle service block.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_journeys",
             "description": "An array relationship",
             "args": [
@@ -78275,6 +79968,18 @@
                 "name": "uuid",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_type_id",
+            "description": "Reference to vehicle_type.vehicle_type.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -78581,6 +80286,30 @@
             "deprecationReason": null
           },
           {
+            "name": "finishing_time",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "interval_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "preparing_time",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "interval_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_journeys",
             "description": null,
             "type": {
@@ -78618,6 +80347,18 @@
           },
           {
             "name": "vehicle_service_id",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "uuid_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_type_id",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -78669,6 +80410,30 @@
             "deprecationReason": null
           },
           {
+            "name": "finishing_time",
+            "description": "Finishing time after end of vehicle service block.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "preparing_time",
+            "description": "Preparation time before start of vehicle service block.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_journeys",
             "description": null,
             "type": {
@@ -78703,6 +80468,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "vehicle_type_id",
+            "description": "Reference to vehicle_type.vehicle_type.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -78729,6 +80506,18 @@
           {
             "name": "vehicle_service_id",
             "description": "The VEHICLE SERVICE to which this BLOCK belongs.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_type_id",
+            "description": "Reference to vehicle_type.vehicle_type.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -78773,6 +80562,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "vehicle_type_id",
+            "description": "Reference to vehicle_type.vehicle_type.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -78799,6 +80600,18 @@
           {
             "name": "vehicle_service_id",
             "description": "The VEHICLE SERVICE to which this BLOCK belongs.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_type_id",
+            "description": "Reference to vehicle_type.vehicle_type.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -78835,6 +80648,18 @@
           {
             "name": "vehicle_service_id",
             "description": "The VEHICLE SERVICE to which this BLOCK belongs.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_type_id",
+            "description": "Reference to vehicle_type.vehicle_type.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -79021,6 +80846,30 @@
             "deprecationReason": null
           },
           {
+            "name": "finishing_time",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "preparing_time",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_journeys_aggregate",
             "description": null,
             "type": {
@@ -79046,6 +80895,18 @@
           },
           {
             "name": "vehicle_service_id",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_type_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -79103,7 +80964,25 @@
             "deprecationReason": null
           },
           {
+            "name": "finishing_time",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "preparing_time",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_service_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_type_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -79130,8 +81009,44 @@
             "deprecationReason": null
           },
           {
+            "name": "finishing_time",
+            "description": "Finishing time after end of vehicle service block.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "preparing_time",
+            "description": "Preparation time before start of vehicle service block.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_service_id",
             "description": "The VEHICLE SERVICE to which this BLOCK belongs.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_type_id",
+            "description": "Reference to vehicle_type.vehicle_type.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -79204,8 +81119,44 @@
             "deprecationReason": null
           },
           {
+            "name": "finishing_time",
+            "description": "Finishing time after end of vehicle service block.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "preparing_time",
+            "description": "Preparation time before start of vehicle service block.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "interval",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_service_id",
             "description": "The VEHICLE SERVICE to which this BLOCK belongs.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_type_id",
+            "description": "Reference to vehicle_type.vehicle_type.",
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
@@ -79235,7 +81186,25 @@
             "deprecationReason": null
           },
           {
+            "name": "finishing_time",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "preparing_time",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_service_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vehicle_type_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -79537,6 +81506,31 @@
             "deprecationReason": null
           },
           {
+            "name": "name_i18n",
+            "description": "Name for vehicle service.",
+            "args": [
+              {
+                "name": "path",
+                "description": "JSON select path",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_schedule_frame",
             "description": "An object relationship",
             "args": [],
@@ -79770,6 +81764,29 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "timetables_vehicle_service_vehicle_service_append_input",
+        "description": "append existing jsonb value of filtered columns with new jsonb value",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "name_i18n",
+            "description": "Name for vehicle service.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "timetables_vehicle_service_vehicle_service_arr_rel_insert_input",
         "description": "input type for inserting array relation for remote table \"vehicle_service.vehicle_service\"",
         "fields": null,
@@ -79922,6 +81939,18 @@
             "deprecationReason": null
           },
           {
+            "name": "name_i18n",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "jsonb_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_schedule_frame",
             "description": null,
             "type": {
@@ -79981,6 +82010,83 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "timetables_vehicle_service_vehicle_service_delete_at_path_input",
+        "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "name_i18n",
+            "description": "Name for vehicle service.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timetables_vehicle_service_vehicle_service_delete_elem_input",
+        "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "name_i18n",
+            "description": "Name for vehicle service.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timetables_vehicle_service_vehicle_service_delete_key_input",
+        "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "name_i18n",
+            "description": "Name for vehicle service.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "timetables_vehicle_service_vehicle_service_insert_input",
         "description": "input type for inserting data into table \"vehicle_service.vehicle_service\"",
         "fields": null,
@@ -80015,6 +82121,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_i18n",
+            "description": "Name for vehicle service.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
               "ofType": null
             },
             "defaultValue": null,
@@ -80446,6 +82564,18 @@
             "deprecationReason": null
           },
           {
+            "name": "name_i18n",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_schedule_frame",
             "description": null,
             "type": {
@@ -80514,6 +82644,29 @@
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "timetables_vehicle_service_vehicle_service_prepend_input",
+        "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "name_i18n",
+            "description": "Name for vehicle service.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "ENUM",
         "name": "timetables_vehicle_service_vehicle_service_select_column",
         "description": "select columns of table \"vehicle_service.vehicle_service\"",
@@ -80523,6 +82676,12 @@
         "enumValues": [
           {
             "name": "day_type_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_i18n",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -80554,6 +82713,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_i18n",
+            "description": "Name for vehicle service.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
               "ofType": null
             },
             "defaultValue": null,
@@ -80647,6 +82818,18 @@
             "deprecationReason": null
           },
           {
+            "name": "name_i18n",
+            "description": "Name for vehicle service.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "jsonb",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_schedule_frame_id",
             "description": "Human-readable name for the VEHICLE SCHEDULE FRAME",
             "type": {
@@ -80690,6 +82873,12 @@
             "deprecationReason": null
           },
           {
+            "name": "name_i18n",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "vehicle_schedule_frame_id",
             "description": "column name",
             "isDeprecated": false,
@@ -80710,6 +82899,66 @@
         "description": null,
         "fields": null,
         "inputFields": [
+          {
+            "name": "_append",
+            "description": "append existing jsonb value of filtered columns with new jsonb value",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timetables_vehicle_service_vehicle_service_append_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_delete_at_path",
+            "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timetables_vehicle_service_vehicle_service_delete_at_path_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_delete_elem",
+            "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timetables_vehicle_service_vehicle_service_delete_elem_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_delete_key",
+            "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timetables_vehicle_service_vehicle_service_delete_key_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_prepend",
+            "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timetables_vehicle_service_vehicle_service_prepend_input",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "_set",
             "description": "sets the columns of the filtered rows to the given values",
@@ -82250,12 +84499,170 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "bool_and",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "vehicle_journey_vehicle_journey_aggregate_bool_exp_bool_and",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "bool_or",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "vehicle_journey_vehicle_journey_aggregate_bool_exp_bool_or",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "count",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "vehicle_journey_vehicle_journey_aggregate_bool_exp_count",
               "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "vehicle_journey_vehicle_journey_aggregate_bool_exp_bool_and",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "arguments",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "timetables_vehicle_journey_vehicle_journey_select_column_vehicle_journey_vehicle_journey_aggregate_bool_exp_bool_and_arguments_columns",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "distinct",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "filter",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timetables_vehicle_journey_vehicle_journey_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "predicate",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "Boolean_comparison_exp",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "vehicle_journey_vehicle_journey_aggregate_bool_exp_bool_or",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "arguments",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "timetables_vehicle_journey_vehicle_journey_select_column_vehicle_journey_vehicle_journey_aggregate_bool_exp_bool_or_arguments_columns",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "distinct",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "filter",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timetables_vehicle_journey_vehicle_journey_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "predicate",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "Boolean_comparison_exp",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,
