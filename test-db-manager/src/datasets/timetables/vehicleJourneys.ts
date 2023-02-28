@@ -1,6 +1,6 @@
 import times from 'lodash/times';
 import { v4 as uuid } from 'uuid';
-import { VehicleJourneyInsertInput } from '../../types';
+import { JourneyType, VehicleJourneyInsertInput } from '../../types';
 import { seedJourneyPatternRefs } from './journeyPatternRefs';
 import { seedVehicleServiceBlocksByName } from './vehicleServiceBlocks';
 
@@ -13,14 +13,26 @@ const buildVehicleJourney = ({
   vehicleJourneyId,
   journeyPatternRefId = seedJourneyPatternRefs[0].journey_pattern_ref_id,
   blockId = monFriBlockId,
+  journeyType = JourneyType.Standard,
+  isVehicleTypeMandatory = false,
+  isBackupJourney = false,
+  isExtraJourney = false,
 }: {
   vehicleJourneyId: UUID;
   journeyPatternRefId?: UUID;
   blockId?: UUID;
+  isVehicleTypeMandatory?: boolean;
+  isBackupJourney?: boolean;
+  isExtraJourney?: boolean;
+  journeyType?: JourneyType;
 }): VehicleJourneyInsertInput => ({
   vehicle_journey_id: vehicleJourneyId,
   journey_pattern_ref_id: journeyPatternRefId,
   block_id: blockId,
+  journey_type: journeyType,
+  is_vehicle_type_mandatory: isVehicleTypeMandatory,
+  is_backup_journey: isBackupJourney,
+  is_extra_journey: isExtraJourney,
 });
 
 export const seedVehicleJourneys: VehicleJourneyInsertInput[] = [

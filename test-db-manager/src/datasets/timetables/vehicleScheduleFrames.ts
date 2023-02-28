@@ -23,6 +23,8 @@ const buildVehicleScheduleFrame = ({
   validity_start: validityStart,
   validity_end: validityEnd,
   priority,
+  label: name,
+  booking_label: `${name} BL`,
 });
 
 const validityPeriodWinter2324 = {
