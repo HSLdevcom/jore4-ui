@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { Knex } from 'knex';
-import { getDbConfig } from './config';
+import { e2eDatabaseConfig } from './config';
 
-export const getDbConnection = (knexConfig = getDbConfig()) => {
+export const getDbConnection = (knexConfig = e2eDatabaseConfig) => {
   // TODO: not sure how to properly import knex without getting type errors
   // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
   const db = require('knex')({ client: 'pg', connection: knexConfig });

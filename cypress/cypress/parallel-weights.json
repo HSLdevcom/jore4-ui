@@ -1,0 +1,13 @@
+{
+  "e2e/changeLanguage.cy.ts": { "time": 4522, "weight": 1 },
+  "e2e/createLine.cy.ts": { "time": 8544, "weight": 2 },
+  "e2e/createRoute.cy.ts": { "time": 86185, "weight": 29 },
+  "e2e/createStop.cy.ts": { "time": 39690, "weight": 13 },
+  "e2e/editLineInfo.cy.ts": { "time": 6771, "weight": 2 },
+  "e2e/editRoute.cy.ts": { "time": 33554, "weight": 11 },
+  "e2e/editRouteShape.cy.ts": { "time": 33690, "weight": 11 },
+  "e2e/editStop.cy.ts": { "time": 69321, "weight": 23 },
+  "e2e/login.cy.ts": { "time": 2332, "weight": 0 },
+  "e2e/routeStops.cy.ts": { "time": 35085, "weight": 11 },
+  "e2e/searchRoutesAndLines.cy.ts": { "time": 4316, "weight": 1 }
+}

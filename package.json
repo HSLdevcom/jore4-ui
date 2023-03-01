@@ -22,6 +22,7 @@
     "test:e2e:fast": "yarn test:e2e --config-file cypress.config.fast.ts",
     "test:e2e:open": "yarn ws:db build && yarn ws:e2e cypress open",
     "test:e2e:list": "yarn ws:e2e print-tests 'e2e/**.cy.ts'",
+    "test:e2e:parallel": "yarn ws:db build && yarn ws:e2e cypress-parallel --script cy:run --threads 3 --verbose --reporterModulePath '../node_modules/cypress-multi-reporters' --specsDir 'e2e/*.cy.ts'",
     "qa": "yarn --frozen-lockfile && yarn ws:db build && yarn ts:check && yarn prettier:check && yarn lint && yarn test && yarn test:integration && yarn test:e2e",
     "qa:fast": "yarn qa --config-file cypress.config.fast.ts"
   },
