@@ -19,7 +19,18 @@ const devProxy = {
     pathRewrite: {
       '^/api/graphql': '', // remove path.
     },
-    target: 'http://127.0.0.1:3201',
+    router: (req) => {
+      switch (req.headers['x-environment']) {
+        case 'e2e1':
+          return 'http://127.0.0.1:3211';
+        case 'e2e2':
+          return 'http://127.0.0.1:3212';
+        case 'e2e3':
+          return 'http://127.0.0.1:3213';
+        default:
+          return 'http://127.0.0.1:3201';
+      }
+    },
     changeOrigin: true,
     ws: true,
   },
