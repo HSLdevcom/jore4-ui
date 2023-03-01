@@ -35,6 +35,7 @@ jobs:
         uses: HSLdevcom/jore4-tools/github-actions/run-cypress-tests@run-cypress-tests-v1
         with:
           test-tags: ''
+          threads: '3'
 
       - name: Foresight Test Results
         uses: runforesight/foresight-test-kit-action@v1

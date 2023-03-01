@@ -7,7 +7,7 @@ import { Tag } from '../enums';
 import { ChangeValidityForm, ModalMap } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
-import { deleteStopsByLabel } from './utils';
+import { deleteStopsByLabels } from './utils';
 
 const testStopLabels = {
   testLabel1: 'T0001',
@@ -21,7 +21,7 @@ const dbResources = {
 };
 
 const clearDatabase = () => {
-  deleteStopsByLabel(Object.values(testStopLabels));
+  deleteStopsByLabels(Object.values(testStopLabels));
   removeFromDbHelper(dbResources);
 };
 
