@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import { CurrentExecutorIndex } from '@hsl/jore4-test-db-manager';
+
 Cypress.Commands.add('getByTestId', (selector, ...args) => {
   return cy.get(`[data-testid="${selector}"]`, ...args);
 });
@@ -78,6 +80,15 @@ Cypress.Commands.add('setupTests', () => {
     if (req.body && req.body.operationName) {
       // eslint-disable-next-line no-param-reassign
       req.alias = `gql${req.body.operationName}`;
+      // default instance = thread4, e2e1 = thread1, etc
+      const currentExecutorIndex =
+        Cypress.env('THREAD') || CurrentExecutorIndex.default;
+      Cypress.log({
+        message: `UI Hasura executor index, ${currentExecutorIndex}`,
+      });
+      // eslint-disable-next-line no-param-reassign
+      req.headers['X-Environment'] = `e2e${currentExecutorIndex}`;
+      req.continue();
     }
   });
 

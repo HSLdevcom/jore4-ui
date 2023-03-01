@@ -57,15 +57,18 @@ We have those because sometimes there is need to do e.g. complex graphql queries
 
 ### Cypress (e2e) tests
 
-- In order to run e2e tests, you need to have ui and all the dependencies running.
-- To open cypress with browser for developing tests locally: `yarn test:e2e:open`
-- To run all cypress tests without browser: `yarn test:e2e`
+- In order to run e2e tests, you need to have ui and all the dependencies running. Start the dependencies with `./start-dependencies --e2e` when developing or running e2e tests.
+- To open Cypress with browser for developing tests locally: `yarn test:e2e:open`
+- To run all Cypress tests headlessly: `yarn test:e2e`
 - To disable map tile rendering (e.g. to speed up tests or improve reliability in CI), set the `CYPRESS_DISABLE_MAP_TILES=true` environment variable
 - To list existing e2e test cases run `yarn test:e2e:list`
 - Tests have tags for features and other test sets, like `@smoke`. Run tests for a specific tag with `yarn test:e2e --env grepTags=@routes`, for example. Further Cypress grep documentation: https://github.com/cypress-io/cypress/tree/develop/npm/grep
+- Cypress tests can be run in parallel with the `yarn test:e2e:parallel` command. Parallel execution is built using the [cypress-parallel](https://github.com/tnicola/cypress-parallel) library.
+- Parallel execution requires three separate instances of the `hasura` and `testdb` containers. These are started by default by the `start-dependencies.sh` script.
+- Routing of data in parallel execution is handled in `jore4-ui/test-db-manager/src/hasuraApi.ts`, `jore4-ui/test-db-manager/src/config.ts` and `jore4-ui/cypress/support/commands.ts`.
 
-Failed tests ran without browser can be investigated visually by looking at videos and screenshots at `./cypress/reports`.
-Anyway, debugging is generally easier when cypress is opened with browser as then you can poke around with browsers devtools.
+Failed tests ran without browser can be investigated visually by looking at videos and screenshots at `./cypress/reports`. Videos are disabled by default, and can be enabled in `cypress.config.ts` by setting the value of the `video` property to `true`.
+Anyway, debugging is generally easier when Cypress is opened with browser as then you can poke around with browsers devtools.
 
 ### CI
 
