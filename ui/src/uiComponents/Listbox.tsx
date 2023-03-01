@@ -86,7 +86,7 @@ export const Listbox = ({
           <HUIListbox.Button
             className={`${
               hasError ? buttonErrorStyles : ''
-            } input-element flex w-full items-center text-left focus:outline-none ${buttonClassNames}`}
+            } flex w-full items-center rounded-md border border-grey bg-white py-3 px-2 text-left focus:outline-none ${buttonClassNames}`}
             data-testid={testId}
           >
             {buttonContent}

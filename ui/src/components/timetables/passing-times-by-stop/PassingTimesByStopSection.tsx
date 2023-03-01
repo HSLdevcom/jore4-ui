@@ -1,9 +1,8 @@
-import { useTranslation } from 'react-i18next';
 import { pipe, uniq } from 'remeda';
 import { VehicleJourneyGroup, useTimetablesViewState } from '../../../hooks';
-import { mapTimetablePriorityToUiName } from '../../../i18n/uiNameMappings';
 import { parseI18nField } from '../../../i18n/utils';
-import { mapToShortDate } from '../../../time';
+import { Row } from '../../../layoutComponents';
+import { VehicleJourneyGroupInfo } from '../common/VehicleJourneyGroupInfo';
 import { getTimetableHeadingBgColor } from '../vehicle-schedule-details/vehicle-service-table/VehicleServiceTable';
 import { DayTypeDropdown } from './DayTypeDropdown';
 import { PassingTimesByStopTable } from './PassingTimesByStopTable';
@@ -19,8 +18,6 @@ type Props = {
 export const PassingTimesByStopSection = ({
   vehicleJourneyGroups,
 }: Props): JSX.Element => {
-  const { t } = useTranslation();
-
   const { dayType, setDayType } = useTimetablesViewState();
 
   const vehicleJourneyGroupsToDisplay =
@@ -51,31 +48,25 @@ export const PassingTimesByStopSection = ({
     <div className="space-y-10">
       {vehicleJourneyGroupsToDisplay.map((vehicleJourneyGroup) => (
         <div
+          className="space-y-6"
           key={`${vehicleJourneyGroup.dayType}${vehicleJourneyGroup.priority}`}
         >
-          <div className="w-64">
-            <DayTypeDropdown
-              values={dayTypes.map((type) => type.label)}
-              value={dayType}
-              onChange={(e) => setDayType(e.target.value)}
-              uiNameMapper={dayTypeUiNameMapper}
-              buttonClassNames={`text-black !bg-opacity-50 ${getTimetableHeadingBgColor(
-                vehicleJourneyGroup.priority,
-              )}`}
+          <Row className="items-center space-x-4">
+            <div className="min-w-[240px]">
+              <DayTypeDropdown
+                values={dayTypes.map((type) => type.label)}
+                value={dayType}
+                onChange={(e) => setDayType(e.target.value)}
+                uiNameMapper={dayTypeUiNameMapper}
+                buttonClassNames={`text-black !bg-opacity-50 ${getTimetableHeadingBgColor(
+                  vehicleJourneyGroup.priority,
+                )}`}
+              />
+            </div>
+            <VehicleJourneyGroupInfo
+              vehicleJourneyGroup={vehicleJourneyGroup}
             />
-          </div>
-          {/* TODO: Implement properly with day type picker etc. */}
-          {parseI18nField(vehicleJourneyGroup.dayType.name_i18n)}
-          {': '}
-          {t('timetables.timetableValidity', {
-            validityStart: mapToShortDate(
-              vehicleJourneyGroup.validity.validityStart,
-            ),
-            validityEnd: mapToShortDate(
-              vehicleJourneyGroup.validity.validityEnd,
-            ),
-          })}
-          {` (${mapTimetablePriorityToUiName(vehicleJourneyGroup.priority)})`}
+          </Row>
           <PassingTimesByStopTable
             vehicleJourneys={vehicleJourneyGroup.vehicleJourneys}
           />

@@ -11,7 +11,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
       aria-activedescendant="headlessui-combobox-option-:r8:"
       aria-controls="headlessui-combobox-options-:r7:"
       aria-expanded="true"
-      class="input-element relative h-full w-full"
+      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r4:"
       role="combobox"
@@ -153,7 +153,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
   >
     <input
       aria-expanded="false"
-      class="input-element relative h-full w-full"
+      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r0:"
       role="combobox"
@@ -209,7 +209,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
   >
     <input
       aria-expanded="false"
-      class="input-element relative h-full w-full"
+      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r0:"
       role="combobox"
@@ -265,7 +265,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
   >
     <input
       aria-expanded="false"
-      class="input-element relative h-full w-full"
+      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r2:"
       role="combobox"
@@ -321,7 +321,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
   >
     <input
       aria-expanded="false"
-      class="input-element relative h-full w-full"
+      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r2:"
       role="combobox"

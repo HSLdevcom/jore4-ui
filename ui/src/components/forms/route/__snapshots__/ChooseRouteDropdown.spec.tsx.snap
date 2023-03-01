@@ -9,7 +9,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 1`] = `
   >
     <input
       aria-expanded="false"
-      class="input-element relative h-full w-full"
+      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r6:"
       role="combobox"
@@ -65,7 +65,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 2`] = `
   >
     <input
       aria-expanded="false"
-      class="input-element relative h-full w-full"
+      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r6:"
       role="combobox"
@@ -123,7 +123,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
       aria-activedescendant="headlessui-combobox-option-:ra:"
       aria-controls="headlessui-combobox-options-:r9:"
       aria-expanded="true"
-      class="input-element relative h-full w-full"
+      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r6:"
       role="combobox"
@@ -228,7 +228,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
   >
     <input
       aria-expanded="false"
-      class="input-element relative h-full w-full"
+      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r0:"
       role="combobox"
@@ -284,7 +284,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
   >
     <input
       aria-expanded="false"
-      class="input-element relative h-full w-full"
+      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r0:"
       role="combobox"
@@ -342,7 +342,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
       aria-activedescendant="headlessui-combobox-option-:r4:"
       aria-controls="headlessui-combobox-options-:r3:"
       aria-expanded="true"
-      class="input-element relative h-full w-full"
+      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r0:"
       role="combobox"

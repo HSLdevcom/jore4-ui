@@ -28,7 +28,7 @@ export const DayTypeDropdown = ({
   const mapToOption = (item: string) => ({
     key: item,
     value: item,
-    render: function EnumOption() {
+    render: () => {
       return (
         <div className="cursor-default">
           <div className="ml-2 mr-2">{uiNameMapper(item)}</div>
