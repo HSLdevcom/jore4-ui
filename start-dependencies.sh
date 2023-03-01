@@ -60,7 +60,7 @@ function start_docker_bundle {
   fi
 
   # start up only services that are needed in local ui development
-  $DOCKER_COMPOSE_CMD up -d jore4-auth jore4-testdb jore4-hasura jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching
+  $DOCKER_COMPOSE_CMD up -d jore4-auth jore4-testdb jore4-testdb-e2e1 jore4-testdb-e2e2 jore4-testdb-e2e3 jore4-hasura jore4-hasura-e2e1 jore4-hasura-e2e2 jore4-hasura-e2e3 jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching
 }
 
 download_docker_bundle

@@ -7,7 +7,8 @@
     "cypress": "CYPRESS_BASE_URL=${CYPRESS_BASE_URL:-http://localhost:3300} cypress",
     "ts:check": "yarn tsc --noEmit",
     "ts:build": "yarn tsc --build",
-    "qa": "yarn --frozen-lockfile && yarn ts:check && yarn prettier:check"
+    "qa": "yarn --frozen-lockfile && yarn ts:check && yarn prettier:check",
+    "cy:run": "CYPRESS_BASE_URL=${CYPRESS_BASE_URL:-http://localhost:3300} cypress run --browser chrome"
   },
   "dependencies": {
     "@4tw/cypress-drag-drop": "^2.2.3",
@@ -18,8 +19,10 @@
   },
   "devDependencies": {
     "@cypress/grep": "^3.1.4",
-    "@types/node": "^18.13.0",
+    "@types/node": "^18.14.4",
     "@types/qs": "^6.9.7",
+    "cypress-multi-reporters": "^1.6.2",
+    "cypress-parallel": "^0.12.0",
     "eslint-plugin-cypress": "^2.12.1",
     "find-test-names": "^1.22.2"
   }

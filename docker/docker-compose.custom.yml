@@ -4,15 +4,31 @@ services:
     # Link to available jore4-hasura images in Docker Hub:
     # https://hub.docker.com/r/hsldevcom/jore4-hasura/tags?page=1&ordering=last_updated
     # The :seed-data tag contains the latest main-build image with seed data.
-    image: 'hsldevcom/jore4-hasura:seed-main--20230301-54ae63b64e824731d8e5216ede2f88de3a1349b2'
+    image: &hasura-image 'hsldevcom/jore4-hasura:seed-main--20230301-54ae63b64e824731d8e5216ede2f88de3a1349b2'
     # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
     # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
     depends_on:
       jore4-testdb:
         condition: service_healthy
-    environment:
-      HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
 
   jore4-mapmatching:
     # pinning map-matching API to compatible version
     image: "hsldevcom/jore4-map-matching:main--20221208-d904fbdf9be5eba7e119943e2259c7a74b9dbab9"
+
+  jore4-hasura-e2e1:
+    image: *hasura-image
+    depends_on:
+      jore4-testdb-e2e1:
+        condition: service_healthy
+
+  jore4-hasura-e2e2:
+    image: *hasura-image
+    depends_on:
+      jore4-testdb-e2e2:
+        condition: service_healthy
+
+  jore4-hasura-e2e3:
+    image: *hasura-image
+    depends_on:
+      jore4-testdb-e2e3:
+        condition: service_healthy

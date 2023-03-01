@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import process from 'process';
+
 Cypress.Commands.add('getByTestId', (selector, ...args) => {
   return cy.get(`[data-testid="${selector}"]`, ...args);
 });
@@ -78,6 +80,10 @@ Cypress.Commands.add('setupTests', () => {
     if (req.body && req.body.operationName) {
       // eslint-disable-next-line no-param-reassign
       req.alias = `gql${req.body.operationName}`;
+      // default instance = thread4, e2e1 = thread1, etc
+      const currentExecutorIndex = process.env.CYPRESS_THREAD || '4';
+      // eslint-disable-next-line no-param-reassign
+      req.headers['X-Environment'] = `e2e${currentExecutorIndex}`;
     }
   });
 

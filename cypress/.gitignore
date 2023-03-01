@@ -2,3 +2,4 @@ node_modules
 videos
 screenshots
 cypress.env.json
+/runner-results
