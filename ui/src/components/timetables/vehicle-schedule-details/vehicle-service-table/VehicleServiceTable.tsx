@@ -27,11 +27,11 @@ const testIds = {
 
 export const getTimetableHeadingBgColor = (key: TimetablePriority) => {
   const bgColors: Record<TimetablePriority, string> = {
-    [TimetablePriority.Standard]: '!bg-hsl-dark-green',
-    [TimetablePriority.Temporary]: '!bg-city-bicycle-yellow',
-    [TimetablePriority.Special]: '!bg-hsl-light-purple',
-    [TimetablePriority.Draft]: '!bg-background',
-    [TimetablePriority.Staging]: '!bg-hsl-red',
+    [TimetablePriority.Standard]: 'bg-hsl-dark-green',
+    [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
+    [TimetablePriority.Special]: 'bg-hsl-light-purple',
+    [TimetablePriority.Draft]: 'bg-background',
+    [TimetablePriority.Staging]: 'bg-hsl-red',
   };
   return bgColors[key];
 };

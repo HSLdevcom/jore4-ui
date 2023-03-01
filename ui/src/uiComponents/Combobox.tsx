@@ -2,7 +2,7 @@ import { Combobox as HUICombobox, Transition } from '@headlessui/react';
 import { Fragment, ReactNode } from 'react';
 import { Noop } from 'react-hook-form';
 import { MdCheck, MdSearch } from 'react-icons/md';
-import { dropdownTransition, OptionRenderPropArg } from './Listbox';
+import { OptionRenderPropArg, dropdownTransition } from './Listbox';
 
 export const testIds = {
   input: (testId: string) => `${testId}::input`,
@@ -69,7 +69,7 @@ export const Combobox = ({
             onChange={(event) => onQueryChange(event.target.value)}
             displayValue={() => ''}
             data-testid={testId ? testIds.input(testId) : undefined}
-            className="input-element relative h-full w-full"
+            className="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
           />
           <HUICombobox.Button
             className="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
