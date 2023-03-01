@@ -86,7 +86,7 @@ Non-VSCode users can sort imports e.g. by running `yarn lint --fix` on command l
 ## Setting up dependencies for local development
 
 Run `./start-dependencies.sh` to set up microservices required for local development in docker-compose.
-Script uses Jore4 project's shared docker-compose file defined in [`jore4-flux`](https://github.com/HSLdevcom/jore4-flux#docker-compose) repository.
+Script uses Jore4 project's shared docker-compose file defined in [`jore4-tools`](https://github.com/HSLdevcom/jore4-tools) repository.
 Edit `start-dependencies.sh` script if you want to start only certain subset of our microservices.
 For overriding settings defined in base docker-compose file just edit
 `docker/docker-compose.custom.yml` and run `./start-dependencies.sh` again.
