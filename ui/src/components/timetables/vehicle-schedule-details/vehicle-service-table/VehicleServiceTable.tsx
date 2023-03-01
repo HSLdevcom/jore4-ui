@@ -25,6 +25,28 @@ const testIds = {
   timetable: 'Timetable::table',
 };
 
+export const getTimetableHeadingBgColor = (key: TimetablePriority) => {
+  const bgColors: Record<TimetablePriority, string> = {
+    [TimetablePriority.Standard]: '!bg-hsl-dark-green',
+    [TimetablePriority.Temporary]: '!bg-city-bicycle-yellow',
+    [TimetablePriority.Special]: '!bg-hsl-light-purple',
+    [TimetablePriority.Draft]: '!bg-background',
+    [TimetablePriority.Staging]: '!bg-hsl-red',
+  };
+  return bgColors[key];
+};
+
+const getOddRowColor = (key: TimetablePriority) => {
+  const bgColors: Record<TimetablePriority, string> = {
+    [TimetablePriority.Standard]: 'bg-hsl-neutral-blue',
+    [TimetablePriority.Temporary]: 'bg-hsl-neutral-blue',
+    [TimetablePriority.Special]: 'bg-hsl-neutral-blue',
+    [TimetablePriority.Draft]: 'bg-background',
+    [TimetablePriority.Staging]: 'bg-hsl-neutral-blue',
+  };
+  return bgColors[key];
+};
+
 export const VehicleServiceTable = ({
   priority,
   dayType,
@@ -32,28 +54,6 @@ export const VehicleServiceTable = ({
   onClick,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
-
-  const getTimetableHeadingBgColor = (key: TimetablePriority) => {
-    const bgColors: Record<TimetablePriority, string> = {
-      [TimetablePriority.Standard]: 'bg-hsl-dark-green',
-      [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
-      [TimetablePriority.Special]: 'bg-hsl-light-purple',
-      [TimetablePriority.Draft]: 'bg-background',
-      [TimetablePriority.Staging]: 'bg-hsl-red',
-    };
-    return bgColors[key];
-  };
-
-  const getOddRowColor = (key: TimetablePriority) => {
-    const bgColors: Record<TimetablePriority, string> = {
-      [TimetablePriority.Standard]: 'bg-hsl-neutral-blue',
-      [TimetablePriority.Temporary]: 'bg-hsl-neutral-blue',
-      [TimetablePriority.Special]: 'bg-hsl-neutral-blue',
-      [TimetablePriority.Draft]: 'bg-background',
-      [TimetablePriority.Staging]: 'bg-hsl-neutral-blue',
-    };
-    return bgColors[key];
-  };
 
   const departureTimesByHour = pipe(
     vehicleJourneys,
@@ -83,7 +83,7 @@ export const VehicleServiceTable = ({
   return (
     <div onClick={onClick} onKeyPress={onKeyPress} role="button" tabIndex={0}>
       <Row
-        className={`mb-4 rounded-md bg-opacity-50 px-4 py-1 text-hsl-dark-80 ${getTimetableHeadingBgColor(
+        className={`mb-4 rounded-md !bg-opacity-50 px-4 py-1 text-hsl-dark-80 ${getTimetableHeadingBgColor(
           priority,
         )}`}
       >

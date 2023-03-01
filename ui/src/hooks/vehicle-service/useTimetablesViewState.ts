@@ -37,6 +37,14 @@ export const useTimetablesViewState = () => {
     });
   };
 
+  const setDayType = (newDayType: string, replace = false) => {
+    setToUrlQuery({
+      paramName: QueryParameterName.DayType,
+      value: newDayType,
+      replace,
+    });
+  };
+
   const setShowPassingTimesByStop = (
     routeLabel: string,
     newDayType: string,
@@ -59,6 +67,7 @@ export const useTimetablesViewState = () => {
   return {
     activeView,
     setActiveView,
+    setDayType,
     setShowPassingTimesByStop,
     routeLabels,
     dayType,

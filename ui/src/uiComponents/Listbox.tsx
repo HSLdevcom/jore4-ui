@@ -44,6 +44,8 @@ interface Props extends FormInputProps {
   buttonContent: ReactNode;
   testId?: string;
   options: ListboxOptionRenderer[];
+  buttonClassNames?: string;
+  arrowButtonClassNames?: string;
 }
 
 const buttonErrorStyles =
@@ -60,6 +62,8 @@ export const Listbox = ({
   onChange,
   onBlur,
   fieldState,
+  buttonClassNames = '',
+  arrowButtonClassNames = '',
 }: Props): JSX.Element => {
   const onItemSelected = (val: string) => {
     const event = { target: { value: val } };
@@ -82,7 +86,7 @@ export const Listbox = ({
           <HUIListbox.Button
             className={`${
               hasError ? buttonErrorStyles : ''
-            } input-element flex w-full items-center text-left focus:outline-none`}
+            } input-element flex w-full items-center text-left focus:outline-none ${buttonClassNames}`}
             data-testid={testId}
           >
             {buttonContent}
@@ -91,7 +95,7 @@ export const Listbox = ({
                 hasError ? arrowErrorStyles : ''
               } icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out ${
                 open ? '-rotate-180' : 'rotate-0'
-              }`}
+              } ${arrowButtonClassNames}`}
               style={{ fontSize: 10 }}
             />
           </HUIListbox.Button>
