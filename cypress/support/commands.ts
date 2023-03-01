@@ -78,6 +78,14 @@ Cypress.Commands.add('setupTests', () => {
     if (req.body && req.body.operationName) {
       // eslint-disable-next-line no-param-reassign
       req.alias = `gql${req.body.operationName}`;
+      // default instance = thread4, e2e1 = thread1, etc
+      const currentExecutorIndex = Cypress.env('THREAD') || '4';
+      Cypress.log({
+        message: `UI Hasura executor index, ${currentExecutorIndex}`,
+      });
+      // eslint-disable-next-line no-param-reassign
+      req.headers['X-Environment'] = `e2e${currentExecutorIndex}`;
+      req.continue();
     }
   });
 
