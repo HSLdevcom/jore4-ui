@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# based on https://github.com/HSLdevcom/jore4-flux#docker-compose
+# based on https://github.com/HSLdevcom/jore4-tools#download-docker-bundlesh
 
 set -euo pipefail
 
@@ -10,17 +10,11 @@ if ! command -v gh; then
 fi
 
 # initialize package folder
-mkdir -p ./docker/update
+mkdir -p ./docker
 
 function download_docker_bundle {
   echo "Downloading latest version of E2E docker-compose package..."
-  gh auth status || gh auth login
-
-  # gh cannot overwrite existing files, therefore first download into separate dir. This way we still have the old copy
-  # in case the download fails
-  rm -rf ./docker/update/*
-  gh release download e2e-docker-compose --repo HSLdevcom/jore4-flux --dir ./docker/update
-  cp -R ./docker/update/* ./docker
+  curl https://raw.githubusercontent.com/HSLdevcom/jore4-tools/main/docker/download-docker-bundle.sh | bash
 }
 
 function check_pinned_hasura {
