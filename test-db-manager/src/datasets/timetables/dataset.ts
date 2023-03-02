@@ -66,7 +66,7 @@ const decBlockId = seedVehicleServiceBlocksByName.v1December23.block_id;
 const v2MonFriBlockId = seedVehicleServiceBlocksByName.v2MonFri.block_id;
 
 const buildVehicleJourney = ({
-  vehicleJourneyId,
+  vehicleJourneyId = uuid(),
   journeyPatternRefId,
   blockId = monFriBlockId,
   journeyType = JourneyType.Standard,
@@ -74,7 +74,7 @@ const buildVehicleJourney = ({
   isBackupJourney = false,
   isExtraJourney = false,
 }: {
-  vehicleJourneyId: UUID;
+  vehicleJourneyId?: UUID;
   journeyPatternRefId: UUID;
   blockId?: UUID;
   isVehicleTypeMandatory?: boolean;
@@ -94,29 +94,103 @@ const buildVehicleJourney = ({
 const processDataset = (dataset: typeof data) => {
   const journeyPatternRefs: JourneyPatternRefInsertInput[] = [];
   const scheduledStopPoints: StopInJourneyPatternRefInsertInput[] = [];
+  const vehicleJourneys: VehicleJourneyInsertInput[] = [];
 
-  Object.values(dataset.journeyPatternRefs).forEach((jprWithChildren) => {
-    const { stopPoints, ...partialJpr } = jprWithChildren;
-    const jpr = {
-      journey_pattern_ref_id: uuid(),
-      ...partialJpr,
-    };
-    journeyPatternRefs.push(jpr);
+  // Return dataset in same format, but enriched with generated ids.
+  const enrichedJourneyPatternRefs = {};
+  const vehicleJourneysByName: Record<string, VehicleJourneyInsertInput[]> = {};
 
-    const builtStopPoints = buildStopSequence({
-      journeyPatternRefId: jpr.journey_pattern_ref_id,
-      ...stopPoints,
-    });
-    scheduledStopPoints.push(...builtStopPoints);
-  });
+  Object.entries(dataset.journeyPatternRefs).forEach(
+    ([jprLabel, jprWithChildren]) => {
+      const { stopPoints, ...partialJpr } = jprWithChildren;
+      const jpr = {
+        journey_pattern_ref_id: uuid(),
+        ...partialJpr,
+      };
+      journeyPatternRefs.push(jpr);
+
+      const builtStopPoints = buildStopSequence({
+        journeyPatternRefId: jpr.journey_pattern_ref_id,
+        ...stopPoints,
+      });
+      scheduledStopPoints.push(...builtStopPoints);
+
+      enrichedJourneyPatternRefs[jprLabel] = {
+        ...jpr,
+        stopPoints: builtStopPoints,
+      };
+    },
+  );
+
+  Object.entries(dataset.vehicleJourneysForBlocks).forEach(
+    ([vjLabel, partialVj]) => {
+      const journeyPatternRef =
+        enrichedJourneyPatternRefs[partialVj.journeyPatternRef];
+      if (!journeyPatternRef) {
+        throw new Error(
+          `Journey pattern ref not found with label "${partialVj.journeyPatternRef}" for vehicle journey "${vjLabel}"`,
+        );
+      }
+
+      const { times: vjsToCreate, ...vjParams } = { times: 1, ...partialVj };
+
+      const vjs = times(vjsToCreate, () =>
+        buildVehicleJourney({
+          ...vjParams,
+          journeyPatternRefId: journeyPatternRef.journey_pattern_ref_id,
+        }),
+      );
+
+      vehicleJourneys.push(...vjs);
+      vehicleJourneysByName[vjLabel] = vjs;
+    },
+  );
 
   return {
     journeyPatternRefs,
     scheduledStopPoints,
+    vehicleJourneys,
+    vehicleJourneysByName,
   };
 };
 
 const data = {
+  vehicleJourneysForBlocks: {
+    // Journeys 1-20, all belong to same journey pattern and service block (Vehicle 1 Mon-Fri)
+    v1MonFri_dir1: {
+      times: 20,
+      journeyPatternRef: 'route641_d1',
+      blockId: monFriBlockId,
+    },
+    // Journeys 21-25, opposite direction (Vehicle 1 Mon-Fri)
+    v1MonFri_dir2: {
+      times: 5,
+      journeyPatternRef: 'route641_d2',
+      blockId: monFriBlockId,
+    },
+    // Journeys 26-29, all belong to same journey pattern and service block (Vehicle 1 Sat)
+    v1Sat: {
+      times: 4,
+      journeyPatternRef: 'route641_d1',
+      blockId: satBlockId,
+    },
+    // journey 30, belongs to service block (Vehicle 1 Sun)
+    v1Sun: {
+      journeyPatternRef: 'route641_d1',
+      blockId: sunBlockId,
+    },
+    // journeys 31-40 (Vehicle 1 Mon-Fri December 2023, special priority)
+    v1December23: {
+      times: 10,
+      journeyPatternRef: 'route641_d1',
+      blockId: decBlockId,
+    },
+    // Journey 41 for Vehicle 2 Mon-Fri block.
+    v2MonFri: {
+      journeyPatternRef: 'route65X3_out',
+      blockId: v2MonFriBlockId,
+    },
+  },
   journeyPatternRefs: {
     route641_d1: {
       // route 641, direction 1
@@ -175,52 +249,7 @@ export const seedStopsInJourneyPatternRefsByJourneyPattern = groupBy(
 export const seedStopsInJourneyPatternRefs: StopInJourneyPatternRefInsertInput[] =
   processed.scheduledStopPoints;
 
-export const seedVehicleJourneysByName = {
-  // Journeys 1-20, all belong to same journey pattern and service block (Vehicle 1 Mon-Fri)
-  v1MonFri_dir1: times(20, () =>
-    buildVehicleJourney({
-      journeyPatternRefId: seedJourneyPatternRefs[0].journey_pattern_ref_id,
-      vehicleJourneyId: uuid(),
-    }),
-  ),
-  // Journeys 21-25, opposite direction (Vehicle 1 Mon-Fri)
-  v1MonFri_dir2: times(5, () =>
-    buildVehicleJourney({
-      vehicleJourneyId: uuid(),
-      journeyPatternRefId: seedJourneyPatternRefs[1].journey_pattern_ref_id,
-    }),
-  ),
-  // Journeys 26-29, all belong to same journey pattern and service block (Vehicle 1 Sat)
-  v1Sat: times(4, () =>
-    buildVehicleJourney({
-      journeyPatternRefId: seedJourneyPatternRefs[0].journey_pattern_ref_id,
-      vehicleJourneyId: uuid(),
-      blockId: satBlockId,
-    }),
-  ),
-  // journey 30, belongs to service block (Vehicle 1 Sun)
-  v1Sun: [
-    buildVehicleJourney({
-      journeyPatternRefId: seedJourneyPatternRefs[0].journey_pattern_ref_id,
-      vehicleJourneyId: uuid(),
-      blockId: sunBlockId,
-    }),
-  ],
-  // journeys 31-40 (Vehicle 1 Mon-Fri December 2023, special priority)
-  v1December23: times(10, () =>
-    buildVehicleJourney({
-      journeyPatternRefId: seedJourneyPatternRefs[0].journey_pattern_ref_id,
-      vehicleJourneyId: uuid(),
-      blockId: decBlockId,
-    }),
-  ),
-  // Journey 41 for Vehicle 2 Mon-Fri block.
-  v2MonFri: [
-    buildVehicleJourney({
-      vehicleJourneyId: uuid(),
-      journeyPatternRefId: seedJourneyPatternRefs[2].journey_pattern_ref_id,
-      blockId: v2MonFriBlockId,
-    }),
-  ],
-};
-export const seedVehicleJourneys: VehicleJourneyInsertInput[] = Object.values(seedVehicleJourneysByName).flat();
+export const seedVehicleJourneysByName = processed.vehicleJourneysByName;
+export const seedVehicleJourneys: VehicleJourneyInsertInput[] = Object.values(
+  seedVehicleJourneysByName,
+).flat();
