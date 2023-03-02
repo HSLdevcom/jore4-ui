@@ -1,3 +1,4 @@
+import groupBy from 'lodash/groupBy';
 import padStart from 'lodash/padStart';
 import range from 'lodash/range';
 import { DateTime } from 'luxon';
@@ -54,7 +55,32 @@ const buildStopSequence = ({
   return stops;
 };
 
-export const seedJourneyPatternRefs: JourneyPatternRefInsertInput[] = [
+const processDataset = (dataset: typeof data) => {
+  const journeyPatternRefs: JourneyPatternRefInsertInput[] = [];
+  const scheduledStopPoints: StopInJourneyPatternRefInsertInput[] = [];
+
+  dataset.forEach((jprWithChildren) => {
+    const { stopPoints, ...partialJpr } = jprWithChildren;
+    const jpr = {
+      journey_pattern_ref_id: uuid(),
+      ...partialJpr
+    };
+    journeyPatternRefs.push(jpr);
+
+    const builtStopPoints = buildStopSequence({
+      journeyPatternRefId: jpr.journey_pattern_ref_id,
+      ...stopPoints,
+    });
+    scheduledStopPoints.push(...builtStopPoints);
+  });
+
+  return {
+    journeyPatternRefs,
+    scheduledStopPoints,
+  };
+};
+
+const data = [
   {
     // route 641, direction 1
     journey_pattern_ref_id: 'a6f626c8-e743-4c38-b9c1-c537ffb2863f',
@@ -68,47 +94,45 @@ export const seedJourneyPatternRefs: JourneyPatternRefInsertInput[] = [
     journey_pattern_id: 'a9136ad8-d185-4c7b-9969-057b65dc9b00',
     observation_timestamp: DateTime.fromISO('2023-07-01T00:00:00+00:00'),
     snapshot_timestamp: DateTime.fromISO('2023-09-28T00:00:00+00:00'),
+    stopPoints: {
+      labelPrefix: 'H22',
+      stopsToCreate: 8,
+    },
   },
   {
     // route 641, direction 2
-    journey_pattern_ref_id: '4f80b9c2-21b2-4460-9e38-0d0691b29cbe',
     // NOTE: same comments for journey_pattern with id
     // '4f80b9c2-21b2-4460-9e38-0d0691b29cbe' as stated above
     journey_pattern_id: '4f80b9c2-21b2-4460-9e38-0d0691b29cbe',
     observation_timestamp: DateTime.fromISO('2023-07-01T00:00:00+00:00'),
     snapshot_timestamp: DateTime.fromISO('2023-09-28T00:00:00+00:00'),
+    stopPoints: {
+      labelPrefix: 'H23',
+      stopsToCreate: 8,
+    },
   },
   {
     // Route 65x variant 3, outbound.
     // NOTE: the journey pattern is defined in hasura seed data.
-    journey_pattern_ref_id: '8b4586f1-6cc0-49ab-b30b-442fff9cbef4',
     journey_pattern_id: '2b7fa547-6eb5-4878-8053-6bbd6e9cbfc0',
     observation_timestamp: DateTime.fromISO('2023-07-01T00:00:00+00:00'),
     snapshot_timestamp: DateTime.fromISO('2023-09-28T00:00:00+00:00'),
+    stopPoints: {
+      labels: ['H1234', 'H1235'],
+      stopsToCreate: 2,
+    },
   },
 ];
 
-const journeyPatternRefId0 = seedJourneyPatternRefs[0].journey_pattern_ref_id;
-const journeyPatternRefId1 = seedJourneyPatternRefs[1].journey_pattern_ref_id;
-const journeyPatternRefId2 = seedJourneyPatternRefs[2].journey_pattern_ref_id;
+const processed = processDataset(data);
 
-export const seedStopsInJourneyPatternRefsByJourneyPattern = {
-  [journeyPatternRefId0]: buildStopSequence({
-    journeyPatternRefId: journeyPatternRefId0,
-    labelPrefix: 'H22',
-    stopsToCreate: 8,
-  }),
-  [journeyPatternRefId1]: buildStopSequence({
-    journeyPatternRefId: journeyPatternRefId1,
-    labelPrefix: 'H23',
-    stopsToCreate: 8,
-  }),
-  [journeyPatternRefId2]: buildStopSequence({
-    journeyPatternRefId: journeyPatternRefId2,
-    labels: ['H1234', 'H1235'],
-    stopsToCreate: 2,
-  }),
-};
+export const seedJourneyPatternRefs: JourneyPatternRefInsertInput[] =
+  processed.journeyPatternRefs;
+
+export const seedStopsInJourneyPatternRefsByJourneyPattern = groupBy(
+  processed.scheduledStopPoints,
+  'journey_pattern_ref_id',
+);
 
 export const seedStopsInJourneyPatternRefs: StopInJourneyPatternRefInsertInput[] =
-  Object.values(seedStopsInJourneyPatternRefsByJourneyPattern).flat();
+  processed.scheduledStopPoints;
