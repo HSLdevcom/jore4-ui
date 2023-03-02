@@ -4,6 +4,19 @@ import { v4 as uuid } from 'uuid';
 import { StopInJourneyPatternRefInsertInput } from '../../types';
 import { seedJourneyPatternRefs } from './journeyPatternRefs';
 
+const buildLabels = ({
+  labelPrefix,
+  labelsToCreate,
+}: {
+  labelPrefix: string;
+  labelsToCreate: number;
+}): Array<string> => {
+  return range(1, labelsToCreate + 1).map((index) => {
+    const labelPostfix = padStart(index.toString(), 2, '0');
+    return `${labelPrefix}${labelPostfix}`;
+  });
+};
+
 const buildStopInJourneyPatternRef = ({
   id = uuid(),
   journeyPatternRefId,
@@ -23,41 +36,46 @@ const buildStopInJourneyPatternRef = ({
 
 const buildStopSequence = ({
   journeyPatternRefId,
-  labelPrefix,
-  stopsToCreate,
+  labels,
 }: {
   journeyPatternRefId: UUID;
-  labelPrefix: string;
-  stopsToCreate: number;
+  labels: string[];
 }): StopInJourneyPatternRefInsertInput[] => {
-  const stops: StopInJourneyPatternRefInsertInput[] = [];
-  range(1, stopsToCreate + 1).forEach((index) => {
-    const labelPostfix = padStart(index.toString(), 2, '0');
-    stops.push(
-      buildStopInJourneyPatternRef({
+  const stops: StopInJourneyPatternRefInsertInput[] = labels.map(
+    (label, index) => {
+      return buildStopInJourneyPatternRef({
         journeyPatternRefId,
-        label: `${labelPrefix}${labelPostfix}`,
-        sequenceNumber: index,
-      }),
-    );
-  });
+        label,
+        sequenceNumber: index + 1,
+      });
+    },
+  );
 
   return stops;
 };
 
 const journeyPatternRefId0 = seedJourneyPatternRefs[0].journey_pattern_ref_id;
 const journeyPatternRefId1 = seedJourneyPatternRefs[1].journey_pattern_ref_id;
+const journeyPatternRefId2 = seedJourneyPatternRefs[2].journey_pattern_ref_id;
 
 export const seedStopsInJourneyPatternRefsByJourneyPattern = {
   [journeyPatternRefId0]: buildStopSequence({
     journeyPatternRefId: journeyPatternRefId0,
-    labelPrefix: 'H22',
-    stopsToCreate: 8,
+    labels: buildLabels({
+      labelPrefix: 'H22',
+      labelsToCreate: 8,
+    }),
   }),
   [journeyPatternRefId1]: buildStopSequence({
     journeyPatternRefId: journeyPatternRefId1,
-    labelPrefix: 'H23',
-    stopsToCreate: 8,
+    labels: buildLabels({
+      labelPrefix: 'H23',
+      labelsToCreate: 8,
+    }),
+  }),
+  [journeyPatternRefId2]: buildStopSequence({
+    journeyPatternRefId: journeyPatternRefId2,
+    labels: ['H1234', 'H1235'],
   }),
 };
 
