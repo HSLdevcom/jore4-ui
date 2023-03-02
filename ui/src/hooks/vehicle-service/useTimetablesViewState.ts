@@ -17,6 +17,7 @@ export const useTimetablesViewState = () => {
     setToUrlQuery,
     setMultipleParametersToUrlQuery,
     getArrayFromUrlQuery,
+    deleteMultipleFromUrlQuery,
   } = useUrlQuery();
 
   const activeView = useMemo(
@@ -64,12 +65,25 @@ export const useTimetablesViewState = () => {
     });
   };
 
+  const setShowDefaultView = () => {
+    deleteMultipleFromUrlQuery({
+      paramNames: [
+        QueryParameterName.TimetablesViewName,
+        QueryParameterName.RouteLabels,
+        QueryParameterName.DayType,
+      ],
+    });
+  };
+
+  const routeLabel = routeLabels?.length ? routeLabels[0] : '';
+
   return {
     activeView,
     setActiveView,
     setDayType,
     setShowPassingTimesByStop,
-    routeLabels,
+    setShowDefaultView,
+    routeLabel,
     dayType,
   };
 };

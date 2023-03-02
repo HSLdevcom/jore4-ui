@@ -19,6 +19,7 @@ module.exports = {
         'hsl-dark-80': colors.hslDark80,
         grey: colors.grey,
         'light-grey': colors.lightGrey,
+        'lighter-grey': colors.lighterGrey,
         'dark-grey': colors.darkGrey,
         'hsl-dark-green': colors.hslDarkGreen,
         'hsl-red': colors.hslRed,
