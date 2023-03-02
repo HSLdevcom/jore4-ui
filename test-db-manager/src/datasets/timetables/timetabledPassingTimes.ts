@@ -32,11 +32,11 @@ const findStopIdByLabel = (
 ) => {
   const stop = knownStops.find(
     (item) => item.scheduled_stop_point_label === label,
-  ).scheduled_stop_point_in_journey_pattern_ref_id;
+  );
   if (!stop) {
     throw new Error(`Can't find stop by label "${label}"`);
   }
-  return stop;
+  return stop.scheduled_stop_point_in_journey_pattern_ref_id;
 };
 
 const buildTimetabledPassingTime = (params: {
