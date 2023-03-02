@@ -9,6 +9,7 @@ import {
 import { Row, Visible } from '../../../layoutComponents';
 import { mapToShortDate } from '../../../time';
 import { AccordionButton } from '../../../uiComponents';
+import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from '../../routes-and-lines/line-details/DirectionBadge';
 import { PassingTimesByStopSection } from '../passing-times-by-stop/PassingTimesByStopSection';
 import { VehicleServiceTable } from './vehicle-service-table';
@@ -42,7 +43,9 @@ export const VehicleRouteTimetableSection = ({
       <Row>
         <div className="flex flex-1 items-center bg-background">
           <DirectionBadge direction={route.direction} className="my-5 ml-12" />
-          <h3 className="ml-3.5">{route.label}</h3>
+          <h3 className="ml-3.5">
+            <RouteLabel route={route} />
+          </h3>
           <Visible visible={hasValidityPeriod}>
             <p className="ml-auto mr-8">
               {t('timetables.timetableValidity', {
