@@ -26,9 +26,13 @@ export const seedVehicleServiceBlocksByName = {
   v1Sun: buildVehicleServiceBlock({
     vehicleServiceId: seedVehicleServicesByName.v1Sun.vehicle_service_id,
   }),
-  // Vehicle 1 Chirstmas
+  // Vehicle 1 Christmas
   v1December23: buildVehicleServiceBlock({
     vehicleServiceId: seedVehicleServicesByName.v1Dec2023.vehicle_service_id,
+  }),
+  // Vehicle 2 Mon-Fri
+  v2MonFri: buildVehicleServiceBlock({
+    vehicleServiceId: seedVehicleServicesByName.v2MonFri.vehicle_service_id,
   }),
 };
 

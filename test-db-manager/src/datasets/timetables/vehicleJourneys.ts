@@ -8,6 +8,7 @@ const monFriBlockId = seedVehicleServiceBlocksByName.v1MonFri.block_id;
 const satBlockId = seedVehicleServiceBlocksByName.v1Sat.block_id;
 const sunBlockId = seedVehicleServiceBlocksByName.v1Sun.block_id;
 const decBlockId = seedVehicleServiceBlocksByName.v1December23.block_id;
+const v2MonFriBlockId = seedVehicleServiceBlocksByName.v2MonFri.block_id;
 
 const buildVehicleJourney = ({
   vehicleJourneyId,
@@ -58,4 +59,10 @@ export const seedVehicleJourneys: VehicleJourneyInsertInput[] = [
       blockId: decBlockId,
     }),
   ),
+  // Journey 41 for Vehicle 2 Mon-Fri block.
+  buildVehicleJourney({
+    vehicleJourneyId: uuid(),
+    journeyPatternRefId: seedJourneyPatternRefs[2].journey_pattern_ref_id,
+    blockId: v2MonFriBlockId,
+  }),
 ];

@@ -23,20 +23,26 @@ const buildStopInJourneyPatternRef = ({
 
 const buildStopSequence = ({
   journeyPatternRefId,
+  labels,
   labelPrefix,
   stopsToCreate,
 }: {
   journeyPatternRefId: UUID;
-  labelPrefix: string;
+  labels?: string[]; // Either `labelPrefix` or explicit `labels` should be given.
+  labelPrefix?: string;
   stopsToCreate: number;
 }): StopInJourneyPatternRefInsertInput[] => {
   const stops: StopInJourneyPatternRefInsertInput[] = [];
-  range(1, stopsToCreate + 1).forEach((index) => {
-    const labelPostfix = padStart(index.toString(), 2, '0');
+
+  range(0, stopsToCreate).forEach((index) => {
+    const label = labels
+      ? labels[index]
+      : `${labelPrefix}${padStart((index + 1).toString(), 2, '0')}`;
+
     stops.push(
       buildStopInJourneyPatternRef({
         journeyPatternRefId,
-        label: `${labelPrefix}${labelPostfix}`,
+        label,
         sequenceNumber: index,
       }),
     );
@@ -47,6 +53,7 @@ const buildStopSequence = ({
 
 const journeyPatternRefId0 = seedJourneyPatternRefs[0].journey_pattern_ref_id;
 const journeyPatternRefId1 = seedJourneyPatternRefs[1].journey_pattern_ref_id;
+const journeyPatternRefId2 = seedJourneyPatternRefs[2].journey_pattern_ref_id;
 
 export const seedStopsInJourneyPatternRefsByJourneyPattern = {
   [journeyPatternRefId0]: buildStopSequence({
@@ -58,6 +65,11 @@ export const seedStopsInJourneyPatternRefsByJourneyPattern = {
     journeyPatternRefId: journeyPatternRefId1,
     labelPrefix: 'H23',
     stopsToCreate: 8,
+  }),
+  [journeyPatternRefId2]: buildStopSequence({
+    journeyPatternRefId: journeyPatternRefId2,
+    labels: ['H1234', 'H1235'],
+    stopsToCreate: 2,
   }),
 };
 

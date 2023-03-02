@@ -56,6 +56,12 @@ export const seedVehicleServicesByName = {
     day_type_id: MON_FRI_DAY_TYPE,
     vehicle_schedule_frame_id: dec23VehicleScheduleFrameId,
   },
+  // vehicle 2, Mon-Fri
+  v2MonFri: {
+    vehicle_service_id: uuid(),
+    day_type_id: MON_FRI_DAY_TYPE,
+    vehicle_schedule_frame_id: basicVehicleScheduleFrameId,
+  },
 };
 
 export const seedVehicleServices: VehicleServiceInsertInput[] = Object.values(

@@ -25,4 +25,12 @@ export const seedJourneyPatternRefs: JourneyPatternRefInsertInput[] = [
     observation_timestamp: DateTime.fromISO('2023-07-01T00:00:00+00:00'),
     snapshot_timestamp: DateTime.fromISO('2023-09-28T00:00:00+00:00'),
   },
+  {
+    // Route 65x variant 3, outbound.
+    // NOTE: the journey pattern is defined in hasura seed data.
+    journey_pattern_ref_id: '8b4586f1-6cc0-49ab-b30b-442fff9cbef4',
+    journey_pattern_id: '2b7fa547-6eb5-4878-8053-6bbd6e9cbfc0',
+    observation_timestamp: DateTime.fromISO('2023-07-01T00:00:00+00:00'),
+    snapshot_timestamp: DateTime.fromISO('2023-09-28T00:00:00+00:00'),
+  },
 ];

@@ -242,9 +242,25 @@ const seedTimetabledPassingTimesDecember23: TimetabledPassingTimeInsertInput[] =
     }),
   ];
 
+const seedTimetabledPassingTimesV2MonFri: TimetabledPassingTimeInsertInput[] = [
+  {
+    vehicle_journey_id: seedVehicleJourneyIds[40],
+    scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H1234'),
+    arrival_time: null,
+    departure_time: Duration.fromISO('PT10H30M'),
+  },
+  {
+    vehicle_journey_id: seedVehicleJourneyIds[40],
+    scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H1235'),
+    arrival_time: Duration.fromISO('PT11H45M'),
+    departure_time: null,
+  },
+];
+
 export const seedTimetabledPassingTimes: TimetabledPassingTimeInsertInput[] = [
   ...seedTimetabledPassingTimesMonFri,
   ...seedTimetabledPassingTimesSat,
   ...seedTimetabledPassingTimesSun,
   ...seedTimetabledPassingTimesDecember23,
+  ...seedTimetabledPassingTimesV2MonFri,
 ];
