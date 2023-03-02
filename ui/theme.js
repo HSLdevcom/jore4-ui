@@ -8,6 +8,7 @@ const theme = {
     hslDark80: '#333333',
     grey: '#888888',
     lightGrey: '#CCCCCC',
+    lighterGrey: '#FBFCFD',
     darkGrey: '#666666',
     hslDarkGreen: '#3B7F00',
     hslRed: '#DC0451',
