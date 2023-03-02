@@ -1,3 +1,3 @@
-import { seedVehicleJourneys } from './dataset';
+import { seedVehicleJourneys, seedVehicleJourneysByName } from './dataset';
 
-export { seedVehicleJourneys };
+export { seedVehicleJourneys, seedVehicleJourneysByName };

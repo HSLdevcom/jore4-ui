@@ -175,23 +175,23 @@ export const seedStopsInJourneyPatternRefsByJourneyPattern = groupBy(
 export const seedStopsInJourneyPatternRefs: StopInJourneyPatternRefInsertInput[] =
   processed.scheduledStopPoints;
 
-export const seedVehicleJourneys: VehicleJourneyInsertInput[] = [
+export const seedVehicleJourneysByName = {
   // Journeys 1-20, all belong to same journey pattern and service block (Vehicle 1 Mon-Fri)
-  ...times(20, () =>
+  v1MonFri_dir1: times(20, () =>
     buildVehicleJourney({
       journeyPatternRefId: seedJourneyPatternRefs[0].journey_pattern_ref_id,
       vehicleJourneyId: uuid(),
     }),
   ),
   // Journeys 21-25, opposite direction (Vehicle 1 Mon-Fri)
-  ...times(5, () =>
+  v1MonFri_dir2: times(5, () =>
     buildVehicleJourney({
       vehicleJourneyId: uuid(),
       journeyPatternRefId: seedJourneyPatternRefs[1].journey_pattern_ref_id,
     }),
   ),
   // Journeys 26-29, all belong to same journey pattern and service block (Vehicle 1 Sat)
-  ...times(4, () =>
+  v1Sat: times(4, () =>
     buildVehicleJourney({
       journeyPatternRefId: seedJourneyPatternRefs[0].journey_pattern_ref_id,
       vehicleJourneyId: uuid(),
@@ -199,13 +199,15 @@ export const seedVehicleJourneys: VehicleJourneyInsertInput[] = [
     }),
   ),
   // journey 30, belongs to service block (Vehicle 1 Sun)
-  buildVehicleJourney({
-    journeyPatternRefId: seedJourneyPatternRefs[0].journey_pattern_ref_id,
-    vehicleJourneyId: uuid(),
-    blockId: sunBlockId,
-  }),
+  v1Sun: [
+    buildVehicleJourney({
+      journeyPatternRefId: seedJourneyPatternRefs[0].journey_pattern_ref_id,
+      vehicleJourneyId: uuid(),
+      blockId: sunBlockId,
+    }),
+  ],
   // journeys 31-40 (Vehicle 1 Mon-Fri December 2023, special priority)
-  ...times(10, () =>
+  v1December23: times(10, () =>
     buildVehicleJourney({
       journeyPatternRefId: seedJourneyPatternRefs[0].journey_pattern_ref_id,
       vehicleJourneyId: uuid(),
@@ -213,9 +215,12 @@ export const seedVehicleJourneys: VehicleJourneyInsertInput[] = [
     }),
   ),
   // Journey 41 for Vehicle 2 Mon-Fri block.
-  buildVehicleJourney({
-    vehicleJourneyId: uuid(),
-    journeyPatternRefId: seedJourneyPatternRefs[2].journey_pattern_ref_id,
-    blockId: v2MonFriBlockId,
-  }),
-];
+  v2MonFri: [
+    buildVehicleJourney({
+      vehicleJourneyId: uuid(),
+      journeyPatternRefId: seedJourneyPatternRefs[2].journey_pattern_ref_id,
+      blockId: v2MonFriBlockId,
+    }),
+  ],
+};
+export const seedVehicleJourneys: VehicleJourneyInsertInput[] = Object.values(seedVehicleJourneysByName).flat();

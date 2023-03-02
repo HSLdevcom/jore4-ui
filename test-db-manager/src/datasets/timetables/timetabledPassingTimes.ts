@@ -2,6 +2,7 @@ import { Duration } from 'luxon';
 import {
   StopInJourneyPatternRefInsertInput,
   TimetabledPassingTimeInsertInput,
+  VehicleJourneyInsertInput,
 } from '../../types';
 import { multiplyDuration } from '../../utils';
 import { seedJourneyPatternRefs } from './journeyPatternRefs';
@@ -9,7 +10,7 @@ import {
   seedStopsInJourneyPatternRefs,
   seedStopsInJourneyPatternRefsByJourneyPattern,
 } from './stopsInJourneyPatternRefs';
-import { seedVehicleJourneys } from './vehicleJourneys';
+import { seedVehicleJourneysByName } from './vehicleJourneys';
 
 interface TimetabledPassingTimesForJourney {
   vehicleJourneyId: UUID;
@@ -103,11 +104,11 @@ const buildBulkJourneys = ({
   });
 };
 
-const journey1Id = seedVehicleJourneys[0].vehicle_journey_id;
-
-const seedVehicleJourneyIds = seedVehicleJourneys.map(
-  (item) => item.vehicle_journey_id,
-);
+const journey1Id =
+  seedVehicleJourneysByName.v1MonFri_dir1[0].vehicle_journey_id;
+const mapVehicleJourneyIds = (vehicleJourneys: VehicleJourneyInsertInput[]) => {
+  return vehicleJourneys.map((vj) => vj.vehicle_journey_id);
+};
 
 const seedTimetabledPassingTimesMonFri: TimetabledPassingTimeInsertInput[] = [
   // journey 1, goes from H2201->H2208. Defined manually to have some "random"
@@ -162,55 +163,65 @@ const seedTimetabledPassingTimesMonFri: TimetabledPassingTimeInsertInput[] = [
   },
   // journey 2, goes from H2201->H2204, waits 2 mins on each stop
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[1].vehicle_journey_id,
+    vehicleJourneyId:
+      seedVehicleJourneysByName.v1MonFri_dir1[1].vehicle_journey_id,
     scheduledStopLabels: ['H2201', 'H2202', 'H2203', 'H2204'],
     journeyStartTime: Duration.fromISO('PT8H5M'),
     waitTimeOnStops: Duration.fromISO('PT2M'),
   }),
   // journey 3, goes from H2204->H2208, waits 2 mins on each stop
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[2].vehicle_journey_id,
+    vehicleJourneyId:
+      seedVehicleJourneysByName.v1MonFri_dir1[2].vehicle_journey_id,
     scheduledStopLabels: ['H2204', 'H2205', 'H2206', 'H2207', 'H2208'],
     journeyStartTime: Duration.fromISO('PT7H29M'),
     waitTimeOnStops: Duration.fromISO('PT2M'),
   }),
   // journey 4, goes from H2201->H2208 but misses H2202, H2204, H2206
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[3].vehicle_journey_id,
+    vehicleJourneyId:
+      seedVehicleJourneysByName.v1MonFri_dir1[3].vehicle_journey_id,
     scheduledStopLabels: ['H2201', 'H2203', 'H2205', 'H2207', 'H2208'],
     journeyStartTime: Duration.fromISO('PT9H5M'),
     stopInterval: Duration.fromISO('PT10M'),
   }),
   // journey 5, goes through all stops, waits 1 min on each stop
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[4].vehicle_journey_id,
+    vehicleJourneyId:
+      seedVehicleJourneysByName.v1MonFri_dir1[4].vehicle_journey_id,
     journeyStartTime: Duration.fromISO('PT7H10M'),
     stopInterval: Duration.fromISO('PT12M'),
     waitTimeOnStops: Duration.fromISO('PT1M'),
   }),
   // journey 6, waits 10 mins on each stop
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[5].vehicle_journey_id,
+    vehicleJourneyId:
+      seedVehicleJourneysByName.v1MonFri_dir1[5].vehicle_journey_id,
     scheduledStopLabels: ['H2201', 'H2202', 'H2203', 'H2207'],
     journeyStartTime: Duration.fromISO('PT7H12M'),
     stopInterval: Duration.fromISO('PT10M'),
   }),
   // journey 7, waits 15 mins on each stop
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[6].vehicle_journey_id,
+    vehicleJourneyId:
+      seedVehicleJourneysByName.v1MonFri_dir1[6].vehicle_journey_id,
     journeyStartTime: Duration.fromISO('PT7H15M'),
     stopInterval: Duration.fromISO('PT15M'),
   }),
   // journeys 7-19
   ...buildBulkJourneys({
-    vehicleJourneyIds: seedVehicleJourneyIds.slice(7, 20),
+    vehicleJourneyIds: mapVehicleJourneyIds(
+      seedVehicleJourneysByName.v1MonFri_dir1.slice(7, 20),
+    ),
     blockStartTime: Duration.fromISO('PT7H18M'),
     journeyInterval: Duration.fromISO('PT2M'),
     scheduledStopLabels: DIRECTION1_STOP_LABELS,
   }),
-  // journeys 20-24, opposite direction
+  // journeys 20-25, opposite direction
   ...buildBulkJourneys({
-    vehicleJourneyIds: seedVehicleJourneyIds.slice(20, 25),
+    vehicleJourneyIds: mapVehicleJourneyIds(
+      seedVehicleJourneysByName.v1MonFri_dir2,
+    ),
     blockStartTime: Duration.fromISO('PT7H18M'),
     scheduledStopLabels: DIRECTION2_STOP_LABELS,
   }),
@@ -218,7 +229,7 @@ const seedTimetabledPassingTimesMonFri: TimetabledPassingTimeInsertInput[] = [
 
 const seedTimetabledPassingTimesSat: TimetabledPassingTimeInsertInput[] = [
   ...buildBulkJourneys({
-    vehicleJourneyIds: seedVehicleJourneyIds.slice(25, 29),
+    vehicleJourneyIds: mapVehicleJourneyIds(seedVehicleJourneysByName.v1Sat),
     blockStartTime: Duration.fromISO('PT10H0M'),
     scheduledStopLabels: DIRECTION1_STOP_LABELS,
   }),
@@ -226,7 +237,7 @@ const seedTimetabledPassingTimesSat: TimetabledPassingTimeInsertInput[] = [
 
 const seedTimetabledPassingTimesSun: TimetabledPassingTimeInsertInput[] = [
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[29].vehicle_journey_id,
+    vehicleJourneyId: seedVehicleJourneysByName.v1Sun[0].vehicle_journey_id,
     journeyStartTime: Duration.fromISO('PT10H15M'),
     stopInterval: Duration.fromISO('PT15M'),
     scheduledStopLabels: DIRECTION1_STOP_LABELS,
@@ -236,7 +247,9 @@ const seedTimetabledPassingTimesSun: TimetabledPassingTimeInsertInput[] = [
 const seedTimetabledPassingTimesDecember23: TimetabledPassingTimeInsertInput[] =
   [
     ...buildBulkJourneys({
-      vehicleJourneyIds: seedVehicleJourneyIds.slice(30, 40),
+      vehicleJourneyIds: mapVehicleJourneyIds(
+        seedVehicleJourneysByName.v1December23,
+      ),
       blockStartTime: Duration.fromISO('PT8H0M'),
       scheduledStopLabels: DIRECTION1_STOP_LABELS,
     }),
@@ -244,13 +257,15 @@ const seedTimetabledPassingTimesDecember23: TimetabledPassingTimeInsertInput[] =
 
 const seedTimetabledPassingTimesV2MonFri: TimetabledPassingTimeInsertInput[] = [
   {
-    vehicle_journey_id: seedVehicleJourneyIds[40],
+    vehicle_journey_id:
+      seedVehicleJourneysByName.v2MonFri[0].vehicle_journey_id,
     scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H1234'),
     arrival_time: null,
     departure_time: Duration.fromISO('PT10H30M'),
   },
   {
-    vehicle_journey_id: seedVehicleJourneyIds[40],
+    vehicle_journey_id:
+      seedVehicleJourneysByName.v2MonFri[0].vehicle_journey_id,
     scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H1235'),
     arrival_time: Duration.fromISO('PT11H45M'),
     departure_time: null,
