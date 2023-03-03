@@ -198,8 +198,8 @@ const data = {
     // Journeys 1-20, all belong to same journey pattern and service block (Vehicle 1 Mon-Fri)
     v1MonFri_dir1: {
       times: 20,
-      journeyPatternRef: 'route641_d1',
-      blockId: monFriBlockId,
+      journeyPatternRef: 'route641_d1', // Refers to data.journeyPatternRefs keys
+      blockId: monFriBlockId, // This would be automatically assigned once blocks are part of dataset.
       // FIXME: needs some more work.
       // This would currently create identical stop points for each VJ here, which is not what we always want.
       timetabledPassingTimes: {
@@ -271,7 +271,7 @@ const data = {
   journeyPatternRefs: {
     route641_d1: {
       // route 641, direction 1
-      journey_pattern_ref_id: 'a6f626c8-e743-4c38-b9c1-c537ffb2863f',
+      journey_pattern_ref_id: 'a6f626c8-e743-4c38-b9c1-c537ffb2863f', // Just to show that we can also assign ids manually when wanted.
       // NOTE: journey_pattern with id 'a9136ad8-d185-4c7b-9969-057b65dc9b00'
       // is defined in hasura seed data. It is just used here as an example.
       // This links timetable data to route 641.
@@ -330,6 +330,12 @@ export const seedVehicleJourneysByName = processed.vehicleJourneysByName;
 export const seedVehicleJourneys: VehicleJourneyInsertInput[] = Object.values(
   seedVehicleJourneysByName,
 ).flat();
+
+/**
+ * ! TODO !
+ *
+ * Move remaining timetabled passing times below to the dataset.
+ */
 
 interface TimetabledPassingTimesForJourney {
   vehicleJourneyId: UUID;
