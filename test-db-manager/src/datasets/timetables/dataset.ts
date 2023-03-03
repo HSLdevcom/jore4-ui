@@ -96,6 +96,7 @@ const buildVehicleJourney = ({
 const processDataset = (dataset: typeof data) => {
   const journeyPatternRefs: JourneyPatternRefInsertInput[] = [];
   const scheduledStopPoints: StopInJourneyPatternRefInsertInput[] = [];
+  const timetabledPassingTimes: TimetabledPassingTimeInsertInput[] = [];
   const vehicleJourneys: VehicleJourneyInsertInput[] = [];
 
   // Return dataset in same format, but enriched with generated ids.
@@ -111,6 +112,7 @@ const processDataset = (dataset: typeof data) => {
       };
       journeyPatternRefs.push(jpr);
 
+      // TODO: change to object?
       const builtStopPoints = buildStopSequence({
         journeyPatternRefId: jpr.journey_pattern_ref_id,
         ...stopPoints,
@@ -134,16 +136,50 @@ const processDataset = (dataset: typeof data) => {
         );
       }
 
-      const { times: vjsToCreate, ...vjParams } = { times: 1, ...partialVj };
+      const {
+        times: vjsToCreate,
+        timetabledPassingTimes: childTpts,
+        ...vjParams
+      } = { times: 1, timetabledPassingTimes: [], ...partialVj };
 
-      const vjs = times(vjsToCreate, () =>
-        buildVehicleJourney({
+      const vjs = times(vjsToCreate, (idx) => {
+        const vj = buildVehicleJourney({
           ...vjParams,
           journeyPatternRefId: journeyPatternRef.journey_pattern_ref_id,
-        }),
-      );
+        });
 
-      vehicleJourneys.push(...vjs);
+        // FIXME: remove the idx hackiness.
+        const tpts = idx === 0 ? Object.entries(childTpts).map(
+          ([stopLabel, partialTpt]) => {
+            const stopPoint = journeyPatternRef.stopPoints.find(
+              (sp) => sp.scheduled_stop_point_label === stopLabel,
+            );
+            if (!stopPoint) {
+              throw new Error(
+                `Stop point ref not found with label "${stopLabel}" from journey pattern ${partialVj.journeyPatternRef}`,
+              );
+            }
+            const tpt = {
+              timetabled_passing_time_id: uuid(),
+              ...partialTpt,
+              scheduled_stop_point_in_journey_pattern_ref_id:
+                stopPoint.scheduled_stop_point_in_journey_pattern_ref_id,
+              vehicle_journey_id: vj.vehicle_journey_id,
+            };
+
+            timetabledPassingTimes.push(tpt);
+            return tpt;
+          },
+        ) : [];
+
+        vehicleJourneys.push(vj);
+
+        return {
+          ...vj,
+          timetabledPassingTimes: tpts,
+        };
+      });
+
       vehicleJourneysByName[vjLabel] = vjs;
     },
   );
@@ -151,6 +187,7 @@ const processDataset = (dataset: typeof data) => {
   return {
     journeyPatternRefs,
     scheduledStopPoints,
+    timetabledPassingTimes,
     vehicleJourneys,
     vehicleJourneysByName,
   };
@@ -163,6 +200,44 @@ const data = {
       times: 20,
       journeyPatternRef: 'route641_d1',
       blockId: monFriBlockId,
+      // FIXME: needs some more work.
+      // This would currently create identical stop points for each VJ here, which is not what we always want.
+      timetabledPassingTimes: {
+        // journey 1, goes from H2201->H2208. Defined manually to have some "random"
+        // variation in stop times etc.
+        H2201: {
+          arrival_time: null,
+          departure_time: Duration.fromISO('PT7H5M'),
+        },
+        H2202: {
+          arrival_time: Duration.fromISO('PT7H10M'),
+          departure_time: Duration.fromISO('PT7H12M'),
+        },
+        H2203: {
+          arrival_time: Duration.fromISO('PT7H18M'),
+          departure_time: Duration.fromISO('PT7H20M'),
+        },
+        H2204: {
+          arrival_time: Duration.fromISO('PT7H28M'),
+          departure_time: Duration.fromISO('PT7H30M'),
+        },
+        H2205: {
+          arrival_time: Duration.fromISO('PT7H38M'),
+          departure_time: Duration.fromISO('PT7H38M'),
+        },
+        H2206: {
+          arrival_time: Duration.fromISO('PT7H48M'),
+          departure_time: Duration.fromISO('PT7H48M'),
+        },
+        H2207: {
+          arrival_time: Duration.fromISO('PT7H55M'),
+          departure_time: Duration.fromISO('PT7H56M'),
+        },
+        H2208: {
+          arrival_time: Duration.fromISO('PT8H12M'),
+          departure_time: null,
+        },
+      },
     },
     // Journeys 21-25, opposite direction (Vehicle 1 Mon-Fri)
     v1MonFri_dir2: {
@@ -348,63 +423,15 @@ const buildBulkJourneys = ({
   });
 };
 
-const journey1Id =
-  seedVehicleJourneysByName.v1MonFri_dir1[0].vehicle_journey_id;
 const mapVehicleJourneyIds = (vehicleJourneys: VehicleJourneyInsertInput[]) => {
   return vehicleJourneys.map((vj) => vj.vehicle_journey_id);
 };
 
+const datasetTimetabledPassingTimes: TimetabledPassingTimeInsertInput[] = [
+  ...processed.timetabledPassingTimes,
+];
+
 const seedTimetabledPassingTimesMonFri: TimetabledPassingTimeInsertInput[] = [
-  // journey 1, goes from H2201->H2208. Defined manually to have some "random"
-  // variation in stop times etc.
-  {
-    vehicle_journey_id: journey1Id,
-    scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H2201'),
-    arrival_time: null,
-    departure_time: Duration.fromISO('PT7H5M'),
-  },
-  {
-    vehicle_journey_id: journey1Id,
-    scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H2202'),
-    arrival_time: Duration.fromISO('PT7H10M'),
-    departure_time: Duration.fromISO('PT7H12M'),
-  },
-  {
-    vehicle_journey_id: journey1Id,
-    scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H2203'),
-    arrival_time: Duration.fromISO('PT7H18M'),
-    departure_time: Duration.fromISO('PT7H20M'),
-  },
-  {
-    vehicle_journey_id: journey1Id,
-    scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H2204'),
-    arrival_time: Duration.fromISO('PT7H28M'),
-    departure_time: Duration.fromISO('PT7H30M'),
-  },
-  {
-    vehicle_journey_id: journey1Id,
-    scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H2205'),
-    arrival_time: Duration.fromISO('PT7H38M'),
-    departure_time: Duration.fromISO('PT7H38M'),
-  },
-  {
-    vehicle_journey_id: journey1Id,
-    scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H2206'),
-    arrival_time: Duration.fromISO('PT7H48M'),
-    departure_time: Duration.fromISO('PT7H48M'),
-  },
-  {
-    vehicle_journey_id: journey1Id,
-    scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H2207'),
-    arrival_time: Duration.fromISO('PT7H55M'),
-    departure_time: Duration.fromISO('PT7H56M'),
-  },
-  {
-    vehicle_journey_id: journey1Id,
-    scheduled_stop_point_in_journey_pattern_ref_id: findStopIdByLabel('H2208'),
-    arrival_time: Duration.fromISO('PT8H12M'),
-    departure_time: null,
-  },
   // journey 2, goes from H2201->H2204, waits 2 mins on each stop
   ...buildTimetabledPassingTimesForJourney({
     vehicleJourneyId:
@@ -517,6 +544,7 @@ const seedTimetabledPassingTimesV2MonFri: TimetabledPassingTimeInsertInput[] = [
 ];
 
 export const seedTimetabledPassingTimes: TimetabledPassingTimeInsertInput[] = [
+  ...datasetTimetabledPassingTimes,
   ...seedTimetabledPassingTimesMonFri,
   ...seedTimetabledPassingTimesSat,
   ...seedTimetabledPassingTimesSun,
