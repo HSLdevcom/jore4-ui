@@ -8,8 +8,8 @@ import { CloseIconButton, Pagination } from '../../../uiComponents';
 import { RouteLineTableRowVariant } from '../../common/RouteLineTableRow';
 import { ResultList } from '../../common/search/ResultList';
 import { ExportToolbar } from './ExportToolbar';
-import { FiltersContainer } from './filters/FiltersContainer';
 import { SearchContainer } from './SearchContainer';
+import { FiltersContainer } from './filters/FiltersContainer';
 
 export const SearchResultPage = (): JSX.Element => {
   const { handleClose, queryParameters } = useSearch();
@@ -25,6 +25,7 @@ export const SearchResultPage = (): JSX.Element => {
 
   const testIds = {
     container: 'SearchResultsPage::Container',
+    closeButton: 'SearchResultsPage::closeButton',
   };
 
   const determineDisplayInformation = () => {
@@ -55,6 +56,7 @@ export const SearchResultPage = (): JSX.Element => {
           label={t('close')}
           className="ml-auto text-base font-bold text-brand"
           onClick={handleClose}
+          testId={testIds.closeButton}
         />
       </Row>
       <SearchContainer />

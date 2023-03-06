@@ -3,6 +3,10 @@ import React from 'react';
 import { CloseIconButton } from './CloseIconButton';
 import { SimpleButton } from './SimpleButton';
 
+const testIds = {
+  closeButton: 'DialogWithButtons::closeButton',
+};
+
 export interface DialogButton {
   onClick: () => void;
   text: string;
@@ -44,7 +48,11 @@ export const DialogWithButtons: React.FC<Props> = ({
         >
           <Dialog.Title className="flex" as="h3">
             {title}
-            <CloseIconButton className="ml-auto" onClick={onCancel} />
+            <CloseIconButton
+              className="ml-auto"
+              onClick={onCancel}
+              testId={testIds.closeButton}
+            />
           </Dialog.Title>
           <Dialog.Description className="my-5 whitespace-pre-line">
             {description}
