@@ -69,6 +69,10 @@ export type VehicleServiceInsertInput =
 
 export type VehicleServiceBlockInsertInput =
   TimetablesVehicleServiceBlockInsertInput;
+export type BlockInsertInputDeep = RequiredKeys<
+  TimetablesVehicleServiceBlockInsertInput,
+  'vehicle_journeys'
+>;
 
 export type VehicleJourneyInsertInput =
   TimetablesVehicleJourneyVehicleJourneyInsertInput;

@@ -12,19 +12,19 @@ export type JourneyPatternRefBuildInput = RequiredKeys<
   'journey_pattern_id'
 >;
 export const buildJourneyPatternRef = (
-  jp: JourneyPatternRefBuildInput,
+  jpBase: JourneyPatternRefBuildInput,
 ): JourneyPatternRefInsertInput => ({
   journey_pattern_ref_id: uuid(),
   observation_timestamp: DateTime.fromISO('2023-01-01'),
   snapshot_timestamp: DateTime.fromISO('2022-12-01'),
-  ...jp,
+  ...jpBase,
 });
 
 export const buildJourneyPatternRefWithStops = (
-  jp: JourneyPatternRefBuildInput,
+  jpBase: JourneyPatternRefBuildInput,
   stops: StopInJourneyPatternRefInsertInput[],
 ): JourneyPatternRefInsertInputDeep => {
-  const jpRef = buildJourneyPatternRef(jp);
+  const jpRef = buildJourneyPatternRef(jpBase);
 
   return {
     ...jpRef,
@@ -33,12 +33,12 @@ export const buildJourneyPatternRefWithStops = (
 };
 
 export const buildJourneyPatternRefWithStopLabels = (
-  jp: JourneyPatternRefBuildInput,
+  jpBase: JourneyPatternRefBuildInput,
   stopLabels: string[],
 ): JourneyPatternRefInsertInputDeep => {
-  const stops = buildStopSequence({
-    stopInJp: { journey_pattern_ref_id: jp.journey_pattern_ref_id },
-    labels: stopLabels,
-  });
-  return buildJourneyPatternRefWithStops(jp, stops);
+  const stops = buildStopSequence(
+    { journey_pattern_ref_id: jpBase.journey_pattern_ref_id },
+    stopLabels,
+  );
+  return buildJourneyPatternRefWithStops(jpBase, stops);
 };

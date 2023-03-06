@@ -7,21 +7,8 @@ import { randomInt } from '../utils/random';
 export const buildLabelArray = (labelPrefix: string, labelCount: number) =>
   range(1, labelCount + 1).map((no) => `${labelPrefix}${no}`);
 
-export const buildRegularTimeSequence = (
-  startTime: Duration,
-  intervalMs: number,
-  count: number,
-) => {
-  let current: Duration = startTime;
-  const timeSequence: Duration[] = [current];
-
-  // eslint-disable-next-line no-plusplus
-  for (let i = 1; i < count; i++) {
-    current = Duration.fromMillis(current.toMillis() + intervalMs);
-    timeSequence.push(current);
-  }
-  return timeSequence;
-};
+export const buildRandomDuration = (minMs = 0, maxMs = 60 * 5 * 1000) =>
+  Duration.fromMillis(randomInt(minMs, maxMs));
 
 export const buildRandomTimeSequence = (
   startTime: Duration,
@@ -34,8 +21,11 @@ export const buildRandomTimeSequence = (
 
   // eslint-disable-next-line no-plusplus
   for (let i = 1; i < count; i++) {
-    const intervalMs = randomInt(minTraversalTimeMs, maxTraversalTimeMs);
-    current = Duration.fromMillis(current.toMillis() + intervalMs);
+    const intervalMs = buildRandomDuration(
+      minTraversalTimeMs,
+      maxTraversalTimeMs,
+    );
+    current = current.plus(intervalMs);
     timeSequence.push(current);
   }
   return timeSequence;
