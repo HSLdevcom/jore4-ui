@@ -1,4 +1,5 @@
 import { pipe, uniq } from 'remeda';
+import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql';
 import { VehicleJourneyGroup, useTimetablesViewState } from '../../../hooks';
 import { parseI18nField } from '../../../i18n/utils';
 import { Row } from '../../../layoutComponents';
@@ -9,6 +10,7 @@ import { PassingTimesByStopTable } from './PassingTimesByStopTable';
 
 type Props = {
   vehicleJourneyGroups: VehicleJourneyGroup[];
+  route: RouteWithJourneyPatternStopsFragment;
 };
 
 /**
@@ -17,6 +19,7 @@ type Props = {
  */
 export const PassingTimesByStopSection = ({
   vehicleJourneyGroups,
+  route,
 }: Props): JSX.Element => {
   const { dayType, setDayType } = useTimetablesViewState();
 
@@ -69,6 +72,7 @@ export const PassingTimesByStopSection = ({
           </Row>
           <PassingTimesByStopTable
             vehicleJourneys={vehicleJourneyGroup.vehicleJourneys}
+            route={route}
           />
         </div>
       ))}

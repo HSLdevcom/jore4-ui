@@ -303,7 +303,8 @@
     "noDrafts": "No drafts",
     "noTimetables": "No timetables",
     "inEffect": "In effect",
-    "tripCount": "{{ count }} trips"
+    "tripCount": "{{ count }} trips",
+    "interpolated": "Interpolated"
   },
   "timetablesPreview": {
     "preview": "Preview",

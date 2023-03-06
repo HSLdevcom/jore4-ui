@@ -303,7 +303,8 @@
     "noDrafts": "Ei luonnoksia",
     "noTimetables": "Ei aikatauluja",
     "inEffect": "Voimassa",
-    "tripCount": "{{ count }} lähtöä"
+    "tripCount": "{{ count }} lähtöä",
+    "interpolated": "Interpoloitu"
   },
   "timetablesPreview": {
     "preview": "Esikatselu",
