@@ -154,5 +154,6 @@ module.exports = {
       'error',
       { varsIgnorePattern: '^GQL' },
     ], // ignore graphql query/mutation/fragment definitions
+    'no-plusplus': 'off', // this rule is stupid. For loops should be able to use i++
   },
 };
