@@ -35,6 +35,48 @@ export interface TimetablesResources {
   timetabledPassingTimes?: TimetabledPassingTimeInsertInput[];
 }
 
+const concatArrays = <T extends ExplicitAny>(
+  to: T[] | undefined,
+  from: T[] | undefined,
+) => (to || []).concat(from || []);
+
+export const mergeTimetablesResources = (
+  resources: TimetablesResources[],
+): TimetablesResources =>
+  resources.reduce<TimetablesResources>(
+    (result, currentResources) => ({
+      journeyPatternRefs: concatArrays(
+        result.journeyPatternRefs,
+        currentResources.journeyPatternRefs,
+      ),
+      stopsInJourneyPatternRefs: concatArrays(
+        result.stopsInJourneyPatternRefs,
+        currentResources.stopsInJourneyPatternRefs,
+      ),
+      vehicleScheduleFrames: concatArrays(
+        result.vehicleScheduleFrames,
+        currentResources.vehicleScheduleFrames,
+      ),
+      vehicleServices: concatArrays(
+        result.vehicleServices,
+        currentResources.vehicleServices,
+      ),
+      vehicleServiceBlocks: concatArrays(
+        result.vehicleServiceBlocks,
+        currentResources.vehicleServiceBlocks,
+      ),
+      vehicleJourneys: concatArrays(
+        result.vehicleJourneys,
+        currentResources.vehicleJourneys,
+      ),
+      timetabledPassingTimes: concatArrays(
+        result.timetabledPassingTimes,
+        currentResources.timetabledPassingTimes,
+      ),
+    }),
+    {},
+  );
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const responseLogger = (message: string, res: any) => {
   if (res.errors) {
