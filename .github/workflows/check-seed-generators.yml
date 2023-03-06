@@ -1,0 +1,43 @@
+name: Check seed data generators
+
+on:
+  pull_request:
+
+jobs:
+  check_seed_data_generators:
+    name: Check seed data generators
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        seed-script: ['seed', 'seed2']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Setup caching for node_modules
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Start e2e env
+        uses: HSLdevcom/jore4-tools/github-actions/setup-e2e-environment@setup-e2e-environment-v1
+        with:
+          custom_docker_compose: ./docker/docker-compose.custom.yml
+
+      - name: Install node_modules
+        # making sure that we do have the proper set of node_modules installed regardless of what's cached
+        run: yarn install --frozen-lockfile
+
+      - name: Build test-db-manager
+        run: yarn ws:db build
+
+        # Verify that the seed data generators succeed without errors, no further testing for now
+      - name: Insert seed data
+        run: yarn ws:db ${{ matrix.seed-script }}
