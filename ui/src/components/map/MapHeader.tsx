@@ -3,6 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { Row } from '../../layoutComponents';
 import { CloseIconButton } from '../../uiComponents';
 
+const testIds = {
+  closeButton: 'MapHeader::closeButton',
+};
+
 interface Props {
   onClose: () => void;
 }
@@ -16,6 +20,7 @@ export const MapHeader: React.FC<Props> = ({ onClose }) => {
         className="ml-auto font-bold text-brand"
         label={t('close')}
         onClick={onClose}
+        testId={testIds.closeButton}
       />
     </Row>
   );

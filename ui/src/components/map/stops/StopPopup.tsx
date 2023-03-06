@@ -30,6 +30,7 @@ const testIds = {
   moveButton: 'StopPopUp::moveButton',
   editButton: 'StopPopUp::editButton',
   deleteButton: 'StopPopUp::deleteButton',
+  closeButton: 'StopPopUp::closeButton',
 };
 
 export const StopPopup = ({
@@ -59,7 +60,11 @@ export const StopPopup = ({
           <Column className="w-full">
             <Row>
               <h3>{t('stops.stopWithLabel', { stopLabel: label })}</h3>
-              <CloseIconButton className="ml-auto" onClick={onClose} />
+              <CloseIconButton
+                className="ml-auto"
+                onClick={onClose}
+                testId={testIds.closeButton}
+              />
             </Row>
           </Column>
         </Row>
