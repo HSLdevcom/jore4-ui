@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { groupBy, pipe } from 'remeda';
 import {
   PassingTimeByStopFragment,
+  RouteWithJourneyPatternStopsFragment,
   VehicleJourneyByStopFragment,
 } from '../../../generated/graphql';
 import {
-  cellClassNames,
   PassingTimesByStopTableRow,
+  cellClassNames,
 } from './PassingTimesByStopTableRow';
 
 const testIds = {
@@ -27,11 +28,13 @@ const GQL_VEHICLE_JOURNEY = gql`
 
 interface Props {
   vehicleJourneys: VehicleJourneyByStopFragment[];
+  route: RouteWithJourneyPatternStopsFragment;
   className?: string;
 }
 
 export const PassingTimesByStopTable = ({
   vehicleJourneys,
+  route,
   className = '',
 }: Props): JSX.Element => {
   const { t } = useTranslation();
@@ -55,6 +58,9 @@ export const PassingTimesByStopTable = ({
       ),
   );
 
+  const stopsInJourneyPattern =
+    route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns;
+
   return (
     <table
       className={`w-full border border-brand ${className}`}
@@ -70,14 +76,23 @@ export const PassingTimesByStopTable = ({
       </thead>
       <tbody>
         {Object.entries(passingTimesByStop).map(
-          ([stopLabel, stopPassingTimes]) => (
-            <PassingTimesByStopTableRow
-              key={stopLabel}
-              passingTimes={stopPassingTimes}
-              selectedPassingTime={selectedPassingTime}
-              setSelectedPassingTime={setSelectedPassingTime}
-            />
-          ),
+          ([stopLabel, stopPassingTimes]) => {
+            // Stop must be part of journey pattern
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const stopInJourneyPattern = stopsInJourneyPattern.find(
+              (jpStop) => jpStop.scheduled_stop_point_label === stopLabel,
+            )!;
+
+            return (
+              <PassingTimesByStopTableRow
+                key={stopLabel}
+                passingTimes={stopPassingTimes}
+                journeyPatternStop={stopInJourneyPattern}
+                selectedPassingTime={selectedPassingTime}
+                setSelectedPassingTime={setSelectedPassingTime}
+              />
+            );
+          },
         )}
       </tbody>
     </table>

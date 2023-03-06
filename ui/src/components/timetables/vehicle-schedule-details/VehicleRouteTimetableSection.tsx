@@ -86,6 +86,7 @@ export const VehicleRouteTimetableSection = ({
             timetables && (
               <PassingTimesByStopSection
                 vehicleJourneyGroups={timetables.vehicleJourneyGroups}
+                route={route}
               />
             )}
         </div>
