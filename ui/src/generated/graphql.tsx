@@ -10348,6 +10348,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRef = {
   /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
   journey_pattern_ref_id: Scalars['uuid'];
   scheduled_stop_point_in_journey_pattern_ref_id: Scalars['uuid'];
+  scheduled_stop_point_instances: Array<ServicePatternScheduledStopPoint>;
+  scheduled_stop_point_instances_aggregate: ServicePatternScheduledStopPointAggregate;
   /** The label of the SCHEDULED STOP POINT */
   scheduled_stop_point_label: Scalars['String'];
   /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
@@ -10357,6 +10359,30 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRef = {
   /** An aggregate relationship */
   timetabled_passing_times_aggregate: TimetablesPassingTimesTimetabledPassingTimeAggregate;
 };
+
+/** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
+export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefScheduledStopPointInstancesArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<ServicePatternScheduledStopPointSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+    where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
+  };
+
+/** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
+export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefScheduledStopPointInstancesAggregateArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<ServicePatternScheduledStopPointSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<ServicePatternScheduledStopPointOrderBy>>;
+    where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
+  };
 
 /** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefTimetabledPassingTimesArgs =
