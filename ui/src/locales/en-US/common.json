@@ -302,7 +302,8 @@
     "drafts": "Drafts",
     "noDrafts": "No drafts",
     "noTimetables": "No timetables",
-    "inEffect": "In effect"
+    "inEffect": "In effect",
+    "interpolated": "Interpolated"
   },
   "timetablesPreview": {
     "preview": "Preview",

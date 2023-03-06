@@ -302,7 +302,8 @@
     "drafts": "Luonnokset",
     "noDrafts": "Ei luonnoksia",
     "noTimetables": "Ei aikatauluja",
-    "inEffect": "Voimassa"
+    "inEffect": "Voimassa",
+    "interpolated": "Interpoloitu"
   },
   "timetablesPreview": {
     "preview": "Esikatselu",

@@ -1,7 +1,9 @@
 import { gql } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { groupBy } from 'remeda';
 import { PassingTimeByStopFragment } from '../../../generated/graphql';
 import { Column } from '../../../layoutComponents';
+import { filterHighestPriorityCurrentStops } from '../../../utils';
 import { HighlightProps } from './PassingTimesByStopTableRowPassingMinute';
 import { PassingTimesByStopTableRowPassingTime } from './PassingTimesByStopTableRowPassingTime';
 
@@ -14,8 +16,19 @@ const GQL_PASSING_TIME = gql`
     timetabled_passing_time_id
     vehicle_journey_id
     scheduled_stop_point_in_journey_pattern_ref {
+      journey_pattern_ref {
+        journey_pattern_ref_id
+        observation_timestamp
+      }
       scheduled_stop_point_in_journey_pattern_ref_id
       scheduled_stop_point_label
+      scheduled_stop_point_instances {
+        ...scheduled_stop_point_default_fields
+        timing_place {
+          label
+          timing_place_id
+        }
+      }
     }
   }
 `;
@@ -35,14 +48,27 @@ export const PassingTimesByStopTableRow = ({
   selectedPassingTime,
   setSelectedPassingTime,
 }: Props): JSX.Element => {
+  const { t } = useTranslation();
+
+  // This component only shows information about one stop and one journey pattern.
+  // Therefore, we can just take first of the scheduled stop point in journey pattern ref
+  // instances as they all contain the same information.
+  const scheduledStopPointInJourneyPatternRef =
+    passingTimes[0].scheduled_stop_point_in_journey_pattern_ref;
+
   const label =
-    passingTimes[0].scheduled_stop_point_in_journey_pattern_ref
-      ?.scheduled_stop_point_label;
+    scheduledStopPointInJourneyPatternRef?.scheduled_stop_point_label;
 
   const passingTimesByHour = groupBy(
     passingTimes,
     (passingTime) => passingTime.passing_time.hours,
   );
+
+  const stopMetadata = filterHighestPriorityCurrentStops(
+    scheduledStopPointInJourneyPatternRef.scheduled_stop_point_instances,
+    scheduledStopPointInJourneyPatternRef.journey_pattern_ref
+      .observation_timestamp,
+  )[0];
 
   return (
     <tr className="odd:bg-hsl-neutral-blue" data-testid={testIds.tr}>
@@ -50,7 +76,9 @@ export const PassingTimesByStopTableRow = ({
         <Column>
           <h5>{label}</h5>
           <p className="text-sm">!Pysäkin nimi</p>
-          <p className="mt-3 text-sm">!Hastuspaikan koodi</p>
+          <p className="mt-3 text-sm">
+            {stopMetadata?.timing_place?.label || t('timetables.interpolated')}
+          </p>
         </Column>
       </td>
       <td className={`break-words py-3 align-top ${cellClassNames}`}>
