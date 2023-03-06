@@ -1,3 +1,4 @@
+export * from './dayTypes';
 export * from './journeyPatternRefs';
 export * from './stopsInJourneyPatternRefs';
 export * from './timetabledPassingTimes';
