@@ -25,6 +25,7 @@ export const SearchResultPage = (): JSX.Element => {
 
   const testIds = {
     container: 'SearchResultsPage::Container',
+    closeButton: 'SearchResultsPage::closeButton',
   };
 
   const determineDisplayInformation = () => {
@@ -55,6 +56,7 @@ export const SearchResultPage = (): JSX.Element => {
           label={t('close')}
           className="ml-auto text-base font-bold text-brand"
           onClick={handleClose}
+          testId={testIds.closeButton}
         />
       </Row>
       <SearchContainer />

@@ -9,6 +9,10 @@ import { CloseIconButton } from '../../../uiComponents';
 import { FormColumn, FormRow } from '../../forms/common';
 import { TimetableVersionTable } from './TimetableVersionTable';
 
+const testIds = {
+  closeButton: 'TimetableVersionsPage::closeButton',
+};
+
 export const TimetableVersionsPage = (): JSX.Element => {
   const { t } = useTranslation();
   const { label } = useParams<{ label: string }>();
@@ -28,6 +32,7 @@ export const TimetableVersionsPage = (): JSX.Element => {
             label={t('close')}
             className="text-base font-bold text-brand"
             onClick={onClose}
+            testId={testIds.closeButton}
           />
         </FormColumn>
       </FormRow>

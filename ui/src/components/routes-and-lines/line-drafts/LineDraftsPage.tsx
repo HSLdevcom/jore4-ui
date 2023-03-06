@@ -7,6 +7,10 @@ import { CloseIconButton } from '../../../uiComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { RouteStopsTable } from '../line-details/RouteStopsTable';
 
+const testIds = {
+  closeButton: 'LineDraftsPage::closeButton',
+};
+
 export const LineDraftsPage = (): JSX.Element => {
   const { t } = useTranslation();
   const { label } = useParams<{ label: string }>();
@@ -22,6 +26,7 @@ export const LineDraftsPage = (): JSX.Element => {
           label={t('close')}
           className="ml-auto text-base font-bold text-brand"
           onClick={onClose}
+          testId={testIds.closeButton}
         />
       </Row>
       <Row>

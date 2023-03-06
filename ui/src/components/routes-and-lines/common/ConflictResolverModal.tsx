@@ -21,6 +21,10 @@ import {
 } from '../../../uiComponents';
 import { RouteLabel } from '../../common/RouteLabel';
 
+const testIds = {
+  closeButton: 'ConflictResolverModal::closeButton',
+};
+
 interface Props {
   onClose: () => void;
   className?: string;
@@ -114,7 +118,11 @@ export const ConflictResolverModal: React.FC<Props> = ({
       <ModalBody>
         <Dialog.Title className="flex text-xl font-bold">
           {t('saveChangesModal.validityConflictTitle')}
-          <CloseIconButton className="ml-auto" onClick={onClose} />
+          <CloseIconButton
+            className="ml-auto"
+            onClick={onClose}
+            testId={testIds.closeButton}
+          />
         </Dialog.Title>
         <Dialog.Description>
           {t('saveChangesModal.validityConflictBody')}
