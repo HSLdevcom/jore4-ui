@@ -3,7 +3,7 @@ import {
   StopInJourneyPatternRefInsertInput,
   TimetabledPassingTimeInsertInput,
 } from '../../types';
-import { multiplyDuration } from '../../utils';
+import { multiplyDuration } from '../../utils/time';
 import { seedJourneyPatternRefs } from './journeyPatternRefs';
 import {
   seedStopsInJourneyPatternRefs,

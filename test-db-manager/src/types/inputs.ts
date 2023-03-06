@@ -53,6 +53,10 @@ export type StopInJourneyPatternInsertInput =
 
 export type JourneyPatternRefInsertInput =
   TimetablesJourneyPatternJourneyPatternRefInsertInput;
+export type JourneyPatternRefInsertInputDeep = RequiredKeys<
+  JourneyPatternRefInsertInput,
+  'scheduled_stop_point_in_journey_pattern_refs'
+>;
 
 export type StopInJourneyPatternRefInsertInput =
   TimetablesServicePatternScheduledStopPointInJourneyPatternRefInsertInput;
@@ -68,6 +72,10 @@ export type VehicleServiceBlockInsertInput =
 
 export type VehicleJourneyInsertInput =
   TimetablesVehicleJourneyVehicleJourneyInsertInput;
+export type VehicleJourneyInsertInputDeep = RequiredKeys<
+  VehicleJourneyInsertInput,
+  'timetabled_passing_times'
+>;
 
 export type TimetabledPassingTimeInsertInput =
   TimetablesPassingTimesTimetabledPassingTimeInsertInput;
