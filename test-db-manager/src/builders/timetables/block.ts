@@ -1,3 +1,4 @@
+import omit from 'lodash/omit';
 import { Duration } from 'luxon';
 import { v4 as uuid } from 'uuid';
 import {
@@ -121,7 +122,10 @@ export const flattenBlock = (
   const vehicleJourneyResources: TimetablesResources[] =
     block.vehicle_journeys.data.map(flattenVehicleJourney);
   const blockResources: TimetablesResources = {
-    vehicleServiceBlocks: [block],
+    vehicleServiceBlocks: [
+      // strip children references as they are inserted separately
+      omit(block, 'vehicle_journeys'),
+    ],
   };
   return mergeTimetablesResources([blockResources, ...vehicleJourneyResources]);
 };

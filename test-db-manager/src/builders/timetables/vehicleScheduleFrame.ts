@@ -1,3 +1,4 @@
+import omit from 'lodash/omit';
 import { v4 as uuid } from 'uuid';
 import {
   mergeTimetablesResources,
@@ -7,6 +8,7 @@ import {
   VehicleScheduleFrameInsertInput,
   VehicleScheduleFrameInsertInputDeep,
 } from '../../types';
+import { buildLocalizedString } from '../entities';
 import {
   buildVehicleServiceSequencesByDayType,
   flattenVehicleService,
@@ -15,7 +17,7 @@ import {
 
 export type VehicleScheduleFrameInstanceBuilder = RequiredKeys<
   VehicleScheduleFrameInsertInput,
-  'name_i18n' | 'validity_start' | 'validity_end' | 'priority'
+  'validity_start' | 'validity_end' | 'priority' | 'label'
 >;
 
 export const buildVehicleScheduleFrameInstance = (
@@ -23,6 +25,7 @@ export const buildVehicleScheduleFrameInstance = (
 ): VehicleScheduleFrameInsertInput => ({
   vehicle_schedule_frame_id: uuid(),
   ...vsfBase,
+  name_i18n: buildLocalizedString(vsfBase.label),
 });
 
 export type VehicleScheduleFrameDeepBuilder = {
@@ -48,11 +51,14 @@ export const buildVehicleScheduleFrameDeep = ({
 export const flattenVehicleScheduleFrame = (
   vsf: VehicleScheduleFrameInsertInputDeep,
 ): TimetablesResources => {
+  const vehicleScheduleFrameResources: TimetablesResources = {
+    vehicleScheduleFrames: [
+      // strip children references as they are inserted separately
+      omit(vsf, 'vehicle_services'),
+    ],
+  };
   const vehicleServiceResources: TimetablesResources[] =
     vsf.vehicle_services.data.map(flattenVehicleService);
-  const vehicleScheduleFrameResources: TimetablesResources = {
-    vehicleScheduleFrames: [vsf],
-  };
   return mergeTimetablesResources([
     vehicleScheduleFrameResources,
     ...vehicleServiceResources,

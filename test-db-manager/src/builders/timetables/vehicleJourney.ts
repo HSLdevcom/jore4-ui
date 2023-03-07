@@ -1,3 +1,4 @@
+import omit from 'lodash/omit';
 import { Duration } from 'luxon';
 import { v4 as uuid } from 'uuid';
 import { TimetablesResources } from '../../db-helpers';
@@ -157,6 +158,9 @@ export const buildVehicleJourneySequence = (
 export const flattenVehicleJourney = (
   vj: VehicleJourneyInsertInputDeep,
 ): TimetablesResources => ({
-  vehicleJourneys: [vj],
+  vehicleJourneys: [
+    // strip children references as they are inserted separately
+    omit(vj, 'timetabled_passing_times'),
+  ],
   timetabledPassingTimes: vj.timetabled_passing_times.data,
 });

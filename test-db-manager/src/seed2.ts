@@ -1,6 +1,5 @@
 import reverse from 'lodash/reverse';
 import { DateTime, Duration } from 'luxon';
-import { buildLocalizedString } from './builders';
 import { buildLabelArray } from './builders/common';
 import {
   buildJourneyPatternRefDeep,
@@ -67,7 +66,7 @@ const seedDb = async () => {
   // basic priority, 2022-2030, Monday-Sunday, route 641 back and forth
   const vsf1 = buildVehicleScheduleFrameDeep({
     vsfBase: {
-      name_i18n: buildLocalizedString('641 basic'),
+      label: '641 basic',
       priority: Priority.Standard,
       validity_start: DateTime.fromISO('2022-01-01'),
       validity_end: DateTime.fromISO('2030-12-31'),
@@ -105,10 +104,10 @@ const seedDb = async () => {
   // temporary priority, 2022-2030, Saturday, route 641 back and forth
   const vsf2 = buildVehicleScheduleFrameDeep({
     vsfBase: {
-      name_i18n: buildLocalizedString('641 temporary'),
-      priority: Priority.Standard,
-      validity_start: DateTime.fromISO('2022-01-01'),
-      validity_end: DateTime.fromISO('2030-12-31'),
+      label: '641 temporary',
+      priority: Priority.Temporary,
+      validity_start: DateTime.fromISO('2023-01-01'),
+      validity_end: DateTime.fromISO('2023-12-31'),
     },
     vsByDay: {
       [SAT_DAY_TYPE]: {

@@ -1,3 +1,4 @@
+import omit from 'lodash/omit';
 import { DateTime } from 'luxon';
 import { v4 as uuid } from 'uuid';
 import { TimetablesResources } from '../../db-helpers';
@@ -46,7 +47,10 @@ export const buildJourneyPatternRefDeep = (
 export const flattenJourneyPatternRef = (
   jp: JourneyPatternRefInsertInputDeep,
 ): TimetablesResources => ({
-  journeyPatternRefs: [jp],
+  journeyPatternRefs: [
+    // strip children references as they are inserted separately
+    omit(jp, 'scheduled_stop_point_in_journey_pattern_refs'),
+  ],
   stopsInJourneyPatternRefs:
     jp.scheduled_stop_point_in_journey_pattern_refs.data,
 });
