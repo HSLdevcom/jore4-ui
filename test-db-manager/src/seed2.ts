@@ -14,6 +14,7 @@ import {
 } from './builders/timetables';
 import {
   MON_FRI_DAY_TYPE,
+  SAT_DAY_TYPE,
   seedJourneyPatternRefs,
   seedStopsInJourneyPatternRefs,
   seedTimetabledPassingTimes,
@@ -21,6 +22,7 @@ import {
   seedVehicleScheduleFrames,
   seedVehicleServiceBlocks,
   seedVehicleServices,
+  SUN_DAY_TYPE,
 } from './datasets/timetables';
 import {
   mergeTimetablesResources,
@@ -62,21 +64,62 @@ const seedDb = async () => {
     stopLabels: reverse(stopLabels),
   });
 
-  // basic priority, 2022-2030, Monday-Sunday
+  // basic priority, 2022-2030, Monday-Sunday, route 641 back and forth
   const vsf1 = buildVehicleScheduleFrameDeep({
     vsfBase: {
-      name_i18n: buildLocalizedString('basic'),
+      name_i18n: buildLocalizedString('641 basic'),
       priority: Priority.Standard,
       validity_start: DateTime.fromISO('2022-01-01'),
       validity_end: DateTime.fromISO('2030-12-31'),
     },
-    [MON_FRI_DAY_TYPE]: {
-      startTime: Duration.fromISO('PT5H15M'),
-      ...defaultTptSeqParams,
-      ...defaultVjSeqParams,
-      ...defaultBlockSeqParams,
-      ...defaultVsSeqParams,
-      jpRefList: [jpRef1, jpRef2],
+    vsByDay: {
+      [MON_FRI_DAY_TYPE]: {
+        startTime: Duration.fromISO('PT5H15M'),
+        ...defaultTptSeqParams,
+        ...defaultVjSeqParams,
+        ...defaultBlockSeqParams,
+        ...defaultVsSeqParams,
+        jpRefList: [jpRef1, jpRef2],
+      },
+      [SAT_DAY_TYPE]: {
+        startTime: Duration.fromISO('PT4H45M'),
+        ...defaultTptSeqParams,
+        ...defaultVjSeqParams,
+        ...defaultBlockSeqParams,
+        ...defaultVsSeqParams,
+        vsCount: { min: 4, max: 6 }, // less buses ride today
+        jpRefList: [jpRef1, jpRef2],
+      },
+      [SUN_DAY_TYPE]: {
+        startTime: Duration.fromISO('PT8H15M'), // first bus departs late
+        ...defaultTptSeqParams,
+        ...defaultVjSeqParams,
+        ...defaultBlockSeqParams,
+        ...defaultVsSeqParams,
+        vsCount: { min: 4, max: 6 }, // less buses ride today
+        jpRefList: [jpRef1, jpRef2],
+      },
+    },
+  });
+
+  // temporary priority, 2022-2030, Saturday, route 641 back and forth
+  const vsf2 = buildVehicleScheduleFrameDeep({
+    vsfBase: {
+      name_i18n: buildLocalizedString('641 temporary'),
+      priority: Priority.Standard,
+      validity_start: DateTime.fromISO('2022-01-01'),
+      validity_end: DateTime.fromISO('2030-12-31'),
+    },
+    vsByDay: {
+      [SAT_DAY_TYPE]: {
+        startTime: Duration.fromISO('PT4H45M'),
+        ...defaultTptSeqParams,
+        ...defaultVjSeqParams,
+        ...defaultBlockSeqParams,
+        ...defaultVsSeqParams,
+        vsCount: { min: 14, max: 16 }, // more buses ride today
+        jpRefList: [jpRef1, jpRef2],
+      },
     },
   });
 
@@ -84,6 +127,7 @@ const seedDb = async () => {
     flattenJourneyPatternRef(jpRef1),
     flattenJourneyPatternRef(jpRef2),
     flattenVehicleScheduleFrame(vsf1),
+    flattenVehicleScheduleFrame(vsf2),
   ]);
 
   await seedTimetables(timetablesResources);

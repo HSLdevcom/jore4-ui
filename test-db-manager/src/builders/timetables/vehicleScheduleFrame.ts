@@ -25,19 +25,19 @@ export const buildVehicleScheduleFrameInstance = (
   ...vsfBase,
 });
 
-export type VehicleScheduleFrameDeepBuilder =
-  VehicleServiceSequenceByDayTypeBuilder & {
-    vsfBase: VehicleScheduleFrameInstanceBuilder;
-  };
+export type VehicleScheduleFrameDeepBuilder = {
+  vsfBase: VehicleScheduleFrameInstanceBuilder;
+  vsByDay: VehicleServiceSequenceByDayTypeBuilder;
+};
 
 export const buildVehicleScheduleFrameDeep = ({
   vsfBase,
-  ...vsByDayBuilder
+  vsByDay,
 }: VehicleScheduleFrameDeepBuilder): VehicleScheduleFrameInsertInputDeep => {
   const vehicleScheduleFrame = buildVehicleScheduleFrameInstance(vsfBase);
   const vehicleServices = buildVehicleServiceSequencesByDayType(
     vehicleScheduleFrame.vehicle_schedule_frame_id,
-    vsByDayBuilder,
+    vsByDay,
   );
   return {
     ...vehicleScheduleFrame,
