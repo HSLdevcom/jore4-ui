@@ -1,3 +1,4 @@
+import { Duration } from 'luxon';
 import { v4 as uuid } from 'uuid';
 import {
   mergeTimetablesResources,
@@ -62,6 +63,19 @@ export type BlockSequenceBuilder = BlockDeepBuilder & {
   blockWaitSequenceBuilder: TimeSequenceParams;
   blockCount: Count;
 };
+
+export const defaultBlockSeqParams: Pick<
+  BlockSequenceBuilder,
+  'blockBase' | 'blockWaitSequenceBuilder' | 'blockCount'
+> = {
+  blockBase: {},
+  blockCount: { min: 1, max: 3 },
+  blockWaitSequenceBuilder: {
+    minTime: Duration.fromISO('PT1H'),
+    maxTime: Duration.fromISO('PT5H'),
+  },
+};
+
 export const buildBlockSequence = (
   vehicleServiceId: UUID,
   {

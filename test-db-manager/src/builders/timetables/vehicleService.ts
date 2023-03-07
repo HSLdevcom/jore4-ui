@@ -1,3 +1,4 @@
+import { Duration } from 'luxon';
 import { v4 as uuid } from 'uuid';
 import { DayTypeId } from '../../datasets';
 import {
@@ -57,6 +58,19 @@ export type VehicleServiceSequenceBuilder = VehicleServiceDeepBuilder & {
   vsDeparturesSequenceBuilder: TimeSequenceParams;
   vsCount: Count;
 };
+
+export const defaultVsSeqParams: Pick<
+  VehicleServiceSequenceBuilder,
+  'vsBase' | 'vsDeparturesSequenceBuilder' | 'vsCount'
+> = {
+  vsBase: {},
+  vsCount: { min: 10, max: 20 },
+  vsDeparturesSequenceBuilder: {
+    minTime: Duration.fromISO('PT5M'),
+    maxTime: Duration.fromISO('PT15M'),
+  },
+};
+
 export const buildVehicleServiceSequence = (
   vehicleScheduleFrameId: UUID,
   dayTypeId: DayTypeId,
@@ -92,10 +106,10 @@ export const buildVehicleServiceSequence = (
   return vehicleServices;
 };
 
-export type VehicleServiceSequenceByDayTypeBuilder = Record<
-  DayTypeId,
-  VehicleServiceSequenceBuilder
->;
+export type VehicleServiceSequenceByDayTypeBuilder = {
+  [dayTypeId: string]: VehicleServiceSequenceBuilder;
+};
+
 export const buildVehicleServiceSequencesByDayType = (
   vehicleScheduleFrameId: UUID,
   vsByDayType: VehicleServiceSequenceByDayTypeBuilder,

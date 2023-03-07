@@ -22,22 +22,22 @@ export const buildRegularTimeSequence = (
 };
 
 export type RandomTimeSequenceParams = {
-  minTimeMs: number;
-  maxTimeMs: number;
+  minTime: Duration;
+  maxTime: Duration;
 };
 
 export const buildRandomTimeSequence = (
   startTime: Duration,
   count: number,
-  { minTimeMs, maxTimeMs }: RandomTimeSequenceParams,
+  { minTime, maxTime }: RandomTimeSequenceParams,
 ) => {
   let current: Duration = startTime;
   const timeSequence: Duration[] = [current];
 
   // eslint-disable-next-line no-plusplus
   for (let i = 1; i < count; i++) {
-    const intervalMs = buildRandomDuration(minTimeMs, maxTimeMs);
-    current = current.plus(intervalMs);
+    const increment = buildRandomDuration(minTime, maxTime);
+    current = current.plus(increment);
     timeSequence.push(current);
   }
   return timeSequence;

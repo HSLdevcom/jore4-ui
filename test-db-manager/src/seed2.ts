@@ -1,10 +1,14 @@
 import reverse from 'lodash/reverse';
-import { DateTime } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 import { buildLocalizedString } from './builders';
 import { buildLabelArray } from './builders/common';
 import {
   buildJourneyPatternRefDeep,
   buildVehicleScheduleFrameDeep,
+  defaultBlockSeqParams,
+  defaultTptSeqParams,
+  defaultVjSeqParams,
+  defaultVsSeqParams,
   flattenJourneyPatternRef,
   flattenVehicleScheduleFrame,
 } from './builders/timetables';
@@ -67,8 +71,12 @@ const seedDb = async () => {
       validity_end: DateTime.fromISO('2030-12-31'),
     },
     [MON_FRI_DAY_TYPE]: {
-      tptBase: {},
-      tptSequenceBuilder: { minTimeMs: 0, maxTimeMs: 5 * 60 * 1000 },
+      startTime: Duration.fromISO('PT5H15M'),
+      ...defaultTptSeqParams,
+      ...defaultVjSeqParams,
+      ...defaultBlockSeqParams,
+      ...defaultVsSeqParams,
+      jpRefList: [jpRef1, jpRef2],
     },
   });
 

@@ -1,3 +1,4 @@
+import { Duration } from 'luxon';
 import { v4 as uuid } from 'uuid';
 import { TimetablesResources } from '../../db-helpers';
 import {
@@ -18,12 +19,10 @@ import {
   TimetabledPassingTimeSequenceBuilder,
 } from './timetabledPassingTime';
 
-export type VehicleJourneyInstanceBuilder = RequiredKeysOnly<
-  VehicleJourneyInsertInput,
-  'journey_pattern_ref_id'
->;
+export type VehicleJourneyInstanceBuilder = Partial<VehicleJourneyInsertInput>;
 export const buildVehicleJourneyInstance = (
   blockId: UUID,
+  jpRefId: UUID,
   vjBase: VehicleJourneyInstanceBuilder,
 ): VehicleJourneyInsertInput => ({
   vehicle_journey_id: uuid(),
@@ -33,6 +32,7 @@ export const buildVehicleJourneyInstance = (
   is_vehicle_type_mandatory: false,
   ...vjBase,
   block_id: blockId,
+  journey_pattern_ref_id: jpRefId,
 });
 
 export type VehicleJourneyDeepBuilder = Omit<
@@ -53,10 +53,13 @@ export const buildVehicleJourneyDeep = (
   }: VehicleJourneyDeepBuilder,
 ): VehicleJourneyInsertInputDeep => {
   // build the main vehicle journey entity
-  const vehicleJourney = buildVehicleJourneyInstance(blockId, {
-    ...vjBase,
-    journey_pattern_ref_id: jp.journey_pattern_ref_id,
-  });
+  const vehicleJourney = buildVehicleJourneyInstance(
+    blockId,
+    jp.journey_pattern_ref_id,
+    {
+      ...vjBase,
+    },
+  );
 
   // build the timetables passing times based on the journey pattern stops
   const stops = jp.scheduled_stop_point_in_journey_pattern_refs.data;
@@ -89,16 +92,30 @@ export type VehicleJourneySequenceBuilder = Omit<
 > & {
   vjWaitSequenceBuilder: TimeSequenceParams;
   vjCount: Count;
-  jpList: JourneyPatternRefInsertInputDeep[];
+  jpRefList: JourneyPatternRefInsertInputDeep[];
   jpPickMethod: ArrayItemPickMethod;
 };
+
+export const defaultVjSeqParams: Pick<
+  VehicleJourneySequenceBuilder,
+  'vjBase' | 'vjWaitSequenceBuilder' | 'vjCount' | 'jpPickMethod'
+> = {
+  vjBase: {},
+  vjCount: { min: 6, max: 8 },
+  vjWaitSequenceBuilder: {
+    minTime: Duration.fromISO('PT2M'),
+    maxTime: Duration.fromISO('PT10M'),
+  },
+  jpPickMethod: 'modulo',
+};
+
 export const buildVehicleJourneySequence = (
   blockId: UUID,
   {
     startTime,
     vjWaitSequenceBuilder,
     vjCount,
-    jpList,
+    jpRefList,
     jpPickMethod,
     ...rest
   }: VehicleJourneySequenceBuilder,
@@ -119,7 +136,7 @@ export const buildVehicleJourneySequence = (
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < count; i++) {
     // which journey pattern to generate vehicle journey for?
-    const jp = pickArrayItem(jpPickMethod, jpList, i);
+    const jp = pickArrayItem(jpPickMethod, jpRefList, i);
 
     // build vehicle journey with its timetables passing times
     const vj = buildVehicleJourneyDeep(blockId, {

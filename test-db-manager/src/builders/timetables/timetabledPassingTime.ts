@@ -12,9 +12,7 @@ import {
 
 export type TimetabledPassingTimeInstanceBuilder = RequiredKeysOnly<
   TimetabledPassingTimeInsertInput,
-  | 'arrival_time'
-  | 'departure_time'
-  | 'scheduled_stop_point_in_journey_pattern_ref_id'
+  'arrival_time' | 'departure_time'
 >;
 /**
  * Builds a single timetables passing time
@@ -24,11 +22,13 @@ export type TimetabledPassingTimeInstanceBuilder = RequiredKeysOnly<
  * */
 export const buildTimetabledPassingTimeInstance = (
   vehicleJourneyId: UUID,
+  stopInJpRefId: UUID,
   tptBase: TimetabledPassingTimeInstanceBuilder,
 ): TimetabledPassingTimeInsertInput => ({
   timetabled_passing_time_id: uuid(),
   ...tptBase,
   vehicle_journey_id: vehicleJourneyId,
+  scheduled_stop_point_in_journey_pattern_ref_id: stopInJpRefId,
 });
 
 export type TimetabledPassingTimeSequenceBuilder = {
@@ -40,13 +40,15 @@ export type TimetabledPassingTimeSequenceBuilder = {
   startTime: Duration;
   stops: StopInJourneyPatternRefInsertInput[];
 };
-/**
- * Build a sequence of timetabled passing times for a list of stops
- * @param startTime when should the first passing time be
- * @param tptBase optional attributes that are set for all timetabled passing times in the list
- * @param stops a list of stops to create the timetabled passing times for
- * @returns list of timetables passing times
- */
+
+export const defaultTptSeqParams: Pick<
+  TimetabledPassingTimeSequenceBuilder,
+  'tptBase' | 'tptSequenceBuilder'
+> = {
+  tptBase: {},
+  tptSequenceBuilder: { minTime: 0, maxTime: 5 * 60 * 1000 },
+};
+
 export const buildTimetabledPassingTimeSequence = (
   vehicleJourneyId: UUID,
   {
@@ -64,11 +66,13 @@ export const buildTimetabledPassingTimeSequence = (
   const passingTimeSequence = buildPassingTimeSequence(timeSequence);
 
   return stops.map((stop, index) =>
-    buildTimetabledPassingTimeInstance(vehicleJourneyId, {
-      ...tptBase,
-      ...passingTimeSequence[index],
-      scheduled_stop_point_in_journey_pattern_ref_id:
-        stop.scheduled_stop_point_in_journey_pattern_ref_id,
-    }),
+    buildTimetabledPassingTimeInstance(
+      vehicleJourneyId,
+      stop.scheduled_stop_point_in_journey_pattern_ref_id,
+      {
+        ...tptBase,
+        ...passingTimeSequence[index],
+      },
+    ),
   );
 };
