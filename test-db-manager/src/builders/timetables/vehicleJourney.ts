@@ -1,20 +1,30 @@
-import { Duration } from 'luxon';
 import { v4 as uuid } from 'uuid';
+import { TimetablesResources } from '../../db-helpers';
 import {
   JourneyPatternRefInsertInputDeep,
   JourneyType,
   VehicleJourneyInsertInput,
   VehicleJourneyInsertInputDeep,
 } from '../../types';
-import { buildRandomDuration } from '../common';
-import { buildTimetabledPassingTimeSequenceForStops } from './timetabledPassingTime';
+import {
+  ArrayItemPickMethod,
+  buildCount,
+  Count,
+  pickArrayItem,
+} from '../common';
+import { buildTimeSequence, TimeSequenceParams } from './timeSequence';
+import {
+  buildTimetabledPassingTimeSequence,
+  TimetabledPassingTimeSequenceBuilder,
+} from './timetabledPassingTime';
 
-export type VehicleJourneyBuildInput = RequiredKeysOnly<
+export type VehicleJourneyInstanceBuilder = RequiredKeysOnly<
   VehicleJourneyInsertInput,
-  'block_id' | 'journey_pattern_ref_id'
+  'journey_pattern_ref_id'
 >;
-export const buildVehicleJourney = (
-  vjBase: VehicleJourneyBuildInput,
+export const buildVehicleJourneyInstance = (
+  blockId: UUID,
+  vjBase: VehicleJourneyInstanceBuilder,
 ): VehicleJourneyInsertInput => ({
   vehicle_journey_id: uuid(),
   journey_type: JourneyType.Standard,
@@ -22,25 +32,37 @@ export const buildVehicleJourney = (
   is_extra_journey: false,
   is_vehicle_type_mandatory: false,
   ...vjBase,
+  block_id: blockId,
 });
 
-export const buildVehicleJourneyWithPassingTimes = (
-  startTime: Duration,
-  vjBase: RequiredKeysOnly<VehicleJourneyBuildInput, 'block_id'>,
-  jp: JourneyPatternRefInsertInputDeep,
+export type VehicleJourneyDeepBuilder = Omit<
+  TimetabledPassingTimeSequenceBuilder,
+  'stops'
+> & {
+  vjBase: VehicleJourneyInstanceBuilder;
+  jp: JourneyPatternRefInsertInputDeep;
+};
+export const buildVehicleJourneyDeep = (
+  blockId: UUID,
+  {
+    tptBase,
+    tptSequenceBuilder,
+    vjBase,
+    startTime,
+    jp,
+  }: VehicleJourneyDeepBuilder,
 ): VehicleJourneyInsertInputDeep => {
   // build the main vehicle journey entity
-  const vehicleJourney = buildVehicleJourney({
+  const vehicleJourney = buildVehicleJourneyInstance(blockId, {
     ...vjBase,
     journey_pattern_ref_id: jp.journey_pattern_ref_id,
   });
 
   // build the timetables passing times based on the journey pattern stops
   const stops = jp.scheduled_stop_point_in_journey_pattern_refs.data;
-  const timetabledPassingTimes = buildTimetabledPassingTimeSequenceForStops(
-    startTime,
-    { vehicle_journey_id: vehicleJourney.vehicle_journey_id },
-    stops,
+  const timetabledPassingTimes = buildTimetabledPassingTimeSequence(
+    vehicleJourney.vehicle_journey_id,
+    { tptBase, tptSequenceBuilder, startTime, stops },
   );
 
   return {
@@ -61,22 +83,63 @@ export const getVehicleJourneyTimes = (vj: VehicleJourneyInsertInputDeep) => {
   return { start, end, duration };
 };
 
-export const buildVehicleJourneySequenceWithPassingTimes = (
-  sequenceStartTime: Duration,
-  vjBase: RequiredKeysOnly<VehicleJourneyBuildInput, 'block_id'>,
-  journeyPatterns: JourneyPatternRefInsertInputDeep[],
-  count: number,
+export type VehicleJourneySequenceBuilder = Omit<
+  VehicleJourneyDeepBuilder,
+  'jp'
+> & {
+  vjWaitSequenceBuilder: TimeSequenceParams;
+  vjCount: Count;
+  jpList: JourneyPatternRefInsertInputDeep[];
+  jpPickMethod: ArrayItemPickMethod;
+};
+export const buildVehicleJourneySequence = (
+  blockId: UUID,
+  {
+    startTime,
+    vjWaitSequenceBuilder,
+    vjCount,
+    jpList,
+    jpPickMethod,
+    ...rest
+  }: VehicleJourneySequenceBuilder,
 ): VehicleJourneyInsertInputDeep[] => {
   const vehicleJourneys: VehicleJourneyInsertInputDeep[] = [];
-  let startTime = sequenceStartTime;
+
+  // how many vehicle journeys to generate?
+  const count = buildCount(vjCount);
+
+  // what should be the waiting time after each vehicle journey before the next one starts?
+  const waitSequence = buildTimeSequence(
+    startTime,
+    count,
+    vjWaitSequenceBuilder,
+  );
+
+  let currentTime = startTime;
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < count; i++) {
-    const jp = journeyPatterns[i % journeyPatterns.length];
-    const vj = buildVehicleJourneyWithPassingTimes(startTime, vjBase, jp);
+    // which journey pattern to generate vehicle journey for?
+    const jp = pickArrayItem(jpPickMethod, jpList, i);
+
+    // build vehicle journey with its timetables passing times
+    const vj = buildVehicleJourneyDeep(blockId, {
+      startTime: currentTime,
+      jp,
+      ...rest,
+    });
     vehicleJourneys.push(vj);
-    const vjTimes = getVehicleJourneyTimes(vj);
-    const waitBetween = buildRandomDuration();
-    startTime = startTime.plus(vjTimes.duration).plus(waitBetween);
+
+    // wait after the vehicle journey before the next one starts
+    const vjDuration = getVehicleJourneyTimes(vj).duration;
+    const waitAfter = waitSequence[i];
+    currentTime = currentTime.plus(vjDuration).plus(waitAfter);
   }
   return vehicleJourneys;
 };
+
+export const flattenVehicleJourney = (
+  vj: VehicleJourneyInsertInputDeep,
+): TimetablesResources => ({
+  vehicleJourneys: [vj],
+  timetabledPassingTimes: vj.timetabled_passing_times.data,
+});

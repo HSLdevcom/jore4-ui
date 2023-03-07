@@ -1,41 +1,33 @@
 import { v4 as uuid } from 'uuid';
 import { StopInJourneyPatternRefInsertInput } from '../../types';
 
-export type StopInJourneyPatternRefBuildInput = RequiredKeysOnly<
+export type StopInJourneyPatternInstanceBuilder = RequiredKeysOnly<
   StopInJourneyPatternRefInsertInput,
-  | 'journey_pattern_ref_id'
-  | 'scheduled_stop_point_label'
-  | 'scheduled_stop_point_sequence'
+  'scheduled_stop_point_label' | 'scheduled_stop_point_sequence'
 >;
-
-/**
- * Builds a stop in a journey pattern
- */
-export const buildStopInJourneyPatternRef = (
-  stopInJpBase: StopInJourneyPatternRefBuildInput,
+export const buildStopInJourneyPatternRefInstance = (
+  journeyPatternRefId: UUID,
+  stopBase: StopInJourneyPatternInstanceBuilder,
 ): StopInJourneyPatternRefInsertInput => ({
   scheduled_stop_point_in_journey_pattern_ref_id: uuid(),
-  ...stopInJpBase,
+  ...stopBase,
+  journey_pattern_ref_id: journeyPatternRefId,
 });
 
-/**
- * Builds a sequence of stops in journey pattern based on a list of stop labels
- * @param stopInJpBase common attributes for all stops within the journey pattern
- * @param labels labels of the journey pattern stops to be used
- * @returns list of stops in journey pattern
- */
-export const buildStopSequence = (
-  stopInJpBase: RequiredKeysOnly<
-    StopInJourneyPatternRefBuildInput,
-    'journey_pattern_ref_id'
-  >,
-  labels: Array<
-    StopInJourneyPatternRefBuildInput['scheduled_stop_point_label']
-  >,
+export type StopInJourneyPatternSequenceBuilder = {
+  stopBase: PartialKeys<
+    StopInJourneyPatternInstanceBuilder,
+    'scheduled_stop_point_sequence' | 'scheduled_stop_point_label'
+  >;
+  stopLabels: string[];
+};
+export const buildStopInJourneyPatternSequence = (
+  journeyPatternRefId: UUID,
+  { stopBase, stopLabels }: StopInJourneyPatternSequenceBuilder,
 ): StopInJourneyPatternRefInsertInput[] =>
-  labels.map((label, index) =>
-    buildStopInJourneyPatternRef({
-      ...stopInJpBase,
+  stopLabels.map((label, index) =>
+    buildStopInJourneyPatternRefInstance(journeyPatternRefId, {
+      ...stopBase,
       scheduled_stop_point_label: label,
       scheduled_stop_point_sequence: index + 1,
     }),

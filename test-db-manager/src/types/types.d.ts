@@ -1,3 +1,6 @@
+// Trick for preventing linter warnings in places where any is needed as type
+type ExplicitAny = any; // eslint-disable-line @typescript-eslint/no-explicit-any
+
 type UUID = string;
 
 type LocalizedString = {
@@ -24,6 +27,9 @@ type KeysToSnakeCase<T> = {
 
 // makes the K keys within the T object required, leaves the rest as-is
 type RequiredKeys<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>;
+
+// makes the K keys within the T object optional, leaves the rest as-is
+type PartialKeys<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;
 
 // makes the K keys within the T object required, the others optional
 type RequiredKeysOnly<T, K extends keyof T> = RequiredKeys<Partial<T>, K>;

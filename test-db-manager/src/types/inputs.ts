@@ -53,33 +53,61 @@ export type StopInJourneyPatternInsertInput =
 
 export type JourneyPatternRefInsertInput =
   TimetablesJourneyPatternJourneyPatternRefInsertInput;
-export type JourneyPatternRefInsertInputDeep = RequiredKeys<
+export type JourneyPatternRefInsertInputDeep = Omit<
   JourneyPatternRefInsertInput,
   'scheduled_stop_point_in_journey_pattern_refs'
->;
+> & {
+  scheduled_stop_point_in_journey_pattern_refs: {
+    data: StopInJourneyPatternRefInsertInput[];
+  };
+};
 
 export type StopInJourneyPatternRefInsertInput =
   TimetablesServicePatternScheduledStopPointInJourneyPatternRefInsertInput;
 
-export type VehicleScheduleFrameInsertInput =
-  TimetablesVehicleScheduleVehicleScheduleFrameInsertInput;
-
-export type VehicleServiceInsertInput =
-  TimetablesVehicleServiceVehicleServiceInsertInput;
+export type VehicleJourneyInsertInput =
+  TimetablesVehicleJourneyVehicleJourneyInsertInput;
+export type VehicleJourneyInsertInputDeep = Omit<
+  VehicleJourneyInsertInput,
+  'timetabled_passing_times'
+> & {
+  timetabled_passing_times: {
+    data: TimetabledPassingTimeInsertInput[];
+  };
+};
 
 export type VehicleServiceBlockInsertInput =
   TimetablesVehicleServiceBlockInsertInput;
-export type BlockInsertInputDeep = RequiredKeys<
+export type BlockInsertInputDeep = Omit<
   TimetablesVehicleServiceBlockInsertInput,
   'vehicle_journeys'
->;
+> & {
+  vehicle_journeys: {
+    data: VehicleJourneyInsertInputDeep[];
+  };
+};
 
-export type VehicleJourneyInsertInput =
-  TimetablesVehicleJourneyVehicleJourneyInsertInput;
-export type VehicleJourneyInsertInputDeep = RequiredKeys<
-  VehicleJourneyInsertInput,
-  'timetabled_passing_times'
->;
+export type VehicleServiceInsertInput =
+  TimetablesVehicleServiceVehicleServiceInsertInput;
+export type VehicleServiceInsertInputDeep = Omit<
+  VehicleServiceInsertInput,
+  'blocks'
+> & {
+  blocks: {
+    data: BlockInsertInputDeep[];
+  };
+};
+
+export type VehicleScheduleFrameInsertInput =
+  TimetablesVehicleScheduleVehicleScheduleFrameInsertInput;
+export type VehicleScheduleFrameInsertInputDeep = Omit<
+  VehicleScheduleFrameInsertInput,
+  'vehicle_services'
+> & {
+  vehicle_services: {
+    data: VehicleServiceInsertInputDeep[];
+  };
+};
 
 export type TimetabledPassingTimeInsertInput =
   TimetablesPassingTimesTimetabledPassingTimeInsertInput;

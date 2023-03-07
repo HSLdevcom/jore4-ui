@@ -1,8 +1,7 @@
-import flow from 'lodash/flow';
+import isNumber from 'lodash/isNumber';
 import range from 'lodash/range';
 import { Duration } from 'luxon';
-import { TimetabledPassingTimeInsertInput } from '../types';
-import { randomInt } from '../utils/random';
+import { randomInt } from '../utils';
 
 export const buildLabelArray = (labelPrefix: string, labelCount: number) =>
   range(1, labelCount + 1).map((no) => `${labelPrefix}${no}`);
@@ -10,46 +9,26 @@ export const buildLabelArray = (labelPrefix: string, labelCount: number) =>
 export const buildRandomDuration = (minMs = 0, maxMs = 60 * 5 * 1000) =>
   Duration.fromMillis(randomInt(minMs, maxMs));
 
-export const buildRandomTimeSequence = (
-  startTime: Duration,
-  count: number,
-  minTraversalTimeMs = 0,
-  maxTraversalTimeMs = 60 * 5 * 1000,
-) => {
-  let current: Duration = startTime;
-  const timeSequence: Duration[] = [current];
+export type ConstantCount = number;
+export type RandomCount = { min: number; max: number };
+export type Count = ConstantCount | RandomCount;
 
-  // eslint-disable-next-line no-plusplus
-  for (let i = 1; i < count; i++) {
-    const intervalMs = buildRandomDuration(
-      minTraversalTimeMs,
-      maxTraversalTimeMs,
-    );
-    current = current.plus(intervalMs);
-    timeSequence.push(current);
+export const buildCount = (count: Count) =>
+  isNumber(count) ? count : randomInt(count.min, count.max);
+
+export type ArrayItemPickMethod = 'modulo' | 'paired';
+/**
+ * Picks an item from an array, using the given method. Useful for e.g. generating a reasonable set of journey patterns in a block
+ * - 'modulo' method: if the array's length is 3, it'll return the items in the following order: 0, 1, 2, 0, 1, 2, 0, 1, ...
+ * - ... other methods might be implemented later as seen fit
+ */
+export const pickArrayItem = <T extends ExplicitAny>(
+  method: ArrayItemPickMethod,
+  array: T[],
+  index: number,
+): T => {
+  if (method === 'modulo') {
+    return array[index % array.length];
   }
-  return timeSequence;
+  throw new Error(`Unknown array picker method: ${method}`);
 };
-
-export type PassingTime = Required<
-  Pick<TimetabledPassingTimeInsertInput, 'arrival_time' | 'departure_time'>
->;
-
-export const buildPassingTimeSequence = (
-  timeSequence: Duration[],
-): PassingTime[] => {
-  const passingTimeSequence = timeSequence.map((time) => ({
-    arrival_time: time,
-    departure_time: time,
-  }));
-
-  passingTimeSequence[0].arrival_time = null;
-  passingTimeSequence[passingTimeSequence.length - 1].departure_time = null;
-
-  return passingTimeSequence;
-};
-
-export const buildRandomPassingTimeSequence = flow(
-  buildRandomTimeSequence,
-  buildPassingTimeSequence,
-);

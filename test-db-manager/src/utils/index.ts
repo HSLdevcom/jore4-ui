@@ -1,2 +1,2 @@
-export * from './object';
+export * from './random';
 export * from './time';
