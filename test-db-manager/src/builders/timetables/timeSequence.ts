@@ -3,19 +3,21 @@ import { TimetabledPassingTimeInsertInput } from '../../types';
 import { buildRandomDuration } from '../common';
 
 export type RegularTimeSequenceParams = {
-  intervalMs: number;
+  interval: Duration;
 };
 export const buildRegularTimeSequence = (
   startTime: Duration,
   count: number,
-  { intervalMs }: RegularTimeSequenceParams,
+  { interval }: RegularTimeSequenceParams,
 ) => {
   let current: Duration = startTime;
   const timeSequence: Duration[] = [current];
 
   // eslint-disable-next-line no-plusplus
   for (let i = 1; i < count; i++) {
-    current = Duration.fromMillis(current.toMillis() + intervalMs);
+    console.log('current', current);
+    console.log('interval', interval);
+    current = current.plus(interval);
     timeSequence.push(current);
   }
   return timeSequence;
@@ -68,7 +70,7 @@ export type TimeSequenceParams =
 export function isRandomTimeSequenceBuilder(
   tsBuilder: TimeSequenceParams,
 ): tsBuilder is RandomTimeSequenceParams {
-  return Object.prototype.hasOwnProperty.call(tsBuilder, 'minTimeMs');
+  return Object.prototype.hasOwnProperty.call(tsBuilder, 'minTime');
 }
 
 export const buildTimeSequence = (

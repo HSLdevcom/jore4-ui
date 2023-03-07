@@ -46,7 +46,10 @@ export const defaultTptSeqParams: Pick<
   'tptBase' | 'tptSequenceBuilder'
 > = {
   tptBase: {},
-  tptSequenceBuilder: { minTime: 0, maxTime: 5 * 60 * 1000 },
+  tptSequenceBuilder: {
+    minTime: Duration.fromISO('PT0M'),
+    maxTime: Duration.fromISO('PT5M'),
+  },
 };
 
 export const buildTimetabledPassingTimeSequence = (
