@@ -67,8 +67,8 @@ export const defaultVsSeqParams: Pick<
   vsBase: {},
   vsCount: { min: 10, max: 20 },
   vsDeparturesSequenceBuilder: {
-    minTime: Duration.fromISO('PT5M'),
-    maxTime: Duration.fromISO('PT15M'),
+    minTime: Duration.fromISO('PT2M'),
+    maxTime: Duration.fromISO('PT10M'),
   },
 };
 

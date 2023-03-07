@@ -93,7 +93,7 @@ export const buildBlockSequence = (
 
   // what should be the waiting time after each block before the next one starts?
   const waitSequence = buildTimeSequence(
-    startTime,
+    Duration.fromISO('PT0S'),
     count,
     blockWaitSequenceBuilder,
   );

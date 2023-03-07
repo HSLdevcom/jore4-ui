@@ -15,8 +15,6 @@ export const buildRegularTimeSequence = (
 
   // eslint-disable-next-line no-plusplus
   for (let i = 1; i < count; i++) {
-    console.log('current', current);
-    console.log('interval', interval);
     current = current.plus(interval);
     timeSequence.push(current);
   }

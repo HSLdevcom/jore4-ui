@@ -48,7 +48,7 @@ export const defaultTptSeqParams: Pick<
   tptBase: {},
   tptSequenceBuilder: {
     minTime: Duration.fromISO('PT0M'),
-    maxTime: Duration.fromISO('PT5M'),
+    maxTime: Duration.fromISO('PT8M'),
   },
 };
 

@@ -14,6 +14,7 @@ import {
   Count,
   pickArrayItem,
 } from '../common';
+import { buildLocalizedString } from '../entities';
 import { buildTimeSequence, TimeSequenceParams } from './timeSequence';
 import {
   buildTimetabledPassingTimeSequence,
@@ -31,6 +32,9 @@ export const buildVehicleJourneyInstance = (
   is_backup_journey: false,
   is_extra_journey: false,
   is_vehicle_type_mandatory: false,
+  journey_name_i18n: vjBase.displayed_name
+    ? buildLocalizedString(vjBase.displayed_name)
+    : undefined,
   ...vjBase,
   block_id: blockId,
   journey_pattern_ref_id: jpRefId,
@@ -116,6 +120,7 @@ export const buildVehicleJourneySequence = (
     startTime,
     vjWaitSequenceBuilder,
     vjCount,
+    vjBase,
     jpRefList,
     jpPickMethod,
     ...rest
@@ -128,7 +133,7 @@ export const buildVehicleJourneySequence = (
 
   // what should be the waiting time after each vehicle journey before the next one starts?
   const waitSequence = buildTimeSequence(
-    startTime,
+    Duration.fromISO('PT0S'),
     count,
     vjWaitSequenceBuilder,
   );
@@ -143,6 +148,10 @@ export const buildVehicleJourneySequence = (
     const vj = buildVehicleJourneyDeep(blockId, {
       startTime: currentTime,
       jp,
+      vjBase: {
+        displayed_name: `trip ${count}`,
+        ...vjBase,
+      },
       ...rest,
     });
     vehicleJourneys.push(vj);
