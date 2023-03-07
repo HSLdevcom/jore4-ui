@@ -6,7 +6,6 @@ import {
   ServicePatternScheduledStopPoint,
   useGetRouteDetailsByIdsQuery,
 } from '../../../generated/graphql';
-import { mapRouteResultToRoute } from '../../../graphql';
 import {
   mapRouteToFormState,
   useDeleteRoute,
@@ -72,7 +71,7 @@ export const EditRoutePage = (): JSX.Element => {
   const routeDetailsResult = useGetRouteDetailsByIdsQuery({
     ...mapToVariables({ route_ids: [id] }),
   });
-  const route = mapRouteResultToRoute(routeDetailsResult);
+  const route = routeDetailsResult.data?.route_route?.[0] || undefined;
   const { t } = useTranslation();
 
   const onSave = () => {

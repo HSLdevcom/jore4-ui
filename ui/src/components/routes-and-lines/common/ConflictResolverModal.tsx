@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {
   RouteLine,
-  RouteRoute,
+  RouteUniqueFieldsFragment,
   ServicePatternScheduledStopPoint,
 } from '../../../generated/graphql';
 import { mapPriorityToUiName } from '../../../i18n/uiNameMappings';
@@ -42,7 +42,7 @@ interface CommonConflictItem {
 }
 
 export const mapRouteToCommonConflictItem = (
-  route: RouteRoute,
+  route: RouteUniqueFieldsFragment,
 ): CommonConflictItem => ({
   validityStart: route.validity_start || undefined,
   validityEnd: route.validity_end || undefined,

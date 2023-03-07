@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
   ReusableComponentsVehicleModeEnum,
-  RouteRoute,
+  RouteWithJourneyPatternStopsFragment,
   ServicePatternScheduledStopPoint,
-  useGetRoutesWithInfrastructureLinksQuery,
+  useGetRouteDetailsByIdsQuery,
 } from '../../generated/graphql';
-import { getRouteStopLabels, mapRouteResultToRoutes } from '../../graphql';
+import { getRouteStopLabels } from '../../graphql';
 import {
   selectEditedRouteData,
   selectEditedRouteIncludedStops,
@@ -25,8 +25,10 @@ export type StopWithVehicleMode = RequiredKeys<
   'vehicle_mode_on_scheduled_stop_point'
 >;
 
-const extractHighestPriorityStopsFromRoute = (
-  route: RouteRoute,
+const extractHighestPriorityStopsFromRoute = <
+  TRoute extends RouteWithJourneyPatternStopsFragment,
+>(
+  route: TRoute,
   observationDate: DateTime,
 ) => {
   const routeStopPoints =
@@ -55,11 +57,15 @@ export const useMapStops = () => {
     selectEditedRouteData,
   );
 
-  const displayedRoutesResult = useGetRoutesWithInfrastructureLinksQuery(
+  const displayedRoutesResult = useGetRouteDetailsByIdsQuery(
     mapToVariables({ route_ids: displayedRouteIds }),
   );
 
-  const displayedRoutes = mapRouteResultToRoutes(displayedRoutesResult);
+  const displayedRoutes = useMemo(
+    () => displayedRoutesResult.data?.route_route || [],
+    [displayedRoutesResult],
+  );
+
   const selectedRoute = displayedRoutes.find(
     (route) => route.route_id === selectedRouteId,
   );

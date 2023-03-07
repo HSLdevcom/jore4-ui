@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { uniqBy } from 'remeda';
-import { RouteLine } from '../../../generated/graphql';
+import { LineWithRoutesFragment } from '../../../generated/graphql';
 import { useRouteLabelsQueryParam } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { IconButton, SimpleSmallButton } from '../../../uiComponents';
@@ -16,7 +16,7 @@ const testIds = {
 
 interface Props {
   className?: string;
-  line: RouteLine;
+  line: LineWithRoutesFragment;
   onCreateRoute?: () => void;
 }
 

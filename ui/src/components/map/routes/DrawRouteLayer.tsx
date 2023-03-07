@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 import { Feature } from '@nebula.gl/edit-modes';
 import composeRefs from '@seznam/compose-react-refs';
 import debounce from 'lodash/debounce';
@@ -19,16 +18,13 @@ import {
   Editor,
   SelectAction,
 } from 'react-map-gl-draw';
-import { useGetRouteWithInfrastructureLinksQuery } from '../../../generated/graphql';
+import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
+import { mapRouteToInfraLinksAlongRoute } from '../../../graphql';
 import {
-  mapRouteResultToRoute,
-  mapRouteToInfraLinksAlongRoute,
-} from '../../../graphql';
-import {
+  LineStringFeature,
   extractJourneyPatternCandidateStops,
   getOldRouteGeometryVariables,
   getStopLabelsIncludedInRoute,
-  LineStringFeature,
   mapInfraLinksToFeature,
   useAppDispatch,
   useAppSelector,
@@ -47,20 +43,12 @@ import {
 } from '../../../redux';
 import { parseDate } from '../../../time';
 import {
-  log,
   MapMatchingNoSegmentError,
+  log,
   showDangerToast,
   showToast,
 } from '../../../utils';
 import { featureStyle, handleStyle } from './editorStyles';
-
-const GQL_GET_ROUTE_WITH_INFRASTRUCTURE_LINKS = gql`
-  query GetRouteWithInfrastructureLinks($route_id: uuid!) {
-    route_route_by_pk(route_id: $route_id) {
-      ...route_with_infrastructure_links
-    }
-  }
-`;
 
 interface Props {
   mode?: Mode;
@@ -120,13 +108,13 @@ const DrawRouteLayerComponent = (
   // Fetch existing route's stops and geometry in case editing existing route
   // or creating a new route based on a template route
   const baseRouteId = editedRouteData.id || templateRouteId;
-  const baseRouteResult = useGetRouteWithInfrastructureLinksQuery({
+  const baseRouteResult = useGetRouteDetailsByIdQuery({
     skip: !baseRouteId,
     // If baseRouteId is undefined, this query is skipped
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    variables: { route_id: baseRouteId! },
+    variables: { routeId: baseRouteId! },
   });
-  const baseRoute = mapRouteResultToRoute(baseRouteResult);
+  const baseRoute = baseRouteResult.data?.route_route_by_pk || undefined;
 
   const onUpdateRouteGeometry = useCallback(
     async (snappingLineFeature: LineStringFeature) => {

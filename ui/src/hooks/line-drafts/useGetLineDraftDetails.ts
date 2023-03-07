@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { useParams } from 'react-router-dom';
 import { useObservationDateQueryParam } from '..';
 import {
-  RouteRoute,
+  RouteValidityFragment,
   useGetRoutesWithStopsQuery,
 } from '../../generated/graphql';
 import { mapRouteResultToRoutes } from '../../graphql';
@@ -15,7 +15,7 @@ import {
 } from '../../utils';
 
 const isRouteActiveOnObservationDate = (
-  route: RouteRoute,
+  route: RouteValidityFragment,
   observationDate: DateTime,
 ) => isDateInRange(observationDate, route.validity_start, route.validity_end);
 

@@ -27,9 +27,9 @@ const isRouteQueryResult = (
 export const mapRouteResultToRoute = (
   result: GqlQueryResult<RoutePkQueryResult> | GqlQueryResult<RouteQueryResult>,
 ) =>
-  (isRouteQueryResult(result)
+  isRouteQueryResult(result)
     ? result.data?.route_route?.[0]
-    : result.data?.route_route_by_pk) as RouteRoute | undefined;
+    : result.data?.route_route_by_pk;
 
 export const mapRouteResultToRoutes = (
   result: GqlQueryResult<RouteQueryResult>,

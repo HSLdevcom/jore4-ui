@@ -1,15 +1,18 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { MdHistory } from 'react-icons/md';
-import { RouteDirectionEnum, RouteRoute } from '../../../generated/graphql';
+import {
+  RouteAllFieldsFragment,
+  RouteDirectionEnum,
+} from '../../../generated/graphql';
 import { useAlertsAndHighLights, useShowRoutesOnModal } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import {
-  mapToShortDate,
-  mapToShortDateTime,
   MAX_DATE,
   MIN_DATE,
+  mapToShortDate,
+  mapToShortDateTime,
 } from '../../../time';
 import {
   AccordionButton,
@@ -33,7 +36,7 @@ const testIds = {
 
 interface Props {
   className?: string;
-  route: RouteRoute;
+  route: RouteAllFieldsFragment;
   observationDate: DateTime;
   isOpen: boolean;
   onToggle: () => void;

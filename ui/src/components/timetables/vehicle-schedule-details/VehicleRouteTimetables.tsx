@@ -1,8 +1,8 @@
-import { RouteRoute } from '../../../generated/graphql';
+import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql';
 import { VehicleRouteTimetableSection } from './VehicleRouteTimetableSection';
 
 interface Props {
-  routes: RouteRoute[];
+  routes: RouteWithJourneyPatternStopsFragment[];
 }
 
 export const VehicleRouteTimetables = ({ routes }: Props): JSX.Element => {

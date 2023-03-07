@@ -1,7 +1,7 @@
 import countBy from 'lodash/countBy';
 import React from 'react';
 import { TFunction, useTranslation } from 'react-i18next';
-import { RouteRoute } from '../../../generated/graphql';
+import { RouteUniqueFieldsFragment } from '../../../generated/graphql';
 import { EditChanges } from '../../../hooks';
 import { ConfirmationDialog } from '../../../uiComponents';
 
@@ -21,7 +21,7 @@ interface Props {
  * Example output: "65x, 65y (5 versions), 65z (3 versions)"
  */
 export const buildRouteLabelListString = (
-  routes: RouteRoute[],
+  routes: RouteUniqueFieldsFragment[],
   t: TFunction,
 ) => {
   const labelsCounted = countBy(routes, 'label');
