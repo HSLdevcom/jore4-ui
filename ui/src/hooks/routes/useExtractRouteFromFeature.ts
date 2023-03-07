@@ -6,21 +6,25 @@ import { useCallback } from 'react';
 import { pipe } from 'remeda';
 import { getBusRoute } from '../../api/routing';
 import {
+  InfraLinkMatchingFieldsFragment,
+  InfrastructureLinkAllFieldsFragment,
+  InfrastructureLinkWithStopsFragment,
   InfrastructureNetworkDirectionEnum,
-  RouteRoute,
   RouteStopFieldsFragment,
   RouteValidityFragment,
+  RouteWithInfrastructureLinksWithStopsAndJpsFragment,
   ScheduledStopPointDefaultFieldsFragment,
   StopWithJourneyPatternFieldsFragment,
   useGetLinksWithStopsByExternalLinkIdsAsyncQuery,
   useGetStopsAlongInfrastructureLinksAsyncQuery,
 } from '../../generated/graphql';
 import {
+  RouteInfraLink,
+  RouteInfraLinkTemplateType,
   getRouteStopLabels,
   mapRouteToInfraLinksAlongRoute,
   mapStopResultToStops,
   orderInfraLinksByExternalLinkId,
-  RouteInfraLink,
 } from '../../graphql';
 import { areValidityPeriodsOverlapping } from '../../time';
 import { Priority } from '../../types/enums';
@@ -95,7 +99,7 @@ const isStopValidDuringRouteValidity = (
  */
 const isStopAlongInfraLinks = (
   stop: ScheduledStopPointDefaultFieldsFragment,
-  routeInfraLinks: RouteInfraLink[],
+  routeInfraLinks: RouteInfraLinkTemplateType<InfraLinkMatchingFieldsFragment>[],
 ) => {
   // first checking if the stop is beside of any of the route's infra links
   const infraLink = routeInfraLinks.find(
@@ -120,7 +124,7 @@ const isStopAlongInfraLinks = (
 const validateStopInstancesAlongGeometry = (
   stop: RouteStopFieldsFragment,
   routeValidity: RouteValidityFragment,
-  routeInfraLinks: RouteInfraLink[],
+  routeInfraLinks: RouteInfraLinkTemplateType<InfrastructureLinkAllFieldsFragment>[],
 ) => {
   // We always allow draft stops along routes, no integrity checks are done
   if (stop.priority === Priority.Draft) {
@@ -172,7 +176,7 @@ const validateStopInstancesAlongGeometry = (
  * @param routeMetadata: metadata about the edited route (e.g. priority, validity period)
  */
 export const extractJourneyPatternCandidateStops = (
-  infraLinksWithStops: RouteInfraLink[],
+  infraLinksWithStops: RouteInfraLinkTemplateType<InfrastructureLinkWithStopsFragment>[],
   routeMetadata: RouteValidityFragment,
 ) => {
   // getting the (ordered) list of all the stops that are along the infra links,
@@ -357,7 +361,7 @@ export const mapInfraLinksToFeature = (
 export const getOldRouteGeometryVariables = (
   previouslyEditedStopLabels: string[],
   stateInfraLinks: RouteInfraLink[] | undefined,
-  baseRoute?: RouteRoute,
+  baseRoute?: RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 ) => {
   const previouslyEditedRouteInfrastructureLinks = stateInfraLinks || [];
 

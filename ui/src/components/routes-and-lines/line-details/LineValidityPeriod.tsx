@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteLine } from '../../../generated/graphql';
+import { LineDefaultFieldsFragment } from '../../../generated/graphql';
 import { mapPriorityToUiName } from '../../../i18n/uiNameMappings';
 import { Row } from '../../../layoutComponents';
 import { DateLike, mapToShortDate } from '../../../time';
@@ -12,7 +12,7 @@ const testIds = {
 
 interface Props {
   className?: string;
-  line: RouteLine;
+  line: LineDefaultFieldsFragment;
 }
 
 export const LineValidityPeriod: React.FC<Props> = ({

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import {
   RemoveStopMutationVariables,
-  RouteRoute,
+  RouteUniqueFieldsFragment,
   ServicePatternScheduledStopPoint,
   useGetStopWithRouteGraphDataByIdAsyncQuery,
   useRemoveStopMutation,
@@ -22,7 +22,7 @@ interface DeleteParams {
 
 export interface DeleteChanges extends DeleteParams {
   deletedStop: ServicePatternScheduledStopPoint;
-  deleteStopFromRoutes: RouteRoute[];
+  deleteStopFromRoutes: RouteUniqueFieldsFragment[];
 }
 
 export const useDeleteStop = () => {

@@ -235,7 +235,8 @@ export const mapGetRoutesBrokenByStopChangeResult = (
   result: GqlQueryResult<GetRoutesBrokenByStopChangeQuery>,
 ) =>
   result.data
-    ?.journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point;
+    ?.journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point ||
+  [];
 
 export const isStop = (
   input: unknown,

@@ -6,7 +6,8 @@ import {
   EditStopMutationVariables,
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
-  RouteRoute,
+  RouteAllFieldsFragment,
+  RouteUniqueFieldsFragment,
   ServicePatternScheduledStopPoint,
   useEditStopMutation,
   useGetRoutesBrokenByStopChangeAsyncQuery,
@@ -42,7 +43,7 @@ export interface EditChanges {
   stopLabel: string;
   patch: ScheduledStopPointSetInput;
   editedStop: ServicePatternScheduledStopPoint;
-  deleteStopFromRoutes: RouteRoute[];
+  deleteStopFromRoutes: RouteUniqueFieldsFragment[];
   deleteStopFromJourneyPatternIds?: UUID[];
   conflicts?: ServicePatternScheduledStopPoint[];
 }
@@ -103,7 +104,7 @@ export const useEditStop = () => {
       : [];
     const brokenRoutes = brokenRouteList
       ? brokenRouteList?.map(
-          (route) => route.journey_pattern_route as RouteRoute,
+          (route) => route.journey_pattern_route as RouteAllFieldsFragment,
         )
       : [];
 

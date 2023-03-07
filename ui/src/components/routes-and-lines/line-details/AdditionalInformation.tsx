@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteLine } from '../../../generated/graphql';
+import { LineAllFieldsFragment } from '../../../generated/graphql';
 import {
   mapLineTypeToUiName,
   mapTransportTargetToUiName,
@@ -23,7 +23,7 @@ const testIds = {
 
 interface Props {
   className?: string;
-  line: RouteLine;
+  line: LineAllFieldsFragment;
 }
 
 export const AdditionalInformation: React.FC<Props> = ({

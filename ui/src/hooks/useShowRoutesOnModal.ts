@@ -4,7 +4,7 @@ import {
   LineTableRowFragment,
   Maybe,
   RouteInformationForMapFragment,
-  RouteTableRowFragment,
+  RouteValidityFragment,
 } from '../generated/graphql';
 import { resetMapState, setSelectedRouteIdAction } from '../redux';
 import { isDateInRange } from '../time';
@@ -13,9 +13,9 @@ import { getRouteShapeFirstCoordinates } from '../utils/routeShape';
 import { useAppDispatch } from './redux';
 import {
   DisplayedRouteParams,
+  ViewPortParams,
   useMapQueryParams,
   useObservationDateQueryParam,
-  ViewPortParams,
 } from './urlQuery';
 
 const GQL_ROUTE_INFORMATION_FOR_MAP = gql`
@@ -152,7 +152,9 @@ export const useShowRoutesOnModal = () => {
    * Shows the route on map by id if it is a draft route. Otherwise shows the route
    * by label (both directions).
    */
-  const showRouteOnMap = (route: RouteTableRowFragment) => {
+  const showRouteOnMap = (
+    route: RouteInformationForMapFragment & RouteValidityFragment,
+  ) => {
     if (route.priority === Priority.Draft) {
       showRouteOnMapById(route);
     } else {
