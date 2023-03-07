@@ -2,13 +2,13 @@ import { Switch as HuiSwitch } from '@headlessui/react';
 import orderBy from 'lodash/orderBy';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteRoute } from '../../../generated/graphql';
+import { RouteWithInfrastructureLinksWithJpsAndStopsFragment } from '../../../generated/graphql';
 import { Switch, SwitchLabel } from '../../../uiComponents';
 import { RouteStopsSection } from './RouteStopsSection';
 
 interface Props {
   className?: string;
-  routes: RouteRoute[];
+  routes: RouteWithInfrastructureLinksWithJpsAndStopsFragment[];
   testId?: string;
 }
 

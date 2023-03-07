@@ -1,10 +1,12 @@
+import { gql } from '@apollo/client';
 import produce from 'immer';
 import groupBy from 'lodash/groupBy';
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-  DisplayedRouteFragment,
+  LineWithRoutesFragment,
+  RouteDefaultFieldsFragment,
   RouteDirectionEnum,
   RouteLine,
   useGetHighestPriorityLineDetailsWithRoutesAsyncQuery,
@@ -12,7 +14,6 @@ import {
   useGetLineValidityPeriodByIdAsyncQuery,
 } from '../../generated/graphql';
 import {
-  mapHighestPriorityLineDetailsWithRoutesResult,
   mapLineDetailsWithRoutesResult,
   mapLineValidityPeriod,
 } from '../../graphql';
@@ -24,14 +25,68 @@ import {
 import { getRouteLabelVariantText } from '../../utils/route';
 import { useObservationDateQueryParam } from '../urlQuery';
 
-const findHighestPriorityRoute = <TRoute extends DisplayedRouteFragment>(
+const GQL_ROUTE_WITH_INFRASTRUCTURE_LINKS_WITH_JS_AND_STOPS_FRAGMENT = gql`
+  fragment route_with_infrastructure_links_with_jps_and_stops on route_route {
+    ...route_all_fields
+    infrastructure_links_along_route {
+      route_id
+      infrastructure_link_id
+      infrastructure_link_sequence
+      is_traversal_forwards
+      infrastructure_link {
+        infrastructure_link_id
+        scheduled_stop_points_located_on_infrastructure_link(
+          where: $routeStopFilters
+        ) {
+          ...scheduled_stop_point_all_fields
+          other_label_instances {
+            ...scheduled_stop_point_default_fields
+          }
+          scheduled_stop_point_in_journey_patterns {
+            ...scheduled_stop_point_in_journey_pattern_all_fields
+            journey_pattern {
+              journey_pattern_id
+              on_route_id
+            }
+          }
+        }
+      }
+    }
+    route_journey_patterns {
+      journey_pattern_id
+    }
+  }
+`;
+
+const GQL_LINE_WITH_ROUTES_FRAGMENT = gql`
+  fragment line_with_routes on route_line {
+    ...line_all_fields
+    line_routes(where: $lineRouteFilters) {
+      ...route_with_infrastructure_links_with_stops
+    }
+  }
+`;
+
+const GQL_GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
+  query GetHighestPriorityLineDetailsWithRoutes(
+    $lineFilters: route_line_bool_exp
+    $lineRouteFilters: route_route_bool_exp
+    $routeStopFilters: service_pattern_scheduled_stop_point_bool_exp
+  ) {
+    route_line(where: $lineFilters, order_by: { priority: desc }, limit: 1) {
+      ...line_with_routes
+    }
+  }
+`;
+
+const findHighestPriorityRoute = <TRoute extends RouteDefaultFieldsFragment>(
   routes: TRoute[],
 ) =>
   routes.reduce((prev, curr) => (prev.priority > curr.priority ? prev : curr));
 
 /** Returns highest priority routes filtered by given direction */
 const filterRoutesByHighestPriorityAndDirection = <
-  TRoute extends DisplayedRouteFragment,
+  TRoute extends RouteDefaultFieldsFragment,
 >(
   direction: RouteDirectionEnum,
   routes: TRoute[],
@@ -52,7 +107,7 @@ const filterRoutesByHighestPriorityAndDirection = <
 };
 
 export const filterRoutesByHighestPriority = <
-  TRoute extends DisplayedRouteFragment,
+  TRoute extends RouteDefaultFieldsFragment,
 >(
   lineRoutes: TRoute[],
 ): TRoute[] => {
@@ -69,7 +124,9 @@ export const filterRoutesByHighestPriority = <
   return [...filteredOutboundRoutes, ...filteredInboundRoutes];
 };
 
-const filterLineDetailsByDate = (line: RouteLine) => {
+const filterLineDetailsByDate = <TLine extends LineWithRoutesFragment>(
+  line: TLine,
+) => {
   const filteredRoutes = filterRoutesByHighestPriority(line?.line_routes);
 
   const filteredLine = produce(line, (draft) => {
@@ -131,7 +188,7 @@ export const useGetLineDetails = () => {
   const [getHighestPriorityLineDetails] =
     useGetHighestPriorityLineDetailsWithRoutesAsyncQuery();
 
-  const [line, setLine] = useState<RouteLine>();
+  const [line, setLine] = useState<LineWithRoutesFragment>();
 
   const lineDetailsResult = useGetLineDetailsWithRoutesByIdQuery({
     variables: { line_id: id },
@@ -169,8 +226,9 @@ export const useGetLineDetails = () => {
         buildLineDetailsGqlFilters(lineDetails, observationDate),
       );
 
-      const lineByDate =
-        mapHighestPriorityLineDetailsWithRoutesResult(lineByDateResult);
+      const lineByDate = lineByDateResult.data?.route_line.length
+        ? lineByDateResult.data?.route_line[0]
+        : undefined;
 
       const filteredLine = lineByDate
         ? filterLineDetailsByDate(lineByDate)

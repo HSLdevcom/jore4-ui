@@ -4,6 +4,7 @@ import {
   JourneyPatternStopFragment,
   RouteRoute,
   RouteStopFieldsFragment,
+  RouteWithInfrastructureLinksWithJpsAndStopsFragment,
   UpdateRouteJourneyPatternMutationVariables,
   useUpdateRouteJourneyPatternMutation,
 } from '../../generated/graphql';
@@ -61,7 +62,11 @@ interface UpdateJourneyPatternChanges {
   journeyPatternStops: JourneyPatternStopFragment[];
 }
 
-export const getEligibleStopsAlongRoute = (route: RouteRoute) =>
+export const getEligibleStopsAlongRoute = <
+  TRoute extends RouteWithInfrastructureLinksWithJpsAndStopsFragment,
+>(
+  route: TRoute,
+): TRoute =>
   pipe(
     route,
     (routeGeometry) => routeGeometry.infrastructure_links_along_route,

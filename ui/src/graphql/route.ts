@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FetchResult, gql } from '@apollo/client';
 import {
-  GetHighestPriorityLineDetailsWithRoutesQuery,
   GetLineDetailsByIdQuery,
   GetLineDetailsWithRoutesByIdQuery,
   GetLineValidityPeriodByIdQuery,
@@ -22,6 +21,7 @@ const LINE_DEFAULT_FIELDS = gql`
     short_name_i18n
     validity_start
     validity_end
+    priority
   }
 `;
 
@@ -81,6 +81,7 @@ const ROUTE_DEFAULT_FIELDS = gql`
     label
     variant
     priority
+    direction
   }
 `;
 
@@ -182,56 +183,6 @@ const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
 export const mapLineDetailsWithRoutesResult = (
   result: GqlQueryResult<GetLineDetailsWithRoutesByIdQuery>,
 ) => result.data?.route_line_by_pk as RouteLine | undefined;
-
-const GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
-  query GetHighestPriorityLineDetailsWithRoutes(
-    $lineFilters: route_line_bool_exp
-    $lineRouteFilters: route_route_bool_exp
-    $routeStopFilters: service_pattern_scheduled_stop_point_bool_exp
-  ) {
-    route_line(where: $lineFilters, order_by: { priority: desc }, limit: 1) {
-      ...line_all_fields
-      line_routes(where: $lineRouteFilters) {
-        ...route_all_fields
-        infrastructure_links_along_route {
-          route_id
-          infrastructure_link_id
-          infrastructure_link_sequence
-          is_traversal_forwards
-          infrastructure_link {
-            infrastructure_link_id
-            scheduled_stop_points_located_on_infrastructure_link(
-              where: $routeStopFilters
-            ) {
-              ...scheduled_stop_point_all_fields
-              other_label_instances {
-                ...scheduled_stop_point_default_fields
-              }
-              scheduled_stop_point_in_journey_patterns {
-                ...scheduled_stop_point_in_journey_pattern_all_fields
-                journey_pattern {
-                  journey_pattern_id
-                  on_route_id
-                }
-              }
-            }
-          }
-        }
-        route_journey_patterns {
-          journey_pattern_id
-        }
-      }
-    }
-  }
-`;
-
-// The used query has limit: 1 for the result so it can't have more than 1 route_line in result array.
-export const mapHighestPriorityLineDetailsWithRoutesResult = (
-  result: GqlQueryResult<GetHighestPriorityLineDetailsWithRoutesQuery>,
-) =>
-  result.data?.route_line.length
-    ? (result.data?.route_line[0] as RouteLine)
-    : undefined;
 
 const GET_ROUTES_WITH_STOPS = gql`
   query GetRoutesWithStops($routeFilters: route_route_bool_exp) {
