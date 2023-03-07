@@ -3,6 +3,7 @@ import {
   useGetLineDetails,
   useTimetableVersionsReturnToQueryParam,
 } from '../../../hooks';
+import { Container } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormColumn, FormRow } from '../../forms/common';
@@ -24,7 +25,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
           {t('lines.line', { label: line?.label })}
         </h1>
       </PageHeader>
-      <div className="mx-12 my-8">
+      <Container className="py-10">
         <FormRow mdColumns={2} className="mb-8 ">
           <ObservationDateControl className="max-w-max" />
           <FormColumn className="items-end justify-end">
@@ -39,7 +40,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
           </FormColumn>
         </FormRow>
         <VehicleRouteTimetables routes={line?.line_routes || []} />
-      </div>
+      </Container>
     </div>
   );
 };
