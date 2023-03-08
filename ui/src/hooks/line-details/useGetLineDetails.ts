@@ -74,6 +74,7 @@ const GQL_ROUTE_UNIQUE_FIELDS_FRAGMENT = gql`
     label
     direction
     variant
+    route_id
   }
 `;
 

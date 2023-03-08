@@ -16080,6 +16080,7 @@ export type RouteUniqueFieldsFragment = {
   label: string;
   direction: RouteDirectionEnum;
   variant?: number | null;
+  route_id: UUID;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   priority: number;
@@ -17885,6 +17886,7 @@ export const RouteUniqueFieldsFragmentDoc = gql`
     label
     direction
     variant
+    route_id
   }
   ${RouteValidityFragmentDoc}
 `;
