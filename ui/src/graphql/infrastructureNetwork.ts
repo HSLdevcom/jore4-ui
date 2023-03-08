@@ -2,7 +2,7 @@
 import { gql } from '@apollo/client';
 import {
   GetLinksWithStopsByExternalLinkIdsQuery,
-  InfraLinkAlongRouteWithStopsFragment,
+  InfraLinkAlongRouteWithStopsDefaultFieldsFragment,
   InfraLinkMatchingFieldsFragment,
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
@@ -10,7 +10,6 @@ import {
   QueryClosestLinkQuery,
   QueryPointDirectionOnLinkQuery,
   ReusableComponentsVehicleSubmodeEnum,
-  RouteInfraLinkFieldsFragment,
   RouteRoute,
 } from '../generated/graphql';
 import { GqlQueryResult } from './types';
@@ -25,21 +24,35 @@ const ROUTE_INFRA_LINK_FIELDS = gql`
   }
 `;
 
+const GQL_INFRA_LINK_ALONG_ROUTE_WITH_STOPS_DEFAULT_FIELDS_FRAGMENT = gql`
+  fragment infra_link_along_route_with_stops_default_fields on route_infrastructure_link_along_route {
+    infrastructure_link_id
+    infrastructure_link {
+      infrastructure_link_id
+    }
+    is_traversal_forwards
+  }
+`;
+
 // an extended version of the infra link model that also contains information about the route
-export type RouteInfraLink = RouteInfraLinkFieldsFragment & {
+export type RouteInfraLink<TLink> = TLink & {
   is_traversal_forwards: boolean;
 };
 
-export const mapInfrastructureLinksAlongRouteToRouteInfraLinks = (
-  infraLinks: InfraLinkAlongRouteWithStopsFragment[],
-): RouteInfraLink[] =>
+export const mapInfrastructureLinksAlongRouteToRouteInfraLinks = <
+  TLink extends InfraLinkAlongRouteWithStopsDefaultFieldsFragment,
+>(
+  infraLinks: TLink[],
+): RouteInfraLink<TLink['infrastructure_link']>[] =>
   infraLinks?.map((link) => ({
     ...link.infrastructure_link,
     is_traversal_forwards: link.is_traversal_forwards,
   })) || [];
 
-export const mapInfraLinksAlongRouteToGraphQL = (
-  infraLinks: RouteInfraLink[],
+export const mapInfraLinksAlongRouteToGraphQL = <
+  TLink extends InfraLinkAlongRouteWithStopsDefaultFieldsFragment,
+>(
+  infraLinks: TLink[],
 ) =>
   infraLinks.map((link, index) => ({
     infrastructure_link_id: link.infrastructure_link_id,
