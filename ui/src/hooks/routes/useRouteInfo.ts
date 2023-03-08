@@ -9,7 +9,6 @@ import {
 import {
   getRouteStopLabels,
   mapInfrastructureLinksAlongRouteToRouteInfraLinks,
-  RouteInfraLink,
 } from '../../graphql';
 import {
   EditedRouteData,
@@ -34,13 +33,20 @@ const GQL_ROUTE_METADATA = gql`
 
 const GQL_ROUTES_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS = gql`
   fragment route_with_infrastructure_links_with_stops on route_route {
-    ...route_with_journey_pattern_stops
+    ...route_all_fields
     route_line {
       ...line_all_fields
     }
     infrastructure_links_along_route {
       ...infra_link_along_route_with_stops
     }
+  }
+`;
+
+const GQL_ROUTES_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS_AND_JPS = gql`
+  fragment route_with_infrastructure_links_with_stops_and_jps on route_route {
+    ...route_with_infrastructure_links_with_stops
+    ...route_with_journey_pattern_stops
   }
 `;
 
@@ -51,6 +57,7 @@ const GQL_INFRA_LINK_ALONG_ROUTE_WITH_STOPS = gql`
     infrastructure_link_id
     infrastructure_link {
       ...infra_link_matching_fields
+      external_link_source
       scheduled_stop_points_located_on_infrastructure_link {
         ...route_stop_fields
       }
@@ -62,7 +69,7 @@ const GQL_INFRA_LINK_ALONG_ROUTE_WITH_STOPS = gql`
 const GQL_GET_ROUTE_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS = gql`
   query GetRouteWithInfrastructureLinksWithStops($route_id: uuid!) {
     route_route_by_pk(route_id: $route_id) {
-      ...route_with_infrastructure_links_with_stops
+      ...route_with_infrastructure_links_with_stops_and_jps
     }
   }
 `;
@@ -70,7 +77,7 @@ const GQL_GET_ROUTE_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS = gql`
 const getRouteInfoFromRoute = (
   route: RouteWithInfrastructureLinksWithStopsFragment,
 ) => {
-  const infraLinksWithStops: RouteInfraLink[] = pipe(
+  const infraLinksWithStops = pipe(
     route.infrastructure_links_along_route,
     mapInfrastructureLinksAlongRouteToRouteInfraLinks,
   );

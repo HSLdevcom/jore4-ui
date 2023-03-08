@@ -20,15 +20,12 @@ import {
   SelectAction,
 } from 'react-map-gl-draw';
 import { useGetRouteWithInfrastructureLinksQuery } from '../../../generated/graphql';
+import { mapRouteToInfraLinksAlongRoute } from '../../../graphql';
 import {
-  mapRouteResultToRoute,
-  mapRouteToInfraLinksAlongRoute,
-} from '../../../graphql';
-import {
+  LineStringFeature,
   extractJourneyPatternCandidateStops,
   getOldRouteGeometryVariables,
   getStopLabelsIncludedInRoute,
-  LineStringFeature,
   mapInfraLinksToFeature,
   useAppDispatch,
   useAppSelector,
@@ -47,8 +44,8 @@ import {
 } from '../../../redux';
 import { parseDate } from '../../../time';
 import {
-  log,
   MapMatchingNoSegmentError,
+  log,
   showDangerToast,
   showToast,
 } from '../../../utils';
@@ -126,7 +123,7 @@ const DrawRouteLayerComponent = (
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     variables: { route_id: baseRouteId! },
   });
-  const baseRoute = mapRouteResultToRoute(baseRouteResult);
+  const baseRoute = baseRouteResult.data?.route_route_by_pk || undefined;
 
   const onUpdateRouteGeometry = useCallback(
     async (snappingLineFeature: LineStringFeature) => {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { identity, pipe } from 'remeda';
-import { RouteWithInfrastructureLinksWithJpsAndStopsFragment } from '../../../generated/graphql';
+import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../generated/graphql';
 import { stopBelongsToJourneyPattern } from '../../../graphql';
 import {
   getEligibleStopsAlongRoute,
@@ -19,7 +19,7 @@ import { RouteStopsRow } from './RouteStopsRow';
 
 interface Props {
   className?: string;
-  route: RouteWithInfrastructureLinksWithJpsAndStopsFragment;
+  route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
   showUnusedStops: boolean;
 }
 

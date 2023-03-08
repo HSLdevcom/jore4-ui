@@ -3,7 +3,8 @@ import { pipe } from 'remeda';
 import {
   JourneyPatternStopFragment,
   RouteStopFieldsFragment,
-  RouteWithInfrastructureLinksWithJpsAndStopsFragment,
+  RouteWithInfrastructureLinksWithStopsAndJpsFragment,
+  RouteWithInfrastructureLinksWithStopsFragment,
   UpdateRouteJourneyPatternMutationVariables,
   useUpdateRouteJourneyPatternMutation,
 } from '../../generated/graphql';
@@ -48,7 +49,7 @@ const GQL_UPDATE_ROUTE_JOURNEY_PATTERN = gql`
   }
 `;
 interface DeleteStopParams {
-  route: RouteWithInfrastructureLinksWithJpsAndStopsFragment;
+  route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
   stopPointLabels: string[];
 }
 
@@ -62,7 +63,7 @@ interface UpdateJourneyPatternChanges {
 }
 
 export const getEligibleStopsAlongRoute = <
-  TRoute extends RouteWithInfrastructureLinksWithJpsAndStopsFragment,
+  TRoute extends RouteWithInfrastructureLinksWithStopsFragment,
 >(
   route: TRoute,
 ) =>

@@ -25,6 +25,27 @@ import {
 import { getRouteLabelVariantText } from '../../utils/route';
 import { useObservationDateQueryParam } from '../urlQuery';
 
+const GQL_INFRASTRUCTURE_LINK_WITH_STOPS_FRAGMENT = gql`
+  fragment infrastructure_link_with_stops on infrastructure_network_infrastructure_link {
+    ...infrastructure_link_all_fields
+    scheduled_stop_points_located_on_infrastructure_link(
+      where: $routeStopFilters
+    ) {
+      ...scheduled_stop_point_all_fields
+      other_label_instances {
+        ...scheduled_stop_point_default_fields
+      }
+      scheduled_stop_point_in_journey_patterns {
+        ...scheduled_stop_point_in_journey_pattern_all_fields
+        journey_pattern {
+          journey_pattern_id
+          on_route_id
+        }
+      }
+    }
+  }
+`;
+/* 
 const GQL_ROUTE_WITH_INFRASTRUCTURE_LINKS_WITH_JS_AND_STOPS_FRAGMENT = gql`
   fragment route_with_infrastructure_links_with_jps_and_stops on route_route {
     ...route_all_fields
@@ -34,35 +55,20 @@ const GQL_ROUTE_WITH_INFRASTRUCTURE_LINKS_WITH_JS_AND_STOPS_FRAGMENT = gql`
       infrastructure_link_sequence
       is_traversal_forwards
       infrastructure_link {
-        infrastructure_link_id
-        scheduled_stop_points_located_on_infrastructure_link(
-          where: $routeStopFilters
-        ) {
-          ...scheduled_stop_point_all_fields
-          other_label_instances {
-            ...scheduled_stop_point_default_fields
-          }
-          scheduled_stop_point_in_journey_patterns {
-            ...scheduled_stop_point_in_journey_pattern_all_fields
-            journey_pattern {
-              journey_pattern_id
-              on_route_id
-            }
-          }
-        }
+        ...infrastructure_link_with_stops
       }
     }
     route_journey_patterns {
       journey_pattern_id
     }
   }
-`;
+`; */
 
 const GQL_LINE_WITH_ROUTES_FRAGMENT = gql`
   fragment line_with_routes on route_line {
     ...line_all_fields
     line_routes(where: $lineRouteFilters) {
-      ...route_with_infrastructure_links_with_stops
+      ...route_with_infrastructure_links_with_stops_and_jps
     }
   }
 `;
