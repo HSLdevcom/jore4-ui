@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import { pipe } from 'remeda';
 import {
   JourneyPatternStopFragment,
-  RouteRoute,
   RouteStopFieldsFragment,
   RouteWithInfrastructureLinksWithJpsAndStopsFragment,
   UpdateRouteJourneyPatternMutationVariables,
@@ -49,7 +48,7 @@ const GQL_UPDATE_ROUTE_JOURNEY_PATTERN = gql`
   }
 `;
 interface DeleteStopParams {
-  route: RouteRoute;
+  route: RouteWithInfrastructureLinksWithJpsAndStopsFragment;
   stopPointLabels: string[];
 }
 
@@ -66,7 +65,7 @@ export const getEligibleStopsAlongRoute = <
   TRoute extends RouteWithInfrastructureLinksWithJpsAndStopsFragment,
 >(
   route: TRoute,
-): TRoute =>
+) =>
   pipe(
     route,
     (routeGeometry) => routeGeometry.infrastructure_links_along_route,

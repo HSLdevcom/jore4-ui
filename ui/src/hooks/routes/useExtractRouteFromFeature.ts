@@ -7,6 +7,7 @@ import { pipe } from 'remeda';
 import { getBusRoute } from '../../api/routing';
 import {
   InfrastructureNetworkDirectionEnum,
+  RouteInfraLinkFieldsFragment,
   RouteRoute,
   RouteStopFieldsFragment,
   RouteValidityFragment,
@@ -16,11 +17,11 @@ import {
   useGetStopsAlongInfrastructureLinksAsyncQuery,
 } from '../../generated/graphql';
 import {
+  RouteInfraLink,
   getRouteStopLabels,
   mapRouteToInfraLinksAlongRoute,
   mapStopResultToStops,
   orderInfraLinksByExternalLinkId,
-  RouteInfraLink,
 } from '../../graphql';
 import { areValidityPeriodsOverlapping } from '../../time';
 import { Priority } from '../../types/enums';
@@ -120,7 +121,7 @@ const isStopAlongInfraLinks = (
 const validateStopInstancesAlongGeometry = (
   stop: RouteStopFieldsFragment,
   routeValidity: RouteValidityFragment,
-  routeInfraLinks: RouteInfraLink[],
+  routeInfraLinks: RouteInfraLink<>[],
 ) => {
   // We always allow draft stops along routes, no integrity checks are done
   if (stop.priority === Priority.Draft) {
@@ -172,7 +173,7 @@ const validateStopInstancesAlongGeometry = (
  * @param routeMetadata: metadata about the edited route (e.g. priority, validity period)
  */
 export const extractJourneyPatternCandidateStops = (
-  infraLinksWithStops: RouteInfraLink[],
+  infraLinksWithStops: RouteInfraLink<RouteInfraLinkFieldsFragment>[],
   routeMetadata: RouteValidityFragment,
 ) => {
   // getting the (ordered) list of all the stops that are along the infra links,
@@ -214,7 +215,9 @@ export const extractJourneyPatternCandidateStops = (
  * @param link Infrastructure link
  * @returns GeoJSON Feature
  */
-const mapInfraLinkToFeature = (link: RouteInfraLink) => {
+const mapInfraLinkToFeature = (
+  link: RouteInfraLink<RouteInfraLinkFieldsFragment>,
+) => {
   const { shape, is_traversal_forwards: isTraversalForwards } = link;
 
   // Build feature out of infrastructure link geometry

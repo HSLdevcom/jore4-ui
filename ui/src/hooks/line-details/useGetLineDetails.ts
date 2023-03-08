@@ -246,6 +246,8 @@ export const useGetLineDetails = () => {
     fetchLineDetails();
   }, [fetchLineDetails]);
 
+  console.log(JSON.stringify(line, null, 2));
+
   return {
     line,
   };
