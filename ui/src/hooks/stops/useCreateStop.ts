@@ -1,15 +1,15 @@
 import flow from 'lodash/flow';
 import {
   InsertStopMutationVariables,
-  ServicePatternScheduledStopPoint,
+  ScheduledStopPointDefaultFieldsFragment,
   ServicePatternScheduledStopPointInsertInput,
   useInsertStopMutation,
 } from '../../generated/graphql';
 import { StopWithLocation } from '../../graphql';
 import { OptionalKeys } from '../../types';
 import {
-  getRouteLabelVariantText,
   IncompatibleWithExistingRoutesError,
+  getRouteLabelVariantText,
   removeFromApolloCache,
 } from '../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
@@ -27,7 +27,7 @@ interface CreateParams {
 }
 export interface CreateChanges {
   stopToCreate: ServicePatternScheduledStopPointInsertInput;
-  conflicts?: ServicePatternScheduledStopPoint[];
+  conflicts?: ScheduledStopPointDefaultFieldsFragment[];
 }
 
 export const useCreateStop = () => {

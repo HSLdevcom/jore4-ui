@@ -3,13 +3,13 @@ import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm
 import {
   InsertRouteOneMutationVariables,
   JourneyPatternStopFragment,
-  RouteRoute,
+  RouteDefaultFieldsFragment,
   RouteStopFieldsFragment,
   useInsertRouteOneMutation,
 } from '../../generated/graphql';
 import {
-  mapInfraLinksAlongRouteToGraphQL,
   RouteInfraLink,
+  mapInfraLinksAlongRouteToGraphQL,
 } from '../../graphql';
 import { MIN_DATE } from '../../time';
 import {
@@ -32,7 +32,7 @@ interface CreateParams {
 
 interface CreateChanges {
   input: InsertRouteOneMutationVariables;
-  conflicts?: RouteRoute[];
+  conflicts?: RouteDefaultFieldsFragment[];
 }
 
 export const useCreateRoute = () => {

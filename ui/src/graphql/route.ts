@@ -27,16 +27,10 @@ const LINE_DEFAULT_FIELDS = gql`
 
 const LINE_ALL_FIELDS = gql`
   fragment line_all_fields on route_line {
-    line_id
-    name_i18n
-    short_name_i18n
+    ...line_default_fields
     primary_vehicle_mode
     type_of_line
     transport_target
-    validity_start
-    validity_end
-    priority
-    label
   }
 `;
 
@@ -48,29 +42,26 @@ const ROUTE_VALIDITY = gql`
   }
 `;
 
+const GQL_ROUTE_UNIQUE_FIELDS_FRAGMENT = gql`
+  fragment route_unique_fields on route_route {
+    ...route_validity
+    label
+    direction
+    variant
+    route_id
+  }
+`;
+
 const ROUTE_ALL_FIELDS = gql`
   fragment route_all_fields on route_route {
-    route_id
-    name_i18n
-    description_i18n
-    origin_name_i18n
-    origin_short_name_i18n
-    destination_name_i18n
-    destination_short_name_i18n
+    ...route_default_fields
     route_shape
-    on_line_id
-    validity_start
-    validity_end
-    priority
-    label
-    variant
-    direction
   }
 `;
 
 const ROUTE_DEFAULT_FIELDS = gql`
   fragment route_default_fields on route_route {
-    route_id
+    ...route_unique_fields
     name_i18n
     description_i18n
     origin_name_i18n
@@ -78,10 +69,6 @@ const ROUTE_DEFAULT_FIELDS = gql`
     destination_name_i18n
     destination_short_name_i18n
     on_line_id
-    label
-    variant
-    priority
-    direction
   }
 `;
 
@@ -279,8 +266,6 @@ const GET_ROUTES_BY_VALIDITY = gql`
   query GetRoutesByValidity($filter: route_route_bool_exp) {
     route_route(where: $filter) {
       ...route_default_fields
-      validity_start
-      validity_end
     }
   }
 `;

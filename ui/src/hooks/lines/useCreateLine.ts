@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { FormState } from '../../components/forms/line/LineForm';
 import {
   InsertLineOneMutationVariables,
+  LineDefaultFieldsFragment,
   ReusableComponentsVehicleModeEnum,
-  RouteLine,
   RouteLineInsertInput,
   RouteTypeOfLineEnum,
   useInsertLineOneMutation,
@@ -20,7 +20,7 @@ interface CreateParams {
 }
 interface CreateChanges {
   input: RouteLineInsertInput;
-  conflicts?: RouteLine[];
+  conflicts?: LineDefaultFieldsFragment[];
 }
 
 export const mapFormToInput = (state: FormState) => {

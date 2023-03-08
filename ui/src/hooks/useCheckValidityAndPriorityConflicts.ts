@@ -1,11 +1,8 @@
 import { DateTime } from 'luxon';
 import {
   RouteDirectionEnum,
-  RouteLine,
   RouteLineBoolExp,
-  RouteRoute,
   RouteRouteBoolExp,
-  ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointBoolExp,
   useGetLinesByValidityAsyncQuery,
   useGetRoutesByValidityAsyncQuery,
@@ -184,9 +181,7 @@ export const useCheckValidityAndPriorityConflicts = () => {
       filter: { ...lineFilter, ...commonFilter },
     });
 
-    // We have to cast return type from GetLinesByValidityQuery['route_line'] -> RouteLine[]
-    // to be able to use simpler type later on. Both should be the same.
-    return data.route_line as RouteLine[];
+    return data.route_line;
   };
 
   const getConflictingStops = async (params: CommonParams, stopId?: UUID) => {
@@ -212,9 +207,7 @@ export const useCheckValidityAndPriorityConflicts = () => {
       filter: { ...stopsFilter, ...commonFilter },
     });
 
-    // We have to cast return type from GetStopsByValidityQuery['service_pattern_scheduled_stop_point'] -> ServicePatternScheduledStopPoint[]
-    // to be able to use simpler type later on. Both should be the same.
-    return data.service_pattern_scheduled_stop_point as ServicePatternScheduledStopPoint[];
+    return data.service_pattern_scheduled_stop_point;
   };
 
   const getConflictingRoutes = async (params: RouteParams, routeId?: UUID) => {
@@ -253,9 +246,7 @@ export const useCheckValidityAndPriorityConflicts = () => {
       },
     });
 
-    // We have to cast return type from GetRoutesByValidityQuery['route_route'] -> RouteRoute[]
-    // to be able to use simpler type later on. Both should be the same.
-    return data.route_route as RouteRoute[];
+    return data.route_route;
   };
 
   return {

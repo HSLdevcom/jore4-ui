@@ -2,6 +2,7 @@ import React, { Ref, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pipe } from 'remeda';
 import {
+  RouteDefaultFieldsFragment,
   RouteRoute,
   useGetRouteDetailsByIdAsyncQuery,
 } from '../../../generated/graphql';
@@ -73,7 +74,7 @@ const RouteEditorComponent = (
   const { deleteMapQueryParameters, setRouteId } = useMapQueryParams();
 
   const [isDeleting, setIsDeleting] = useState(false);
-  const [conflicts, setConflicts] = useState<RouteRoute[]>([]);
+  const [conflicts, setConflicts] = useState<RouteDefaultFieldsFragment[]>([]);
 
   const [getRouteDetailsById] = useGetRouteDetailsByIdAsyncQuery();
 

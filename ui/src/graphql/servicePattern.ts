@@ -37,16 +37,10 @@ const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
 
 const SCHEDULED_STOP_POINT_ALL_FIELDS = gql`
   fragment scheduled_stop_point_all_fields on service_pattern_scheduled_stop_point {
-    scheduled_stop_point_id
-    label
+    ...scheduled_stop_point_default_fields
     measured_location
-    located_on_infrastructure_link_id
-    direction
     relative_distance_from_infrastructure_link_start
     closest_point_on_infrastructure_link
-    validity_start
-    validity_end
-    priority
     vehicle_mode_on_scheduled_stop_point {
       vehicle_mode
     }
