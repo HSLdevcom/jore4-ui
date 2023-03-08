@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import {
-  GetRouteWithInfrastructureLinksDocument,
+  GetRouteDetailsByIdDocument,
   JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
   JourneyPatternStopFragment,
   RouteInfrastructureLinkAlongRouteInsertInput,
@@ -10,8 +10,8 @@ import {
   useUpdateRouteGeometryMutation,
 } from '../../generated/graphql';
 import {
-  mapInfraLinksAlongRouteToGraphQL,
   RouteInfraLink,
+  mapInfraLinksAlongRouteToGraphQL,
 } from '../../graphql';
 import {
   buildJourneyPatternStopSequence,
@@ -155,8 +155,8 @@ export const useEditRouteGeometry = () => {
       },
       refetchQueries: [
         {
-          query: GetRouteWithInfrastructureLinksDocument,
-          variables: { route_id: variables.route_id },
+          query: GetRouteDetailsByIdDocument,
+          variables: { routeId: variables.route_id },
         },
       ],
     });

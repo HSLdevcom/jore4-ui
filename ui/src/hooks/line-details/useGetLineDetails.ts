@@ -6,9 +6,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   LineWithRoutesFragment,
-  RouteDefaultFieldsFragment,
   RouteDirectionEnum,
   RouteLine,
+  RouteUniqueFieldsFragment,
+  RouteValidityFragment,
   useGetHighestPriorityLineDetailsWithRoutesAsyncQuery,
   useGetLineDetailsWithRoutesByIdQuery,
   useGetLineValidityPeriodByIdAsyncQuery,
@@ -85,14 +86,23 @@ const GQL_GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
   }
 `;
 
-const findHighestPriorityRoute = <TRoute extends RouteDefaultFieldsFragment>(
+const GQL_ROUTE_UNIQUE_FIELDS_FRAGMENT = gql`
+  fragment route_unique_fields on route_route {
+    ...route_validity
+    label
+    direction
+    variant
+  }
+`;
+
+const findHighestPriorityRoute = <TRoute extends RouteValidityFragment>(
   routes: TRoute[],
 ) =>
   routes.reduce((prev, curr) => (prev.priority > curr.priority ? prev : curr));
 
 /** Returns highest priority routes filtered by given direction */
 const filterRoutesByHighestPriorityAndDirection = <
-  TRoute extends RouteDefaultFieldsFragment,
+  TRoute extends RouteUniqueFieldsFragment,
 >(
   direction: RouteDirectionEnum,
   routes: TRoute[],
@@ -113,7 +123,7 @@ const filterRoutesByHighestPriorityAndDirection = <
 };
 
 export const filterRoutesByHighestPriority = <
-  TRoute extends RouteDefaultFieldsFragment,
+  TRoute extends RouteUniqueFieldsFragment,
 >(
   lineRoutes: TRoute[],
 ): TRoute[] => {

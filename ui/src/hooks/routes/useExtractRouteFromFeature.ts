@@ -12,7 +12,7 @@ import {
   InfrastructureNetworkDirectionEnum,
   RouteStopFieldsFragment,
   RouteValidityFragment,
-  RouteWithInfrastructureLinksFragment,
+  RouteWithInfrastructureLinksWithStopsAndJpsFragment,
   ScheduledStopPointDefaultFieldsFragment,
   StopWithJourneyPatternFieldsFragment,
   useGetLinksWithStopsByExternalLinkIdsAsyncQuery,
@@ -361,7 +361,7 @@ export const mapInfraLinksToFeature = (
 export const getOldRouteGeometryVariables = (
   previouslyEditedStopLabels: string[],
   stateInfraLinks: RouteInfraLink[] | undefined,
-  baseRoute?: RouteWithInfrastructureLinksFragment,
+  baseRoute?: RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 ) => {
   const previouslyEditedRouteInfrastructureLinks = stateInfraLinks || [];
 
