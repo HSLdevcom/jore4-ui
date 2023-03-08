@@ -3,7 +3,7 @@ import { pipe } from 'remeda';
 import {
   RouteMetadataFragment,
   RouteStopFieldsFragment,
-  RouteWithInfrastructureLinksWithStopsFragment,
+  RouteWithInfrastructureLinksWithStopsAndJpsFragment,
   useGetRouteWithInfrastructureLinksWithStopsQuery,
 } from '../../generated/graphql';
 import {
@@ -75,7 +75,7 @@ const GQL_GET_ROUTE_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS = gql`
 `;
 
 const getRouteInfoFromRoute = (
-  route: RouteWithInfrastructureLinksWithStopsFragment,
+  route: RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 ) => {
   const infraLinksWithStops = pipe(
     route.infrastructure_links_along_route,
