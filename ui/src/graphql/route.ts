@@ -96,7 +96,7 @@ const ROUTE_WITH_JOURNEY_PATTERN_STOPS = gql`
 
 const ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
   fragment route_with_infrastructure_links on route_route {
-    ...route_with_journey_pattern_stops
+    ...route_all_fields
     route_line {
       ...line_all_fields
     }
@@ -108,6 +108,8 @@ const ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
         infrastructure_link_id
         shape
         direction
+        external_link_id
+        external_link_source
       }
       is_traversal_forwards
     }
@@ -228,31 +230,7 @@ const GET_ROUTE_DETAILS_BY_ID = gql`
 const GET_ROUTE_DETAILS_BY_IDS = gql`
   query GetRouteDetailsByIds($route_ids: [uuid!]) {
     route_route(where: { route_id: { _in: $route_ids } }) {
-      ...route_all_fields
-      infrastructure_links_along_route {
-        route_id
-        infrastructure_link_id
-        infrastructure_link_sequence
-        is_traversal_forwards
-        infrastructure_link {
-          infrastructure_link_id
-          scheduled_stop_points_located_on_infrastructure_link {
-            ...scheduled_stop_point_all_fields
-            scheduled_stop_point_in_journey_patterns {
-              ...scheduled_stop_point_in_journey_pattern_all_fields
-              journey_pattern {
-                journey_pattern_id
-                on_route_id
-              }
-            }
-          }
-        }
-      }
-      route_line {
-        line_id
-        label
-        primary_vehicle_mode
-      }
+      ...route_with_infrastructure_links_with_stops_and_jps
     }
   }
 `;

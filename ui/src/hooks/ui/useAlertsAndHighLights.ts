@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import {
   LineTableRowFragment,
-  RouteTableRowFragment,
+  RouteValidityFragment,
   ScheduledStopPointDefaultFieldsFragment,
 } from '../../generated/graphql';
 import { parseDate } from '../../time';
@@ -17,7 +17,7 @@ enum AlertLevel {
 export const useAlertsAndHighLights = () => {
   const getAlertLevel = (
     input:
-      | RouteTableRowFragment
+      | RouteValidityFragment
       | LineTableRowFragment
       | ScheduledStopPointDefaultFieldsFragment,
   ): AlertLevel => {

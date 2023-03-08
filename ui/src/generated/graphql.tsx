@@ -13971,39 +13971,9 @@ export type GetRouteWithInfrastructureLinksQuery = {
         infrastructure_link_id: UUID;
         shape: GeoJSON.LineString;
         direction: InfrastructureNetworkDirectionEnum;
+        external_link_id: string;
+        external_link_source: InfrastructureNetworkExternalSourceEnum;
       };
-    }>;
-    route_journey_patterns: Array<{
-      __typename?: 'journey_pattern_journey_pattern';
-      journey_pattern_id: UUID;
-      on_route_id: UUID;
-      scheduled_stop_point_in_journey_patterns: Array<{
-        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-        journey_pattern_id: UUID;
-        scheduled_stop_point_label: string;
-        scheduled_stop_point_sequence: number;
-        is_used_as_timing_point: boolean;
-        is_regulated_timing_point: boolean;
-        is_loading_time_allowed: boolean;
-        is_via_point: boolean;
-        via_point_name_i18n?: LocalizedString | null;
-        via_point_short_name_i18n?: LocalizedString | null;
-        scheduled_stop_points: Array<{
-          __typename?: 'service_pattern_scheduled_stop_point';
-          priority: number;
-          direction: InfrastructureNetworkDirectionEnum;
-          scheduled_stop_point_id: UUID;
-          label: string;
-          validity_start?: luxon.DateTime | null;
-          validity_end?: luxon.DateTime | null;
-          located_on_infrastructure_link_id: UUID;
-        }>;
-        journey_pattern: {
-          __typename?: 'journey_pattern_journey_pattern';
-          journey_pattern_id: UUID;
-          on_route_id: UUID;
-        };
-      }>;
     }>;
   } | null;
 };
@@ -14190,6 +14160,7 @@ export type PassingTimeByStopFragment = {
 
 export type RouteInfraLinkFieldsFragment = {
   __typename?: 'infrastructure_network_infrastructure_link';
+  external_link_source: InfrastructureNetworkExternalSourceEnum;
   external_link_id: string;
   infrastructure_link_id: UUID;
   shape: GeoJSON.LineString;
@@ -14239,6 +14210,16 @@ export type RouteInfraLinkFieldsFragment = {
       vehicle_mode: ReusableComponentsVehicleModeEnum;
     }>;
   }>;
+};
+
+export type InfraLinkAlongRouteWithStopsDefaultFieldsFragment = {
+  __typename?: 'route_infrastructure_link_along_route';
+  infrastructure_link_id: UUID;
+  is_traversal_forwards: boolean;
+  infrastructure_link: {
+    __typename?: 'infrastructure_network_infrastructure_link';
+    infrastructure_link_id: UUID;
+  };
 };
 
 export type InfrastructureLinkAllFieldsFragment = {
@@ -14618,39 +14599,9 @@ export type RouteWithInfrastructureLinksFragment = {
       infrastructure_link_id: UUID;
       shape: GeoJSON.LineString;
       direction: InfrastructureNetworkDirectionEnum;
+      external_link_id: string;
+      external_link_source: InfrastructureNetworkExternalSourceEnum;
     };
-  }>;
-  route_journey_patterns: Array<{
-    __typename?: 'journey_pattern_journey_pattern';
-    journey_pattern_id: UUID;
-    on_route_id: UUID;
-    scheduled_stop_point_in_journey_patterns: Array<{
-      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-      journey_pattern_id: UUID;
-      scheduled_stop_point_label: string;
-      scheduled_stop_point_sequence: number;
-      is_used_as_timing_point: boolean;
-      is_regulated_timing_point: boolean;
-      is_loading_time_allowed: boolean;
-      is_via_point: boolean;
-      via_point_name_i18n?: LocalizedString | null;
-      via_point_short_name_i18n?: LocalizedString | null;
-      scheduled_stop_points: Array<{
-        __typename?: 'service_pattern_scheduled_stop_point';
-        priority: number;
-        direction: InfrastructureNetworkDirectionEnum;
-        scheduled_stop_point_id: UUID;
-        label: string;
-        validity_start?: luxon.DateTime | null;
-        validity_end?: luxon.DateTime | null;
-        located_on_infrastructure_link_id: UUID;
-      }>;
-      journey_pattern: {
-        __typename?: 'journey_pattern_journey_pattern';
-        journey_pattern_id: UUID;
-        on_route_id: UUID;
-      };
-    }>;
   }>;
 };
 
@@ -14972,15 +14923,32 @@ export type GetRouteDetailsByIdsQuery = {
     label: string;
     variant?: number | null;
     direction: RouteDirectionEnum;
+    route_line: {
+      __typename?: 'route_line';
+      line_id: UUID;
+      name_i18n: LocalizedString;
+      short_name_i18n: LocalizedString;
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+      type_of_line: RouteTypeOfLineEnum;
+      transport_target: HslRouteTransportTargetEnum;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      priority: number;
+      label: string;
+    };
     infrastructure_links_along_route: Array<{
       __typename?: 'route_infrastructure_link_along_route';
       route_id: UUID;
-      infrastructure_link_id: UUID;
       infrastructure_link_sequence: number;
+      infrastructure_link_id: UUID;
       is_traversal_forwards: boolean;
       infrastructure_link: {
         __typename?: 'infrastructure_network_infrastructure_link';
+        external_link_source: InfrastructureNetworkExternalSourceEnum;
+        external_link_id: string;
         infrastructure_link_id: UUID;
+        shape: GeoJSON.LineString;
+        direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_points_located_on_infrastructure_link: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
           scheduled_stop_point_id: UUID;
@@ -14994,6 +14962,16 @@ export type GetRouteDetailsByIdsQuery = {
           validity_end?: luxon.DateTime | null;
           priority: number;
           timing_place_id?: UUID | null;
+          other_label_instances: Array<{
+            __typename?: 'service_pattern_scheduled_stop_point';
+            priority: number;
+            direction: InfrastructureNetworkDirectionEnum;
+            scheduled_stop_point_id: UUID;
+            label: string;
+            validity_start?: luxon.DateTime | null;
+            validity_end?: luxon.DateTime | null;
+            located_on_infrastructure_link_id: UUID;
+          }>;
           scheduled_stop_point_in_journey_patterns: Array<{
             __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
             journey_pattern_id: UUID;
@@ -15018,12 +14996,38 @@ export type GetRouteDetailsByIdsQuery = {
         }>;
       };
     }>;
-    route_line: {
-      __typename?: 'route_line';
-      line_id: UUID;
-      label: string;
-      primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-    };
+    route_journey_patterns: Array<{
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      on_route_id: UUID;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_label: string;
+        scheduled_stop_point_sequence: number;
+        is_used_as_timing_point: boolean;
+        is_regulated_timing_point: boolean;
+        is_loading_time_allowed: boolean;
+        is_via_point: boolean;
+        via_point_name_i18n?: LocalizedString | null;
+        via_point_short_name_i18n?: LocalizedString | null;
+        scheduled_stop_points: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          located_on_infrastructure_link_id: UUID;
+        }>;
+        journey_pattern: {
+          __typename?: 'journey_pattern_journey_pattern';
+          journey_pattern_id: UUID;
+          on_route_id: UUID;
+        };
+      }>;
+    }>;
   }>;
 };
 
@@ -15157,39 +15161,9 @@ export type GetRoutesWithInfrastructureLinksQuery = {
         infrastructure_link_id: UUID;
         shape: GeoJSON.LineString;
         direction: InfrastructureNetworkDirectionEnum;
+        external_link_id: string;
+        external_link_source: InfrastructureNetworkExternalSourceEnum;
       };
-    }>;
-    route_journey_patterns: Array<{
-      __typename?: 'journey_pattern_journey_pattern';
-      journey_pattern_id: UUID;
-      on_route_id: UUID;
-      scheduled_stop_point_in_journey_patterns: Array<{
-        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-        journey_pattern_id: UUID;
-        scheduled_stop_point_label: string;
-        scheduled_stop_point_sequence: number;
-        is_used_as_timing_point: boolean;
-        is_regulated_timing_point: boolean;
-        is_loading_time_allowed: boolean;
-        is_via_point: boolean;
-        via_point_name_i18n?: LocalizedString | null;
-        via_point_short_name_i18n?: LocalizedString | null;
-        scheduled_stop_points: Array<{
-          __typename?: 'service_pattern_scheduled_stop_point';
-          priority: number;
-          direction: InfrastructureNetworkDirectionEnum;
-          scheduled_stop_point_id: UUID;
-          label: string;
-          validity_start?: luxon.DateTime | null;
-          validity_end?: luxon.DateTime | null;
-          located_on_infrastructure_link_id: UUID;
-        }>;
-        journey_pattern: {
-          __typename?: 'journey_pattern_journey_pattern';
-          journey_pattern_id: UUID;
-          on_route_id: UUID;
-        };
-      }>;
     }>;
   }>;
 };
@@ -15757,82 +15731,58 @@ export type GetRoutesBrokenByStopChangeQuery = {
   }>;
 };
 
-export type RouteWithInfrastructureLinksWithJpsAndStopsFragment = {
-  __typename?: 'route_route';
-  route_id: UUID;
-  name_i18n: LocalizedString;
-  description_i18n?: LocalizedString | null;
-  origin_name_i18n: LocalizedString;
-  origin_short_name_i18n: LocalizedString;
-  destination_name_i18n: LocalizedString;
-  destination_short_name_i18n: LocalizedString;
-  route_shape?: GeoJSON.LineString | null;
-  on_line_id: UUID;
-  validity_start?: luxon.DateTime | null;
-  validity_end?: luxon.DateTime | null;
-  priority: number;
-  label: string;
-  variant?: number | null;
-  direction: RouteDirectionEnum;
-  infrastructure_links_along_route: Array<{
-    __typename?: 'route_infrastructure_link_along_route';
-    route_id: UUID;
-    infrastructure_link_id: UUID;
-    infrastructure_link_sequence: number;
-    is_traversal_forwards: boolean;
-    infrastructure_link: {
-      __typename?: 'infrastructure_network_infrastructure_link';
-      infrastructure_link_id: UUID;
-      scheduled_stop_points_located_on_infrastructure_link: Array<{
-        __typename?: 'service_pattern_scheduled_stop_point';
-        scheduled_stop_point_id: UUID;
-        label: string;
-        measured_location: GeoJSON.Point;
-        located_on_infrastructure_link_id: UUID;
-        direction: InfrastructureNetworkDirectionEnum;
-        relative_distance_from_infrastructure_link_start: number;
-        closest_point_on_infrastructure_link?: GeoJSON.Point | null;
-        validity_start?: luxon.DateTime | null;
-        validity_end?: luxon.DateTime | null;
-        priority: number;
-        timing_place_id?: UUID | null;
-        other_label_instances: Array<{
-          __typename?: 'service_pattern_scheduled_stop_point';
-          priority: number;
-          direction: InfrastructureNetworkDirectionEnum;
-          scheduled_stop_point_id: UUID;
-          label: string;
-          validity_start?: luxon.DateTime | null;
-          validity_end?: luxon.DateTime | null;
-          located_on_infrastructure_link_id: UUID;
-        }>;
-        scheduled_stop_point_in_journey_patterns: Array<{
-          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-          journey_pattern_id: UUID;
-          scheduled_stop_point_label: string;
-          scheduled_stop_point_sequence: number;
-          is_used_as_timing_point: boolean;
-          is_regulated_timing_point: boolean;
-          is_loading_time_allowed: boolean;
-          is_via_point: boolean;
-          via_point_name_i18n?: LocalizedString | null;
-          via_point_short_name_i18n?: LocalizedString | null;
-          journey_pattern: {
-            __typename?: 'journey_pattern_journey_pattern';
-            journey_pattern_id: UUID;
-            on_route_id: UUID;
-          };
-        }>;
-        vehicle_mode_on_scheduled_stop_point: Array<{
-          __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-          vehicle_mode: ReusableComponentsVehicleModeEnum;
-        }>;
-      }>;
-    };
-  }>;
-  route_journey_patterns: Array<{
-    __typename?: 'journey_pattern_journey_pattern';
-    journey_pattern_id: UUID;
+export type InfrastructureLinkWithStopsFragment = {
+  __typename?: 'infrastructure_network_infrastructure_link';
+  infrastructure_link_id: UUID;
+  direction: InfrastructureNetworkDirectionEnum;
+  shape: GeoJSON.LineString;
+  estimated_length_in_metres?: number | null;
+  external_link_id: string;
+  external_link_source: InfrastructureNetworkExternalSourceEnum;
+  scheduled_stop_points_located_on_infrastructure_link: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    measured_location: GeoJSON.Point;
+    located_on_infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    relative_distance_from_infrastructure_link_start: number;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    timing_place_id?: UUID | null;
+    other_label_instances: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point';
+      priority: number;
+      direction: InfrastructureNetworkDirectionEnum;
+      scheduled_stop_point_id: UUID;
+      label: string;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      located_on_infrastructure_link_id: UUID;
+    }>;
+    scheduled_stop_point_in_journey_patterns: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
+      is_via_point: boolean;
+      via_point_name_i18n?: LocalizedString | null;
+      via_point_short_name_i18n?: LocalizedString | null;
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+      };
+    }>;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
   }>;
 };
 
@@ -15886,6 +15836,7 @@ export type LineWithRoutesFragment = {
       is_traversal_forwards: boolean;
       infrastructure_link: {
         __typename?: 'infrastructure_network_infrastructure_link';
+        external_link_source: InfrastructureNetworkExternalSourceEnum;
         external_link_id: string;
         infrastructure_link_id: UUID;
         shape: GeoJSON.LineString;
@@ -16030,6 +15981,7 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
         is_traversal_forwards: boolean;
         infrastructure_link: {
           __typename?: 'infrastructure_network_infrastructure_link';
+          external_link_source: InfrastructureNetworkExternalSourceEnum;
           external_link_id: string;
           infrastructure_link_id: UUID;
           shape: GeoJSON.LineString;
@@ -16211,6 +16163,7 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
   __typename?: 'query_root';
   infrastructure_network_infrastructure_link: Array<{
     __typename?: 'infrastructure_network_infrastructure_link';
+    external_link_source: InfrastructureNetworkExternalSourceEnum;
     external_link_id: string;
     infrastructure_link_id: UUID;
     shape: GeoJSON.LineString;
@@ -16394,6 +16347,99 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
     is_traversal_forwards: boolean;
     infrastructure_link: {
       __typename?: 'infrastructure_network_infrastructure_link';
+      external_link_source: InfrastructureNetworkExternalSourceEnum;
+      external_link_id: string;
+      infrastructure_link_id: UUID;
+      shape: GeoJSON.LineString;
+      direction: InfrastructureNetworkDirectionEnum;
+      scheduled_stop_points_located_on_infrastructure_link: Array<{
+        __typename?: 'service_pattern_scheduled_stop_point';
+        scheduled_stop_point_id: UUID;
+        label: string;
+        measured_location: GeoJSON.Point;
+        located_on_infrastructure_link_id: UUID;
+        direction: InfrastructureNetworkDirectionEnum;
+        relative_distance_from_infrastructure_link_start: number;
+        closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+        validity_start?: luxon.DateTime | null;
+        validity_end?: luxon.DateTime | null;
+        priority: number;
+        timing_place_id?: UUID | null;
+        other_label_instances: Array<{
+          __typename?: 'service_pattern_scheduled_stop_point';
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          located_on_infrastructure_link_id: UUID;
+        }>;
+        scheduled_stop_point_in_journey_patterns: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          journey_pattern_id: UUID;
+          scheduled_stop_point_label: string;
+          scheduled_stop_point_sequence: number;
+          is_used_as_timing_point: boolean;
+          is_regulated_timing_point: boolean;
+          is_loading_time_allowed: boolean;
+          is_via_point: boolean;
+          via_point_name_i18n?: LocalizedString | null;
+          via_point_short_name_i18n?: LocalizedString | null;
+          journey_pattern: {
+            __typename?: 'journey_pattern_journey_pattern';
+            journey_pattern_id: UUID;
+            on_route_id: UUID;
+          };
+        }>;
+        vehicle_mode_on_scheduled_stop_point: Array<{
+          __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+          vehicle_mode: ReusableComponentsVehicleModeEnum;
+        }>;
+      }>;
+    };
+  }>;
+};
+
+export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  name_i18n: LocalizedString;
+  description_i18n?: LocalizedString | null;
+  origin_name_i18n: LocalizedString;
+  origin_short_name_i18n: LocalizedString;
+  destination_name_i18n: LocalizedString;
+  destination_short_name_i18n: LocalizedString;
+  route_shape?: GeoJSON.LineString | null;
+  on_line_id: UUID;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  priority: number;
+  label: string;
+  variant?: number | null;
+  direction: RouteDirectionEnum;
+  route_line: {
+    __typename?: 'route_line';
+    line_id: UUID;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
+    type_of_line: RouteTypeOfLineEnum;
+    transport_target: HslRouteTransportTargetEnum;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
+    label: string;
+  };
+  infrastructure_links_along_route: Array<{
+    __typename?: 'route_infrastructure_link_along_route';
+    route_id: UUID;
+    infrastructure_link_sequence: number;
+    infrastructure_link_id: UUID;
+    is_traversal_forwards: boolean;
+    infrastructure_link: {
+      __typename?: 'infrastructure_network_infrastructure_link';
+      external_link_source: InfrastructureNetworkExternalSourceEnum;
       external_link_id: string;
       infrastructure_link_id: UUID;
       shape: GeoJSON.LineString;
@@ -16487,6 +16533,7 @@ export type InfraLinkAlongRouteWithStopsFragment = {
   is_traversal_forwards: boolean;
   infrastructure_link: {
     __typename?: 'infrastructure_network_infrastructure_link';
+    external_link_source: InfrastructureNetworkExternalSourceEnum;
     external_link_id: string;
     infrastructure_link_id: UUID;
     shape: GeoJSON.LineString;
@@ -16583,6 +16630,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
       is_traversal_forwards: boolean;
       infrastructure_link: {
         __typename?: 'infrastructure_network_infrastructure_link';
+        external_link_source: InfrastructureNetworkExternalSourceEnum;
         external_link_id: string;
         infrastructure_link_id: UUID;
         shape: GeoJSON.LineString;
@@ -17615,6 +17663,7 @@ export const RouteStopFieldsFragmentDoc = gql`
 export const RouteInfraLinkFieldsFragmentDoc = gql`
   fragment route_infra_link_fields on infrastructure_network_infrastructure_link {
     ...infra_link_matching_fields
+    external_link_source
     scheduled_stop_points_located_on_infrastructure_link {
       ...route_stop_fields
     }
@@ -17622,14 +17671,13 @@ export const RouteInfraLinkFieldsFragmentDoc = gql`
   ${InfraLinkMatchingFieldsFragmentDoc}
   ${RouteStopFieldsFragmentDoc}
 `;
-export const InfrastructureLinkAllFieldsFragmentDoc = gql`
-  fragment infrastructure_link_all_fields on infrastructure_network_infrastructure_link {
+export const InfraLinkAlongRouteWithStopsDefaultFieldsFragmentDoc = gql`
+  fragment infra_link_along_route_with_stops_default_fields on route_infrastructure_link_along_route {
     infrastructure_link_id
-    direction
-    shape
-    estimated_length_in_metres
-    external_link_id
-    external_link_source
+    infrastructure_link {
+      infrastructure_link_id
+    }
+    is_traversal_forwards
   }
 `;
 export const LineDefaultFieldsFragmentDoc = gql`
@@ -17669,6 +17717,108 @@ export const RouteAllFieldsFragmentDoc = gql`
     direction
   }
 `;
+export const LineAllFieldsFragmentDoc = gql`
+  fragment line_all_fields on route_line {
+    line_id
+    name_i18n
+    short_name_i18n
+    primary_vehicle_mode
+    type_of_line
+    transport_target
+    validity_start
+    validity_end
+    priority
+    label
+  }
+`;
+export const RouteWithInfrastructureLinksFragmentDoc = gql`
+  fragment route_with_infrastructure_links on route_route {
+    ...route_all_fields
+    route_line {
+      ...line_all_fields
+    }
+    infrastructure_links_along_route {
+      route_id
+      infrastructure_link_sequence
+      infrastructure_link_id
+      infrastructure_link {
+        infrastructure_link_id
+        shape
+        direction
+        external_link_id
+        external_link_source
+      }
+      is_traversal_forwards
+    }
+  }
+  ${RouteAllFieldsFragmentDoc}
+  ${LineAllFieldsFragmentDoc}
+`;
+export const InfrastructureLinkAllFieldsFragmentDoc = gql`
+  fragment infrastructure_link_all_fields on infrastructure_network_infrastructure_link {
+    infrastructure_link_id
+    direction
+    shape
+    estimated_length_in_metres
+    external_link_id
+    external_link_source
+  }
+`;
+export const InfrastructureLinkWithStopsFragmentDoc = gql`
+  fragment infrastructure_link_with_stops on infrastructure_network_infrastructure_link {
+    ...infrastructure_link_all_fields
+    scheduled_stop_points_located_on_infrastructure_link(
+      where: $routeStopFilters
+    ) {
+      ...scheduled_stop_point_all_fields
+      other_label_instances {
+        ...scheduled_stop_point_default_fields
+      }
+      scheduled_stop_point_in_journey_patterns {
+        ...scheduled_stop_point_in_journey_pattern_all_fields
+        journey_pattern {
+          journey_pattern_id
+          on_route_id
+        }
+      }
+    }
+  }
+  ${InfrastructureLinkAllFieldsFragmentDoc}
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+  ${ScheduledStopPointDefaultFieldsFragmentDoc}
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+`;
+export const InfraLinkAlongRouteWithStopsFragmentDoc = gql`
+  fragment infra_link_along_route_with_stops on route_infrastructure_link_along_route {
+    route_id
+    infrastructure_link_sequence
+    infrastructure_link_id
+    infrastructure_link {
+      ...infra_link_matching_fields
+      external_link_source
+      scheduled_stop_points_located_on_infrastructure_link {
+        ...route_stop_fields
+      }
+    }
+    is_traversal_forwards
+  }
+  ${InfraLinkMatchingFieldsFragmentDoc}
+  ${RouteStopFieldsFragmentDoc}
+`;
+export const RouteWithInfrastructureLinksWithStopsFragmentDoc = gql`
+  fragment route_with_infrastructure_links_with_stops on route_route {
+    ...route_all_fields
+    route_line {
+      ...line_all_fields
+    }
+    infrastructure_links_along_route {
+      ...infra_link_along_route_with_stops
+    }
+  }
+  ${RouteAllFieldsFragmentDoc}
+  ${LineAllFieldsFragmentDoc}
+  ${InfraLinkAlongRouteWithStopsFragmentDoc}
+`;
 export const JourneyPatternWithStopsFragmentDoc = gql`
   fragment journey_pattern_with_stops on journey_pattern_journey_pattern {
     journey_pattern_id
@@ -17695,116 +17845,23 @@ export const RouteWithJourneyPatternStopsFragmentDoc = gql`
   ${RouteAllFieldsFragmentDoc}
   ${JourneyPatternWithStopsFragmentDoc}
 `;
-export const LineAllFieldsFragmentDoc = gql`
-  fragment line_all_fields on route_line {
-    line_id
-    name_i18n
-    short_name_i18n
-    primary_vehicle_mode
-    type_of_line
-    transport_target
-    validity_start
-    validity_end
-    priority
-    label
-  }
-`;
-export const RouteWithInfrastructureLinksFragmentDoc = gql`
-  fragment route_with_infrastructure_links on route_route {
+export const RouteWithInfrastructureLinksWithStopsAndJpsFragmentDoc = gql`
+  fragment route_with_infrastructure_links_with_stops_and_jps on route_route {
+    ...route_with_infrastructure_links_with_stops
     ...route_with_journey_pattern_stops
-    route_line {
-      ...line_all_fields
-    }
-    infrastructure_links_along_route {
-      route_id
-      infrastructure_link_sequence
-      infrastructure_link_id
-      infrastructure_link {
-        infrastructure_link_id
-        shape
-        direction
-      }
-      is_traversal_forwards
-    }
   }
+  ${RouteWithInfrastructureLinksWithStopsFragmentDoc}
   ${RouteWithJourneyPatternStopsFragmentDoc}
-  ${LineAllFieldsFragmentDoc}
-`;
-export const RouteWithInfrastructureLinksWithJpsAndStopsFragmentDoc = gql`
-  fragment route_with_infrastructure_links_with_jps_and_stops on route_route {
-    ...route_all_fields
-    infrastructure_links_along_route {
-      route_id
-      infrastructure_link_id
-      infrastructure_link_sequence
-      is_traversal_forwards
-      infrastructure_link {
-        infrastructure_link_id
-        scheduled_stop_points_located_on_infrastructure_link(
-          where: $routeStopFilters
-        ) {
-          ...scheduled_stop_point_all_fields
-          other_label_instances {
-            ...scheduled_stop_point_default_fields
-          }
-          scheduled_stop_point_in_journey_patterns {
-            ...scheduled_stop_point_in_journey_pattern_all_fields
-            journey_pattern {
-              journey_pattern_id
-              on_route_id
-            }
-          }
-        }
-      }
-    }
-    route_journey_patterns {
-      journey_pattern_id
-    }
-  }
-  ${RouteAllFieldsFragmentDoc}
-  ${ScheduledStopPointAllFieldsFragmentDoc}
-  ${ScheduledStopPointDefaultFieldsFragmentDoc}
-  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
-`;
-export const InfraLinkAlongRouteWithStopsFragmentDoc = gql`
-  fragment infra_link_along_route_with_stops on route_infrastructure_link_along_route {
-    route_id
-    infrastructure_link_sequence
-    infrastructure_link_id
-    infrastructure_link {
-      ...infra_link_matching_fields
-      scheduled_stop_points_located_on_infrastructure_link {
-        ...route_stop_fields
-      }
-    }
-    is_traversal_forwards
-  }
-  ${InfraLinkMatchingFieldsFragmentDoc}
-  ${RouteStopFieldsFragmentDoc}
-`;
-export const RouteWithInfrastructureLinksWithStopsFragmentDoc = gql`
-  fragment route_with_infrastructure_links_with_stops on route_route {
-    ...route_with_journey_pattern_stops
-    route_line {
-      ...line_all_fields
-    }
-    infrastructure_links_along_route {
-      ...infra_link_along_route_with_stops
-    }
-  }
-  ${RouteWithJourneyPatternStopsFragmentDoc}
-  ${LineAllFieldsFragmentDoc}
-  ${InfraLinkAlongRouteWithStopsFragmentDoc}
 `;
 export const LineWithRoutesFragmentDoc = gql`
   fragment line_with_routes on route_line {
     ...line_all_fields
     line_routes(where: $lineRouteFilters) {
-      ...route_with_infrastructure_links_with_stops
+      ...route_with_infrastructure_links_with_stops_and_jps
     }
   }
   ${LineAllFieldsFragmentDoc}
-  ${RouteWithInfrastructureLinksWithStopsFragmentDoc}
+  ${RouteWithInfrastructureLinksWithStopsAndJpsFragmentDoc}
 `;
 export const DisplayedRouteFragmentDoc = gql`
   fragment displayed_route on route_route {
@@ -19087,36 +19144,10 @@ export type GetRouteDetailsByIdQueryResult = Apollo.QueryResult<
 export const GetRouteDetailsByIdsDocument = gql`
   query GetRouteDetailsByIds($route_ids: [uuid!]) {
     route_route(where: { route_id: { _in: $route_ids } }) {
-      ...route_all_fields
-      infrastructure_links_along_route {
-        route_id
-        infrastructure_link_id
-        infrastructure_link_sequence
-        is_traversal_forwards
-        infrastructure_link {
-          infrastructure_link_id
-          scheduled_stop_points_located_on_infrastructure_link {
-            ...scheduled_stop_point_all_fields
-            scheduled_stop_point_in_journey_patterns {
-              ...scheduled_stop_point_in_journey_pattern_all_fields
-              journey_pattern {
-                journey_pattern_id
-                on_route_id
-              }
-            }
-          }
-        }
-      }
-      route_line {
-        line_id
-        label
-        primary_vehicle_mode
-      }
+      ...route_with_infrastructure_links_with_stops_and_jps
     }
   }
-  ${RouteAllFieldsFragmentDoc}
-  ${ScheduledStopPointAllFieldsFragmentDoc}
-  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+  ${RouteWithInfrastructureLinksWithStopsAndJpsFragmentDoc}
 `;
 
 /**
@@ -20775,10 +20806,10 @@ export type GetRouteByFiltersQueryResult = Apollo.QueryResult<
 export const GetRouteWithInfrastructureLinksWithStopsDocument = gql`
   query GetRouteWithInfrastructureLinksWithStops($route_id: uuid!) {
     route_route_by_pk(route_id: $route_id) {
-      ...route_with_infrastructure_links_with_stops
+      ...route_with_infrastructure_links_with_stops_and_jps
     }
   }
-  ${RouteWithInfrastructureLinksWithStopsFragmentDoc}
+  ${RouteWithInfrastructureLinksWithStopsAndJpsFragmentDoc}
 `;
 
 /**

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { RouteRoute } from '../../../generated/graphql';
+import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql';
 import {
   TimetablesView,
   useGetTimetables,
@@ -15,7 +15,7 @@ import { PassingTimesByStopSection } from '../passing-times-by-stop/PassingTimes
 import { VehicleServiceTable } from './vehicle-service-table';
 
 interface Props {
-  route: RouteRoute;
+  route: RouteWithJourneyPatternStopsFragment;
   initiallyOpen?: boolean;
 }
 
