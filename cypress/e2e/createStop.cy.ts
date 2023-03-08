@@ -1,15 +1,13 @@
 import {
   Priority,
   ReusableComponentsVehicleModeEnum,
-  ReusableComponentsVehicleSubmodeEnum,
   timingPlaces,
-  VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { Tag } from '../enums';
 import { ChangeValidityForm, ModalMap } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
-import { deleteStopsByLabel } from './utils';
+import { deleteStopsByLabels } from './utils';
 
 const testStopLabels = {
   testLabel1: 'T0001',
@@ -23,25 +21,12 @@ const testInfraLinks = {
   2: '7a42a581-2b23-4519-a04f-eee09ecb2bda',
 };
 
-const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[] =
-  [
-    {
-      infrastructure_link_id: testInfraLinks[1],
-      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-    },
-    {
-      infrastructure_link_id: testInfraLinks[2],
-      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-    },
-  ];
-
 const dbResources = {
-  vehicleSubmodeOnInfrastructureLink,
   timingPlaces,
 };
 
 const clearDatabase = () => {
-  deleteStopsByLabel(Object.values(testStopLabels));
+  deleteStopsByLabels(Object.values(testStopLabels));
   removeFromDbHelper(dbResources);
 };
 

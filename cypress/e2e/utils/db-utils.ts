@@ -10,7 +10,7 @@ export const deleteRoutesByLabel = (labels: string[]) => {
   });
 };
 
-export const deleteStopsByLabel = (labels: string[]) => {
+export const deleteStopsByLabels = (labels: string[]) => {
   labels.forEach((label) => {
     const query =
       'DELETE FROM "service_pattern"."scheduled_stop_point" WHERE label=?';
