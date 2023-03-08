@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { FormState } from '../../components/forms/line/LineForm';
 import {
+  LineAllFieldsFragment,
   PatchLineMutationVariables,
-  RouteLine,
   RouteLineSetInput,
   usePatchLineMutation,
 } from '../../generated/graphql';
@@ -20,7 +20,7 @@ interface EditParams {
 interface EditChanges {
   lineId: UUID;
   patch: RouteLineSetInput;
-  conflicts?: RouteLine[];
+  conflicts?: LineAllFieldsFragment[];
 }
 
 export const useEditLine = () => {

@@ -3,7 +3,7 @@ import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm
 import {
   PatchRouteMutationVariables,
   RouteAllFieldsFragment,
-  RouteRoute,
+  RouteDefaultFieldsFragment,
   RouteRouteSetInput,
   ServicePatternScheduledStopPoint,
   useGetScheduledStopsOnRouteAsyncQuery,
@@ -30,7 +30,7 @@ interface EditParams {
 interface EditChanges {
   routeId: UUID;
   patch: RouteRouteSetInput;
-  conflicts?: RouteRoute[];
+  conflicts?: RouteDefaultFieldsFragment[];
 }
 
 export const mapRouteFormToInput = (state: RouteFormState) => {

@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import {
-  RouteRoute,
+  RouteDefaultFieldsFragment,
   ServicePatternScheduledStopPoint,
   useGetRouteDetailsByIdsQuery,
 } from '../../../generated/graphql';
@@ -64,7 +64,7 @@ export const EditRoutePage = (): JSX.Element => {
     mapEditJourneyPatternChangesToVariables,
     updateRouteGeometryMutation,
   } = useEditRouteJourneyPattern();
-  const [conflicts, setConflicts] = useState<RouteRoute[]>([]);
+  const [conflicts, setConflicts] = useState<RouteDefaultFieldsFragment[]>([]);
   const formRef = useRef<ExplicitAny>(null);
   const { id } = useParams<{ id: string }>();
 

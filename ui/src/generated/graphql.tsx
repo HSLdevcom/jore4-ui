@@ -14113,17 +14113,17 @@ export type RouteInfraLinkFieldsFragment = {
   direction: InfrastructureNetworkDirectionEnum;
   scheduled_stop_points_located_on_infrastructure_link: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    label: string;
     measured_location: GeoJSON.Point;
-    located_on_infrastructure_link_id: UUID;
-    direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
     closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    timing_place_id?: UUID | null;
+    priority: number;
+    direction: InfrastructureNetworkDirectionEnum;
+    scheduled_stop_point_id: UUID;
+    label: string;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
-    priority: number;
-    timing_place_id?: UUID | null;
+    located_on_infrastructure_link_id: UUID;
     other_label_instances: Array<{
       __typename?: 'service_pattern_scheduled_stop_point';
       priority: number;
@@ -14227,17 +14227,17 @@ export type GetStopsAlongInfrastructureLinksQuery = {
   __typename?: 'query_root';
   service_pattern_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    label: string;
     measured_location: GeoJSON.Point;
-    located_on_infrastructure_link_id: UUID;
-    direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
     closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    timing_place_id?: UUID | null;
+    priority: number;
+    direction: InfrastructureNetworkDirectionEnum;
+    scheduled_stop_point_id: UUID;
+    label: string;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
-    priority: number;
-    timing_place_id?: UUID | null;
+    located_on_infrastructure_link_id: UUID;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -14399,16 +14399,16 @@ export type LineDefaultFieldsFragment = {
 
 export type LineAllFieldsFragment = {
   __typename?: 'route_line';
-  line_id: UUID;
-  name_i18n: LocalizedString;
-  short_name_i18n: LocalizedString;
   primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
   type_of_line: RouteTypeOfLineEnum;
   transport_target: HslRouteTransportTargetEnum;
+  line_id: UUID;
+  label: string;
+  name_i18n: LocalizedString;
+  short_name_i18n: LocalizedString;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   priority: number;
-  label: string;
 };
 
 export type RouteValidityFragment = {
@@ -14418,28 +14418,38 @@ export type RouteValidityFragment = {
   priority: number;
 };
 
+export type RouteUniqueFieldsFragment = {
+  __typename?: 'route_route';
+  label: string;
+  direction: RouteDirectionEnum;
+  variant?: number | null;
+  route_id: UUID;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  priority: number;
+};
+
 export type RouteAllFieldsFragment = {
   __typename?: 'route_route';
-  route_id: UUID;
+  route_shape?: GeoJSON.LineString | null;
   name_i18n: LocalizedString;
   description_i18n?: LocalizedString | null;
   origin_name_i18n: LocalizedString;
   origin_short_name_i18n: LocalizedString;
   destination_name_i18n: LocalizedString;
   destination_short_name_i18n: LocalizedString;
-  route_shape?: GeoJSON.LineString | null;
   on_line_id: UUID;
+  label: string;
+  direction: RouteDirectionEnum;
+  variant?: number | null;
+  route_id: UUID;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   priority: number;
-  label: string;
-  variant?: number | null;
-  direction: RouteDirectionEnum;
 };
 
 export type RouteDefaultFieldsFragment = {
   __typename?: 'route_route';
-  route_id: UUID;
   name_i18n: LocalizedString;
   description_i18n?: LocalizedString | null;
   origin_name_i18n: LocalizedString;
@@ -14448,28 +14458,31 @@ export type RouteDefaultFieldsFragment = {
   destination_short_name_i18n: LocalizedString;
   on_line_id: UUID;
   label: string;
-  variant?: number | null;
-  priority: number;
   direction: RouteDirectionEnum;
+  variant?: number | null;
+  route_id: UUID;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  priority: number;
 };
 
 export type RouteWithJourneyPatternStopsFragment = {
   __typename?: 'route_route';
-  route_id: UUID;
+  route_shape?: GeoJSON.LineString | null;
   name_i18n: LocalizedString;
   description_i18n?: LocalizedString | null;
   origin_name_i18n: LocalizedString;
   origin_short_name_i18n: LocalizedString;
   destination_name_i18n: LocalizedString;
   destination_short_name_i18n: LocalizedString;
-  route_shape?: GeoJSON.LineString | null;
   on_line_id: UUID;
+  label: string;
+  direction: RouteDirectionEnum;
+  variant?: number | null;
+  route_id: UUID;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   priority: number;
-  label: string;
-  variant?: number | null;
-  direction: RouteDirectionEnum;
   route_journey_patterns: Array<{
     __typename?: 'journey_pattern_journey_pattern';
     journey_pattern_id: UUID;
@@ -14506,33 +14519,33 @@ export type RouteWithJourneyPatternStopsFragment = {
 
 export type RouteWithInfrastructureLinksFragment = {
   __typename?: 'route_route';
-  route_id: UUID;
+  route_shape?: GeoJSON.LineString | null;
   name_i18n: LocalizedString;
   description_i18n?: LocalizedString | null;
   origin_name_i18n: LocalizedString;
   origin_short_name_i18n: LocalizedString;
   destination_name_i18n: LocalizedString;
   destination_short_name_i18n: LocalizedString;
-  route_shape?: GeoJSON.LineString | null;
   on_line_id: UUID;
+  label: string;
+  direction: RouteDirectionEnum;
+  variant?: number | null;
+  route_id: UUID;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   priority: number;
-  label: string;
-  variant?: number | null;
-  direction: RouteDirectionEnum;
   route_line: {
     __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
     primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
     type_of_line: RouteTypeOfLineEnum;
     transport_target: HslRouteTransportTargetEnum;
+    line_id: UUID;
+    label: string;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
   };
   infrastructure_links_along_route: Array<{
     __typename?: 'route_infrastructure_link_along_route';
@@ -14559,16 +14572,16 @@ export type GetLineDetailsByIdQuery = {
   __typename?: 'query_root';
   route_line_by_pk?: {
     __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
     primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
     type_of_line: RouteTypeOfLineEnum;
     transport_target: HslRouteTransportTargetEnum;
+    line_id: UUID;
+    label: string;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
   } | null;
 };
 
@@ -14594,16 +14607,16 @@ export type GetLinesByValidityQuery = {
   __typename?: 'query_root';
   route_line: Array<{
     __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
     primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
     type_of_line: RouteTypeOfLineEnum;
     transport_target: HslRouteTransportTargetEnum;
+    line_id: UUID;
+    label: string;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
   }>;
 };
 
@@ -14615,33 +14628,33 @@ export type GetLineDetailsWithRoutesByIdQuery = {
   __typename?: 'query_root';
   route_line_by_pk?: {
     __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
     primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
     type_of_line: RouteTypeOfLineEnum;
     transport_target: HslRouteTransportTargetEnum;
+    line_id: UUID;
+    label: string;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
     line_routes: Array<{
       __typename?: 'route_route';
-      route_id: UUID;
+      route_shape?: GeoJSON.LineString | null;
       name_i18n: LocalizedString;
       description_i18n?: LocalizedString | null;
       origin_name_i18n: LocalizedString;
       origin_short_name_i18n: LocalizedString;
       destination_name_i18n: LocalizedString;
       destination_short_name_i18n: LocalizedString;
-      route_shape?: GeoJSON.LineString | null;
       on_line_id: UUID;
+      label: string;
+      direction: RouteDirectionEnum;
+      variant?: number | null;
+      route_id: UUID;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       priority: number;
-      label: string;
-      variant?: number | null;
-      direction: RouteDirectionEnum;
       infrastructure_links_along_route: Array<{
         __typename?: 'route_infrastructure_link_along_route';
         route_id: UUID;
@@ -14653,17 +14666,17 @@ export type GetLineDetailsWithRoutesByIdQuery = {
           infrastructure_link_id: UUID;
           scheduled_stop_points_located_on_infrastructure_link: Array<{
             __typename?: 'service_pattern_scheduled_stop_point';
-            scheduled_stop_point_id: UUID;
-            label: string;
             measured_location: GeoJSON.Point;
-            located_on_infrastructure_link_id: UUID;
-            direction: InfrastructureNetworkDirectionEnum;
             relative_distance_from_infrastructure_link_start: number;
             closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+            timing_place_id?: UUID | null;
+            priority: number;
+            direction: InfrastructureNetworkDirectionEnum;
+            scheduled_stop_point_id: UUID;
+            label: string;
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
-            priority: number;
-            timing_place_id?: UUID | null;
+            located_on_infrastructure_link_id: UUID;
             scheduled_stop_point_in_journey_patterns: Array<{
               __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
               journey_pattern_id: UUID;
@@ -14710,21 +14723,21 @@ export type GetRoutesWithStopsQuery = {
   __typename?: 'query_root';
   route_route: Array<{
     __typename?: 'route_route';
-    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null;
     name_i18n: LocalizedString;
     description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null;
     on_line_id: UUID;
+    label: string;
+    direction: RouteDirectionEnum;
+    variant?: number | null;
+    route_id: UUID;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
-    variant?: number | null;
-    direction: RouteDirectionEnum;
     route_line: { __typename?: 'route_line'; line_id: UUID };
     infrastructure_links_along_route: Array<{
       __typename?: 'route_infrastructure_link_along_route';
@@ -14737,17 +14750,17 @@ export type GetRoutesWithStopsQuery = {
         infrastructure_link_id: UUID;
         scheduled_stop_points_located_on_infrastructure_link: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
-          scheduled_stop_point_id: UUID;
-          label: string;
           measured_location: GeoJSON.Point;
-          located_on_infrastructure_link_id: UUID;
-          direction: InfrastructureNetworkDirectionEnum;
           relative_distance_from_infrastructure_link_start: number;
           closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+          timing_place_id?: UUID | null;
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
-          priority: number;
-          timing_place_id?: UUID | null;
+          located_on_infrastructure_link_id: UUID;
           scheduled_stop_point_in_journey_patterns: Array<{
             __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
             journey_pattern_id: UUID;
@@ -14783,33 +14796,33 @@ export type GetRouteDetailsByIdQuery = {
   __typename?: 'query_root';
   route_route_by_pk?: {
     __typename?: 'route_route';
-    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null;
     name_i18n: LocalizedString;
     description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null;
     on_line_id: UUID;
+    label: string;
+    direction: RouteDirectionEnum;
+    variant?: number | null;
+    route_id: UUID;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
-    variant?: number | null;
-    direction: RouteDirectionEnum;
     route_line: {
       __typename?: 'route_line';
-      line_id: UUID;
-      name_i18n: LocalizedString;
-      short_name_i18n: LocalizedString;
       primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
       type_of_line: RouteTypeOfLineEnum;
       transport_target: HslRouteTransportTargetEnum;
+      line_id: UUID;
+      label: string;
+      name_i18n: LocalizedString;
+      short_name_i18n: LocalizedString;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       priority: number;
-      label: string;
     };
     infrastructure_links_along_route: Array<{
       __typename?: 'route_infrastructure_link_along_route';
@@ -14826,17 +14839,17 @@ export type GetRouteDetailsByIdQuery = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_points_located_on_infrastructure_link: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
-          scheduled_stop_point_id: UUID;
-          label: string;
           measured_location: GeoJSON.Point;
-          located_on_infrastructure_link_id: UUID;
-          direction: InfrastructureNetworkDirectionEnum;
           relative_distance_from_infrastructure_link_start: number;
           closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+          timing_place_id?: UUID | null;
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
-          priority: number;
-          timing_place_id?: UUID | null;
+          located_on_infrastructure_link_id: UUID;
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point';
             priority: number;
@@ -14914,33 +14927,33 @@ export type GetRouteDetailsByIdsQuery = {
   __typename?: 'query_root';
   route_route: Array<{
     __typename?: 'route_route';
-    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null;
     name_i18n: LocalizedString;
     description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null;
     on_line_id: UUID;
+    label: string;
+    direction: RouteDirectionEnum;
+    variant?: number | null;
+    route_id: UUID;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
-    variant?: number | null;
-    direction: RouteDirectionEnum;
     route_line: {
       __typename?: 'route_line';
-      line_id: UUID;
-      name_i18n: LocalizedString;
-      short_name_i18n: LocalizedString;
       primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
       type_of_line: RouteTypeOfLineEnum;
       transport_target: HslRouteTransportTargetEnum;
+      line_id: UUID;
+      label: string;
+      name_i18n: LocalizedString;
+      short_name_i18n: LocalizedString;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       priority: number;
-      label: string;
     };
     infrastructure_links_along_route: Array<{
       __typename?: 'route_infrastructure_link_along_route';
@@ -14957,17 +14970,17 @@ export type GetRouteDetailsByIdsQuery = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_points_located_on_infrastructure_link: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
-          scheduled_stop_point_id: UUID;
-          label: string;
           measured_location: GeoJSON.Point;
-          located_on_infrastructure_link_id: UUID;
-          direction: InfrastructureNetworkDirectionEnum;
           relative_distance_from_infrastructure_link_start: number;
           closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+          timing_place_id?: UUID | null;
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
-          priority: number;
-          timing_place_id?: UUID | null;
+          located_on_infrastructure_link_id: UUID;
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point';
             priority: number;
@@ -15064,21 +15077,21 @@ export type GetRouteDetailsByLabelsQuery = {
   __typename?: 'query_root';
   route_route: Array<{
     __typename?: 'route_route';
-    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null;
     name_i18n: LocalizedString;
     description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null;
     on_line_id: UUID;
+    label: string;
+    direction: RouteDirectionEnum;
+    variant?: number | null;
+    route_id: UUID;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
-    variant?: number | null;
-    direction: RouteDirectionEnum;
     route_line: {
       __typename?: 'route_line';
       line_id: UUID;
@@ -15128,33 +15141,33 @@ export type GetRoutesWithInfrastructureLinksQuery = {
   __typename?: 'query_root';
   route_route: Array<{
     __typename?: 'route_route';
-    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null;
     name_i18n: LocalizedString;
     description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null;
     on_line_id: UUID;
+    label: string;
+    direction: RouteDirectionEnum;
+    variant?: number | null;
+    route_id: UUID;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
-    variant?: number | null;
-    direction: RouteDirectionEnum;
     route_line: {
       __typename?: 'route_line';
-      line_id: UUID;
-      name_i18n: LocalizedString;
-      short_name_i18n: LocalizedString;
       primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
       type_of_line: RouteTypeOfLineEnum;
       transport_target: HslRouteTransportTargetEnum;
+      line_id: UUID;
+      label: string;
+      name_i18n: LocalizedString;
+      short_name_i18n: LocalizedString;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       priority: number;
-      label: string;
     };
     infrastructure_links_along_route: Array<{
       __typename?: 'route_infrastructure_link_along_route';
@@ -15182,9 +15195,6 @@ export type GetRoutesByValidityQuery = {
   __typename?: 'query_root';
   route_route: Array<{
     __typename?: 'route_route';
-    validity_start?: luxon.DateTime | null;
-    validity_end?: luxon.DateTime | null;
-    route_id: UUID;
     name_i18n: LocalizedString;
     description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
@@ -15193,9 +15203,12 @@ export type GetRoutesByValidityQuery = {
     destination_short_name_i18n: LocalizedString;
     on_line_id: UUID;
     label: string;
-    variant?: number | null;
-    priority: number;
     direction: RouteDirectionEnum;
+    variant?: number | null;
+    route_id: UUID;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
   }>;
 };
 
@@ -15226,16 +15239,16 @@ export type PatchLineMutation = {
   __typename?: 'mutation_root';
   update_route_line_by_pk?: {
     __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
     primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
     type_of_line: RouteTypeOfLineEnum;
     transport_target: HslRouteTransportTargetEnum;
+    line_id: UUID;
+    label: string;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
   } | null;
 };
 
@@ -15247,21 +15260,21 @@ export type InsertRouteOneMutation = {
   __typename?: 'mutation_root';
   insert_route_route_one?: {
     __typename?: 'route_route';
-    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null;
     name_i18n: LocalizedString;
     description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null;
     on_line_id: UUID;
+    label: string;
+    direction: RouteDirectionEnum;
+    variant?: number | null;
+    route_id: UUID;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
-    variant?: number | null;
-    direction: RouteDirectionEnum;
   } | null;
 };
 
@@ -15276,21 +15289,21 @@ export type PatchRouteMutation = {
     __typename?: 'route_route_mutation_response';
     returning: Array<{
       __typename?: 'route_route';
-      route_id: UUID;
+      route_shape?: GeoJSON.LineString | null;
       name_i18n: LocalizedString;
       description_i18n?: LocalizedString | null;
       origin_name_i18n: LocalizedString;
       origin_short_name_i18n: LocalizedString;
       destination_name_i18n: LocalizedString;
       destination_short_name_i18n: LocalizedString;
-      route_shape?: GeoJSON.LineString | null;
       on_line_id: UUID;
+      label: string;
+      direction: RouteDirectionEnum;
+      variant?: number | null;
+      route_id: UUID;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       priority: number;
-      label: string;
-      variant?: number | null;
-      direction: RouteDirectionEnum;
     }>;
   } | null;
 };
@@ -15347,17 +15360,17 @@ export type ScheduledStopPointDefaultFieldsFragment = {
 
 export type ScheduledStopPointAllFieldsFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
-  scheduled_stop_point_id: UUID;
-  label: string;
   measured_location: GeoJSON.Point;
-  located_on_infrastructure_link_id: UUID;
-  direction: InfrastructureNetworkDirectionEnum;
   relative_distance_from_infrastructure_link_start: number;
   closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+  timing_place_id?: UUID | null;
+  priority: number;
+  direction: InfrastructureNetworkDirectionEnum;
+  scheduled_stop_point_id: UUID;
+  label: string;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
-  priority: number;
-  timing_place_id?: UUID | null;
+  located_on_infrastructure_link_id: UUID;
   vehicle_mode_on_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
     vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -15366,17 +15379,17 @@ export type ScheduledStopPointAllFieldsFragment = {
 
 export type StopWithJourneyPatternFieldsFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
-  scheduled_stop_point_id: UUID;
-  label: string;
   measured_location: GeoJSON.Point;
-  located_on_infrastructure_link_id: UUID;
-  direction: InfrastructureNetworkDirectionEnum;
   relative_distance_from_infrastructure_link_start: number;
   closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+  timing_place_id?: UUID | null;
+  priority: number;
+  direction: InfrastructureNetworkDirectionEnum;
+  scheduled_stop_point_id: UUID;
+  label: string;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
-  priority: number;
-  timing_place_id?: UUID | null;
+  located_on_infrastructure_link_id: UUID;
   scheduled_stop_point_in_journey_patterns: Array<{
     __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
     journey_pattern_id: UUID;
@@ -15402,17 +15415,17 @@ export type StopWithJourneyPatternFieldsFragment = {
 
 export type RouteStopFieldsFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
-  scheduled_stop_point_id: UUID;
-  label: string;
   measured_location: GeoJSON.Point;
-  located_on_infrastructure_link_id: UUID;
-  direction: InfrastructureNetworkDirectionEnum;
   relative_distance_from_infrastructure_link_start: number;
   closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+  timing_place_id?: UUID | null;
+  priority: number;
+  direction: InfrastructureNetworkDirectionEnum;
+  scheduled_stop_point_id: UUID;
+  label: string;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
-  priority: number;
-  timing_place_id?: UUID | null;
+  located_on_infrastructure_link_id: UUID;
   other_label_instances: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
     priority: number;
@@ -15469,17 +15482,17 @@ export type GetStopsByLocationQuery = {
   __typename?: 'query_root';
   service_pattern_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    label: string;
     measured_location: GeoJSON.Point;
-    located_on_infrastructure_link_id: UUID;
-    direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
     closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    timing_place_id?: UUID | null;
+    priority: number;
+    direction: InfrastructureNetworkDirectionEnum;
+    scheduled_stop_point_id: UUID;
+    label: string;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
-    priority: number;
-    timing_place_id?: UUID | null;
+    located_on_infrastructure_link_id: UUID;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -15495,17 +15508,17 @@ export type GetStopsByValidityQuery = {
   __typename?: 'query_root';
   service_pattern_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    label: string;
     measured_location: GeoJSON.Point;
-    located_on_infrastructure_link_id: UUID;
-    direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
     closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    timing_place_id?: UUID | null;
+    priority: number;
+    direction: InfrastructureNetworkDirectionEnum;
+    scheduled_stop_point_id: UUID;
+    label: string;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
-    priority: number;
-    timing_place_id?: UUID | null;
+    located_on_infrastructure_link_id: UUID;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -15521,17 +15534,17 @@ export type GetStopsByIdsQuery = {
   __typename?: 'query_root';
   service_pattern_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    label: string;
     measured_location: GeoJSON.Point;
-    located_on_infrastructure_link_id: UUID;
-    direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
     closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    timing_place_id?: UUID | null;
+    priority: number;
+    direction: InfrastructureNetworkDirectionEnum;
+    scheduled_stop_point_id: UUID;
+    label: string;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
-    priority: number;
-    timing_place_id?: UUID | null;
+    located_on_infrastructure_link_id: UUID;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -15547,17 +15560,17 @@ export type GetStopsByLabelsQuery = {
   __typename?: 'query_root';
   service_pattern_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    label: string;
     measured_location: GeoJSON.Point;
-    located_on_infrastructure_link_id: UUID;
-    direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
     closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    timing_place_id?: UUID | null;
+    priority: number;
+    direction: InfrastructureNetworkDirectionEnum;
+    scheduled_stop_point_id: UUID;
+    label: string;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
-    priority: number;
-    timing_place_id?: UUID | null;
+    located_on_infrastructure_link_id: UUID;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -15597,17 +15610,17 @@ export type EditStopMutation = {
     __typename?: 'service_pattern_scheduled_stop_point_mutation_response';
     returning: Array<{
       __typename?: 'service_pattern_scheduled_stop_point';
-      scheduled_stop_point_id: UUID;
-      label: string;
       measured_location: GeoJSON.Point;
-      located_on_infrastructure_link_id: UUID;
-      direction: InfrastructureNetworkDirectionEnum;
       relative_distance_from_infrastructure_link_start: number;
       closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+      timing_place_id?: UUID | null;
+      priority: number;
+      direction: InfrastructureNetworkDirectionEnum;
+      scheduled_stop_point_id: UUID;
+      label: string;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
-      priority: number;
-      timing_place_id?: UUID | null;
+      located_on_infrastructure_link_id: UUID;
       vehicle_mode_on_scheduled_stop_point: Array<{
         __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
         vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -15644,17 +15657,17 @@ export type GetStopWithRouteGraphDataByIdQuery = {
   __typename?: 'query_root';
   service_pattern_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    label: string;
     measured_location: GeoJSON.Point;
-    located_on_infrastructure_link_id: UUID;
-    direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
     closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    timing_place_id?: UUID | null;
+    priority: number;
+    direction: InfrastructureNetworkDirectionEnum;
+    scheduled_stop_point_id: UUID;
+    label: string;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
-    priority: number;
-    timing_place_id?: UUID | null;
+    located_on_infrastructure_link_id: UUID;
     scheduled_stop_point_in_journey_patterns: Array<{
       __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
       journey_pattern_id: UUID;
@@ -15672,7 +15685,6 @@ export type GetStopWithRouteGraphDataByIdQuery = {
         on_route_id: UUID;
         journey_pattern_route?: {
           __typename?: 'route_route';
-          route_id: UUID;
           name_i18n: LocalizedString;
           description_i18n?: LocalizedString | null;
           origin_name_i18n: LocalizedString;
@@ -15681,9 +15693,12 @@ export type GetStopWithRouteGraphDataByIdQuery = {
           destination_short_name_i18n: LocalizedString;
           on_line_id: UUID;
           label: string;
-          variant?: number | null;
-          priority: number;
           direction: RouteDirectionEnum;
+          variant?: number | null;
+          route_id: UUID;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          priority: number;
           infrastructure_links_along_route: Array<{
             __typename?: 'route_infrastructure_link_along_route';
             route_id: UUID;
@@ -15718,21 +15733,21 @@ export type GetRoutesBrokenByStopChangeQuery = {
     journey_pattern_id: UUID;
     journey_pattern_route?: {
       __typename?: 'route_route';
-      route_id: UUID;
+      route_shape?: GeoJSON.LineString | null;
       name_i18n: LocalizedString;
       description_i18n?: LocalizedString | null;
       origin_name_i18n: LocalizedString;
       origin_short_name_i18n: LocalizedString;
       destination_name_i18n: LocalizedString;
       destination_short_name_i18n: LocalizedString;
-      route_shape?: GeoJSON.LineString | null;
       on_line_id: UUID;
+      label: string;
+      direction: RouteDirectionEnum;
+      variant?: number | null;
+      route_id: UUID;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       priority: number;
-      label: string;
-      variant?: number | null;
-      direction: RouteDirectionEnum;
     } | null;
   }>;
 };
@@ -15747,17 +15762,17 @@ export type InfrastructureLinkWithStopsFragment = {
   external_link_source: InfrastructureNetworkExternalSourceEnum;
   scheduled_stop_points_located_on_infrastructure_link: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    label: string;
     measured_location: GeoJSON.Point;
-    located_on_infrastructure_link_id: UUID;
-    direction: InfrastructureNetworkDirectionEnum;
     relative_distance_from_infrastructure_link_start: number;
     closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    timing_place_id?: UUID | null;
+    priority: number;
+    direction: InfrastructureNetworkDirectionEnum;
+    scheduled_stop_point_id: UUID;
+    label: string;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
-    priority: number;
-    timing_place_id?: UUID | null;
+    located_on_infrastructure_link_id: UUID;
     other_label_instances: Array<{
       __typename?: 'service_pattern_scheduled_stop_point';
       priority: number;
@@ -15794,45 +15809,45 @@ export type InfrastructureLinkWithStopsFragment = {
 
 export type LineWithRoutesFragment = {
   __typename?: 'route_line';
-  line_id: UUID;
-  name_i18n: LocalizedString;
-  short_name_i18n: LocalizedString;
   primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
   type_of_line: RouteTypeOfLineEnum;
   transport_target: HslRouteTransportTargetEnum;
+  line_id: UUID;
+  label: string;
+  name_i18n: LocalizedString;
+  short_name_i18n: LocalizedString;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   priority: number;
-  label: string;
   line_routes: Array<{
     __typename?: 'route_route';
-    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null;
     name_i18n: LocalizedString;
     description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null;
     on_line_id: UUID;
+    label: string;
+    direction: RouteDirectionEnum;
+    variant?: number | null;
+    route_id: UUID;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
-    variant?: number | null;
-    direction: RouteDirectionEnum;
     route_line: {
       __typename?: 'route_line';
-      line_id: UUID;
-      name_i18n: LocalizedString;
-      short_name_i18n: LocalizedString;
       primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
       type_of_line: RouteTypeOfLineEnum;
       transport_target: HslRouteTransportTargetEnum;
+      line_id: UUID;
+      label: string;
+      name_i18n: LocalizedString;
+      short_name_i18n: LocalizedString;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       priority: number;
-      label: string;
     };
     infrastructure_links_along_route: Array<{
       __typename?: 'route_infrastructure_link_along_route';
@@ -15849,17 +15864,17 @@ export type LineWithRoutesFragment = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_points_located_on_infrastructure_link: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
-          scheduled_stop_point_id: UUID;
-          label: string;
           measured_location: GeoJSON.Point;
-          located_on_infrastructure_link_id: UUID;
-          direction: InfrastructureNetworkDirectionEnum;
           relative_distance_from_infrastructure_link_start: number;
           closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+          timing_place_id?: UUID | null;
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
-          priority: number;
-          timing_place_id?: UUID | null;
+          located_on_infrastructure_link_id: UUID;
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point';
             priority: number;
@@ -15939,45 +15954,45 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
   __typename?: 'query_root';
   route_line: Array<{
     __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
     primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
     type_of_line: RouteTypeOfLineEnum;
     transport_target: HslRouteTransportTargetEnum;
+    line_id: UUID;
+    label: string;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
     line_routes: Array<{
       __typename?: 'route_route';
-      route_id: UUID;
+      route_shape?: GeoJSON.LineString | null;
       name_i18n: LocalizedString;
       description_i18n?: LocalizedString | null;
       origin_name_i18n: LocalizedString;
       origin_short_name_i18n: LocalizedString;
       destination_name_i18n: LocalizedString;
       destination_short_name_i18n: LocalizedString;
-      route_shape?: GeoJSON.LineString | null;
       on_line_id: UUID;
+      label: string;
+      direction: RouteDirectionEnum;
+      variant?: number | null;
+      route_id: UUID;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       priority: number;
-      label: string;
-      variant?: number | null;
-      direction: RouteDirectionEnum;
       route_line: {
         __typename?: 'route_line';
-        line_id: UUID;
-        name_i18n: LocalizedString;
-        short_name_i18n: LocalizedString;
         primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
         type_of_line: RouteTypeOfLineEnum;
         transport_target: HslRouteTransportTargetEnum;
+        line_id: UUID;
+        label: string;
+        name_i18n: LocalizedString;
+        short_name_i18n: LocalizedString;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         priority: number;
-        label: string;
       };
       infrastructure_links_along_route: Array<{
         __typename?: 'route_infrastructure_link_along_route';
@@ -15994,17 +16009,17 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_points_located_on_infrastructure_link: Array<{
             __typename?: 'service_pattern_scheduled_stop_point';
-            scheduled_stop_point_id: UUID;
-            label: string;
             measured_location: GeoJSON.Point;
-            located_on_infrastructure_link_id: UUID;
-            direction: InfrastructureNetworkDirectionEnum;
             relative_distance_from_infrastructure_link_start: number;
             closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+            timing_place_id?: UUID | null;
+            priority: number;
+            direction: InfrastructureNetworkDirectionEnum;
+            scheduled_stop_point_id: UUID;
+            label: string;
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
-            priority: number;
-            timing_place_id?: UUID | null;
+            located_on_infrastructure_link_id: UUID;
             other_label_instances: Array<{
               __typename?: 'service_pattern_scheduled_stop_point';
               priority: number;
@@ -16073,17 +16088,6 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
       }>;
     }>;
   }>;
-};
-
-export type RouteUniqueFieldsFragment = {
-  __typename?: 'route_route';
-  label: string;
-  direction: RouteDirectionEnum;
-  variant?: number | null;
-  route_id: UUID;
-  validity_start?: luxon.DateTime | null;
-  validity_end?: luxon.DateTime | null;
-  priority: number;
 };
 
 export type UpdateRouteGeometryMutationVariables = Exact<{
@@ -16187,17 +16191,17 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_points_located_on_infrastructure_link: Array<{
       __typename?: 'service_pattern_scheduled_stop_point';
-      scheduled_stop_point_id: UUID;
-      label: string;
       measured_location: GeoJSON.Point;
-      located_on_infrastructure_link_id: UUID;
-      direction: InfrastructureNetworkDirectionEnum;
       relative_distance_from_infrastructure_link_start: number;
       closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+      timing_place_id?: UUID | null;
+      priority: number;
+      direction: InfrastructureNetworkDirectionEnum;
+      scheduled_stop_point_id: UUID;
+      label: string;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
-      priority: number;
-      timing_place_id?: UUID | null;
+      located_on_infrastructure_link_id: UUID;
       other_label_instances: Array<{
         __typename?: 'service_pattern_scheduled_stop_point';
         priority: number;
@@ -16328,33 +16332,33 @@ export type RouteMetadataFragment = {
 
 export type RouteWithInfrastructureLinksWithStopsFragment = {
   __typename?: 'route_route';
-  route_id: UUID;
+  route_shape?: GeoJSON.LineString | null;
   name_i18n: LocalizedString;
   description_i18n?: LocalizedString | null;
   origin_name_i18n: LocalizedString;
   origin_short_name_i18n: LocalizedString;
   destination_name_i18n: LocalizedString;
   destination_short_name_i18n: LocalizedString;
-  route_shape?: GeoJSON.LineString | null;
   on_line_id: UUID;
+  label: string;
+  direction: RouteDirectionEnum;
+  variant?: number | null;
+  route_id: UUID;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   priority: number;
-  label: string;
-  variant?: number | null;
-  direction: RouteDirectionEnum;
   route_line: {
     __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
     primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
     type_of_line: RouteTypeOfLineEnum;
     transport_target: HslRouteTransportTargetEnum;
+    line_id: UUID;
+    label: string;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
   };
   infrastructure_links_along_route: Array<{
     __typename?: 'route_infrastructure_link_along_route';
@@ -16371,17 +16375,17 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
       direction: InfrastructureNetworkDirectionEnum;
       scheduled_stop_points_located_on_infrastructure_link: Array<{
         __typename?: 'service_pattern_scheduled_stop_point';
-        scheduled_stop_point_id: UUID;
-        label: string;
         measured_location: GeoJSON.Point;
-        located_on_infrastructure_link_id: UUID;
-        direction: InfrastructureNetworkDirectionEnum;
         relative_distance_from_infrastructure_link_start: number;
         closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+        timing_place_id?: UUID | null;
+        priority: number;
+        direction: InfrastructureNetworkDirectionEnum;
+        scheduled_stop_point_id: UUID;
+        label: string;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
-        priority: number;
-        timing_place_id?: UUID | null;
+        located_on_infrastructure_link_id: UUID;
         other_label_instances: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
           priority: number;
@@ -16420,33 +16424,33 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
 
 export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
   __typename?: 'route_route';
-  route_id: UUID;
+  route_shape?: GeoJSON.LineString | null;
   name_i18n: LocalizedString;
   description_i18n?: LocalizedString | null;
   origin_name_i18n: LocalizedString;
   origin_short_name_i18n: LocalizedString;
   destination_name_i18n: LocalizedString;
   destination_short_name_i18n: LocalizedString;
-  route_shape?: GeoJSON.LineString | null;
   on_line_id: UUID;
+  label: string;
+  direction: RouteDirectionEnum;
+  variant?: number | null;
+  route_id: UUID;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   priority: number;
-  label: string;
-  variant?: number | null;
-  direction: RouteDirectionEnum;
   route_line: {
     __typename?: 'route_line';
-    line_id: UUID;
-    name_i18n: LocalizedString;
-    short_name_i18n: LocalizedString;
     primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
     type_of_line: RouteTypeOfLineEnum;
     transport_target: HslRouteTransportTargetEnum;
+    line_id: UUID;
+    label: string;
+    name_i18n: LocalizedString;
+    short_name_i18n: LocalizedString;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
   };
   infrastructure_links_along_route: Array<{
     __typename?: 'route_infrastructure_link_along_route';
@@ -16463,17 +16467,17 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
       direction: InfrastructureNetworkDirectionEnum;
       scheduled_stop_points_located_on_infrastructure_link: Array<{
         __typename?: 'service_pattern_scheduled_stop_point';
-        scheduled_stop_point_id: UUID;
-        label: string;
         measured_location: GeoJSON.Point;
-        located_on_infrastructure_link_id: UUID;
-        direction: InfrastructureNetworkDirectionEnum;
         relative_distance_from_infrastructure_link_start: number;
         closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+        timing_place_id?: UUID | null;
+        priority: number;
+        direction: InfrastructureNetworkDirectionEnum;
+        scheduled_stop_point_id: UUID;
+        label: string;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
-        priority: number;
-        timing_place_id?: UUID | null;
+        located_on_infrastructure_link_id: UUID;
         other_label_instances: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
           priority: number;
@@ -16557,17 +16561,17 @@ export type InfraLinkAlongRouteWithStopsFragment = {
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_points_located_on_infrastructure_link: Array<{
       __typename?: 'service_pattern_scheduled_stop_point';
-      scheduled_stop_point_id: UUID;
-      label: string;
       measured_location: GeoJSON.Point;
-      located_on_infrastructure_link_id: UUID;
-      direction: InfrastructureNetworkDirectionEnum;
       relative_distance_from_infrastructure_link_start: number;
       closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+      timing_place_id?: UUID | null;
+      priority: number;
+      direction: InfrastructureNetworkDirectionEnum;
+      scheduled_stop_point_id: UUID;
+      label: string;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
-      priority: number;
-      timing_place_id?: UUID | null;
+      located_on_infrastructure_link_id: UUID;
       other_label_instances: Array<{
         __typename?: 'service_pattern_scheduled_stop_point';
         priority: number;
@@ -16611,33 +16615,33 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
   __typename?: 'query_root';
   route_route_by_pk?: {
     __typename?: 'route_route';
-    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null;
     name_i18n: LocalizedString;
     description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null;
     on_line_id: UUID;
+    label: string;
+    direction: RouteDirectionEnum;
+    variant?: number | null;
+    route_id: UUID;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
-    variant?: number | null;
-    direction: RouteDirectionEnum;
     route_line: {
       __typename?: 'route_line';
-      line_id: UUID;
-      name_i18n: LocalizedString;
-      short_name_i18n: LocalizedString;
       primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
       type_of_line: RouteTypeOfLineEnum;
       transport_target: HslRouteTransportTargetEnum;
+      line_id: UUID;
+      label: string;
+      name_i18n: LocalizedString;
+      short_name_i18n: LocalizedString;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       priority: number;
-      label: string;
     };
     infrastructure_links_along_route: Array<{
       __typename?: 'route_infrastructure_link_along_route';
@@ -16654,17 +16658,17 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_points_located_on_infrastructure_link: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
-          scheduled_stop_point_id: UUID;
-          label: string;
           measured_location: GeoJSON.Point;
-          located_on_infrastructure_link_id: UUID;
-          direction: InfrastructureNetworkDirectionEnum;
           relative_distance_from_infrastructure_link_start: number;
           closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+          timing_place_id?: UUID | null;
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
-          priority: number;
-          timing_place_id?: UUID | null;
+          located_on_infrastructure_link_id: UUID;
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point';
             priority: number;
@@ -16871,7 +16875,6 @@ export type VehicleJourneyWithRouteInfoFragment = {
       journey_pattern_route?: {
         __typename?: 'route_route';
         direction: RouteDirectionEnum;
-        route_id: UUID;
         name_i18n: LocalizedString;
         description_i18n?: LocalizedString | null;
         origin_name_i18n: LocalizedString;
@@ -16881,6 +16884,9 @@ export type VehicleJourneyWithRouteInfoFragment = {
         on_line_id: UUID;
         label: string;
         variant?: number | null;
+        route_id: UUID;
+        validity_start?: luxon.DateTime | null;
+        validity_end?: luxon.DateTime | null;
         priority: number;
       } | null;
     } | null;
@@ -16932,7 +16938,6 @@ export type VehicleServiceWithJourneysFragment = {
           journey_pattern_route?: {
             __typename?: 'route_route';
             direction: RouteDirectionEnum;
-            route_id: UUID;
             name_i18n: LocalizedString;
             description_i18n?: LocalizedString | null;
             origin_name_i18n: LocalizedString;
@@ -16942,6 +16947,9 @@ export type VehicleServiceWithJourneysFragment = {
             on_line_id: UUID;
             label: string;
             variant?: number | null;
+            route_id: UUID;
+            validity_start?: luxon.DateTime | null;
+            validity_end?: luxon.DateTime | null;
             priority: number;
           } | null;
         } | null;
@@ -17002,7 +17010,6 @@ export type VehicleScheduleFrameWithRouteInfoFragment = {
             journey_pattern_route?: {
               __typename?: 'route_route';
               direction: RouteDirectionEnum;
-              route_id: UUID;
               name_i18n: LocalizedString;
               description_i18n?: LocalizedString | null;
               origin_name_i18n: LocalizedString;
@@ -17012,6 +17019,9 @@ export type VehicleScheduleFrameWithRouteInfoFragment = {
               on_line_id: UUID;
               label: string;
               variant?: number | null;
+              route_id: UUID;
+              validity_start?: luxon.DateTime | null;
+              validity_end?: luxon.DateTime | null;
               priority: number;
             } | null;
           } | null;
@@ -17081,7 +17091,6 @@ export type GetStagingVehicleScheduleFramesQuery = {
                 journey_pattern_route?: {
                   __typename?: 'route_route';
                   direction: RouteDirectionEnum;
-                  route_id: UUID;
                   name_i18n: LocalizedString;
                   description_i18n?: LocalizedString | null;
                   origin_name_i18n: LocalizedString;
@@ -17091,6 +17100,9 @@ export type GetStagingVehicleScheduleFramesQuery = {
                   on_line_id: UUID;
                   label: string;
                   variant?: number | null;
+                  route_id: UUID;
+                  validity_start?: luxon.DateTime | null;
+                  validity_end?: luxon.DateTime | null;
                   priority: number;
                 } | null;
               } | null;
@@ -17231,21 +17243,21 @@ export type GetRouteDetailsByLabelWildcardQuery = {
   __typename?: 'query_root';
   route_route: Array<{
     __typename?: 'route_route';
-    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null;
     name_i18n: LocalizedString;
     description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null;
     on_line_id: UUID;
+    label: string;
+    direction: RouteDirectionEnum;
+    variant?: number | null;
+    route_id: UUID;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
-    variant?: number | null;
-    direction: RouteDirectionEnum;
   }>;
 };
 
@@ -17257,21 +17269,21 @@ export type GetSelectedRouteDetailsByIdQuery = {
   __typename?: 'query_root';
   route_route_by_pk?: {
     __typename?: 'route_route';
-    route_id: UUID;
+    route_shape?: GeoJSON.LineString | null;
     name_i18n: LocalizedString;
     description_i18n?: LocalizedString | null;
     origin_name_i18n: LocalizedString;
     origin_short_name_i18n: LocalizedString;
     destination_name_i18n: LocalizedString;
     destination_short_name_i18n: LocalizedString;
-    route_shape?: GeoJSON.LineString | null;
     on_line_id: UUID;
+    label: string;
+    direction: RouteDirectionEnum;
+    variant?: number | null;
+    route_id: UUID;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     priority: number;
-    label: string;
-    variant?: number | null;
-    direction: RouteDirectionEnum;
   } | null;
 };
 
@@ -17628,34 +17640,6 @@ export const InfraLinkMatchingFieldsFragmentDoc = gql`
     direction
   }
 `;
-export const ScheduledStopPointAllFieldsFragmentDoc = gql`
-  fragment scheduled_stop_point_all_fields on service_pattern_scheduled_stop_point {
-    scheduled_stop_point_id
-    label
-    measured_location
-    located_on_infrastructure_link_id
-    direction
-    relative_distance_from_infrastructure_link_start
-    closest_point_on_infrastructure_link
-    validity_start
-    validity_end
-    priority
-    vehicle_mode_on_scheduled_stop_point {
-      vehicle_mode
-    }
-    timing_place_id
-  }
-`;
-export const StopWithJourneyPatternFieldsFragmentDoc = gql`
-  fragment stop_with_journey_pattern_fields on service_pattern_scheduled_stop_point {
-    ...scheduled_stop_point_all_fields
-    scheduled_stop_point_in_journey_patterns {
-      ...scheduled_stop_point_in_journey_pattern_all_fields
-    }
-  }
-  ${ScheduledStopPointAllFieldsFragmentDoc}
-  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
-`;
 export const ScheduledStopPointDefaultFieldsFragmentDoc = gql`
   fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {
     priority
@@ -17666,6 +17650,29 @@ export const ScheduledStopPointDefaultFieldsFragmentDoc = gql`
     validity_end
     located_on_infrastructure_link_id
   }
+`;
+export const ScheduledStopPointAllFieldsFragmentDoc = gql`
+  fragment scheduled_stop_point_all_fields on service_pattern_scheduled_stop_point {
+    ...scheduled_stop_point_default_fields
+    measured_location
+    relative_distance_from_infrastructure_link_start
+    closest_point_on_infrastructure_link
+    vehicle_mode_on_scheduled_stop_point {
+      vehicle_mode
+    }
+    timing_place_id
+  }
+  ${ScheduledStopPointDefaultFieldsFragmentDoc}
+`;
+export const StopWithJourneyPatternFieldsFragmentDoc = gql`
+  fragment stop_with_journey_pattern_fields on service_pattern_scheduled_stop_point {
+    ...scheduled_stop_point_all_fields
+    scheduled_stop_point_in_journey_patterns {
+      ...scheduled_stop_point_in_journey_pattern_all_fields
+    }
+  }
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
 `;
 export const RouteStopFieldsFragmentDoc = gql`
   fragment route_stop_fields on service_pattern_scheduled_stop_point {
@@ -17697,6 +17704,43 @@ export const InfraLinkAlongRouteWithStopsDefaultFieldsFragmentDoc = gql`
     is_traversal_forwards
   }
 `;
+export const RouteValidityFragmentDoc = gql`
+  fragment route_validity on route_route {
+    validity_start
+    validity_end
+    priority
+  }
+`;
+export const RouteUniqueFieldsFragmentDoc = gql`
+  fragment route_unique_fields on route_route {
+    ...route_validity
+    label
+    direction
+    variant
+    route_id
+  }
+  ${RouteValidityFragmentDoc}
+`;
+export const RouteDefaultFieldsFragmentDoc = gql`
+  fragment route_default_fields on route_route {
+    ...route_unique_fields
+    name_i18n
+    description_i18n
+    origin_name_i18n
+    origin_short_name_i18n
+    destination_name_i18n
+    destination_short_name_i18n
+    on_line_id
+  }
+  ${RouteUniqueFieldsFragmentDoc}
+`;
+export const RouteAllFieldsFragmentDoc = gql`
+  fragment route_all_fields on route_route {
+    ...route_default_fields
+    route_shape
+  }
+  ${RouteDefaultFieldsFragmentDoc}
+`;
 export const LineDefaultFieldsFragmentDoc = gql`
   fragment line_default_fields on route_line {
     line_id
@@ -17708,38 +17752,14 @@ export const LineDefaultFieldsFragmentDoc = gql`
     priority
   }
 `;
-export const RouteAllFieldsFragmentDoc = gql`
-  fragment route_all_fields on route_route {
-    route_id
-    name_i18n
-    description_i18n
-    origin_name_i18n
-    origin_short_name_i18n
-    destination_name_i18n
-    destination_short_name_i18n
-    route_shape
-    on_line_id
-    validity_start
-    validity_end
-    priority
-    label
-    variant
-    direction
-  }
-`;
 export const LineAllFieldsFragmentDoc = gql`
   fragment line_all_fields on route_line {
-    line_id
-    name_i18n
-    short_name_i18n
+    ...line_default_fields
     primary_vehicle_mode
     type_of_line
     transport_target
-    validity_start
-    validity_end
-    priority
-    label
   }
+  ${LineDefaultFieldsFragmentDoc}
 `;
 export const RouteWithInfrastructureLinksFragmentDoc = gql`
   fragment route_with_infrastructure_links on route_route {
@@ -17873,23 +17893,6 @@ export const LineWithRoutesFragmentDoc = gql`
   ${LineAllFieldsFragmentDoc}
   ${RouteWithInfrastructureLinksWithStopsAndJpsFragmentDoc}
 `;
-export const RouteValidityFragmentDoc = gql`
-  fragment route_validity on route_route {
-    validity_start
-    validity_end
-    priority
-  }
-`;
-export const RouteUniqueFieldsFragmentDoc = gql`
-  fragment route_unique_fields on route_route {
-    ...route_validity
-    label
-    direction
-    variant
-    route_id
-  }
-  ${RouteValidityFragmentDoc}
-`;
 export const DisplayedRouteFragmentDoc = gql`
   fragment displayed_route on route_route {
     route_id
@@ -17925,22 +17928,6 @@ export const DayTypeAllFieldsFragmentDoc = gql`
     day_type_id
     label
     name_i18n
-  }
-`;
-export const RouteDefaultFieldsFragmentDoc = gql`
-  fragment route_default_fields on route_route {
-    route_id
-    name_i18n
-    description_i18n
-    origin_name_i18n
-    origin_short_name_i18n
-    destination_name_i18n
-    destination_short_name_i18n
-    on_line_id
-    label
-    variant
-    priority
-    direction
   }
 `;
 export const VehicleJourneyWithRouteInfoFragmentDoc = gql`
@@ -19364,8 +19351,6 @@ export const GetRoutesByValidityDocument = gql`
   query GetRoutesByValidity($filter: route_route_bool_exp) {
     route_route(where: $filter) {
       ...route_default_fields
-      validity_start
-      validity_end
     }
   }
   ${RouteDefaultFieldsFragmentDoc}

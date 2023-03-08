@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
 import {
+  LineDefaultFieldsFragment,
   ReusableComponentsVehicleModeEnum,
-  RouteLine,
 } from '../../../generated/graphql';
 import { mapInsertLineOneResult } from '../../../graphql';
 import { useCreateLine } from '../../../hooks';
@@ -24,7 +24,7 @@ export const CreateNewLinePage = (): JSX.Element => {
     insertLineMutation,
     defaultErrorHandler,
   } = useCreateLine();
-  const [conflicts, setConflicts] = useState<RouteLine[]>([]);
+  const [conflicts, setConflicts] = useState<LineDefaultFieldsFragment[]>([]);
   const [createdLineId, setCreatedLineId] = useState<UUID>();
   const { t } = useTranslation();
 

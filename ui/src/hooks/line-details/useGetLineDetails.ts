@@ -68,16 +68,6 @@ const GQL_GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
   }
 `;
 
-const GQL_ROUTE_UNIQUE_FIELDS_FRAGMENT = gql`
-  fragment route_unique_fields on route_route {
-    ...route_validity
-    label
-    direction
-    variant
-    route_id
-  }
-`;
-
 const findHighestPriorityRoute = <TRoute extends RouteValidityFragment>(
   routes: TRoute[],
 ) =>

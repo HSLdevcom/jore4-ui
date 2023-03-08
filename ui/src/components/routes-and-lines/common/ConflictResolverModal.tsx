@@ -4,9 +4,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {
-  RouteLine,
+  LineDefaultFieldsFragment,
   RouteUniqueFieldsFragment,
-  ServicePatternScheduledStopPoint,
+  ScheduledStopPointDefaultFieldsFragment,
 } from '../../../generated/graphql';
 import { mapPriorityToUiName } from '../../../i18n/uiNameMappings';
 import { Row } from '../../../layoutComponents';
@@ -54,7 +54,7 @@ export const mapRouteToCommonConflictItem = (
 });
 
 export const mapLineToCommonConflictItem = (
-  line: RouteLine,
+  line: LineDefaultFieldsFragment,
 ): CommonConflictItem => ({
   validityStart: line.validity_start || undefined,
   validityEnd: line.validity_end || undefined,
@@ -65,7 +65,7 @@ export const mapLineToCommonConflictItem = (
 });
 
 export const mapStopToCommonConflictItem = (
-  item: ServicePatternScheduledStopPoint,
+  item: ScheduledStopPointDefaultFieldsFragment,
 ): CommonConflictItem => ({
   validityStart: item.validity_start || undefined,
   validityEnd: item.validity_end || undefined,
