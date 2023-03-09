@@ -215,9 +215,7 @@ export const useGetLineDetails = () => {
         buildLineDetailsGqlFilters(lineDetails, observationDate),
       );
 
-      const lineByDate = lineByDateResult.data?.route_line.length
-        ? lineByDateResult.data?.route_line[0]
-        : undefined;
+      const lineByDate = lineByDateResult.data?.route_line?.[0] || undefined;
 
       const filteredLine = lineByDate
         ? filterLineDetailsByDate(lineByDate)

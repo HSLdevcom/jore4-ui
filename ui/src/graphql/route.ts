@@ -176,29 +176,7 @@ export const mapLineDetailsWithRoutesResult = (
 const GET_ROUTES_WITH_STOPS = gql`
   query GetRoutesWithStops($routeFilters: route_route_bool_exp) {
     route_route(where: $routeFilters) {
-      ...route_all_fields
-      route_line {
-        line_id
-      }
-      infrastructure_links_along_route {
-        route_id
-        infrastructure_link_id
-        infrastructure_link_sequence
-        is_traversal_forwards
-        infrastructure_link {
-          infrastructure_link_id
-          scheduled_stop_points_located_on_infrastructure_link {
-            ...scheduled_stop_point_all_fields
-            scheduled_stop_point_in_journey_patterns {
-              ...scheduled_stop_point_in_journey_pattern_all_fields
-              journey_pattern {
-                journey_pattern_id
-                on_route_id
-              }
-            }
-          }
-        }
-      }
+      ...route_with_infrastructure_links_with_stops_and_jps
     }
   }
 `;

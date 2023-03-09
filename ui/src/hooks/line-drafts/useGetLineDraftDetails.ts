@@ -5,7 +5,6 @@ import {
   RouteValidityFragment,
   useGetRoutesWithStopsQuery,
 } from '../../generated/graphql';
-import { mapRouteResultToRoutes } from '../../graphql';
 import { isDateInRange } from '../../time';
 import { Priority } from '../../types/enums';
 import {
@@ -32,7 +31,7 @@ export const useGetLineDraftDetails = () => {
 
   const result = useGetRoutesWithStopsQuery(mapToVariables({ routeFilters }));
 
-  const routes = mapRouteResultToRoutes(result);
+  const routes = result.data?.route_route || [];
 
   // Filter routes by observationDate in UI (and not in gql query) to avoid
   // unnecessary graphql queries which would cause the list to reload on every date change

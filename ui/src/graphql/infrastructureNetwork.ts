@@ -2,9 +2,10 @@
 import { gql } from '@apollo/client';
 import {
   GetLinksWithStopsByExternalLinkIdsQuery,
-  InfraLinkAlongRouteWithStopsDefaultFieldsFragment,
+  InfraLinkAlongRouteDefaultFieldsFragment,
   InfraLinkMatchingFieldsFragment,
   InfrastructureLinkAllFieldsFragment,
+  InfrastructureLinkDefaultFieldsFragment,
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
   InfrastructureNetworkInfrastructureLinkInsertInput,
@@ -26,8 +27,8 @@ const ROUTE_INFRA_LINK_FIELDS = gql`
   }
 `;
 
-const GQL_INFRA_LINK_ALONG_ROUTE_WITH_STOPS_DEFAULT_FIELDS_FRAGMENT = gql`
-  fragment infra_link_along_route_with_stops_default_fields on route_infrastructure_link_along_route {
+const GQL_INFRA_LINK_ALONG_ROUTE_DEFAULT_FIELDS_FRAGMENT = gql`
+  fragment infra_link_along_route_default_fields on route_infrastructure_link_along_route {
     infrastructure_link_id
     infrastructure_link {
       infrastructure_link_id
@@ -40,12 +41,14 @@ const GQL_INFRA_LINK_ALONG_ROUTE_WITH_STOPS_DEFAULT_FIELDS_FRAGMENT = gql`
 export type RouteInfraLink =
   RouteInfraLinkTemplateType<InfrastructureLinkAllFieldsFragment>;
 
-export type RouteInfraLinkTemplateType<TLink> = TLink & {
+export type RouteInfraLinkTemplateType<
+  TLink extends InfrastructureLinkDefaultFieldsFragment,
+> = TLink & {
   is_traversal_forwards: boolean;
 };
 
 export const mapInfrastructureLinksAlongRouteToRouteInfraLinks = <
-  TLink extends InfraLinkAlongRouteWithStopsDefaultFieldsFragment,
+  TLink extends InfraLinkAlongRouteDefaultFieldsFragment,
 >(
   infraLinks: TLink[],
 ): RouteInfraLinkTemplateType<TLink['infrastructure_link']>[] =>
@@ -97,9 +100,15 @@ const input: InfrastructureNetworkInfrastructureLinkInsertInput = {
   },
 };
 
+const INFRASTRUCTURE_LINK_DEFAULT_FIELDS = gql`
+  fragment infrastructure_link_default_fields on infrastructure_network_infrastructure_link {
+    infrastructure_link_id
+  }
+`;
+
 const INFRASTRUCTURE_LINK_ALL_FIELDS = gql`
   fragment infrastructure_link_all_fields on infrastructure_network_infrastructure_link {
-    infrastructure_link_id
+    ...infrastructure_link_default_fields
     direction
     shape
     estimated_length_in_metres
