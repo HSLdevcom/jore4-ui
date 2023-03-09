@@ -10,9 +10,9 @@
     // don't look for package files under node_modules and test folders
     ':ignoreModulesAndTests',
     // some default PR grouping rules
-    'group:monorepos',
-    'group:recommended',
-    'group:allNonMajor',
+    // 'group:monorepos',
+    // 'group:recommended',
+    // 'group:allNonMajor',
     // A collection of workarounds for known problems with packages.
     'workarounds:all',
   ],
