@@ -36,7 +36,7 @@
   // when to look for changes
   schedule: ['every weekday after 1pm'],
 
-  // don't create the default PRs, only the ones below
+  // by default, group all dependencies into a single PR. In special cases, group them as defined below
   groupName: 'all dependencies',
   groupSlug: 'all',
 
@@ -52,13 +52,13 @@
     {
       // we don't want to update github actions pinned with sha (digest)
       groupName: 'github actions',
-      groupSlug: 'all',
+      groupSlug: 'github-actions',
       matchManagers: ['github-actions'],
       matchUpdateTypes: ['major', 'minor', 'patch'],
     },
     {
       // group all minor and patch updates together, into a single PR
-      groupName: 'all non-major dependencies',
+      groupName: 'all minor and patch dependencies',
       groupSlug: 'all-minor-patch',
       matchPackagePatterns: ['*'],
       matchUpdateTypes: ['minor', 'patch'],
@@ -78,8 +78,9 @@
     // },
     {
       // group React and corresponding @types packages together
-      groupName: 'react monorepo',
-      matchPackageNames: ['@types/react', '@types/react-dom'],
+      groupName: 'all react dependencies',
+      groupSlug: 'all-react',
+      matchPackageNames: ['react', '@types/react', '@types/react-dom'],
     },
   ],
 }
