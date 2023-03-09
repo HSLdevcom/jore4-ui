@@ -38,10 +38,7 @@ const GQL_INFRA_LINK_ALONG_ROUTE_DEFAULT_FIELDS_FRAGMENT = gql`
 `;
 
 // an extended version of the infra link model that also contains information about the route
-export type RouteInfraLink =
-  RouteInfraLinkTemplateType<InfrastructureLinkAllFieldsFragment>;
-
-export type RouteInfraLinkTemplateType<
+export type RouteInfraLink<
   TLink extends InfrastructureLinkDefaultFieldsFragment,
 > = TLink & {
   is_traversal_forwards: boolean;
@@ -51,14 +48,14 @@ export const mapInfrastructureLinksAlongRouteToRouteInfraLinks = <
   TLink extends InfraLinkAlongRouteDefaultFieldsFragment,
 >(
   infraLinks: TLink[],
-): RouteInfraLinkTemplateType<TLink['infrastructure_link']>[] =>
+): RouteInfraLink<TLink['infrastructure_link']>[] =>
   infraLinks?.map((link) => ({
     ...link.infrastructure_link,
     is_traversal_forwards: link.is_traversal_forwards,
   })) || [];
 
 export const mapInfraLinksAlongRouteToGraphQL = (
-  infraLinks: RouteInfraLink[],
+  infraLinks: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[],
 ) =>
   infraLinks.map((link, index) => ({
     infrastructure_link_id: link.infrastructure_link_id,
@@ -188,7 +185,7 @@ const GET_STOPS_ALONG_INFRASTRUCTURE_LINKS = gql`
 
 export const mapRouteToInfraLinksAlongRoute = (
   route: RouteWithInfrastructureLinksFragment,
-): RouteInfraLink[] => {
+): RouteInfraLink<InfrastructureLinkAllFieldsFragment>[] => {
   return route.infrastructure_links_along_route.map((item) => ({
     ...item.infrastructure_link,
     is_traversal_forwards: item.is_traversal_forwards,

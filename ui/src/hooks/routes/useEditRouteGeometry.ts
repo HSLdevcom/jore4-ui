@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import {
   GetRouteDetailsByIdDocument,
+  InfrastructureLinkAllFieldsFragment,
   JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
   JourneyPatternStopFragment,
   RouteInfrastructureLinkAlongRouteInsertInput,
@@ -77,7 +78,7 @@ const GQL_UPDATE_ROUTE_GEOMETRY = gql`
 interface EditParams {
   routeId: UUID;
   journeyPatternId: UUID;
-  infraLinksAlongRoute: RouteInfraLink[];
+  infraLinksAlongRoute: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
   stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
   includedStopLabels: string[];
   journeyPatternStops: JourneyPatternStopFragment[];

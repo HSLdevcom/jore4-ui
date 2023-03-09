@@ -20,7 +20,6 @@ import {
 } from '../../generated/graphql';
 import {
   RouteInfraLink,
-  RouteInfraLinkTemplateType,
   getRouteStopLabels,
   mapRouteToInfraLinksAlongRoute,
   mapStopResultToStops,
@@ -99,7 +98,7 @@ const isStopValidDuringRouteValidity = (
  */
 const isStopAlongInfraLinks = (
   stop: ScheduledStopPointDefaultFieldsFragment,
-  routeInfraLinks: RouteInfraLinkTemplateType<InfraLinkMatchingFieldsFragment>[],
+  routeInfraLinks: RouteInfraLink<InfraLinkMatchingFieldsFragment>[],
 ) => {
   // first checking if the stop is beside of any of the route's infra links
   const infraLink = routeInfraLinks.find(
@@ -124,7 +123,7 @@ const isStopAlongInfraLinks = (
 const validateStopInstancesAlongGeometry = (
   stop: RouteStopFieldsFragment,
   routeValidity: RouteValidityFragment,
-  routeInfraLinks: RouteInfraLinkTemplateType<InfrastructureLinkAllFieldsFragment>[],
+  routeInfraLinks: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[],
 ) => {
   // We always allow draft stops along routes, no integrity checks are done
   if (stop.priority === Priority.Draft) {
@@ -176,7 +175,7 @@ const validateStopInstancesAlongGeometry = (
  * @param routeMetadata: metadata about the edited route (e.g. priority, validity period)
  */
 export const extractJourneyPatternCandidateStops = (
-  infraLinksWithStops: RouteInfraLinkTemplateType<InfrastructureLinkWithStopsFragment>[],
+  infraLinksWithStops: RouteInfraLink<InfrastructureLinkWithStopsFragment>[],
   routeMetadata: RouteValidityFragment,
 ) => {
   // getting the (ordered) list of all the stops that are along the infra links,
@@ -218,7 +217,9 @@ export const extractJourneyPatternCandidateStops = (
  * @param link Infrastructure link
  * @returns GeoJSON Feature
  */
-const mapInfraLinkToFeature = (link: RouteInfraLink) => {
+const mapInfraLinkToFeature = (
+  link: RouteInfraLink<InfrastructureLinkAllFieldsFragment>,
+) => {
   const { shape, is_traversal_forwards: isTraversalForwards } = link;
 
   // Build feature out of infrastructure link geometry
@@ -327,7 +328,7 @@ const getRelativeSnapPointDistancesAlongLink = ({
 };
 
 export const mapInfraLinksToFeature = (
-  infraLinks: RouteInfraLink[],
+  infraLinks: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[],
 ): LineStringFeature => {
   const coordinates: GeoJSON.Position[] = infraLinks.flatMap((link, index) => {
     const linkFeature = mapInfraLinkToFeature(link);
@@ -360,7 +361,9 @@ export const mapInfraLinksToFeature = (
 
 export const getOldRouteGeometryVariables = (
   previouslyEditedStopLabels: string[],
-  stateInfraLinks: RouteInfraLink[] | undefined,
+  stateInfraLinks:
+    | RouteInfraLink<InfrastructureLinkAllFieldsFragment>[]
+    | undefined,
   baseRoute?: RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 ) => {
   const previouslyEditedRouteInfrastructureLinks = stateInfraLinks || [];

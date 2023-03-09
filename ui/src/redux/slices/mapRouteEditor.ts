@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import uniq from 'lodash/uniq';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
+  InfrastructureLinkAllFieldsFragment,
   LineAllFieldsFragment,
   RouteStopFieldsFragment,
 } from '../../generated/graphql';
@@ -22,7 +23,7 @@ export interface EditedRouteData {
   /**
    * Array of infrastructure links along the created / edited route
    */
-  infraLinks?: RouteInfraLink[];
+  infraLinks?: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
   /**
    * Id of the route used as a template route, when creating a new route
    */
@@ -236,7 +237,7 @@ const slice = createSlice({
           StoreType<{
             includedStopLabels: string[];
             stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
-            infraLinks: RouteInfraLink[];
+            infraLinks: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
             geometry?: GeoJSON.LineString;
           }>
         >,
@@ -264,7 +265,7 @@ const slice = createSlice({
       }: {
         includedStopLabels: string[];
         stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
-        infraLinks: RouteInfraLink[];
+        infraLinks: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
         geometry?: GeoJSON.LineString;
       }) => ({
         payload: mapToStoreType({
