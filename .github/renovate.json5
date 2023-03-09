@@ -50,6 +50,12 @@
       matchUpdateTypes: ['minor', 'patch'],
     },
     {
+      // group React and corresponding @types packages together
+      groupName: 'all react dependencies',
+      groupSlug: 'all-react',
+      matchPackagePrefixes: ['react', '@types/react', '@types/react-dom'],
+    },
+    {
       // we don't want to update github actions pinned with sha (digest)
       groupName: 'github actions',
       groupSlug: 'github-actions',
@@ -76,11 +82,5 @@
     //   groupSlug: "all",
     //   matchPackagePatterns: ["*"],
     // },
-    {
-      // group React and corresponding @types packages together
-      groupName: 'all react dependencies',
-      groupSlug: 'all-react',
-      matchPackageNames: ['react', '@types/react', '@types/react-dom'],
-    },
   ],
 }
