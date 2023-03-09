@@ -30,11 +30,13 @@
   // create max x PRs per hour, not to burden CI
   prHourlyLimit: 2,
   // limit to maximum x open PRs at any time.
-  prConcurrentLimit: 5,
+  prConcurrentLimit: 50,
   // auto detect range strategy (e.g. semver ^ vs ~)
   rangeStrategy: 'auto',
   // when to look for changes
   schedule: ['every weekday after 1pm'],
+  // PRs will be raised separately for each available major upgrade version
+  separateMultipleMajor: true,
 
   // don't create the default PRs, only the ones below
   groupName: 'all dependencies',
