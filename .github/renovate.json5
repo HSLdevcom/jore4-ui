@@ -1,0 +1,85 @@
+{
+  // renovatebot preset that all jore4 repositories should take into use
+
+  // based on config:base and
+  // https://medium.com/@superseb/maintenance-free-renovate-using-github-actions-workflows-d91d32ad854a
+
+  extends: [
+    // Enable Renovate Dependency Dashboard creation.
+    ':dependencyDashboard',
+    // don't look for package files under node_modules and test folders
+    ':ignoreModulesAndTests',
+    // some default PR grouping rules
+    'group:monorepos',
+    'group:recommended',
+    'group:allNonMajor',
+    // A collection of workarounds for known problems with packages.
+    'workarounds:all',
+  ],
+
+  // what branches to look for updates
+  baseBranches: ['main'],
+  // to reduce PR rebases, only rebase when the PR is conflicted
+  rebaseWhen: 'conflicted',
+  // what labels to add to the created PRs
+  labels: ['dependencies'],
+  // what type of merge to use when a PR is automatically merged (note: IF automerge is enabled)
+  automergeStrategy: 'rebase',
+  // don't automerge by default
+  automerge: false,
+  // create max x PRs per hour, not to burden CI
+  prHourlyLimit: 2,
+  // limit to maximum x open PRs at any time.
+  prConcurrentLimit: 5,
+  // auto detect range strategy (e.g. semver ^ vs ~)
+  rangeStrategy: 'auto',
+  // when to look for changes
+  schedule: ['every weekday after 1pm'],
+
+  // don't create the default PRs, only the ones below
+  groupName: 'all dependencies',
+  groupSlug: 'all',
+
+  // additional customizations
+  packageRules: [
+    {
+      // we don't want to update nodejs major versions
+      groupName: 'nodejs update',
+      groupSlug: 'node',
+      matchPackageNames: ['node'],
+      matchUpdateTypes: ['minor', 'patch'],
+    },
+    {
+      // we don't want to update github actions pinned with sha (digest)
+      groupName: 'github actions',
+      groupSlug: 'all',
+      matchManagers: ['github-actions'],
+      matchUpdateTypes: ['major', 'minor', 'patch'],
+    },
+    {
+      // group all minor and patch updates together, into a single PR
+      groupName: 'all non-major dependencies',
+      groupSlug: 'all-minor-patch',
+      matchPackagePatterns: ['*'],
+      matchUpdateTypes: ['minor', 'patch'],
+    },
+    {
+      // group all major updates together, into a single PR
+      groupName: 'all major dependencies',
+      groupSlug: 'all-major',
+      matchPackagePatterns: ['*'],
+      matchUpdateTypes: ['major'],
+    },
+    // {
+    //   // group all updates together.
+    //   groupName: "all dependencies",
+    //   groupSlug: "all",
+    //   matchPackagePatterns: ["*"],
+    // },
+    // {
+    //   // group React and corresponding @types packages together
+    //   groupName: "react monorepo",
+    //   matchPackageNames: ["@types/react", "@types/react-dom"],
+    // },
+  ],
+}
