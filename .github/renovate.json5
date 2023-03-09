@@ -35,8 +35,6 @@
   rangeStrategy: 'auto',
   // when to look for changes
   schedule: ['every weekday after 1pm'],
-  // PRs will be raised separately for each available major upgrade version
-  separateMultipleMajor: true,
 
   // don't create the default PRs, only the ones below
   groupName: 'all dependencies',
