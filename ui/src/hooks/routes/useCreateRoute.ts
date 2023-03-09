@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
+  InfrastructureLinkAllFieldsFragment,
   InsertRouteOneMutationVariables,
   JourneyPatternStopFragment,
   RouteDefaultFieldsFragment,
@@ -24,7 +25,7 @@ import { useValidateRoute } from './useValidateRoute';
 
 interface CreateParams {
   form: RouteFormState;
-  infraLinksAlongRoute: RouteInfraLink[];
+  infraLinksAlongRoute: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
   stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
   includedStopLabels: string[];
   journeyPatternStops: JourneyPatternStopFragment[];
