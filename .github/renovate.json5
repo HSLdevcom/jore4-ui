@@ -1,0 +1,117 @@
+{
+  // renovatebot preset that all jore4 repositories should take into use
+
+  // based on config:base (https://docs.renovatebot.com/presets-config/#configbase) and
+  // https://medium.com/@superseb/maintenance-free-renovate-using-github-actions-workflows-d91d32ad854a and
+  // https://docs.renovatebot.com/faq/
+
+  extends: [
+    // Enable Renovate Dependency Dashboard creation.
+    ':dependencyDashboard',
+    // don't look for package files under node_modules and test folders
+    ':ignoreModulesAndTests',
+    // A collection of workarounds for known problems with packages.
+    'workarounds:all',
+
+    // some default PR grouping rules, these are fine-tuned below in the package rules section
+    // 'group:all', // group everything into a single PR
+    // 'group:allNonMajor', // group all non-major updates into a single PR
+    // 'group:monorepos', // group monorepos into own PRs
+    // 'group:recommended', // some other recommended groups
+  ],
+
+  // what branches to look for updates
+  baseBranches: ['main'],
+  // to reduce PR rebases, only rebase when the PR is conflicted
+  rebaseWhen: 'conflicted',
+  // what labels to add to the created PRs
+  labels: ['dependencies'],
+  // what type of merge to use when a PR is automatically merged (note: IF automerge is enabled)
+  automergeStrategy: 'rebase',
+  // don't automerge by default
+  automerge: false,
+  // don't approve the PRs by default,
+  dependencyDashboardApproval: false,
+  // create max x PRs per hour, not to burden CI
+  prHourlyLimit: 2,
+  // limit to maximum x open PRs at any time.
+  prConcurrentLimit: 10,
+  // auto detect range strategy (e.g. semver ^ vs ~)
+  rangeStrategy: 'auto',
+  // when to look for changes
+  schedule: ['every weekday after 2pm', 'every weekday before 10am'],
+  // whether to separate major and minor updates to different PRs
+  separateMajorMinor: false,
+  // set JORE4 team as default reviewers
+  reviewers: ['team:HSLdevcom/jore4'],
+
+  // Note: the updates are packages to pull requests in the order of the packageRules below.
+  // If package X matches rules 1, 2 and 3, it will end up always in the last one, group 3.
+  // So as a rule of thumb, should place the "big" groups to the beginning and the "special"
+  // groups to the end.
+  // Note that package X has both major and minor updates available (e.g. 18.0 -> 18.1 & 19.0),
+  // then if the rules are set too loose, the 18.1 update might end up in one group while the
+  // 19.0 update could end up in another
+  // Also note that if some group: presets in the "extends" section are enabled, those rules will
+  // be overwritten by the package rules below,
+
+  // additional customizations
+  packageRules: [
+    {
+      // group all updates together, into a single PR
+      // this includes everything, even @digest of "1.2.3" pinned version updates
+      groupName: 'all dependencies',
+      groupSlug: 'all',
+      matchPackagePatterns: ['*'],
+    },
+    {
+      // group all pinned updates together
+      // these we probably don't want to update, but let's still create a PR
+      groupName: 'all pinned dependencies',
+      groupSlug: 'all-pinned',
+      matchPackagePatterns: ['*'],
+      matchUpdateTypes: ['pin', 'digest', 'pinDigest'],
+    },
+    {
+      // group all minor and patch updates together, into a single PR
+      // these usually don't break anything, so easy to merge these in as-is
+      groupName: 'all minor and patch dependencies',
+      groupSlug: 'all-minor-patch',
+      matchPackagePatterns: ['*'],
+      matchUpdateTypes: ['minor', 'patch'],
+    },
+    {
+      // group major updates for React and corresponding @types packages together
+      // these tend to break
+      groupName: 'major react updates',
+      groupSlug: 'major-react',
+      matchPackageNames: [
+        'react',
+        'react-dom',
+        '@types/react',
+        '@types/react-dom',
+      ],
+      matchUpdateTypes: ['major'],
+    },
+    {
+      // we want to group nodejs minor updates to its own PR (both npm and docker versions)
+      groupName: 'nodejs updates',
+      groupSlug: 'nodejs',
+      matchPackageNames: ['node', '@types/node'],
+      // matchUpdateTypes: ['minor', 'patch'],
+      allowedVersions: '18.x',
+    },
+    // {
+    //   // we don't want to update github actions pinned with sha (digest)
+    //   matchManagers: ['github-actions'],
+    //   matchUpdateTypes: ['digest', 'pin', 'pinDigest'],
+    //   enabled: false,
+    // },
+    // {
+    //   // we don't want to update nodejs major versions
+    //   matchPackageNames: ['node', '@types/node'],
+    //   matchUpdateTypes: ['major'],
+    //   enabled: false,
+    // },
+  ],
+}
