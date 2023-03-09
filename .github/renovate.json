@@ -1,0 +1,6 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>HSLdevcom/jore4-tools//renovatebot/jore4-default-preset.json5"
+  ]
+}
