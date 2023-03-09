@@ -76,10 +76,10 @@
     //   groupSlug: "all",
     //   matchPackagePatterns: ["*"],
     // },
-    // {
-    //   // group React and corresponding @types packages together
-    //   groupName: "react monorepo",
-    //   matchPackageNames: ["@types/react", "@types/react-dom"],
-    // },
+    {
+      // group React and corresponding @types packages together
+      groupName: 'react monorepo',
+      matchPackageNames: ['@types/react', '@types/react-dom'],
+    },
   ],
 }
