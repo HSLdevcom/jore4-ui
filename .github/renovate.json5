@@ -37,11 +37,23 @@
   schedule: ['every weekday after 1pm'],
 
   // by default, group all dependencies into a single PR. In special cases, group them as defined below
-  groupName: 'all dependencies',
-  groupSlug: 'all',
+  // groupName: 'all dependencies',
+  // groupSlug: 'all',
 
   // additional customizations
   packageRules: [
+    {
+      // group React and corresponding @types packages together
+      groupName: 'all react dependencies',
+      groupSlug: 'all-react',
+      matchPackagePatterns: ['react'],
+    },
+    {
+      // group React and corresponding @types packages together
+      groupName: 'all rea dependencies',
+      groupSlug: 'all-rea',
+      matchPackagePatterns: ['rea'],
+    },
     {
       // we don't want to update nodejs major versions
       groupName: 'nodejs update',
@@ -49,33 +61,33 @@
       matchPackageNames: ['node'],
       matchUpdateTypes: ['minor', 'patch'],
     },
-    {
-      // group React and corresponding @types packages together
-      groupName: 'all react dependencies',
-      groupSlug: 'all-react',
-      matchPackagePrefixes: ['react', '@types/react', '@types/react-dom'],
-    },
-    {
-      // we don't want to update github actions pinned with sha (digest)
-      groupName: 'github actions',
-      groupSlug: 'github-actions',
-      matchManagers: ['github-actions'],
-      matchUpdateTypes: ['major', 'minor', 'patch'],
-    },
-    {
-      // group all minor and patch updates together, into a single PR
-      groupName: 'all minor and patch dependencies',
-      groupSlug: 'all-minor-patch',
-      matchPackagePatterns: ['*'],
-      matchUpdateTypes: ['minor', 'patch'],
-    },
-    {
-      // group all major updates together, into a single PR
-      groupName: 'all major dependencies',
-      groupSlug: 'all-major',
-      matchPackagePatterns: ['*'],
-      matchUpdateTypes: ['major'],
-    },
+    // {
+    //   // group React and corresponding @types packages together
+    //   groupName: 'all react dependencies',
+    //   groupSlug: 'all-react',
+    //   matchPackagePrefixes: ['react', '@types/react', '@types/react-dom'],
+    // },
+    // {
+    //   // we don't want to update github actions pinned with sha (digest)
+    //   groupName: 'github actions',
+    //   groupSlug: 'github-actions',
+    //   matchManagers: ['github-actions'],
+    //   matchUpdateTypes: ['major', 'minor', 'patch'],
+    // },
+    // {
+    //   // group all minor and patch updates together, into a single PR
+    //   groupName: 'all minor and patch dependencies',
+    //   groupSlug: 'all-minor-patch',
+    //   matchPackagePatterns: ['*'],
+    //   matchUpdateTypes: ['minor', 'patch'],
+    // },
+    // {
+    //   // group all major updates together, into a single PR
+    //   groupName: 'all major dependencies',
+    //   groupSlug: 'all-major',
+    //   matchPackagePatterns: ['*'],
+    //   matchUpdateTypes: ['major'],
+    // },
     // {
     //   // group all updates together.
     //   groupName: "all dependencies",
