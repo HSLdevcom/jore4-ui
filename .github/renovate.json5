@@ -37,7 +37,7 @@
   // auto detect range strategy (e.g. semver ^ vs ~)
   rangeStrategy: 'auto',
   // when to look for changes
-  schedule: ['every weekday after 2pm', 'every weekday before 10am'],
+  schedule: ['every weekday before 10am'],
   // whether to separate major and minor updates to different PRs
   separateMajorMinor: false,
   // set JORE4 team as default reviewers
@@ -62,22 +62,6 @@
       groupSlug: 'all',
       matchPackagePatterns: ['*'],
     },
-    // {
-    //   // group all pinned updates together
-    //   // these we probably don't want to update, but let's still create a PR
-    //   groupName: 'all pinned dependencies',
-    //   groupSlug: 'all-pinned',
-    //   matchPackagePatterns: ['*'],
-    //   matchUpdateTypes: ['pin', 'digest', 'pinDigest'],
-    // },
-    // {
-    //   // group all minor and patch updates together, into a single PR
-    //   // these usually don't break anything, so easy to merge these in as-is
-    //   groupName: 'all minor and patch dependencies',
-    //   groupSlug: 'all-minor-patch',
-    //   matchPackagePatterns: ['*'],
-    //   matchUpdateTypes: ['minor', 'patch'],
-    // },
     {
       // group major updates for React and corresponding @types packages together
       // these tend to break
@@ -102,12 +86,6 @@
     //   // we don't want to update github actions pinned with sha (digest)
     //   matchManagers: ['github-actions'],
     //   matchUpdateTypes: ['digest', 'pin', 'pinDigest'],
-    //   enabled: false,
-    // },
-    // {
-    //   // we don't want to update nodejs major versions
-    //   matchPackageNames: ['node', '@types/node'],
-    //   matchUpdateTypes: ['major'],
     //   enabled: false,
     // },
   ],
