@@ -78,17 +78,18 @@
       ],
       matchUpdateTypes: ['major'],
     },
-    {
-      // we don't want to update nodejs major versions
-      matchPackageNames: ['node'],
-      matchUpdateTypes: ['major'],
-      enabled: false,
-    },
+    // {
+    //   // we don't want to update nodejs major versions
+    //   matchPackageNames: ['node'],
+    //   matchUpdateTypes: ['major'],
+    //   enabled: false,
+    // },
     {
       // we want to group nodejs minor updates to its own PR (both npm and docker versions)
       groupName: 'nodejs updates',
       groupSlug: 'nodejs',
       matchPackageNames: ['node', '@types/node'],
+      // matchUpdateTypes: ['minor', 'patch'],
       allowedVersions: '18.x',
     },
     {
