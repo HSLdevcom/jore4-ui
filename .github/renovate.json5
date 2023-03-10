@@ -78,24 +78,23 @@
       ],
       matchUpdateTypes: ['major'],
     },
-    // {
-    //   // we don't want to update nodejs major versions
-    //   matchPackageNames: ['node'],
-    //   matchUpdateTypes: ['major'],
-    //   enabled: false,
-    // },
     {
       // we want to group nodejs minor updates to its own PR (both npm and docker versions)
       groupName: 'nodejs updates',
       groupSlug: 'nodejs',
       matchPackageNames: ['node', '@types/node'],
-      // matchUpdateTypes: ['minor', 'patch'],
-      allowedVersions: '18.x',
+      matchUpdateTypes: ['minor', 'patch'],
     },
     {
       // we don't want to update github actions pinned with sha (digest)
       matchManagers: ['github-actions'],
       matchUpdateTypes: ['digest', 'pin', 'pinDigest'],
+      enabled: false,
+    },
+    {
+      // we don't want to update nodejs major versions
+      matchPackageNames: ['node', '@types/node'],
+      matchUpdateTypes: ['major'],
       enabled: false,
     },
   ],
