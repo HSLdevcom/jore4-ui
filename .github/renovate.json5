@@ -32,7 +32,7 @@
   // create max x PRs per hour, not to burden CI
   prHourlyLimit: 2,
   // limit to maximum x open PRs at any time.
-  prConcurrentLimit: 5,
+  prConcurrentLimit: 10,
   // auto detect range strategy (e.g. semver ^ vs ~)
   rangeStrategy: 'auto',
   // when to look for changes
