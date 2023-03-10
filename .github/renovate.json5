@@ -82,6 +82,12 @@
       matchPackageNames: ['node', '@types/node'],
       allowedVersions: '18.x',
     },
+    {
+      // we want to group typescript updates to its own PR
+      groupName: 'typescript updates',
+      groupSlug: 'typescript',
+      matchPackageNames: ['typescript', 'ts-node'],
+    },
     // {
     //   // we don't want to update github actions pinned with sha (digest)
     //   matchManagers: ['github-actions'],
