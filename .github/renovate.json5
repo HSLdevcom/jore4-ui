@@ -12,11 +12,11 @@
     // A collection of workarounds for known problems with packages.
     'workarounds:all',
 
-    // some default PR grouping rules to consider in the future.
-    // we are currently using only custom packages rules
-    // 'group:all', // group everything into a single PR
-    // 'group:monorepos', // group monorepos into own PRs
-    // 'group:recommended', // some other recommended groups
+    // some default PR grouping rules, these are fine-tuned below in the package rules section
+    'group:all', // group everything into a single PR
+    'group:allNonMajor', // group all non-major updates into a single PR
+    'group:monorepos', // group monorepos into own PRs
+    'group:recommended', // some other recommended groups
   ],
 
   // what branches to look for updates
@@ -50,21 +50,21 @@
 
   // additional customizations
   packageRules: [
-    {
-      // group all updates together, into a single PR
-      // this includes everything, even @digest of "1.2.3" pinned version updates
-      groupName: 'all dependencies',
-      groupSlug: 'all',
-      matchPackagePatterns: ['*'],
-    },
-    {
-      // group all minor and patch updates together, into a single PR
-      // these usually don't break anything, so easy to merge these in as-is
-      groupName: 'all minor and patch dependencies',
-      groupSlug: 'all-minor-patch',
-      matchPackagePatterns: ['*'],
-      matchUpdateTypes: ['minor', 'patch'],
-    },
+    // {
+    //   // group all updates together, into a single PR
+    //   // this includes everything, even @digest of "1.2.3" pinned version updates
+    //   groupName: 'all dependencies',
+    //   groupSlug: 'all',
+    //   matchPackagePatterns: ['*'],
+    // },
+    // {
+    //   // group all minor and patch updates together, into a single PR
+    //   // these usually don't break anything, so easy to merge these in as-is
+    //   groupName: 'all minor and patch dependencies',
+    //   groupSlug: 'all-minor-patch',
+    //   matchPackagePatterns: ['*'],
+    //   matchUpdateTypes: ['minor', 'patch'],
+    // },
     {
       // group major updates for React and corresponding @types packages together
       // these tend to break
