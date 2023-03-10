@@ -30,14 +30,14 @@
   automergeStrategy: 'rebase',
   // don't automerge by default
   automerge: false,
-  // create max x PRs per hour, not to burden CI
+  // create max x PRs per hour, not to burden CI (not the same as schedule!)
   prHourlyLimit: 2,
   // limit to maximum x open PRs at any time.
   prConcurrentLimit: 10,
+  // when to look for changes
+  schedule: ['before 3am on Monday'],
   // auto detect range strategy (e.g. semver ^ vs ~)
   rangeStrategy: 'bump',
-  // when to look for changes
-  schedule: ['every weekday before 10am'],
   // whether to separate major and minor updates to different PRs
   separateMajorMinor: false,
   // set JORE4 team as default reviewers
