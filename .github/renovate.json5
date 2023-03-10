@@ -62,22 +62,22 @@
       groupSlug: 'all',
       matchPackagePatterns: ['*'],
     },
-    {
-      // group all pinned updates together
-      // these we probably don't want to update, but let's still create a PR
-      groupName: 'all pinned dependencies',
-      groupSlug: 'all-pinned',
-      matchPackagePatterns: ['*'],
-      matchUpdateTypes: ['pin', 'digest', 'pinDigest'],
-    },
-    {
-      // group all minor and patch updates together, into a single PR
-      // these usually don't break anything, so easy to merge these in as-is
-      groupName: 'all minor and patch dependencies',
-      groupSlug: 'all-minor-patch',
-      matchPackagePatterns: ['*'],
-      matchUpdateTypes: ['minor', 'patch'],
-    },
+    // {
+    //   // group all pinned updates together
+    //   // these we probably don't want to update, but let's still create a PR
+    //   groupName: 'all pinned dependencies',
+    //   groupSlug: 'all-pinned',
+    //   matchPackagePatterns: ['*'],
+    //   matchUpdateTypes: ['pin', 'digest', 'pinDigest'],
+    // },
+    // {
+    //   // group all minor and patch updates together, into a single PR
+    //   // these usually don't break anything, so easy to merge these in as-is
+    //   groupName: 'all minor and patch dependencies',
+    //   groupSlug: 'all-minor-patch',
+    //   matchPackagePatterns: ['*'],
+    //   matchUpdateTypes: ['minor', 'patch'],
+    // },
     {
       // group major updates for React and corresponding @types packages together
       // these tend to break
@@ -96,7 +96,6 @@
       groupName: 'nodejs updates',
       groupSlug: 'nodejs',
       matchPackageNames: ['node', '@types/node'],
-      // matchUpdateTypes: ['minor', 'patch'],
       allowedVersions: '18.x',
     },
     // {
