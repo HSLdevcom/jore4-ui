@@ -44,15 +44,15 @@
   packageRules: [
     {
       // group React and corresponding @types packages together
-      groupName: 'all react dependencies',
-      groupSlug: 'all-react',
-      matchPackagePatterns: ['react'],
-    },
-    {
-      // group React and corresponding @types packages together
       groupName: 'all rea dependencies',
       groupSlug: 'all-rea',
       matchPackagePatterns: ['rea'],
+    },
+    {
+      // group React and corresponding @types packages together
+      groupName: 'all react dependencies',
+      groupSlug: 'all-react',
+      matchPackagePatterns: ['react'],
     },
     {
       // we don't want to update nodejs major versions
