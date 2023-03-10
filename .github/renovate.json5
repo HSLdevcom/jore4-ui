@@ -35,7 +35,7 @@
   // limit to maximum x open PRs at any time.
   prConcurrentLimit: 10,
   // auto detect range strategy (e.g. semver ^ vs ~)
-  rangeStrategy: 'auto',
+  rangeStrategy: 'bump',
   // when to look for changes
   schedule: ['every weekday before 10am'],
   // whether to separate major and minor updates to different PRs
