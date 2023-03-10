@@ -85,6 +85,13 @@
       enabled: false,
     },
     {
+      // we want to group nodejs minor updates to its own PR (both npm and docker versions)
+      groupName: 'nodejs updates',
+      groupSlug: 'nodejs',
+      matchPackageNames: ['node', '@types/node'],
+      allowedVersions: '18.x',
+    },
+    {
       // we don't want to update github actions pinned with sha (digest)
       matchManagers: ['github-actions'],
       matchUpdateTypes: ['digest', 'pin', 'pinDigest'],
