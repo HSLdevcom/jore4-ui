@@ -30,8 +30,6 @@
   automergeStrategy: 'rebase',
   // don't automerge by default
   automerge: false,
-  // don't approve the PRs by default,
-  dependencyDashboardApproval: false,
   // create max x PRs per hour, not to burden CI
   prHourlyLimit: 2,
   // limit to maximum x open PRs at any time.
