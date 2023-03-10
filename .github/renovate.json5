@@ -43,10 +43,11 @@
   // additional customizations
   packageRules: [
     {
-      // group React and corresponding @types packages together
-      groupName: 'all rea dependencies',
-      groupSlug: 'all-rea',
-      matchPackagePatterns: ['rea'],
+      // group all minor and patch updates together, into a single PR
+      groupName: 'all minor and patch dependencies',
+      groupSlug: 'all-minor-patch',
+      matchPackagePatterns: ['*'],
+      matchUpdateTypes: ['minor', 'patch'],
     },
     {
       // group React and corresponding @types packages together
