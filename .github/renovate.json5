@@ -1,7 +1,7 @@
 {
   // renovatebot preset that all jore4 repositories should take into use
 
-  // based on config:base and
+  // based on config:base (https://docs.renovatebot.com/presets-config/#configbase) and
   // https://medium.com/@superseb/maintenance-free-renovate-using-github-actions-workflows-d91d32ad854a
 
   extends: [
@@ -9,12 +9,14 @@
     ':dependencyDashboard',
     // don't look for package files under node_modules and test folders
     ':ignoreModulesAndTests',
-    // some default PR grouping rules
-    // 'group:monorepos',
-    // 'group:recommended',
-    // 'group:allNonMajor',
     // A collection of workarounds for known problems with packages.
     'workarounds:all',
+
+    // some default PR grouping rules to consider in the future.
+    // we are currently using only custom packages rules
+    // 'group:all', // group everything into a single PR
+    // 'group:monorepos', // group monorepos into own PRs
+    // 'group:recommended', // some other recommended groups
   ],
 
   // what branches to look for updates
@@ -30,70 +32,63 @@
   // create max x PRs per hour, not to burden CI
   prHourlyLimit: 2,
   // limit to maximum x open PRs at any time.
-  prConcurrentLimit: 50,
+  prConcurrentLimit: 5,
   // auto detect range strategy (e.g. semver ^ vs ~)
   rangeStrategy: 'auto',
   // when to look for changes
-  schedule: ['every weekday after 1pm'],
+  schedule: ['every weekday after 2pm', 'every weekday before 10am'],
 
-  // by default, group all dependencies into a single PR. In special cases, group them as defined below
-  // groupName: 'all dependencies',
-  // groupSlug: 'all',
+  // Note: the updates are packages to pull requests in the order of the packageRules below.
+  // If package X matches rules 1, 2 and 3, it will end up always in the last one, group 3.
+  // So as a rule of thumb, should place the "big" groups to the beginning and the "special"
+  // groups to the end.
+  // Note that package X has both major and minor updates available (e.g. 18.0 -> 18.1 & 19.0),
+  // then if the rules are set too loose, the 18.1 update might end up in one group while the
+  // 19.0 update could end up in another
+  // Also note that if some group: presets in the "extends" section are enabled, those rules will
+  // be overwritten by the package rules below,
 
   // additional customizations
   packageRules: [
     {
+      // group all updates together, into a single PR
+      // this includes everything, even @digest of "1.2.3" pinned version updates
+      groupName: 'all dependencies',
+      groupSlug: 'all',
+      matchPackagePatterns: ['*'],
+    },
+    {
       // group all minor and patch updates together, into a single PR
+      // these usually don't break anything, so easy to merge these in as-is
       groupName: 'all minor and patch dependencies',
       groupSlug: 'all-minor-patch',
       matchPackagePatterns: ['*'],
       matchUpdateTypes: ['minor', 'patch'],
     },
     {
-      // group React and corresponding @types packages together
-      groupName: 'all react dependencies',
-      groupSlug: 'all-react',
-      matchPackagePatterns: ['react'],
+      // group major updates for React and corresponding @types packages together
+      // these tend to break
+      groupName: 'react dependencies',
+      groupSlug: 'react',
+      matchPackageNames: [
+        'react',
+        'react-dom',
+        '@types/react',
+        '@types/react-dom',
+      ],
+      matchUpdateTypes: ['major'],
     },
     {
       // we don't want to update nodejs major versions
-      groupName: 'nodejs update',
-      groupSlug: 'node',
       matchPackageNames: ['node'],
-      matchUpdateTypes: ['minor', 'patch'],
+      matchUpdateTypes: ['major'],
+      enabled: false,
     },
-    // {
-    //   // group React and corresponding @types packages together
-    //   groupName: 'all react dependencies',
-    //   groupSlug: 'all-react',
-    //   matchPackagePrefixes: ['react', '@types/react', '@types/react-dom'],
-    // },
-    // {
-    //   // we don't want to update github actions pinned with sha (digest)
-    //   groupName: 'github actions',
-    //   groupSlug: 'github-actions',
-    //   matchManagers: ['github-actions'],
-    //   matchUpdateTypes: ['major', 'minor', 'patch'],
-    // },
-    // {
-    //   // group all minor and patch updates together, into a single PR
-    //   groupName: 'all minor and patch dependencies',
-    //   groupSlug: 'all-minor-patch',
-    //   matchPackagePatterns: ['*'],
-    //   matchUpdateTypes: ['minor', 'patch'],
-    // },
-    // {
-    //   // group all major updates together, into a single PR
-    //   groupName: 'all major dependencies',
-    //   groupSlug: 'all-major',
-    //   matchPackagePatterns: ['*'],
-    //   matchUpdateTypes: ['major'],
-    // },
-    // {
-    //   // group all updates together.
-    //   groupName: "all dependencies",
-    //   groupSlug: "all",
-    //   matchPackagePatterns: ["*"],
-    // },
+    {
+      // we don't want to update github actions pinned with sha (digest)
+      matchManagers: ['github-actions'],
+      matchUpdateTypes: ['digest', 'pin', 'pinDigest'],
+      enabled: false,
+    },
   ],
 }
