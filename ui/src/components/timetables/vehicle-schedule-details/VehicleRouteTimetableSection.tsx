@@ -71,9 +71,7 @@ export const VehicleRouteTimetableSection = ({
             <div className="grid grid-cols-3 gap-x-8 gap-y-5">
               {timetables?.vehicleJourneyGroups.map((item) => (
                 <VehicleServiceTable
-                  priority={item.priority}
-                  dayType={item.dayType}
-                  vehicleJourneys={item.vehicleJourneys}
+                  vehicleJourneyGroup={item}
                   key={`${item.priority}-${item.dayType.day_type_id}`}
                   onClick={() =>
                     setShowPassingTimesByStop(route.label, item.dayType.label)
