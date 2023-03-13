@@ -11,6 +11,7 @@ const testIds = {
 
 export interface Props {
   vehicleJourneyGroup: VehicleJourneyGroup;
+  className?: string;
 }
 
 /**
@@ -19,6 +20,7 @@ export interface Props {
  */
 export const VehicleJourneyGroupInfo = ({
   vehicleJourneyGroup,
+  className = '',
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
@@ -37,9 +39,11 @@ export const VehicleJourneyGroupInfo = ({
   const lastTrip = orderedVehicleJourneys[orderedVehicleJourneys.length - 1];
 
   return (
-    <Row className="items-center space-x-4 text-sm text-hsl-dark-80">
+    <Row
+      className={`items-center space-x-4 text-center text-sm text-hsl-dark-80 ${className}`}
+    >
       <IconButton
-        className={`h-8 w-16 rounded-sm border border-light-grey bg-white text-base ${commonHoverStyle} hover:bg-light-grey`}
+        className={`mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base ${commonHoverStyle} hover:bg-light-grey`}
         onClick={changeVehicleScheduleFrameValidity}
         icon={<i className="icon-calendar" />}
         testId={testIds.changeValidityButton}

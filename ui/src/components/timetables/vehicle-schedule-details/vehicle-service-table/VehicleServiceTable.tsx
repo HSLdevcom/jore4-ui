@@ -1,23 +1,19 @@
 import { useTranslation } from 'react-i18next';
 import { MdHistory } from 'react-icons/md';
 import { groupBy, pipe } from 'remeda';
-import {
-  DayTypeAllFieldsFragment,
-  VehicleJourneyWithServiceFragment,
-} from '../../../../generated/graphql';
+import { VehicleJourneyGroup } from '../../../../hooks';
 import { parseI18nField } from '../../../../i18n/utils';
 import { Column, Row, Visible } from '../../../../layoutComponents';
 import { mapToShortDateTime } from '../../../../time';
 import { TimetablePriority } from '../../../../types/enums';
+import { VehicleJourneyGroupInfo } from '../../common/VehicleJourneyGroupInfo';
 import {
   VehicleServiceRowData,
   VehicleServiceTableRow,
 } from './VehicleServiceTableRow';
 
 interface Props {
-  priority: TimetablePriority;
-  dayType: DayTypeAllFieldsFragment;
-  vehicleJourneys: VehicleJourneyWithServiceFragment[];
+  vehicleJourneyGroup: VehicleJourneyGroup;
   onClick: () => void;
 }
 
@@ -48,12 +44,12 @@ const getOddRowColor = (key: TimetablePriority) => {
 };
 
 export const VehicleServiceTable = ({
-  priority,
-  dayType,
-  vehicleJourneys,
+  vehicleJourneyGroup,
   onClick,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
+
+  const { vehicleJourneys, priority, dayType } = vehicleJourneyGroup;
 
   const departureTimesByHour = pipe(
     vehicleJourneys,
@@ -81,9 +77,15 @@ export const VehicleServiceTable = ({
   };
 
   return (
-    <div onClick={onClick} onKeyPress={onKeyPress} role="button" tabIndex={0}>
+    <div
+      onClick={onClick}
+      onKeyPress={onKeyPress}
+      role="button"
+      tabIndex={0}
+      className="space-y-2"
+    >
       <Row
-        className={`mb-4 rounded-md !bg-opacity-50 px-4 py-1 text-hsl-dark-80 ${getTimetableHeadingBgColor(
+        className={`rounded-md !bg-opacity-50 px-4 py-1 text-hsl-dark-80 ${getTimetableHeadingBgColor(
           priority,
         )}`}
       >
@@ -97,7 +99,10 @@ export const VehicleServiceTable = ({
           </p>
         </Column>
       </Row>
-
+      <VehicleJourneyGroupInfo
+        vehicleJourneyGroup={vehicleJourneyGroup}
+        className="space-x-2"
+      />
       <Visible visible={hasVehicleJourneys}>
         <table data-testid={testIds.timetable} className="flex">
           <tbody className=" w-full">
