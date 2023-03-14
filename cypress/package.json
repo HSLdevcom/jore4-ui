@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@cypress/grep": "^3.1.4",
-    "@types/node": "^18.13.0",
+    "@types/node": "^18.15.3",
     "@types/qs": "^6.9.7",
     "eslint-plugin-cypress": "^2.12.1",
     "find-test-names": "^1.22.2"
