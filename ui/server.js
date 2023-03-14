@@ -49,7 +49,7 @@ const devProxy = {
     pathRewrite: {
       '^/api/hastus': '', // remove path.
     },
-    target: 'http://127.0.0.1:3008',
+    target: 'http://127.0.0.1:3201',
   },
 };
 
