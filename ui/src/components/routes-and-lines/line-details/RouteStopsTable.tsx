@@ -2,19 +2,20 @@ import { Switch as HuiSwitch } from '@headlessui/react';
 import orderBy from 'lodash/orderBy';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../generated/graphql';
+import { RouteUniqueFieldsFragment } from '../../../generated/graphql';
 import { Switch, SwitchLabel } from '../../../uiComponents';
 import { RouteStopsSection } from './RouteStopsSection';
 
 interface Props {
   className?: string;
-  routes: RouteWithInfrastructureLinksWithStopsAndJpsFragment[];
+  routes: RouteUniqueFieldsFragment[];
   testId?: string;
 }
 
 export const RouteStopsTable = ({ className = '', routes, testId }: Props) => {
   const { t } = useTranslation();
   const [showUnusedStops, setShowUnusedStops] = useState(false);
+
   const sortedRoutes = orderBy(routes, ['label', 'direction'], ['asc', 'desc']);
 
   return (
@@ -37,7 +38,7 @@ export const RouteStopsTable = ({ className = '', routes, testId }: Props) => {
           return (
             <RouteStopsSection
               key={item.route_id}
-              route={item}
+              routeUniqueFields={item}
               showUnusedStops={showUnusedStops}
             />
           );

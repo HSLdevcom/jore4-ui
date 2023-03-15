@@ -1,263 +1,520 @@
-import { buildLocalizedString } from '@hsl/jore4-test-db-manager';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import {
-  GetLineDetailsWithRoutesByIdQuery,
-  InfrastructureNetworkDirectionEnum,
-} from '../../../generated/graphql';
-import {
-  GqlQueryResult,
-  mapLineDetailsWithRoutesResult,
-} from '../../../graphql';
-import { Priority } from '../../../types/enums';
-import { render } from '../../../utils/test-utils';
+import { act } from 'react-dom/test-utils';
+import { GetRouteDetailsByIdDocument } from '../../../generated/graphql';
+import { RouteDirection } from '../../../types/RouteDirection';
+import { render, sleep } from '../../../utils/test-utils';
 import { RouteStopsTable } from './RouteStopsTable';
 
 describe(`<${RouteStopsTable.name} />`, () => {
   const testId = 'routeStopsTable1';
 
-  // this response is copy-pasted from the actual graphql response
-  const mockResponse = {
-    data: {
-      route_line_by_pk: {
-        line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
-        name_i18n: buildLocalizedString('Rautatientori - Veräjälaakso'),
-        short_name_i18n: buildLocalizedString('Rautatientori - Veräjälaakso'),
-        primary_vehicle_mode: 'bus',
-        type_of_line: 'regional_bus_service',
-        transport_target: 'helsinki_internal_traffic',
-        validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
-        validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),
-        priority: Priority.Standard,
-        label: '65',
-        __typename: 'route_line',
-        line_routes: [
-          {
+  // these responses are copy-pasted from the actual graphql response
+  const mocks: MockedResponse[] = [
+    {
+      request: {
+        query: GetRouteDetailsByIdDocument,
+        variables: {
+          routeId: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+        },
+      },
+      result: {
+        data: {
+          route_route_by_pk: {
+            validity_start: DateTime.fromISO('2000-01-01'),
+            validity_end: DateTime.fromISO('2050-12-13'),
+            priority: 10,
+            __typename: 'route_route',
+            label: '65x',
+            direction: 'outbound',
+            variant: null,
             route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
-            name_i18n: {
-              fi_FI: 'Reitti A - B FI',
-            },
+            name_i18n: { fi_FI: 'Reitti A - B FI', sv_FI: 'Reitti A - B SV' },
             description_i18n: {
               fi_FI: 'Reitti A - B desc FI',
               sv_FI: 'Reitti A - B desc SV',
             },
-            origin_name_i18n: {
-              fi_FI: 'A FI',
-              sv_FI: 'A SV',
-            },
+            origin_name_i18n: { fi_FI: 'A FI', sv_FI: 'A SV' },
             origin_short_name_i18n: {
               fi_FI: 'A short FI',
               sv_FI: 'A short SV',
             },
-            destination_name_i18n: {
-              fi_FI: 'B FI',
-              sv_FI: 'B SV',
-            },
+            destination_name_i18n: { fi_FI: 'B FI', sv_FI: 'B SV' },
             destination_short_name_i18n: {
               fi_FI: 'B short FI',
               sv_FI: 'B short SV',
             },
+            on_line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
             route_shape: {
               type: 'LineString',
+              crs: {
+                type: 'name',
+                properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
+              },
               coordinates: [
-                [24.927431159, 60.163633535, 8.809],
-                [24.929195906, 60.164250755, 8.621],
-                [24.932010801, 60.165237492, 10.901],
-                [24.934523102, 60.166118268, 15.564],
+                [24.92743115932746, 60.16363353459729, 8.80899999999383],
+                [24.929195905850854, 60.16425075458953, 8.62099999999919],
+                [24.932010800782077, 60.16523749159016, 10.900999999998],
+                [24.934523101958195, 60.16611826776014, 15.5639999999985],
               ],
             },
-            on_line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
-            validity_start: DateTime.fromISO('2021-01-01T00:00:00+00:00'),
-            validity_end: DateTime.fromISO('2023-12-13T00:00:00+00:00'),
-            priority: Priority.Standard,
-            label: '65 itään',
-            direction: 'outbound',
-            __typename: 'route_route',
+            route_line: {
+              line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
+              label: '65',
+              name_i18n: {
+                fi_FI: 'Rautatientori - Veräjälaakso FI',
+                sv_FI: 'Rautatientori - Veräjälaakso SV',
+              },
+              short_name_i18n: {
+                fi_FI: 'Rautatientori - Veräjälaakso short FI',
+                sv_FI: 'Rautatientori - Veräjälaakso short SV',
+              },
+              validity_start: DateTime.fromISO('2000-01-01'),
+              validity_end: DateTime.fromISO('2050-12-13'),
+              priority: 10,
+              __typename: 'route_line',
+              primary_vehicle_mode: 'bus',
+              type_of_line: 'regional_bus_service',
+              transport_target: 'helsinki_internal_traffic',
+            },
             infrastructure_links_along_route: [
               {
                 route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
-                infrastructure_link_id: 'c63b749f-5060-4710-8b07-ec9ac017cb5f',
                 infrastructure_link_sequence: 0,
-                is_traversal_forwards: true,
+                infrastructure_link_id: 'c63b749f-5060-4710-8b07-ec9ac017cb5f',
                 infrastructure_link: {
+                  external_link_id: '445117',
                   infrastructure_link_id:
                     'c63b749f-5060-4710-8b07-ec9ac017cb5f',
+                  shape: {
+                    type: 'LineString',
+                    crs: {
+                      type: 'name',
+                      properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
+                    },
+                    coordinates: [
+                      [24.92743115932746, 60.16363353459729, 8.80899999999383],
+                      [24.929195905850854, 60.16425075458953, 8.62099999999919],
+                    ],
+                  },
+                  direction: 'bidirectional',
+                  __typename: 'infrastructure_network_infrastructure_link',
+                  external_link_source: 'digiroad_r',
                   scheduled_stop_points_located_on_infrastructure_link: [
                     {
-                      priority: Priority.Standard,
+                      priority: 10,
+                      direction: 'bidirectional',
                       scheduled_stop_point_id:
                         'e3528755-711f-4e4f-9461-7931a2c4bc6d',
-                      label: 'pysäkki A',
-                      validity_start: DateTime.fromISO(
-                        '2000-01-01T00:00:00+00:00',
-                      ),
-                      validity_end: DateTime.fromISO(
-                        '2050-12-13T00:00:00+00:00',
-                      ),
+                      label: 'H1234',
+                      validity_start: DateTime.fromISO('2000-01-01'),
+                      validity_end: DateTime.fromISO('2050-12-13'),
+                      located_on_infrastructure_link_id:
+                        'c63b749f-5060-4710-8b07-ec9ac017cb5f',
                       __typename: 'service_pattern_scheduled_stop_point',
-                      direction: InfrastructureNetworkDirectionEnum.Forward,
+                      measured_location: {
+                        type: 'Point',
+                        crs: {
+                          type: 'name',
+                          properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
+                        },
+                        coordinates: [24.928326557825727, 60.16391811339392, 0],
+                      },
+                      relative_distance_from_infrastructure_link_start: 0.4920981563179405,
+                      closest_point_on_infrastructure_link: {
+                        type: 'Point',
+                        crs: {
+                          type: 'name',
+                          properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
+                        },
+                        coordinates: [24.92829957953371, 60.16393727031912],
+                      },
+                      vehicle_mode_on_scheduled_stop_point: [
+                        {
+                          vehicle_mode: 'bus',
+                          __typename:
+                            'service_pattern_vehicle_mode_on_scheduled_stop_point',
+                        },
+                      ],
+                      timing_place_id: 'd094b604-3860-4e2f-a601-9dad6f9827b9',
                       scheduled_stop_point_in_journey_patterns: [
                         {
                           journey_pattern_id:
-                            '43e1985d-4643-4415-8367-c4a37fbc0a87',
-                          journey_pattern: {
-                            on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
-                          },
-                          scheduled_stop_point_label: 'pysäkki A',
+                            '2b7fa547-6eb5-4878-8053-6bbd6e9cbfc0',
+                          scheduled_stop_point_label: 'H1234',
                           scheduled_stop_point_sequence: 0,
                           is_used_as_timing_point: false,
+                          is_regulated_timing_point: false,
+                          is_loading_time_allowed: false,
                           is_via_point: false,
+                          via_point_name_i18n: null,
+                          via_point_short_name_i18n: null,
+                          journey_pattern: {
+                            journey_pattern_id:
+                              '2b7fa547-6eb5-4878-8053-6bbd6e9cbfc0',
+                            on_route_id: 'adf05af2-5528-4149-a49b-cc83ea31bb58',
+                            __typename: 'journey_pattern_journey_pattern',
+                          },
+                          __typename:
+                            'journey_pattern_scheduled_stop_point_in_journey_pattern',
+                        },
+                        {
+                          journey_pattern_id:
+                            '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                          scheduled_stop_point_label: 'H1234',
+                          scheduled_stop_point_sequence: 0,
+                          is_used_as_timing_point: false,
+                          is_regulated_timing_point: false,
+                          is_loading_time_allowed: false,
+                          is_via_point: false,
+                          via_point_name_i18n: null,
+                          via_point_short_name_i18n: null,
+                          journey_pattern: {
+                            journey_pattern_id:
+                              '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                            on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                            __typename: 'journey_pattern_journey_pattern',
+                          },
                           __typename:
                             'journey_pattern_scheduled_stop_point_in_journey_pattern',
                         },
                       ],
                       other_label_instances: [
                         {
-                          direction: InfrastructureNetworkDirectionEnum.Forward,
-                          located_on_infrastructure_link_id:
-                            'c63b749f-5060-4710-8b07-ec9ac017cb5f',
-                          priority: Priority.Standard,
+                          priority: 10,
+                          direction: 'bidirectional',
                           scheduled_stop_point_id:
                             'e3528755-711f-4e4f-9461-7931a2c4bc6d',
-                          label: 'pysäkki A',
-                          validity_start: DateTime.fromISO(
-                            '2000-01-01T00:00:00+00:00',
-                          ),
-                          validity_end: DateTime.fromISO(
-                            '2050-12-13T00:00:00+00:00',
-                          ),
+                          label: 'H1234',
+                          validity_start: DateTime.fromISO('2000-01-01'),
+                          validity_end: DateTime.fromISO('2050-12-13'),
+                          located_on_infrastructure_link_id:
+                            'c63b749f-5060-4710-8b07-ec9ac017cb5f',
                           __typename: 'service_pattern_scheduled_stop_point',
                         },
                       ],
                     },
                   ],
-                  __typename: 'infrastructure_network_infrastructure_link',
                 },
+                is_traversal_forwards: true,
                 __typename: 'route_infrastructure_link_along_route',
               },
               {
                 route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                infrastructure_link_sequence: 1,
                 infrastructure_link_id: '2feba2ae-c7af-4034-a299-9e592e67358f',
-                infrastructure_link_sequence: 0,
-                is_traversal_forwards: true,
                 infrastructure_link: {
+                  external_link_id: '442423',
                   infrastructure_link_id:
                     '2feba2ae-c7af-4034-a299-9e592e67358f',
+                  shape: {
+                    type: 'LineString',
+                    crs: {
+                      type: 'name',
+                      properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
+                    },
+                    coordinates: [
+                      [24.929195905850854, 60.16425075458953, 8.62099999999919],
+                      [24.932010800782077, 60.16523749159016, 10.900999999998],
+                    ],
+                  },
+                  direction: 'bidirectional',
+                  __typename: 'infrastructure_network_infrastructure_link',
+                  external_link_source: 'digiroad_r',
                   scheduled_stop_points_located_on_infrastructure_link: [
                     {
-                      priority: Priority.Standard,
+                      priority: 10,
+                      direction: 'bidirectional',
                       scheduled_stop_point_id:
                         '4d294d62-df17-46ff-9248-23f66f17fa87',
-                      label: 'pysäkki B',
-                      validity_start: DateTime.fromISO(
-                        '2000-01-01T00:00:00+00:00',
-                      ),
-                      validity_end: DateTime.fromISO(
-                        '2050-12-13T00:00:00+00:00',
-                      ),
+                      label: 'H1235',
+                      validity_start: DateTime.fromISO('2000-01-01'),
+                      validity_end: DateTime.fromISO('2050-12-13'),
+                      located_on_infrastructure_link_id:
+                        '2feba2ae-c7af-4034-a299-9e592e67358f',
                       __typename: 'service_pattern_scheduled_stop_point',
-                      direction: InfrastructureNetworkDirectionEnum.Forward,
-                      scheduled_stop_point_in_journey_patterns: [],
+                      measured_location: {
+                        type: 'Point',
+                        crs: {
+                          type: 'name',
+                          properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
+                        },
+                        coordinates: [
+                          24.930490150380855, 60.164635254660325, 0,
+                        ],
+                      },
+                      relative_distance_from_infrastructure_link_start: 0.43657733896325085,
+                      closest_point_on_infrastructure_link: {
+                        type: 'Point',
+                        crs: {
+                          type: 'name',
+                          properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
+                        },
+                        coordinates: [24.930424804348895, 60.16468154886878],
+                      },
+                      vehicle_mode_on_scheduled_stop_point: [
+                        {
+                          vehicle_mode: 'bus',
+                          __typename:
+                            'service_pattern_vehicle_mode_on_scheduled_stop_point',
+                        },
+                      ],
+                      timing_place_id: '651a693b-b18b-4daa-a6da-c3677bfd2113',
+                      scheduled_stop_point_in_journey_patterns: [
+                        {
+                          journey_pattern_id:
+                            '2b7fa547-6eb5-4878-8053-6bbd6e9cbfc0',
+                          scheduled_stop_point_label: 'H1235',
+                          scheduled_stop_point_sequence: 1,
+                          is_used_as_timing_point: true,
+                          is_regulated_timing_point: false,
+                          is_loading_time_allowed: false,
+                          is_via_point: true,
+                          via_point_name_i18n: {
+                            fi_FI: 'Paikka',
+                            sv_FI: 'Plats',
+                          },
+                          via_point_short_name_i18n: {
+                            fi_FI: 'Pai.',
+                            sv_FI: 'Pla.',
+                          },
+                          journey_pattern: {
+                            journey_pattern_id:
+                              '2b7fa547-6eb5-4878-8053-6bbd6e9cbfc0',
+                            on_route_id: 'adf05af2-5528-4149-a49b-cc83ea31bb58',
+                            __typename: 'journey_pattern_journey_pattern',
+                          },
+                          __typename:
+                            'journey_pattern_scheduled_stop_point_in_journey_pattern',
+                        },
+                      ],
                       other_label_instances: [
                         {
-                          direction: InfrastructureNetworkDirectionEnum.Forward,
-                          located_on_infrastructure_link_id:
-                            '2feba2ae-c7af-4034-a299-9e592e67358f',
-                          priority: Priority.Standard,
+                          priority: 10,
+                          direction: 'bidirectional',
                           scheduled_stop_point_id:
                             '4d294d62-df17-46ff-9248-23f66f17fa87',
-                          label: 'pysäkki B',
-                          validity_start: DateTime.fromISO(
-                            '2000-01-01T00:00:00+00:00',
-                          ),
-                          validity_end: DateTime.fromISO(
-                            '2050-12-13T00:00:00+00:00',
-                          ),
+                          label: 'H1235',
+                          validity_start: DateTime.fromISO('2000-01-01'),
+                          validity_end: DateTime.fromISO('2050-12-13'),
+                          located_on_infrastructure_link_id:
+                            '2feba2ae-c7af-4034-a299-9e592e67358f',
                           __typename: 'service_pattern_scheduled_stop_point',
                         },
                       ],
                     },
                   ],
-                  __typename: 'infrastructure_network_infrastructure_link',
                 },
+                is_traversal_forwards: true,
                 __typename: 'route_infrastructure_link_along_route',
               },
               {
                 route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                infrastructure_link_sequence: 2,
                 infrastructure_link_id: 'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
-                infrastructure_link_sequence: 0,
-                is_traversal_forwards: true,
                 infrastructure_link: {
+                  external_link_id: '442027',
                   infrastructure_link_id:
                     'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
+                  shape: {
+                    type: 'LineString',
+                    crs: {
+                      type: 'name',
+                      properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
+                    },
+                    coordinates: [
+                      [24.932010800782077, 60.16523749159016, 10.900999999998],
+                      [24.934523101958195, 60.16611826776014, 15.5639999999985],
+                    ],
+                  },
+                  direction: 'bidirectional',
+                  __typename: 'infrastructure_network_infrastructure_link',
+                  external_link_source: 'digiroad_r',
                   scheduled_stop_points_located_on_infrastructure_link: [
                     {
-                      priority: Priority.Standard,
+                      priority: 10,
+                      direction: 'bidirectional',
                       scheduled_stop_point_id:
                         'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
-                      label: 'pysäkki C',
-                      validity_start: DateTime.fromISO(
-                        '2000-01-01T00:00:00+00:00',
-                      ),
-                      validity_end: DateTime.fromISO(
-                        '2050-12-13T00:00:00+00:00',
-                      ),
+                      label: 'H1236',
+                      validity_start: DateTime.fromISO('2000-01-01'),
+                      validity_end: DateTime.fromISO('2050-12-13'),
+                      located_on_infrastructure_link_id:
+                        'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
                       __typename: 'service_pattern_scheduled_stop_point',
-                      direction: InfrastructureNetworkDirectionEnum.Forward,
+                      measured_location: {
+                        type: 'Point',
+                        crs: {
+                          type: 'name',
+                          properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
+                        },
+                        coordinates: [24.933251767757206, 60.16565505738068, 0],
+                      },
+                      relative_distance_from_infrastructure_link_start: 0.48738065747222575,
+                      closest_point_on_infrastructure_link: {
+                        type: 'Point',
+                        crs: {
+                          type: 'name',
+                          properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
+                        },
+                        coordinates: [24.933235230916978, 60.16566677073708],
+                      },
+                      vehicle_mode_on_scheduled_stop_point: [
+                        {
+                          vehicle_mode: 'bus',
+                          __typename:
+                            'service_pattern_vehicle_mode_on_scheduled_stop_point',
+                        },
+                      ],
+                      timing_place_id: '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
                       scheduled_stop_point_in_journey_patterns: [
                         {
                           journey_pattern_id:
                             '43e1985d-4643-4415-8367-c4a37fbc0a87',
-                          journey_pattern: {
-                            on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
-                          },
-                          scheduled_stop_point_label: 'pysäkki C',
-                          scheduled_stop_point_sequence: 2,
+                          scheduled_stop_point_label: 'H1236',
+                          scheduled_stop_point_sequence: 1,
                           is_used_as_timing_point: false,
+                          is_regulated_timing_point: false,
+                          is_loading_time_allowed: false,
                           is_via_point: false,
+                          via_point_name_i18n: null,
+                          via_point_short_name_i18n: null,
+                          journey_pattern: {
+                            journey_pattern_id:
+                              '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                            on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                            __typename: 'journey_pattern_journey_pattern',
+                          },
                           __typename:
                             'journey_pattern_scheduled_stop_point_in_journey_pattern',
                         },
                       ],
                       other_label_instances: [
                         {
-                          direction: InfrastructureNetworkDirectionEnum.Forward,
-                          label: 'pysäkki C',
-                          located_on_infrastructure_link_id:
-                            'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
-                          priority: Priority.Standard,
+                          priority: 10,
+                          direction: 'bidirectional',
                           scheduled_stop_point_id:
                             'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
-                          validity_start: DateTime.fromISO(
-                            '2000-01-01T00:00:00+00:00',
-                          ),
-                          validity_end: DateTime.fromISO(
-                            '2050-12-13T00:00:00+00:00',
-                          ),
+                          label: 'H1236',
+                          validity_start: DateTime.fromISO('2000-01-01'),
+                          validity_end: DateTime.fromISO('2050-12-13'),
+                          located_on_infrastructure_link_id:
+                            'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
                           __typename: 'service_pattern_scheduled_stop_point',
                         },
                       ],
                     },
                   ],
-                  __typename: 'infrastructure_network_infrastructure_link',
                 },
+                is_traversal_forwards: true,
                 __typename: 'route_infrastructure_link_along_route',
               },
             ],
+            route_journey_patterns: [
+              {
+                journey_pattern_id: '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                scheduled_stop_point_in_journey_patterns: [
+                  {
+                    journey_pattern_id: '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                    scheduled_stop_point_label: 'H1234',
+                    scheduled_stop_point_sequence: 0,
+                    is_used_as_timing_point: false,
+                    is_regulated_timing_point: false,
+                    is_loading_time_allowed: false,
+                    is_via_point: false,
+                    via_point_name_i18n: null,
+                    via_point_short_name_i18n: null,
+                    journey_pattern: {
+                      journey_pattern_id:
+                        '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                      on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                      __typename: 'journey_pattern_journey_pattern',
+                    },
+                    __typename:
+                      'journey_pattern_scheduled_stop_point_in_journey_pattern',
+                    scheduled_stop_points: [
+                      {
+                        priority: 10,
+                        direction: 'bidirectional',
+                        scheduled_stop_point_id:
+                          'e3528755-711f-4e4f-9461-7931a2c4bc6d',
+                        label: 'H1234',
+                        validity_start: DateTime.fromISO('2000-01-01'),
+                        validity_end: DateTime.fromISO('2050-12-13'),
+                        located_on_infrastructure_link_id:
+                          'c63b749f-5060-4710-8b07-ec9ac017cb5f',
+                        __typename: 'service_pattern_scheduled_stop_point',
+                      },
+                    ],
+                  },
+                  {
+                    journey_pattern_id: '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                    scheduled_stop_point_label: 'H1236',
+                    scheduled_stop_point_sequence: 1,
+                    is_used_as_timing_point: false,
+                    is_regulated_timing_point: false,
+                    is_loading_time_allowed: false,
+                    is_via_point: false,
+                    via_point_name_i18n: null,
+                    via_point_short_name_i18n: null,
+                    journey_pattern: {
+                      journey_pattern_id:
+                        '43e1985d-4643-4415-8367-c4a37fbc0a87',
+                      on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+                      __typename: 'journey_pattern_journey_pattern',
+                    },
+                    __typename:
+                      'journey_pattern_scheduled_stop_point_in_journey_pattern',
+                    scheduled_stop_points: [
+                      {
+                        priority: 10,
+                        direction: 'bidirectional',
+                        scheduled_stop_point_id:
+                          'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
+                        label: 'H1236',
+                        validity_start: DateTime.fromISO('2000-01-01'),
+                        validity_end: DateTime.fromISO('2050-12-13'),
+                        located_on_infrastructure_link_id:
+                          'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
+                        __typename: 'service_pattern_scheduled_stop_point',
+                      },
+                    ],
+                  },
+                ],
+                __typename: 'journey_pattern_journey_pattern',
+              },
+            ],
           },
-        ],
+        },
       },
     },
-  } as GqlQueryResult<GetLineDetailsWithRoutesByIdQuery>;
+  ];
+
+  const routes = [
+    {
+      validity_start: DateTime.fromISO('2000-01-01'),
+      validity_end: DateTime.fromISO('2050-12-13'),
+      priority: 10,
+      label: '65x',
+      direction: RouteDirection.Outbound,
+      variant: null,
+      route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+    },
+  ];
 
   test('Renders the route with stops along its geometry', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const line = mapLineDetailsWithRoutesResult(mockResponse)!;
     const { container, asFragment } = render(
-      <RouteStopsTable testId={testId} routes={line.line_routes} />,
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <RouteStopsTable testId={testId} routes={routes} />
+      </MockedProvider>,
     );
 
-    // the stops don't show as the accordion is not open
+    // wait for the graphql call to execute
+    await act(() => sleep(0));
+
+    // the stops don't show as the accordion is not open, 2 routes show
     expect(container.querySelectorAll('tr')).toHaveLength(1);
     expect(asFragment()).toMatchSnapshot();
 
