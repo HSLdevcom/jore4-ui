@@ -20,7 +20,7 @@ export const useExportRoutes = () => {
     }
 
     const response = await exportToHastus({
-      labels: routeLabels,
+      uniqueLabels: routeLabels,
       priority: priorities[0],
       observationDate,
     });

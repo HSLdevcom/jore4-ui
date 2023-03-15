@@ -6,9 +6,9 @@ import {
   useShowRoutesOnModal,
 } from '../../hooks';
 import {
-  deselectRouteLabelsAction,
+  deselectRouteUniqueLabelsAction,
   selectExport,
-  selectRouteLabelsAction,
+  selectRouteUniqueLabelsAction,
 } from '../../redux';
 import { routeHasTimetables } from '../../utils/route';
 import {
@@ -28,9 +28,10 @@ const GQL_LINE_TABLE_ROW = gql`
     name_i18n
     short_name_i18n
     priority
-    ...line_information_for_map
+    ...line_map_params
     line_routes {
-      ...route_information_for_map
+      ...route_map_params
+      unique_label
       route_journey_patterns {
         journey_pattern_id
         journey_pattern_refs {
@@ -57,7 +58,7 @@ export const LineTableRow = ({
 }: Props): JSX.Element => {
   const { showRoutesOnMapByLineLabel } = useShowRoutesOnModal();
   const dispatch = useAppDispatch();
-  const { selectedRouteLabels } = useAppSelector(selectExport);
+  const { selectedRouteUniqueLabels } = useAppSelector(selectExport);
 
   const showLineRoutes = () => {
     showRoutesOnMapByLineLabel(line);
@@ -66,8 +67,8 @@ export const LineTableRow = ({
   const onSelectChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selected = event.target.checked;
     const selectAction = selected
-      ? selectRouteLabelsAction
-      : deselectRouteLabelsAction;
+      ? selectRouteUniqueLabelsAction
+      : deselectRouteUniqueLabelsAction;
 
     dispatch(selectAction(line.line_routes.map((route) => route.label)));
   };
@@ -80,7 +81,7 @@ export const LineTableRow = ({
   const isSelected =
     hasRoutes &&
     line.line_routes.every((route) =>
-      selectedRouteLabels.includes(route.label),
+      selectedRouteUniqueLabels.includes(route.label),
     );
 
   // Check if any of the line's route has timetables existing
