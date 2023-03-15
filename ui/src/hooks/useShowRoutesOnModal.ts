@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import {
   LineTableRowFragment,
   Maybe,
-  RouteInformationForMapFragment,
+  RouteMapParamsFragment,
   RouteValidityFragment,
 } from '../generated/graphql';
 import { resetMapState, setSelectedRouteIdAction } from '../redux';
@@ -13,13 +13,13 @@ import { getRouteShapeFirstCoordinates } from '../utils/routeShape';
 import { useAppDispatch } from './redux';
 import {
   DisplayedRouteParams,
-  ViewPortParams,
   useMapQueryParams,
   useObservationDateQueryParam,
+  ViewPortParams,
 } from './urlQuery';
 
-const GQL_ROUTE_INFORMATION_FOR_MAP = gql`
-  fragment route_information_for_map on route_route {
+const GQL_ROUTE_MAP_PARAMS = gql`
+  fragment route_map_params on route_route {
     route_id
     label
     route_shape
@@ -28,8 +28,8 @@ const GQL_ROUTE_INFORMATION_FOR_MAP = gql`
   }
 `;
 
-const GQL_LINE_INFORMATION_FOR_MAP = gql`
-  fragment line_information_for_map on route_line {
+const GQL_LINE_MAP_PARAMS = gql`
+  fragment line_map_params on route_line {
     line_id
     label
     validity_start
@@ -85,7 +85,7 @@ export const useShowRoutesOnModal = () => {
     });
   };
 
-  const showRoutesOnMapByLabel = (route: RouteInformationForMapFragment) => {
+  const showRoutesOnMapByLabel = (route: RouteMapParamsFragment) => {
     const { latitude, longitude } = getRouteShapeFirstCoordinates(
       route.route_shape,
     );
@@ -125,7 +125,7 @@ export const useShowRoutesOnModal = () => {
     });
   };
 
-  const showRouteOnMapById = (route: RouteInformationForMapFragment) => {
+  const showRouteOnMapById = (route: RouteMapParamsFragment) => {
     const { latitude, longitude } = getRouteShapeFirstCoordinates(
       route.route_shape,
     );
@@ -153,7 +153,7 @@ export const useShowRoutesOnModal = () => {
    * by label (both directions).
    */
   const showRouteOnMap = (
-    route: RouteInformationForMapFragment & RouteValidityFragment,
+    route: RouteMapParamsFragment & RouteValidityFragment,
   ) => {
     if (route.priority === Priority.Draft) {
       showRouteOnMapById(route);

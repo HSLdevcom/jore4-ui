@@ -6,9 +6,9 @@ import {
   useShowRoutesOnModal,
 } from '../../hooks';
 import {
-  deselectRouteLabelAction,
+  deselectRouteUniqueLabelAction,
   selectExport,
-  selectRouteLabelAction,
+  selectRouteUniqueLabelAction,
 } from '../../redux';
 import { routeHasTimetables } from '../../utils/route';
 import {
@@ -18,7 +18,7 @@ import {
 
 const GQL_ROUTE_TABLE_ROW = gql`
   fragment route_table_row on route_route {
-    ...route_information_for_map
+    ...route_map_params
     name_i18n
     direction
     priority
@@ -57,7 +57,7 @@ export const RouteTableRow = ({
 }: Props): JSX.Element => {
   const { showRouteOnMap } = useShowRoutesOnModal();
   const dispatch = useAppDispatch();
-  const { selectedRouteLabels } = useAppSelector(selectExport);
+  const { selectedRouteUniqueLabels } = useAppSelector(selectExport);
 
   const onClickShowRouteOnMap = () => {
     showRouteOnMap(route);
@@ -66,15 +66,15 @@ export const RouteTableRow = ({
   const onSelectChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selected = event.target.checked;
     const selectAction = selected
-      ? selectRouteLabelAction
-      : deselectRouteLabelAction;
+      ? selectRouteUniqueLabelAction
+      : deselectRouteUniqueLabelAction;
 
-    dispatch(selectAction(route.label));
+    dispatch(selectAction(route.unique_label));
   };
 
   const hasTimetables = routeHasTimetables(route);
 
-  const isSelected = selectedRouteLabels.includes(route.label);
+  const isSelected = selectedRouteUniqueLabels.includes(route.unique_label);
   return (
     <RouteLineTableRow
       rowItem={route}

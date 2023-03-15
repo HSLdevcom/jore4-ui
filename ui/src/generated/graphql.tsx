@@ -6258,7 +6258,7 @@ export type RouteRoute = {
   /** A computed field, executes function "route.route_shape" */
   route_shape?: Maybe<Scalars['geography_linestring']>;
   /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
-  unique_label?: Maybe<Scalars['String']>;
+  unique_label: Scalars['String'];
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
@@ -13904,6 +13904,7 @@ export type LineTableRowFragment = {
   validity_end?: luxon.DateTime | null;
   line_routes: Array<{
     __typename?: 'route_route';
+    unique_label: string;
     route_id: UUID;
     route_shape?: GeoJSON.LineString | null;
     label: string;
@@ -13931,7 +13932,7 @@ export type RouteTableRowFragment = {
   priority: number;
   on_line_id: UUID;
   variant?: number | null;
-  unique_label?: string | null;
+  unique_label: string;
   route_id: UUID;
   label: string;
   route_shape?: GeoJSON.LineString | null;
@@ -13973,7 +13974,7 @@ export type ListChangingRoutesQuery = {
     priority: number;
     on_line_id: UUID;
     variant?: number | null;
-    unique_label?: string | null;
+    unique_label: string;
     route_id: UUID;
     label: string;
     route_shape?: GeoJSON.LineString | null;
@@ -14011,6 +14012,7 @@ export type ListOwnLinesQuery = {
     validity_end?: luxon.DateTime | null;
     line_routes: Array<{
       __typename?: 'route_route';
+      unique_label: string;
       route_id: UUID;
       route_shape?: GeoJSON.LineString | null;
       label: string;
@@ -16889,6 +16891,7 @@ export type SearchLinesAndRoutesQuery = {
     validity_end?: luxon.DateTime | null;
     line_routes: Array<{
       __typename?: 'route_route';
+      unique_label: string;
       route_id: UUID;
       route_shape?: GeoJSON.LineString | null;
       label: string;
@@ -16915,7 +16918,7 @@ export type SearchLinesAndRoutesQuery = {
     priority: number;
     on_line_id: UUID;
     variant?: number | null;
-    unique_label?: string | null;
+    unique_label: string;
     route_id: UUID;
     label: string;
     route_shape?: GeoJSON.LineString | null;
@@ -17502,7 +17505,7 @@ export type GetTimetableVersionsByLineLabelQuery = {
   }>;
 };
 
-export type RouteInformationForMapFragment = {
+export type RouteMapParamsFragment = {
   __typename?: 'route_route';
   route_id: UUID;
   label: string;
@@ -17511,7 +17514,7 @@ export type RouteInformationForMapFragment = {
   validity_end?: luxon.DateTime | null;
 };
 
-export type LineInformationForMapFragment = {
+export type LineMapParamsFragment = {
   __typename?: 'route_line';
   line_id: UUID;
   label: string;
@@ -17698,8 +17701,8 @@ export type JourneyPatternStopFragment = {
   via_point_short_name_i18n?: LocalizedString | null;
 };
 
-export const LineInformationForMapFragmentDoc = gql`
-  fragment line_information_for_map on route_line {
+export const LineMapParamsFragmentDoc = gql`
+  fragment line_map_params on route_line {
     line_id
     label
     validity_start
@@ -17710,8 +17713,8 @@ export const LineInformationForMapFragmentDoc = gql`
     }
   }
 `;
-export const RouteInformationForMapFragmentDoc = gql`
-  fragment route_information_for_map on route_route {
+export const RouteMapParamsFragmentDoc = gql`
+  fragment route_map_params on route_route {
     route_id
     label
     route_shape
@@ -17724,9 +17727,10 @@ export const LineTableRowFragmentDoc = gql`
     name_i18n
     short_name_i18n
     priority
-    ...line_information_for_map
+    ...line_map_params
     line_routes {
-      ...route_information_for_map
+      ...route_map_params
+      unique_label
       route_journey_patterns {
         journey_pattern_id
         journey_pattern_refs {
@@ -17738,12 +17742,12 @@ export const LineTableRowFragmentDoc = gql`
       }
     }
   }
-  ${LineInformationForMapFragmentDoc}
-  ${RouteInformationForMapFragmentDoc}
+  ${LineMapParamsFragmentDoc}
+  ${RouteMapParamsFragmentDoc}
 `;
 export const RouteTableRowFragmentDoc = gql`
   fragment route_table_row on route_route {
-    ...route_information_for_map
+    ...route_map_params
     name_i18n
     direction
     priority
@@ -17760,7 +17764,7 @@ export const RouteTableRowFragmentDoc = gql`
       }
     }
   }
-  ${RouteInformationForMapFragmentDoc}
+  ${RouteMapParamsFragmentDoc}
 `;
 export const StopPopupInfoFragmentDoc = gql`
   fragment stop_popup_info on service_pattern_scheduled_stop_point {
