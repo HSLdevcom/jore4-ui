@@ -2,7 +2,6 @@
 import { FetchResult, gql } from '@apollo/client';
 import {
   GetLineDetailsByIdQuery,
-  GetLineDetailsWithRoutesByIdQuery,
   GetLineValidityPeriodByIdQuery,
   GetScheduledStopsOnRouteQuery,
   InsertLineOneMutation,
@@ -168,10 +167,6 @@ const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
     }
   }
 `;
-
-export const mapLineDetailsWithRoutesResult = (
-  result: GqlQueryResult<GetLineDetailsWithRoutesByIdQuery>,
-) => result.data?.route_line_by_pk as RouteLine | undefined;
 
 const GET_ROUTES_WITH_STOPS = gql`
   query GetRoutesWithStops($routeFilters: route_route_bool_exp) {

@@ -199,7 +199,7 @@ export interface TimetableWithMetadata {
   journeyPatternId: UUID;
 }
 
-export const useGetTimetables = (journeyPatternId: UUID) => {
+export const useGetTimetables = (journeyPatternId?: UUID) => {
   const [getTimetablesForOperationDay] =
     useGetTimetablesForOperationDayAsyncQuery();
 
@@ -208,6 +208,10 @@ export const useGetTimetables = (journeyPatternId: UUID) => {
   const [timetables, setTimetables] = useState<TimetableWithMetadata>();
 
   const getTimetablesForRoute = useCallback(async () => {
+    if (!journeyPatternId) {
+      return;
+    }
+
     const res = await getTimetablesForOperationDay({
       journey_pattern_id: journeyPatternId,
       observation_date: observationDate,

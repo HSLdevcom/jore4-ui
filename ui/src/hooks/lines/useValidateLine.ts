@@ -3,7 +3,6 @@ import {
   RouteLineSetInput,
   useGetLineDetailsWithRoutesByIdAsyncQuery,
 } from '../../generated/graphql';
-import { mapLineDetailsWithRoutesResult } from '../../graphql';
 import { useValidateRoute } from '../routes/useValidateRoute';
 
 interface ValidateParams {
@@ -23,7 +22,7 @@ export const useValidateLine = () => {
     input,
   }: ValidateParams) => {
     const lineResult = await getLineWithRoutesById({ line_id: lineId });
-    const line = mapLineDetailsWithRoutesResult(lineResult);
+    const line = lineResult.data.route_line_by_pk;
 
     const routes = line?.line_routes;
     const conflictingRoutes: string[] = [];
