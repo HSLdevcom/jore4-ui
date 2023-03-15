@@ -6,18 +6,15 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   LineDefaultFieldsFragment,
-  LineWithRoutesFragment,
+  LineWithRoutesUniqueFieldsFragment,
   RouteDirectionEnum,
   RouteUniqueFieldsFragment,
   RouteValidityFragment,
   useGetHighestPriorityLineDetailsWithRoutesAsyncQuery,
-  useGetLineDetailsWithRoutesByIdQuery,
+  useGetLineDetailsByIdQuery,
   useGetLineValidityPeriodByIdAsyncQuery,
 } from '../../generated/graphql';
-import {
-  mapLineDetailsWithRoutesResult,
-  mapLineValidityPeriod,
-} from '../../graphql';
+import { mapLineValidityPeriod } from '../../graphql';
 import {
   buildActiveDateGqlFilter,
   buildDraftPriorityGqlFilter,
@@ -63,7 +60,7 @@ const GQL_GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
     $routeStopFilters: service_pattern_scheduled_stop_point_bool_exp
   ) {
     route_line(where: $lineFilters, order_by: { priority: desc }, limit: 1) {
-      ...line_with_routes
+      ...line_with_routes_unique_fields
     }
   }
 `;
@@ -113,7 +110,9 @@ export const filterRoutesByHighestPriority = <
   return [...filteredOutboundRoutes, ...filteredInboundRoutes];
 };
 
-const filterLineDetailsByDate = <TLine extends LineWithRoutesFragment>(
+const filterLineDetailsByDate = <
+  TLine extends LineWithRoutesUniqueFieldsFragment,
+>(
   line: TLine,
 ) => {
   const filteredRoutes = filterRoutesByHighestPriority(line?.line_routes);
@@ -177,9 +176,9 @@ export const useGetLineDetails = () => {
   const [getHighestPriorityLineDetails] =
     useGetHighestPriorityLineDetailsWithRoutesAsyncQuery();
 
-  const [line, setLine] = useState<LineWithRoutesFragment>();
+  const [line, setLine] = useState<LineWithRoutesUniqueFieldsFragment>();
 
-  const lineDetailsResult = useGetLineDetailsWithRoutesByIdQuery({
+  const lineDetailsResult = useGetLineDetailsByIdQuery({
     variables: { line_id: id },
   });
 
@@ -209,7 +208,7 @@ export const useGetLineDetails = () => {
   /** Fetches line details and filters results by observation date */
   const fetchLineDetails = useCallback(async () => {
     if (lineDetailsResult?.data && observationDate?.isValid) {
-      const lineDetails = mapLineDetailsWithRoutesResult(lineDetailsResult);
+      const lineDetails = lineDetailsResult.data.route_line_by_pk || undefined;
 
       const lineByDateResult = await getHighestPriorityLineDetails(
         buildLineDetailsGqlFilters(lineDetails, observationDate),

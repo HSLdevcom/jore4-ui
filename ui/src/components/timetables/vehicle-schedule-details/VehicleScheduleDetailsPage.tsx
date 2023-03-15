@@ -57,7 +57,9 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
             )}
           </FormColumn>
         </FormRow>
-        <VehicleRouteTimetables routes={displayedRoutes} />
+        <VehicleRouteTimetables
+          routeIds={displayedRoutes.map((route) => route.route_id)}
+        />
       </Container>
     </div>
   );

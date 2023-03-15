@@ -1,17 +1,16 @@
-import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql';
 import { VehicleRouteTimetableSection } from './VehicleRouteTimetableSection';
 
 interface Props {
-  routes: RouteWithJourneyPatternStopsFragment[];
+  routeIds: UUID[];
 }
 
-export const VehicleRouteTimetables = ({ routes }: Props): JSX.Element => {
+export const VehicleRouteTimetables = ({ routeIds }: Props): JSX.Element => {
   return (
     <div className="grid gap-y-5">
-      {routes.map((item, index) => (
+      {routeIds.map((item, index) => (
         <VehicleRouteTimetableSection
-          key={item.route_id}
-          route={item}
+          key={item}
+          routeId={item}
           initiallyOpen={index === 0}
         />
       ))}

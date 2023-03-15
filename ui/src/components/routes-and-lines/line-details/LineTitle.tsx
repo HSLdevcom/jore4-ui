@@ -1,8 +1,9 @@
+import { gql } from '@apollo/client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { uniqBy } from 'remeda';
-import { LineWithRoutesFragment } from '../../../generated/graphql';
+import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
 import { useRouteLabelsQueryParam } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { IconButton, SimpleSmallButton } from '../../../uiComponents';
@@ -16,9 +17,18 @@ const testIds = {
 
 interface Props {
   className?: string;
-  line: LineWithRoutesFragment;
+  line: LineWithRoutesUniqueFieldsFragment;
   onCreateRoute?: () => void;
 }
+
+const GQL_LINE_WITH_ROUTES_UNIQUE_FIELDS = gql`
+  fragment line_with_routes_unique_fields on route_line {
+    ...line_all_fields
+    line_routes(where: $lineRouteFilters) {
+      ...route_unique_fields
+    }
+  }
+`;
 
 export const LineTitle: React.FC<Props> = ({
   className = '',

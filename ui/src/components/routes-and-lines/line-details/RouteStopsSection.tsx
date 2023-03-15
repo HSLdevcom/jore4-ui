@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { identity, pipe } from 'remeda';
-import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../generated/graphql';
+import {
+  RouteUniqueFieldsFragment,
+  useGetRouteDetailsByIdQuery,
+} from '../../../generated/graphql';
 import { stopBelongsToJourneyPattern } from '../../../graphql';
 import {
   getEligibleStopsAlongRoute,
@@ -19,13 +22,13 @@ import { RouteStopsRow } from './RouteStopsRow';
 
 interface Props {
   className?: string;
-  route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
+  routeUniqueFields: RouteUniqueFieldsFragment;
   showUnusedStops: boolean;
 }
 
 export const RouteStopsSection = ({
   className = '',
-  route,
+  routeUniqueFields,
   showUnusedStops,
 }: Props): JSX.Element => {
   const [isOpen, setOpen] = useState(false);
@@ -43,6 +46,15 @@ export const RouteStopsSection = ({
   };
 
   const { observationDate } = useObservationDateQueryParam();
+
+  const routeResult = useGetRouteDetailsByIdQuery({
+    variables: { routeId: routeUniqueFields.route_id },
+  });
+  const route = routeResult.data?.route_route_by_pk;
+
+  if (!route) {
+    return <></>;
+  }
 
   /**
    * Stops to display. Show the highest priority version of stops' valid instances.

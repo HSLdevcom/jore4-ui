@@ -36,7 +36,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
       >
         <tr
           class="border border-white bg-background  p-4"
-          data-testid="RouteStopsHeaderRow::65 itään"
+          data-testid="RouteStopsHeaderRow::65x"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-12"
@@ -58,7 +58,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
                 data-testid="RouteStopsHeaderRow::label"
               >
                 <b>
-                  65 itään
+                  65x
                 </b>
               </span>
             </div>
@@ -111,7 +111,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
             <div
               class="flex flex-row items-center justify-end"
             >
-              Voimassa 1.1.2021 - 13.12.2023
+              Voimassa 1.1.2000 - 13.12.2050
             </div>
           </td>
           <td
@@ -254,7 +254,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
       >
         <tr
           class="border border-white bg-background  p-4"
-          data-testid="RouteStopsHeaderRow::65 itään"
+          data-testid="RouteStopsHeaderRow::65x"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-12"
@@ -276,7 +276,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 data-testid="RouteStopsHeaderRow::label"
               >
                 <b>
-                  65 itään
+                  65x
                 </b>
               </span>
             </div>
@@ -329,7 +329,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <div
               class="flex flex-row items-center justify-end"
             >
-              Voimassa 1.1.2021 - 13.12.2023
+              Voimassa 1.1.2000 - 13.12.2050
             </div>
           </td>
           <td
@@ -432,13 +432,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         </tr>
         <tr
           class="border border-l-8  "
-          data-testid="RouteStopsRow::pysäkki A"
+          data-testid="RouteStopsRow::H1234"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
             data-testid="RouteStopsRow::label"
           >
-            pysäkki A
+            H1234
           </td>
           <td
             class="w-auto"
@@ -532,13 +532,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         </tr>
         <tr
           class="border border-l-8  "
-          data-testid="RouteStopsRow::pysäkki C"
+          data-testid="RouteStopsRow::H1236"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
             data-testid="RouteStopsRow::label"
           >
-            pysäkki C
+            H1236
           </td>
           <td
             class="w-auto"
@@ -672,7 +672,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
       >
         <tr
           class="border border-white bg-background  p-4"
-          data-testid="RouteStopsHeaderRow::65 itään"
+          data-testid="RouteStopsHeaderRow::65x"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-12"
@@ -694,7 +694,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 data-testid="RouteStopsHeaderRow::label"
               >
                 <b>
-                  65 itään
+                  65x
                 </b>
               </span>
             </div>
@@ -747,7 +747,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             <div
               class="flex flex-row items-center justify-end"
             >
-              Voimassa 1.1.2021 - 13.12.2023
+              Voimassa 1.1.2000 - 13.12.2050
             </div>
           </td>
           <td
@@ -850,13 +850,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         </tr>
         <tr
           class="border border-l-8  "
-          data-testid="RouteStopsRow::pysäkki A"
+          data-testid="RouteStopsRow::H1234"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
             data-testid="RouteStopsRow::label"
           >
-            pysäkki A
+            H1234
           </td>
           <td
             class="w-auto"
@@ -950,13 +950,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         </tr>
         <tr
           class="border border-l-8 bg-background text-dark-grey "
-          data-testid="RouteStopsRow::pysäkki B"
+          data-testid="RouteStopsRow::H1235"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
             data-testid="RouteStopsRow::label"
           >
-            pysäkki B
+            H1235
           </td>
           <td
             class="w-auto"
@@ -1050,13 +1050,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         </tr>
         <tr
           class="border border-l-8  "
-          data-testid="RouteStopsRow::pysäkki C"
+          data-testid="RouteStopsRow::H1236"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
             data-testid="RouteStopsRow::label"
           >
-            pysäkki C
+            H1236
           </td>
           <td
             class="w-auto"

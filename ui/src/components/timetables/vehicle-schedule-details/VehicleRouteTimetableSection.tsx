@@ -1,5 +1,6 @@
+import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
-import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql';
+import { useGetRouteWithJourneyPatternQuery } from '../../../generated/graphql';
 import {
   TimetablesView,
   useGetTimetables,
@@ -14,8 +15,16 @@ import { DirectionBadge } from '../../routes-and-lines/line-details/DirectionBad
 import { PassingTimesByStopSection } from '../passing-times-by-stop/PassingTimesByStopSection';
 import { VehicleServiceTable } from './vehicle-service-table';
 
+const GQL_GET_ROUTE_WITH_JOURNEY_PATTERN = gql`
+  query GetRouteWithJourneyPattern($routeId: uuid!) {
+    route_route_by_pk(route_id: $routeId) {
+      ...route_with_journey_pattern_stops
+    }
+  }
+`;
+
 interface Props {
-  route: RouteWithJourneyPatternStopsFragment;
+  routeId: UUID;
   initiallyOpen?: boolean;
 }
 
@@ -24,19 +33,28 @@ const testIds = {
 };
 
 export const VehicleRouteTimetableSection = ({
-  route,
+  routeId,
   initiallyOpen = false,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const [isOpen, toggleIsOpen] = useToggle(initiallyOpen);
   const { activeView, setShowPassingTimesByStop } = useTimetablesViewState();
 
+  const routeResult = useGetRouteWithJourneyPatternQuery({
+    variables: { routeId },
+  });
+  const route = routeResult.data?.route_route_by_pk;
+
   const { timetables } = useGetTimetables(
-    route.route_journey_patterns[0].journey_pattern_id,
+    route?.route_journey_patterns[0].journey_pattern_id,
   );
 
   const { validityStart, validityEnd } = timetables?.validity || {};
   const hasValidityPeriod = !!validityStart && !!validityEnd;
+
+  if (!route) {
+    return <></>;
+  }
 
   return (
     <div>
