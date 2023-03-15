@@ -12,7 +12,7 @@ import { Row, Visible } from '../../../layoutComponents';
 import {
   resetSelectedRoutesAction,
   selectExport,
-  selectRouteLabelsAction,
+  selectRouteUniqueLabelsAction,
   setIsSelectingRoutesForExportAction,
 } from '../../../redux';
 import { SimpleSmallButton } from '../../../uiComponents';
@@ -23,27 +23,29 @@ export const ExportToolbar = (): JSX.Element => {
   const { t } = useTranslation();
 
   const { resultCount, resultType, routes, lines } = useSearchResults();
-  const { isSelectingRoutesForExport, selectedRouteLabels } =
+  const { isSelectingRoutesForExport, selectedRouteUniqueLabels } =
     useAppSelector(selectExport);
   const { canExport, exportRoutesToHastus } = useExportRoutes();
 
-  const searchResultRouteLabels = pipe(
+  const searchResultRouteUniqueLabels = pipe(
     resultType === DisplayedSearchResultType.Routes
-      ? routes.map((route) => route.label)
-      : lines.flatMap((line) => line.line_routes.map((route) => route.label)),
+      ? routes.map((route) => route.unique_label)
+      : lines.flatMap((line) =>
+          line.line_routes.map((route) => route.unique_label),
+        ),
     uniq,
   );
 
   const isAllResultsSelected = isEqual(
-    [...selectedRouteLabels].sort(),
-    [...searchResultRouteLabels].sort(),
+    [...selectedRouteUniqueLabels].sort(),
+    [...searchResultRouteUniqueLabels].sort(),
   );
 
   const onSelectAll = () => {
     if (isAllResultsSelected) {
       dispatch(resetSelectedRoutesAction());
     } else {
-      dispatch(selectRouteLabelsAction(searchResultRouteLabels));
+      dispatch(selectRouteUniqueLabelsAction(searchResultRouteUniqueLabels));
     }
   };
 
@@ -54,14 +56,14 @@ export const ExportToolbar = (): JSX.Element => {
   };
 
   // If no route is selected, export all routes in search results by default
-  const isExportingAllSearchResults = selectedRouteLabels.length === 0;
+  const isExportingAllSearchResults = selectedRouteUniqueLabels.length === 0;
 
   const exportRoutes = () => {
     exportRoutesToHastus(
       // If we are "exporting all", export all routes in search results
       isExportingAllSearchResults
-        ? searchResultRouteLabels
-        : selectedRouteLabels,
+        ? searchResultRouteUniqueLabels
+        : selectedRouteUniqueLabels,
     );
   };
 

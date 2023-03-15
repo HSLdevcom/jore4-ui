@@ -19,6 +19,7 @@ describe(`<${RoutesTable.name} />`, () => {
     {
       __typename: 'route_route',
       ...buildRoute({ label: '1' }),
+      unique_label: '1',
       route_id: route1Id,
       on_line_id: lineId,
       priority: Priority.Standard,

@@ -8,6 +8,10 @@ import { gql } from 'graphql-tag';
  * based on https://github.com/hasura/graphql-engine/issues/3451#issuecomment-846426643
  */
 
+// TODO: currently the unique_label is overridden here to be not nullable, but this should be
+// done in hasura. unique_label field is computed field and it includes label field, which is
+// not nullable, so this can't ever be null.
+
 // Overrides come here...
 // Note: if the fields/types change in Hasura, these overrides should also be updated
 const hasuraOverrideTypeDefs = gql`
@@ -28,6 +32,7 @@ const hasuraOverrideTypeDefs = gql`
     destination_short_name_i18n: localized_string!
     route_shape: geography_linestring
     route_line: route_line!
+    unique_label: String!
   }
   type route_route_set_input {
     name_i18n: localized_string

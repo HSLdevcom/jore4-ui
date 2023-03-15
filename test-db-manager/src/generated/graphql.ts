@@ -6254,7 +6254,7 @@ export type RouteRoute = {
   /** A computed field, executes function "route.route_shape" */
   route_shape?: Maybe<Scalars['geography_linestring']>;
   /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
-  unique_label?: Maybe<Scalars['String']>;
+  unique_label: Scalars['String'];
   /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
   /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */

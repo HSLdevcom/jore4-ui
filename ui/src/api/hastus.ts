@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { Priority } from '../types/enums';
 
 interface CommonExportParams {
-  readonly labels: string[];
+  readonly uniqueLabels: string[];
   readonly priority: Priority;
 }
 
@@ -30,12 +30,12 @@ const exportRoutes = (payload: ExportBody) =>
   });
 
 export const exportRoutesToHastus = async ({
-  labels,
+  uniqueLabels,
   priority,
   observationDate,
 }: ExportParams) => {
   const request: ExportBody = {
-    labels,
+    uniqueLabels,
     priority,
     observationDate: observationDate.toISODate(),
   };
