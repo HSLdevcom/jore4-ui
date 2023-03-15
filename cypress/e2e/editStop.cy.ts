@@ -3,7 +3,6 @@ import {
   Priority,
   ReusableComponentsVehicleModeEnum,
   ReusableComponentsVehicleSubmodeEnum,
-  ServicePatternVehicleModeOnScheduledStopPointInsertInput,
   StopInsertInput,
   timingPlaces,
   VehicleSubmodeOnInfraLinkInsertInput,
@@ -77,18 +76,9 @@ const stops: StopInsertInput[] = [
   },
 ];
 
-const vehicleModeOnScheduledStopPoint: ServicePatternVehicleModeOnScheduledStopPointInsertInput[] =
-  [
-    {
-      scheduled_stop_point_id: stops[0].scheduled_stop_point_id,
-      vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
-    },
-  ];
-
 const dbResources = {
   vehicleSubmodeOnInfrastructureLink,
   stops,
-  vehicleModeOnScheduledStopPoint,
   timingPlaces,
 };
 
