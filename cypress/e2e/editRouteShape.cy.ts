@@ -7,11 +7,9 @@ import {
   JourneyPatternInsertInput,
   LineInsertInput,
   Priority,
-  ReusableComponentsVehicleSubmodeEnum,
   RouteDirectionEnum,
   RouteInsertInput,
   StopInsertInput,
-  VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
@@ -129,22 +127,6 @@ const infraLinksAlongRoute: InfraLinkAlongRouteInsertInput[] = [
   },
 ];
 
-const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[] =
-  [
-    {
-      infrastructure_link_id: testInfraLinks[0].id,
-      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-    },
-    {
-      infrastructure_link_id: testInfraLinks[1].id,
-      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-    },
-    {
-      infrastructure_link_id: testInfraLinks[2].id,
-      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-    },
-  ];
-
 const journeyPatterns: JourneyPatternInsertInput[] = [
   {
     journey_pattern_id: '6cae356b-20f4-4e04-a969-097999b351f0',
@@ -159,7 +141,6 @@ const stopsInJourneyPattern = buildStopsInJourneyPattern(
 );
 
 const dbResources = {
-  vehicleSubmodeOnInfrastructureLink,
   lines,
   stops,
   routes,
