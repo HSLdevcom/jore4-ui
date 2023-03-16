@@ -58,7 +58,17 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
   return (
     <div>
       <PageHeader>
-        {line && <LineTitle line={line} hideValidityPeriod />}
+        {line && (
+          <LineTitle
+            line={line}
+            hideValidityPeriod
+            singleRouteSelect={
+              // If passing times by stop view is active, only allow selecting
+              // one route at the time
+              activeView === TimetablesView.PASSING_TIMES_BY_STOP
+            }
+          />
+        )}
       </PageHeader>
       {line && activeView !== TimetablesView.DEFAULT && (
         <TimetableNavigation onClose={setShowDefaultView} />

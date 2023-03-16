@@ -20,6 +20,7 @@ interface Props {
   line: LineWithRoutesUniqueFieldsFragment;
   onCreateRoute?: () => void;
   hideValidityPeriod?: boolean;
+  singleRouteSelect?: boolean;
 }
 
 const GQL_LINE_WITH_ROUTES_UNIQUE_FIELDS = gql`
@@ -36,10 +37,21 @@ export const LineTitle: React.FC<Props> = ({
   line,
   onCreateRoute,
   hideValidityPeriod,
+  singleRouteSelect,
 }) => {
   const { t } = useTranslation();
-  const { toggleDisplayedRoute, displayedRouteLabels } =
-    useRouteLabelsQueryParam();
+  const {
+    toggleDisplayedRoute,
+    displayedRouteLabels,
+    setDisplayedRoutesToUrl,
+  } = useRouteLabelsQueryParam();
+
+  const onRouteToggleClick = (label: string) => {
+    // If "single route select" is enabled, only one route can be selected at once
+    singleRouteSelect
+      ? setDisplayedRoutesToUrl([label])
+      : toggleDisplayedRoute(label);
+  };
 
   const lineRoutes = uniqBy(line.line_routes, (route) => route.label);
 
@@ -54,7 +66,7 @@ export const LineTitle: React.FC<Props> = ({
             lineRoutes.map((item) => (
               <SimpleSmallButton
                 key={item.route_id}
-                onClick={() => toggleDisplayedRoute(item.label)}
+                onClick={() => onRouteToggleClick(item.label)}
                 inverted={!displayedRouteLabels?.includes(item.label)}
                 label={item.label}
               />
