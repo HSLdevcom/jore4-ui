@@ -19,6 +19,7 @@ interface Props {
   className?: string;
   line: LineWithRoutesUniqueFieldsFragment;
   onCreateRoute?: () => void;
+  showValidityPeriod?: boolean;
 }
 
 const GQL_LINE_WITH_ROUTES_UNIQUE_FIELDS = gql`
@@ -34,6 +35,7 @@ export const LineTitle: React.FC<Props> = ({
   className = '',
   line,
   onCreateRoute,
+  showValidityPeriod = true,
 }) => {
   const { t } = useTranslation();
   const { toggleDisplayedRoute, displayedRouteLabels } =
@@ -77,7 +79,7 @@ export const LineTitle: React.FC<Props> = ({
           </>
         )}
       </Row>
-      <LineValidityPeriod line={line} />
+      {showValidityPeriod && <LineValidityPeriod line={line} />}
     </Column>
   );
 };
