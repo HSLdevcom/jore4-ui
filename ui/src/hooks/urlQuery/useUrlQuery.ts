@@ -174,7 +174,9 @@ export const useUrlQuery = () => {
 
   /** Returns a query parameter in array type */
   const getArrayFromUrlQuery = (paramName: string): string[] | undefined => {
-    return (queryParams[paramName] as string)?.split(',');
+    return (queryParams[paramName] as string)
+      ?.split(',')
+      ?.filter((item) => item !== '');
   };
 
   /** Returns a query parameter in Priority array type */
