@@ -5604,3 +5604,13 @@ DELETE FROM infrastructure_network.infrastructure_link WHERE infrastructure_link
   '126e8d71-e1dd-40c4-9b1c-daed45beef9e',
   '7c6efe88-cbec-4f8d-9e56-0ea42b8d5e6a'
 );
+
+-- Select all infralink ids from 'infrastructure_link' table and insert them to the 'vehicle_submode_on_infrastructure_link' table
+-- along with static 'generic_bus' vehicle submode info
+-- The origin of this script is jore4-hasura/migrations/seed-data/default/2524600700000_seed-infra-vehicle-submode/up.sql
+INSERT INTO infrastructure_network.vehicle_submode_on_infrastructure_link
+SELECT
+  il.infrastructure_link_id,
+  'generic_bus' AS vehicle_submode
+FROM infrastructure_network.infrastructure_link il
+ON CONFLICT DO NOTHING;

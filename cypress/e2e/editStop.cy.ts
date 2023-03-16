@@ -2,10 +2,8 @@ import {
   buildStop,
   Priority,
   ReusableComponentsVehicleModeEnum,
-  ReusableComponentsVehicleSubmodeEnum,
   StopInsertInput,
   timingPlaces,
-  VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
@@ -21,7 +19,6 @@ import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteTimingPlacesByLabel } from './utils';
 
 // Stops are created on these infralinks via insertToDbHelper or the map view.
-// vehicleSubmodeOnInfrastructureLink information is needed for these infralinks.
 
 const infraLinkIds = {
   infraLink1: '73bc2df9-f5af-4c38-a1dd-5ed1f71c90a8',
@@ -33,26 +30,6 @@ const infraLinkIds = {
 const testTimingPlaceLabels = {
   label1: 'Test created timing place label 1',
 };
-
-const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[] =
-  [
-    {
-      infrastructure_link_id: infraLinkIds.infraLink1,
-      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-    },
-    {
-      infrastructure_link_id: infraLinkIds.infraLink2,
-      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-    },
-    {
-      infrastructure_link_id: infraLinkIds.infraLink3,
-      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-    },
-    {
-      infrastructure_link_id: infraLinkIds.infraLink4,
-      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-    },
-  ];
 
 // This point exists on infraLink1
 const testCoordinates1 = {
@@ -77,7 +54,6 @@ const stops: StopInsertInput[] = [
 ];
 
 const dbResources = {
-  vehicleSubmodeOnInfrastructureLink,
   stops,
   timingPlaces,
 };
