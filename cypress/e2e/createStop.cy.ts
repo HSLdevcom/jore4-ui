@@ -1,9 +1,7 @@
 import {
   Priority,
   ReusableComponentsVehicleModeEnum,
-  ReusableComponentsVehicleSubmodeEnum,
   timingPlaces,
-  VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { Tag } from '../enums';
 import { ChangeValidityForm, ModalMap } from '../pageObjects';
@@ -18,25 +16,7 @@ const testStopLabels = {
   timingPlaceLabel: 'Timing place stop label',
 };
 
-const testInfraLinks = {
-  1: 'c63b749f-5060-4710-8b07-ec9ac017cb5f',
-  2: '7a42a581-2b23-4519-a04f-eee09ecb2bda',
-};
-
-const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[] =
-  [
-    {
-      infrastructure_link_id: testInfraLinks[1],
-      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-    },
-    {
-      infrastructure_link_id: testInfraLinks[2],
-      vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-    },
-  ];
-
 const dbResources = {
-  vehicleSubmodeOnInfrastructureLink,
   timingPlaces,
 };
 

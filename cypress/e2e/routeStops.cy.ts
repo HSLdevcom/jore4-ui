@@ -1,6 +1,5 @@
 import {
   InfraLinkAlongRouteInsertInput,
-  InfraLinkInsertInput,
   LineInsertInput,
   RouteInsertInput,
   StopInsertInput,
@@ -9,26 +8,19 @@ import {
   buildStop,
   buildStopsInJourneyPattern,
   infrastructureLinkAlongRoute,
-  infrastructureLinks,
   journeyPatterns,
   timingPlaces,
-  vehicleSubmodeOnInfrastructureLink,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
 import { LineDetailsPage, RouteStopsTable, Toast } from '../pageObjects';
+import { UUID } from '../types';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 
-const infraLinks: InfraLinkInsertInput[] = [
-  {
-    ...(infrastructureLinks[0] as InfraLinkInsertInput),
-  },
-  {
-    ...(infrastructureLinks[1] as InfraLinkInsertInput),
-  },
-  {
-    ...(infrastructureLinks[2] as InfraLinkInsertInput),
-  },
+const testInfraLinks: UUID[] = [
+  '73bc2df9-f5af-4c38-a1dd-5ed1f71c90a8',
+  'ea69415a-9c54-4327-8836-f38b36d8fa99',
+  '13de61c2-3fc9-4255-955f-0a2350c389e1',
 ];
 
 const lines: LineInsertInput[] = [
@@ -43,7 +35,7 @@ const stops: StopInsertInput[] = [
   {
     ...buildStop({
       label: 'E2E001',
-      located_on_infrastructure_link_id: infraLinks[0].infrastructure_link_id,
+      located_on_infrastructure_link_id: testInfraLinks[0],
     }),
     scheduled_stop_point_id: '0f6254d9-dc60-4626-a777-ce4d4381d38a',
   },
@@ -51,7 +43,7 @@ const stops: StopInsertInput[] = [
   {
     ...buildStop({
       label: 'E2E002',
-      located_on_infrastructure_link_id: infraLinks[1].infrastructure_link_id,
+      located_on_infrastructure_link_id: testInfraLinks[1],
     }),
     scheduled_stop_point_id: '7e97247d-7750-4d72-b02e-bd4e886357b7',
     timing_place_id: timingPlaces[0].timing_place_id,
@@ -60,7 +52,7 @@ const stops: StopInsertInput[] = [
   {
     ...buildStop({
       label: 'E2E003',
-      located_on_infrastructure_link_id: infraLinks[1].infrastructure_link_id,
+      located_on_infrastructure_link_id: testInfraLinks[1],
     }),
     scheduled_stop_point_id: '318861b2-440e-4f4d-b75e-fdf812697c35',
   },
@@ -80,21 +72,21 @@ const infraLinksAlongRoute: InfraLinkAlongRouteInsertInput[] = [
   {
     ...infrastructureLinkAlongRoute[0],
     route_id: routes[0].route_id,
-    infrastructure_link_id: infraLinks[0].infrastructure_link_id,
+    infrastructure_link_id: testInfraLinks[0],
     infrastructure_link_sequence: 0,
     is_traversal_forwards: true,
   },
   {
     ...infrastructureLinkAlongRoute[1],
     route_id: routes[0].route_id,
-    infrastructure_link_id: infraLinks[1].infrastructure_link_id,
+    infrastructure_link_id: testInfraLinks[1],
     infrastructure_link_sequence: 1,
     is_traversal_forwards: true,
   },
   {
     ...infrastructureLinkAlongRoute[2],
     route_id: routes[0].route_id,
-    infrastructure_link_id: infraLinks[2].infrastructure_link_id,
+    infrastructure_link_id: testInfraLinks[2],
     infrastructure_link_sequence: 2,
     is_traversal_forwards: true,
   },
@@ -108,8 +100,6 @@ const stopsInJourneyPattern = buildStopsInJourneyPattern(
 );
 
 const dbResources = {
-  infraLinks,
-  vehicleSubmodeOnInfrastructureLink,
   lines,
   stops,
   routes,
