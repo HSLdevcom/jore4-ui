@@ -16,3 +16,7 @@ services:
   jore4-mapmatching:
     # pinning map-matching API to compatible version
     image: "hsldevcom/jore4-map-matching:main--20221208-d904fbdf9be5eba7e119943e2259c7a74b9dbab9"
+
+  jore4-hastus:
+    # pinning hastus import-export-microservice version
+    image: "hsldevcom/jore4-hastus:export-api--20230316-df47e7f50367ca21627f8f7637c9ee903a955b71"
