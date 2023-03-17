@@ -35,6 +35,7 @@ export const buildRoute = (
     ),
     priority: Priority.Standard,
     direction: RouteDirectionEnum.Inbound,
+    variant: null,
     legacy_hsl_municipality_code: LegacyHslMunicipality.Helsinki,
     ...requiredFields,
   };
