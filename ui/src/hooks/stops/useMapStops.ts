@@ -17,7 +17,7 @@ import { RequiredKeys } from '../../types';
 import { Priority } from '../../types/enums';
 import { filterHighestPriorityCurrentStops, mapToVariables } from '../../utils';
 import { useAppSelector } from '../redux';
-import { useGetDisplayedRoutes } from '../routes';
+import { useGetRoutesDisplayedInMap } from '../routes';
 import { useObservationDateQueryParam } from '../urlQuery';
 
 export type StopWithVehicleMode = RequiredKeys<
@@ -47,7 +47,7 @@ const extractHighestPriorityStopsFromRoute = <
 export const useMapStops = () => {
   const { selectedRouteId } = useAppSelector(selectMapRouteEditor);
   const { observationDate } = useObservationDateQueryParam();
-  const { displayedRouteIds } = useGetDisplayedRoutes();
+  const { displayedRouteIds } = useGetRoutesDisplayedInMap();
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const editedRouteIncludedStops = useAppSelector(
     selectEditedRouteIncludedStops,

@@ -4,7 +4,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useFilterStops,
-  useGetDisplayedRoutes,
+  useGetRoutesDisplayedInMap,
 } from '../../hooks';
 import { Column } from '../../layoutComponents';
 import {
@@ -25,9 +25,9 @@ import {
   DraftRouteGeometryLayer,
   DrawRouteLayer,
   EditRouteMetadataLayer,
+  RouteEditor,
   isRouteGeometryLayer,
   mapLayerIdToRouteId,
-  RouteEditor,
 } from './routes';
 import { ExistingRouteGeometryLayer } from './routes/ExistingRouteGeometryLayer';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
@@ -60,7 +60,7 @@ export const MapComponent = (
   const dispatch = useAppDispatch();
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
 
-  const { displayedRouteIds } = useGetDisplayedRoutes();
+  const { displayedRouteIds } = useGetRoutesDisplayedInMap();
 
   const routeDisplayed = !!displayedRouteIds?.length;
 
