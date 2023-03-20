@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import {
   TimetablesView,
   useGetLineDetails,
-  useRouteLabelsQueryParam,
+  useGetRoutesDisplayedInList,
   useTimetableVersionsReturnToQueryParam,
   useTimetablesViewState,
 } from '../../../hooks';
@@ -24,7 +24,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
 
   const { routeLabel, setShowDefaultView, activeView } =
     useTimetablesViewState();
-  const { displayedRouteLabels } = useRouteLabelsQueryParam(line);
+  const { displayedRouteLabels } = useGetRoutesDisplayedInList(line);
 
   // For default view show all routes,
   // Otherwise show only selected view.

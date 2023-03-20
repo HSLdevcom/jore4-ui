@@ -2,13 +2,13 @@ import { useMemo } from 'react';
 import { pipe } from 'remeda';
 import { selectEditedRouteData, selectHasChangesInProgress } from '../../redux';
 import { useAppSelector } from '../redux';
-import { useGetDisplayedRoutes } from '../routes';
+import { useGetRoutesDisplayedInMap } from '../routes';
 
 /**
  * Hook for getting stop labels that belong to any displayed route or edited / created route
  */
 export const useVisibleRouteStops = () => {
-  const { displayedRoutes } = useGetDisplayedRoutes();
+  const { displayedRoutes } = useGetRoutesDisplayedInMap();
 
   const { includedStopLabels: editedRouteStopLabels } = useAppSelector(
     selectEditedRouteData,

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { uniqBy } from 'remeda';
 import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
-import { useRouteLabelsQueryParam } from '../../../hooks';
+import { useGetRoutesDisplayedInList } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { IconButton, SimpleSmallButton } from '../../../uiComponents';
 import { LineValidityPeriod } from './LineValidityPeriod';
@@ -44,7 +44,7 @@ export const LineTitle: React.FC<Props> = ({
     toggleDisplayedRoute,
     displayedRouteLabels,
     setDisplayedRoutesToUrl,
-  } = useRouteLabelsQueryParam(line);
+  } = useGetRoutesDisplayedInList(line);
 
   const onRouteToggleClick = (label: string) => {
     // If "multiple route select" is disabled, only one route can be selected at once
