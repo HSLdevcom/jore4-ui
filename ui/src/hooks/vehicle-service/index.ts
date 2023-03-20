@@ -1,2 +1,2 @@
-export * from './useGetTimetables';
+export * from './useGetRouteTimetables';
 export * from './useTimetablesViewState';
