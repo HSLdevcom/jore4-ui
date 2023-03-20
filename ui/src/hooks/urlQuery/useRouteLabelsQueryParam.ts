@@ -1,11 +1,21 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { pipe, uniq } from 'remeda';
+import { LineWithRoutesUniqueFieldsFragment } from '../../generated/graphql';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
 /**
  * Query parameter hook for setting and getting displayed routes by their labels.
  */
-export const useRouteLabelsQueryParam = () => {
+export const useRouteLabelsQueryParam = (
+  line: LineWithRoutesUniqueFieldsFragment | undefined,
+) => {
   const { setArrayToUrlQuery, getArrayFromUrlQuery } = useUrlQuery();
+
+  const uniqueLineRouteLabels = pipe(
+    line?.line_routes,
+    (routes) => routes?.map((route) => route.label) || [],
+    (routeLabels) => uniq(routeLabels),
+  );
 
   /**
    * Sets routeLabels to URL query
@@ -25,6 +35,15 @@ export const useRouteLabelsQueryParam = () => {
   const displayedRouteLabels = useMemo(() => {
     return getArrayFromUrlQuery(QueryParameterName.RouteLabels);
   }, [getArrayFromUrlQuery]);
+
+  // If no route has been initially selected to display, show all line's routes
+  // Set the default value to query params if route labels query param doesn't exist
+  useEffect(() => {
+    if (!displayedRouteLabels && uniqueLineRouteLabels.length !== 0) {
+      setDisplayedRoutesToUrl(uniqueLineRouteLabels);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [uniqueLineRouteLabels]);
 
   const toggleDisplayedRoute = (routeLabel: string) => {
     if (displayedRouteLabels?.includes(routeLabel)) {
