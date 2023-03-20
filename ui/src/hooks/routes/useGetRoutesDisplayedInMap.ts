@@ -58,7 +58,7 @@ const GQL_DISPLAYED_ROUTE = gql`
   }
 `;
 
-export const useGetDisplayedRoutes = () => {
+export const useGetRoutesDisplayedInMap = () => {
   const { observationDate } = useObservationDateQueryParam();
   const {
     routeLabels,

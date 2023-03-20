@@ -1,12 +1,12 @@
 import { useEffect, useMemo } from 'react';
 import { pipe, uniq } from 'remeda';
 import { LineWithRoutesUniqueFieldsFragment } from '../../generated/graphql';
-import { QueryParameterName, useUrlQuery } from './useUrlQuery';
+import { QueryParameterName, useUrlQuery } from '../urlQuery/useUrlQuery';
 
 /**
  * Query parameter hook for setting and getting displayed routes by their labels.
  */
-export const useRouteLabelsQueryParam = (
+export const useGetRoutesDisplayedInList = (
   line: LineWithRoutesUniqueFieldsFragment | undefined,
 ) => {
   const { setArrayToUrlQuery, getArrayFromUrlQuery } = useUrlQuery();

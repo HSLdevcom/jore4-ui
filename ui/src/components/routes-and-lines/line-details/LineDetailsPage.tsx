@@ -5,8 +5,8 @@ import {
   useAppDispatch,
   useAppSelector,
   useGetLineDetails,
+  useGetRoutesDisplayedInList,
   useMapQueryParams,
-  useRouteLabelsQueryParam,
 } from '../../../hooks';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import {
@@ -35,8 +35,7 @@ export const LineDetailsPage = (): JSX.Element => {
 
   const { line } = useGetLineDetails();
 
-  const { displayedRouteLabels } =
-    useRouteLabelsQueryParam(line);
+  const { displayedRouteLabels } = useGetRoutesDisplayedInList(line);
 
   const createRoute = (routeLine: LineAllFieldsFragment) => {
     dispatch(resetMapRouteEditorStateAction());
