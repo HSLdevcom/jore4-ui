@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { pipe, uniq } from 'remeda';
 import {
   TimetablesView,
   useGetLineDetails,
@@ -26,23 +24,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
 
   const { routeLabel, setShowDefaultView, activeView } =
     useTimetablesViewState();
-  const { displayedRouteLabels, setDisplayedRoutesToUrl } =
-    useRouteLabelsQueryParam();
-
-  const uniqueLineRouteLabels = pipe(
-    line?.line_routes,
-    (routes) => routes?.map((route) => route.label) || [],
-    (routeLabels) => uniq(routeLabels),
-  );
-
-  // If no route has been initially selected to display, show all line's routes
-  // Set the default value to query params if route labels query param doesn't exist
-  useEffect(() => {
-    if (!displayedRouteLabels && uniqueLineRouteLabels.length !== 0) {
-      setDisplayedRoutesToUrl(uniqueLineRouteLabels);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uniqueLineRouteLabels]);
+  const { displayedRouteLabels } = useRouteLabelsQueryParam(line);
 
   // For default view show all routes,
   // Otherwise show only selected view.
