@@ -44,7 +44,7 @@ export const LineTitle: React.FC<Props> = ({
     toggleDisplayedRoute,
     displayedRouteLabels,
     setDisplayedRoutesToUrl,
-  } = useRouteLabelsQueryParam();
+  } = useRouteLabelsQueryParam(line);
 
   const onRouteToggleClick = (label: string) => {
     // If "single route select" is enabled, only one route can be selected at once
