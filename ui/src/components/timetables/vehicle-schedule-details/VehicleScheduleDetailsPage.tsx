@@ -10,8 +10,8 @@ import { SimpleButton } from '../../../uiComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormColumn, FormRow } from '../../forms/common';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';
+import { RouteTimetableList } from './RouteTimetableList';
 import { TimetableNavigation } from './TimetableNavigation';
-import { VehicleRouteTimetables } from './VehicleRouteTimetables';
 
 export const VehicleScheduleDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
@@ -57,7 +57,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
             )}
           </FormColumn>
         </FormRow>
-        <VehicleRouteTimetables
+        <RouteTimetableList
           routeIds={displayedRoutes.map((route) => route.route_id)}
         />
       </Container>

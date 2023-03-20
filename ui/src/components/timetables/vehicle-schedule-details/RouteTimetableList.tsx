@@ -1,14 +1,14 @@
-import { VehicleRouteTimetableSection } from './VehicleRouteTimetableSection';
+import { RouteTimetablesSection } from './RouteTimetablesSection';
 
 interface Props {
   routeIds: UUID[];
 }
 
-export const VehicleRouteTimetables = ({ routeIds }: Props): JSX.Element => {
+export const RouteTimetableList = ({ routeIds }: Props): JSX.Element => {
   return (
     <div className="grid gap-y-5">
       {routeIds.map((item, index) => (
-        <VehicleRouteTimetableSection
+        <RouteTimetablesSection
           key={item}
           routeId={item}
           initiallyOpen={index === 0}

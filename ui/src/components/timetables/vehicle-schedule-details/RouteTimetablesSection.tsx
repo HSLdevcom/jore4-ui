@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetRouteWithJourneyPatternQuery } from '../../../generated/graphql';
 import {
   TimetablesView,
-  useGetTimetables,
+  useGetRouteTimetables,
   useTimetablesViewState,
   useToggle,
 } from '../../../hooks';
@@ -29,10 +29,10 @@ interface Props {
 }
 
 const testIds = {
-  accordionToggle: 'VehicleRouteTimetableSection::AccordionToggle',
+  accordionToggle: 'RouteTimetablesSection::AccordionToggle',
 };
 
-export const VehicleRouteTimetableSection = ({
+export const RouteTimetablesSection = ({
   routeId,
   initiallyOpen = false,
 }: Props): JSX.Element => {
@@ -45,7 +45,7 @@ export const VehicleRouteTimetableSection = ({
   });
   const route = routeResult.data?.route_route_by_pk;
 
-  const { timetables } = useGetTimetables(
+  const { timetables } = useGetRouteTimetables(
     route?.route_journey_patterns[0].journey_pattern_id,
   );
 

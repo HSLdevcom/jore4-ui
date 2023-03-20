@@ -199,8 +199,8 @@ export interface TimetableWithMetadata {
   journeyPatternId: UUID;
 }
 
-export const useGetTimetables = (journeyPatternId?: UUID) => {
-  const [getTimetablesForOperationDay] =
+export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
+  const [getRouteTimetablesForOperationDay] =
     useGetTimetablesForOperationDayAsyncQuery();
 
   const { observationDate } = useObservationDateQueryParam();
@@ -212,7 +212,7 @@ export const useGetTimetables = (journeyPatternId?: UUID) => {
       return;
     }
 
-    const res = await getTimetablesForOperationDay({
+    const res = await getRouteTimetablesForOperationDay({
       journey_pattern_id: journeyPatternId,
       observation_date: observationDate,
     });
@@ -226,7 +226,7 @@ export const useGetTimetables = (journeyPatternId?: UUID) => {
       journeyPatternId,
     };
     setTimetables(timetableWithMetadata);
-  }, [journeyPatternId, observationDate, getTimetablesForOperationDay]);
+  }, [journeyPatternId, observationDate, getRouteTimetablesForOperationDay]);
 
   useEffect(() => {
     getTimetablesForRoute();
