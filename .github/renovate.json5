@@ -20,5 +20,16 @@
       ],
       matchUpdateTypes: ['major'],
     },
+    {
+      // we don't want to update map related libraries automatically as they require a lot of manual changes
+      matchPackageNames: [
+        'react-map-gl',
+        'react-map-gl-draw',
+        'maplibre-gl',
+        '@types/mapbox-gl',
+        '@nebula.gl/edit-modes',
+      ],
+      enabled: false,
+    },
   ],
 }
