@@ -1,6 +1,7 @@
+import { TFunction } from 'i18next';
 import countBy from 'lodash/countBy';
 import React from 'react';
-import { TFunction, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { RouteUniqueFieldsFragment } from '../../../generated/graphql';
 import { EditChanges } from '../../../hooks';
 import { ConfirmationDialog } from '../../../uiComponents';

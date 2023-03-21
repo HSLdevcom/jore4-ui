@@ -22,15 +22,15 @@
     "graphql-tag": "^2.12.6",
     "knex": "^2.4.2",
     "lodash": "^4.17.21",
-    "luxon": "^3.2.1",
-    "pg": "^8.8.0",
-    "rollup": "^3.10.1",
-    "rollup-plugin-dts": "^5.1.1",
+    "luxon": "^3.3.0",
+    "pg": "^8.10.0",
+    "rollup": "^3.20.0",
+    "rollup-plugin-dts": "^5.3.0",
     "ts-node": "^10.9.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.10",
-    "@types/pg": "^8.6.5"
+    "@types/pg": "^8.6.6"
   }
 }
