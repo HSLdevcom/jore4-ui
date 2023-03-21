@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { VehicleScheduleFrameWithRouteInfoFragment } from '../../../generated/graphql';
 import { useToggle } from '../../../hooks';
+import { parseI18nField } from '../../../i18n/utils';
 import { Row, Visible } from '../../../layoutComponents';
 import { AccordionButton } from '../../../uiComponents';
 import { BlockVehicleJourneysTable } from './BlockVehicleJourneysTable';
@@ -22,14 +23,17 @@ export const VehicleScheduleFrameBlocksView = ({
 
   const blocks = vehicleScheduleFrame.vehicle_services.flatMap((service) =>
     // TODO: Get Block label from vehicle service after it has been implemented to data model
-    service.blocks.map((block) => ({ label: '!Block label', block })),
+    service.blocks.map((block) => ({
+      label: parseI18nField(service.name_i18n),
+      block,
+    })),
   );
 
   return (
     <div>
       <Row className="border-brand-gray w-full border text-white">
         <p className="flex w-1/6 items-center border border-light-grey bg-brand py-2 px-6 font-bold">
-          !Aikataulun nimi
+          {vehicleScheduleFrame.label}
         </p>
         <Row className="flex-1 border border-l border-light-grey border-l-white bg-brand py-2 px-4">
           <Row className="flex-1 items-center justify-between font-normal">
