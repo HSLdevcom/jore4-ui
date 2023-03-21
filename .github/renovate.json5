@@ -20,5 +20,15 @@
       ],
       matchUpdateTypes: ['major'],
     },
+    {
+      // we don't want to update map related libraries automatically as they require a lot of manual changes
+      matchUpdateTypes: [
+        'react-map-gl',
+        'react-map-gl-draw',
+        'maplibre-gl',
+        '@types/mapbox-gl',
+      ],
+      enabled: false,
+    },
   ],
 }
