@@ -17014,6 +17014,7 @@ export type VehicleJourneyWithRouteInfoFragment = {
 export type VehicleServiceWithJourneysFragment = {
   __typename?: 'timetables_vehicle_service_vehicle_service';
   vehicle_service_id: UUID;
+  name_i18n?: any | null;
   vehicle_schedule_frame: {
     __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
     vehicle_schedule_frame_id: UUID;
@@ -17078,6 +17079,7 @@ export type VehicleServiceWithJourneysFragment = {
 
 export type VehicleScheduleFrameWithRouteInfoFragment = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+  label: string;
   validity_end?: luxon.DateTime | null;
   validity_start?: luxon.DateTime | null;
   name_i18n?: any | null;
@@ -17086,6 +17088,7 @@ export type VehicleScheduleFrameWithRouteInfoFragment = {
   vehicle_services: Array<{
     __typename?: 'timetables_vehicle_service_vehicle_service';
     vehicle_service_id: UUID;
+    name_i18n?: any | null;
     vehicle_schedule_frame: {
       __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
       vehicle_schedule_frame_id: UUID;
@@ -17159,6 +17162,7 @@ export type GetStagingVehicleScheduleFramesQuery = {
     __typename?: 'timetables_timetables_query';
     timetables_vehicle_schedule_vehicle_schedule_frame: Array<{
       __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+      label: string;
       validity_end?: luxon.DateTime | null;
       validity_start?: luxon.DateTime | null;
       name_i18n?: any | null;
@@ -17167,6 +17171,7 @@ export type GetStagingVehicleScheduleFramesQuery = {
       vehicle_services: Array<{
         __typename?: 'timetables_vehicle_service_vehicle_service';
         vehicle_service_id: UUID;
+        name_i18n?: any | null;
         vehicle_schedule_frame: {
           __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
           vehicle_schedule_frame_id: UUID;
@@ -18123,6 +18128,7 @@ export const VehicleJourneyWithRouteInfoFragmentDoc = gql`
 export const VehicleServiceWithJourneysFragmentDoc = gql`
   fragment vehicle_service_with_journeys on timetables_vehicle_service_vehicle_service {
     vehicle_service_id
+    name_i18n
     vehicle_schedule_frame {
       vehicle_schedule_frame_id
       priority
@@ -18142,6 +18148,7 @@ export const VehicleServiceWithJourneysFragmentDoc = gql`
 `;
 export const VehicleScheduleFrameWithRouteInfoFragmentDoc = gql`
   fragment vehicle_schedule_frame_with_route_info on timetables_vehicle_schedule_vehicle_schedule_frame {
+    label
     validity_end
     validity_start
     name_i18n

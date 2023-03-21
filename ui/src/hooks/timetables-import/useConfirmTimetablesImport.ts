@@ -36,6 +36,7 @@ const GQL_VEHICLE_JOURNEY_WITH_ROUTE_INFO_FRAGMENT = gql`
 const GQL_VEHICLE_SERVICE_WITH_JOURNEYS_FRAGMENT = gql`
   fragment vehicle_service_with_journeys on timetables_vehicle_service_vehicle_service {
     vehicle_service_id
+    name_i18n
     vehicle_schedule_frame {
       vehicle_schedule_frame_id
       priority
@@ -54,6 +55,7 @@ const GQL_VEHICLE_SERVICE_WITH_JOURNEYS_FRAGMENT = gql`
 
 const GQL_VEHICLE_SCHEDULE_FRAME_WITH_ROUTE_INFO = gql`
   fragment vehicle_schedule_frame_with_route_info on timetables_vehicle_schedule_vehicle_schedule_frame {
+    label
     validity_end
     validity_start
     name_i18n
