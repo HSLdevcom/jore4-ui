@@ -8,7 +8,7 @@ on:
 jobs:
   run_cypress_tests:
     name: Run cypress e2e tests from docker
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest-4-cores
     env:
       CYPRESS_IMAGE_NAME: hsldevcom/jore4-cypress
 
