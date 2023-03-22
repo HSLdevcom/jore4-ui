@@ -5,7 +5,10 @@ interface Props {
   show: boolean;
 }
 
-export const ToastTransition: React.FC<Props> = ({ show, children }) => {
+export const ToastTransition: React.FC<React.PropsWithChildren<Props>> = ({
+  show,
+  children,
+}) => {
   return (
     <Transition
       appear

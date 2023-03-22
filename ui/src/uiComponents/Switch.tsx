@@ -37,7 +37,7 @@ interface LabelProps {
   className?: string;
 }
 
-export const SwitchLabel: React.FC<LabelProps> = ({
+export const SwitchLabel: React.FC<React.PropsWithChildren<LabelProps>> = ({
   className = '',
   children,
 }) => {

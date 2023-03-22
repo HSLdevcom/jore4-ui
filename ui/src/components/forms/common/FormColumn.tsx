@@ -5,7 +5,10 @@ interface Props {
   className?: string;
 }
 
-export const FormColumn: React.FC<Props> = ({ className = '', children }) => {
+export const FormColumn: React.FC<React.PropsWithChildren<Props>> = ({
+  className = '',
+  children,
+}) => {
   return (
     <Column className={`${className} w-full space-y-5`}>{children}</Column>
   );

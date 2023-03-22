@@ -6,7 +6,7 @@ interface Props {
   smColumns?: number;
 }
 
-export const FormRow: React.FC<Props> = ({
+export const FormRow: React.FC<React.PropsWithChildren<Props>> = ({
   className = '',
   mdColumns = 1,
   smColumns = mdColumns,

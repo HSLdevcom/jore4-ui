@@ -4,7 +4,7 @@ interface Props {
   className?: string;
 }
 
-export const ModalBody: FunctionComponent<Props> = ({
+export const ModalBody: FunctionComponent<React.PropsWithChildren<Props>> = ({
   className = '',
   children,
 }) => {

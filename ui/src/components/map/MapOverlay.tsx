@@ -5,7 +5,7 @@ interface MapOverlayProps {
   className?: string;
 }
 
-export const MapOverlay: React.FC<MapOverlayProps> = ({
+export const MapOverlay: React.FC<React.PropsWithChildren<MapOverlayProps>> = ({
   className = '',
   children,
 }) => {

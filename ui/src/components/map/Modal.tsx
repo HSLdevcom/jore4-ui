@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row } from '../../layoutComponents';
 import { SimpleButton } from '../../uiComponents';
@@ -8,7 +8,9 @@ const testIds = {
   saveButton: 'Modal::saveButton',
 };
 
-const HeaderFooterContainer: FunctionComponent = ({ children }) => {
+const HeaderFooterContainer: React.FC<React.PropsWithChildren> = ({
+  children,
+}) => {
   return (
     <div className="border border-light-grey bg-background px-14 py-7">
       {children}

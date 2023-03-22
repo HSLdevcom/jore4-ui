@@ -4,7 +4,7 @@ interface Props {
   className?: string;
 }
 
-export const FormContainer: React.FC<Props> = ({
+export const FormContainer: React.FC<React.PropsWithChildren<Props>> = ({
   className = '',
   children,
 }) => {

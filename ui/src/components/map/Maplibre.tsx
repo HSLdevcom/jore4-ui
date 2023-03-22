@@ -33,7 +33,7 @@ interface MaplibreViewport {
 
 const style = generateStyle();
 
-export const Maplibre: FunctionComponent<Props> = ({
+export const Maplibre: FunctionComponent<React.PropsWithChildren<Props>> = ({
   className = '',
   onClick,
   width = '100vw',

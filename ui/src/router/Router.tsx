@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { FunctionComponent } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { MapLoader, ModalMap } from '../components/map';
 import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
@@ -111,16 +111,15 @@ export const Router: FunctionComponent = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <Switch>
+      <Routes>
         {Object.values(routes).map((route) => (
           <Route
             key={route._routerRoute}
             path={route._routerRoute}
-            exact={route._exact || false}
-            component={route.component}
+            element={route.component}
           />
         ))}
-      </Switch>
+      </Routes>
       <ModalMap />
       <MapLoader />
     </BrowserRouter>

@@ -5,7 +5,7 @@ interface Props {
   testId?: string;
 }
 
-export const RoutesTable: React.FC<Props> = ({
+export const RoutesTable: React.FC<React.PropsWithChildren<Props>> = ({
   className = '',
   testId,
   children,

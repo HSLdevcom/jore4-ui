@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { redirect, useParams } from 'react-router-dom';
 import {
   RouteDefaultFieldsFragment,
   ServicePatternScheduledStopPoint,
@@ -24,7 +24,6 @@ import {
   showSuccessToast,
   submitFormByRef,
 } from '../../../utils';
-import { RedirectWithQuery } from '../../common/RedirectWithQuery';
 import { RouteDraftStopsConfirmationDialog } from '../../forms/route/RouteDraftStopsConfirmationDialog';
 import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
@@ -144,14 +143,8 @@ export const EditRoutePage = (): JSX.Element => {
 
   if (hasFinishedEditing) {
     // if route was successfully edited, redirect to its line's page
-    return (
-      <RedirectWithQuery
-        to={{
-          pathname: route
-            ? routeDetails[Path.lineDetails].getLink(route?.on_line_id)
-            : '404',
-        }}
-      />
+    redirect(
+      route ? routeDetails[Path.lineDetails].getLink(route?.on_line_id) : '404',
     );
   }
 

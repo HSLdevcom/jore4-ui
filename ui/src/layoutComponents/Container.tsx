@@ -5,7 +5,7 @@ interface Props {
   testId?: string;
 }
 
-export const Container: React.FC<Props> = ({
+export const Container: React.FC<React.PropsWithChildren<Props>> = ({
   className = '',
   testId,
   children,

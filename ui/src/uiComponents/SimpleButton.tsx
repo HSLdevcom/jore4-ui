@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface CommonButtonProps {
@@ -9,7 +9,6 @@ interface CommonButtonProps {
   inverted?: boolean;
   selected?: boolean;
   disabled?: boolean;
-  children?: ReactNode;
   containerClassName?: string;
   invertedClassName?: string;
 }
@@ -39,7 +38,9 @@ const getHoverStyles = (inverted = false, disabled = false) => {
     : `${hoverStyle} hover:bg-opacity-50`;
 };
 
-export const SimpleButton: React.FC<Props> = (props) => {
+export const SimpleButton: React.FC<React.PropsWithChildren<Props>> = (
+  props,
+) => {
   const {
     id,
     className = '',

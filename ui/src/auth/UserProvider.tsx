@@ -1,9 +1,11 @@
-import { FC, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Api } from '../api';
 import { useAppDispatch } from '../hooks';
 import { loginFailedAction, loginSuccessAction } from '../redux';
 
-export const UserProvider: FC = ({ children }) => {
+export const UserProvider: React.FC<React.PropsWithChildren> = ({
+  children,
+}) => {
   const dispatch = useAppDispatch();
 
   const getUserInfo = useCallback(async () => {

@@ -6,7 +6,7 @@ import React, { FC } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ReduxProvider } from '../../redux';
 
-const AllTheProviders: FC = ({ children }) => {
+const AllTheProviders: FC<React.PropsWithChildren> = ({ children }) => {
   // Add "providers" or "wrappers" that are needed in all DOM render tests here
   return (
     <MockedProvider addTypename={false}>

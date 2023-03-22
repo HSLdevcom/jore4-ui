@@ -20,7 +20,7 @@ const getPositionClassNames = (position: ModalPosition) => {
   }
 };
 
-export const Modal: React.FC<Props> = ({
+export const Modal: React.FC<React.PropsWithChildren<Props>> = ({
   isOpen,
   onClose,
   className = '',

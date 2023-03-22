@@ -15,7 +15,7 @@ export const SearchInput = ({
   testId,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
-  const onKeyPress = (e: React.KeyboardEvent) => {
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       onSearch();
     }
