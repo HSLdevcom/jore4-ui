@@ -1,3 +1,5 @@
+import { twMerge } from 'tailwind-merge';
+
 interface Props {
   active: boolean;
   onToggle: (active: boolean) => void;
@@ -24,10 +26,10 @@ export const IconToggle = ({
       data-testid={testId}
       type="button"
       disabled={disabled}
-      className={`rounded border border-gray-300
+      className={twMerge(`rounded border border-gray-300
         ${colorClassNames}
         ${disabledClassNames}
-        ${className}`}
+        ${className}`)}
       onClick={() => onToggle(!active)}
     >
       <i

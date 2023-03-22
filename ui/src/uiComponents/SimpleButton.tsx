@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { twMerge } from 'tailwind-merge';
 
 interface CommonButtonProps {
   id?: string;
@@ -67,7 +68,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
         <button
           id={id}
           data-selected={selected}
-          className={`${commonClassNames} ${className}`}
+          className={twMerge(`${commonClassNames} ${className}`)}
           type="button"
           onClick={(props as ButtonProps).onClick}
           disabled={disabled}
@@ -87,7 +88,9 @@ export const SimpleButton: React.FC<Props> = (props) => {
       <span className={`inline-flex ${containerClassName}`}>
         <Link
           id={id}
-          className={`${commonClassNames} flex items-center ${className}`}
+          className={twMerge(
+            `${commonClassNames} flex items-center ${className}`,
+          )}
           type="button"
           // @ts-expect-error we want to pass undefined as href for disabled buttons
           to={disabled ? undefined : (props as LinkButtonProps).href}
