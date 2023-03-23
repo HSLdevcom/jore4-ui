@@ -31,7 +31,7 @@ const seedDb = async () => {
   // route 641, direction 1
   const jp1 = 'a9136ad8-d185-4c7b-9969-057b65dc9b00';
   const jpRef1 = buildJourneyPatternRefDeep(jp1, {
-    journeyPatternRefBase: {},
+    journeyPatternRefBase: { type_of_line: 'stopping_bus_service' },
     stopBase: {},
     stopLabels,
   });
@@ -39,7 +39,7 @@ const seedDb = async () => {
   // route 641, direction 2
   const jp2 = '4f80b9c2-21b2-4460-9e38-0d0691b29cbe';
   const jpRef2 = buildJourneyPatternRefDeep(jp2, {
-    journeyPatternRefBase: {},
+    journeyPatternRefBase: { type_of_line: 'stopping_bus_service' },
     stopBase: {},
     stopLabels: reverse(stopLabels),
   });
