@@ -98,7 +98,7 @@ const GQL_CHANGE_STAGING_VEHICLE_SCHEDULE_FRAME_PRIORITY = gql`
   }
 `;
 
-export const useConfirmTimetablesImport = () => {
+export const useTimetablesImport = () => {
   const [changeTimetablesPriority] =
     useChangeStagingVehicleScheduleFramePriorityMutation();
 

@@ -2,8 +2,8 @@ import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import {
-  useConfirmTimetablesImport,
   useConfirmTimetablesImportUIAction,
+  useTimetablesImport,
   useToggle,
 } from '../../../hooks';
 import { Container, Row, Visible } from '../../../layoutComponents';
@@ -27,8 +27,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
   const history = useHistory();
 
-  const { vehicleJourneys, vehicleScheduleFrames } =
-    useConfirmTimetablesImport();
+  const { vehicleJourneys, vehicleScheduleFrames } = useTimetablesImport();
   const [showStagingTimetables, toggleShowStagingTimetables] = useToggle(true);
   const { onConfirmTimetablesImport } = useConfirmTimetablesImportUIAction();
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfirmTimetablesImport } from '../../../hooks/timetables-import/useConfirmTimetablesImport';
+import { useTimetablesImport } from '../../../hooks/timetables-import/useTimetablesImport';
 import { Container, Row } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
@@ -12,7 +12,7 @@ const testIds = {
 
 export const ImportTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const { vehicleJourneys } = useConfirmTimetablesImport();
+  const { vehicleJourneys } = useTimetablesImport();
   const [isSavingImport, setIsSavingImport] = useState(false);
 
   const importedTimetablesExist = vehicleJourneys.length > 0;
