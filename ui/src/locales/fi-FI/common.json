@@ -292,10 +292,6 @@
     "departures": "Lähdöt",
     "noService": "Ei vuoroja",
     "at": "klo {{ time }}",
-    "importFromHastus": "Tuo Hastuksesta",
-    "importTimetablesFromHastus": "Tuo aikataulut Hastuksesta",
-    "openPreview": "Avaa esikatselu",
-    "importSuccess": "Aikataulujen tuonti onnistui!",
     "showVersions": "Näytä versiot",
     "versionsTitle": "Aikatauluversiot",
     "operatingCalendar": "Liikennöintikalenteri",
@@ -329,6 +325,18 @@
   "confirmTimetablesImportModal": {
     "title": "Tallenna muutos",
     "priority": "Aikataulujen prioriteetti"
+  },
+  "import": {
+    "importTimetables": "Tuo aikatauluja",
+    "importTimetablesFromHastus": "Tuo aikatauluja Hastuksesta",
+    "importSuccess": "Aikataulujen tuonti onnistui!",
+    "dragAndDropText": "Vedä ja pudota Hastus-tiedostoja tai ",
+    "openPreview": "Avaa esikatselu",
+    "uploadFiles": "Lataa tiedostot",
+    "browse": "Selaa",
+    "filesToUpload": "Ladattavat tiedostot",
+    "fileUploadSuccess": "Tiedoston {{ filename }} lataus onnistui!",
+    "fileUploadFailed": "Tiedoston {{ filename }} lataus epäonnistui!"
   },
   "export": {
     "startSelecting": "Valitse",

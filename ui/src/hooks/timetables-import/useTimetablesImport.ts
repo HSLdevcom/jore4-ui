@@ -1,10 +1,16 @@
 import { gql } from '@apollo/client';
+import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import {
   useChangeStagingVehicleScheduleFramePriorityMutation,
   useGetStagingVehicleScheduleFramesQuery,
 } from '../../generated/graphql';
 import { TimetablePriority } from '../../types/enums';
-import { mapToVariables } from '../../utils';
+import {
+  mapToVariables,
+  showDangerToastWithError,
+  showSuccessToast,
+} from '../../utils';
 
 const GQL_VEHICLE_JOURNEY_WITH_ROUTE_INFO_FRAGMENT = gql`
   fragment vehicle_journey_with_route_info on timetables_vehicle_journey_vehicle_journey {
@@ -101,8 +107,9 @@ const GQL_CHANGE_STAGING_VEHICLE_SCHEDULE_FRAME_PRIORITY = gql`
 export const useTimetablesImport = () => {
   const [changeTimetablesPriority] =
     useChangeStagingVehicleScheduleFramePriorityMutation();
+  const { t } = useTranslation();
 
-  const importedVehicleScheduleFrames =
+  const importedVehicleScheduleFramesResult =
     useGetStagingVehicleScheduleFramesQuery();
 
   const confirmTimetablesImport = async (priority: TimetablePriority) => {
@@ -110,7 +117,7 @@ export const useTimetablesImport = () => {
   };
 
   const vehicleScheduleFrames =
-    importedVehicleScheduleFrames.data?.timetables
+    importedVehicleScheduleFramesResult.data?.timetables
       ?.timetables_vehicle_schedule_vehicle_schedule_frame || [];
 
   const vehicleJourneys =
@@ -119,5 +126,54 @@ export const useTimetablesImport = () => {
       .flatMap((service) => service.blocks)
       .flatMap((block) => block.vehicle_journeys) || [];
 
-  return { confirmTimetablesImport, vehicleJourneys, vehicleScheduleFrames };
+  /**
+   * Sends list of files to hastus importer. They will be sent one by one and
+   * a toast message will be shown in UI of the outcome.
+   * Returns an objet which has corresponding 'successfulFiles' and 'failedFiles'
+   */
+  const sendToHastusImporter = async (fileList: File[]) => {
+    const failedFiles: File[] = [];
+    const successfulFiles: File[] = [];
+    // TODO: Currently sending multiple files at once fails. Only one will go through.
+    // This might need changes to API as well, if we want to implement this.
+    // Currently (27.3.2023), this is sufficient implementation for MVP
+    await Promise.all(
+      fileList.map(async (file) => {
+        await axios
+          .post('/api/hastus/import', file, {
+            headers: {
+              'Content-Type': 'text/csv',
+              'x-hasura-admin-secret': 'hasura',
+            },
+          })
+          .then(() => {
+            successfulFiles.push(file);
+            showSuccessToast(
+              t('import.fileUploadSuccess', { filename: file.name }),
+            );
+          })
+          .catch((error) => {
+            failedFiles.push(file);
+            showDangerToastWithError(
+              t('import.fileUploadFailed', { filename: file.name }),
+              error,
+            );
+          });
+      }),
+    );
+
+    await importedVehicleScheduleFramesResult.refetch();
+
+    return {
+      successfulFiles,
+      failedFiles,
+    };
+  };
+
+  return {
+    confirmTimetablesImport,
+    vehicleJourneys,
+    vehicleScheduleFrames,
+    sendToHastusImporter,
+  };
 };
