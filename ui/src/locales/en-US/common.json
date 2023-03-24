@@ -292,10 +292,6 @@
     "departures": "Departures",
     "noService": "No service",
     "at": "at {{ time }}",
-    "importFromHastus": "Import from Hastus",
-    "importTimetablesFromHastus": "Import timetables from Hastus",
-    "openPreview": "Open preview",
-    "importSuccess": "Timetables imported successfully!",
     "showVersions": "Show versions",
     "versionsTitle": "Timetable versions",
     "operatingCalendar": "Operating calendar",
@@ -329,6 +325,18 @@
   "confirmTimetablesImportModal": {
     "title": "Save changes",
     "priority": "Timetables' priority"
+  },
+  "import": {
+    "importTimetables": "Import timetables",
+    "importTimetablesFromHastus": "Import timetables from Hastus",
+    "importSuccess": "Timetables imported successfully!",
+    "dragAndDropText": "Drag and drop Hastus files or ",
+    "openPreview": "Open preview",
+    "uploadFiles": "Upload files",
+    "browse": "Browse",
+    "filesToUpload": "Files to upload",
+    "fileUploadSuccess": "Uploading file {{ filename }} succeeded!",
+    "fileUploadFailed": "Uploading file {{ filename }} failed!"
   },
   "export": {
     "startSelecting": "Select",
