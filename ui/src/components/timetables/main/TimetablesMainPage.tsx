@@ -22,7 +22,7 @@ export const TimetablesMainPage = (): JSX.Element => {
           data-testid={testIds.importButton}
           href={importTimetablesRoute.getLink()}
         >
-          {t('timetables.importFromHastus')}
+          {t('import.importTimetables')}
         </SimpleButton>
       </Row>
       <SearchContainer />
