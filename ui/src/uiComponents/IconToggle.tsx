@@ -26,10 +26,12 @@ export const IconToggle = ({
       data-testid={testId}
       type="button"
       disabled={disabled}
-      className={twMerge(`rounded border border-gray-300
-        ${colorClassNames}
-        ${disabledClassNames}
-        ${className}`)}
+      className={twMerge(
+        'rounded border border-gray-300',
+        colorClassNames,
+        disabledClassNames,
+        className,
+      )}
       onClick={() => onToggle(!active)}
     >
       <i

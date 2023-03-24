@@ -15,7 +15,7 @@ export const useConfirmTimetablesImportUIAction = () => {
 
     try {
       await confirmTimetablesImport(priority as unknown as TimetablePriority);
-      showSuccessToast(t('timetables.importSuccess'));
+      showSuccessToast(t('import.importSuccess'));
     } finally {
       setIsLoading(false);
     }

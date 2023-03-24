@@ -106,7 +106,7 @@ export const routeDetails: Record<Path, RouteDetail> = {
   },
   [Path.timetablesImportPreview]: {
     getLink: () => Path.timetablesImportPreview,
-    translationKey: 'timetables.importPreview',
+    translationKey: 'import.importPreview',
   },
   [Path.lineTimetableVersions]: {
     getLink: (label: string) =>
