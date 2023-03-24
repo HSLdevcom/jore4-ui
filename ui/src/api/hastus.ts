@@ -43,3 +43,13 @@ export const exportRoutesToHastus = async ({
 
   return response;
 };
+
+export const sendFileToHastusImporter = (file: File) => {
+  return apiClient.post('import', file, {
+    headers: {
+      'Content-Type': 'text/csv',
+      // TODO: Authenticate properly
+      'x-hasura-admin-secret': 'hasura',
+    },
+  });
+};
