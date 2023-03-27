@@ -5,6 +5,7 @@ import {
 } from '@headlessui/react';
 import React, { Fragment, ReactNode } from 'react';
 import { ControllerFieldState, Noop } from 'react-hook-form';
+import { twMerge } from 'tailwind-merge';
 import { addClassName } from '../utils/components';
 
 // copied from HeadlessUI Listbox as it's not exported
@@ -84,18 +85,22 @@ export const Listbox = ({
       {({ open }) => (
         <>
           <HUIListbox.Button
-            className={`${
-              hasError ? buttonErrorStyles : ''
-            } flex w-full items-center rounded-md border border-grey bg-white py-3 px-2 text-left focus:outline-none ${buttonClassNames}`}
+            className={twMerge(
+              `${
+                hasError ? buttonErrorStyles : ''
+              } flex w-full items-center rounded-md border border-grey bg-white py-3 px-2 text-left focus:outline-none ${buttonClassNames}`,
+            )}
             data-testid={testId}
           >
             {buttonContent}
             <i
-              className={`${
-                hasError ? arrowErrorStyles : ''
-              } icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out ${
-                open ? '-rotate-180' : 'rotate-0'
-              } ${arrowButtonClassNames}`}
+              className={twMerge(
+                `${
+                  hasError ? arrowErrorStyles : ''
+                } icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out ${
+                  open ? '-rotate-180' : 'rotate-0'
+                } ${arrowButtonClassNames}`,
+              )}
               style={{ fontSize: 10 }}
             />
           </HUIListbox.Button>
