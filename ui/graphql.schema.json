@@ -35375,7 +35375,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
+            "description": "The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -35387,7 +35387,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
+            "description": "The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -36611,7 +36611,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
+            "description": "The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -36623,7 +36623,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
+            "description": "The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -36705,7 +36705,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
+            "description": "The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -36717,7 +36717,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
+            "description": "The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -36789,7 +36789,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
+            "description": "The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -36801,7 +36801,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
+            "description": "The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -36871,7 +36871,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
+            "description": "The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -36883,7 +36883,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
+            "description": "The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -36955,7 +36955,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
+            "description": "The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -36967,7 +36967,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
+            "description": "The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -37593,7 +37593,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
+            "description": "The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -37605,7 +37605,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
+            "description": "The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -37913,7 +37913,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid.",
+            "description": "The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -37925,7 +37925,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the line becomes valid. If NULL, the line has been always valid.",
+            "description": "The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -39025,7 +39025,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
+            "description": "The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39037,7 +39037,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
+            "description": "The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -40641,7 +40641,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
+            "description": "The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -40653,7 +40653,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
+            "description": "The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -40759,7 +40759,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
+            "description": "The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -40771,7 +40771,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
+            "description": "The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -40879,7 +40879,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
+            "description": "The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -40891,7 +40891,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
+            "description": "The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -40997,7 +40997,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
+            "description": "The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -41009,7 +41009,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
+            "description": "The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -41117,7 +41117,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
+            "description": "The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -41129,7 +41129,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
+            "description": "The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -41941,7 +41941,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
+            "description": "The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -41953,7 +41953,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
+            "description": "The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -42393,7 +42393,7 @@
           },
           {
             "name": "validity_end",
-            "description": "The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
+            "description": "The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -42405,7 +42405,7 @@
           },
           {
             "name": "validity_start",
-            "description": "The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
+            "description": "The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -46889,7 +46889,7 @@
           },
           {
             "name": "validity_end",
-            "description": "end of the operating date span in the scheduled stop point's local time",
+            "description": "end of the operating date span in the scheduled stop point's local time (inclusive).",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -46901,7 +46901,7 @@
           },
           {
             "name": "validity_start",
-            "description": "end of the route's operating date span in the route's local time",
+            "description": "start of the operating date span in the scheduled stop point's local time(inclusive).",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -48253,7 +48253,7 @@
           },
           {
             "name": "validity_end",
-            "description": "end of the operating date span in the scheduled stop point's local time",
+            "description": "end of the operating date span in the scheduled stop point's local time (inclusive).",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -48265,7 +48265,7 @@
           },
           {
             "name": "validity_start",
-            "description": "end of the route's operating date span in the route's local time",
+            "description": "start of the operating date span in the scheduled stop point's local time(inclusive).",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -48359,7 +48359,7 @@
           },
           {
             "name": "validity_end",
-            "description": "end of the operating date span in the scheduled stop point's local time",
+            "description": "end of the operating date span in the scheduled stop point's local time (inclusive).",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -48371,7 +48371,7 @@
           },
           {
             "name": "validity_start",
-            "description": "end of the route's operating date span in the route's local time",
+            "description": "start of the operating date span in the scheduled stop point's local time(inclusive).",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -48455,7 +48455,7 @@
           },
           {
             "name": "validity_end",
-            "description": "end of the operating date span in the scheduled stop point's local time",
+            "description": "end of the operating date span in the scheduled stop point's local time (inclusive).",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -48467,7 +48467,7 @@
           },
           {
             "name": "validity_start",
-            "description": "end of the route's operating date span in the route's local time",
+            "description": "start of the operating date span in the scheduled stop point's local time(inclusive).",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -48549,7 +48549,7 @@
           },
           {
             "name": "validity_end",
-            "description": "end of the operating date span in the scheduled stop point's local time",
+            "description": "end of the operating date span in the scheduled stop point's local time (inclusive).",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -48561,7 +48561,7 @@
           },
           {
             "name": "validity_start",
-            "description": "end of the route's operating date span in the route's local time",
+            "description": "start of the operating date span in the scheduled stop point's local time(inclusive).",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -48645,7 +48645,7 @@
           },
           {
             "name": "validity_end",
-            "description": "end of the operating date span in the scheduled stop point's local time",
+            "description": "end of the operating date span in the scheduled stop point's local time (inclusive).",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -48657,7 +48657,7 @@
           },
           {
             "name": "validity_start",
-            "description": "end of the route's operating date span in the route's local time",
+            "description": "start of the operating date span in the scheduled stop point's local time(inclusive).",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -49173,7 +49173,7 @@
           },
           {
             "name": "validity_end",
-            "description": "end of the operating date span in the scheduled stop point's local time",
+            "description": "end of the operating date span in the scheduled stop point's local time (inclusive).",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -49185,7 +49185,7 @@
           },
           {
             "name": "validity_start",
-            "description": "end of the route's operating date span in the route's local time",
+            "description": "start of the operating date span in the scheduled stop point's local time(inclusive).",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -49469,7 +49469,7 @@
           },
           {
             "name": "validity_end",
-            "description": "end of the operating date span in the scheduled stop point's local time",
+            "description": "end of the operating date span in the scheduled stop point's local time (inclusive).",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -49481,7 +49481,7 @@
           },
           {
             "name": "validity_start",
-            "description": "end of the route's operating date span in the route's local time",
+            "description": "start of the operating date span in the scheduled stop point's local time(inclusive).",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -78758,6 +78758,22 @@
             "deprecationReason": null
           },
           {
+            "name": "created_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "label",
             "description": "Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus.",
             "args": [],
@@ -78816,7 +78832,7 @@
           },
           {
             "name": "validity_end",
-            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid.",
+            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -78832,7 +78848,7 @@
           },
           {
             "name": "validity_start",
-            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid.",
+            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -79430,6 +79446,18 @@
             "deprecationReason": null
           },
           {
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timestamptz_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "label",
             "description": null,
             "type": {
@@ -79722,6 +79750,18 @@
             "deprecationReason": null
           },
           {
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "label",
             "description": "Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus.",
             "type": {
@@ -79759,7 +79799,7 @@
           },
           {
             "name": "validity_end",
-            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid.",
+            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -79771,7 +79811,7 @@
           },
           {
             "name": "validity_start",
-            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid.",
+            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -79828,6 +79868,18 @@
             "deprecationReason": null
           },
           {
+            "name": "created_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "label",
             "description": "Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus.",
             "args": [],
@@ -79853,7 +79905,7 @@
           },
           {
             "name": "validity_end",
-            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid.",
+            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -79865,7 +79917,7 @@
           },
           {
             "name": "validity_start",
-            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid.",
+            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -79911,6 +79963,18 @@
             "deprecationReason": null
           },
           {
+            "name": "created_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "label",
             "description": "Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus.",
             "args": [],
@@ -79936,7 +80000,7 @@
           },
           {
             "name": "validity_end",
-            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid.",
+            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -79948,7 +80012,7 @@
           },
           {
             "name": "validity_start",
-            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid.",
+            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -80160,6 +80224,18 @@
             "deprecationReason": null
           },
           {
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "label",
             "description": null,
             "type": {
@@ -80331,6 +80407,12 @@
             "deprecationReason": null
           },
           {
+            "name": "created_at",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "label",
             "description": "column name",
             "isDeprecated": false,
@@ -80400,6 +80482,18 @@
             "deprecationReason": null
           },
           {
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "label",
             "description": "Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus.",
             "type": {
@@ -80437,7 +80531,7 @@
           },
           {
             "name": "validity_end",
-            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid.",
+            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -80449,7 +80543,7 @@
           },
           {
             "name": "validity_start",
-            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid.",
+            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -80615,6 +80709,18 @@
             "deprecationReason": null
           },
           {
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "label",
             "description": "Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus.",
             "type": {
@@ -80652,7 +80758,7 @@
           },
           {
             "name": "validity_end",
-            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid.",
+            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -80664,7 +80770,7 @@
           },
           {
             "name": "validity_start",
-            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid.",
+            "description": "OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid.",
             "type": {
               "kind": "SCALAR",
               "name": "date",
@@ -80730,6 +80836,12 @@
           },
           {
             "name": "booking_label",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "created_at",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null

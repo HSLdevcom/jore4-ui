@@ -5682,9 +5682,9 @@ export type RouteLine = {
   typeOfLineByTypeOfLine: RouteTypeOfLine;
   /** The type of the line. */
   type_of_line: RouteTypeOfLineEnum;
-  /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
+  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   validity_end?: Maybe<Scalars['date']>;
-  /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
+  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: Maybe<Scalars['date']>;
   /** An object relationship */
   vehicle_mode: ReusableComponentsVehicleMode;
@@ -5884,9 +5884,9 @@ export type RouteLineInsertInput = {
   typeOfLineByTypeOfLine?: InputMaybe<RouteTypeOfLineObjRelInsertInput>;
   /** The type of the line. */
   type_of_line?: InputMaybe<RouteTypeOfLineEnum>;
-  /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
+  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   validity_end?: InputMaybe<Scalars['date']>;
-  /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
+  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: InputMaybe<Scalars['date']>;
   vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeObjRelInsertInput>;
 };
@@ -5902,9 +5902,9 @@ export type RouteLineMaxFields = {
   line_id?: Maybe<Scalars['uuid']>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
+  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   validity_end?: Maybe<Scalars['date']>;
-  /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
+  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: Maybe<Scalars['date']>;
 };
 
@@ -5918,9 +5918,9 @@ export type RouteLineMaxOrderBy = {
   line_id?: InputMaybe<OrderBy>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: InputMaybe<OrderBy>;
-  /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
+  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   validity_end?: InputMaybe<OrderBy>;
-  /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
+  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: InputMaybe<OrderBy>;
 };
 
@@ -5935,9 +5935,9 @@ export type RouteLineMinFields = {
   line_id?: Maybe<Scalars['uuid']>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
+  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   validity_end?: Maybe<Scalars['date']>;
-  /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
+  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: Maybe<Scalars['date']>;
 };
 
@@ -5951,9 +5951,9 @@ export type RouteLineMinOrderBy = {
   line_id?: InputMaybe<OrderBy>;
   /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   priority?: InputMaybe<OrderBy>;
-  /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
+  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   validity_end?: InputMaybe<OrderBy>;
-  /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
+  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: InputMaybe<OrderBy>;
 };
 
@@ -6059,9 +6059,9 @@ export type RouteLineSetInput = {
   transport_target?: InputMaybe<HslRouteTransportTargetEnum>;
   /** The type of the line. */
   type_of_line?: InputMaybe<RouteTypeOfLineEnum>;
-  /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
+  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   validity_end?: InputMaybe<Scalars['date']>;
-  /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
+  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: InputMaybe<Scalars['date']>;
 };
 
@@ -6131,9 +6131,9 @@ export type RouteLineStreamCursorValueInput = {
   transport_target?: InputMaybe<HslRouteTransportTargetEnum>;
   /** The type of the line. */
   type_of_line?: InputMaybe<RouteTypeOfLineEnum>;
-  /** The point in time from which onwards the line is no longer valid. If NULL, the line will be always valid. */
+  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   validity_end?: InputMaybe<Scalars['date']>;
-  /** The point in time when the line becomes valid. If NULL, the line has been always valid. */
+  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: InputMaybe<Scalars['date']>;
 };
 
@@ -6272,9 +6272,9 @@ export type RouteRoute = {
   route_shape?: Maybe<Scalars['geography_linestring']>;
   /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
   unique_label: Scalars['String'];
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
   /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']>;
@@ -6542,9 +6542,9 @@ export type RouteRouteInsertInput = {
   route_id?: InputMaybe<Scalars['uuid']>;
   route_journey_patterns?: InputMaybe<JourneyPatternJourneyPatternArrRelInsertInput>;
   route_line?: InputMaybe<RouteLineObjRelInsertInput>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: InputMaybe<Scalars['date']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: InputMaybe<Scalars['date']>;
   /** The variant for route definition. */
   variant?: InputMaybe<Scalars['smallint']>;
@@ -6565,9 +6565,9 @@ export type RouteRouteMaxFields = {
   route_id?: Maybe<Scalars['uuid']>;
   /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
   unique_label?: Maybe<Scalars['String']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
   /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']>;
@@ -6587,9 +6587,9 @@ export type RouteRouteMaxOrderBy = {
   route_id?: InputMaybe<OrderBy>;
   /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
   unique_label?: InputMaybe<OrderBy>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: InputMaybe<OrderBy>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
   variant?: InputMaybe<OrderBy>;
@@ -6610,9 +6610,9 @@ export type RouteRouteMinFields = {
   route_id?: Maybe<Scalars['uuid']>;
   /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
   unique_label?: Maybe<Scalars['String']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: Maybe<Scalars['date']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: Maybe<Scalars['date']>;
   /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']>;
@@ -6632,9 +6632,9 @@ export type RouteRouteMinOrderBy = {
   route_id?: InputMaybe<OrderBy>;
   /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
   unique_label?: InputMaybe<OrderBy>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: InputMaybe<OrderBy>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
   variant?: InputMaybe<OrderBy>;
@@ -6762,9 +6762,9 @@ export type RouteRouteSetInput = {
   priority?: InputMaybe<Scalars['Int']>;
   /** The ID of the route. */
   route_id?: InputMaybe<Scalars['uuid']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: InputMaybe<Scalars['date']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: InputMaybe<Scalars['date']>;
   /** The variant for route definition. */
   variant?: InputMaybe<Scalars['smallint']>;
@@ -6852,9 +6852,9 @@ export type RouteRouteStreamCursorValueInput = {
   route_id?: InputMaybe<Scalars['uuid']>;
   /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
   unique_label?: InputMaybe<Scalars['String']>;
-  /** The point in time from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
+  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   validity_end?: InputMaybe<Scalars['date']>;
-  /** The point in time when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
+  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   validity_start?: InputMaybe<Scalars['date']>;
   /** The variant for route definition. */
   variant?: InputMaybe<Scalars['smallint']>;
@@ -7621,9 +7621,9 @@ export type ServicePatternScheduledStopPoint = {
   timing_place?: Maybe<TimingPatternTimingPlace>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: Maybe<Scalars['uuid']>;
-  /** end of the operating date span in the scheduled stop point's local time */
+  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   validity_end?: Maybe<Scalars['date']>;
-  /** end of the route's operating date span in the route's local time */
+  /** start of the operating date span in the scheduled stop point's local time(inclusive). */
   validity_start?: Maybe<Scalars['date']>;
   /** An array relationship */
   vehicle_mode_on_scheduled_stop_point: Array<ServicePatternVehicleModeOnScheduledStopPoint>;
@@ -7849,9 +7849,9 @@ export type ServicePatternScheduledStopPointInsertInput = {
   timing_place?: InputMaybe<TimingPatternTimingPlaceObjRelInsertInput>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: InputMaybe<Scalars['uuid']>;
-  /** end of the operating date span in the scheduled stop point's local time */
+  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   validity_end?: InputMaybe<Scalars['date']>;
-  /** end of the route's operating date span in the route's local time */
+  /** start of the operating date span in the scheduled stop point's local time(inclusive). */
   validity_start?: InputMaybe<Scalars['date']>;
   vehicle_mode_on_scheduled_stop_point?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointArrRelInsertInput>;
 };
@@ -7868,9 +7868,9 @@ export type ServicePatternScheduledStopPointMaxFields = {
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: Maybe<Scalars['uuid']>;
-  /** end of the operating date span in the scheduled stop point's local time */
+  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   validity_end?: Maybe<Scalars['date']>;
-  /** end of the route's operating date span in the route's local time */
+  /** start of the operating date span in the scheduled stop point's local time(inclusive). */
   validity_start?: Maybe<Scalars['date']>;
 };
 
@@ -7885,9 +7885,9 @@ export type ServicePatternScheduledStopPointMaxOrderBy = {
   scheduled_stop_point_id?: InputMaybe<OrderBy>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: InputMaybe<OrderBy>;
-  /** end of the operating date span in the scheduled stop point's local time */
+  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   validity_end?: InputMaybe<OrderBy>;
-  /** end of the route's operating date span in the route's local time */
+  /** start of the operating date span in the scheduled stop point's local time(inclusive). */
   validity_start?: InputMaybe<OrderBy>;
 };
 
@@ -7903,9 +7903,9 @@ export type ServicePatternScheduledStopPointMinFields = {
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: Maybe<Scalars['uuid']>;
-  /** end of the operating date span in the scheduled stop point's local time */
+  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   validity_end?: Maybe<Scalars['date']>;
-  /** end of the route's operating date span in the route's local time */
+  /** start of the operating date span in the scheduled stop point's local time(inclusive). */
   validity_start?: Maybe<Scalars['date']>;
 };
 
@@ -7920,9 +7920,9 @@ export type ServicePatternScheduledStopPointMinOrderBy = {
   scheduled_stop_point_id?: InputMaybe<OrderBy>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: InputMaybe<OrderBy>;
-  /** end of the operating date span in the scheduled stop point's local time */
+  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   validity_end?: InputMaybe<OrderBy>;
-  /** end of the route's operating date span in the route's local time */
+  /** start of the operating date span in the scheduled stop point's local time(inclusive). */
   validity_start?: InputMaybe<OrderBy>;
 };
 
@@ -8005,9 +8005,9 @@ export type ServicePatternScheduledStopPointSetInput = {
   scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: InputMaybe<Scalars['uuid']>;
-  /** end of the operating date span in the scheduled stop point's local time */
+  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   validity_end?: InputMaybe<Scalars['date']>;
-  /** end of the route's operating date span in the route's local time */
+  /** start of the operating date span in the scheduled stop point's local time(inclusive). */
   validity_start?: InputMaybe<Scalars['date']>;
 };
 
@@ -8067,9 +8067,9 @@ export type ServicePatternScheduledStopPointStreamCursorValueInput = {
   scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: InputMaybe<Scalars['uuid']>;
-  /** end of the operating date span in the scheduled stop point's local time */
+  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   validity_end?: InputMaybe<Scalars['date']>;
-  /** end of the route's operating date span in the route's local time */
+  /** start of the operating date span in the scheduled stop point's local time(inclusive). */
   validity_start?: InputMaybe<Scalars['date']>;
 };
 
@@ -12826,15 +12826,16 @@ export type TimetablesVehicleScheduleVehicleScheduleFrame = {
   booking_description_i18n?: Maybe<Scalars['jsonb']>;
   /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   booking_label: Scalars['String'];
+  created_at: Scalars['timestamptz'];
   /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   label: Scalars['String'];
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: Maybe<Scalars['jsonb']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   priority: Scalars['Int'];
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
+  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid. */
   validity_end: Scalars['date'];
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
+  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid. */
   validity_start: Scalars['date'];
   vehicle_schedule_frame_id: Scalars['uuid'];
   /** An array relationship */
@@ -12933,6 +12934,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameBoolExp = {
   _or?: InputMaybe<Array<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>>;
   booking_description_i18n?: InputMaybe<JsonbComparisonExp>;
   booking_label?: InputMaybe<StringComparisonExp>;
+  created_at?: InputMaybe<TimestamptzComparisonExp>;
   label?: InputMaybe<StringComparisonExp>;
   name_i18n?: InputMaybe<JsonbComparisonExp>;
   priority?: InputMaybe<IntComparisonExp>;
@@ -12985,15 +12987,16 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameInsertInput = {
   booking_description_i18n?: InputMaybe<Scalars['jsonb']>;
   /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   booking_label?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
   /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   label?: InputMaybe<Scalars['String']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   priority?: InputMaybe<Scalars['Int']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
+  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid. */
   validity_end?: InputMaybe<Scalars['date']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
+  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid. */
   validity_start?: InputMaybe<Scalars['date']>;
   vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
   vehicle_services?: InputMaybe<TimetablesVehicleServiceVehicleServiceArrRelInsertInput>;
@@ -13004,13 +13007,14 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameMaxFields = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_max_fields';
   /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   booking_label?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   label?: Maybe<Scalars['String']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
+  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid. */
   validity_end?: Maybe<Scalars['date']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
+  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid. */
   validity_start?: Maybe<Scalars['date']>;
   vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
 };
@@ -13020,13 +13024,14 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameMinFields = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_min_fields';
   /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   booking_label?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   label?: Maybe<Scalars['String']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   priority?: Maybe<Scalars['Int']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
+  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid. */
   validity_end?: Maybe<Scalars['date']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
+  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid. */
   validity_start?: Maybe<Scalars['date']>;
   vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
 };
@@ -13058,6 +13063,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameOnConflict = {
 export type TimetablesVehicleScheduleVehicleScheduleFrameOrderBy = {
   booking_description_i18n?: InputMaybe<OrderBy>;
   booking_label?: InputMaybe<OrderBy>;
+  created_at?: InputMaybe<OrderBy>;
   label?: InputMaybe<OrderBy>;
   name_i18n?: InputMaybe<OrderBy>;
   priority?: InputMaybe<OrderBy>;
@@ -13087,6 +13093,8 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn {
   /** column name */
   BookingLabel = 'booking_label',
   /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
   Label = 'label',
   /** column name */
   NameI18n = 'name_i18n',
@@ -13106,15 +13114,16 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameSetInput = {
   booking_description_i18n?: InputMaybe<Scalars['jsonb']>;
   /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   booking_label?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
   /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   label?: InputMaybe<Scalars['String']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   name_i18n?: InputMaybe<Scalars['jsonb']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   priority?: InputMaybe<Scalars['Int']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
+  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid. */
   validity_end?: InputMaybe<Scalars['date']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
+  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid. */
   validity_start?: InputMaybe<Scalars['date']>;
   vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -13155,15 +13164,16 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorValueInput 
     booking_description_i18n?: InputMaybe<Scalars['jsonb']>;
     /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
     booking_label?: InputMaybe<Scalars['String']>;
+    created_at?: InputMaybe<Scalars['timestamptz']>;
     /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
     label?: InputMaybe<Scalars['String']>;
     /** Human-readable name for the VEHICLE SCHEDULE FRAME */
     name_i18n?: InputMaybe<Scalars['jsonb']>;
     /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
     priority?: InputMaybe<Scalars['Int']>;
-    /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity end. Null if always will be valid. */
+    /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid. */
     validity_end?: InputMaybe<Scalars['date']>;
-    /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts. Null if always has been valid. */
+    /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid. */
     validity_start?: InputMaybe<Scalars['date']>;
     vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
   };
@@ -13181,6 +13191,8 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameUpdateColumn {
   BookingDescriptionI18n = 'booking_description_i18n',
   /** column name */
   BookingLabel = 'booking_label',
+  /** column name */
+  CreatedAt = 'created_at',
   /** column name */
   Label = 'label',
   /** column name */
