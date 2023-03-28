@@ -872,7 +872,7 @@ export enum InfrastructureNetworkExternalSourceConstraint {
 
 export enum InfrastructureNetworkExternalSourceEnum {
   DigiroadR = 'digiroad_r',
-  Fixup = 'fixup',
+  HslFixup = 'hsl_fixup',
 }
 
 /** Boolean expression to compare columns of type "infrastructure_network_external_source_enum". All fields are combined with logical 'AND'. */
@@ -12826,6 +12826,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFrame = {
   booking_description_i18n?: Maybe<Scalars['jsonb']>;
   /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   booking_label: Scalars['String'];
+  created_at: Scalars['timestamptz'];
   /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   label: Scalars['String'];
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
@@ -12933,6 +12934,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameBoolExp = {
   _or?: InputMaybe<Array<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>>;
   booking_description_i18n?: InputMaybe<JsonbComparisonExp>;
   booking_label?: InputMaybe<StringComparisonExp>;
+  created_at?: InputMaybe<TimestamptzComparisonExp>;
   label?: InputMaybe<StringComparisonExp>;
   name_i18n?: InputMaybe<JsonbComparisonExp>;
   priority?: InputMaybe<IntComparisonExp>;
@@ -12985,6 +12987,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameInsertInput = {
   booking_description_i18n?: InputMaybe<Scalars['jsonb']>;
   /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   booking_label?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
   /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   label?: InputMaybe<Scalars['String']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
@@ -13004,6 +13007,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameMaxFields = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_max_fields';
   /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   booking_label?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   label?: Maybe<Scalars['String']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
@@ -13020,6 +13024,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameMinFields = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_min_fields';
   /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   booking_label?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   label?: Maybe<Scalars['String']>;
   /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
@@ -13058,6 +13063,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameOnConflict = {
 export type TimetablesVehicleScheduleVehicleScheduleFrameOrderBy = {
   booking_description_i18n?: InputMaybe<OrderBy>;
   booking_label?: InputMaybe<OrderBy>;
+  created_at?: InputMaybe<OrderBy>;
   label?: InputMaybe<OrderBy>;
   name_i18n?: InputMaybe<OrderBy>;
   priority?: InputMaybe<OrderBy>;
@@ -13087,6 +13093,8 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn {
   /** column name */
   BookingLabel = 'booking_label',
   /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
   Label = 'label',
   /** column name */
   NameI18n = 'name_i18n',
@@ -13106,6 +13114,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameSetInput = {
   booking_description_i18n?: InputMaybe<Scalars['jsonb']>;
   /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   booking_label?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
   /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   label?: InputMaybe<Scalars['String']>;
   /** Human-readable name for the VEHICLE SCHEDULE FRAME */
@@ -13155,6 +13164,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorValueInput 
     booking_description_i18n?: InputMaybe<Scalars['jsonb']>;
     /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
     booking_label?: InputMaybe<Scalars['String']>;
+    created_at?: InputMaybe<Scalars['timestamptz']>;
     /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
     label?: InputMaybe<Scalars['String']>;
     /** Human-readable name for the VEHICLE SCHEDULE FRAME */
@@ -13181,6 +13191,8 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameUpdateColumn {
   BookingDescriptionI18n = 'booking_description_i18n',
   /** column name */
   BookingLabel = 'booking_label',
+  /** column name */
+  CreatedAt = 'created_at',
   /** column name */
   Label = 'label',
   /** column name */
