@@ -49,7 +49,7 @@ export const VehicleServiceTable = ({
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
-  const { vehicleJourneys, priority, dayType } = vehicleJourneyGroup;
+  const { vehicleJourneys, priority, dayType, createdAt } = vehicleJourneyGroup;
 
   const departureTimesByHour = pipe(
     vehicleJourneys,
@@ -94,7 +94,7 @@ export const VehicleServiceTable = ({
         </Column>
         <Column className="justify-center">
           <p className="text-sm">
-            !{mapToShortDateTime(new Date().toISOString())}
+            {mapToShortDateTime(createdAt)}
             <MdHistory className="ml-2 inline" />
           </p>
         </Column>

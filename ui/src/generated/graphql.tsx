@@ -18037,6 +18037,7 @@ export type VehicleJourneyWithServiceFragment = {
         validity_start: luxon.DateTime;
         priority: number;
         name_i18n?: any | null;
+        created_at: luxon.DateTime;
       };
       day_type: {
         __typename?: 'timetables_service_calendar_day_type';
@@ -18117,6 +18118,7 @@ export type GetTimetablesForOperationDayQuery = {
             validity_start: luxon.DateTime;
             priority: number;
             name_i18n?: any | null;
+            created_at: luxon.DateTime;
           };
           day_type: {
             __typename?: 'timetables_service_calendar_day_type';
@@ -18747,6 +18749,7 @@ export const VehicleJourneyWithServiceFragmentDoc = gql`
           validity_start
           priority
           name_i18n
+          created_at
         }
         vehicle_service_id
         day_type_id
