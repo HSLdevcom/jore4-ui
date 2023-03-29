@@ -40,6 +40,7 @@ const GQL_VEHICLE_JOURNEY_WITH_SERVICE_FRAGMENT = gql`
           validity_start
           priority
           name_i18n
+          created_at
         }
         vehicle_service_id
         day_type_id
@@ -100,6 +101,7 @@ export interface VehicleJourneyGroup {
   dayType: DayTypeAllFieldsFragment;
   vehicleJourneys: VehicleJourneyWithServiceFragment[];
   validity: Validity;
+  createdAt: DateTime;
 }
 
 const groupVehicleJourneys = (
@@ -141,6 +143,7 @@ const groupVehicleJourneys = (
               validityStart: vehicleScheduleFrame.validity_start,
               validityEnd: vehicleScheduleFrame.validity_end,
             },
+            createdAt: vehicleScheduleFrame.created_at,
             vehicleJourneys: [item],
           },
         ];
