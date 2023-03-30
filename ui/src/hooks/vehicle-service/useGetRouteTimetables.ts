@@ -95,11 +95,20 @@ const getVehicleServiceIdsOnObservationDate = (timetables: Timetables) => {
   return vehicleServiceIdsOnObservationDate;
 };
 
+/**
+ * Interface that groups together all vehicle journeys that are valid for
+ * a route on a certain day type and validity period with a certain priority.
+ *
+ * @property priority: Timetable's priority
+ * @property dayType: Timetable's day type
+ * @property validity: Validity period for timetables
+ * @property vehicleJourneys: Array of vehicle journeys
+ */
 export interface VehicleJourneyGroup {
   priority: TimetablePriority;
   dayType: DayTypeAllFieldsFragment;
-  vehicleJourneys: VehicleJourneyWithServiceFragment[];
   validity: Validity;
+  vehicleJourneys: VehicleJourneyWithServiceFragment[];
 }
 
 const groupVehicleJourneys = (
@@ -192,11 +201,20 @@ const getTimetableValidity = (timetables: Timetables): Validity => {
   return { validityStart, validityEnd };
 };
 
+/**
+ * Interface that groups together all vehicle journey groups for a journey pattern
+ * that are valid on certain observation date.
+ *
+ * @property timetable: Raw database query result
+ * @property validity: The narrowest validity period during which all the listed vehicle journey groups are valid
+ * @property journeyPatternId: Journey pattern id for which the vehicle journey groups belong to
+ * @property vehicleJourneyGroups: Array of vehicle journey groups
+ */
 export interface TimetableWithMetadata {
   timetable: Timetables;
   validity: Validity;
-  vehicleJourneyGroups: VehicleJourneyGroup[];
   journeyPatternId: UUID;
+  vehicleJourneyGroups: VehicleJourneyGroup[];
 }
 
 export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
