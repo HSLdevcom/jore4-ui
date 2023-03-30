@@ -184,7 +184,7 @@ const getTimetableValidity = (timetables: Timetables): Validity => {
           item.block.vehicle_service.vehicle_schedule_frame.validity_start,
       ),
     removeNonDateValues,
-    (startTimes) => findEarliestTime(startTimes as DateTime[]),
+    (startTimes) => findLatestTime(startTimes as DateTime[]),
     (startTime) => (startTime.isValid ? startTime : undefined),
   );
   const validityEnd = pipe(
@@ -195,7 +195,7 @@ const getTimetableValidity = (timetables: Timetables): Validity => {
           item.block.vehicle_service.vehicle_schedule_frame.validity_end,
       ),
     removeNonDateValues,
-    (endTimes) => findLatestTime(endTimes as DateTime[]),
+    (endTimes) => findEarliestTime(endTimes as DateTime[]),
     (endTime) => (endTime.isValid ? endTime : undefined),
   );
   return { validityStart, validityEnd };
