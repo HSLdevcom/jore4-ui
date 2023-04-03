@@ -12,12 +12,13 @@ import {
   SUN_DAY_TYPE,
 } from './datasets/timetables';
 import {
+  TimetablesResources,
   flattenJourneyPatternRef,
   flattenVehicleScheduleFrame,
   mergeTimetablesResources,
   populateTimetablesDb,
-  TimetablesResources,
 } from './db-helpers';
+import { getVehicleTypes } from './queries/timetables';
 import { Priority } from './types';
 
 const seedTimetables = async (resources: TimetablesResources) => {
@@ -27,6 +28,10 @@ const seedTimetables = async (resources: TimetablesResources) => {
 const seedDb = async () => {
   const stopLabels = buildLabelArray('H22', 10);
   const hastusStopLabels = [stopLabels[0], stopLabels[4], stopLabels[9]];
+  const vehicleTypesResult = await getVehicleTypes();
+
+  const vehicleTypes =
+    vehicleTypesResult.data.timetables.timetables_vehicle_type_vehicle_type;
 
   // route 641, direction 1
   const jp1 = 'a9136ad8-d185-4c7b-9969-057b65dc9b00';
@@ -44,6 +49,10 @@ const seedDb = async () => {
     stopLabels: reverse(stopLabels),
   });
 
+  const blockBase = {
+    vehicle_type_id: vehicleTypes[0].vehicle_type_id,
+  };
+
   // basic priority, long timeframe, Monday-Sunday, route 641 back and forth
   const vsf1 = buildVehicleScheduleFrameDeep({
     vehicleScheduleFrameBase: {
@@ -58,6 +67,7 @@ const seedDb = async () => {
         journeyPatternRefList: [jpRef1, jpRef2],
         startTime: Duration.fromISO('PT5H15M'),
         hastusStopLabels,
+        blockBase,
       },
       [SAT_DAY_TYPE]: {
         ...defaultVehicleServiceByDayTypeParams,
@@ -65,6 +75,7 @@ const seedDb = async () => {
         vehicleServiceCount: { min: 4, max: 6 }, // less buses ride today
         journeyPatternRefList: [jpRef1, jpRef2],
         hastusStopLabels,
+        blockBase,
       },
       [SUN_DAY_TYPE]: {
         ...defaultVehicleServiceByDayTypeParams,
@@ -72,6 +83,7 @@ const seedDb = async () => {
         vehicleServiceCount: { min: 4, max: 6 }, // less buses ride today
         journeyPatternRefList: [jpRef1, jpRef2],
         hastusStopLabels,
+        blockBase,
       },
     },
   });
@@ -91,6 +103,7 @@ const seedDb = async () => {
         vehicleServiceCount: { min: 14, max: 16 }, // more buses ride today
         journeyPatternRefList: [jpRef1, jpRef2],
         hastusStopLabels,
+        blockBase,
       },
     },
   });
