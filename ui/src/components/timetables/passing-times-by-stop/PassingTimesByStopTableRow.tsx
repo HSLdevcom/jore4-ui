@@ -33,6 +33,16 @@ const GQL_PASSING_TIME = gql`
         }
       }
     }
+    vehicle_journey {
+      vehicle_journey_id
+      block {
+        block_id
+        vehicle_type {
+          description_i18n
+          vehicle_type_id
+        }
+      }
+    }
   }
 `;
 

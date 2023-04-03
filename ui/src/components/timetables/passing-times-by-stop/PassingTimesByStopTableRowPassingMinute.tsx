@@ -1,4 +1,5 @@
 import { PassingTimeByStopFragment } from '../../../generated/graphql';
+import { parseI18nField } from '../../../i18n/utils';
 import { Visible } from '../../../layoutComponents';
 import { mapDurationToShortTime, padToTwoDigits } from '../../../time';
 import { VehicleJourneyPopover } from './VehicleJourneyPopover';
@@ -74,6 +75,9 @@ export const PassingTimesByStopTableRowPassingMinute = ({
       <Visible visible={isSelected}>
         <VehicleJourneyPopover
           passingTime={passing}
+          vehicleTypeDescription={parseI18nField(
+            passingTime.vehicle_journey.block.vehicle_type?.description_i18n,
+          )}
           onClose={() => setSelectedPassingTime(undefined)}
         />
       </Visible>
