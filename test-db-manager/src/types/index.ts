@@ -1,3 +1,4 @@
 export * from './common';
-export * from './inputs';
 export * from './enums';
+export * from './gql';
+export * from './inputs';
