@@ -14663,6 +14663,19 @@ export type VehicleJourneyByStopFragment = {
         } | null;
       }>;
     };
+    vehicle_journey: {
+      __typename?: 'timetables_vehicle_journey_vehicle_journey';
+      vehicle_journey_id: UUID;
+      block: {
+        __typename?: 'timetables_vehicle_service_block';
+        block_id: UUID;
+        vehicle_type?: {
+          __typename?: 'timetables_vehicle_type_vehicle_type';
+          description_i18n?: any | null;
+          vehicle_type_id: UUID;
+        } | null;
+      };
+    };
   }>;
 };
 
@@ -14698,6 +14711,19 @@ export type PassingTimeByStopFragment = {
         timing_place_id: UUID;
       } | null;
     }>;
+  };
+  vehicle_journey: {
+    __typename?: 'timetables_vehicle_journey_vehicle_journey';
+    vehicle_journey_id: UUID;
+    block: {
+      __typename?: 'timetables_vehicle_service_block';
+      block_id: UUID;
+      vehicle_type?: {
+        __typename?: 'timetables_vehicle_type_vehicle_type';
+        description_i18n?: any | null;
+        vehicle_type_id: UUID;
+      } | null;
+    };
   };
 };
 
@@ -18080,6 +18106,19 @@ export type VehicleJourneyWithServiceFragment = {
         } | null;
       }>;
     };
+    vehicle_journey: {
+      __typename?: 'timetables_vehicle_journey_vehicle_journey';
+      vehicle_journey_id: UUID;
+      block: {
+        __typename?: 'timetables_vehicle_service_block';
+        block_id: UUID;
+        vehicle_type?: {
+          __typename?: 'timetables_vehicle_type_vehicle_type';
+          description_i18n?: any | null;
+          vehicle_type_id: UUID;
+        } | null;
+      };
+    };
   }>;
 };
 
@@ -18160,6 +18199,19 @@ export type GetTimetablesForOperationDayQuery = {
               timing_place_id: UUID;
             } | null;
           }>;
+        };
+        vehicle_journey: {
+          __typename?: 'timetables_vehicle_journey_vehicle_journey';
+          vehicle_journey_id: UUID;
+          block: {
+            __typename?: 'timetables_vehicle_service_block';
+            block_id: UUID;
+            vehicle_type?: {
+              __typename?: 'timetables_vehicle_type_vehicle_type';
+              description_i18n?: any | null;
+              vehicle_type_id: UUID;
+            } | null;
+          };
         };
       }>;
     }>;
@@ -18714,6 +18766,16 @@ export const PassingTimeByStopFragmentDoc = gql`
         timing_place {
           label
           timing_place_id
+        }
+      }
+    }
+    vehicle_journey {
+      vehicle_journey_id
+      block {
+        block_id
+        vehicle_type {
+          description_i18n
+          vehicle_type_id
         }
       }
     }

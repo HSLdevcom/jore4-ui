@@ -206,6 +206,9 @@ const buildCacheDefinition = () => {
       timing_pattern_timing_place: {
         keyFields: ['timing_place_id'],
       },
+      timetables_vehicle_type_vehicle_type: {
+        keyFields: ['vehicle_type_id'],
+      },
     },
   });
 

@@ -4,11 +4,13 @@ import { Popover } from '../../../uiComponents';
 
 interface Props {
   passingTime: Duration;
+  vehicleTypeDescription: string;
   onClose: () => void;
 }
 
 export const VehicleJourneyPopover = ({
   passingTime,
+  vehicleTypeDescription,
   onClose,
 }: Props): JSX.Element => {
   return (
@@ -18,7 +20,7 @@ export const VehicleJourneyPopover = ({
           {mapDurationToShortTime(passingTime)}
         </h5>
       </div>
-      <p className="text-sm">!Kalustotyyppi</p>
+      <p className="text-sm">{vehicleTypeDescription}</p>
       <p className="text-sm">!Liikennöitsijä</p>
     </Popover>
   );
