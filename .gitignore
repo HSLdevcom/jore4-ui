@@ -19,3 +19,5 @@ mbtiles
 *.backup
 
 tsconfig.tsbuildinfo
+
+dump.sql
