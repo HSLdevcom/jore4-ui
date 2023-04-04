@@ -308,3 +308,10 @@ This repository has currently yarn workspaces in following folders:
 Workspaces-specific dependencies should be installed to workspaces themselfs and shared dependencies should be installed to workspace root.
 
 Prettier and eslint live currently on workspace root as that allows having same config for those for all workspaces.
+
+## License
+
+The project license is in [`LICENSE`](./LICENSE).
+
+Digiroad data has been licensed with Creative Commons BY 4.0 license by the
+[Finnish Transport Infrastructure Agency](https://vayla.fi/en/transport-network/data/digiroad/data).
