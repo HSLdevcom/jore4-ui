@@ -1,10 +1,8 @@
 import {
   InfraLinkAlongRouteInsertInput,
-  InfraLinkInsertInput,
   JourneyPatternInsertInput,
   LineInsertInput,
   mapToCreateInfraLinkAlongRouteMutation,
-  mapToCreateInfraLinksMutation,
   mapToCreateJourneyPatternsMutation,
   mapToCreateLinesMutation,
   mapToCreateRoutesMutation,
@@ -12,7 +10,6 @@ import {
   mapToCreateStopsOnJourneyPatternMutation,
   mapToCreateTimingPlacesMutation,
   mapToDeleteInfraLinksAlongRouteMutation,
-  mapToDeleteInfraLinksMutation,
   mapToDeleteJourneyPatternsMutation,
   mapToDeleteLinesMutation,
   mapToDeleteRoutesMutation,
@@ -23,7 +20,6 @@ import {
   StopInJourneyPatternInsertInput,
   StopInsertInput,
   TimingPatternTimingPlaceInsertInput,
-  VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -59,8 +55,6 @@ const handleResponse = (message: string, res: any) => {
 };
 
 interface SupportedResources {
-  infraLinks?: InfraLinkInsertInput[];
-  vehicleSubmodeOnInfrastructureLink?: VehicleSubmodeOnInfraLinkInsertInput[];
   lines?: LineInsertInput[];
   timingPlaces?: TimingPatternTimingPlaceInsertInput[];
   stops?: StopInsertInput[];
@@ -71,8 +65,6 @@ interface SupportedResources {
 }
 
 export const insertToDbHelper = ({
-  infraLinks,
-  vehicleSubmodeOnInfrastructureLink,
   lines,
   timingPlaces,
   stops,
@@ -81,19 +73,6 @@ export const insertToDbHelper = ({
   journeyPatterns,
   stopsInJourneyPattern,
 }: SupportedResources) => {
-  if (infraLinks) {
-    cy.task('hasuraAPI', mapToCreateInfraLinksMutation(infraLinks)).then(
-      (res) => handleResponse('Inserting infra links', res),
-    );
-  }
-  if (vehicleSubmodeOnInfrastructureLink) {
-    cy.task(
-      'insertVehicleSubmodOnInfraLinks',
-      vehicleSubmodeOnInfrastructureLink,
-    ).then((res) =>
-      handleResponse('Inserting vehicle submodes on infra links', res),
-    );
-  }
   if (lines) {
     cy.task('hasuraAPI', mapToCreateLinesMutation(lines)).then((res) =>
       handleResponse('Inserting lines', res),
@@ -135,8 +114,6 @@ export const insertToDbHelper = ({
 };
 
 export const removeFromDbHelper = ({
-  infraLinks,
-  vehicleSubmodeOnInfrastructureLink,
   lines,
   timingPlaces,
   stops,
@@ -164,22 +141,6 @@ export const removeFromDbHelper = ({
         stops.map((item) => item.scheduled_stop_point_id),
       ),
     ).then((res) => handleResponse('Removing stops', res));
-  }
-  if (vehicleSubmodeOnInfrastructureLink) {
-    cy.task(
-      'removeVehicleSubmodOnInfraLinks',
-      vehicleSubmodeOnInfrastructureLink,
-    ).then((res) =>
-      responseLogger('Removing vehicle submodes on infra links', res),
-    );
-  }
-  if (infraLinks) {
-    cy.task(
-      'hasuraAPI',
-      mapToDeleteInfraLinksMutation(
-        infraLinks.map((item) => item.infrastructure_link_id),
-      ),
-    ).then((res) => handleResponse('Removing infra links', res));
   }
   if (infraLinksAlongRoute) {
     cy.task(
