@@ -1,8 +1,5 @@
 import {
-  buildLine,
-  buildRoute,
-  buildStop,
-  buildStopsInJourneyPattern,
+  GetInfrastructureLinksByExternalIdsResult,
   InfraLinkAlongRouteInsertInput,
   JourneyPatternInsertInput,
   LineInsertInput,
@@ -11,13 +8,24 @@ import {
   RouteDirectionEnum,
   RouteInsertInput,
   StopInsertInput,
+  buildLine,
+  buildRoute,
+  buildStop,
+  buildStopsInJourneyPattern,
+  extractInfrastructureLinkIdsFromResponse,
+  mapToGetInfrastructureLinksByExternalIdsQuery,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
 import { ModalMap, RouteEditor } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
 import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
-import { insertToDbHelper, removeFromDbHelper } from '../utils';
+import { UUID } from '../types';
+import {
+  SupportedResources,
+  insertToDbHelper,
+  removeFromDbHelper,
+} from '../utils';
 import { deleteRoutesByLabel } from './utils';
 
 const testRouteLabels = {
@@ -34,18 +42,20 @@ const testRouteLabels = {
 
 const testInfraLinks = [
   {
-    id: '73bc2df9-f5af-4c38-a1dd-5ed1f71c90a8',
+    externalId: '445156',
     coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
   },
   {
-    id: 'ea69415a-9c54-4327-8836-f38b36d8fa99',
+    externalId: '442424',
     coordinates: [24.92904198486008, 60.16490775039894, 0],
   },
   {
-    id: '13de61c2-3fc9-4255-955f-0a2350c389e1',
+    externalId: '442325',
     coordinates: [24.932072417514647, 60.166003223527824, 0],
   },
 ];
+
+const stopLabels = ['Test stop 1', 'Test stop 2', 'Test stop 3'];
 
 const lines: LineInsertInput[] = [
   {
@@ -66,11 +76,13 @@ const lines: LineInsertInput[] = [
   },
 ];
 
-const stops: StopInsertInput[] = [
+const buildStopsOnInfrastrucureLinks = (
+  infrastructureLinkIds: UUID[],
+): StopInsertInput[] => [
   {
     ...buildStop({
-      label: 'Test stop 1',
-      located_on_infrastructure_link_id: testInfraLinks[0].id,
+      label: stopLabels[0],
+      located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
     validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
     scheduled_stop_point_id: '3f23a4c5-f527-4395-bd9f-bbc398f837df',
@@ -81,8 +93,8 @@ const stops: StopInsertInput[] = [
   },
   {
     ...buildStop({
-      label: 'Test stop 2',
-      located_on_infrastructure_link_id: testInfraLinks[1].id,
+      label: stopLabels[1],
+      located_on_infrastructure_link_id: infrastructureLinkIds[1],
     }),
     validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
     scheduled_stop_point_id: '431a6791-f1f5-45d4-8c9d-9e154a2531e0',
@@ -93,8 +105,8 @@ const stops: StopInsertInput[] = [
   },
   {
     ...buildStop({
-      label: 'Test stop 3',
-      located_on_infrastructure_link_id: testInfraLinks[2].id,
+      label: stopLabels[2],
+      located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
     validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
     scheduled_stop_point_id: '6c09b8d9-5952-4ee3-92b9-a7b4847517d3',
@@ -115,22 +127,24 @@ const routes: RouteInsertInput[] = [
   },
 ];
 
-const infraLinksAlongRoute: InfraLinkAlongRouteInsertInput[] = [
+const buildInfraLinksAlongRoute = (
+  infrastructureLinkIds: UUID[],
+): InfraLinkAlongRouteInsertInput[] => [
   {
     route_id: routes[0].route_id,
-    infrastructure_link_id: testInfraLinks[0].id,
+    infrastructure_link_id: infrastructureLinkIds[0],
     infrastructure_link_sequence: 0,
     is_traversal_forwards: true,
   },
   {
     route_id: routes[0].route_id,
-    infrastructure_link_id: testInfraLinks[1].id,
+    infrastructure_link_id: infrastructureLinkIds[1],
     infrastructure_link_sequence: 1,
     is_traversal_forwards: true,
   },
   {
     route_id: routes[0].route_id,
-    infrastructure_link_id: testInfraLinks[2].id,
+    infrastructure_link_id: infrastructureLinkIds[2],
     infrastructure_link_sequence: 2,
     is_traversal_forwards: true,
   },
@@ -144,41 +158,55 @@ const journeyPatterns: JourneyPatternInsertInput[] = [
 ];
 
 const stopsInJourneyPattern = buildStopsInJourneyPattern(
-  stops.map((item) => item.label),
+  stopLabels,
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   journeyPatterns[0].journey_pattern_id!,
 );
 
-const dbResources = {
-  lines,
-  stops,
-  routes,
-  infraLinksAlongRoute,
-  journeyPatterns,
-  stopsInJourneyPattern,
-};
-
 const stopTestIds = {
-  testStop1: `Map::Stops::stopMarker::${stops[0].label}_Standard`,
-  testStop2: `Map::Stops::stopMarker::${stops[1].label}_Standard`,
-  testStop3: `Map::Stops::stopMarker::${stops[2].label}_Standard`,
-};
-
-const clearDatabase = () => {
-  deleteRoutesByLabel(Object.values(testRouteLabels));
-  removeFromDbHelper(dbResources);
+  testStop1: `Map::Stops::stopMarker::${stopLabels[0]}_Standard`,
+  testStop2: `Map::Stops::stopMarker::${stopLabels[1]}_Standard`,
+  testStop3: `Map::Stops::stopMarker::${stopLabels[2]}_Standard`,
 };
 
 describe('Route creation', () => {
   let modalMap: ModalMap;
   let routeStopsOverlay: RouteStopsOverlay;
   let routeEditor: RouteEditor;
+  const baseDbResources = {
+    lines,
+    routes,
+    journeyPatterns,
+    stopsInJourneyPattern,
+  };
+  let dbResources: SupportedResources;
+
+  before(() => {
+    cy.task<GetInfrastructureLinksByExternalIdsResult>(
+      'hasuraAPI',
+      mapToGetInfrastructureLinksByExternalIdsQuery(
+        testInfraLinks.map((infralink) => infralink.externalId),
+      ),
+    ).then((res) => {
+      const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
+
+      const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+      const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+      dbResources = {
+        ...baseDbResources,
+        stops,
+        infraLinksAlongRoute,
+      };
+    });
+  });
 
   beforeEach(() => {
     modalMap = new ModalMap();
     const mapFilterPanel = new FilterPanel();
 
-    clearDatabase();
+    deleteRoutesByLabel(Object.values(testRouteLabels));
+    removeFromDbHelper(dbResources);
+
     insertToDbHelper(dbResources);
 
     routeStopsOverlay = new RouteStopsOverlay();
@@ -201,7 +229,8 @@ describe('Route creation', () => {
   });
 
   afterEach(() => {
-    clearDatabase();
+    deleteRoutesByLabel(Object.values(testRouteLabels));
+    removeFromDbHelper(dbResources);
   });
 
   it(
@@ -251,7 +280,7 @@ describe('Route creation', () => {
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
       const routeName = 'Testireitti 2';
-      const omittedStopsLabels = [stops[1].label];
+      const omittedStopsLabels = [stopLabels[1]];
       modalMap.createRoute({
         routeFormInfo: {
           finnishName: routeName,
@@ -292,7 +321,7 @@ describe('Route creation', () => {
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
       const routeName = 'Testireitti 3';
-      const omittedStopsLabels = [stops[1].label, stops[2].label];
+      const omittedStopsLabels = [stopLabels[1], stopLabels[2]];
       modalMap.createRoute({
         routeFormInfo: {
           finnishName: routeName,
@@ -390,9 +419,7 @@ describe('Route creation', () => {
 
       // Verify that the stops from the template route are included in the new route
       // and that the stop count is correct
-      routeStopsOverlay.stopsShouldBeIncludedInRoute(
-        stops.map((item) => item.label),
-      );
+      routeStopsOverlay.stopsShouldBeIncludedInRoute(stopLabels);
       routeStopsOverlay.assertRouteStopCount(3);
     },
   );

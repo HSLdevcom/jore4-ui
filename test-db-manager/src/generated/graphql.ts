@@ -14933,3 +14933,15 @@ export type DeleteTimetabledPassingTimesMutation = {
     } | null;
   } | null;
 };
+
+export type GetInfrastructureLinksByExternalIdsQueryVariables = Exact<{
+  external_ids?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
+}>;
+
+export type GetInfrastructureLinksByExternalIdsQuery = {
+  __typename?: 'query_root';
+  infrastructure_network_infrastructure_link: Array<{
+    __typename?: 'infrastructure_network_infrastructure_link';
+    infrastructure_link_id: UUID;
+  }>;
+};

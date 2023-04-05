@@ -1,8 +1,11 @@
 import {
-  buildStop,
+  GetInfrastructureLinksByExternalIdsResult,
   Priority,
   ReusableComponentsVehicleModeEnum,
   StopInsertInput,
+  buildStop,
+  extractInfrastructureLinkIdsFromResponse,
+  mapToGetInfrastructureLinksByExternalIdsQuery,
   timingPlaces,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
@@ -15,17 +18,17 @@ import {
   StopFormInfo,
   Toast,
 } from '../pageObjects';
-import { insertToDbHelper, removeFromDbHelper } from '../utils';
+import { UUID } from '../types';
+import {
+  SupportedResources,
+  insertToDbHelper,
+  removeFromDbHelper,
+} from '../utils';
 import { deleteTimingPlacesByLabel } from './utils';
 
 // Stops are created on these infralinks via insertToDbHelper or the map view.
 
-const infraLinkIds = {
-  infraLink1: '73bc2df9-f5af-4c38-a1dd-5ed1f71c90a8',
-  infraLink2: 'ea69415a-9c54-4327-8836-f38b36d8fa99',
-  infraLink3: '13de61c2-3fc9-4255-955f-0a2350c389e1',
-  infraLink4: '4c098659-17d8-44e5-95a9-d8879468dd58',
-};
+const infrastructureLinkExternalIds = ['445156', '442424', '442325', '445132'];
 
 const testTimingPlaceLabels = {
   label1: 'Test created timing place label 1',
@@ -38,11 +41,13 @@ const testCoordinates1 = {
   el: 0,
 };
 
-const stops: StopInsertInput[] = [
+const buildStopsOnInfrastrucureLinks = (
+  infrastructureLinkIds: UUID[],
+): StopInsertInput[] => [
   {
     ...buildStop({
       label: 'Move stop test stop',
-      located_on_infrastructure_link_id: infraLinkIds.infraLink1,
+      located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
     validity_start: DateTime.fromISO('2022-03-20T22:00:00+00:00'),
     scheduled_stop_point_id: '68684b40-c4db-4c72-b3b8-c3307dde7a72',
@@ -53,16 +58,6 @@ const stops: StopInsertInput[] = [
   },
 ];
 
-const dbResources = {
-  stops,
-  timingPlaces,
-};
-
-const clearDatabase = () => {
-  removeFromDbHelper(dbResources);
-  deleteTimingPlacesByLabel(Object.values(testTimingPlaceLabels));
-};
-
 describe('Stop editing tests', () => {
   let mapFilterPanel: FilterPanel;
   let map: Map;
@@ -70,8 +65,33 @@ describe('Stop editing tests', () => {
   let stopForm: StopForm;
   let toast: Toast;
 
+  const baseDbResources = {
+    timingPlaces,
+  };
+  let dbResources: SupportedResources;
+  let stops: StopInsertInput[];
+
+  before(() => {
+    cy.task<GetInfrastructureLinksByExternalIdsResult>(
+      'hasuraAPI',
+      mapToGetInfrastructureLinksByExternalIdsQuery(
+        infrastructureLinkExternalIds,
+      ),
+    ).then((res) => {
+      const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
+
+      stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+      dbResources = {
+        ...baseDbResources,
+        stops,
+      };
+    });
+  });
+
   beforeEach(() => {
-    clearDatabase();
+    removeFromDbHelper(dbResources);
+    deleteTimingPlacesByLabel(Object.values(testTimingPlaceLabels));
+
     insertToDbHelper(dbResources);
 
     mapFilterPanel = new FilterPanel();
@@ -90,7 +110,8 @@ describe('Stop editing tests', () => {
   });
 
   afterEach(() => {
-    clearDatabase();
+    removeFromDbHelper(dbResources);
+    deleteTimingPlacesByLabel(Object.values(testTimingPlaceLabels));
   });
 
   it(
