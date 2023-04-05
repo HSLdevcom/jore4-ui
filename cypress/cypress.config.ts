@@ -1,6 +1,4 @@
-import { getDbConnection } from '@hsl/jore4-test-db-manager';
 import { defineConfig } from 'cypress';
-import * as fs from 'fs';
 import * as tasks from './e2e/utils/tasks';
 
 // eslint-disable-next-line import/no-default-export
@@ -31,14 +29,6 @@ export default defineConfig({
     // You may want to clean this up later by importing these.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setupNodeEvents(on, config) {
-      const db = getDbConnection();
-      // Insert infralinks before test run starts
-      on('before:run', () => {
-        const infraLinksQuery = fs
-          .readFileSync('./fixtures/infraLinks/infraLinks.sql')
-          .toString();
-        return db.raw(infraLinksQuery);
-      });
       on('task', tasks);
     },
   },
