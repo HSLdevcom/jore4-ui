@@ -1,8 +1,5 @@
 import {
-  buildLine,
-  buildRoute,
-  buildStop,
-  buildStopsInJourneyPattern,
+  GetInfrastructureLinksByExternalIdsResult,
   InfraLinkAlongRouteInsertInput,
   JourneyPatternInsertInput,
   LineInsertInput,
@@ -10,6 +7,12 @@ import {
   RouteDirectionEnum,
   RouteInsertInput,
   StopInsertInput,
+  buildLine,
+  buildRoute,
+  buildStop,
+  buildStopsInJourneyPattern,
+  extractInfrastructureLinkIdsFromResponse,
+  mapToGetInfrastructureLinksByExternalIdsQuery,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
@@ -22,7 +25,12 @@ import {
   SearchResultsPage,
 } from '../pageObjects';
 import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
-import { insertToDbHelper, removeFromDbHelper } from '../utils';
+import { UUID } from '../types';
+import {
+  SupportedResources,
+  insertToDbHelper,
+  removeFromDbHelper,
+} from '../utils';
 import { deleteRoutesByLabel } from './utils';
 
 const testRouteLabels = {
@@ -40,18 +48,20 @@ const testCreatedRouteLabels = {
 
 const testInfraLinks = [
   {
-    id: '73bc2df9-f5af-4c38-a1dd-5ed1f71c90a8',
+    externalId: '445156',
     coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
   },
   {
-    id: 'ea69415a-9c54-4327-8836-f38b36d8fa99',
+    externalId: '442424',
     coordinates: [24.92904198486008, 60.16490775039894, 0],
   },
   {
-    id: '13de61c2-3fc9-4255-955f-0a2350c389e1',
+    externalId: '442325',
     coordinates: [24.932072417514647, 60.166003223527824, 0],
   },
 ];
+
+const stopLabels = ['E2E001', 'E2E002', 'E2E003'];
 
 const lines: LineInsertInput[] = [
   {
@@ -60,11 +70,13 @@ const lines: LineInsertInput[] = [
   },
 ];
 
-const stops: StopInsertInput[] = [
+const buildStopsOnInfrastrucureLinks = (
+  infrastructureLinkIds: UUID[],
+): StopInsertInput[] => [
   {
     ...buildStop({
-      label: 'E2E001',
-      located_on_infrastructure_link_id: testInfraLinks[0].id,
+      label: stopLabels[0],
+      located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
     scheduled_stop_point_id: 'bfa722af-4605-4792-b01a-9184c2133368',
     measured_location: {
@@ -74,8 +86,8 @@ const stops: StopInsertInput[] = [
   },
   {
     ...buildStop({
-      label: 'E2E002',
-      located_on_infrastructure_link_id: testInfraLinks[1].id,
+      label: stopLabels[1],
+      located_on_infrastructure_link_id: infrastructureLinkIds[1],
     }),
     scheduled_stop_point_id: '779e9352-ae03-42f6-bd1e-2519887cdaa3',
     measured_location: {
@@ -85,8 +97,8 @@ const stops: StopInsertInput[] = [
   },
   {
     ...buildStop({
-      label: 'E2E003',
-      located_on_infrastructure_link_id: testInfraLinks[2].id,
+      label: stopLabels[2],
+      located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
     scheduled_stop_point_id: '5d25c9ef-f48e-4d10-8cbf-deec0d274d7f',
     measured_location: {
@@ -106,22 +118,24 @@ const routes: RouteInsertInput[] = [
   },
 ];
 
-const infraLinksAlongRoute: InfraLinkAlongRouteInsertInput[] = [
+const buildInfraLinksAlongRoute = (
+  infrastructureLinkIds: UUID[],
+): InfraLinkAlongRouteInsertInput[] => [
   {
     route_id: routes[0].route_id,
-    infrastructure_link_id: testInfraLinks[0].id,
+    infrastructure_link_id: infrastructureLinkIds[0],
     infrastructure_link_sequence: 0,
     is_traversal_forwards: true,
   },
   {
     route_id: routes[0].route_id,
-    infrastructure_link_id: testInfraLinks[1].id,
+    infrastructure_link_id: infrastructureLinkIds[1],
     infrastructure_link_sequence: 1,
     is_traversal_forwards: true,
   },
   {
     route_id: routes[0].route_id,
-    infrastructure_link_id: testInfraLinks[2].id,
+    infrastructure_link_id: infrastructureLinkIds[2],
     infrastructure_link_sequence: 2,
     is_traversal_forwards: true,
   },
@@ -135,24 +149,10 @@ const journeyPatterns: JourneyPatternInsertInput[] = [
 ];
 
 const stopsInJourneyPattern = buildStopsInJourneyPattern(
-  stops.map((item) => item.label),
+  stopLabels,
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   journeyPatterns[0].journey_pattern_id!,
 );
-
-const dbResources = {
-  lines,
-  stops,
-  routes,
-  infraLinksAlongRoute,
-  journeyPatterns,
-  stopsInJourneyPattern,
-};
-
-const clearDatabase = () => {
-  deleteRoutesByLabel(Object.values(testCreatedRouteLabels));
-  removeFromDbHelper(dbResources);
-};
 
 describe('Edit route geometry', () => {
   let map: Map;
@@ -163,8 +163,37 @@ describe('Edit route geometry', () => {
   let modalMap: ModalMap;
   let mapFooter: MapFooter;
 
+  const baseDbResources = {
+    lines,
+    routes,
+    journeyPatterns,
+    stopsInJourneyPattern,
+  };
+  let dbResources: SupportedResources;
+
+  before(() => {
+    cy.task<GetInfrastructureLinksByExternalIdsResult>(
+      'hasuraAPI',
+      mapToGetInfrastructureLinksByExternalIdsQuery(
+        testInfraLinks.map((infralink) => infralink.externalId),
+      ),
+    ).then((res) => {
+      const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
+
+      const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+      const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+      dbResources = {
+        ...baseDbResources,
+        stops,
+        infraLinksAlongRoute,
+      };
+    });
+  });
+
   beforeEach(() => {
-    clearDatabase();
+    deleteRoutesByLabel(Object.values(testCreatedRouteLabels));
+    removeFromDbHelper(dbResources);
+
     insertToDbHelper(dbResources);
 
     map = new Map();
@@ -180,7 +209,8 @@ describe('Edit route geometry', () => {
   });
 
   afterEach(() => {
-    clearDatabase();
+    deleteRoutesByLabel(Object.values(testCreatedRouteLabels));
+    removeFromDbHelper(dbResources);
   });
 
   it(
@@ -202,9 +232,7 @@ describe('Edit route geometry', () => {
 
       routeStopsOverlay.routeShouldBeSelected(routes[0].label);
 
-      routeStopsOverlay.stopsShouldBeIncludedInRoute(
-        stops.map((item) => item.label),
-      );
+      routeStopsOverlay.stopsShouldBeIncludedInRoute(stopLabels);
 
       // Route is edited so that the second stop is not included
       routeEditor.editOneRoutePoint({
@@ -219,7 +247,7 @@ describe('Edit route geometry', () => {
 
       routeStopsOverlay.routeShouldBeSelected(routes[0].label);
 
-      routeStopsOverlay.stopsShouldNotBeIncludedInRoute([stops[1].label]);
+      routeStopsOverlay.stopsShouldNotBeIncludedInRoute([stopLabels[1]]);
     },
   );
 
@@ -273,10 +301,10 @@ describe('Edit route geometry', () => {
       // and that the stop count is correct
       routeStopsOverlay.assertRouteStopCount(2);
       routeStopsOverlay.stopsShouldBeIncludedInRoute([
-        stops[0].label,
-        stops[2].label,
+        stopLabels[0],
+        stopLabels[2],
       ]);
-      routeStopsOverlay.stopsShouldNotBeIncludedInRoute([stops[1].label]);
+      routeStopsOverlay.stopsShouldNotBeIncludedInRoute([stopLabels[1]]);
     },
   );
 });

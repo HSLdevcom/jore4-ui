@@ -54,7 +54,7 @@ const handleResponse = (message: string, res: any) => {
   responseLogger(message, res);
 };
 
-interface SupportedResources {
+export interface SupportedResources {
   lines?: LineInsertInput[];
   timingPlaces?: TimingPatternTimingPlaceInsertInput[];
   stops?: StopInsertInput[];
