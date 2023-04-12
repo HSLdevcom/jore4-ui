@@ -15,6 +15,7 @@ export const selectUser = (state: RootState) => state.user;
 export const selectModals = (state: RootState) => state.modals;
 export const selectLoader = (state: RootState) => state.loader;
 export const selectExport = (state: RootState) => state.export;
+export const selectTimetable = (state: RootState) => state.timetable;
 
 export const selectSelectedStopId = createSelector(
   selectMapStopEditor,
