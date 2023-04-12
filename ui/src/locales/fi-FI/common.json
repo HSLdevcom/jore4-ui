@@ -300,7 +300,8 @@
     "noTimetables": "Ei aikatauluja",
     "inEffect": "Voimassa",
     "tripCount": "{{ count }} lähtöä",
-    "interpolated": "Interpoloitu"
+    "interpolated": "Interpoloitu",
+    "showArrivalTimes": "Näytä saapumisajat"
   },
   "timetablesPreview": {
     "preview": "Esikatselu",
