@@ -21,8 +21,9 @@ export const VehicleServiceTableRow = ({
         <h4>{padToTwoDigits(hours)}</h4>
       </td>
       <td className="flex flex-wrap content-center gap-x-3 border-l border-dark-grey pl-3 text-sm">
-        {minutes.map((item) => (
-          <span key={item}>{padToTwoDigits(item)}</span>
+        {minutes.map((item, key) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <span key={`${item}-${key}`}>{padToTwoDigits(item)}</span>
         ))}
       </td>
     </tr>
