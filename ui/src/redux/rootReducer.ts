@@ -6,6 +6,7 @@ import { mapRouteEditorReducer } from './slices/mapRouteEditor';
 import { mapStopEditorReducer } from './slices/mapStopEditor';
 import { modalMapReducer } from './slices/modalMap';
 import { modalsReducer } from './slices/modals';
+import { timetableReducer } from './slices/timetable';
 import { loginFailedAction, userReducer } from './slices/user';
 
 const appReducer = combineReducers({
@@ -17,6 +18,7 @@ const appReducer = combineReducers({
   modalMap: modalMapReducer,
   user: userReducer,
   modals: modalsReducer,
+  timetable: timetableReducer,
 });
 
 export const rootReducer = (state: ExplicitAny, action: AnyAction) => {
