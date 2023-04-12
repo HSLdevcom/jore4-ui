@@ -300,7 +300,8 @@
     "noTimetables": "No timetables",
     "inEffect": "In effect",
     "tripCount": "{{ count }} trips",
-    "interpolated": "Interpolated"
+    "interpolated": "Interpolated",
+    "showArrivalTimes": "Show arrival times"
   },
   "timetablesPreview": {
     "preview": "Preview",

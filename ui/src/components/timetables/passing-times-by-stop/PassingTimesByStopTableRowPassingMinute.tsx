@@ -1,6 +1,8 @@
 import { PassingTimeByStopFragment } from '../../../generated/graphql';
+import { useAppSelector } from '../../../hooks';
 import { parseI18nField } from '../../../i18n/utils';
 import { Visible } from '../../../layoutComponents';
+import { selectTimetable } from '../../../redux';
 import { mapDurationToShortTime, padToTwoDigits } from '../../../time';
 import { VehicleJourneyPopover } from './VehicleJourneyPopover';
 
@@ -28,6 +30,7 @@ export const PassingTimesByStopTableRowPassingMinute = ({
   selectedPassingTime,
   setSelectedPassingTime,
 }: Props): JSX.Element => {
+  const { showArrivalTimes } = useAppSelector(selectTimetable);
   const passing = passingTime.passing_time;
 
   // If arrival is undefined, arrival time is same as passing time
@@ -44,7 +47,7 @@ export const PassingTimesByStopTableRowPassingMinute = ({
   // Display arrival time only if it differs from passing time (!== operator does not work here, since the departure
   // time can be explicitly specified to be the same as the arrival time. So we do not want to test for object equality,
   // but for equal values.)
-  const displayArrival = !passing.equals(arrival);
+  const displayArrival = showArrivalTimes && !passing.equals(arrival);
 
   // If arrival time is not at the same hour as passing, display also arrival hours,
   // otherwise only display minutes

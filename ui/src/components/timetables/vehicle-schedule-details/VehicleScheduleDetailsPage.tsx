@@ -1,13 +1,18 @@
+import { Switch as HuiSwitch } from '@headlessui/react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import {
   TimetablesView,
+  useAppSelector,
   useGetLineDetails,
   useGetRoutesDisplayedInList,
   useTimetableVersionsReturnToQueryParam,
   useTimetablesViewState,
 } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
-import { SimpleButton } from '../../../uiComponents';
+import { selectTimetable } from '../../../redux';
+import { setShowArrivalTimesAction } from '../../../redux/slices/timetable';
+import { SimpleButton, Switch, SwitchLabel } from '../../../uiComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormColumn, FormRow } from '../../forms/common';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';
@@ -17,6 +22,7 @@ import { TimetableNavigation } from './TimetableNavigation';
 
 export const VehicleScheduleDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const { line } = useGetLineDetails();
 
@@ -25,6 +31,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
   const { routeLabel, setShowDefaultView, activeView } =
     useTimetablesViewState();
   const { displayedRouteLabels } = useGetRoutesDisplayedInList(line);
+  const { showArrivalTimes } = useAppSelector(selectTimetable);
 
   // For default view show all routes,
   // Otherwise show only selected view.
@@ -36,6 +43,10 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
           displayedRouteLabels?.includes(route.label),
         ) || []
       : line?.line_routes.filter((route) => route.label === routeLabel) || [];
+
+  const colSpanAmount =
+    activeView === TimetablesView.PASSING_TIMES_BY_STOP ? 4 : 5;
+  const showVersionButtonClassName = `col-span-${colSpanAmount} items-end justify-end`;
 
   return (
     <div>
@@ -56,9 +67,25 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
         <TimetableNavigation onClose={setShowDefaultView} />
       )}
       <Container className="py-10">
-        <FormRow mdColumns={2} className="mb-8 ">
+        <FormRow mdColumns={6} className="mb-8 ">
           <ObservationDateControl className="max-w-max" />
-          <FormColumn className="items-end justify-end">
+          {activeView === TimetablesView.PASSING_TIMES_BY_STOP && (
+            <div className="justify-normal flex items-end">
+              <HuiSwitch.Group>
+                <SwitchLabel className="mr-4">
+                  {t('timetables.showArrivalTimes')}
+                </SwitchLabel>
+                <Switch
+                  checked={showArrivalTimes}
+                  onChange={(enabled) =>
+                    dispatch(setShowArrivalTimesAction(enabled))
+                  }
+                  testId="show-unused-stops-switch"
+                />
+              </HuiSwitch.Group>
+            </div>
+          )}
+          <FormColumn className={showVersionButtonClassName}>
             {line && (
               <SimpleButton
                 inverted
