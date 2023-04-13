@@ -4,8 +4,6 @@
 
 set -euo pipefail
 
-DB_CONNECTION_STRING=postgresql://dbadmin:adminpassword@localhost:6432/jore4e2e
-
 if ! command -v gh; then
   echo "Please install the github gh tool on your machine."
   exit 1
@@ -65,24 +63,9 @@ function start_docker_bundle {
   $DOCKER_COMPOSE_CMD up -d jore4-auth jore4-testdb jore4-testdb-e2e1 jore4-testdb-e2e2 jore4-testdb-e2e3 jore4-hasura jore4-hasura-e2e1 jore4-hasura-e2e2 jore4-hasura-e2e3 jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching jore4-hastus
 }
 
-function seed_infrastructure_links {
-  echo "Seeding infrastructure links..."
-
-  SUCCESS=false
-  while ! $SUCCESS; do
-    echo "Checking if infrstructure link schema exists..."
-    if [[ $(psql $DB_CONNECTION_STRING -AXqtc "SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = 'infrastructure_network' AND tablename = 'infrastructure_link');") = "t" ]]; then
-      echo "Schema found! Seeding infrastructure links..."
-        psql $DB_CONNECTION_STRING < test-db-manager/src/dumps/infraLinks/infraLinks.sql; 
-        SUCCESS=true
-    fi
-    sleep 2
-  done
-
-  echo "All done! Happy coding! :)"
-}
-
 download_docker_bundle
 check_pinned_hasura
 start_docker_bundle "${1:-x}"
-seed_infrastructure_links
+sh ./scripts/seed-infrastructure-links.sh
+
+echo "All done! Happy coding! :)"
