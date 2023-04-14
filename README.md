@@ -57,7 +57,7 @@ We have those because sometimes there is need to do e.g. complex graphql queries
 
 ### Cypress (e2e) tests
 
-- In order to run e2e tests, you need to have ui and all the dependencies running. Start the dependencies with `./start-dependencies --e2e` when developing or running e2e tests.
+- In order to run e2e tests, you need to have ui and all the dependencies running. Start the dependencies with `./start-dependencies` when developing or running e2e tests.
 - To open Cypress with browser for developing tests locally: `yarn test:e2e:open`
 - To run all Cypress tests headlessly: `yarn test:e2e`
 - To disable map tile rendering (e.g. to speed up tests or improve reliability in CI), set the `CYPRESS_DISABLE_MAP_TILES=true` environment variable
