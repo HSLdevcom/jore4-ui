@@ -7,7 +7,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
       class="flex items-center"
     >
       <label
-        class="my-8 mr-8 font-normal"
+        class="my-8 mr-8 text-base font-normal"
         id="headlessui-label-:r0:"
       >
         Näytä reittiin kuulumattomat pysäkit
@@ -226,7 +226,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
       class="flex items-center"
     >
       <label
-        class="my-8 mr-8 font-normal"
+        class="my-8 mr-8 text-base font-normal"
         id="headlessui-label-:r0:"
       >
         Näytä reittiin kuulumattomat pysäkit
@@ -649,7 +649,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
       class="flex items-center"
     >
       <label
-        class="my-8 mr-8 font-normal"
+        class="my-8 mr-8 text-base font-normal"
         id="headlessui-label-:r0:"
       >
         Näytä reittiin kuulumattomat pysäkit
