@@ -42,7 +42,7 @@ export const SwitchLabel: React.FC<LabelProps> = ({
   children,
 }) => {
   return (
-    <HuiSwitch.Label className={`${className} font-normal`}>
+    <HuiSwitch.Label className={`${className} font-normal text-base`}>
       {children}
     </HuiSwitch.Label>
   );
