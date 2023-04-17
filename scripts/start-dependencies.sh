@@ -64,5 +64,3 @@ download_docker_bundle
 check_pinned_hasura
 start_docker_bundle "${1:-x}"
 sh ./scripts/seed-infrastructure-links.sh
-
-echo "All done! Happy coding! :)"
