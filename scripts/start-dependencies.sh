@@ -67,5 +67,3 @@ sh ./scripts/seed-infrastructure-links.sh testdb
 sh ./scripts/seed-infrastructure-links.sh testdb-e2e1
 sh ./scripts/seed-infrastructure-links.sh testdb-e2e2
 sh ./scripts/seed-infrastructure-links.sh testdb-e2e3
-
-echo "All done! Happy coding! :)"
