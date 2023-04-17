@@ -88,15 +88,16 @@ Non-VSCode users can sort imports e.g. by running `yarn lint --fix` on command l
 
 ## Setting up dependencies for local development
 
-Run `./start-dependencies.sh` to set up microservices required for local development in docker-compose.
+Run `./scripts/start-dependencies.sh` to set up microservices required for local development in docker-compose.
 Script uses Jore4 project's shared docker-compose file defined in [`jore4-tools`](https://github.com/HSLdevcom/jore4-tools) repository.
 Edit `start-dependencies.sh` script if you want to start only certain subset of our microservices.
 For overriding settings defined in base docker-compose file just edit
-`docker/docker-compose.custom.yml` and run `./start-dependencies.sh` again.
-If you wish to persist the data in the database, start dependencies with `./start-dependencies.sh --volume`
-If you wish to start the environment in e2e test mode (i.e. without seed data), start dependencies with `./start-dependencies.sh --e2e`
+`docker/docker-compose.custom.yml` and run `./scripts/start-dependencies.sh` again.
+If you wish to persist the data in the database, start dependencies with `./scripts/start-dependencies.sh --volume`
+If you wish to start the environment in e2e test mode (i.e. without seed data), start dependencies with `./scripts/start-dependencies.sh --e2e`
 Docker containers can be stopped gracefully by running `./stop-dependencies.sh`
 If docker setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
+You can also start the dependencies and run all seeds by running `./scripts/up.sh`. This will also download a dump from Azure and you will need to log in when prompted.
 
 ## Loading dump into development database
 
