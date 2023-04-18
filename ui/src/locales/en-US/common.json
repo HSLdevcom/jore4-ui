@@ -178,6 +178,7 @@
     "standard": "Standard",
     "temporary": "Temporary",
     "draft": "Draft",
+    "substitute": "Substitute",
     "special": "Special"
   },
   "validityPeriod": {
@@ -301,7 +302,9 @@
     "inEffect": "In effect",
     "tripCount": "{{ count }} trips",
     "interpolated": "Interpolated",
-    "showArrivalTimes": "Show arrival times"
+    "showArrivalTimes": "Show arrival times",
+    "operatedLike": "Operated like {{ dayOfWeek }}",
+    "noService": "No service"
   },
   "timetablesPreview": {
     "preview": "Preview",
@@ -367,5 +370,14 @@
     "subheading2": "Kehitystyö jatkuu",
     "paragraph2": "Saamamme palautteen perusteella listaamme oleellisimmat kehityskohteet. Kehitystyön edetessä lisäämme uutta toiminnallisuutta. Seuraavaksi alkaa aikatauluihin liittyvien ominaisuuksien toteuttaminen.",
     "login": "Siirry kirjautumiseen"
+  },
+  "dayOfWeek": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
   }
 }
