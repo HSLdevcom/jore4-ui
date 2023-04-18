@@ -19637,52 +19637,102 @@ export type TimingPlaceForComboboxFragment = {
   description?: any | null;
 };
 
-export type GetTimetableVersionsByLineLabelQueryVariables = Exact<{
+export type RouteInfoForTimetableVersionFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  label: string;
+  variant?: number | null;
+  validity_start?: luxon.DateTime | null;
+  priority: number;
+  validity_end?: luxon.DateTime | null;
+  route_journey_patterns: Array<{
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+  }>;
+};
+
+export type GetRouteInfoForTimetableVersionsQueryVariables = Exact<{
   routeFilters?: InputMaybe<RouteRouteBoolExp>;
 }>;
 
-export type GetTimetableVersionsByLineLabelQuery = {
+export type GetRouteInfoForTimetableVersionsQuery = {
   __typename?: 'query_root';
   route_route: Array<{
     __typename?: 'route_route';
     route_id: UUID;
     label: string;
     variant?: number | null;
+    validity_start?: luxon.DateTime | null;
+    priority: number;
+    validity_end?: luxon.DateTime | null;
     route_journey_patterns: Array<{
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
-      journey_pattern_refs: Array<{
-        __typename?: 'timetables_journey_pattern_journey_pattern_ref';
-        journey_pattern_ref_id: UUID;
-        vehicle_journeys: Array<{
-          __typename?: 'timetables_vehicle_journey_vehicle_journey';
-          vehicle_journey_id: UUID;
-          block: {
-            __typename?: 'timetables_vehicle_service_block';
-            block_id: UUID;
-            vehicle_service: {
-              __typename?: 'timetables_vehicle_service_vehicle_service';
-              vehicle_service_id: UUID;
-              vehicle_schedule_frame: {
-                __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-                vehicle_schedule_frame_id: UUID;
-                priority: number;
-                validity_start: luxon.DateTime;
-                validity_end: luxon.DateTime;
-                name_i18n?: any | null;
-              };
-              day_type: {
-                __typename?: 'timetables_service_calendar_day_type';
-                day_type_id: UUID;
-                label: string;
-                name_i18n: any;
-              };
-            };
-          };
-        }>;
-      }>;
     }>;
   }>;
+};
+
+export type TimetableVersionFragment = {
+  __typename?: 'timetables_return_value_timetable_version';
+  validity_start: luxon.DateTime;
+  validity_end: luxon.DateTime;
+  priority: number;
+  in_effect: boolean;
+  day_type: {
+    __typename?: 'timetables_service_calendar_day_type';
+    day_type_id: UUID;
+    name_i18n: any;
+    label: string;
+  };
+  substitute_operating_day_by_line_type?: {
+    __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type';
+    substitute_operating_day_by_line_type_id: UUID;
+    superseded_date: luxon.DateTime;
+    substitute_day_of_week?: number | null;
+  } | null;
+  vehicle_schedule_frame?: {
+    __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+    vehicle_schedule_frame_id: UUID;
+    name_i18n?: any | null;
+  } | null;
+};
+
+export type GetTimetableVersionsByJourneyPatternIdsQueryVariables = Exact<{
+  journey_pattern_ids?: InputMaybe<Scalars['_uuid']>;
+  start_date?: InputMaybe<Scalars['date']>;
+  end_date?: InputMaybe<Scalars['date']>;
+  observation_date?: InputMaybe<Scalars['date']>;
+}>;
+
+export type GetTimetableVersionsByJourneyPatternIdsQuery = {
+  __typename?: 'query_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_query';
+    timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids: Array<{
+      __typename?: 'timetables_return_value_timetable_version';
+      validity_start: luxon.DateTime;
+      validity_end: luxon.DateTime;
+      priority: number;
+      in_effect: boolean;
+      day_type: {
+        __typename?: 'timetables_service_calendar_day_type';
+        day_type_id: UUID;
+        name_i18n: any;
+        label: string;
+      };
+      substitute_operating_day_by_line_type?: {
+        __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type';
+        substitute_operating_day_by_line_type_id: UUID;
+        superseded_date: luxon.DateTime;
+        substitute_day_of_week?: number | null;
+      } | null;
+      vehicle_schedule_frame?: {
+        __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+        vehicle_schedule_frame_id: UUID;
+        name_i18n?: any | null;
+      } | null;
+    }>;
+  } | null;
 };
 
 export type RouteMapParamsFragment = {
@@ -20421,6 +20471,41 @@ export const TimingPlaceForComboboxFragmentDoc = gql`
     timing_place_id
     label
     description
+  }
+`;
+export const RouteInfoForTimetableVersionFragmentDoc = gql`
+  fragment route_info_for_timetable_version on route_route {
+    route_id
+    label
+    variant
+    validity_start
+    priority
+    validity_end
+    route_journey_patterns {
+      journey_pattern_id
+    }
+  }
+`;
+export const TimetableVersionFragmentDoc = gql`
+  fragment timetable_version on timetables_return_value_timetable_version {
+    day_type {
+      day_type_id
+      name_i18n
+      label
+    }
+    substitute_operating_day_by_line_type {
+      substitute_operating_day_by_line_type_id
+      superseded_date
+      substitute_day_of_week
+    }
+    vehicle_schedule_frame {
+      vehicle_schedule_frame_id
+      name_i18n
+    }
+    validity_start
+    validity_end
+    priority
+    in_effect
   }
 `;
 export const PassingTimeByStopFragmentDoc = gql`
@@ -24113,94 +24198,141 @@ export type GetSelectedTimingPlaceDetailsByIdQueryResult = Apollo.QueryResult<
   GetSelectedTimingPlaceDetailsByIdQuery,
   GetSelectedTimingPlaceDetailsByIdQueryVariables
 >;
-export const GetTimetableVersionsByLineLabelDocument = gql`
-  query GetTimetableVersionsByLineLabel($routeFilters: route_route_bool_exp) {
+export const GetRouteInfoForTimetableVersionsDocument = gql`
+  query GetRouteInfoForTimetableVersions($routeFilters: route_route_bool_exp) {
     route_route(where: $routeFilters) {
-      route_id
-      label
-      variant
-      route_journey_patterns {
-        journey_pattern_id
-        journey_pattern_refs {
-          journey_pattern_ref_id
-          vehicle_journeys {
-            vehicle_journey_id
-            block {
-              block_id
-              vehicle_service {
-                vehicle_service_id
-                vehicle_schedule_frame {
-                  vehicle_schedule_frame_id
-                  priority
-                  validity_start
-                  validity_end
-                  priority
-                  name_i18n
-                }
-                day_type {
-                  day_type_id
-                  label
-                  name_i18n
-                }
-              }
-            }
-          }
-        }
-      }
+      ...route_info_for_timetable_version
     }
   }
+  ${RouteInfoForTimetableVersionFragmentDoc}
 `;
 
 /**
- * __useGetTimetableVersionsByLineLabelQuery__
+ * __useGetRouteInfoForTimetableVersionsQuery__
  *
- * To run a query within a React component, call `useGetTimetableVersionsByLineLabelQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTimetableVersionsByLineLabelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetRouteInfoForTimetableVersionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteInfoForTimetableVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetTimetableVersionsByLineLabelQuery({
+ * const { data, loading, error } = useGetRouteInfoForTimetableVersionsQuery({
  *   variables: {
  *      routeFilters: // value for 'routeFilters'
  *   },
  * });
  */
-export function useGetTimetableVersionsByLineLabelQuery(
+export function useGetRouteInfoForTimetableVersionsQuery(
   baseOptions?: Apollo.QueryHookOptions<
-    GetTimetableVersionsByLineLabelQuery,
-    GetTimetableVersionsByLineLabelQueryVariables
+    GetRouteInfoForTimetableVersionsQuery,
+    GetRouteInfoForTimetableVersionsQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<
-    GetTimetableVersionsByLineLabelQuery,
-    GetTimetableVersionsByLineLabelQueryVariables
-  >(GetTimetableVersionsByLineLabelDocument, options);
+    GetRouteInfoForTimetableVersionsQuery,
+    GetRouteInfoForTimetableVersionsQueryVariables
+  >(GetRouteInfoForTimetableVersionsDocument, options);
 }
-export function useGetTimetableVersionsByLineLabelLazyQuery(
+export function useGetRouteInfoForTimetableVersionsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetTimetableVersionsByLineLabelQuery,
-    GetTimetableVersionsByLineLabelQueryVariables
+    GetRouteInfoForTimetableVersionsQuery,
+    GetRouteInfoForTimetableVersionsQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<
-    GetTimetableVersionsByLineLabelQuery,
-    GetTimetableVersionsByLineLabelQueryVariables
-  >(GetTimetableVersionsByLineLabelDocument, options);
+    GetRouteInfoForTimetableVersionsQuery,
+    GetRouteInfoForTimetableVersionsQueryVariables
+  >(GetRouteInfoForTimetableVersionsDocument, options);
 }
-export type GetTimetableVersionsByLineLabelQueryHookResult = ReturnType<
-  typeof useGetTimetableVersionsByLineLabelQuery
+export type GetRouteInfoForTimetableVersionsQueryHookResult = ReturnType<
+  typeof useGetRouteInfoForTimetableVersionsQuery
 >;
-export type GetTimetableVersionsByLineLabelLazyQueryHookResult = ReturnType<
-  typeof useGetTimetableVersionsByLineLabelLazyQuery
+export type GetRouteInfoForTimetableVersionsLazyQueryHookResult = ReturnType<
+  typeof useGetRouteInfoForTimetableVersionsLazyQuery
 >;
-export type GetTimetableVersionsByLineLabelQueryResult = Apollo.QueryResult<
-  GetTimetableVersionsByLineLabelQuery,
-  GetTimetableVersionsByLineLabelQueryVariables
+export type GetRouteInfoForTimetableVersionsQueryResult = Apollo.QueryResult<
+  GetRouteInfoForTimetableVersionsQuery,
+  GetRouteInfoForTimetableVersionsQueryVariables
 >;
+export const GetTimetableVersionsByJourneyPatternIdsDocument = gql`
+  query GetTimetableVersionsByJourneyPatternIds(
+    $journey_pattern_ids: _uuid
+    $start_date: date
+    $end_date: date
+    $observation_date: date
+  ) {
+    timetables {
+      timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids(
+        args: {
+          journey_pattern_ids: $journey_pattern_ids
+          start_date: $start_date
+          end_date: $end_date
+          observation_date: $observation_date
+        }
+      ) {
+        ...timetable_version
+      }
+    }
+  }
+  ${TimetableVersionFragmentDoc}
+`;
+
+/**
+ * __useGetTimetableVersionsByJourneyPatternIdsQuery__
+ *
+ * To run a query within a React component, call `useGetTimetableVersionsByJourneyPatternIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTimetableVersionsByJourneyPatternIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTimetableVersionsByJourneyPatternIdsQuery({
+ *   variables: {
+ *      journey_pattern_ids: // value for 'journey_pattern_ids'
+ *      start_date: // value for 'start_date'
+ *      end_date: // value for 'end_date'
+ *      observation_date: // value for 'observation_date'
+ *   },
+ * });
+ */
+export function useGetTimetableVersionsByJourneyPatternIdsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >(GetTimetableVersionsByJourneyPatternIdsDocument, options);
+}
+export function useGetTimetableVersionsByJourneyPatternIdsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >(GetTimetableVersionsByJourneyPatternIdsDocument, options);
+}
+export type GetTimetableVersionsByJourneyPatternIdsQueryHookResult = ReturnType<
+  typeof useGetTimetableVersionsByJourneyPatternIdsQuery
+>;
+export type GetTimetableVersionsByJourneyPatternIdsLazyQueryHookResult =
+  ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsLazyQuery>;
+export type GetTimetableVersionsByJourneyPatternIdsQueryResult =
+  Apollo.QueryResult<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >;
 export const GetTimetablesForOperationDayDocument = gql`
   query GetTimetablesForOperationDay(
     $journey_pattern_id: uuid!
@@ -24647,15 +24779,23 @@ export function useGetSelectedTimingPlaceDetailsByIdAsyncQuery() {
 export type GetSelectedTimingPlaceDetailsByIdAsyncQueryHookResult = ReturnType<
   typeof useGetSelectedTimingPlaceDetailsByIdAsyncQuery
 >;
-export function useGetTimetableVersionsByLineLabelAsyncQuery() {
+export function useGetRouteInfoForTimetableVersionsAsyncQuery() {
   return useAsyncQuery<
-    GetTimetableVersionsByLineLabelQuery,
-    GetTimetableVersionsByLineLabelQueryVariables
-  >(GetTimetableVersionsByLineLabelDocument);
+    GetRouteInfoForTimetableVersionsQuery,
+    GetRouteInfoForTimetableVersionsQueryVariables
+  >(GetRouteInfoForTimetableVersionsDocument);
 }
-export type GetTimetableVersionsByLineLabelAsyncQueryHookResult = ReturnType<
-  typeof useGetTimetableVersionsByLineLabelAsyncQuery
+export type GetRouteInfoForTimetableVersionsAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteInfoForTimetableVersionsAsyncQuery
 >;
+export function useGetTimetableVersionsByJourneyPatternIdsAsyncQuery() {
+  return useAsyncQuery<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >(GetTimetableVersionsByJourneyPatternIdsDocument);
+}
+export type GetTimetableVersionsByJourneyPatternIdsAsyncQueryHookResult =
+  ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsAsyncQuery>;
 export function useGetTimetablesForOperationDayAsyncQuery() {
   return useAsyncQuery<
     GetTimetablesForOperationDayQuery,
