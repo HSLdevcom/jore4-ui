@@ -21,7 +21,21 @@ export enum Priority {
 export enum TimetablePriority {
   Standard = 10, // used for "normal" in-use entities
   Temporary = 20, // overrides Standard, used for temporary adjustments
-  Special = 25, // special day that overrides Standard and Temporary
+  SubstituteByLineType = 23, // substitute day by line type that overrides Standard and Temporary
+  Special = 25, // special day that overrides Standard, Temporary and SubstituteByLineType
   Draft = 30, // overrides Special, Temporary and Standard, not visible to external systems
   Staging = 40, // imported from Hastus, not in use until priority is changed
+}
+
+/**
+ * Day of week values used for example in substitute days.
+ */
+export enum DayOfWeek {
+  Monday = 1,
+  Tuesday = 2,
+  Wednesday = 3,
+  Thursday = 4,
+  Friday = 5,
+  Saturday = 6,
+  Sunday = 7,
 }

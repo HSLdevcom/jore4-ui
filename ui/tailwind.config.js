@@ -29,6 +29,7 @@ module.exports = {
         'hsl-highlight-yellow-dark': colors.hslHighlightYellowDark,
         'hsl-highlight-yellow-light': colors.hslHighlightYellowLight,
         'hsl-light-purple': colors.hslLightPurple,
+        'hsl-orange': colors.hslOrange,
       },
       borderWidth: {
         10: '10px',
