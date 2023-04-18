@@ -9822,6 +9822,241 @@ export type TimetablesPassingTimesTimetabledPassingTimeUpdates = {
   where: TimetablesPassingTimesTimetabledPassingTimeBoolExp;
 };
 
+/** This return value is used for functions that determine what timetable versions are in effect. */
+export type TimetablesReturnValueTimetableVersion = {
+  __typename?: 'timetables_return_value_timetable_version';
+  /** An object relationship */
+  day_type: TimetablesServiceCalendarDayType;
+  day_type_id: Scalars['uuid'];
+  in_effect: Scalars['Boolean'];
+  priority: Scalars['Int'];
+  /** An object relationship */
+  substitute_operating_day_by_line_type?: Maybe<TimetablesServiceCalendarSubstituteOperatingDayByLineType>;
+  substitute_operating_day_by_line_type_id?: Maybe<Scalars['uuid']>;
+  validity_end: Scalars['date'];
+  validity_start: Scalars['date'];
+  /** An object relationship */
+  vehicle_schedule_frame?: Maybe<TimetablesVehicleScheduleVehicleScheduleFrame>;
+  vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregated selection of "return_value.timetable_version" */
+export type TimetablesReturnValueTimetableVersionAggregate = {
+  __typename?: 'timetables_return_value_timetable_version_aggregate';
+  aggregate?: Maybe<TimetablesReturnValueTimetableVersionAggregateFields>;
+  nodes: Array<TimetablesReturnValueTimetableVersion>;
+};
+
+/** aggregate fields of "return_value.timetable_version" */
+export type TimetablesReturnValueTimetableVersionAggregateFields = {
+  __typename?: 'timetables_return_value_timetable_version_aggregate_fields';
+  avg?: Maybe<TimetablesReturnValueTimetableVersionAvgFields>;
+  count: Scalars['Int'];
+  max?: Maybe<TimetablesReturnValueTimetableVersionMaxFields>;
+  min?: Maybe<TimetablesReturnValueTimetableVersionMinFields>;
+  stddev?: Maybe<TimetablesReturnValueTimetableVersionStddevFields>;
+  stddev_pop?: Maybe<TimetablesReturnValueTimetableVersionStddevPopFields>;
+  stddev_samp?: Maybe<TimetablesReturnValueTimetableVersionStddevSampFields>;
+  sum?: Maybe<TimetablesReturnValueTimetableVersionSumFields>;
+  var_pop?: Maybe<TimetablesReturnValueTimetableVersionVarPopFields>;
+  var_samp?: Maybe<TimetablesReturnValueTimetableVersionVarSampFields>;
+  variance?: Maybe<TimetablesReturnValueTimetableVersionVarianceFields>;
+};
+
+/** aggregate fields of "return_value.timetable_version" */
+export type TimetablesReturnValueTimetableVersionAggregateFieldsCountArgs = {
+  columns?: InputMaybe<
+    Array<TimetablesReturnValueTimetableVersionSelectColumn>
+  >;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type TimetablesReturnValueTimetableVersionAvgFields = {
+  __typename?: 'timetables_return_value_timetable_version_avg_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "return_value.timetable_version". All fields are combined with a logical 'AND'. */
+export type TimetablesReturnValueTimetableVersionBoolExp = {
+  _and?: InputMaybe<Array<TimetablesReturnValueTimetableVersionBoolExp>>;
+  _not?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  _or?: InputMaybe<Array<TimetablesReturnValueTimetableVersionBoolExp>>;
+  day_type?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  day_type_id?: InputMaybe<UuidComparisonExp>;
+  in_effect?: InputMaybe<BooleanComparisonExp>;
+  priority?: InputMaybe<IntComparisonExp>;
+  substitute_operating_day_by_line_type?: InputMaybe<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeBoolExp>;
+  substitute_operating_day_by_line_type_id?: InputMaybe<UuidComparisonExp>;
+  validity_end?: InputMaybe<DateComparisonExp>;
+  validity_start?: InputMaybe<DateComparisonExp>;
+  vehicle_schedule_frame?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameBoolExp>;
+  vehicle_schedule_frame_id?: InputMaybe<UuidComparisonExp>;
+};
+
+/** input type for incrementing numeric columns in table "return_value.timetable_version" */
+export type TimetablesReturnValueTimetableVersionIncInput = {
+  priority?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "return_value.timetable_version" */
+export type TimetablesReturnValueTimetableVersionInsertInput = {
+  day_type?: InputMaybe<TimetablesServiceCalendarDayTypeObjRelInsertInput>;
+  day_type_id?: InputMaybe<Scalars['uuid']>;
+  in_effect?: InputMaybe<Scalars['Boolean']>;
+  priority?: InputMaybe<Scalars['Int']>;
+  substitute_operating_day_by_line_type?: InputMaybe<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeObjRelInsertInput>;
+  substitute_operating_day_by_line_type_id?: InputMaybe<Scalars['uuid']>;
+  validity_end?: InputMaybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
+  vehicle_schedule_frame?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameObjRelInsertInput>;
+  vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** aggregate max on columns */
+export type TimetablesReturnValueTimetableVersionMaxFields = {
+  __typename?: 'timetables_return_value_timetable_version_max_fields';
+  day_type_id?: Maybe<Scalars['uuid']>;
+  priority?: Maybe<Scalars['Int']>;
+  substitute_operating_day_by_line_type_id?: Maybe<Scalars['uuid']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
+  vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregate min on columns */
+export type TimetablesReturnValueTimetableVersionMinFields = {
+  __typename?: 'timetables_return_value_timetable_version_min_fields';
+  day_type_id?: Maybe<Scalars['uuid']>;
+  priority?: Maybe<Scalars['Int']>;
+  substitute_operating_day_by_line_type_id?: Maybe<Scalars['uuid']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
+  vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
+};
+
+/** response of any mutation on the table "return_value.timetable_version" */
+export type TimetablesReturnValueTimetableVersionMutationResponse = {
+  __typename?: 'timetables_return_value_timetable_version_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<TimetablesReturnValueTimetableVersion>;
+};
+
+/** Ordering options when selecting data from "return_value.timetable_version". */
+export type TimetablesReturnValueTimetableVersionOrderBy = {
+  day_type?: InputMaybe<TimetablesServiceCalendarDayTypeOrderBy>;
+  day_type_id?: InputMaybe<OrderBy>;
+  in_effect?: InputMaybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
+  substitute_operating_day_by_line_type?: InputMaybe<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeOrderBy>;
+  substitute_operating_day_by_line_type_id?: InputMaybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
+  vehicle_schedule_frame?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameOrderBy>;
+  vehicle_schedule_frame_id?: InputMaybe<OrderBy>;
+};
+
+/** select columns of table "return_value.timetable_version" */
+export enum TimetablesReturnValueTimetableVersionSelectColumn {
+  /** column name */
+  DayTypeId = 'day_type_id',
+  /** column name */
+  InEffect = 'in_effect',
+  /** column name */
+  Priority = 'priority',
+  /** column name */
+  SubstituteOperatingDayByLineTypeId = 'substitute_operating_day_by_line_type_id',
+  /** column name */
+  ValidityEnd = 'validity_end',
+  /** column name */
+  ValidityStart = 'validity_start',
+  /** column name */
+  VehicleScheduleFrameId = 'vehicle_schedule_frame_id',
+}
+
+/** input type for updating data in table "return_value.timetable_version" */
+export type TimetablesReturnValueTimetableVersionSetInput = {
+  day_type_id?: InputMaybe<Scalars['uuid']>;
+  in_effect?: InputMaybe<Scalars['Boolean']>;
+  priority?: InputMaybe<Scalars['Int']>;
+  substitute_operating_day_by_line_type_id?: InputMaybe<Scalars['uuid']>;
+  validity_end?: InputMaybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
+  vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** aggregate stddev on columns */
+export type TimetablesReturnValueTimetableVersionStddevFields = {
+  __typename?: 'timetables_return_value_timetable_version_stddev_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type TimetablesReturnValueTimetableVersionStddevPopFields = {
+  __typename?: 'timetables_return_value_timetable_version_stddev_pop_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type TimetablesReturnValueTimetableVersionStddevSampFields = {
+  __typename?: 'timetables_return_value_timetable_version_stddev_samp_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "return_value_timetable_version" */
+export type TimetablesReturnValueTimetableVersionStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: TimetablesReturnValueTimetableVersionStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<TimetablesCursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type TimetablesReturnValueTimetableVersionStreamCursorValueInput = {
+  day_type_id?: InputMaybe<Scalars['uuid']>;
+  in_effect?: InputMaybe<Scalars['Boolean']>;
+  priority?: InputMaybe<Scalars['Int']>;
+  substitute_operating_day_by_line_type_id?: InputMaybe<Scalars['uuid']>;
+  validity_end?: InputMaybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
+  vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** aggregate sum on columns */
+export type TimetablesReturnValueTimetableVersionSumFields = {
+  __typename?: 'timetables_return_value_timetable_version_sum_fields';
+  priority?: Maybe<Scalars['Int']>;
+};
+
+export type TimetablesReturnValueTimetableVersionUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<TimetablesReturnValueTimetableVersionIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<TimetablesReturnValueTimetableVersionSetInput>;
+  /** filter the rows which have to be updated */
+  where: TimetablesReturnValueTimetableVersionBoolExp;
+};
+
+/** aggregate var_pop on columns */
+export type TimetablesReturnValueTimetableVersionVarPopFields = {
+  __typename?: 'timetables_return_value_timetable_version_var_pop_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type TimetablesReturnValueTimetableVersionVarSampFields = {
+  __typename?: 'timetables_return_value_timetable_version_var_samp_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type TimetablesReturnValueTimetableVersionVarianceFields = {
+  __typename?: 'timetables_return_value_timetable_version_variance_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
 /** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
 export type TimetablesServiceCalendarDayType = {
   __typename?: 'timetables_service_calendar_day_type';
@@ -10582,6 +10817,14 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeMutationRes
     returning: Array<TimetablesServiceCalendarSubstituteOperatingDayByLineType>;
   };
 
+/** input type for inserting object relation for remote table "service_calendar.substitute_operating_day_by_line_type" */
+export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeObjRelInsertInput =
+  {
+    data: TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput;
+    /** upsert condition */
+    on_conflict?: InputMaybe<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeOnConflict>;
+  };
+
 /** on_conflict condition type for table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeOnConflict =
   {
@@ -11235,6 +11478,8 @@ export type TimetablesTimetablesMutationFrontend = {
   timetables_delete_passing_times_timetabled_passing_time?: Maybe<TimetablesPassingTimesTimetabledPassingTimeMutationResponse>;
   /** delete single row from the table: "passing_times.timetabled_passing_time" */
   timetables_delete_passing_times_timetabled_passing_time_by_pk?: Maybe<TimetablesPassingTimesTimetabledPassingTime>;
+  /** delete data from the table: "return_value.timetable_version" */
+  timetables_delete_return_value_timetable_version?: Maybe<TimetablesReturnValueTimetableVersionMutationResponse>;
   /** delete data from the table: "service_calendar.day_type" */
   timetables_delete_service_calendar_day_type?: Maybe<TimetablesServiceCalendarDayTypeMutationResponse>;
   /** delete data from the table: "service_calendar.day_type_active_on_day_of_week" */
@@ -11283,6 +11528,10 @@ export type TimetablesTimetablesMutationFrontend = {
   timetables_insert_passing_times_timetabled_passing_time?: Maybe<TimetablesPassingTimesTimetabledPassingTimeMutationResponse>;
   /** insert a single row into the table: "passing_times.timetabled_passing_time" */
   timetables_insert_passing_times_timetabled_passing_time_one?: Maybe<TimetablesPassingTimesTimetabledPassingTime>;
+  /** insert data into the table: "return_value.timetable_version" */
+  timetables_insert_return_value_timetable_version?: Maybe<TimetablesReturnValueTimetableVersionMutationResponse>;
+  /** insert a single row into the table: "return_value.timetable_version" */
+  timetables_insert_return_value_timetable_version_one?: Maybe<TimetablesReturnValueTimetableVersion>;
   /** insert data into the table: "service_calendar.day_type" */
   timetables_insert_service_calendar_day_type?: Maybe<TimetablesServiceCalendarDayTypeMutationResponse>;
   /** insert data into the table: "service_calendar.day_type_active_on_day_of_week" */
@@ -11338,6 +11587,12 @@ export type TimetablesTimetablesMutationFrontend = {
   /** update multiples rows of table: "passing_times.timetabled_passing_time" */
   timetables_update_passing_times_timetabled_passing_time_many?: Maybe<
     Array<Maybe<TimetablesPassingTimesTimetabledPassingTimeMutationResponse>>
+  >;
+  /** update data of the table: "return_value.timetable_version" */
+  timetables_update_return_value_timetable_version?: Maybe<TimetablesReturnValueTimetableVersionMutationResponse>;
+  /** update multiples rows of table: "return_value.timetable_version" */
+  timetables_update_return_value_timetable_version_many?: Maybe<
+    Array<Maybe<TimetablesReturnValueTimetableVersionMutationResponse>>
   >;
   /** update data of the table: "service_calendar.day_type" */
   timetables_update_service_calendar_day_type?: Maybe<TimetablesServiceCalendarDayTypeMutationResponse>;
@@ -11447,6 +11702,11 @@ export type TimetablesTimetablesMutationFrontendTimetablesDeletePassingTimesTime
 export type TimetablesTimetablesMutationFrontendTimetablesDeletePassingTimesTimetabledPassingTimeByPkArgs =
   {
     timetabled_passing_time_id: Scalars['uuid'];
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesDeleteReturnValueTimetableVersionArgs =
+  {
+    where: TimetablesReturnValueTimetableVersionBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesDeleteServiceCalendarDayTypeArgs =
@@ -11573,6 +11833,16 @@ export type TimetablesTimetablesMutationFrontendTimetablesInsertPassingTimesTime
   {
     object: TimetablesPassingTimesTimetabledPassingTimeInsertInput;
     on_conflict?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeOnConflict>;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesInsertReturnValueTimetableVersionArgs =
+  {
+    objects: Array<TimetablesReturnValueTimetableVersionInsertInput>;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesInsertReturnValueTimetableVersionOneArgs =
+  {
+    object: TimetablesReturnValueTimetableVersionInsertInput;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertServiceCalendarDayTypeArgs =
@@ -11727,6 +11997,18 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdatePassingTimesTime
 export type TimetablesTimetablesMutationFrontendTimetablesUpdatePassingTimesTimetabledPassingTimeManyArgs =
   {
     updates: Array<TimetablesPassingTimesTimetabledPassingTimeUpdates>;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateReturnValueTimetableVersionArgs =
+  {
+    _inc?: InputMaybe<TimetablesReturnValueTimetableVersionIncInput>;
+    _set?: InputMaybe<TimetablesReturnValueTimetableVersionSetInput>;
+    where: TimetablesReturnValueTimetableVersionBoolExp;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateReturnValueTimetableVersionManyArgs =
+  {
+    updates: Array<TimetablesReturnValueTimetableVersionUpdates>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarDayTypeArgs =
@@ -11975,6 +12257,10 @@ export type TimetablesTimetablesQuery = {
   timetables_passing_times_timetabled_passing_time_aggregate: TimetablesPassingTimesTimetabledPassingTimeAggregate;
   /** fetch data from the table: "passing_times.timetabled_passing_time" using primary key columns */
   timetables_passing_times_timetabled_passing_time_by_pk?: Maybe<TimetablesPassingTimesTimetabledPassingTime>;
+  /** fetch data from the table: "return_value.timetable_version" */
+  timetables_return_value_timetable_version: Array<TimetablesReturnValueTimetableVersion>;
+  /** fetch aggregated fields from the table: "return_value.timetable_version" */
+  timetables_return_value_timetable_version_aggregate: TimetablesReturnValueTimetableVersionAggregate;
   /** fetch data from the table: "service_calendar.day_type" */
   timetables_service_calendar_day_type: Array<TimetablesServiceCalendarDayType>;
   /** fetch data from the table: "service_calendar.day_type_active_on_day_of_week" */
@@ -12021,6 +12307,14 @@ export type TimetablesTimetablesQuery = {
   timetables_vehicle_service_block_aggregate: TimetablesVehicleServiceBlockAggregate;
   /** fetch data from the table: "vehicle_service.block" using primary key columns */
   timetables_vehicle_service_block_by_pk?: Maybe<TimetablesVehicleServiceBlock>;
+  /** execute function "vehicle_service.get_timetable_versions_by_journey_pattern_ids" which returns "return_value.timetable_version" */
+  timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids: Array<TimetablesReturnValueTimetableVersion>;
+  /** execute function "vehicle_service.get_timetable_versions_by_journey_pattern_ids" and query aggregates on result of table type "return_value.timetable_version" */
+  timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids_aggregate: TimetablesReturnValueTimetableVersionAggregate;
+  /** execute function "vehicle_service.get_timetables_and_substitute_operating_days" which returns "return_value.timetable_version" */
+  timetables_vehicle_service_get_timetables_and_substitute_operating_days: Array<TimetablesReturnValueTimetableVersion>;
+  /** execute function "vehicle_service.get_timetables_and_substitute_operating_days" and query aggregates on result of table type "return_value.timetable_version" */
+  timetables_vehicle_service_get_timetables_and_substitute_operating_days_aggregate: TimetablesReturnValueTimetableVersionAggregate;
   /** execute function "vehicle_service.get_vehicle_services_for_date" which returns "vehicle_service.vehicle_service" */
   timetables_vehicle_service_get_vehicle_services_for_date: Array<TimetablesVehicleServiceVehicleService>;
   /** execute function "vehicle_service.get_vehicle_services_for_date" and query aggregates on result of table type "vehicle_service.vehicle_service" */
@@ -12105,6 +12399,28 @@ export type TimetablesTimetablesQueryTimetablesPassingTimesTimetabledPassingTime
 export type TimetablesTimetablesQueryTimetablesPassingTimesTimetabledPassingTimeByPkArgs =
   {
     timetabled_passing_time_id: Scalars['uuid'];
+  };
+
+export type TimetablesTimetablesQueryTimetablesReturnValueTimetableVersionArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueTimetableVersionSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  };
+
+export type TimetablesTimetablesQueryTimetablesReturnValueTimetableVersionAggregateArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueTimetableVersionSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeArgs = {
@@ -12328,6 +12644,54 @@ export type TimetablesTimetablesQueryTimetablesVehicleServiceBlockByPkArgs = {
   block_id: Scalars['uuid'];
 };
 
+export type TimetablesTimetablesQueryTimetablesVehicleServiceGetTimetableVersionsByJourneyPatternIdsArgs =
+  {
+    args: TimetablesVehicleServiceGetTimetableVersionsByJourneyPatternIdsArgs;
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueTimetableVersionSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  };
+
+export type TimetablesTimetablesQueryTimetablesVehicleServiceGetTimetableVersionsByJourneyPatternIdsAggregateArgs =
+  {
+    args: TimetablesVehicleServiceGetTimetableVersionsByJourneyPatternIdsArgs;
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueTimetableVersionSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  };
+
+export type TimetablesTimetablesQueryTimetablesVehicleServiceGetTimetablesAndSubstituteOperatingDaysArgs =
+  {
+    args: TimetablesVehicleServiceGetTimetablesAndSubstituteOperatingDaysArgs;
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueTimetableVersionSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  };
+
+export type TimetablesTimetablesQueryTimetablesVehicleServiceGetTimetablesAndSubstituteOperatingDaysAggregateArgs =
+  {
+    args: TimetablesVehicleServiceGetTimetablesAndSubstituteOperatingDaysArgs;
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueTimetableVersionSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  };
+
 export type TimetablesTimetablesQueryTimetablesVehicleServiceGetVehicleServicesForDateArgs =
   {
     args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
@@ -12453,6 +12817,12 @@ export type TimetablesTimetablesSubscription = {
   timetables_passing_times_timetabled_passing_time_by_pk?: Maybe<TimetablesPassingTimesTimetabledPassingTime>;
   /** fetch data from the table in a streaming manner: "passing_times.timetabled_passing_time" */
   timetables_passing_times_timetabled_passing_time_stream: Array<TimetablesPassingTimesTimetabledPassingTime>;
+  /** fetch data from the table: "return_value.timetable_version" */
+  timetables_return_value_timetable_version: Array<TimetablesReturnValueTimetableVersion>;
+  /** fetch aggregated fields from the table: "return_value.timetable_version" */
+  timetables_return_value_timetable_version_aggregate: TimetablesReturnValueTimetableVersionAggregate;
+  /** fetch data from the table in a streaming manner: "return_value.timetable_version" */
+  timetables_return_value_timetable_version_stream: Array<TimetablesReturnValueTimetableVersion>;
   /** fetch data from the table: "service_calendar.day_type" */
   timetables_service_calendar_day_type: Array<TimetablesServiceCalendarDayType>;
   /** fetch data from the table: "service_calendar.day_type_active_on_day_of_week" */
@@ -12513,6 +12883,14 @@ export type TimetablesTimetablesSubscription = {
   timetables_vehicle_service_block_by_pk?: Maybe<TimetablesVehicleServiceBlock>;
   /** fetch data from the table in a streaming manner: "vehicle_service.block" */
   timetables_vehicle_service_block_stream: Array<TimetablesVehicleServiceBlock>;
+  /** execute function "vehicle_service.get_timetable_versions_by_journey_pattern_ids" which returns "return_value.timetable_version" */
+  timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids: Array<TimetablesReturnValueTimetableVersion>;
+  /** execute function "vehicle_service.get_timetable_versions_by_journey_pattern_ids" and query aggregates on result of table type "return_value.timetable_version" */
+  timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids_aggregate: TimetablesReturnValueTimetableVersionAggregate;
+  /** execute function "vehicle_service.get_timetables_and_substitute_operating_days" which returns "return_value.timetable_version" */
+  timetables_vehicle_service_get_timetables_and_substitute_operating_days: Array<TimetablesReturnValueTimetableVersion>;
+  /** execute function "vehicle_service.get_timetables_and_substitute_operating_days" and query aggregates on result of table type "return_value.timetable_version" */
+  timetables_vehicle_service_get_timetables_and_substitute_operating_days_aggregate: TimetablesReturnValueTimetableVersionAggregate;
   /** execute function "vehicle_service.get_vehicle_services_for_date" which returns "vehicle_service.vehicle_service" */
   timetables_vehicle_service_get_vehicle_services_for_date: Array<TimetablesVehicleServiceVehicleService>;
   /** execute function "vehicle_service.get_vehicle_services_for_date" and query aggregates on result of table type "vehicle_service.vehicle_service" */
@@ -12621,6 +12999,37 @@ export type TimetablesTimetablesSubscriptionTimetablesPassingTimesTimetabledPass
       InputMaybe<TimetablesPassingTimesTimetabledPassingTimeStreamCursorInput>
     >;
     where?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesReturnValueTimetableVersionArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueTimetableVersionSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesReturnValueTimetableVersionAggregateArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueTimetableVersionSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesReturnValueTimetableVersionStreamArgs =
+  {
+    batch_size: Scalars['Int'];
+    cursor: Array<
+      InputMaybe<TimetablesReturnValueTimetableVersionStreamCursorInput>
+    >;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeArgs =
@@ -12908,6 +13317,54 @@ export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceBlockStreamA
     batch_size: Scalars['Int'];
     cursor: Array<InputMaybe<TimetablesVehicleServiceBlockStreamCursorInput>>;
     where?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceGetTimetableVersionsByJourneyPatternIdsArgs =
+  {
+    args: TimetablesVehicleServiceGetTimetableVersionsByJourneyPatternIdsArgs;
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueTimetableVersionSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceGetTimetableVersionsByJourneyPatternIdsAggregateArgs =
+  {
+    args: TimetablesVehicleServiceGetTimetableVersionsByJourneyPatternIdsArgs;
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueTimetableVersionSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceGetTimetablesAndSubstituteOperatingDaysArgs =
+  {
+    args: TimetablesVehicleServiceGetTimetablesAndSubstituteOperatingDaysArgs;
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueTimetableVersionSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceGetTimetablesAndSubstituteOperatingDaysAggregateArgs =
+  {
+    args: TimetablesVehicleServiceGetTimetablesAndSubstituteOperatingDaysArgs;
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueTimetableVersionSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceGetVehicleServicesForDateArgs =
@@ -14202,6 +14659,21 @@ export type TimetablesVehicleServiceBlockUpdates = {
   /** filter the rows which have to be updated */
   where: TimetablesVehicleServiceBlockBoolExp;
 };
+
+export type TimetablesVehicleServiceGetTimetableVersionsByJourneyPatternIdsArgs =
+  {
+    begin_date?: InputMaybe<Scalars['date']>;
+    end_date?: InputMaybe<Scalars['date']>;
+    journey_pattern_ids?: InputMaybe<Scalars['_uuid']>;
+    observation_date?: InputMaybe<Scalars['date']>;
+  };
+
+export type TimetablesVehicleServiceGetTimetablesAndSubstituteOperatingDaysArgs =
+  {
+    begin_date?: InputMaybe<Scalars['date']>;
+    end_date?: InputMaybe<Scalars['date']>;
+    journey_pattern_ids?: InputMaybe<Scalars['_uuid']>;
+  };
 
 export type TimetablesVehicleServiceGetVehicleServicesForDateArgs = {
   observation_date?: InputMaybe<Scalars['date']>;
@@ -19165,52 +19637,102 @@ export type TimingPlaceForComboboxFragment = {
   description?: any | null;
 };
 
-export type GetTimetableVersionsByLineLabelQueryVariables = Exact<{
+export type RouteInfoForTimetableVersionFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  label: string;
+  variant?: number | null;
+  validity_start?: luxon.DateTime | null;
+  priority: number;
+  validity_end?: luxon.DateTime | null;
+  route_journey_patterns: Array<{
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+  }>;
+};
+
+export type GetRouteInfoForTimetableVersionsQueryVariables = Exact<{
   routeFilters?: InputMaybe<RouteRouteBoolExp>;
 }>;
 
-export type GetTimetableVersionsByLineLabelQuery = {
+export type GetRouteInfoForTimetableVersionsQuery = {
   __typename?: 'query_root';
   route_route: Array<{
     __typename?: 'route_route';
     route_id: UUID;
     label: string;
     variant?: number | null;
+    validity_start?: luxon.DateTime | null;
+    priority: number;
+    validity_end?: luxon.DateTime | null;
     route_journey_patterns: Array<{
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
-      journey_pattern_refs: Array<{
-        __typename?: 'timetables_journey_pattern_journey_pattern_ref';
-        journey_pattern_ref_id: UUID;
-        vehicle_journeys: Array<{
-          __typename?: 'timetables_vehicle_journey_vehicle_journey';
-          vehicle_journey_id: UUID;
-          block: {
-            __typename?: 'timetables_vehicle_service_block';
-            block_id: UUID;
-            vehicle_service: {
-              __typename?: 'timetables_vehicle_service_vehicle_service';
-              vehicle_service_id: UUID;
-              vehicle_schedule_frame: {
-                __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-                vehicle_schedule_frame_id: UUID;
-                priority: number;
-                validity_start: luxon.DateTime;
-                validity_end: luxon.DateTime;
-                name_i18n?: any | null;
-              };
-              day_type: {
-                __typename?: 'timetables_service_calendar_day_type';
-                day_type_id: UUID;
-                label: string;
-                name_i18n: any;
-              };
-            };
-          };
-        }>;
-      }>;
     }>;
   }>;
+};
+
+export type TimetableVersionFragment = {
+  __typename?: 'timetables_return_value_timetable_version';
+  validity_start: luxon.DateTime;
+  validity_end: luxon.DateTime;
+  priority: number;
+  in_effect: boolean;
+  day_type: {
+    __typename?: 'timetables_service_calendar_day_type';
+    day_type_id: UUID;
+    name_i18n: any;
+    label: string;
+  };
+  substitute_operating_day_by_line_type?: {
+    __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type';
+    substitute_operating_day_by_line_type_id: UUID;
+    superseded_date: luxon.DateTime;
+    substitute_day_of_week?: number | null;
+  } | null;
+  vehicle_schedule_frame?: {
+    __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+    vehicle_schedule_frame_id: UUID;
+    name_i18n?: any | null;
+  } | null;
+};
+
+export type GetTimetableVersionsByJourneyPatternIdsQueryVariables = Exact<{
+  journey_pattern_ids?: InputMaybe<Scalars['_uuid']>;
+  begin_date?: InputMaybe<Scalars['date']>;
+  end_date?: InputMaybe<Scalars['date']>;
+  observation_date?: InputMaybe<Scalars['date']>;
+}>;
+
+export type GetTimetableVersionsByJourneyPatternIdsQuery = {
+  __typename?: 'query_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_query';
+    timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids: Array<{
+      __typename?: 'timetables_return_value_timetable_version';
+      validity_start: luxon.DateTime;
+      validity_end: luxon.DateTime;
+      priority: number;
+      in_effect: boolean;
+      day_type: {
+        __typename?: 'timetables_service_calendar_day_type';
+        day_type_id: UUID;
+        name_i18n: any;
+        label: string;
+      };
+      substitute_operating_day_by_line_type?: {
+        __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type';
+        substitute_operating_day_by_line_type_id: UUID;
+        superseded_date: luxon.DateTime;
+        substitute_day_of_week?: number | null;
+      } | null;
+      vehicle_schedule_frame?: {
+        __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+        vehicle_schedule_frame_id: UUID;
+        name_i18n?: any | null;
+      } | null;
+    }>;
+  } | null;
 };
 
 export type RouteMapParamsFragment = {
@@ -19949,6 +20471,41 @@ export const TimingPlaceForComboboxFragmentDoc = gql`
     timing_place_id
     label
     description
+  }
+`;
+export const RouteInfoForTimetableVersionFragmentDoc = gql`
+  fragment route_info_for_timetable_version on route_route {
+    route_id
+    label
+    variant
+    validity_start
+    priority
+    validity_end
+    route_journey_patterns {
+      journey_pattern_id
+    }
+  }
+`;
+export const TimetableVersionFragmentDoc = gql`
+  fragment timetable_version on timetables_return_value_timetable_version {
+    day_type {
+      day_type_id
+      name_i18n
+      label
+    }
+    substitute_operating_day_by_line_type {
+      substitute_operating_day_by_line_type_id
+      superseded_date
+      substitute_day_of_week
+    }
+    vehicle_schedule_frame {
+      vehicle_schedule_frame_id
+      name_i18n
+    }
+    validity_start
+    validity_end
+    priority
+    in_effect
   }
 `;
 export const PassingTimeByStopFragmentDoc = gql`
@@ -23641,94 +24198,141 @@ export type GetSelectedTimingPlaceDetailsByIdQueryResult = Apollo.QueryResult<
   GetSelectedTimingPlaceDetailsByIdQuery,
   GetSelectedTimingPlaceDetailsByIdQueryVariables
 >;
-export const GetTimetableVersionsByLineLabelDocument = gql`
-  query GetTimetableVersionsByLineLabel($routeFilters: route_route_bool_exp) {
+export const GetRouteInfoForTimetableVersionsDocument = gql`
+  query GetRouteInfoForTimetableVersions($routeFilters: route_route_bool_exp) {
     route_route(where: $routeFilters) {
-      route_id
-      label
-      variant
-      route_journey_patterns {
-        journey_pattern_id
-        journey_pattern_refs {
-          journey_pattern_ref_id
-          vehicle_journeys {
-            vehicle_journey_id
-            block {
-              block_id
-              vehicle_service {
-                vehicle_service_id
-                vehicle_schedule_frame {
-                  vehicle_schedule_frame_id
-                  priority
-                  validity_start
-                  validity_end
-                  priority
-                  name_i18n
-                }
-                day_type {
-                  day_type_id
-                  label
-                  name_i18n
-                }
-              }
-            }
-          }
-        }
-      }
+      ...route_info_for_timetable_version
     }
   }
+  ${RouteInfoForTimetableVersionFragmentDoc}
 `;
 
 /**
- * __useGetTimetableVersionsByLineLabelQuery__
+ * __useGetRouteInfoForTimetableVersionsQuery__
  *
- * To run a query within a React component, call `useGetTimetableVersionsByLineLabelQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTimetableVersionsByLineLabelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetRouteInfoForTimetableVersionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteInfoForTimetableVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetTimetableVersionsByLineLabelQuery({
+ * const { data, loading, error } = useGetRouteInfoForTimetableVersionsQuery({
  *   variables: {
  *      routeFilters: // value for 'routeFilters'
  *   },
  * });
  */
-export function useGetTimetableVersionsByLineLabelQuery(
+export function useGetRouteInfoForTimetableVersionsQuery(
   baseOptions?: Apollo.QueryHookOptions<
-    GetTimetableVersionsByLineLabelQuery,
-    GetTimetableVersionsByLineLabelQueryVariables
+    GetRouteInfoForTimetableVersionsQuery,
+    GetRouteInfoForTimetableVersionsQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<
-    GetTimetableVersionsByLineLabelQuery,
-    GetTimetableVersionsByLineLabelQueryVariables
-  >(GetTimetableVersionsByLineLabelDocument, options);
+    GetRouteInfoForTimetableVersionsQuery,
+    GetRouteInfoForTimetableVersionsQueryVariables
+  >(GetRouteInfoForTimetableVersionsDocument, options);
 }
-export function useGetTimetableVersionsByLineLabelLazyQuery(
+export function useGetRouteInfoForTimetableVersionsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetTimetableVersionsByLineLabelQuery,
-    GetTimetableVersionsByLineLabelQueryVariables
+    GetRouteInfoForTimetableVersionsQuery,
+    GetRouteInfoForTimetableVersionsQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<
-    GetTimetableVersionsByLineLabelQuery,
-    GetTimetableVersionsByLineLabelQueryVariables
-  >(GetTimetableVersionsByLineLabelDocument, options);
+    GetRouteInfoForTimetableVersionsQuery,
+    GetRouteInfoForTimetableVersionsQueryVariables
+  >(GetRouteInfoForTimetableVersionsDocument, options);
 }
-export type GetTimetableVersionsByLineLabelQueryHookResult = ReturnType<
-  typeof useGetTimetableVersionsByLineLabelQuery
+export type GetRouteInfoForTimetableVersionsQueryHookResult = ReturnType<
+  typeof useGetRouteInfoForTimetableVersionsQuery
 >;
-export type GetTimetableVersionsByLineLabelLazyQueryHookResult = ReturnType<
-  typeof useGetTimetableVersionsByLineLabelLazyQuery
+export type GetRouteInfoForTimetableVersionsLazyQueryHookResult = ReturnType<
+  typeof useGetRouteInfoForTimetableVersionsLazyQuery
 >;
-export type GetTimetableVersionsByLineLabelQueryResult = Apollo.QueryResult<
-  GetTimetableVersionsByLineLabelQuery,
-  GetTimetableVersionsByLineLabelQueryVariables
+export type GetRouteInfoForTimetableVersionsQueryResult = Apollo.QueryResult<
+  GetRouteInfoForTimetableVersionsQuery,
+  GetRouteInfoForTimetableVersionsQueryVariables
 >;
+export const GetTimetableVersionsByJourneyPatternIdsDocument = gql`
+  query GetTimetableVersionsByJourneyPatternIds(
+    $journey_pattern_ids: _uuid
+    $begin_date: date
+    $end_date: date
+    $observation_date: date
+  ) {
+    timetables {
+      timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids(
+        args: {
+          journey_pattern_ids: $journey_pattern_ids
+          begin_date: $begin_date
+          end_date: $end_date
+          observation_date: $observation_date
+        }
+      ) {
+        ...timetable_version
+      }
+    }
+  }
+  ${TimetableVersionFragmentDoc}
+`;
+
+/**
+ * __useGetTimetableVersionsByJourneyPatternIdsQuery__
+ *
+ * To run a query within a React component, call `useGetTimetableVersionsByJourneyPatternIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTimetableVersionsByJourneyPatternIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTimetableVersionsByJourneyPatternIdsQuery({
+ *   variables: {
+ *      journey_pattern_ids: // value for 'journey_pattern_ids'
+ *      begin_date: // value for 'begin_date'
+ *      end_date: // value for 'end_date'
+ *      observation_date: // value for 'observation_date'
+ *   },
+ * });
+ */
+export function useGetTimetableVersionsByJourneyPatternIdsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >(GetTimetableVersionsByJourneyPatternIdsDocument, options);
+}
+export function useGetTimetableVersionsByJourneyPatternIdsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >(GetTimetableVersionsByJourneyPatternIdsDocument, options);
+}
+export type GetTimetableVersionsByJourneyPatternIdsQueryHookResult = ReturnType<
+  typeof useGetTimetableVersionsByJourneyPatternIdsQuery
+>;
+export type GetTimetableVersionsByJourneyPatternIdsLazyQueryHookResult =
+  ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsLazyQuery>;
+export type GetTimetableVersionsByJourneyPatternIdsQueryResult =
+  Apollo.QueryResult<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >;
 export const GetTimetablesForOperationDayDocument = gql`
   query GetTimetablesForOperationDay(
     $journey_pattern_id: uuid!
@@ -24175,15 +24779,23 @@ export function useGetSelectedTimingPlaceDetailsByIdAsyncQuery() {
 export type GetSelectedTimingPlaceDetailsByIdAsyncQueryHookResult = ReturnType<
   typeof useGetSelectedTimingPlaceDetailsByIdAsyncQuery
 >;
-export function useGetTimetableVersionsByLineLabelAsyncQuery() {
+export function useGetRouteInfoForTimetableVersionsAsyncQuery() {
   return useAsyncQuery<
-    GetTimetableVersionsByLineLabelQuery,
-    GetTimetableVersionsByLineLabelQueryVariables
-  >(GetTimetableVersionsByLineLabelDocument);
+    GetRouteInfoForTimetableVersionsQuery,
+    GetRouteInfoForTimetableVersionsQueryVariables
+  >(GetRouteInfoForTimetableVersionsDocument);
 }
-export type GetTimetableVersionsByLineLabelAsyncQueryHookResult = ReturnType<
-  typeof useGetTimetableVersionsByLineLabelAsyncQuery
+export type GetRouteInfoForTimetableVersionsAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteInfoForTimetableVersionsAsyncQuery
 >;
+export function useGetTimetableVersionsByJourneyPatternIdsAsyncQuery() {
+  return useAsyncQuery<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >(GetTimetableVersionsByJourneyPatternIdsDocument);
+}
+export type GetTimetableVersionsByJourneyPatternIdsAsyncQueryHookResult =
+  ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsAsyncQuery>;
 export function useGetTimetablesForOperationDayAsyncQuery() {
   return useAsyncQuery<
     GetTimetablesForOperationDayQuery,

@@ -1,10 +1,14 @@
+import { DateTime } from 'luxon';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import {
-  useGetLineTimetableVersions,
+  useGetJourneyPatternIdsByLineLabel,
+  useGetTimetableVersions,
   useTimetableVersionsReturnToQueryParam,
 } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
+import { TimetablePriority } from '../../../types/enums';
 import { CloseIconButton } from '../../../uiComponents';
 import { FormColumn, FormRow } from '../../forms/common';
 import { TimetableVersionTable } from './TimetableVersionTable';
@@ -17,8 +21,36 @@ export const TimetableVersionsPage = (): JSX.Element => {
   const { t } = useTranslation();
   const { label } = useParams<{ label: string }>();
 
-  const { timetablesExcludingDrafts, onlyDraftTimetables } =
-    useGetLineTimetableVersions({ label });
+  // We first need to get the journey pattern ids for all line routes by line label
+  const { journeyPatternIdsGroupedByRouteLabel, loading } =
+    useGetJourneyPatternIdsByLineLabel({
+      // TODO: Add timerange filter here also
+      label,
+    });
+  // Then we can fetch the timetable versions using SQL functions
+  const { versions } = useGetTimetableVersions({
+    // We need to use memoized value which only changes when the loading status is changed. Otherwise we
+    // end up in infinite loop
+    journeyPatternIdsGroupedByRouteLabel: useMemo(
+      () => journeyPatternIdsGroupedByRouteLabel,
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [loading],
+    ),
+    beginDate: useMemo(() => DateTime.fromISO('2020-01-01'), []), // TODO: Add timerange components and
+    endDate: useMemo(() => DateTime.fromISO('2023-12-31'), []), // remove hardcoded values
+  });
+
+  const timetablesExcludingDrafts =
+    versions?.filter(
+      (version) =>
+        version.vehicleScheduleFrame?.priority !== TimetablePriority.Draft,
+    ) || [];
+
+  const onlyDraftTimetables =
+    versions?.filter(
+      (version) =>
+        version.vehicleScheduleFrame?.priority === TimetablePriority.Draft,
+    ) || [];
   const { onClose } = useTimetableVersionsReturnToQueryParam();
 
   return (

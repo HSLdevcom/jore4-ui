@@ -17,7 +17,7 @@ services:
 
   jore4-hastus:
     # pinning hastus import-export-microservice version
-    image: "hsldevcom/jore4-hastus:export-api--20230327-1a16f97a5fed712c682a0251a695af6f8e0d9c7f"
+    image: "hsldevcom/jore4-hastus:main--20230504-472d4e4a82b9dc12e749123c844a38602748f43c"
 
   jore4-hasura-e2e1:
     image: *hasura-image

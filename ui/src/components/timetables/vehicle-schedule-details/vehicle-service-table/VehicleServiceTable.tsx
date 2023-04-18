@@ -26,6 +26,7 @@ export const getTimetableHeadingBgColor = (key: TimetablePriority) => {
   const bgColors: Record<TimetablePriority, string> = {
     [TimetablePriority.Standard]: 'bg-hsl-dark-green',
     [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
+    [TimetablePriority.SubstituteByLineType]: 'bg-hsl-orange',
     [TimetablePriority.Special]: 'bg-hsl-light-purple',
     [TimetablePriority.Draft]: 'bg-background',
     [TimetablePriority.Staging]: 'bg-hsl-red',
@@ -37,6 +38,7 @@ const getOddRowColor = (key: TimetablePriority) => {
   const bgColors: Record<TimetablePriority, string> = {
     [TimetablePriority.Standard]: 'bg-hsl-neutral-blue',
     [TimetablePriority.Temporary]: 'bg-hsl-neutral-blue',
+    [TimetablePriority.SubstituteByLineType]: 'bg-hsl-neutral-blue',
     [TimetablePriority.Special]: 'bg-hsl-neutral-blue',
     [TimetablePriority.Draft]: 'bg-background',
     [TimetablePriority.Staging]: 'bg-hsl-neutral-blue',

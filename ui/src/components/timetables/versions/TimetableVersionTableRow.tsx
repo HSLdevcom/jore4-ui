@@ -1,6 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { TimetablesVersionsRowData } from '../../../hooks';
-import { mapTimetablePriorityToUiName } from '../../../i18n/uiNameMappings';
+import { TimetableVersionRowData } from '../../../hooks/useGetTimetableVersions';
+import {
+  mapDayOfWeekToUiName,
+  mapTimetablePriorityToUiName,
+} from '../../../i18n/uiNameMappings';
 import { parseI18nField } from '../../../i18n/utils';
 import { mapToShortDate } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
@@ -19,6 +22,7 @@ const getStatusClassName = ({
     [TimetablePriority.Standard]: 'bg-brand text-white',
     [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
     [TimetablePriority.Special]: 'bg-hsl-light-purple',
+    [TimetablePriority.SubstituteByLineType]: 'bg-hsl-orange',
     [TimetablePriority.Draft]: 'bg-background',
     [TimetablePriority.Staging]: 'bg-hsl-red',
   };
@@ -26,7 +30,7 @@ const getStatusClassName = ({
 };
 
 interface Props {
-  data: TimetablesVersionsRowData;
+  data: TimetableVersionRowData;
 }
 
 export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
@@ -44,13 +48,24 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
   // TODO: After we get special days implemented, we need to determine this className
   // depending on wheter the row is from vehicleService or from special day.
   // The className for special days is: 'bg-city-bicycle-yellow bg-opacity-25'
-  const dayTypeClassName = 'bg-hsl-dark-green bg-opacity-25';
+  const dayTypeClassName = `bg-hsl-dark-green bg-opacity-25`;
+
+  const substituteDayOperatingText = data.substituteDay?.substituteDayOfWeek
+    ? t('timetables.operatedLike', {
+        dayOfWeek: mapDayOfWeekToUiName(data.substituteDay.substituteDayOfWeek),
+      })
+    : t('timetables.noService');
 
   return (
-    <tr className="text-center [&>td]:border [&>td]:border-light-grey [&>td]:p-4">
+    <tr className="h-14 text-center [&>td]:border [&>td]:border-light-grey">
       <td className={statusClassName}>{statusText}</td>
       <td className={dayTypeClassName}>
-        {parseI18nField(data.dayType.nameI18n)}
+        <span>{parseI18nField(data.dayType.nameI18n)}</span>
+        {data.substituteDay?.supersededDate && (
+          <span className="flex justify-center whitespace-nowrap text-xs">
+            {substituteDayOperatingText}
+          </span>
+        )}
       </td>
       <td>{mapToShortDate(data.vehicleScheduleFrame.validityStart)}</td>
       <td>{mapToShortDate(data.vehicleScheduleFrame.validityEnd)}</td>

@@ -18,6 +18,7 @@ export const theme = {
     hslHighlightYellowDark: "#C89515",
     hslHighlightYellowLight: "#FFD771",
     hslLightPurple: "#DDC8E0",
+    hslOrange: "#FFA87E",
     routes: {
       bus: "#0074BF",
       ferry: "#333333",

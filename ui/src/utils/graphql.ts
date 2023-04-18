@@ -26,3 +26,11 @@ export const removeFromApolloCache = (
   cache.evict(cached);
   cache.gc();
 };
+
+/**
+ * It seems that hasura requires function parameter arrays to be
+ * formatted as follows: {1, 2, 3, 4, 5}. This function takes in
+ * an array and formats it correctly for hasura.
+ */
+export const generateArrayTypeForHasura = <T>(array: T[]) =>
+  JSON.stringify(array).replace('[', '{').replace(']', '}');
