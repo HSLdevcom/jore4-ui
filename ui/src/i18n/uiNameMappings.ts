@@ -23,6 +23,7 @@ export const mapTimetablePriorityToUiName = (key: TimetablePriority) => {
     [TimetablePriority.Standard]: i18n.t('priority.standard'),
     [TimetablePriority.Temporary]: i18n.t('priority.temporary'),
     [TimetablePriority.Draft]: i18n.t('priority.draft'),
+    [TimetablePriority.SubstituteByLineType]: i18n.t('priority.substitute'),
     [TimetablePriority.Special]: i18n.t('priority.special'),
     [TimetablePriority.Staging]: '', // NOTE: staging priorities are not intented to be shown in UI
   };

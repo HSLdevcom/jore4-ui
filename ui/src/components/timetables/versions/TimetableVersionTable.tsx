@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { TimetablesVersionsRowData as TimetableVersionsRowData } from '../../../hooks';
+import { TimetableVersionRowData } from '../../../hooks/useGetTimetableVersions';
 import { TimetableVersionTableRow } from './TimetableVersionTableRow';
 
 interface Props {
-  data: TimetableVersionsRowData[];
+  data: TimetableVersionRowData[];
   className: string;
 }
 
@@ -12,6 +12,20 @@ export const TimetableVersionTable = ({
   className = '',
 }: Props): JSX.Element => {
   const { t } = useTranslation();
+
+  // Uniqueness is determined by validity period, label and variant, priority and day type.
+  const getRowKey = (row: TimetableVersionRowData) => {
+    const validity = row.substituteDay.supersededDate
+      ? row.substituteDay.supersededDate.toISODate()
+      : `${row.vehicleScheduleFrame.validityStart?.toISODate()}${row.vehicleScheduleFrame.validityEnd?.toISODate()}`;
+
+    return (
+      row.routeLabelAndVariant +
+      validity +
+      row.vehicleScheduleFrame.priority +
+      row.dayType.id
+    );
+  };
 
   // NOTE: These widths are given to prevent width jumping depending on data
   // It will also keep the headings in line when there are multiple tables
@@ -47,12 +61,9 @@ export const TimetableVersionTable = ({
         </tr>
       </thead>
       <tbody>
-        {data.length ? (
+        {data?.length ? (
           data.map((row) => (
-            <TimetableVersionTableRow
-              key={row.id + row.routeLabelAndVariant}
-              data={row}
-            />
+            <TimetableVersionTableRow key={getRowKey(row)} data={row} />
           ))
         ) : (
           <tr>

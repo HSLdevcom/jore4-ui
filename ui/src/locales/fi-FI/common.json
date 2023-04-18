@@ -178,6 +178,7 @@
     "standard": "Perusversio",
     "temporary": "Väliaikainen",
     "draft": "Luonnos",
+    "substitute": "Korvauspäivä",
     "special": "Erityispäivä"
   },
   "validityPeriod": {
@@ -301,7 +302,8 @@
     "inEffect": "Voimassa",
     "tripCount": "{{ count }} lähtöä",
     "interpolated": "Interpoloitu",
-    "showArrivalTimes": "Näytä saapumisajat"
+    "showArrivalTimes": "Näytä saapumisajat",
+    "operatedLike": "Ajetaan kuten {{ dayOfWeek }}"
   },
   "timetablesPreview": {
     "preview": "Esikatselu",

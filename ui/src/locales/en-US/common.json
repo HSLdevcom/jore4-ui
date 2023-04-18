@@ -178,6 +178,7 @@
     "standard": "Standard",
     "temporary": "Temporary",
     "draft": "Draft",
+    "substitute": "Substitute",
     "special": "Special"
   },
   "validityPeriod": {
@@ -301,7 +302,8 @@
     "inEffect": "In effect",
     "tripCount": "{{ count }} trips",
     "interpolated": "Interpolated",
-    "showArrivalTimes": "Show arrival times"
+    "showArrivalTimes": "Show arrival times",
+    "operatedLike": "Operated like {{ dayOfWeek }}"
   },
   "timetablesPreview": {
     "preview": "Preview",
