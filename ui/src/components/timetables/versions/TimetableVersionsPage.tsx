@@ -1,8 +1,10 @@
+import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import {
+  TimetableVersionRowData,
   useGetJourneyPatternIdsByLineLabel,
   useGetTimetableVersions,
   useTimetableVersionsReturnToQueryParam,
@@ -54,6 +56,18 @@ export const TimetableVersionsPage = (): JSX.Element => {
     ) || [];
   const { onClose } = useTimetableVersionsReturnToQueryParam();
 
+  const sortTimetables = (timetables: TimetableVersionRowData[]) => {
+    return orderBy(
+      timetables,
+      [
+        (version) => version.inEffect,
+        (version) => version.routeLabelAndVariant,
+        (version) => version.vehicleScheduleFrame.validityStart,
+      ],
+      ['desc', 'asc', 'asc'],
+    );
+  };
+
   return (
     <Container>
       <FormRow mdColumns={2}>
@@ -73,7 +87,7 @@ export const TimetableVersionsPage = (): JSX.Element => {
         <h3>{t('timetables.operatingCalendar')}</h3>
         <TimetableVersionTable
           className="mb-8 w-full"
-          data={timetablesExcludingDrafts}
+          data={sortTimetables(timetablesExcludingDrafts)}
         />
         <h3>{t('timetables.drafts')}</h3>
         <TimetableVersionTable
