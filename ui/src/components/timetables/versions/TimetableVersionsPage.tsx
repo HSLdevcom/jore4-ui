@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import {
+  TimetableVersionRowData,
   useGetJourneyPatternIdsByLineLabel,
   useGetTimetableVersions,
   useTimetableVersionsReturnToQueryParam,
@@ -54,6 +55,34 @@ export const TimetableVersionsPage = (): JSX.Element => {
     ) || [];
   const { onClose } = useTimetableVersionsReturnToQueryParam();
 
+  const sortByInEffect = (
+    a: TimetableVersionRowData,
+    b: TimetableVersionRowData,
+  ) => (b.inEffect ? 1 : 0) - (a.inEffect ? 1 : 0);
+
+  const sortByValidityStart = (
+    a: TimetableVersionRowData,
+    b: TimetableVersionRowData,
+  ) =>
+    // vehicleScheduleFrame always has validityStart
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    +b.vehicleScheduleFrame.validityStart! -
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    +a.vehicleScheduleFrame.validityStart!;
+
+  const sortByLabelAndVariant = (
+    a: TimetableVersionRowData,
+    b: TimetableVersionRowData,
+  ) => {
+    if (a.routeLabelAndVariant > b.routeLabelAndVariant) {
+      return 1;
+    }
+    if (a.routeLabelAndVariant < b.routeLabelAndVariant) {
+      return -1;
+    }
+    return 0;
+  };
+
   return (
     <Container>
       <FormRow mdColumns={2}>
@@ -73,7 +102,10 @@ export const TimetableVersionsPage = (): JSX.Element => {
         <h3>{t('timetables.operatingCalendar')}</h3>
         <TimetableVersionTable
           className="mb-8 w-full"
-          data={timetablesExcludingDrafts}
+          data={timetablesExcludingDrafts
+            .sort(sortByValidityStart)
+            .sort(sortByLabelAndVariant)
+            .sort(sortByInEffect)}
         />
         <h3>{t('timetables.drafts')}</h3>
         <TimetableVersionTable

@@ -28,6 +28,7 @@ module.exports = {
         'hsl-warning-yellow': colors.hslWarningYellow,
         'hsl-highlight-yellow-dark': colors.hslHighlightYellowDark,
         'hsl-highlight-yellow-light': colors.hslHighlightYellowLight,
+        'hsl-purple': colors.hslPurple,
         'hsl-light-purple': colors.hslLightPurple,
         'hsl-orange': colors.hslOrange,
       },
