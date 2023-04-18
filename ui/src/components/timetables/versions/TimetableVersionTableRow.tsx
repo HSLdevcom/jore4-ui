@@ -21,12 +21,24 @@ const getStatusClassName = ({
   const statusClassNames: Record<TimetablePriority, string> = {
     [TimetablePriority.Standard]: 'bg-brand text-white',
     [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
-    [TimetablePriority.Special]: 'bg-hsl-light-purple',
+    [TimetablePriority.Special]: 'bg-hsl-purple',
     [TimetablePriority.SubstituteByLineType]: 'bg-hsl-orange',
     [TimetablePriority.Draft]: 'bg-background',
     [TimetablePriority.Staging]: 'bg-hsl-red',
   };
   return statusClassNames[priority];
+};
+
+const getDayTypeClassName = (priority: TimetablePriority) => {
+  const dayTypeClassNames: Record<TimetablePriority, string> = {
+    [TimetablePriority.Standard]: 'bg-hsl-dark-green',
+    [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
+    [TimetablePriority.Special]: 'bg-hsl-purple',
+    [TimetablePriority.SubstituteByLineType]: 'bg-hsl-orange',
+    [TimetablePriority.Draft]: 'bg-background',
+    [TimetablePriority.Staging]: 'bg-hsl-red',
+  };
+  return dayTypeClassNames[priority];
 };
 
 interface Props {
@@ -35,7 +47,6 @@ interface Props {
 
 export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
   const { t } = useTranslation();
-
   const statusClassName = ` ${getStatusClassName({
     priority: data.vehicleScheduleFrame.priority,
     inEffect: data.inEffect,
@@ -45,16 +56,14 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
     ? t('timetables.inEffect')
     : mapTimetablePriorityToUiName(data.vehicleScheduleFrame.priority);
 
-  // TODO: After we get special days implemented, we need to determine this className
-  // depending on wheter the row is from vehicleService or from special day.
-  // The className for special days is: 'bg-city-bicycle-yellow bg-opacity-25'
-  const dayTypeClassName = `bg-hsl-dark-green bg-opacity-25`;
-
   const substituteDayOperatingText = data.substituteDay?.substituteDayOfWeek
     ? t('timetables.operatedLike', {
         dayOfWeek: mapDayOfWeekToUiName(data.substituteDay.substituteDayOfWeek),
       })
     : t('timetables.noService');
+  const dayTypeClassName = `${getDayTypeClassName(
+    data.vehicleScheduleFrame.priority,
+  )} bg-opacity-25`;
 
   return (
     <tr className="h-14 text-center [&>td]:border [&>td]:border-light-grey">
