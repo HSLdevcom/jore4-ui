@@ -5,7 +5,7 @@ import {
   RouteTypeOfLineEnum,
 } from '../generated/graphql';
 import { i18n } from '../i18n';
-import { Priority, TimetablePriority } from '../types/enums';
+import { DayOfWeek, Priority, TimetablePriority } from '../types/enums';
 import { RouteDirection } from '../types/RouteDirection';
 import { AllOptionEnum } from '../utils';
 
@@ -23,8 +23,22 @@ export const mapTimetablePriorityToUiName = (key: TimetablePriority) => {
     [TimetablePriority.Standard]: i18n.t('priority.standard'),
     [TimetablePriority.Temporary]: i18n.t('priority.temporary'),
     [TimetablePriority.Draft]: i18n.t('priority.draft'),
+    [TimetablePriority.SubstituteByLineType]: i18n.t('priority.substitute'),
     [TimetablePriority.Special]: i18n.t('priority.special'),
     [TimetablePriority.Staging]: '', // NOTE: staging priorities are not intented to be shown in UI
+  };
+  return uiStrings[key];
+};
+
+export const mapDayOfWeekToUiName = (key: DayOfWeek) => {
+  const uiStrings: Record<DayOfWeek, string> = {
+    [DayOfWeek.Monday]: i18n.t('dayOfWeek.monday'),
+    [DayOfWeek.Tuesday]: i18n.t('dayOfWeek.tuesday'),
+    [DayOfWeek.Wednesday]: i18n.t('dayOfWeek.wednesday'),
+    [DayOfWeek.Thursday]: i18n.t('dayOfWeek.thursday'),
+    [DayOfWeek.Friday]: i18n.t('dayOfWeek.friday'),
+    [DayOfWeek.Saturday]: i18n.t('dayOfWeek.saturday'),
+    [DayOfWeek.Sunday]: i18n.t('dayOfWeek.sunday'),
   };
   return uiStrings[key];
 };
