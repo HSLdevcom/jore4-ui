@@ -34,7 +34,7 @@ const seedDb = async () => {
     vehicleTypesResult.data.timetables.timetables_vehicle_type_vehicle_type;
 
   // route 641, direction 1
-  const jp1 = 'd94a4a51-8eab-4186-9840-32061cdbb331';
+  const jp1 = 'ff040a66-1675-4664-910d-95e7fa1a0b85';
   const jpRef1 = buildJourneyPatternRefDeep(jp1, {
     journeyPatternRefBase: { type_of_line: 'stopping_bus_service' },
     stopBase: {},
@@ -42,7 +42,7 @@ const seedDb = async () => {
   });
 
   // route 641, direction 2
-  const jp2 = 'e816e142-620f-4fff-9227-91472f7040a4';
+  const jp2 = '2f2a51c9-d73a-4d8c-8a75-f0ed2b5a9dcb';
   const jpRef2 = buildJourneyPatternRefDeep(jp2, {
     journeyPatternRefBase: { type_of_line: 'stopping_bus_service' },
     stopBase: {},
