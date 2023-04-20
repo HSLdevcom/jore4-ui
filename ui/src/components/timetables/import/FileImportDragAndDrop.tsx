@@ -16,6 +16,10 @@ interface Props {
   setFileList: (fileList: File[]) => void;
 }
 
+const isCorrectFormatFile = (file: File) =>
+  // exp files have empty file type, just use filename extension for checking instead
+  file.type === 'text/csv' || file.name.split('.')[1] === 'exp';
+
 export const FileImportDragAndDrop = ({ fileList, setFileList }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -47,18 +51,22 @@ export const FileImportDragAndDrop = ({ fileList, setFileList }: Props) => {
     event.preventDefault();
     setIsDragging(false);
 
-    const csvFiles = Array.from(event.dataTransfer.files).filter(
-      (file) => file.type === 'text/csv',
+    const correctFormatFiles = Array.from(event.dataTransfer.files).filter(
+      isCorrectFormatFile,
     );
-    const notCsvFiles = Array.from(event.dataTransfer.files).filter(
-      (file) => file.type !== 'text/csv',
+    const incorrectFormatFiles = Array.from(event.dataTransfer.files).filter(
+      (file) => !isCorrectFormatFile(file),
     );
 
-    if (notCsvFiles.length) {
+    if (incorrectFormatFiles.length) {
       showDangerToast(t('import.incorrectFileFormat'));
     }
 
-    setFileList(fileList?.length ? fileList.concat(csvFiles) : csvFiles);
+    setFileList(
+      fileList?.length
+        ? fileList.concat(correctFormatFiles)
+        : correctFormatFiles,
+    );
   };
 
   const handleOnClick = () => {
@@ -111,7 +119,7 @@ export const FileImportDragAndDrop = ({ fileList, setFileList }: Props) => {
             <input
               id="file-upload-input"
               type="file"
-              accept="text/csv"
+              accept="text/csv,.exp"
               onChange={handleOnFileChange}
               multiple
               className="hidden"

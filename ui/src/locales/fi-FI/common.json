@@ -338,7 +338,7 @@
     "filesToUpload": "Ladattavat tiedostot",
     "fileUploadSuccess": "Tiedoston {{ filename }} lataus onnistui!",
     "fileUploadFailed": "Tiedoston {{ filename }} lataus epäonnistui!",
-    "incorrectFileFormat": "Yhtä tai useampaa tiedostoa ei lisätty. Vain .csv -formaatti on sallittu"
+    "incorrectFileFormat": "Yhtä tai useampaa tiedostoa ei lisätty. Vain .exp ja .csv -formaatti on sallittu"
   },
   "export": {
     "startSelecting": "Valitse",
