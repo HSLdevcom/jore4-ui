@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { MdHistory } from 'react-icons/md';
 import { groupBy, pipe } from 'remeda';
+import { twMerge } from 'tailwind-merge';
 import { VehicleJourneyGroup } from '../../../../hooks';
 import { parseI18nField } from '../../../../i18n/utils';
-import { Column, Row, Visible } from '../../../../layoutComponents';
+import { Column, Visible } from '../../../../layoutComponents';
 import { mapToShortDateTime } from '../../../../time';
 import { TimetablePriority } from '../../../../types/enums';
 import { VehicleJourneyGroupInfo } from '../../common/VehicleJourneyGroupInfo';
@@ -77,17 +78,16 @@ export const VehicleServiceTable = ({
   };
 
   return (
-    <div
-      onClick={onClick}
-      onKeyPress={onKeyPress}
-      role="button"
-      tabIndex={0}
-      className="space-y-2"
-    >
-      <Row
-        className={`rounded-md !bg-opacity-50 px-4 py-1 text-hsl-dark-80 ${getTimetableHeadingBgColor(
-          priority,
-        )}`}
+    <div className="space-y-2">
+      <div
+        className={twMerge(
+          'flex flex-row rounded-md border-2 border-transparent !bg-opacity-50 px-4 py-1 hover:border-gray-500',
+          getTimetableHeadingBgColor(priority),
+        )}
+        onClick={onClick}
+        onKeyPress={onKeyPress}
+        role="button"
+        tabIndex={0}
       >
         <Column className="mr-auto">
           <h4>{parseI18nField(dayType.name_i18n)}</h4>
@@ -98,13 +98,21 @@ export const VehicleServiceTable = ({
             <MdHistory className="ml-2 inline" />
           </p>
         </Column>
-      </Row>
+      </div>
       <VehicleJourneyGroupInfo
         vehicleJourneyGroup={vehicleJourneyGroup}
         className="space-x-2"
       />
       <Visible visible={hasVehicleJourneys}>
-        <table data-testid={testIds.timetable} className="flex">
+        <table
+          data-testid={testIds.timetable}
+          className="flex border-2 border-hsl-neutral-blue hover:border-gray-500"
+          onClick={onClick}
+          onKeyPress={onKeyPress}
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+          role="button"
+          tabIndex={0}
+        >
           <tbody className=" w-full">
             {rowData.map((item) => (
               <VehicleServiceTableRow
