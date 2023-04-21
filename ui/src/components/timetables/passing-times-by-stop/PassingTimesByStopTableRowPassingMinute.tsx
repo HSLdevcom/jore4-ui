@@ -1,3 +1,4 @@
+import { twMerge } from 'tailwind-merge';
 import { PassingTimeByStopFragment } from '../../../generated/graphql';
 import { useAppSelector } from '../../../hooks';
 import { parseI18nField } from '../../../i18n/utils';
@@ -59,11 +60,13 @@ export const PassingTimesByStopTableRowPassingMinute = ({
   return (
     <span>
       <button
-        className={`inline-flex flex-col items-end border border-transparent px-0.5 align-text-bottom text-xs ${
+        className={twMerge(
+          'inline-flex flex-col items-end rounded-sm border border-transparent px-0.5 align-text-bottom text-xs',
+          'hover:border-hsl-highlight-yellow-dark hover:bg-city-bicycle-yellow',
           isHighlighted
-            ? 'rounded-sm !border-hsl-highlight-yellow-dark bg-city-bicycle-yellow'
-            : ''
-        }`}
+            ? ' border-hsl-highlight-yellow-dark bg-city-bicycle-yellow'
+            : '',
+        )}
         onClick={() => setSelectedPassingTime(passingTime)}
         type="button"
         data-testid={testIds.selectPassingTimeButton}
