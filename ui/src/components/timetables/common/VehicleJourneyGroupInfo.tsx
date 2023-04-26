@@ -1,7 +1,8 @@
 import orderBy from 'lodash/orderBy';
 import { useTranslation } from 'react-i18next';
-import { VehicleJourneyGroup } from '../../../hooks';
+import { VehicleJourneyGroup, useAppDispatch } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
+import { openChangeTimetableValidityModalAction } from '../../../redux';
 import { mapDurationToShortTime, mapToShortDate } from '../../../time';
 import { IconButton, commonHoverStyle } from '../../../uiComponents';
 
@@ -23,11 +24,14 @@ export const VehicleJourneyGroupInfo = ({
   className = '',
 }: Props): JSX.Element => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const changeVehicleScheduleFrameValidity = () => {
-    // TODO: Implement
-    // eslint-disable-next-line no-console
-    console.log('TODO!');
+    dispatch(
+      openChangeTimetableValidityModalAction(
+        vehicleJourneyGroup.vehicleScheduleFrameId,
+      ),
+    );
   };
 
   const { vehicleJourneys } = vehicleJourneyGroup;

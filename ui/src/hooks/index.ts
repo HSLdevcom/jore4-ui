@@ -17,5 +17,6 @@ export * from './useGetLineTimetableVersions';
 export * from './usePagination';
 export * from './useShowRoutesOnModal';
 export * from './useToggle';
+export * from './vehicle-schedule-frame';
 export * from './vehicle-service';
 export * from './via';

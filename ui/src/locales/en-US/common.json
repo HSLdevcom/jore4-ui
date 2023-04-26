@@ -327,6 +327,12 @@
     "title": "Save changes",
     "priority": "Timetables' priority"
   },
+  "changeTimetablesValidityModal": {
+    "title": "Save changes",
+    "validity": "Timetable validity",
+    "noticeChangesInRoutes": "The change affects the timetables of following routes",
+    "saveSuccess": "Timetable validity saved"
+  },
   "import": {
     "importTimetables": "Import timetables",
     "importTimetablesFromHastus": "Import timetables from Hastus",
