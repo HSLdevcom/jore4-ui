@@ -27,3 +27,8 @@ export const selectIsTimingSettingsModalOpen = createSelector(
   selectTimingSettingsModal,
   (timingSettingsModal) => timingSettingsModal.isOpen,
 );
+
+export const selectChangeTimetableValidityModal = createSelector(
+  selectModals,
+  (modals) => modals.changeTimetableValidityModal,
+);

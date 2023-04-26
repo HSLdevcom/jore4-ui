@@ -4,12 +4,18 @@ interface IState {
   viaModal: ViaModalState;
   timingPlaceModal: TimingPlaceModalState;
   timingSettingsModal: TimingSettingsModalState;
+  changeTimetableValidityModal: ChangeTimetableValidityModalState;
 }
 
 interface ViaModalState {
   isOpen: boolean;
   journeyPatternId?: UUID;
   stopLabel?: string;
+}
+
+interface ChangeTimetableValidityModalState {
+  isOpen: boolean;
+  vehicleScheduleFrameId?: UUID;
 }
 
 interface TimingSettingsModalState {
@@ -37,6 +43,10 @@ const initialState: IState = {
   timingSettingsModal: {
     isOpen: false,
     data: undefined,
+  },
+  changeTimetableValidityModal: {
+    isOpen: false,
+    vehicleScheduleFrameId: undefined,
   },
 };
 
@@ -80,6 +90,16 @@ const slice = createSlice({
     closeTimingSettingsModal: (state) => {
       state.timingSettingsModal = initialState.timingSettingsModal;
     },
+    openChangeTimetableValidityModal: (state, action: PayloadAction<UUID>) => {
+      state.changeTimetableValidityModal = {
+        isOpen: true,
+        vehicleScheduleFrameId: action.payload,
+      };
+    },
+    closeChangeTimetableValidityModal: (state) => {
+      state.changeTimetableValidityModal =
+        initialState.changeTimetableValidityModal;
+    },
   },
 });
 
@@ -90,6 +110,8 @@ export const {
   closeTimingPlaceModal: closeTimingPlaceModalAction,
   openTimingSettingsModal: openTimingSettingsModalAction,
   closeTimingSettingsModal: closeTimingSettingsModalAction,
+  openChangeTimetableValidityModal: openChangeTimetableValidityModalAction,
+  closeChangeTimetableValidityModal: closeChangeTimetableValidityModalAction,
 } = slice.actions;
 
 export const modalsReducer = slice.reducer;
