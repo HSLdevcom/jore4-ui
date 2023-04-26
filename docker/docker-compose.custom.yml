@@ -4,7 +4,7 @@ services:
     # Link to available jore4-hasura images in Docker Hub:
     # https://hub.docker.com/r/hsldevcom/jore4-hasura/tags?page=1&ordering=last_updated
     # The :hsl-tag contains the desired version of hsl specific hasura.
-    image: &hasura-image 'hsldevcom/jore4-hasura:hsl-main--20230512-ded67cb83ea24fe40dc80451147705f3b6deb989'
+    image: &hasura-image 'hsldevcom/jore4-hasura:hsl-main--20230524-15a564f76a75f82bf5c789491387cdce4394932b'
     # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
     # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
     depends_on:
