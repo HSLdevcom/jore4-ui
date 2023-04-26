@@ -327,6 +327,12 @@
     "title": "Tallenna muutos",
     "priority": "Aikataulujen prioriteetti"
   },
+  "changeTimetablesValidityModal": {
+    "title": "Tallenna muutos",
+    "validity": "Aikataulun voimassaolo",
+    "noticeChangesInRoutes": "Huomaa vaikutukset seuraavien reittien aikatauluihin",
+    "saveSuccess": "Aikataulun voimassaolo tallennettu"
+  },
   "import": {
     "importTimetables": "Tuo aikatauluja",
     "importTimetablesFromHastus": "Tuo aikatauluja Hastuksesta",

@@ -111,6 +111,7 @@ export interface VehicleJourneyGroup {
   validity: Validity;
   vehicleJourneys: VehicleJourneyWithServiceFragment[];
   createdAt: DateTime;
+  vehicleScheduleFrameId: UUID;
 }
 
 const groupVehicleJourneys = (
@@ -154,6 +155,8 @@ const groupVehicleJourneys = (
             },
             createdAt: vehicleScheduleFrame.created_at,
             vehicleJourneys: [item],
+            vehicleScheduleFrameId:
+              vehicleScheduleFrame.vehicle_schedule_frame_id,
           },
         ];
       }, []),

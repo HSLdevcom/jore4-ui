@@ -10,13 +10,18 @@ import {
   useTimetablesViewState,
 } from '../../../hooks';
 import { Container, Visible } from '../../../layoutComponents';
-import { selectTimetable } from '../../../redux';
+import {
+  closeChangeTimetableValidityModalAction,
+  selectChangeTimetableValidityModal,
+  selectTimetable,
+} from '../../../redux';
 import { setShowArrivalTimesAction } from '../../../redux/slices/timetable';
 import { SimpleButton, Switch, SwitchLabel } from '../../../uiComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormColumn, FormRow } from '../../forms/common';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';
 import { LineTitle } from '../../routes-and-lines/line-details/LineTitle';
+import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
 import { RouteTimetableList } from './RouteTimetableList';
 import { TimetableNavigation } from './TimetableNavigation';
 
@@ -32,6 +37,9 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
     useTimetablesViewState();
   const { displayedRouteLabels } = useGetRoutesDisplayedInList(line);
   const { showArrivalTimes } = useAppSelector(selectTimetable);
+  const changeTimetableValidityModalState = useAppSelector(
+    selectChangeTimetableValidityModal,
+  );
 
   // For default view show all routes,
   // Otherwise show only selected view.
@@ -101,6 +109,10 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
           routeIds={displayedRoutes.map((route) => route.route_id)}
         />
       </Container>
+      <ChangeTimetablesValidityModal
+        isOpen={changeTimetableValidityModalState.isOpen}
+        onClose={() => dispatch(closeChangeTimetableValidityModalAction())}
+      />
     </div>
   );
 };

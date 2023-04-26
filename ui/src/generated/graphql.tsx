@@ -19235,6 +19235,84 @@ export type LineMapParamsFragment = {
   }>;
 };
 
+export type VehicleScheduleFrameWithRoutesFragment = {
+  __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+  vehicle_schedule_frame_id: UUID;
+  validity_start: luxon.DateTime;
+  validity_end: luxon.DateTime;
+  vehicle_services: Array<{
+    __typename?: 'timetables_vehicle_service_vehicle_service';
+    vehicle_service_id: UUID;
+    journey_patterns_in_vehicle_service: Array<{
+      __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service';
+      journey_pattern_instance?: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        journey_pattern_route?: {
+          __typename?: 'route_route';
+          route_id: UUID;
+          label: string;
+        } | null;
+      } | null;
+    }>;
+  }>;
+};
+
+export type GetVehicleScheduleFrameWithRoutesQueryVariables = Exact<{
+  vehicle_schedule_frame_id: Scalars['uuid'];
+}>;
+
+export type GetVehicleScheduleFrameWithRoutesQuery = {
+  __typename?: 'query_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_query';
+    timetables_vehicle_schedule_vehicle_schedule_frame: Array<{
+      __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+      vehicle_schedule_frame_id: UUID;
+      validity_start: luxon.DateTime;
+      validity_end: luxon.DateTime;
+      vehicle_services: Array<{
+        __typename?: 'timetables_vehicle_service_vehicle_service';
+        vehicle_service_id: UUID;
+        journey_patterns_in_vehicle_service: Array<{
+          __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service';
+          journey_pattern_instance?: {
+            __typename?: 'journey_pattern_journey_pattern';
+            journey_pattern_id: UUID;
+            journey_pattern_route?: {
+              __typename?: 'route_route';
+              route_id: UUID;
+              label: string;
+            } | null;
+          } | null;
+        }>;
+      }>;
+    }>;
+  } | null;
+};
+
+export type UpdateVehicleScheduleFrameValidityMutationVariables = Exact<{
+  vehicle_schedule_frame_id: Scalars['uuid'];
+  validity_start?: InputMaybe<Scalars['date']>;
+  validity_end?: InputMaybe<Scalars['date']>;
+}>;
+
+export type UpdateVehicleScheduleFrameValidityMutation = {
+  __typename?: 'mutation_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_mutation_frontend';
+    timetables_update_vehicle_schedule_vehicle_schedule_frame?: {
+      __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response';
+      returning: Array<{
+        __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+        vehicle_schedule_frame_id: UUID;
+        validity_start: luxon.DateTime;
+        validity_end: luxon.DateTime;
+      }>;
+    } | null;
+  } | null;
+};
+
 export type DayTypeAllFieldsFragment = {
   __typename?: 'timetables_service_calendar_day_type';
   day_type_id: UUID;
@@ -19949,6 +20027,25 @@ export const TimingPlaceForComboboxFragmentDoc = gql`
     timing_place_id
     label
     description
+  }
+`;
+export const VehicleScheduleFrameWithRoutesFragmentDoc = gql`
+  fragment vehicle_schedule_frame_with_routes on timetables_vehicle_schedule_vehicle_schedule_frame {
+    vehicle_schedule_frame_id
+    validity_start
+    validity_end
+    vehicle_services {
+      vehicle_service_id
+      journey_patterns_in_vehicle_service {
+        journey_pattern_instance {
+          journey_pattern_id
+          journey_pattern_route {
+            route_id
+            label
+          }
+        }
+      }
+    }
   }
 `;
 export const PassingTimeByStopFragmentDoc = gql`
@@ -23729,6 +23826,140 @@ export type GetTimetableVersionsByLineLabelQueryResult = Apollo.QueryResult<
   GetTimetableVersionsByLineLabelQuery,
   GetTimetableVersionsByLineLabelQueryVariables
 >;
+export const GetVehicleScheduleFrameWithRoutesDocument = gql`
+  query GetVehicleScheduleFrameWithRoutes($vehicle_schedule_frame_id: uuid!) {
+    timetables {
+      timetables_vehicle_schedule_vehicle_schedule_frame(
+        where: {
+          vehicle_schedule_frame_id: { _eq: $vehicle_schedule_frame_id }
+        }
+      ) {
+        ...vehicle_schedule_frame_with_routes
+      }
+    }
+  }
+  ${VehicleScheduleFrameWithRoutesFragmentDoc}
+`;
+
+/**
+ * __useGetVehicleScheduleFrameWithRoutesQuery__
+ *
+ * To run a query within a React component, call `useGetVehicleScheduleFrameWithRoutesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVehicleScheduleFrameWithRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVehicleScheduleFrameWithRoutesQuery({
+ *   variables: {
+ *      vehicle_schedule_frame_id: // value for 'vehicle_schedule_frame_id'
+ *   },
+ * });
+ */
+export function useGetVehicleScheduleFrameWithRoutesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetVehicleScheduleFrameWithRoutesQuery,
+    GetVehicleScheduleFrameWithRoutesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetVehicleScheduleFrameWithRoutesQuery,
+    GetVehicleScheduleFrameWithRoutesQueryVariables
+  >(GetVehicleScheduleFrameWithRoutesDocument, options);
+}
+export function useGetVehicleScheduleFrameWithRoutesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetVehicleScheduleFrameWithRoutesQuery,
+    GetVehicleScheduleFrameWithRoutesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetVehicleScheduleFrameWithRoutesQuery,
+    GetVehicleScheduleFrameWithRoutesQueryVariables
+  >(GetVehicleScheduleFrameWithRoutesDocument, options);
+}
+export type GetVehicleScheduleFrameWithRoutesQueryHookResult = ReturnType<
+  typeof useGetVehicleScheduleFrameWithRoutesQuery
+>;
+export type GetVehicleScheduleFrameWithRoutesLazyQueryHookResult = ReturnType<
+  typeof useGetVehicleScheduleFrameWithRoutesLazyQuery
+>;
+export type GetVehicleScheduleFrameWithRoutesQueryResult = Apollo.QueryResult<
+  GetVehicleScheduleFrameWithRoutesQuery,
+  GetVehicleScheduleFrameWithRoutesQueryVariables
+>;
+export const UpdateVehicleScheduleFrameValidityDocument = gql`
+  mutation UpdateVehicleScheduleFrameValidity(
+    $vehicle_schedule_frame_id: uuid!
+    $validity_start: date
+    $validity_end: date
+  ) {
+    timetables {
+      timetables_update_vehicle_schedule_vehicle_schedule_frame(
+        _set: { validity_start: $validity_start, validity_end: $validity_end }
+        where: {
+          vehicle_schedule_frame_id: { _eq: $vehicle_schedule_frame_id }
+        }
+      ) {
+        returning {
+          vehicle_schedule_frame_id
+          validity_start
+          validity_end
+        }
+      }
+    }
+  }
+`;
+export type UpdateVehicleScheduleFrameValidityMutationFn =
+  Apollo.MutationFunction<
+    UpdateVehicleScheduleFrameValidityMutation,
+    UpdateVehicleScheduleFrameValidityMutationVariables
+  >;
+
+/**
+ * __useUpdateVehicleScheduleFrameValidityMutation__
+ *
+ * To run a mutation, you first call `useUpdateVehicleScheduleFrameValidityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateVehicleScheduleFrameValidityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateVehicleScheduleFrameValidityMutation, { data, loading, error }] = useUpdateVehicleScheduleFrameValidityMutation({
+ *   variables: {
+ *      vehicle_schedule_frame_id: // value for 'vehicle_schedule_frame_id'
+ *      validity_start: // value for 'validity_start'
+ *      validity_end: // value for 'validity_end'
+ *   },
+ * });
+ */
+export function useUpdateVehicleScheduleFrameValidityMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateVehicleScheduleFrameValidityMutation,
+    UpdateVehicleScheduleFrameValidityMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateVehicleScheduleFrameValidityMutation,
+    UpdateVehicleScheduleFrameValidityMutationVariables
+  >(UpdateVehicleScheduleFrameValidityDocument, options);
+}
+export type UpdateVehicleScheduleFrameValidityMutationHookResult = ReturnType<
+  typeof useUpdateVehicleScheduleFrameValidityMutation
+>;
+export type UpdateVehicleScheduleFrameValidityMutationResult =
+  Apollo.MutationResult<UpdateVehicleScheduleFrameValidityMutation>;
+export type UpdateVehicleScheduleFrameValidityMutationOptions =
+  Apollo.BaseMutationOptions<
+    UpdateVehicleScheduleFrameValidityMutation,
+    UpdateVehicleScheduleFrameValidityMutationVariables
+  >;
 export const GetTimetablesForOperationDayDocument = gql`
   query GetTimetablesForOperationDay(
     $journey_pattern_id: uuid!
@@ -24184,6 +24415,16 @@ export function useGetTimetableVersionsByLineLabelAsyncQuery() {
 export type GetTimetableVersionsByLineLabelAsyncQueryHookResult = ReturnType<
   typeof useGetTimetableVersionsByLineLabelAsyncQuery
 >;
+export function useGetVehicleScheduleFrameWithRoutesAsyncQuery() {
+  return useAsyncQuery<
+    GetVehicleScheduleFrameWithRoutesQuery,
+    GetVehicleScheduleFrameWithRoutesQueryVariables
+  >(GetVehicleScheduleFrameWithRoutesDocument);
+}
+export type GetVehicleScheduleFrameWithRoutesAsyncQueryHookResult = ReturnType<
+  typeof useGetVehicleScheduleFrameWithRoutesAsyncQuery
+>;
+
 export function useGetTimetablesForOperationDayAsyncQuery() {
   return useAsyncQuery<
     GetTimetablesForOperationDayQuery,
