@@ -22,7 +22,9 @@ fi
 echo "y" | ./scripts/development.sh dump:import
 
 # Seed timetables
+./scripts/extract-seed-route-ids.sh 641 dump.sql test-db-manager/src/seed2-ids.ts
 cd ./test-db-manager
+yarn build
 yarn seed2
 
 echo "All done! Happy coding! :)"

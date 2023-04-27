@@ -19,6 +19,7 @@ import {
   populateTimetablesDb,
 } from './db-helpers';
 import { getVehicleTypes } from './queries/timetables';
+import { JOURNEY_PATTERN_IDS } from './seed2-ids';
 import { Priority } from './types';
 
 const seedTimetables = async (resources: TimetablesResources) => {
@@ -34,7 +35,7 @@ const seedDb = async () => {
     vehicleTypesResult.data.timetables.timetables_vehicle_type_vehicle_type;
 
   // route 641, direction 1
-  const jp1 = 'ff040a66-1675-4664-910d-95e7fa1a0b85';
+  const { jp1 } = JOURNEY_PATTERN_IDS;
   const jpRef1 = buildJourneyPatternRefDeep(jp1, {
     journeyPatternRefBase: { type_of_line: 'stopping_bus_service' },
     stopBase: {},
@@ -42,7 +43,7 @@ const seedDb = async () => {
   });
 
   // route 641, direction 2
-  const jp2 = '2f2a51c9-d73a-4d8c-8a75-f0ed2b5a9dcb';
+  const { jp2 } = JOURNEY_PATTERN_IDS;
   const jpRef2 = buildJourneyPatternRefDeep(jp2, {
     journeyPatternRefBase: { type_of_line: 'stopping_bus_service' },
     stopBase: {},
