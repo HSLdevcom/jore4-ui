@@ -57,4 +57,5 @@ jobs:
         uses: HSLdevcom/jore4-tools/github-actions/run-cypress-tests@run-cypress-tests-v1
         with:
           test-tags: ''
+          video: 'false'
           threads: '3'
