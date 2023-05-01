@@ -1,4 +1,4 @@
-FROM node:18.15.0-alpine3.17 AS build
+FROM node:18.16.0-alpine3.17 AS build
 WORKDIR /app
 COPY package.json yarn.lock ./
 COPY ./ui/package.json ./ui/
