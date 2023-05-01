@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@cypress/grep": "^3.1.5",
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.16.3",
     "@types/qs": "^6.9.7",
     "cypress-multi-reporters": "^1.6.3",
     "cypress-parallel": "^0.12.0",
