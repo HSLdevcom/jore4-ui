@@ -13,7 +13,7 @@ interface Props extends ListboxInputProps {
 
 const mapToOptionContent = (item: TimingPlaceForComboboxFragment) => (
   <div>
-    <span>{`${item.label} (${item.description.fi_FI})`}</span>
+    <span>{`${item.label} (${item.description?.fi_FI})`}</span>
   </div>
 );
 
@@ -47,7 +47,7 @@ export const ChooseTimingPlaceDropdown = ({
     return (
       <div className="w-full">
         {displayedTimingPlace
-          ? `${displayedTimingPlace?.label} (${displayedTimingPlace?.description.fi_FI})`
+          ? `${displayedTimingPlace?.label} (${displayedTimingPlace?.description?.fi_FI})`
           : t('stops.chooseTimingPlace')}
       </div>
     );
