@@ -314,6 +314,12 @@ export const ChangeValidityForm = (...):  {
 }
 ```
 
+### TailwindCSS
+
+It is possible to override tailwindcss styles by adding overriding classname after the one that has to be overridden, but this is not default functionality. This could be needed when we want to customize a component which already has themes. For example `SimpleButton` already has paddings, but `SimpleSmallButton` needs smaller paddings. We don't want to use ! / important styles though, as they override everything and and are practically impossible to override.
+
+It should be noted, that the order of classnames given to component does not automatically mean anything. The classes and styles are applied in the order that they are in the css file, which could be quite random and should not be relied on. For that reason we are using [tailwind-merge](https://www.npmjs.com/package/tailwind-merge) package, which takes the order in account and removes the classnames which are overridden. Therefore whenever classnames are used so that the order should be taken into account, `twMerge` function should be used to combine the classnames.
+
 ## Yarn workspaces / monorepo structure
 
 This repository has currently yarn workspaces in following folders:
