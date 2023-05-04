@@ -26,22 +26,22 @@ function check_pinned_hasura {
   RED='\033[1;31m'
   NO_COLOR='\033[0m'
 
-  # Find latest image with "seed-main-" tag prefix from docker hub
-  dockerHubImageList=$(curl --silent --get -H \"Accept: application/json\" https://hub.docker.com/v2/repositories/hsldevcom/jore4-hasura/tags/\?page_size=100\&page=1\&ordering=last_updated)
-  dockerHubTag="$(echo ${dockerHubImageList} | ${DOCKER_JQ} --raw-output 'first(.results[] | select(.name | startswith("seed-main-"))).name')"
-  dockerHubImage="hsldevcom/jore4-hasura:${dockerHubTag}"
-  echo "Docker hub image: ${dockerHubImage}"
+  # Find latest image with "hsl-main-" tag prefix from docker hub
+  dockerHubHasuraImageList=$(curl --silent --get -H \"Accept: application/json\" https://hub.docker.com/v2/repositories/hsldevcom/jore4-hasura/tags/\?page_size=100\&page=1\&ordering=last_updated)
+  dockerHubTag="$(echo ${dockerHubHasuraImageList} | ${DOCKER_JQ} --raw-output 'first(.results[] | select(.name | startswith("hsl-main-"))).name')"
+  dockerHubHasuraImage="hsldevcom/jore4-hasura:${dockerHubTag}"
+  echo "Docker hub image: ${dockerHubHasuraImage}"
 
   # Find current tag from values
-  localImage="$(cat ./docker/docker-compose.custom.yml | ${DOCKER_YQ} e '.services.jore4-hasura.image')"
-  echo "Local image: ${localImage}"
+  localHasuraImage="$(cat ./docker/docker-compose.custom.yml | ${DOCKER_YQ} e '.services.jore4-hasura.image')"
+  echo "Local image: ${localHasuraImage}"
 
   # Warn the user if the local pinned version differs from the current one
-  if [[ "$dockerHubImage" == "$localImage" ]]; then
+  if [[ "$dockerHubHasuraImage" == "$localHasuraImage" ]]; then
     echo -e "${GREEN}The pinned hasura image is current, no need to update${NO_COLOR}"
   else
     echo -e "${RED}The pinned hasura image version is different compared to the docker hub version"
-    echo -e "You should update the hasura image in 'docker-compose.custom.yml' to: ${dockerHubImage}${NO_COLOR}"
+    echo -e "You should update the hasura image in 'docker-compose.custom.yml' to: ${dockerHubHasuraImage}${NO_COLOR}"
   fi
 }
 
