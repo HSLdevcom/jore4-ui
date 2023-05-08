@@ -290,7 +290,7 @@
     "timetables": "Aikataulut",
     "timetableValidity": "Voimassa {{ validityStart }} - {{ validityEnd }}",
     "departures": "Lähdöt",
-    "noService": "Ei vuoroja",
+    "noSchedules": "Ei vuoroja",
     "at": "klo {{ time }}",
     "showVersions": "Näytä versiot",
     "versionsTitle": "Aikatauluversiot",
