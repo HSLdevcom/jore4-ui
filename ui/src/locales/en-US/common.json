@@ -290,7 +290,7 @@
     "timetables": "Timetables",
     "timetableValidity": "Valid {{ validityStart }} - {{ validityEnd }}",
     "departures": "Departures",
-    "noService": "No service",
+    "noSchedules": "No schedules",
     "at": "at {{ time }}",
     "showVersions": "Show versions",
     "versionsTitle": "Timetable versions",
