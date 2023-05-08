@@ -125,7 +125,7 @@ export const VehicleServiceTable = ({
         </div>
       </Visible>
       <Visible visible={!hasVehicleJourneys}>
-        <p>{t('timetables.noService')}</p>
+        <p>{t('timetables.noSchedules')}</p>
       </Visible>
     </div>
   );

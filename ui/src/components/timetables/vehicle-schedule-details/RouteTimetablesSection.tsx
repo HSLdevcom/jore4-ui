@@ -107,7 +107,7 @@ export const RouteTimetablesSection = ({
             )}
         </div>
         <Visible visible={!timetables?.vehicleJourneyGroups.length}>
-          <p>{t('timetables.noService')}</p>
+          <p>{t('timetables.noSchedules')}</p>
         </Visible>
       </Visible>
     </div>
