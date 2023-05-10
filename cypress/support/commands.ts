@@ -82,7 +82,7 @@ Cypress.Commands.add('setupTests', () => {
       req.alias = `gql${req.body.operationName}`;
       // default instance = thread4, e2e1 = thread1, etc
       const currentExecutorIndex =
-        Cypress.env('THREAD') || CurrentExecutorIndex.default;
+        Cypress.env('CYPRESS_THREAD') || CurrentExecutorIndex.default;
       Cypress.log({
         message: `UI Hasura executor index, ${currentExecutorIndex}`,
       });
