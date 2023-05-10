@@ -31,5 +31,6 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       on('task', tasks);
     },
+    env: process.env,
   },
 });
