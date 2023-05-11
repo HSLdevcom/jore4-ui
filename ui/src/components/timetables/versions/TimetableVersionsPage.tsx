@@ -1,33 +1,44 @@
 import orderBy from 'lodash/orderBy';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import {
+  QueryParameterName,
   TimetableVersionRowData,
   useGetJourneyPatternIdsByLineLabel,
   useGetTimetableVersions,
   useTimetableVersionsReturnToQueryParam,
 } from '../../../hooks';
-import { Container } from '../../../layoutComponents';
+import { useDateQueryParam } from '../../../hooks/urlQuery/useDateQueryParam';
+import { Container, Row } from '../../../layoutComponents';
 import { TimetablePriority } from '../../../types/enums';
 import { CloseIconButton } from '../../../uiComponents';
+import { DateControl } from '../../common/DateControl';
 import { FormColumn, FormRow } from '../../forms/common';
 import { TimetableVersionTable } from './TimetableVersionTable';
 
 const testIds = {
   closeButton: 'TimetableVersionsPage::closeButton',
+  startDate: 'TimetableVersionsPage::startDate',
+  endDate: 'TimetableVersionsPage::endDate',
 };
 
 export const TimetableVersionsPage = (): JSX.Element => {
   const { t } = useTranslation();
   const { label } = useParams<{ label: string }>();
+  const { date: startDate } = useDateQueryParam({
+    queryParamName: QueryParameterName.StartDate,
+  });
+  const { date: endDate } = useDateQueryParam({
+    queryParamName: QueryParameterName.EndDate,
+  });
 
   // We first need to get the journey pattern ids for all line routes by line label
   const { journeyPatternIdsGroupedByRouteLabel, loading } =
     useGetJourneyPatternIdsByLineLabel({
-      // TODO: Add timerange filter here also
       label,
+      startDate,
+      endDate,
     });
   // Then we can fetch the timetable versions using SQL functions
   const { versions } = useGetTimetableVersions({
@@ -38,9 +49,8 @@ export const TimetableVersionsPage = (): JSX.Element => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [loading],
     ),
-    // TODO: Add timerange components and remove hardcoded values
-    startDate: useMemo(() => DateTime.fromISO('2020-01-01'), []),
-    endDate: useMemo(() => DateTime.fromISO('2023-12-31'), []),
+    startDate,
+    endDate,
   });
 
   const timetablesExcludingDrafts =
@@ -84,6 +94,23 @@ export const TimetableVersionsPage = (): JSX.Element => {
         </FormColumn>
       </FormRow>
       <Container>
+        <h3>{t('timetables.timeline')}</h3>
+        <Row className="mb-8 space-x-8">
+          <DateControl
+            label={t('validityPeriod.validityStart')}
+            dateInputId="startDate"
+            className="max-w-max"
+            testId={testIds.startDate}
+            queryParamName={QueryParameterName.StartDate}
+          />
+          <DateControl
+            label={t('validityPeriod.validityEnd')}
+            dateInputId="endDate"
+            className="max-w-max"
+            testId={testIds.endDate}
+            queryParamName={QueryParameterName.EndDate}
+          />
+        </Row>
         <h3>{t('timetables.operatingCalendar')}</h3>
         <TimetableVersionTable
           className="mb-8 w-full"

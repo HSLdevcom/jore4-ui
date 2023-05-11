@@ -304,7 +304,8 @@
     "interpolated": "Interpoloitu",
     "showArrivalTimes": "Näytä saapumisajat",
     "operatedLike": "Ajetaan kuten {{ dayOfWeek }}",
-    "noService": "Ei liikennöintiä"
+    "noService": "Ei liikennöintiä",
+    "timeline": "Aikajana"
   },
   "timetablesPreview": {
     "preview": "Esikatselu",

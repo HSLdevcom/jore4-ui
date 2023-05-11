@@ -304,7 +304,8 @@
     "interpolated": "Interpolated",
     "showArrivalTimes": "Show arrival times",
     "operatedLike": "Operated like {{ dayOfWeek }}",
-    "noService": "No service"
+    "noService": "No service",
+    "timeline": "Timeline"
   },
   "timetablesPreview": {
     "preview": "Preview",
