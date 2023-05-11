@@ -18,6 +18,8 @@ import { TimetableVersionTable } from './TimetableVersionTable';
 
 const testIds = {
   closeButton: 'TimetableVersionsPage::closeButton',
+  startDate: 'TimetableVersionsPage::startDate',
+  endDate: 'TimetableVersionsPage::endDate',
 };
 
 export const TimetableVersionsPage = (): JSX.Element => {
