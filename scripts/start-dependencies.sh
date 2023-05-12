@@ -63,7 +63,8 @@ function start_docker_bundle {
 download_docker_bundle
 check_pinned_hasura
 start_docker_bundle "${1:-x}"
-./scripts/seed-infrastructure-links.sh testdb
-./scripts/seed-infrastructure-links.sh testdb-e2e1
-./scripts/seed-infrastructure-links.sh testdb-e2e2
-./scripts/seed-infrastructure-links.sh testdb-e2e3
+./scripts/seed-infrastructure-links.sh testdb &
+./scripts/seed-infrastructure-links.sh testdb-e2e1 &
+./scripts/seed-infrastructure-links.sh testdb-e2e2 &
+./scripts/seed-infrastructure-links.sh testdb-e2e3 &
+wait
