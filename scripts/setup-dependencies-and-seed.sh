@@ -10,7 +10,7 @@ then
 fi
 
 # Start dependencies
-sh ./scripts/start-dependencies.sh
+./scripts/start-dependencies.sh
 
 # Download routes and lines dump if it does not exist
 if [ ! -e jore4dump.pgdump ]
