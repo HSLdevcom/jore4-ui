@@ -37,7 +37,7 @@ function import_dump {
   # Add a row to sql dump disabling triggers
   echo -e "SET session_replication_role = replica;\n$(cat dump.sql)" > dump.sql
 
-  sh ./scripts/seed-from-dump.sh
+  ./scripts/seed-from-dump.sh
 }
 
 function usage {
