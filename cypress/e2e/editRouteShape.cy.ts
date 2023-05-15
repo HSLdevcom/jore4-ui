@@ -42,7 +42,7 @@ const testCreatedRouteLabels = {
   templateRoute: 'T-reitti 2',
 };
 
-// These infralink IDs exist in the 'infraLinks.sql' test data file.
+// These external infralink IDs exist in the seed data.
 // These form a straight line on Eerikinkatu in Helsinki.
 // Coordinates are partial since they are needed only for the stop creation.
 
@@ -123,8 +123,8 @@ const buildInfraLinksAlongRoute = (
 ): InfraLinkAlongRouteInsertInput[] => [
   {
     route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[0],
-    infrastructure_link_sequence: 0,
+    infrastructure_link_id: infrastructureLinkIds[2],
+    infrastructure_link_sequence: 2,
     is_traversal_forwards: true,
   },
   {
@@ -135,8 +135,8 @@ const buildInfraLinksAlongRoute = (
   },
   {
     route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[2],
-    infrastructure_link_sequence: 2,
+    infrastructure_link_id: infrastructureLinkIds[0],
+    infrastructure_link_sequence: 0,
     is_traversal_forwards: true,
   },
 ];

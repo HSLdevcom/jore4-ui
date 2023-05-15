@@ -132,8 +132,8 @@ const buildInfraLinksAlongRoute = (
 ): InfraLinkAlongRouteInsertInput[] => [
   {
     route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[0],
-    infrastructure_link_sequence: 0,
+    infrastructure_link_id: infrastructureLinkIds[2],
+    infrastructure_link_sequence: 2,
     is_traversal_forwards: true,
   },
   {
@@ -144,8 +144,8 @@ const buildInfraLinksAlongRoute = (
   },
   {
     route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[2],
-    infrastructure_link_sequence: 2,
+    infrastructure_link_id: infrastructureLinkIds[0],
+    infrastructure_link_sequence: 0,
     is_traversal_forwards: true,
   },
 ];
