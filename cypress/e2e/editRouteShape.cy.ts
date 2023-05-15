@@ -125,19 +125,19 @@ const buildInfraLinksAlongRoute = (
     route_id: routes[0].route_id,
     infrastructure_link_id: infrastructureLinkIds[0],
     infrastructure_link_sequence: 0,
-    is_traversal_forwards: true,
+    is_traversal_forwards: false,
   },
   {
     route_id: routes[0].route_id,
     infrastructure_link_id: infrastructureLinkIds[1],
     infrastructure_link_sequence: 1,
-    is_traversal_forwards: true,
+    is_traversal_forwards: false,
   },
   {
     route_id: routes[0].route_id,
     infrastructure_link_id: infrastructureLinkIds[2],
     infrastructure_link_sequence: 2,
-    is_traversal_forwards: true,
+    is_traversal_forwards: false,
   },
 ];
 
@@ -296,7 +296,6 @@ describe('Edit route geometry', () => {
       routeStopsOverlay.routeShouldBeSelected(
         testCreatedRouteLabels.templateRoute,
       );
-
       // Verify that the edited route shape excludes the second stop
       // and that the stop count is correct
       routeStopsOverlay.assertRouteStopCount(2);
