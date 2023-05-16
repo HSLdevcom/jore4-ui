@@ -4,7 +4,7 @@ import { QueryHookOptions } from '@apollo/client/react/types/types';
 import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { DocumentNode } from 'graphql';
 
-const REQUESTED_HASURA_ROLE_HEADER = 'x-hasura-role';
+export const REQUESTED_HASURA_ROLE_HEADER = 'x-hasura-role';
 
 export type Role = string;
 
