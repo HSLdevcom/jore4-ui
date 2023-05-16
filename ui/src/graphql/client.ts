@@ -82,6 +82,12 @@ const buildWebSocketLink = () => {
     uri: getGraphqlUrl(false, true),
     options: {
       reconnect: true,
+      // TODO: deal with authentication properly. Some possibly useful info here: https://github.com/apollographql/apollo-client/issues/3967
+      connectionParams: {
+        headers: {
+          'x-hasura-role': 'admin',
+        },
+      },
     },
   });
 };
