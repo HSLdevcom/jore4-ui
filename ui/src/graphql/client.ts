@@ -14,7 +14,7 @@ import { DateTime, Duration } from 'luxon';
 import introspectionResult from '../../graphql.schema.json';
 import { isDateLike, parseDate } from '../time';
 import { mapHttpToWs } from '../utils/url';
-import { authRoleMiddleware } from './auth';
+import { authRoleMiddleware, REQUESTED_HASURA_ROLE_HEADER } from './auth';
 
 const buildScalarMappingLink = () => {
   const typesMap = {
@@ -82,6 +82,12 @@ const buildWebSocketLink = () => {
     uri: getGraphqlUrl(false, true),
     options: {
       reconnect: true,
+      // TODO: deal with authentication properly. Some possibly useful info here: https://github.com/apollographql/apollo-client/issues/3967
+      connectionParams: {
+        headers: {
+          [REQUESTED_HASURA_ROLE_HEADER]: 'admin',
+        },
+      },
     },
   });
 };
