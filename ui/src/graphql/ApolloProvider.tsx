@@ -2,7 +2,13 @@ import { ApolloProvider as Provider } from '@apollo/client';
 import { FC } from 'react';
 import { createGraphqlClient } from './client';
 
+let graphqlClient: ReturnType<typeof createGraphqlClient> | null = null;
+
 export const ApolloProvider: FC = ({ children }) => {
-  const graphqlClient = createGraphqlClient();
+  // Initialize client only once, so we get only one cache instance.
+  if (!graphqlClient) {
+    graphqlClient = createGraphqlClient();
+  }
+
   return <Provider client={graphqlClient}>{children}</Provider>;
 };
