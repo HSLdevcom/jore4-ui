@@ -200,6 +200,10 @@ const buildCacheDefinition = () => {
       timetables_vehicle_journey_vehicle_journey: {
         keyFields: ['vehicle_journey_id'],
       },
+      timetables_timetables_query: {
+        // No identifying fields here, result is cached based on query parameters.
+        keyFields: [],
+      },
       timetables_passing_times_timetabled_passing_time: {
         keyFields: ['timetabled_passing_time_id'],
       },
