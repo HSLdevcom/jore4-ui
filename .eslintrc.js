@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   env: {
     browser: true,
@@ -7,6 +9,7 @@ module.exports = {
     'eslint:recommended',
     'airbnb',
     'plugin:react/recommended',
+    'plugin:i18n-json/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
@@ -150,6 +153,14 @@ module.exports = {
     'react/react-in-jsx-scope': 'off', // not needed with next.js: https://stackoverflow.com/a/61160875
     'react-hooks/rules-of-hooks': 'error', // enforce best practices with react hoooks
     'react-hooks/exhaustive-deps': 'error', // enforce best practices with react hoooks: https://github.com/facebook/create-react-app/issues/6880#issuecomment-485912528
+    'i18n-json/sorted-keys': 'off',
+    'i18n-json/valid-message-syntax': 'off', // Seems to be a bit broken currently.
+     'i18n-json/identical-keys': [
+      'error',
+      {
+        filePath: path.resolve('./ui/src/locales/fi-FI/common.json'),
+      }
+    ],
     '@typescript-eslint/no-unused-vars': [
       'error',
       { varsIgnorePattern: '^GQL' },
