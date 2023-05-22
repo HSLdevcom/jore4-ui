@@ -41,6 +41,10 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
     selectChangeTimetableValidityModal,
   );
 
+  const onShowArrivalTimesChanged = (enabled: boolean) => {
+    dispatch(setShowArrivalTimesAction(enabled));
+  };
+
   const onCloseTimetableValidityModal = () => {
     dispatch(closeChangeTimetableValidityModalAction());
   };
@@ -90,9 +94,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
                 <SwitchLabel>{t('timetables.showArrivalTimes')}</SwitchLabel>
                 <Switch
                   checked={showArrivalTimes}
-                  onChange={(enabled) =>
-                    dispatch(setShowArrivalTimesAction(enabled))
-                  }
+                  onChange={onShowArrivalTimesChanged}
                   testId={testIds.showArrivalTimesSwitch}
                 />
               </HuiSwitch.Group>
