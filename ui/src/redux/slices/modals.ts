@@ -16,6 +16,11 @@ interface ViaModalState {
 interface ChangeTimetableValidityModalState {
   isOpen: boolean;
   vehicleScheduleFrameId?: UUID;
+  lastModifiedVehicleScheduleFrameId?: {
+    vehicleScheduleFrameId: UUID;
+    validityStart: string;
+    validityEnd: string;
+  };
 }
 
 interface TimingSettingsModalState {
@@ -47,6 +52,7 @@ const initialState: IState = {
   changeTimetableValidityModal: {
     isOpen: false,
     vehicleScheduleFrameId: undefined,
+    lastModifiedVehicleScheduleFrameId: undefined,
   },
 };
 
@@ -97,8 +103,24 @@ const slice = createSlice({
       };
     },
     closeChangeTimetableValidityModal: (state) => {
-      state.changeTimetableValidityModal =
-        initialState.changeTimetableValidityModal;
+      state.changeTimetableValidityModal = {
+        ...initialState.changeTimetableValidityModal,
+        lastModifiedVehicleScheduleFrameId:
+          state.changeTimetableValidityModal.lastModifiedVehicleScheduleFrameId,
+      };
+    },
+    setChangeTimetableValidityModalSuccessResult: (
+      state,
+      action: PayloadAction<{
+        vehicleScheduleFrameId: UUID;
+        validityStart: string;
+        validityEnd: string;
+      }>,
+    ) => {
+      state.changeTimetableValidityModal = {
+        ...state.changeTimetableValidityModal,
+        lastModifiedVehicleScheduleFrameId: action.payload,
+      };
     },
   },
 });
@@ -111,6 +133,8 @@ export const {
   openTimingSettingsModal: openTimingSettingsModalAction,
   closeTimingSettingsModal: closeTimingSettingsModalAction,
   openChangeTimetableValidityModal: openChangeTimetableValidityModalAction,
+  setChangeTimetableValidityModalSuccessResult:
+    setChangeTimetableValidityModalSuccessResultAction,
   closeChangeTimetableValidityModal: closeChangeTimetableValidityModalAction,
 } = slice.actions;
 
