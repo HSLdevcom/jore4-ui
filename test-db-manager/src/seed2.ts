@@ -49,6 +49,14 @@ const seedDb = async () => {
     stopLabels: reverse(stopLabels),
   });
 
+  // route 641, direction 1, for next year
+  const jp3 = 'f39b556c-e1bf-4a4f-a757-6845c72768df';
+  const jpRef3 = buildJourneyPatternRefDeep(jp3, {
+    journeyPatternRefBase: { type_of_line: 'stopping_bus_service' },
+    stopBase: {},
+    stopLabels,
+  });
+
   const blockBase = {
     vehicle_type_id: vehicleTypes[0].vehicle_type_id,
   };
@@ -108,11 +116,31 @@ const seedDb = async () => {
     },
   });
 
+  const vsf3 = buildVehicleScheduleFrameDeep({
+    vehicleScheduleFrameBase: {
+      label: '641 next year',
+      priority: Priority.Standard,
+      validity_start: DateTime.now().plus({ year: 1 }).startOf('year'),
+      validity_end: DateTime.now().plus({ year: 1 }).endOf('year'),
+    },
+    vehicleServiceByDayType: {
+      [MON_FRI_DAY_TYPE]: {
+        ...defaultVehicleServiceByDayTypeParams,
+        journeyPatternRefList: [jpRef3],
+        startTime: Duration.fromISO('PT5H15M'),
+        hastusStopLabels,
+        blockBase,
+      },
+    },
+  });
+
   const timetablesResources = mergeTimetablesResources([
     flattenJourneyPatternRef(jpRef1),
     flattenJourneyPatternRef(jpRef2),
+    flattenJourneyPatternRef(jpRef3),
     flattenVehicleScheduleFrame(vsf1),
     flattenVehicleScheduleFrame(vsf2),
+    flattenVehicleScheduleFrame(vsf3),
   ]);
 
   await seedTimetables(timetablesResources);
