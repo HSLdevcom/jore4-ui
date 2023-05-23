@@ -1,4 +1,10 @@
-FROM cypress/browsers:node18.12.0-chrome107
+# Cypress factory image usage info: https://hub.docker.com/r/cypress/factory/
+ARG NODE_VERSION='18.16.0'
+ARG YARN_VERSION='1.22.19'
+# Latest Chrome version can be seen from https://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-stable
+ARG CHROME_VERSION='113.0.5672.126-1'
+
+FROM cypress/factory:2.3.0
 WORKDIR /e2e
 
 # for dependent modules, copy and build them
