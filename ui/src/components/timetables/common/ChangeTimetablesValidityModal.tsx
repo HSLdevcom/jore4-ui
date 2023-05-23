@@ -1,11 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  useAppDispatch,
   useAppSelector,
-  useVehicleScheduleFrameValidity
+  useVehicleScheduleFrameValidity,
 } from '../../../hooks';
 import {
-  selectChangeTimetableValidityModal
+  selectChangeTimetableValidityModal,
+  setChangeTimetableValidityModalSuccessResultAction,
 } from '../../../redux';
 import { mapToISODate } from '../../../time';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
@@ -30,6 +32,7 @@ export const ChangeTimetablesValidityModal: React.FC<Props> = ({
   className = '',
 }) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const changeTimetableValidityModalState = useAppSelector(
     selectChangeTimetableValidityModal,
   );
@@ -40,9 +43,20 @@ export const ChangeTimetablesValidityModal: React.FC<Props> = ({
 
   const onSave = async (state: FormState) => {
     try {
+      const { vehicleScheduleFrameId } = changeTimetableValidityModalState;
       await updateValidity(state.validityStart, state.validityEnd);
 
       showSuccessToast(t('changeTimetablesValidityModal.saveSuccess'));
+
+      if (vehicleScheduleFrameId) {
+        dispatch(
+          setChangeTimetableValidityModalSuccessResultAction({
+            vehicleScheduleFrameId,
+            validityStart: state.validityStart,
+            validityEnd: state.validityEnd,
+          }),
+        );
+      }
 
       onClose();
     } catch (err) {
