@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { Row } from '../../../layoutComponents';
+import { Row, Visible } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
 import {
@@ -81,16 +81,18 @@ export const ChangeTimetablesValidityForm = ({
             />
           </FormRow>
         </FormColumn>
-        <div className="my-6 flex flex-row items-center space-x-6">
-          <i className="icon-alert text-hsl-red" />
-          <div className="space-y-1 text-sm">
-            <p className="font-bold">
-              {t('changeTimetablesValidityModal.noticeChangesInRoutes')}
-            </p>
-            <p>{affectedRouteLabels.join(', ')}</p>
+        <Visible visible={affectedRouteLabels.length > 1}>
+          <div className="my-6 flex flex-row items-center space-x-6">
+            <i className="icon-alert text-hsl-red" />
+            <div className="space-y-1 text-sm">
+              <p className="font-bold">
+                {t('changeTimetablesValidityModal.noticeChangesInRoutes')}
+              </p>
+              <p>{affectedRouteLabels.join(', ')}</p>
+            </div>
           </div>
-        </div>
-        <Row className="justify-end space-x-4">
+        </Visible>
+        <Row className="mt-6 justify-end space-x-4">
           <SimpleButton onClick={onCancel} inverted>
             {t('cancel')}
           </SimpleButton>
