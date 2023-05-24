@@ -23,9 +23,10 @@ export const SearchContainer = (): JSX.Element => {
 
   const [isExpanded, toggleIsExpanded] = useToggle();
   const testIds = {
-    searchInput: 'SearchContainer::SearchInput',
-    toggleExpand: 'SearchContainer::ChevronToggle',
-    observationDateInput: 'SearchContainer::ObservationDateInput',
+    searchInput: 'SearchContainer::searchInput',
+    toggleExpand: 'SearchContainer::chevronToggle',
+    observationDateInput: 'SearchContainer::observationDateInput',
+    searchButton: 'SearchContainer::searchButton',
   };
 
   const onChangeLabel = (value: string) => {
@@ -129,7 +130,11 @@ export const SearchContainer = (): JSX.Element => {
           >
             {t('hide')}
           </SimpleButton>
-          <SimpleButton containerClassName="mr-6" onClick={onSearch}>
+          <SimpleButton
+            containerClassName="mr-6"
+            onClick={handleSearch}
+            testId={testIds.searchButton}
+          >
             {t('search.search')}
           </SimpleButton>
         </Row>
