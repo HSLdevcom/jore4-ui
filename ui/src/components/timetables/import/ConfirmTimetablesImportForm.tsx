@@ -2,18 +2,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
 import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
+import { PriorityForm, priorityFormSchema } from '../../forms/common';
 import {
-  PriorityForm,
-  PriorityFormState,
-  priorityFormSchema,
-} from '../../forms/common';
+  TimetableImportStrategyForm,
+  timetableImportStrategyFormSchema,
+} from './TimetableImportStrategyForm';
 
-const schema = priorityFormSchema;
-
-export type FormState = PriorityFormState;
+const schema = priorityFormSchema.merge(timetableImportStrategyFormSchema);
+export type FormState = z.infer<typeof schema>;
 
 interface Props {
   defaultValues?: Partial<FormState>;
@@ -24,6 +24,7 @@ interface Props {
 
 const testIds = {
   saveButton: 'ConfirmTimetablesImportForm::saveButton',
+  strategyRadioButtonPrefix: 'ConfirmTimetablesImportForm',
 };
 
 export const ConfirmTimetablesImportForm = ({
@@ -55,10 +56,16 @@ export const ConfirmTimetablesImportForm = ({
         onSubmit={handleSubmit(onSubmit)}
         ref={formRef}
       >
-        <h3 className="mb-6">{t('confirmTimetablesImportModal.priority')}</h3>
-        <PriorityForm />
-        <div className="pt-10">
-          <Row className="justify-end space-x-4">
+        <div className="space-y-7">
+          <h3>{t('confirmTimetablesImportModal.importStrategy.title')}</h3>
+          <TimetableImportStrategyForm
+            testIdPrefix={testIds.strategyRadioButtonPrefix}
+          />
+
+          <h3>{t('confirmTimetablesImportModal.priority')}</h3>
+          <PriorityForm />
+
+          <Row className="justify-end space-x-4 pt-10">
             <SimpleButton onClick={onCancel} inverted>
               {t('cancel')}
             </SimpleButton>

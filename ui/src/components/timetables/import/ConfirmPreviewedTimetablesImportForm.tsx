@@ -1,15 +1,20 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { Column, Row } from '../../../layoutComponents';
 import {
   PriorityForm,
   PriorityFormState,
   priorityFormSchema,
 } from '../../forms/common';
+import {
+  TimetableImportStrategyForm,
+  TimetableImportStrategyFormState,
+} from './TimetableImportStrategyForm';
 
 const schema = priorityFormSchema;
 
-export type FormState = PriorityFormState;
+export type FormState = PriorityFormState & TimetableImportStrategyFormState;
 
 interface Props {
   defaultValues?: Partial<FormState>;
@@ -35,7 +40,12 @@ export const ConfirmPreviewedTimetablesImportFormComponent = (
         onSubmit={handleSubmit(onSubmit)}
         ref={externalRef}
       >
-        <PriorityForm showLabel={false} />
+        <Row className="space-x-6">
+          <PriorityForm showLabel={false} />
+          <Column className="self-center">
+            <TimetableImportStrategyForm testIdPrefix="ConfirmPreviewedTimetablesImportForm" />
+          </Column>
+        </Row>
       </form>
     </FormProvider>
   );

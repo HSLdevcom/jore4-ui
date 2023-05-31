@@ -23,6 +23,11 @@ const testIds = {
   cancelButton: 'PreviewTimetablesPage::cancelButton',
 };
 
+const defaultValues: Partial<FormState> = {
+  // No default for priority, this is on purpose: design decision.
+  timetableImportStrategy: 'replace',
+};
+
 export const PreviewTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
   const history = useHistory();
@@ -41,7 +46,10 @@ export const PreviewTimetablesPage = (): JSX.Element => {
   };
 
   const onSubmit = async (state: FormState) => {
-    await onConfirmTimetablesImport(state.priority);
+    await onConfirmTimetablesImport(
+      state.priority,
+      state.timetableImportStrategy,
+    );
 
     history.push({
       pathname: routeDetails[Path.timetablesImport].getLink(),
@@ -83,6 +91,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
           <ConfirmPreviewedTimetablesImportForm
             ref={formRef}
             onSubmit={onSubmit}
+            defaultValues={defaultValues}
           />
         </Row>
         <Visible visible={showStagingTimetables}>

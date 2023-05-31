@@ -112,7 +112,19 @@ export const useTimetablesImport = () => {
   const importedVehicleScheduleFramesResult =
     useGetStagingVehicleScheduleFramesQuery();
 
-  const confirmTimetablesImport = async (priority: TimetablePriority) => {
+  const confirmTimetablesImportByCombining = async (
+    priority: TimetablePriority,
+  ) => {
+    // TODO
+    console.log('Timetables import confirmed: combining.');
+    await changeTimetablesPriority(mapToVariables({ newPriority: priority }));
+  };
+
+  const confirmTimetablesImportByReplacing = async (
+    priority: TimetablePriority,
+  ) => {
+    // TODO
+    console.log('Timetables import confirmed: replacing.');
     await changeTimetablesPriority(mapToVariables({ newPriority: priority }));
   };
 
@@ -165,7 +177,8 @@ export const useTimetablesImport = () => {
   };
 
   return {
-    confirmTimetablesImport,
+    confirmTimetablesImportByCombining,
+    confirmTimetablesImportByReplacing,
     vehicleJourneys,
     vehicleScheduleFrames,
     sendToHastusImporter,
