@@ -161,7 +161,7 @@ describe('Line details page: stops on route', () => {
 
   it(
     'Verify that stops of route are shown on its list view',
-    { tags: [Tag.Stops, Tag.Routes] },
+    { tags: [Tag.Stops, Tag.Routes, Tag.Group3] },
     () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
 
@@ -214,7 +214,7 @@ describe('Line details page: stops on route', () => {
 
   it(
     'Should add Via info to a stop and then remove it',
-    { tags: Tag.Stops },
+    { tags: [Tag.Stops, Tag.Group3] },
     () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
       // Open via point creation modal
@@ -250,19 +250,23 @@ describe('Line details page: stops on route', () => {
     },
   );
 
-  it('Checking "Use Hastus place" should not be possible when the stop has no timing place', () => {
-    routeStopsTable.toggleRouteSection(routes[0].label);
-    // This stop does not have a timing place
-    // so it should not be possible to enable 'Use Hastus place'
-    routeStopsTable.openTimingSettingsForm(stopLabels[0]);
-    routeStopsTable.timingSettingsForm
-      .getIsUsedAsTimingPointCheckbox()
-      .should('be.disabled');
-  });
+  it(
+    'Checking "Use Hastus place" should not be possible when the stop has no timing place',
+    { tags: [Tag.Stops, Tag.Group3] },
+    () => {
+      routeStopsTable.toggleRouteSection(routes[0].label);
+      // This stop does not have a timing place
+      // so it should not be possible to enable 'Use Hastus place'
+      routeStopsTable.openTimingSettingsForm(stopLabels[0]);
+      routeStopsTable.timingSettingsForm
+        .getIsUsedAsTimingPointCheckbox()
+        .should('be.disabled');
+    },
+  );
 
   it(
     'Should set stop as timing place, regulated timing place and allow loading time',
-    { tags: Tag.Stops },
+    { tags: [Tag.Stops, Tag.Group3] },
     () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
       // Open timing settings modal

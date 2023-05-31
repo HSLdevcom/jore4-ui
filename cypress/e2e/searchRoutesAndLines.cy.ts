@@ -76,26 +76,30 @@ describe(
       routesAndLinesPage.getRoutesAndLinesSearchInput().clear();
     });
 
-    it('Searches line with exact ID', { tags: [Tag.Lines, Tag.Smoke] }, () => {
-      routesAndLinesPage
-        .getRoutesAndLinesSearchInput()
-        .type(`${lines[0].label}{enter}`);
-      cy.wait('@gqlSearchLinesAndRoutes');
-      searchResultsPage
-        .getSearchResultsContainer()
-        .should('contain', 'hakutulosta');
-      searchResultsPage
-        .getLinesSearchResultTable()
-        .should('contain', `line ${lines[0].label}`);
-      searchResultsPage
-        .getLinesSearchResultTable()
-        .should('not.contain', `line ${lines[1].label}`);
-      searchResultsPage
-        .getLinesSearchResultTable()
-        .should('not.contain', `line ${lines[2].label}`);
-    });
+    it(
+      'Searches line with exact ID',
+      { tags: [Tag.Lines, Tag.Smoke, Tag.Group3] },
+      () => {
+        routesAndLinesPage
+          .getRoutesAndLinesSearchInput()
+          .type(`${lines[0].label}{enter}`);
+        cy.wait('@gqlSearchLinesAndRoutes');
+        searchResultsPage
+          .getSearchResultsContainer()
+          .should('contain', 'hakutulosta');
+        searchResultsPage
+          .getLinesSearchResultTable()
+          .should('contain', `line ${lines[0].label}`);
+        searchResultsPage
+          .getLinesSearchResultTable()
+          .should('not.contain', `line ${lines[1].label}`);
+        searchResultsPage
+          .getLinesSearchResultTable()
+          .should('not.contain', `line ${lines[2].label}`);
+      },
+    );
 
-    it('Searches line with asterisk', { tags: Tag.Lines }, () => {
+    it('Searches line with asterisk', { tags: [Tag.Lines, Tag.Group3] }, () => {
       routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
       cy.wait('@gqlSearchLinesAndRoutes');
       searchResultsPage
@@ -112,42 +116,50 @@ describe(
         .should('not.contain', `line ${lines[1].label}`);
     });
 
-    it('Searches route with exact ID', { tags: Tag.Lines }, () => {
-      routesAndLinesPage
-        .getRoutesAndLinesSearchInput()
-        .type(`${routes[0].label}{enter}`);
-      cy.wait('@gqlSearchLinesAndRoutes');
-      searchResultsPage
-        .getSearchResultsContainer()
-        .should('contain', 'hakutulosta');
-      searchResultsPage.getRoutesResultsButton().click();
-      searchResultsPage
-        .getRoutesSearchResultTable()
-        .should('contain', `route ${routes[0].label}`);
-      searchResultsPage
-        .getRoutesSearchResultTable()
-        .should('not.contain', `route ${routes[1].label}`);
-      searchResultsPage
-        .getRoutesSearchResultTable()
-        .should('not.contain', `route ${routes[2].label}`);
-    });
+    it(
+      'Searches route with exact ID',
+      { tags: [Tag.Lines, Tag.Group3] },
+      () => {
+        routesAndLinesPage
+          .getRoutesAndLinesSearchInput()
+          .type(`${routes[0].label}{enter}`);
+        cy.wait('@gqlSearchLinesAndRoutes');
+        searchResultsPage
+          .getSearchResultsContainer()
+          .should('contain', 'hakutulosta');
+        searchResultsPage.getRoutesResultsButton().click();
+        searchResultsPage
+          .getRoutesSearchResultTable()
+          .should('contain', `route ${routes[0].label}`);
+        searchResultsPage
+          .getRoutesSearchResultTable()
+          .should('not.contain', `route ${routes[1].label}`);
+        searchResultsPage
+          .getRoutesSearchResultTable()
+          .should('not.contain', `route ${routes[2].label}`);
+      },
+    );
 
-    it('Searches route with asterisk', { tags: Tag.Lines }, () => {
-      routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
-      cy.wait('@gqlSearchLinesAndRoutes');
-      searchResultsPage
-        .getSearchResultsContainer()
-        .should('contain', 'hakutulosta');
-      searchResultsPage.getRoutesResultsButton().click();
-      searchResultsPage
-        .getRoutesSearchResultTable()
-        .should('contain', `route ${routes[0].label}`);
-      searchResultsPage
-        .getRoutesSearchResultTable()
-        .should('contain', `route ${routes[1].label}`);
-      searchResultsPage
-        .getRoutesSearchResultTable()
-        .should('not.contain', `route ${routes[2].label}`);
-    });
+    it(
+      'Searches route with asterisk',
+      { tags: [Tag.Lines, Tag.Group3] },
+      () => {
+        routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
+        cy.wait('@gqlSearchLinesAndRoutes');
+        searchResultsPage
+          .getSearchResultsContainer()
+          .should('contain', 'hakutulosta');
+        searchResultsPage.getRoutesResultsButton().click();
+        searchResultsPage
+          .getRoutesSearchResultTable()
+          .should('contain', `route ${routes[0].label}`);
+        searchResultsPage
+          .getRoutesSearchResultTable()
+          .should('contain', `route ${routes[1].label}`);
+        searchResultsPage
+          .getRoutesSearchResultTable()
+          .should('not.contain', `route ${routes[2].label}`);
+      },
+    );
   },
 );

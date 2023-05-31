@@ -236,7 +236,7 @@ describe('Route creation', () => {
   it(
     'Should create a new route',
     {
-      tags: [Tag.Smoke, Tag.Routes, Tag.Network],
+      tags: [Tag.Smoke, Tag.Routes, Tag.Network, Tag.Group1],
       scrollBehavior: 'bottom',
     },
     () => {
@@ -277,7 +277,10 @@ describe('Route creation', () => {
 
   it(
     'Should create a new route and leave out one stop',
-    { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    {
+      tags: [Tag.Map, Tag.Routes, Tag.Network, Tag.Group1],
+      scrollBehavior: 'bottom',
+    },
     () => {
       const routeName = 'Testireitti 2';
       const omittedStopsLabels = [stopLabels[1]];
@@ -318,7 +321,10 @@ describe('Route creation', () => {
 
   it(
     'Should not let the user create a route with only one stop',
-    { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    {
+      tags: [Tag.Map, Tag.Routes, Tag.Network, Tag.Group1],
+      scrollBehavior: 'bottom',
+    },
     () => {
       const routeName = 'Testireitti 3';
       const omittedStopsLabels = [stopLabels[1], stopLabels[2]];
@@ -353,7 +359,10 @@ describe('Route creation', () => {
 
   it(
     'Should create new route with an indefinite validity end date',
-    { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    {
+      tags: [Tag.Map, Tag.Routes, Tag.Network, Tag.Group1],
+      scrollBehavior: 'bottom',
+    },
     () => {
       const routeName = 'Testireitti 4';
 
@@ -390,7 +399,10 @@ describe('Route creation', () => {
 
   it(
     'Should create a new route using an existing route as a template',
-    { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    {
+      tags: [Tag.Map, Tag.Routes, Tag.Network, Tag.Group1],
+      scrollBehavior: 'bottom',
+    },
     () => {
       modalMap.createRoute({
         routeFormInfo: {

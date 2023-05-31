@@ -89,7 +89,7 @@ describe('Route meta information editing', () => {
     deleteCreatedResources();
   });
 
-  it("Edits a routes's information", { tags: Tag.Routes }, () => {
+  it("Edits a routes's information", { tags: [Tag.Routes, Tag.Group2] }, () => {
     // Edit the route's information
     editRoutePage.routePropertiesForm.fillRouteProperties(routeFormTestInputs);
     editRoutePage.terminusNamesInputs.fillTerminusNameInputsForm(
@@ -128,7 +128,7 @@ describe('Route meta information editing', () => {
     );
   });
 
-  it('Deletes a route', { tags: Tag.Routes }, () => {
+  it('Deletes a route', { tags: [Tag.Routes, Tag.Group2] }, () => {
     editRoutePage.routePropertiesForm.getForm().should('be.visible');
     editRoutePage.getDeleteRouteButton().click();
     editRoutePage.confirmationDialog.getConfirmButton().click();

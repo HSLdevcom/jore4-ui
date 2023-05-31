@@ -11,14 +11,18 @@ describe('Verify that language changing works', () => {
     cy.visit('/');
   });
 
-  it('Changes language from FI to EN', { tags: Tag.Smoke }, () => {
-    // Language is FI by default
-    navbar.getLanguageDropdown().should('have.text', 'FI');
-    navbar.getMainPageLink().should('have.text', 'Etusivu');
+  it(
+    'Changes language from FI to EN',
+    { tags: [Tag.Smoke, Tag.Group1] },
+    () => {
+      // Language is FI by default
+      navbar.getLanguageDropdown().should('have.text', 'FI');
+      navbar.getMainPageLink().should('have.text', 'Etusivu');
 
-    navbar.toggleLanguage();
+      navbar.toggleLanguage();
 
-    navbar.getLanguageDropdown().should('have.text', 'EN');
-    navbar.getMainPageLink().should('have.text', 'Main page');
-  });
+      navbar.getLanguageDropdown().should('have.text', 'EN');
+      navbar.getMainPageLink().should('have.text', 'Main page');
+    },
+  );
 });

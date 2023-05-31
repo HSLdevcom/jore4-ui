@@ -116,7 +116,7 @@ describe('Stop editing tests', () => {
 
   it(
     'Should move a stop on the map',
-    { tags: Tag.Stops, scrollBehavior: 'bottom' },
+    { tags: [Tag.Stops, Tag.Group3], scrollBehavior: 'bottom' },
     () => {
       // Coordinates for the point where the stop is moved in the test.
       const endCoordinates = { lng: 24.92410607697449, lat: 60.16321976836281 };
@@ -156,7 +156,7 @@ describe('Stop editing tests', () => {
 
   it(
     'Should delete a stop',
-    { tags: Tag.Stops, scrollBehavior: 'bottom' },
+    { tags: [Tag.Stops, Tag.Group3], scrollBehavior: 'bottom' },
     () => {
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -182,7 +182,7 @@ describe('Stop editing tests', () => {
 
   it(
     'Should edit stop info',
-    { tags: Tag.Stops, scrollBehavior: 'bottom' },
+    { tags: [Tag.Stops, Tag.Group3], scrollBehavior: 'bottom' },
     () => {
       const testCoordinates2 = {
         lng: 24.92904198486008,
@@ -249,7 +249,7 @@ describe('Stop editing tests', () => {
 
   it(
     'Should create a new timing place',
-    { tags: Tag.Stops, scrollBehavior: 'bottom' },
+    { tags: [Tag.Stops, Tag.Group3], scrollBehavior: 'bottom' },
     () => {
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 

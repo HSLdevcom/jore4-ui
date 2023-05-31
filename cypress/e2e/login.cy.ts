@@ -7,7 +7,7 @@ describe('Login tests', () => {
 
   it(
     'User is not logged in by default',
-    { tags: [Tag.Login, Tag.Smoke] },
+    { tags: [Tag.Login, Tag.Smoke, Tag.Group3] },
     () => {
       cy.visit('/');
       // If login button is visible, user is logged out

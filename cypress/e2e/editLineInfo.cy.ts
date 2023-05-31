@@ -50,7 +50,7 @@ describe('Line editing', () => {
 
   it(
     "Edits a line's name, label and priority",
-    { tags: [Tag.Smoke, Tag.Lines] },
+    { tags: [Tag.Smoke, Tag.Lines, Tag.Group2] },
     () => {
       lineDetailsPage.getEditLineButton().click();
       lineForm.getLabelInput().clear().type(testInputs.newLabel);

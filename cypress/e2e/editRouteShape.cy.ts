@@ -215,7 +215,7 @@ describe('Edit route geometry', () => {
 
   it(
     "Should edit a route's shape",
-    { tags: [Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    { tags: [Tag.Routes, Tag.Network, Tag.Group2], scrollBehavior: 'bottom' },
     () => {
       cy.visit('/routes');
       routesAndLinesPage
@@ -253,7 +253,7 @@ describe('Edit route geometry', () => {
 
   it(
     'Should edit route shape correctly when creating new route with template',
-    { tags: [Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    { tags: [Tag.Routes, Tag.Network, Tag.Group2], scrollBehavior: 'bottom' },
     () => {
       // Location where all test stops and routes are visible.
       const mapLocation = { lng: 24.929689228090112, lat: 60.16495016651525 };

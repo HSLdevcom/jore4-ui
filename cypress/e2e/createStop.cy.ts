@@ -54,7 +54,10 @@ describe('Stop creation tests', () => {
 
   it(
     'Should create stop on map',
-    { tags: [Tag.Map, Tag.Stops, Tag.Smoke], scrollBehavior: 'bottom' },
+    {
+      tags: [Tag.Map, Tag.Stops, Tag.Smoke, Tag.Group2],
+      scrollBehavior: 'bottom',
+    },
     () => {
       modalMap.createStopAtLocation({
         stopFormInfo: {
@@ -82,7 +85,7 @@ describe('Stop creation tests', () => {
 
   it(
     'Should place stop correctly by using manually typed latitude and longitude',
-    { tags: [Tag.Stops, Tag.Map], scrollBehavior: 'bottom' },
+    { tags: [Tag.Stops, Tag.Map, Tag.Group2], scrollBehavior: 'bottom' },
     () => {
       // Create stop
       modalMap.createStopAtLocation({
@@ -121,7 +124,7 @@ describe('Stop creation tests', () => {
 
   it(
     'Should create stop with end time on map',
-    { tags: [Tag.Stops, Tag.Map], scrollBehavior: 'bottom' },
+    { tags: [Tag.Stops, Tag.Map, Tag.Group2], scrollBehavior: 'bottom' },
     () => {
       modalMap.createStopAtLocation({
         stopFormInfo: {
@@ -156,7 +159,7 @@ describe('Stop creation tests', () => {
     'Should create a stop with a hastus place on map',
     // Map opening seems to take time, so we increase the timeout
     {
-      tags: [Tag.Stops, Tag.Map],
+      tags: [Tag.Stops, Tag.Map, Tag.Group2],
       scrollBehavior: 'bottom',
       defaultCommandTimeout: 10000,
     },
