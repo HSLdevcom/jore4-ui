@@ -403,7 +403,12 @@
   },
   "confirmTimetablesImportModal": {
     "title": "Save changes",
-    "priority": "Timetables' priority"
+    "priority": "Timetables' priority",
+    "importStrategy": {
+      "title": "Import strategy",
+      "combine": "Combine timetables",
+      "replace": "Replace timetables"
+    }
   },
   "changeTimetablesValidityModal": {
     "title": "Save changes",
