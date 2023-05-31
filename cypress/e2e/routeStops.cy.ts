@@ -161,7 +161,7 @@ describe('Line details page: stops on route', () => {
 
   it(
     'Verify that stops of route are shown on its list view',
-    { tags: [Tag.Stops, Tag.Routes] },
+    { tags: [Tag.Stops, Tag.Routes, Tag.Smoke] },
     () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
 
@@ -178,39 +178,47 @@ describe('Line details page: stops on route', () => {
     },
   );
 
-  it('User can add stops to route and remove those', () => {
-    routeStopsTable.toggleRouteSection(routes[0].label);
+  it(
+    'User can add stops to route and remove those',
+    { tags: Tag.Stops },
+    () => {
+      routeStopsTable.toggleRouteSection(routes[0].label);
 
-    routeStopsTable.toggleUnusedStops();
+      routeStopsTable.toggleUnusedStops();
 
-    routeStopsTable.addStopToRoute(stopLabels[2]);
-    cy.wait('@gqlUpdateRouteJourneyPattern')
-      .its('response.statusCode')
-      .should('equal', 200);
-    // Wait until cache is updated and UI notices that this stop is
-    // now included on route
-    routeStopsTable
-      .getStopRow(stopLabels[2])
-      .contains('Ei reitin käytössä')
-      .should('not.exist');
+      routeStopsTable.addStopToRoute(stopLabels[2]);
+      cy.wait('@gqlUpdateRouteJourneyPattern')
+        .its('response.statusCode')
+        .should('equal', 200);
+      // Wait until cache is updated and UI notices that this stop is
+      // now included on route
+      routeStopsTable
+        .getStopRow(stopLabels[2])
+        .contains('Ei reitin käytössä')
+        .should('not.exist');
 
-    routeStopsTable.removeStopFromRoute(stopLabels[1]);
-    cy.wait('@gqlUpdateRouteJourneyPattern')
-      .its('response.statusCode')
-      .should('equal', 200);
+      routeStopsTable.removeStopFromRoute(stopLabels[1]);
+      cy.wait('@gqlUpdateRouteJourneyPattern')
+        .its('response.statusCode')
+        .should('equal', 200);
 
-    routeStopsTable.getStopRow(stopLabels[1]).contains('Ei reitin käytössä');
-  });
+      routeStopsTable.getStopRow(stopLabels[1]).contains('Ei reitin käytössä');
+    },
+  );
 
-  it('User cannot delete too many stops from route', () => {
-    routeStopsTable.toggleRouteSection(routes[0].label);
-    // Route has only 2 stops so user shouldn't be able to remove either of those
-    routeStopsTable.removeStopFromRoute(stopLabels[0]);
-    toast
-      .getDangerToast()
-      .contains('Reitillä on oltava ainakin kaksi pysäkkiä.')
-      .should('be.visible');
-  });
+  it(
+    'User cannot delete too many stops from route',
+    { tags: Tag.Stops },
+    () => {
+      routeStopsTable.toggleRouteSection(routes[0].label);
+      // Route has only 2 stops so user shouldn't be able to remove either of those
+      routeStopsTable.removeStopFromRoute(stopLabels[0]);
+      toast
+        .getDangerToast()
+        .contains('Reitillä on oltava ainakin kaksi pysäkkiä.')
+        .should('be.visible');
+    },
+  );
 
   it(
     'Should add Via info to a stop and then remove it',
@@ -250,15 +258,19 @@ describe('Line details page: stops on route', () => {
     },
   );
 
-  it('Checking "Use Hastus place" should not be possible when the stop has no timing place', () => {
-    routeStopsTable.toggleRouteSection(routes[0].label);
-    // This stop does not have a timing place
-    // so it should not be possible to enable 'Use Hastus place'
-    routeStopsTable.openTimingSettingsForm(stopLabels[0]);
-    routeStopsTable.timingSettingsForm
-      .getIsUsedAsTimingPointCheckbox()
-      .should('be.disabled');
-  });
+  it(
+    'Checking "Use Hastus place" should not be possible when the stop has no timing place',
+    { tags: Tag.Stops },
+    () => {
+      routeStopsTable.toggleRouteSection(routes[0].label);
+      // This stop does not have a timing place
+      // so it should not be possible to enable 'Use Hastus place'
+      routeStopsTable.openTimingSettingsForm(stopLabels[0]);
+      routeStopsTable.timingSettingsForm
+        .getIsUsedAsTimingPointCheckbox()
+        .should('be.disabled');
+    },
+  );
 
   it(
     'Should set stop as timing place, regulated timing place and allow loading time',
