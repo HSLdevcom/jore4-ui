@@ -403,7 +403,12 @@
   },
   "confirmTimetablesImportModal": {
     "title": "Tallenna muutos",
-    "priority": "Aikataulujen prioriteetti"
+    "priority": "Aikataulujen prioriteetti",
+    "importStrategy": {
+      "title": "Sisällön käyttö",
+      "combine": "Yhdistä tiedot",
+      "replace": "Korvaa tiedot"
+    }
   },
   "changeTimetablesValidityModal": {
     "title": "Tallenna muutos",
