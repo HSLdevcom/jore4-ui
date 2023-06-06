@@ -72,33 +72,32 @@ const lines: LineInsertInput[] = [
 const buildStopsOnInfrastrucureLinks = (
   infrastructureLinkIds: UUID[],
 ): StopInsertInput[] => [
-    {
-      ...buildStop({
-        label: stopLabels[0],
-        located_on_infrastructure_link_id: infrastructureLinkIds[0],
-      }),
-      validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
-      scheduled_stop_point_id: 'd4e6478a-adce-4c76-8579-c8ca2a6bb70f',
-      priority: Priority.Draft,
-      measured_location: {
-        type: 'Point',
-        coordinates: testInfraLinks[0].coordinates,
-      },
+  {
+    ...buildStop({
+      label: stopLabels[0],
+      located_on_infrastructure_link_id: infrastructureLinkIds[0],
+    }),
+    validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
+    scheduled_stop_point_id: 'd4e6478a-adce-4c76-8579-c8ca2a6bb70f',
+    priority: Priority.Draft,
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[0].coordinates,
     },
-    {
-      ...buildStop({
-        label: stopLabels[1],
-        located_on_infrastructure_link_id: infrastructureLinkIds[1],
-      }),
-      validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
-      priority: Priority.Draft,
-      scheduled_stop_point_id: '3354eef5-0eaf-4b43-8b2f-14c867633342',
-      measured_location: {
-        type: 'Point',
-        coordinates: testInfraLinks[1].coordinates,
-      },
+  },
+  {
+    ...buildStop({
+      label: stopLabels[1],
+      located_on_infrastructure_link_id: infrastructureLinkIds[1],
+    }),
+    validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
+    scheduled_stop_point_id: '3354eef5-0eaf-4b43-8b2f-14c867633342',
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[1].coordinates,
     },
-  ];
+  },
+];
 
 const routes: RouteInsertInput[] = [
   {
@@ -121,25 +120,19 @@ const routes: RouteInsertInput[] = [
 const buildInfraLinksAlongRoute = (
   infrastructureLinkIds: UUID[],
 ): InfraLinkAlongRouteInsertInput[] => [
-    {
-      route_id: routes[0].route_id,
-      infrastructure_link_id: infrastructureLinkIds[0],
-      infrastructure_link_sequence: 0,
-      is_traversal_forwards: true,
-    },
-    {
-      route_id: routes[0].route_id,
-      infrastructure_link_id: infrastructureLinkIds[1],
-      infrastructure_link_sequence: 1,
-      is_traversal_forwards: true,
-    },
-    {
-      route_id: routes[0].route_id,
-      infrastructure_link_id: infrastructureLinkIds[2],
-      infrastructure_link_sequence: 2,
-      is_traversal_forwards: true,
-    },
-  ];
+  {
+    route_id: routes[1].route_id,
+    infrastructure_link_id: infrastructureLinkIds[0],
+    infrastructure_link_sequence: 0,
+    is_traversal_forwards: true,
+  },
+  {
+    route_id: routes[1].route_id,
+    infrastructure_link_id: infrastructureLinkIds[1],
+    infrastructure_link_sequence: 1,
+    is_traversal_forwards: true,
+  },
+];
 
 const journeyPatterns: JourneyPatternInsertInput[] = [
   {
@@ -154,13 +147,6 @@ const stopsInJourneyPattern = buildStopsInJourneyPattern(
   journeyPatterns[0].journey_pattern_id!,
 );
 
-const routeFormTestInputs = {
-  finnishName: 'Muokattu reitin nimi',
-  label: 'Muokattu label',
-  variant: '9191',
-  direction: RouteDirectionEnum.Outbound,
-};
-
 const originTestInputs: TerminusValues = {
   finnishName: 'Muokattu lähtöpaikka FIN',
   finnishShortName: 'Muokattu lähtöpaikka FIN lyhennys',
@@ -173,6 +159,15 @@ const destinationTestInputs: TerminusValues = {
   finnishShortName: 'Muokattu määränpää FIN lyhennys',
   swedishName: 'Muokattu määränpää SWE',
   swedishShortName: 'Muokattu määränpää SWE lyhennys',
+};
+
+const routeFormTestInputs = {
+  finnishName: 'Muokattu reitin nimi',
+  label: 'Muokattu label',
+  variant: '9191',
+  direction: RouteDirectionEnum.Outbound,
+  origin: originTestInputs,
+  destination: destinationTestInputs,
 };
 
 describe('Route editing', () => {
@@ -222,7 +217,6 @@ describe('Route editing', () => {
 
     cy.setupTests();
     cy.mockLogin();
-
   });
 
   afterEach(() => {
@@ -230,14 +224,10 @@ describe('Route editing', () => {
     removeFromDbHelper(dbResources);
   });
 
-  it("Edits a routes's information", { tags: Tag.Routes }, () => {
+  it("Should edit a routes's information", { tags: Tag.Routes }, () => {
     editRoutePage.visit(routes[0].route_id);
     // Edit the route's information
     editRoutePage.routePropertiesForm.fillRouteProperties(routeFormTestInputs);
-    editRoutePage.terminusNamesInputs.fillTerminusNameInputsForm(
-      originTestInputs,
-      destinationTestInputs,
-    );
     editRoutePage.priorityForm.setAsTemporary();
     editRoutePage.changeValidityForm.getIndefiniteCheckbox().click();
     editRoutePage.changeValidityForm.setStartDate('2022-01-01');
@@ -270,7 +260,7 @@ describe('Route editing', () => {
     );
   });
 
-  it('Deletes a route', { tags: Tag.Routes }, () => {
+  it('Should delete a route', { tags: Tag.Routes }, () => {
     editRoutePage.visit(routes[0].route_id);
     editRoutePage.routePropertiesForm.getForm().should('be.visible');
     editRoutePage.getDeleteRouteButton().click();
@@ -290,10 +280,19 @@ describe('Route editing', () => {
       .should('contain', '0 hakutulosta');
   });
 
-  it('Should show a warning when trying to change the priority of a draft route that has draft stops', { tags: Tag.Routes }, () => {
-    editRoutePage.visit(routes[1].route_id);
-    editRoutePage.priorityForm.setAsStandard();
-    editRoutePage.getSaveRouteButton().click();
-    editRoutePage.routeDraftStopsConfirmationDialog.getTextContent().should('contain', 'Jos haluat pysäkit mukaan reitille, säädä ensin niiden prioriteetti vastaamaan reittiä.');
-  });
+  it(
+    'Should show a warning when trying to change the priority of a draft route that has draft stops',
+    { tags: Tag.Routes },
+    () => {
+      editRoutePage.visit(routes[1].route_id);
+      editRoutePage.priorityForm.setAsStandard();
+      editRoutePage.getSaveRouteButton().click();
+      editRoutePage.routeDraftStopsConfirmationDialog
+        .getTextContent()
+        .should(
+          'contain',
+          'Jos haluat pysäkit mukaan reitille, säädä ensin niiden prioriteetti vastaamaan reittiä.',
+        );
+    },
+  );
 });

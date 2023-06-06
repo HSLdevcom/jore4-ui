@@ -9,7 +9,7 @@ import {
   TemplateRouteSelector,
   TemplateRouteSelectorInfo,
 } from './TemplateRouteSelector';
-import { TerminusNameInputs } from './TerminusNameInputs';
+import { TerminusNameInputs, TerminusValues } from './TerminusNameInputs';
 
 export interface RouteFormInfo
   extends ChangeValidityFormInfo,
@@ -19,6 +19,8 @@ export interface RouteFormInfo
   variant?: string;
   direction?: RouteDirectionEnum;
   line?: string;
+  origin?: TerminusValues;
+  destination?: TerminusValues;
   templateRoute?: {
     templateRouteSelectorInfo: TemplateRouteSelectorInfo;
     moveRouteEditHandleInfo?: MoveRouteEditHandleInfo;
@@ -91,20 +93,28 @@ export class RoutePropertiesForm {
       this.selectLine(values.line);
     }
 
-    this.terminusNameInputs.fillTerminusNameInputsForm(
-      {
-        finnishName: 'Lähtöpaikka',
-        swedishName: 'Ursprung',
-        finnishShortName: 'LP',
-        swedishShortName: 'UP',
-      },
-      {
-        finnishName: 'Määränpää',
-        swedishName: 'Ändstation',
-        finnishShortName: 'MP',
-        swedishShortName: 'ÄS',
-      },
-    );
+    if (values.origin && values.destination) {
+      this.terminusNameInputs.fillTerminusNameInputsForm(
+        values.origin,
+        values.destination,
+      );
+    } else {
+      this.terminusNameInputs.fillTerminusNameInputsForm(
+        {
+          finnishName: 'Lähtöpaikka',
+          swedishName: 'Ursprung',
+          finnishShortName: 'LP',
+          swedishShortName: 'UP',
+        },
+        {
+          finnishName: 'Määränpää',
+          swedishName: 'Ändstation',
+          finnishShortName: 'MP',
+          swedishShortName: 'ÄS',
+        },
+      );
+    }
+
     if (values.priority) {
       this.priorityForm.setPriority(values.priority);
     }

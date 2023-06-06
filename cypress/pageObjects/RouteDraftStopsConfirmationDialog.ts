@@ -1,3 +1,3 @@
-import { DialogWithButtons } from "./DialogWithButtons";
+import { DialogWithButtons } from './DialogWithButtons';
 
-export class RouteDraftStopsConfirmationDialog extends DialogWithButtons { }
+export class RouteDraftStopsConfirmationDialog extends DialogWithButtons {}
