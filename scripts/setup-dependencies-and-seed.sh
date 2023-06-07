@@ -12,6 +12,12 @@ fi
 # Start dependencies
 ./scripts/start-dependencies.sh
 
+# Fetch Digitransit API key if local environment variable file does not exist
+if [ ! -e ui/.env.local ]
+then
+    echo "" | ./scripts/development.sh digitransit:fetch
+fi
+
 # Download routes and lines dump if it does not exist
 if [ ! -e jore4dump.pgdump ]
 then
