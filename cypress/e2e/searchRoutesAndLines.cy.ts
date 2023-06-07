@@ -73,12 +73,12 @@ describe(
     beforeEach(() => {
       cy.setupTests();
       cy.mockLogin();
-      routesAndLinesPage.getRoutesAndLinesSearchInput().clear();
+      routesAndLinesPage.searchContainer.getSearchInput().clear();
     });
 
     it('Searches line with exact ID', { tags: [Tag.Lines, Tag.Smoke] }, () => {
-      routesAndLinesPage
-        .getRoutesAndLinesSearchInput()
+      routesAndLinesPage.searchContainer
+        .getSearchInput()
         .type(`${lines[0].label}{enter}`);
       cy.wait('@gqlSearchLinesAndRoutes');
       searchResultsPage
@@ -96,7 +96,7 @@ describe(
     });
 
     it('Searches line with asterisk', { tags: Tag.Lines }, () => {
-      routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
+      routesAndLinesPage.searchContainer.getSearchInput().type('1*{enter}');
       cy.wait('@gqlSearchLinesAndRoutes');
       searchResultsPage
         .getSearchResultsContainer()
@@ -113,8 +113,8 @@ describe(
     });
 
     it('Searches route with exact ID', { tags: Tag.Lines }, () => {
-      routesAndLinesPage
-        .getRoutesAndLinesSearchInput()
+      routesAndLinesPage.searchContainer
+        .getSearchInput()
         .type(`${routes[0].label}{enter}`);
       cy.wait('@gqlSearchLinesAndRoutes');
       searchResultsPage
@@ -133,7 +133,7 @@ describe(
     });
 
     it('Searches route with asterisk', { tags: Tag.Lines }, () => {
-      routesAndLinesPage.getRoutesAndLinesSearchInput().type('1*{enter}');
+      routesAndLinesPage.searchContainer.getSearchInput().type('1*{enter}');
       cy.wait('@gqlSearchLinesAndRoutes');
       searchResultsPage
         .getSearchResultsContainer()
