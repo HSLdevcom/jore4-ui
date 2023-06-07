@@ -31,7 +31,20 @@ interface MaplibreViewport {
   pitch: number;
 }
 
-const style = generateStyle();
+const style = generateStyle({
+  queryParams: [
+    {
+      url: 'https://api.digitransit.fi/',
+      name: 'digitransit-subscription-key',
+      value: process.env.NEXT_PUBLIC_DIGITRANSIT_API_KEY,
+    },
+    {
+      url: 'https://cdn.digitransit.fi/',
+      name: 'digitransit-subscription-key',
+      value: process.env.NEXT_PUBLIC_DIGITRANSIT_API_KEY,
+    },
+  ],
+});
 
 export const Maplibre: FunctionComponent<Props> = ({
   className = '',
