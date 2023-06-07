@@ -6359,9 +6359,9 @@ hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0, hoist-non-react-
   dependencies:
     react-is "^16.7.0"
 
-hsl-map-style@HSLdevcom/hsl-map-style:
+"hsl-map-style@git+https://github.com/HSLdevcom/hsl-map-style#843f305":
   version "1.0.0"
-  resolved "https://codeload.github.com/HSLdevcom/hsl-map-style/tar.gz/7a68c786da59c1d3ac2b9ba90754da159890cb54"
+  resolved "git+https://github.com/HSLdevcom/hsl-map-style#843f3057d9e05610c705dffeb610a4b52f2d8835"
   dependencies:
     lodash "^4.17.4"
 
