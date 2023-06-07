@@ -4,3 +4,4 @@ screenshots
 cypress.env.json
 jore4-e2e-*.xml
 /runner-results
+jore4-export-*.csv
