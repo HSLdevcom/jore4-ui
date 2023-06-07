@@ -1,5 +1,13 @@
 import { CurrentExecutorIndex } from './db-helpers/enums';
 
+export interface DatabaseConnectionInfo {
+  host: string;
+  port: number;
+  user: string;
+  password: string;
+  database: string;
+}
+
 const testDbPort: Record<CurrentExecutorIndex, number> = {
   [CurrentExecutorIndex.e2e1]: 6532,
   [CurrentExecutorIndex.e2e2]: 6533,
@@ -13,10 +21,19 @@ const getTestDbPort = () => {
   return testDbPort[currentExecutorIndex];
 };
 
-export const e2eDatabaseConfig = {
+const databaseBaseConfig = {
   host: process.env.POSTGRES_HOST || '127.0.0.1',
   port: process.env.POSTGRES_PORT || getTestDbPort(),
-  database: process.env.POSTGRES_DB || 'jore4e2e',
   user: process.env.POSTGRES_USER || 'dbadmin',
   password: process.env.POSTGRES_PASSWORD || 'adminpassword',
+};
+
+export const e2eDatabaseConfig: DatabaseConnectionInfo = {
+  ...databaseBaseConfig,
+  database: process.env.POSTGRES_DB || 'jore4e2e',
+};
+
+export const timetablesDatabaseConfig: DatabaseConnectionInfo = {
+  ...databaseBaseConfig,
+  database: 'timetablesdb',
 };

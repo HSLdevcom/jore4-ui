@@ -19,7 +19,7 @@ export const TimetablesMainPage = (): JSX.Element => {
         <h1>{t('timetables.timetables')}</h1>
         <SimpleButton
           id="import-timetables-button"
-          data-testid={testIds.importButton}
+          testId={testIds.importButton}
           href={importTimetablesRoute.getLink()}
         >
           {t('import.importTimetables')}

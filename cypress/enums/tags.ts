@@ -7,4 +7,6 @@ export enum Tag {
   Lines = '@lines',
   Login = '@login',
   Timetables = '@timetables',
+  HastusExport = '@hastusExport',
+  HastusImport = '@hastusImport',
 }
