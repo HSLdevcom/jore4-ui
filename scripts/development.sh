@@ -40,6 +40,14 @@ function import_dump {
   ./scripts/seed-from-dump.sh
 }
 
+function download_digitransit_key {
+  echo "Log in to Azure"
+  az login
+
+  echo "Downloading secret value to ui/.env.local"
+  { echo -n "NEXT_PUBLIC_DIGITRANSIT_API_KEY=" && az keyvault secret show --name "jore4-digitransit-api-key" --vault-name "hsl-jore4-vault" --query "value"; } > ui/.env.local
+}
+
 function usage {
   echo "
   Usage $0 <command>
@@ -49,6 +57,9 @@ function usage {
 
   dump:import
     Imports JORE4 dump to running instance of jore4-testdb
+
+  digitransit:fetch
+    Download JORE4 digitransit map API key
 
   help
     Show this usage information
@@ -62,6 +73,10 @@ dump:download)
 
 dump:import)
   import_dump
+  ;;
+
+digitransit:fetch)
+  download_digitransit_key
   ;;
 
 help)
