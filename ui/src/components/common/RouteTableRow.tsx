@@ -90,6 +90,7 @@ export const RouteTableRow = ({
       isSelected={isSelected}
       hasTimetables={hasTimetables}
       onSelectChanged={isSelectable ? onSelectChanged : undefined}
+      testId={route.unique_label}
     />
   );
 };

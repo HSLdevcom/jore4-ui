@@ -92,6 +92,10 @@ Cypress.Commands.add('setupTests', () => {
     }
   });
 
+  cy.intercept('/api/hastus/import').as('hastusImport');
+
+  cy.intercept('/api/hastus/export/**').as('hastusExport');
+
   cy.intercept('/api/mapmatching/api/route/v1/**').as('mapMatching');
 });
 
