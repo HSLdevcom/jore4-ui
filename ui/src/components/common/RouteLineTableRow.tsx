@@ -14,6 +14,10 @@ import { LineDetailsButton } from './LineDetailsButton';
 import { LineTimetablesButton } from './LineTimetablesButton';
 import { RouteLabel } from './RouteLabel';
 
+const testIds = {
+  checkbox: (testId: string) => `RouteLineTableRow::checkbox::${testId}`,
+};
+
 export enum RouteLineTableRowVariant {
   Timetables,
   RoutesAndLines,
@@ -32,6 +36,7 @@ interface Props {
   isSelected?: boolean;
   onSelectChanged?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   selectionDisabled?: boolean;
+  testId: string;
 }
 
 const yBorderClassnames = 'border-y border-y-light-grey';
@@ -91,6 +96,7 @@ export const RouteLineTableRow = ({
   rowVariant,
   isSelected,
   selectionDisabled = false,
+  testId,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
@@ -121,6 +127,7 @@ export const RouteLineTableRow = ({
             checked={isSelected}
             onChange={onSelectChanged}
             disabled={selectionDisabled}
+            data-testid={testIds.checkbox(testId)}
           />
         </td>
       </Visible>

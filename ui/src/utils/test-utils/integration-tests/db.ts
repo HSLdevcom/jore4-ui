@@ -1,4 +1,5 @@
 import {
+  e2eDatabaseConfig,
   getDbConnection,
   hasuraApi,
   InfraLinkAlongRouteInsertInput,
@@ -62,7 +63,7 @@ export const insertToDbHelper = async ({
     );
   }
   if (vehicleSubmodeOnInfrastructureLink) {
-    const db = getDbConnection();
+    const db = getDbConnection(e2eDatabaseConfig);
     await insertVehicleSubmodeOnInfraLink(
       db,
       vehicleSubmodeOnInfrastructureLink,
@@ -137,7 +138,7 @@ export const removeFromDbHelper = async ({
     await hasuraApi(mutation).then((res) => logOnError('Removing stops', res));
   }
   if (vehicleSubmodeOnInfrastructureLink) {
-    const db = getDbConnection();
+    const db = getDbConnection(e2eDatabaseConfig);
     await removeVehicleSubmodeOnInfraLink(
       db,
       vehicleSubmodeOnInfrastructureLink,
