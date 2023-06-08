@@ -230,6 +230,7 @@
     "required": "Kenttä vaaditaan",
     "tooSmall": "Arvo on liian pieni",
     "tooBig": "Arvo on liian suuri",
+    "timeRange": "Alkupäivämäärän pitä tulla ennen loppupäivämäärää.",
     "timeRange": "Alkupäivämäärän pitää tulla ennen loppupäivämäärää."
   },
   "errors": {
