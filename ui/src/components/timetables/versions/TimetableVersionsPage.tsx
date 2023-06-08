@@ -10,10 +10,10 @@ import {
   useTimetableVersionsReturnToQueryParam,
 } from '../../../hooks';
 import { useDateQueryParam } from '../../../hooks/urlQuery/useDateQueryParam';
-import { Container, Row } from '../../../layoutComponents';
+import { Container } from '../../../layoutComponents';
 import { TimetablePriority } from '../../../types/enums';
 import { CloseIconButton } from '../../../uiComponents';
-import { DateControl } from '../../common/DateControl';
+import { TimeRangeControl } from '../../common';
 import { FormColumn, FormRow } from '../../forms/common';
 import { TimetableVersionTable } from './TimetableVersionTable';
 
@@ -95,22 +95,7 @@ export const TimetableVersionsPage = (): JSX.Element => {
       </FormRow>
       <Container>
         <h3>{t('timetables.timeline')}</h3>
-        <Row className="mb-8 space-x-8">
-          <DateControl
-            label={t('validityPeriod.validityStart')}
-            dateInputId="startDate"
-            className="max-w-max"
-            testId={testIds.startDate}
-            queryParamName={QueryParameterName.StartDate}
-          />
-          <DateControl
-            label={t('validityPeriod.validityEnd')}
-            dateInputId="endDate"
-            className="max-w-max"
-            testId={testIds.endDate}
-            queryParamName={QueryParameterName.EndDate}
-          />
-        </Row>
+        <TimeRangeControl className="mb-8" />
         <h3>{t('timetables.operatingCalendar')}</h3>
         <TimetableVersionTable
           className="mb-8 w-full"
