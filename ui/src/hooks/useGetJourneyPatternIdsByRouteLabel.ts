@@ -2,6 +2,7 @@ import { QueryResult, gql } from '@apollo/client';
 import groupBy from 'lodash/groupBy';
 import uniq from 'lodash/uniq';
 import uniqWith from 'lodash/uniqWith';
+import { DateTime } from 'luxon';
 import { pipe } from 'remeda';
 import {
   GetRouteInfoForTimetableVersionsQuery,
@@ -9,6 +10,7 @@ import {
   useGetRouteInfoForTimetableVersionsQuery,
 } from '../generated/graphql';
 import {
+  buildActiveDateRangeGqlFilter,
   buildRouteLineLabelGqlFilter,
   getRouteLabelVariantText,
 } from '../utils';
@@ -76,17 +78,23 @@ const extractDistinctJourneyPatternIdsGroupedByRouteLabel = (
     },
     {},
   );
+
 /**
  * Fetches one journey patterns per route (only one direction is enough) by line label for timetable versions.
  * Returns object which has route labelAndVariant as key and distinct journey pattern ids as value
  */
 export const useGetJourneyPatternIdsByLineLabel = ({
   label,
+  startDate,
+  endDate,
 }: {
   label: string;
+  startDate: DateTime;
+  endDate: DateTime;
 }) => {
   const routeFilters = {
     ...buildRouteLineLabelGqlFilter(label),
+    ...buildActiveDateRangeGqlFilter(startDate, endDate),
   };
 
   const result = useGetRouteInfoForTimetableVersionsQuery({
