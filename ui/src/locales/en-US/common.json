@@ -229,7 +229,8 @@
   "formValidation": {
     "required": "Field is required",
     "tooSmall": "Value is too small",
-    "tooBig": "Value is too big"
+    "tooBig": "Value is too big",
+    "timeRange": "Start date has to be before end date."
   },
   "errors": {
     "saveFailed": "Something went wrong",

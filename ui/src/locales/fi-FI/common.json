@@ -229,7 +229,8 @@
   "formValidation": {
     "required": "Kenttä vaaditaan",
     "tooSmall": "Arvo on liian pieni",
-    "tooBig": "Arvo on liian suuri"
+    "tooBig": "Arvo on liian suuri",
+    "timeRange": "Alkupäivämäärän pitää tulla ennen loppupäivämäärää."
   },
   "errors": {
     "saveFailed": "Tallennus epäonnistui",
