@@ -229,7 +229,8 @@
   "formValidation": {
     "required": "Field is required",
     "tooSmall": "Value is too small",
-    "tooBig": "Value is too big"
+    "tooBig": "Value is too big",
+    "timeRange": "Start date has to be before end date."
   },
   "errors": {
     "saveFailed": "Something went wrong",
@@ -304,7 +305,8 @@
     "interpolated": "Interpolated",
     "showArrivalTimes": "Show arrival times",
     "operatedLike": "Operated like {{ dayOfWeek }}",
-    "noService": "No service"
+    "noService": "No service",
+    "timeline": "Timeline"
   },
   "timetablesPreview": {
     "preview": "Preview",

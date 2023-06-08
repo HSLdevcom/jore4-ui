@@ -229,7 +229,8 @@
   "formValidation": {
     "required": "Kenttä vaaditaan",
     "tooSmall": "Arvo on liian pieni",
-    "tooBig": "Arvo on liian suuri"
+    "tooBig": "Arvo on liian suuri",
+    "timeRange": "Alkupäivämäärän pitää tulla ennen loppupäivämäärää."
   },
   "errors": {
     "saveFailed": "Tallennus epäonnistui",
@@ -304,7 +305,8 @@
     "interpolated": "Interpoloitu",
     "showArrivalTimes": "Näytä saapumisajat",
     "operatedLike": "Ajetaan kuten {{ dayOfWeek }}",
-    "noService": "Ei liikennöintiä"
+    "noService": "Ei liikennöintiä",
+    "timeline": "Aikajana"
   },
   "timetablesPreview": {
     "preview": "Esikatselu",

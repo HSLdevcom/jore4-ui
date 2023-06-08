@@ -179,8 +179,17 @@ export const useGetTimetableVersions = ({
   ]);
 
   useEffect(() => {
-    fetchTimetableVersions();
-  }, [fetchTimetableVersions, journeyPatternIdsGroupedByRouteLabel]);
+    if (startDate <= endDate) {
+      fetchTimetableVersions();
+    } else {
+      setVersions([]);
+    }
+  }, [
+    endDate,
+    fetchTimetableVersions,
+    journeyPatternIdsGroupedByRouteLabel,
+    startDate,
+  ]);
 
   return {
     versions,
