@@ -27,6 +27,50 @@ export const buildActiveDateGqlFilter = (date?: DateTime | null) => ({
   ],
 });
 
+/**
+ * Builds an object for gql to filter out all
+ * results which are not active on the given date range
+ */
+export const buildActiveDateRangeGqlFilter = (
+  startDate: DateTime,
+  endDate: DateTime,
+) => ({
+  _or: [
+    {
+      _and: [
+        {
+          _or: [
+            { validity_start: { _lte: startDate } },
+            { validity_start: { _is_null: true } },
+          ],
+        },
+        {
+          _or: [
+            { validity_end: { _gte: startDate } },
+            { validity_end: { _is_null: true } },
+          ],
+        },
+      ],
+    },
+    {
+      _and: [
+        {
+          _or: [
+            { validity_start: { _lte: endDate } },
+            { validity_start: { _is_null: true } },
+          ],
+        },
+        {
+          _or: [
+            { validity_end: { _gte: startDate } },
+            { validity_end: { _is_null: true } },
+          ],
+        },
+      ],
+    },
+  ],
+});
+
 /** Builds an object for gql to filter out all drafts if
  * the given priority is not draft itself
  */
