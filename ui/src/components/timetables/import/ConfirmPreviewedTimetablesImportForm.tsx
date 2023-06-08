@@ -1,20 +1,19 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { z } from 'zod';
 import { Column, Row } from '../../../layoutComponents';
 import {
   PriorityForm,
-  PriorityFormState,
-  priorityFormSchema,
+  priorityFormSchema
 } from '../../forms/common';
 import {
   TimetableImportStrategyForm,
-  TimetableImportStrategyFormState,
+  timetableImportStrategyFormSchema
 } from './TimetableImportStrategyForm';
 
-const schema = priorityFormSchema;
-
-export type FormState = PriorityFormState & TimetableImportStrategyFormState;
+const schema = priorityFormSchema.merge(timetableImportStrategyFormSchema);
+export type FormState = z.infer<typeof schema>;
 
 interface Props {
   defaultValues?: Partial<FormState>;
