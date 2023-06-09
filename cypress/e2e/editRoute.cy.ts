@@ -30,12 +30,6 @@ import {
   insertToDbHelper,
   removeFromDbHelper,
 } from '../utils';
-import { deleteRoutesByLabel } from './utils';
-
-const testRouteLabels = {
-  label1: 'T-reitti 1',
-  label2: 'Draft route',
-};
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
 // These form a straight line on Eerikinkatu in Helsinki.
@@ -101,14 +95,14 @@ const buildStopsOnInfrastrucureLinks = (
 
 const routes: RouteInsertInput[] = [
   {
-    ...buildRoute({ label: testRouteLabels.label1 }),
+    ...buildRoute({ label: 'T-reitti 1' }),
     route_id: '7961d12f-26cc-4e0f-b6a7-845bc334df63',
     on_line_id: lines[0].line_id,
     validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+03:00'),
     validity_end: DateTime.fromISO('2032-08-11T13:08:43.315+03:00'),
   },
   {
-    ...buildRoute({ label: testRouteLabels.label2 }),
+    ...buildRoute({ label: 'Draft route' }),
     route_id: '6c85285a-e3ec-4889-914c-f60bac08d9f2',
     priority: Priority.Draft,
     on_line_id: lines[1].line_id,
@@ -204,9 +198,7 @@ describe('Route editing', () => {
   });
 
   beforeEach(() => {
-    deleteRoutesByLabel(Object.values(testRouteLabels));
     removeFromDbHelper(dbResources);
-
     insertToDbHelper(dbResources);
 
     editRoutePage = new EditRoutePage();
@@ -220,7 +212,6 @@ describe('Route editing', () => {
   });
 
   afterEach(() => {
-    deleteRoutesByLabel(Object.values(testRouteLabels));
     removeFromDbHelper(dbResources);
   });
 
