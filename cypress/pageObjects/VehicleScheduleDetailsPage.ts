@@ -8,4 +8,8 @@ export class VehicleScheduleDetailsPage {
   dayTypeDropDown = new DayTypeDropdown();
 
   routeTimetableList = new RouteTimetableList();
+
+  getArrivalTimesSwitch() {
+    return cy.getByTestId('VehicleScheduleDetailsPage::showArrivalTimesSwitch');
+  }
 }

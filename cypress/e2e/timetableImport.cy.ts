@@ -241,18 +241,82 @@ describe('Timetable import and export', () => {
       vehicleScheduleDetailsPage.dayTypeDropDown
         .getDayTypeDropdownButton()
         .should('contain', 'Lauantai');
-      vehicleScheduleDetailsPage.passingTimesByStopTable
-        .getTableRow(stopLabels[0])
-        .should('contain', '7')
-        .and('contain', '10');
-      vehicleScheduleDetailsPage.passingTimesByStopTable
-        .getTableRow(stopLabels[1])
-        .should('contain', '7')
-        .and('contain', '13');
-      vehicleScheduleDetailsPage.passingTimesByStopTable
-        .getTableRow(stopLabels[2])
-        .should('contain', '7')
-        .and('contain', '16');
+      vehicleScheduleDetailsPage.passingTimesByStopTable.assertStopHasDepartureTime(
+        stopLabels[0],
+        0,
+        7,
+        10,
+      );
+      vehicleScheduleDetailsPage.passingTimesByStopTable.assertStopHasDepartureTime(
+        stopLabels[1],
+        0,
+        7,
+        13,
+      );
+      vehicleScheduleDetailsPage.passingTimesByStopTable.assertStopHasDepartureTime(
+        stopLabels[2],
+        0,
+        7,
+        16,
+      );
+    },
+  );
+
+  it(
+    'Should show arrival times and highlight departures',
+    { tags: [Tag.Timetables, Tag.HastusImport] },
+    () => {
+      const IMPORT_FILENAME = 'hastusImport.exp';
+      timetablesMainPage.getImportButton().click();
+      importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+      importTimetablesPage.getUploadButton().click();
+      cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
+      importTimetablesPage.clickPreviewButton();
+      previewTimetablesPage.priorityForm.setAsStandard();
+      previewTimetablesPage.blockVehicleJourneysTable
+        .getToggleShowTableButton()
+        .click();
+      previewTimetablesPage.getSaveButton().click();
+      // Check the imported timetable on a Saturday, which is the day type of the imported timetable
+      cy.visit(
+        `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
+      );
+      vehicleScheduleDetailsPage.routeTimetableList.routeTimetablesSection.vehicleServiceTable
+        .getTable()
+        .click();
+      vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
+      vehicleScheduleDetailsPage.passingTimesByStopTable.assertStopHasArrivalTime(
+        stopLabels[1],
+        0,
+        7,
+        12,
+      );
+      vehicleScheduleDetailsPage.passingTimesByStopTable.assertStopHasArrivalTime(
+        stopLabels[1],
+        1,
+        8,
+        22,
+      );
+      vehicleScheduleDetailsPage.passingTimesByStopTable.highlightNthDepartureOnStopRow(
+        stopLabels[0],
+        1,
+      );
+
+      // Assert that departures in the second column are highlighted
+      cy.wrap(stopLabels).each((stopLabel) => {
+        return vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthDepartureIsHighlightedOnStopRow(
+          String(stopLabel),
+          1,
+        );
+      });
+
+      // Assert that departures in the first column are not highlighted
+      cy.wrap(stopLabels).each((stopLabel) => {
+        return vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthDepartureIsNotHighlightedOnStopRow(
+          String(stopLabel),
+          0,
+        );
+      });
     },
   );
 });
