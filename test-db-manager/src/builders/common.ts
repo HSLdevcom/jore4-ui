@@ -6,8 +6,19 @@ import { randomInt } from '../utils';
 export const buildLabelArray = (labelPrefix: string, labelCount: number) =>
   range(1, labelCount + 1).map((no) => `${labelPrefix}${no}`);
 
-export const buildRandomDuration = (min: Duration, max: Duration) =>
-  Duration.fromMillis(randomInt(min.toMillis(), max.toMillis()));
+export const buildRandomDuration = (min: Duration, max: Duration) => {
+  const unroundedDuration = Duration.fromMillis(
+    randomInt(min.toMillis(), max.toMillis()),
+  );
+
+  // We only want to handle durations in minute precision, currently.
+  const durationParts = unroundedDuration.rescale().toObject();
+  delete durationParts.seconds;
+  delete durationParts.milliseconds;
+  const durationInMinutes = Duration.fromObject(durationParts);
+
+  return durationInMinutes;
+};
 
 type ConstantCount = number;
 type RandomCount = { min: number; max: number };
