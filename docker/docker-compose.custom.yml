@@ -18,6 +18,12 @@ services:
   jore4-hastus:
     # pinning hastus import-export-microservice version
     image: "hsldevcom/jore4-hastus:main--20230524-bfc077adcfbaedcee68bf986f19b807e6ac0562c"
+    environment:
+      # use the same Hasura URL that the UI uses to enable routing requests to correct Hasura instances
+      # when running e2e tests in parallel
+      HASURA_URL: "http://host.docker.internal:3300/api/graphql/v1/graphql"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   jore4-hasura-e2e1:
     image: *hasura-image

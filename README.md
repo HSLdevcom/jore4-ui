@@ -63,12 +63,19 @@ We have those because sometimes there is need to do e.g. complex graphql queries
 - To disable map tile rendering (e.g. to speed up tests or improve reliability in CI), set the `CYPRESS_DISABLE_MAP_TILES=true` environment variable
 - To list existing e2e test cases run `yarn test:e2e:list`
 - Tests have tags for features and other test sets, like `@smoke`. Run tests for a specific tag with `yarn test:e2e --env grepTags=@routes`, for example. Further Cypress grep documentation: https://github.com/cypress-io/cypress/tree/develop/npm/grep
-- Cypress tests can be run in parallel with the `yarn test:e2e:parallel` command. Parallel execution is built using the [cypress-parallel](https://github.com/tnicola/cypress-parallel) library.
-- Parallel execution requires three separate instances of the `hasura` and `testdb` containers. These are started by default by the `start-dependencies.sh` script.
-- Routing of data in parallel execution is handled in `jore4-ui/test-db-manager/src/hasuraApi.ts`, `jore4-ui/test-db-manager/src/config.ts` and `jore4-ui/cypress/support/commands.ts`.
 
-Failed tests ran without browser can be investigated visually by looking at videos and screenshots at `./cypress/reports`. Videos are disabled by default, and can be enabled in `cypress.config.ts` by setting the value of the `video` property to `true`.
+Failed tests that have been run headlessly can be investigated visually by looking at videos and screenshots at `./cypress/reports`. Videos are disabled by default, and can be enabled in `cypress.config.ts` by setting the value of the `video` property to `true`.
 Anyway, debugging is generally easier when Cypress is opened with browser as then you can poke around with browsers devtools.
+
+### Local e2e test parallellization
+
+- Cypress e2e tests can be run in parallel locally with the `yarn test:e2e:parallel` command. Parallel execution is built using the [cypress-parallel](https://github.com/tnicola/cypress-parallel) library.
+- Parallel execution is not enabled in the CI currently.
+- Currently tests can be run in a maximum of three threads.
+- Parallel execution in three threads requires three separate instances of the `hasura` and `testdb` containers. These are started by default by the `start-dependencies.sh` script.
+- Routing of requests in parallel execution is handled in the following files: `jore4-ui/test-db-manager/src/hasuraApi.ts`, `jore4-ui/test-db-manager/src/config.ts`, `jore4-ui/cypress/support/commands.ts`, `nginx.conf`
+
+During parallel test execution Cypress assigns a value to `x-Environment` header value based on the current Cypress thread. Possible values are `e2e1`, `e2e2` and `e2e3`, and default value `e2e4` that is used when tests are not run in parallel, which also applies to using the environment manually. `e2e4` routes requests to `hasura` and `testdb` containers. In `docker-compose.custom.yml` the `HASURA_URL` environment value is set to point to the Hasura URL that the locally running UI is using to enable routing of the requests based on the `x-Environment` header value.
 
 ### CI
 

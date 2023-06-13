@@ -141,7 +141,6 @@ const stopsInJourneyPattern = buildStopsInJourneyPattern(
   journeyPatterns[0].journey_pattern_id!,
 );
 
-// NOTE: Hastus export tests do not work currently when running e2e tests in parallel
 describe('Hastus export', () => {
   let routesAndLinesPage: RoutesAndLinesPage;
 
