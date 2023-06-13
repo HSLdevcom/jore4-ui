@@ -92,9 +92,33 @@ Cypress.Commands.add('setupTests', () => {
     }
   });
 
-  cy.intercept('/api/hastus/import').as('hastusImport');
+  cy.intercept('POST', '/api/hastus/import', (req) => {
+    // eslint-disable-next-line no-param-reassign
+    req.alias = 'hastusImport';
+    // default instance = thread4, e2e1 = thread1, etc
+    const currentExecutorIndex =
+      Cypress.env('CYPRESS_THREAD') || CurrentExecutorIndex.default;
+    Cypress.log({
+      message: `Hastus executor index, ${currentExecutorIndex}`,
+    });
+    // eslint-disable-next-line no-param-reassign
+    req.headers['x-Environment'] = `e2e${currentExecutorIndex}`;
+    req.continue();
+  });
 
-  cy.intercept('/api/hastus/export/**').as('hastusExport');
+  cy.intercept('POST', '/api/hastus/export/**', (req) => {
+    // eslint-disable-next-line no-param-reassign
+    req.alias = 'hastusExport';
+    // default instance = thread4, e2e1 = thread1, etc
+    const currentExecutorIndex =
+      Cypress.env('CYPRESS_THREAD') || CurrentExecutorIndex.default;
+    Cypress.log({
+      message: `Hastus executor index, ${currentExecutorIndex}`,
+    });
+    // eslint-disable-next-line no-param-reassign
+    req.headers['x-Environment'] = `e2e${currentExecutorIndex}`;
+    req.continue();
+  });
 
   cy.intercept('/api/mapmatching/api/route/v1/**').as('mapMatching');
 });

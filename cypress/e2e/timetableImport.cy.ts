@@ -147,7 +147,6 @@ const stopsInJourneyPattern = buildStopsInJourneyPattern(
   journeyPatterns[0].journey_pattern_id!,
 );
 
-// NOTE: Timetable import tests do not work currently when running e2e tests in parallel
 describe('Timetable import and export', () => {
   let timetablesMainPage: TimetablesMainpage;
   let importTimetablesPage: ImportTimetablesPage;
