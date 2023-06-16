@@ -194,7 +194,9 @@ describe('Hastus export', () => {
     cy.task('deleteFile', exportFilePath);
   });
 
-  it(
+  // Disable until Hastus changes are finished
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip(
     'Should export a line',
     { tags: [Tag.Lines, Tag.HastusExport, Tag.Smoke] },
     () => {
@@ -218,17 +220,23 @@ describe('Hastus export', () => {
     },
   );
 
-  it('Should export a route', { tags: [Tag.Routes, Tag.HastusExport] }, () => {
-    // Skip searching via UI
-    cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
-    routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-    routesAndLinesPage.routeLineTableRow
-      .getRouteLineTableRowCheckbox('99')
-      .check();
-    routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-    cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
-    cy.readFile(exportFilePath).then((exportedFile) => {
-      cy.readFile(comparisonExportFilePath).should('eq', exportedFile);
-    });
-  });
+  // Disable until Hastus changes are finished
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip(
+    'Should export a route',
+    { tags: [Tag.Routes, Tag.HastusExport] },
+    () => {
+      // Skip searching via UI
+      cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+      routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+      routesAndLinesPage.routeLineTableRow
+        .getRouteLineTableRowCheckbox('99')
+        .check();
+      routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+      cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
+      cy.readFile(exportFilePath).then((exportedFile) => {
+        cy.readFile(comparisonExportFilePath).should('eq', exportedFile);
+      });
+    },
+  );
 });
