@@ -1,7 +1,11 @@
 services:
+  jore4-ui:
+    build:
+      context: ".."
+
   jore4-hasura:
     # locking hasura image so that we can develop the UI against a static graphql API
-    # Link to available jore4-hasura images in Docker Hub:
+    # Link to available jore4-hasura imags in Docker Hub:
     # https://hub.docker.com/r/hsldevcom/jore4-hasura/tags?page=1&ordering=last_updated
     # The :hsl-tag contains the desired version of hsl specific hasura.
     image: &hasura-image 'hsldevcom/jore4-hasura:hsl-main--20230524-15a564f76a75f82bf5c789491387cdce4394932b'
