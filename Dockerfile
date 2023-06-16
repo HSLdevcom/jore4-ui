@@ -19,6 +19,6 @@ FROM nginx:1.24.0-alpine
 EXPOSE 80
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/ui/out /usr/share/nginx/html
-CMD ["nginx", "-g", "daemon off;"]
+COPY scripts/docker/replace-environment-variables.sh /tmp
 RUN curl -o /tmp/read-secrets.sh "https://raw.githubusercontent.com/HSLdevcom/jore4-tools/main/docker/read-secrets.sh"
-CMD /bin/sh -c "source /tmp/read-secrets.sh && nginx -g \"daemon off;\""
+CMD /bin/sh -c "source /tmp/read-secrets.sh && /tmp/replace-environment-variables.sh && nginx -g \"daemon off;\""
