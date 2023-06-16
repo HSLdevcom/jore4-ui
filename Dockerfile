@@ -1,4 +1,5 @@
 FROM node:18.16.0-alpine3.17 AS build
+RUN apk update && apk add curl
 WORKDIR /app
 COPY package.json yarn.lock ./
 COPY ./ui/package.json ./ui/
@@ -19,3 +20,5 @@ EXPOSE 80
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/ui/out /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
+RUN curl -o /tmp/read-secrets.sh "https://raw.githubusercontent.com/HSLdevcom/jore4-tools/main/docker/read-secrets.sh"
+CMD /bin/sh -c "source /tmp/read-secrets.sh && nginx -g \"daemon off;\""
