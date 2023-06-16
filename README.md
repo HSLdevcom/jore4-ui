@@ -184,6 +184,10 @@ Intellisense doesn't notice if nonexisting icons are used in the project.)
 If the imported SVG in Fontello does not look like the icon from Figma (e.g. outline circle is missing), follow these steps:
 https://medium.com/mabiloft/we-designed-an-icon-font-with-figma-and-fontello-and-it-has-not-been-a-piece-of-cake-b2948973738e
 
+## Map tiles
+
+The background map tiles are loaded from [Digitransit](https://digitransit.fi/) and need an API key to download. The key is defined in the project secrets and will be downloaded to `.env.local` environment variables file when running the `./scripts/setup-dependencies-and-seed.sh` script. In docker environment the key will be loaded as a part of reading the secrets and stored in an environment variable.
+
 ## Coding style
 
 ### Inline components
