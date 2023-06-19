@@ -1,33 +1,20 @@
-import {
-  Listbox as HUIListbox,
-  Transition,
-  TransitionClasses,
-} from '@headlessui/react';
+import { Listbox as HUIListbox, Transition } from '@headlessui/react';
+import first from 'lodash/first';
 import { Fragment, ReactNode } from 'react';
 import { ControllerFieldState, Noop } from 'react-hook-form';
+import { AllOptionEnum } from '../utils/enum';
+import { ValueFn, dropdownTransition } from './Listbox';
 import { ListboxButton } from './ListboxButton';
 import { ListboxOptionRenderer, ListboxOptions } from './ListboxOptions';
 
-export const dropdownTransition: TransitionClasses = {
-  enter: 'transition ease-out duration-100',
-  enterFrom: 'opacity-0 scale-95',
-  enterTo: 'opacity-100 scale-100',
-  leave: 'transition ease-in duration-75',
-  leaveFrom: 'opacity-100 scale-100',
-  leaveTo: 'opacity-0 scale-95',
-};
-
-// copied from HeadlessUI Listbox as it's not exported
-export type ValueFn = (...event: ExplicitAny[]) => void;
-
-export interface FormInputProps {
-  value?: string;
+interface MultiSelectFormInputProps {
+  value?: string[];
   onChange: ValueFn;
   onBlur?: Noop;
   fieldState?: ControllerFieldState;
 }
 
-interface Props extends FormInputProps {
+interface Props extends MultiSelectFormInputProps {
   id?: string;
   buttonContent: ReactNode;
   testId?: string;
@@ -36,7 +23,7 @@ interface Props extends FormInputProps {
   arrowButtonClassNames?: string;
 }
 
-export const Listbox = ({
+export const MultiSelectListbox = ({
   id,
   buttonContent,
   testId,
@@ -48,21 +35,39 @@ export const Listbox = ({
   buttonClassNames = '',
   arrowButtonClassNames = '',
 }: Props): JSX.Element => {
-  const onItemSelected = (val: string) => {
-    const event = { target: { value: val } };
-    onChange(event);
+  const onItemSelected = (val: string[]) => {
+    let finalValue: string[] = [];
+
+    const removed = first(
+      Array.isArray(value) ? value.filter((x) => !val.includes(x)) : [],
+    );
+    const selected = first(val.filter((x) => !value?.includes(x)));
+
+    if (selected === AllOptionEnum.All) {
+      finalValue = options.map((option) => option.value);
+    } else if (removed !== AllOptionEnum.All) {
+      if (value?.length === options.length) {
+        finalValue = val.filter((v) => v !== AllOptionEnum.All);
+      } else if (val.length === options.length - 1) {
+        finalValue = [...val, AllOptionEnum.All];
+      } else {
+        finalValue = val;
+      }
+    }
+    onChange({ target: { value: finalValue.join(',') } });
   };
 
   const hasError = !!fieldState?.error;
 
   return (
     <HUIListbox
-      id={id || 'listbox'}
+      id={id || 'multiSelectListbox'}
       as="div"
       className="relative"
       value={value}
       onChange={onItemSelected}
       onBlur={onBlur}
+      multiple
     >
       {({ open }) => (
         <>

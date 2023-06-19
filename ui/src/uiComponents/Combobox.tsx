@@ -2,7 +2,8 @@ import { Combobox as HUICombobox, Transition } from '@headlessui/react';
 import { Fragment, ReactNode } from 'react';
 import { Noop } from 'react-hook-form';
 import { MdCheck, MdSearch } from 'react-icons/md';
-import { dropdownTransition, OptionRenderPropArg } from './Listbox';
+import { dropdownTransition } from './Listbox';
+import { OptionRenderPropArg } from './ListboxOptions';
 
 export const testIds = {
   input: (testId: string) => `${testId}::input`,

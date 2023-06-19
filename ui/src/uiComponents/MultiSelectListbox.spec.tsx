@@ -1,9 +1,9 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { render } from '../utils/test-utils';
-import { Listbox } from './Listbox';
+import { MultiSelectListbox } from './MultiSelectListbox';
 
-describe('<Listbox />', () => {
-  const testId = 'listbox1';
+describe('<MultiSelectListbox />', () => {
+  const testId = 'multiselectlistbox1';
   const buttonContent = `button`;
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const onChange = () => {};
@@ -16,7 +16,7 @@ describe('<Listbox />', () => {
 
   test('Opens dropdown when clicked', async () => {
     render(
-      <Listbox
+      <MultiSelectListbox
         testId={testId}
         buttonContent={buttonContent}
         onChange={onChange}
