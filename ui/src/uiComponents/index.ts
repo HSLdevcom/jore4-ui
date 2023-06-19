@@ -13,6 +13,7 @@ export * from './IconToggle';
 export * from './Listbox';
 export * from './LoadingOverlay';
 export * from './LocatorButton';
+export * from './MultiSelectListbox';
 export * from './Pagination';
 export * from './Popover';
 export * from './SearchableDropdown';
