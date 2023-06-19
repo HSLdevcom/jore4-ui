@@ -1,7 +1,7 @@
-import * as Apollo from '@apollo/client';
-import { gql } from '@apollo/client';
 import * as luxon from 'luxon';
 import { useAsyncQuery } from '../hooks/useAsyncQuery';
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -7247,6 +7247,20 @@ export type ServiceCalendarDayTypeActiveOnDayOfWeekAggregateBoolExpCount = {
   predicate: IntComparisonExp;
 };
 
+export type ServiceCalendarSubstituteOperatingDayByLineTypeAggregateBoolExp = {
+  count?: InputMaybe<ServiceCalendarSubstituteOperatingDayByLineTypeAggregateBoolExpCount>;
+};
+
+export type ServiceCalendarSubstituteOperatingDayByLineTypeAggregateBoolExpCount =
+  {
+    arguments?: InputMaybe<
+      Array<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeSelectColumn>
+    >;
+    distinct?: InputMaybe<Scalars['Boolean']>;
+    filter?: InputMaybe<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeBoolExp>;
+    predicate: IntComparisonExp;
+  };
+
 /** A dummy table that models the results of calculating the lengths of stop intervals from the given journey patterns. The table exists due to the limitations of Hasura and there is no intention to insert anything to it. */
 export type ServicePatternDistanceBetweenStopsCalculation = {
   __typename?: 'service_pattern_distance_between_stops_calculation';
@@ -11497,6 +11511,8 @@ export type TimetablesServiceCalendarSubstituteOperatingPeriodBoolExp = {
 
 /** unique or primary key constraints on table "service_calendar.substitute_operating_period" */
 export enum TimetablesServiceCalendarSubstituteOperatingPeriodConstraint {
+  /** unique or primary key constraint on columns "period_name" */
+  SubstituteOperatingPeriodPeriodNameKey = 'substitute_operating_period_period_name_key',
   /** unique or primary key constraint on columns "substitute_operating_period_id" */
   SubstituteOperatingPeriodPkey = 'substitute_operating_period_pkey',
 }
