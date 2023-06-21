@@ -10,6 +10,7 @@ interface Props {
   testId: string;
   dateInputId: string;
   queryParamName: QueryParameterName;
+  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
   initialize?: boolean;
 }
 
@@ -25,6 +26,7 @@ export const DateControl = ({
   dateInputId,
   queryParamName,
   initialize,
+  onClick,
 }: Props): JSX.Element => {
   const { date, setDateToUrl } = useDateQueryParam({
     queryParamName,
@@ -44,6 +46,7 @@ export const DateControl = ({
       label={label}
       value={date}
       onChange={onDateChange}
+      onClick={onClick}
       className={className}
       required
       disabled={disabled}

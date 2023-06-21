@@ -11,6 +11,7 @@ import { LineDraftsPage } from '../components/routes-and-lines/line-drafts/LineD
 import { RoutesAndLinesMainPage } from '../components/routes-and-lines/main/RoutesAndLinesMainPage';
 import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
 import {
+  DaySettingsPage,
   TimetablesMainPage,
   VehicleScheduleDetailsPage,
 } from '../components/timetables';
@@ -101,6 +102,11 @@ export const Router: FunctionComponent = () => {
       _routerRoute: Path.lineTimetableVersions,
       _exact: true,
       component: TimetableVersionsPage,
+    },
+    [Path.timetablesSettings]: {
+      _routerRoute: Path.timetablesSettings,
+      _exact: true,
+      component: DaySettingsPage,
     },
     [Path.fallback]: {
       _routerRoute: Path.fallback,
