@@ -12,6 +12,7 @@ interface MultiSelectFormInputProps {
   onChange: ValueFn;
   onBlur?: Noop;
   fieldState?: ControllerFieldState;
+  disabled?: boolean;
 }
 
 interface Props extends MultiSelectFormInputProps {
@@ -32,6 +33,7 @@ export const MultiSelectListbox = ({
   onChange,
   onBlur,
   fieldState,
+  disabled,
   buttonClassNames = '',
   arrowButtonClassNames = '',
 }: Props): JSX.Element => {
@@ -97,6 +99,7 @@ export const MultiSelectListbox = ({
       onChange={onItemSelect}
       onBlur={onBlur}
       multiple
+      disabled={disabled}
     >
       {({ open }) => (
         <>
@@ -107,6 +110,7 @@ export const MultiSelectListbox = ({
             hasError={hasError}
             testId={testId}
             buttonContent={buttonContent}
+            disabled={disabled}
           />
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Transition show={open} as={Fragment} {...dropdownTransition}>

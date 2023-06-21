@@ -15,6 +15,7 @@ export * from './routeShape';
 export * from './search';
 export * from './servicePattern';
 export * from './stops';
+export * from './substituteOperatingPeriod';
 export * from './toastService';
 export * from './url';
 export * from './validity';
