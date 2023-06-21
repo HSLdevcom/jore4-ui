@@ -209,6 +209,16 @@
     "outbound": "1 - Outbound",
     "inbound": "2 - Inbound"
   },
+  "timetableDayEnum": {
+    "NoTraffic": "No traffic",
+    "Monday": "Monday",
+    "Tuesday": "Tuesday",
+    "Wednesday": "Wednesday",
+    "Thursday": "Thursday",
+    "Friday": "Friday",
+    "Saturday": "Saturday",
+    "Sunday": "Sunday"
+  },
   "transportTargetEnum": {
     "helsinki_internal_traffic": "Helsinki internal traffic",
     "espoo_and_kauniainen_internal_traffic": "Espoo and Kauniainen internal traffic",
@@ -308,7 +318,8 @@
     "showAllValid": "Show all valid",
     "operatedLike": "Operated like {{ dayOfWeek }}",
     "noService": "No service",
-    "timeline": "Timeline"
+    "timeline": "Timeline",
+    "chooseSubstituteDay": "Select..."
   },
   "timetablesPreview": {
     "preview": "Preview",
