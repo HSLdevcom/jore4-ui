@@ -17,6 +17,7 @@ export const EnumMultiSelectDropdown = <TEnum extends Object>({
   uiNameMapper,
   placeholder,
   value,
+  disabled,
   ...formInputProps
 }: EnumDropdownProps<TEnum>): JSX.Element => {
   const { t } = useTranslation();
@@ -48,7 +49,10 @@ export const EnumMultiSelectDropdown = <TEnum extends Object>({
 
   const getButtonContent = (inputValue?: string): string => {
     const enumValues = inputValue?.split(',');
-    if (isUndefined(enumValues) || (first(enumValues) === '' && !!enumValues.length)) {
+    if (
+      isUndefined(enumValues) ||
+      (first(enumValues) === '' && !!enumValues.length)
+    ) {
       return placeholder;
     }
     if (enumValues.length === values.length) {
@@ -66,8 +70,10 @@ export const EnumMultiSelectDropdown = <TEnum extends Object>({
       id={id}
       testId={testId || testIds.enumDropdown}
       buttonContent={getButtonContent(value)}
+      buttonClassNames={disabled ? 'input-disabled' : ''}
       options={options}
       value={mappedValue}
+      disabled={disabled}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />

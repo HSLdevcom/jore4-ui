@@ -32,6 +32,7 @@ export const EnumDropdown = <TEnum extends Object>({
   placeholder,
   value,
   includeAllOption,
+  disabled,
   ...formInputProps
 }: EnumDropdownProps<TEnum>): JSX.Element => {
   const values = getEnumValues(
@@ -61,8 +62,10 @@ export const EnumDropdown = <TEnum extends Object>({
       buttonContent={
         value ? uiNameMapper(value as unknown as TEnum) : placeholder
       }
+      buttonClassNames={disabled ? 'input-disabled' : ''}
       options={options}
       value={value}
+      disabled={disabled}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />

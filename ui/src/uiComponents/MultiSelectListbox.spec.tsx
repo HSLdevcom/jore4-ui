@@ -37,4 +37,5 @@ describe('<MultiSelectListbox />', () => {
     expect(screen.queryByText('button')).toBeVisible();
     expect(screen.queryByText('label1')).toBeVisible();
   });
+  // TODO: Add at least a test for selecting a value
 });

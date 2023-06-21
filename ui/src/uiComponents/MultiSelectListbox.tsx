@@ -12,6 +12,7 @@ interface MultiSelectFormInputProps {
   onChange: ValueFn;
   onBlur?: Noop;
   fieldState?: ControllerFieldState;
+  disabled?: boolean;
 }
 
 interface Props extends MultiSelectFormInputProps {
@@ -34,6 +35,7 @@ export const MultiSelectListbox = ({
   fieldState,
   buttonClassNames = '',
   arrowButtonClassNames = '',
+  disabled = false,
 }: Props): JSX.Element => {
   const getRemovedItem = (
     changedItems: string[],
@@ -97,6 +99,7 @@ export const MultiSelectListbox = ({
       onChange={onItemSelect}
       onBlur={onBlur}
       multiple
+      disabled={disabled}
     >
       {({ open }) => (
         <>
