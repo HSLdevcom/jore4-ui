@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row } from '../layoutComponents';
 
 export type ToastType = 'primary' | 'success' | 'danger' | 'warning';
@@ -58,7 +57,7 @@ export const Toast = ({
   return (
     <div className={`rounded-md bg-white ${className}`} data-testid={testId}>
       <div className={`${bg} ${border} rounded-md border`}>
-        <Row className="my-6 ml-16 mr-12 items-center">
+        <Row className="my-6 ml-16 mr-16 items-center">
           <i className={icon} />
           <p className={`${textColor} ml-2 text-sm`}>{message}</p>
         </Row>
