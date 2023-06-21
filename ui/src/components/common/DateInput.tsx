@@ -10,6 +10,7 @@ interface Props {
   required?: boolean;
   disabled?: boolean;
   dateInputId: string;
+  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
 }
 
 export const DateInput = ({
@@ -21,6 +22,7 @@ export const DateInput = ({
   required = false,
   disabled = false,
   dateInputId,
+  onClick,
 }: Props): JSX.Element => {
   return (
     <Column className={className}>
@@ -29,6 +31,7 @@ export const DateInput = ({
         type="date"
         value={value.toISODate()}
         onChange={(e) => onChange(DateTime.fromISO(e.target.value))}
+        onClick={onClick}
         id={dateInputId}
         className={className}
         data-testid={testId}
