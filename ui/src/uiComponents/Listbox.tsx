@@ -25,6 +25,7 @@ export interface FormInputProps {
   onChange: ValueFn;
   onBlur?: Noop;
   fieldState?: ControllerFieldState;
+  disabled?: boolean;
 }
 
 interface Props extends FormInputProps {
@@ -47,6 +48,7 @@ export const Listbox = ({
   fieldState,
   buttonClassNames = '',
   arrowButtonClassNames = '',
+  disabled = false,
 }: Props): JSX.Element => {
   const onItemSelected = (val: string) => {
     const event = { target: { value: val } };
@@ -63,6 +65,7 @@ export const Listbox = ({
       value={value}
       onChange={onItemSelected}
       onBlur={onBlur}
+      disabled={disabled}
     >
       {({ open }) => (
         <>
@@ -73,6 +76,7 @@ export const Listbox = ({
             hasError={hasError}
             testId={testId}
             buttonContent={buttonContent}
+            disabled={disabled}
           />
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Transition show={open} as={Fragment} {...dropdownTransition}>

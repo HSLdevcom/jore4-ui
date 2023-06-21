@@ -39,7 +39,6 @@ export const ValidationErrorList = <FormState extends FieldValues>({
 
   const mapErrorToMessage = (err: FieldError) => {
     const { type, message } = err;
-
     // To keep zod types correct, the only option seems to be mapping
     // invalid type error messages to 'required' and then map them
     // to error messages here
@@ -53,6 +52,8 @@ export const ValidationErrorList = <FormState extends FieldValues>({
       case 'too_big':
         return t('formValidation.tooBig');
       case 'custom':
+        return t(`formValidation.${message}`);
+      case 'invalid_string':
         return t(`formValidation.${message}`);
       default:
         return `${type}: ${message}`;

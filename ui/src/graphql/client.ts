@@ -207,6 +207,15 @@ const buildCacheDefinition = () => {
       timetables_timetables_query: {
         // No identifying fields here, result is cached based on query parameters.
         keyFields: [],
+        fields: {
+          timetables_service_calendar_substitute_operating_period: {
+            merge(existing, incoming) {
+              // Just return incoming contents without trying to do any merging
+              // to silence console warning about defining custom merge function
+              return incoming;
+            },
+          },
+        },
       },
       timetables_passing_times_timetabled_passing_time: {
         keyFields: ['timetabled_passing_time_id'],
@@ -216,6 +225,21 @@ const buildCacheDefinition = () => {
       },
       timetables_vehicle_type_vehicle_type: {
         keyFields: ['vehicle_type_id'],
+      },
+      timetables_service_calendar_substitute_day_by_day_type: {
+        keyFields: ['substitute_operating_day_by_line_type_id'],
+      },
+      timetables_service_calendar_substitute_operating_period: {
+        keyFields: ['substitute_operating_period_id'],
+        fields: {
+          substitute_operating_day_by_line_types: {
+            merge(existing, incoming) {
+              // Just return incoming contents without trying to do any merging
+              // to silence console warning about defining custom merge function
+              return incoming;
+            },
+          },
+        },
       },
     },
   });

@@ -13,6 +13,7 @@ interface Props {
   buttonContent: ReactNode;
   buttonClassNames?: string;
   arrowButtonClassNames?: string;
+  disabled?: boolean;
 }
 export const ListboxButton = ({
   open,
@@ -21,12 +22,13 @@ export const ListboxButton = ({
   buttonContent,
   buttonClassNames,
   arrowButtonClassNames,
+  disabled,
 }: Props): JSX.Element => {
   return (
     <HUIListbox.Button
       className={twMerge(
-        `${
-          hasError ? buttonErrorStyles : ''
+        `${hasError ? buttonErrorStyles : ''} ${
+          disabled ? 'input-disabled' : ''
         } flex w-full items-center rounded-md border border-grey bg-white py-3 px-2 text-left  ${buttonClassNames}`,
       )}
       data-testid={testId}

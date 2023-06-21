@@ -48,7 +48,10 @@ export const EnumMultiSelectDropdown = <TEnum extends Object>({
 
   const getButtonContent = (inputValue?: string): string => {
     const enumValues = inputValue?.split(',');
-    if (isUndefined(enumValues) || (first(enumValues) === '' && !!enumValues.length)) {
+    if (
+      isUndefined(enumValues) ||
+      (first(enumValues) === '' && !!enumValues.length)
+    ) {
       return placeholder;
     }
     if (enumValues.length === values.length) {

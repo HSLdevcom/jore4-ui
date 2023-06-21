@@ -66,7 +66,7 @@ export const mapDirectionToShortUiName = (
   direction?: RouteDirection | RouteDirectionEnum,
 ) => (direction === RouteDirectionEnum.Outbound ? '1' : '2');
 
-export const mapTimetableDayOfWeekToUiName = (key: SubstituteDayOfWeek) => {
+export const mapSubstituteDayOfWeekToUiName = (key: SubstituteDayOfWeek) => {
   const uiStrings: Record<SubstituteDayOfWeek, string> = {
     [SubstituteDayOfWeek.NoTraffic]: i18n.t('timetableDayEnum.noTraffic'),
     [SubstituteDayOfWeek.Monday]: i18n.t('timetableDayEnum.monday'),
