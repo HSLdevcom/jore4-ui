@@ -70,6 +70,28 @@ export const buildActiveDateRangeGqlFilter = (
     },
   ],
 });
+/**
+ * Builds an object for gql to filter out all
+ * substitute operating periods which
+ * don't have substitute operating days on the given date range
+ */
+export const buildActiveDateRangeGqlFilterForSubstituteOperatingPeriods = (
+  startDate: DateTime,
+  endDate: DateTime,
+) => ({
+  _and: [
+    {
+      substitute_operating_day_by_line_types: {
+        superseded_date: { _gte: startDate },
+      },
+    },
+    {
+      substitute_operating_day_by_line_types: {
+        superseded_date: { _lte: endDate },
+      },
+    },
+  ],
+});
 
 /** Builds an object for gql to filter out all drafts if
  * the given priority is not draft itself

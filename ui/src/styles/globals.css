@@ -19,6 +19,11 @@ input:disabled {
   color: #666666;
 }
 
+.input-disabled {
+  background-color: #f2f5f7;
+  color: #666666;
+}
+
 label {
   font-weight: 700;
   font-size: 14px;

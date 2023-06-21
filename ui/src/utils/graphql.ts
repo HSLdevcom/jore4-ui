@@ -7,6 +7,9 @@ export const mapToObject = (object: ExplicitAny) => {
 export const mapToVariables = (variables: ExplicitAny) => {
   return { variables };
 };
+export const mapToData = (data: ExplicitAny) => {
+  return { data };
+};
 
 // null values are valid for patches, so here checking for undefined values only
 export const defaultTo = <V, D>(value: V, defaultValue: D) =>
