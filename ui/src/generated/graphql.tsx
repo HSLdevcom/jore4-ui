@@ -1,7 +1,7 @@
-import * as Apollo from '@apollo/client';
-import { gql } from '@apollo/client';
 import * as luxon from 'luxon';
 import { useAsyncQuery } from '../hooks/useAsyncQuery';
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -7247,6 +7247,20 @@ export type ServiceCalendarDayTypeActiveOnDayOfWeekAggregateBoolExpCount = {
   predicate: IntComparisonExp;
 };
 
+export type ServiceCalendarSubstituteOperatingDayByLineTypeAggregateBoolExp = {
+  count?: InputMaybe<ServiceCalendarSubstituteOperatingDayByLineTypeAggregateBoolExpCount>;
+};
+
+export type ServiceCalendarSubstituteOperatingDayByLineTypeAggregateBoolExpCount =
+  {
+    arguments?: InputMaybe<
+      Array<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeSelectColumn>
+    >;
+    distinct?: InputMaybe<Scalars['Boolean']>;
+    filter?: InputMaybe<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeBoolExp>;
+    predicate: IntComparisonExp;
+  };
+
 /** A dummy table that models the results of calculating the lengths of stop intervals from the given journey patterns. The table exists due to the limitations of Hasura and there is no intention to insert anything to it. */
 export type ServicePatternDistanceBetweenStopsCalculation = {
   __typename?: 'service_pattern_distance_between_stops_calculation';
@@ -11497,6 +11511,8 @@ export type TimetablesServiceCalendarSubstituteOperatingPeriodBoolExp = {
 
 /** unique or primary key constraints on table "service_calendar.substitute_operating_period" */
 export enum TimetablesServiceCalendarSubstituteOperatingPeriodConstraint {
+  /** unique or primary key constraint on columns "period_name" */
+  SubstituteOperatingPeriodPeriodNameKey = 'substitute_operating_period_period_name_key',
   /** unique or primary key constraint on columns "substitute_operating_period_id" */
   SubstituteOperatingPeriodPkey = 'substitute_operating_period_pkey',
 }
@@ -19337,6 +19353,107 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
   }>;
 };
 
+export type CreateSubstituteOperatingPeriodMutationVariables = Exact<{
+  data:
+    | Array<TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput>
+    | TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput;
+}>;
+
+export type CreateSubstituteOperatingPeriodMutation = {
+  __typename?: 'mutation_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_mutation_frontend';
+    timetables_insert_service_calendar_substitute_operating_period?: {
+      __typename?: 'timetables_service_calendar_substitute_operating_period_mutation_response';
+      returning: Array<{
+        __typename?: 'timetables_service_calendar_substitute_operating_period';
+        substitute_operating_period_id: UUID;
+        period_name: string;
+        is_preset: boolean;
+        substitute_operating_day_by_line_types: Array<{
+          __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type';
+          begin_time?: luxon.Duration | null;
+          end_time?: luxon.Duration | null;
+          substitute_day_of_week?: number | null;
+          substitute_operating_day_by_line_type_id: UUID;
+          superseded_date: luxon.DateTime;
+          type_of_line: string;
+        }>;
+      }>;
+    } | null;
+  } | null;
+};
+
+export type DeleteSubstituteOperatingPeriodMutationVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+export type DeleteSubstituteOperatingPeriodMutation = {
+  __typename?: 'mutation_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_mutation_frontend';
+    timetables_delete_service_calendar_substitute_operating_period_by_pk?: {
+      __typename?: 'timetables_service_calendar_substitute_operating_period';
+      substitute_operating_period_id: UUID;
+    } | null;
+  } | null;
+};
+
+export type EditSubstituteOperatingPeriodsMutationVariables = Exact<{
+  periodsToInsert:
+    | Array<TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput>
+    | TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput;
+  periodsToDelete: Array<Scalars['uuid']> | Scalars['uuid'];
+  daysToInsert:
+    | Array<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput>
+    | TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput;
+}>;
+
+export type EditSubstituteOperatingPeriodsMutation = {
+  __typename?: 'mutation_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_mutation_frontend';
+    timetables_insert_service_calendar_substitute_operating_period?: {
+      __typename?: 'timetables_service_calendar_substitute_operating_period_mutation_response';
+      affected_rows: number;
+    } | null;
+    timetables_delete_service_calendar_substitute_operating_day_by_line_type?: {
+      __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_mutation_response';
+      affected_rows: number;
+    } | null;
+    timetables_insert_service_calendar_substitute_operating_day_by_line_type?: {
+      __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_mutation_response';
+      affected_rows: number;
+    } | null;
+  } | null;
+};
+
+export type GetSubstituteOperatingPeriodsQueryVariables = Exact<{
+  periodFilters?: InputMaybe<TimetablesServiceCalendarSubstituteOperatingPeriodBoolExp>;
+}>;
+
+export type GetSubstituteOperatingPeriodsQuery = {
+  __typename?: 'query_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_query';
+    timetables_service_calendar_substitute_operating_period: Array<{
+      __typename?: 'timetables_service_calendar_substitute_operating_period';
+      period_name: string;
+      is_preset: boolean;
+      substitute_operating_period_id: UUID;
+      substitute_operating_day_by_line_types: Array<{
+        __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type';
+        begin_time?: luxon.Duration | null;
+        end_time?: luxon.Duration | null;
+        substitute_day_of_week?: number | null;
+        substitute_operating_day_by_line_type_id: UUID;
+        superseded_date: luxon.DateTime;
+        type_of_line: string;
+      }>;
+    }>;
+  } | null;
+};
+
 export type UpdateRouteGeometryMutationVariables = Exact<{
   route_id: Scalars['uuid'];
   journey_pattern_id: Scalars['uuid'];
@@ -24138,6 +24255,279 @@ export type GetHighestPriorityLineDetailsWithRoutesQueryResult =
     GetHighestPriorityLineDetailsWithRoutesQuery,
     GetHighestPriorityLineDetailsWithRoutesQueryVariables
   >;
+export const CreateSubstituteOperatingPeriodDocument = gql`
+  mutation CreateSubstituteOperatingPeriod(
+    $data: [timetables_service_calendar_substitute_operating_period_insert_input!]!
+  ) {
+    timetables {
+      timetables_insert_service_calendar_substitute_operating_period(
+        objects: $data
+      ) {
+        returning {
+          substitute_operating_period_id
+          period_name
+          is_preset
+          substitute_operating_day_by_line_types {
+            begin_time
+            end_time
+            substitute_day_of_week
+            substitute_operating_day_by_line_type_id
+            superseded_date
+            type_of_line
+          }
+        }
+      }
+    }
+  }
+`;
+export type CreateSubstituteOperatingPeriodMutationFn = Apollo.MutationFunction<
+  CreateSubstituteOperatingPeriodMutation,
+  CreateSubstituteOperatingPeriodMutationVariables
+>;
+
+/**
+ * __useCreateSubstituteOperatingPeriodMutation__
+ *
+ * To run a mutation, you first call `useCreateSubstituteOperatingPeriodMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSubstituteOperatingPeriodMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSubstituteOperatingPeriodMutation, { data, loading, error }] = useCreateSubstituteOperatingPeriodMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateSubstituteOperatingPeriodMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateSubstituteOperatingPeriodMutation,
+    CreateSubstituteOperatingPeriodMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CreateSubstituteOperatingPeriodMutation,
+    CreateSubstituteOperatingPeriodMutationVariables
+  >(CreateSubstituteOperatingPeriodDocument, options);
+}
+export type CreateSubstituteOperatingPeriodMutationHookResult = ReturnType<
+  typeof useCreateSubstituteOperatingPeriodMutation
+>;
+export type CreateSubstituteOperatingPeriodMutationResult =
+  Apollo.MutationResult<CreateSubstituteOperatingPeriodMutation>;
+export type CreateSubstituteOperatingPeriodMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateSubstituteOperatingPeriodMutation,
+    CreateSubstituteOperatingPeriodMutationVariables
+  >;
+export const DeleteSubstituteOperatingPeriodDocument = gql`
+  mutation DeleteSubstituteOperatingPeriod($id: uuid!) {
+    timetables {
+      timetables_delete_service_calendar_substitute_operating_period_by_pk(
+        substitute_operating_period_id: $id
+      ) {
+        substitute_operating_period_id
+      }
+    }
+  }
+`;
+export type DeleteSubstituteOperatingPeriodMutationFn = Apollo.MutationFunction<
+  DeleteSubstituteOperatingPeriodMutation,
+  DeleteSubstituteOperatingPeriodMutationVariables
+>;
+
+/**
+ * __useDeleteSubstituteOperatingPeriodMutation__
+ *
+ * To run a mutation, you first call `useDeleteSubstituteOperatingPeriodMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSubstituteOperatingPeriodMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSubstituteOperatingPeriodMutation, { data, loading, error }] = useDeleteSubstituteOperatingPeriodMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteSubstituteOperatingPeriodMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteSubstituteOperatingPeriodMutation,
+    DeleteSubstituteOperatingPeriodMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeleteSubstituteOperatingPeriodMutation,
+    DeleteSubstituteOperatingPeriodMutationVariables
+  >(DeleteSubstituteOperatingPeriodDocument, options);
+}
+export type DeleteSubstituteOperatingPeriodMutationHookResult = ReturnType<
+  typeof useDeleteSubstituteOperatingPeriodMutation
+>;
+export type DeleteSubstituteOperatingPeriodMutationResult =
+  Apollo.MutationResult<DeleteSubstituteOperatingPeriodMutation>;
+export type DeleteSubstituteOperatingPeriodMutationOptions =
+  Apollo.BaseMutationOptions<
+    DeleteSubstituteOperatingPeriodMutation,
+    DeleteSubstituteOperatingPeriodMutationVariables
+  >;
+export const EditSubstituteOperatingPeriodsDocument = gql`
+  mutation EditSubstituteOperatingPeriods(
+    $periodsToInsert: [timetables_service_calendar_substitute_operating_period_insert_input!]!
+    $periodsToDelete: [uuid!]!
+    $daysToInsert: [timetables_service_calendar_substitute_operating_day_by_line_type_insert_input!]!
+  ) {
+    timetables {
+      timetables_insert_service_calendar_substitute_operating_period(
+        objects: $periodsToInsert
+        on_conflict: {
+          constraint: substitute_operating_period_pkey
+          update_columns: [period_name]
+        }
+      ) {
+        affected_rows
+      }
+      timetables_delete_service_calendar_substitute_operating_day_by_line_type(
+        where: { substitute_operating_period_id: { _in: $periodsToDelete } }
+      ) {
+        affected_rows
+      }
+      timetables_insert_service_calendar_substitute_operating_day_by_line_type(
+        objects: $daysToInsert
+      ) {
+        affected_rows
+      }
+    }
+  }
+`;
+export type EditSubstituteOperatingPeriodsMutationFn = Apollo.MutationFunction<
+  EditSubstituteOperatingPeriodsMutation,
+  EditSubstituteOperatingPeriodsMutationVariables
+>;
+
+/**
+ * __useEditSubstituteOperatingPeriodsMutation__
+ *
+ * To run a mutation, you first call `useEditSubstituteOperatingPeriodsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditSubstituteOperatingPeriodsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editSubstituteOperatingPeriodsMutation, { data, loading, error }] = useEditSubstituteOperatingPeriodsMutation({
+ *   variables: {
+ *      periodsToInsert: // value for 'periodsToInsert'
+ *      periodsToDelete: // value for 'periodsToDelete'
+ *      daysToInsert: // value for 'daysToInsert'
+ *   },
+ * });
+ */
+export function useEditSubstituteOperatingPeriodsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditSubstituteOperatingPeriodsMutation,
+    EditSubstituteOperatingPeriodsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    EditSubstituteOperatingPeriodsMutation,
+    EditSubstituteOperatingPeriodsMutationVariables
+  >(EditSubstituteOperatingPeriodsDocument, options);
+}
+export type EditSubstituteOperatingPeriodsMutationHookResult = ReturnType<
+  typeof useEditSubstituteOperatingPeriodsMutation
+>;
+export type EditSubstituteOperatingPeriodsMutationResult =
+  Apollo.MutationResult<EditSubstituteOperatingPeriodsMutation>;
+export type EditSubstituteOperatingPeriodsMutationOptions =
+  Apollo.BaseMutationOptions<
+    EditSubstituteOperatingPeriodsMutation,
+    EditSubstituteOperatingPeriodsMutationVariables
+  >;
+export const GetSubstituteOperatingPeriodsDocument = gql`
+  query GetSubstituteOperatingPeriods(
+    $periodFilters: timetables_service_calendar_substitute_operating_period_bool_exp
+  ) {
+    timetables {
+      timetables_service_calendar_substitute_operating_period(
+        where: $periodFilters
+      ) {
+        period_name
+        is_preset
+        substitute_operating_period_id
+        substitute_operating_day_by_line_types {
+          begin_time
+          end_time
+          substitute_day_of_week
+          substitute_operating_day_by_line_type_id
+          superseded_date
+          type_of_line
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetSubstituteOperatingPeriodsQuery__
+ *
+ * To run a query within a React component, call `useGetSubstituteOperatingPeriodsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSubstituteOperatingPeriodsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSubstituteOperatingPeriodsQuery({
+ *   variables: {
+ *      periodFilters: // value for 'periodFilters'
+ *   },
+ * });
+ */
+export function useGetSubstituteOperatingPeriodsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >(GetSubstituteOperatingPeriodsDocument, options);
+}
+export function useGetSubstituteOperatingPeriodsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >(GetSubstituteOperatingPeriodsDocument, options);
+}
+export type GetSubstituteOperatingPeriodsQueryHookResult = ReturnType<
+  typeof useGetSubstituteOperatingPeriodsQuery
+>;
+export type GetSubstituteOperatingPeriodsLazyQueryHookResult = ReturnType<
+  typeof useGetSubstituteOperatingPeriodsLazyQuery
+>;
+export type GetSubstituteOperatingPeriodsQueryResult = Apollo.QueryResult<
+  GetSubstituteOperatingPeriodsQuery,
+  GetSubstituteOperatingPeriodsQueryVariables
+>;
 export const UpdateRouteGeometryDocument = gql`
   mutation UpdateRouteGeometry(
     $route_id: uuid!
@@ -25976,6 +26366,16 @@ export function useGetHighestPriorityLineDetailsWithRoutesAsyncQuery() {
 }
 export type GetHighestPriorityLineDetailsWithRoutesAsyncQueryHookResult =
   ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesAsyncQuery>;
+
+export function useGetSubstituteOperatingPeriodsAsyncQuery() {
+  return useAsyncQuery<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >(GetSubstituteOperatingPeriodsDocument);
+}
+export type GetSubstituteOperatingPeriodsAsyncQueryHookResult = ReturnType<
+  typeof useGetSubstituteOperatingPeriodsAsyncQuery
+>;
 
 export function useGetLinksWithStopsByExternalLinkIdsAsyncQuery() {
   return useAsyncQuery<

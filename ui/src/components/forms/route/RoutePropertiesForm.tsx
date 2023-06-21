@@ -16,8 +16,8 @@ import { ChangeValidityForm } from '../common/ChangeValidityForm';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';
 import {
-  routeFormSchema,
   RouteFormState as FormState,
+  routeFormSchema,
 } from './RoutePropertiesForm.types';
 import { TemplateRouteSelector } from './TemplateRouteSelector';
 import { TerminusNameInputs } from './TerminusNameInputs';

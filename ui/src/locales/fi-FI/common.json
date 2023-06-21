@@ -173,6 +173,29 @@
     "confirmText": "Tallenna luonnosten kanssa",
     "removeStopsText": "Tallenna ilman luonnoksia"
   },
+  "confirmDeleteReferenceDayDialog": {
+    "title": "Poikkeuspäivä poistetaan",
+    "description": "Voit lisätä sen tarvittaessa myöhemmin",
+    "confirmText": "Poista",
+    "declineText": "Älä poista"
+  },
+  "confirmReferenceDayFilterDialog": {
+    "title": "Tallentamattomia muutoksia",
+    "description": "Lomakkeessa on tallentamattomia muutoksia. Tallenna muutokset tai hylkää ne.",
+    "confirmText": "Palaa"
+  },
+  "confirmSettingsPageLeave": {
+    "title": "Tallentamattomia muutoksia",
+    "description": "Lomakkeessa on tallentamattomia muutoksia. Haluatko varmasti poistua?",
+    "confirmText": "Kyllä",
+    "cancelText": "Palaa"
+  },
+  "confirmResetReferenceDayDialog": {
+    "title": "Tehdyt muutokset poistetaan",
+    "description": "Lomakkeessa on tallentamattomia muutoksia. Haluatko varmasti tyhjentää lomakkeen?",
+    "confirmText": "Kyllä",
+    "cancelText": "Palaa"
+  },
   "priority": {
     "label": "Prioriteetti",
     "standard": "Perusversio",
@@ -209,7 +232,7 @@
     "outbound": "1 - Keskustasta pois",
     "inbound": "2 - Keskustaan päin"
   },
- "timetableDayEnum": {
+  "timetableDayEnum": {
     "noTraffic": "Ei liikennöintiä",
     "monday": "Maanantai",
     "tuesday": "Tiistai",
@@ -240,7 +263,8 @@
     "required": "Kenttä vaaditaan",
     "tooSmall": "Arvo on liian pieni",
     "tooBig": "Arvo on liian suuri",
-    "timeRange": "Alkupäivämäärän pitää tulla ennen loppupäivämäärää."
+    "timeRange": "Alkupäivämäärän pitää tulla ennen loppupäivämäärää.",
+    "invalidTime": "04:30-28:30"
   },
   "errors": {
     "saveFailed": "Tallennus epäonnistui",
@@ -319,6 +343,33 @@
     "operatedLike": "Ajetaan kuten {{ dayOfWeek }}",
     "noService": "Ei liikennöintiä",
     "timeline": "Aikajana",
+    "settingsButton": "Asetukset",
+    "daySettings": "Päiväasetukset",
+    "filter": "Suodata",
+    "settings": {
+      "periods": {
+        "periodName": "Jakson nimi",
+        "beginDate": "Alkaa",
+        "endDate": "Päättyy",
+        "beginTime": "Klo",
+        "endTime": "Klo",
+        "lineTypes": "Koskee linjatyyppejä",
+        "substituteDayOfWeek": "Korvauspäivä"
+      },
+      "addRow": "Lisää poikkeuspäivä",
+      "filterLineType": "Näytä linjatyyppi",
+      "beginDate": "Alkaa",
+      "endDate": "Päättyy",
+      "saveSuccess": "Tallennus onnistui",
+      "occasionalSubstituteDays": "Satunnaiset poikkeuspäivät",
+      "deleteSuccess": "Poistaminen onnistui",
+      "deleteFailed": "Poistaminen epäonnistui"
+    },
+    "observationPeriodForm": {
+      "startDate": "Alkaa",
+      "endDate": "Päättyy",
+      "warningMessage": "Tallenna tai hylkää lomakkeen muutokset"
+    },
     "chooseSubstituteDay": "Valitse..."
   },
   "timetablesPreview": {
@@ -378,6 +429,7 @@
   "version": "Versio: {{ version }}",
   "hide": "Piilota",
   "all": "Kaikki",
+  "selected": " {{ count }} valittu",
   "welcomePage": {
     "heading": "JORE4:n käyttöönotto alkaa!",
     "subheading1": "Mitä?",

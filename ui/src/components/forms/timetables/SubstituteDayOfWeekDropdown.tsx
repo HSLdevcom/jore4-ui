@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { mapTimetableDayOfWeekToUiName } from '../../../i18n/uiNameMappings';
+import { mapSubstituteDayOfWeekToUiName } from '../../../i18n/uiNameMappings';
 import { SubstituteDayOfWeek } from '../../../types/enums';
 import { FormInputProps } from '../../../uiComponents';
 import { EnumDropdown } from '../common';
@@ -23,7 +23,7 @@ export const SubstituteDayOfWeekDropdown = ({
       testId={testId}
       enumType={SubstituteDayOfWeek}
       placeholder={t('timetables.chooseSubstituteDay')}
-      uiNameMapper={mapTimetableDayOfWeekToUiName}
+      uiNameMapper={mapSubstituteDayOfWeekToUiName}
       includeAllOption={includeAllOption}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}

@@ -40,3 +40,14 @@ export const localizedStringOptional = z.object({
 export const nullableNumber = z.any().transform((value): number | null => {
   return Number.isNaN(value) ? null : value;
 });
+
+export const requiredDate = requiredString.regex(/[0-9]{4}-[0-9]{2}-[0-9]{2}/);
+
+/**
+ *  Regex for validating time/interval-field
+ * 04:30 - 28:30
+ * */
+export const requiredInterval = requiredString.regex(
+  /^([0-9]|0[4-9]|1[0-9]|2[0-8]):[0-5][0-9]$/,
+  'invalidTime',
+);

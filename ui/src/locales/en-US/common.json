@@ -173,6 +173,29 @@
     "confirmText": "Save with draft stops",
     "removeStopsText": "Save without drafts"
   },
+  "confirmDeleteReferenceDayDialog": {
+    "title": "Reference day will be removed",
+    "description": "Reference days can be added again later",
+    "confirmText": "Remove",
+    "declineText": "Cancel"
+  },
+  "confirmReferenceDayFilterDialog": {
+    "title": "Unsaved changes",
+    "description": "There are unsaved changes in the form. Save the changes or discard them",
+    "confirmText": "Return"
+  },
+  "confirmSettingsPageLeave": {
+    "title": "Unsaved changes",
+    "description": "There are unsaved changes in the form. Are you sure you want to exit?",
+    "confirmText": "Yes",
+    "cancelText": "Return"
+  },
+  "confirmResetReferenceDayDialog": {
+    "title": "The changes made will be deleted",
+    "description": "There are unsaved changes in the form. Are you sure you want to clear the form?",
+    "confirmText": "Yes",
+    "cancelText": "Return"
+  },
   "priority": {
     "label": "Priority",
     "standard": "Standard",
@@ -210,14 +233,14 @@
     "inbound": "2 - Inbound"
   },
   "timetableDayEnum": {
-    "NoTraffic": "No traffic",
-    "Monday": "Monday",
-    "Tuesday": "Tuesday",
-    "Wednesday": "Wednesday",
-    "Thursday": "Thursday",
-    "Friday": "Friday",
-    "Saturday": "Saturday",
-    "Sunday": "Sunday"
+    "noTraffic": "No traffic",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
   },
   "transportTargetEnum": {
     "helsinki_internal_traffic": "Helsinki internal traffic",
@@ -240,7 +263,8 @@
     "required": "Field is required",
     "tooSmall": "Value is too small",
     "tooBig": "Value is too big",
-    "timeRange": "Start date has to be before end date."
+    "timeRange": "Start date has to be before end date.",
+    "invalidTime": "04:30-28:30"
   },
   "errors": {
     "saveFailed": "Something went wrong",
@@ -319,6 +343,33 @@
     "operatedLike": "Operated like {{ dayOfWeek }}",
     "noService": "No service",
     "timeline": "Timeline",
+    "settingsButton": "Settings",
+    "daySettings": "Day settings",
+    "filter": "Filter",
+    "settings": {
+      "periods": {
+        "periodName": "Period name",
+        "beginDate": "Starts",
+        "endDate": "Ends",
+        "beginTime": "Time",
+        "endTime": "Time",
+        "lineTypes": "Linetypes",
+        "substituteDayOfWeek": "Substitute day"
+      },
+      "addRow": "Add new substitute day",
+      "filterLineType": "Show linetype",
+      "beginDate": "Starts",
+      "endDate": "Ends",
+      "saveSuccess": "Save successful",
+      "occasionalSubstituteDays": "Occasional substitute days",
+      "deleteSuccess": "Delete successful",
+      "deleteFailed": "Delete failed"
+    },
+    "observationPeriodForm": {
+      "startDate": "Starts",
+      "endDate": "Ends",
+      "warningMessage": "Save or discard the form changes"
+    },
     "chooseSubstituteDay": "Select..."
   },
   "timetablesPreview": {
@@ -378,6 +429,7 @@
   "version": "Version: {{ version }}",
   "hide": "Hide",
   "all": "All",
+  "selected": " {{ count }} selected",
   "welcomePage": {
     "heading": "JORE4:n käyttöönotto alkaa!",
     "subheading1": "Mitä?",

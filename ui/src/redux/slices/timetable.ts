@@ -4,6 +4,9 @@ import { StoreType } from '../mappers';
 export interface TimetableState {
   showArrivalTimes: boolean;
   showAllValid: boolean;
+  settings: {
+    isOccasionalSubstitutePeriodFormDirty: boolean;
+  };
 }
 
 type IState = StoreType<TimetableState>;
@@ -11,6 +14,9 @@ type IState = StoreType<TimetableState>;
 const initialState: IState = {
   showArrivalTimes: false,
   showAllValid: false,
+  settings: {
+    isOccasionalSubstitutePeriodFormDirty: false,
+  },
 };
 
 const slice = createSlice({
@@ -23,12 +29,20 @@ const slice = createSlice({
     setShowAllValid: (state, action: PayloadAction<boolean>) => {
       state.showAllValid = action.payload;
     },
+    setIsOccasionalSubstitutePeriodFormDirty: (
+      state,
+      action: PayloadAction<boolean>,
+    ) => {
+      state.settings.isOccasionalSubstitutePeriodFormDirty = action.payload;
+    },
   },
 });
 
 export const {
   setShowArrivalTimes: setShowArrivalTimesAction,
   setShowAllValid: setShowAllValidAction,
+  setIsOccasionalSubstitutePeriodFormDirty:
+    setIsOccasionalSubstitutePeriodFormDirtyAction,
 } = slice.actions;
 
 export const timetableReducer = slice.reducer;
