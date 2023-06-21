@@ -39,3 +39,16 @@ export enum DayOfWeek {
   Saturday = 6,
   Sunday = 7,
 }
+/**
+ * Day of week values used in SubstituteDayOfWeekDropdown.
+ */
+export enum SubstituteDayOfWeek {
+  NoTraffic = 'no_traffic',
+  Monday = 'monday',
+  Tuesday = 'tuesday',
+  Wednesday = 'wednesday',
+  Thursday = 'thursday',
+  Friday = 'friday',
+  Saturday = 'saturday',
+  Sunday = 'sunday',
+}

@@ -5,7 +5,12 @@ import {
   RouteTypeOfLineEnum,
 } from '../generated/graphql';
 import { i18n } from '../i18n';
-import { DayOfWeek, Priority, TimetablePriority } from '../types/enums';
+import {
+  DayOfWeek,
+  Priority,
+  SubstituteDayOfWeek,
+  TimetablePriority,
+} from '../types/enums';
 import { RouteDirection } from '../types/RouteDirection';
 import { AllOptionEnum } from '../utils';
 
@@ -60,3 +65,17 @@ export const mapTransportTargetToUiName = (key: HslRouteTransportTargetEnum) =>
 export const mapDirectionToShortUiName = (
   direction?: RouteDirection | RouteDirectionEnum,
 ) => (direction === RouteDirectionEnum.Outbound ? '1' : '2');
+
+export const mapTimetableDayOfWeekToUiName = (key: SubstituteDayOfWeek) => {
+  const uiStrings: Record<SubstituteDayOfWeek, string> = {
+    [SubstituteDayOfWeek.NoTraffic]: i18n.t('timetableDayEnum.noTraffic'),
+    [SubstituteDayOfWeek.Monday]: i18n.t('timetableDayEnum.monday'),
+    [SubstituteDayOfWeek.Tuesday]: i18n.t('timetableDayEnum.tuesday'),
+    [SubstituteDayOfWeek.Wednesday]: i18n.t('timetableDayEnum.wednesday'),
+    [SubstituteDayOfWeek.Thursday]: i18n.t('timetableDayEnum.thursday'),
+    [SubstituteDayOfWeek.Friday]: i18n.t('timetableDayEnum.friday'),
+    [SubstituteDayOfWeek.Saturday]: i18n.t('timetableDayEnum.saturday'),
+    [SubstituteDayOfWeek.Sunday]: i18n.t('timetableDayEnum.sunday'),
+  };
+  return uiStrings[key];
+};

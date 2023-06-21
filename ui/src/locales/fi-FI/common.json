@@ -209,6 +209,16 @@
     "outbound": "1 - Keskustasta pois",
     "inbound": "2 - Keskustaan päin"
   },
+ "timetableDayEnum": {
+    "noTraffic": "Ei liikennöintiä",
+    "monday": "Maanantai",
+    "tuesday": "Tiistai",
+    "wednesday": "Keskiviikko",
+    "thursday": "Torstai",
+    "friday": "Perjantai",
+    "saturday": "Lauantai",
+    "sunday": "Sunnuntai"
+  },
   "transportTargetEnum": {
     "helsinki_internal_traffic": "Helsingin sisäinen liikenne",
     "espoo_and_kauniainen_internal_traffic": "Espoon ja Kauniaisen sisäinen liikenne",
@@ -308,7 +318,8 @@
     "showAllValid": "Näytä kaikki voimassaolevat",
     "operatedLike": "Ajetaan kuten {{ dayOfWeek }}",
     "noService": "Ei liikennöintiä",
-    "timeline": "Aikajana"
+    "timeline": "Aikajana",
+    "chooseSubstituteDay": "Valitse..."
   },
   "timetablesPreview": {
     "preview": "Esikatselu",
