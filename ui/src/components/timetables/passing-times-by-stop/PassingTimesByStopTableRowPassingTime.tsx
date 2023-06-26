@@ -5,6 +5,11 @@ import {
   PassingTimesByStopTableRowPassingMinute,
 } from './PassingTimesByStopTableRowPassingMinute';
 
+const testIds = {
+  hour: 'PassingTimesByStopTableRowPassingTime::hour',
+  timeContainer: 'PassingTimesByStopTableRowPassingTime::timeContainer',
+};
+
 type Props = {
   hour: string;
   passingTimes: PassingTimeByStopFragment[];
@@ -22,8 +27,16 @@ export const PassingTimesByStopTableRowPassingTime = ({
   );
 
   return (
-    <span className="my-2 mr-6 inline-block space-x-2 whitespace-nowrap border-b border-dashed border-grey">
-      <span className="font-narrow text-lg font-bold">{hour}</span>
+    <span
+      className="my-2 mr-6 inline-block space-x-2 whitespace-nowrap border-b border-dashed border-grey"
+      data-testid={testIds.timeContainer}
+    >
+      <span
+        className="font-narrow text-lg font-bold"
+        data-testid={testIds.hour}
+      >
+        {hour}
+      </span>
       {sortedPassingTimes.map((passingTime) => (
         <PassingTimesByStopTableRowPassingMinute
           key={passingTime.timetabled_passing_time_id}

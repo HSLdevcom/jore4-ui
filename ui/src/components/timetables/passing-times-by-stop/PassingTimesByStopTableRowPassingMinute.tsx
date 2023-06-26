@@ -20,6 +20,8 @@ export interface HighlightProps {
 
 const testIds = {
   selectPassingTimeButton: 'PassingTimesByStopTableRowPassingMinute::button',
+  arrivalTime: 'PassingTimesByStopTableRowPassingMinute::arrivalTime',
+  departureTime: 'PassingTimesByStopTableRowPassingMinute::departureTime',
 };
 
 type Props = {
@@ -75,13 +77,16 @@ export const PassingTimesByStopTableRowPassingMinute = ({
       >
         <span className="flex flex-col">
           <span
+            data-testid={testIds.arrivalTime}
             className={`text-2xs leading-tight ${
               displayArrival ? '' : 'invisible'
             }`}
           >
             {displayedArrival}
           </span>
-          <span>{padToTwoDigits(passing.minutes)}</span>
+          <span data-testid={testIds.departureTime}>
+            {padToTwoDigits(passing.minutes)}
+          </span>
         </span>
       </button>
       <Visible visible={isSelected}>
