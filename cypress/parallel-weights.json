@@ -1,15 +1,15 @@
 {
-  "e2e/changeLanguage.cy.ts": { "time": 3884, "weight": 1 },
-  "e2e/createLine.cy.ts": { "time": 6888, "weight": 3 },
-  "e2e/createRoute.cy.ts": { "time": 68542, "weight": 31 },
-  "e2e/createStop.cy.ts": { "time": 45514, "weight": 20 },
-  "e2e/editLineInfo.cy.ts": { "time": 6810, "weight": 3 },
-  "e2e/editRoute.cy.ts": { "time": 29301, "weight": 13 },
-  "e2e/editRouteShape.cy.ts": { "time": 22512, "weight": 10 },
-  "e2e/editStop.cy.ts": { "time": 39468, "weight": 18 },
-  "e2e/hastusExport.cy.ts": { "time": 12418, "weight": 5 },
-  "e2e/login.cy.ts": { "time": 2384, "weight": 1 },
-  "e2e/routeStops.cy.ts": { "time": 33400, "weight": 15 },
-  "e2e/searchRoutesAndLines.cy.ts": { "time": 3722, "weight": 1 },
-  "e2e/timetableImport.cy.ts": { "time": 9131, "weight": 4 }
+  "e2e/changeLanguage.cy.ts": { "time": 3340, "weight": 1 },
+  "e2e/createLine.cy.ts": { "time": 6545, "weight": 2 },
+  "e2e/createRoute.cy.ts": { "time": 65911, "weight": 28 },
+  "e2e/createStop.cy.ts": { "time": 40780, "weight": 17 },
+  "e2e/editLineInfo.cy.ts": { "time": 5654, "weight": 2 },
+  "e2e/editRoute.cy.ts": { "time": 29983, "weight": 13 },
+  "e2e/editRouteShape.cy.ts": { "time": 22237, "weight": 9 },
+  "e2e/editStop.cy.ts": { "time": 63301, "weight": 27 },
+  "e2e/hastusExport.cy.ts": { "time": 14164, "weight": 6 },
+  "e2e/login.cy.ts": { "time": 2329, "weight": 1 },
+  "e2e/routeStops.cy.ts": { "time": 33150, "weight": 14 },
+  "e2e/searchRoutesAndLines.cy.ts": { "time": 3858, "weight": 1 },
+  "e2e/timetableImport.cy.ts": { "time": 8534, "weight": 3 }
 }
