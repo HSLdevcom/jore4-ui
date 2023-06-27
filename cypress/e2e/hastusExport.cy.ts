@@ -66,6 +66,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
     scheduled_stop_point_id: '7ef42a37-142d-44be-9b69-dbe6adca7f34',
+    timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[0].coordinates,
@@ -88,6 +89,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
     scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
+    timing_place_id: timingPlaces[2].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[2].coordinates,
