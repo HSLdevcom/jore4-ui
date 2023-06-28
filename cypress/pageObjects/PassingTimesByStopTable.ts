@@ -8,6 +8,12 @@ export class PassingTimesByStopTable {
     return cy.getByTestId(`PassingTimesByStopTableRow::${stopLabel}`);
   }
 
+  /**
+   * Click a passing time on a stop's row to highlight
+   * passing times on all relevant stop rows for that departure.
+   * 'nthPassingTime' begins from 0.
+   * @example clickToHighlightNthPassingTimeOnStopRow('TestStop1',3);
+   */
   clickToHighlightNthPassingTimeOnStopRow(
     stopLabel: string,
     nthPassingTime: number,
@@ -27,14 +33,18 @@ export class PassingTimesByStopTable {
   /**
    * Asserts nth arrival and departure times
    * for a stop. 'nthPassingTime' begins from 0.
+   * If the arrival time and departure time don't have
+   * the same hour, the whole arrival time will be displayed
+   * in the arrival time section, including the hour.
+   * '09:59', for example.
    * @example assertNthPassingTimeOnStop(
    *       {
    *         stopLabel: stopLabels[1],
    *         nthPassingTime: 0,
-   *         hour: 7,
+   *         hour: '7',
    *         arrivalTime: '12',
    *         departureTime: '13',
-   *       },
+   *       }
    *     )
    */
   assertNthPassingTimeOnStop({
@@ -46,11 +56,9 @@ export class PassingTimesByStopTable {
   }: {
     stopLabel: string;
     nthPassingTime: number;
-    hour: number;
-    // arrivalTime is a string because it can contain
-    // the hour, the minute and their separator. '08:59', for example.
+    hour: string;
     arrivalTime?: string;
-    departureTime: number;
+    departureTime: string;
   }) {
     this.getTableRow(stopLabel).within(() => {
       this.passingTimesByStopTableRowPassingTime
@@ -72,6 +80,16 @@ export class PassingTimesByStopTable {
     });
   }
 
+  /**
+   * Assert if a passing time is highlighted or not on a stop row.
+   * 'nthPassingTime' begins from 0.
+   * @example assertNthPassingTimeHighlightOnStopRow(
+   *           {
+   *            stopLabel: 'TestStop2',
+   *            nthPassingTime: 1,
+   *            isHighlighted: true,
+   *          });
+   */
   assertNthPassingTimeHighlightOnStopRow({
     stopLabel,
     nthPassingTime,
