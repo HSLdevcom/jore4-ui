@@ -204,33 +204,20 @@ describe('Timetable import and export', () => {
   });
 
   it(
-    'Should import a Hastus timetable file using preview',
-    { tags: [Tag.Smoke, Tag.Timetables, Tag.HastusImport] },
+    'Should show arrival times and highlight departures',
+    { tags: [Tag.Timetables, Tag.HastusImport] },
     () => {
       const IMPORT_FILENAME = 'hastusImport.exp';
       timetablesMainPage.getImportButton().click();
       importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
-      importTimetablesPage.toast.checkSuccessToastHasMessage(
-        `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
-      );
       importTimetablesPage.clickPreviewButton();
       previewTimetablesPage.priorityForm.setAsStandard();
       previewTimetablesPage.blockVehicleJourneysTable
         .getToggleShowTableButton()
         .click();
-      previewTimetablesPage.blockVehicleJourneysTable
-        .getTable()
-        .should('contain', 'Kalustotyyppi 3 - Normaalibussi')
-        .and('contain', '99')
-        .and('contain', 'Lauantai')
-        .and('contain', '7:10')
-        .and('contain', '7:16');
       previewTimetablesPage.getSaveButton().click();
-      importTimetablesPage.toast.checkSuccessToastHasMessage(
-        'Aikataulujen tuonti onnistui!',
-      );
       // Check the imported timetable on a Saturday, which is the day type of the imported timetable
       cy.visit(
         `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
@@ -238,33 +225,42 @@ describe('Timetable import and export', () => {
       vehicleScheduleDetailsPage.routeTimetableList.routeTimetablesSection.vehicleServiceTable
         .getTable()
         .click();
-      vehicleScheduleDetailsPage.dayTypeDropDown
-        .getDayTypeDropdownButton()
-        .should('contain', 'Lauantai');
-      vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
-        {
-          stopLabel: stopLabels[0],
-          nthPassingTime: 0,
-          hour: '7',
-          departureTime: '10',
-        },
-      );
+      vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
       vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
         {
           stopLabel: stopLabels[1],
           nthPassingTime: 0,
           hour: '7',
+          arrivalTime: '12',
           departureTime: '13',
         },
       );
-      vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
-        {
-          stopLabel: stopLabels[2],
-          nthPassingTime: 0,
-          hour: '7',
-          departureTime: '16',
-        },
+      vehicleScheduleDetailsPage.passingTimesByStopTable.clickToHighlightNthPassingTimeOnStopRow(
+        stopLabels[0],
+        1,
       );
+
+      // Assert that departures in the second column are highlighted
+      cy.wrap(stopLabels).each((stopLabel) => {
+        return vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeHighlightOnStopRow(
+          {
+            stopLabel: String(stopLabel),
+            nthPassingTime: 1,
+            isHighlighted: true,
+          },
+        );
+      });
+
+      // Assert that departures in the first column are not highlighted
+      cy.wrap(stopLabels).each((stopLabel) => {
+        return vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeHighlightOnStopRow(
+          {
+            stopLabel: String(stopLabel),
+            nthPassingTime: 0,
+            isHighlighted: false,
+          },
+        );
+      });
     },
   );
 });
