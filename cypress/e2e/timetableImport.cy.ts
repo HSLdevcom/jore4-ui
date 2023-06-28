@@ -241,18 +241,30 @@ describe('Timetable import and export', () => {
       vehicleScheduleDetailsPage.dayTypeDropDown
         .getDayTypeDropdownButton()
         .should('contain', 'Lauantai');
-      vehicleScheduleDetailsPage.passingTimesByStopTable
-        .getTableRow(stopLabels[0])
-        .should('contain', '7')
-        .and('contain', '10');
-      vehicleScheduleDetailsPage.passingTimesByStopTable
-        .getTableRow(stopLabels[1])
-        .should('contain', '7')
-        .and('contain', '13');
-      vehicleScheduleDetailsPage.passingTimesByStopTable
-        .getTableRow(stopLabels[2])
-        .should('contain', '7')
-        .and('contain', '16');
+      vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
+        {
+          stopLabel: stopLabels[0],
+          nthPassingTime: 0,
+          hour: 7,
+          departureTime: 10,
+        },
+      );
+      vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
+        {
+          stopLabel: stopLabels[1],
+          nthPassingTime: 0,
+          hour: 7,
+          departureTime: 13,
+        },
+      );
+      vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
+        {
+          stopLabel: stopLabels[2],
+          nthPassingTime: 0,
+          hour: 7,
+          departureTime: 16,
+        },
+      );
     },
   );
 });
