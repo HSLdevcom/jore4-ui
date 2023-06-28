@@ -77,6 +77,8 @@ Anyway, debugging is generally easier when Cypress is opened with browser as the
 
 During parallel test execution Cypress assigns a value to `x-Environment` header value based on the current Cypress thread. Possible values are `e2e1`, `e2e2` and `e2e3`, and default value `e2e4` that is used when tests are not run in parallel, which also applies to using the environment manually. `e2e4` routes requests to `hasura` and `testdb` containers. In `docker-compose.custom.yml` the `HASURA_URL` environment value is set to point to the Hasura URL that the locally running UI is using to enable routing of the requests based on the `x-Environment` header value.
 
+Parallel execution generates or updates a file called `parallel-weights.json`. The file contains numeric values that represent the execution time of each file. The values are used to assign the spec files into threads evenly. Changes to the `parallel-weights.json` file should be committed at least when new e2e tests are added, and when changes to existing tests increase their execution time considerably.
+
 ### CI
 
 CI runs all type checking, prettier, linter and tests for each pull request. But as a developer, your responsibility is to make sure that all of those tools stay happy (=do not give any errors or warnings) after each commit. As a convenience we have `yarn qa` script which runs all of those in one step. Thus it can be used locally for checking that everything is fine.
