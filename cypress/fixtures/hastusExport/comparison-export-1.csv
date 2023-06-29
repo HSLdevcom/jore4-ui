@@ -1,10 +1,13 @@
 route;1234;line 1234;0;0;0
 rvariant;2;route 99;1;0;992;1234
-rvpoint;;.118;0;0;0;H1234;992
-rvpoint;;.293;0;0;0;H1235;992
-rvpoint;;.000;0;0;0;H1236;992
-stop;H1234;00;kuvaus;beskrivning;katu;gata;;24.926700;60.164181;H1234
-stop;H1235;00;kuvaus;beskrivning;katu;gata;;24.929042;60.164908;H1235
-stop;H1236;00;kuvaus;beskrivning;katu;gata;;24.932072;60.166003;H1236
+rvpoint;1AACKT;0.000;1;0;0;H1234;992
+rvpoint;;;0;0;0;H1235;992
+rvpoint;1AURLA;0.412;1;0;0;H1236;992
+stop;H1234;00;kuvaus;beskrivning;katu;gata;1AACKT;24.926700;60.164181;H1234
+stop;H1235;00;kuvaus;beskrivning;katu;gata;1ELIMK;24.929042;60.164908;H1235
+stop;H1236;00;kuvaus;beskrivning;katu;gata;1AURLA;24.932072;60.166003;H1236
+place;1AACKT;1AACKT
+place;1ELIMK;1ELIMK
+place;1AURLA;1AURLA
 stpdist;H1234;H1235;1;118
 stpdist;H1235;H1236;1;293

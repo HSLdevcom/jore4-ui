@@ -93,6 +93,32 @@ export const buildStopsInJourneyPattern = (
     is_via_point: false,
   }));
 
+export const buildStopInJourneyPattern = ({
+  journeyPatternId,
+  stopLabel,
+  scheduledStopPointSequence,
+  isUsedAsTimingPoint,
+  isLoadingTimeAllowed,
+  isRegulatedTimingPoint,
+  isViaPoint,
+}: {
+  journeyPatternId: UUID;
+  stopLabel: UUID;
+  scheduledStopPointSequence: number;
+  isUsedAsTimingPoint?: boolean;
+  isLoadingTimeAllowed?: boolean;
+  isRegulatedTimingPoint?: boolean;
+  isViaPoint?: boolean;
+}): StopInJourneyPatternInsertInput => ({
+  journey_pattern_id: journeyPatternId,
+  scheduled_stop_point_label: stopLabel,
+  scheduled_stop_point_sequence: scheduledStopPointSequence,
+  is_used_as_timing_point: isUsedAsTimingPoint || false,
+  is_loading_time_allowed: isLoadingTimeAllowed || false,
+  is_regulated_timing_point: isRegulatedTimingPoint || false,
+  is_via_point: isViaPoint || false,
+});
+
 export const buildTimingPlace = (
   id: UUID,
   label: string,

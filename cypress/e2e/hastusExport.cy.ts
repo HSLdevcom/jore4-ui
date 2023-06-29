@@ -3,7 +3,7 @@ import {
   buildLine,
   buildRoute,
   buildStop,
-  buildStopsInJourneyPattern,
+  buildStopInJourneyPattern,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   InfraLinkAlongRouteInsertInput,
@@ -12,6 +12,7 @@ import {
   mapToGetInfrastructureLinksByExternalIdsQuery,
   RouteInsertInput,
   StopInsertInput,
+  StopInJourneyPatternInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
@@ -66,6 +67,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
     scheduled_stop_point_id: '7ef42a37-142d-44be-9b69-dbe6adca7f34',
+    timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[0].coordinates,
@@ -77,6 +79,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[1],
     }),
     scheduled_stop_point_id: '4f8df0bc-a5cb-4fbe-a6dc-0425d55be382',
+    timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[1].coordinates,
@@ -88,6 +91,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
     scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
+    timing_place_id: timingPlaces[2].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[2].coordinates,
@@ -135,11 +139,26 @@ const journeyPatterns: JourneyPatternInsertInput[] = [
   },
 ];
 
-const stopsInJourneyPattern = buildStopsInJourneyPattern(
-  stopLabels,
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  journeyPatterns[0].journey_pattern_id!,
-);
+const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[0],
+    scheduledStopPointSequence: 0,
+    isUsedAsTimingPoint: true,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[1],
+    scheduledStopPointSequence: 1,
+    isUsedAsTimingPoint: false,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[2],
+    scheduledStopPointSequence: 2,
+    isUsedAsTimingPoint: true,
+  }),
+];
 
 describe('Hastus export', () => {
   let routesAndLinesPage: RoutesAndLinesPage;
@@ -194,9 +213,7 @@ describe('Hastus export', () => {
     cy.task('deleteFile', exportFilePath);
   });
 
-  // Disable until Hastus changes are finished
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip(
+  it(
     'Should export a line',
     { tags: [Tag.Lines, Tag.HastusExport, Tag.Smoke] },
     () => {
@@ -220,23 +237,17 @@ describe('Hastus export', () => {
     },
   );
 
-  // Disable until Hastus changes are finished
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip(
-    'Should export a route',
-    { tags: [Tag.Routes, Tag.HastusExport] },
-    () => {
-      // Skip searching via UI
-      cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
-      routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-      routesAndLinesPage.routeLineTableRow
-        .getRouteLineTableRowCheckbox('99')
-        .check();
-      routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-      cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
-      cy.readFile(exportFilePath).then((exportedFile) => {
-        cy.readFile(comparisonExportFilePath).should('eq', exportedFile);
-      });
-    },
-  );
+  it('Should export a route', { tags: [Tag.Routes, Tag.HastusExport] }, () => {
+    // Skip searching via UI
+    cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+    routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+    routesAndLinesPage.routeLineTableRow
+      .getRouteLineTableRowCheckbox('99')
+      .check();
+    routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+    cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
+    cy.readFile(exportFilePath).then((exportedFile) => {
+      cy.readFile(comparisonExportFilePath).should('eq', exportedFile);
+    });
+  });
 });
