@@ -33,6 +33,9 @@ interface Props {
 
 const testIds = {
   accordionToggle: 'RouteTimetablesSection::AccordionToggle',
+  timetableSection: (routeLabel: string, routeDirection: string) =>
+    `RouteTimetablesSection::section::${routeLabel}::${routeDirection}`,
+  noSchedules: `RouteTimetablesSection::noSchedules`,
 };
 
 export const RouteTimetablesSection = ({
@@ -71,7 +74,7 @@ export const RouteTimetablesSection = ({
   })();
 
   return (
-    <div>
+    <div data-testid={testIds.timetableSection(route.label, route.direction)}>
       <Row>
         <div className="flex flex-1 items-center bg-background">
           <DirectionBadge direction={route.direction} className="my-5 ml-12" />
@@ -121,7 +124,7 @@ export const RouteTimetablesSection = ({
             )}
         </div>
         <Visible visible={!timetables?.vehicleJourneyGroups.length}>
-          <p>{t('timetables.noSchedules')}</p>
+          <p data-testid={testIds.noSchedules}>{t('timetables.noSchedules')}</p>
         </Visible>
       </Visible>
     </div>
