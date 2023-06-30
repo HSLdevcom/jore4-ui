@@ -207,6 +207,7 @@ describe('Timetable import and export', () => {
     'Should show arrival times and highlight departures',
     { tags: [Tag.Timetables, Tag.HastusImport] },
     () => {
+      // TODO: Change timetable importing to proper test data generation when it is available
       const IMPORT_FILENAME = 'hastusImport.exp';
       timetablesMainPage.getImportButton().click();
       importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
