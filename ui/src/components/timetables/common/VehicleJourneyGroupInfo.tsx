@@ -77,8 +77,9 @@ export const VehicleJourneyGroupInfo = ({
           </span>
           <span>|</span>
           <span>
-            {`${mapDurationToShortTime(firstTrip.start_time)} ...
-            ${mapDurationToShortTime(lastTrip.start_time)}`}
+            {`${mapDurationToShortTime(
+              firstTrip.start_time,
+            )} ... ${mapDurationToShortTime(lastTrip.start_time)}`}
           </span>
         </>
       )}

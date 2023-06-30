@@ -19,8 +19,10 @@ import {
   ImportTimetablesPage,
   Navbar,
   PreviewTimetablesPage,
+  RouteTimetablesSection,
   TimetablesMainpage,
   VehicleScheduleDetailsPage,
+  VehicleServiceTable,
 } from '../pageObjects';
 import { UUID } from '../types';
 import {
@@ -207,6 +209,16 @@ describe('Timetable import and export', () => {
     'Should show arrival times and highlight departures',
     { tags: [Tag.Timetables, Tag.HastusImport] },
     () => {
+      const route99InboundTimetableSection = new RouteTimetablesSection(
+        '99',
+        'inbound',
+      );
+
+      const route99InboundSaturdayVehicleService = new VehicleServiceTable(
+        route99InboundTimetableSection,
+        'LA',
+      );
+      // TODO: Change timetable importing to proper test data generation when it is available
       const IMPORT_FILENAME = 'hastusImport.exp';
       timetablesMainPage.getImportButton().click();
       importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
@@ -222,9 +234,7 @@ describe('Timetable import and export', () => {
       cy.visit(
         `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
       );
-      vehicleScheduleDetailsPage.routeTimetableList.routeTimetablesSection.vehicleServiceTable
-        .getTable()
-        .click();
+      route99InboundSaturdayVehicleService.getHeadingButton().click();
       vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
       vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
         {
