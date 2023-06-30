@@ -16,6 +16,7 @@ interface Props {
 }
 
 const testIds = {
+  timetableHeadingButton: 'VehicleServiceTable::headingButton',
   timetable: 'VehicleServiceTable::table',
 };
 
@@ -89,6 +90,7 @@ export const VehicleServiceTable = ({
         onKeyPress={onKeyPress}
         role="button"
         tabIndex={0}
+        data-testid={testIds.timetableHeadingButton}
       >
         <Column className="mr-auto">
           <h4>{parseI18nField(dayType.name_i18n)}</h4>
