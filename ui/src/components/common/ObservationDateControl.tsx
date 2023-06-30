@@ -2,6 +2,10 @@ import { DateTime } from 'luxon';
 import { useObservationDateQueryParam } from '../../hooks';
 import { ObservationDateInput } from '../forms/common';
 
+const testIds = {
+  observationDateInput: 'ObservationDateControl::dateInput',
+};
+
 interface Props {
   className?: string;
   disabled?: boolean;
@@ -32,7 +36,7 @@ export const ObservationDateControl = ({
       className={className}
       required
       disabled={disabled}
-      testId="ObservationDateControl"
+      testId={testIds.observationDateInput}
     />
   );
 };

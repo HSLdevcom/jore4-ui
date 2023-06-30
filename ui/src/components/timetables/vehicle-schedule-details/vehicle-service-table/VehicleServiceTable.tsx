@@ -16,6 +16,8 @@ interface Props {
 }
 
 const testIds = {
+  table: (dayTypeLabel: string) => `VehicleServiceTable::${dayTypeLabel}`,
+  timetableHeadingButton: 'VehicleServiceTable::headingButton',
   timetable: 'VehicleServiceTable::table',
 };
 
@@ -79,7 +81,7 @@ export const VehicleServiceTable = ({
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2" data-testid={testIds.table(dayType.label)}>
       <div
         className={twMerge(
           'flex flex-row rounded-md border-2 border-transparent bg-opacity-50 px-4 py-1 hover:border-gray-500',
@@ -89,6 +91,7 @@ export const VehicleServiceTable = ({
         onKeyPress={onKeyPress}
         role="button"
         tabIndex={0}
+        data-testid={testIds.timetableHeadingButton}
       >
         <Column className="mr-auto">
           <h4>{parseI18nField(dayType.name_i18n)}</h4>

@@ -207,6 +207,7 @@ describe('Timetable import and export', () => {
     'Should show arrival times and highlight departures',
     { tags: [Tag.Timetables, Tag.HastusImport] },
     () => {
+      // TODO: Change timetable importing to proper test data generation when it is available
       const IMPORT_FILENAME = 'hastusImport.exp';
       timetablesMainPage.getImportButton().click();
       importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
@@ -222,9 +223,7 @@ describe('Timetable import and export', () => {
       cy.visit(
         `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
       );
-      vehicleScheduleDetailsPage.routeTimetableList.routeTimetablesSection.vehicleServiceTable
-        .getTable()
-        .click();
+      vehicleScheduleDetailsPage.openPassingTimesView('99', 'inbound', 'LA');
       vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
       vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
         {

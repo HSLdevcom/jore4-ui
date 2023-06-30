@@ -4,6 +4,10 @@ export class PassingTimesByStopTable {
   passingTimesByStopTableRowPassingTime =
     new PassingTimesByStopTableRowPassingTime();
 
+  getTable() {
+    return cy.getByTestId('PassingTimesByStopTable::table');
+  }
+
   getTableRow(stopLabel: string) {
     return cy.getByTestId(`PassingTimesByStopTableRow::${stopLabel}`);
   }

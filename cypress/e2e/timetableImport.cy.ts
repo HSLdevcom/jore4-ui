@@ -235,9 +235,7 @@ describe('Timetable import and export', () => {
       cy.visit(
         `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
       );
-      vehicleScheduleDetailsPage.routeTimetableList.routeTimetablesSection.vehicleServiceTable
-        .getTable()
-        .click();
+      vehicleScheduleDetailsPage.openPassingTimesView('99', 'inbound', 'LA');
       vehicleScheduleDetailsPage.dayTypeDropDown
         .getDayTypeDropdownButton()
         .should('contain', 'Lauantai');
