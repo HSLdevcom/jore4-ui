@@ -4,10 +4,16 @@ import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql
 import { VehicleJourneyGroup, useTimetablesViewState } from '../../../hooks';
 import { parseI18nField } from '../../../i18n/utils';
 import { Row } from '../../../layoutComponents';
+import { TimetablePriority } from '../../../types/enums';
 import { VehicleJourneyGroupInfo } from '../common/VehicleJourneyGroupInfo';
 import { getTimetableHeadingBgColor } from '../vehicle-schedule-details/vehicle-service-table/VehicleServiceTable';
 import { DayTypeDropdown } from './DayTypeDropdown';
 import { PassingTimesByStopTable } from './PassingTimesByStopTable';
+
+const testIds = {
+  passingTimesByStopSection: (dayType: string, priority: TimetablePriority) =>
+    `PassingTimesByStopSection::${dayType}::${priority}`,
+};
 
 type Props = {
   vehicleJourneyGroups: VehicleJourneyGroup[];
@@ -54,7 +60,11 @@ export const PassingTimesByStopSection = ({
       {vehicleJourneyGroupsToDisplay.map((vehicleJourneyGroup) => (
         <div
           className="space-y-6"
-          key={`${vehicleJourneyGroup.dayType}${vehicleJourneyGroup.priority}`}
+          key={`${dayType}${vehicleJourneyGroup.priority}`}
+          data-testid={testIds.passingTimesByStopSection(
+            dayType,
+            vehicleJourneyGroup.priority,
+          )}
         >
           <Row className="items-center space-x-4">
             <div className="min-w-[240px]">

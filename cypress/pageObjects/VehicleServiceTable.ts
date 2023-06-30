@@ -1,5 +1,28 @@
+import { ParentPageObject } from './types';
+
 export class VehicleServiceTable {
-  getTable() {
-    return cy.getByTestId('VehicleServiceTable::table');
+  getParent: ParentPageObject['get'];
+
+  dayType: string;
+
+  constructor(parent: ParentPageObject, dayType: string) {
+    this.getParent = () => parent.get();
+    this.dayType = dayType;
+  }
+
+  get() {
+    return this.getParent().findByTestId(
+      `VehicleServiceTable::${this.dayType}`,
+    );
+  }
+
+  clickChangeValidityDate() {
+    return this.get()
+      .findByTestId('VehicleJourneyGroupInfo::changeValidityButton')
+      .click();
+  }
+
+  getHeadingButton() {
+    return this.get().findByTestId('VehicleServiceTable::headingButton');
   }
 }
