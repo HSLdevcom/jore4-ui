@@ -31,7 +31,7 @@ const seedDb = async () => {
   const vehicleTypesResult = await getVehicleTypes();
 
   const vehicleTypes =
-    vehicleTypesResult.data.timetables.timetables_vehicle_type_vehicle_type;
+    vehicleTypesResult.data.timetables_vehicle_type_vehicle_type;
 
   // route 641, direction 1
   const jp1 = 'ff040a66-1675-4664-910d-95e7fa1a0b85';

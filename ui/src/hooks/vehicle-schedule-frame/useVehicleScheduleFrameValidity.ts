@@ -29,14 +29,10 @@ const GQL_VEHICLE_SCHEDULE_FRAME_WITH_ROUTES = gql`
 
 const GQL_GET_VEHICLE_SCHEDULE_FRAME_WITH_ROUTES = gql`
   query GetVehicleScheduleFrameWithRoutes($vehicle_schedule_frame_id: uuid!) {
-    timetables {
-      timetables_vehicle_schedule_vehicle_schedule_frame(
-        where: {
-          vehicle_schedule_frame_id: { _eq: $vehicle_schedule_frame_id }
-        }
-      ) {
-        ...vehicle_schedule_frame_with_routes
-      }
+    timetables_vehicle_schedule_vehicle_schedule_frame(
+      where: { vehicle_schedule_frame_id: { _eq: $vehicle_schedule_frame_id } }
+    ) {
+      ...vehicle_schedule_frame_with_routes
     }
   }
 `;
@@ -47,18 +43,14 @@ const GQL_UPDATE_VEHICLE_SCHEDULE_FRAME_VALIDITY = gql`
     $validity_start: date
     $validity_end: date
   ) {
-    timetables {
-      timetables_update_vehicle_schedule_vehicle_schedule_frame(
-        _set: { validity_start: $validity_start, validity_end: $validity_end }
-        where: {
-          vehicle_schedule_frame_id: { _eq: $vehicle_schedule_frame_id }
-        }
-      ) {
-        returning {
-          vehicle_schedule_frame_id
-          validity_start
-          validity_end
-        }
+    timetables_update_vehicle_schedule_vehicle_schedule_frame(
+      _set: { validity_start: $validity_start, validity_end: $validity_end }
+      where: { vehicle_schedule_frame_id: { _eq: $vehicle_schedule_frame_id } }
+    ) {
+      returning {
+        vehicle_schedule_frame_id
+        validity_start
+        validity_end
       }
     }
   }
@@ -77,7 +69,7 @@ export const useVehicleScheduleFrameValidity = (
   });
 
   const vehicleScheduleFrame =
-    vehicleScheduleFrameResult.data?.timetables
+    vehicleScheduleFrameResult.data
       ?.timetables_vehicle_schedule_vehicle_schedule_frame[0];
 
   const affectedRouteLabels = vehicleScheduleFrame

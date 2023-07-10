@@ -60,29 +60,26 @@ const GQL_GET_TIMETABLES_FOR_OPERATION_DAY = gql`
     $journey_pattern_id: uuid!
     $observation_date: date!
   ) {
-    timetables {
-      timetables_vehicle_journey_vehicle_journey(
-        where: {
-          journey_pattern_ref: {
-            journey_pattern_id: { _eq: $journey_pattern_id }
-          }
+    timetables_vehicle_journey_vehicle_journey(
+      where: {
+        journey_pattern_ref: {
+          journey_pattern_id: { _eq: $journey_pattern_id }
         }
-      ) {
-        ...vehicle_journey_with_service
       }
-      timetables_vehicle_service_get_vehicle_services_for_date(
-        args: { observation_date: $observation_date }
-      ) {
-        vehicle_service_id
-      }
+    ) {
+      ...vehicle_journey_with_service
+    }
+    timetables_vehicle_service_get_vehicle_services_for_date(
+      args: { observation_date: $observation_date }
+    ) {
+      vehicle_service_id
     }
   }
 `;
 
 // TODO: we probably should have better type for Timetables response, but
 // seems like it is not generated for some reason
-type Timetables =
-  ApolloQueryResult<GetTimetablesForOperationDayQuery>['data']['timetables'];
+type Timetables = ApolloQueryResult<GetTimetablesForOperationDayQuery>['data'];
 
 const getVehicleJourneys = (timetables: Timetables) => {
   return timetables?.timetables_vehicle_journey_vehicle_journey.length
@@ -246,7 +243,7 @@ export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
       observation_date: observationDate,
     });
 
-    const rawTimetables = res.data?.timetables;
+    const rawTimetables = res.data;
 
     const timetableWithMetadata: TimetableWithMetadata = {
       timetable: rawTimetables,

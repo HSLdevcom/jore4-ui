@@ -75,30 +75,26 @@ const GQL_VEHICLE_SCHEDULE_FRAME_WITH_ROUTE_INFO = gql`
 
 const GQL_GET_STAGING_VEHICLE_SCHEDULE_FRAMES = gql`
   query GetStagingVehicleScheduleFrames {
-    timetables {
-      timetables_vehicle_schedule_vehicle_schedule_frame(
-        where: { priority: { _eq: 40 } }
-      ) {
-        ...vehicle_schedule_frame_with_route_info
-      }
+    timetables_vehicle_schedule_vehicle_schedule_frame(
+      where: { priority: { _eq: 40 } }
+    ) {
+      ...vehicle_schedule_frame_with_route_info
     }
   }
 `;
 
 const GQL_CHANGE_STAGING_VEHICLE_SCHEDULE_FRAME_PRIORITY = gql`
   mutation ChangeStagingVehicleScheduleFramePriority($newPriority: Int!) {
-    timetables {
-      timetables_update_vehicle_schedule_vehicle_schedule_frame(
-        where: { priority: { _eq: 40 } }
-        _set: { priority: $newPriority }
-      ) {
-        returning {
-          priority
-          validity_end
-          validity_start
-          name_i18n
-          vehicle_schedule_frame_id
-        }
+    timetables_update_vehicle_schedule_vehicle_schedule_frame(
+      where: { priority: { _eq: 40 } }
+      _set: { priority: $newPriority }
+    ) {
+      returning {
+        priority
+        validity_end
+        validity_start
+        name_i18n
+        vehicle_schedule_frame_id
       }
     }
   }
@@ -117,7 +113,7 @@ export const useTimetablesImport = () => {
   };
 
   const vehicleScheduleFrames =
-    importedVehicleScheduleFramesResult.data?.timetables
+    importedVehicleScheduleFramesResult.data
       ?.timetables_vehicle_schedule_vehicle_schedule_frame || [];
 
   const vehicleJourneys =

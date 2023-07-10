@@ -38,17 +38,15 @@ const GQL_GET_TIMETABLE_VERSIONS_BY_JOURNEY_PARTTERN_IDS = gql`
     $end_date: date
     $observation_date: date
   ) {
-    timetables {
-      timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids(
-        args: {
-          journey_pattern_ids: $journey_pattern_ids
-          start_date: $start_date
-          end_date: $end_date
-          observation_date: $observation_date
-        }
-      ) {
-        ...timetable_version
+    timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids(
+      args: {
+        journey_pattern_ids: $journey_pattern_ids
+        start_date: $start_date
+        end_date: $end_date
+        observation_date: $observation_date
       }
+    ) {
+      ...timetable_version
     }
   }
 `;
@@ -162,7 +160,7 @@ export const useGetTimetableVersions = ({
             observation_date: DateTime.now(),
           });
           return (
-            result.data.timetables?.timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids?.map(
+            result.data?.timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids?.map(
               (entry: TimetableVersionFragment) =>
                 mapToTimetableVersionRowData(key, entry),
             ) || []

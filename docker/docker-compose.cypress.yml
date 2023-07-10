@@ -13,6 +13,7 @@ services:
       POSTGRES_DB: jore4e2e
       POSTGRES_USER: dbadmin
       POSTGRES_PASSWORD: adminpassword
+      HASURA_DOCKER_IMAGE: hsldevcom/jore4-hasura:hsl-remove-timetables-namespace--20230710-9ee3cfa0077e1d6d44db0dca1c503d6abc3ce7e9
     networks:
       - docker_jore4
     # increase the default /dev/shm size from 64mb to support Chrome
