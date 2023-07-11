@@ -1,13 +1,11 @@
-import { ApolloQueryResult, gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
-import { pipe } from 'remeda';
 import {
   DayTypeAllFieldsFragment,
-  GetTimetablesForOperationDayQuery,
-  Maybe,
   VehicleJourneyWithServiceFragment,
-  useGetTimetablesForOperationDayAsyncQuery,
+  VehicleScheduleFragment,
+  useGetVehicleSchedulesForDateAsyncQuery,
 } from '../../generated/graphql';
 import { selectChangeTimetableValidityModal } from '../../redux';
 import { findEarliestTime, findLatestTime } from '../../time';
@@ -55,48 +53,44 @@ const GQL_VEHICLE_JOURNEY_WITH_SERVICE_FRAGMENT = gql`
   }
 `;
 
-const GQL_GET_TIMETABLES_FOR_OPERATION_DAY = gql`
-  query GetTimetablesForOperationDay(
+const GQL_VEHICLE_SCHEDULES_FRAGMENT = gql`
+  fragment vehicle_schedule on timetables_return_value_vehicle_schedule {
+    vehicle_journey {
+      ...vehicle_journey_with_service
+    }
+    day_type {
+      ...day_type_all_fields
+    }
+    priority
+    validity_start
+    validity_end
+    created_at
+    vehicle_schedule_frame_id
+  }
+`;
+
+const GQL_GET_VEHICLE_SCHEDULES_FOR_DATE = gql`
+  query GetVehicleSchedulesForDate(
     $journey_pattern_id: uuid!
     $observation_date: date!
   ) {
     timetables {
-      timetables_vehicle_journey_vehicle_journey(
-        where: {
-          journey_pattern_ref: {
-            journey_pattern_id: { _eq: $journey_pattern_id }
-          }
+      timetables_vehicle_journey_get_vehicle_schedules_on_date(
+        args: {
+          journey_pattern_uuid: $journey_pattern_id
+          observation_date: $observation_date
         }
       ) {
-        ...vehicle_journey_with_service
+        ...vehicle_schedule
       }
-      timetables_vehicle_service_get_vehicle_services_for_date(
+      timetables_service_calendar_get_active_day_types_for_date(
         args: { observation_date: $observation_date }
       ) {
-        vehicle_service_id
+        day_type_id
       }
     }
   }
 `;
-
-// TODO: we probably should have better type for Timetables response, but
-// seems like it is not generated for some reason
-type Timetables =
-  ApolloQueryResult<GetTimetablesForOperationDayQuery>['data']['timetables'];
-
-const getVehicleJourneys = (timetables: Timetables) => {
-  return timetables?.timetables_vehicle_journey_vehicle_journey.length
-    ? timetables?.timetables_vehicle_journey_vehicle_journey
-    : [];
-};
-
-const getVehicleServiceIdsOnObservationDate = (timetables: Timetables) => {
-  const vehicleServiceIdsOnObservationDate =
-    timetables?.timetables_vehicle_service_get_vehicle_services_for_date.map(
-      (item) => item.vehicle_service_id,
-    );
-  return vehicleServiceIdsOnObservationDate;
-};
 
 /**
  * Interface that groups together all vehicle journeys that are valid for
@@ -108,105 +102,18 @@ const getVehicleServiceIdsOnObservationDate = (timetables: Timetables) => {
  * @property vehicleJourneys: Array of vehicle journeys
  */
 export interface VehicleJourneyGroup {
-  priority: TimetablePriority;
   dayType: DayTypeAllFieldsFragment;
+  vehicleJourneys: VehicleJourneyWithServiceFragment[] | null;
+  priority: TimetablePriority;
   validity: Validity;
-  vehicleJourneys: VehicleJourneyWithServiceFragment[];
-  createdAt: DateTime;
-  vehicleScheduleFrameId: UUID;
+  vehicleScheduleFrameId?: UUID | null;
+  createdAt?: DateTime | null | undefined;
+  inEffect?: boolean;
 }
 
-const groupVehicleJourneys = (
-  journeys: VehicleJourneyWithServiceFragment[],
-  vehicleServiceIdsOnObservationDate?: UUID[],
-) => {
-  // Vehicle journeys parsed & groupd from timetables response so that
-  // they can be shown in UI more easily.
-  return pipe(
-    journeys,
-    (input) =>
-      // filter out journeys that are not active on selected observation date
-      input.filter((item) =>
-        vehicleServiceIdsOnObservationDate?.includes(
-          item.block.vehicle_service.vehicle_service_id,
-        ),
-      ),
-    (vehicleJourneys) =>
-      vehicleJourneys.reduce<VehicleJourneyGroup[]>((groups, item) => {
-        const { vehicle_service: vehicleService } = item.block;
-        const { vehicle_schedule_frame: vehicleScheduleFrame } = vehicleService;
-
-        const foundGroup = groups.find(
-          (group) =>
-            group.dayType === vehicleService.day_type &&
-            group.priority === vehicleScheduleFrame.priority,
-        );
-        if (foundGroup) {
-          foundGroup.vehicleJourneys.push(item);
-          return groups;
-        }
-
-        return [
-          ...groups,
-          {
-            dayType: vehicleService.day_type,
-            priority: vehicleScheduleFrame.priority,
-            validity: {
-              validityStart: vehicleScheduleFrame.validity_start,
-              validityEnd: vehicleScheduleFrame.validity_end,
-            },
-            createdAt: vehicleScheduleFrame.created_at,
-            vehicleJourneys: [item],
-            vehicleScheduleFrameId:
-              vehicleScheduleFrame.vehicle_schedule_frame_id,
-          },
-        ];
-      }, []),
-  );
-};
-
-const getGroupedVehicleJourneys = (timetables: Timetables) => {
-  const vehicleServiceIds = getVehicleServiceIdsOnObservationDate(timetables);
-  const vehicleJourneys = getVehicleJourneys(timetables);
-
-  return groupVehicleJourneys(vehicleJourneys, vehicleServiceIds);
-};
-
 type Validity = {
-  validityStart?: Maybe<DateTime>;
-  validityEnd?: Maybe<DateTime>;
-};
-
-const getTimetableValidity = (timetables: Timetables): Validity => {
-  const removeNonDateValues = (times?: (DateTime | null | undefined)[]) => {
-    // we have to use unsafe `as` casting here as TS doesn't realise that we
-    // are filtering out non-date values from the input
-    return times ? times.filter((item) => !!item) : ([] as DateTime[]);
-  };
-
-  const validityStart = pipe(
-    timetables,
-    (input) =>
-      input?.timetables_vehicle_journey_vehicle_journey.map(
-        (item) =>
-          item.block.vehicle_service.vehicle_schedule_frame.validity_start,
-      ),
-    removeNonDateValues,
-    (startTimes) => findLatestTime(startTimes as DateTime[]),
-    (startTime) => (startTime.isValid ? startTime : undefined),
-  );
-  const validityEnd = pipe(
-    timetables,
-    (input) =>
-      input?.timetables_vehicle_journey_vehicle_journey.map(
-        (item) =>
-          item.block.vehicle_service.vehicle_schedule_frame.validity_end,
-      ),
-    removeNonDateValues,
-    (endTimes) => findEarliestTime(endTimes as DateTime[]),
-    (endTime) => (endTime.isValid ? endTime : undefined),
-  );
-  return { validityStart, validityEnd };
+  validityStart: DateTime;
+  validityEnd: DateTime;
 };
 
 /**
@@ -219,16 +126,112 @@ const getTimetableValidity = (timetables: Timetables): Validity => {
  * @property vehicleJourneyGroups: Array of vehicle journey groups
  */
 export interface TimetableWithMetadata {
-  timetable: Timetables;
-  validity: Validity;
+  validity?: Validity;
   journeyPatternId: UUID;
   vehicleJourneyGroups: VehicleJourneyGroup[];
 }
 
-export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
-  const [getRouteTimetablesForOperationDay] =
-    useGetTimetablesForOperationDayAsyncQuery();
+const getTimetableNarrowestValidityPeriod = (
+  vehicleJourneyGroups: VehicleJourneyGroup[],
+) => {
+  const startTimes = vehicleJourneyGroups.map(
+    (item) => item.validity.validityStart,
+  );
 
+  const endTimes = vehicleJourneyGroups.map(
+    (item) => item.validity.validityEnd,
+  );
+
+  return {
+    validityStart: findLatestTime(startTimes),
+    validityEnd: findEarliestTime(endTimes),
+  };
+};
+
+/**
+ * Enriches the vehicleJourneyGroups with inEffect value calculated by checking
+ * the active day type ids, and then getting the highest priority of that type.
+ * So for example, if the observation date is a 11.7.2023 (Tuesday) and we have
+ * a Mon-Fri, Sat, Sun (Standard) and Tuesday (substitute), this function calculates
+ * that eligible day types are Mon-Fri and Tuesday, but Tuesday is highest priority, so
+ * that one will get the inEffect: true.
+ */
+const enrichWithInEffectValue = (
+  vehicleJourneyGroups: VehicleJourneyGroup[],
+  activeDayTypeIds?: UUID[],
+) => {
+  return vehicleJourneyGroups.map((group) => {
+    const dayTypeIsActive = activeDayTypeIds?.includes(
+      group.dayType.day_type_id,
+    );
+    const isHighestPriorityOnActiveDayType =
+      group.priority ===
+      Math.max(
+        ...vehicleJourneyGroups
+          .filter((g) => activeDayTypeIds?.includes(g.dayType.day_type_id))
+          .map((g) => g.priority),
+      );
+
+    if (dayTypeIsActive && isHighestPriorityOnActiveDayType) {
+      return { ...group, inEffect: true };
+    }
+    return { ...group, inEffect: false };
+  });
+};
+
+/**
+ * In this function we combine the vehicle schedules that we get from the
+ * SQL function, and combine them in to vehicleJourneyGroups, which represent
+ * the timetable information for a day type.
+ *
+ * In this function we group up the vehicle schedule rows by their dayTypeId and
+ * combine all the same day type's vehicleJourneys to vehicleJourneys attribute
+ * in this object. After this we can drop the grouping by dayTypeId and use
+ * Object.values to get the result as an array.
+ */
+const combineVehicleSchedulesToVehicleJourneyGroups = (
+  vehicleSchedulesOnDate?: VehicleScheduleFragment[],
+) => {
+  return Object.values(
+    vehicleSchedulesOnDate?.reduce(
+      (acc: { [key: string]: VehicleJourneyGroup }, obj) => {
+        // NOTE: Not sure why the type codegen-generator thinks this can be null. It shouldnt be.
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const dayTypeId = obj.day_type!.day_type_id;
+        const vehicleJourney = obj.vehicle_journey || null;
+
+        // If there is no entry already in acc[dayTypeId], we create one with
+        // empty vehicleJourney array
+        const vehicleJourneyGroup = acc[dayTypeId] || {
+          vehicleJourneys: [],
+        };
+
+        const updatedVehicleJourneyGroup: VehicleJourneyGroup = {
+          priority: obj.priority,
+          validity: {
+            validityStart: obj.validity_start,
+            validityEnd: obj.validity_end,
+          },
+          dayType: obj.day_type as DayTypeAllFieldsFragment,
+          vehicleScheduleFrameId: obj.vehicle_schedule_frame_id,
+          createdAt: obj.created_at,
+          // if we have a vehicle journey, we can combine it, if the vehicle
+          // journey is null, it means that this day type is a 'no traffic' and the vehicleJourneys
+          // can be set to null
+          vehicleJourneys:
+            vehicleJourney && vehicleJourneyGroup.vehicleJourneys
+              ? [...vehicleJourneyGroup.vehicleJourneys, vehicleJourney]
+              : null,
+        };
+
+        return { ...acc, [dayTypeId]: updatedVehicleJourneyGroup };
+      },
+      {} as { [key: string]: VehicleJourneyGroup },
+    ) || {},
+  );
+};
+
+export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
   const { observationDate } = useObservationDateQueryParam();
   const changeTimetableValidityModalState = useAppSelector(
     selectChangeTimetableValidityModal,
@@ -236,26 +239,48 @@ export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
 
   const [timetables, setTimetables] = useState<TimetableWithMetadata>();
 
+  const [getVehicleSchedulesForDate] =
+    useGetVehicleSchedulesForDateAsyncQuery();
+
   const getTimetablesForRoute = useCallback(async () => {
     if (!journeyPatternId) {
       return;
     }
 
-    const res = await getRouteTimetablesForOperationDay({
+    const response = await getVehicleSchedulesForDate({
       journey_pattern_id: journeyPatternId,
       observation_date: observationDate,
     });
+    const vehicleSchedulesOnDate =
+      response.data.timetables
+        ?.timetables_vehicle_journey_get_vehicle_schedules_on_date;
 
-    const rawTimetables = res.data?.timetables;
+    const activeDayTypeIds =
+      response.data.timetables?.timetables_service_calendar_get_active_day_types_for_date.map(
+        (dayType) => dayType.day_type_id,
+      );
+
+    const vehicleJourneyGroups = combineVehicleSchedulesToVehicleJourneyGroups(
+      vehicleSchedulesOnDate,
+    );
+
+    const enrichedVehicleJourneyGroups = enrichWithInEffectValue(
+      vehicleJourneyGroups,
+      activeDayTypeIds,
+    );
+
+    const validity = vehicleJourneyGroups.length
+      ? getTimetableNarrowestValidityPeriod(vehicleJourneyGroups)
+      : undefined;
 
     const timetableWithMetadata: TimetableWithMetadata = {
-      timetable: rawTimetables,
-      validity: getTimetableValidity(rawTimetables),
-      vehicleJourneyGroups: getGroupedVehicleJourneys(rawTimetables),
+      validity,
+      vehicleJourneyGroups: enrichedVehicleJourneyGroups,
       journeyPatternId,
     };
+
     setTimetables(timetableWithMetadata);
-  }, [journeyPatternId, observationDate, getRouteTimetablesForOperationDay]);
+  }, [journeyPatternId, getVehicleSchedulesForDate, observationDate]);
 
   useEffect(() => {
     getTimetablesForRoute();
