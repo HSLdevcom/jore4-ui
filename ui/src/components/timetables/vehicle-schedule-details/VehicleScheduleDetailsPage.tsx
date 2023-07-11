@@ -15,7 +15,10 @@ import {
   selectChangeTimetableValidityModal,
   selectTimetable,
 } from '../../../redux';
-import { setShowArrivalTimesAction } from '../../../redux/slices/timetable';
+import {
+  setShowAllValidAction,
+  setShowArrivalTimesAction,
+} from '../../../redux/slices/timetable';
 import { SimpleButton, Switch, SwitchLabel } from '../../../uiComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormColumn, FormRow } from '../../forms/common';
@@ -24,6 +27,11 @@ import { LineTitle } from '../../routes-and-lines/line-details/LineTitle';
 import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
 import { RouteTimetableList } from './RouteTimetableList';
 import { TimetableNavigation } from './TimetableNavigation';
+
+const testIds = {
+  showArrivalTimesSwitch: 'VehicleScheduleDetailsPage::showArrivalTimesSwitch',
+  showAllValidSwitch: 'VehicleScheduleDetailsPage::showAllValidSwitch',
+};
 
 export const VehicleScheduleDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
@@ -36,13 +44,17 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
   const { routeLabel, setShowDefaultView, activeView } =
     useTimetablesViewState();
   const { displayedRouteLabels } = useGetRoutesDisplayedInList(line);
-  const { showArrivalTimes } = useAppSelector(selectTimetable);
+  const { showArrivalTimes, showAllValid } = useAppSelector(selectTimetable);
   const changeTimetableValidityModalState = useAppSelector(
     selectChangeTimetableValidityModal,
   );
 
   const onShowArrivalTimesChanged = (enabled: boolean) => {
     dispatch(setShowArrivalTimesAction(enabled));
+  };
+
+  const onShowAllValidChanged = (enabled: boolean) => {
+    dispatch(setShowAllValidAction(enabled));
   };
 
   const onCloseTimetableValidityModal = () => {
@@ -59,11 +71,6 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
           displayedRouteLabels?.includes(route.label),
         ) || []
       : line?.line_routes.filter((route) => route.label === routeLabel) || [];
-
-  const testIds = {
-    showArrivalTimesSwitch:
-      'VehicleScheduleDetailsPage::showArrivalTimesSwitch',
-  };
 
   return (
     <div>
@@ -86,6 +93,19 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
       <Container className="py-10">
         <FormRow mdColumns={6} className="mb-8">
           <ObservationDateControl className="max-w-max" />
+          <Visible visible={activeView === TimetablesView.DEFAULT}>
+            <div className="justify-normal col-span-2 mb-1 flex items-center space-x-4 self-end">
+              <HuiSwitch.Group>
+                <SwitchLabel>{t('timetables.showAllValid')}</SwitchLabel>
+                <Switch
+                  checked={showAllValid}
+                  testId={testIds.showAllValidSwitch}
+                  className="mb-1"
+                  onChange={onShowAllValidChanged}
+                />
+              </HuiSwitch.Group>
+            </div>
+          </Visible>
           <Visible
             visible={activeView === TimetablesView.PASSING_TIMES_BY_STOP}
           >

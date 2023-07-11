@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { pipe, uniq } from 'remeda';
 import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql';
 import { VehicleJourneyGroup, useTimetablesViewState } from '../../../hooks';
@@ -22,6 +23,7 @@ export const PassingTimesByStopSection = ({
   route,
 }: Props): JSX.Element => {
   const { dayType, setDayType } = useTimetablesViewState();
+  const { t } = useTranslation();
 
   const vehicleJourneyGroupsToDisplay =
     vehicleJourneyGroups?.filter(
@@ -70,10 +72,16 @@ export const PassingTimesByStopSection = ({
               vehicleJourneyGroup={vehicleJourneyGroup}
             />
           </Row>
-          <PassingTimesByStopTable
-            vehicleJourneys={vehicleJourneyGroup.vehicleJourneys}
-            route={route}
-          />
+          {vehicleJourneyGroup.vehicleJourneys ? (
+            <PassingTimesByStopTable
+              vehicleJourneys={vehicleJourneyGroup.vehicleJourneys}
+              route={route}
+            />
+          ) : (
+            <span className="flex justify-center">
+              {t('timetables.noTraffic')}
+            </span>
+          )}
         </div>
       ))}
     </div>

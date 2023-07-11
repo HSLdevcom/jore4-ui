@@ -293,6 +293,7 @@
     "timetableValidity": "Voimassa {{ validityStart }} - {{ validityEnd }}",
     "departures": "Lähdöt",
     "noSchedules": "Ei vuoroja",
+    "noTraffic": "Ei liikennöintiä",
     "at": "klo {{ time }}",
     "showVersions": "Näytä versiot",
     "versionsTitle": "Aikatauluversiot",
@@ -304,6 +305,7 @@
     "tripCount": "{{ count }} lähtöä",
     "interpolated": "Interpoloitu",
     "showArrivalTimes": "Näytä saapumisajat",
+    "showAllValid": "Näytä kaikki voimassaolevat",
     "operatedLike": "Ajetaan kuten {{ dayOfWeek }}",
     "noService": "Ei liikennöintiä",
     "timeline": "Aikajana"
