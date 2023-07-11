@@ -293,6 +293,7 @@
     "timetableValidity": "Valid {{ validityStart }} - {{ validityEnd }}",
     "departures": "Departures",
     "noSchedules": "No schedules",
+    "noTraffic": "No traffic",
     "at": "at {{ time }}",
     "showVersions": "Show versions",
     "versionsTitle": "Timetable versions",
@@ -304,6 +305,7 @@
     "tripCount": "{{ count }} trips",
     "interpolated": "Interpolated",
     "showArrivalTimes": "Show arrival times",
+    "showAllValid": "Show all valid",
     "operatedLike": "Operated like {{ dayOfWeek }}",
     "noService": "No service",
     "timeline": "Timeline"
