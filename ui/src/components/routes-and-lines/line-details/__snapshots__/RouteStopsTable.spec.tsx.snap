@@ -15,7 +15,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
       <button
         aria-checked="false"
         aria-labelledby="headlessui-label-:r0:"
-        class=" border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
+        class=" border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring"
         data-headlessui-state=""
         data-testid="show-unused-stops-switch"
         id="headlessui-switch-:r1:"
@@ -234,7 +234,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
       <button
         aria-checked="false"
         aria-labelledby="headlessui-label-:r0:"
-        class=" border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
+        class=" border-grey relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring"
         data-headlessui-state=""
         data-testid="show-unused-stops-switch"
         id="headlessui-switch-:r1:"
@@ -657,7 +657,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
       <button
         aria-checked="true"
         aria-labelledby="headlessui-label-:r0:"
-        class=" border-brand bg-brand relative inline-flex h-6 w-11 items-center rounded-full border transition-colors"
+        class=" border-brand bg-brand relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring"
         data-headlessui-state="checked"
         data-testid="show-unused-stops-switch"
         id="headlessui-switch-:r1:"
