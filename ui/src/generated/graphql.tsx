@@ -10072,6 +10072,249 @@ export type TimetablesReturnValueTimetableVersionVarianceFields = {
   priority?: Maybe<Scalars['Float']>;
 };
 
+/**
+ * This return value table is used in function vehicle_journey.get_vehicle_schedules_on_date. It consists of vehicle_journey_id, vehicle_schedule_frame_id or
+ * substitute_operating_day_by_line_type_id and also enriched with data, which are used in the UI side.
+ */
+export type TimetablesReturnValueVehicleSchedule = {
+  __typename?: 'timetables_return_value_vehicle_schedule';
+  created_at?: Maybe<Scalars['timestamptz']>;
+  /** An object relationship */
+  day_type?: Maybe<TimetablesServiceCalendarDayType>;
+  day_type_id: Scalars['uuid'];
+  priority: Scalars['Int'];
+  substitute_operating_day_by_line_type_id?: Maybe<Scalars['uuid']>;
+  validity_end: Scalars['date'];
+  validity_start: Scalars['date'];
+  /** An object relationship */
+  vehicle_journey?: Maybe<TimetablesVehicleJourneyVehicleJourney>;
+  vehicle_journey_id?: Maybe<Scalars['uuid']>;
+  vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregated selection of "return_value.vehicle_schedule" */
+export type TimetablesReturnValueVehicleScheduleAggregate = {
+  __typename?: 'timetables_return_value_vehicle_schedule_aggregate';
+  aggregate?: Maybe<TimetablesReturnValueVehicleScheduleAggregateFields>;
+  nodes: Array<TimetablesReturnValueVehicleSchedule>;
+};
+
+/** aggregate fields of "return_value.vehicle_schedule" */
+export type TimetablesReturnValueVehicleScheduleAggregateFields = {
+  __typename?: 'timetables_return_value_vehicle_schedule_aggregate_fields';
+  avg?: Maybe<TimetablesReturnValueVehicleScheduleAvgFields>;
+  count: Scalars['Int'];
+  max?: Maybe<TimetablesReturnValueVehicleScheduleMaxFields>;
+  min?: Maybe<TimetablesReturnValueVehicleScheduleMinFields>;
+  stddev?: Maybe<TimetablesReturnValueVehicleScheduleStddevFields>;
+  stddev_pop?: Maybe<TimetablesReturnValueVehicleScheduleStddevPopFields>;
+  stddev_samp?: Maybe<TimetablesReturnValueVehicleScheduleStddevSampFields>;
+  sum?: Maybe<TimetablesReturnValueVehicleScheduleSumFields>;
+  var_pop?: Maybe<TimetablesReturnValueVehicleScheduleVarPopFields>;
+  var_samp?: Maybe<TimetablesReturnValueVehicleScheduleVarSampFields>;
+  variance?: Maybe<TimetablesReturnValueVehicleScheduleVarianceFields>;
+};
+
+/** aggregate fields of "return_value.vehicle_schedule" */
+export type TimetablesReturnValueVehicleScheduleAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<TimetablesReturnValueVehicleScheduleSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type TimetablesReturnValueVehicleScheduleAvgFields = {
+  __typename?: 'timetables_return_value_vehicle_schedule_avg_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "return_value.vehicle_schedule". All fields are combined with a logical 'AND'. */
+export type TimetablesReturnValueVehicleScheduleBoolExp = {
+  _and?: InputMaybe<Array<TimetablesReturnValueVehicleScheduleBoolExp>>;
+  _not?: InputMaybe<TimetablesReturnValueVehicleScheduleBoolExp>;
+  _or?: InputMaybe<Array<TimetablesReturnValueVehicleScheduleBoolExp>>;
+  created_at?: InputMaybe<TimestamptzComparisonExp>;
+  day_type?: InputMaybe<TimetablesServiceCalendarDayTypeBoolExp>;
+  day_type_id?: InputMaybe<UuidComparisonExp>;
+  priority?: InputMaybe<IntComparisonExp>;
+  substitute_operating_day_by_line_type_id?: InputMaybe<UuidComparisonExp>;
+  validity_end?: InputMaybe<DateComparisonExp>;
+  validity_start?: InputMaybe<DateComparisonExp>;
+  vehicle_journey?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyBoolExp>;
+  vehicle_journey_id?: InputMaybe<UuidComparisonExp>;
+  vehicle_schedule_frame_id?: InputMaybe<UuidComparisonExp>;
+};
+
+/** input type for incrementing numeric columns in table "return_value.vehicle_schedule" */
+export type TimetablesReturnValueVehicleScheduleIncInput = {
+  priority?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "return_value.vehicle_schedule" */
+export type TimetablesReturnValueVehicleScheduleInsertInput = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  day_type?: InputMaybe<TimetablesServiceCalendarDayTypeObjRelInsertInput>;
+  day_type_id?: InputMaybe<Scalars['uuid']>;
+  priority?: InputMaybe<Scalars['Int']>;
+  substitute_operating_day_by_line_type_id?: InputMaybe<Scalars['uuid']>;
+  validity_end?: InputMaybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
+  vehicle_journey?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyObjRelInsertInput>;
+  vehicle_journey_id?: InputMaybe<Scalars['uuid']>;
+  vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** aggregate max on columns */
+export type TimetablesReturnValueVehicleScheduleMaxFields = {
+  __typename?: 'timetables_return_value_vehicle_schedule_max_fields';
+  created_at?: Maybe<Scalars['timestamptz']>;
+  day_type_id?: Maybe<Scalars['uuid']>;
+  priority?: Maybe<Scalars['Int']>;
+  substitute_operating_day_by_line_type_id?: Maybe<Scalars['uuid']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
+  vehicle_journey_id?: Maybe<Scalars['uuid']>;
+  vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregate min on columns */
+export type TimetablesReturnValueVehicleScheduleMinFields = {
+  __typename?: 'timetables_return_value_vehicle_schedule_min_fields';
+  created_at?: Maybe<Scalars['timestamptz']>;
+  day_type_id?: Maybe<Scalars['uuid']>;
+  priority?: Maybe<Scalars['Int']>;
+  substitute_operating_day_by_line_type_id?: Maybe<Scalars['uuid']>;
+  validity_end?: Maybe<Scalars['date']>;
+  validity_start?: Maybe<Scalars['date']>;
+  vehicle_journey_id?: Maybe<Scalars['uuid']>;
+  vehicle_schedule_frame_id?: Maybe<Scalars['uuid']>;
+};
+
+/** response of any mutation on the table "return_value.vehicle_schedule" */
+export type TimetablesReturnValueVehicleScheduleMutationResponse = {
+  __typename?: 'timetables_return_value_vehicle_schedule_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<TimetablesReturnValueVehicleSchedule>;
+};
+
+/** Ordering options when selecting data from "return_value.vehicle_schedule". */
+export type TimetablesReturnValueVehicleScheduleOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  day_type?: InputMaybe<TimetablesServiceCalendarDayTypeOrderBy>;
+  day_type_id?: InputMaybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
+  substitute_operating_day_by_line_type_id?: InputMaybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
+  vehicle_journey?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyOrderBy>;
+  vehicle_journey_id?: InputMaybe<OrderBy>;
+  vehicle_schedule_frame_id?: InputMaybe<OrderBy>;
+};
+
+/** select columns of table "return_value.vehicle_schedule" */
+export enum TimetablesReturnValueVehicleScheduleSelectColumn {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  DayTypeId = 'day_type_id',
+  /** column name */
+  Priority = 'priority',
+  /** column name */
+  SubstituteOperatingDayByLineTypeId = 'substitute_operating_day_by_line_type_id',
+  /** column name */
+  ValidityEnd = 'validity_end',
+  /** column name */
+  ValidityStart = 'validity_start',
+  /** column name */
+  VehicleJourneyId = 'vehicle_journey_id',
+  /** column name */
+  VehicleScheduleFrameId = 'vehicle_schedule_frame_id',
+}
+
+/** input type for updating data in table "return_value.vehicle_schedule" */
+export type TimetablesReturnValueVehicleScheduleSetInput = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  day_type_id?: InputMaybe<Scalars['uuid']>;
+  priority?: InputMaybe<Scalars['Int']>;
+  substitute_operating_day_by_line_type_id?: InputMaybe<Scalars['uuid']>;
+  validity_end?: InputMaybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
+  vehicle_journey_id?: InputMaybe<Scalars['uuid']>;
+  vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** aggregate stddev on columns */
+export type TimetablesReturnValueVehicleScheduleStddevFields = {
+  __typename?: 'timetables_return_value_vehicle_schedule_stddev_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type TimetablesReturnValueVehicleScheduleStddevPopFields = {
+  __typename?: 'timetables_return_value_vehicle_schedule_stddev_pop_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type TimetablesReturnValueVehicleScheduleStddevSampFields = {
+  __typename?: 'timetables_return_value_vehicle_schedule_stddev_samp_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "return_value_vehicle_schedule" */
+export type TimetablesReturnValueVehicleScheduleStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: TimetablesReturnValueVehicleScheduleStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<TimetablesCursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type TimetablesReturnValueVehicleScheduleStreamCursorValueInput = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  day_type_id?: InputMaybe<Scalars['uuid']>;
+  priority?: InputMaybe<Scalars['Int']>;
+  substitute_operating_day_by_line_type_id?: InputMaybe<Scalars['uuid']>;
+  validity_end?: InputMaybe<Scalars['date']>;
+  validity_start?: InputMaybe<Scalars['date']>;
+  vehicle_journey_id?: InputMaybe<Scalars['uuid']>;
+  vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** aggregate sum on columns */
+export type TimetablesReturnValueVehicleScheduleSumFields = {
+  __typename?: 'timetables_return_value_vehicle_schedule_sum_fields';
+  priority?: Maybe<Scalars['Int']>;
+};
+
+export type TimetablesReturnValueVehicleScheduleUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<TimetablesReturnValueVehicleScheduleIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<TimetablesReturnValueVehicleScheduleSetInput>;
+  /** filter the rows which have to be updated */
+  where: TimetablesReturnValueVehicleScheduleBoolExp;
+};
+
+/** aggregate var_pop on columns */
+export type TimetablesReturnValueVehicleScheduleVarPopFields = {
+  __typename?: 'timetables_return_value_vehicle_schedule_var_pop_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type TimetablesReturnValueVehicleScheduleVarSampFields = {
+  __typename?: 'timetables_return_value_vehicle_schedule_var_samp_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type TimetablesReturnValueVehicleScheduleVarianceFields = {
+  __typename?: 'timetables_return_value_vehicle_schedule_variance_fields';
+  priority?: Maybe<Scalars['Float']>;
+};
+
 /** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
 export type TimetablesServiceCalendarDayType = {
   __typename?: 'timetables_service_calendar_day_type';
@@ -10680,6 +10923,7 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineType = {
   begin_datetime: Scalars['timestamptz'];
   /** The time from which the substituting public transit comes into effect. If NULL, the substitution is in effect from the start of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys prior to this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys before this time are operated as usual. */
   begin_time?: Maybe<Scalars['interval']>;
+  created_at: Scalars['timestamptz'];
   /** Calculated timestamp for the instant (exclusive) until which the substituting public transit is in effect. */
   end_datetime: Scalars['timestamptz'];
   /** The time (exclusive) until which the substituting public transit is valid. If NULL, the substitution is in effect until the end of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys starting from this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys starting from this time are operated as usual. */
@@ -10747,6 +10991,7 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeBoolExp = {
   >;
   begin_datetime?: InputMaybe<TimestamptzComparisonExp>;
   begin_time?: InputMaybe<IntervalComparisonExp>;
+  created_at?: InputMaybe<TimestamptzComparisonExp>;
   end_datetime?: InputMaybe<TimestamptzComparisonExp>;
   end_time?: InputMaybe<IntervalComparisonExp>;
   substitute_day_of_week?: InputMaybe<IntComparisonExp>;
@@ -10774,6 +11019,7 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput
   {
     /** The time from which the substituting public transit comes into effect. If NULL, the substitution is in effect from the start of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys prior to this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys before this time are operated as usual. */
     begin_time?: InputMaybe<Scalars['interval']>;
+    created_at?: InputMaybe<Scalars['timestamptz']>;
     /** The time (exclusive) until which the substituting public transit is valid. If NULL, the substitution is in effect until the end of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys starting from this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys starting from this time are operated as usual. */
     end_time?: InputMaybe<Scalars['interval']>;
     /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
@@ -10792,6 +11038,7 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeMaxFields =
     __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_max_fields';
     /** Calculated timestamp for the instant from which the substituting public transit comes into effect. */
     begin_datetime?: Maybe<Scalars['timestamptz']>;
+    created_at?: Maybe<Scalars['timestamptz']>;
     /** Calculated timestamp for the instant (exclusive) until which the substituting public transit is in effect. */
     end_datetime?: Maybe<Scalars['timestamptz']>;
     /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
@@ -10810,6 +11057,7 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeMinFields =
     __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_min_fields';
     /** Calculated timestamp for the instant from which the substituting public transit comes into effect. */
     begin_datetime?: Maybe<Scalars['timestamptz']>;
+    created_at?: Maybe<Scalars['timestamptz']>;
     /** Calculated timestamp for the instant (exclusive) until which the substituting public transit is in effect. */
     end_datetime?: Maybe<Scalars['timestamptz']>;
     /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
@@ -10852,6 +11100,7 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeOnConflict 
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeOrderBy = {
   begin_datetime?: InputMaybe<OrderBy>;
   begin_time?: InputMaybe<OrderBy>;
+  created_at?: InputMaybe<OrderBy>;
   end_datetime?: InputMaybe<OrderBy>;
   end_time?: InputMaybe<OrderBy>;
   substitute_day_of_week?: InputMaybe<OrderBy>;
@@ -10874,6 +11123,8 @@ export enum TimetablesServiceCalendarSubstituteOperatingDayByLineTypeSelectColum
   /** column name */
   BeginTime = 'begin_time',
   /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
   EndDatetime = 'end_datetime',
   /** column name */
   EndTime = 'end_time',
@@ -10894,6 +11145,7 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeSetInput =
   {
     /** The time from which the substituting public transit comes into effect. If NULL, the substitution is in effect from the start of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys prior to this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys before this time are operated as usual. */
     begin_time?: InputMaybe<Scalars['interval']>;
+    created_at?: InputMaybe<Scalars['timestamptz']>;
     /** The time (exclusive) until which the substituting public transit is valid. If NULL, the substitution is in effect until the end of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys starting from this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys starting from this time are operated as usual. */
     end_time?: InputMaybe<Scalars['interval']>;
     /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
@@ -10946,6 +11198,7 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeStreamCurso
     begin_datetime?: InputMaybe<Scalars['timestamptz']>;
     /** The time from which the substituting public transit comes into effect. If NULL, the substitution is in effect from the start of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys prior to this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys before this time are operated as usual. */
     begin_time?: InputMaybe<Scalars['interval']>;
+    created_at?: InputMaybe<Scalars['timestamptz']>;
     /** Calculated timestamp for the instant (exclusive) until which the substituting public transit is in effect. */
     end_datetime?: InputMaybe<Scalars['timestamptz']>;
     /** The time (exclusive) until which the substituting public transit is valid. If NULL, the substitution is in effect until the end of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys starting from this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys starting from this time are operated as usual. */
@@ -10972,6 +11225,8 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeSumFields =
 export enum TimetablesServiceCalendarSubstituteOperatingDayByLineTypeUpdateColumn {
   /** column name */
   BeginTime = 'begin_time',
+  /** column name */
+  CreatedAt = 'created_at',
   /** column name */
   EndTime = 'end_time',
   /** column name */
@@ -11495,6 +11750,8 @@ export type TimetablesTimetablesMutationFrontend = {
   timetables_delete_passing_times_timetabled_passing_time_by_pk?: Maybe<TimetablesPassingTimesTimetabledPassingTime>;
   /** delete data from the table: "return_value.timetable_version" */
   timetables_delete_return_value_timetable_version?: Maybe<TimetablesReturnValueTimetableVersionMutationResponse>;
+  /** delete data from the table: "return_value.vehicle_schedule" */
+  timetables_delete_return_value_vehicle_schedule?: Maybe<TimetablesReturnValueVehicleScheduleMutationResponse>;
   /** delete data from the table: "service_calendar.day_type" */
   timetables_delete_service_calendar_day_type?: Maybe<TimetablesServiceCalendarDayTypeMutationResponse>;
   /** delete data from the table: "service_calendar.day_type_active_on_day_of_week" */
@@ -11547,6 +11804,10 @@ export type TimetablesTimetablesMutationFrontend = {
   timetables_insert_return_value_timetable_version?: Maybe<TimetablesReturnValueTimetableVersionMutationResponse>;
   /** insert a single row into the table: "return_value.timetable_version" */
   timetables_insert_return_value_timetable_version_one?: Maybe<TimetablesReturnValueTimetableVersion>;
+  /** insert data into the table: "return_value.vehicle_schedule" */
+  timetables_insert_return_value_vehicle_schedule?: Maybe<TimetablesReturnValueVehicleScheduleMutationResponse>;
+  /** insert a single row into the table: "return_value.vehicle_schedule" */
+  timetables_insert_return_value_vehicle_schedule_one?: Maybe<TimetablesReturnValueVehicleSchedule>;
   /** insert data into the table: "service_calendar.day_type" */
   timetables_insert_service_calendar_day_type?: Maybe<TimetablesServiceCalendarDayTypeMutationResponse>;
   /** insert data into the table: "service_calendar.day_type_active_on_day_of_week" */
@@ -11608,6 +11869,12 @@ export type TimetablesTimetablesMutationFrontend = {
   /** update multiples rows of table: "return_value.timetable_version" */
   timetables_update_return_value_timetable_version_many?: Maybe<
     Array<Maybe<TimetablesReturnValueTimetableVersionMutationResponse>>
+  >;
+  /** update data of the table: "return_value.vehicle_schedule" */
+  timetables_update_return_value_vehicle_schedule?: Maybe<TimetablesReturnValueVehicleScheduleMutationResponse>;
+  /** update multiples rows of table: "return_value.vehicle_schedule" */
+  timetables_update_return_value_vehicle_schedule_many?: Maybe<
+    Array<Maybe<TimetablesReturnValueVehicleScheduleMutationResponse>>
   >;
   /** update data of the table: "service_calendar.day_type" */
   timetables_update_service_calendar_day_type?: Maybe<TimetablesServiceCalendarDayTypeMutationResponse>;
@@ -11722,6 +11989,11 @@ export type TimetablesTimetablesMutationFrontendTimetablesDeletePassingTimesTime
 export type TimetablesTimetablesMutationFrontendTimetablesDeleteReturnValueTimetableVersionArgs =
   {
     where: TimetablesReturnValueTimetableVersionBoolExp;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesDeleteReturnValueVehicleScheduleArgs =
+  {
+    where: TimetablesReturnValueVehicleScheduleBoolExp;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesDeleteServiceCalendarDayTypeArgs =
@@ -11858,6 +12130,16 @@ export type TimetablesTimetablesMutationFrontendTimetablesInsertReturnValueTimet
 export type TimetablesTimetablesMutationFrontendTimetablesInsertReturnValueTimetableVersionOneArgs =
   {
     object: TimetablesReturnValueTimetableVersionInsertInput;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesInsertReturnValueVehicleScheduleArgs =
+  {
+    objects: Array<TimetablesReturnValueVehicleScheduleInsertInput>;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesInsertReturnValueVehicleScheduleOneArgs =
+  {
+    object: TimetablesReturnValueVehicleScheduleInsertInput;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertServiceCalendarDayTypeArgs =
@@ -12024,6 +12306,18 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateReturnValueTimet
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateReturnValueTimetableVersionManyArgs =
   {
     updates: Array<TimetablesReturnValueTimetableVersionUpdates>;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateReturnValueVehicleScheduleArgs =
+  {
+    _inc?: InputMaybe<TimetablesReturnValueVehicleScheduleIncInput>;
+    _set?: InputMaybe<TimetablesReturnValueVehicleScheduleSetInput>;
+    where: TimetablesReturnValueVehicleScheduleBoolExp;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateReturnValueVehicleScheduleManyArgs =
+  {
+    updates: Array<TimetablesReturnValueVehicleScheduleUpdates>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarDayTypeArgs =
@@ -12276,6 +12570,10 @@ export type TimetablesTimetablesQuery = {
   timetables_return_value_timetable_version: Array<TimetablesReturnValueTimetableVersion>;
   /** fetch aggregated fields from the table: "return_value.timetable_version" */
   timetables_return_value_timetable_version_aggregate: TimetablesReturnValueTimetableVersionAggregate;
+  /** fetch data from the table: "return_value.vehicle_schedule" */
+  timetables_return_value_vehicle_schedule: Array<TimetablesReturnValueVehicleSchedule>;
+  /** fetch aggregated fields from the table: "return_value.vehicle_schedule" */
+  timetables_return_value_vehicle_schedule_aggregate: TimetablesReturnValueVehicleScheduleAggregate;
   /** fetch data from the table: "service_calendar.day_type" */
   timetables_service_calendar_day_type: Array<TimetablesServiceCalendarDayType>;
   /** fetch data from the table: "service_calendar.day_type_active_on_day_of_week" */
@@ -12304,6 +12602,10 @@ export type TimetablesTimetablesQuery = {
   timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_aggregate: TimetablesServicePatternScheduledStopPointInJourneyPatternRefAggregate;
   /** fetch data from the table: "service_pattern.scheduled_stop_point_in_journey_pattern_ref" using primary key columns */
   timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_by_pk?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRef>;
+  /** execute function "vehicle_journey.get_vehicle_schedules_on_date" which returns "return_value.vehicle_schedule" */
+  timetables_vehicle_journey_get_vehicle_schedules_on_date: Array<TimetablesReturnValueVehicleSchedule>;
+  /** execute function "vehicle_journey.get_vehicle_schedules_on_date" and query aggregates on result of table type "return_value.vehicle_schedule" */
+  timetables_vehicle_journey_get_vehicle_schedules_on_date_aggregate: TimetablesReturnValueVehicleScheduleAggregate;
   /** fetch data from the table: "vehicle_journey.vehicle_journey" */
   timetables_vehicle_journey_vehicle_journey: Array<TimetablesVehicleJourneyVehicleJourney>;
   /** fetch aggregated fields from the table: "vehicle_journey.vehicle_journey" */
@@ -12436,6 +12738,28 @@ export type TimetablesTimetablesQueryTimetablesReturnValueTimetableVersionAggreg
     offset?: InputMaybe<Scalars['Int']>;
     order_by?: InputMaybe<Array<TimetablesReturnValueTimetableVersionOrderBy>>;
     where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  };
+
+export type TimetablesTimetablesQueryTimetablesReturnValueVehicleScheduleArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueVehicleScheduleSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueVehicleScheduleOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueVehicleScheduleBoolExp>;
+  };
+
+export type TimetablesTimetablesQueryTimetablesReturnValueVehicleScheduleAggregateArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueVehicleScheduleSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueVehicleScheduleOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueVehicleScheduleBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeArgs = {
@@ -12578,6 +12902,30 @@ export type TimetablesTimetablesQueryTimetablesServicePatternScheduledStopPointI
 export type TimetablesTimetablesQueryTimetablesServicePatternScheduledStopPointInJourneyPatternRefByPkArgs =
   {
     scheduled_stop_point_in_journey_pattern_ref_id: Scalars['uuid'];
+  };
+
+export type TimetablesTimetablesQueryTimetablesVehicleJourneyGetVehicleSchedulesOnDateArgs =
+  {
+    args: TimetablesVehicleJourneyGetVehicleSchedulesOnDateArgs;
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueVehicleScheduleSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueVehicleScheduleOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueVehicleScheduleBoolExp>;
+  };
+
+export type TimetablesTimetablesQueryTimetablesVehicleJourneyGetVehicleSchedulesOnDateAggregateArgs =
+  {
+    args: TimetablesVehicleJourneyGetVehicleSchedulesOnDateArgs;
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueVehicleScheduleSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueVehicleScheduleOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueVehicleScheduleBoolExp>;
   };
 
 export type TimetablesTimetablesQueryTimetablesVehicleJourneyVehicleJourneyArgs =
@@ -12838,6 +13186,12 @@ export type TimetablesTimetablesSubscription = {
   timetables_return_value_timetable_version_aggregate: TimetablesReturnValueTimetableVersionAggregate;
   /** fetch data from the table in a streaming manner: "return_value.timetable_version" */
   timetables_return_value_timetable_version_stream: Array<TimetablesReturnValueTimetableVersion>;
+  /** fetch data from the table: "return_value.vehicle_schedule" */
+  timetables_return_value_vehicle_schedule: Array<TimetablesReturnValueVehicleSchedule>;
+  /** fetch aggregated fields from the table: "return_value.vehicle_schedule" */
+  timetables_return_value_vehicle_schedule_aggregate: TimetablesReturnValueVehicleScheduleAggregate;
+  /** fetch data from the table in a streaming manner: "return_value.vehicle_schedule" */
+  timetables_return_value_vehicle_schedule_stream: Array<TimetablesReturnValueVehicleSchedule>;
   /** fetch data from the table: "service_calendar.day_type" */
   timetables_service_calendar_day_type: Array<TimetablesServiceCalendarDayType>;
   /** fetch data from the table: "service_calendar.day_type_active_on_day_of_week" */
@@ -12874,6 +13228,10 @@ export type TimetablesTimetablesSubscription = {
   timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_by_pk?: Maybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRef>;
   /** fetch data from the table in a streaming manner: "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
   timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_stream: Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRef>;
+  /** execute function "vehicle_journey.get_vehicle_schedules_on_date" which returns "return_value.vehicle_schedule" */
+  timetables_vehicle_journey_get_vehicle_schedules_on_date: Array<TimetablesReturnValueVehicleSchedule>;
+  /** execute function "vehicle_journey.get_vehicle_schedules_on_date" and query aggregates on result of table type "return_value.vehicle_schedule" */
+  timetables_vehicle_journey_get_vehicle_schedules_on_date_aggregate: TimetablesReturnValueVehicleScheduleAggregate;
   /** fetch data from the table: "vehicle_journey.vehicle_journey" */
   timetables_vehicle_journey_vehicle_journey: Array<TimetablesVehicleJourneyVehicleJourney>;
   /** fetch aggregated fields from the table: "vehicle_journey.vehicle_journey" */
@@ -13045,6 +13403,37 @@ export type TimetablesTimetablesSubscriptionTimetablesReturnValueTimetableVersio
       InputMaybe<TimetablesReturnValueTimetableVersionStreamCursorInput>
     >;
     where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesReturnValueVehicleScheduleArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueVehicleScheduleSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueVehicleScheduleOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueVehicleScheduleBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesReturnValueVehicleScheduleAggregateArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueVehicleScheduleSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueVehicleScheduleOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueVehicleScheduleBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesReturnValueVehicleScheduleStreamArgs =
+  {
+    batch_size: Scalars['Int'];
+    cursor: Array<
+      InputMaybe<TimetablesReturnValueVehicleScheduleStreamCursorInput>
+    >;
+    where?: InputMaybe<TimetablesReturnValueVehicleScheduleBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeArgs =
@@ -13226,6 +13615,30 @@ export type TimetablesTimetablesSubscriptionTimetablesServicePatternScheduledSto
       InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefStreamCursorInput>
     >;
     where?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesVehicleJourneyGetVehicleSchedulesOnDateArgs =
+  {
+    args: TimetablesVehicleJourneyGetVehicleSchedulesOnDateArgs;
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueVehicleScheduleSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueVehicleScheduleOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueVehicleScheduleBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesVehicleJourneyGetVehicleSchedulesOnDateAggregateArgs =
+  {
+    args: TimetablesVehicleJourneyGetVehicleSchedulesOnDateArgs;
+    distinct_on?: InputMaybe<
+      Array<TimetablesReturnValueVehicleScheduleSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesReturnValueVehicleScheduleOrderBy>>;
+    where?: InputMaybe<TimetablesReturnValueVehicleScheduleBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesVehicleJourneyVehicleJourneyArgs =
@@ -13518,6 +13931,11 @@ export type TimetablesTimetablesSubscriptionTimetablesVehicleTypeVehicleTypeStre
     >;
     where?: InputMaybe<TimetablesVehicleTypeVehicleTypeBoolExp>;
   };
+
+export type TimetablesVehicleJourneyGetVehicleSchedulesOnDateArgs = {
+  journey_pattern_uuid?: InputMaybe<Scalars['uuid']>;
+  observation_date?: InputMaybe<Scalars['date']>;
+};
 
 /** The planned movement of a public transport vehicle on a DAY TYPE from the start point to the end point of a JOURNEY PATTERN on a specified ROUTE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:1:1:831  */
 export type TimetablesVehicleJourneyVehicleJourney = {
