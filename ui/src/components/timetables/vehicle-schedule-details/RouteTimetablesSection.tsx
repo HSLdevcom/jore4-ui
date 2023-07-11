@@ -1,13 +1,16 @@
 import { gql } from '@apollo/client';
+import orderBy from 'lodash/orderBy';
 import { useTranslation } from 'react-i18next';
 import { useGetRouteWithJourneyPatternQuery } from '../../../generated/graphql';
 import {
   TimetablesView,
+  useAppSelector,
   useGetRouteTimetables,
   useTimetablesViewState,
   useToggle,
 } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
+import { selectTimetable } from '../../../redux';
 import { mapToShortDate } from '../../../time';
 import { AccordionButton } from '../../../uiComponents';
 import { RouteLabel } from '../../common/RouteLabel';
@@ -37,6 +40,7 @@ export const RouteTimetablesSection = ({
   initiallyOpen = false,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
+  const { showAllValid } = useAppSelector(selectTimetable);
   const [isOpen, toggleIsOpen] = useToggle(initiallyOpen);
   const { activeView, setShowPassingTimesByStop } = useTimetablesViewState();
 
@@ -55,6 +59,16 @@ export const RouteTimetablesSection = ({
   if (!route) {
     return <></>;
   }
+
+  // depending on the showAll mode, we either show all day type timetables
+  // which are currently ordered only by priority
+  // OR we only show the one with inEffect value as true.
+  const displayedVehicleJourneyGroups = (() => {
+    const vehicleJourneyGroups = showAllValid
+      ? timetables?.vehicleJourneyGroups
+      : timetables?.vehicleJourneyGroups.filter((vjGroup) => vjGroup.inEffect);
+    return orderBy(vehicleJourneyGroups, ['priority'], ['desc']);
+  })();
 
   return (
     <div>
@@ -87,7 +101,7 @@ export const RouteTimetablesSection = ({
         <div className="mt-8">
           {activeView === TimetablesView.DEFAULT && (
             <div className="grid grid-cols-3 gap-x-8 gap-y-5">
-              {timetables?.vehicleJourneyGroups.map((item) => (
+              {displayedVehicleJourneyGroups?.map((item) => (
                 <VehicleServiceTable
                   vehicleJourneyGroup={item}
                   key={`${item.priority}-${item.dayType.day_type_id}`}

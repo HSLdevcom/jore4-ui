@@ -27,27 +27,39 @@ export const VehicleJourneyGroupInfo = ({
   const dispatch = useAppDispatch();
 
   const changeVehicleScheduleFrameValidity = () => {
-    dispatch(
-      openChangeTimetableValidityModalAction(
-        vehicleJourneyGroup.vehicleScheduleFrameId,
-      ),
-    );
+    if (vehicleJourneyGroup.vehicleScheduleFrameId) {
+      dispatch(
+        openChangeTimetableValidityModalAction(
+          vehicleJourneyGroup.vehicleScheduleFrameId,
+        ),
+      );
+    }
   };
 
   const { vehicleJourneys } = vehicleJourneyGroup;
 
-  const tripCount = vehicleJourneys.length;
+  const hasTimetables = !!vehicleJourneys;
+  const tripCount = vehicleJourneys?.length;
   const orderedVehicleJourneys = orderBy(vehicleJourneys, 'start_time');
 
   const firstTrip = orderedVehicleJourneys[0];
   const lastTrip = orderedVehicleJourneys[orderedVehicleJourneys.length - 1];
+
+  // disable the button in case of substitute operating day
+  // TODO: in the future there might be a need for using this button to
+  // link to the substitute operating day's page
+  const isDisabled = !vehicleJourneyGroup.vehicleScheduleFrameId;
+  const hoverStyle = `${commonHoverStyle} hover:bg-light-grey`;
 
   return (
     <Row
       className={`items-center space-x-4 text-center text-sm text-hsl-dark-80 ${className}`}
     >
       <IconButton
-        className={`mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base ${commonHoverStyle} hover:bg-light-grey`}
+        className={`mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base  ${
+          isDisabled ? 'text-light-grey' : hoverStyle
+        }`}
+        disabled={isDisabled}
         onClick={changeVehicleScheduleFrameValidity}
         icon={<i className="icon-calendar" />}
         testId={testIds.changeValidityButton}
@@ -57,14 +69,19 @@ export const VehicleJourneyGroupInfo = ({
           vehicleJourneyGroup.validity.validityStart,
         )} - ${mapToShortDate(vehicleJourneyGroup.validity.validityEnd)}`}
       </span>
-      <span>|</span>
-      <span className="font-bold">
-        {t('timetables.tripCount', { count: tripCount })}
-      </span>
-      <span>|</span>
-      <span>{`${mapDurationToShortTime(
-        firstTrip.start_time,
-      )}  ...  ${mapDurationToShortTime(lastTrip.start_time)}`}</span>
+      {hasTimetables && (
+        <>
+          <span>|</span>
+          <span className="font-bold">
+            {t('timetables.tripCount', { count: tripCount })}
+          </span>
+          <span>|</span>
+          <span>
+            `${mapDurationToShortTime(firstTrip.start_time)} ... $
+            {mapDurationToShortTime(lastTrip.start_time)}`
+          </span>
+        </>
+      )}
     </Row>
   );
 };
