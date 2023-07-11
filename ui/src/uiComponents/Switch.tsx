@@ -21,7 +21,7 @@ export const Switch: React.FC<Props> = ({
       onChange={onChange}
       className={`${className} ${
         checked ? 'border-brand bg-brand' : 'border-grey'
-      } relative inline-flex h-6 w-11 items-center rounded-full border transition-colors`}
+      } relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring`}
       data-testid={testId}
     >
       <span
