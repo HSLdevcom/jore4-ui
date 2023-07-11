@@ -51,15 +51,17 @@ export const VehicleServiceTable = ({
 
   const { vehicleJourneys, priority, dayType, createdAt } = vehicleJourneyGroup;
 
-  const departureTimesByHour = pipe(
-    vehicleJourneys,
-    (services) => services.flatMap((item) => item.start_time),
-    (journeyStartTimes) =>
-      journeyStartTimes.sort(
-        (time1, time2) => time1.as('millisecond') - time2.as('millisecond'),
-      ),
-    (journeyStartTimes) => groupBy(journeyStartTimes, (item) => item.hours),
-  );
+  const departureTimesByHour = vehicleJourneys
+    ? pipe(
+        vehicleJourneys,
+        (services) => services.flatMap((item) => item.start_time),
+        (journeyStartTimes) =>
+          journeyStartTimes.sort(
+            (time1, time2) => time1.as('millisecond') - time2.as('millisecond'),
+          ),
+        (journeyStartTimes) => groupBy(journeyStartTimes, (item) => item.hours),
+      )
+    : [];
 
   const rowData: VehicleServiceRowData[] = Object.entries(
     departureTimesByHour,
@@ -122,7 +124,7 @@ export const VehicleServiceTable = ({
         </div>
       </Visible>
       <Visible visible={!hasVehicleJourneys}>
-        <p>{t('timetables.noSchedules')}</p>
+        <p className="text-center">{t('timetables.noTraffic')}</p>
       </Visible>
     </div>
   );
