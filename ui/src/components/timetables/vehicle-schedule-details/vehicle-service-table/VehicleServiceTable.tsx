@@ -8,10 +8,7 @@ import { Column, Visible } from '../../../../layoutComponents';
 import { mapToShortDateTime } from '../../../../time';
 import { TimetablePriority } from '../../../../types/enums';
 import { VehicleJourneyGroupInfo } from '../../common/VehicleJourneyGroupInfo';
-import {
-  VehicleServiceRowData,
-  VehicleServiceTableRow,
-} from './VehicleServiceTableRow';
+import { VehicleServiceRow, VehicleServiceRowData } from './VehicleServiceRow';
 
 interface Props {
   vehicleJourneyGroup: VehicleJourneyGroup;
@@ -110,20 +107,18 @@ export const VehicleServiceTable = ({
           onClick={onClick}
           onKeyPress={onKeyPress}
           role="button"
+          title="Click to view passing times by stop"
           tabIndex={0}
+          data-testid={testIds.timetable}
           className="border-2 border-hsl-neutral-blue hover:border-gray-500"
         >
-          <table data-testid={testIds.timetable} className="flex">
-            <tbody className=" w-full">
-              {rowData.map((item) => (
-                <VehicleServiceTableRow
-                  key={item.hours}
-                  data={item}
-                  oddRowColor={getOddRowColor(priority)}
-                />
-              ))}
-            </tbody>
-          </table>
+          {rowData.map((item) => (
+            <VehicleServiceRow
+              key={item.hours}
+              data={item}
+              oddRowColor={getOddRowColor(priority)}
+            />
+          ))}
         </div>
       </Visible>
       <Visible visible={!hasVehicleJourneys}>
