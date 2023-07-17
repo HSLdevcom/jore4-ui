@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row } from '../../layoutComponents';
 import { SimpleButton } from '../../uiComponents';
@@ -53,6 +53,18 @@ export const Modal: FunctionComponent<Props> = ({
   onSave,
   children,
 }) => {
+  const closeOnEscape = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', closeOnEscape, true);
+    return () => document.removeEventListener('keydown', closeOnEscape, true);
+  });
+
   return (
     <div data-testid={testId} className="overflow-auto bg-white">
       <ModalHeader onClose={onClose} heading={heading} />
