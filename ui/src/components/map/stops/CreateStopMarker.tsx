@@ -36,6 +36,7 @@ export const CreateStopMarker = ({ onCursorMove }: Props): JSX.Element => {
 
   const detectKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
+      e.preventDefault();
       dispatch(resetEnabledModesAction());
     }
   };
