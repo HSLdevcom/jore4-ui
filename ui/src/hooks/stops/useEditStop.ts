@@ -2,6 +2,7 @@ import flow from 'lodash/flow';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import {
   EditStopMutationVariables,
   InfrastructureNetworkDirectionEnum,
@@ -18,6 +19,7 @@ import {
   mapGetRoutesBrokenByStopChangeResult,
   mapStopResultToStop,
 } from '../../graphql';
+import { setIsMoveStopModeEnabledAction } from '../../redux';
 import {
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
@@ -72,6 +74,7 @@ export const useEditStop = () => {
   const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
   const [getBrokenRoutes] = useGetRoutesBrokenByStopChangeAsyncQuery();
   const [validateTimingSettings] = useValidateTimingSettings();
+  const dispatch = useDispatch();
 
   const getRoutesBrokenByStopChange = async ({
     newLink,
@@ -281,6 +284,7 @@ export const useEditStop = () => {
       return;
     }
     if (err instanceof TimingPlaceRequiredError) {
+      dispatch(setIsMoveStopModeEnabledAction(false));
       showDangerToast(
         t('stops.timingPlaceRequired', { routeLabels: err.message }),
       );
