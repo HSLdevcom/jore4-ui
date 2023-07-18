@@ -27,14 +27,19 @@ export const ExportToolbar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const { resultCount, resultType, routes, lines } = useSearchResults();
+  const {
+    resultCount,
+    resultType,
+    reducedRoutes,
+    lines,
+  } = useSearchResults();
   const { isSelectingRoutesForExport, selectedRouteUniqueLabels } =
     useAppSelector(selectExport);
   const { canExport, exportRoutesToHastus } = useExportRoutes();
 
   const searchResultRouteUniqueLabels = pipe(
     resultType === DisplayedSearchResultType.Routes
-      ? routes.map((route) => route.unique_label)
+      ? reducedRoutes.map((route) => route.unique_label)
       : lines.flatMap((line) =>
           line.line_routes.map((route) => route.unique_label),
         ),
