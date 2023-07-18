@@ -6,8 +6,8 @@ import {
   useSearchLinesAndRoutesQuery,
 } from '../../generated/graphql';
 import {
-  buildSearchLinesAndRoutesGqlQueryVariables,
   DisplayedSearchResultType,
+  buildSearchLinesAndRoutesGqlQueryVariables,
   mapToVariables,
 } from '../../utils';
 import { useSearchQueryParser } from './useSearchQueryParser';
@@ -30,7 +30,8 @@ const GQL_SEARCH_LINES_AND_ROUTES = gql`
 
 export const useSearchResults = (): {
   lines: LineTableRowFragment[];
-  routes: RouteTableRowFragment[];
+  /** Routes reduced to only have 1 direction per label */
+  reducedRoutes: RouteTableRowFragment[];
   resultCount: number;
   resultType: DisplayedSearchResultType;
 } => {
@@ -83,7 +84,7 @@ export const useSearchResults = (): {
 
   return {
     lines,
-    routes: reducedRoutes,
+    reducedRoutes,
     resultCount: resultCounts[resultType],
     resultType,
   };
