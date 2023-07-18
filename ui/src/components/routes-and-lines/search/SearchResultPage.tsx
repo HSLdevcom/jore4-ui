@@ -16,12 +16,12 @@ export const SearchResultPage = (): JSX.Element => {
   const { resultCount } = useSearchResults();
   const { t } = useTranslation();
   const { getPaginatedData } = usePagination();
-  const { lines, routes } = useSearchResults();
+  const { lines, reducedRoutes } = useSearchResults();
   const { basePath } = useBasePath();
   const itemsPerPage = 10;
 
   const displayedLines = getPaginatedData(lines, itemsPerPage);
-  const displayedRoutes = getPaginatedData(routes, itemsPerPage);
+  const displayedRoutes = getPaginatedData(reducedRoutes, itemsPerPage);
 
   const testIds = {
     container: 'SearchResultsPage::Container',
