@@ -1,22 +1,23 @@
-import isEqual from 'lodash/isEqual';
-import uniq from 'lodash/uniq';
 import { useTranslation } from 'react-i18next';
-import { pipe } from 'remeda';
 import {
   useAppDispatch,
   useAppSelector,
   useExportRoutes,
+  useObservationDateQueryParam,
   useSearchResults,
 } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
 import {
-  resetSelectedRoutesAction,
+  resetSelectedRowsAction,
   selectExport,
-  selectRouteUniqueLabelsAction,
+  selectRowsAction,
   setIsSelectingRoutesForExportAction,
 } from '../../../redux';
 import { SimpleSmallButton } from '../../../uiComponents';
-import { DisplayedSearchResultType } from '../../../utils';
+import {
+  DisplayedSearchResultType,
+  isRouteActiveOnObservationDate,
+} from '../../../utils';
 
 const testIds = {
   toggleSelectingButton: 'ExportToolBar::toggleSelectingButton',
@@ -26,54 +27,59 @@ const testIds = {
 export const ExportToolbar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const { observationDate } = useObservationDateQueryParam();
 
-  const {
-    resultCount,
-    resultType,
-    reducedRoutes,
-    lines,
-  } = useSearchResults();
-  const { isSelectingRoutesForExport, selectedRouteUniqueLabels } =
+  const { resultCount, resultType, routes, reducedRoutes, lines } =
+    useSearchResults();
+  const { isSelectingRoutesForExport, selectedRows } =
     useAppSelector(selectExport);
   const { canExport, exportRoutesToHastus } = useExportRoutes();
 
-  const searchResultRouteUniqueLabels = pipe(
-    resultType === DisplayedSearchResultType.Routes
-      ? reducedRoutes.map((route) => route.unique_label)
-      : lines.flatMap((line) =>
-          line.line_routes.map((route) => route.unique_label),
-        ),
-    uniq,
-  );
+  const linesWithRoutes = lines.filter((line) => !!line.line_routes.length);
 
-  const isAllResultsSelected = isEqual(
-    [...selectedRouteUniqueLabels].sort(),
-    [...searchResultRouteUniqueLabels].sort(),
-  );
+  const exportData =
+    resultType === DisplayedSearchResultType.Routes
+      ? {
+          resultsByType: reducedRoutes,
+          searchResultLabels: reducedRoutes.map((route) => route.unique_label),
+          toBeExportedRoutes: routes.filter((route) =>
+            selectedRows.includes(route.unique_label),
+          ),
+        }
+      : {
+          // Lines without routes are filtered out, since they are not selectable (nothing to export)
+          // They are also ignored when determining 'isAllResultsSelected'
+          resultsByType: linesWithRoutes,
+          searchResultLabels: linesWithRoutes.map((line) => line.label),
+          toBeExportedRoutes: lines
+            .filter((line) => selectedRows.includes(line.label))
+            .flatMap((line) =>
+              line.line_routes.filter((route) =>
+                isRouteActiveOnObservationDate(route, observationDate),
+              ),
+            ),
+        };
+
+  const isAllResultsSelected =
+    selectedRows.length === exportData.resultsByType.length;
 
   const onSelectAll = () => {
     if (isAllResultsSelected) {
-      dispatch(resetSelectedRoutesAction());
+      dispatch(resetSelectedRowsAction());
     } else {
-      dispatch(selectRouteUniqueLabelsAction(searchResultRouteUniqueLabels));
+      dispatch(selectRowsAction(exportData.searchResultLabels));
     }
   };
 
   const toggleIsSelecting = () => {
     dispatch(setIsSelectingRoutesForExportAction(!isSelectingRoutesForExport));
     // We always want to start selection from scratch
-    dispatch(resetSelectedRoutesAction());
+    dispatch(resetSelectedRowsAction());
   };
-
-  // If no route is selected, export all routes in search results by default
-  const isExportingAllSearchResults = selectedRouteUniqueLabels.length === 0;
 
   const exportRoutes = () => {
     exportRoutesToHastus(
-      // If we are "exporting all", export all routes in search results
-      isExportingAllSearchResults
-        ? searchResultRouteUniqueLabels
-        : selectedRouteUniqueLabels,
+      exportData.toBeExportedRoutes.map((route) => route.unique_label),
     );
   };
 
@@ -106,13 +112,9 @@ export const ExportToolbar = (): JSX.Element => {
       <Visible visible={isSelectingRoutesForExport}>
         <SimpleSmallButton
           inverted
-          disabled={!canExport}
+          disabled={!canExport || !selectedRows.length}
           onClick={exportRoutes}
-          label={t(
-            isExportingAllSearchResults
-              ? 'export.exportAll'
-              : 'export.exportSelected',
-          )}
+          label={t('export.exportSelected')}
           className="!rounded-full"
           testId={testIds.exportSelectedButton}
         />

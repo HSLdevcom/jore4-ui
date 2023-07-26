@@ -3,12 +3,12 @@ import uniq from 'lodash/uniq';
 
 interface IState {
   isSelectingRoutesForExport: boolean;
-  selectedRouteUniqueLabels: string[];
+  selectedRows: string[];
 }
 
 const initialState: IState = {
   isSelectingRoutesForExport: false,
-  selectedRouteUniqueLabels: [],
+  selectedRows: [],
 };
 
 const slice = createSlice({
@@ -18,58 +18,32 @@ const slice = createSlice({
     setIsSelectingRoutesForExport: (state, action: PayloadAction<boolean>) => {
       state.isSelectingRoutesForExport = action.payload;
     },
-    selectRouteUniqueLabel: (state: IState, action: PayloadAction<string>) => {
-      const { selectedRouteUniqueLabels } = state;
-
-      state.selectedRouteUniqueLabels = uniq([
-        ...selectedRouteUniqueLabels,
-        action.payload,
-      ]);
+    selectRow: (state: IState, action: PayloadAction<string>) => {
+      const { selectedRows: selectedRoutes } = state;
+      state.selectedRows = [...selectedRoutes, action.payload];
     },
-    deselectRouteUniqueLabel: (
-      state: IState,
-      action: PayloadAction<string>,
-    ) => {
-      const { selectedRouteUniqueLabels } = state;
-
-      state.selectedRouteUniqueLabels = selectedRouteUniqueLabels.filter(
-        (label) => label !== action.payload,
-      );
+    deselectRow: (state: IState, action: PayloadAction<string>) => {
+      const { selectedRows } = state;
+      state.selectedRows = selectedRows.filter((id) => id !== action.payload);
     },
-    selectRouteUniqueLabels: (
-      state: IState,
-      action: PayloadAction<string[]>,
-    ) => {
-      const { selectedRouteUniqueLabels } = state;
-
-      state.selectedRouteUniqueLabels = uniq([
-        ...selectedRouteUniqueLabels,
-        ...action.payload,
-      ]);
+    selectRows: (state: IState, action: PayloadAction<string[]>) => {
+      const { selectedRows } = state;
+      // If we are selecting rows with "Select all", we need to take uniq
+      // to avoid adding the already checked rows again
+      state.selectedRows = uniq([...selectedRows, ...action.payload]);
     },
-    deselectRouteUniqueLabels: (
-      state: IState,
-      action: PayloadAction<string[]>,
-    ) => {
-      const { selectedRouteUniqueLabels } = state;
-
-      state.selectedRouteUniqueLabels = selectedRouteUniqueLabels.filter(
-        (uniqueLabel) => !action.payload.includes(uniqueLabel),
-      );
-    },
-    resetSelectedRoutes: (state) => {
-      state.selectedRouteUniqueLabels = initialState.selectedRouteUniqueLabels;
+    resetSelectedRows: (state) => {
+      state.selectedRows = initialState.selectedRows;
     },
   },
 });
 
 export const {
   setIsSelectingRoutesForExport: setIsSelectingRoutesForExportAction,
-  selectRouteUniqueLabel: selectRouteUniqueLabelAction,
-  deselectRouteUniqueLabel: deselectRouteUniqueLabelAction,
-  selectRouteUniqueLabels: selectRouteUniqueLabelsAction,
-  deselectRouteUniqueLabels: deselectRouteUniqueLabelsAction,
-  resetSelectedRoutes: resetSelectedRoutesAction,
+  selectRow: selectRowAction,
+  deselectRow: deselectRowAction,
+  selectRows: selectRowsAction,
+  resetSelectedRows: resetSelectedRowsAction,
 } = slice.actions;
 
 export const exportReducer = slice.reducer;
