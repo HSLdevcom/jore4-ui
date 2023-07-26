@@ -21,7 +21,7 @@ const getHasuraURL = () => {
   const currentExecutorIndex =
     process.env.CYPRESS_THREAD || CurrentExecutorIndex.default;
 
-  if (process.env.CI && process.env.CYPRESS_GITHUB_ACTION === 'run-e2e-tests') {
+  if (process.env.CI && process.env.GITHUB_ACTION === 'run-e2e-tests') {
     return ciHasuraURL[currentExecutorIndex];
   }
   return localHasuraURL[currentExecutorIndex];
