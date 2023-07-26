@@ -1,11 +1,13 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import {
   SearchQueryParameterNames,
   useSearch,
   useToggle,
 } from '../../../hooks';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
+import { resetSelectedRowsAction } from '../../../redux';
 import { ChevronToggle, SimpleButton } from '../../../uiComponents';
 import { AllOptionEnum } from '../../../utils';
 import { SearchInput } from '../../common/search';
@@ -17,6 +19,7 @@ import { PriorityCondition } from './conditions/PriorityCondition';
 export const SearchContainer = (): JSX.Element => {
   const { searchConditions, setSearchCondition, handleSearch } = useSearch();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const [isExpanded, toggleIsExpanded] = useToggle();
   const testIds = {
@@ -44,6 +47,11 @@ export const SearchContainer = (): JSX.Element => {
     setSearchCondition(SearchQueryParameterNames.ObservationDate, dateTime);
   };
 
+  const onSearch = () => {
+    dispatch(resetSelectedRowsAction());
+    handleSearch();
+  };
+
   const vehicleModeDropdownId = 'search.primaryVehicleMode';
   const typeOfLineDropdownId = 'search.typeOfLine';
 
@@ -58,7 +66,7 @@ export const SearchContainer = (): JSX.Element => {
             <SearchInput
               testId={testIds.searchInput}
               value={searchConditions.label}
-              onSearch={handleSearch}
+              onSearch={onSearch}
               onChange={onChangeLabel}
             />
             <ChevronToggle
@@ -121,7 +129,7 @@ export const SearchContainer = (): JSX.Element => {
           >
             {t('hide')}
           </SimpleButton>
-          <SimpleButton containerClassName="mr-6" onClick={handleSearch}>
+          <SimpleButton containerClassName="mr-6" onClick={onSearch}>
             {t('search.search')}
           </SimpleButton>
         </Row>
