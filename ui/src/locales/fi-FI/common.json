@@ -356,8 +356,7 @@
   "export": {
     "startSelecting": "Valitse",
     "quitSelecting": "Sulje valinnat",
-    "exportSelected": "Vie valitut Hastukseen",
-    "exportAll": "Vie kaikki Hastukseen"
+    "exportSelected": "Vie valitut Hastukseen"
   },
   "save": "Tallenna",
   "edit": "Muokkaa",

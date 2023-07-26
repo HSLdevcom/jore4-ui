@@ -32,6 +32,7 @@ export const useSearchResults = (): {
   lines: LineTableRowFragment[];
   /** Routes reduced to only have 1 direction per label */
   reducedRoutes: RouteTableRowFragment[];
+  routes: RouteTableRowFragment[];
   resultCount: number;
   resultType: DisplayedSearchResultType;
 } => {
@@ -85,6 +86,7 @@ export const useSearchResults = (): {
   return {
     lines,
     reducedRoutes,
+    routes,
     resultCount: resultCounts[resultType],
     resultType,
   };

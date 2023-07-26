@@ -5,11 +5,7 @@ import {
   useAppSelector,
   useShowRoutesOnModal,
 } from '../../hooks';
-import {
-  deselectRouteUniqueLabelsAction,
-  selectExport,
-  selectRouteUniqueLabelsAction,
-} from '../../redux';
+import { deselectRowAction, selectExport, selectRowAction } from '../../redux';
 import { routeHasTimetables } from '../../utils/route';
 import {
   RouteLineTableRow,
@@ -58,7 +54,7 @@ export const LineTableRow = ({
 }: Props): JSX.Element => {
   const { showRoutesOnMapByLineLabel } = useShowRoutesOnModal();
   const dispatch = useAppDispatch();
-  const { selectedRouteUniqueLabels } = useAppSelector(selectExport);
+  const { selectedRows } = useAppSelector(selectExport);
 
   const showLineRoutes = () => {
     showRoutesOnMapByLineLabel(line);
@@ -66,11 +62,10 @@ export const LineTableRow = ({
 
   const onSelectChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selected = event.target.checked;
-    const selectAction = selected
-      ? selectRouteUniqueLabelsAction
-      : deselectRouteUniqueLabelsAction;
 
-    dispatch(selectAction(line.line_routes.map((route) => route.label)));
+    const selectAction = selected ? selectRowAction : deselectRowAction;
+
+    dispatch(selectAction(line.label));
   };
 
   const hasRoutes = line.line_routes?.length > 0;
@@ -78,11 +73,8 @@ export const LineTableRow = ({
   // Entire line is selected for export if it has routes and each of those is selected.
   // Selecting only subset of routes shouldn't be possible, as user can select routes
   // from line list or from route list, not from both simultaneously.
-  const isSelected =
-    hasRoutes &&
-    line.line_routes.every((route) =>
-      selectedRouteUniqueLabels.includes(route.label),
-    );
+
+  const isSelected = selectedRows.includes(line.label);
 
   // Check if any of the line's route has timetables existing
   const hasTimetables = line.line_routes.some(routeHasTimetables);
