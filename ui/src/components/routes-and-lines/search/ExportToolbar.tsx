@@ -17,6 +17,7 @@ import { SimpleSmallButton } from '../../../uiComponents';
 import {
   DisplayedSearchResultType,
   isRouteActiveOnObservationDate,
+  showDangerToast,
 } from '../../../utils';
 
 const testIds = {
@@ -33,7 +34,8 @@ export const ExportToolbar = (): JSX.Element => {
     useSearchResults();
   const { isSelectingRoutesForExport, selectedRows } =
     useAppSelector(selectExport);
-  const { canExport, exportRoutesToHastus } = useExportRoutes();
+  const { canExport, exportRoutesToHastus, findNotEligibleRoutesForExport } =
+    useExportRoutes();
 
   const exportData =
     resultType === DisplayedSearchResultType.Routes
@@ -77,9 +79,20 @@ export const ExportToolbar = (): JSX.Element => {
   };
 
   const exportRoutes = () => {
-    exportRoutesToHastus(
-      exportData.toBeExportedRoutes.map((route) => route.unique_label),
+    const notEligibleRoutes = findNotEligibleRoutesForExport(
+      exportData.toBeExportedRoutes,
     );
+    if (!notEligibleRoutes.length) {
+      exportRoutesToHastus(
+        exportData.toBeExportedRoutes.map((route) => route.unique_label),
+      );
+    } else {
+      showDangerToast(
+        t('export.notEligibleRoutesForExport', {
+          routes: notEligibleRoutes.join(', '),
+        }),
+      );
+    }
   };
 
   return (

@@ -16092,14 +16092,15 @@ export type LineTableRowFragment = {
   __typename?: 'route_line';
   name_i18n: LocalizedString;
   short_name_i18n: LocalizedString;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
   priority: number;
   line_id: UUID;
   label: string;
-  validity_start?: luxon.DateTime | null;
-  validity_end?: luxon.DateTime | null;
   line_routes: Array<{
     __typename?: 'route_route';
     unique_label: string;
+    direction: RouteDirectionEnum;
     route_id: UUID;
     route_shape?: GeoJSON.LineString | null;
     label: string;
@@ -16115,6 +16116,12 @@ export type LineTableRowFragment = {
           __typename?: 'timetables_vehicle_journey_vehicle_journey';
           vehicle_journey_id: UUID;
         }>;
+      }>;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_sequence: number;
+        is_used_as_timing_point: boolean;
       }>;
     }>;
   }>;
@@ -16143,6 +16150,12 @@ export type RouteTableRowFragment = {
         __typename?: 'timetables_vehicle_journey_vehicle_journey';
         vehicle_journey_id: UUID;
       }>;
+    }>;
+    scheduled_stop_point_in_journey_patterns: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_sequence: number;
+      is_used_as_timing_point: boolean;
     }>;
   }>;
 };
@@ -16210,6 +16223,12 @@ export type ListChangingRoutesQuery = {
           vehicle_journey_id: UUID;
         }>;
       }>;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_sequence: number;
+        is_used_as_timing_point: boolean;
+      }>;
     }>;
   }>;
 };
@@ -16224,14 +16243,15 @@ export type ListOwnLinesQuery = {
     __typename?: 'route_line';
     name_i18n: LocalizedString;
     short_name_i18n: LocalizedString;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     priority: number;
     line_id: UUID;
     label: string;
-    validity_start?: luxon.DateTime | null;
-    validity_end?: luxon.DateTime | null;
     line_routes: Array<{
       __typename?: 'route_route';
       unique_label: string;
+      direction: RouteDirectionEnum;
       route_id: UUID;
       route_shape?: GeoJSON.LineString | null;
       label: string;
@@ -16247,6 +16267,12 @@ export type ListOwnLinesQuery = {
             __typename?: 'timetables_vehicle_journey_vehicle_journey';
             vehicle_journey_id: UUID;
           }>;
+        }>;
+        scheduled_stop_point_in_journey_patterns: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          journey_pattern_id: UUID;
+          scheduled_stop_point_sequence: number;
+          is_used_as_timing_point: boolean;
         }>;
       }>;
     }>;
@@ -19074,14 +19100,15 @@ export type SearchLinesAndRoutesQuery = {
     __typename?: 'route_line';
     name_i18n: LocalizedString;
     short_name_i18n: LocalizedString;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
     priority: number;
     line_id: UUID;
     label: string;
-    validity_start?: luxon.DateTime | null;
-    validity_end?: luxon.DateTime | null;
     line_routes: Array<{
       __typename?: 'route_route';
       unique_label: string;
+      direction: RouteDirectionEnum;
       route_id: UUID;
       route_shape?: GeoJSON.LineString | null;
       label: string;
@@ -19097,6 +19124,12 @@ export type SearchLinesAndRoutesQuery = {
             __typename?: 'timetables_vehicle_journey_vehicle_journey';
             vehicle_journey_id: UUID;
           }>;
+        }>;
+        scheduled_stop_point_in_journey_patterns: Array<{
+          __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+          journey_pattern_id: UUID;
+          scheduled_stop_point_sequence: number;
+          is_used_as_timing_point: boolean;
         }>;
       }>;
     }>;
@@ -19124,6 +19157,12 @@ export type SearchLinesAndRoutesQuery = {
           __typename?: 'timetables_vehicle_journey_vehicle_journey';
           vehicle_journey_id: UUID;
         }>;
+      }>;
+      scheduled_stop_point_in_journey_patterns: Array<{
+        __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+        journey_pattern_id: UUID;
+        scheduled_stop_point_sequence: number;
+        is_used_as_timing_point: boolean;
       }>;
     }>;
   }>;
@@ -20077,11 +20116,14 @@ export const LineTableRowFragmentDoc = gql`
   fragment line_table_row on route_line {
     name_i18n
     short_name_i18n
+    validity_start
+    validity_end
     priority
     ...line_map_params
     line_routes {
       ...route_map_params
       unique_label
+      direction
       route_journey_patterns {
         journey_pattern_id
         journey_pattern_refs {
@@ -20089,6 +20131,11 @@ export const LineTableRowFragmentDoc = gql`
           vehicle_journeys {
             vehicle_journey_id
           }
+        }
+        scheduled_stop_point_in_journey_patterns {
+          journey_pattern_id
+          scheduled_stop_point_sequence
+          is_used_as_timing_point
         }
       }
     }
@@ -20112,6 +20159,11 @@ export const RouteTableRowFragmentDoc = gql`
         vehicle_journeys {
           vehicle_journey_id
         }
+      }
+      scheduled_stop_point_in_journey_patterns {
+        journey_pattern_id
+        scheduled_stop_point_sequence
+        is_used_as_timing_point
       }
     }
   }

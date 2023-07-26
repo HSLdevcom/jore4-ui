@@ -354,7 +354,8 @@
   "export": {
     "startSelecting": "Select",
     "quitSelecting": "Quit selecting",
-    "exportSelected": "Export selected to Hastus"
+    "exportSelected": "Export selected to Hastus",
+    "notEligibleRoutesForExport": "Following routes are not eligible for export: {{ routes }}. First and last stop has to be used as Hastus-place."
   },
   "save": "Save",
   "edit": "Edit",
