@@ -4,7 +4,7 @@ import {
   useAppDispatch,
   useSearch,
 } from '../../../hooks';
-import { resetSelectedRoutesAction } from '../../../redux';
+import { resetSelectedRowsAction } from '../../../redux';
 import { SimpleSmallButton } from '../../../uiComponents';
 import { DisplayedSearchResultType } from '../../../utils';
 
@@ -20,14 +20,14 @@ export const ResultSelector = (): JSX.Element => {
   const { displayedType } = queryParameters.filter;
 
   const displayRoutes = () => {
-    dispatch(resetSelectedRoutesAction());
+    dispatch(resetSelectedRowsAction());
     setFilter(
       SearchQueryParameterNames.DisplayedType,
       DisplayedSearchResultType.Routes,
     );
   };
   const displayLines = () => {
-    dispatch(resetSelectedRoutesAction());
+    dispatch(resetSelectedRowsAction());
     setFilter(
       SearchQueryParameterNames.DisplayedType,
       DisplayedSearchResultType.Lines,
