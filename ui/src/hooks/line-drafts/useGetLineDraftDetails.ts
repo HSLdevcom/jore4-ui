@@ -1,22 +1,13 @@
-import { DateTime } from 'luxon';
 import { useParams } from 'react-router-dom';
 import { useObservationDateQueryParam } from '..';
-import {
-  RouteValidityFragment,
-  useGetRoutesWithStopsQuery,
-} from '../../generated/graphql';
-import { isDateInRange } from '../../time';
+import { useGetRoutesWithStopsQuery } from '../../generated/graphql';
 import { Priority } from '../../types/enums';
 import {
   buildPriorityEqualGqlFilter,
   buildRouteLineLabelGqlFilter,
+  isRouteActiveOnObservationDate,
   mapToVariables,
 } from '../../utils';
-
-const isRouteActiveOnObservationDate = (
-  route: RouteValidityFragment,
-  observationDate: DateTime,
-) => isDateInRange(observationDate, route.validity_start, route.validity_end);
 
 export const useGetLineDraftDetails = () => {
   const { label } = useParams<{ label: string }>();

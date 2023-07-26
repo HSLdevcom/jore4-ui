@@ -1,7 +1,10 @@
+import { DateTime } from 'luxon';
 import {
   RouteAllFieldsFragment,
   RouteTableRowFragment,
+  RouteValidityFragment,
 } from '../generated/graphql';
+import { isDateInRange } from '../time';
 
 /**
  * Type that includes route_journey_patterns with journey pattern refs. This is used
@@ -39,3 +42,8 @@ export const hasRouteVariant = (route: RouteWithLabel) =>
 
 export const getRouteLabelVariantText = (route: RouteWithLabel) =>
   `${route.label}${hasRouteVariant(route) ? ` ${route.variant}` : ''}`;
+
+export const isRouteActiveOnObservationDate = (
+  route: Pick<RouteValidityFragment, 'validity_start' | 'validity_end'>,
+  observationDate: DateTime,
+) => isDateInRange(observationDate, route.validity_start, route.validity_end);
