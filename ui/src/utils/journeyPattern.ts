@@ -90,3 +90,47 @@ export const mapRouteStopsToJourneyPatternStops = (
       : [];
   });
 };
+
+type JourneyPatternWithGenericReturnType<TType> = {
+  scheduled_stop_point_in_journey_patterns: (TType & {
+    scheduled_stop_point_sequence: number;
+  })[];
+};
+
+/**
+ * Extracts the first stop of journey pattern with the given TType typing
+ */
+export const extractJourneyPatternFirstStop = <TType>(
+  journeyPattern: JourneyPatternWithGenericReturnType<TType>,
+) => {
+  return journeyPattern.scheduled_stop_point_in_journey_patterns.reduce(
+    (minObj, currentObj) => {
+      if (
+        currentObj.scheduled_stop_point_sequence <
+        minObj.scheduled_stop_point_sequence
+      ) {
+        return currentObj;
+      }
+      return minObj;
+    },
+  );
+};
+
+/**
+ * Extracts the last stop of journey pattern with the given TType typing
+ */
+export const extractJourneyPatternLastStop = <TType>(
+  journeyPattern: JourneyPatternWithGenericReturnType<TType>,
+) => {
+  return journeyPattern.scheduled_stop_point_in_journey_patterns.reduce(
+    (minObj, currentObj) => {
+      if (
+        currentObj.scheduled_stop_point_sequence <
+        minObj.scheduled_stop_point_sequence
+      ) {
+        return currentObj;
+      }
+      return minObj;
+    },
+  );
+};

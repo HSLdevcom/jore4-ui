@@ -29,6 +29,11 @@ const GQL_ROUTE_TABLE_ROW = gql`
           vehicle_journey_id
         }
       }
+      scheduled_stop_point_in_journey_patterns {
+        journey_pattern_id
+        scheduled_stop_point_sequence
+        is_used_as_timing_point
+      }
     }
   }
 `;
