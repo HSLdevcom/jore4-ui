@@ -23,11 +23,14 @@ const GQL_LINE_TABLE_ROW = gql`
   fragment line_table_row on route_line {
     name_i18n
     short_name_i18n
+    validity_start
+    validity_end
     priority
     ...line_map_params
     line_routes {
       ...route_map_params
       unique_label
+      direction
       route_journey_patterns {
         journey_pattern_id
         journey_pattern_refs {
@@ -35,6 +38,11 @@ const GQL_LINE_TABLE_ROW = gql`
           vehicle_journeys {
             vehicle_journey_id
           }
+        }
+        scheduled_stop_point_in_journey_patterns {
+          journey_pattern_id
+          scheduled_stop_point_sequence
+          is_used_as_timing_point
         }
       }
     }

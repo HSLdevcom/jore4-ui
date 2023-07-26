@@ -356,7 +356,8 @@
   "export": {
     "startSelecting": "Valitse",
     "quitSelecting": "Sulje valinnat",
-    "exportSelected": "Vie valitut Hastukseen"
+    "exportSelected": "Vie valitut Hastukseen",
+    "notEligibleRoutesForExport": "Seuraavia reittejä ei voida viedä: {{ routes }}. Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa."
   },
   "save": "Tallenna",
   "edit": "Muokkaa",
