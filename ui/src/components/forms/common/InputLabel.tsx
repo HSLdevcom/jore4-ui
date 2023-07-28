@@ -23,7 +23,10 @@ export const InputLabel = <FormState extends FieldValues>({
 
   return (
     <label className={className} htmlFor={`${translationPrefix}.${fieldPath}`}>
-      {t(`${translationPrefix}.${fieldPath}`)}
+      {/* Regex removes dot and series of numbers eg. ".10"
+          This is needed for translation to work with fields that are
+          created with React Hook Form useFieldArray */}
+      {t(`${translationPrefix}.${fieldPath.replace(/\.\d+/, '')}`)}
       {hasError && <span className="ml-1 text-hsl-red">*</span>}
     </label>
   );
