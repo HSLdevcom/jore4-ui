@@ -1,0 +1,4 @@
+services:
+  jore4-hastus:
+    environment:
+      HASURA_URL: "http://jore4-ui:3300/api/graphql/v1/graphql"

@@ -24,6 +24,7 @@ jobs:
         with:
           ui_version: '${{ env.IMAGE_NAME }}:${{ env.COMMIT_ID }}'
           cypress_version: '${{ env.CYPRESS_IMAGE_NAME }}:${{ env.COMMIT_ID }}'
+          custom_docker_compose: '${{ github.workspace }}/docker/docker-compose.e2e.ci.yml'
 
       - name: Set up PostgreSQL client
         run: |
