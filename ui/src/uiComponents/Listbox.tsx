@@ -3,26 +3,10 @@ import {
   Transition,
   TransitionClasses,
 } from '@headlessui/react';
-import React, { Fragment, ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { ControllerFieldState, Noop } from 'react-hook-form';
-import { twMerge } from 'tailwind-merge';
-import { addClassName } from '../utils/components';
-
-// copied from HeadlessUI Listbox as it's not exported
-export type ValueFn = (...event: ExplicitAny[]) => void;
-
-// copied from HeadlessUI Listbox as it's not exported
-export interface OptionRenderPropArg {
-  active: boolean;
-  selected: boolean;
-  disabled: boolean;
-}
-
-interface ListboxOptionRenderer {
-  key: string;
-  value: string;
-  render: (props: OptionRenderPropArg) => ReactNode;
-}
+import { ListboxButton } from './ListboxButton';
+import { ListboxOptionRenderer, ListboxOptions } from './ListboxOptions';
 
 export const dropdownTransition: TransitionClasses = {
   enter: 'transition ease-out duration-100',
@@ -32,6 +16,9 @@ export const dropdownTransition: TransitionClasses = {
   leaveFrom: 'opacity-100 scale-100',
   leaveTo: 'opacity-0 scale-95',
 };
+
+// copied from HeadlessUI Listbox as it's not exported
+export type ValueFn = (...event: ExplicitAny[]) => void;
 
 export interface FormInputProps {
   value?: string;
@@ -48,11 +35,6 @@ interface Props extends FormInputProps {
   buttonClassNames?: string;
   arrowButtonClassNames?: string;
 }
-
-const buttonErrorStyles =
-  '!border-hsl-red !bg-hsl-red !bg-opacity-5 !border-2 text-hsl-red';
-
-const arrowErrorStyles = 'text-hsl-red';
 
 export const Listbox = ({
   id,
@@ -84,50 +66,17 @@ export const Listbox = ({
     >
       {({ open }) => (
         <>
-          <HUIListbox.Button
-            className={twMerge(
-              `${
-                hasError ? buttonErrorStyles : ''
-              } flex w-full items-center rounded-md border border-grey bg-white py-3 px-2 text-left focus:outline-none ${buttonClassNames}`,
-            )}
-            data-testid={testId}
-          >
-            {buttonContent}
-            <i
-              className={twMerge(
-                `${
-                  hasError ? arrowErrorStyles : ''
-                } icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out ${
-                  open ? '-rotate-180' : 'rotate-0'
-                } ${arrowButtonClassNames}`,
-              )}
-              style={{ fontSize: 10 }}
-            />
-          </HUIListbox.Button>
+          <ListboxButton
+            arrowButtonClassNames={arrowButtonClassNames}
+            buttonClassNames={buttonClassNames}
+            open={open}
+            hasError={hasError}
+            testId={testId}
+            buttonContent={buttonContent}
+          />
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Transition show={open} as={Fragment} {...dropdownTransition}>
-            <HUIListbox.Options
-              static
-              className="absolute left-0 z-10 w-full rounded-b-md border border-grey bg-white shadow-md focus:outline-none"
-            >
-              <div>
-                {options?.map((item) => (
-                  <HUIListbox.Option key={item.key} value={item.value}>
-                    {(optionProps) => {
-                      const child = item.render(optionProps);
-                      return React.isValidElement(child)
-                        ? addClassName(
-                            child,
-                            `${
-                              optionProps.active ? 'bg-background' : ''
-                            } flex group text-left px-2 py-2 focus:outline-none border-b border-grey`,
-                          )
-                        : child;
-                    }}
-                  </HUIListbox.Option>
-                ))}
-              </div>
-            </HUIListbox.Options>
+            <ListboxOptions options={options} />
           </Transition>
         </>
       )}
