@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -55,11 +55,24 @@ export const TimingSettingsForm = ({
     resolver: zodResolver(schema),
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch, setValue } = methods;
 
   const onSave = () => {
     submitFormByRef(formRef);
   };
+  const { isUsedAsTimingPoint, isRegulatedTimingPoint } = watch();
+
+  useEffect(() => {
+    if (!isUsedAsTimingPoint) {
+      setValue('isRegulatedTimingPoint', false);
+    }
+  }, [isUsedAsTimingPoint, setValue]);
+
+  useEffect(() => {
+    if (!isRegulatedTimingPoint) {
+      setValue('isLoadingTimeAllowed', false);
+    }
+  }, [isRegulatedTimingPoint, setValue]);
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -94,6 +107,7 @@ export const TimingSettingsForm = ({
               type="checkbox"
               id="isRegulatedTimingPoint"
               fieldPath="isRegulatedTimingPoint"
+              disabled={!isUsedAsTimingPoint}
               testId={testIds.isRegulatedTimingPoint}
               className="mr-3.5 h-6 w-6"
             />
@@ -109,6 +123,7 @@ export const TimingSettingsForm = ({
               type="checkbox"
               id="isLoadingTimeAllowed"
               fieldPath="isLoadingTimeAllowed"
+              disabled={!isRegulatedTimingPoint}
               testId={testIds.isLoadingTimeAllowed}
               className="mr-3.5 h-6 w-6"
             />
