@@ -8,8 +8,8 @@ DUMP_LOCAL_FILENAME="jore4dump.pgdump"
 function download_dump {
   echo "Downloading JORE4 dump from Azure"
 
-  read -p "Dump file name (default: jore4e2e-data-only-orphan-removal-20230418-ef6ce574.pgdump): " PGHOSTNAME
-  DUMP_FILENAME="${PGHOSTNAME:-jore4e2e-data-only-orphan-removal-20230418-ef6ce574.pgdump}"
+  read -p "Dump file name (default: jore4e2e-test-20230804-data-only-1617be0c.pgdump): " DUMP_FILENAME
+  DUMP_FILENAME="${DUMP_FILENAME:-jore4e2e-test-20230804-data-only-1617be0c.pgdump}"
 
   echo "Log in to Azure"
   az login
