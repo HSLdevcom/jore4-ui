@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { DateTime } from 'luxon';
+import { roleHeaderMap, userHasuraRole } from '../graphql/auth';
 import { Priority } from '../types/enums';
 
 interface CommonExportParams {
@@ -22,11 +23,7 @@ const apiClient = axios.create({
 const exportRoutes = (payload: ExportBody) =>
   apiClient.post('/export/routes', payload, {
     responseType: 'blob',
-    headers: {
-      // TODO: Authenticate properly
-      'x-hasura-admin-secret': 'hasura',
-      'x-hasura-role': 'admin',
-    },
+    headers: roleHeaderMap(userHasuraRole),
   });
 
 export const exportRoutesToHastus = async ({
@@ -47,9 +44,8 @@ export const exportRoutesToHastus = async ({
 export const sendFileToHastusImporter = (file: File) => {
   return apiClient.post('import', file, {
     headers: {
-      'Content-Type': 'text/csv',
-      // TODO: Authenticate properly
-      'x-hasura-admin-secret': 'hasura',
+      ...roleHeaderMap(userHasuraRole),
+      ...{ 'Content-Type': 'text/csv' },
     },
   });
 };
