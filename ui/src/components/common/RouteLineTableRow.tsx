@@ -144,7 +144,10 @@ export const RouteLineTableRow = ({
               <Row>
                 <h2>
                   {isRoute(rowItem) ? (
-                    <RouteLabel route={rowItem} />
+                    <RouteLabel
+                      label={rowItem.label}
+                      variant={rowItem.variant}
+                    />
                   ) : (
                     rowItem.label
                   )}

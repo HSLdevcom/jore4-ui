@@ -95,10 +95,10 @@ const ConflictItemRow = ({
       <td>
         {item.href ? (
           <Link to={item.href} className="text-brand">
-            <RouteLabel route={item} />
+            <RouteLabel label={item.label} variant={item.variant} />
           </Link>
         ) : (
-          <RouteLabel route={item} />
+          <RouteLabel label={item.label} variant={item.variant} />
         )}
       </td>
     </tr>
