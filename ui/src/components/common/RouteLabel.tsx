@@ -1,16 +1,16 @@
 import { Visible } from '../../layoutComponents';
-import { hasRouteVariant, RouteWithLabel } from '../../utils/route';
 
 interface Props {
-  route: RouteWithLabel;
+  label: string;
+  variant?: number | null;
 }
 
-export const RouteLabel = ({ route }: Props) => {
+export const RouteLabel = ({ label, variant }: Props) => {
   return (
     <>
-      <b>{route.label}</b>
-      <Visible visible={hasRouteVariant(route)}>
-        <span className="font-normal"> {route?.variant}</span>
+      <b>{label}</b>
+      <Visible visible={!!variant}>
+        <span className="font-normal"> {variant}</span>
       </Visible>
     </>
   );

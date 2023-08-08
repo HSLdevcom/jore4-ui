@@ -75,7 +75,10 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
         <i className="icon-bus-alt text-2xl text-tweaked-brand" />
         <div>
           <h2 className="text-tweaked-brand">
-            <RouteLabel route={routeMetadata} />
+            <RouteLabel
+              label={routeMetadata.label}
+              variant={routeMetadata.variant}
+            />
           </h2>
           <p className="text-light text-xs text-gray-500">
             {routeMetadata?.name_i18n.fi_FI}
@@ -94,7 +97,10 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
         <div className="ml-2 flex flex-col">
           <Row className="items-center gap-2">
             <p className="text-base text-black">
-              <RouteLabel route={routeMetadata} />
+              <RouteLabel
+                label={routeMetadata.label}
+                variant={routeMetadata.variant}
+              />
             </p>
             <PriorityBadge
               priority={routeMetadata.priority}
