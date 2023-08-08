@@ -139,12 +139,15 @@ const journeyPatterns: JourneyPatternInsertInput[] = [
   },
 ];
 
-const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
+const stopsInJourneyPatternBase = (
+  isFirstStopUsedAsTimingPoint: boolean,
+  isLastStopUsedAsTimingPoint: boolean,
+): StopInJourneyPatternInsertInput[] => [
   buildStopInJourneyPattern({
     journeyPatternId: journeyPatterns[0].journey_pattern_id,
     stopLabel: stopLabels[0],
     scheduledStopPointSequence: 0,
-    isUsedAsTimingPoint: true,
+    isUsedAsTimingPoint: isFirstStopUsedAsTimingPoint,
   }),
   buildStopInJourneyPattern({
     journeyPatternId: journeyPatterns[0].journey_pattern_id,
@@ -156,98 +159,292 @@ const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
     journeyPatternId: journeyPatterns[0].journey_pattern_id,
     stopLabel: stopLabels[2],
     scheduledStopPointSequence: 2,
-    isUsedAsTimingPoint: true,
+    isUsedAsTimingPoint: isLastStopUsedAsTimingPoint,
   }),
 ];
 
+const setup = (resources: SupportedResources) => {
+  removeFromDbHelper(resources);
+  insertToDbHelper(resources);
+
+  cy.setupTests();
+  cy.mockLogin();
+  cy.visit('/routes');
+};
+
+const exportDate = DateTime.now().toISODate();
+const exportFilePath = `${Cypress.config(
+  'downloadsFolder',
+)}/jore4-export-${exportDate}.csv`;
+
+const teardown = (resources: SupportedResources) => {
+  removeFromDbHelper(resources);
+  cy.task('deleteFile', exportFilePath);
+};
+
 describe('Hastus export', () => {
-  let routesAndLinesPage: RoutesAndLinesPage;
+  context('Success cases', () => {
+    let routesAndLinesPage: RoutesAndLinesPage;
 
-  const exportDate = DateTime.now().toISODate();
-  const exportFilePath = `${Cypress.config(
-    'downloadsFolder',
-  )}/jore4-export-${exportDate}.csv`;
-  const comparisonExportFilePath = `${Cypress.config(
-    'fixturesFolder',
-  )}/hastusExport/comparison-export-1.csv`;
-  const baseDbResources = {
-    lines,
-    routes,
-    journeyPatterns,
-    stopsInJourneyPattern,
-  };
-  let dbResources: SupportedResources;
+    const stopsInJourneyPattern = stopsInJourneyPatternBase(true, true);
 
-  before(() => {
-    cy.task<GetInfrastructureLinksByExternalIdsResult>(
-      'hasuraAPI',
-      mapToGetInfrastructureLinksByExternalIdsQuery(
-        testInfraLinks.map((infralink) => infralink.externalId),
-      ),
-    ).then((res) => {
-      const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
-      const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
-      const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
-      dbResources = {
-        ...baseDbResources,
-        timingPlaces,
-        stops,
-        infraLinksAlongRoute,
-      };
-    });
-  });
+    const comparisonExportFilePath = `${Cypress.config(
+      'fixturesFolder',
+    )}/hastusExport/comparison-export-1.csv`;
+    const baseDbResources = {
+      lines,
+      routes,
+      journeyPatterns,
+      stopsInJourneyPattern,
+    };
+    let dbResources: SupportedResources;
 
-  beforeEach(() => {
-    removeFromDbHelper(dbResources);
-    insertToDbHelper(dbResources);
-
-    routesAndLinesPage = new RoutesAndLinesPage();
-
-    cy.setupTests();
-    cy.mockLogin();
-    cy.visit('/routes');
-  });
-
-  afterEach(() => {
-    removeFromDbHelper(dbResources);
-    cy.task('deleteFile', exportFilePath);
-  });
-
-  it(
-    'Should export a line',
-    { tags: [Tag.Lines, Tag.HastusExport, Tag.Smoke] },
-    () => {
-      // Search and export a line
-      routesAndLinesPage.searchContainer.getChevron().click();
-      // Uncheck Temporary priority button so that only Standard priority is shown
-      // and exporting works
-      routesAndLinesPage.searchContainer.priorityCondition
-        .getTemporaryPriorityConditionButton()
-        .click();
-      routesAndLinesPage.searchContainer.getSearchInput().type('1234{enter}');
-      routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-      routesAndLinesPage.routeLineTableRow
-        .getRouteLineTableRowCheckbox('1234')
-        .check();
-      routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-      cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
-      cy.readFile(exportFilePath).then((exportedFile) => {
-        cy.readFile(comparisonExportFilePath).should('eq', exportedFile);
+    before(() => {
+      cy.task<GetInfrastructureLinksByExternalIdsResult>(
+        'hasuraAPI',
+        mapToGetInfrastructureLinksByExternalIdsQuery(
+          testInfraLinks.map((infralink) => infralink.externalId),
+        ),
+      ).then((res) => {
+        const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
+        const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+        const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+        dbResources = {
+          ...baseDbResources,
+          timingPlaces,
+          stops,
+          infraLinksAlongRoute,
+        };
       });
-    },
-  );
-
-  it('Should export a route', { tags: [Tag.Routes, Tag.HastusExport] }, () => {
-    // Skip searching via UI
-    cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
-    routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-    routesAndLinesPage.routeLineTableRow
-      .getRouteLineTableRowCheckbox('99')
-      .check();
-    routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-    cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
-    cy.readFile(exportFilePath).then((exportedFile) => {
-      cy.readFile(comparisonExportFilePath).should('eq', exportedFile);
     });
+
+    beforeEach(() => {
+      setup(dbResources);
+      routesAndLinesPage = new RoutesAndLinesPage();
+    });
+
+    afterEach(() => {
+      teardown(dbResources);
+    });
+
+    it(
+      'Should export a line',
+      { tags: [Tag.Lines, Tag.HastusExport, Tag.Smoke] },
+      () => {
+        // Search and export a line
+        routesAndLinesPage.searchContainer.getChevron().click();
+        // Uncheck Temporary priority button so that only Standard priority is shown
+        // and exporting works
+        routesAndLinesPage.searchContainer.priorityCondition
+          .getTemporaryPriorityConditionButton()
+          .click();
+        routesAndLinesPage.searchContainer.getSearchInput().type('1234{enter}');
+        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+        routesAndLinesPage.routeLineTableRow
+          .getRouteLineTableRowCheckbox('1234')
+          .check();
+        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+        cy.wait('@hastusExport')
+          .its('response.statusCode')
+          .should('equal', 200);
+        cy.readFile(exportFilePath).then((exportedFile) => {
+          cy.readFile(comparisonExportFilePath).should('eq', exportedFile);
+        });
+      },
+    );
+
+    it(
+      'Should export a route',
+      { tags: [Tag.Routes, Tag.HastusExport] },
+      () => {
+        // Skip searching via UI
+        cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+        routesAndLinesPage.routeLineTableRow
+          .getRouteLineTableRowCheckbox('99')
+          .check();
+        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+        cy.wait('@hastusExport')
+          .its('response.statusCode')
+          .should('equal', 200);
+        cy.readFile(exportFilePath).then((exportedFile) => {
+          cy.readFile(comparisonExportFilePath).should('eq', exportedFile);
+        });
+      },
+    );
+  });
+
+  context('First and last stop are not timing places', () => {
+    let routesAndLinesPage: RoutesAndLinesPage;
+
+    const stopsInJourneyPattern = stopsInJourneyPatternBase(false, false);
+    const baseDbResources = {
+      lines,
+      routes,
+      journeyPatterns,
+      stopsInJourneyPattern,
+    };
+    let dbResources: SupportedResources;
+
+    before(() => {
+      cy.task<GetInfrastructureLinksByExternalIdsResult>(
+        'hasuraAPI',
+        mapToGetInfrastructureLinksByExternalIdsQuery(
+          testInfraLinks.map((infralink) => infralink.externalId),
+        ),
+      ).then((res) => {
+        const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
+        const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+        const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+        dbResources = {
+          ...baseDbResources,
+          timingPlaces,
+          stops,
+          infraLinksAlongRoute,
+        };
+      });
+    });
+
+    beforeEach(() => {
+      setup(dbResources);
+      routesAndLinesPage = new RoutesAndLinesPage();
+    });
+
+    afterEach(() => {
+      teardown(dbResources);
+    });
+
+    it(
+      'Should show an error when trying to export a route whose first and last stop are not timing points',
+      { tags: [Tag.Routes, Tag.HastusExport] },
+      () => {
+        // Skip searching via UI
+        cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+        routesAndLinesPage.routeLineTableRow
+          .getRouteLineTableRowCheckbox('99')
+          .check();
+        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+        routesAndLinesPage.toast.checkDangerToastHasMessage(
+          'Seuraavia reittejä ei voida viedä: 99 (inbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
+        );
+      },
+    );
+  });
+
+  context('First stop is not a timing place, but the last stop is', () => {
+    let routesAndLinesPage: RoutesAndLinesPage;
+
+    const stopsInJourneyPattern = stopsInJourneyPatternBase(false, true);
+    const baseDbResources = {
+      lines,
+      routes,
+      journeyPatterns,
+      stopsInJourneyPattern,
+    };
+    let dbResources: SupportedResources;
+
+    before(() => {
+      cy.task<GetInfrastructureLinksByExternalIdsResult>(
+        'hasuraAPI',
+        mapToGetInfrastructureLinksByExternalIdsQuery(
+          testInfraLinks.map((infralink) => infralink.externalId),
+        ),
+      ).then((res) => {
+        const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
+        const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+        const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+        dbResources = {
+          ...baseDbResources,
+          timingPlaces,
+          stops,
+          infraLinksAlongRoute,
+        };
+      });
+    });
+
+    beforeEach(() => {
+      setup(dbResources);
+      routesAndLinesPage = new RoutesAndLinesPage();
+    });
+
+    afterEach(() => {
+      teardown(dbResources);
+    });
+
+    it(
+      'Should show an error when trying to export a route whose first stop is not a timing point',
+      { tags: [Tag.Routes, Tag.HastusExport] },
+      () => {
+        // Skip searching via UI
+        cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+        routesAndLinesPage.routeLineTableRow
+          .getRouteLineTableRowCheckbox('99')
+          .check();
+        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+        routesAndLinesPage.toast.checkDangerToastHasMessage(
+          'Seuraavia reittejä ei voida viedä: 99 (inbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
+        );
+      },
+    );
+  });
+
+  context('Last stop is not a timing place, but the first stop is', () => {
+    let routesAndLinesPage: RoutesAndLinesPage;
+
+    const stopsInJourneyPattern = stopsInJourneyPatternBase(true, false);
+    const baseDbResources = {
+      lines,
+      routes,
+      journeyPatterns,
+      stopsInJourneyPattern,
+    };
+    let dbResources: SupportedResources;
+
+    before(() => {
+      cy.task<GetInfrastructureLinksByExternalIdsResult>(
+        'hasuraAPI',
+        mapToGetInfrastructureLinksByExternalIdsQuery(
+          testInfraLinks.map((infralink) => infralink.externalId),
+        ),
+      ).then((res) => {
+        const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
+        const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+        const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+        dbResources = {
+          ...baseDbResources,
+          timingPlaces,
+          stops,
+          infraLinksAlongRoute,
+        };
+      });
+    });
+
+    beforeEach(() => {
+      setup(dbResources);
+      routesAndLinesPage = new RoutesAndLinesPage();
+    });
+
+    afterEach(() => {
+      teardown(dbResources);
+    });
+
+    it(
+      'Should show an error when trying to export a route whose last stop is not a timing point',
+      { tags: [Tag.Routes, Tag.HastusExport] },
+      () => {
+        // Skip searching via UI
+        cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+        routesAndLinesPage.routeLineTableRow
+          .getRouteLineTableRowCheckbox('99')
+          .check();
+        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+        routesAndLinesPage.toast.checkDangerToastHasMessage(
+          'Seuraavia reittejä ei voida viedä: 99 (inbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
+        );
+      },
+    );
   });
 });
