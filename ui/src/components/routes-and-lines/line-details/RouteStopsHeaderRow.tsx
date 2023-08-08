@@ -71,7 +71,7 @@ export const RouteStopsHeaderRow = ({
             className="mr-4"
           />
           <span className="text-xl" data-testid={testIds.label}>
-            <RouteLabel route={route} />
+            <RouteLabel label={route.label} variant={route.variant} />
           </span>
         </Row>
       </td>
