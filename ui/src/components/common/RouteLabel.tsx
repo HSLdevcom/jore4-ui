@@ -1,16 +1,16 @@
 import { Visible } from '../../layoutComponents';
-import { hasRouteVariant, RouteWithLabel } from '../../utils/route';
 
 interface Props {
-  route: RouteWithLabel;
+  label: string;
+  variant: number | null | undefined; // TODO: Is variant REALLY ever empty? Fix during PR
 }
 
-export const RouteLabel = ({ route }: Props) => {
+export const RouteLabel = ({ label, variant }: Props) => {
   return (
     <>
-      <b>{route.label}</b>
-      <Visible visible={hasRouteVariant(route)}>
-        <span className="font-normal"> {route?.variant}</span>
+      <b>{label}</b>
+      <Visible visible={Number.isInteger(variant)}>
+        <span className="font-normal"> {variant}</span>
       </Visible>
     </>
   );
