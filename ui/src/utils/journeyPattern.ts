@@ -123,14 +123,14 @@ export const extractJourneyPatternLastStop = <TType>(
   journeyPattern: JourneyPatternWithGenericReturnType<TType>,
 ) => {
   return journeyPattern.scheduled_stop_point_in_journey_patterns.reduce(
-    (minObj, currentObj) => {
+    (maxObj, currentObj) => {
       if (
-        currentObj.scheduled_stop_point_sequence <
-        minObj.scheduled_stop_point_sequence
+        currentObj.scheduled_stop_point_sequence >
+        maxObj.scheduled_stop_point_sequence
       ) {
         return currentObj;
       }
-      return minObj;
+      return maxObj;
     },
   );
 };
