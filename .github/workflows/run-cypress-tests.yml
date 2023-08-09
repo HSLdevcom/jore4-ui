@@ -54,7 +54,7 @@ jobs:
           psql postgresql://dbadmin:adminpassword@localhost:6432/jore4e2e < ${{ env.DUMP_PATH }}
 
       - name: Run e2e tests from github action
-        uses: HSLdevcom/jore4-tools/github-actions/run-cypress-tests@run-cypress-tests-v1
+        uses: HSLdevcom/jore4-tools/github-actions/run-cypress-tests@run-cypress-tests-v2
         with:
           test-tags: ''
           video: 'false'
