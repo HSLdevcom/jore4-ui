@@ -23,30 +23,30 @@ import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from './DirectionBadge';
 
 const testIds = {
-  container: (routeLabel: string) => `RouteStopsHeaderRow::${routeLabel}`,
-  label: 'RouteStopsHeaderRow::label',
-  name: 'RouteStopsHeaderRow::name',
-  validityPeriod: 'RouteStopsHeaderRow::validityPeriod',
-  lastEdited: 'RouteStopsHeaderRow::lastEdited',
-  showRouteButton: 'RouteStopsHeaderRow::showRouteButton',
-  toggleAccordion: 'RouteStopsHeaderRow::toggleAccordion',
+  container: (routeLabel: string) => `RouteRow::${routeLabel}`,
+  label: 'RouteRow::label',
+  name: 'RouteRow::name',
+  validityPeriod: 'RouteRow::validityPeriod',
+  lastEdited: 'RouteRow::lastEdited',
+  showRouteButton: 'RouteRow::showRouteButton',
+  toggleAccordion: 'RouteRow::toggleAccordion',
   editRouteButton: (routeName?: string) =>
-    `RouteStopsHeaderRow::editRouteButton::${routeName}`,
+    `RouteRow::editRouteButton::${routeName}`,
 };
 
 interface Props {
   className?: string;
   route: RouteAllFieldsFragment;
   observationDate: DateTime;
-  isOpen: boolean;
+  isExpanded: boolean;
   onToggle: () => void;
 }
 
-export const RouteStopsHeaderRow = ({
+export const RouteRow = ({
   className = '',
   route,
   observationDate,
-  isOpen,
+  isExpanded,
   onToggle,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
@@ -96,7 +96,10 @@ export const RouteStopsHeaderRow = ({
             endDate: mapToShortDate(route.validity_end || MAX_DATE),
           })}
           {alertStyle.icon ? (
-            <i className={`${alertStyle.icon} ml-2 text-3xl`} />
+            <i
+              className={`${alertStyle.icon} ml-2 text-3xl`}
+              title="What is this alert? Doesn't seem to have logic?"
+            />
           ) : (
             ''
           )}
@@ -110,7 +113,7 @@ export const RouteStopsHeaderRow = ({
           <MdHistory className="ml-2 inline text-xl text-tweaked-brand" />
         </Row>
       </td>
-      <td className="w-20 border-l-4 border-r-4 border-white text-center">
+      <td className="w-20 border-l-4 border-r-4 border-white px-6 text-center">
         <LocatorButton
           onClick={onClickShowRouteOnMap}
           disabled={
@@ -123,7 +126,7 @@ export const RouteStopsHeaderRow = ({
         <AccordionButton
           className="h-full w-full"
           iconClassName="text-3xl"
-          isOpen={isOpen}
+          isOpen={isExpanded}
           onToggle={onToggle}
           testId={testIds.toggleAccordion}
         />
