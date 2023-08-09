@@ -279,10 +279,22 @@ describe('Line details page: stops on route', () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
       // Open timing settings modal
       routeStopsTable.openTimingSettingsForm(stopLabels[1]);
-      // Set timing settings
+      // Check and set timing settings
+      routeStopsTable.timingSettingsForm
+        .getIsRegulatedTimingPointCheckbox()
+        .should('be.disabled');
+      routeStopsTable.timingSettingsForm
+        .getIsLoadingTimeAllowedCheckbox()
+        .should('be.disabled');
       routeStopsTable.timingSettingsForm
         .getIsUsedAsTimingPointCheckbox()
         .check();
+      routeStopsTable.timingSettingsForm
+        .getIsRegulatedTimingPointCheckbox()
+        .should('be.enabled');
+      routeStopsTable.timingSettingsForm
+        .getIsLoadingTimeAllowedCheckbox()
+        .should('be.disabled');
       routeStopsTable.timingSettingsForm
         .getIsRegulatedTimingPointCheckbox()
         .check();
@@ -291,7 +303,7 @@ describe('Line details page: stops on route', () => {
         .check();
       routeStopsTable.timingSettingsForm.getSavebutton().click();
       toast.checkSuccessToastHasMessage('Aika-asetusten tallennus onnistui');
-      // Check that timing settings are set
+      // Check that timing settings are set after saving them
       routeStopsTable.openTimingSettingsForm(stopLabels[1]);
       routeStopsTable.timingSettingsForm
         .getIsUsedAsTimingPointCheckbox()
