@@ -518,9 +518,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
     expect(container.querySelectorAll('tr')).toHaveLength(1);
     expect(asFragment()).toMatchSnapshot();
 
-    const accordionButton = screen.getByTestId(
-      'RouteStopsHeaderRow::toggleAccordion',
-    );
+    const accordionButton = screen.getByTestId('RouteRow::toggleAccordion');
     fireEvent.click(accordionButton);
 
     // the stops on journey pattern should show when the accordion opens
