@@ -1,3 +1,5 @@
+import maxBy from 'lodash/maxBy';
+import minBy from 'lodash/minBy';
 import {
   JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
   JourneyPatternStopFragment,
@@ -103,16 +105,9 @@ type JourneyPatternWithGenericReturnType<TType> = {
 export const extractJourneyPatternFirstStop = <TType>(
   journeyPattern: JourneyPatternWithGenericReturnType<TType>,
 ) => {
-  return journeyPattern.scheduled_stop_point_in_journey_patterns.reduce(
-    (minObj, currentObj) => {
-      if (
-        currentObj.scheduled_stop_point_sequence <
-        minObj.scheduled_stop_point_sequence
-      ) {
-        return currentObj;
-      }
-      return minObj;
-    },
+  return minBy(
+    journeyPattern.scheduled_stop_point_in_journey_patterns,
+    'scheduled_stop_point_sequence',
   );
 };
 
@@ -122,15 +117,8 @@ export const extractJourneyPatternFirstStop = <TType>(
 export const extractJourneyPatternLastStop = <TType>(
   journeyPattern: JourneyPatternWithGenericReturnType<TType>,
 ) => {
-  return journeyPattern.scheduled_stop_point_in_journey_patterns.reduce(
-    (minObj, currentObj) => {
-      if (
-        currentObj.scheduled_stop_point_sequence <
-        minObj.scheduled_stop_point_sequence
-      ) {
-        return currentObj;
-      }
-      return minObj;
-    },
+  return maxBy(
+    journeyPattern.scheduled_stop_point_in_journey_patterns,
+    'scheduled_stop_point_sequence',
   );
 };
