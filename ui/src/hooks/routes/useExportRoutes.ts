@@ -29,7 +29,7 @@ export const useExportRoutes = () => {
         is_used_as_timing_point: boolean;
       }>(jp);
       return (
-        firstStop.is_used_as_timing_point && lastStop.is_used_as_timing_point
+        firstStop?.is_used_as_timing_point && lastStop?.is_used_as_timing_point
       );
     });
 
