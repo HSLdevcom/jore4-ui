@@ -11,22 +11,22 @@ export class RouteStopsTable {
   }
 
   getRouteHeaderRow(routeLabel: string) {
-    return cy.getByTestId(`RouteStopsHeaderRow::${routeLabel}`);
+    return cy.getByTestId(`RouteRow::${routeLabel}`);
   }
 
   toggleRouteSection(routeLabel: string) {
     return this.getRouteHeaderRow(routeLabel)
-      .getByTestId('RouteStopsHeaderRow::toggleAccordion')
+      .getByTestId('RouteRow::toggleAccordion')
       .click();
   }
 
   getRouteName() {
-    return cy.getByTestId('RouteStopsHeaderRow::name');
+    return cy.getByTestId('RouteRow::name');
   }
 
   getRouteValidityPeriod(routeLabel: string) {
     return this.getRouteHeaderRow(routeLabel).findByTestId(
-      'RouteStopsHeaderRow::validityPeriod',
+      'RouteRow::validityPeriod',
     );
   }
 

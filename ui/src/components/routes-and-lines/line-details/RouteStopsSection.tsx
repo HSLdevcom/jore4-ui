@@ -17,7 +17,7 @@ import {
   showDangerToast,
   showSuccessToast,
 } from '../../../utils';
-import { RouteStopsHeaderRow } from './RouteStopsHeaderRow';
+import { RouteRow } from './RouteRow';
 import { RouteStopsRow } from './RouteStopsRow';
 
 interface Props {
@@ -31,7 +31,7 @@ export const RouteStopsSection = ({
   routeUniqueFields,
   showUnusedStops,
 }: Props): JSX.Element => {
-  const [isOpen, setOpen] = useState(false);
+  const [isExpanded, expand] = useState(false);
   const { t } = useTranslation();
 
   const {
@@ -42,7 +42,7 @@ export const RouteStopsSection = ({
   } = useEditRouteJourneyPattern();
 
   const onToggle = () => {
-    setOpen(!isOpen);
+    expand(!isExpanded);
   };
 
   const { observationDate } = useObservationDateQueryParam();
@@ -112,14 +112,14 @@ export const RouteStopsSection = ({
 
   return (
     <tbody className={className}>
-      <RouteStopsHeaderRow
+      <RouteRow
         key={route.route_id}
         route={route}
         observationDate={observationDate}
-        isOpen={isOpen}
+        isExpanded={isExpanded}
         onToggle={onToggle}
       />
-      {isOpen &&
+      {isExpanded &&
         displayedStops.map((item, index) => (
           <RouteStopsRow
             // This list is recreated every time when changes happen, so we can

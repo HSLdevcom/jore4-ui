@@ -37,7 +37,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
       >
         <tr
           class="border border-white bg-background  p-4"
-          data-testid="RouteStopsHeaderRow::65x"
+          data-testid="RouteRow::65x"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-12"
@@ -56,7 +56,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               </span>
               <span
                 class="text-xl"
-                data-testid="RouteStopsHeaderRow::label"
+                data-testid="RouteRow::label"
               >
                 <b>
                   65x
@@ -72,12 +72,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
             >
               <span
                 class="text-xl"
-                data-testid="RouteStopsHeaderRow::name"
+                data-testid="RouteRow::name"
               >
                 Reitti A - B FI
               </span>
               <a
-                data-testid="RouteStopsHeaderRow::editRouteButton::Reitti A - B FI"
+                data-testid="RouteRow::editRouteButton::Reitti A - B FI"
                 href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
               >
                 <div
@@ -107,7 +107,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
           </td>
           <td
             class="p-4"
-            data-testid="RouteStopsHeaderRow::validityPeriod"
+            data-testid="RouteRow::validityPeriod"
           >
             <div
               class="flex flex-row items-center justify-end"
@@ -122,7 +122,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               class="flex flex-row items-center justify-end"
             >
               <span
-                data-testid="RouteStopsHeaderRow::lastEdited"
+                data-testid="RouteRow::lastEdited"
               >
                 !14.2.2017 14.51
               </span>
@@ -160,7 +160,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               </span>
               <button
                 class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-                data-testid="RouteStopsHeaderRow::showRouteButton"
+                data-testid="RouteRow::showRouteButton"
                 type="button"
               >
                 <svg
@@ -189,7 +189,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
           >
             <button
               class="text-center h-full w-full"
-              data-testid="RouteStopsHeaderRow::toggleAccordion"
+              data-testid="RouteRow::toggleAccordion"
               type="button"
             >
               <svg
@@ -256,7 +256,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
       >
         <tr
           class="border border-white bg-background  p-4"
-          data-testid="RouteStopsHeaderRow::65x"
+          data-testid="RouteRow::65x"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-12"
@@ -275,7 +275,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               </span>
               <span
                 class="text-xl"
-                data-testid="RouteStopsHeaderRow::label"
+                data-testid="RouteRow::label"
               >
                 <b>
                   65x
@@ -291,12 +291,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             >
               <span
                 class="text-xl"
-                data-testid="RouteStopsHeaderRow::name"
+                data-testid="RouteRow::name"
               >
                 Reitti A - B FI
               </span>
               <a
-                data-testid="RouteStopsHeaderRow::editRouteButton::Reitti A - B FI"
+                data-testid="RouteRow::editRouteButton::Reitti A - B FI"
                 href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
               >
                 <div
@@ -326,7 +326,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           </td>
           <td
             class="p-4"
-            data-testid="RouteStopsHeaderRow::validityPeriod"
+            data-testid="RouteRow::validityPeriod"
           >
             <div
               class="flex flex-row items-center justify-end"
@@ -341,7 +341,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               class="flex flex-row items-center justify-end"
             >
               <span
-                data-testid="RouteStopsHeaderRow::lastEdited"
+                data-testid="RouteRow::lastEdited"
               >
                 !14.2.2017 14.51
               </span>
@@ -379,7 +379,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               </span>
               <button
                 class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-                data-testid="RouteStopsHeaderRow::showRouteButton"
+                data-testid="RouteRow::showRouteButton"
                 type="button"
               >
                 <svg
@@ -408,7 +408,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <button
               class="text-center h-full w-full"
-              data-testid="RouteStopsHeaderRow::toggleAccordion"
+              data-testid="RouteRow::toggleAccordion"
               type="button"
             >
               <svg
@@ -679,7 +679,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
       >
         <tr
           class="border border-white bg-background  p-4"
-          data-testid="RouteStopsHeaderRow::65x"
+          data-testid="RouteRow::65x"
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-12"
@@ -698,7 +698,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               </span>
               <span
                 class="text-xl"
-                data-testid="RouteStopsHeaderRow::label"
+                data-testid="RouteRow::label"
               >
                 <b>
                   65x
@@ -714,12 +714,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             >
               <span
                 class="text-xl"
-                data-testid="RouteStopsHeaderRow::name"
+                data-testid="RouteRow::name"
               >
                 Reitti A - B FI
               </span>
               <a
-                data-testid="RouteStopsHeaderRow::editRouteButton::Reitti A - B FI"
+                data-testid="RouteRow::editRouteButton::Reitti A - B FI"
                 href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
               >
                 <div
@@ -749,7 +749,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           </td>
           <td
             class="p-4"
-            data-testid="RouteStopsHeaderRow::validityPeriod"
+            data-testid="RouteRow::validityPeriod"
           >
             <div
               class="flex flex-row items-center justify-end"
@@ -764,7 +764,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               class="flex flex-row items-center justify-end"
             >
               <span
-                data-testid="RouteStopsHeaderRow::lastEdited"
+                data-testid="RouteRow::lastEdited"
               >
                 !14.2.2017 14.51
               </span>
@@ -802,7 +802,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               </span>
               <button
                 class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-                data-testid="RouteStopsHeaderRow::showRouteButton"
+                data-testid="RouteRow::showRouteButton"
                 type="button"
               >
                 <svg
@@ -831,7 +831,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <button
               class="text-center h-full w-full"
-              data-testid="RouteStopsHeaderRow::toggleAccordion"
+              data-testid="RouteRow::toggleAccordion"
               type="button"
             >
               <svg
