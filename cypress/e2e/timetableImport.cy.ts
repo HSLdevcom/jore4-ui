@@ -3,7 +3,7 @@ import {
   buildLine,
   buildRoute,
   buildStop,
-  buildStopsInJourneyPattern,
+  buildStopInJourneyPattern,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   InfraLinkAlongRouteInsertInput,
@@ -12,6 +12,7 @@ import {
   mapToGetInfrastructureLinksByExternalIdsQuery,
   RouteInsertInput,
   StopInsertInput,
+  StopInJourneyPatternInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
@@ -55,6 +56,10 @@ const lines: LineInsertInput[] = [
     ...buildLine({ label: '1234' }),
     line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
   },
+  {
+    ...buildLine({ label: '1235' }),
+    line_id: '1334d688-f504-4359-9239-bdc0e78bee1a',
+  },
 ];
 
 const timingPlaces = [
@@ -72,6 +77,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
     scheduled_stop_point_id: '7ef42a37-142d-44be-9b69-dbe6adca7f34',
+    timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[0].coordinates,
@@ -94,6 +100,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
     scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
+    timing_place_id: timingPlaces[2].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[2].coordinates,
@@ -108,6 +115,13 @@ const routes: RouteInsertInput[] = [
     on_line_id: lines[0].line_id,
     validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+03:00'),
     validity_end: DateTime.fromISO('2032-08-11T13:08:43.315+03:00'),
+  },
+  {
+    ...buildRoute({ label: '98' }),
+    route_id: '5788d282-f0e3-4d30-8aa8-2311e65ef96d',
+    on_line_id: lines[1].line_id,
+    validity_start: DateTime.fromISO('2032-01-01T13:08:43.315+03:00'),
+    validity_end: DateTime.fromISO('2042-12-15T13:08:43.315+03:00'),
   },
 ];
 
@@ -132,6 +146,24 @@ const buildInfraLinksAlongRoute = (
     infrastructure_link_sequence: 2,
     is_traversal_forwards: true,
   },
+  {
+    route_id: routes[1].route_id,
+    infrastructure_link_id: infrastructureLinkIds[0],
+    infrastructure_link_sequence: 0,
+    is_traversal_forwards: true,
+  },
+  {
+    route_id: routes[1].route_id,
+    infrastructure_link_id: infrastructureLinkIds[1],
+    infrastructure_link_sequence: 1,
+    is_traversal_forwards: true,
+  },
+  {
+    route_id: routes[1].route_id,
+    infrastructure_link_id: infrastructureLinkIds[2],
+    infrastructure_link_sequence: 2,
+    is_traversal_forwards: true,
+  },
 ];
 
 const journeyPatterns: JourneyPatternInsertInput[] = [
@@ -139,132 +171,347 @@ const journeyPatterns: JourneyPatternInsertInput[] = [
     journey_pattern_id: '6cae356b-20f4-4e04-a969-097999b351f0',
     on_route_id: routes[0].route_id,
   },
+  {
+    journey_pattern_id: '87042184-d5a5-4877-9ae6-d9d375063e02',
+    on_route_id: routes[1].route_id,
+  },
 ];
 
-const stopsInJourneyPattern = buildStopsInJourneyPattern(
-  stopLabels,
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  journeyPatterns[0].journey_pattern_id!,
-);
+const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[0],
+    scheduledStopPointSequence: 0,
+    isUsedAsTimingPoint: true,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[1],
+    scheduledStopPointSequence: 1,
+    isUsedAsTimingPoint: false,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[2],
+    scheduledStopPointSequence: 2,
+    isUsedAsTimingPoint: true,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[1].journey_pattern_id,
+    stopLabel: stopLabels[0],
+    scheduledStopPointSequence: 0,
+    isUsedAsTimingPoint: true,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[1].journey_pattern_id,
+    stopLabel: stopLabels[1],
+    scheduledStopPointSequence: 1,
+    isUsedAsTimingPoint: false,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[1].journey_pattern_id,
+    stopLabel: stopLabels[2],
+    scheduledStopPointSequence: 2,
+    isUsedAsTimingPoint: true,
+  }),
+];
 
 describe('Timetable import and export', () => {
-  let timetablesMainPage: TimetablesMainpage;
-  let importTimetablesPage: ImportTimetablesPage;
-  let previewTimetablesPage: PreviewTimetablesPage;
-  let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
-  let navbar: Navbar;
+  context('Import one file', () => {
+    let timetablesMainPage: TimetablesMainpage;
+    let importTimetablesPage: ImportTimetablesPage;
+    let previewTimetablesPage: PreviewTimetablesPage;
+    let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
+    let navbar: Navbar;
 
-  const baseDbResources = {
-    lines,
-    routes,
-    journeyPatterns,
-    stopsInJourneyPattern,
-  };
-  let dbResources: SupportedResources;
+    const baseDbResources = {
+      lines,
+      routes,
+      journeyPatterns,
+      stopsInJourneyPattern,
+    };
+    let dbResources: SupportedResources;
 
-  before(() => {
-    cy.task<GetInfrastructureLinksByExternalIdsResult>(
-      'hasuraAPI',
-      mapToGetInfrastructureLinksByExternalIdsQuery(
-        testInfraLinks.map((infralink) => infralink.externalId),
-      ),
-    ).then((res) => {
-      const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
-      const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
-      const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
-      dbResources = {
-        ...baseDbResources,
-        timingPlaces,
-        stops,
-        infraLinksAlongRoute,
-      };
+    before(() => {
+      cy.task<GetInfrastructureLinksByExternalIdsResult>(
+        'hasuraAPI',
+        mapToGetInfrastructureLinksByExternalIdsQuery(
+          testInfraLinks.map((infralink) => infralink.externalId),
+        ),
+      ).then((res) => {
+        const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
+        const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+        const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+        dbResources = {
+          ...baseDbResources,
+          timingPlaces,
+          stops,
+          infraLinksAlongRoute,
+        };
+      });
     });
+
+    beforeEach(() => {
+      cy.task('truncateTimetablesDatabase');
+      removeFromDbHelper(dbResources);
+      insertToDbHelper(dbResources);
+
+      timetablesMainPage = new TimetablesMainpage();
+      importTimetablesPage = new ImportTimetablesPage();
+      previewTimetablesPage = new PreviewTimetablesPage();
+      vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
+      navbar = new Navbar();
+
+      cy.setupTests();
+      cy.mockLogin();
+      cy.visit('/');
+      navbar.getTimetablesLink().click();
+    });
+
+    afterEach(() => {
+      removeFromDbHelper(dbResources);
+      cy.task('truncateTimetablesDatabase');
+    });
+
+    it(
+      'Should import a Hastus timetable file using preview',
+      { tags: [Tag.Smoke, Tag.Timetables, Tag.HastusImport] },
+      () => {
+        const IMPORT_FILENAME = 'hastusImport.exp';
+
+        timetablesMainPage.getImportButton().click();
+        importTimetablesPage.selectFilesToImport([IMPORT_FILENAME]);
+        importTimetablesPage.getUploadButton().click();
+        cy.wait('@hastusImport')
+          .its('response.statusCode')
+          .should('equal', 200);
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+        );
+        importTimetablesPage.clickPreviewButton();
+        previewTimetablesPage.priorityForm.setAsStandard();
+        previewTimetablesPage.blockVehicleJourneysTable
+          .getToggleShowTableButton('99 - 1')
+          .click();
+        previewTimetablesPage.blockVehicleJourneysTable
+          .getTable('99 - 1')
+          .should('contain', 'Kalustotyyppi 3 - Normaalibussi')
+          .and('contain', '99')
+          .and('contain', 'Lauantai')
+          .and('contain', '7:10')
+          .and('contain', '7:16');
+        previewTimetablesPage.getSaveButton().click();
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          'Aikataulujen tuonti onnistui!',
+        );
+        // Check the imported timetable on a Saturday, which is the day type of the imported timetable
+        cy.visit(
+          `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
+        );
+        vehicleScheduleDetailsPage.routeTimetableList.routeTimetablesSection.vehicleServiceTable
+          .getTable()
+          .click();
+        vehicleScheduleDetailsPage.dayTypeDropDown
+          .getDayTypeDropdownButton()
+          .should('contain', 'Lauantai');
+        vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
+          {
+            stopLabel: stopLabels[0],
+            nthPassingTime: 0,
+            hour: '7',
+            departureTime: '10',
+          },
+        );
+        vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
+          {
+            stopLabel: stopLabels[1],
+            nthPassingTime: 0,
+            hour: '7',
+            departureTime: '13',
+          },
+        );
+        vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
+          {
+            stopLabel: stopLabels[2],
+            nthPassingTime: 0,
+            hour: '7',
+            departureTime: '16',
+          },
+        );
+      },
+    );
   });
 
-  beforeEach(() => {
-    cy.task('truncateTimetablesDatabase');
-    removeFromDbHelper(dbResources);
-    insertToDbHelper(dbResources);
+  context('Import multiple files', () => {
+    let timetablesMainPage: TimetablesMainpage;
+    let importTimetablesPage: ImportTimetablesPage;
+    let previewTimetablesPage: PreviewTimetablesPage;
+    let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
+    let navbar: Navbar;
 
-    timetablesMainPage = new TimetablesMainpage();
-    importTimetablesPage = new ImportTimetablesPage();
-    previewTimetablesPage = new PreviewTimetablesPage();
-    vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
-    navbar = new Navbar();
+    const baseDbResources = {
+      lines,
+      routes,
+      journeyPatterns,
+      stopsInJourneyPattern,
+    };
+    let dbResources: SupportedResources;
 
-    cy.setupTests();
-    cy.mockLogin();
-    cy.visit('/');
-    navbar.getTimetablesLink().click();
+    before(() => {
+      cy.task<GetInfrastructureLinksByExternalIdsResult>(
+        'hasuraAPI',
+        mapToGetInfrastructureLinksByExternalIdsQuery(
+          testInfraLinks.map((infralink) => infralink.externalId),
+        ),
+      ).then((res) => {
+        const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
+        const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+        const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+        dbResources = {
+          ...baseDbResources,
+          timingPlaces,
+          stops,
+          infraLinksAlongRoute,
+        };
+      });
+    });
+
+    beforeEach(() => {
+      cy.task('truncateTimetablesDatabase');
+      removeFromDbHelper(dbResources);
+      insertToDbHelper(dbResources);
+
+      timetablesMainPage = new TimetablesMainpage();
+      importTimetablesPage = new ImportTimetablesPage();
+      previewTimetablesPage = new PreviewTimetablesPage();
+      vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
+      navbar = new Navbar();
+
+      cy.setupTests();
+      cy.mockLogin();
+      cy.visit('/');
+      navbar.getTimetablesLink().click();
+    });
+
+    afterEach(() => {
+      removeFromDbHelper(dbResources);
+      cy.task('truncateTimetablesDatabase');
+    });
+
+    it(
+      'Should import multiple Hastus timetable files',
+      { tags: [Tag.Timetables, Tag.HastusImport] },
+      () => {
+        const IMPORT_FILENAMES = ['hastusImport.exp', 'hastusImport2.exp'];
+        timetablesMainPage.getImportButton().click();
+        importTimetablesPage.selectFilesToImport(IMPORT_FILENAMES);
+        importTimetablesPage.getUploadButton().click();
+        cy.wait('@hastusImport')
+          .its('response.statusCode')
+          .should('equal', 200);
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          `Tiedoston ${IMPORT_FILENAMES[0]} lataus onnistui!`,
+        );
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          `Tiedoston ${IMPORT_FILENAMES[1]} lataus onnistui!`,
+        );
+
+        importTimetablesPage.clickPreviewButton();
+        previewTimetablesPage.priorityForm.setAsStandard();
+        previewTimetablesPage.blockVehicleJourneysTable
+          .getToggleShowTableButton('99 - 1')
+          .click();
+        previewTimetablesPage.blockVehicleJourneysTable
+          .getTable('99 - 1')
+          .should('contain', 'Kalustotyyppi 3 - Normaalibussi')
+          .and('contain', '99')
+          .and('contain', 'Lauantai')
+          .and('contain', '7:10')
+          .and('contain', '7:16');
+        previewTimetablesPage.blockVehicleJourneysTable
+          .getToggleShowTableButton('98 - 1')
+          .click();
+        previewTimetablesPage.blockVehicleJourneysTable
+          .getTable('98 - 1')
+          .should('contain', 'Kalustotyyppi 3 - Normaalibussi')
+          .and('contain', '98')
+          .and('contain', 'Lauantai')
+          .and('contain', '8:10')
+          .and('contain', '8:16');
+        previewTimetablesPage.getSaveButton().click();
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          'Aikataulujen tuonti onnistui!',
+        );
+        // Check the imported timetable on a Saturday, which is the day type of the imported timetable
+        cy.visit(
+          `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
+        );
+        vehicleScheduleDetailsPage.routeTimetableList.routeTimetablesSection.vehicleServiceTable
+          .getTable()
+          .click();
+        vehicleScheduleDetailsPage.dayTypeDropDown
+          .getDayTypeDropdownButton()
+          .should('contain', 'Lauantai');
+        vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
+          {
+            stopLabel: stopLabels[0],
+            nthPassingTime: 0,
+            hour: '7',
+            departureTime: '10',
+          },
+        );
+        vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
+          {
+            stopLabel: stopLabels[1],
+            nthPassingTime: 0,
+            hour: '7',
+            departureTime: '13',
+          },
+        );
+        vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
+          {
+            stopLabel: stopLabels[2],
+            nthPassingTime: 0,
+            hour: '7',
+            departureTime: '16',
+          },
+        );
+        // Check the second imported timetable on a Saturday, which is the day type of the imported timetable
+        cy.visit(
+          `timetables/lines/${lines[1].line_id}?observationDate=2032-01-01&routeLabels=${routes[1].label}`,
+        );
+        vehicleScheduleDetailsPage.getShowAllValidSwitch().click();
+        vehicleScheduleDetailsPage.routeTimetableList.routeTimetablesSection.vehicleServiceTable
+          .getTable()
+          .click();
+        vehicleScheduleDetailsPage.dayTypeDropDown
+          .getDayTypeDropdownButton()
+          .should('contain', 'Lauantai');
+        vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
+          {
+            stopLabel: stopLabels[0],
+            nthPassingTime: 0,
+            hour: '8',
+            departureTime: '10',
+          },
+        );
+        vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
+          {
+            stopLabel: stopLabels[1],
+            nthPassingTime: 0,
+            hour: '8',
+            departureTime: '13',
+          },
+        );
+        vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
+          {
+            stopLabel: stopLabels[2],
+            nthPassingTime: 0,
+            hour: '8',
+            departureTime: '16',
+          },
+        );
+      },
+    );
   });
-
-  afterEach(() => {
-    removeFromDbHelper(dbResources);
-    cy.task('truncateTimetablesDatabase');
-  });
-
-  it(
-    'Should import a Hastus timetable file using preview',
-    { tags: [Tag.Smoke, Tag.Timetables, Tag.HastusImport] },
-    () => {
-      const IMPORT_FILENAME = 'hastusImport.exp';
-      timetablesMainPage.getImportButton().click();
-      importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
-      importTimetablesPage.getUploadButton().click();
-      cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
-      importTimetablesPage.toast.checkSuccessToastHasMessage(
-        `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
-      );
-      importTimetablesPage.clickPreviewButton();
-      previewTimetablesPage.priorityForm.setAsStandard();
-      previewTimetablesPage.blockVehicleJourneysTable
-        .getToggleShowTableButton()
-        .click();
-      previewTimetablesPage.blockVehicleJourneysTable
-        .getTable()
-        .should('contain', 'Kalustotyyppi 3 - Normaalibussi')
-        .and('contain', '99')
-        .and('contain', 'Lauantai')
-        .and('contain', '7:10')
-        .and('contain', '7:16');
-      previewTimetablesPage.getSaveButton().click();
-      importTimetablesPage.toast.checkSuccessToastHasMessage(
-        'Aikataulujen tuonti onnistui!',
-      );
-      // Check the imported timetable on a Saturday, which is the day type of the imported timetable
-      cy.visit(
-        `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
-      );
-      vehicleScheduleDetailsPage.routeTimetableList.routeTimetablesSection.vehicleServiceTable
-        .getTable()
-        .click();
-      vehicleScheduleDetailsPage.dayTypeDropDown
-        .getDayTypeDropdownButton()
-        .should('contain', 'Lauantai');
-      vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
-        {
-          stopLabel: stopLabels[0],
-          nthPassingTime: 0,
-          hour: '7',
-          departureTime: '10',
-        },
-      );
-      vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
-        {
-          stopLabel: stopLabels[1],
-          nthPassingTime: 0,
-          hour: '7',
-          departureTime: '13',
-        },
-      );
-      vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
-        {
-          stopLabel: stopLabels[2],
-          nthPassingTime: 0,
-          hour: '7',
-          departureTime: '16',
-        },
-      );
-    },
-  );
 });

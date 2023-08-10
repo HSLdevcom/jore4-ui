@@ -1,9 +1,11 @@
 export class BlockVehicleJourneysTable {
-  getToggleShowTableButton() {
-    return cy.getByTestId('BlockVehicleJourneysTable::toggleShowTable');
+  getToggleShowTableButton(title: string) {
+    return cy.getByTestId(
+      `BlockVehicleJourneysTable::toggleShowTable::${title}`,
+    );
   }
 
-  getTable() {
-    return cy.getByTestId('BlockVehicleJourneysTable::table');
+  getTable(title: string) {
+    return cy.getByTestId(`BlockVehicleJourneysTable::table::${title}`);
   }
 }

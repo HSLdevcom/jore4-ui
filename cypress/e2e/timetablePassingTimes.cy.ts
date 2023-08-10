@@ -209,13 +209,13 @@ describe('Timetable import and export', () => {
     () => {
       const IMPORT_FILENAME = 'hastusImport.exp';
       timetablesMainPage.getImportButton().click();
-      importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+      importTimetablesPage.selectFilesToImport([IMPORT_FILENAME]);
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.clickPreviewButton();
       previewTimetablesPage.priorityForm.setAsStandard();
       previewTimetablesPage.blockVehicleJourneysTable
-        .getToggleShowTableButton()
+        .getToggleShowTableButton('99 - 1')
         .click();
       previewTimetablesPage.getSaveButton().click();
       // Check the imported timetable on a Saturday, which is the day type of the imported timetable

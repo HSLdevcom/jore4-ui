@@ -8,8 +8,9 @@ import { getRouteLabelVariantText } from '../../../utils/route';
 import { DirectionBadge } from '../../routes-and-lines/line-details/DirectionBadge';
 
 const testIds = {
-  table: 'BlockVehicleJourneysTable::table',
-  toggleShowTable: 'BlockVehicleJourneysTable::toggleShowTable',
+  table: (title: string) => `BlockVehicleJourneysTable::table::${title}`,
+  toggleShowTable: (title: string) =>
+    `BlockVehicleJourneysTable::toggleShowTable::${title}`,
 };
 
 const VehicleJourneyRow = ({
@@ -73,7 +74,7 @@ export const BlockVehicleJourneysTable = ({
   return (
     <table
       className="border-brand-gray w-full border"
-      data-testid={testIds.table}
+      data-testid={testIds.table(title)}
     >
       <thead>
         <tr className="[&>th]:border [&>th]:border-light-grey">
@@ -87,7 +88,7 @@ export const BlockVehicleJourneysTable = ({
             <Row className="flex-1 items-center justify-between font-normal">
               <p>!Kalustotyyppi 3 - Normaalibussi</p>
               <AccordionButton
-                testId={testIds.toggleShowTable}
+                testId={testIds.toggleShowTable(title)}
                 isOpen={isOpen}
                 onToggle={toggleIsOpen}
                 iconClassName="text-brand text-[50px]"
