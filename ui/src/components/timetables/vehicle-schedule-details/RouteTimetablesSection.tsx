@@ -76,7 +76,7 @@ export const RouteTimetablesSection = ({
         <div className="flex flex-1 items-center bg-background">
           <DirectionBadge direction={route.direction} className="my-5 ml-12" />
           <h3 className="ml-3.5">
-            <RouteLabel route={route} />
+            <RouteLabel label={route.label} variant={route.variant} />
           </h3>
           <Visible visible={hasValidityPeriod}>
             <p className="ml-auto mr-8">
