@@ -14,6 +14,8 @@ First, make sure you have the following apps installed:
   - On Mac, Homebrew command: `brew install gh`
 - [ ] [PostgreSQL](https://www.postgresql.org/download/), to get required commands
   - On Mac, Homebrew command: `brew install postgresql`
+- [ ] [Azure CLI](https://learn.microsoft.com/fi-fi/cli/azure/install-azure-cli)
+  - On Mac, Homebrew command: `brew update && brew install azure-cli`
 
 Once those are installed, build the `test-db-manager` project:
 
