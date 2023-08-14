@@ -70,7 +70,7 @@ const routes: RouteInsertInput[] = [
     route_id: '61bef596-84a0-40ea-b818-423d6b9b1fcf',
     on_line_id: lines[0].line_id,
     validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+03:00'),
-    validity_end: DateTime.fromISO('2023-08-11T13:08:43.315+03:00'),
+    validity_end: DateTime.fromISO('2043-08-11T13:08:43.315+03:00'),
   },
 ];
 
