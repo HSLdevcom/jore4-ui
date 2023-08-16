@@ -197,43 +197,46 @@ const baseDbResources = (
   };
 };
 
-let dbResources: SupportedResources;
-let routesAndLinesPage: RoutesAndLinesPage;
-
 const buildTestResources = (
+  infraLinkIds: UUID[],
   stopsInJourneyPattern: StopInJourneyPatternInsertInput[],
 ): SupportedResources => {
-  cy.task<GetInfrastructureLinksByExternalIdsResult>(
-    'hasuraAPI',
-    mapToGetInfrastructureLinksByExternalIdsQuery(
-      testInfraLinks.map((infralink) => infralink.externalId),
-    ),
-  ).then((res) => {
-    const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
-    const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
-    const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
-    dbResources = {
-      ...baseDbResources(stopsInJourneyPattern),
-      timingPlaces,
-      stops,
-      infraLinksAlongRoute,
-    };
-    return dbResources;
-  });
-  return dbResources;
+  const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+  const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+
+  return {
+    ...baseDbResources(stopsInJourneyPattern),
+    timingPlaces,
+    stops,
+    infraLinksAlongRoute,
+  };
 };
 
 describe('Hastus export', () => {
+  let infraLinkIds: UUID[];
+
+  before(() => {
+    cy.task<GetInfrastructureLinksByExternalIdsResult>(
+      'hasuraAPI',
+      mapToGetInfrastructureLinksByExternalIdsQuery(
+        testInfraLinks.map((infralink) => infralink.externalId),
+      ),
+    ).then((res) => {
+      infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
+      return infraLinkIds;
+    });
+  });
+
   context('Success cases', () => {
     const stopsInJourneyPattern = stopsInJourneyPatternBase(true, true);
+    let dbResources: SupportedResources;
 
     before(() => {
-      dbResources = buildTestResources(stopsInJourneyPattern);
+      dbResources = buildTestResources(infraLinkIds, stopsInJourneyPattern);
     });
 
     beforeEach(() => {
       setup(dbResources);
-      routesAndLinesPage = new RoutesAndLinesPage();
     });
 
     afterEach(() => {
@@ -244,6 +247,8 @@ describe('Hastus export', () => {
       'Should export a line',
       { tags: [Tag.Lines, Tag.HastusExport, Tag.Smoke] },
       () => {
+        const routesAndLinesPage = new RoutesAndLinesPage();
+
         // Search and export a line
         routesAndLinesPage.searchContainer.getChevron().click();
         // Uncheck Temporary priority button so that only Standard priority is shown
@@ -270,6 +275,8 @@ describe('Hastus export', () => {
       'Should export a route',
       { tags: [Tag.Routes, Tag.HastusExport] },
       () => {
+        const routesAndLinesPage = new RoutesAndLinesPage();
+
         // Skip searching via UI
         cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
         routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
@@ -289,14 +296,14 @@ describe('Hastus export', () => {
 
   context('First and last stop are not timing points', () => {
     const stopsInJourneyPattern = stopsInJourneyPatternBase(false, false);
+    let dbResources: SupportedResources;
 
     before(() => {
-      dbResources = buildTestResources(stopsInJourneyPattern);
+      dbResources = buildTestResources(infraLinkIds, stopsInJourneyPattern);
     });
 
     beforeEach(() => {
       setup(dbResources);
-      routesAndLinesPage = new RoutesAndLinesPage();
     });
 
     afterEach(() => {
@@ -307,6 +314,8 @@ describe('Hastus export', () => {
       'Should show an error when trying to export a route whose first and last stop are not timing points',
       { tags: [Tag.Routes, Tag.HastusExport] },
       () => {
+        const routesAndLinesPage = new RoutesAndLinesPage();
+
         // Skip searching via UI
         cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
         routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
@@ -323,14 +332,14 @@ describe('Hastus export', () => {
 
   context('First stop is not a timing point, but the last stop is', () => {
     const stopsInJourneyPattern = stopsInJourneyPatternBase(false, true);
+    let dbResources: SupportedResources;
 
     before(() => {
-      dbResources = buildTestResources(stopsInJourneyPattern);
+      dbResources = buildTestResources(infraLinkIds, stopsInJourneyPattern);
     });
 
     beforeEach(() => {
       setup(dbResources);
-      routesAndLinesPage = new RoutesAndLinesPage();
     });
 
     afterEach(() => {
@@ -341,6 +350,8 @@ describe('Hastus export', () => {
       'Should show an error when trying to export a route whose first stop is not a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
       () => {
+        const routesAndLinesPage = new RoutesAndLinesPage();
+
         // Skip searching via UI
         cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
         routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
@@ -357,14 +368,14 @@ describe('Hastus export', () => {
 
   context('Last stop is not a timing point, but the first stop is', () => {
     const stopsInJourneyPattern = stopsInJourneyPatternBase(true, false);
+    let dbResources: SupportedResources;
 
     before(() => {
-      dbResources = buildTestResources(stopsInJourneyPattern);
+      dbResources = buildTestResources(infraLinkIds, stopsInJourneyPattern);
     });
 
     beforeEach(() => {
       setup(dbResources);
-      routesAndLinesPage = new RoutesAndLinesPage();
     });
 
     afterEach(() => {
@@ -375,6 +386,8 @@ describe('Hastus export', () => {
       'Should show an error when trying to export a route whose last stop is not a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
       () => {
+        const routesAndLinesPage = new RoutesAndLinesPage();
+
         // Skip searching via UI
         cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
         routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
