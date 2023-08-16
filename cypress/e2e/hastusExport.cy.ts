@@ -212,6 +212,21 @@ const buildTestResources = (
   };
 };
 
+const testExportWhenFirstOrLastStopIsNotATimingPoint = () => {
+  const routesAndLinesPage = new RoutesAndLinesPage();
+
+  // Skip searching via UI
+  cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+  routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+  routesAndLinesPage.routeLineTableRow
+    .getRouteLineTableRowCheckbox('99')
+    .check();
+  routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+  routesAndLinesPage.toast.checkDangerToastHasMessage(
+    'Seuraavia reittejä ei voida viedä: 99 (inbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
+  );
+};
+
 describe('Hastus export', () => {
   let infraLinkIds: UUID[];
 
@@ -313,20 +328,7 @@ describe('Hastus export', () => {
     it(
       'Should show an error when trying to export a route whose first and last stop are not timing points',
       { tags: [Tag.Routes, Tag.HastusExport] },
-      () => {
-        const routesAndLinesPage = new RoutesAndLinesPage();
-
-        // Skip searching via UI
-        cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
-        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-        routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('99')
-          .check();
-        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-        routesAndLinesPage.toast.checkDangerToastHasMessage(
-          'Seuraavia reittejä ei voida viedä: 99 (inbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
-        );
-      },
+      testExportWhenFirstOrLastStopIsNotATimingPoint,
     );
   });
 
@@ -349,20 +351,7 @@ describe('Hastus export', () => {
     it(
       'Should show an error when trying to export a route whose first stop is not a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
-      () => {
-        const routesAndLinesPage = new RoutesAndLinesPage();
-
-        // Skip searching via UI
-        cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
-        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-        routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('99')
-          .check();
-        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-        routesAndLinesPage.toast.checkDangerToastHasMessage(
-          'Seuraavia reittejä ei voida viedä: 99 (inbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
-        );
-      },
+      testExportWhenFirstOrLastStopIsNotATimingPoint,
     );
   });
 
@@ -385,20 +374,7 @@ describe('Hastus export', () => {
     it(
       'Should show an error when trying to export a route whose last stop is not a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
-      () => {
-        const routesAndLinesPage = new RoutesAndLinesPage();
-
-        // Skip searching via UI
-        cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
-        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-        routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('99')
-          .check();
-        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-        routesAndLinesPage.toast.checkDangerToastHasMessage(
-          'Seuraavia reittejä ei voida viedä: 99 (inbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
-        );
-      },
+      testExportWhenFirstOrLastStopIsNotATimingPoint,
     );
   });
 });
