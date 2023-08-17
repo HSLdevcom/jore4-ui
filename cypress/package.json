@@ -12,19 +12,19 @@
     "cy:run:video": "CYPRESS_BASE_URL=${CYPRESS_BASE_URL:-http://localhost:3300} cypress run --browser chrome --config-file ./cypress.config.video.ts"
   },
   "dependencies": {
-    "@4tw/cypress-drag-drop": "^2.2.3",
+    "@4tw/cypress-drag-drop": "^2.2.4",
     "@hsl/jore4-test-db-manager": "1.0.0",
-    "cypress": "^12.12.0",
-    "luxon": "^3.3.0",
-    "qs": "^6.11.1"
+    "cypress": "^12.17.4",
+    "luxon": "^3.4.0",
+    "qs": "^6.11.2"
   },
   "devDependencies": {
     "@cypress/grep": "^3.1.5",
     "@types/node": "^18.16.3",
     "@types/qs": "^6.9.7",
     "cypress-multi-reporters": "^1.6.3",
-    "cypress-parallel": "^0.12.0",
-    "eslint-plugin-cypress": "^2.12.1",
-    "find-test-names": "^1.28.3"
+    "cypress-parallel": "^0.13.0",
+    "eslint-plugin-cypress": "^2.14.0",
+    "find-test-names": "^1.28.13"
   }
 }

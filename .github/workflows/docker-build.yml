@@ -10,7 +10,7 @@ on:
 jobs:
   build_ui_image:
     name: Build & Push UI docker image to dockerhub
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
@@ -52,7 +52,7 @@ jobs:
 
   build_cypress_image:
     name: Build & Push cypress docker image to dockerhub
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       CYPRESS_IMAGE_NAME: hsldevcom/jore4-cypress
 

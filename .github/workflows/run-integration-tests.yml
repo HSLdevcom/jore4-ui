@@ -6,7 +6,7 @@ on:
 jobs:
   run_integration_tests:
     name: Run ui's integration tests against docker-compose environment
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
