@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import partition from 'lodash/partition';
 import { DateTime } from 'luxon';
 import {
   GetSubstituteOperatingPeriodsQuery,
@@ -59,8 +60,14 @@ export const useGetSubstituteOperatingPeriods = ({
 
   const substituteOperatingPeriods = mapSubstituteOperatingPeriodsResult(data);
 
+  const [preset, notPreset] = partition(
+    substituteOperatingPeriods,
+    (p) => p.is_preset,
+  );
+
   return {
     refetchSubstituteOperatingPeriods,
-    substituteOperatingPeriods,
+    substituteOperatingPeriods: notPreset,
+    presetSubstituteOperatingPeriods: preset,
   };
 };
