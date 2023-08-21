@@ -75,6 +75,7 @@ const useEditSubstituteOperatingPeriodHook: MutationHook<
       filtered.map((p) => ({
         substitute_operating_period_id: p.periodId,
         period_name: p.periodName,
+        is_preset: p.isPreset,
       }));
 
     const periodsToDelete: UUID[] = filtered

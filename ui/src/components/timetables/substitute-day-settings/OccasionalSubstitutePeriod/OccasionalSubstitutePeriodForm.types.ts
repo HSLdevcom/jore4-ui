@@ -16,6 +16,7 @@ const periodSchema = z.object({
   substituteDayOfWeek: z.nativeEnum(SubstituteDayOfWeek),
   lineTypes: z.string(),
   toBeDeleted: z.boolean(),
+  isPreset: z.boolean(),
 });
 
 export const schema = z.object({
