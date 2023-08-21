@@ -46,6 +46,7 @@ const emptyRowObject: PeriodType = {
   beginTime: '04:30',
   endTime: '28:30',
   toBeDeleted: false,
+  isPreset: false,
 };
 
 const mapDateTimeToFormState = (date: Maybe<DateTime> | undefined): string => {
@@ -112,6 +113,7 @@ const convertToPeriodSchema = (
       ),
       lineTypes: mapLineTypes(lineTypes),
       toBeDeleted: false,
+      isPreset: false,
     };
   });
   return { periods };

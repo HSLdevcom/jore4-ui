@@ -64,7 +64,7 @@ const useCreateSubstituteOperatingPeriodHook: MutationHook<
     const data = filtered.map((p) => {
       return {
         period_name: p.periodName,
-        is_preset: false,
+        is_preset: p.isPreset,
         substitute_operating_day_by_line_types: {
           data: mapPeriodsToDayByLineTypes(p),
         },
