@@ -52,7 +52,7 @@ export const OccasionalSubstitutePeriodSection = (): JSX.Element => {
   };
 
   return (
-    <div className="py-8">
+    <div className="pt-8">
       <h2>{t('timetables.settings.occasionalSubstituteDays')}</h2>
       <OccasionalSubstitutePeriodForm
         onSubmit={onSubmit}
