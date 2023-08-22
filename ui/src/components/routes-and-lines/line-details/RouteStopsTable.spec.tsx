@@ -108,6 +108,11 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       scheduled_stop_point_id:
                         'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                       label: 'H1234',
+                      timing_place_id: 'd094b604-3860-4e2f-a601-9dad6f9827b9',
+                      timing_place: {
+                        timing_place_id: 'd094b604-3860-4e2f-a601-9dad6f9827b9',
+                        label: '1KOSKS',
+                      },
                       validity_start: DateTime.fromISO('2000-01-01'),
                       validity_end: DateTime.fromISO('2050-12-13'),
                       located_on_infrastructure_link_id:
@@ -137,7 +142,6 @@ describe(`<${RouteStopsTable.name} />`, () => {
                             'service_pattern_vehicle_mode_on_scheduled_stop_point',
                         },
                       ],
-                      timing_place_id: 'd094b604-3860-4e2f-a601-9dad6f9827b9',
                       scheduled_stop_point_in_journey_patterns: [
                         {
                           journey_pattern_id:
@@ -187,6 +191,13 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           scheduled_stop_point_id:
                             'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                           label: 'H1234',
+                          timing_place_id:
+                            'd094b604-3860-4e2f-a601-9dad6f9827b9',
+                          timing_place: {
+                            timing_place_id:
+                              'd094b604-3860-4e2f-a601-9dad6f9827b9',
+                            label: '1KOSKS',
+                          },
                           validity_start: DateTime.fromISO('2000-01-01'),
                           validity_end: DateTime.fromISO('2050-12-13'),
                           located_on_infrastructure_link_id:
@@ -229,6 +240,11 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       scheduled_stop_point_id:
                         '4d294d62-df17-46ff-9248-23f66f17fa87',
                       label: 'H1235',
+                      timing_place_id: '651a693b-b18b-4daa-a6da-c3677bfd2113',
+                      timing_place: {
+                        timing_place_id: '651a693b-b18b-4daa-a6da-c3677bfd2113',
+                        label: '1OLK',
+                      },
                       validity_start: DateTime.fromISO('2000-01-01'),
                       validity_end: DateTime.fromISO('2050-12-13'),
                       located_on_infrastructure_link_id:
@@ -260,7 +276,6 @@ describe(`<${RouteStopsTable.name} />`, () => {
                             'service_pattern_vehicle_mode_on_scheduled_stop_point',
                         },
                       ],
-                      timing_place_id: '651a693b-b18b-4daa-a6da-c3677bfd2113',
                       scheduled_stop_point_in_journey_patterns: [
                         {
                           journey_pattern_id:
@@ -296,6 +311,13 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           scheduled_stop_point_id:
                             '4d294d62-df17-46ff-9248-23f66f17fa87',
                           label: 'H1235',
+                          timing_place_id:
+                            '651a693b-b18b-4daa-a6da-c3677bfd2113',
+                          timing_place: {
+                            timing_place_id:
+                              '651a693b-b18b-4daa-a6da-c3677bfd2113',
+                            label: '1OLK',
+                          },
                           validity_start: DateTime.fromISO('2000-01-01'),
                           validity_end: DateTime.fromISO('2050-12-13'),
                           located_on_infrastructure_link_id:
@@ -338,6 +360,11 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       scheduled_stop_point_id:
                         'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                       label: 'H1236',
+                      timing_place_id: '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
+                      timing_place: {
+                        timing_place_id: '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
+                        label: '1ESIM',
+                      },
                       validity_start: DateTime.fromISO('2000-01-01'),
                       validity_end: DateTime.fromISO('2050-12-13'),
                       located_on_infrastructure_link_id:
@@ -367,7 +394,6 @@ describe(`<${RouteStopsTable.name} />`, () => {
                             'service_pattern_vehicle_mode_on_scheduled_stop_point',
                         },
                       ],
-                      timing_place_id: '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
                       scheduled_stop_point_in_journey_patterns: [
                         {
                           journey_pattern_id:
@@ -397,6 +423,13 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           scheduled_stop_point_id:
                             'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                           label: 'H1236',
+                          timing_place_id:
+                            '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
+                          timing_place: {
+                            timing_place_id:
+                              '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
+                            label: '1ESIM',
+                          },
                           validity_start: DateTime.fromISO('2000-01-01'),
                           validity_end: DateTime.fromISO('2050-12-13'),
                           located_on_infrastructure_link_id:
@@ -441,6 +474,12 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         scheduled_stop_point_id:
                           'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                         label: 'H1234',
+                        timing_place_id: 'd094b604-3860-4e2f-a601-9dad6f9827b9',
+                        timing_place: {
+                          timing_place_id:
+                            'd094b604-3860-4e2f-a601-9dad6f9827b9',
+                          label: '1KOSKS',
+                        },
                         validity_start: DateTime.fromISO('2000-01-01'),
                         validity_end: DateTime.fromISO('2050-12-13'),
                         located_on_infrastructure_link_id:
@@ -474,6 +513,12 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         scheduled_stop_point_id:
                           'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                         label: 'H1236',
+                        timing_place_id: '651a693b-b18b-4daa-a6da-c3677bfd2113',
+                        timing_place: {
+                          timing_place_id:
+                            '651a693b-b18b-4daa-a6da-c3677bfd2113',
+                          label: '1ESIM',
+                        },
                         validity_start: DateTime.fromISO('2000-01-01'),
                         validity_end: DateTime.fromISO('2050-12-13'),
                         located_on_infrastructure_link_id:
@@ -518,7 +563,9 @@ describe(`<${RouteStopsTable.name} />`, () => {
     expect(container.querySelectorAll('tr')).toHaveLength(1);
     expect(asFragment()).toMatchSnapshot();
 
-    const accordionButton = screen.getByTestId('RouteRow::toggleAccordion');
+    const accordionButton = screen.getByTestId(
+      'ExpandableRouteRow::toggleAccordion',
+    );
     fireEvent.click(accordionButton);
 
     // the stops on journey pattern should show when the accordion opens
