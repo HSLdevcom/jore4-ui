@@ -16,6 +16,15 @@ const mapSubstituteDayOfWeekToNumber = (
   return index === 0 ? undefined : index;
 };
 
+export const parseSubstituteDayOfWeek = (
+  substituteDayOfWeek: Maybe<number> | undefined,
+) => {
+  if (substituteDayOfWeek) {
+    return Object.values(SubstituteDayOfWeek)[substituteDayOfWeek];
+  }
+  return SubstituteDayOfWeek.NoTraffic;
+};
+
 export const mapPeriodsToDayByLineTypes = (
   input: PeriodType,
 ): TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput[] => {

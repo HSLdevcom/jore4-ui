@@ -6,6 +6,7 @@ export interface TimetableState {
   showAllValid: boolean;
   settings: {
     isOccasionalSubstitutePeriodFormDirty: boolean;
+    isCommonSubstitutePeriodFormDirty: boolean;
   };
 }
 
@@ -16,6 +17,7 @@ const initialState: IState = {
   showAllValid: false,
   settings: {
     isOccasionalSubstitutePeriodFormDirty: false,
+    isCommonSubstitutePeriodFormDirty: false,
   },
 };
 
@@ -35,6 +37,12 @@ const slice = createSlice({
     ) => {
       state.settings.isOccasionalSubstitutePeriodFormDirty = action.payload;
     },
+    setIsCommonSubstitutePeriodFormDirty: (
+      state,
+      action: PayloadAction<boolean>,
+    ) => {
+      state.settings.isCommonSubstitutePeriodFormDirty = action.payload;
+    },
   },
 });
 
@@ -43,6 +51,8 @@ export const {
   setShowAllValid: setShowAllValidAction,
   setIsOccasionalSubstitutePeriodFormDirty:
     setIsOccasionalSubstitutePeriodFormDirtyAction,
+  setIsCommonSubstitutePeriodFormDirty:
+    setIsCommonSubstitutePeriodFormDirtyAction,
 } = slice.actions;
 
 export const timetableReducer = slice.reducer;
