@@ -71051,12 +71051,6 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "substitute_operating_period_period_name_key",
-            "description": "unique or primary key constraint on columns \"period_name\"",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "substitute_operating_period_pkey",
             "description": "unique or primary key constraint on columns \"substitute_operating_period_id\"",
             "isDeprecated": false,
