@@ -1,30 +1,35 @@
-import { Duration } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 import { PeriodType } from '../components/timetables/substitute-day-settings/OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
-import { TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput } from '../generated/graphql';
-import { parseDate } from '../time';
+import {
+  Maybe,
+  RouteTypeOfLineEnum,
+  TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput,
+} from '../generated/graphql';
+import { mapToISODate, parseDate } from '../time';
 import { SubstituteDayOfWeek } from '../types/enums';
 import { AllOptionEnum } from './enum';
 
-const mapSubstituteDayOfWeek = (
+const mapSubstituteDayOfWeekToNumber = (
   substituteDayOfWeek: SubstituteDayOfWeek,
 ): number | undefined => {
   const index = Object.values(SubstituteDayOfWeek).indexOf(substituteDayOfWeek);
   return index === 0 ? undefined : index;
 };
+
 export const mapPeriodsToDayByLineTypes = (
   input: PeriodType,
 ): TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput[] => {
   const {
     beginDate,
+    endDate,
     beginTime,
     endTime,
     lineTypes,
     substituteDayOfWeek,
     periodId,
   } = input;
-  const endDate2 = input.endDate;
   const currentDate = parseDate(beginDate);
-  const endDateObj = parseDate(endDate2);
+  const endDateObj = parseDate(endDate);
   if (!currentDate || !endDateObj) {
     throw new Error('Invalid date input');
   }
@@ -42,7 +47,8 @@ export const mapPeriodsToDayByLineTypes = (
         objectArray.push({
           type_of_line: lineType,
           superseded_date: date,
-          substitute_day_of_week: mapSubstituteDayOfWeek(substituteDayOfWeek),
+          substitute_day_of_week:
+            mapSubstituteDayOfWeekToNumber(substituteDayOfWeek),
           begin_time: Duration.fromISOTime(beginTime),
           end_time: Duration.fromISOTime(endTime),
           substitute_operating_period_id: periodId,
@@ -51,4 +57,24 @@ export const mapPeriodsToDayByLineTypes = (
     });
   }
   return objectArray;
+};
+
+export const mapDateTimeToFormState = (
+  date: Maybe<DateTime> | undefined,
+): string => {
+  const stringDate = date ? mapToISODate(date) : mapToISODate(DateTime.now());
+  return stringDate ?? '';
+};
+
+export const mapLineTypes = (lineTypes: Set<string>) => {
+  if (lineTypes.size === Object.keys(RouteTypeOfLineEnum).length) {
+    lineTypes.add(AllOptionEnum.All);
+  }
+  return Array.from(lineTypes).join(',');
+};
+
+export const generateLineTypes = (): string => {
+  const val: string[] = Object.values(RouteTypeOfLineEnum);
+  val.push(AllOptionEnum.All);
+  return val.join(',');
 };
