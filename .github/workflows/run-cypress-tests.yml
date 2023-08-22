@@ -4,6 +4,15 @@ on:
   # this workflow is only called by others, won't be executed on itself
   # as it uses the pre-built docker image that is produced in the upstream job
   workflow_call:
+    # When triggering this workflow manually, the video option can be set via Github GUI
+  workflow_dispatch:
+    inputs:
+      video:
+        type: choice
+        description: Record video when running Cypress tests
+        options:
+          - true
+          - false
 
 jobs:
   run_cypress_tests:
@@ -58,5 +67,5 @@ jobs:
         uses: HSLdevcom/jore4-tools/github-actions/run-cypress-tests@run-cypress-tests-v2
         with:
           test-tags: ''
-          video: 'false'
+          video: ${{ inputs.video }}
           threads: '3'
