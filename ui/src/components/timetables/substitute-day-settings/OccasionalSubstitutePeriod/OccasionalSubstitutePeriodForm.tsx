@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import { AiOutlinePlus } from 'react-icons/ai';
 import {
   Maybe,
-  RouteTypeOfLineEnum,
   TimetablesServiceCalendarSubstituteOperatingPeriod,
 } from '../../../../generated/graphql';
 import { useAppDispatch } from '../../../../hooks';
@@ -17,7 +16,13 @@ import { setIsOccasionalSubstitutePeriodFormDirtyAction } from '../../../../redu
 import { mapDurationToShortTime, mapToISODate } from '../../../../time';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
 import { ConfirmationDialog, SimpleButton } from '../../../../uiComponents';
-import { AllOptionEnum, submitFormByRef } from '../../../../utils';
+import {
+  generateLineTypes,
+  mapDateTimeToFormState,
+  mapLineTypes,
+  parseSubstituteDayOfWeek,
+  submitFormByRef,
+} from '../../../../utils';
 import {
   FormState,
   PeriodType,
@@ -29,12 +34,6 @@ const testIds = {
   cancelButton: 'OccasionalSubstitutePeriodForm::cancelButton',
   saveButton: 'OccasionalSubstitutePeriodForm::saveButton',
   addRowButton: 'OccasionalSubstitutePeriodForm::addRowButton',
-};
-
-const generateLineTypes = (): string => {
-  const val: string[] = Object.values(RouteTypeOfLineEnum);
-  val.push(AllOptionEnum.All);
-  return val.join(',');
 };
 
 const emptyRowObject: PeriodType = {
@@ -49,32 +48,11 @@ const emptyRowObject: PeriodType = {
   isPreset: false,
 };
 
-const mapDateTimeToFormState = (date: Maybe<DateTime> | undefined): string => {
-  const stringDate = date ? mapToISODate(date) : mapToISODate(DateTime.now());
-  return stringDate ?? '';
-};
-
 const mapDurationToString = (duration: Maybe<Duration> | undefined) => {
   if (duration) {
     return mapDurationToShortTime(duration);
   }
   return '';
-};
-
-const mapSubstituteDayOfWeek = (
-  substituteDayOfWeek: Maybe<number> | undefined,
-) => {
-  if (substituteDayOfWeek) {
-    return Object.values(SubstituteDayOfWeek)[substituteDayOfWeek];
-  }
-  return SubstituteDayOfWeek.NoTraffic;
-};
-
-const mapLineTypes = (lineTypes: Set<string>) => {
-  if (lineTypes.size === Object.keys(RouteTypeOfLineEnum).length) {
-    lineTypes.add(AllOptionEnum.All);
-  }
-  return Array.from(lineTypes).join(',');
 };
 
 const convertToPeriodSchema = (
@@ -108,7 +86,7 @@ const convertToPeriodSchema = (
       endTime: mapDurationToString(
         item.substitute_operating_day_by_line_types[0].end_time,
       ),
-      substituteDayOfWeek: mapSubstituteDayOfWeek(
+      substituteDayOfWeek: parseSubstituteDayOfWeek(
         item.substitute_operating_day_by_line_types[0].substitute_day_of_week,
       ),
       lineTypes: mapLineTypes(lineTypes),
