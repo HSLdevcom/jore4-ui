@@ -29,6 +29,11 @@ const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
     direction
     scheduled_stop_point_id
     label
+    timing_place_id
+    timing_place {
+      timing_place_id
+      label
+    }
     validity_start
     validity_end
     located_on_infrastructure_link_id
@@ -44,7 +49,6 @@ const SCHEDULED_STOP_POINT_ALL_FIELDS = gql`
     vehicle_mode_on_scheduled_stop_point {
       vehicle_mode
     }
-    timing_place_id
   }
 `;
 
