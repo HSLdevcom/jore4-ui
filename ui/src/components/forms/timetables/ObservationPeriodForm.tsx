@@ -37,7 +37,10 @@ export const ObservationPeriodForm = (): JSX.Element => {
   const { t } = useTranslation();
   const { isInvalidDateRange } = useTimeRangeQueryParams();
   const {
-    settings: { isOccasionalSubstitutePeriodFormDirty },
+    settings: {
+      isOccasionalSubstitutePeriodFormDirty,
+      isCommonSubstitutePeriodFormDirty,
+    },
   } = useAppSelector(selectTimetable);
 
   return (
@@ -48,21 +51,32 @@ export const ObservationPeriodForm = (): JSX.Element => {
           dateInputId="startDate"
           testId={testIds.startDate}
           queryParamName={QueryParameterName.StartDate}
-          disabled={isOccasionalSubstitutePeriodFormDirty}
+          disabled={
+            isOccasionalSubstitutePeriodFormDirty ||
+            isCommonSubstitutePeriodFormDirty
+          }
         />
         <DateControl
           label={t('timetables.observationPeriodForm.endDate')}
           dateInputId="endDate"
           testId={testIds.endDate}
           queryParamName={QueryParameterName.EndDate}
-          disabled={isOccasionalSubstitutePeriodFormDirty}
+          disabled={
+            isOccasionalSubstitutePeriodFormDirty ||
+            isCommonSubstitutePeriodFormDirty
+          }
         />
       </div>
       <div className="h-12 pt-2">
         <Visible visible={isInvalidDateRange}>
           <ValidationError errorMessage={t('formValidation.timeRange')} />
         </Visible>
-        <Visible visible={isOccasionalSubstitutePeriodFormDirty}>
+        <Visible
+          visible={
+            isOccasionalSubstitutePeriodFormDirty ||
+            isCommonSubstitutePeriodFormDirty
+          }
+        >
           <WarningText
             warningMessage={t(
               'timetables.observationPeriodForm.warningMessage',

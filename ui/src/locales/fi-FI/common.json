@@ -191,6 +191,12 @@
     "confirmText": "Kyllä",
     "cancelText": "Palaa"
   },
+  "confirmResetCommonSubstitutePeriodDialog": {
+    "title": "Tehdyt muutokset poistetaan",
+    "description": "Lomakkeessa on tallentamattomia muutoksia. Haluatko varmasti tyhjentää lomakkeen?",
+    "confirmText": "Kyllä",
+    "cancelText": "Palaa"
+  },
   "priority": {
     "label": "Prioriteetti",
     "standard": "Perusversio",
@@ -351,11 +357,16 @@
         "lineTypes": "Koskee linjatyyppejä",
         "substituteDayOfWeek": "Korvauspäivä"
       },
+      "commonDays": {
+        "substituteDayOfWeek": "Korvauspäivä",
+        "lineTypes": "Koskee linjatyyppejä"
+      },
       "addRow": "Lisää poikkeuspäivä",
       "filterLineType": "Näytä linjatyyppi",
       "beginDate": "Alkaa",
       "endDate": "Päättyy",
       "saveSuccess": "Tallennus onnistui",
+      "commonSubstituteDays": "Yleiset poikkeuspäivät",
       "occasionalSubstituteDays": "Satunnaiset poikkeuspäivät",
       "deleteSuccess": "Poistaminen onnistui",
       "deleteFailed": "Poistaminen epäonnistui"
