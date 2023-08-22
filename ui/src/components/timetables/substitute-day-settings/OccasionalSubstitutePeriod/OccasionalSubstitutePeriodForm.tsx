@@ -97,10 +97,10 @@ const convertToPeriodSchema = (
   return { periods };
 };
 
-export const mapSubstituteOperatingPeriodsToFormState = (
-  data: TimetablesServiceCalendarSubstituteOperatingPeriod[],
+export const mapOccasionalSubstituteOperatingPeriodsToFormState = (
+  occasionalSubstituteOperatingPeriods: TimetablesServiceCalendarSubstituteOperatingPeriod[],
 ) => {
-  return convertToPeriodSchema(data);
+  return convertToPeriodSchema(occasionalSubstituteOperatingPeriods);
 };
 
 export const findEarliestDate = (values: FormState) => {
@@ -118,7 +118,7 @@ export const OccasionalSubstitutePeriodForm = ({
   values,
 }: {
   onSubmit: (state: FormState) => void;
-  values?: FormState;
+  values: FormState;
 }): JSX.Element => {
   const { t } = useTranslation();
   const [isResetting, setIsResetting] = useState<boolean>(false);
