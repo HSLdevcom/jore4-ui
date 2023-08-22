@@ -74,7 +74,11 @@ export const RouteTimetablesSection = ({
     <div>
       <Row>
         <div className="flex flex-1 items-center bg-background">
-          <DirectionBadge direction={route.direction} className="my-5 ml-12" />
+          <DirectionBadge
+            direction={route.direction}
+            className="my-5 ml-12"
+            titleName={t(`directionEnum.${route.direction}`)}
+          />
           <h3 className="ml-3.5">
             <RouteLabel label={route.label} variant={route.variant} />
           </h3>

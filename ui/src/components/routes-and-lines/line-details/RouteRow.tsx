@@ -69,6 +69,7 @@ export const RouteRow = ({
           <DirectionBadge
             direction={route.direction as RouteDirectionEnum}
             className="mr-4"
+            titleName={t(`directionEnum.${route.direction}`)}
           />
           <span className="text-xl" data-testid={testIds.label}>
             <RouteLabel label={route.label} variant={route?.variant} />
