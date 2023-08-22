@@ -135,6 +135,7 @@ const GET_LINES_BY_VALIDITY = gql`
   }
 `;
 
+// Fragment defined in servicePattern.ts is called here?
 const GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
   query GetLineDetailsWithRoutesById($line_id: uuid!) {
     route_line_by_pk(line_id: $line_id) {

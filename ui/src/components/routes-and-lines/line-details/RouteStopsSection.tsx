@@ -111,6 +111,20 @@ export const RouteStopsSection = ({
     }
   };
 
+  const extractHastusCode = (index: number): string => {
+    const possibleHastusCode:
+      | { timing_place_id: string; label: string }
+      | undefined
+      | null =
+      route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns[
+        index
+      ].scheduled_stop_points[0].timing_place;
+    if (possibleHastusCode) {
+      return possibleHastusCode.label;
+    }
+    return '-';
+  };
+
   return (
     <tbody className={className}>
       <RouteRow
@@ -129,6 +143,7 @@ export const RouteStopsSection = ({
             key={`${item.label}_${index}`}
             stop={item}
             routeId={route.route_id}
+            hastusCode={extractHastusCode(index)}
             onAddToRoute={onAddToRoute}
             onRemoveFromRoute={onRemoveFromRoute}
           />

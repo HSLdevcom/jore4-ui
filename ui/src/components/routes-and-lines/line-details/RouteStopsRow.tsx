@@ -24,6 +24,7 @@ interface Props {
   className?: string;
   stop: RouteStopFieldsFragment;
   routeId: UUID;
+  hastusCode: string;
   onAddToRoute: (stopLabel: string) => void;
   onRemoveFromRoute: (stopLabel: string) => void;
 }
@@ -32,6 +33,7 @@ export const RouteStopsRow = ({
   className = '',
   stop,
   routeId,
+  hastusCode = '',
   onAddToRoute,
   onRemoveFromRoute,
 }: Props): JSX.Element => {
@@ -52,6 +54,7 @@ export const RouteStopsRow = ({
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
   const alertStyle = getAlertStyle(getAlertLevel(stop));
 
+  // TODO: Rework table into basic elements
   return (
     <tr
       className={`border border-l-8 ${
@@ -94,7 +97,11 @@ export const RouteStopsRow = ({
           <MdHistory className="ml-2 inline text-xl text-tweaked-brand" />
         </Row>
       </td>
-      <td>&nbsp;</td>
+      <td>
+        <Row>
+          <span className="mx-auto">{hastusCode}</span>
+        </Row>
+      </td>
       <td>
         <StopActionsDropdown
           routeId={routeId}
