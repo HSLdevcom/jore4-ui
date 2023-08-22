@@ -8,6 +8,7 @@ import { Path } from '../../../router/routeDetails';
 import { ConfirmationDialog } from '../../../uiComponents';
 import { CloseIconButton } from '../../../uiComponents/CloseIconButton';
 import { ObservationPeriodForm } from '../../forms/timetables/ObservationPeriodForm';
+import { CommonSubstitutePeriodSection } from './CommonSubstitutePeriod/CommonSubstitutePeriodSection';
 import { OccasionalSubstitutePeriodSection } from './OccasionalSubstitutePeriod';
 
 const testIds = {
@@ -18,13 +19,19 @@ export const SubstituteDaySettingsPage = (): JSX.Element => {
   const { t } = useTranslation();
 
   const {
-    settings: { isOccasionalSubstitutePeriodFormDirty },
+    settings: {
+      isOccasionalSubstitutePeriodFormDirty,
+      isCommonSubstitutePeriodFormDirty,
+    },
   } = useAppSelector(selectTimetable);
   const history = useHistory();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleClose = () => {
-    if (isOccasionalSubstitutePeriodFormDirty) {
+    if (
+      isOccasionalSubstitutePeriodFormDirty ||
+      isCommonSubstitutePeriodFormDirty
+    ) {
       setIsOpen(true);
     } else {
       history.push(Path.timetables);
@@ -51,8 +58,13 @@ export const SubstituteDaySettingsPage = (): JSX.Element => {
         <ObservationPeriodForm />
       </div>
       <div className="divide-y">
+        <CommonSubstitutePeriodSection />
+      </div>
+      <hr />
+      <div className="divide-y">
         <OccasionalSubstitutePeriodSection />
       </div>
+      <hr />
       <ConfirmationDialog
         isOpen={isOpen}
         onCancel={() => setIsOpen(false)}
