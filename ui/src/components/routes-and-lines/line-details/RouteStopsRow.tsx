@@ -51,7 +51,9 @@ export const RouteStopsRow = ({
 
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
   const alertStyle = getAlertStyle(getAlertLevel(stop));
+  const hastusCode = stop.timing_place?.label ? stop.timing_place?.label : '-';
 
+  // TODO: Rework table into basic elements
   return (
     <tr
       className={`border border-l-8 ${
@@ -94,7 +96,11 @@ export const RouteStopsRow = ({
           <MdHistory className="ml-2 inline text-xl text-tweaked-brand" />
         </Row>
       </td>
-      <td>&nbsp;</td>
+      <td>
+        <Row className="justify-center">
+          <span>{hastusCode}</span>
+        </Row>
+      </td>
       <td>
         <StopActionsDropdown
           routeId={routeId}

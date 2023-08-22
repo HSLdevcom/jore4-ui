@@ -12,6 +12,7 @@ import {
 } from '../../utils';
 import { useSearchQueryParser } from './useSearchQueryParser';
 
+// Good example of the calling query for component fragment
 const GQL_SEARCH_LINES_AND_ROUTES = gql`
   query SearchLinesAndRoutes(
     $lineFilter: route_line_bool_exp

@@ -96,10 +96,7 @@ export const RouteRow = ({
             endDate: mapToShortDate(route.validity_end || MAX_DATE),
           })}
           {alertStyle.icon ? (
-            <i
-              className={`${alertStyle.icon} ml-2 text-3xl`}
-              title="What is this alert? Doesn't seem to have logic?"
-            />
+            <i className={`${alertStyle.icon} ml-2 text-3xl`} />
           ) : (
             ''
           )}
