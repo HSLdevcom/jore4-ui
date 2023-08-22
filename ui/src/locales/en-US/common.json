@@ -191,6 +191,12 @@
     "confirmText": "Yes",
     "cancelText": "Return"
   },
+  "confirmResetCommonSubstitutePeriodDialog": {
+    "title": "The changes made will be deleted",
+    "description": "There are unsaved changes in the form. Are you sure you want to clear the form?",
+    "confirmText": "Yes",
+    "cancelText": "Return"
+  },
   "priority": {
     "label": "Priority",
     "standard": "Standard",
@@ -351,11 +357,16 @@
         "lineTypes": "Linetypes",
         "substituteDayOfWeek": "Substitute day"
       },
+      "commonDays": {
+        "substituteDayOfWeek": "Substitute day",
+        "lineTypes": "Linetypes"
+      },
       "addRow": "Add new substitute day",
       "filterLineType": "Show linetype",
       "beginDate": "Starts",
       "endDate": "Ends",
       "saveSuccess": "Save successful",
+      "commonSubstituteDays": "Common substitute days",
       "occasionalSubstituteDays": "Occasional substitute days",
       "deleteSuccess": "Delete successful",
       "deleteFailed": "Delete failed"

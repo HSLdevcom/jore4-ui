@@ -14,7 +14,7 @@ import {
   OccasionalSubstitutePeriodForm,
   findEarliestDate,
   findLatestDate,
-  mapSubstituteOperatingPeriodsToFormState,
+  mapSubstituteOperatingPeriodsToFormState as mapOccasionalSubstituteOperatingPeriodsToFormState,
 } from './OccasionalSubstitutePeriodForm';
 import { FormState } from './OccasionalSubstitutePeriodForm.types';
 
@@ -56,8 +56,8 @@ export const OccasionalSubstitutePeriodSection = (): JSX.Element => {
       <h2>{t('timetables.settings.occasionalSubstituteDays')}</h2>
       <OccasionalSubstitutePeriodForm
         onSubmit={onSubmit}
-        values={mapSubstituteOperatingPeriodsToFormState(
-          substituteOperatingPeriods,
+        values={mapOccasionalSubstituteOperatingPeriodsToFormState(
+          occasionalSubstituteOperatingPeriods,
         )}
       />
     </div>
