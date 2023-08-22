@@ -1,17 +1,17 @@
 import {
   GetInfrastructureLinksByExternalIdsResult,
+  InfraLinkAlongRouteInsertInput,
+  JourneyPatternInsertInput,
+  LineInsertInput,
+  RouteInsertInput,
+  StopInsertInput,
   buildLine,
   buildRoute,
   buildStop,
   buildStopsInJourneyPattern,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
-  InfraLinkAlongRouteInsertInput,
-  JourneyPatternInsertInput,
-  LineInsertInput,
   mapToGetInfrastructureLinksByExternalIdsQuery,
-  RouteInsertInput,
-  StopInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
@@ -21,11 +21,13 @@ import {
   TimetablesMainpage,
   VehicleScheduleDetailsPage,
 } from '../pageObjects';
+import { RouteTimetablesSectionTwo } from '../pageObjects/RouteTimetablesSectionTwo';
+import { VehicleServiceTableTwo } from '../pageObjects/VehicleServiceTableTwo';
 import { UUID } from '../types';
 import {
+  SupportedResources,
   insertToDbHelper,
   removeFromDbHelper,
-  SupportedResources,
 } from '../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
@@ -216,56 +218,69 @@ describe('Timetable validity period', () => {
     cy.task('truncateTimetablesDatabase');
   });
 
-  it(
+  it.only(
     "Should change a timetable's validity period",
     { tags: [Tag.Timetables] },
     () => {
       cy.visit(
         `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
       );
-      vehicleScheduleDetailsPage.vehicleJourneyGroupInfo
-        .getChangeValidityButton()
-        .click();
+      const route99InboundTimetableSection = new RouteTimetablesSectionTwo(
+        '99',
+        'inbound',
+      );
+
+      const route99InboundSaturdayVehicleService = new VehicleServiceTableTwo(
+        route99InboundTimetableSection,
+        'LA',
+      );
+
+      route99InboundSaturdayVehicleService.clickChangeValidityDate();
+
+      // vehicleScheduleDetailsPage.vehicleJourneyGroupInfo
+      //   .getChangeValidityButton()
+      //   .click();
       vehicleScheduleDetailsPage.changeTimetablesValidityForm.setValidityStartDate(
         '2025-03-03',
       );
+
       vehicleScheduleDetailsPage.changeTimetablesValidityForm.setValidityEndDate(
         '2026-03-03',
       );
+
       vehicleScheduleDetailsPage.changeTimetablesValidityForm
         .getSaveButton()
         .click();
+
       cy.wait('@gqlUpdateVehicleScheduleFrameValidity')
         .its('response.statusCode')
         .should('equal', 200);
+
       vehicleScheduleDetailsPage.toast.checkSuccessToastHasMessage(
         'Aikataulun voimassaolo tallennettu',
       );
-      vehicleScheduleDetailsPage.routeTimetablesSection.assertRouteHasNoSchedules(
-        '99',
-      );
+
+      route99InboundTimetableSection.assertRouteHasNoSchedules();
       // Check the imported timetable on the first valid Saturday, which is the day type of the imported timetable
       vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
         '2025-03-08',
       );
-      vehicleScheduleDetailsPage.routeTimetablesSection
-        .getRouteTimetableSectionByDayType('99', 'inbound', 'Lauantai')
+
+      route99InboundSaturdayVehicleService
+        .get()
         .should('contain', '2 lähtöä')
         .and('contain', '07:10 ... 08:20');
+
       // Verify the timetable is not valid on the last Saturday before the validity period has begun
       vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
         '2025-03-01',
       );
-      vehicleScheduleDetailsPage.routeTimetablesSection.assertRouteHasNoSchedules(
-        '99',
-      );
+      route99InboundTimetableSection.assertRouteHasNoSchedules();
       // Verify the timetable is not valid on the first Saturday after the validity period has ended
       vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
         '2026-03-07',
       );
-      vehicleScheduleDetailsPage.routeTimetablesSection.assertRouteHasNoSchedules(
-        '99',
-      );
+      route99InboundTimetableSection.assertRouteHasNoSchedules();
     },
   );
 

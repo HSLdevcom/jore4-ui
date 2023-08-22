@@ -35,8 +35,7 @@ const testIds = {
   accordionToggle: 'RouteTimetablesSection::AccordionToggle',
   timetableSection: (routeLabel: string, routeDirection: string) =>
     `RouteTimetablesSection::section::${routeLabel}::${routeDirection}`,
-  noSchedules: (routeLabel: string) =>
-    `RouteTimetablesSection::noSchedules::${routeLabel}`,
+  noSchedules: `RouteTimetablesSection::noSchedules`,
 };
 
 export const RouteTimetablesSection = ({
@@ -105,6 +104,15 @@ export const RouteTimetablesSection = ({
         <div className="mt-8">
           {activeView === TimetablesView.DEFAULT && (
             <div className="grid grid-cols-3 gap-x-8 gap-y-5">
+              <div data-testid="VehicleServiceTable::SU">
+                <button
+                  data-testid="VehicleJourneyGroupInfo::changeValidityButton"
+                  type="button"
+                  onClick={() => console.log('notthisseiether')}
+                >
+                  fizzbar
+                </button>
+              </div>
               {displayedVehicleJourneyGroups?.map((item) => (
                 <VehicleServiceTable
                   vehicleJourneyGroup={item}
@@ -125,9 +133,7 @@ export const RouteTimetablesSection = ({
             )}
         </div>
         <Visible visible={!timetables?.vehicleJourneyGroups.length}>
-          <p data-testid={testIds.noSchedules(route.label)}>
-            {t('timetables.noSchedules')}
-          </p>
+          <p data-testid={testIds.noSchedules}>{t('timetables.noSchedules')}</p>
         </Visible>
       </Visible>
     </div>
