@@ -6,13 +6,19 @@ const testIds = {
 };
 
 type Props = {
+  titleName: string;
   direction: RouteDirectionEnum;
   className?: string;
 };
 
-export const DirectionBadge = ({ direction, className = '' }: Props) => {
+export const DirectionBadge = ({
+  titleName,
+  direction,
+  className = '',
+}: Props) => {
   return (
     <span
+      title={titleName}
       className={`relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white ${className}`}
     >
       <span data-testid={testIds.value}>
