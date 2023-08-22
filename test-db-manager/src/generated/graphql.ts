@@ -11507,8 +11507,6 @@ export type TimetablesServiceCalendarSubstituteOperatingPeriodBoolExp = {
 
 /** unique or primary key constraints on table "service_calendar.substitute_operating_period" */
 export enum TimetablesServiceCalendarSubstituteOperatingPeriodConstraint {
-  /** unique or primary key constraint on columns "period_name" */
-  SubstituteOperatingPeriodPeriodNameKey = 'substitute_operating_period_period_name_key',
   /** unique or primary key constraint on columns "substitute_operating_period_id" */
   SubstituteOperatingPeriodPkey = 'substitute_operating_period_pkey',
 }
