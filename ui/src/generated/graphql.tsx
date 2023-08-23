@@ -50,6 +50,16 @@ export type BooleanComparisonExp = {
   _nin?: InputMaybe<Array<Scalars['Boolean']>>;
 };
 
+export type CombineTimetablesInput = {
+  stagingVehicleScheduleFrameIds: Array<InputMaybe<Scalars['uuid']>>;
+  targetPriority: Scalars['Int'];
+};
+
+export type CombineTimetablesOutput = {
+  __typename?: 'CombineTimetablesOutput';
+  combinedIntoVehicleScheduleFrameIds: Array<Maybe<Scalars['uuid']>>;
+};
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type IntComparisonExp = {
   _eq?: InputMaybe<Scalars['Int']>;
@@ -61,6 +71,16 @@ export type IntComparisonExp = {
   _lte?: InputMaybe<Scalars['Int']>;
   _neq?: InputMaybe<Scalars['Int']>;
   _nin?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type ReplaceTimetablesInput = {
+  stagingVehicleScheduleFrameIds: Array<InputMaybe<Scalars['uuid']>>;
+  targetPriority: Scalars['Int'];
+};
+
+export type ReplaceTimetablesOutput = {
+  __typename?: 'ReplaceTimetablesOutput';
+  replacedVehicleScheduleFrameIds: Array<Maybe<Scalars['uuid']>>;
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -2764,6 +2784,7 @@ export type JsonbComparisonExp = {
 /** mutation root */
 export type MutationRoot = {
   __typename?: 'mutation_root';
+  combineTimetables?: Maybe<CombineTimetablesOutput>;
   /** delete data from the table: "hsl_route.legacy_hsl_municipality_code" */
   delete_hsl_route_legacy_hsl_municipality_code?: Maybe<HslRouteLegacyHslMunicipalityCodeMutationResponse>;
   /** delete single row from the table: "hsl_route.legacy_hsl_municipality_code" */
@@ -2916,6 +2937,7 @@ export type MutationRoot = {
   insert_timing_pattern_timing_place?: Maybe<TimingPatternTimingPlaceMutationResponse>;
   /** insert a single row into the table: "timing_pattern.timing_place" */
   insert_timing_pattern_timing_place_one?: Maybe<TimingPatternTimingPlace>;
+  replaceTimetables?: Maybe<ReplaceTimetablesOutput>;
   timetables?: Maybe<TimetablesTimetablesMutationFrontend>;
   /** update data of the table: "hsl_route.legacy_hsl_municipality_code" */
   update_hsl_route_legacy_hsl_municipality_code?: Maybe<HslRouteLegacyHslMunicipalityCodeMutationResponse>;
@@ -3069,6 +3091,11 @@ export type MutationRoot = {
   update_timing_pattern_timing_place_many?: Maybe<
     Array<Maybe<TimingPatternTimingPlaceMutationResponse>>
   >;
+};
+
+/** mutation root */
+export type MutationRootCombineTimetablesArgs = {
+  arg1: CombineTimetablesInput;
 };
 
 /** mutation root */
@@ -3511,6 +3538,11 @@ export type MutationRootInsertTimingPatternTimingPlaceArgs = {
 export type MutationRootInsertTimingPatternTimingPlaceOneArgs = {
   object: TimingPatternTimingPlaceInsertInput;
   on_conflict?: InputMaybe<TimingPatternTimingPlaceOnConflict>;
+};
+
+/** mutation root */
+export type MutationRootReplaceTimetablesArgs = {
+  arg1: ReplaceTimetablesInput;
 };
 
 /** mutation root */
@@ -20764,6 +20796,36 @@ export type ChangeStagingVehicleScheduleFramePriorityMutation = {
   } | null;
 };
 
+export type CombineTimetablesMutationVariables = Exact<{
+  stagingVehicleScheduleFrameIds:
+    | Array<InputMaybe<Scalars['uuid']>>
+    | InputMaybe<Scalars['uuid']>;
+  targetPriority: Scalars['Int'];
+}>;
+
+export type CombineTimetablesMutation = {
+  __typename?: 'mutation_root';
+  combineTimetables?: {
+    __typename?: 'CombineTimetablesOutput';
+    combinedIntoVehicleScheduleFrameIds: Array<UUID | null>;
+  } | null;
+};
+
+export type ReplaceTimetablesMutationVariables = Exact<{
+  stagingVehicleScheduleFrameIds:
+    | Array<InputMaybe<Scalars['uuid']>>
+    | InputMaybe<Scalars['uuid']>;
+  targetPriority: Scalars['Int'];
+}>;
+
+export type ReplaceTimetablesMutation = {
+  __typename?: 'mutation_root';
+  replaceTimetables?: {
+    __typename?: 'ReplaceTimetablesOutput';
+    replacedVehicleScheduleFrameIds: Array<UUID | null>;
+  } | null;
+};
+
 export type NewTimingPlaceFragment = {
   __typename?: 'timing_pattern_timing_place';
   label: string;
@@ -25518,6 +25580,124 @@ export type ChangeStagingVehicleScheduleFramePriorityMutationOptions =
     ChangeStagingVehicleScheduleFramePriorityMutation,
     ChangeStagingVehicleScheduleFramePriorityMutationVariables
   >;
+export const CombineTimetablesDocument = gql`
+  mutation CombineTimetables(
+    $stagingVehicleScheduleFrameIds: [uuid]!
+    $targetPriority: Int!
+  ) {
+    combineTimetables(
+      arg1: {
+        stagingVehicleScheduleFrameIds: $stagingVehicleScheduleFrameIds
+        targetPriority: $targetPriority
+      }
+    ) {
+      combinedIntoVehicleScheduleFrameIds
+    }
+  }
+`;
+export type CombineTimetablesMutationFn = Apollo.MutationFunction<
+  CombineTimetablesMutation,
+  CombineTimetablesMutationVariables
+>;
+
+/**
+ * __useCombineTimetablesMutation__
+ *
+ * To run a mutation, you first call `useCombineTimetablesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCombineTimetablesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [combineTimetablesMutation, { data, loading, error }] = useCombineTimetablesMutation({
+ *   variables: {
+ *      stagingVehicleScheduleFrameIds: // value for 'stagingVehicleScheduleFrameIds'
+ *      targetPriority: // value for 'targetPriority'
+ *   },
+ * });
+ */
+export function useCombineTimetablesMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CombineTimetablesMutation,
+    CombineTimetablesMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CombineTimetablesMutation,
+    CombineTimetablesMutationVariables
+  >(CombineTimetablesDocument, options);
+}
+export type CombineTimetablesMutationHookResult = ReturnType<
+  typeof useCombineTimetablesMutation
+>;
+export type CombineTimetablesMutationResult =
+  Apollo.MutationResult<CombineTimetablesMutation>;
+export type CombineTimetablesMutationOptions = Apollo.BaseMutationOptions<
+  CombineTimetablesMutation,
+  CombineTimetablesMutationVariables
+>;
+export const ReplaceTimetablesDocument = gql`
+  mutation ReplaceTimetables(
+    $stagingVehicleScheduleFrameIds: [uuid]!
+    $targetPriority: Int!
+  ) {
+    replaceTimetables(
+      arg1: {
+        stagingVehicleScheduleFrameIds: $stagingVehicleScheduleFrameIds
+        targetPriority: $targetPriority
+      }
+    ) {
+      replacedVehicleScheduleFrameIds
+    }
+  }
+`;
+export type ReplaceTimetablesMutationFn = Apollo.MutationFunction<
+  ReplaceTimetablesMutation,
+  ReplaceTimetablesMutationVariables
+>;
+
+/**
+ * __useReplaceTimetablesMutation__
+ *
+ * To run a mutation, you first call `useReplaceTimetablesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReplaceTimetablesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [replaceTimetablesMutation, { data, loading, error }] = useReplaceTimetablesMutation({
+ *   variables: {
+ *      stagingVehicleScheduleFrameIds: // value for 'stagingVehicleScheduleFrameIds'
+ *      targetPriority: // value for 'targetPriority'
+ *   },
+ * });
+ */
+export function useReplaceTimetablesMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ReplaceTimetablesMutation,
+    ReplaceTimetablesMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    ReplaceTimetablesMutation,
+    ReplaceTimetablesMutationVariables
+  >(ReplaceTimetablesDocument, options);
+}
+export type ReplaceTimetablesMutationHookResult = ReturnType<
+  typeof useReplaceTimetablesMutation
+>;
+export type ReplaceTimetablesMutationResult =
+  Apollo.MutationResult<ReplaceTimetablesMutation>;
+export type ReplaceTimetablesMutationOptions = Apollo.BaseMutationOptions<
+  ReplaceTimetablesMutation,
+  ReplaceTimetablesMutationVariables
+>;
 export const InsertTimingPlaceDocument = gql`
   mutation InsertTimingPlace(
     $object: timing_pattern_timing_place_insert_input!
