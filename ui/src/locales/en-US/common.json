@@ -265,7 +265,9 @@
     "tooSmall": "Value is too small",
     "tooBig": "Value is too big",
     "timeRange": "Start date has to be before end date.",
-    "invalidTime": "04:30-28:30"
+    "invalidTime": "04:30-28:30",
+    "substituteDayOfWeek": "Select day",
+    "lineTypes": "Select type"
   },
   "errors": {
     "saveFailed": "Something went wrong",
