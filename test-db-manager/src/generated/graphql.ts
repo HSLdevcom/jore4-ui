@@ -46,6 +46,16 @@ export type BooleanComparisonExp = {
   _nin?: InputMaybe<Array<Scalars['Boolean']>>;
 };
 
+export type CombineTimetablesInput = {
+  stagingVehicleScheduleFrameIds: Array<InputMaybe<Scalars['uuid']>>;
+  targetPriority: Scalars['Int'];
+};
+
+export type CombineTimetablesOutput = {
+  __typename?: 'CombineTimetablesOutput';
+  combinedIntoVehicleScheduleFrameIds: Array<Maybe<Scalars['uuid']>>;
+};
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type IntComparisonExp = {
   _eq?: InputMaybe<Scalars['Int']>;
@@ -57,6 +67,16 @@ export type IntComparisonExp = {
   _lte?: InputMaybe<Scalars['Int']>;
   _neq?: InputMaybe<Scalars['Int']>;
   _nin?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type ReplaceTimetablesInput = {
+  stagingVehicleScheduleFrameIds: Array<InputMaybe<Scalars['uuid']>>;
+  targetPriority: Scalars['Int'];
+};
+
+export type ReplaceTimetablesOutput = {
+  __typename?: 'ReplaceTimetablesOutput';
+  replacedVehicleScheduleFrameIds: Array<Maybe<Scalars['uuid']>>;
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -2760,6 +2780,7 @@ export type JsonbComparisonExp = {
 /** mutation root */
 export type MutationRoot = {
   __typename?: 'mutation_root';
+  combineTimetables?: Maybe<CombineTimetablesOutput>;
   /** delete data from the table: "hsl_route.legacy_hsl_municipality_code" */
   delete_hsl_route_legacy_hsl_municipality_code?: Maybe<HslRouteLegacyHslMunicipalityCodeMutationResponse>;
   /** delete single row from the table: "hsl_route.legacy_hsl_municipality_code" */
@@ -2912,6 +2933,7 @@ export type MutationRoot = {
   insert_timing_pattern_timing_place?: Maybe<TimingPatternTimingPlaceMutationResponse>;
   /** insert a single row into the table: "timing_pattern.timing_place" */
   insert_timing_pattern_timing_place_one?: Maybe<TimingPatternTimingPlace>;
+  replaceTimetables?: Maybe<ReplaceTimetablesOutput>;
   timetables?: Maybe<TimetablesTimetablesMutationFrontend>;
   /** update data of the table: "hsl_route.legacy_hsl_municipality_code" */
   update_hsl_route_legacy_hsl_municipality_code?: Maybe<HslRouteLegacyHslMunicipalityCodeMutationResponse>;
@@ -3065,6 +3087,11 @@ export type MutationRoot = {
   update_timing_pattern_timing_place_many?: Maybe<
     Array<Maybe<TimingPatternTimingPlaceMutationResponse>>
   >;
+};
+
+/** mutation root */
+export type MutationRootCombineTimetablesArgs = {
+  arg1: CombineTimetablesInput;
 };
 
 /** mutation root */
@@ -3507,6 +3534,11 @@ export type MutationRootInsertTimingPatternTimingPlaceArgs = {
 export type MutationRootInsertTimingPatternTimingPlaceOneArgs = {
   object: TimingPatternTimingPlaceInsertInput;
   on_conflict?: InputMaybe<TimingPatternTimingPlaceOnConflict>;
+};
+
+/** mutation root */
+export type MutationRootReplaceTimetablesArgs = {
+  arg1: ReplaceTimetablesInput;
 };
 
 /** mutation root */
