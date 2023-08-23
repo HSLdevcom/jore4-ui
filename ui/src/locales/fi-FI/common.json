@@ -265,7 +265,9 @@
     "tooSmall": "Arvo on liian pieni",
     "tooBig": "Arvo on liian suuri",
     "timeRange": "Alkupäivämäärän pitää tulla ennen loppupäivämäärää.",
-    "invalidTime": "04:30-28:30"
+    "invalidTime": "04:30-28:30",
+    "substituteDayOfWeek": "Valitse päivä",
+    "lineTypes": "Valitse tyyppi"
   },
   "errors": {
     "saveFailed": "Tallennus epäonnistui",

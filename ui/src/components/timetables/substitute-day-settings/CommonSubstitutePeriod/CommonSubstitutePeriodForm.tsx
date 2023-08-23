@@ -6,15 +6,11 @@ import { useEffect, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { commonSubstituteDayData } from '../../../../data/common_substitute_days';
-import {
-  RouteTypeOfLineEnum,
-  TimetablesServiceCalendarSubstituteOperatingPeriod,
-} from '../../../../generated/graphql';
+import { TimetablesServiceCalendarSubstituteOperatingPeriod } from '../../../../generated/graphql';
 import { useAppDispatch } from '../../../../hooks';
 import { Row } from '../../../../layoutComponents';
 import { setIsCommonSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
 import { mapToISODate, padToTwoDigits } from '../../../../time';
-import { SubstituteDayOfWeek } from '../../../../types/enums';
 import { ConfirmationDialog, SimpleButton } from '../../../../uiComponents';
 import {
   mapDateTimeToFormState,
@@ -96,8 +92,8 @@ export const mapSubstituteOperatingPeriodsToFormState = (
     commonDays.push({
       periodName: t.name,
       supersededDate: mapDateTimeToFormState(t.date),
-      lineTypes: RouteTypeOfLineEnum.CityTramService.toString(),
-      substituteDayOfWeek: SubstituteDayOfWeek.Friday,
+      lineTypes: '',
+      substituteDayOfWeek: '',
       fromDatabase: false,
       created: false,
       isPreset: true,
@@ -124,6 +120,7 @@ export const CommonSubstitutePeriodForm = ({
     resolver: zodResolver(schema),
   });
   const {
+    clearErrors,
     control,
     formState: { isDirty },
     handleSubmit,
