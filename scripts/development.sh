@@ -45,7 +45,7 @@ function download_digitransit_key {
   az login
 
   echo "Downloading secret value to ui/.env.local"
-  { echo -n "NEXT_PUBLIC_DIGITRANSIT_API_KEY=" && az keyvault secret show --name "jore4-digitransit-api-key" --vault-name "hsl-jore4-vault" --query "value"; } > ui/.env.local
+  { echo -n "NEXT_PUBLIC_DIGITRANSIT_API_KEY=" && az keyvault secret show --name "hsl-jore4-digitransit-api-key" --vault-name "hsl-jore4-dev-vault" --query "value"; } > ui/.env.local
 }
 
 function usage {
