@@ -47,6 +47,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
 
   const onSubmit = async (state: FormState) => {
     await onConfirmTimetablesImport(
+      vehicleScheduleFrames.map((vsf) => vsf.vehicle_schedule_frame_id),
       state.priority,
       state.timetableImportStrategy,
     );

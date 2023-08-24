@@ -1,6 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfirmTimetablesImportUIAction } from '../../../hooks';
+import {
+  useConfirmTimetablesImportUIAction,
+  useTimetablesImport,
+} from '../../../hooks';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import {
   ConfirmTimetablesImportForm,
@@ -24,9 +27,11 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { onConfirmTimetablesImport } = useConfirmTimetablesImportUIAction();
+  const { vehicleScheduleFrames } = useTimetablesImport();
 
   const onSave = async (state: FormState) => {
     await onConfirmTimetablesImport(
+      vehicleScheduleFrames.map((vsf) => vsf.vehicle_schedule_frame_id),
       state.priority,
       state.timetableImportStrategy,
     );

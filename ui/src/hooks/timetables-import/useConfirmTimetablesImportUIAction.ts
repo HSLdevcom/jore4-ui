@@ -15,6 +15,7 @@ export const useConfirmTimetablesImportUIAction = () => {
   const { setIsLoading } = useLoader(Operation.ConfirmTimetablesImport);
 
   const onConfirmTimetablesImport = async (
+    stagingVehicleScheduleFrameIds: UUID[],
     priority: Priority,
     importStrategy: TimetableImportStrategy,
   ) => {
@@ -23,10 +24,12 @@ export const useConfirmTimetablesImportUIAction = () => {
     try {
       if (importStrategy === 'combine') {
         await confirmTimetablesImportByCombining(
+          stagingVehicleScheduleFrameIds,
           priority as unknown as TimetablePriority,
         );
       } else if (importStrategy === 'replace') {
         await confirmTimetablesImportByReplacing(
+          stagingVehicleScheduleFrameIds,
           priority as unknown as TimetablePriority,
         );
       }

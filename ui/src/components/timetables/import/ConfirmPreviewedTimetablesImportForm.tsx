@@ -3,13 +3,10 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Column, Row } from '../../../layoutComponents';
-import {
-  PriorityForm,
-  priorityFormSchema
-} from '../../forms/common';
+import { PriorityForm, priorityFormSchema } from '../../forms/common';
 import {
   TimetableImportStrategyForm,
-  timetableImportStrategyFormSchema
+  timetableImportStrategyFormSchema,
 } from './TimetableImportStrategyForm';
 
 const schema = priorityFormSchema.merge(timetableImportStrategyFormSchema);

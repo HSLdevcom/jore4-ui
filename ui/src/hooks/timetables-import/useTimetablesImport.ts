@@ -2,8 +2,9 @@ import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { sendFileToHastusImporter } from '../../api/hastus';
 import {
-  useChangeStagingVehicleScheduleFramePriorityMutation,
+  useCombineTimetablesMutation,
   useGetStagingVehicleScheduleFramesQuery,
+  useReplaceTimetablesMutation,
 } from '../../generated/graphql';
 import { TimetablePriority } from '../../types/enums';
 import {
@@ -104,28 +105,69 @@ const GQL_CHANGE_STAGING_VEHICLE_SCHEDULE_FRAME_PRIORITY = gql`
   }
 `;
 
+const GQL_COMBINE_TIMETABLES = gql`
+  mutation CombineTimetables(
+    $stagingVehicleScheduleFrameIds: [uuid]!
+    $targetPriority: Int!
+  ) {
+    combineTimetables(
+      arg1: {
+        stagingVehicleScheduleFrameIds: $stagingVehicleScheduleFrameIds
+        targetPriority: $targetPriority
+      }
+    ) {
+      combinedIntoVehicleScheduleFrameIds
+    }
+  }
+`;
+
+const GQL_REPLACE_TIMETABLES = gql`
+  mutation ReplaceTimetables(
+    $stagingVehicleScheduleFrameIds: [uuid]!
+    $targetPriority: Int!
+  ) {
+    replaceTimetables(
+      arg1: {
+        stagingVehicleScheduleFrameIds: $stagingVehicleScheduleFrameIds
+        targetPriority: $targetPriority
+      }
+    ) {
+      replacedVehicleScheduleFrameIds
+    }
+  }
+`;
+
 export const useTimetablesImport = () => {
   const { t } = useTranslation();
-  const [changeTimetablesPriority] =
-    useChangeStagingVehicleScheduleFramePriorityMutation();
+  const [combineTimetables] = useCombineTimetablesMutation();
+  const [replaceTimetables] = useReplaceTimetablesMutation();
 
   const importedVehicleScheduleFramesResult =
     useGetStagingVehicleScheduleFramesQuery();
 
   const confirmTimetablesImportByCombining = async (
+    stagingVehicleScheduleFrameIdsToCombine: UUID[],
     priority: TimetablePriority,
   ) => {
-    // TODO
-    console.log('Timetables import confirmed: combining.');
-    await changeTimetablesPriority(mapToVariables({ newPriority: priority }));
+    await combineTimetables(
+      mapToVariables({
+        stagingVehicleScheduleFrameIds: stagingVehicleScheduleFrameIdsToCombine,
+        targetPriority: priority,
+      }),
+    );
   };
 
   const confirmTimetablesImportByReplacing = async (
+    stagingVehicleScheduleFrameIdsForReplace: UUID[],
     priority: TimetablePriority,
   ) => {
-    // TODO
-    console.log('Timetables import confirmed: replacing.');
-    await changeTimetablesPriority(mapToVariables({ newPriority: priority }));
+    await replaceTimetables(
+      mapToVariables({
+        stagingVehicleScheduleFrameIds:
+          stagingVehicleScheduleFrameIdsForReplace,
+        targetPriority: priority,
+      }),
+    );
   };
 
   const vehicleScheduleFrames =
