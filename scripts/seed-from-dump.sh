@@ -2,4 +2,4 @@
 
 cd $(dirname "$0")/..
 
-psql postgresql://dbadmin:adminpassword@localhost:6432/jore4e2e < dump.sql
+docker exec -i testdb sh -c 'psql postgresql://dbadmin:adminpassword@localhost:5432/jore4e2e < dump.sql'

@@ -32,10 +32,10 @@ function import_dump {
       exit 1
   fi
 
-  pg_restore --format=c --disable-triggers --no-owner --role=dbhasura -f dump.sql $DUMP_LOCAL_FILENAME
+  docker exec -i testdb pg_restore --format=c --disable-triggers --no-owner --role=dbhasura -f dump.sql < $DUMP_LOCAL_FILENAME
 
   # Add a row to sql dump disabling triggers
-  echo -e "SET session_replication_role = replica;\n$(cat dump.sql)" > dump.sql
+  docker exec -i testdb sed -i '1s;^;SET session_replication_role = replica\;\n;' dump.sql
 
   ./scripts/seed-from-dump.sh
 }
