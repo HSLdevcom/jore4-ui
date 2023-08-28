@@ -103,7 +103,6 @@ Edit `start-dependencies.sh` script if you want to start only certain subset of 
 For overriding settings defined in base docker-compose file just edit
 `docker/docker-compose.custom.yml` and run `./scripts/start-dependencies.sh` again.
 If you wish to persist the data in the database, start dependencies with `./scripts/start-dependencies.sh --volume`
-If you wish to start the environment in e2e test mode (i.e. without seed data), start dependencies with `./scripts/start-dependencies.sh --e2e`
 Docker containers can be stopped gracefully by running `./stop-dependencies.sh`
 If docker setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
 You can also start the dependencies and run all seeds by running `./scripts/setup-dependencies-and-seed.sh`. This will also download a dump from Azure and you will need to log in when prompted.
