@@ -4,6 +4,15 @@
 
 set -euo pipefail
 
+INCLUDE_E2E=true
+USE_VOLUME=false
+if [ "${1:-x}" == "--skip-e2e" ]; then
+  INCLUDE_E2E=false
+fi
+if [ "${1:-x}" == "--volume" ]; then
+  USE_VOLUME=true
+fi
+
 cd $(dirname "$0")/..
 
 if ! command -v gh; then
@@ -46,8 +55,7 @@ function check_pinned_hasura {
 }
 
 function start_docker_bundle {
-  if [[ "${1:-x}" == "--volume" ]]
-  then
+  if [ "$USE_VOLUME" = true ]; then
     # start the testdb with mounted volume
     DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.testdb-volume.yml -f ./docker/docker-compose.custom.yml"
     echo $DOCKER_COMPOSE_CMD
@@ -57,14 +65,20 @@ function start_docker_bundle {
   fi
 
   # start up only services that are needed in local ui development
-  $DOCKER_COMPOSE_CMD up -d jore4-auth jore4-testdb jore4-testdb-e2e1 jore4-testdb-e2e2 jore4-testdb-e2e3 jore4-hasura jore4-hasura-e2e1 jore4-hasura-e2e2 jore4-hasura-e2e3 jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching jore4-hastus
+  e2eServices=""
+  if [ "$INCLUDE_E2E" = true ]; then
+    e2eServices="jore4-testdb-e2e1 jore4-testdb-e2e2 jore4-testdb-e2e3 jore4-hasura-e2e1 jore4-hasura-e2e2 jore4-hasura-e2e3"
+  fi
+  $DOCKER_COMPOSE_CMD up -d jore4-auth jore4-testdb jore4-hasura ${e2eServices} jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching jore4-hastus
 }
 
 download_docker_bundle
 check_pinned_hasura
 start_docker_bundle "${1:-x}"
 ./scripts/seed-infrastructure-links.sh testdb &
-./scripts/seed-infrastructure-links.sh testdb-e2e1 &
-./scripts/seed-infrastructure-links.sh testdb-e2e2 &
-./scripts/seed-infrastructure-links.sh testdb-e2e3 &
+if [ "$INCLUDE_E2E" = true ]; then
+  ./scripts/seed-infrastructure-links.sh testdb-e2e1 &
+  ./scripts/seed-infrastructure-links.sh testdb-e2e2 &
+  ./scripts/seed-infrastructure-links.sh testdb-e2e3 &
+fi
 wait

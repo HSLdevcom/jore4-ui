@@ -104,12 +104,15 @@ For overriding settings defined in base docker-compose file just edit
 `docker/docker-compose.custom.yml` and run `./scripts/start-dependencies.sh` again.
 
 If you wish to persist the data in the database, start dependencies with `./scripts/start-dependencies.sh --volume`
+By default the script starts e2e dependencies as well. If you don't need this. you can start the dependencies with `./scripts/start-dependencies.sh --skip-e2e`
+Do note that `--volume` and `--skip-e2e` flags are not compatible with each other.
 
 Docker containers can be stopped gracefully by running `./stop-dependencies.sh`
 If docker setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
 
 You can also start the dependencies and run all seeds by running `./scripts/setup-dependencies-and-seed.sh`.
 This will also download a dump from Azure and you will need to log in when prompted.
+Internally the script calls `start-dependencies.sh` and forwards any arguments (eg. `--volume` or `--skip-e2e`) to it.
 
 ## Loading dump into development database
 

@@ -10,7 +10,7 @@ then
 fi
 
 # Start dependencies
-./scripts/start-dependencies.sh
+./scripts/start-dependencies.sh "$@"
 
 # Fetch Digitransit API key if local environment variable file does not exist
 if [ ! -e ui/.env.local ]
