@@ -102,10 +102,14 @@ Script uses Jore4 project's shared docker-compose file defined in [`jore4-tools`
 Edit `start-dependencies.sh` script if you want to start only certain subset of our microservices.
 For overriding settings defined in base docker-compose file just edit
 `docker/docker-compose.custom.yml` and run `./scripts/start-dependencies.sh` again.
+
 If you wish to persist the data in the database, start dependencies with `./scripts/start-dependencies.sh --volume`
+
 Docker containers can be stopped gracefully by running `./stop-dependencies.sh`
 If docker setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
-You can also start the dependencies and run all seeds by running `./scripts/setup-dependencies-and-seed.sh`. This will also download a dump from Azure and you will need to log in when prompted.
+
+You can also start the dependencies and run all seeds by running `./scripts/setup-dependencies-and-seed.sh`.
+This will also download a dump from Azure and you will need to log in when prompted.
 
 ## Loading dump into development database
 
