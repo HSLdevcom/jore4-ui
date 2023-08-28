@@ -1,3 +1,8 @@
+import { defaultTimetablesDataset } from '@hsl/jore4-hasura-tests/hsl/timetablesdb/datasets/defaultSetup/default-timetables-dataset';
+import {
+  HslTimetablesDatasetOutput,
+  buildHslTimetablesDataset,
+} from '@hsl/jore4-hasura-tests/timetables-data-inserter';
 import reverse from 'lodash/reverse';
 import { DateTime, Duration } from 'luxon';
 import { buildLabelArray } from './builders/common';
@@ -25,7 +30,14 @@ const seedTimetables = async (resources: TimetablesResources) => {
   await populateTimetablesDb(resources);
 };
 
+const test = () => {
+    const builtDataset: HslTimetablesDatasetOutput = buildHslTimetablesDataset(defaultTimetablesDataset);
+    console.log('builtdataset: ', builtDataset);
+}
+
 const seedDb = async () => {
+  test();
+  if (defaultTimetablesDataset) { return; }
   const stopLabels = buildLabelArray('H22', 10);
   const hastusStopLabels = [stopLabels[0], stopLabels[4], stopLabels[9]];
   const vehicleTypesResult = await getVehicleTypes();

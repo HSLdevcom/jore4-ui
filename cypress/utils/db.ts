@@ -1,3 +1,9 @@
+// import { defaultTimetablesDataset } from '@hsl/jore4-hasura-tests/hsl/timetablesdb/datasets/defaultSetup/default-timetables-dataset';
+// import {
+//   buildHslTimetablesDataset,
+//   HslTimetablesDatasetOutput,
+// } from '@hsl/jore4-hasura-tests/timetables-data-inserter';
+import { promiseSequence } from '@hsl/jore4-hasura-tests/util/promise';
 import {
   InfraLinkAlongRouteInsertInput,
   JourneyPatternInsertInput,
@@ -21,6 +27,20 @@ import {
   StopInsertInput,
   TimingPatternTimingPlaceInsertInput,
 } from '@hsl/jore4-test-db-manager';
+
+const test1 = () => {
+  console.log('at test: ', promiseSequence)
+};
+test1();
+
+// const test12 = () => {
+//   console.log('test dataset building');
+//   const builtDataset: HslTimetablesDatasetOutput = buildHslTimetablesDataset(
+//     defaultTimetablesDataset,
+//   );
+//   console.log('builtdataset: ', builtDataset);
+// };
+// test2();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const responseLogger = (message: string, res: any) => {
