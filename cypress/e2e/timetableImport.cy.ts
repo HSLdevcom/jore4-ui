@@ -12,16 +12,17 @@ import {
   mapToGetInfrastructureLinksByExternalIdsQuery,
   RouteInsertInput,
   StopInsertInput,
+  TimetablePriority,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
 import {
   ImportTimetablesPage,
   Navbar,
+  PassingTimesByStopSection,
   PreviewTimetablesPage,
   RouteTimetablesSection,
   TimetablesMainpage,
-  VehicleScheduleDetailsPage,
   VehicleServiceTable,
 } from '../pageObjects';
 import { UUID } from '../types';
@@ -153,7 +154,6 @@ describe('Timetable import and export', () => {
   let timetablesMainPage: TimetablesMainpage;
   let importTimetablesPage: ImportTimetablesPage;
   let previewTimetablesPage: PreviewTimetablesPage;
-  let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
   let navbar: Navbar;
 
   const baseDbResources = {
@@ -191,7 +191,6 @@ describe('Timetable import and export', () => {
     timetablesMainPage = new TimetablesMainpage();
     importTimetablesPage = new ImportTimetablesPage();
     previewTimetablesPage = new PreviewTimetablesPage();
-    vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
     navbar = new Navbar();
 
     cy.setupTests();
@@ -218,6 +217,13 @@ describe('Timetable import and export', () => {
         route99InboundTimetableSection,
         'LA',
       );
+
+      const route99InboundSaturdayPassingTimesSection =
+        new PassingTimesByStopSection(
+          route99InboundTimetableSection,
+          'LA',
+          TimetablePriority.Standard,
+        );
 
       const IMPORT_FILENAME = 'hastusImport.exp';
       timetablesMainPage.getImportButton().click();
@@ -248,33 +254,27 @@ describe('Timetable import and export', () => {
         `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
       );
       route99InboundSaturdayVehicleService.getHeadingButton().click();
-      vehicleScheduleDetailsPage.dayTypeDropDown
+      route99InboundSaturdayPassingTimesSection
         .getDayTypeDropdownButton()
         .should('contain', 'Lauantai');
-      vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
-        {
-          stopLabel: stopLabels[0],
-          nthPassingTime: 0,
-          hour: '7',
-          departureTime: '10',
-        },
-      );
-      vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
-        {
-          stopLabel: stopLabels[1],
-          nthPassingTime: 0,
-          hour: '7',
-          departureTime: '13',
-        },
-      );
-      vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
-        {
-          stopLabel: stopLabels[2],
-          nthPassingTime: 0,
-          hour: '7',
-          departureTime: '16',
-        },
-      );
+      route99InboundSaturdayPassingTimesSection.assertNthPassingTimeOnStop({
+        stopLabel: stopLabels[0],
+        nthPassingTime: 0,
+        hour: '7',
+        departureTime: '10',
+      });
+      route99InboundSaturdayPassingTimesSection.assertNthPassingTimeOnStop({
+        stopLabel: stopLabels[1],
+        nthPassingTime: 0,
+        hour: '7',
+        departureTime: '13',
+      });
+      route99InboundSaturdayPassingTimesSection.assertNthPassingTimeOnStop({
+        stopLabel: stopLabels[2],
+        nthPassingTime: 0,
+        hour: '7',
+        departureTime: '16',
+      });
     },
   );
 });
