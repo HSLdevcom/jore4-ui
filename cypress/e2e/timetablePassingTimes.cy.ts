@@ -12,12 +12,14 @@ import {
   mapToGetInfrastructureLinksByExternalIdsQuery,
   RouteInsertInput,
   StopInsertInput,
+  TimetablePriority,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
 import {
   ImportTimetablesPage,
   Navbar,
+  PassingTimesByStopSection,
   PreviewTimetablesPage,
   RouteTimetablesSection,
   TimetablesMainpage,
@@ -198,6 +200,19 @@ describe('Timetable import and export', () => {
     cy.mockLogin();
     cy.visit('/');
     navbar.getTimetablesLink().click();
+
+    // TODO: Change timetable importing to proper test data generation when it is available
+    const IMPORT_FILENAME = 'hastusImport.exp';
+    timetablesMainPage.getImportButton().click();
+    importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+    importTimetablesPage.getUploadButton().click();
+    cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
+    importTimetablesPage.clickPreviewButton();
+    previewTimetablesPage.priorityForm.setAsStandard();
+    previewTimetablesPage.blockVehicleJourneysTable
+      .getToggleShowTableButton()
+      .click();
+    previewTimetablesPage.getSaveButton().click();
   });
 
   afterEach(() => {
@@ -218,41 +233,35 @@ describe('Timetable import and export', () => {
         route99InboundTimetableSection,
         'LA',
       );
-      // TODO: Change timetable importing to proper test data generation when it is available
-      const IMPORT_FILENAME = 'hastusImport.exp';
-      timetablesMainPage.getImportButton().click();
-      importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
-      importTimetablesPage.getUploadButton().click();
-      cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
-      importTimetablesPage.clickPreviewButton();
-      previewTimetablesPage.priorityForm.setAsStandard();
-      previewTimetablesPage.blockVehicleJourneysTable
-        .getToggleShowTableButton()
-        .click();
-      previewTimetablesPage.getSaveButton().click();
+
+      const route99InboundSaturdayPassingTimesSection =
+        new PassingTimesByStopSection(
+          route99InboundTimetableSection,
+          'LA',
+          TimetablePriority.Standard,
+        );
+
       // Check the imported timetable on a Saturday, which is the day type of the imported timetable
       cy.visit(
         `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
       );
       route99InboundSaturdayVehicleService.getHeadingButton().click();
       vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
-      vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeOnStop(
-        {
-          stopLabel: stopLabels[1],
-          nthPassingTime: 0,
-          hour: '7',
-          arrivalTime: '12',
-          departureTime: '13',
-        },
-      );
-      vehicleScheduleDetailsPage.passingTimesByStopTable.clickToHighlightNthPassingTimeOnStopRow(
+      route99InboundSaturdayPassingTimesSection.assertNthPassingTimeOnStop({
+        stopLabel: stopLabels[1],
+        nthPassingTime: 0,
+        hour: '7',
+        arrivalTime: '12',
+        departureTime: '13',
+      });
+      route99InboundSaturdayPassingTimesSection.clickToHighlightNthPassingTimeOnStopRow(
         stopLabels[0],
         1,
       );
 
       // Assert that departures in the second column are highlighted
       cy.wrap(stopLabels).each((stopLabel) => {
-        return vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeHighlightOnStopRow(
+        return route99InboundSaturdayPassingTimesSection.assertNthPassingTimeHighlightOnStopRow(
           {
             stopLabel: String(stopLabel),
             nthPassingTime: 1,
@@ -263,7 +272,7 @@ describe('Timetable import and export', () => {
 
       // Assert that departures in the first column are not highlighted
       cy.wrap(stopLabels).each((stopLabel) => {
-        return vehicleScheduleDetailsPage.passingTimesByStopTable.assertNthPassingTimeHighlightOnStopRow(
+        return route99InboundSaturdayPassingTimesSection.assertNthPassingTimeHighlightOnStopRow(
           {
             stopLabel: String(stopLabel),
             nthPassingTime: 0,
