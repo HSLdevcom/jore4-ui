@@ -4,12 +4,13 @@ import {
   JourneyPatternInsertInput,
   LineInsertInput,
   RouteInsertInput,
+  StopInJourneyPatternInsertInput,
   StopInsertInput,
   TimetablePriority,
   buildLine,
   buildRoute,
   buildStop,
-  buildStopsInJourneyPattern,
+  buildStopInJourneyPattern,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   mapToGetInfrastructureLinksByExternalIdsQuery,
@@ -62,7 +63,6 @@ const lines: LineInsertInput[] = [
 
 const timingPlaces = [
   buildTimingPlace('0f61ad5c-9035-4b62-8120-92e39baf3e24', '1AACKT'),
-  buildTimingPlace('d631db3e-6501-4d05-812d-937bc6c8423e', '1ELIMK'),
   buildTimingPlace('53285ed7-5ca6-48ce-9853-d9613cc5995f', '1AURLA'),
 ];
 
@@ -75,6 +75,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
     scheduled_stop_point_id: '12fe9420-94c5-4619-bb99-541087b542b7',
+    timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[0].coordinates,
@@ -97,6 +98,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
     scheduled_stop_point_id: '21ea80fa-9a00-462a-b644-abe7a75597ff',
+    timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[2].coordinates,
@@ -144,11 +146,26 @@ const journeyPatterns: JourneyPatternInsertInput[] = [
   },
 ];
 
-const stopsInJourneyPattern = buildStopsInJourneyPattern(
-  stopLabels,
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  journeyPatterns[0].journey_pattern_id!,
-);
+const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[0],
+    scheduledStopPointSequence: 0,
+    isUsedAsTimingPoint: true,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[1],
+    scheduledStopPointSequence: 1,
+    isUsedAsTimingPoint: false,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[2],
+    scheduledStopPointSequence: 2,
+    isUsedAsTimingPoint: true,
+  }),
+];
 
 describe('Timetable validity period', () => {
   let timetablesMainPage: TimetablesMainpage;

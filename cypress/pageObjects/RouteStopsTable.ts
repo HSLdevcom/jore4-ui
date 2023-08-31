@@ -6,7 +6,7 @@ export class RouteStopsTable {
 
   timingSettingsForm = new TimingSettingsForm();
 
-  toggleUnusedStops() {
+  toggleShowUnusedStops() {
     return cy.getByTestId('show-unused-stops-switch').click();
   }
 
