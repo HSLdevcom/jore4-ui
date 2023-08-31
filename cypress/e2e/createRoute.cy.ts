@@ -8,10 +8,12 @@ import {
   RouteDirectionEnum,
   RouteInsertInput,
   StopInsertInput,
+  StopInJourneyPatternInsertInput,
   buildLine,
   buildRoute,
   buildStop,
-  buildStopsInJourneyPattern,
+  buildStopInJourneyPattern,
+  buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   mapToGetInfrastructureLinksByExternalIdsQuery,
 } from '@hsl/jore4-test-db-manager';
@@ -76,6 +78,11 @@ const lines: LineInsertInput[] = [
   },
 ];
 
+const timingPlaces = [
+  buildTimingPlace('5bd61815-4c60-4f10-9a22-df954c516f5f', '1AACKT'),
+  buildTimingPlace('732eec2e-5728-4494-bec4-3a9718dfdde5', '1AURLA'),
+];
+
 const buildStopsOnInfrastrucureLinks = (
   infrastructureLinkIds: UUID[],
 ): StopInsertInput[] => [
@@ -86,6 +93,7 @@ const buildStopsOnInfrastrucureLinks = (
     }),
     validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
     scheduled_stop_point_id: '3f23a4c5-f527-4395-bd9f-bbc398f837df',
+    timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[0].coordinates,
@@ -110,6 +118,7 @@ const buildStopsOnInfrastrucureLinks = (
     }),
     validity_start: DateTime.fromISO('2020-03-20T22:00:00+00:00'),
     scheduled_stop_point_id: '6c09b8d9-5952-4ee3-92b9-a7b4847517d3',
+    timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[2].coordinates,
@@ -157,11 +166,26 @@ const journeyPatterns: JourneyPatternInsertInput[] = [
   },
 ];
 
-const stopsInJourneyPattern = buildStopsInJourneyPattern(
-  stopLabels,
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  journeyPatterns[0].journey_pattern_id!,
-);
+const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[0],
+    scheduledStopPointSequence: 0,
+    isUsedAsTimingPoint: true,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[1],
+    scheduledStopPointSequence: 1,
+    isUsedAsTimingPoint: false,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[2],
+    scheduledStopPointSequence: 2,
+    isUsedAsTimingPoint: true,
+  }),
+];
 
 const stopTestIds = {
   testStop1: `Map::Stops::stopMarker::${stopLabels[0]}_Standard`,
@@ -194,6 +218,7 @@ describe('Route creation', () => {
       const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
       dbResources = {
         ...baseDbResources,
+        timingPlaces,
         stops,
         infraLinksAlongRoute,
       };

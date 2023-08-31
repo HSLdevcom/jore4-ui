@@ -7,10 +7,12 @@ import {
   RouteDirectionEnum,
   RouteInsertInput,
   StopInsertInput,
+  StopInJourneyPatternInsertInput,
   buildLine,
   buildRoute,
   buildStop,
-  buildStopsInJourneyPattern,
+  buildStopInJourneyPattern,
+  buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   mapToGetInfrastructureLinksByExternalIdsQuery,
 } from '@hsl/jore4-test-db-manager';
@@ -46,6 +48,11 @@ const testCreatedRouteLabels = {
 // These form a straight line on Eerikinkatu in Helsinki.
 // Coordinates are partial since they are needed only for the stop creation.
 
+const timingPlaces = [
+  buildTimingPlace('f7fd2b8c-380b-48da-b87c-78bfa1690aa3', '1AACKT'),
+  buildTimingPlace('3faa5ec1-aa5c-423e-9064-1523c460299e', '1AURLA'),
+];
+
 const testInfraLinks = [
   {
     externalId: '445156',
@@ -79,6 +86,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
     scheduled_stop_point_id: 'bfa722af-4605-4792-b01a-9184c2133368',
+    timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[0].coordinates,
@@ -101,6 +109,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
     scheduled_stop_point_id: '5d25c9ef-f48e-4d10-8cbf-deec0d274d7f',
+    timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[2].coordinates,
@@ -148,11 +157,26 @@ const journeyPatterns: JourneyPatternInsertInput[] = [
   },
 ];
 
-const stopsInJourneyPattern = buildStopsInJourneyPattern(
-  stopLabels,
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  journeyPatterns[0].journey_pattern_id!,
-);
+const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[0],
+    scheduledStopPointSequence: 0,
+    isUsedAsTimingPoint: true,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[1],
+    scheduledStopPointSequence: 1,
+    isUsedAsTimingPoint: false,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[2],
+    scheduledStopPointSequence: 2,
+    isUsedAsTimingPoint: true,
+  }),
+];
 
 describe('Edit route geometry', () => {
   let map: Map;
@@ -166,6 +190,7 @@ describe('Edit route geometry', () => {
   const baseDbResources = {
     lines,
     routes,
+    timingPlaces,
     journeyPatterns,
     stopsInJourneyPattern,
   };

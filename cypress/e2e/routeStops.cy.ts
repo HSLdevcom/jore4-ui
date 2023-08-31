@@ -1,18 +1,19 @@
 import {
   GetInfrastructureLinksByExternalIdsResult,
   InfraLinkAlongRouteInsertInput,
+  JourneyPatternInsertInput,
   LineInsertInput,
   RouteInsertInput,
+  StopInJourneyPatternInsertInput,
   StopInsertInput,
   buildLine,
   buildRoute,
   buildStop,
-  buildStopsInJourneyPattern,
+  buildStopInJourneyPattern,
+  buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   infrastructureLinkAlongRoute,
-  journeyPatterns,
   mapToGetInfrastructureLinksByExternalIdsQuery,
-  timingPlaces,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
@@ -25,13 +26,18 @@ import {
 } from '../utils';
 
 const infrastructureLinkExternalIds = ['445156', '442424', '442325'];
-const stopLabels = ['E2E001', 'E2E002', 'E2E003'];
+const stopLabels = ['E2E001', 'E2E002', 'E2E003', 'E2E004'];
 
 const lines: LineInsertInput[] = [
   {
     ...buildLine({ label: '1' }),
     line_id: '5dfa82f1-b3f7-4e26-b31d-0d7bd78da0bf',
   },
+];
+
+const timingPlaces = [
+  buildTimingPlace('757dbd98-83c7-462b-961e-8111e37e6561', '1AACKT'),
+  buildTimingPlace('adc99d5e-e49f-4910-a0dc-81eb69698cc9', '1AURLA'),
 ];
 
 const buildStopsOnInfrastrucureLinks = (
@@ -44,6 +50,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
     scheduled_stop_point_id: '0f6254d9-dc60-4626-a777-ce4d4381d38a',
+    timing_place_id: timingPlaces[0].timing_place_id,
   },
   // included on route, has a timing place
   {
@@ -52,15 +59,22 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[1],
     }),
     scheduled_stop_point_id: '7e97247d-7750-4d72-b02e-bd4e886357b7',
-    timing_place_id: timingPlaces[0].timing_place_id,
   },
   // not included on route
   {
     ...buildStop({
       label: stopLabels[2],
-      located_on_infrastructure_link_id: infrastructureLinkIds[1],
+      located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
     scheduled_stop_point_id: '318861b2-440e-4f4d-b75e-fdf812697c35',
+  },
+  {
+    ...buildStop({
+      label: stopLabels[3],
+      located_on_infrastructure_link_id: infrastructureLinkIds[2],
+    }),
+    scheduled_stop_point_id: '86382fd2-80f1-4006-9314-2c74a4273883',
+    timing_place_id: timingPlaces[1].timing_place_id,
   },
 ];
 
@@ -100,6 +114,13 @@ const buildInfraLinksAlongRoute = (
   },
 ];
 
+const journeyPatterns: JourneyPatternInsertInput[] = [
+  {
+    journey_pattern_id: '61d3356e-80d7-4866-a64a-30177c3749f2',
+    on_route_id: routes[0].route_id,
+  },
+];
+
 describe('Line details page: stops on route', () => {
   let lineDetailsPage: LineDetailsPage;
   let toast: Toast;
@@ -125,12 +146,27 @@ describe('Line details page: stops on route', () => {
 
       const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
 
-      const stopsInJourneyPattern = buildStopsInJourneyPattern(
-        // Include only first 2 stops on route
-        [stopLabels[0], stopLabels[1]],
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        journeyPatterns[0].journey_pattern_id!,
-      );
+      // Stop label E2E003 is not included in the route
+      const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
+        buildStopInJourneyPattern({
+          journeyPatternId: journeyPatterns[0].journey_pattern_id,
+          stopLabel: stopLabels[0],
+          scheduledStopPointSequence: 0,
+          isUsedAsTimingPoint: true,
+        }),
+        buildStopInJourneyPattern({
+          journeyPatternId: journeyPatterns[0].journey_pattern_id,
+          stopLabel: stopLabels[1],
+          scheduledStopPointSequence: 1,
+          isUsedAsTimingPoint: false,
+        }),
+        buildStopInJourneyPattern({
+          journeyPatternId: journeyPatterns[0].journey_pattern_id,
+          stopLabel: stopLabels[3],
+          scheduledStopPointSequence: 2,
+          isUsedAsTimingPoint: true,
+        }),
+      ];
 
       dbResources = {
         ...baseDbResources,
@@ -165,26 +201,27 @@ describe('Line details page: stops on route', () => {
     () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
 
-      // verify that stops 0 and 1 are included on route
-      routeStopsTable.getStopRow(stopLabels[0]).contains(stopLabels[0]);
-      routeStopsTable.getStopRow(stopLabels[1]).contains(stopLabels[1]);
+      // verify that stops 0, 1 and 3 are included on route
+      routeStopsTable.getStopRow(stopLabels[0]);
+      routeStopsTable.getStopRow(stopLabels[1]);
+      routeStopsTable.getStopRow(stopLabels[3]);
 
       // stop 2 is not included on route and thus not shown by default
       routeStopsTable.getStopRow(stopLabels[2]).should('not.exist');
 
       // stop 2 can be shown after toggling unused stops to be visible
-      routeStopsTable.toggleUnusedStops();
-      routeStopsTable.getStopRow(stopLabels[2]).contains(stopLabels[2]);
+      routeStopsTable.toggleShowUnusedStops();
+      routeStopsTable.getStopRow(stopLabels[2]);
     },
   );
 
   it(
-    'User can add stops to route and remove those',
+    'User can add stops to the route and remove them from the route',
     { tags: Tag.Stops },
     () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
 
-      routeStopsTable.toggleUnusedStops();
+      routeStopsTable.toggleShowUnusedStops();
 
       routeStopsTable.addStopToRoute(stopLabels[2]);
       cy.wait('@gqlUpdateRouteJourneyPattern')
@@ -211,12 +248,13 @@ describe('Line details page: stops on route', () => {
     { tags: Tag.Stops },
     () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
-      // Route has only 2 stops so user shouldn't be able to remove either of those
+      // Route has to have at least two stops
+      routeStopsTable.removeStopFromRoute(stopLabels[3]);
+      toast.checkSuccessToastHasMessage('Reitti tallennettu');
       routeStopsTable.removeStopFromRoute(stopLabels[0]);
-      toast
-        .getDangerToast()
-        .contains('Reitillä on oltava ainakin kaksi pysäkkiä.')
-        .should('be.visible');
+      toast.checkDangerToastHasMessage(
+        'Reitillä on oltava ainakin kaksi pysäkkiä.',
+      );
     },
   );
 
@@ -259,13 +297,13 @@ describe('Line details page: stops on route', () => {
   );
 
   it(
-    'Checking "Use Hastus place" should not be possible when the stop has no timing place',
+    'Checking "Use Hastus place" should not be possible when the stop has no timing point',
     { tags: Tag.Stops },
     () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
-      // This stop does not have a timing place
-      // so it should not be possible to enable 'Use Hastus place'
-      routeStopsTable.openTimingSettingsForm(stopLabels[0]);
+      // This stop does not have a timing point
+      // so it should not be possible to click 'Use Hastus place'
+      routeStopsTable.openTimingSettingsForm(stopLabels[1]);
       routeStopsTable.timingSettingsForm
         .getIsUsedAsTimingPointCheckbox()
         .should('be.disabled');
@@ -273,12 +311,16 @@ describe('Line details page: stops on route', () => {
   );
 
   it(
-    'Should set stop as timing place, regulated timing place and allow loading time',
+    "Should check stop's 'Use Hastus place', 'Is regulated timing point' and 'Is loading time allowed' checkboxes",
     { tags: Tag.Stops },
     () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
       // Open timing settings modal
-      routeStopsTable.openTimingSettingsForm(stopLabels[1]);
+      routeStopsTable.openTimingSettingsForm(stopLabels[0]);
+      // Unchecking IsUsedAsTimingPointCheckbox should disable IsRegulatedTimingPointCheckbox
+      routeStopsTable.timingSettingsForm
+        .getIsUsedAsTimingPointCheckbox()
+        .uncheck();
       // Check and set timing settings
       routeStopsTable.timingSettingsForm
         .getIsRegulatedTimingPointCheckbox()
@@ -303,8 +345,8 @@ describe('Line details page: stops on route', () => {
         .check();
       routeStopsTable.timingSettingsForm.getSavebutton().click();
       toast.checkSuccessToastHasMessage('Aika-asetusten tallennus onnistui');
-      // Check that timing settings are set after saving them
-      routeStopsTable.openTimingSettingsForm(stopLabels[1]);
+      // Check that timing settings are set
+      routeStopsTable.openTimingSettingsForm(stopLabels[0]);
       routeStopsTable.timingSettingsForm
         .getIsUsedAsTimingPointCheckbox()
         .should('be.checked');

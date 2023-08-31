@@ -3,7 +3,7 @@ import {
   buildLine,
   buildRoute,
   buildStop,
-  buildStopsInJourneyPattern,
+  buildStopInJourneyPattern,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   InfraLinkAlongRouteInsertInput,
@@ -13,6 +13,7 @@ import {
   RouteInsertInput,
   StopInsertInput,
   TimetablePriority,
+  StopInJourneyPatternInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
@@ -57,14 +58,13 @@ const stopLabels = ['H1234', 'H1235', 'H1236'];
 const lines: LineInsertInput[] = [
   {
     ...buildLine({ label: '1234' }),
-    line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
+    line_id: 'f148d51b-36ff-4321-8cf1-049946f75f73',
   },
 ];
 
 const timingPlaces = [
-  buildTimingPlace('78ee94c3-e856-4fdc-89ad-10b72cadb444', '1AACKT'),
-  buildTimingPlace('f8a93c6f-5ef7-4b09-ae5e-0a04ea8597e9', '1ELIMK'),
-  buildTimingPlace('5240633b-5c94-49c1-b1c2-26e9d61a01cd', '1AURLA'),
+  buildTimingPlace('50623e7b-abd0-4c9a-85fa-f88ff7f65a06', '1AACKT'),
+  buildTimingPlace('31a2592e-0af1-48b7-8f2f-373dcca39ddd', '1AURLA'),
 ];
 
 const buildStopsOnInfrastrucureLinks = (
@@ -75,7 +75,8 @@ const buildStopsOnInfrastrucureLinks = (
       label: stopLabels[0],
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
-    scheduled_stop_point_id: '7ef42a37-142d-44be-9b69-dbe6adca7f34',
+    scheduled_stop_point_id: 'd9f0bc78-45f2-4d44-9cac-4674f856a400',
+    timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[0].coordinates,
@@ -86,7 +87,7 @@ const buildStopsOnInfrastrucureLinks = (
       label: stopLabels[1],
       located_on_infrastructure_link_id: infrastructureLinkIds[1],
     }),
-    scheduled_stop_point_id: '4f8df0bc-a5cb-4fbe-a6dc-0425d55be382',
+    scheduled_stop_point_id: '63bd05f9-de46-4fa3-bdd9-10e9a81702e3',
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[1].coordinates,
@@ -97,7 +98,8 @@ const buildStopsOnInfrastrucureLinks = (
       label: stopLabels[2],
       located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
-    scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
+    scheduled_stop_point_id: 'f732ceb2-fc41-4843-8164-ead6ec7dd33b',
+    timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[2].coordinates,
@@ -140,16 +142,31 @@ const buildInfraLinksAlongRoute = (
 
 const journeyPatterns: JourneyPatternInsertInput[] = [
   {
-    journey_pattern_id: '6cae356b-20f4-4e04-a969-097999b351f0',
+    journey_pattern_id: '72ff8c33-33aa-4169-803e-53f2426a4508',
     on_route_id: routes[0].route_id,
   },
 ];
 
-const stopsInJourneyPattern = buildStopsInJourneyPattern(
-  stopLabels,
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  journeyPatterns[0].journey_pattern_id!,
-);
+const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[0],
+    scheduledStopPointSequence: 0,
+    isUsedAsTimingPoint: true,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[1],
+    scheduledStopPointSequence: 1,
+    isUsedAsTimingPoint: false,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[2],
+    scheduledStopPointSequence: 2,
+    isUsedAsTimingPoint: true,
+  }),
+];
 
 describe('Timetable import and export', () => {
   let timetablesMainPage: TimetablesMainpage;
