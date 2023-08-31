@@ -3,16 +3,17 @@ import {
   InfraLinkAlongRouteInsertInput,
   LineInsertInput,
   RouteInsertInput,
+  StopInJourneyPatternInsertInput,
   StopInsertInput,
   buildLine,
   buildRoute,
   buildStop,
-  buildStopsInJourneyPattern,
+  buildStopInJourneyPattern,
+  buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   infrastructureLinkAlongRoute,
   journeyPatterns,
   mapToGetInfrastructureLinksByExternalIdsQuery,
-  timingPlaces,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
@@ -34,6 +35,11 @@ const lines: LineInsertInput[] = [
   },
 ];
 
+const timingPlaces = [
+  buildTimingPlace('757dbd98-83c7-462b-961e-8111e37e6561', '1AACKT'),
+  buildTimingPlace('adc99d5e-e49f-4910-a0dc-81eb69698cc9', '1AURLA'),
+];
+
 const buildStopsOnInfrastrucureLinks = (
   infrastructureLinkIds: UUID[],
 ): StopInsertInput[] => [
@@ -44,6 +50,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
     scheduled_stop_point_id: '0f6254d9-dc60-4626-a777-ce4d4381d38a',
+    timing_place_id: timingPlaces[0].timing_place_id,
   },
   // included on route, has a timing place
   {
@@ -52,7 +59,6 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[1],
     }),
     scheduled_stop_point_id: '7e97247d-7750-4d72-b02e-bd4e886357b7',
-    timing_place_id: timingPlaces[0].timing_place_id,
   },
   // not included on route
   {
@@ -61,6 +67,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[1],
     }),
     scheduled_stop_point_id: '318861b2-440e-4f4d-b75e-fdf812697c35',
+    timing_place_id: timingPlaces[1].timing_place_id,
   },
 ];
 
@@ -125,12 +132,21 @@ describe('Line details page: stops on route', () => {
 
       const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
 
-      const stopsInJourneyPattern = buildStopsInJourneyPattern(
-        // Include only first 2 stops on route
-        [stopLabels[0], stopLabels[1]],
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        journeyPatterns[0].journey_pattern_id!,
-      );
+      // Include only first 2 stops on route
+      const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
+        buildStopInJourneyPattern({
+          journeyPatternId: journeyPatterns[0].journey_pattern_id,
+          stopLabel: stopLabels[0],
+          scheduledStopPointSequence: 0,
+          isUsedAsTimingPoint: true,
+        }),
+        buildStopInJourneyPattern({
+          journeyPatternId: journeyPatterns[0].journey_pattern_id,
+          stopLabel: stopLabels[1],
+          scheduledStopPointSequence: 1,
+          isUsedAsTimingPoint: false,
+        }),
+      ];
 
       dbResources = {
         ...baseDbResources,
@@ -265,7 +281,7 @@ describe('Line details page: stops on route', () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
       // This stop does not have a timing place
       // so it should not be possible to enable 'Use Hastus place'
-      routeStopsTable.openTimingSettingsForm(stopLabels[0]);
+      routeStopsTable.openTimingSettingsForm(stopLabels[1]);
       routeStopsTable.timingSettingsForm
         .getIsUsedAsTimingPointCheckbox()
         .should('be.disabled');
@@ -278,7 +294,11 @@ describe('Line details page: stops on route', () => {
     () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
       // Open timing settings modal
-      routeStopsTable.openTimingSettingsForm(stopLabels[1]);
+      routeStopsTable.openTimingSettingsForm(stopLabels[0]);
+      // Unchecking IsUsedAsTimingPointCheckbox should disable IsRegulatedTimingPointCheckbox
+      routeStopsTable.timingSettingsForm
+        .getIsUsedAsTimingPointCheckbox()
+        .uncheck();
       // Check and set timing settings
       routeStopsTable.timingSettingsForm
         .getIsRegulatedTimingPointCheckbox()
@@ -303,8 +323,8 @@ describe('Line details page: stops on route', () => {
         .check();
       routeStopsTable.timingSettingsForm.getSavebutton().click();
       toast.checkSuccessToastHasMessage('Aika-asetusten tallennus onnistui');
-      // Check that timing settings are set after saving them
-      routeStopsTable.openTimingSettingsForm(stopLabels[1]);
+      // Check that timing settings are set
+      routeStopsTable.openTimingSettingsForm(stopLabels[0]);
       routeStopsTable.timingSettingsForm
         .getIsUsedAsTimingPointCheckbox()
         .should('be.checked');
