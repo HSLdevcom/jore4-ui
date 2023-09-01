@@ -13,6 +13,7 @@ export const useTimeRangeQueryParams = () => {
     });
   const { date: endDate, setDateToUrl: setEndDateToUrl } = useDateQueryParam({
     queryParamName: QueryParameterName.EndDate,
+    initialDate: DateTime.now().startOf('day').plus({ year: 1 }),
   });
 
   const isInvalidDateRange = startDate > endDate;
