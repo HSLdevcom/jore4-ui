@@ -5,6 +5,7 @@ import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 interface Props {
   initialize?: boolean;
   queryParamName: QueryParameterName;
+  initialDate?: DateTime;
 }
 
 /**
@@ -16,11 +17,12 @@ interface Props {
 export const useDateQueryParam = ({
   initialize = true,
   queryParamName,
+  initialDate,
 }: Props) => {
   const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery, queryParams } =
     useUrlQuery();
 
-  const [defaultDate] = useState(DateTime.now().startOf('day'));
+  const [defaultDate] = useState(initialDate ?? DateTime.now().startOf('day'));
 
   /**
    * Sets date to URL query
