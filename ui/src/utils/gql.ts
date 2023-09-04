@@ -181,3 +181,11 @@ export const buildTypeOfLineGqlFilter = (typeOfLine: RouteTypeOfLineEnum) => ({
     _eq: typeOfLine,
   },
 });
+
+export const buildIsPresetSubstituteOperatingPeriodFilter = (
+  isPreset: boolean,
+) => ({
+  is_preset: {
+    _eq: isPreset,
+  },
+});

@@ -23,8 +23,10 @@ export const OccasionalSubstitutePeriodSection = (): JSX.Element => {
   const { startDate, endDate, updateTimeRangeIfNeeded } =
     useTimeRangeQueryParams();
 
-  const { substituteOperatingPeriods, refetchSubstituteOperatingPeriods } =
-    useGetSubstituteOperatingPeriods({ startDate, endDate });
+  const {
+    occasionalSubstituteOperatingPeriods,
+    refetchOccasionalSubstituteOperatingPeriods,
+  } = useGetSubstituteOperatingPeriods({ startDate, endDate });
 
   const { prepareAndExecute: prepareAndExecuteCreate } =
     useCreateSubstituteOperatingPeriod();
@@ -43,7 +45,7 @@ export const OccasionalSubstitutePeriodSection = (): JSX.Element => {
 
       updateTimeRangeIfNeeded(findEarliestDate(form), findLatestDate(form));
 
-      refetchSubstituteOperatingPeriods();
+      refetchOccasionalSubstituteOperatingPeriods();
 
       showSuccessToast(t('timetables.settings.saveSuccess'));
     } catch (err) {
