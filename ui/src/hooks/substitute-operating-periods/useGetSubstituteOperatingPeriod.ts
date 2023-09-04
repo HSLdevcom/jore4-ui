@@ -1,12 +1,14 @@
 import { gql } from '@apollo/client';
-import partition from 'lodash/partition';
 import { DateTime } from 'luxon';
 import {
   GetSubstituteOperatingPeriodsQuery,
   TimetablesServiceCalendarSubstituteOperatingPeriod,
   useGetSubstituteOperatingPeriodsQuery,
 } from '../../generated/graphql';
-import { buildActiveDateRangeGqlFilterForSubstituteOperatingPeriods } from '../../utils';
+import {
+  buildActiveDateRangeGqlFilterForSubstituteOperatingPeriods,
+  buildIsPresetSubstituteOperatingPeriodFilter,
+} from '../../utils';
 
 const GQL_GET_SUBSTITUTE_OPERATING_PERIODS = gql`
   query GetSubstituteOperatingPeriods(
@@ -45,29 +47,49 @@ export const useGetSubstituteOperatingPeriods = ({
     return result?.timetables
       ?.timetables_service_calendar_substitute_operating_period as TimetablesServiceCalendarSubstituteOperatingPeriod[];
   };
-
-  const periodFilters = {
+  const periodDateRangeFilter = {
     ...buildActiveDateRangeGqlFilterForSubstituteOperatingPeriods(
       startDate,
       endDate,
     ),
   };
 
-  const { data, refetch: refetchSubstituteOperatingPeriods } =
-    useGetSubstituteOperatingPeriodsQuery({
-      variables: { periodFilters },
-    });
+  const occasionalPeriodFilter = {
+    ...periodDateRangeFilter,
+    ...buildIsPresetSubstituteOperatingPeriodFilter(false),
+  };
+  const commonPeriodFilter = {
+    ...periodDateRangeFilter,
+    ...buildIsPresetSubstituteOperatingPeriodFilter(true),
+  };
 
-  const substituteOperatingPeriods = mapSubstituteOperatingPeriodsResult(data);
+  const {
+    data: occasionalSubstituteOperatingPeriodData,
+    refetch: refetchOccasionalSubstituteOperatingPeriods,
+  } = useGetSubstituteOperatingPeriodsQuery({
+    variables: { periodFilters: occasionalPeriodFilter },
+  });
 
-  const [preset, notPreset] = partition(
-    substituteOperatingPeriods,
-    (p) => p.is_preset,
+  const {
+    data: commonSubstituteOperatingPeriodData,
+    refetch: refetchCommonSubstituteOperatingPeriods,
+  } = useGetSubstituteOperatingPeriodsQuery({
+    variables: { periodFilters: commonPeriodFilter },
+  });
+
+  const occasionalSubstituteOperatingPeriods =
+    mapSubstituteOperatingPeriodsResult(
+      occasionalSubstituteOperatingPeriodData,
+    );
+
+  const commonSubstituteOperatingPeriods = mapSubstituteOperatingPeriodsResult(
+    commonSubstituteOperatingPeriodData,
   );
 
   return {
-    refetchSubstituteOperatingPeriods,
-    substituteOperatingPeriods: notPreset,
-    presetSubstituteOperatingPeriods: preset,
+    refetchOccasionalSubstituteOperatingPeriods,
+    refetchCommonSubstituteOperatingPeriods,
+    occasionalSubstituteOperatingPeriods,
+    commonSubstituteOperatingPeriods,
   };
 };
