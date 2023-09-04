@@ -23,9 +23,10 @@ export const CommonSubstitutePeriodSection = ({
   const { startDate, endDate } = useTimeRangeQueryParams();
 
   const {
-    presetSubstituteOperatingPeriods,
-    refetchSubstituteOperatingPeriods,
+    commonSubstituteOperatingPeriods,
+    refetchCommonSubstituteOperatingPeriods,
   } = useGetSubstituteOperatingPeriods({ startDate, endDate });
+
   const { prepareAndExecute: prepareAndExecuteCreate } =
     useCreateSubstituteOperatingPeriod();
 
@@ -47,7 +48,7 @@ export const CommonSubstitutePeriodSection = ({
     try {
       await prepareAndExecuteEdit({ form: { periods } });
       await prepareAndExecuteCreate({ form: { periods } });
-      refetchSubstituteOperatingPeriods();
+      refetchCommonSubstituteOperatingPeriods();
 
       showSuccessToast(t('timetables.settings.saveSuccess'));
     } catch (err) {
