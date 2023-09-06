@@ -8,3 +8,8 @@ Date.now = jest.fn(() => 1487076708000);
 
 // mock the lodash debounce module to call the function immediately
 jest.mock('lodash/debounce', () => jest.fn((fn) => fn));
+
+export const getAssertedElement = <T>(obj: T | null | undefined): T => {
+  expect(obj).toBeDefined();
+  return obj as T;
+};
