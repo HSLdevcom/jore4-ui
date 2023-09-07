@@ -9,7 +9,7 @@ import {
   TemplateRouteSelector,
   TemplateRouteSelectorInfo,
 } from './TemplateRouteSelector';
-import { TerminusNameInputs } from './TerminusNameInputs';
+import { TerminusNameInputs, TerminusValues } from './TerminusNameInputs';
 
 export interface RouteFormInfo
   extends ChangeValidityFormInfo,
@@ -19,6 +19,8 @@ export interface RouteFormInfo
   variant?: string;
   direction?: RouteDirectionEnum;
   line?: string;
+  origin?: TerminusValues;
+  destination?: TerminusValues;
   templateRoute?: {
     templateRouteSelectorInfo: TemplateRouteSelectorInfo;
     moveRouteEditHandleInfo?: MoveRouteEditHandleInfo;
@@ -75,6 +77,20 @@ export class RoutePropertiesForm {
   }
 
   fillRouteProperties(values: RouteFormInfo) {
+    const defaultTerminusOriginInput = {
+      finnishName: 'Lähtöpaikka',
+      swedishName: 'Ursprung',
+      finnishShortName: 'LP',
+      swedishShortName: 'UP',
+    };
+
+    const defaultTerminusDestinationInput = {
+      finnishName: 'Määränpää',
+      swedishName: 'Ändstation',
+      finnishShortName: 'MP',
+      swedishShortName: 'ÄS',
+    };
+
     if (values.finnishName) {
       this.getFinnishNameInput().clear().type(values.finnishName);
     }
@@ -92,19 +108,10 @@ export class RoutePropertiesForm {
     }
 
     this.terminusNameInputs.fillTerminusNameInputsForm(
-      {
-        finnishName: 'Lähtöpaikka',
-        swedishName: 'Ursprung',
-        finnishShortName: 'LP',
-        swedishShortName: 'UP',
-      },
-      {
-        finnishName: 'Määränpää',
-        swedishName: 'Ändstation',
-        finnishShortName: 'MP',
-        swedishShortName: 'ÄS',
-      },
+      values.origin || defaultTerminusOriginInput,
+      values.destination || defaultTerminusDestinationInput,
     );
+
     if (values.priority) {
       this.priorityForm.setPriority(values.priority);
     }

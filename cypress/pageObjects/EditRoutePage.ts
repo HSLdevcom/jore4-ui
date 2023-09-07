@@ -2,6 +2,7 @@ import { UUID } from '../types';
 import { ChangeValidityForm } from './ChangeValidityForm';
 import { ConfirmationDialog } from './ConfirmationDialog';
 import { PriorityForm } from './PriorityForm';
+import { RouteDraftStopsConfirmationDialog } from './RouteDraftStopsConfirmationDialog';
 import { RoutePropertiesForm } from './RoutePropertiesForm';
 import { TerminusNameInputs } from './TerminusNameInputs';
 
@@ -15,6 +16,8 @@ export class EditRoutePage {
   confirmationDialog = new ConfirmationDialog();
 
   priorityForm = new PriorityForm();
+
+  routeDraftStopsConfirmationDialog = new RouteDraftStopsConfirmationDialog();
 
   visit(routeid: UUID) {
     cy.visit(`/routes/${routeid}/edit`);
