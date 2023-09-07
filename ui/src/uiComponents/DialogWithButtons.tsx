@@ -5,6 +5,7 @@ import { SimpleButton } from './SimpleButton';
 
 const testIds = {
   closeButton: 'DialogWithButtons::closeButton',
+  textContent: 'DialogWithButtons::textContent',
 };
 
 export interface DialogButton {
@@ -54,7 +55,10 @@ export const DialogWithButtons: React.FC<Props> = ({
               testId={testIds.closeButton}
             />
           </Dialog.Title>
-          <Dialog.Description className="my-5 whitespace-pre-line">
+          <Dialog.Description
+            className="my-5 whitespace-pre-line"
+            data-testid={testIds.textContent}
+          >
             {description}
           </Dialog.Description>
           <div className="flex justify-end space-x-5">
