@@ -59,4 +59,4 @@ jobs:
         with:
           test-tags: ''
           video: 'false'
-          threads: '3'
+          threads: '2'
