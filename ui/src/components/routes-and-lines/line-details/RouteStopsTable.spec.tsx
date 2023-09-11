@@ -108,6 +108,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       scheduled_stop_point_id:
                         'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                       label: 'H1234',
+                      timing_place_id: 'd094b604-3860-4e2f-a601-9dad6f9827b9',
                       timing_place: {
                         timing_place_id: 'd094b604-3860-4e2f-a601-9dad6f9827b9',
                         label: '1KOSKS',
@@ -190,6 +191,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           scheduled_stop_point_id:
                             'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                           label: 'H1234',
+                          timing_place_id:
+                            'd094b604-3860-4e2f-a601-9dad6f9827b9',
                           timing_place: {
                             timing_place_id:
                               'd094b604-3860-4e2f-a601-9dad6f9827b9',
@@ -237,6 +240,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       scheduled_stop_point_id:
                         '4d294d62-df17-46ff-9248-23f66f17fa87',
                       label: 'H1235',
+                      timing_place_id: '651a693b-b18b-4daa-a6da-c3677bfd2113',
                       timing_place: {
                         timing_place_id: '651a693b-b18b-4daa-a6da-c3677bfd2113',
                         label: '1OLK',
@@ -307,6 +311,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           scheduled_stop_point_id:
                             '4d294d62-df17-46ff-9248-23f66f17fa87',
                           label: 'H1235',
+                          timing_place_id:
+                            '651a693b-b18b-4daa-a6da-c3677bfd2113',
                           timing_place: {
                             timing_place_id:
                               '651a693b-b18b-4daa-a6da-c3677bfd2113',
@@ -354,6 +360,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       scheduled_stop_point_id:
                         'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                       label: 'H1236',
+                      timing_place_id: '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
                       timing_place: {
                         timing_place_id: '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
                         label: '1ESIM',
@@ -416,6 +423,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
                           scheduled_stop_point_id:
                             'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                           label: 'H1236',
+                          timing_place_id:
+                            '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
                           timing_place: {
                             timing_place_id:
                               '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
@@ -465,6 +474,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         scheduled_stop_point_id:
                           'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                         label: 'H1234',
+                        timing_place_id: 'd094b604-3860-4e2f-a601-9dad6f9827b9',
                         timing_place: {
                           timing_place_id:
                             'd094b604-3860-4e2f-a601-9dad6f9827b9',
@@ -503,6 +513,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
                         scheduled_stop_point_id:
                           'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                         label: 'H1236',
+                        timing_place_id: '651a693b-b18b-4daa-a6da-c3677bfd2113',
                         timing_place: {
                           timing_place_id:
                             '651a693b-b18b-4daa-a6da-c3677bfd2113',

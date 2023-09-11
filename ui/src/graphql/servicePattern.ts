@@ -29,6 +29,7 @@ const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
     direction
     scheduled_stop_point_id
     label
+    timing_place_id
     timing_place {
       timing_place_id
       label

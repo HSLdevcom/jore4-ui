@@ -17285,6 +17285,7 @@ export type VehicleJourneyByStopFragment = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
+        timing_place_id?: UUID | null;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
@@ -17334,6 +17335,7 @@ export type PassingTimeByStopFragment = {
       direction: InfrastructureNetworkDirectionEnum;
       scheduled_stop_point_id: UUID;
       label: string;
+      timing_place_id?: UUID | null;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
@@ -17403,6 +17405,7 @@ export type GetRouteWithJourneyPatternQuery = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -17438,6 +17441,7 @@ export type RouteInfraLinkFieldsFragment = {
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
     label: string;
+    timing_place_id?: UUID | null;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
@@ -17447,6 +17451,7 @@ export type RouteInfraLinkFieldsFragment = {
       direction: InfrastructureNetworkDirectionEnum;
       scheduled_stop_point_id: UUID;
       label: string;
+      timing_place_id?: UUID | null;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
@@ -17566,6 +17571,7 @@ export type GetStopsAlongInfrastructureLinksQuery = {
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
     label: string;
+    timing_place_id?: UUID | null;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
@@ -17620,6 +17626,7 @@ export type JourneyPatternWithStopsFragment = {
       direction: InfrastructureNetworkDirectionEnum;
       scheduled_stop_point_id: UUID;
       label: string;
+      timing_place_id?: UUID | null;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
@@ -17845,6 +17852,7 @@ export type RouteWithJourneyPatternStopsFragment = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
+        timing_place_id?: UUID | null;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
@@ -18019,6 +18027,7 @@ export type GetLineDetailsWithRoutesByIdQuery = {
             direction: InfrastructureNetworkDirectionEnum;
             scheduled_stop_point_id: UUID;
             label: string;
+            timing_place_id?: UUID | null;
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
             located_on_infrastructure_link_id: UUID;
@@ -18045,6 +18054,7 @@ export type GetLineDetailsWithRoutesByIdQuery = {
               direction: InfrastructureNetworkDirectionEnum;
               scheduled_stop_point_id: UUID;
               label: string;
+              timing_place_id?: UUID | null;
               validity_start?: luxon.DateTime | null;
               validity_end?: luxon.DateTime | null;
               located_on_infrastructure_link_id: UUID;
@@ -18128,6 +18138,7 @@ export type GetRoutesWithStopsQuery = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -18137,6 +18148,7 @@ export type GetRoutesWithStopsQuery = {
             direction: InfrastructureNetworkDirectionEnum;
             scheduled_stop_point_id: UUID;
             label: string;
+            timing_place_id?: UUID | null;
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
             located_on_infrastructure_link_id: UUID;
@@ -18196,6 +18208,7 @@ export type GetRoutesWithStopsQuery = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -18273,6 +18286,7 @@ export type GetRouteDetailsByIdQuery = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -18282,6 +18296,7 @@ export type GetRouteDetailsByIdQuery = {
             direction: InfrastructureNetworkDirectionEnum;
             scheduled_stop_point_id: UUID;
             label: string;
+            timing_place_id?: UUID | null;
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
             located_on_infrastructure_link_id: UUID;
@@ -18341,6 +18356,7 @@ export type GetRouteDetailsByIdQuery = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -18418,6 +18434,7 @@ export type GetRouteDetailsByIdsQuery = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -18427,6 +18444,7 @@ export type GetRouteDetailsByIdsQuery = {
             direction: InfrastructureNetworkDirectionEnum;
             scheduled_stop_point_id: UUID;
             label: string;
+            timing_place_id?: UUID | null;
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
             located_on_infrastructure_link_id: UUID;
@@ -18486,6 +18504,7 @@ export type GetRouteDetailsByIdsQuery = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -18574,6 +18593,7 @@ export type GetRouteDetailsByLabelsQuery = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -18799,6 +18819,7 @@ export type GetScheduledStopsOnRouteQuery = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
+        timing_place_id?: UUID | null;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
@@ -18818,6 +18839,7 @@ export type ScheduledStopPointDefaultFieldsFragment = {
   direction: InfrastructureNetworkDirectionEnum;
   scheduled_stop_point_id: UUID;
   label: string;
+  timing_place_id?: UUID | null;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   located_on_infrastructure_link_id: UUID;
@@ -18837,6 +18859,7 @@ export type ScheduledStopPointAllFieldsFragment = {
   direction: InfrastructureNetworkDirectionEnum;
   scheduled_stop_point_id: UUID;
   label: string;
+  timing_place_id?: UUID | null;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   located_on_infrastructure_link_id: UUID;
@@ -18860,6 +18883,7 @@ export type StopWithJourneyPatternFieldsFragment = {
   direction: InfrastructureNetworkDirectionEnum;
   scheduled_stop_point_id: UUID;
   label: string;
+  timing_place_id?: UUID | null;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   located_on_infrastructure_link_id: UUID;
@@ -18900,6 +18924,7 @@ export type RouteStopFieldsFragment = {
   direction: InfrastructureNetworkDirectionEnum;
   scheduled_stop_point_id: UUID;
   label: string;
+  timing_place_id?: UUID | null;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   located_on_infrastructure_link_id: UUID;
@@ -18909,6 +18934,7 @@ export type RouteStopFieldsFragment = {
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
     label: string;
+    timing_place_id?: UUID | null;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
@@ -18976,6 +19002,7 @@ export type GetStopsByLocationQuery = {
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
     label: string;
+    timing_place_id?: UUID | null;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
@@ -19006,6 +19033,7 @@ export type GetStopsByValidityQuery = {
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
     label: string;
+    timing_place_id?: UUID | null;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
@@ -19036,6 +19064,7 @@ export type GetStopsByIdsQuery = {
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
     label: string;
+    timing_place_id?: UUID | null;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
@@ -19066,6 +19095,7 @@ export type GetStopsByLabelsQuery = {
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
     label: string;
+    timing_place_id?: UUID | null;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
@@ -19120,6 +19150,7 @@ export type EditStopMutation = {
       direction: InfrastructureNetworkDirectionEnum;
       scheduled_stop_point_id: UUID;
       label: string;
+      timing_place_id?: UUID | null;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
@@ -19171,6 +19202,7 @@ export type GetStopWithRouteGraphDataByIdQuery = {
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
     label: string;
+    timing_place_id?: UUID | null;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
@@ -19280,6 +19312,7 @@ export type InfrastructureLinkWithStopsFragment = {
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
     label: string;
+    timing_place_id?: UUID | null;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
@@ -19289,6 +19322,7 @@ export type InfrastructureLinkWithStopsFragment = {
       direction: InfrastructureNetworkDirectionEnum;
       scheduled_stop_point_id: UUID;
       label: string;
+      timing_place_id?: UUID | null;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
@@ -19391,6 +19425,7 @@ export type LineWithRoutesFragment = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -19400,6 +19435,7 @@ export type LineWithRoutesFragment = {
             direction: InfrastructureNetworkDirectionEnum;
             scheduled_stop_point_id: UUID;
             label: string;
+            timing_place_id?: UUID | null;
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
             located_on_infrastructure_link_id: UUID;
@@ -19459,6 +19495,7 @@ export type LineWithRoutesFragment = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -19619,6 +19656,7 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
       direction: InfrastructureNetworkDirectionEnum;
       scheduled_stop_point_id: UUID;
       label: string;
+      timing_place_id?: UUID | null;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
@@ -19628,6 +19666,7 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
+        timing_place_id?: UUID | null;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
@@ -19812,6 +19851,7 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
+        timing_place_id?: UUID | null;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
@@ -19821,6 +19861,7 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -19913,6 +19954,7 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
+        timing_place_id?: UUID | null;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
@@ -19922,6 +19964,7 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -19981,6 +20024,7 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
+        timing_place_id?: UUID | null;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
@@ -20021,6 +20065,7 @@ export type InfraLinkAlongRouteWithStopsFragment = {
       direction: InfrastructureNetworkDirectionEnum;
       scheduled_stop_point_id: UUID;
       label: string;
+      timing_place_id?: UUID | null;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
@@ -20030,6 +20075,7 @@ export type InfraLinkAlongRouteWithStopsFragment = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
+        timing_place_id?: UUID | null;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
@@ -20127,6 +20173,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -20136,6 +20183,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
             direction: InfrastructureNetworkDirectionEnum;
             scheduled_stop_point_id: UUID;
             label: string;
+            timing_place_id?: UUID | null;
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
             located_on_infrastructure_link_id: UUID;
@@ -20195,6 +20243,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -21183,6 +21232,7 @@ export type VehicleJourneyWithServiceFragment = {
         direction: InfrastructureNetworkDirectionEnum;
         scheduled_stop_point_id: UUID;
         label: string;
+        timing_place_id?: UUID | null;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
@@ -21275,6 +21325,7 @@ export type VehicleScheduleFragment = {
           direction: InfrastructureNetworkDirectionEnum;
           scheduled_stop_point_id: UUID;
           label: string;
+          timing_place_id?: UUID | null;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
@@ -21383,6 +21434,7 @@ export type GetVehicleSchedulesForDateQuery = {
               direction: InfrastructureNetworkDirectionEnum;
               scheduled_stop_point_id: UUID;
               label: string;
+              timing_place_id?: UUID | null;
               validity_start?: luxon.DateTime | null;
               validity_end?: luxon.DateTime | null;
               located_on_infrastructure_link_id: UUID;
@@ -21614,6 +21666,7 @@ export const ScheduledStopPointDefaultFieldsFragmentDoc = gql`
     direction
     scheduled_stop_point_id
     label
+    timing_place_id
     timing_place {
       timing_place_id
       label
