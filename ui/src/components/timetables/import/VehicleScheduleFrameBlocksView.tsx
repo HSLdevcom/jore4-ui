@@ -3,6 +3,7 @@ import { VehicleScheduleFrameWithRouteInfoFragment } from '../../../generated/gr
 import { useToggle } from '../../../hooks';
 import { parseI18nField } from '../../../i18n/utils';
 import { Row, Visible } from '../../../layoutComponents';
+import { mapToShortDate } from '../../../time';
 import { AccordionButton } from '../../../uiComponents';
 import { BlockVehicleJourneysTable } from './BlockVehicleJourneysTable';
 
@@ -29,6 +30,22 @@ export const VehicleScheduleFrameBlocksView = ({
     })),
   );
 
+  const { validity_start: validityStart, validity_end: validityEnd } =
+    vehicleScheduleFrame;
+
+  const validityPeriodString = `${mapToShortDate(
+    validityStart,
+  )} - ${mapToShortDate(validityEnd)}`;
+
+  const blockCountString = `${t('timetablesPreview.blockCount', {
+    count: blocks.length,
+  })}`;
+
+  const vehicleScheduleFrameTitleText = [
+    validityPeriodString,
+    blockCountString,
+  ].join(' | ');
+
   return (
     <div>
       <Row className="border-brand-gray w-full border text-white">
@@ -37,11 +54,7 @@ export const VehicleScheduleFrameBlocksView = ({
         </p>
         <Row className="flex-1 border border-l border-light-grey border-l-white bg-brand py-2 px-4">
           <Row className="flex-1 items-center justify-between font-normal">
-            <p>
-              {t('timetablesPreview.blockCount', {
-                count: blocks.length,
-              })}
-            </p>
+            <p>{vehicleScheduleFrameTitleText}</p>
             <AccordionButton
               testId={testIds.toggleShowTable}
               isOpen={isOpen}
