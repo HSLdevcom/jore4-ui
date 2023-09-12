@@ -44,19 +44,19 @@ const testCoordinates1 = {
 const buildStopsOnInfrastrucureLinks = (
   infrastructureLinkIds: UUID[],
 ): StopInsertInput[] => [
-  {
-    ...buildStop({
-      label: 'Move stop test stop',
-      located_on_infrastructure_link_id: infrastructureLinkIds[0],
-    }),
-    validity_start: DateTime.fromISO('2022-03-20T22:00:00+00:00'),
-    scheduled_stop_point_id: '68684b40-c4db-4c72-b3b8-c3307dde7a72',
-    measured_location: {
-      type: 'Point',
-      coordinates: Object.values(testCoordinates1),
+    {
+      ...buildStop({
+        label: 'Move stop test stop',
+        located_on_infrastructure_link_id: infrastructureLinkIds[0],
+      }),
+      validity_start: DateTime.fromISO('2022-03-20T22:00:00+00:00'),
+      scheduled_stop_point_id: '68684b40-c4db-4c72-b3b8-c3307dde7a72',
+      measured_location: {
+        type: 'Point',
+        coordinates: Object.values(testCoordinates1),
+      },
     },
-  },
-];
+  ];
 
 describe('Stop editing tests', () => {
   let mapFilterPanel: FilterPanel;
@@ -200,6 +200,11 @@ describe('Stop editing tests', () => {
         validityEndISODate: '2029-12-31',
         priority: Priority.Draft,
       };
+
+      // eslint-disable-next-line no-console
+      console.log(`Num tests kept in memory: ${Cypress.config('numTestsKeptInMemory')}`);
+
+      Cypress.log({ message: `Num tests kept in memory: ${Cypress.config('numTestsKeptInMemory')}` });
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
