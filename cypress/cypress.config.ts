@@ -17,6 +17,7 @@ export default defineConfig({
     viewportHeight: 1080,
     requestTimeout: 20000,
     numTestsKeptInMemory: 5,
+    experimentalModifyObstructiveThirdPartyCode: true,
     retries: {
       // Configure retry attempts for `cypress run`
       // Default is 0
