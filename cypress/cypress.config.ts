@@ -16,7 +16,7 @@ export default defineConfig({
     viewportWidth: 1920,
     viewportHeight: 1080,
     requestTimeout: 20000,
-    numTestsKeptInMemory: 5,
+    numTestsKeptInMemory: Number(process.env.CYPRESS_TESTS_KEPT_IN_MEMORY) || 5,
     retries: {
       // Configure retry attempts for `cypress run`
       // Default is 0
