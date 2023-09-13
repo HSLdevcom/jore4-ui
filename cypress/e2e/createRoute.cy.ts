@@ -7,6 +7,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
   RouteInsertInput,
+  RouteTypeOfLineEnum,
   StopInsertInput,
   StopInJourneyPatternInsertInput,
   buildLine,
@@ -63,18 +64,22 @@ const lines: LineInsertInput[] = [
   {
     ...buildLine({ label: '1 Test line 1' }),
     line_id: '88f8f9fe-058b-49a2-ac8d-42d13488c7fb',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
   },
   {
     ...buildLine({ label: '1 Test line 2' }),
     line_id: 'c0e4e702-60b6-4b90-9313-e463814a9422',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
   },
   {
     ...buildLine({ label: '1 Test line 3' }),
     line_id: '71e19f0a-6eb3-40f2-9818-fb8ea5be135e',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
   },
   {
     ...buildLine({ label: '1 Line with indefinite end time' }),
     line_id: 'ecbd895b-a720-4211-849f-ca380465c838',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
   },
 ];
 

@@ -5,6 +5,7 @@ import {
   LineInsertInput,
   RouteInsertInput,
   StopInJourneyPatternInsertInput,
+  RouteTypeOfLineEnum,
   StopInsertInput,
   TimetablePriority,
   buildLine,
@@ -58,6 +59,7 @@ const lines: LineInsertInput[] = [
   {
     ...buildLine({ label: '1234' }),
     line_id: '4b8c8f84-12bc-4716-b15e-476f0efaa645',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
   },
 ];
 
