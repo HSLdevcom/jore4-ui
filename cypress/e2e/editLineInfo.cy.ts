@@ -2,6 +2,7 @@ import {
   buildLine,
   LineInsertInput,
   Priority,
+  RouteTypeOfLineEnum,
 } from '@hsl/jore4-test-db-manager';
 import { Tag } from '../enums';
 import { LineDetailsPage, LineForm } from '../pageObjects';
@@ -18,6 +19,7 @@ const lines: LineInsertInput[] = [
     ...buildLine({ label: '1999' }),
     line_id: '9e800038-3fbb-11ed-b878-0242ac120002',
     priority: Priority.Standard,
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService, // Peruslinja
   },
 ];
 

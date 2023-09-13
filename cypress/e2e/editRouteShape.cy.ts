@@ -6,6 +6,7 @@ import {
   Priority,
   RouteDirectionEnum,
   RouteInsertInput,
+  RouteTypeOfLineEnum,
   StopInsertInput,
   StopInJourneyPatternInsertInput,
   buildLine,
@@ -74,6 +75,7 @@ const lines: LineInsertInput[] = [
   {
     ...buildLine({ label: 'Test line 1' }),
     line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService, // Peruslinja
   },
 ];
 

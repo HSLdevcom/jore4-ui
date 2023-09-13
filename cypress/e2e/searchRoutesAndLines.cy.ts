@@ -3,6 +3,7 @@ import {
   buildRoute,
   LineInsertInput,
   RouteInsertInput,
+  RouteTypeOfLineEnum,
 } from '@hsl/jore4-test-db-manager';
 import { Tag } from '../enums';
 import { RoutesAndLinesPage, SearchResultsPage } from '../pageObjects';
@@ -12,14 +13,17 @@ const lines: LineInsertInput[] = [
   {
     ...buildLine({ label: '1666' }),
     line_id: '5dfa82f1-b3f7-4e26-b31d-0d7bd78da0be',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService, // Peruslinja
   },
   {
     ...buildLine({ label: '2666' }),
     line_id: '61e4d95e-34e5-11ed-a261-0242ac120002',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService, // Peruslinja
   },
   {
     ...buildLine({ label: '1777' }),
     line_id: '47c5fe92-e630-430b-a2da-2c6739acbb2b',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService, // Peruslinja
   },
 ];
 

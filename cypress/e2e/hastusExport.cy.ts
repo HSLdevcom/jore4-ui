@@ -11,6 +11,7 @@ import {
   LineInsertInput,
   mapToGetInfrastructureLinksByExternalIdsQuery,
   RouteInsertInput,
+  RouteTypeOfLineEnum,
   StopInsertInput,
   StopInJourneyPatternInsertInput,
 } from '@hsl/jore4-test-db-manager';
@@ -49,6 +50,7 @@ const lines: LineInsertInput[] = [
   {
     ...buildLine({ label: '1234' }),
     line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService, // Peruslinja
   },
 ];
 

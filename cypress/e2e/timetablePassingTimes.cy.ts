@@ -11,6 +11,7 @@ import {
   LineInsertInput,
   mapToGetInfrastructureLinksByExternalIdsQuery,
   RouteInsertInput,
+  RouteTypeOfLineEnum,
   StopInsertInput,
   TimetablePriority,
   StopInJourneyPatternInsertInput,
@@ -59,6 +60,7 @@ const lines: LineInsertInput[] = [
   {
     ...buildLine({ label: '1234' }),
     line_id: 'f148d51b-36ff-4321-8cf1-049946f75f73',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService, // Peruslinja
   },
 ];
 
