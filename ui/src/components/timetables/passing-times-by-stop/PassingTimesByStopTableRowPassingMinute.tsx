@@ -64,22 +64,24 @@ export const PassingTimesByStopTableRowPassingMinute = ({
     : '';
 
   return (
-    <span>
+    <span className="inline-flex">
       <button
-        className={twMerge(
-          'inline-flex flex-col items-end rounded-sm border border-transparent px-0.5 align-text-bottom text-xs',
-          'hover:border-hsl-highlight-yellow-dark hover:bg-city-bicycle-yellow',
-          highlightClassName,
-        )}
+        className={
+          twMerge(
+            'inline-flex flex-col items-end rounded-sm border border-transparent px-0.5 align-text-bottom text-xs',
+            'px-1 hover:border-hsl-highlight-yellow-dark hover:bg-city-bicycle-yellow',
+            highlightClassName,
+          ) /* h-full px-1 */
+        }
         onClick={() => setSelectedPassingTime(passingTime)}
         type="button"
         data-testid={testIds.selectPassingTimeButton}
       >
-        <span className="flex flex-col">
+        <span className="flex h-full flex-col justify-center">
           <span
             data-testid={testIds.arrivalTime}
             className={`text-2xs leading-tight ${
-              displayArrival ? '' : 'invisible'
+              displayArrival ? '' : 'hidden'
             }`}
           >
             {displayedArrival}
