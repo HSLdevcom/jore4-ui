@@ -269,9 +269,9 @@ describe(`<${PassingTimesByStopTable.name} />`, () => {
     const arrivalTimes = timeContainersH221[1].querySelectorAll(
       selectors.arrivalTime,
     );
-    expect(arrivalTimes[0]).toHaveClass('invisible');
+    expect(arrivalTimes[0]).toHaveClass('hidden');
 
-    expect(arrivalTimes[1]).not.toHaveClass('invisible');
+    expect(arrivalTimes[1]).not.toHaveClass('hidden');
     expect(arrivalTimes[1]).toHaveTextContent('58');
   });
 
