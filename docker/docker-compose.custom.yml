@@ -9,7 +9,7 @@ services:
     # https://hub.docker.com/r/hsldevcom/jore4-hasura/tags?page=1&ordering=last_updated
     # The :hsl-tag contains the desired version of hsl specific hasura.
     # Waiting for merging feature-branch to main in hasura-repo
-    image: &hasura-image 'hsldevcom/jore4-hasura:hsl-main--20230810-f2cffa5fecb8bf3e6f2107a8c13fa73738bc85c9'
+    image: &hasura-image 'hsldevcom/jore4-hasura:hsl-main--20230916-cd171ca374479398ceea744cc0287f71458dd036'
     # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
     # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
     depends_on:
@@ -22,7 +22,7 @@ services:
 
   jore4-hastus:
     # pinning hastus import-export-microservice version
-    image: "hsldevcom/jore4-hastus:main--20230628-d47eea56a057b94ff1f19d815fed6f693c0c72b8"
+    image: "hsldevcom/jore4-hastus:main--20230915-f960161fc377ef33d838075fa0391b5eb4076d9f"
     environment:
       # use the same Hasura URL that the UI uses to enable routing requests to correct Hasura instances
       # when running e2e tests in parallel

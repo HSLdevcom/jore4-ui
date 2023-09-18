@@ -1313,7 +1313,7 @@ export type InfrastructureNetworkInfrastructureLinkBoolExp = {
 
 /** unique or primary key constraints on table "infrastructure_network.infrastructure_link" */
 export enum InfrastructureNetworkInfrastructureLinkConstraint {
-  /** unique or primary key constraint on columns "external_link_source", "external_link_id" */
+  /** unique or primary key constraint on columns "external_link_id", "external_link_source" */
   InfrastructureLinkExternalLinkIdExternalLinkSourceIdx = 'infrastructure_link_external_link_id_external_link_source_idx',
   /** unique or primary key constraint on columns "infrastructure_link_id" */
   InfrastructureLinkPkey = 'infrastructure_link_pkey',
@@ -5429,7 +5429,7 @@ export type RouteInfrastructureLinkAlongRouteBoolExp = {
 
 /** unique or primary key constraints on table "route.infrastructure_link_along_route" */
 export enum RouteInfrastructureLinkAlongRouteConstraint {
-  /** unique or primary key constraint on columns "route_id", "infrastructure_link_sequence" */
+  /** unique or primary key constraint on columns "infrastructure_link_sequence", "route_id" */
   InfrastructureLinkAlongRoutePkey = 'infrastructure_link_along_route_pkey',
 }
 
@@ -7344,7 +7344,7 @@ export type ServicePatternDistanceBetweenStopsCalculationBoolExp = {
 
 /** unique or primary key constraints on table "service_pattern.distance_between_stops_calculation" */
 export enum ServicePatternDistanceBetweenStopsCalculationConstraint {
-  /** unique or primary key constraint on columns "route_priority", "stop_interval_sequence", "observation_date", "journey_pattern_id" */
+  /** unique or primary key constraint on columns "observation_date", "stop_interval_sequence", "journey_pattern_id", "route_priority" */
   DistanceBetweenStopsCalculationPkey = 'distance_between_stops_calculation_pkey',
 }
 
@@ -7828,6 +7828,8 @@ export type ServicePatternScheduledStopPointArrRelInsertInput = {
 export type ServicePatternScheduledStopPointAvgFields = {
   __typename?: 'service_pattern_scheduled_stop_point_avg_fields';
   priority?: Maybe<Scalars['Float']>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
 };
 
 /** order by avg() on columns of table "service_pattern.scheduled_stop_point" */
@@ -7921,6 +7923,8 @@ export type ServicePatternScheduledStopPointMaxFields = {
   /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
   priority?: Maybe<Scalars['Int']>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
@@ -7956,6 +7960,8 @@ export type ServicePatternScheduledStopPointMinFields = {
   /** The infrastructure link on which the stop is located. */
   located_on_infrastructure_link_id?: Maybe<Scalars['uuid']>;
   priority?: Maybe<Scalars['Int']>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
@@ -8072,6 +8078,8 @@ export type ServicePatternScheduledStopPointSetInput = {
 export type ServicePatternScheduledStopPointStddevFields = {
   __typename?: 'service_pattern_scheduled_stop_point_stddev_fields';
   priority?: Maybe<Scalars['Float']>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
 };
 
 /** order by stddev() on columns of table "service_pattern.scheduled_stop_point" */
@@ -8083,6 +8091,8 @@ export type ServicePatternScheduledStopPointStddevOrderBy = {
 export type ServicePatternScheduledStopPointStddevPopFields = {
   __typename?: 'service_pattern_scheduled_stop_point_stddev_pop_fields';
   priority?: Maybe<Scalars['Float']>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
 };
 
 /** order by stddev_pop() on columns of table "service_pattern.scheduled_stop_point" */
@@ -8094,6 +8104,8 @@ export type ServicePatternScheduledStopPointStddevPopOrderBy = {
 export type ServicePatternScheduledStopPointStddevSampFields = {
   __typename?: 'service_pattern_scheduled_stop_point_stddev_samp_fields';
   priority?: Maybe<Scalars['Float']>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
 };
 
 /** order by stddev_samp() on columns of table "service_pattern.scheduled_stop_point" */
@@ -8134,6 +8146,8 @@ export type ServicePatternScheduledStopPointStreamCursorValueInput = {
 export type ServicePatternScheduledStopPointSumFields = {
   __typename?: 'service_pattern_scheduled_stop_point_sum_fields';
   priority?: Maybe<Scalars['Int']>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
 };
 
 /** order by sum() on columns of table "service_pattern.scheduled_stop_point" */
@@ -8176,6 +8190,8 @@ export type ServicePatternScheduledStopPointUpdates = {
 export type ServicePatternScheduledStopPointVarPopFields = {
   __typename?: 'service_pattern_scheduled_stop_point_var_pop_fields';
   priority?: Maybe<Scalars['Float']>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
 };
 
 /** order by var_pop() on columns of table "service_pattern.scheduled_stop_point" */
@@ -8187,6 +8203,8 @@ export type ServicePatternScheduledStopPointVarPopOrderBy = {
 export type ServicePatternScheduledStopPointVarSampFields = {
   __typename?: 'service_pattern_scheduled_stop_point_var_samp_fields';
   priority?: Maybe<Scalars['Float']>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
 };
 
 /** order by var_samp() on columns of table "service_pattern.scheduled_stop_point" */
@@ -8198,6 +8216,8 @@ export type ServicePatternScheduledStopPointVarSampOrderBy = {
 export type ServicePatternScheduledStopPointVarianceFields = {
   __typename?: 'service_pattern_scheduled_stop_point_variance_fields';
   priority?: Maybe<Scalars['Float']>;
+  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
 };
 
 /** order by variance() on columns of table "service_pattern.scheduled_stop_point" */
@@ -9670,7 +9690,7 @@ export type TimetablesPassingTimesTimetabledPassingTimeBoolExp = {
 export enum TimetablesPassingTimesTimetabledPassingTimeConstraint {
   /** unique or primary key constraint on columns "timetabled_passing_time_id" */
   TimetabledPassingTimePkey = 'timetabled_passing_time_pkey',
-  /** unique or primary key constraint on columns "vehicle_journey_id", "scheduled_stop_point_in_journey_pattern_ref_id" */
+  /** unique or primary key constraint on columns "scheduled_stop_point_in_journey_pattern_ref_id", "vehicle_journey_id" */
   TimetabledPassingTimeStopPointUniqueIdx = 'timetabled_passing_time_stop_point_unique_idx',
 }
 
@@ -9855,7 +9875,7 @@ export type TimetablesPassingTimesTimetabledPassingTimeUpdates = {
 export type TimetablesReturnValueTimetableVersion = {
   __typename?: 'timetables_return_value_timetable_version';
   /** An object relationship */
-  day_type: TimetablesServiceCalendarDayType;
+  day_type?: Maybe<TimetablesServiceCalendarDayType>;
   day_type_id: Scalars['uuid'];
   in_effect: Scalars['Boolean'];
   priority: Scalars['Int'];
@@ -10496,7 +10516,7 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekBoolExp = {
 
 /** unique or primary key constraints on table "service_calendar.day_type_active_on_day_of_week" */
 export enum TimetablesServiceCalendarDayTypeActiveOnDayOfWeekConstraint {
-  /** unique or primary key constraint on columns "day_type_id", "day_of_week" */
+  /** unique or primary key constraint on columns "day_of_week", "day_type_id" */
   DayTypeActiveOnDayOfWeekPkey = 'day_type_active_on_day_of_week_pkey',
 }
 
@@ -13049,10 +13069,6 @@ export type TimetablesTimetablesQuery = {
   timetables_vehicle_service_get_timetables_and_substitute_operating_days: Array<TimetablesReturnValueTimetableVersion>;
   /** execute function "vehicle_service.get_timetables_and_substitute_operating_days" and query aggregates on result of table type "return_value.timetable_version" */
   timetables_vehicle_service_get_timetables_and_substitute_operating_days_aggregate: TimetablesReturnValueTimetableVersionAggregate;
-  /** execute function "vehicle_service.get_vehicle_services_for_date" which returns "vehicle_service.vehicle_service" */
-  timetables_vehicle_service_get_vehicle_services_for_date: Array<TimetablesVehicleServiceVehicleService>;
-  /** execute function "vehicle_service.get_vehicle_services_for_date" and query aggregates on result of table type "vehicle_service.vehicle_service" */
-  timetables_vehicle_service_get_vehicle_services_for_date_aggregate: TimetablesVehicleServiceVehicleServiceAggregate;
   /** fetch data from the table: "vehicle_service.journey_patterns_in_vehicle_service" */
   timetables_vehicle_service_journey_patterns_in_vehicle_service: Array<TimetablesVehicleServiceJourneyPatternsInVehicleService>;
   /** fetch aggregated fields from the table: "vehicle_service.journey_patterns_in_vehicle_service" */
@@ -13503,30 +13519,6 @@ export type TimetablesTimetablesQueryTimetablesVehicleServiceGetTimetablesAndSub
     where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
   };
 
-export type TimetablesTimetablesQueryTimetablesVehicleServiceGetVehicleServicesForDateArgs =
-  {
-    args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
-    distinct_on?: InputMaybe<
-      Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']>;
-    offset?: InputMaybe<Scalars['Int']>;
-    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
-  };
-
-export type TimetablesTimetablesQueryTimetablesVehicleServiceGetVehicleServicesForDateAggregateArgs =
-  {
-    args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
-    distinct_on?: InputMaybe<
-      Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']>;
-    offset?: InputMaybe<Scalars['Int']>;
-    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
-  };
-
 export type TimetablesTimetablesQueryTimetablesVehicleServiceJourneyPatternsInVehicleServiceArgs =
   {
     distinct_on?: InputMaybe<
@@ -13720,10 +13712,6 @@ export type TimetablesTimetablesSubscription = {
   timetables_vehicle_service_get_timetables_and_substitute_operating_days: Array<TimetablesReturnValueTimetableVersion>;
   /** execute function "vehicle_service.get_timetables_and_substitute_operating_days" and query aggregates on result of table type "return_value.timetable_version" */
   timetables_vehicle_service_get_timetables_and_substitute_operating_days_aggregate: TimetablesReturnValueTimetableVersionAggregate;
-  /** execute function "vehicle_service.get_vehicle_services_for_date" which returns "vehicle_service.vehicle_service" */
-  timetables_vehicle_service_get_vehicle_services_for_date: Array<TimetablesVehicleServiceVehicleService>;
-  /** execute function "vehicle_service.get_vehicle_services_for_date" and query aggregates on result of table type "vehicle_service.vehicle_service" */
-  timetables_vehicle_service_get_vehicle_services_for_date_aggregate: TimetablesVehicleServiceVehicleServiceAggregate;
   /** fetch data from the table: "vehicle_service.journey_patterns_in_vehicle_service" */
   timetables_vehicle_service_journey_patterns_in_vehicle_service: Array<TimetablesVehicleServiceJourneyPatternsInVehicleService>;
   /** fetch aggregated fields from the table: "vehicle_service.journey_patterns_in_vehicle_service" */
@@ -14291,30 +14279,6 @@ export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceGetTimetable
     where?: InputMaybe<TimetablesReturnValueTimetableVersionBoolExp>;
   };
 
-export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceGetVehicleServicesForDateArgs =
-  {
-    args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
-    distinct_on?: InputMaybe<
-      Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']>;
-    offset?: InputMaybe<Scalars['Int']>;
-    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
-  };
-
-export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceGetVehicleServicesForDateAggregateArgs =
-  {
-    args: TimetablesVehicleServiceGetVehicleServicesForDateArgs;
-    distinct_on?: InputMaybe<
-      Array<TimetablesVehicleServiceVehicleServiceSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']>;
-    offset?: InputMaybe<Scalars['Int']>;
-    order_by?: InputMaybe<Array<TimetablesVehicleServiceVehicleServiceOrderBy>>;
-    where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
-  };
-
 export type TimetablesTimetablesSubscriptionTimetablesVehicleServiceJourneyPatternsInVehicleServiceArgs =
   {
     distinct_on?: InputMaybe<
@@ -14629,10 +14593,14 @@ export type TimetablesVehicleJourneyVehicleJourneyMaxFields = {
   block_id?: Maybe<Scalars['uuid']>;
   /** Displayed name of the journey. */
   displayed_name?: Maybe<Scalars['String']>;
+  /** A computed field, executes function "vehicle_journey.vehicle_journey_end_time" */
+  end_time?: Maybe<Scalars['String']>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
   /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
   journey_type?: Maybe<Scalars['String']>;
+  /** A computed field, executes function "vehicle_journey.vehicle_journey_start_time" */
+  start_time?: Maybe<Scalars['String']>;
   vehicle_journey_id?: Maybe<Scalars['uuid']>;
 };
 
@@ -14656,10 +14624,14 @@ export type TimetablesVehicleJourneyVehicleJourneyMinFields = {
   block_id?: Maybe<Scalars['uuid']>;
   /** Displayed name of the journey. */
   displayed_name?: Maybe<Scalars['String']>;
+  /** A computed field, executes function "vehicle_journey.vehicle_journey_end_time" */
+  end_time?: Maybe<Scalars['String']>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
   /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
   journey_type?: Maybe<Scalars['String']>;
+  /** A computed field, executes function "vehicle_journey.vehicle_journey_start_time" */
+  start_time?: Maybe<Scalars['String']>;
   vehicle_journey_id?: Maybe<Scalars['uuid']>;
 };
 
@@ -15604,10 +15576,6 @@ export type TimetablesVehicleServiceGetTimetablesAndSubstituteOperatingDaysArgs 
     start_date?: InputMaybe<Scalars['date']>;
   };
 
-export type TimetablesVehicleServiceGetVehicleServicesForDateArgs = {
-  observation_date?: InputMaybe<Scalars['date']>;
-};
-
 /**
  * A denormalized table containing relationships between vehicle_services and journey_patterns (via journey_pattern_ref.journey_pattern_id).
  *  Without this table this relationship could be found via vehicle_service -> block -> vehicle_journey -> journey_pattern_ref.
@@ -15725,7 +15693,7 @@ export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceBoolExp = {
 
 /** unique or primary key constraints on table "vehicle_service.journey_patterns_in_vehicle_service" */
 export enum TimetablesVehicleServiceJourneyPatternsInVehicleServiceConstraint {
-  /** unique or primary key constraint on columns "vehicle_service_id", "journey_pattern_id" */
+  /** unique or primary key constraint on columns "journey_pattern_id", "vehicle_service_id" */
   JourneyPatternsInVehicleServicePkey = 'journey_patterns_in_vehicle_service_pkey',
 }
 
@@ -21009,12 +20977,12 @@ export type TimetableVersionFragment = {
   validity_end: luxon.DateTime;
   priority: number;
   in_effect: boolean;
-  day_type: {
+  day_type?: {
     __typename?: 'timetables_service_calendar_day_type';
     day_type_id: UUID;
     name_i18n: any;
     label: string;
-  };
+  } | null;
   substitute_operating_day_by_line_type?: {
     __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type';
     substitute_operating_day_by_line_type_id: UUID;
@@ -21045,12 +21013,12 @@ export type GetTimetableVersionsByJourneyPatternIdsQuery = {
       validity_end: luxon.DateTime;
       priority: number;
       in_effect: boolean;
-      day_type: {
+      day_type?: {
         __typename?: 'timetables_service_calendar_day_type';
         day_type_id: UUID;
         name_i18n: any;
         label: string;
-      };
+      } | null;
       substitute_operating_day_by_line_type?: {
         __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type';
         substitute_operating_day_by_line_type_id: UUID;
