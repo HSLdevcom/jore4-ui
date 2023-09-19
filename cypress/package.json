@@ -14,7 +14,7 @@
   "dependencies": {
     "@4tw/cypress-drag-drop": "^2.2.3",
     "@hsl/jore4-test-db-manager": "1.0.0",
-    "cypress": "^13.1.0",
+    "cypress": "12.17.3",
     "luxon": "^3.3.0",
     "qs": "^6.11.1"
   },
