@@ -1,37 +1,35 @@
 import {
   GetInfrastructureLinksByExternalIdsResult,
+  InfraLinkAlongRouteInsertInput,
+  JourneyPatternInsertInput,
+  LineInsertInput,
+  RouteInsertInput,
+  StopInJourneyPatternInsertInput,
+  StopInsertInput,
+  TimetablePriority,
   buildLine,
   buildRoute,
   buildStop,
   buildStopInJourneyPattern,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
-  InfraLinkAlongRouteInsertInput,
-  JourneyPatternInsertInput,
-  LineInsertInput,
   mapToGetInfrastructureLinksByExternalIdsQuery,
-  RouteInsertInput,
-  StopInsertInput,
-  TimetablePriority,
-  StopInJourneyPatternInsertInput,
 } from '@hsl/jore4-test-db-manager';
-import { DateTime } from 'luxon';
+import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
+import { DateTime, Duration } from 'luxon';
 import { Tag } from '../enums';
 import {
-  ImportTimetablesPage,
   Navbar,
   PassingTimesByStopSection,
-  PreviewTimetablesPage,
   RouteTimetablesSection,
-  TimetablesMainpage,
   VehicleScheduleDetailsPage,
   VehicleServiceTable,
 } from '../pageObjects';
 import { UUID } from '../types';
 import {
+  SupportedResources,
   insertToDbHelper,
   removeFromDbHelper,
-  SupportedResources,
 } from '../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
@@ -169,9 +167,6 @@ const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
 ];
 
 describe('Timetable import and export', () => {
-  let timetablesMainPage: TimetablesMainpage;
-  let importTimetablesPage: ImportTimetablesPage;
-  let previewTimetablesPage: PreviewTimetablesPage;
   let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
   let navbar: Navbar;
 
@@ -206,10 +201,6 @@ describe('Timetable import and export', () => {
     cy.task('truncateTimetablesDatabase');
     removeFromDbHelper(dbResources);
     insertToDbHelper(dbResources);
-
-    timetablesMainPage = new TimetablesMainpage();
-    importTimetablesPage = new ImportTimetablesPage();
-    previewTimetablesPage = new PreviewTimetablesPage();
     vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
     navbar = new Navbar();
 
@@ -218,18 +209,87 @@ describe('Timetable import and export', () => {
     cy.visit('/');
     navbar.getTimetablesLink().click();
 
-    // TODO: Change timetable importing to proper test data generation when it is available
-    const IMPORT_FILENAME = 'hastusImport.exp';
-    timetablesMainPage.getImportButton().click();
-    importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
-    importTimetablesPage.getUploadButton().click();
-    cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
-    importTimetablesPage.clickPreviewButton();
-    previewTimetablesPage.priorityForm.setAsStandard();
-    previewTimetablesPage.blockVehicleJourneysTable
-      .getToggleShowTableButton()
-      .click();
-    previewTimetablesPage.getSaveButton().click();
+    const input = {
+      _journey_pattern_refs: {
+        route99inbound: {
+          journey_pattern_id: journeyPatterns[0].journey_pattern_id,
+          _stop_points: [
+            {
+              scheduled_stop_point_sequence: 1,
+              scheduled_stop_point_label: 'H1234',
+            },
+            {
+              scheduled_stop_point_sequence: 2,
+              scheduled_stop_point_label: 'H1235',
+            },
+            {
+              scheduled_stop_point_sequence: 3,
+              scheduled_stop_point_label: 'H1236',
+            },
+          ],
+        },
+      },
+      _vehicle_schedule_frames: {
+        winter2022: {
+          validity_start: DateTime.fromISO('2022-07-01'),
+          validity_end: DateTime.fromISO('2023-05-31'),
+          name: 'Talvi 2022',
+          created_at: DateTime.fromISO('2021-01-01T02:34:56.789+02:00'),
+          booking_label: 'Winter booking label',
+          _vehicle_services: {
+            monFri: {
+              day_type_id: defaultDayTypeIds.SATURDAY,
+              _blocks: {
+                block: {
+                  _vehicle_journeys: {
+                    route99Inbound1: {
+                      _journey_pattern_ref_name: 'route99inbound',
+                      _passing_times: [
+                        {
+                          _scheduled_stop_point_label: 'H1234',
+                          arrival_time: null,
+                          departure_time: Duration.fromISO('PT7H05M'),
+                        },
+                        {
+                          _scheduled_stop_point_label: 'H1235',
+                          arrival_time: Duration.fromISO('PT7H12M'),
+                          departure_time: Duration.fromISO('PT7H13M'),
+                        },
+                        {
+                          _scheduled_stop_point_label: 'H1236',
+                          arrival_time: Duration.fromISO('PT7H19M'),
+                        },
+                      ],
+                    },
+                    route99Inbound2: {
+                      _journey_pattern_ref_name: 'route99inbound',
+                      _passing_times: [
+                        {
+                          _scheduled_stop_point_label: 'H1234',
+                          arrival_time: null,
+                          departure_time: Duration.fromISO('PT8H20M'),
+                        },
+                        {
+                          _scheduled_stop_point_label: 'H1235',
+                          arrival_time: Duration.fromISO('PT8H22M'),
+                          departure_time: Duration.fromISO('PT8H23M'),
+                        },
+                        {
+                          _scheduled_stop_point_label: 'H1236',
+                          arrival_time: Duration.fromISO('PT8H26M'),
+                        },
+                      ],
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    };
+
+    cy.task('insertHslTimetablesDatasetToDb', input);
   });
 
   afterEach(() => {
