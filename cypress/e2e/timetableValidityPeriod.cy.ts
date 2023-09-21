@@ -80,54 +80,54 @@ const timingPlaces = [
 const buildStopsOnInfrastrucureLinks = (
   infrastructureLinkIds: UUID[],
 ): StopInsertInput[] => [
-    {
-      ...buildStop({
-        label: stopLabels[0],
-        located_on_infrastructure_link_id: infrastructureLinkIds[0],
-      }),
-      scheduled_stop_point_id: '12fe9420-94c5-4619-bb99-541087b542b7',
-      timing_place_id: timingPlaces[0].timing_place_id,
-      measured_location: {
-        type: 'Point',
-        coordinates: testInfraLinks[0].coordinates,
-      },
+  {
+    ...buildStop({
+      label: stopLabels[0],
+      located_on_infrastructure_link_id: infrastructureLinkIds[0],
+    }),
+    scheduled_stop_point_id: '12fe9420-94c5-4619-bb99-541087b542b7',
+    timing_place_id: timingPlaces[0].timing_place_id,
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[0].coordinates,
     },
-    {
-      ...buildStop({
-        label: stopLabels[1],
-        located_on_infrastructure_link_id: infrastructureLinkIds[1],
-      }),
-      scheduled_stop_point_id: '9a9cbf66-44ce-4aea-8c2a-23ae963d24fb',
-      measured_location: {
-        type: 'Point',
-        coordinates: testInfraLinks[1].coordinates,
-      },
+  },
+  {
+    ...buildStop({
+      label: stopLabels[1],
+      located_on_infrastructure_link_id: infrastructureLinkIds[1],
+    }),
+    scheduled_stop_point_id: '9a9cbf66-44ce-4aea-8c2a-23ae963d24fb',
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[1].coordinates,
     },
-    {
-      ...buildStop({
-        label: stopLabels[2],
-        located_on_infrastructure_link_id: infrastructureLinkIds[2],
-      }),
-      scheduled_stop_point_id: '21ea80fa-9a00-462a-b644-abe7a75597ff',
-      timing_place_id: timingPlaces[1].timing_place_id,
-      measured_location: {
-        type: 'Point',
-        coordinates: testInfraLinks[2].coordinates,
-      },
+  },
+  {
+    ...buildStop({
+      label: stopLabels[2],
+      located_on_infrastructure_link_id: infrastructureLinkIds[2],
+    }),
+    scheduled_stop_point_id: '21ea80fa-9a00-462a-b644-abe7a75597ff',
+    timing_place_id: timingPlaces[1].timing_place_id,
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[2].coordinates,
     },
-    {
-      ...buildStop({
-        label: stopLabels[3],
-        located_on_infrastructure_link_id: infrastructureLinkIds[3],
-      }),
-      scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
-      timing_place_id: timingPlaces[2].timing_place_id,
-      measured_location: {
-        type: 'Point',
-        coordinates: testInfraLinks[3].coordinates,
-      },
+  },
+  {
+    ...buildStop({
+      label: stopLabels[3],
+      located_on_infrastructure_link_id: infrastructureLinkIds[3],
+    }),
+    scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
+    timing_place_id: timingPlaces[2].timing_place_id,
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[3].coordinates,
     },
-  ];
+  },
+];
 
 const routes: RouteInsertInput[] = [
   {
@@ -143,31 +143,31 @@ const routes: RouteInsertInput[] = [
 const buildInfraLinksAlongRoute = (
   infrastructureLinkIds: UUID[],
 ): InfraLinkAlongRouteInsertInput[] => [
-    {
-      route_id: routes[0].route_id,
-      infrastructure_link_id: infrastructureLinkIds[0],
-      infrastructure_link_sequence: 0,
-      is_traversal_forwards: true,
-    },
-    {
-      route_id: routes[0].route_id,
-      infrastructure_link_id: infrastructureLinkIds[1],
-      infrastructure_link_sequence: 1,
-      is_traversal_forwards: true,
-    },
-    {
-      route_id: routes[0].route_id,
-      infrastructure_link_id: infrastructureLinkIds[2],
-      infrastructure_link_sequence: 2,
-      is_traversal_forwards: true,
-    },
-    {
-      route_id: routes[0].route_id,
-      infrastructure_link_id: infrastructureLinkIds[3],
-      infrastructure_link_sequence: 3,
-      is_traversal_forwards: true,
-    },
-  ];
+  {
+    route_id: routes[0].route_id,
+    infrastructure_link_id: infrastructureLinkIds[0],
+    infrastructure_link_sequence: 0,
+    is_traversal_forwards: true,
+  },
+  {
+    route_id: routes[0].route_id,
+    infrastructure_link_id: infrastructureLinkIds[1],
+    infrastructure_link_sequence: 1,
+    is_traversal_forwards: true,
+  },
+  {
+    route_id: routes[0].route_id,
+    infrastructure_link_id: infrastructureLinkIds[2],
+    infrastructure_link_sequence: 2,
+    is_traversal_forwards: true,
+  },
+  {
+    route_id: routes[0].route_id,
+    infrastructure_link_id: infrastructureLinkIds[3],
+    infrastructure_link_sequence: 3,
+    is_traversal_forwards: true,
+  },
+];
 
 const journeyPatterns: JourneyPatternInsertInput[] = [
   {
