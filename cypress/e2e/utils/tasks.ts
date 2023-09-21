@@ -1,10 +1,14 @@
 import {
   e2eDatabaseConfig,
-  timetablesDatabaseConfig,
   getDbConnection,
   hasuraApi,
+  timetablesDatabaseConfig,
   truncateDb,
 } from '@hsl/jore4-test-db-manager';
+import {
+  HslTimetablesDatasetInput,
+  insertHslDataset,
+} from '@hsl/timetables-data-inserter';
 import * as fs from 'fs';
 
 const jore4db = getDbConnection(e2eDatabaseConfig);
@@ -63,4 +67,11 @@ export const deleteFile = (filePath: string) => {
     return true;
   }
   return false;
+};
+
+export const insertHslTimetablesDatasetToDb = (
+  input: HslTimetablesDatasetInput,
+) => {
+  const builtDataset = insertHslDataset(input, timetablesDatabaseConfig);
+  return builtDataset;
 };

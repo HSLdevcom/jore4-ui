@@ -11,19 +11,20 @@
     "ws:db": "yarn workspace @hsl/jore4-test-db-manager",
     "ws:ui": "yarn workspace @hsl/jore4-ui",
     "ws:e2e": "yarn workspace @hsl/jore4-cypress",
+    "ws:tdi": "yarn workspace @hsl/timetables-data-inserter",
     "dev": "concurrently -p \"[{name}]\" -n \"UI,DB,GQL\" -c \"bgGreen.bold,bgMagenta.bold,bgBlue.bold\" \"yarn ws:ui dev\" \"yarn ws:db build --watch\" \"yarn ws:codegen generate --watch\"",
-    "ts:check": "yarn workspaces run ts:check",
+    "ts:check": "yarn ws:codegen ts:check && yarn ws:db ts:check  && yarn ws:ui ts:check && yarn ws:e2e ts:check",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "lint": "eslint './**/*.{ts,tsx}' './ui/src/locales/**/*.json' --max-warnings=0",
     "test": "yarn ws:ui test:unit",
     "test:integration": "yarn ws:ui test:integration",
-    "test:e2e": "yarn ws:db build && yarn ws:e2e cypress run --browser chrome",
+    "test:e2e": "yarn ws:db build && yarn ws:tdi timetables-data-inserter:build && yarn ws:e2e cypress run --browser chrome",
     "test:e2e:fast": "yarn test:e2e --config-file cypress.config.fast.ts",
-    "test:e2e:open": "yarn ws:db build && yarn ws:e2e cypress open",
+    "test:e2e:open": "yarn ws:db build && yarn ws:tdi timetables-data-inserter:build && yarn ws:e2e cypress open",
     "test:e2e:list": "yarn ws:e2e print-tests 'e2e/**.cy.ts'",
-    "test:e2e:parallel": "yarn ws:db build && yarn ws:e2e cypress-parallel --script cy:run --threads 3 --verbose --reporterModulePath '../node_modules/cypress-multi-reporters' --specsDir 'e2e/*.cy.ts' --weightsJson './parallel-weights.json'",
-    "qa": "yarn --frozen-lockfile && yarn ws:db build && yarn ts:check && yarn prettier:check && yarn lint && yarn test && yarn test:integration && yarn test:e2e",
+    "test:e2e:parallel": "yarn ws:db build && yarn ws:tdi  timetables-data-inserter:build && yarn ws:e2e cypress-parallel --script cy:run --threads 3 --verbose --reporterModulePath '../node_modules/cypress-multi-reporters' --specsDir 'e2e/*.cy.ts' --weightsJson './parallel-weights.json'",
+    "qa": "yarn --frozen-lockfile && yarn ws:db build && yarn ws:tdi  timetables-data-inserter:build && yarn ts:check && yarn prettier:check && yarn lint && yarn test && yarn test:integration && yarn test:e2e",
     "qa:fast": "yarn qa --config-file cypress.config.fast.ts"
   },
   "dependencies": {},
@@ -56,6 +57,7 @@
     "codegen",
     "cypress",
     "test-db-manager",
+    "jore4-hasura/test/hasura",
     "ui"
   ]
 }

@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - uses: actions/setup-node@v3
         with:
@@ -24,6 +26,9 @@ jobs:
 
       - name: Build test db manager module
         run: yarn ws:db build
+
+      - name: Build timetables data inserter module
+        run: yarn ws:tdi timetables-data-inserter:build
 
       - name: Check ts syntax
         run: yarn ts:check

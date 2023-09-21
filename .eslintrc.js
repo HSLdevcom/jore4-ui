@@ -40,6 +40,7 @@ module.exports = {
     'test-db-manager/src/generated/*.ts',
     'test-db-manager/dist',
     'test-db-manager/ts-dist',
+    'jore4-hasura',
   ],
   rules: {
     'arrow-body-style': 'off', // allow writing arrow functions like () => { return ... } instead of forcing those to be () => (...)

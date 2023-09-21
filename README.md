@@ -367,6 +367,7 @@ This repository has currently yarn workspaces in following folders:
 - `cypress` for e2e tests
 - `codegen` for generating code based on graphql schema
 - `test-db-manager` for handling db in tests (currently used only in `cypress` project)
+- `timetables-data-inserter` for handling db in tests (new method) as a submodule (currently used only in `cypress` project)
 
 Workspaces-specific dependencies should be installed to workspaces themselves and shared dependencies should be installed to workspace root.
 
