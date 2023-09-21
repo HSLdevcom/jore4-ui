@@ -9743,7 +9743,7 @@
         "enumValues": [
           {
             "name": "infrastructure_link_external_link_id_external_link_source_idx",
-            "description": "unique or primary key constraint on columns \"external_link_source\", \"external_link_id\"",
+            "description": "unique or primary key constraint on columns \"external_link_id\", \"external_link_source\"",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -34152,7 +34152,7 @@
         "enumValues": [
           {
             "name": "infrastructure_link_along_route_pkey",
-            "description": "unique or primary key constraint on columns \"route_id\", \"infrastructure_link_sequence\"",
+            "description": "unique or primary key constraint on columns \"infrastructure_link_sequence\", \"route_id\"",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -45259,7 +45259,7 @@
         "enumValues": [
           {
             "name": "distance_between_stops_calculation_pkey",
-            "description": "unique or primary key constraint on columns \"route_priority\", \"stop_interval_sequence\", \"observation_date\", \"journey_pattern_id\"",
+            "description": "unique or primary key constraint on columns \"observation_date\", \"stop_interval_sequence\", \"journey_pattern_id\", \"route_priority\"",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -48071,6 +48071,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "relative_distance_from_infrastructure_link_start",
+            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "float8",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -48767,6 +48779,18 @@
             "deprecationReason": null
           },
           {
+            "name": "relative_distance_from_infrastructure_link_start",
+            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "float8",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "scheduled_stop_point_id",
             "description": "The ID of the scheduled stop point.",
             "args": [],
@@ -48951,6 +48975,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "relative_distance_from_infrastructure_link_start",
+            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "float8",
               "ofType": null
             },
             "isDeprecated": false,
@@ -49649,6 +49685,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "relative_distance_from_infrastructure_link_start",
+            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "float8",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -49695,6 +49743,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "relative_distance_from_infrastructure_link_start",
+            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "float8",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -49737,6 +49797,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "relative_distance_from_infrastructure_link_start",
+            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "float8",
               "ofType": null
             },
             "isDeprecated": false,
@@ -49945,6 +50017,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "relative_distance_from_infrastructure_link_start",
+            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "float8",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -50107,6 +50191,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "relative_distance_from_infrastructure_link_start",
+            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "float8",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -50153,6 +50249,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "relative_distance_from_infrastructure_link_start",
+            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "float8",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -50195,6 +50303,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "relative_distance_from_infrastructure_link_start",
+            "description": "The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1].",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "float8",
               "ofType": null
             },
             "isDeprecated": false,
@@ -60663,7 +60783,7 @@
           },
           {
             "name": "timetabled_passing_time_stop_point_unique_idx",
-            "description": "unique or primary key constraint on columns \"vehicle_journey_id\", \"scheduled_stop_point_in_journey_pattern_ref_id\"",
+            "description": "unique or primary key constraint on columns \"scheduled_stop_point_in_journey_pattern_ref_id\", \"vehicle_journey_id\"",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -61531,13 +61651,9 @@
             "description": "An object relationship",
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "timetables_service_calendar_day_type",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "timetables_service_calendar_day_type",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -65850,7 +65966,7 @@
         "enumValues": [
           {
             "name": "day_type_active_on_day_of_week_pkey",
-            "description": "unique or primary key constraint on columns \"day_type_id\", \"day_of_week\"",
+            "description": "unique or primary key constraint on columns \"day_of_week\", \"day_type_id\"",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -82173,232 +82289,6 @@
             "deprecationReason": null
           },
           {
-            "name": "timetables_vehicle_service_get_vehicle_services_for_date",
-            "description": "execute function \"vehicle_service.get_vehicle_services_for_date\" which returns \"vehicle_service.vehicle_service\"",
-            "args": [
-              {
-                "name": "args",
-                "description": "input parameters for function \"vehicle_service_get_vehicle_services_for_date\"",
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "timetables_vehicle_service_get_vehicle_services_for_date_args",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "distinct_on",
-                "description": "distinct select on columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "ENUM",
-                      "name": "timetables_vehicle_service_vehicle_service_select_column",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "limit",
-                "description": "limit the number of rows returned",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "offset",
-                "description": "skip the first n rows. Use only with order_by",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "order_by",
-                "description": "sort the rows by one or more columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "timetables_vehicle_service_vehicle_service_order_by",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "where",
-                "description": "filter the rows returned",
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "timetables_vehicle_service_vehicle_service_bool_exp",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "timetables_vehicle_service_vehicle_service",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "timetables_vehicle_service_get_vehicle_services_for_date_aggregate",
-            "description": "execute function \"vehicle_service.get_vehicle_services_for_date\" and query aggregates on result of table type \"vehicle_service.vehicle_service\"",
-            "args": [
-              {
-                "name": "args",
-                "description": "input parameters for function \"vehicle_service_get_vehicle_services_for_date_aggregate\"",
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "timetables_vehicle_service_get_vehicle_services_for_date_args",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "distinct_on",
-                "description": "distinct select on columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "ENUM",
-                      "name": "timetables_vehicle_service_vehicle_service_select_column",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "limit",
-                "description": "limit the number of rows returned",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "offset",
-                "description": "skip the first n rows. Use only with order_by",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "order_by",
-                "description": "sort the rows by one or more columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "timetables_vehicle_service_vehicle_service_order_by",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "where",
-                "description": "filter the rows returned",
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "timetables_vehicle_service_vehicle_service_bool_exp",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "timetables_vehicle_service_vehicle_service_aggregate",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "timetables_vehicle_service_journey_patterns_in_vehicle_service",
             "description": "fetch data from the table: \"vehicle_service.journey_patterns_in_vehicle_service\"",
             "args": [
@@ -87509,232 +87399,6 @@
             "deprecationReason": null
           },
           {
-            "name": "timetables_vehicle_service_get_vehicle_services_for_date",
-            "description": "execute function \"vehicle_service.get_vehicle_services_for_date\" which returns \"vehicle_service.vehicle_service\"",
-            "args": [
-              {
-                "name": "args",
-                "description": "input parameters for function \"vehicle_service_get_vehicle_services_for_date\"",
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "timetables_vehicle_service_get_vehicle_services_for_date_args",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "distinct_on",
-                "description": "distinct select on columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "ENUM",
-                      "name": "timetables_vehicle_service_vehicle_service_select_column",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "limit",
-                "description": "limit the number of rows returned",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "offset",
-                "description": "skip the first n rows. Use only with order_by",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "order_by",
-                "description": "sort the rows by one or more columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "timetables_vehicle_service_vehicle_service_order_by",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "where",
-                "description": "filter the rows returned",
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "timetables_vehicle_service_vehicle_service_bool_exp",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "timetables_vehicle_service_vehicle_service",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "timetables_vehicle_service_get_vehicle_services_for_date_aggregate",
-            "description": "execute function \"vehicle_service.get_vehicle_services_for_date\" and query aggregates on result of table type \"vehicle_service.vehicle_service\"",
-            "args": [
-              {
-                "name": "args",
-                "description": "input parameters for function \"vehicle_service_get_vehicle_services_for_date_aggregate\"",
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "timetables_vehicle_service_get_vehicle_services_for_date_args",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "distinct_on",
-                "description": "distinct select on columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "ENUM",
-                      "name": "timetables_vehicle_service_vehicle_service_select_column",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "limit",
-                "description": "limit the number of rows returned",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "offset",
-                "description": "skip the first n rows. Use only with order_by",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "order_by",
-                "description": "sort the rows by one or more columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "timetables_vehicle_service_vehicle_service_order_by",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "where",
-                "description": "filter the rows returned",
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "timetables_vehicle_service_vehicle_service_bool_exp",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "timetables_vehicle_service_vehicle_service_aggregate",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "timetables_vehicle_service_journey_patterns_in_vehicle_service",
             "description": "fetch data from the table: \"vehicle_service.journey_patterns_in_vehicle_service\"",
             "args": [
@@ -89939,6 +89603,18 @@
             "deprecationReason": null
           },
           {
+            "name": "end_time",
+            "description": "A computed field, executes function \"vehicle_journey.vehicle_journey_end_time\"",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "journey_pattern_ref_id",
             "description": "The JOURNEY PATTERN on which the VEHICLE JOURNEY travels",
             "args": [],
@@ -89953,6 +89629,18 @@
           {
             "name": "journey_type",
             "description": "STANDARD | DRY_RUN | SERVICE_JOURNEY",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "start_time",
+            "description": "A computed field, executes function \"vehicle_journey.vehicle_journey_start_time\"",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -90081,6 +89769,18 @@
             "deprecationReason": null
           },
           {
+            "name": "end_time",
+            "description": "A computed field, executes function \"vehicle_journey.vehicle_journey_end_time\"",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "journey_pattern_ref_id",
             "description": "The JOURNEY PATTERN on which the VEHICLE JOURNEY travels",
             "args": [],
@@ -90095,6 +89795,18 @@
           {
             "name": "journey_type",
             "description": "STANDARD | DRY_RUN | SERVICE_JOURNEY",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "start_time",
+            "description": "A computed field, executes function \"vehicle_journey.vehicle_journey_start_time\"",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -95352,29 +95064,6 @@
         "possibleTypes": null
       },
       {
-        "kind": "INPUT_OBJECT",
-        "name": "timetables_vehicle_service_get_vehicle_services_for_date_args",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "observation_date",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "date",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
         "kind": "OBJECT",
         "name": "timetables_vehicle_service_journey_patterns_in_vehicle_service",
         "description": "A denormalized table containing relationships between vehicle_services and journey_patterns (via journey_pattern_ref.journey_pattern_id).\n Without this table this relationship could be found via vehicle_service -> block -> vehicle_journey -> journey_pattern_ref.\n Kept up to date with triggers, should not be updated manually.",
@@ -96045,7 +95734,7 @@
         "enumValues": [
           {
             "name": "journey_patterns_in_vehicle_service_pkey",
-            "description": "unique or primary key constraint on columns \"vehicle_service_id\", \"journey_pattern_id\"",
+            "description": "unique or primary key constraint on columns \"journey_pattern_id\", \"vehicle_service_id\"",
             "isDeprecated": false,
             "deprecationReason": null
           }
