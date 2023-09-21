@@ -9,12 +9,13 @@ WORKDIR /e2e
 # for dependent modules, copy and build them
 # for cypress module, only download the node_module dependencies
 COPY --chown=node:node ./test-db-manager  ./test-db-manager
+COPY --chown=node:node ./jore4-hasura ./jore4-hasura
 COPY --chown=node:node ./cypress/package.json ./cypress/package.json
 COPY --chown=node:node ./package.json ./yarn.lock tsconfig.json ./
 
 # download the dependencies + build the dependent modules
 RUN yarn install --frozen-lockfile \
-  && yarn ws:db build
+  && yarn ws:db build && yarn ws:tdi timetables-data-inserter:build
 
 # copy the cypress test files from host
 COPY --chown=node:node ./cypress ./cypress

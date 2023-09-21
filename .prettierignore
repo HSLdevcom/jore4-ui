@@ -17,3 +17,7 @@ docker
 test-db-manager/dist
 test-db-manager/ts-dist
 test-db-manager/.rollup.cache
+
+# jore4-hasura submodule
+jore4-hasura
+
