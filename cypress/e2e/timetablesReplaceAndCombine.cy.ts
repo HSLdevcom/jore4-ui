@@ -565,7 +565,7 @@ describe('Timetable replacement and combination', () => {
       // Import the replacement timetable for the exported route
       navbar.getTimetablesLink().click();
       timetablesMainPage.getImportButton().click();
-      importTimetablesPage.selectFileToImport(REPLACE_IMPORT_FILENAME);
+      importTimetablesPage.selectFilesToImport([REPLACE_IMPORT_FILENAME]);
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.toast.checkSuccessToastHasMessage(
@@ -626,7 +626,7 @@ describe('Timetable replacement and combination', () => {
       // Import the replacement timetable for the exported route
       navbar.getTimetablesLink().click();
       timetablesMainPage.getImportButton().click();
-      importTimetablesPage.selectFileToImport(COMBINE_IMPORT_FILENAME);
+      importTimetablesPage.selectFilesToImport([COMBINE_IMPORT_FILENAME]);
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.toast.checkSuccessToastHasMessage(
@@ -687,7 +687,7 @@ describe('Timetable replacement and combination', () => {
       // Import the replacement timetable for the exported route
       navbar.getTimetablesLink().click();
       timetablesMainPage.getImportButton().click();
-      importTimetablesPage.selectFileToImport(REPLACE_IMPORT_FILENAME);
+      importTimetablesPage.selectFilesToImport([REPLACE_IMPORT_FILENAME]);
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.toast.checkSuccessToastHasMessage(
@@ -727,7 +727,7 @@ describe('Timetable replacement and combination', () => {
       // Import the replacement timetable for the exported route
       navbar.getTimetablesLink().click();
       timetablesMainPage.getImportButton().click();
-      importTimetablesPage.selectFileToImport(COMBINE_IMPORT_FILENAME);
+      importTimetablesPage.selectFilesToImport([COMBINE_IMPORT_FILENAME]);
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.toast.checkSuccessToastHasMessage(
