@@ -398,7 +398,7 @@ describe('Timetable import', () => {
     () => {
       const routesAndLinesPage = new RoutesAndLinesPage();
 
-      const IMPORT_FILENAME = 'hastusImport.exp';
+      const IMPORT_FILENAME = 'hastusImportSaturday.exp';
 
       const route99InboundTimetableSection = new RouteTimetablesSection(
         '99',
@@ -506,7 +506,7 @@ describe('Timetable import', () => {
       'Should import two timetables at the same time',
       { tags: [Tag.Timetables, Tag.HastusImport] },
       () => {
-        const IMPORT_FILENAME = 'hastusImport.exp';
+        const IMPORT_FILENAME = 'hastusImportSaturday.exp';
         const IMPORT_FILENAME_2 = 'hastusImportSundayJune2023.exp';
 
         // Import two timetable files
@@ -907,7 +907,7 @@ describe('Timetable import', () => {
       { tags: [Tag.Timetables, Tag.HastusImport] },
       () => {
         const IMPORT_FILENAME = 'specialDaySunday.exp';
-        const IMPORT_FILENAME_2 = 'hastusImport.exp';
+        const IMPORT_FILENAME_2 = 'hastusImportSaturday.exp';
 
         navbar.getTimetablesLink().click();
         timetablesMainPage.getImportButton().click();
@@ -941,7 +941,7 @@ describe('Timetable import', () => {
       () => {
         timetableVersionsPage = new TimetableVersionsPage();
 
-        const IMPORT_FILENAME = 'hastusImport.exp';
+        const IMPORT_FILENAME = 'hastusImportSaturday.exp';
 
         // Import a timetable for the route
         navbar.getTimetablesLink().click();
