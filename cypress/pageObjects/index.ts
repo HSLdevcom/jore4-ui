@@ -18,6 +18,7 @@ export * from './RouteStopsTable';
 export * from './RouteTimetablesSection';
 export * from './SearchResultsPage';
 export * from './StopForm';
+export * from './SubstituteDaySettingsPage';
 export * from './TimetablesMainPage';
 export * from './TemplateRouteSelector';
 export * from './TerminusNameInputs';

@@ -12,4 +12,8 @@ export class VehicleScheduleDetailsPage {
   getArrivalTimesSwitch() {
     return cy.getByTestId('VehicleScheduleDetailsPage::showArrivalTimesSwitch');
   }
+
+  showAllValidSwitch() {
+    return cy.getByTestId('VehicleScheduleDetailsPage::showAllValidSwitch');
+  }
 }
