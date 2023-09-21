@@ -244,9 +244,9 @@ describe('Timetable import and export', () => {
           TimetablePriority.Standard,
         );
 
-      const IMPORT_FILENAME = 'hastusImport.exp';
+      const IMPORT_FILENAME = 'hastusImportSaturday.exp';
       timetablesMainPage.getImportButton().click();
-      importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+      importTimetablesPage.selectFilesToImport([IMPORT_FILENAME]);
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.toast.checkSuccessToastHasMessage(
