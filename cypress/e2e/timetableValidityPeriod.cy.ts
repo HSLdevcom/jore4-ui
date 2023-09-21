@@ -210,7 +210,7 @@ describe('Timetable validity period', () => {
     previewTimetablesPage = new PreviewTimetablesPage();
     vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
 
-    const IMPORT_FILENAME = 'hastusImport.exp';
+    const IMPORT_FILENAME = 'hastusImportSaturday.exp';
 
     cy.setupTests();
     cy.mockLogin();
@@ -218,7 +218,7 @@ describe('Timetable validity period', () => {
 
     // TODO: Change timetable importing to proper test data generation when it is available
     timetablesMainPage.getImportButton().click();
-    importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+    importTimetablesPage.selectFilesToImport([IMPORT_FILENAME]);
     importTimetablesPage.getUploadButton().click();
     cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
     importTimetablesPage.clickPreviewButton();

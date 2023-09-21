@@ -25,11 +25,13 @@ export class ImportTimetablesPage {
     return cy.getByTestId('ImportTimetablesPage::uploadButton');
   }
 
-  selectFileToImport(fileName: string) {
+  selectFilesToImport(fileNames: string[]) {
+    // prepend each filename with the uploads directory name
+    const filePaths = fileNames.map((item) => `uploads/${item}`);
     cy.get('input[type=file]')
       // Cypress cannot interact with the input component that is hidden
       // so we have to get it to show first
       .invoke('show')
-      .selectFile(`uploads/${fileName}`);
+      .selectFile(filePaths);
   }
 }
