@@ -12,7 +12,7 @@ export const Container: React.FC<Props> = ({
 }) => {
   return (
     <div
-      className={`container mx-auto py-20 ${className}`}
+      className={`container mx-auto py-10 ${className}`}
       data-testid={testId}
     >
       {children}

@@ -93,7 +93,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
       <Visible visible={line && activeView !== TimetablesView.DEFAULT}>
         <TimetableNavigation onClose={setShowDefaultView} />
       </Visible>
-      <Container className="py-10">
+      <Container>
         <FormRow mdColumns={6} className="mb-8">
           <ObservationDateControl className="max-w-max" />
           <Visible visible={activeView === TimetablesView.DEFAULT}>
