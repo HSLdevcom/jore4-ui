@@ -9,7 +9,7 @@ import {
   useTimetableVersionsReturnToQueryParam,
   useTimetablesViewState,
 } from '../../../hooks';
-import { Container, Visible } from '../../../layoutComponents';
+import { Container, Row, Visible } from '../../../layoutComponents';
 import {
   closeChangeTimetableValidityModalAction,
   selectChangeTimetableValidityModal,
@@ -75,17 +75,20 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
   return (
     <div>
       <PageHeader>
-        {line && (
-          <LineTitle
-            line={line}
-            showValidityPeriod={false}
-            allowSelectingMultipleRoutes={
-              // If passing times by stop view is active, only allow selecting
-              // one route at the time
-              activeView !== TimetablesView.PASSING_TIMES_BY_STOP
-            }
-          />
-        )}
+        <Row>
+          <i className="icon-bus-alt text-6xl text-tweaked-brand" />
+          {line && (
+            <LineTitle
+              line={line}
+              showValidityPeriod={false}
+              allowSelectingMultipleRoutes={
+                // If passing times by stop view is active, only allow selecting
+                // one route at the time
+                activeView !== TimetablesView.PASSING_TIMES_BY_STOP
+              }
+            />
+          )}
+        </Row>
       </PageHeader>
       <Visible visible={line && activeView !== TimetablesView.DEFAULT}>
         <TimetableNavigation onClose={setShowDefaultView} />
