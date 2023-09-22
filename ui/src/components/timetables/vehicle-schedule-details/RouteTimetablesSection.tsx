@@ -11,7 +11,6 @@ import {
 } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
 import { selectTimetable } from '../../../redux';
-import { mapToShortDate } from '../../../time';
 import { AccordionButton } from '../../../uiComponents';
 import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from '../../routes-and-lines/line-details/DirectionBadge';
@@ -55,9 +54,6 @@ export const RouteTimetablesSection = ({
     route?.route_journey_patterns[0].journey_pattern_id,
   );
 
-  const { validityStart, validityEnd } = timetables?.validity || {};
-  const hasValidityPeriod = !!validityStart && !!validityEnd;
-
   if (!route) {
     return <></>;
   }
@@ -84,14 +80,6 @@ export const RouteTimetablesSection = ({
           <h3 className="ml-3.5">
             <RouteLabel label={route.label} variant={route.variant} />
           </h3>
-          <Visible visible={hasValidityPeriod}>
-            <p className="ml-auto mr-8">
-              {t('timetables.timetableValidity', {
-                validityStart: mapToShortDate(validityStart),
-                validityEnd: mapToShortDate(validityEnd),
-              })}
-            </p>
-          </Visible>
         </div>
         <div className="ml-1 bg-background p-3">
           <AccordionButton
