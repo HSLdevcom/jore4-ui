@@ -57,8 +57,6 @@ jobs:
         env:
           CYPRESS_TESTS_KEPT_IN_MEMORY: 0
         timeout-minutes: 15
-        uses: HSLdevcom/jore4-tools/github-actions/run-cypress-tests@run-cypress-tests-v2
+        uses: HSLdevcom/jore4-tools/github-actions/run-cypress-tests@run-cypress-tests-v1
         with:
           test-tags: ''
-          video: 'false'
-          threads: '2'
