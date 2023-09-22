@@ -77,9 +77,10 @@ export const RouteTimetablesSection = ({
             className="my-5 ml-12"
             titleName={t(`directionEnum.${route.direction}`)}
           />
-          <h3 className="ml-3.5">
+          <h3 className="m-3.5">
             <RouteLabel label={route.label} variant={route.variant} />
           </h3>
+          <span className="text-xl">{route.name_i18n?.fi_FI}</span>
         </div>
         <div className="ml-1 bg-background p-3">
           <AccordionButton

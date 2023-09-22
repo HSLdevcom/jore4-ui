@@ -6,6 +6,7 @@ import {
   RouteDirectionEnum,
 } from '../../../generated/graphql';
 import { useAlertsAndHighLights, useShowRoutesOnModal } from '../../../hooks';
+import { parseI18nField } from '../../../i18n/utils';
 import { Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import {
@@ -79,14 +80,14 @@ export const ExpandableRouteRow = ({
       <td className="py-4">
         <Row className="items-center">
           <span className="text-xl" data-testid={testIds.name}>
-            {route.name_i18n?.fi_FI}
+            {parseI18nField(route.name_i18n)}
           </span>
           <EditButton
             href={routeDetails[Path.editRoute].getLink(
               route.route_id,
               observationDate.toISODate(),
             )}
-            testId={testIds.editRouteButton(route.name_i18n?.fi_FI)}
+            testId={testIds.editRouteButton(parseI18nField(route.name_i18n))}
           />
         </Row>
       </td>
