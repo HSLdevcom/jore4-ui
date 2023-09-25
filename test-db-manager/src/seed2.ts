@@ -18,6 +18,7 @@ import {
   mergeTimetablesResources,
   populateTimetablesDb,
 } from './db-helpers';
+import { TimetablesRouteDirectionEnum } from './generated/graphql';
 import { getVehicleTypes } from './queries/timetables';
 import { Priority } from './types';
 
@@ -34,27 +35,27 @@ const seedDb = async () => {
     vehicleTypesResult.data.timetables.timetables_vehicle_type_vehicle_type;
 
   // route 641, direction 1
-  const jp1 = 'ff040a66-1675-4664-910d-95e7fa1a0b85';
+  const jp1 = '0a4b3229-f57e-4d5c-b07a-fa40d960ffb2';
   const jpRef1 = buildJourneyPatternRefDeep(jp1, {
-    journeyPatternRefBase: { type_of_line: 'stopping_bus_service' },
+    journeyPatternRefBase: {
+      type_of_line: 'stopping_bus_service',
+      route_label: '641',
+      route_direction: TimetablesRouteDirectionEnum.Outbound,
+    },
     stopBase: {},
     stopLabels,
   });
 
   // route 641, direction 2
-  const jp2 = '2f2a51c9-d73a-4d8c-8a75-f0ed2b5a9dcb';
+  const jp2 = '2f65bef2-c056-4852-bfd6-1c248580051b';
   const jpRef2 = buildJourneyPatternRefDeep(jp2, {
-    journeyPatternRefBase: { type_of_line: 'stopping_bus_service' },
+    journeyPatternRefBase: {
+      type_of_line: 'stopping_bus_service',
+      route_label: '641',
+      route_direction: TimetablesRouteDirectionEnum.Outbound,
+    },
     stopBase: {},
     stopLabels: reverse(stopLabels),
-  });
-
-  // route 641, direction 1, for next year
-  const jp3 = 'f39b556c-e1bf-4a4f-a757-6845c72768df';
-  const jpRef3 = buildJourneyPatternRefDeep(jp3, {
-    journeyPatternRefBase: { type_of_line: 'stopping_bus_service' },
-    stopBase: {},
-    stopLabels,
   });
 
   const blockBase = {
@@ -115,32 +116,11 @@ const seedDb = async () => {
       },
     },
   });
-
-  const vsf3 = buildVehicleScheduleFrameDeep({
-    vehicleScheduleFrameBase: {
-      label: '641 next year',
-      priority: Priority.Standard,
-      validity_start: DateTime.now().plus({ year: 1 }).startOf('year'),
-      validity_end: DateTime.now().plus({ year: 1 }).endOf('year'),
-    },
-    vehicleServiceByDayType: {
-      [MON_FRI_DAY_TYPE]: {
-        ...defaultVehicleServiceByDayTypeParams,
-        journeyPatternRefList: [jpRef3],
-        startTime: Duration.fromISO('PT5H15M'),
-        hastusStopLabels,
-        blockBase,
-      },
-    },
-  });
-
   const timetablesResources = mergeTimetablesResources([
     flattenJourneyPatternRef(jpRef1),
     flattenJourneyPatternRef(jpRef2),
-    flattenJourneyPatternRef(jpRef3),
     flattenVehicleScheduleFrame(vsf1),
     flattenVehicleScheduleFrame(vsf2),
-    flattenVehicleScheduleFrame(vsf3),
   ]);
 
   await seedTimetables(timetablesResources);
