@@ -25,6 +25,7 @@ export const CommonSubstitutePeriodSection = ({
 
   const {
     commonSubstituteOperatingPeriods,
+    isLoadingCommonSubstituteOperatingPeriods,
     refetchCommonSubstituteOperatingPeriods,
   } = useGetSubstituteOperatingPeriods({ startDate, endDate });
 
@@ -70,6 +71,7 @@ export const CommonSubstitutePeriodSection = ({
         commonDays={mapCommonSubstituteOperatingPeriodsToCommonDays(
           commonSubstituteOperatingPeriods,
         )}
+        loading={isLoadingCommonSubstituteOperatingPeriods}
         onSubmit={onSubmit}
       />
     </div>
