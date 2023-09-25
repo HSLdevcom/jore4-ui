@@ -1,6 +1,9 @@
 import { ParentPageObject } from './types';
+import { VehicleJourneyGroupInfo } from './VehicleJourneyGroupInfo';
 
 export class VehicleServiceTable {
+  vehicleJourneyGroupInfo = new VehicleJourneyGroupInfo();
+
   getParent: ParentPageObject['get'];
 
   dayType: string;

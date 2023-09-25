@@ -11,10 +11,13 @@ import {
 } from './CommonSubstitutePeriodForm.types';
 
 const testIds = {
+  periodContainer: (periodName: string) =>
+    `CommonSubstitutePeriodItem::container::${periodName}`,
   periodName: 'CommonSubstitutePeriodItem::periodName',
   supersededDate: 'CommonSubstitutePeriodItem::supersededDate',
-  substituteDayOfWeek: 'CommonSubstitutePeriodItem::substituteDayOfWeek',
-  lineTypes: 'CommonSubstitutePeriodItem::lineTypes',
+  substituteDayOfWeek:
+    'CommonSubstitutePeriodItem::substituteDayOfWeekDropdown',
+  lineTypes: 'CommonSubstitutePeriodItem::lineTypesDropdown',
   editCloseButton: 'CommonSubstitutePeriodItem::editCloseButton',
 };
 
@@ -59,7 +62,11 @@ export const CommonSubstitutePeriodItem = ({
   const toBeDeleted = watch(`commonDays.${index}.toBeDeleted`) ?? false;
 
   return (
-    <div className="flex basis-[28%] flex-wrap" key={field.id}>
+    <div
+      className="flex basis-[28%] flex-wrap"
+      key={field.id}
+      data-testid={testIds.periodContainer(field.periodName)}
+    >
       <PeriodNameAndDateLabel
         periodName={field.periodName}
         supersededDate={field.supersededDate}
