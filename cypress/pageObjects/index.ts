@@ -9,6 +9,7 @@ export * from './Map';
 export * from './MapFooter';
 export * from './ModalMap';
 export * from './Navbar';
+export * from './ObservationPeriodForm';
 export * from './PassingTimesByStopSection';
 export * from './PreviewTimetablesPage';
 export * from './RouteEditor';
