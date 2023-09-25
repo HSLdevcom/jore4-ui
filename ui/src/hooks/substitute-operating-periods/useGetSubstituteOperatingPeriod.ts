@@ -74,6 +74,7 @@ export const useGetSubstituteOperatingPeriods = ({
   const {
     data: commonSubstituteOperatingPeriodData,
     refetch: refetchCommonSubstituteOperatingPeriods,
+    loading: isLoadingCommonSubstituteOperatingPeriods,
   } = useGetSubstituteOperatingPeriodsQuery({
     variables: { periodFilters: commonPeriodFilter },
   });
@@ -90,6 +91,7 @@ export const useGetSubstituteOperatingPeriods = ({
   return {
     refetchOccasionalSubstituteOperatingPeriods,
     isLoadingOccasionalSubstituteOperatingPeriods,
+    isLoadingCommonSubstituteOperatingPeriods,
     refetchCommonSubstituteOperatingPeriods,
     occasionalSubstituteOperatingPeriods,
     commonSubstituteOperatingPeriods,
