@@ -11,6 +11,7 @@ import { Row } from '../../../../layoutComponents';
 import { setIsCommonSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
 import { mapToISODate, padToTwoDigits } from '../../../../time';
 import { ConfirmationDialog, SimpleButton } from '../../../../uiComponents';
+import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import {
   mapDateTimeToFormState,
   mapLineTypes,
@@ -29,6 +30,8 @@ import { CommonSubstitutePeriodItem } from './CommonSubstitutePeriodItem';
 const testIds = {
   cancelButton: 'CommonSubstitutePeriodForm::cancelButton',
   saveButton: 'CommonSubstitutePeriodForm::saveButton',
+  loadingCommonSubstitutePeriods:
+    'CommonSubstitutePeriodForm::LoadingCommonSubstitutePeriods',
 };
 
 type GeneratedDate = { name: string; date: DateTime };
@@ -116,12 +119,14 @@ const combineCommonDaysWithPresetDates = (
 interface Props {
   className?: string;
   commonDays?: CommonDayType[];
+  loading: boolean;
   onSubmit: (state: FormState) => void;
 }
 
 export const CommonSubstitutePeriodForm = ({
   className,
   commonDays,
+  loading,
   onSubmit,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
@@ -198,51 +203,61 @@ export const CommonSubstitutePeriodForm = ({
   };
 
   return (
-    <div className={className}>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <FormProvider {...methods}>
-        <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-wrap justify-between gap-8">
-            {fields.map((field, index) => (
-              <CommonSubstitutePeriodItem
-                field={field}
-                index={index}
-                key={field.id}
-                update={update}
-              />
-            ))}
-          </div>
-          <Row className="my-8 justify-end space-x-4">
-            <SimpleButton
-              onClick={() => setIsResetting(true)}
-              disabled={!isDirty}
-              id="cancel-button"
-              testId={testIds.cancelButton}
-              inverted
-            >
-              {t('cancel')}
-            </SimpleButton>
+    <LoadingWrapper
+      loading={loading}
+      testId={testIds.loadingCommonSubstitutePeriods}
+      className="flex justify-center"
+    >
+      <div className={className}>
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+        <FormProvider {...methods}>
+          <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-wrap justify-between gap-8">
+              {fields.map((field, index) => (
+                <CommonSubstitutePeriodItem
+                  field={field}
+                  index={index}
+                  key={field.id}
+                  update={update}
+                />
+              ))}
+            </div>
+            <Row className="my-8 justify-end space-x-4">
+              <SimpleButton
+                onClick={() => setIsResetting(true)}
+                disabled={!isDirty}
+                id="cancel-button"
+                testId={testIds.cancelButton}
+                inverted
+              >
+                {t('cancel')}
+              </SimpleButton>
 
-            <SimpleButton
-              onClick={onSave}
-              disabled={!isDirty}
-              id="save-button"
-              testId={testIds.saveButton}
-            >
-              {t('save')}
-            </SimpleButton>
-          </Row>
-        </form>
-      </FormProvider>
-      <ConfirmationDialog
-        isOpen={isResetting}
-        onCancel={() => setIsResetting(false)}
-        onConfirm={onReset}
-        title={t('confirmResetCommonSubstitutePeriodDialog.title')}
-        description={t('confirmResetCommonSubstitutePeriodDialog.description')}
-        confirmText={t('confirmResetCommonSubstitutePeriodDialog.confirmText')}
-        cancelText={t('confirmResetCommonSubstitutePeriodDialog.cancelText')}
-      />
-    </div>
+              <SimpleButton
+                onClick={onSave}
+                disabled={!isDirty}
+                id="save-button"
+                testId={testIds.saveButton}
+              >
+                {t('save')}
+              </SimpleButton>
+            </Row>
+          </form>
+        </FormProvider>
+        <ConfirmationDialog
+          isOpen={isResetting}
+          onCancel={() => setIsResetting(false)}
+          onConfirm={onReset}
+          title={t('confirmResetCommonSubstitutePeriodDialog.title')}
+          description={t(
+            'confirmResetCommonSubstitutePeriodDialog.description',
+          )}
+          confirmText={t(
+            'confirmResetCommonSubstitutePeriodDialog.confirmText',
+          )}
+          cancelText={t('confirmResetCommonSubstitutePeriodDialog.cancelText')}
+        />
+      </div>
+    </LoadingWrapper>
   );
 };
