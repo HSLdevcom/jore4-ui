@@ -46,26 +46,30 @@ export class TerminusNameInputs {
     origin: TerminusValues,
     destination: TerminusValues,
   ) {
-    this.getTerminusOriginFinnishNameInput().clear().type(origin.finnishName);
+    this.getTerminusOriginFinnishNameInput()
+      .clear({ force: true })
+      .type(origin.finnishName);
     this.getTerminusOriginFinnishShortNameInput()
-      .clear()
+      .clear({ force: true })
       .type(origin.finnishShortName);
-    this.getTerminusOriginSwedishNameInput().clear().type(origin.swedishName);
+    this.getTerminusOriginSwedishNameInput()
+      .clear({ force: true })
+      .type(origin.swedishName);
     this.getTerminusOriginSwedishShortNameInput()
-      .clear()
+      .clear({ force: true })
       .type(origin.swedishShortName);
 
     this.getTerminusDestinationFinnishNameInput()
-      .clear()
+      .clear({ force: true })
       .type(destination.finnishName);
     this.getTerminusDestinationFinnishShortNameInput()
-      .clear()
+      .clear({ force: true })
       .type(destination.finnishShortName);
     this.getTerminusDestinationSwedishNameInput()
-      .clear()
+      .clear({ force: true })
       .type(destination.swedishName);
     this.getTerminusDestinationSwedishShortNameInput()
-      .clear()
+      .clear({ force: true })
       .type(destination.swedishShortName);
   }
 
