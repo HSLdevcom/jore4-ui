@@ -46,27 +46,31 @@ export class TerminusNameInputs {
     origin: TerminusValues,
     destination: TerminusValues,
   ) {
-    this.getTerminusOriginFinnishNameInput().clear().type(origin.finnishName);
+    this.getTerminusOriginFinnishNameInput()
+      .clear({ force: true })
+      .type(origin.finnishName, { force: true });
     this.getTerminusOriginFinnishShortNameInput()
-      .clear()
-      .type(origin.finnishShortName);
-    this.getTerminusOriginSwedishNameInput().clear().type(origin.swedishName);
+      .clear({ force: true })
+      .type(origin.finnishShortName, { force: true });
+    this.getTerminusOriginSwedishNameInput()
+      .clear({ force: true })
+      .type(origin.swedishName, { force: true });
     this.getTerminusOriginSwedishShortNameInput()
-      .clear()
-      .type(origin.swedishShortName);
+      .clear({ force: true })
+      .type(origin.swedishShortName, { force: true });
 
     this.getTerminusDestinationFinnishNameInput()
-      .clear()
-      .type(destination.finnishName);
+      .clear({ force: true })
+      .type(destination.finnishName, { force: true });
     this.getTerminusDestinationFinnishShortNameInput()
-      .clear()
-      .type(destination.finnishShortName);
+      .clear({ force: true })
+      .type(destination.finnishShortName, { force: true });
     this.getTerminusDestinationSwedishNameInput()
-      .clear()
-      .type(destination.swedishName);
+      .clear({ force: true })
+      .type(destination.swedishName, { force: true });
     this.getTerminusDestinationSwedishShortNameInput()
-      .clear()
-      .type(destination.swedishShortName);
+      .clear({ force: true })
+      .type(destination.swedishShortName, { force: true });
   }
 
   verifyOriginValues(originValues: TerminusValues) {
