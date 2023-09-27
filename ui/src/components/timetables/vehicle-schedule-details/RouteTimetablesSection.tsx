@@ -9,6 +9,7 @@ import {
   useTimetablesViewState,
   useToggle,
 } from '../../../hooks';
+import { parseI18nField } from '../../../i18n/utils';
 import { Row, Visible } from '../../../layoutComponents';
 import { selectTimetable } from '../../../redux';
 import { AccordionButton } from '../../../uiComponents';
@@ -80,7 +81,7 @@ export const RouteTimetablesSection = ({
           <h3 className="m-3.5">
             <RouteLabel label={route.label} variant={route.variant} />
           </h3>
-          <span className="text-xl">{route.name_i18n?.fi_FI}</span>
+          <span className="text-xl">{parseI18nField(route.name_i18n)}</span>
         </div>
         <div className="ml-1 bg-background p-3">
           <AccordionButton
