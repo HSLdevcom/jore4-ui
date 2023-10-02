@@ -5,7 +5,7 @@ import translationsJson from './locales/fi-FI/common.json';
 export type SupportedLocale = 'fi-FI' | 'en-US';
 export const defaultLocale: SupportedLocale = 'fi-FI';
 
-const modules = ['common'];
+const modules = ['common', 'accessibility'];
 const locales = ['fi-FI', 'en-US'];
 const resources: Resource = {};
 locales.forEach((locale) => {
@@ -18,13 +18,12 @@ locales.forEach((locale) => {
     resources[locale][module] = tr;
   });
 });
-
 i18next.use(initReactI18next).init({
   lng: defaultLocale,
   fallbackLng: defaultLocale,
   resources,
   debug: false,
-  ns: ['common'],
+  ns: ['common', 'accessibility'],
   defaultNS: 'common',
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default
