@@ -30,6 +30,10 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
+  jore4-timetablesapi:
+    # pinning timetables api
+    image: "hsldevcom/jore4-timetables-api:main--20231005-6ee56403d3a50f37c07bcc4a66356bb83c70e033"
+
   jore4-hasura-e2e1:
     image: *hasura-image
     depends_on:
