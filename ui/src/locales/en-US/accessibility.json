@@ -1,0 +1,17 @@
+{
+  "title": {},
+  "button": {
+    "showOnMap": "Show {{routeLabel}} on the map",
+    "nextPage": "Next page",
+    "prevPage": "Previous page",
+    "line": {
+      "details": "Show details for line {{label}}",
+      "showOnMap": "Show line {{label}} on the map",
+      "showTimetables": "Show timetables for line {{label}}"
+    },
+    "route": {
+      "showOnMap": "Show route {{label}} on the map",
+      "showTimetables": "Show timetables for route {{label}}"
+    }
+  }
+}

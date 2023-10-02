@@ -1,11 +1,12 @@
 import i18next, { Resource } from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import accessibilityTranslationsJson from './locales/fi-FI/accessibility.json';
 import translationsJson from './locales/fi-FI/common.json';
 
 export type SupportedLocale = 'fi-FI' | 'en-US';
 export const defaultLocale: SupportedLocale = 'fi-FI';
 
-const modules = ['common'];
+const modules = ['common', 'accessibility'];
 const locales = ['fi-FI', 'en-US'];
 const resources: Resource = {};
 locales.forEach((locale) => {
@@ -24,8 +25,8 @@ i18next.use(initReactI18next).init({
   fallbackLng: defaultLocale,
   resources,
   debug: false,
-  ns: ['common'],
-  defaultNS: 'common',
+  ns: ['common', 'accessibility'],
+  defaultNS: ['common'],
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default
   },
@@ -33,5 +34,6 @@ i18next.use(initReactI18next).init({
 
 export const i18n = i18next;
 
-// All the translation key paths as strings (e.g. "navigation.logout")
-export type TranslationKeys = Paths<typeof translationsJson>;
+const combinedKeys = { ...translationsJson, ...accessibilityTranslationsJson };
+// All the translation key paths as strings (e.g. "navigation.logout") AS
+export type TranslationKeys = Paths<typeof combinedKeys>;
