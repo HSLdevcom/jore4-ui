@@ -1,0 +1,17 @@
+{
+  "title": {},
+  "button": {
+    "showOnMap": "Näytä kartalla {{label}}",
+    "nextPage": "Seuraava sivu",
+    "prevPage": "Edellinen sivu",
+    "line": {
+      "details": "Näytä tarkemmat tiedot linjalle {{label}}",
+      "showOnMap": "Näytä kartalla linja {{label}}",
+      "showTimetables": "Näytä aikataulut linjalle {{label}}"
+    },
+    "route": {
+      "showOnMap": "Näytä kartalla reitti {{label}}",
+      "showTimetables": "Näytä aikataulut reitille {{label}}"
+    }
+  }
+}
