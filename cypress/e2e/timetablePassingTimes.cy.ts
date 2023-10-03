@@ -10,6 +10,7 @@ import {
   JourneyPatternInsertInput,
   LineInsertInput,
   mapToGetInfrastructureLinksByExternalIdsQuery,
+  RouteDirectionEnum,
   RouteInsertInput,
   RouteTypeOfLineEnum,
   StopInsertInput,
@@ -114,8 +115,9 @@ const routes: RouteInsertInput[] = [
     ...buildRoute({ label: '99' }),
     route_id: '829e9d55-aa25-4ab9-858b-f2a5aa81d931',
     on_line_id: lines[0].line_id,
-    validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+03:00'),
-    validity_end: DateTime.fromISO('2032-08-11T13:08:43.315+03:00'),
+    validity_start: DateTime.fromISO('2023-01-01T13:08:43.315+03:00'),
+    validity_end: DateTime.fromISO('2043-06-30T13:08:43.315+03:00'),
+    direction: RouteDirectionEnum.Inbound,
   },
 ];
 
