@@ -5,6 +5,7 @@ import {
   LineInsertInput,
   RouteInsertInput,
   StopInJourneyPatternInsertInput,
+  RouteDirectionEnum,
   RouteTypeOfLineEnum,
   StopInsertInput,
   TimetablePriority,
@@ -113,8 +114,9 @@ const routes: RouteInsertInput[] = [
     ...buildRoute({ label: '99' }),
     route_id: 'c82987b1-87f8-474e-99aa-07350a474efd',
     on_line_id: lines[0].line_id,
-    validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+03:00'),
-    validity_end: DateTime.fromISO('2032-08-11T13:08:43.315+03:00'),
+    validity_start: DateTime.fromISO('2023-01-01T13:08:43.315+03:00'),
+    validity_end: DateTime.fromISO('2043-06-30T13:08:43.315+03:00'),
+    direction: RouteDirectionEnum.Inbound,
   },
 ];
 
