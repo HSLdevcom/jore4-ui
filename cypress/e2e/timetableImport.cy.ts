@@ -24,6 +24,7 @@ import {
   Navbar,
   PassingTimesByStopSection,
   PreviewTimetablesPage,
+  RoutesAndLinesPage,
   RouteTimetablesSection,
   TimetablesMainpage,
   VehicleServiceTable,
@@ -219,16 +220,21 @@ describe('Timetable import and export', () => {
     cy.setupTests();
     cy.mockLogin();
     cy.visit('/');
-    navbar.getTimetablesLink().click();
   });
 
   afterEach(() => {
+    const exportDate = DateTime.now().toISODate();
+    const exportFilePath = `${Cypress.config(
+      'downloadsFolder',
+    )}/jore4-export-${exportDate}.csv`;
+    cy.task('deleteFile', exportFilePath);
+
     removeFromDbHelper(dbResources);
     cy.task('truncateTimetablesDatabase');
   });
 
   it(
-    'Should import a Hastus timetable file using preview',
+    'Should export a route and import a Hastus timetable file using preview',
     { tags: [Tag.Smoke, Tag.Timetables, Tag.HastusImport] },
     () => {
       const route99InboundTimetableSection = new RouteTimetablesSection(
@@ -248,7 +254,22 @@ describe('Timetable import and export', () => {
           TimetablePriority.Standard,
         );
 
+      const routesAndLinesPage = new RoutesAndLinesPage();
+
       const IMPORT_FILENAME = 'hastusImport.exp';
+
+      // Skip searching via UI
+      cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+      // Export the route
+      routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+      routesAndLinesPage.routeLineTableRow
+        .getRouteLineTableRowCheckbox('99')
+        .check();
+      routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+      cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
+
+      // Import a timetable for the exported route
+      navbar.getTimetablesLink().click();
       timetablesMainPage.getImportButton().click();
       importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
       importTimetablesPage.getUploadButton().click();
