@@ -216,7 +216,7 @@ describe('Timetable import and export', () => {
     previewTimetablesPage = new PreviewTimetablesPage();
     navbar = new Navbar();
 
-    cy.setupTests();
+    cy.setupMapTiles();
     cy.mockLogin();
     cy.visit('/');
     navbar.getTimetablesLink().click();

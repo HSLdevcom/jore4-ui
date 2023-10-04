@@ -41,7 +41,7 @@ describe('Line editing', () => {
     lineForm = new LineForm();
     lineDetailsPage = new LineDetailsPage();
 
-    cy.setupTests();
+    cy.setupMapTiles();
     cy.mockLogin();
     insertToDbHelper(dbResources);
     lineDetailsPage.visit(lines[0].line_id);

@@ -6,7 +6,7 @@ describe('Verify that language changing works', () => {
   beforeEach(() => {
     navbar = new Navbar();
 
-    cy.setupTests();
+    cy.setupMapTiles();
     cy.mockLogin();
     cy.visit('/');
   });

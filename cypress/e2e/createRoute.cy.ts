@@ -241,7 +241,7 @@ describe('Route creation', () => {
 
     routeStopsOverlay = new RouteStopsOverlay();
     routeEditor = new RouteEditor();
-    cy.setupTests();
+    cy.setupMapTiles();
     cy.mockLogin();
 
     // Location where all test stops and routes are visible.

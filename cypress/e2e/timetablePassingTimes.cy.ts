@@ -217,7 +217,7 @@ describe('Timetable import and export', () => {
     vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
     navbar = new Navbar();
 
-    cy.setupTests();
+    cy.setupMapTiles();
     cy.mockLogin();
     cy.visit('/');
     navbar.getTimetablesLink().click();

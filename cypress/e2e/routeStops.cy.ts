@@ -188,7 +188,7 @@ describe('Line details page: stops on route', () => {
 
     insertToDbHelper(dbResources);
 
-    cy.setupTests();
+    cy.setupMapTiles();
     cy.mockLogin();
     lineDetailsPage.visit(lines[0].line_id);
   });
