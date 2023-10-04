@@ -75,7 +75,7 @@ describe(
     });
 
     beforeEach(() => {
-      cy.setupTests();
+      cy.setupMapTiles();
       cy.mockLogin();
       routesAndLinesPage.searchContainer.getSearchInput().clear();
     });

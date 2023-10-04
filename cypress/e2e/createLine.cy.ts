@@ -11,7 +11,7 @@ describe('Verify that creating new line works', () => {
     lineForm = new LineForm();
     lineDetailsPage = new LineDetailsPage();
 
-    cy.setupTests();
+    cy.setupMapTiles();
     cy.mockLogin();
     cy.visit('/lines/create');
     // delete label we are about to create (if exists) to avoid

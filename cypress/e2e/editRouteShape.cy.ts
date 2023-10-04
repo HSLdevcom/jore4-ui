@@ -231,7 +231,7 @@ describe('Edit route geometry', () => {
     modalMap = new ModalMap();
     mapFooter = new MapFooter();
 
-    cy.setupTests();
+    cy.setupMapTiles();
     cy.mockLogin();
   });
 

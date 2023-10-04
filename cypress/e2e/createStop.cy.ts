@@ -38,7 +38,7 @@ describe('Stop creation tests', () => {
     mapFilterPanel = new FilterPanel();
     changeValidityForm = new ChangeValidityForm();
 
-    cy.setupTests();
+    cy.setupMapTiles();
     cy.mockLogin();
 
     modalMap.map.visit({

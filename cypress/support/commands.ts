@@ -59,7 +59,7 @@ Cypress.Commands.add('mockLogin', () => {
   });
 });
 
-Cypress.Commands.add('setupTests', () => {
+Cypress.Commands.add('setupMapTiles', () => {
   // In CI, the tests run faster and more reliably if we don't show the map tiles.
   // However the map tiles might come handy when running these tests locally.
   if (Cypress.env('DISABLE_MAP_TILES')) {

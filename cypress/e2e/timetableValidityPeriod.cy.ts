@@ -216,7 +216,7 @@ describe('Timetable validity period', () => {
 
     const IMPORT_FILENAME = 'hastusImport.exp';
 
-    cy.setupTests();
+    cy.setupMapTiles();
     cy.mockLogin();
     cy.visit('/timetables');
 
