@@ -24,6 +24,7 @@ import {
   Navbar,
   PassingTimesByStopSection,
   PreviewTimetablesPage,
+  RoutesAndLinesPage,
   RouteTimetablesSection,
   TimetablesMainpage,
   VehicleScheduleDetailsPage,
@@ -43,23 +44,27 @@ import {
 const testInfraLinks = [
   {
     externalId: '445156',
-    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
+    coordinates: [24.925682785, 60.163824160000004, 7.3515],
+  },
+  {
+    externalId: '442331',
+    coordinates: [24.927565858, 60.1644843305, 9.778500000000001],
   },
   {
     externalId: '442424',
-    coordinates: [24.92904198486008, 60.16490775039894, 0],
+    coordinates: [24.929825718, 60.165285984, 9.957],
   },
   {
     externalId: '442325',
-    coordinates: [24.932072417514647, 60.166003223527824, 0],
+    coordinates: [24.93312261043133, 60.16645636069328, 13.390046659939703],
   },
 ];
 
-const stopLabels = ['H1234', 'H1235', 'H1236'];
+const stopLabels = ['H1231', 'H1232', 'H1233', 'H1234'];
 
 const lines: LineInsertInput[] = [
   {
-    ...buildLine({ label: '1234' }),
+    ...buildLine({ label: '99' }),
     line_id: 'f148d51b-36ff-4321-8cf1-049946f75f73',
     type_of_line: RouteTypeOfLineEnum.StoppingBusService,
   },
@@ -67,6 +72,7 @@ const lines: LineInsertInput[] = [
 
 const timingPlaces = [
   buildTimingPlace('50623e7b-abd0-4c9a-85fa-f88ff7f65a06', '1AACKT'),
+  buildTimingPlace('f8a93c6f-5ef7-4b09-ae5e-0a04ea8597e9', '1ELIMK'),
   buildTimingPlace('31a2592e-0af1-48b7-8f2f-373dcca39ddd', '1AURLA'),
 ];
 
@@ -108,6 +114,18 @@ const buildStopsOnInfrastrucureLinks = (
       coordinates: testInfraLinks[2].coordinates,
     },
   },
+  {
+    ...buildStop({
+      label: stopLabels[3],
+      located_on_infrastructure_link_id: infrastructureLinkIds[3],
+    }),
+    scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
+    timing_place_id: timingPlaces[2].timing_place_id,
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[3].coordinates,
+    },
+  },
 ];
 
 const routes: RouteInsertInput[] = [
@@ -142,6 +160,12 @@ const buildInfraLinksAlongRoute = (
     infrastructure_link_sequence: 2,
     is_traversal_forwards: true,
   },
+  {
+    route_id: routes[0].route_id,
+    infrastructure_link_id: infrastructureLinkIds[3],
+    infrastructure_link_sequence: 3,
+    is_traversal_forwards: true,
+  },
 ];
 
 const journeyPatterns: JourneyPatternInsertInput[] = [
@@ -170,9 +194,16 @@ const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
     scheduledStopPointSequence: 2,
     isUsedAsTimingPoint: true,
   }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[3],
+    scheduledStopPointSequence: 3,
+    isUsedAsTimingPoint: true,
+  }),
 ];
 
 describe('Timetable import and export', () => {
+  let routesAndLinesPage: RoutesAndLinesPage;
   let timetablesMainPage: TimetablesMainpage;
   let importTimetablesPage: ImportTimetablesPage;
   let previewTimetablesPage: PreviewTimetablesPage;
@@ -211,6 +242,7 @@ describe('Timetable import and export', () => {
     removeFromDbHelper(dbResources);
     insertToDbHelper(dbResources);
 
+    routesAndLinesPage = new RoutesAndLinesPage();
     timetablesMainPage = new TimetablesMainpage();
     importTimetablesPage = new ImportTimetablesPage();
     previewTimetablesPage = new PreviewTimetablesPage();
@@ -220,9 +252,23 @@ describe('Timetable import and export', () => {
     cy.setupMapTiles();
     cy.mockLogin();
     cy.visit('/');
+
+    // TODO: Change timetable importing to use Data Inserter instead of populating data using
+    // jore4-hastus service.
+
+    // Skip searching via UI
+    cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+    // Export the route
+    routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+    routesAndLinesPage.routeLineTableRow
+      .getRouteLineTableRowCheckbox('99')
+      .check();
+    routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+    cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
+
+    // Import a timetable for the exported route
     navbar.getTimetablesLink().click();
 
-    // TODO: Change timetable importing to proper test data generation when it is available
     const IMPORT_FILENAME = 'hastusImport.exp';
     timetablesMainPage.getImportButton().click();
     importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
@@ -237,6 +283,12 @@ describe('Timetable import and export', () => {
   });
 
   afterEach(() => {
+    const exportDate = DateTime.now().toISODate();
+    const exportFilePath = `${Cypress.config(
+      'downloadsFolder',
+    )}/jore4-export-${exportDate}.csv`;
+    cy.task('deleteFile', exportFilePath);
+
     removeFromDbHelper(dbResources);
     cy.task('truncateTimetablesDatabase');
   });
@@ -269,7 +321,7 @@ describe('Timetable import and export', () => {
       route99InboundSaturdayVehicleService.getHeadingButton().click();
       vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
       route99InboundSaturdayPassingTimesSection.assertNthPassingTimeOnStop({
-        stopLabel: stopLabels[1],
+        stopLabel: stopLabels[2],
         nthPassingTime: 0,
         hour: '7',
         arrivalTime: '12',
