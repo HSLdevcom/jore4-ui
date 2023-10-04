@@ -51,7 +51,7 @@ export const buildLine = (
     primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
     priority: Priority.Standard,
     transport_target: HslRouteTransportTargetEnum.HelsinkiInternalTraffic,
-    type_of_line: RouteTypeOfLineEnum.RegionalBusService,
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
     validity_start: null,
     validity_end: null,
     legacy_hsl_municipality_code: LegacyHslMunicipality.Helsinki,
