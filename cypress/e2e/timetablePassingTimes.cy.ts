@@ -43,31 +43,36 @@ import {
 const testInfraLinks = [
   {
     externalId: '445156',
-    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
+    coordinates: [24.925682785, 60.163824160000004, 7.3515],
+  },
+  {
+    externalId: '442331',
+    coordinates: [24.927565858, 60.1644843305, 9.778500000000001],
   },
   {
     externalId: '442424',
-    coordinates: [24.92904198486008, 60.16490775039894, 0],
+    coordinates: [24.929825718, 60.165285984, 9.957],
   },
   {
     externalId: '442325',
-    coordinates: [24.932072417514647, 60.166003223527824, 0],
+    coordinates: [24.93312261043133, 60.16645636069328, 13.390046659939703],
   },
 ];
 
-const stopLabels = ['H1234', 'H1235', 'H1236'];
+const stopLabels = ['H1231', 'H1232', 'H1233', 'H1234'];
 
 const lines: LineInsertInput[] = [
   {
-    ...buildLine({ label: '1234' }),
-    line_id: 'f148d51b-36ff-4321-8cf1-049946f75f73',
+    ...buildLine({ label: '99' }),
+    line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
     type_of_line: RouteTypeOfLineEnum.StoppingBusService,
   },
 ];
 
 const timingPlaces = [
-  buildTimingPlace('50623e7b-abd0-4c9a-85fa-f88ff7f65a06', '1AACKT'),
-  buildTimingPlace('31a2592e-0af1-48b7-8f2f-373dcca39ddd', '1AURLA'),
+  buildTimingPlace('78ee94c3-e856-4fdc-89ad-10b72cadb444', '1AACKT'),
+  buildTimingPlace('f8a93c6f-5ef7-4b09-ae5e-0a04ea8597e9', '1ELIMK'),
+  buildTimingPlace('5240633b-5c94-49c1-b1c2-26e9d61a01cd', '1AURLA'),
 ];
 
 const buildStopsOnInfrastrucureLinks = (
@@ -78,7 +83,7 @@ const buildStopsOnInfrastrucureLinks = (
       label: stopLabels[0],
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
-    scheduled_stop_point_id: 'd9f0bc78-45f2-4d44-9cac-4674f856a400',
+    scheduled_stop_point_id: '7ef42a37-142d-44be-9b69-dbe6adca7f34',
     timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
@@ -90,7 +95,8 @@ const buildStopsOnInfrastrucureLinks = (
       label: stopLabels[1],
       located_on_infrastructure_link_id: infrastructureLinkIds[1],
     }),
-    scheduled_stop_point_id: '63bd05f9-de46-4fa3-bdd9-10e9a81702e3',
+    scheduled_stop_point_id: '4f8df0bc-a5cb-4fbe-a6dc-0425d55be382',
+    timing_place_id: null,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[1].coordinates,
@@ -101,11 +107,23 @@ const buildStopsOnInfrastrucureLinks = (
       label: stopLabels[2],
       located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
-    scheduled_stop_point_id: 'f732ceb2-fc41-4843-8164-ead6ec7dd33b',
+    scheduled_stop_point_id: 'b17e9ca3-44d1-4c18-8caf-018f28793ec2',
     timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[2].coordinates,
+    },
+  },
+  {
+    ...buildStop({
+      label: stopLabels[3],
+      located_on_infrastructure_link_id: infrastructureLinkIds[3],
+    }),
+    scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
+    timing_place_id: timingPlaces[2].timing_place_id,
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[3].coordinates,
     },
   },
 ];
@@ -142,6 +160,12 @@ const buildInfraLinksAlongRoute = (
     infrastructure_link_sequence: 2,
     is_traversal_forwards: true,
   },
+  {
+    route_id: routes[0].route_id,
+    infrastructure_link_id: infrastructureLinkIds[3],
+    infrastructure_link_sequence: 3,
+    is_traversal_forwards: true,
+  },
 ];
 
 const journeyPatterns: JourneyPatternInsertInput[] = [
@@ -168,6 +192,12 @@ const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
     journeyPatternId: journeyPatterns[0].journey_pattern_id,
     stopLabel: stopLabels[2],
     scheduledStopPointSequence: 2,
+    isUsedAsTimingPoint: true,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[3],
+    scheduledStopPointSequence: 3,
     isUsedAsTimingPoint: true,
   }),
 ];
@@ -269,7 +299,7 @@ describe('Timetable import and export', () => {
       route99InboundSaturdayVehicleService.getHeadingButton().click();
       vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
       route99InboundSaturdayPassingTimesSection.assertNthPassingTimeOnStop({
-        stopLabel: stopLabels[1],
+        stopLabel: stopLabels[2],
         nthPassingTime: 0,
         hour: '7',
         arrivalTime: '12',
