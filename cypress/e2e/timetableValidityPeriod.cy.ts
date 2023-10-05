@@ -42,23 +42,27 @@ import {
 const testInfraLinks = [
   {
     externalId: '445156',
-    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
+    coordinates: [24.925682785, 60.163824160000004, 7.3515],
+  },
+  {
+    externalId: '442331',
+    coordinates: [24.927565858, 60.1644843305, 9.778500000000001],
   },
   {
     externalId: '442424',
-    coordinates: [24.92904198486008, 60.16490775039894, 0],
+    coordinates: [24.929825718, 60.165285984, 9.957],
   },
   {
     externalId: '442325',
-    coordinates: [24.932072417514647, 60.166003223527824, 0],
+    coordinates: [24.93312261043133, 60.16645636069328, 13.390046659939703],
   },
 ];
 
-const stopLabels = ['H1234', 'H1235', 'H1236'];
+const stopLabels = ['H1231', 'H1232', 'H1233', 'H1234'];
 
 const lines: LineInsertInput[] = [
   {
-    ...buildLine({ label: '1234' }),
+    ...buildLine({ label: '99' }),
     line_id: '4b8c8f84-12bc-4716-b15e-476f0efaa645',
     type_of_line: RouteTypeOfLineEnum.StoppingBusService,
   },
@@ -66,6 +70,7 @@ const lines: LineInsertInput[] = [
 
 const timingPlaces = [
   buildTimingPlace('0f61ad5c-9035-4b62-8120-92e39baf3e24', '1AACKT'),
+  buildTimingPlace('f8a93c6f-5ef7-4b09-ae5e-0a04ea8597e9', '1ELIMK'),
   buildTimingPlace('53285ed7-5ca6-48ce-9853-d9613cc5995f', '1AURLA'),
 ];
 
@@ -107,6 +112,18 @@ const buildStopsOnInfrastrucureLinks = (
       coordinates: testInfraLinks[2].coordinates,
     },
   },
+  {
+    ...buildStop({
+      label: stopLabels[3],
+      located_on_infrastructure_link_id: infrastructureLinkIds[3],
+    }),
+    scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
+    timing_place_id: timingPlaces[2].timing_place_id,
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[3].coordinates,
+    },
+  },
 ];
 
 const routes: RouteInsertInput[] = [
@@ -141,6 +158,12 @@ const buildInfraLinksAlongRoute = (
     infrastructure_link_sequence: 2,
     is_traversal_forwards: true,
   },
+  {
+    route_id: routes[0].route_id,
+    infrastructure_link_id: infrastructureLinkIds[3],
+    infrastructure_link_sequence: 3,
+    is_traversal_forwards: true,
+  },
 ];
 
 const journeyPatterns: JourneyPatternInsertInput[] = [
@@ -167,6 +190,12 @@ const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
     journeyPatternId: journeyPatterns[0].journey_pattern_id,
     stopLabel: stopLabels[2],
     scheduledStopPointSequence: 2,
+    isUsedAsTimingPoint: true,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[3],
+    scheduledStopPointSequence: 3,
     isUsedAsTimingPoint: true,
   }),
 ];

@@ -43,23 +43,27 @@ import {
 const testInfraLinks = [
   {
     externalId: '445156',
-    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
+    coordinates: [24.925682785, 60.163824160000004, 7.3515],
+  },
+  {
+    externalId: '442331',
+    coordinates: [24.927565858, 60.1644843305, 9.778500000000001],
   },
   {
     externalId: '442424',
-    coordinates: [24.92904198486008, 60.16490775039894, 0],
+    coordinates: [24.929825718, 60.165285984, 9.957],
   },
   {
     externalId: '442325',
-    coordinates: [24.932072417514647, 60.166003223527824, 0],
+    coordinates: [24.93312261043133, 60.16645636069328, 13.390046659939703],
   },
 ];
 
-const stopLabels = ['H1234', 'H1235', 'H1236'];
+const stopLabels = ['H1231', 'H1232', 'H1233', 'H1234'];
 
 const lines: LineInsertInput[] = [
   {
-    ...buildLine({ label: '1234' }),
+    ...buildLine({ label: '99' }),
     line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
     type_of_line: RouteTypeOfLineEnum.StoppingBusService,
   },
@@ -92,7 +96,7 @@ const buildStopsOnInfrastrucureLinks = (
       located_on_infrastructure_link_id: infrastructureLinkIds[1],
     }),
     scheduled_stop_point_id: '4f8df0bc-a5cb-4fbe-a6dc-0425d55be382',
-    timing_place_id: timingPlaces[1].timing_place_id,
+    timing_place_id: null,
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[1].coordinates,
@@ -103,11 +107,23 @@ const buildStopsOnInfrastrucureLinks = (
       label: stopLabels[2],
       located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
+    scheduled_stop_point_id: 'b17e9ca3-44d1-4c18-8caf-018f28793ec2',
+    timing_place_id: timingPlaces[1].timing_place_id,
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[2].coordinates,
+    },
+  },
+  {
+    ...buildStop({
+      label: stopLabels[3],
+      located_on_infrastructure_link_id: infrastructureLinkIds[3],
+    }),
     scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
     timing_place_id: timingPlaces[2].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[2].coordinates,
+      coordinates: testInfraLinks[3].coordinates,
     },
   },
 ];
@@ -144,6 +160,12 @@ const buildInfraLinksAlongRoute = (
     infrastructure_link_sequence: 2,
     is_traversal_forwards: true,
   },
+  {
+    route_id: routes[0].route_id,
+    infrastructure_link_id: infrastructureLinkIds[3],
+    infrastructure_link_sequence: 3,
+    is_traversal_forwards: true,
+  },
 ];
 
 const journeyPatterns: JourneyPatternInsertInput[] = [
@@ -170,6 +192,12 @@ const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
     journeyPatternId: journeyPatterns[0].journey_pattern_id,
     stopLabel: stopLabels[2],
     scheduledStopPointSequence: 2,
+    isUsedAsTimingPoint: true,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[3],
+    scheduledStopPointSequence: 3,
     isUsedAsTimingPoint: true,
   }),
 ];
@@ -311,10 +339,16 @@ describe('Timetable import and export', () => {
         stopLabel: stopLabels[1],
         nthPassingTime: 0,
         hour: '7',
-        departureTime: '13',
+        departureTime: '11',
       });
       route99InboundSaturdayPassingTimesSection.assertNthPassingTimeOnStop({
         stopLabel: stopLabels[2],
+        nthPassingTime: 0,
+        hour: '7',
+        departureTime: '13',
+      });
+      route99InboundSaturdayPassingTimesSection.assertNthPassingTimeOnStop({
+        stopLabel: stopLabels[3],
         nthPassingTime: 0,
         hour: '7',
         departureTime: '16',
