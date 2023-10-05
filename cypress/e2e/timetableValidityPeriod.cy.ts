@@ -21,8 +21,10 @@ import { DateTime } from 'luxon';
 import { Tag } from '../enums';
 import {
   ImportTimetablesPage,
+  Navbar,
   PassingTimesByStopSection,
   PreviewTimetablesPage,
+  RoutesAndLinesPage,
   RouteTimetablesSection,
   TimetablesMainpage,
   VehicleScheduleDetailsPage,
@@ -42,23 +44,27 @@ import {
 const testInfraLinks = [
   {
     externalId: '445156',
-    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
+    coordinates: [24.925682785, 60.163824160000004, 7.3515],
+  },
+  {
+    externalId: '442331',
+    coordinates: [24.927565858, 60.1644843305, 9.778500000000001],
   },
   {
     externalId: '442424',
-    coordinates: [24.92904198486008, 60.16490775039894, 0],
+    coordinates: [24.929825718, 60.165285984, 9.957],
   },
   {
     externalId: '442325',
-    coordinates: [24.932072417514647, 60.166003223527824, 0],
+    coordinates: [24.93312261043133, 60.16645636069328, 13.390046659939703],
   },
 ];
 
-const stopLabels = ['H1234', 'H1235', 'H1236'];
+const stopLabels = ['H1231', 'H1232', 'H1233', 'H1234'];
 
 const lines: LineInsertInput[] = [
   {
-    ...buildLine({ label: '1234' }),
+    ...buildLine({ label: '99' }),
     line_id: '4b8c8f84-12bc-4716-b15e-476f0efaa645',
     type_of_line: RouteTypeOfLineEnum.StoppingBusService,
   },
@@ -66,6 +72,7 @@ const lines: LineInsertInput[] = [
 
 const timingPlaces = [
   buildTimingPlace('0f61ad5c-9035-4b62-8120-92e39baf3e24', '1AACKT'),
+  buildTimingPlace('f8a93c6f-5ef7-4b09-ae5e-0a04ea8597e9', '1ELIMK'),
   buildTimingPlace('53285ed7-5ca6-48ce-9853-d9613cc5995f', '1AURLA'),
 ];
 
@@ -107,6 +114,18 @@ const buildStopsOnInfrastrucureLinks = (
       coordinates: testInfraLinks[2].coordinates,
     },
   },
+  {
+    ...buildStop({
+      label: stopLabels[3],
+      located_on_infrastructure_link_id: infrastructureLinkIds[3],
+    }),
+    scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
+    timing_place_id: timingPlaces[2].timing_place_id,
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[3].coordinates,
+    },
+  },
 ];
 
 const routes: RouteInsertInput[] = [
@@ -141,6 +160,12 @@ const buildInfraLinksAlongRoute = (
     infrastructure_link_sequence: 2,
     is_traversal_forwards: true,
   },
+  {
+    route_id: routes[0].route_id,
+    infrastructure_link_id: infrastructureLinkIds[3],
+    infrastructure_link_sequence: 3,
+    is_traversal_forwards: true,
+  },
 ];
 
 const journeyPatterns: JourneyPatternInsertInput[] = [
@@ -169,13 +194,21 @@ const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
     scheduledStopPointSequence: 2,
     isUsedAsTimingPoint: true,
   }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[0].journey_pattern_id,
+    stopLabel: stopLabels[3],
+    scheduledStopPointSequence: 3,
+    isUsedAsTimingPoint: true,
+  }),
 ];
 
 describe('Timetable validity period', () => {
+  let routesAndLinesPage: RoutesAndLinesPage;
   let timetablesMainPage: TimetablesMainpage;
   let importTimetablesPage: ImportTimetablesPage;
   let previewTimetablesPage: PreviewTimetablesPage;
   let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
+  let navbar: Navbar;
 
   const baseDbResources = {
     lines,
@@ -209,18 +242,32 @@ describe('Timetable validity period', () => {
     removeFromDbHelper(dbResources);
     insertToDbHelper(dbResources);
 
+    routesAndLinesPage = new RoutesAndLinesPage();
     timetablesMainPage = new TimetablesMainpage();
     importTimetablesPage = new ImportTimetablesPage();
     previewTimetablesPage = new PreviewTimetablesPage();
     vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
-
-    const IMPORT_FILENAME = 'hastusImport.exp';
+    navbar = new Navbar();
 
     cy.setupTests();
     cy.mockLogin();
-    cy.visit('/timetables');
+    cy.visit('/');
+
+    // Skip searching via UI
+    cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+    // Export the route
+    routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+    routesAndLinesPage.routeLineTableRow
+      .getRouteLineTableRowCheckbox('99')
+      .check();
+    routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+    cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
+
+    // Import a timetable for the exported route
+    navbar.getTimetablesLink().click();
 
     // TODO: Change timetable importing to proper test data generation when it is available
+    const IMPORT_FILENAME = 'hastusImport.exp';
     timetablesMainPage.getImportButton().click();
     importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
     importTimetablesPage.getUploadButton().click();
@@ -237,12 +284,18 @@ describe('Timetable validity period', () => {
   });
 
   afterEach(() => {
+    const exportDate = DateTime.now().toISODate();
+    const exportFilePath = `${Cypress.config(
+      'downloadsFolder',
+    )}/jore4-export-${exportDate}.csv`;
+    cy.task('deleteFile', exportFilePath);
+
     removeFromDbHelper(dbResources);
     cy.task('truncateTimetablesDatabase');
   });
 
   it(
-    "Should change a timetable's validity period",
+    "Should export a route and change a timetable's validity period",
     { tags: [Tag.Timetables] },
     () => {
       cy.visit(
@@ -306,7 +359,7 @@ describe('Timetable validity period', () => {
   );
 
   it(
-    "Should change a timetable's validity period in the passing times view",
+    "Should export a route and change a timetable's validity period in the passing times view",
     { tags: [Tag.Timetables] },
     () => {
       cy.visit(
