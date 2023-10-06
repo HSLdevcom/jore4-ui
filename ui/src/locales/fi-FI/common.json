@@ -383,6 +383,7 @@
   },
   "timetablesPreview": {
     "preview": "Esikatselu",
+    "closePreview": "Sulje esikatselu",
     "save": "Tallenna aikataulut",
     "departures": "Lähtöjä: {{ count }}",
     "showContent": "Näytä sisältö",
