@@ -22,7 +22,8 @@ interface Props {
   buttons: DialogButton[];
   onCancel: () => void;
   className?: string;
-  isWide?: boolean;
+  // This should be a Tailwind max-width class: https://tailwindcss.com/docs/max-width
+  widthClassName?: string;
 }
 
 export const DialogWithButtons: React.FC<Props> = ({
@@ -32,19 +33,19 @@ export const DialogWithButtons: React.FC<Props> = ({
   buttons,
   onCancel,
   className = '',
-  isWide = false,
+  widthClassName = '',
 }) => {
   return (
     <Dialog
       as="div"
       open={isOpen}
       onClose={onCancel}
-      className={`fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50 ${className}`}
+      className={`fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50 ${className} $`}
     >
       <div className="flex h-full items-center justify-center">
         <div
           className={`w-full rounded-md bg-white p-5 shadow-md ${
-            isWide ? 'max-w-2xl' : 'max-w-sm'
+            widthClassName || 'max-w-sm'
           }`}
         >
           <Dialog.Title className="flex" as="h3">
