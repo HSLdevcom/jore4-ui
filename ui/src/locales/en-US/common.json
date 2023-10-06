@@ -383,6 +383,7 @@
   },
   "timetablesPreview": {
     "preview": "Preview",
+    "closePreview": "Close preview",
     "save": "Save timetables",
     "departures": "Departures: {{ count }}",
     "showContent": "Show content",

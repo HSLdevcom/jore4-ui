@@ -20,7 +20,7 @@ const testIds = {
   toggleShowStagingTimetables:
     'PreviewTimetablesPage::toggleShowStagingTimetables',
   saveButton: 'PreviewTimetablesPage::saveButton',
-  cancelButton: 'PreviewTimetablesPage::cancelButton',
+  closePreviewButton: 'PreviewTimetablesPage::closePreviewButton',
 };
 
 const defaultValues: Partial<FormState> = {
@@ -105,10 +105,10 @@ export const PreviewTimetablesPage = (): JSX.Element => {
         <Row className="justify-end space-x-4">
           <SimpleButton
             inverted
-            testId={testIds.cancelButton}
+            testId={testIds.closePreviewButton}
             href={Path.timetablesImport}
           >
-            {t('cancel')}
+            {t('timetablesPreview.closePreview')}
           </SimpleButton>
           <SimpleButton
             testId={testIds.saveButton}
