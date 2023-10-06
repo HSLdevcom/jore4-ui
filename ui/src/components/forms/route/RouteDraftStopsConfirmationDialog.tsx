@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { DialogWithButtons } from '../../../uiComponents';
 
@@ -44,7 +43,7 @@ export const RouteDraftStopsConfirmationDialog = ({
       ]}
       onCancel={onCancel}
       className={className}
-      isWide
+      widthClassName="max-w-2xl"
     />
   );
 };
