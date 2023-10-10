@@ -402,6 +402,12 @@
     "modified": "Modified",
     "modifier": "Modifier"
   },
+  "confirmTimetablesCancelImportDialog": {
+    "title": "Cancel importing timetables",
+    "description": "The imported timetables will not be saved to JORE.",
+    "cancel": "Do not cancel",
+    "confirm": "Cancel import"
+  },
   "confirmTimetablesImportModal": {
     "title": "Save changes",
     "priority": "Timetables' priority",
@@ -422,6 +428,8 @@
     "importTimetablesFromHastus": "Import timetables from Hastus",
     "importSuccess": "Timetables imported successfully!",
     "dragAndDrop": "Drag and drop Hastus files or",
+    "cancel": "Cancel",
+    "cancelledSuccessfully": "Timetables import cancelled.",
     "openPreview": "Open preview",
     "uploadFiles": "Upload files",
     "browse": "Browse",

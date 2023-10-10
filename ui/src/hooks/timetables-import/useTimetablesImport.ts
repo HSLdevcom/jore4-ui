@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { sendFileToHastusImporter } from '../../api/hastus';
 import {
   useCombineTimetablesMutation,
+  useDeleteStagingTimetablesMutation,
   useGetStagingVehicleScheduleFramesQuery,
   useReplaceTimetablesMutation,
 } from '../../generated/graphql';
@@ -137,10 +138,25 @@ const GQL_REPLACE_TIMETABLES = gql`
   }
 `;
 
+const GQL_DELETE_STAGING_TIMETABLES = gql`
+  mutation DeleteStagingTimetables {
+    timetables {
+      timetables_delete_vehicle_schedule_vehicle_schedule_frame(
+        where: { priority: { _eq: 40 } }
+      ) {
+        returning {
+          vehicle_schedule_frame_id
+        }
+      }
+    }
+  }
+`;
+
 export const useTimetablesImport = () => {
   const { t } = useTranslation();
   const [combineTimetables] = useCombineTimetablesMutation();
   const [replaceTimetables] = useReplaceTimetablesMutation();
+  const [deleteStagingTimetables] = useDeleteStagingTimetablesMutation();
 
   const importedVehicleScheduleFramesResult =
     useGetStagingVehicleScheduleFramesQuery();
@@ -168,6 +184,13 @@ export const useTimetablesImport = () => {
         targetPriority: priority,
       }),
     );
+  };
+
+  const cancelTimetablesImport = async (/* todo: should this take ids? */) => {
+    // Note: this also deletes all the children of the staging frames, because of cascade delete.
+    await deleteStagingTimetables();
+    // All staging frames have been deleted -> refetch them to update view.
+    await importedVehicleScheduleFramesResult.refetch();
   };
 
   const vehicleScheduleFrames =
@@ -221,6 +244,7 @@ export const useTimetablesImport = () => {
   return {
     confirmTimetablesImportByCombining,
     confirmTimetablesImportByReplacing,
+    cancelTimetablesImport,
     vehicleJourneys,
     vehicleScheduleFrames,
     sendToHastusImporter,

@@ -21440,6 +21440,24 @@ export type ReplaceTimetablesMutation = {
   } | null;
 };
 
+export type DeleteStagingTimetablesMutationVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type DeleteStagingTimetablesMutation = {
+  __typename?: 'mutation_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_mutation_frontend';
+    timetables_delete_vehicle_schedule_vehicle_schedule_frame?: {
+      __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response';
+      returning: Array<{
+        __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+        vehicle_schedule_frame_id: UUID;
+      }>;
+    } | null;
+  } | null;
+};
+
 export type NewTimingPlaceFragment = {
   __typename?: 'timing_pattern_timing_place';
   label: string;
@@ -26311,6 +26329,61 @@ export type ReplaceTimetablesMutationResult =
 export type ReplaceTimetablesMutationOptions = Apollo.BaseMutationOptions<
   ReplaceTimetablesMutation,
   ReplaceTimetablesMutationVariables
+>;
+export const DeleteStagingTimetablesDocument = gql`
+  mutation DeleteStagingTimetables {
+    timetables {
+      timetables_delete_vehicle_schedule_vehicle_schedule_frame(
+        where: { priority: { _eq: 40 } }
+      ) {
+        returning {
+          vehicle_schedule_frame_id
+        }
+      }
+    }
+  }
+`;
+export type DeleteStagingTimetablesMutationFn = Apollo.MutationFunction<
+  DeleteStagingTimetablesMutation,
+  DeleteStagingTimetablesMutationVariables
+>;
+
+/**
+ * __useDeleteStagingTimetablesMutation__
+ *
+ * To run a mutation, you first call `useDeleteStagingTimetablesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteStagingTimetablesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteStagingTimetablesMutation, { data, loading, error }] = useDeleteStagingTimetablesMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDeleteStagingTimetablesMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteStagingTimetablesMutation,
+    DeleteStagingTimetablesMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeleteStagingTimetablesMutation,
+    DeleteStagingTimetablesMutationVariables
+  >(DeleteStagingTimetablesDocument, options);
+}
+export type DeleteStagingTimetablesMutationHookResult = ReturnType<
+  typeof useDeleteStagingTimetablesMutation
+>;
+export type DeleteStagingTimetablesMutationResult =
+  Apollo.MutationResult<DeleteStagingTimetablesMutation>;
+export type DeleteStagingTimetablesMutationOptions = Apollo.BaseMutationOptions<
+  DeleteStagingTimetablesMutation,
+  DeleteStagingTimetablesMutationVariables
 >;
 export const InsertTimingPlaceDocument = gql`
   mutation InsertTimingPlace(
