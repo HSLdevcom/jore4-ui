@@ -1,4 +1,3 @@
-import React from 'react';
 import { DialogWithButtons } from './DialogWithButtons';
 
 interface Props {
