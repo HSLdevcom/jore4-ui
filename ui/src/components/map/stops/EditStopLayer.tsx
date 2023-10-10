@@ -20,8 +20,8 @@ import {
   useObservationDateQueryParam,
 } from '../../../hooks';
 import {
-  closeTimingPlaceModalAction,
   Operation,
+  closeTimingPlaceModalAction,
   selectIsMoveStopModeEnabled,
   setEditedStopDataAction,
   setIsMoveStopModeEnabledAction,
