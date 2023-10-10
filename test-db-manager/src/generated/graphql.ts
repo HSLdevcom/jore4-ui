@@ -9379,6 +9379,14 @@ export type TimetablesJourneyPatternJourneyPatternRef = {
   journey_pattern_ref_id: Scalars['uuid'];
   /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
   observation_timestamp: Scalars['timestamptz'];
+  /** The direction of the route associated with the referenced journey pattern */
+  route_direction: TimetablesRouteDirectionEnum;
+  /** The label of the route associated with the referenced journey pattern */
+  route_label: Scalars['String'];
+  /** The end date of the validity period of the route associated with the referenced journey pattern. If NULL, then the end of the validity period is unbounded (infinity). */
+  route_validity_end?: Maybe<Scalars['date']>;
+  /** The start date of the validity period of the route associated with the referenced journey pattern. If NULL, then the start of the validity period is unbounded (-infinity). */
+  route_validity_start?: Maybe<Scalars['date']>;
   /** An array relationship */
   scheduled_stop_point_in_journey_pattern_refs: Array<TimetablesServicePatternScheduledStopPointInJourneyPatternRef>;
   /** An aggregate relationship */
@@ -9476,6 +9484,10 @@ export type TimetablesJourneyPatternJourneyPatternRefBoolExp = {
   journey_pattern_id?: InputMaybe<UuidComparisonExp>;
   journey_pattern_ref_id?: InputMaybe<UuidComparisonExp>;
   observation_timestamp?: InputMaybe<TimestamptzComparisonExp>;
+  route_direction?: InputMaybe<RouteDirectionEnumComparisonExp>;
+  route_label?: InputMaybe<StringComparisonExp>;
+  route_validity_end?: InputMaybe<DateComparisonExp>;
+  route_validity_start?: InputMaybe<DateComparisonExp>;
   scheduled_stop_point_in_journey_pattern_refs?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp>;
   scheduled_stop_point_in_journey_pattern_refs_aggregate?: InputMaybe<ServicePatternScheduledStopPointInJourneyPatternRefAggregateBoolExp>;
   snapshot_timestamp?: InputMaybe<TimestamptzComparisonExp>;
@@ -9497,6 +9509,14 @@ export type TimetablesJourneyPatternJourneyPatternRefInsertInput = {
   journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
   /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
   observation_timestamp?: InputMaybe<Scalars['timestamptz']>;
+  /** The direction of the route associated with the referenced journey pattern */
+  route_direction?: InputMaybe<TimetablesRouteDirectionEnum>;
+  /** The label of the route associated with the referenced journey pattern */
+  route_label?: InputMaybe<Scalars['String']>;
+  /** The end date of the validity period of the route associated with the referenced journey pattern. If NULL, then the end of the validity period is unbounded (infinity). */
+  route_validity_end?: InputMaybe<Scalars['date']>;
+  /** The start date of the validity period of the route associated with the referenced journey pattern. If NULL, then the start of the validity period is unbounded (-infinity). */
+  route_validity_start?: InputMaybe<Scalars['date']>;
   scheduled_stop_point_in_journey_pattern_refs?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefArrRelInsertInput>;
   /** The timestamp when the snapshot was taken */
   snapshot_timestamp?: InputMaybe<Scalars['timestamptz']>;
@@ -9513,6 +9533,12 @@ export type TimetablesJourneyPatternJourneyPatternRefMaxFields = {
   journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
   /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
   observation_timestamp?: Maybe<Scalars['timestamptz']>;
+  /** The label of the route associated with the referenced journey pattern */
+  route_label?: Maybe<Scalars['String']>;
+  /** The end date of the validity period of the route associated with the referenced journey pattern. If NULL, then the end of the validity period is unbounded (infinity). */
+  route_validity_end?: Maybe<Scalars['date']>;
+  /** The start date of the validity period of the route associated with the referenced journey pattern. If NULL, then the start of the validity period is unbounded (-infinity). */
+  route_validity_start?: Maybe<Scalars['date']>;
   /** The timestamp when the snapshot was taken */
   snapshot_timestamp?: Maybe<Scalars['timestamptz']>;
   /** The type of line (GTFS route type): https://developers.google.com/transit/gtfs/reference/extended-route-types */
@@ -9527,6 +9553,12 @@ export type TimetablesJourneyPatternJourneyPatternRefMinFields = {
   journey_pattern_ref_id?: Maybe<Scalars['uuid']>;
   /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
   observation_timestamp?: Maybe<Scalars['timestamptz']>;
+  /** The label of the route associated with the referenced journey pattern */
+  route_label?: Maybe<Scalars['String']>;
+  /** The end date of the validity period of the route associated with the referenced journey pattern. If NULL, then the end of the validity period is unbounded (infinity). */
+  route_validity_end?: Maybe<Scalars['date']>;
+  /** The start date of the validity period of the route associated with the referenced journey pattern. If NULL, then the start of the validity period is unbounded (-infinity). */
+  route_validity_start?: Maybe<Scalars['date']>;
   /** The timestamp when the snapshot was taken */
   snapshot_timestamp?: Maybe<Scalars['timestamptz']>;
   /** The type of line (GTFS route type): https://developers.google.com/transit/gtfs/reference/extended-route-types */
@@ -9561,6 +9593,10 @@ export type TimetablesJourneyPatternJourneyPatternRefOrderBy = {
   journey_pattern_id?: InputMaybe<OrderBy>;
   journey_pattern_ref_id?: InputMaybe<OrderBy>;
   observation_timestamp?: InputMaybe<OrderBy>;
+  route_direction?: InputMaybe<OrderBy>;
+  route_label?: InputMaybe<OrderBy>;
+  route_validity_end?: InputMaybe<OrderBy>;
+  route_validity_start?: InputMaybe<OrderBy>;
   scheduled_stop_point_in_journey_pattern_refs_aggregate?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefAggregateOrderBy>;
   snapshot_timestamp?: InputMaybe<OrderBy>;
   type_of_line?: InputMaybe<OrderBy>;
@@ -9581,6 +9617,14 @@ export enum TimetablesJourneyPatternJourneyPatternRefSelectColumn {
   /** column name */
   ObservationTimestamp = 'observation_timestamp',
   /** column name */
+  RouteDirection = 'route_direction',
+  /** column name */
+  RouteLabel = 'route_label',
+  /** column name */
+  RouteValidityEnd = 'route_validity_end',
+  /** column name */
+  RouteValidityStart = 'route_validity_start',
+  /** column name */
   SnapshotTimestamp = 'snapshot_timestamp',
   /** column name */
   TypeOfLine = 'type_of_line',
@@ -9593,6 +9637,14 @@ export type TimetablesJourneyPatternJourneyPatternRefSetInput = {
   journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
   /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
   observation_timestamp?: InputMaybe<Scalars['timestamptz']>;
+  /** The direction of the route associated with the referenced journey pattern */
+  route_direction?: InputMaybe<TimetablesRouteDirectionEnum>;
+  /** The label of the route associated with the referenced journey pattern */
+  route_label?: InputMaybe<Scalars['String']>;
+  /** The end date of the validity period of the route associated with the referenced journey pattern. If NULL, then the end of the validity period is unbounded (infinity). */
+  route_validity_end?: InputMaybe<Scalars['date']>;
+  /** The start date of the validity period of the route associated with the referenced journey pattern. If NULL, then the start of the validity period is unbounded (-infinity). */
+  route_validity_start?: InputMaybe<Scalars['date']>;
   /** The timestamp when the snapshot was taken */
   snapshot_timestamp?: InputMaybe<Scalars['timestamptz']>;
   /** The type of line (GTFS route type): https://developers.google.com/transit/gtfs/reference/extended-route-types */
@@ -9614,6 +9666,14 @@ export type TimetablesJourneyPatternJourneyPatternRefStreamCursorValueInput = {
   journey_pattern_ref_id?: InputMaybe<Scalars['uuid']>;
   /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
   observation_timestamp?: InputMaybe<Scalars['timestamptz']>;
+  /** The direction of the route associated with the referenced journey pattern */
+  route_direction?: InputMaybe<TimetablesRouteDirectionEnum>;
+  /** The label of the route associated with the referenced journey pattern */
+  route_label?: InputMaybe<Scalars['String']>;
+  /** The end date of the validity period of the route associated with the referenced journey pattern. If NULL, then the end of the validity period is unbounded (infinity). */
+  route_validity_end?: InputMaybe<Scalars['date']>;
+  /** The start date of the validity period of the route associated with the referenced journey pattern. If NULL, then the start of the validity period is unbounded (-infinity). */
+  route_validity_start?: InputMaybe<Scalars['date']>;
   /** The timestamp when the snapshot was taken */
   snapshot_timestamp?: InputMaybe<Scalars['timestamptz']>;
   /** The type of line (GTFS route type): https://developers.google.com/transit/gtfs/reference/extended-route-types */
@@ -9628,6 +9688,14 @@ export enum TimetablesJourneyPatternJourneyPatternRefUpdateColumn {
   JourneyPatternRefId = 'journey_pattern_ref_id',
   /** column name */
   ObservationTimestamp = 'observation_timestamp',
+  /** column name */
+  RouteDirection = 'route_direction',
+  /** column name */
+  RouteLabel = 'route_label',
+  /** column name */
+  RouteValidityEnd = 'route_validity_end',
+  /** column name */
+  RouteValidityStart = 'route_validity_start',
   /** column name */
   SnapshotTimestamp = 'snapshot_timestamp',
   /** column name */
@@ -10375,6 +10443,295 @@ export type TimetablesReturnValueVehicleScheduleVarSampFields = {
 export type TimetablesReturnValueVehicleScheduleVarianceFields = {
   __typename?: 'timetables_return_value_vehicle_schedule_variance_fields';
   priority?: Maybe<Scalars['Float']>;
+};
+
+/** The route directions from Transmodel */
+export type TimetablesRouteDirection = {
+  __typename?: 'timetables_route_direction';
+  /** The name of the route direction */
+  direction: Scalars['String'];
+  /** The opposite direction */
+  the_opposite_of_direction?: Maybe<TimetablesRouteDirectionEnum>;
+};
+
+/** aggregated selection of "route.direction" */
+export type TimetablesRouteDirectionAggregate = {
+  __typename?: 'timetables_route_direction_aggregate';
+  aggregate?: Maybe<TimetablesRouteDirectionAggregateFields>;
+  nodes: Array<TimetablesRouteDirection>;
+};
+
+/** aggregate fields of "route.direction" */
+export type TimetablesRouteDirectionAggregateFields = {
+  __typename?: 'timetables_route_direction_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<TimetablesRouteDirectionMaxFields>;
+  min?: Maybe<TimetablesRouteDirectionMinFields>;
+};
+
+/** aggregate fields of "route.direction" */
+export type TimetablesRouteDirectionAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<TimetablesRouteDirectionSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "route.direction". All fields are combined with a logical 'AND'. */
+export type TimetablesRouteDirectionBoolExp = {
+  _and?: InputMaybe<Array<TimetablesRouteDirectionBoolExp>>;
+  _not?: InputMaybe<TimetablesRouteDirectionBoolExp>;
+  _or?: InputMaybe<Array<TimetablesRouteDirectionBoolExp>>;
+  direction?: InputMaybe<StringComparisonExp>;
+  the_opposite_of_direction?: InputMaybe<RouteDirectionEnumComparisonExp>;
+};
+
+/** unique or primary key constraints on table "route.direction" */
+export enum TimetablesRouteDirectionConstraint {
+  /** unique or primary key constraint on columns "direction" */
+  DirectionPkey = 'direction_pkey',
+}
+
+export enum TimetablesRouteDirectionEnum {
+  /** clockwise */
+  Anticlockwise = 'anticlockwise',
+  /** anticlockwise */
+  Clockwise = 'clockwise',
+  /** westbound */
+  Eastbound = 'eastbound',
+  /** outbound */
+  Inbound = 'inbound',
+  /** southbound */
+  Northbound = 'northbound',
+  /** inbound */
+  Outbound = 'outbound',
+  /** northbound */
+  Southbound = 'southbound',
+  /** eastbound */
+  Westbound = 'westbound',
+}
+
+/** input type for inserting data into table "route.direction" */
+export type TimetablesRouteDirectionInsertInput = {
+  /** The name of the route direction */
+  direction?: InputMaybe<Scalars['String']>;
+  /** The opposite direction */
+  the_opposite_of_direction?: InputMaybe<TimetablesRouteDirectionEnum>;
+};
+
+/** aggregate max on columns */
+export type TimetablesRouteDirectionMaxFields = {
+  __typename?: 'timetables_route_direction_max_fields';
+  /** The name of the route direction */
+  direction?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type TimetablesRouteDirectionMinFields = {
+  __typename?: 'timetables_route_direction_min_fields';
+  /** The name of the route direction */
+  direction?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "route.direction" */
+export type TimetablesRouteDirectionMutationResponse = {
+  __typename?: 'timetables_route_direction_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<TimetablesRouteDirection>;
+};
+
+/** on_conflict condition type for table "route.direction" */
+export type TimetablesRouteDirectionOnConflict = {
+  constraint: TimetablesRouteDirectionConstraint;
+  update_columns?: Array<TimetablesRouteDirectionUpdateColumn>;
+  where?: InputMaybe<TimetablesRouteDirectionBoolExp>;
+};
+
+/** Ordering options when selecting data from "route.direction". */
+export type TimetablesRouteDirectionOrderBy = {
+  direction?: InputMaybe<OrderBy>;
+  the_opposite_of_direction?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: route.direction */
+export type TimetablesRouteDirectionPkColumnsInput = {
+  /** The name of the route direction */
+  direction: Scalars['String'];
+};
+
+/** select columns of table "route.direction" */
+export enum TimetablesRouteDirectionSelectColumn {
+  /** column name */
+  Direction = 'direction',
+  /** column name */
+  TheOppositeOfDirection = 'the_opposite_of_direction',
+}
+
+/** input type for updating data in table "route.direction" */
+export type TimetablesRouteDirectionSetInput = {
+  /** The name of the route direction */
+  direction?: InputMaybe<Scalars['String']>;
+  /** The opposite direction */
+  the_opposite_of_direction?: InputMaybe<TimetablesRouteDirectionEnum>;
+};
+
+/** Streaming cursor of the table "route_direction" */
+export type TimetablesRouteDirectionStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: TimetablesRouteDirectionStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<TimetablesCursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type TimetablesRouteDirectionStreamCursorValueInput = {
+  /** The name of the route direction */
+  direction?: InputMaybe<Scalars['String']>;
+  /** The opposite direction */
+  the_opposite_of_direction?: InputMaybe<TimetablesRouteDirectionEnum>;
+};
+
+/** update columns of table "route.direction" */
+export enum TimetablesRouteDirectionUpdateColumn {
+  /** column name */
+  Direction = 'direction',
+  /** column name */
+  TheOppositeOfDirection = 'the_opposite_of_direction',
+}
+
+export type TimetablesRouteDirectionUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<TimetablesRouteDirectionSetInput>;
+  /** filter the rows which have to be updated */
+  where: TimetablesRouteDirectionBoolExp;
+};
+
+/** Type of line. https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:424 */
+export type TimetablesRouteTypeOfLine = {
+  __typename?: 'timetables_route_type_of_line';
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line: Scalars['String'];
+};
+
+/** aggregated selection of "route.type_of_line" */
+export type TimetablesRouteTypeOfLineAggregate = {
+  __typename?: 'timetables_route_type_of_line_aggregate';
+  aggregate?: Maybe<TimetablesRouteTypeOfLineAggregateFields>;
+  nodes: Array<TimetablesRouteTypeOfLine>;
+};
+
+/** aggregate fields of "route.type_of_line" */
+export type TimetablesRouteTypeOfLineAggregateFields = {
+  __typename?: 'timetables_route_type_of_line_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<TimetablesRouteTypeOfLineMaxFields>;
+  min?: Maybe<TimetablesRouteTypeOfLineMinFields>;
+};
+
+/** aggregate fields of "route.type_of_line" */
+export type TimetablesRouteTypeOfLineAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<TimetablesRouteTypeOfLineSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "route.type_of_line". All fields are combined with a logical 'AND'. */
+export type TimetablesRouteTypeOfLineBoolExp = {
+  _and?: InputMaybe<Array<TimetablesRouteTypeOfLineBoolExp>>;
+  _not?: InputMaybe<TimetablesRouteTypeOfLineBoolExp>;
+  _or?: InputMaybe<Array<TimetablesRouteTypeOfLineBoolExp>>;
+  type_of_line?: InputMaybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "route.type_of_line" */
+export enum TimetablesRouteTypeOfLineConstraint {
+  /** unique or primary key constraint on columns "type_of_line" */
+  TypeOfLinePkey = 'type_of_line_pkey',
+}
+
+/** input type for inserting data into table "route.type_of_line" */
+export type TimetablesRouteTypeOfLineInsertInput = {
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type TimetablesRouteTypeOfLineMaxFields = {
+  __typename?: 'timetables_route_type_of_line_max_fields';
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type TimetablesRouteTypeOfLineMinFields = {
+  __typename?: 'timetables_route_type_of_line_min_fields';
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "route.type_of_line" */
+export type TimetablesRouteTypeOfLineMutationResponse = {
+  __typename?: 'timetables_route_type_of_line_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<TimetablesRouteTypeOfLine>;
+};
+
+/** on_conflict condition type for table "route.type_of_line" */
+export type TimetablesRouteTypeOfLineOnConflict = {
+  constraint: TimetablesRouteTypeOfLineConstraint;
+  update_columns?: Array<TimetablesRouteTypeOfLineUpdateColumn>;
+  where?: InputMaybe<TimetablesRouteTypeOfLineBoolExp>;
+};
+
+/** Ordering options when selecting data from "route.type_of_line". */
+export type TimetablesRouteTypeOfLineOrderBy = {
+  type_of_line?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: route.type_of_line */
+export type TimetablesRouteTypeOfLinePkColumnsInput = {
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line: Scalars['String'];
+};
+
+/** select columns of table "route.type_of_line" */
+export enum TimetablesRouteTypeOfLineSelectColumn {
+  /** column name */
+  TypeOfLine = 'type_of_line',
+}
+
+/** input type for updating data in table "route.type_of_line" */
+export type TimetablesRouteTypeOfLineSetInput = {
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line?: InputMaybe<Scalars['String']>;
+};
+
+/** Streaming cursor of the table "route_type_of_line" */
+export type TimetablesRouteTypeOfLineStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: TimetablesRouteTypeOfLineStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<TimetablesCursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type TimetablesRouteTypeOfLineStreamCursorValueInput = {
+  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
+  type_of_line?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "route.type_of_line" */
+export enum TimetablesRouteTypeOfLineUpdateColumn {
+  /** column name */
+  TypeOfLine = 'type_of_line',
+}
+
+export type TimetablesRouteTypeOfLineUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<TimetablesRouteTypeOfLineSetInput>;
+  /** filter the rows which have to be updated */
+  where: TimetablesRouteTypeOfLineBoolExp;
 };
 
 /** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
@@ -11694,6 +12051,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRef = {
   timetabled_passing_times: Array<TimetablesPassingTimesTimetabledPassingTime>;
   /** An aggregate relationship */
   timetabled_passing_times_aggregate: TimetablesPassingTimesTimetabledPassingTimeAggregate;
+  /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
+  timing_place_label?: Maybe<Scalars['String']>;
 };
 
 /** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
@@ -11838,6 +12197,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp
     scheduled_stop_point_sequence?: InputMaybe<IntComparisonExp>;
     timetabled_passing_times?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeBoolExp>;
     timetabled_passing_times_aggregate?: InputMaybe<PassingTimesTimetabledPassingTimeAggregateBoolExp>;
+    timing_place_label?: InputMaybe<StringComparisonExp>;
   };
 
 /** unique or primary key constraints on table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -11869,6 +12229,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefInsertI
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
     scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']>;
     timetabled_passing_times?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeArrRelInsertInput>;
+    /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
+    timing_place_label?: InputMaybe<Scalars['String']>;
   };
 
 /** aggregate max on columns */
@@ -11882,6 +12244,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMaxFiel
     scheduled_stop_point_label?: Maybe<Scalars['String']>;
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
     scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
+    /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
+    timing_place_label?: Maybe<Scalars['String']>;
   };
 
 /** order by max() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -11894,6 +12258,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMaxOrde
     scheduled_stop_point_label?: InputMaybe<OrderBy>;
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
     scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
+    /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
+    timing_place_label?: InputMaybe<OrderBy>;
   };
 
 /** aggregate min on columns */
@@ -11907,6 +12273,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMinFiel
     scheduled_stop_point_label?: Maybe<Scalars['String']>;
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
     scheduled_stop_point_sequence?: Maybe<Scalars['Int']>;
+    /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
+    timing_place_label?: Maybe<Scalars['String']>;
   };
 
 /** order by min() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -11919,6 +12287,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMinOrde
     scheduled_stop_point_label?: InputMaybe<OrderBy>;
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
     scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
+    /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
+    timing_place_label?: InputMaybe<OrderBy>;
   };
 
 /** response of any mutation on the table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -11956,6 +12326,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefOrderBy
     scheduled_stop_point_label?: InputMaybe<OrderBy>;
     scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
     timetabled_passing_times_aggregate?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeAggregateOrderBy>;
+    timing_place_label?: InputMaybe<OrderBy>;
   };
 
 /** primary key columns input for table: service_pattern.scheduled_stop_point_in_journey_pattern_ref */
@@ -11974,6 +12345,8 @@ export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectC
   ScheduledStopPointLabel = 'scheduled_stop_point_label',
   /** column name */
   ScheduledStopPointSequence = 'scheduled_stop_point_sequence',
+  /** column name */
+  TimingPlaceLabel = 'timing_place_label',
 }
 
 /** input type for updating data in table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
@@ -11988,6 +12361,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefSetInpu
     scheduled_stop_point_label?: InputMaybe<Scalars['String']>;
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
     scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']>;
+    /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
+    timing_place_label?: InputMaybe<Scalars['String']>;
   };
 
 /** aggregate stddev on columns */
@@ -12056,6 +12431,8 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStreamC
     scheduled_stop_point_label?: InputMaybe<Scalars['String']>;
     /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
     scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']>;
+    /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
+    timing_place_label?: InputMaybe<Scalars['String']>;
   };
 
 /** aggregate sum on columns */
@@ -12083,6 +12460,8 @@ export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefUpdateC
   ScheduledStopPointLabel = 'scheduled_stop_point_label',
   /** column name */
   ScheduledStopPointSequence = 'scheduled_stop_point_sequence',
+  /** column name */
+  TimingPlaceLabel = 'timing_place_label',
 }
 
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefUpdates =
@@ -12154,6 +12533,14 @@ export type TimetablesTimetablesMutationFrontend = {
   timetables_delete_return_value_timetable_version?: Maybe<TimetablesReturnValueTimetableVersionMutationResponse>;
   /** delete data from the table: "return_value.vehicle_schedule" */
   timetables_delete_return_value_vehicle_schedule?: Maybe<TimetablesReturnValueVehicleScheduleMutationResponse>;
+  /** delete data from the table: "route.direction" */
+  timetables_delete_route_direction?: Maybe<TimetablesRouteDirectionMutationResponse>;
+  /** delete single row from the table: "route.direction" */
+  timetables_delete_route_direction_by_pk?: Maybe<TimetablesRouteDirection>;
+  /** delete data from the table: "route.type_of_line" */
+  timetables_delete_route_type_of_line?: Maybe<TimetablesRouteTypeOfLineMutationResponse>;
+  /** delete single row from the table: "route.type_of_line" */
+  timetables_delete_route_type_of_line_by_pk?: Maybe<TimetablesRouteTypeOfLine>;
   /** delete data from the table: "service_calendar.day_type" */
   timetables_delete_service_calendar_day_type?: Maybe<TimetablesServiceCalendarDayTypeMutationResponse>;
   /** delete data from the table: "service_calendar.day_type_active_on_day_of_week" */
@@ -12214,6 +12601,14 @@ export type TimetablesTimetablesMutationFrontend = {
   timetables_insert_return_value_vehicle_schedule?: Maybe<TimetablesReturnValueVehicleScheduleMutationResponse>;
   /** insert a single row into the table: "return_value.vehicle_schedule" */
   timetables_insert_return_value_vehicle_schedule_one?: Maybe<TimetablesReturnValueVehicleSchedule>;
+  /** insert data into the table: "route.direction" */
+  timetables_insert_route_direction?: Maybe<TimetablesRouteDirectionMutationResponse>;
+  /** insert a single row into the table: "route.direction" */
+  timetables_insert_route_direction_one?: Maybe<TimetablesRouteDirection>;
+  /** insert data into the table: "route.type_of_line" */
+  timetables_insert_route_type_of_line?: Maybe<TimetablesRouteTypeOfLineMutationResponse>;
+  /** insert a single row into the table: "route.type_of_line" */
+  timetables_insert_route_type_of_line_one?: Maybe<TimetablesRouteTypeOfLine>;
   /** insert data into the table: "service_calendar.day_type" */
   timetables_insert_service_calendar_day_type?: Maybe<TimetablesServiceCalendarDayTypeMutationResponse>;
   /** insert data into the table: "service_calendar.day_type_active_on_day_of_week" */
@@ -12285,6 +12680,22 @@ export type TimetablesTimetablesMutationFrontend = {
   /** update multiples rows of table: "return_value.vehicle_schedule" */
   timetables_update_return_value_vehicle_schedule_many?: Maybe<
     Array<Maybe<TimetablesReturnValueVehicleScheduleMutationResponse>>
+  >;
+  /** update data of the table: "route.direction" */
+  timetables_update_route_direction?: Maybe<TimetablesRouteDirectionMutationResponse>;
+  /** update single row of the table: "route.direction" */
+  timetables_update_route_direction_by_pk?: Maybe<TimetablesRouteDirection>;
+  /** update multiples rows of table: "route.direction" */
+  timetables_update_route_direction_many?: Maybe<
+    Array<Maybe<TimetablesRouteDirectionMutationResponse>>
+  >;
+  /** update data of the table: "route.type_of_line" */
+  timetables_update_route_type_of_line?: Maybe<TimetablesRouteTypeOfLineMutationResponse>;
+  /** update single row of the table: "route.type_of_line" */
+  timetables_update_route_type_of_line_by_pk?: Maybe<TimetablesRouteTypeOfLine>;
+  /** update multiples rows of table: "route.type_of_line" */
+  timetables_update_route_type_of_line_many?: Maybe<
+    Array<Maybe<TimetablesRouteTypeOfLineMutationResponse>>
   >;
   /** update data of the table: "service_calendar.day_type" */
   timetables_update_service_calendar_day_type?: Maybe<TimetablesServiceCalendarDayTypeMutationResponse>;
@@ -12414,6 +12825,26 @@ export type TimetablesTimetablesMutationFrontendTimetablesDeleteReturnValueTimet
 export type TimetablesTimetablesMutationFrontendTimetablesDeleteReturnValueVehicleScheduleArgs =
   {
     where: TimetablesReturnValueVehicleScheduleBoolExp;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesDeleteRouteDirectionArgs =
+  {
+    where: TimetablesRouteDirectionBoolExp;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesDeleteRouteDirectionByPkArgs =
+  {
+    direction: Scalars['String'];
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesDeleteRouteTypeOfLineArgs =
+  {
+    where: TimetablesRouteTypeOfLineBoolExp;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesDeleteRouteTypeOfLineByPkArgs =
+  {
+    type_of_line: Scalars['String'];
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesDeleteServiceCalendarDayTypeArgs =
@@ -12570,6 +13001,30 @@ export type TimetablesTimetablesMutationFrontendTimetablesInsertReturnValueVehic
 export type TimetablesTimetablesMutationFrontendTimetablesInsertReturnValueVehicleScheduleOneArgs =
   {
     object: TimetablesReturnValueVehicleScheduleInsertInput;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesInsertRouteDirectionArgs =
+  {
+    objects: Array<TimetablesRouteDirectionInsertInput>;
+    on_conflict?: InputMaybe<TimetablesRouteDirectionOnConflict>;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesInsertRouteDirectionOneArgs =
+  {
+    object: TimetablesRouteDirectionInsertInput;
+    on_conflict?: InputMaybe<TimetablesRouteDirectionOnConflict>;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesInsertRouteTypeOfLineArgs =
+  {
+    objects: Array<TimetablesRouteTypeOfLineInsertInput>;
+    on_conflict?: InputMaybe<TimetablesRouteTypeOfLineOnConflict>;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesInsertRouteTypeOfLineOneArgs =
+  {
+    object: TimetablesRouteTypeOfLineInsertInput;
+    on_conflict?: InputMaybe<TimetablesRouteTypeOfLineOnConflict>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesInsertServiceCalendarDayTypeArgs =
@@ -12760,6 +13215,40 @@ export type TimetablesTimetablesMutationFrontendTimetablesUpdateReturnValueVehic
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateReturnValueVehicleScheduleManyArgs =
   {
     updates: Array<TimetablesReturnValueVehicleScheduleUpdates>;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateRouteDirectionArgs =
+  {
+    _set?: InputMaybe<TimetablesRouteDirectionSetInput>;
+    where: TimetablesRouteDirectionBoolExp;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateRouteDirectionByPkArgs =
+  {
+    _set?: InputMaybe<TimetablesRouteDirectionSetInput>;
+    pk_columns: TimetablesRouteDirectionPkColumnsInput;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateRouteDirectionManyArgs =
+  {
+    updates: Array<TimetablesRouteDirectionUpdates>;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateRouteTypeOfLineArgs =
+  {
+    _set?: InputMaybe<TimetablesRouteTypeOfLineSetInput>;
+    where: TimetablesRouteTypeOfLineBoolExp;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateRouteTypeOfLineByPkArgs =
+  {
+    _set?: InputMaybe<TimetablesRouteTypeOfLineSetInput>;
+    pk_columns: TimetablesRouteTypeOfLinePkColumnsInput;
+  };
+
+export type TimetablesTimetablesMutationFrontendTimetablesUpdateRouteTypeOfLineManyArgs =
+  {
+    updates: Array<TimetablesRouteTypeOfLineUpdates>;
   };
 
 export type TimetablesTimetablesMutationFrontendTimetablesUpdateServiceCalendarDayTypeArgs =
@@ -13033,6 +13522,18 @@ export type TimetablesTimetablesQuery = {
   timetables_return_value_vehicle_schedule: Array<TimetablesReturnValueVehicleSchedule>;
   /** fetch aggregated fields from the table: "return_value.vehicle_schedule" */
   timetables_return_value_vehicle_schedule_aggregate: TimetablesReturnValueVehicleScheduleAggregate;
+  /** fetch data from the table: "route.direction" */
+  timetables_route_direction: Array<TimetablesRouteDirection>;
+  /** fetch aggregated fields from the table: "route.direction" */
+  timetables_route_direction_aggregate: TimetablesRouteDirectionAggregate;
+  /** fetch data from the table: "route.direction" using primary key columns */
+  timetables_route_direction_by_pk?: Maybe<TimetablesRouteDirection>;
+  /** fetch data from the table: "route.type_of_line" */
+  timetables_route_type_of_line: Array<TimetablesRouteTypeOfLine>;
+  /** fetch aggregated fields from the table: "route.type_of_line" */
+  timetables_route_type_of_line_aggregate: TimetablesRouteTypeOfLineAggregate;
+  /** fetch data from the table: "route.type_of_line" using primary key columns */
+  timetables_route_type_of_line_by_pk?: Maybe<TimetablesRouteTypeOfLine>;
   /** fetch data from the table: "service_calendar.day_type" */
   timetables_service_calendar_day_type: Array<TimetablesServiceCalendarDayType>;
   /** fetch data from the table: "service_calendar.day_type_active_on_day_of_week" */
@@ -13222,6 +13723,46 @@ export type TimetablesTimetablesQueryTimetablesReturnValueVehicleScheduleAggrega
     order_by?: InputMaybe<Array<TimetablesReturnValueVehicleScheduleOrderBy>>;
     where?: InputMaybe<TimetablesReturnValueVehicleScheduleBoolExp>;
   };
+
+export type TimetablesTimetablesQueryTimetablesRouteDirectionArgs = {
+  distinct_on?: InputMaybe<Array<TimetablesRouteDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesRouteDirectionOrderBy>>;
+  where?: InputMaybe<TimetablesRouteDirectionBoolExp>;
+};
+
+export type TimetablesTimetablesQueryTimetablesRouteDirectionAggregateArgs = {
+  distinct_on?: InputMaybe<Array<TimetablesRouteDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesRouteDirectionOrderBy>>;
+  where?: InputMaybe<TimetablesRouteDirectionBoolExp>;
+};
+
+export type TimetablesTimetablesQueryTimetablesRouteDirectionByPkArgs = {
+  direction: Scalars['String'];
+};
+
+export type TimetablesTimetablesQueryTimetablesRouteTypeOfLineArgs = {
+  distinct_on?: InputMaybe<Array<TimetablesRouteTypeOfLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesRouteTypeOfLineOrderBy>>;
+  where?: InputMaybe<TimetablesRouteTypeOfLineBoolExp>;
+};
+
+export type TimetablesTimetablesQueryTimetablesRouteTypeOfLineAggregateArgs = {
+  distinct_on?: InputMaybe<Array<TimetablesRouteTypeOfLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesRouteTypeOfLineOrderBy>>;
+  where?: InputMaybe<TimetablesRouteTypeOfLineBoolExp>;
+};
+
+export type TimetablesTimetablesQueryTimetablesRouteTypeOfLineByPkArgs = {
+  type_of_line: Scalars['String'];
+};
 
 export type TimetablesTimetablesQueryTimetablesServiceCalendarDayTypeArgs = {
   distinct_on?: InputMaybe<Array<TimetablesServiceCalendarDayTypeSelectColumn>>;
@@ -13660,6 +14201,22 @@ export type TimetablesTimetablesSubscription = {
   timetables_return_value_vehicle_schedule_aggregate: TimetablesReturnValueVehicleScheduleAggregate;
   /** fetch data from the table in a streaming manner: "return_value.vehicle_schedule" */
   timetables_return_value_vehicle_schedule_stream: Array<TimetablesReturnValueVehicleSchedule>;
+  /** fetch data from the table: "route.direction" */
+  timetables_route_direction: Array<TimetablesRouteDirection>;
+  /** fetch aggregated fields from the table: "route.direction" */
+  timetables_route_direction_aggregate: TimetablesRouteDirectionAggregate;
+  /** fetch data from the table: "route.direction" using primary key columns */
+  timetables_route_direction_by_pk?: Maybe<TimetablesRouteDirection>;
+  /** fetch data from the table in a streaming manner: "route.direction" */
+  timetables_route_direction_stream: Array<TimetablesRouteDirection>;
+  /** fetch data from the table: "route.type_of_line" */
+  timetables_route_type_of_line: Array<TimetablesRouteTypeOfLine>;
+  /** fetch aggregated fields from the table: "route.type_of_line" */
+  timetables_route_type_of_line_aggregate: TimetablesRouteTypeOfLineAggregate;
+  /** fetch data from the table: "route.type_of_line" using primary key columns */
+  timetables_route_type_of_line_by_pk?: Maybe<TimetablesRouteTypeOfLine>;
+  /** fetch data from the table in a streaming manner: "route.type_of_line" */
+  timetables_route_type_of_line_stream: Array<TimetablesRouteTypeOfLine>;
   /** fetch data from the table: "service_calendar.day_type" */
   timetables_service_calendar_day_type: Array<TimetablesServiceCalendarDayType>;
   /** fetch data from the table: "service_calendar.day_type_active_on_day_of_week" */
@@ -13906,6 +14463,63 @@ export type TimetablesTimetablesSubscriptionTimetablesReturnValueVehicleSchedule
       InputMaybe<TimetablesReturnValueVehicleScheduleStreamCursorInput>
     >;
     where?: InputMaybe<TimetablesReturnValueVehicleScheduleBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesRouteDirectionArgs = {
+  distinct_on?: InputMaybe<Array<TimetablesRouteDirectionSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesRouteDirectionOrderBy>>;
+  where?: InputMaybe<TimetablesRouteDirectionBoolExp>;
+};
+
+export type TimetablesTimetablesSubscriptionTimetablesRouteDirectionAggregateArgs =
+  {
+    distinct_on?: InputMaybe<Array<TimetablesRouteDirectionSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesRouteDirectionOrderBy>>;
+    where?: InputMaybe<TimetablesRouteDirectionBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesRouteDirectionByPkArgs = {
+  direction: Scalars['String'];
+};
+
+export type TimetablesTimetablesSubscriptionTimetablesRouteDirectionStreamArgs =
+  {
+    batch_size: Scalars['Int'];
+    cursor: Array<InputMaybe<TimetablesRouteDirectionStreamCursorInput>>;
+    where?: InputMaybe<TimetablesRouteDirectionBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesRouteTypeOfLineArgs = {
+  distinct_on?: InputMaybe<Array<TimetablesRouteTypeOfLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TimetablesRouteTypeOfLineOrderBy>>;
+  where?: InputMaybe<TimetablesRouteTypeOfLineBoolExp>;
+};
+
+export type TimetablesTimetablesSubscriptionTimetablesRouteTypeOfLineAggregateArgs =
+  {
+    distinct_on?: InputMaybe<Array<TimetablesRouteTypeOfLineSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<TimetablesRouteTypeOfLineOrderBy>>;
+    where?: InputMaybe<TimetablesRouteTypeOfLineBoolExp>;
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesRouteTypeOfLineByPkArgs =
+  {
+    type_of_line: Scalars['String'];
+  };
+
+export type TimetablesTimetablesSubscriptionTimetablesRouteTypeOfLineStreamArgs =
+  {
+    batch_size: Scalars['Int'];
+    cursor: Array<InputMaybe<TimetablesRouteTypeOfLineStreamCursorInput>>;
+    where?: InputMaybe<TimetablesRouteTypeOfLineBoolExp>;
   };
 
 export type TimetablesTimetablesSubscriptionTimetablesServiceCalendarDayTypeArgs =
