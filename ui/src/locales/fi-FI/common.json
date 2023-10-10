@@ -402,6 +402,12 @@
     "modified": "Muokattu",
     "modifier": "Muokkaaja"
   },
+  "confirmTimetablesCancelImportDialog": {
+    "title": "Aikataulujen tuonti keskeytetään",
+    "description": "Tuomasi aikataulut eivät tallennu JOREen.",
+    "cancel": "Älä keskeytä",
+    "confirm": "Keskeytä tuonti"
+  },
   "confirmTimetablesImportModal": {
     "title": "Tallenna muutos",
     "priority": "Aikataulujen prioriteetti",
@@ -422,6 +428,8 @@
     "importTimetablesFromHastus": "Tuo aikatauluja Hastuksesta",
     "importSuccess": "Aikataulujen tuonti onnistui!",
     "dragAndDrop": "Vedä ja pudota Hastus-tiedostoja tai",
+    "cancel": "Keskeytä",
+    "cancelledSuccessfully": "Aikataulujen tuonti keskeytetty.",
     "openPreview": "Avaa esikatselu",
     "uploadFiles": "Lataa tiedostot",
     "browse": "Selaa",
