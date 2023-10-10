@@ -21441,7 +21441,9 @@ export type ReplaceTimetablesMutation = {
 };
 
 export type DeleteStagingTimetablesMutationVariables = Exact<{
-  [key: string]: never;
+  stagingVehicleScheduleFrameIds?: InputMaybe<
+    Array<Scalars['uuid']> | Scalars['uuid']
+  >;
 }>;
 
 export type DeleteStagingTimetablesMutation = {
@@ -26331,10 +26333,15 @@ export type ReplaceTimetablesMutationOptions = Apollo.BaseMutationOptions<
   ReplaceTimetablesMutationVariables
 >;
 export const DeleteStagingTimetablesDocument = gql`
-  mutation DeleteStagingTimetables {
+  mutation DeleteStagingTimetables($stagingVehicleScheduleFrameIds: [uuid!]) {
     timetables {
       timetables_delete_vehicle_schedule_vehicle_schedule_frame(
-        where: { priority: { _eq: 40 } }
+        where: {
+          _and: {
+            priority: { _eq: 40 }
+            vehicle_schedule_frame_id: { _in: $stagingVehicleScheduleFrameIds }
+          }
+        }
       ) {
         returning {
           vehicle_schedule_frame_id
@@ -26361,6 +26368,7 @@ export type DeleteStagingTimetablesMutationFn = Apollo.MutationFunction<
  * @example
  * const [deleteStagingTimetablesMutation, { data, loading, error }] = useDeleteStagingTimetablesMutation({
  *   variables: {
+ *      stagingVehicleScheduleFrameIds: // value for 'stagingVehicleScheduleFrameIds'
  *   },
  * });
  */

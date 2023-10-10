@@ -25,8 +25,12 @@ const testIds = {
 export const ImportTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
   const history = useHistory();
-  const { vehicleJourneys, sendToHastusImporter, cancelTimetablesImport } =
-    useTimetablesImport();
+  const {
+    vehicleJourneys,
+    vehicleScheduleFrames,
+    sendToHastusImporter,
+    cancelTimetablesImport,
+  } = useTimetablesImport();
 
   const [fileList, setFileList] = useState<File[] | null>(null);
   const [isCancelingImport, setIsCancelingImport] = useState(false);
@@ -42,7 +46,9 @@ export const ImportTimetablesPage = (): JSX.Element => {
 
   const onConfirmCancelingImport = async () => {
     try {
-      await cancelTimetablesImport();
+      await cancelTimetablesImport(
+        vehicleScheduleFrames.map((vsf) => vsf.vehicle_schedule_frame_id),
+      );
 
       setIsCancelingImport(false);
       showSuccessToast(t('import.cancelledSuccessfully'));

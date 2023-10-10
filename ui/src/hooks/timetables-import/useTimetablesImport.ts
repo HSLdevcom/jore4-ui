@@ -139,10 +139,15 @@ const GQL_REPLACE_TIMETABLES = gql`
 `;
 
 const GQL_DELETE_STAGING_TIMETABLES = gql`
-  mutation DeleteStagingTimetables {
+  mutation DeleteStagingTimetables($stagingVehicleScheduleFrameIds: [uuid!]) {
     timetables {
       timetables_delete_vehicle_schedule_vehicle_schedule_frame(
-        where: { priority: { _eq: 40 } }
+        where: {
+          _and: {
+            priority: { _eq: 40 }
+            vehicle_schedule_frame_id: { _in: $stagingVehicleScheduleFrameIds }
+          }
+        }
       ) {
         returning {
           vehicle_schedule_frame_id
@@ -186,9 +191,13 @@ export const useTimetablesImport = () => {
     );
   };
 
-  const cancelTimetablesImport = async (/* todo: should this take ids? */) => {
+  const cancelTimetablesImport = async (stagingFrameIdsToDelete: UUID[]) => {
     // Note: this also deletes all the children of the staging frames, because of cascade delete.
-    await deleteStagingTimetables();
+    await deleteStagingTimetables(
+      mapToVariables({
+        stagingVehicleScheduleFrameIds: stagingFrameIdsToDelete,
+      }),
+    );
     // All staging frames have been deleted -> refetch them to update view.
     await importedVehicleScheduleFramesResult.refetch();
   };
