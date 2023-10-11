@@ -1,6 +1,14 @@
 import { TimetablePriority } from '@hsl/jore4-test-db-manager';
 import { PassingTimesByStopTableRowPassingTime } from './PassingTimesByStopTableRowPassingTime';
 import { ParentPageObject } from './types';
+import { VehicleJourneyGroupInfo } from './VehicleJourneyGroupInfo';
+
+interface PassingTimeInfo {
+  stopLabel: string;
+  hour: string;
+  departureMinutes: string[];
+  arrivalMinutes?: string[];
+}
 
 export class PassingTimesByStopSection {
   getParent: ParentPageObject['get'];
@@ -11,6 +19,8 @@ export class PassingTimesByStopSection {
 
   passingTimesByStopTableRowPassingTime =
     new PassingTimesByStopTableRowPassingTime();
+
+  vehicleJourneyGroupInfo = new VehicleJourneyGroupInfo();
 
   constructor(
     parent: ParentPageObject,
@@ -142,6 +152,29 @@ export class PassingTimesByStopSection {
             this.passingTimesByStopTableRowPassingTime.passingMinute
               .getHighlightButton()
               .should('not.have.class', 'bg-city-bicycle-yellow');
+          }
+        });
+    });
+  }
+
+  assertStopTimes(passingTimeInfo: PassingTimeInfo) {
+    return this.getTableRow(passingTimeInfo.stopLabel).within(() => {
+      this.passingTimesByStopTableRowPassingTime
+        .getTimeContainerByHour(passingTimeInfo.hour)
+        .within(() => {
+          cy.wrap(passingTimeInfo.departureMinutes).each((minute: string) => {
+            this.passingTimesByStopTableRowPassingTime.passingMinute
+              .getDepartureTime()
+              .contains(minute)
+              .should('exist');
+          });
+          if (passingTimeInfo.arrivalMinutes) {
+            cy.wrap(passingTimeInfo.arrivalMinutes).each((minute: string) => {
+              this.passingTimesByStopTableRowPassingTime.passingMinute
+                .getArrivalTime()
+                .contains(minute)
+                .should('exist');
+            });
           }
         });
     });
