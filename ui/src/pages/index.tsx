@@ -6,7 +6,7 @@ const Index = () => {
   return (
     <div>
       <Head>
-        <title>Jore4 UI</title>
+        <title>JORE4 Testiversio</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
