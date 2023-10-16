@@ -1,8 +1,8 @@
 import { BlockVehicleJourneysTable } from './BlockVehicleJourneysTable';
-import { PriorityForm } from './PriorityForm';
+import { TimetablesImportPriorityForm } from './TimetablesImportPriorityForm';
 
 export class PreviewTimetablesPage {
-  priorityForm = new PriorityForm();
+  priorityForm = new TimetablesImportPriorityForm();
 
   blockVehicleJourneysTable = new BlockVehicleJourneysTable();
 
