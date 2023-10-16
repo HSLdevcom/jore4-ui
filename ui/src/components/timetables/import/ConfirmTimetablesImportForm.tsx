@@ -6,13 +6,18 @@ import { z } from 'zod';
 import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
-import { PriorityForm, priorityFormSchema } from '../../forms/common';
 import {
   TimetableImportStrategyForm,
   timetableImportStrategyFormSchema,
 } from './TimetableImportStrategyForm';
+import {
+  TimetablesImportPriorityForm,
+  timetablesImportPriorityFormSchema,
+} from './TimetablesImportPriorityForm';
 
-const schema = priorityFormSchema.merge(timetableImportStrategyFormSchema);
+const schema = timetablesImportPriorityFormSchema.merge(
+  timetableImportStrategyFormSchema,
+);
 export type FormState = z.infer<typeof schema>;
 
 interface Props {
@@ -63,7 +68,7 @@ export const ConfirmTimetablesImportForm = ({
           />
 
           <h3>{t('confirmTimetablesImportModal.priority')}</h3>
-          <PriorityForm />
+          <TimetablesImportPriorityForm />
 
           <Row className="justify-end space-x-4 pt-10">
             <SimpleButton onClick={onCancel} inverted>
