@@ -2,11 +2,11 @@ import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { Column, Row, Visible } from '../../../layoutComponents';
-import { Priority } from '../../../types/enums';
+import { TimetablePriority } from '../../../types/enums';
 import { SimpleButton } from '../../../uiComponents';
 
 export const timetablesImportPriorityFormSchema = z.object({
-  priority: z.nativeEnum(Priority),
+  priority: z.nativeEnum(TimetablePriority),
 });
 
 export type TimetablesImportPriorityFormState = z.infer<
@@ -19,7 +19,7 @@ const testIds = {
 };
 
 interface PriorityButtonProps {
-  priority: Priority;
+  priority: TimetablePriority;
   testIdPrefix: string;
   translationKey: string;
 }
@@ -50,25 +50,35 @@ export const TimetablesImportPriorityForm = ({
   } = useFormContext<TimetablesImportPriorityFormState>();
 
   const selectedPriority = watch('priority');
-  const setPriority = (value: Priority) => setValue('priority', value);
+  const setPriority = (value: TimetablePriority) => {
+    setValue('priority', value);
+  };
 
   const displayedPriorities: PriorityButtonProps[] = [
     {
-      priority: Priority.Draft,
+      priority: TimetablePriority.Draft,
       testIdPrefix: 'draft',
       translationKey: 'priority.draft',
     },
     {
-      priority: Priority.Standard,
+      priority: TimetablePriority.Standard,
       testIdPrefix: 'standard',
       translationKey: 'priority.standard',
     },
     {
-      priority: Priority.Temporary,
+      priority: TimetablePriority.Temporary,
       testIdPrefix: 'temporary',
       translationKey: 'priority.temporary',
     },
   ];
+
+  const onToggleSpecialDayPriority = () => {
+    if (selectedPriority === TimetablePriority.Special) {
+      setValue('priority', null as unknown as TimetablePriority);
+    } else {
+      setValue('priority', TimetablePriority.Special);
+    }
+  };
 
   return (
     <Column>
@@ -81,6 +91,7 @@ export const TimetablesImportPriorityForm = ({
           ({ priority, testIdPrefix, translationKey }) => (
             <SimpleButton
               key={testIdPrefix}
+              disabled={selectedPriority === TimetablePriority.Special}
               onClick={() => setPriority(priority)}
               selected={selectedPriority === priority}
               inverted={selectedPriority !== priority}
@@ -90,6 +101,21 @@ export const TimetablesImportPriorityForm = ({
             </SimpleButton>
           ),
         )}
+
+        <label
+          htmlFor={testIds.priorityButton('specialDay')}
+          className="inline-flex items-center pl-4 text-base font-normal"
+        >
+          {t('timetablesImportPriorityForm.importAsSpecialDay')}
+          <input
+            type="checkbox"
+            id={testIds.priorityButton('specialDay')}
+            checked={selectedPriority === TimetablePriority.Special}
+            onChange={onToggleSpecialDayPriority}
+            className="ml-3 h-6 w-6"
+            data-testid={testIds.priorityButton('specialDay')}
+          />
+        </label>
       </Row>
       <p>{errors.priority && t('formValidation.required')}</p>
     </Column>

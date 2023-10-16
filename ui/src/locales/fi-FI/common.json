@@ -381,6 +381,9 @@
     },
     "chooseSubstituteDay": "Valitse..."
   },
+  "timetablesImportPriorityForm": {
+    "importAsSpecialDay": "Tuo erityispäivänä"
+  },
   "timetablesPreview": {
     "preview": "Esikatselu",
     "closePreview": "Sulje esikatselu",

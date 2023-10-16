@@ -381,6 +381,9 @@
     },
     "chooseSubstituteDay": "Select..."
   },
+  "timetablesImportPriorityForm": {
+    "importAsSpecialDay": "Import as special day"
+  },
   "timetablesPreview": {
     "preview": "Preview",
     "closePreview": "Close preview",

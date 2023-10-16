@@ -43,6 +43,9 @@ export const ConfirmPreviewedTimetablesImportFormComponent = (
       >
         <Row className="space-x-6">
           <TimetablesImportPriorityForm showLabel={false} />
+          <div className="px-4">
+            <div className="border-l border-black h-full" />
+          </div>
           <Column className="self-center">
             <TimetableImportStrategyForm testIdPrefix="ConfirmPreviewedTimetablesImportForm" />
           </Column>
