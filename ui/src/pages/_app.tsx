@@ -24,7 +24,7 @@ const SafeHydrate = ({ children }: { children: JSX.Element }) => {
   );
 };
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const Jore4App = ({ Component, pageProps }: AppProps) => {
   return (
     <SafeHydrate>
       <ApolloProvider>
@@ -41,4 +41,4 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 };
 
 // eslint-disable-next-line import/no-default-export
-export default MyApp;
+export default Jore4App;
