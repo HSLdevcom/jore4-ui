@@ -25,34 +25,14 @@ interface PriorityButtonProps {
 }
 
 interface Props {
-  hiddenPriorities?: Priority[];
   showLabel?: boolean;
 }
-
-const defaultPriorities: PriorityButtonProps[] = [
-  {
-    priority: Priority.Draft,
-    testIdPrefix: 'draft',
-    translationKey: 'priority.draft',
-  },
-  {
-    priority: Priority.Standard,
-    testIdPrefix: 'standard',
-    translationKey: 'priority.standard',
-  },
-  {
-    priority: Priority.Temporary,
-    testIdPrefix: 'temporary',
-    translationKey: 'priority.temporary',
-  },
-];
 
 /**
  * Component for selecting priority for timetables import.
  * Can be merged with other forms.
  */
 export const TimetablesImportPriorityForm = ({
-  hiddenPriorities,
   showLabel = true,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
@@ -65,9 +45,23 @@ export const TimetablesImportPriorityForm = ({
   const selectedPriority = watch('priority');
   const setPriority = (value: Priority) => setValue('priority', value);
 
-  const displayedPriorities = defaultPriorities.filter(
-    (priority) => !hiddenPriorities?.includes(priority.priority),
-  );
+  const displayedPriorities: PriorityButtonProps[] = [
+    {
+      priority: Priority.Draft,
+      testIdPrefix: 'draft',
+      translationKey: 'priority.draft',
+    },
+    {
+      priority: Priority.Standard,
+      testIdPrefix: 'standard',
+      translationKey: 'priority.standard',
+    },
+    {
+      priority: Priority.Temporary,
+      testIdPrefix: 'temporary',
+      translationKey: 'priority.temporary',
+    },
+  ];
 
   return (
     <Column>
