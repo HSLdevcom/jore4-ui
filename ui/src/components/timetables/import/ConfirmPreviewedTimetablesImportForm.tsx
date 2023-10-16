@@ -3,13 +3,18 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Column, Row } from '../../../layoutComponents';
-import { PriorityForm, priorityFormSchema } from '../../forms/common';
 import {
   TimetableImportStrategyForm,
   timetableImportStrategyFormSchema,
 } from './TimetableImportStrategyForm';
+import {
+  TimetablesImportPriorityForm,
+  timetablesImportPriorityFormSchema,
+} from './TimetablesImportPriorityForm';
 
-const schema = priorityFormSchema.merge(timetableImportStrategyFormSchema);
+const schema = timetablesImportPriorityFormSchema.merge(
+  timetableImportStrategyFormSchema,
+);
 export type FormState = z.infer<typeof schema>;
 
 interface Props {
@@ -37,7 +42,7 @@ export const ConfirmPreviewedTimetablesImportFormComponent = (
         ref={externalRef}
       >
         <Row className="space-x-6">
-          <PriorityForm showLabel={false} />
+          <TimetablesImportPriorityForm showLabel={false} />
           <Column className="self-center">
             <TimetableImportStrategyForm testIdPrefix="ConfirmPreviewedTimetablesImportForm" />
           </Column>
