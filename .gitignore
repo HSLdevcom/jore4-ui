@@ -8,6 +8,7 @@ yarn-error.log*
 
 # dev environment
 .vscode
+.eslintcache
 docker/*
 !docker/docker-compose.cypress.yml
 !docker/docker-compose.custom.yml
