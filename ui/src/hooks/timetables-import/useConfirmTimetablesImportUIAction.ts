@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { TimetableImportStrategy } from '../../components/timetables/import/TimetableImportStrategyForm';
 import { Operation } from '../../redux';
-import { Priority, TimetablePriority } from '../../types/enums';
+import { TimetablePriority } from '../../types/enums';
 import { showSuccessToast } from '../../utils';
 import { useLoader } from '../ui';
 import { useTimetablesImport } from './useTimetablesImport';
@@ -16,7 +16,7 @@ export const useConfirmTimetablesImportUIAction = () => {
 
   const onConfirmTimetablesImport = async (
     stagingVehicleScheduleFrameIds: UUID[],
-    priority: Priority,
+    priority: TimetablePriority,
     importStrategy: TimetableImportStrategy,
   ) => {
     setIsLoading(true);
