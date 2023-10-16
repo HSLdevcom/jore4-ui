@@ -45,6 +45,12 @@ export class TimetablesImportPriorityForm {
     }
   };
 
+  getSpecialDayPriorityCheckbox = () => {
+    return cy.getByTestId(
+      'TimetablesImportPriorityForm::specialDayPriorityButton',
+    );
+  };
+
   assertSelectedPriority(priority: TimetablePriority | undefined) {
     switch (priority) {
       case TimetablePriority.Draft:
@@ -61,6 +67,13 @@ export class TimetablesImportPriorityForm {
         cy.getByTestId(
           'TimetablesImportPriorityForm::standardPriorityButton',
         ).should('have.attr', 'data-selected', 'true');
+        break;
+      case TimetablePriority.Special:
+        this.getSpecialDayPriorityCheckbox().should(
+          'have.attr',
+          'data-selected',
+          'true',
+        );
         break;
       default:
         throw new Error(`Unknown priority "${priority}"`);
