@@ -62,6 +62,11 @@ export class TimetablesImportPriorityForm {
           'TimetablesImportPriorityForm::standardPriorityButton',
         ).should('have.attr', 'data-selected', 'true');
         break;
+      case TimetablePriority.Special:
+        cy.getByTestId(
+          'TimetablesImportPriorityForm::specialDayPriorityButton',
+        ).should('have.attr', 'data-selected', 'true');
+        break;
       default:
         throw new Error(`Unknown priority "${priority}"`);
     }
