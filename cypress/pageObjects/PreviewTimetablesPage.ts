@@ -1,11 +1,11 @@
 import { BlockVehicleJourneysTable } from './BlockVehicleJourneysTable';
 import { ConfirmPreviewedTimetablesImportForm } from './ConfirmPreviewedTimetablesImportForm';
 import { ConfirmTimetablesImportForm } from './ConfirmTimetableImportForm';
-import { PriorityForm } from './PriorityForm';
+import { TimetablesImportPriorityForm } from './TimetablesImportPriorityForm';
 import { VehicleScheduleFrameBlocksView } from './VehicleScheduleFrameBlocksView';
 
 export class PreviewTimetablesPage {
-  priorityForm = new PriorityForm();
+  priorityForm = new TimetablesImportPriorityForm();
 
   blockVehicleJourneysTable = new BlockVehicleJourneysTable();
 

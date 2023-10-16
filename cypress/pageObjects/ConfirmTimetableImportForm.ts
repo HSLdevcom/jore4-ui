@@ -1,7 +1,7 @@
-import { PriorityForm } from './PriorityForm';
+import { TimetablesImportPriorityForm } from './TimetablesImportPriorityForm';
 
 export class ConfirmTimetablesImportForm {
-  priorityForm = new PriorityForm();
+  priorityForm = new TimetablesImportPriorityForm();
 
   getReplaceRadioButton() {
     return cy.getByTestId('ConfirmTimetablesImportForm::replaceRadioButton');
