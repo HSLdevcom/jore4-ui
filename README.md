@@ -49,6 +49,9 @@ Code should be formatted with `prettier`. It is highly recommended for developer
 This way code magically stays neatly formatted and you don't have to do anything about it by yourself.
 If you want to run prettier manually for some reason you can run `yarn prettier` (for writing changes) or `yarn prettier:check` (for making sure that code is formatted as prettier wants, but without modifying anything).
 
+A convenience command `yarn qa:fix` exists for running `eslint` and `prettier` and fixing fixable issues.
+This also uses cache for both formatters.
+
 ### Code style
 
 We have enabled `eslint` with opionated rulesets for keeping code style clean & consistent and for avoiding certain mistakes. Eslint can be run with `yarn lint`. It is highly recommended for developers to use eslint extension with their editors so that they can see linting errors instantly when writing code.
