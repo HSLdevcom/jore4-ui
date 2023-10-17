@@ -272,7 +272,8 @@
   "errors": {
     "saveFailed": "Something went wrong",
     "leaveMultipleHandles": "Cannot delete snap point(s)! You should leave at least two of them.",
-    "tooFarFromInfrastructureLink": "Make sure each point in route geometry is close enough to the road network. Check coverage of the road network along the route, if necessary."
+    "tooFarFromInfrastructureLink": "Make sure each point in route geometry is close enough to the road network. Check coverage of the road network along the route, if necessary.",
+    "deviationFetchFailed": "Failed to fetch missing routes"
   },
   "filters": {
     "title": "Filter view",
@@ -387,10 +388,17 @@
     "save": "Save timetables",
     "departures": "Departures: {{ count }}",
     "showContent": "Show content",
+    "blockCount": "{{ count }} blocks",
     "closeContent": "Close content",
     "contentUsage": "Content usage",
+    "departures": "Departures: {{ count }}",
+    "deviations": "Deviations ({{ count }})",
+    "deviationsText": "The Hastus file is missing the schedules of the routes previously imported. These expire with this recording. If you want, import them separately or add them to this file. Missing routes:",
     "fileContent": "File content",
-    "blockCount": "{{ count }} blocks"
+    "preview": "Preview",
+    "save": "Save timetables",
+    "showContent": "Show content",
+    "summary": "Summary"
   },
   "timetableVersionsTableHeaders": {
     "status": "Status",

@@ -272,7 +272,8 @@
   "errors": {
     "saveFailed": "Tallennus epäonnistui",
     "leaveMultipleHandles": "Pisteitä ei voida poistaa! Jätä vähintään kaksi pistettä.",
-    "tooFarFromInfrastructureLink": "Piirrä reitti joka osaltaan riittävän lähelle haluttua tieverkkoa. Tarkista tarvittaessa tieverkon kattavuus reitin alueella."
+    "tooFarFromInfrastructureLink": "Piirrä reitti joka osaltaan riittävän lähelle haluttua tieverkkoa. Tarkista tarvittaessa tieverkon kattavuus reitin alueella.",
+    "deviationFetchFailed": "Puuttuvien reittien haku epäonnistui"
   },
   "filters": {
     "title": "Suodata näkymää",
@@ -387,10 +388,17 @@
     "save": "Tallenna aikataulut",
     "departures": "Lähtöjä: {{ count }}",
     "showContent": "Näytä sisältö",
+    "blockCount": "{{ count }} autokiertoa",
     "closeContent": "Sulje sisältö",
     "contentUsage": "Sisällön käyttö",
+    "departures": "Lähtöjä: {{ count }}",
+    "deviations": "Poikkeamat ({{ count }})",
+    "deviationsText": "Hastus-tiedostosta puuttuvat aiemmin samassa yhteydessä ladattujen reittien aikataulut. Näiden voimassaolo päättyy tällä tallennuksella. Tuo ne halutessasi erikseen tai lisää tähän tiedostoon. Puuttuvat reitit:",
     "fileContent": "Tiedoston sisältö",
-    "blockCount": "{{ count }} autokiertoa"
+    "preview": "Esikatselu",
+    "save": "Tallenna aikataulut",
+    "showContent": "Näytä sisältö",
+    "summary": "Yhteenveto"
   },
   "timetableVersionsTableHeaders": {
     "status": "Tila",
