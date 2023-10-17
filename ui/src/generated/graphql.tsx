@@ -116,6 +116,16 @@ export type StringComparisonExp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
+export type ToReplaceVehicleScheduleFrameIdsInput = {
+  stagingVehicleScheduleFrameId: Scalars['uuid'];
+  targetPriority: Scalars['Int'];
+};
+
+export type ToReplaceVehicleScheduleFrameIdsOutput = {
+  __typename?: 'ToReplaceVehicleScheduleFrameIdsOutput';
+  toReplaceVehicleScheduleFrameIds: Array<Maybe<Scalars['uuid']>>;
+};
+
 /** ordering argument of a cursor */
 export enum CursorOrdering {
   /** ascending ordering of the cursor */
@@ -4104,6 +4114,7 @@ export type QueryRoot = {
   timing_pattern_timing_place_aggregate: TimingPatternTimingPlaceAggregate;
   /** fetch data from the table: "timing_pattern.timing_place" using primary key columns */
   timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
+  toReplaceVehicleScheduleFrameIds?: Maybe<ToReplaceVehicleScheduleFrameIdsOutput>;
 };
 
 export type QueryRootHslRouteLegacyHslMunicipalityCodeArgs = {
@@ -4665,6 +4676,10 @@ export type QueryRootTimingPatternTimingPlaceAggregateArgs = {
 
 export type QueryRootTimingPatternTimingPlaceByPkArgs = {
   timing_place_id: Scalars['uuid'];
+};
+
+export type QueryRootToReplaceVehicleScheduleFrameIdsArgs = {
+  arg1: ToReplaceVehicleScheduleFrameIdsInput;
 };
 
 /** The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
@@ -21116,6 +21131,54 @@ export type GetSubstituteOperatingPeriodsQuery = {
   } | null;
 };
 
+export type GetToReplaceVehicleScheduleFramesQueryVariables = Exact<{
+  arg1: ToReplaceVehicleScheduleFrameIdsInput;
+}>;
+
+export type GetToReplaceVehicleScheduleFramesQuery = {
+  __typename?: 'query_root';
+  toReplaceVehicleScheduleFrameIds?: {
+    __typename?: 'ToReplaceVehicleScheduleFrameIdsOutput';
+    toReplaceVehicleScheduleFrameIds: Array<UUID | null>;
+  } | null;
+};
+
+export type GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables = Exact<{
+  vehicle_schedule_frame_ids: Array<Scalars['uuid']> | Scalars['uuid'];
+}>;
+
+export type GetVehicleScheduleFrameWithRouteAndLineInfoQuery = {
+  __typename?: 'query_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_query';
+    timetables_vehicle_schedule_vehicle_schedule_frame: Array<{
+      __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+      vehicle_schedule_frame_id: UUID;
+      vehicle_services: Array<{
+        __typename?: 'timetables_vehicle_service_vehicle_service';
+        vehicle_service_id: UUID;
+        journey_patterns_in_vehicle_service: Array<{
+          __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service';
+          journey_pattern_id: UUID;
+          journey_pattern_instance?: {
+            __typename?: 'journey_pattern_journey_pattern';
+            journey_pattern_id: UUID;
+            journey_pattern_route?: {
+              __typename?: 'route_route';
+              route_id: UUID;
+              unique_label: string;
+              direction: RouteDirectionEnum;
+              variant?: number | null;
+              name_i18n: LocalizedString;
+              route_line: { __typename?: 'route_line'; line_id: UUID };
+            } | null;
+          } | null;
+        }>;
+      }>;
+    }>;
+  } | null;
+};
+
 export type VehicleJourneyWithRouteInfoFragment = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey';
   start_time: luxon.Duration;
@@ -26090,6 +26153,150 @@ export type GetSubstituteOperatingPeriodsQueryResult = Apollo.QueryResult<
   GetSubstituteOperatingPeriodsQuery,
   GetSubstituteOperatingPeriodsQueryVariables
 >;
+export const GetToReplaceVehicleScheduleFramesDocument = gql`
+  query GetToReplaceVehicleScheduleFrames(
+    $arg1: ToReplaceVehicleScheduleFrameIdsInput!
+  ) {
+    toReplaceVehicleScheduleFrameIds(arg1: $arg1) {
+      toReplaceVehicleScheduleFrameIds
+    }
+  }
+`;
+
+/**
+ * __useGetToReplaceVehicleScheduleFramesQuery__
+ *
+ * To run a query within a React component, call `useGetToReplaceVehicleScheduleFramesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetToReplaceVehicleScheduleFramesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetToReplaceVehicleScheduleFramesQuery({
+ *   variables: {
+ *      arg1: // value for 'arg1'
+ *   },
+ * });
+ */
+export function useGetToReplaceVehicleScheduleFramesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetToReplaceVehicleScheduleFramesQuery,
+    GetToReplaceVehicleScheduleFramesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetToReplaceVehicleScheduleFramesQuery,
+    GetToReplaceVehicleScheduleFramesQueryVariables
+  >(GetToReplaceVehicleScheduleFramesDocument, options);
+}
+export function useGetToReplaceVehicleScheduleFramesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetToReplaceVehicleScheduleFramesQuery,
+    GetToReplaceVehicleScheduleFramesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetToReplaceVehicleScheduleFramesQuery,
+    GetToReplaceVehicleScheduleFramesQueryVariables
+  >(GetToReplaceVehicleScheduleFramesDocument, options);
+}
+export type GetToReplaceVehicleScheduleFramesQueryHookResult = ReturnType<
+  typeof useGetToReplaceVehicleScheduleFramesQuery
+>;
+export type GetToReplaceVehicleScheduleFramesLazyQueryHookResult = ReturnType<
+  typeof useGetToReplaceVehicleScheduleFramesLazyQuery
+>;
+export type GetToReplaceVehicleScheduleFramesQueryResult = Apollo.QueryResult<
+  GetToReplaceVehicleScheduleFramesQuery,
+  GetToReplaceVehicleScheduleFramesQueryVariables
+>;
+export const GetVehicleScheduleFrameWithRouteAndLineInfoDocument = gql`
+  query GetVehicleScheduleFrameWithRouteAndLineInfo(
+    $vehicle_schedule_frame_ids: [uuid!]!
+  ) {
+    timetables {
+      timetables_vehicle_schedule_vehicle_schedule_frame(
+        where: {
+          vehicle_schedule_frame_id: { _in: $vehicle_schedule_frame_ids }
+        }
+      ) {
+        vehicle_schedule_frame_id
+        vehicle_services {
+          vehicle_service_id
+          journey_patterns_in_vehicle_service {
+            journey_pattern_id
+            journey_pattern_instance {
+              journey_pattern_id
+              journey_pattern_route {
+                route_id
+                unique_label
+                direction
+                variant
+                name_i18n
+                route_line {
+                  line_id
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetVehicleScheduleFrameWithRouteAndLineInfoQuery__
+ *
+ * To run a query within a React component, call `useGetVehicleScheduleFrameWithRouteAndLineInfoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVehicleScheduleFrameWithRouteAndLineInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVehicleScheduleFrameWithRouteAndLineInfoQuery({
+ *   variables: {
+ *      vehicle_schedule_frame_ids: // value for 'vehicle_schedule_frame_ids'
+ *   },
+ * });
+ */
+export function useGetVehicleScheduleFrameWithRouteAndLineInfoQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
+    GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
+    GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
+  >(GetVehicleScheduleFrameWithRouteAndLineInfoDocument, options);
+}
+export function useGetVehicleScheduleFrameWithRouteAndLineInfoLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
+    GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
+    GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
+  >(GetVehicleScheduleFrameWithRouteAndLineInfoDocument, options);
+}
+export type GetVehicleScheduleFrameWithRouteAndLineInfoQueryHookResult =
+  ReturnType<typeof useGetVehicleScheduleFrameWithRouteAndLineInfoQuery>;
+export type GetVehicleScheduleFrameWithRouteAndLineInfoLazyQueryHookResult =
+  ReturnType<typeof useGetVehicleScheduleFrameWithRouteAndLineInfoLazyQuery>;
+export type GetVehicleScheduleFrameWithRouteAndLineInfoQueryResult =
+  Apollo.QueryResult<
+    GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
+    GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
+  >;
 export const GetStagingVehicleScheduleFramesDocument = gql`
   query GetStagingVehicleScheduleFrames {
     timetables {
@@ -27543,6 +27750,23 @@ export function useGetSubstituteOperatingPeriodsAsyncQuery() {
 export type GetSubstituteOperatingPeriodsAsyncQueryHookResult = ReturnType<
   typeof useGetSubstituteOperatingPeriodsAsyncQuery
 >;
+export function useGetToReplaceVehicleScheduleFramesAsyncQuery() {
+  return useAsyncQuery<
+    GetToReplaceVehicleScheduleFramesQuery,
+    GetToReplaceVehicleScheduleFramesQueryVariables
+  >(GetToReplaceVehicleScheduleFramesDocument);
+}
+export type GetToReplaceVehicleScheduleFramesAsyncQueryHookResult = ReturnType<
+  typeof useGetToReplaceVehicleScheduleFramesAsyncQuery
+>;
+export function useGetVehicleScheduleFrameWithRouteAndLineInfoAsyncQuery() {
+  return useAsyncQuery<
+    GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
+    GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
+  >(GetVehicleScheduleFrameWithRouteAndLineInfoDocument);
+}
+export type GetVehicleScheduleFrameWithRouteAndLineInfoAsyncQueryHookResult =
+  ReturnType<typeof useGetVehicleScheduleFrameWithRouteAndLineInfoAsyncQuery>;
 export function useGetStagingVehicleScheduleFramesAsyncQuery() {
   return useAsyncQuery<
     GetStagingVehicleScheduleFramesQuery,

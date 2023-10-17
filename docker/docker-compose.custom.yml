@@ -9,7 +9,7 @@ services:
     # https://hub.docker.com/r/hsldevcom/jore4-hasura/tags?page=1&ordering=last_updated
     # The :hsl-tag contains the desired version of hsl specific hasura.
     # Waiting for merging feature-branch to main in hasura-repo
-    image: &hasura-image 'hsldevcom/jore4-hasura:hsl-main--20231012-c79da9f16c2365b5c0b022c3d358f1b06c112deb'
+    image: &hasura-image 'hsldevcom/jore4-hasura:hsl-new-api-to-replace--20231016-e024d822d9f30cacab9f999e3ed0750fe61ad248'
     # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
     # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
     depends_on:
@@ -32,7 +32,7 @@ services:
 
   jore4-timetablesapi:
     # pinning timetables api
-    image: "hsldevcom/jore4-timetables-api:main--20231012-2c85144bd8dbb18deb748071f12fb61921579a0a"
+    image: "hsldevcom/jore4-timetables-api:replaced-by-staging-timetables--20231016-42443f72f553755b8837fad606a6419aad706422"
 
   jore4-hasura-e2e1:
     image: *hasura-image
