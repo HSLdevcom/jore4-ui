@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Column, Row } from '../../../layoutComponents';
@@ -15,10 +15,17 @@ export type FormState = z.infer<typeof schema>;
 interface Props {
   defaultValues?: Partial<FormState>;
   onSubmit: (state: FormState) => void;
+  fetchRouteDeviations: (priority: number) => void;
+  clearRouteDeviations: () => void;
 }
 
 export const ConfirmPreviewedTimetablesImportFormComponent = (
-  { defaultValues, onSubmit }: Props,
+  {
+    clearRouteDeviations,
+    defaultValues,
+    fetchRouteDeviations,
+    onSubmit,
+  }: Props,
   externalRef: ExplicitAny,
 ): JSX.Element => {
   const methods = useForm<FormState>({
@@ -26,7 +33,22 @@ export const ConfirmPreviewedTimetablesImportFormComponent = (
     resolver: zodResolver(schema),
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
+
+  const { priority, timetableImportStrategy } = watch();
+
+  useEffect(() => {
+    if (timetableImportStrategy === 'replace' && priority) {
+      fetchRouteDeviations(priority);
+    } else {
+      clearRouteDeviations();
+    }
+  }, [
+    clearRouteDeviations,
+    fetchRouteDeviations,
+    priority,
+    timetableImportStrategy,
+  ]);
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading

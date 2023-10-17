@@ -382,15 +382,19 @@
     "chooseSubstituteDay": "Select..."
   },
   "timetablesPreview": {
-    "preview": "Preview",
     "closePreview": "Close preview",
-    "save": "Save timetables",
-    "departures": "Departures: {{ count }}",
-    "showContent": "Show content",
+    "blockCount": "{{ count }} blocks",
     "closeContent": "Close content",
     "contentUsage": "Content usage",
+    "departures": "Departures: {{ count }}",
+    "deviationFetchFailed": "Failed to fetch missing routes",
+    "deviations": "Deviations ({{ count }})",
+    "deviationsWarning": "The Hastus file is missing the schedules of the routes previously imported. These expire with this recording. If you want, import them separately or add them to this file. Missing routes:",
     "fileContent": "File content",
-    "blockCount": "{{ count }} blocks"
+    "preview": "Preview",
+    "save": "Save timetables",
+    "showContent": "Show content",
+    "summary": "Summary"
   },
   "timetableVersionsTableHeaders": {
     "status": "Status",

@@ -382,15 +382,19 @@
     "chooseSubstituteDay": "Valitse..."
   },
   "timetablesPreview": {
-    "preview": "Esikatselu",
     "closePreview": "Sulje esikatselu",
-    "save": "Tallenna aikataulut",
-    "departures": "Lähtöjä: {{ count }}",
-    "showContent": "Näytä sisältö",
+    "blockCount": "{{ count }} autokiertoa",
     "closeContent": "Sulje sisältö",
     "contentUsage": "Sisällön käyttö",
+    "departures": "Lähtöjä: {{ count }}",
+    "deviationFetchFailed": "Puuttuvien reittien haku epäonnistui",
+    "deviations": "Poikkeamat ({{ count }})",
+    "deviationsWarning": "Hastus-tiedostosta puuttuvat aiemmin samassa yhteydessä ladattujen reittien aikataulut. Näiden voimassaolo päättyy tällä tallennuksella. Tuo ne halutessasi erikseen tai lisää tähän tiedostoon. Puuttuvat reitit:",
     "fileContent": "Tiedoston sisältö",
-    "blockCount": "{{ count }} autokiertoa"
+    "preview": "Esikatselu",
+    "save": "Tallenna aikataulut",
+    "showContent": "Näytä sisältö",
+    "summary": "Yhteenveto"
   },
   "timetableVersionsTableHeaders": {
     "status": "Tila",
