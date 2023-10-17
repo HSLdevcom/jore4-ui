@@ -112,6 +112,16 @@ export type StringComparisonExp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
+export type ToReplaceVehicleScheduleFrameIdsInput = {
+  stagingVehicleScheduleFrameId: Scalars['uuid'];
+  targetPriority: Scalars['Int'];
+};
+
+export type ToReplaceVehicleScheduleFrameIdsOutput = {
+  __typename?: 'ToReplaceVehicleScheduleFrameIdsOutput';
+  toReplaceVehicleScheduleFrameIds: Array<Maybe<Scalars['uuid']>>;
+};
+
 /** ordering argument of a cursor */
 export enum CursorOrdering {
   /** ascending ordering of the cursor */
@@ -4100,6 +4110,7 @@ export type QueryRoot = {
   timing_pattern_timing_place_aggregate: TimingPatternTimingPlaceAggregate;
   /** fetch data from the table: "timing_pattern.timing_place" using primary key columns */
   timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
+  toReplaceVehicleScheduleFrameIds?: Maybe<ToReplaceVehicleScheduleFrameIdsOutput>;
 };
 
 export type QueryRootHslRouteLegacyHslMunicipalityCodeArgs = {
@@ -4661,6 +4672,10 @@ export type QueryRootTimingPatternTimingPlaceAggregateArgs = {
 
 export type QueryRootTimingPatternTimingPlaceByPkArgs = {
   timing_place_id: Scalars['uuid'];
+};
+
+export type QueryRootToReplaceVehicleScheduleFrameIdsArgs = {
+  arg1: ToReplaceVehicleScheduleFrameIdsInput;
 };
 
 /** The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
