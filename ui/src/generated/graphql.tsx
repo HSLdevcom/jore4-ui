@@ -21767,6 +21767,21 @@ export type LineMapParamsFragment = {
   }>;
 };
 
+export type GetStagingVehicleScheduleFrameIdsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetStagingVehicleScheduleFrameIdsQuery = {
+  __typename?: 'query_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_query';
+    timetables_vehicle_schedule_vehicle_schedule_frame: Array<{
+      __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+      vehicle_schedule_frame_id: UUID;
+    }>;
+  } | null;
+};
+
 export type GetToReplaceVehicleScheduleFramesQueryVariables = Exact<{
   arg1: ToReplaceVehicleScheduleFrameIdsInput;
 }>;
@@ -27090,6 +27105,67 @@ export type GetTimetableVersionsByJourneyPatternIdsQueryResult =
     GetTimetableVersionsByJourneyPatternIdsQuery,
     GetTimetableVersionsByJourneyPatternIdsQueryVariables
   >;
+export const GetStagingVehicleScheduleFrameIdsDocument = gql`
+  query GetStagingVehicleScheduleFrameIds {
+    timetables {
+      timetables_vehicle_schedule_vehicle_schedule_frame(
+        where: { priority: { _eq: 40 } }
+      ) {
+        vehicle_schedule_frame_id
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetStagingVehicleScheduleFrameIdsQuery__
+ *
+ * To run a query within a React component, call `useGetStagingVehicleScheduleFrameIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStagingVehicleScheduleFrameIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStagingVehicleScheduleFrameIdsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStagingVehicleScheduleFrameIdsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetStagingVehicleScheduleFrameIdsQuery,
+    GetStagingVehicleScheduleFrameIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetStagingVehicleScheduleFrameIdsQuery,
+    GetStagingVehicleScheduleFrameIdsQueryVariables
+  >(GetStagingVehicleScheduleFrameIdsDocument, options);
+}
+export function useGetStagingVehicleScheduleFrameIdsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStagingVehicleScheduleFrameIdsQuery,
+    GetStagingVehicleScheduleFrameIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStagingVehicleScheduleFrameIdsQuery,
+    GetStagingVehicleScheduleFrameIdsQueryVariables
+  >(GetStagingVehicleScheduleFrameIdsDocument, options);
+}
+export type GetStagingVehicleScheduleFrameIdsQueryHookResult = ReturnType<
+  typeof useGetStagingVehicleScheduleFrameIdsQuery
+>;
+export type GetStagingVehicleScheduleFrameIdsLazyQueryHookResult = ReturnType<
+  typeof useGetStagingVehicleScheduleFrameIdsLazyQuery
+>;
+export type GetStagingVehicleScheduleFrameIdsQueryResult = Apollo.QueryResult<
+  GetStagingVehicleScheduleFrameIdsQuery,
+  GetStagingVehicleScheduleFrameIdsQueryVariables
+>;
 export const GetToReplaceVehicleScheduleFramesDocument = gql`
   query GetToReplaceVehicleScheduleFrames(
     $arg1: ToReplaceVehicleScheduleFrameIdsInput!
@@ -27840,6 +27916,15 @@ export function useGetTimetableVersionsByJourneyPatternIdsAsyncQuery() {
 }
 export type GetTimetableVersionsByJourneyPatternIdsAsyncQueryHookResult =
   ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsAsyncQuery>;
+export function useGetStagingVehicleScheduleFrameIdsAsyncQuery() {
+  return useAsyncQuery<
+    GetStagingVehicleScheduleFrameIdsQuery,
+    GetStagingVehicleScheduleFrameIdsQueryVariables
+  >(GetStagingVehicleScheduleFrameIdsDocument);
+}
+export type GetStagingVehicleScheduleFrameIdsAsyncQueryHookResult = ReturnType<
+  typeof useGetStagingVehicleScheduleFrameIdsAsyncQuery
+>;
 export function useGetToReplaceVehicleScheduleFramesAsyncQuery() {
   return useAsyncQuery<
     GetToReplaceVehicleScheduleFramesQuery,
