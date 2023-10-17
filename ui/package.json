@@ -8,7 +8,7 @@
     "prebuild": "yarn generate-theme",
     "build": "next build && next export",
     "ts:check": "yarn tsc --noEmit",
-    "test": "jest --ci",
+    "test": "jest --ci --runInBand",
     "test:unit": "yarn test --testRegex='^(?!.*\\.integration\\.spec\\.tsx?$).*\\.spec\\.tsx?$'",
     "test:integration": "yarn test --testRegex='\\.integration\\.spec\\.tsx?$'",
     "generate-theme": "./convert-theme-to-ts.js",
