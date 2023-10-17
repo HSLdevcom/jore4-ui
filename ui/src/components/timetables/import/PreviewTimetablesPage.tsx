@@ -6,6 +6,12 @@ import {
   useTimetablesImport,
   useToggle,
 } from '../../../hooks';
+import {
+  useGetStagingVehicleScheduleFrameIds,
+  useReplaceDeviations,
+  useToReplaceVehicleScheduleFrames,
+  useVehicleScheduleFrameWithRouteLabelAndLineId,
+} from '../../../hooks/timetables-import/deviations';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { AccordionButton, SimpleButton } from '../../../uiComponents';
@@ -15,6 +21,7 @@ import {
   FormState,
 } from './ConfirmPreviewedTimetablesImportForm';
 import { ImportContentsView } from './ImportContentsView';
+import { SummarySection } from './SummarySection';
 
 const testIds = {
   toggleShowStagingTimetables:
@@ -31,11 +38,20 @@ const defaultValues: Partial<FormState> = {
 export const PreviewTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
   const history = useHistory();
-
   const { vehicleJourneys, vehicleScheduleFrames } = useTimetablesImport();
   const [showStagingTimetables, toggleShowStagingTimetables] = useToggle(true);
   const { onConfirmTimetablesImport } = useConfirmTimetablesImportUIAction();
-
+  const { fetchToReplaceFrames } = useToReplaceVehicleScheduleFrames();
+  const { fetchVehicleFrames } =
+    useVehicleScheduleFrameWithRouteLabelAndLineId();
+  const { fetchStagingVehicleFrameIds } =
+    useGetStagingVehicleScheduleFrameIds();
+  const { clearRouteDeviations, deviations, fetchRouteDeviations } =
+    useReplaceDeviations(
+      fetchToReplaceFrames,
+      fetchVehicleFrames,
+      fetchStagingVehicleFrameIds,
+    );
   const vehicleJourneyCount = vehicleJourneys?.length || 0;
   const importedTimetablesExist = vehicleJourneyCount > 0;
 
@@ -91,6 +107,8 @@ export const PreviewTimetablesPage = (): JSX.Element => {
           <h3>{t('timetablesPreview.contentUsage')}</h3>
           <ConfirmPreviewedTimetablesImportForm
             ref={formRef}
+            fetchRouteDeviations={fetchRouteDeviations}
+            clearRouteDeviations={clearRouteDeviations}
             onSubmit={onSubmit}
             defaultValues={defaultValues}
           />
@@ -101,6 +119,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
           </div>
         </Visible>
       </div>
+      <SummarySection className="mt-10" deviations={deviations} />
       <div className="pt-10">
         <Row className="justify-end space-x-4">
           <SimpleButton
