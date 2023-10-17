@@ -5,10 +5,10 @@ import { RouteStopFieldsFragment } from '../../../generated/graphql';
 import { useAlertsAndHighLights } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
 import {
-  mapToShortDate,
-  mapToShortDateTime,
   MAX_DATE,
   MIN_DATE,
+  mapToShortDate,
+  mapToShortDateTime,
 } from '../../../time';
 import { StopActionsDropdown } from './StopActionsDropdown';
 
@@ -52,6 +52,8 @@ export const RouteStopsRow = ({
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
   const alertStyle = getAlertStyle(getAlertLevel(stop));
   const hastusCode = stop.timing_place?.label ?? '-';
+
+  const noHastusCode = '-';
 
   // TODO: Rework table into basic elements
   return (
@@ -98,7 +100,9 @@ export const RouteStopsRow = ({
       </td>
       <td>
         <Row className="justify-center">
-          <span>{hastusCode}</span>
+          <Visible visible={hastusCode !== noHastusCode}>
+            <span>{hastusCode}</span>
+          </Visible>
         </Row>
       </td>
       <td>
