@@ -5,10 +5,8 @@ import {
   useTimetablesImport,
 } from '../../../hooks';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
-import {
-  ConfirmTimetablesImportForm,
-  FormState,
-} from './ConfirmTimetablesImportForm';
+import { ConfirmTimetablesImportForm } from './ConfirmTimetablesImportForm';
+import { FormState } from './TimetablesImportFormSchema';
 
 interface Props {
   isOpen: boolean;
