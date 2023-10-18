@@ -16,12 +16,10 @@ import { Container, Row, Visible } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { AccordionButton, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
-import {
-  ConfirmPreviewedTimetablesImportForm,
-  FormState,
-} from './ConfirmPreviewedTimetablesImportForm';
+import { ConfirmPreviewedTimetablesImportForm } from './ConfirmPreviewedTimetablesImportForm';
 import { ImportContentsView } from './ImportContentsView';
 import { SummarySection } from './SummarySection';
+import { FormState } from './TimetablesImportFormSchema';
 
 const testIds = {
   toggleShowStagingTimetables:

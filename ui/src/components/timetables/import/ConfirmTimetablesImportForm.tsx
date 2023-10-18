@@ -2,23 +2,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
+import { TimetableImportStrategyForm } from './TimetableImportStrategyForm';
 import {
-  TimetableImportStrategyForm,
-  timetableImportStrategyFormSchema,
-} from './TimetableImportStrategyForm';
-import {
-  TimetablesImportPriorityForm,
-  timetablesImportPriorityFormSchema,
-} from './TimetablesImportPriorityForm';
-
-const schema = timetablesImportPriorityFormSchema.merge(
-  timetableImportStrategyFormSchema,
-);
-export type FormState = z.infer<typeof schema>;
+  FormState,
+  timetablesImportFormSchema,
+} from './TimetablesImportFormSchema';
+import { TimetablesImportPriorityForm } from './TimetablesImportPriorityForm';
 
 interface Props {
   defaultValues?: Partial<FormState>;
@@ -43,7 +35,7 @@ export const ConfirmTimetablesImportForm = ({
 
   const methods = useForm<FormState>({
     defaultValues,
-    resolver: zodResolver(schema),
+    resolver: zodResolver(timetablesImportFormSchema),
   });
 
   const { handleSubmit } = methods;
