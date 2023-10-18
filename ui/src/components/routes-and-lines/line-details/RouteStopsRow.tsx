@@ -5,11 +5,12 @@ import { RouteStopFieldsFragment } from '../../../generated/graphql';
 import { useAlertsAndHighLights } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
 import {
-  mapToShortDate,
-  mapToShortDateTime,
   MAX_DATE,
   MIN_DATE,
+  mapToShortDate,
+  mapToShortDateTime,
 } from '../../../time';
+import { HastusCode } from './HastusCode';
 import { StopActionsDropdown } from './StopActionsDropdown';
 
 const testIds = {
@@ -18,6 +19,7 @@ const testIds = {
   name: 'RouteStopsRow::name',
   validityPeriod: 'RouteStopsRow::validityPeriod',
   lastEdited: 'RouteStopsRow::lastEdited',
+  hastusCode: 'RouteStopsRow::hastusCode',
 };
 
 interface Props {
@@ -48,6 +50,9 @@ export const RouteStopsRow = ({
 
   // is the stop via point on this route's journey pattern?
   const isViaPoint = scheduledStopPointInJourneyPattern?.is_via_point;
+
+  const isUsedAsTimingPoint =
+    scheduledStopPointInJourneyPattern?.is_used_as_timing_point;
 
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
   const alertStyle = getAlertStyle(getAlertLevel(stop));
@@ -98,7 +103,11 @@ export const RouteStopsRow = ({
       </td>
       <td>
         <Row className="justify-center">
-          <span>{hastusCode}</span>
+          <HastusCode
+            hastusCode={hastusCode}
+            isUsedAsTimingPoint={isUsedAsTimingPoint}
+            testId={testIds.hastusCode}
+          />
         </Row>
       </td>
       <td>
