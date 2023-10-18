@@ -501,9 +501,14 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <div
               class="flex flex-row justify-center"
             >
-              <span>
-                1KOSKS
-              </span>
+              <div>
+                <span
+                  class="text-grey"
+                  data-testid="RouteStopsRow::hastusCode"
+                >
+                  1KOSKS
+                </span>
+              </div>
             </div>
           </td>
           <td>
@@ -609,9 +614,14 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <div
               class="flex flex-row justify-center"
             >
-              <span>
-                1ESIM
-              </span>
+              <div>
+                <span
+                  class="text-grey"
+                  data-testid="RouteStopsRow::hastusCode"
+                >
+                  1ESIM
+                </span>
+              </div>
             </div>
           </td>
           <td>
@@ -937,9 +947,14 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             <div
               class="flex flex-row justify-center"
             >
-              <span>
-                1KOSKS
-              </span>
+              <div>
+                <span
+                  class="text-grey"
+                  data-testid="RouteStopsRow::hastusCode"
+                >
+                  1KOSKS
+                </span>
+              </div>
             </div>
           </td>
           <td>
@@ -1045,9 +1060,14 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             <div
               class="flex flex-row justify-center"
             >
-              <span>
-                1OLK
-              </span>
+              <div>
+                <span
+                  class="text-grey"
+                  data-testid="RouteStopsRow::hastusCode"
+                >
+                  1OLK
+                </span>
+              </div>
             </div>
           </td>
           <td>
@@ -1153,9 +1173,14 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             <div
               class="flex flex-row justify-center"
             >
-              <span>
-                1ESIM
-              </span>
+              <div>
+                <span
+                  class="text-grey"
+                  data-testid="RouteStopsRow::hastusCode"
+                >
+                  1ESIM
+                </span>
+              </div>
             </div>
           </td>
           <td>
