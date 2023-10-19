@@ -22,7 +22,7 @@ services:
 
   jore4-hastus:
     # pinning hastus import-export-microservice version
-    image: "hsldevcom/jore4-hastus:main--20231020-de678afb4fbcf277f631906abdcb93ea02fe5f5f"
+    image: "hsldevcom/jore4-hastus:main--20231020-c84f2dde9afdbbfca36af77ad8b52382806981cd"
     environment:
       # use the same Hasura URL that the UI uses to enable routing requests to correct Hasura instances
       # when running e2e tests in parallel
