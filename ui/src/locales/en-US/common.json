@@ -382,7 +382,8 @@
     "chooseSubstituteDay": "Select..."
   },
   "timetablesImportPriorityForm": {
-    "importAsSpecialDay": "Import as special day"
+    "importAsSpecialDay": "Import as special day",
+    "specialDayDisabledExplanation": "Single day timetables are always handled as special days."
   },
   "timetablesPreview": {
     "attention": "Attention",

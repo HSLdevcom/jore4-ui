@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { sendFileToHastusImporter } from '../../api/hastus';
 import {
@@ -250,6 +251,18 @@ export const useTimetablesImport = () => {
     };
   };
 
+  const shouldBeSpecialDay = (vsf: {
+    validity_start: DateTime;
+    validity_end: DateTime;
+  }) => {
+    return (
+      vsf.validity_start &&
+      vsf.validity_end &&
+      vsf.validity_start?.valueOf() === vsf.validity_end?.valueOf()
+    );
+  };
+  const importingSomeSpecialDays =
+    vehicleScheduleFrames.some(shouldBeSpecialDay);
   return {
     confirmTimetablesImportByCombining,
     confirmTimetablesImportByReplacing,
@@ -257,5 +270,6 @@ export const useTimetablesImport = () => {
     vehicleJourneys,
     vehicleScheduleFrames,
     sendToHastusImporter,
+    importingSomeSpecialDays,
   };
 };

@@ -65,13 +65,7 @@ export const TimetablesImportPriorityForm = ({
     },
   ];
 
-  const onToggleSpecialDayPriority = () => {
-    if (selectedPriority === TimetablePriority.Special) {
-      setValue('priority', null as unknown as TimetablePriority);
-    } else {
-      setValue('priority', TimetablePriority.Special);
-    }
-  };
+  const isSpecialPriority = selectedPriority === TimetablePriority.Special;
 
   return (
     <Column>
@@ -84,7 +78,7 @@ export const TimetablesImportPriorityForm = ({
           ({ priority, testIdPrefix, translationKey }) => (
             <SimpleButton
               key={testIdPrefix}
-              disabled={selectedPriority === TimetablePriority.Special}
+              disabled={isSpecialPriority}
               onClick={() => setPriority(priority)}
               selected={selectedPriority === priority}
               inverted={selectedPriority !== priority}
@@ -97,14 +91,19 @@ export const TimetablesImportPriorityForm = ({
 
         <label
           htmlFor={testIds.priorityButton('specialDay')}
-          className="inline-flex items-center pl-4 text-base font-normal"
+          title={t(
+            'timetablesImportPriorityForm.specialDayDisabledExplanation',
+          )}
+          className={`inline-flex items-center pl-4 text-base font-normal ${
+            !isSpecialPriority ? 'hidden' : ''
+          }`}
         >
           {t('timetablesImportPriorityForm.importAsSpecialDay')}
           <input
             type="checkbox"
             id={testIds.priorityButton('specialDay')}
-            checked={selectedPriority === TimetablePriority.Special}
-            onChange={onToggleSpecialDayPriority}
+            checked={isSpecialPriority}
+            disabled
             className="ml-3 h-6 w-6"
             data-testid={testIds.priorityButton('specialDay')}
           />
