@@ -48,13 +48,6 @@ const defaultPriorities: PriorityButtonProps[] = [
 /**
  * Component for selecting priority.
  * Can be merged with other forms.
- *
- * @component
- * @example
- * // Usage in LineForm.tsx:
- * <PriorityForm
- *   hiddenPriorities={[Priority.Temporary]} // Line does not have temporary priority, so hide it
- * />
  */
 export const PriorityForm = ({
   hiddenPriorities,
