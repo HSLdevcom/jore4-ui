@@ -7,6 +7,7 @@ import { LanguageDropdown, testIds } from './LanguageDropdown';
 describe('<LanguageDropdown />', () => {
   const finnishTitle = 'FI';
   const englishTitle = 'EN';
+
   test('Opens dropdown when clicked', async () => {
     render(<LanguageDropdown />);
 
@@ -22,6 +23,7 @@ describe('<LanguageDropdown />', () => {
     expect(screen.queryByText(englishTitle)).toBeVisible();
     expect(screen.queryByText(finnishTitle)).toBeVisible();
   });
+
   test('Changes language when requested', async () => {
     render(<LanguageDropdown />);
     const openDropdownButton = screen.getByTestId(testIds.toggleDropdown);

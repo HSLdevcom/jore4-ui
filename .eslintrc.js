@@ -16,6 +16,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:eslint-comments/recommended',
     'plugin:jest/recommended',
+    'plugin:jest-formatting/recommended',
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
@@ -34,7 +35,14 @@ module.exports = {
       typescript: {}, // this loads <rootdir>/tsconfig.json to eslint
     },
   },
-  plugins: ['react', 'react-hooks', '@typescript-eslint', 'jest', 'lodash'],
+  plugins: [
+    'react',
+    'react-hooks',
+    '@typescript-eslint',
+    'jest',
+    'jest-formatting',
+    'lodash',
+  ],
   ignorePatterns: [
     'ui/src/generated/*.tsx',
     'test-db-manager/src/generated/*.ts',

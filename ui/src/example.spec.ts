@@ -4,6 +4,7 @@ describe('Example test suite', () => {
   test('Example test', () => {
     expect(1 + 2).toBe(3);
   });
+
   test('Example snapshot test', () => {
     expect(1 + 2).toMatchInlineSnapshot(`3`);
   });
