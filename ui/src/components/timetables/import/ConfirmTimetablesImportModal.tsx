@@ -6,17 +6,13 @@ import {
 } from '../../../hooks';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import { ConfirmTimetablesImportForm } from './ConfirmTimetablesImportForm';
-import { FormState } from './TimetablesImportFormSchema';
+import { FormState, getDefaultValues } from './TimetablesImportFormSchema';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   className?: string;
 }
-
-const defaultValues: Partial<FormState> = {
-  timetableImportStrategy: 'replace',
-};
 
 export const ConfirmTimetablesImportModal: React.FC<Props> = ({
   isOpen,
@@ -25,7 +21,11 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { onConfirmTimetablesImport } = useConfirmTimetablesImportUIAction();
-  const { vehicleScheduleFrames } = useTimetablesImport();
+  const { vehicleScheduleFrames, importingSomeSpecialDays } =
+    useTimetablesImport();
+
+  // Default might be set incorrectly if data has not been fetched for the form.
+  const formReadyForRender = !!vehicleScheduleFrames?.length;
 
   const onSave = async (state: FormState) => {
     await onConfirmTimetablesImport(
@@ -44,11 +44,13 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
         heading={t('confirmTimetablesImportModal.title')}
       />
       <ModalBody>
-        <ConfirmTimetablesImportForm
-          onSubmit={onSave}
-          onCancel={onClose}
-          defaultValues={defaultValues}
-        />
+        {formReadyForRender && (
+          <ConfirmTimetablesImportForm
+            onSubmit={onSave}
+            onCancel={onClose}
+            defaultValues={getDefaultValues({ importingSomeSpecialDays })}
+          />
+        )}
       </ModalBody>
     </Modal>
   );

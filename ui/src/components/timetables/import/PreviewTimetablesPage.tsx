@@ -19,7 +19,7 @@ import { submitFormByRef } from '../../../utils';
 import { ConfirmPreviewedTimetablesImportForm } from './ConfirmPreviewedTimetablesImportForm';
 import { ImportContentsView } from './ImportContentsView';
 import { SummarySection } from './SummarySection';
-import { FormState } from './TimetablesImportFormSchema';
+import { FormState, getDefaultValues } from './TimetablesImportFormSchema';
 
 const testIds = {
   toggleShowStagingTimetables:
@@ -28,15 +28,11 @@ const testIds = {
   closePreviewButton: 'PreviewTimetablesPage::closePreviewButton',
 };
 
-const defaultValues: Partial<FormState> = {
-  // No default for priority, this is on purpose: design decision.
-  timetableImportStrategy: 'replace',
-};
-
 export const PreviewTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
   const history = useHistory();
-  const { vehicleJourneys, vehicleScheduleFrames } = useTimetablesImport();
+  const { vehicleJourneys, vehicleScheduleFrames, importingSomeSpecialDays } =
+    useTimetablesImport();
   const [showStagingTimetables, toggleShowStagingTimetables] = useToggle(true);
   const { onConfirmTimetablesImport } = useConfirmTimetablesImportUIAction();
   const { fetchToReplaceFrames } = useToReplaceVehicleScheduleFrames();
@@ -52,6 +48,8 @@ export const PreviewTimetablesPage = (): JSX.Element => {
     );
   const vehicleJourneyCount = vehicleJourneys?.length || 0;
   const importedTimetablesExist = vehicleJourneyCount > 0;
+  // Default might be set incorrectly if data has not been fetched for the form.
+  const formReadyForRender = !!vehicleScheduleFrames?.length;
 
   const formRef = useRef<ExplicitAny>(null);
 
@@ -103,13 +101,15 @@ export const PreviewTimetablesPage = (): JSX.Element => {
         </Row>
         <Row className="items-center space-x-14 py-9 px-16">
           <h3>{t('timetablesPreview.contentUsage')}</h3>
-          <ConfirmPreviewedTimetablesImportForm
-            ref={formRef}
-            fetchRouteDeviations={fetchRouteDeviations}
-            clearRouteDeviations={clearRouteDeviations}
-            onSubmit={onSubmit}
-            defaultValues={defaultValues}
-          />
+          {formReadyForRender && (
+            <ConfirmPreviewedTimetablesImportForm
+              ref={formRef}
+              fetchRouteDeviations={fetchRouteDeviations}
+              clearRouteDeviations={clearRouteDeviations}
+              onSubmit={onSubmit}
+              defaultValues={getDefaultValues({ importingSomeSpecialDays })}
+            />
+          )}
         </Row>
         <Visible visible={showStagingTimetables}>
           <div className="items-center space-x-14 rounded-b-sm bg-hsl-neutral-blue py-9 px-16">
