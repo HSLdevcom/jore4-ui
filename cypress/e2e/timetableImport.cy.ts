@@ -306,6 +306,12 @@ describe('Timetable import and export', () => {
         `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
       );
       importTimetablesPage.clickPreviewButton();
+
+      // Not a single day timetable -> can't select special day.
+      previewTimetablesPage.priorityForm
+        .getSpecialDayPriorityCheckbox()
+        .should('not.exist');
+
       previewTimetablesPage.priorityForm.setAsStandard();
       previewTimetablesPage.blockVehicleJourneysTable
         .getToggleShowTableButton()

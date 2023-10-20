@@ -45,6 +45,12 @@ export class TimetablesImportPriorityForm {
     }
   };
 
+  getSpecialDayPriorityCheckbox = () => {
+    return cy.getByTestId(
+      'TimetablesImportPriorityForm::specialDayPriorityButton',
+    );
+  };
+
   assertSelectedPriority(priority: TimetablePriority | undefined) {
     switch (priority) {
       case TimetablePriority.Draft:
