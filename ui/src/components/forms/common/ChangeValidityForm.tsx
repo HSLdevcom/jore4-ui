@@ -45,14 +45,6 @@ interface Props {
 /**
  * Component for selecting priority and validity period for an entity (e.g. line, route, stop).
  * Can be merged with other forms.
- *
- * @component
- * @example
- * // Usage in LineForm.tsx:
- * <ChangeValidityForm
- *   className="mb-2 ml-2"
- *   hiddenPriorities={[Priority.Temporary]} // Line does not have temporary priority, so hide it
- * />
  */
 export const ChangeValidityForm = ({
   className = '',
