@@ -53,6 +53,7 @@ describe(`${formatDate.name}()`, () => {
 
 describe(`${parseDate.name}()`, () => {
   const isoDate = '2017-04-20T11:32:00.000Z';
+
   test('Maps ISO string to equivalent DateTime object', () => {
     const output = parseDate(isoDate);
     expect(DateTime.isDateTime(output)).toBe(true);
@@ -62,6 +63,7 @@ describe(`${parseDate.name}()`, () => {
 
 describe(`${mapToISODate.name}()`, () => {
   const isoString = '2017-04-20T11:32:00.000Z';
+
   test('Maps ISO string to ISO date', () => {
     const output = mapToISODate(isoString);
     expect(output).toBe('2017-04-20');
@@ -78,10 +80,12 @@ describe('Utils to find earliest/latest times', () => {
       const output = findEarliestTime([middle, earliest, latest]);
       expect(output.toISODate()).toBe(earliest.toISODate());
     });
+
     test('Finds earliest time when located at beginning of input array', () => {
       const output = findEarliestTime([earliest, latest, middle]);
       expect(output.toISODate()).toBe(earliest.toISODate());
     });
+
     test('Finds earliest time when there are only 1 element in input array', () => {
       const output = findEarliestTime([earliest]);
       expect(output.toISODate()).toBe(earliest.toISODate());
@@ -93,10 +97,12 @@ describe('Utils to find earliest/latest times', () => {
       const output = findLatestTime([middle, latest, earliest]);
       expect(output.toISODate()).toBe(latest.toISODate());
     });
+
     test('Finds latest time when located at beginning of input array', () => {
       const output = findLatestTime([latest, earliest, middle]);
       expect(output.toISODate()).toBe(latest.toISODate());
     });
+
     test('Finds latest time when there are only 1 element in input array', () => {
       const output = findLatestTime([latest]);
       expect(output.toISODate()).toBe(latest.toISODate());
