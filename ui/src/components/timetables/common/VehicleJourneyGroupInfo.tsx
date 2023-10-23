@@ -8,6 +8,8 @@ import { IconButton, commonHoverStyle } from '../../../uiComponents';
 
 const testIds = {
   changeValidityButton: 'VehicleJourneyGroupInfo::changeValidityButton',
+  validityTimeRange: 'VehicleJourneyGroupInfo::validityTimeRange',
+  tripCount: 'VehicleJourneyGroupInfo::tripCount',
 };
 
 export interface Props {
@@ -64,7 +66,7 @@ export const VehicleJourneyGroupInfo = ({
         icon={<i className="icon-calendar" />}
         testId={testIds.changeValidityButton}
       />
-      <span>
+      <span data-testid={testIds.validityTimeRange}>
         {`${mapToShortDate(
           vehicleJourneyGroup.validity.validityStart,
         )} - ${mapToShortDate(vehicleJourneyGroup.validity.validityEnd)}`}
@@ -72,7 +74,7 @@ export const VehicleJourneyGroupInfo = ({
       {hasTimetables && (
         <>
           <span>|</span>
-          <span className="font-bold">
+          <span className="font-bold" data-testid={testIds.tripCount}>
             {t('timetables.tripCount', { count: tripCount })}
           </span>
           <span>|</span>

@@ -1,6 +1,14 @@
 import { TimetablePriority } from '@hsl/jore4-test-db-manager';
 import { PassingTimesByStopTableRowPassingTime } from './PassingTimesByStopTableRowPassingTime';
 import { ParentPageObject } from './types';
+import { VehicleJourneyGroupInfo } from './VehicleJourneyGroupInfo';
+
+interface PassingTimeInfo {
+  stopLabel: string;
+  hour: string;
+  departureMinutes: string[];
+  arrivalMinutes?: string[];
+}
 
 export class PassingTimesByStopSection {
   getParent: ParentPageObject['get'];
@@ -11,6 +19,8 @@ export class PassingTimesByStopSection {
 
   passingTimesByStopTableRowPassingTime =
     new PassingTimesByStopTableRowPassingTime();
+
+  vehicleJourneyGroupInfo = new VehicleJourneyGroupInfo();
 
   constructor(
     parent: ParentPageObject,
@@ -142,6 +152,39 @@ export class PassingTimesByStopSection {
             this.passingTimesByStopTableRowPassingTime.passingMinute
               .getHighlightButton()
               .should('not.have.class', 'bg-city-bicycle-yellow');
+          }
+        });
+    });
+  }
+
+  assertStopTimes(passingTimeInfo: PassingTimeInfo) {
+    const expectedDepartureCount = passingTimeInfo.departureMinutes.length;
+    const expectedArrivalCount = passingTimeInfo.arrivalMinutes?.length;
+
+    return this.getTableRow(passingTimeInfo.stopLabel).within(() => {
+      this.passingTimesByStopTableRowPassingTime
+        .getTimeContainerByHour(passingTimeInfo.hour)
+        .within(() => {
+          cy.wrap(passingTimeInfo.departureMinutes).each((minute: string) => {
+            this.passingTimesByStopTableRowPassingTime.passingMinute
+              .getDepartureTime()
+              .contains(minute)
+              .should('exist');
+          });
+          this.passingTimesByStopTableRowPassingTime.passingMinute
+            .getDepartureTime()
+            .should('have.length', expectedDepartureCount);
+
+          if (passingTimeInfo.arrivalMinutes) {
+            cy.wrap(passingTimeInfo.arrivalMinutes).each((minute: string) => {
+              this.passingTimesByStopTableRowPassingTime.passingMinute
+                .getArrivalTime()
+                .contains(minute)
+                .should('exist');
+            });
+            this.passingTimesByStopTableRowPassingTime.passingMinute
+              .getArrivalTime()
+              .should('have.length', expectedArrivalCount);
           }
         });
     });
