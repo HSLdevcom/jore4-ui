@@ -10,6 +10,8 @@ import { BlockVehicleJourneysTable } from './BlockVehicleJourneysTable';
 const testIds = {
   table: 'VehicleScheduleFrameBlocksView::table',
   toggleShowTable: 'VehicleScheduleFrameBlocksView::toggleShowTable',
+  validityTimeRangeText:
+    'VehicleScheduleFrameBlocksView::validityTimeRangeText',
 };
 
 interface Props {
@@ -54,7 +56,9 @@ export const VehicleScheduleFrameBlocksView = ({
         </p>
         <Row className="flex-1 border border-l border-light-grey border-l-white bg-brand py-2 px-4">
           <Row className="flex-1 items-center justify-between font-normal">
-            <p>{vehicleScheduleFrameTitleText}</p>
+            <p data-testid={testIds.validityTimeRangeText}>
+              {vehicleScheduleFrameTitleText}
+            </p>
             <AccordionButton
               testId={testIds.toggleShowTable}
               isOpen={isOpen}

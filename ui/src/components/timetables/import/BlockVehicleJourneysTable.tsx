@@ -11,6 +11,8 @@ import { DirectionBadge } from '../../routes-and-lines/line-details/DirectionBad
 const testIds = {
   table: 'BlockVehicleJourneysTable::table',
   toggleShowTable: 'BlockVehicleJourneysTable::toggleShowTable',
+  vehicleJourneyRow: (routeLabel: string, routeDirection: string) =>
+    `BlockVehicleJourneysTable::vehicleJourneyRow::${routeLabel}::${routeDirection}`,
 };
 
 const VehicleJourneyRow = ({
@@ -32,7 +34,10 @@ const VehicleJourneyRow = ({
   }
 
   return (
-    <tr className="odd:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2">
+    <tr
+      className="odd:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
+      data-testid={testIds.vehicleJourneyRow(route.label, route.direction)}
+    >
       <td>
         <Row className="items-center font-bold">
           <DirectionBadge
