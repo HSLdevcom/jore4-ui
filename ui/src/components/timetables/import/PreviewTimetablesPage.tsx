@@ -18,6 +18,7 @@ import { AccordionButton, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
 import { ConfirmPreviewedTimetablesImportForm } from './ConfirmPreviewedTimetablesImportForm';
 import { ImportContentsView } from './ImportContentsView';
+import { SpecialDayMixedPrioritiesWarning } from './SpecialDayMixedPrioritiesWarning';
 import { SummarySection } from './SummarySection';
 import { FormState, getDefaultValues } from './TimetablesImportFormSchema';
 
@@ -31,8 +32,12 @@ const testIds = {
 export const PreviewTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
   const history = useHistory();
-  const { vehicleJourneys, vehicleScheduleFrames, importingSomeSpecialDays } =
-    useTimetablesImport();
+  const {
+    vehicleJourneys,
+    vehicleScheduleFrames,
+    importingSomeSpecialDays,
+    inconsistentSpecialDayPrioritiesStaged,
+  } = useTimetablesImport();
   const [showStagingTimetables, toggleShowStagingTimetables] = useToggle(true);
   const { onConfirmTimetablesImport } = useConfirmTimetablesImportUIAction();
   const { fetchToReplaceFrames } = useToReplaceVehicleScheduleFrames();
@@ -112,6 +117,9 @@ export const PreviewTimetablesPage = (): JSX.Element => {
               />
             )}
           </Row>
+          <Visible visible={inconsistentSpecialDayPrioritiesStaged}>
+            <SpecialDayMixedPrioritiesWarning />
+          </Visible>
         </div>
         <Visible visible={showStagingTimetables}>
           <div className="items-center space-x-14 rounded-b-sm bg-hsl-neutral-blue py-9 px-16">

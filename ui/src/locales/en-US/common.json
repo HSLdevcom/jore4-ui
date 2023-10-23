@@ -437,6 +437,8 @@
     "importTimetables": "Import timetables",
     "importTimetablesFromHastus": "Import timetables from Hastus",
     "importSuccess": "Timetables imported successfully!",
+    "specialDayMixedPrioritiesWarning1": "Imported timetables contain special days and other timetables.",
+    "specialDayMixedPrioritiesWarning2": "Importing not possible. Cancel the import and import one day priority timetables separately.",
     "dragAndDrop": "Drag and drop Hastus files or",
     "cancel": "Cancel",
     "cancelledSuccessfully": "Timetables import cancelled.",
