@@ -35,6 +35,7 @@ import {
   removeFromDbHelper,
   SupportedResources,
 } from '../utils';
+import { deleteExportFile } from './utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
 // These form a straight line on Eerikinkatu in Helsinki.
@@ -251,12 +252,7 @@ describe('Timetable import and export', () => {
   });
 
   afterEach(() => {
-    const exportDate = DateTime.now().toISODate();
-    const exportFilePath = `${Cypress.config(
-      'downloadsFolder',
-    )}/jore4-export-${exportDate}.csv`;
-    cy.task('deleteFile', exportFilePath);
-
+    deleteExportFile();
     removeFromDbHelper(dbResources);
     cy.task('truncateTimetablesDatabase');
   });
