@@ -263,6 +263,11 @@ export const useTimetablesImport = () => {
   };
   const importingSomeSpecialDays =
     vehicleScheduleFrames.some(shouldBeSpecialDay);
+  const importingOnlySpecialDays =
+    vehicleScheduleFrames.every(shouldBeSpecialDay);
+  const inconsistentSpecialDayPrioritiesStaged =
+    importingSomeSpecialDays && !importingOnlySpecialDays;
+
   return {
     confirmTimetablesImportByCombining,
     confirmTimetablesImportByReplacing,
@@ -271,5 +276,6 @@ export const useTimetablesImport = () => {
     vehicleScheduleFrames,
     sendToHastusImporter,
     importingSomeSpecialDays,
+    inconsistentSpecialDayPrioritiesStaged,
   };
 };
