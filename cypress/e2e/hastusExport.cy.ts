@@ -24,6 +24,7 @@ import {
   removeFromDbHelper,
   SupportedResources,
 } from '../utils';
+import { deleteExportFile } from './utils';
 
 // These external IDs exist in the infralink seed data.
 // These form a straight line on Eerikinkatu in Helsinki.
@@ -181,7 +182,7 @@ const exportFilePath = `${Cypress.config(
 
 const teardown = (resources: SupportedResources) => {
   removeFromDbHelper(resources);
-  cy.task('deleteFile', exportFilePath);
+  deleteExportFile();
 };
 
 const comparisonExportFilePath = `${Cypress.config(

@@ -36,6 +36,7 @@ import {
   removeFromDbHelper,
   SupportedResources,
 } from '../utils';
+import { deleteExportFile } from './utils';
 
 const REPLACE_IMPORT_FILENAME = 'timetablesReplace1.exp';
 const COMBINE_IMPORT_FILENAME = 'timetablesCombine1.exp';
@@ -359,11 +360,7 @@ describe('Timetable replacement and combination', () => {
   });
 
   after(() => {
-    const exportDate = DateTime.now().toISODate();
-    const exportFilePath = `${Cypress.config(
-      'downloadsFolder',
-    )}/jore4-export-${exportDate}.csv`;
-    cy.task('deleteFile', exportFilePath);
+    deleteExportFile();
   });
 
   it(
