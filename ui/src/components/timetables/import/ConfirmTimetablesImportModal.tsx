@@ -4,6 +4,7 @@ import {
   useConfirmTimetablesImportUIAction,
   useTimetablesImport,
 } from '../../../hooks';
+import { Visible } from '../../../layoutComponents';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import { ConfirmTimetablesImportForm } from './ConfirmTimetablesImportForm';
 import { FormState, getDefaultValues } from './TimetablesImportFormSchema';
@@ -47,7 +48,7 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
         heading={t('confirmTimetablesImportModal.title')}
       />
       <ModalBody>
-        {formReadyForRender && (
+        <Visible visible={formReadyForRender}>
           <ConfirmTimetablesImportForm
             onSubmit={onSave}
             onCancel={onClose}
@@ -56,7 +57,7 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
             }
             defaultValues={getDefaultValues({ importingSomeSpecialDays })}
           />
-        )}
+        </Visible>
       </ModalBody>
     </Modal>
   );
