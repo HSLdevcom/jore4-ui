@@ -2,9 +2,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Row } from '../../../layoutComponents';
+import { Row, Visible } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
+import { SpecialDayMixedPrioritiesWarning } from './SpecialDayMixedPrioritiesWarning';
 import { TimetableImportStrategyForm } from './TimetableImportStrategyForm';
 import {
   FormState,
@@ -15,6 +16,7 @@ import { TimetablesImportPriorityForm } from './TimetablesImportPriorityForm';
 interface Props {
   defaultValues?: Partial<FormState>;
   className?: string;
+  inconsistentSpecialDayPrioritiesStaged: boolean;
   onSubmit: (state: FormState) => void;
   onCancel: () => void;
 }
@@ -27,6 +29,7 @@ const testIds = {
 export const ConfirmTimetablesImportForm = ({
   defaultValues,
   className = '',
+  inconsistentSpecialDayPrioritiesStaged,
   onSubmit,
   onCancel,
 }: Props): JSX.Element => {
@@ -62,7 +65,11 @@ export const ConfirmTimetablesImportForm = ({
           <h3>{t('confirmTimetablesImportModal.priority')}</h3>
           <TimetablesImportPriorityForm />
 
-          <Row className="justify-end space-x-4 pt-10">
+          <Visible visible={inconsistentSpecialDayPrioritiesStaged}>
+            <SpecialDayMixedPrioritiesWarning />
+          </Visible>
+
+          <Row className="mt-10 justify-end space-x-4">
             <SimpleButton onClick={onCancel} inverted>
               {t('cancel')}
             </SimpleButton>

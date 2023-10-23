@@ -24,8 +24,11 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { onConfirmTimetablesImport } = useConfirmTimetablesImportUIAction();
-  const { vehicleScheduleFrames, importingSomeSpecialDays } =
-    useTimetablesImport();
+  const {
+    vehicleScheduleFrames,
+    importingSomeSpecialDays,
+    inconsistentSpecialDayPrioritiesStaged,
+  } = useTimetablesImport();
 
   // Default might be set incorrectly if data has not been fetched for the form.
   const formReadyForRender = !!vehicleScheduleFrames?.length;
@@ -51,6 +54,9 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
           <ConfirmTimetablesImportForm
             onSubmit={onSave}
             onCancel={onClose}
+            inconsistentSpecialDayPrioritiesStaged={
+              inconsistentSpecialDayPrioritiesStaged
+            }
             defaultValues={getDefaultValues({ importingSomeSpecialDays })}
           />
         )}
