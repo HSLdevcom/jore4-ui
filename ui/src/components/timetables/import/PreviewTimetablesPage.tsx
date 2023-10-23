@@ -102,18 +102,20 @@ export const PreviewTimetablesPage = (): JSX.Element => {
             />
           </div>
         </Row>
-        <Row className="items-center space-x-14 py-9 px-16">
-          <h3>{t('timetablesPreview.contentUsage')}</h3>
-          {formReadyForRender && (
-            <ConfirmPreviewedTimetablesImportForm
-              ref={formRef}
-              fetchRouteDeviations={fetchRouteDeviations}
-              clearRouteDeviations={clearRouteDeviations}
-              onSubmit={onSubmit}
-              defaultValues={getDefaultValues({ importingSomeSpecialDays })}
-            />
-          )}
-        </Row>
+        <div className="py-9 px-16">
+          <Row className="items-center space-x-14">
+            <h3>{t('timetablesPreview.contentUsage')}</h3>
+            {formReadyForRender && (
+              <ConfirmPreviewedTimetablesImportForm
+                ref={formRef}
+                fetchRouteDeviations={fetchRouteDeviations}
+                clearRouteDeviations={clearRouteDeviations}
+                onSubmit={onSubmit}
+                defaultValues={getDefaultValues({ importingSomeSpecialDays })}
+              />
+            )}
+          </Row>
+        </div>
         <Visible visible={showStagingTimetables}>
           <div className="items-center space-x-14 rounded-b-sm bg-hsl-neutral-blue py-9 px-16">
             <ImportContentsView vehicleScheduleFrames={vehicleScheduleFrames} />
