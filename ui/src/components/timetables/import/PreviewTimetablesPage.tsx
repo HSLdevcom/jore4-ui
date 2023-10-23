@@ -107,7 +107,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
         <div className="py-9 px-16">
           <Row className="items-center space-x-14">
             <h3>{t('timetablesPreview.contentUsage')}</h3>
-            {formReadyForRender && (
+            <Visible visible={formReadyForRender}>
               <ConfirmPreviewedTimetablesImportForm
                 ref={formRef}
                 fetchRouteDeviations={fetchRouteDeviations}
@@ -115,7 +115,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
                 onSubmit={onSubmit}
                 defaultValues={getDefaultValues({ importingSomeSpecialDays })}
               />
-            )}
+            </Visible>
           </Row>
           <Visible visible={inconsistentSpecialDayPrioritiesStaged}>
             <SpecialDayMixedPrioritiesWarning />
