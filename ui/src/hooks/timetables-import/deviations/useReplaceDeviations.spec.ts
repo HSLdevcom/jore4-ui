@@ -159,6 +159,7 @@ const vsf2: VehicleScheduleVehicleScheduleFrameWithRoutes[] = [
     __typename: 'timetables_vehicle_schedule_vehicle_schedule_frame',
   },
 ];
+
 describe('replaceDeviations hook', () => {
   it('should return no deviations when there is no staging vehicle frames', async () => {
     const mockFetchVehicleFrames = jest.fn(() => Promise.resolve([]));
