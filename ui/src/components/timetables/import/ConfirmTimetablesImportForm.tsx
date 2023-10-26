@@ -23,6 +23,7 @@ interface Props {
 
 const testIds = {
   saveButton: 'ConfirmTimetablesImportForm::saveButton',
+  cancelButton: 'ConfirmTimetablesImportForm::cancelButton',
   strategyRadioButtonPrefix: 'ConfirmTimetablesImportForm',
 };
 
@@ -70,7 +71,11 @@ export const ConfirmTimetablesImportForm = ({
           </Visible>
 
           <Row className="mt-10 justify-end space-x-4">
-            <SimpleButton onClick={onCancel} inverted>
+            <SimpleButton
+              testId={testIds.cancelButton}
+              onClick={onCancel}
+              inverted
+            >
               {t('cancel')}
             </SimpleButton>
             <SimpleButton testId={testIds.saveButton} onClick={onSave}>

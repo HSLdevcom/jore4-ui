@@ -14,4 +14,8 @@ export class ConfirmTimetablesImportForm {
   getSaveButton() {
     return cy.getByTestId('ConfirmTimetablesImportForm::saveButton');
   }
+
+  getCancelButton() {
+    return cy.getByTestId('ConfirmTimetablesImportForm::cancelButton');
+  }
 }
