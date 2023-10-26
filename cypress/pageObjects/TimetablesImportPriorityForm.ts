@@ -5,25 +5,38 @@ export interface PriorityFormInfo {
 }
 
 export class TimetablesImportPriorityForm {
+  getStandardPriorityButton() {
+    return cy.getByTestId(
+      'TimetablesImportPriorityForm::standardPriorityButton',
+    );
+  }
+
+  getDraftPriorityButton() {
+    return cy.getByTestId('TimetablesImportPriorityForm::draftPriorityButton');
+  }
+
+  getTemporaryPriorityButton() {
+    return cy.getByTestId(
+      'TimetablesImportPriorityForm::temporaryPriorityButton',
+    );
+  }
+
   setAsStandard() {
-    return cy
-      .getByTestId('TimetablesImportPriorityForm::standardPriorityButton')
+    return this.getStandardPriorityButton()
       .should('be.visible')
       .and('be.enabled')
       .click();
   }
 
   setAsDraft() {
-    return cy
-      .getByTestId('TimetablesImportPriorityForm::draftPriorityButton')
+    return this.getDraftPriorityButton()
       .should('be.visible')
       .and('be.enabled')
       .click();
   }
 
   setAsTemporary() {
-    return cy
-      .getByTestId('TimetablesImportPriorityForm::temporaryPriorityButton')
+    return this.getTemporaryPriorityButton()
       .should('be.visible')
       .and('be.enabled')
       .click();
