@@ -31,6 +31,7 @@ import { TimetableNavigation } from './TimetableNavigation';
 const testIds = {
   showArrivalTimesSwitch: 'VehicleScheduleDetailsPage::showArrivalTimesSwitch',
   showAllValidSwitch: 'VehicleScheduleDetailsPage::showAllValidSwitch',
+  showVersionsButton: 'VehicleScheduleDetailsPage::showVersionsButton',
 };
 
 export const VehicleScheduleDetailsPage = (): JSX.Element => {
@@ -128,6 +129,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
               <SimpleButton
                 inverted
                 href={getVersionsUrl(line.label, line.line_id)}
+                testId={testIds.showVersionsButton}
               >
                 {t('timetables.showVersions')}
               </SimpleButton>
