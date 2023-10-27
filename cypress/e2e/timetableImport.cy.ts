@@ -490,7 +490,6 @@ describe('Timetable import and export', () => {
           );
 
         const routesAndLinesPage = new RoutesAndLinesPage();
-
         const IMPORT_FILENAME = 'specialDaySunday.exp';
 
         // Skip searching via UI
@@ -531,6 +530,7 @@ describe('Timetable import and export', () => {
         previewTimetablesPage.confirmTimetablesImportForm.priorityForm
           .getSpecialDayPriorityCheckbox()
           .should('be.visible')
+          .and('be.checked')
           .and('be.disabled');
         previewTimetablesPage.confirmTimetablesImportForm
           .getCancelButton()
@@ -550,12 +550,12 @@ describe('Timetable import and export', () => {
         previewTimetablesPage.priorityForm
           .getSpecialDayPriorityCheckbox()
           .should('be.visible')
+          .and('be.checked')
           .and('be.disabled');
 
         previewTimetablesPage.blockVehicleJourneysTable
           .getToggleShowTableButton()
           .click();
-
         previewTimetablesPage.blockVehicleJourneysTable
           .getTable()
           .should('contain', 'Kalustotyyppi 3 - Normaalibussi')
@@ -567,6 +567,7 @@ describe('Timetable import and export', () => {
         importTimetablesPage.toast.checkSuccessToastHasMessage(
           'Aikataulujen tuonti onnistui!',
         );
+
         // Check the imported timetable on the date of the special day
         cy.visit(
           `timetables/lines/${lines[0].line_id}?observationDate=2023-01-01&routeLabels=${routes[0].label}`,
@@ -575,6 +576,9 @@ describe('Timetable import and export', () => {
         route99InboundSundayPassingTimesSectionSpecial
           .getDayTypeDropdownButton()
           .should('contain', 'Sunnuntai');
+        route99InboundSundayPassingTimesSectionStandard.vehicleJourneyGroupInfo
+          .getValidityTimeRange()
+          .should('contain', '1.1.2023 - 1.1.2023');
         route99InboundSundayPassingTimesSectionSpecial.assertStopTimes({
           stopLabel: stopLabels[0],
           hour: '6',
@@ -621,11 +625,13 @@ describe('Timetable import and export', () => {
         cy.visit(
           `timetables/lines/${lines[0].line_id}?observationDate=2023-01-08&routeLabels=${routes[0].label}`,
         );
-
         route99InboundSundayVehicleService.getHeadingButton().click();
         route99InboundSundayPassingTimesSectionStandard
           .getDayTypeDropdownButton()
           .should('contain', 'Sunnuntai');
+        route99InboundSundayPassingTimesSectionStandard.vehicleJourneyGroupInfo
+          .getValidityTimeRange()
+          .should('contain', '1.1.2023 - 31.12.2023');
         route99InboundSundayPassingTimesSectionStandard.assertStopTimes({
           stopLabel: stopLabels[0],
           hour: '7',
