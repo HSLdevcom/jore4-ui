@@ -19,6 +19,7 @@ export * from './RouteTimetablesSection';
 export * from './SearchResultsPage';
 export * from './StopForm';
 export * from './TimetablesMainPage';
+export * from './TimetableVersionsPage';
 export * from './TemplateRouteSelector';
 export * from './TerminusNameInputs';
 export * from './Toast';
