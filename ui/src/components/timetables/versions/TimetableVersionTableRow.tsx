@@ -8,6 +8,10 @@ import { parseI18nField } from '../../../i18n/utils';
 import { mapToShortDate } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
 
+const testIds = {
+  timetableVersionTableRow: 'TimetableVersionTableRow::row',
+};
+
 const getStatusClassName = ({
   priority,
   inEffect,
@@ -66,7 +70,10 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
   )} bg-opacity-25`;
 
   return (
-    <tr className="h-14 text-center [&>td]:border [&>td]:border-light-grey">
+    <tr
+      className="h-14 text-center [&>td]:border [&>td]:border-light-grey"
+      data-testid={testIds.timetableVersionTableRow}
+    >
       <td className={statusClassName}>{statusText}</td>
       <td className={dayTypeClassName}>
         {parseI18nField(data.dayType.nameI18n)}
