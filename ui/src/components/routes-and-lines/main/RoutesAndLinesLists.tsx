@@ -8,7 +8,6 @@ import {
 import { RouteLineTableRowVariant } from '../../common';
 import { LinesList } from '../../common/search/LinesList';
 import { RoutesList } from '../../common/search/RoutesList';
-import { ListFooter } from './ListFooter';
 import { ListHeader } from './ListHeader';
 
 // TODO: This list is currently only for visual purpose and will be so until
@@ -70,7 +69,6 @@ export const RoutesAndLinesLists = (): JSX.Element => {
         rowVariant={RouteLineTableRowVariant.RoutesAndLines}
         routes={changingRoutes}
       />
-      <ListFooter onLimitChange={setChangingRoutesLimit} className="mt-8" />
       <h2 className="mb-14 mt-12">{t('lines.lines')}</h2>
       <LinesList
         rowVariant={RouteLineTableRowVariant.RoutesAndLines}
