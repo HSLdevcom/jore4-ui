@@ -1,28 +1,28 @@
 import {
   GetInfrastructureLinksByExternalIdsResult,
+  InfraLinkAlongRouteInsertInput,
+  JourneyPatternInsertInput,
+  LineInsertInput,
+  RouteInsertInput,
+  RouteTypeOfLineEnum,
+  StopInJourneyPatternInsertInput,
+  StopInsertInput,
   buildLine,
   buildRoute,
   buildStop,
   buildStopInJourneyPattern,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
-  InfraLinkAlongRouteInsertInput,
-  JourneyPatternInsertInput,
-  LineInsertInput,
   mapToGetInfrastructureLinksByExternalIdsQuery,
-  RouteInsertInput,
-  RouteTypeOfLineEnum,
-  StopInsertInput,
-  StopInJourneyPatternInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
 import { RoutesAndLinesPage } from '../pageObjects';
 import { UUID } from '../types';
 import {
+  SupportedResources,
   insertToDbHelper,
   removeFromDbHelper,
-  SupportedResources,
 } from '../utils';
 import { deleteExportFile } from './utils';
 
@@ -267,13 +267,6 @@ describe('Hastus export', () => {
       () => {
         const routesAndLinesPage = new RoutesAndLinesPage();
 
-        // Search and export a line
-        routesAndLinesPage.searchContainer.getChevron().click();
-        // Uncheck Temporary priority button so that only Standard priority is shown
-        // and exporting works
-        routesAndLinesPage.searchContainer.priorityCondition
-          .getTemporaryPriorityConditionButton()
-          .click();
         routesAndLinesPage.searchContainer.getSearchInput().type('1234{enter}');
         routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
         routesAndLinesPage.routeLineTableRow

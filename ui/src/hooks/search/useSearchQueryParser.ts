@@ -60,7 +60,7 @@ export enum SearchQueryParameterNames {
   ObservationDate = 'observationDate',
 }
 
-const DEFAULT_PRIORITIES = [Priority.Standard, Priority.Temporary];
+const DEFAULT_PRIORITIES = [Priority.Standard];
 const DEFAULT_PRIMARY_VEHICLE_MODE = AllOptionEnum.All;
 const DEFAULT_TYPE_OF_LINE = AllOptionEnum.All;
 const DEFAULT_DISPLAYED_DATA = DisplayedSearchResultType.Lines;
