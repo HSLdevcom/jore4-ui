@@ -130,6 +130,8 @@ export const ExportToolbar = (): JSX.Element => {
           label={t('export.exportSelected')}
           className="!rounded-full"
           testId={testIds.exportSelectedButton}
+          tooltip={t('export.tooltip')}
+          disabledTooltip={t('export.disabledTooltip')}
         />
       </Visible>
     </Row>

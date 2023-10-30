@@ -13,6 +13,8 @@ interface CommonButtonProps {
   children?: ReactNode;
   containerClassName?: string;
   invertedClassName?: string;
+  tooltip?: string;
+  disabledTooltip?: string;
 }
 
 interface ButtonProps {
@@ -51,6 +53,8 @@ export const SimpleButton: React.FC<Props> = (props) => {
     children,
     containerClassName = '',
     invertedClassName = '',
+    tooltip,
+    disabledTooltip,
   } = props;
 
   const colorClassNames = inverted
@@ -73,6 +77,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
           onClick={(props as ButtonProps).onClick}
           disabled={disabled}
           data-testid={testId}
+          title={disabled ? disabledTooltip : tooltip}
         >
           {children}
         </button>
@@ -97,6 +102,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
           aria-disabled={disabled}
           tabIndex={disabled ? -1 : undefined}
           data-testid={testId}
+          title={disabled ? disabledTooltip : tooltip}
         >
           {children}
         </Link>

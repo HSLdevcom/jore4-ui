@@ -7,6 +7,8 @@ type Props = {
   testId?: string;
   className?: string;
   disabled?: boolean;
+  tooltip?: string;
+  disabledTooltip?: string;
 };
 
 export const SimpleSmallButton = ({
@@ -16,6 +18,8 @@ export const SimpleSmallButton = ({
   testId,
   className = '',
   disabled,
+  tooltip,
+  disabledTooltip,
 }: Props): JSX.Element => {
   const commonClassNames = `!rounded text-sm font-light py-0`;
 
@@ -27,6 +31,8 @@ export const SimpleSmallButton = ({
       disabled={disabled}
       invertedClassName="!text-gray-900"
       inverted={inverted}
+      tooltip={tooltip}
+      disabledTooltip={disabledTooltip}
     >
       {label}
     </SimpleButton>
