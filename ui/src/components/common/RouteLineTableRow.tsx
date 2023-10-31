@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {
@@ -8,7 +9,7 @@ import { isRoute } from '../../graphql';
 import { useAlertsAndHighLights } from '../../hooks';
 import { Column, Row, Visible } from '../../layoutComponents';
 import { Path, routeDetails } from '../../router/routeDetails';
-import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../time';
+import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../time';
 import { LocatorButton } from '../../uiComponents';
 import { LineDetailsButton } from './LineDetailsButton';
 import { LineTimetablesButton } from './LineTimetablesButton';
@@ -45,6 +46,7 @@ const getDisplayInformation = (
   routeLineTableRowVariant: RouteLineTableRowVariant,
   lineId: UUID,
   rowItem: RowItem,
+  t: TFunction<'translation', undefined, 'translation'>,
   hasTimetables?: boolean,
 ) => {
   const routeLabel = isRoute(rowItem) ? rowItem.label : undefined;
@@ -53,11 +55,14 @@ const getDisplayInformation = (
     case RouteLineTableRowVariant.Timetables:
       return {
         rowIcon: (
-          <i
-            className={`icon-calendar text-2xl ${
-              hasTimetables ? 'text-tweaked-brand' : 'text-zinc-400'
-            }`}
-          />
+          <>
+            <i
+              className={`icon-calendar text-2xl ${
+                hasTimetables ? 'text-tweaked-brand' : 'text-zinc-400'
+              }`}
+            />
+            {!hasTimetables && t('timetables.noTimetables')}
+          </>
         ),
         alternativeRowActionButton: (
           <LineDetailsButton lineId={lineId} routeLabel={routeLabel} />
@@ -108,6 +113,7 @@ export const RouteLineTableRow = ({
     rowVariant,
     lineId,
     rowItem,
+    t,
     hasTimetables,
   );
 
@@ -141,7 +147,7 @@ export const RouteLineTableRow = ({
         >
           <Row className="items-center">
             <Column className="w-1/2 font-bold">
-              <Row>
+              <Row className="items-center">
                 <h2>
                   {isRoute(rowItem) ? (
                     <RouteLabel
