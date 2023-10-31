@@ -3,7 +3,6 @@ import produce from 'immer';
 import groupBy from 'lodash/groupBy';
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import {
   LineDefaultFieldsFragment,
   LineWithRoutesUniqueFieldsFragment,
@@ -22,6 +21,7 @@ import {
 } from '../../utils';
 import { getRouteLabelVariantText } from '../../utils/route';
 import { useObservationDateQueryParam } from '../urlQuery';
+import { useRequiredParams } from '../useRequiredParams';
 
 const GQL_INFRASTRUCTURE_LINK_WITH_STOPS_FRAGMENT = gql`
   fragment infrastructure_link_with_stops on infrastructure_network_infrastructure_link {
@@ -165,7 +165,7 @@ const buildLineDetailsGqlFilters = (
 
 /** Gets the line details depending on query parameters. */
 export const useGetLineDetails = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useRequiredParams<{ id: string }>();
 
   const { observationDate, setObservationDateToUrl } =
     useObservationDateQueryParam();

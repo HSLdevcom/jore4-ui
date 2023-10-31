@@ -1,7 +1,7 @@
 import produce from 'immer';
 import range from 'lodash/range';
 import qs from 'qs';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useUrlQuery } from './urlQuery/useUrlQuery';
 
 const ADDITIONAL_BUTTON_AMOUNT = 2;
@@ -17,7 +17,7 @@ export const usePagination = (): {
     totalPages: number,
   ) => number[];
 } => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { queryParams } = useUrlQuery();
   const initialPage = parseInt(queryParams?.page as string, 10) || 1;
 
@@ -35,7 +35,7 @@ export const usePagination = (): {
     const updatedUrlQuery = produce(queryParams, (draft) => {
       draft.page = page.toString();
     });
-    history.push({
+    navigate({
       search: qs.stringify(updatedUrlQuery),
     });
   };

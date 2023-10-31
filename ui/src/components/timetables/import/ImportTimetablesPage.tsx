@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useTimetablesImport } from '../../../hooks/timetables-import/useTimetablesImport';
 import { Container, Row } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
@@ -24,7 +24,7 @@ const testIds = {
 
 export const ImportTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const {
     vehicleJourneys,
     vehicleScheduleFrames,
@@ -37,7 +37,7 @@ export const ImportTimetablesPage = (): JSX.Element => {
   const [isSavingImport, setIsSavingImport] = useState(false);
 
   const handleClose = () => {
-    history.push(Path.timetables);
+    navigate(Path.timetables);
   };
 
   const handleCancel = () => {

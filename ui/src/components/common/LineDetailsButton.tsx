@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { IconButton } from '../../uiComponents/IconButton';
 import { commonHoverStyle } from '../../uiComponents/SimpleButton';
@@ -20,10 +20,10 @@ export const LineDetailsButton = ({
   routeLabel,
   className = '',
 }: Props): JSX.Element => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onClick = () => {
-    history.push(routeDetails[Path.lineDetails].getLink(lineId, routeLabel));
+    navigate(routeDetails[Path.lineDetails].getLink(lineId, routeLabel));
   };
   return (
     <IconButton

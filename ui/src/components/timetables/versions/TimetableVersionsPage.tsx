@@ -1,11 +1,11 @@
 import orderBy from 'lodash/orderBy';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
 import {
   TimetableVersionRowData,
   useGetJourneyPatternIdsByLineLabel,
   useGetTimetableVersions,
+  useRequiredParams,
   useTimeRangeQueryParams,
   useTimetableVersionsReturnToQueryParam,
 } from '../../../hooks';
@@ -22,7 +22,7 @@ const testIds = {
 
 export const TimetableVersionsPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const { label } = useParams<{ label: string }>();
+  const { label } = useRequiredParams<{ label: string }>();
   const { startDate, endDate } = useTimeRangeQueryParams();
 
   // We first need to get the journey pattern ids for all line routes by line label
