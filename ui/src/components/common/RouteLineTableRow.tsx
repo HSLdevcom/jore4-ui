@@ -8,7 +8,7 @@ import { isRoute } from '../../graphql';
 import { useAlertsAndHighLights } from '../../hooks';
 import { Column, Row, Visible } from '../../layoutComponents';
 import { Path, routeDetails } from '../../router/routeDetails';
-import { mapToShortDate, MAX_DATE, MIN_DATE } from '../../time';
+import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../time';
 import { LocatorButton } from '../../uiComponents';
 import { LineDetailsButton } from './LineDetailsButton';
 import { LineTimetablesButton } from './LineTimetablesButton';
@@ -141,7 +141,7 @@ export const RouteLineTableRow = ({
         >
           <Row className="items-center">
             <Column className="w-1/2 font-bold">
-              <Row>
+              <Row className="items-center">
                 <h2>
                   {isRoute(rowItem) ? (
                     <RouteLabel
@@ -153,6 +153,9 @@ export const RouteLineTableRow = ({
                   )}
                 </h2>
                 {displayInformation.rowIcon}
+                {rowVariant === RouteLineTableRowVariant.Timetables &&
+                  !hasTimetables &&
+                  t('timetables.noTimetables')}
               </Row>
               <p>{rowItem.name_i18n.fi_FI}</p>
             </Column>
