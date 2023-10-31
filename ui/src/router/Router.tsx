@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { FunctionComponent } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { MapLoader, ModalMap } from '../components/map';
 import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
@@ -28,84 +28,68 @@ const FallbackRoute: FunctionComponent = () => {
 export const Router: FunctionComponent = () => {
   interface Route {
     _routerRoute: Path;
-    _exact?: boolean; // When true, will only match if the path matches the location.pathname exactly.
     component: React.ComponentType;
   }
 
   const routes: Record<Path, Route> = {
     [Path.root]: {
       _routerRoute: Path.root,
-      _exact: true,
       component: Main,
     },
     [Path.routes]: {
       _routerRoute: Path.routes,
-      _exact: true,
       component: RoutesAndLinesMainPage,
     },
     [Path.timetables]: {
       _routerRoute: Path.timetables,
-      _exact: true,
       component: TimetablesMainPage,
     },
     [Path.routesSearch]: {
       _routerRoute: Path.routesSearch,
-      _exact: true,
       component: SearchResultPage,
     },
     [Path.timetablesSearch]: {
       _routerRoute: Path.timetablesSearch,
-      _exact: true,
       component: SearchResultPage,
     },
     [Path.editRoute]: {
       _routerRoute: Path.editRoute,
-      _exact: true,
       component: EditRoutePage,
     },
     [Path.createLine]: {
       _routerRoute: Path.createLine,
-      _exact: true,
       component: CreateNewLinePage,
     },
     [Path.lineDetails]: {
       _routerRoute: Path.lineDetails,
-      _exact: true,
       component: LineDetailsPage,
     },
     [Path.lineDrafts]: {
       _routerRoute: Path.lineDrafts,
-      _exact: true,
       component: LineDraftsPage,
     },
     [Path.editLine]: {
       _routerRoute: Path.editLine,
-      _exact: true,
       component: EditLinePage,
     },
     [Path.lineTimetables]: {
       _routerRoute: Path.lineTimetables,
-      _exact: true,
       component: VehicleScheduleDetailsPage,
     },
     [Path.timetablesImport]: {
       _routerRoute: Path.timetablesImport,
-      _exact: true,
       component: ImportTimetablesPage,
     },
     [Path.timetablesImportPreview]: {
       _routerRoute: Path.timetablesImportPreview,
-      _exact: true,
       component: PreviewTimetablesPage,
     },
     [Path.lineTimetableVersions]: {
       _routerRoute: Path.lineTimetableVersions,
-      _exact: true,
       component: TimetableVersionsPage,
     },
     [Path.substituteOperatingPeriodSettings]: {
       _routerRoute: Path.substituteOperatingPeriodSettings,
-      _exact: true,
       component: SubstituteDaySettingsPage,
     },
     [Path.fallback]: {
@@ -117,16 +101,15 @@ export const Router: FunctionComponent = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <Switch>
+      <Routes>
         {Object.values(routes).map((route) => (
           <Route
             key={route._routerRoute}
             path={route._routerRoute}
-            exact={route._exact || false}
-            component={route.component}
+            Component={route.component}
           />
         ))}
-      </Switch>
+      </Routes>
       <ModalMap />
       <MapLoader />
     </BrowserRouter>

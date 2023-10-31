@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
 import { FormContainer, SimpleButton } from '../../../uiComponents';
@@ -13,8 +13,8 @@ import {
   schema as changeValidityFormSaveFormSchema,
 } from '../common/ChangeValidityForm';
 import {
-  FormState as LinePropertiesFormState,
   LinePropertiesForm,
+  FormState as LinePropertiesFormState,
   schema as linePropertiesFormSchema,
 } from './LinePropertiesForm';
 
@@ -31,7 +31,7 @@ interface Props {
 }
 
 export const LineForm = ({ defaultValues, onSubmit }: Props): JSX.Element => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const formRef = useRef<ExplicitAny>(null);
 
   const { t } = useTranslation();
@@ -50,7 +50,7 @@ export const LineForm = ({ defaultValues, onSubmit }: Props): JSX.Element => {
   };
 
   const onCancel = () => {
-    history.goBack();
+    navigate(-1);
   };
 
   return (

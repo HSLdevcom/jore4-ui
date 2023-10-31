@@ -17,10 +17,13 @@ export const NavLinks: FunctionComponent = () => {
           <div key={translationKey} className="flex hover:bg-brand-darker">
             <NavLink
               to={getLink()}
-              className="mx-5 border-b-4 border-transparent py-5 text-white hover:border-white"
-              activeClassName="!border-white"
+              className={({ isActive }) =>
+                `mx-5 border-b-4 border-transparent py-5 text-white hover:border-white ${
+                  isActive ? '!border-white' : ''
+                }`
+              }
               data-testid={testIds.navLink(translationKey)}
-              exact
+              end
             >
               {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
               {t(translationKey!)}

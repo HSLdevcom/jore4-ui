@@ -1,12 +1,12 @@
 import qs from 'qs';
-import { Redirect, RedirectProps } from 'react-router-dom';
+import { Navigate, NavigateProps } from 'react-router-dom';
 import { useUrlQuery } from '../../hooks';
 
-export const RedirectWithQuery = (props: RedirectProps): JSX.Element => {
+export const RedirectWithQuery = (props: NavigateProps): JSX.Element => {
   const { queryParams } = useUrlQuery();
   const { to, ...propsWithoutTo } = props;
   return (
-    <Redirect
+    <Navigate
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...propsWithoutTo}
       to={{

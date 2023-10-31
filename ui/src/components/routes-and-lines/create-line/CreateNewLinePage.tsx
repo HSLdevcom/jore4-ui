@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import {
   LineDefaultFieldsFragment,
   ReusableComponentsVehicleModeEnum,
@@ -53,7 +53,7 @@ export const CreateNewLinePage = (): JSX.Element => {
   if (createdLineId) {
     // if line was successfully created, redirect to its page
     return (
-      <Redirect
+      <Navigate
         to={{ pathname: routeDetails[Path.lineDetails].getLink(createdLineId) }}
       />
     );

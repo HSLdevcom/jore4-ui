@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { selectTimetable } from '../../../redux';
@@ -24,7 +24,7 @@ export const SubstituteDaySettingsPage = (): JSX.Element => {
       isCommonSubstitutePeriodFormDirty,
     },
   } = useAppSelector(selectTimetable);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleClose = () => {
@@ -34,12 +34,12 @@ export const SubstituteDaySettingsPage = (): JSX.Element => {
     ) {
       setIsOpen(true);
     } else {
-      history.push(Path.timetables);
+      navigate(Path.timetables);
     }
   };
 
   const closePage = () => {
-    history.push(Path.timetables);
+    navigate(Path.timetables);
   };
 
   return (
