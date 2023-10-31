@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
-import { useRoutesAndLinesDraftReturnToQueryParam } from '../../../hooks';
+import {
+  useRequiredParams,
+  useRoutesAndLinesDraftReturnToQueryParam,
+} from '../../../hooks';
 import { useGetLineDraftDetails } from '../../../hooks/line-drafts/useGetLineDraftDetails';
 import { Column, Container, Row } from '../../../layoutComponents';
 import { CloseIconButton } from '../../../uiComponents';
@@ -13,7 +15,7 @@ const testIds = {
 
 export const LineDraftsPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const { label } = useParams<{ label: string }>();
+  const { label } = useRequiredParams<{ label: string }>();
   const { routes } = useGetLineDraftDetails();
 
   const { onClose } = useRoutesAndLinesDraftReturnToQueryParam();

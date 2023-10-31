@@ -1,8 +1,8 @@
 import qs from 'qs';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 export const useReturnToQueryParam = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   /**
    *  Attaches the 'returnTo' url to query string. This is used to return to the
@@ -17,7 +17,7 @@ export const useReturnToQueryParam = () => {
   };
 
   const onClose = (pathname: string) => {
-    history.push({
+    navigate({
       pathname,
     });
   };

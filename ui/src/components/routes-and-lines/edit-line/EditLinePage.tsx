@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Redirect, useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import {
   LineAllFieldsFragment,
   useGetLineDetailsByIdQuery,
 } from '../../../generated/graphql';
 import { mapLineDetailsResult } from '../../../graphql';
-import { useEditLine } from '../../../hooks';
+import { useEditLine, useRequiredParams } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToISODate } from '../../../time';
@@ -45,7 +45,7 @@ export const EditLinePage = (): JSX.Element => {
     defaultErrorHandler,
   } = useEditLine();
 
-  const { id } = useParams<{ id: string }>();
+  const { id } = useRequiredParams<{ id: string }>();
   const lineDetailsResult = useGetLineDetailsByIdQuery(
     mapToVariables({ line_id: id }),
   );
@@ -71,7 +71,7 @@ export const EditLinePage = (): JSX.Element => {
   if (hasFinishedEditing) {
     // if line was successfully edited, redirect to its page
     return (
-      <Redirect to={{ pathname: routeDetails[Path.lineDetails].getLink(id) }} />
+      <Navigate to={{ pathname: routeDetails[Path.lineDetails].getLink(id) }} />
     );
   }
 
