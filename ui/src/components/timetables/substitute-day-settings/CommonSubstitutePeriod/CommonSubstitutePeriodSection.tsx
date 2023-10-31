@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import {
   useCreateSubstituteOperatingPeriod,
+  useDeleteSubstituteOperatingPeriod,
   useEditSubstituteOperatingPeriod,
   useGetSubstituteOperatingPeriods,
 } from '../../../../hooks/substitute-operating-periods';
@@ -33,6 +34,9 @@ export const CommonSubstitutePeriodSection = ({
   const { prepareAndExecute: prepareAndExecuteEdit } =
     useEditSubstituteOperatingPeriod();
 
+  const { deleteSubstituteOperatingPeriod } =
+    useDeleteSubstituteOperatingPeriod();
+
   const onSubmit = async (form: FormState) => {
     // Filter out days that are not already in database or are not added in UI
     // Add to begin/end date for each day to match
@@ -43,9 +47,11 @@ export const CommonSubstitutePeriodSection = ({
         ...d,
         beginDate: d.supersededDate,
         endDate: d.supersededDate,
+        toBeDeleted: d.toBeDeleted ?? false,
       }));
 
     try {
+      await deleteSubstituteOperatingPeriod({ periods });
       await prepareAndExecuteEdit({ form: { periods } });
       await prepareAndExecuteCreate({ form: { periods } });
       refetchCommonSubstituteOperatingPeriods();
