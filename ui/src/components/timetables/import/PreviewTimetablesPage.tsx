@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import {
   useConfirmTimetablesImportUIAction,
   useTimetablesImport,
@@ -31,7 +31,7 @@ const testIds = {
 
 export const PreviewTimetablesPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const {
     vehicleJourneys,
     vehicleScheduleFrames,
@@ -69,7 +69,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
       state.timetableImportStrategy,
     );
 
-    history.push({
+    navigate({
       pathname: routeDetails[Path.timetablesImport].getLink(),
     });
   };

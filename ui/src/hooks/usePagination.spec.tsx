@@ -4,12 +4,11 @@ import { usePagination, useUrlQuery } from '.';
 jest.mock('./urlQuery/useUrlQuery', () => ({
   useUrlQuery: jest.fn().mockReturnValue({}),
 }));
-const mockHistory = {
-  push: jest.fn(),
-};
 
-jest.mock('react-router', () => ({
-  useHistory: () => mockHistory,
+const mockNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  useNavigate: () => mockNavigate,
 }));
 
 const urlQueryMock = useUrlQuery as jest.Mock;
@@ -99,7 +98,7 @@ describe(`${hookForNames.result.current.setPage.name}`, () => {
 
     result.current.setPage(5);
 
-    expect(mockHistory.push).toHaveBeenCalledWith({ search: 'page=5' });
+    expect(mockNavigate).toHaveBeenCalledWith({ search: 'page=5' });
   });
 
   test('should overwrite existing page query parameter', () => {
@@ -107,7 +106,7 @@ describe(`${hookForNames.result.current.setPage.name}`, () => {
     const { result } = renderHook(usePagination);
     result.current.setPage(10);
 
-    expect(mockHistory.push).toHaveBeenCalledWith({
+    expect(mockNavigate).toHaveBeenCalledWith({
       search: 'page=10',
     });
   });
@@ -119,7 +118,7 @@ describe(`${hookForNames.result.current.setPage.name}`, () => {
     const { result } = renderHook(usePagination);
     result.current.setPage(10);
 
-    expect(mockHistory.push).toHaveBeenCalledWith({
+    expect(mockNavigate).toHaveBeenCalledWith({
       search: 'name=TestName&line=TestLine&page=10',
     });
   });
