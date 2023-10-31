@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
 import {
   RouteDefaultFieldsFragment,
   ServicePatternScheduledStopPoint,
@@ -11,6 +10,7 @@ import {
   useDeleteRoute,
   useEditRouteJourneyPattern,
   useEditRouteMetadata,
+  useRequiredParams,
 } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -66,7 +66,7 @@ export const EditRoutePage = (): JSX.Element => {
   } = useEditRouteJourneyPattern();
   const [conflicts, setConflicts] = useState<RouteDefaultFieldsFragment[]>([]);
   const formRef = useRef<ExplicitAny>(null);
-  const { id } = useParams<{ id: string }>();
+  const { id } = useRequiredParams<{ id: string }>();
 
   const routeDetailsResult = useGetRouteDetailsByIdsQuery({
     ...mapToVariables({ route_ids: [id] }),

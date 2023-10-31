@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Path } from '../router/routeDetails';
 
 /**
@@ -7,8 +7,8 @@ import { Path } from '../router/routeDetails';
  * E.g. in '/routes/search?observationDate=2022-12-07' the basePath is '/routes'
  */
 export const useBasePath = (): { basePath: Path } => {
-  const history = useHistory();
-  const basePath = `/${history.location.pathname.split('/')[1]}` as Path;
+  const location = useLocation();
+  const basePath = `/${location.pathname.split('/')[1]}` as Path;
 
   return { basePath };
 };

@@ -1,5 +1,4 @@
-import { useParams } from 'react-router-dom';
-import { useObservationDateQueryParam } from '..';
+import { useObservationDateQueryParam, useRequiredParams } from '..';
 import { useGetRoutesWithStopsQuery } from '../../generated/graphql';
 import { Priority } from '../../types/enums';
 import {
@@ -10,7 +9,7 @@ import {
 } from '../../utils';
 
 export const useGetLineDraftDetails = () => {
-  const { label } = useParams<{ label: string }>();
+  const { label } = useRequiredParams<{ label: string }>();
 
   const { observationDate } = useObservationDateQueryParam();
 

@@ -5,7 +5,7 @@ import isNumber from 'lodash/isNumber';
 import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useCallback, useMemo } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
@@ -49,21 +49,26 @@ export const useUrlQuery = () => {
     [query],
   );
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const setQueryString = useCallback(
     (queryString: string, replace: boolean, pathname?: string) => {
       replace
-        ? history.replace({
-            search: `?${queryString}`,
-            pathname,
-          })
-        : history.push({
+        ? navigate(
+            {
+              search: `?${queryString}`,
+              pathname,
+            },
+            {
+              replace: true,
+            },
+          )
+        : navigate({
             search: `?${queryString}`,
             pathname,
           });
     },
-    [history],
+    [navigate],
   );
 
   /** Sets parameter to URL query
