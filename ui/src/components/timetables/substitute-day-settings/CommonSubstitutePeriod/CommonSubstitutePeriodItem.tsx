@@ -1,11 +1,14 @@
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
-import { Visible } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { EditCloseButton } from '../../../../uiComponents/EditCloseButton';
 import { InputField } from '../../../forms/common';
 import { LineTypeMultiSelectDropdown } from '../../../forms/timetables/LineTypeMultiSelectDropdown';
 import { SubstituteDayOfWeekDropdown } from '../../../forms/timetables/SubstituteDayOfWeekDropdown';
-import { CommonDayType, FormState } from './CommonSubstitutePeriodForm.types';
+import {
+  CommonDayType,
+  FormState,
+  UpdateField,
+} from './CommonSubstitutePeriodForm.types';
 
 const testIds = {
   periodName: 'CommonSubstitutePeriodItem::periodName',
@@ -24,7 +27,7 @@ interface Props {
     'commonDays',
     'id'
   >;
-  update: (index: number, flag: boolean) => void;
+  update: (index: number, flag: boolean, field: UpdateField) => void;
 }
 
 const PeriodNameAndDateLabel = ({
@@ -52,7 +55,8 @@ export const CommonSubstitutePeriodItem = ({
   update,
 }: Props): JSX.Element => {
   const { register, watch } = useFormContext<FormState>();
-  const created = watch(`commonDays.${index}.created`);
+  const edited = watch(`commonDays.${index}.created`);
+  const toBeDeleted = watch(`commonDays.${index}.toBeDeleted`) ?? false;
 
   return (
     <div className="flex basis-[28%] flex-wrap" key={field.id}>
@@ -61,14 +65,21 @@ export const CommonSubstitutePeriodItem = ({
         supersededDate={field.supersededDate}
       />
       <div className="flex basis-1/12 justify-end">
-        <Visible visible={!field.fromDatabase}>
+        {field.fromDatabase ? (
           <EditCloseButton
-            showEdit={!created}
-            onEdit={() => update(index, created)}
-            onClose={() => update(index, created)}
+            showEdit={toBeDeleted}
+            onEdit={() => update(index, toBeDeleted, 'toBeDeleted')}
+            onClose={() => update(index, toBeDeleted, 'toBeDeleted')}
             testId={testIds.editCloseButton}
           />
-        </Visible>
+        ) : (
+          <EditCloseButton
+            showEdit={!edited}
+            onEdit={() => update(index, edited, 'created')}
+            onClose={() => update(index, edited, 'created')}
+            testId={testIds.editCloseButton}
+          />
+        )}
       </div>
       <div className="flex basis-full gap-2">
         <InputField<FormState>
@@ -79,7 +90,10 @@ export const CommonSubstitutePeriodItem = ({
           // eslint-disable-next-line react/no-unstable-nested-components
           inputElementRenderer={(props) => (
             <SubstituteDayOfWeekDropdown
-              disabled={!field.fromDatabase && !created}
+              disabled={
+                (!field.fromDatabase && !edited) ||
+                (field.fromDatabase && toBeDeleted)
+              }
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
@@ -93,7 +107,10 @@ export const CommonSubstitutePeriodItem = ({
           // eslint-disable-next-line react/no-unstable-nested-components
           inputElementRenderer={(props) => (
             <LineTypeMultiSelectDropdown
-              disabled={!field.fromDatabase && !created}
+              disabled={
+                (!field.fromDatabase && !edited) ||
+                (field.fromDatabase && toBeDeleted)
+              }
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />

@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { FormState } from '../../components/timetables/substitute-day-settings/OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
+import { PeriodType } from '../../components/timetables/substitute-day-settings/OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 import { useDeleteSubstituteOperatingPeriodMutation } from '../../generated/graphql';
 
 const GQL_DELETE_SUBSTITUTE_OPERATING_PERIOD = gql`
@@ -16,7 +16,9 @@ const GQL_DELETE_SUBSTITUTE_OPERATING_PERIOD = gql`
 export const useDeleteSubstituteOperatingPeriod = () => {
   const [mutateFunction] = useDeleteSubstituteOperatingPeriodMutation();
 
-  const deleteSubstituteOperatingPeriod = async (form: FormState) => {
+  const deleteSubstituteOperatingPeriod = async (form: {
+    periods: Pick<PeriodType, 'periodId' | 'toBeDeleted'>[];
+  }) => {
     const deletedIds = form.periods
       .filter((p) => p.toBeDeleted)
       .map((p) => p.periodId as string);

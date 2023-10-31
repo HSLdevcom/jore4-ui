@@ -21,6 +21,7 @@ import { commonSubstituteDayData } from '../common_substitute_day_data';
 import {
   CommonDayType,
   FormState,
+  UpdateField,
   schema,
 } from './CommonSubstitutePeriodForm.types';
 import { CommonSubstitutePeriodItem } from './CommonSubstitutePeriodItem';
@@ -180,14 +181,14 @@ export const CommonSubstitutePeriodForm = ({
     dispatch(setIsCommonSubstitutePeriodFormDirtyAction(isDirty));
   }, [dispatch, isDirty]);
 
-  const update = (index: number, created: boolean) => {
+  const update = (index: number, value: boolean, field: UpdateField) => {
     // Clear errors from specific item only when "removing" it
-    if (created) {
+    if (value) {
       clearErrors(`commonDays.${index}`);
     }
 
-    if (!created) {
-      setValue(`commonDays.${index}.created`, true, {
+    if (!value) {
+      setValue(`commonDays.${index}.${field}`, true, {
         shouldDirty: true,
         shouldTouch: true,
       });

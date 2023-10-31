@@ -36,6 +36,7 @@ const commonDay = z
     fromDatabase: z.boolean(),
     created: z.boolean(),
     isPreset: z.boolean(),
+    toBeDeleted: z.boolean().optional(),
   })
   .refine((data) => commonDayValidation(data, 'substituteDayOfWeek'), {
     message: 'substituteDayOfWeek',
@@ -53,3 +54,5 @@ export const schema = z.object({
 export type CommonDayType = z.infer<typeof commonDay>;
 
 export type FormState = z.infer<typeof schema>;
+
+export type UpdateField = 'created' | 'toBeDeleted';
