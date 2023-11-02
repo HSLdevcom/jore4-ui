@@ -7,11 +7,11 @@ describe('Verify that language changing works', () => {
     navbar = new Navbar();
 
     cy.setupMapTiles();
-    cy.mockLogin();
-    cy.visit('/');
   });
 
   it('Changes language from FI to EN', { tags: Tag.Smoke }, () => {
+    cy.mockLogin();
+    cy.visit('/');
     // Language is FI by default
     navbar.getLanguageDropdown().should('have.text', 'FI');
     navbar.getMainPageLink().should('have.text', 'Etusivu');
