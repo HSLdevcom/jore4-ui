@@ -1,4 +1,4 @@
-FROM node:18.16.0-alpine3.17 AS build
+FROM node:18.18.2-alpine3.18 AS build
 RUN apk update && apk add curl
 WORKDIR /app
 COPY package.json yarn.lock ./
