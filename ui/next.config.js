@@ -1,14 +1,5 @@
 module.exports = {
   compress: false, // We have server rendering disabled so can't use compression.
-  async rewrites() {
-    return [
-      {
-        // Rewrite everything to `pages/index`
-        source: '/:any*',
-        destination: '/',
-      },
-    ];
-  },
   webpack: (config) => {
     // eslint-disable-next-line no-param-reassign
     config.resolve.alias = {
