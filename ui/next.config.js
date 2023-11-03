@@ -24,4 +24,5 @@ module.exports = {
     // respect our eslint config defined in `.eslintrc.js`.)
     ignoreDuringBuilds: true,
   },
+  output: 'export',
 };
