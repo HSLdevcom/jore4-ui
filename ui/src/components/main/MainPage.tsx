@@ -1,15 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { LOGIN_URL } from '../api/user';
-import { useAppSelector } from '../hooks';
-import { selectUser } from '../redux';
-import { SimpleButton } from '../uiComponents';
+import { LOGIN_URL } from '../../api/user';
+import { useAppSelector } from '../../hooks';
+import { selectUser } from '../../redux';
+import { SimpleButton } from '../../uiComponents';
 
 const testIds = {
   main: 'Main',
 };
 
-export const Main: React.FC = () => {
+export const MainPage: React.FC = () => {
   const { userInfo } = useAppSelector(selectUser);
   const { t } = useTranslation();
 
@@ -49,4 +49,4 @@ export const Main: React.FC = () => {
 };
 
 // eslint-disable-next-line import/no-default-export
-export default Main;
+export default MainPage;
