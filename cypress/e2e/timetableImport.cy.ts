@@ -436,6 +436,9 @@ describe('Timetable import', () => {
       importTimetablesPage.toast.checkSuccessToastHasMessage(
         `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
       );
+      // Files uploaded -> nothing left to upload.
+      importTimetablesPage.getUploadButton().should('be.disabled');
+
       importTimetablesPage.clickPreviewButton();
 
       // Not a single day timetable -> can't select special day.

@@ -3,6 +3,10 @@ import { Toast } from './Toast';
 export class ImportTimetablesPage {
   toast = new Toast();
 
+  getCancelButton() {
+    return cy.getByTestId('ImportTimetablesPage::cancelButton');
+  }
+
   getSaveButton() {
     return cy.getByTestId('ImportTimetablesPage::saveButton');
   }
@@ -20,6 +24,14 @@ export class ImportTimetablesPage {
         .click()
     );
   }
+
+  verifyImportFormButtonsDisabled = () => {
+    this.getCancelButton().should('be.disabled');
+    this.getSaveButton().should('be.disabled');
+    this.getPreviewButton()
+      // This "button" is not actually a <button> so doesn't (and can't) have disabled attribute.
+      .should('have.attr', 'aria-disabled', 'true');
+  };
 
   getUploadButton() {
     return cy.getByTestId('ImportTimetablesPage::uploadButton');
