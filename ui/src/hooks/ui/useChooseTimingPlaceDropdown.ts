@@ -1,12 +1,12 @@
 import { gql } from '@apollo/client';
 import { useState } from 'react';
-import { useDebouncedString } from '..';
 import {
   TimingPlaceForComboboxFragment,
   useGetSelectedTimingPlaceDetailsByIdQuery,
   useGetTimingPlacesForComboboxQuery,
 } from '../../generated/graphql';
 import { mapToSqlLikeValue, mapToVariables } from '../../utils';
+import { useDebouncedString } from '../useDebouncedString';
 
 const GQL_GET_TIMING_PLACES_FOR_COMBOBOX = gql`
   query GetTimingPlacesForCombobox($labelPattern: String!) {
