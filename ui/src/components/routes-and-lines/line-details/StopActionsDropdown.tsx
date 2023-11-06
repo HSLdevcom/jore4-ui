@@ -17,11 +17,11 @@ const testIds = {
 };
 
 interface Props {
-  journeyPatternId?: UUID;
-  scheduledStopPointSequence?: number;
+  journeyPatternId: UUID | undefined;
+  scheduledStopPointSequence: number | undefined;
   stopLabel: string;
   stopBelongsToJourneyPattern: boolean;
-  isViaPoint?: boolean;
+  isViaPoint: boolean | undefined;
   onAddToRoute: (stopLabel: string) => void;
   onRemoveFromRoute: (stopLabel: string) => void;
 }

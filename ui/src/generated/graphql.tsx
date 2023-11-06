@@ -20978,10 +20978,23 @@ export type PatchScheduledStopPointTimingSettingsMutationVariables = Exact<{
   journeyPatternId: Scalars['uuid'];
   sequence: Scalars['Int'];
   patch: JourneyPatternScheduledStopPointInJourneyPatternSetInput;
+  stopId: Scalars['uuid'];
+  timingPlaceId?: InputMaybe<Scalars['uuid']>;
 }>;
 
 export type PatchScheduledStopPointTimingSettingsMutation = {
   __typename?: 'mutation_root';
+  update_service_pattern_scheduled_stop_point?: {
+    __typename?: 'service_pattern_scheduled_stop_point_mutation_response';
+    returning: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point';
+      scheduled_stop_point_id: UUID;
+      timing_place?: {
+        __typename?: 'timing_pattern_timing_place';
+        timing_place_id: UUID;
+      } | null;
+    }>;
+  } | null;
   update_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
     __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
     returning: Array<{
@@ -25738,7 +25751,20 @@ export const PatchScheduledStopPointTimingSettingsDocument = gql`
     $journeyPatternId: uuid!
     $sequence: Int!
     $patch: journey_pattern_scheduled_stop_point_in_journey_pattern_set_input!
+    $stopId: uuid!
+    $timingPlaceId: uuid
   ) {
+    update_service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _eq: $stopId } }
+      _set: { timing_place_id: $timingPlaceId }
+    ) {
+      returning {
+        scheduled_stop_point_id
+        timing_place {
+          timing_place_id
+        }
+      }
+    }
     update_journey_pattern_scheduled_stop_point_in_journey_pattern(
       where: {
         scheduled_stop_point_label: { _eq: $stopLabel }
@@ -25777,6 +25803,8 @@ export type PatchScheduledStopPointTimingSettingsMutationFn =
  *      journeyPatternId: // value for 'journeyPatternId'
  *      sequence: // value for 'sequence'
  *      patch: // value for 'patch'
+ *      stopId: // value for 'stopId'
+ *      timingPlaceId: // value for 'timingPlaceId'
  *   },
  * });
  */
