@@ -12,11 +12,7 @@ import {
 import { selectTimingSettingsModal } from '../../../redux';
 import { closeTimingSettingsModalAction } from '../../../redux/slices/modals';
 import { Modal, ModalHeader } from '../../../uiComponents';
-import {
-  showDangerToastWithError,
-  showSuccessToast,
-  stopHasUsableTimingPlace,
-} from '../../../utils';
+import { showDangerToastWithError, showSuccessToast } from '../../../utils';
 import {
   FormState,
   TimingSettingsForm,
@@ -82,7 +78,6 @@ export const TimingSettingsModal = (): JSX.Element => {
   const stopInfo =
     scheduledStopResult.data
       ?.journey_pattern_scheduled_stop_point_in_journey_pattern[0];
-
   const onSubmit = async (
     form: FormState,
     stopJourneyPattern: ScheduledStopPointWithTimingSettingsFragment,
@@ -93,6 +88,8 @@ export const TimingSettingsModal = (): JSX.Element => {
         journeyPatternId: stopJourneyPattern.journey_pattern_id,
         stopLabel: stopJourneyPattern.scheduled_stop_point_label,
         sequence: stopJourneyPattern.scheduled_stop_point_sequence,
+        stopId:
+          stopJourneyPattern.scheduled_stop_points[0].scheduled_stop_point_id,
       });
 
       dispatch(closeTimingSettingsModalAction());
@@ -106,10 +103,8 @@ export const TimingSettingsModal = (): JSX.Element => {
     dispatch(closeTimingSettingsModalAction());
   };
 
-  const stopHasTimingPlace = !!stopInfo && stopHasUsableTimingPlace(stopInfo);
-
   return (
-    <Modal isOpen onClose={onClose}>
+    <Modal isOpen onClose={onClose} className="w-1/4">
       <ModalHeader
         onClose={onClose}
         heading={t('timingSettingsModal.timingSettingsModalTitle', {
@@ -118,7 +113,6 @@ export const TimingSettingsModal = (): JSX.Element => {
       />
       {stopInfo && (
         <TimingSettingsForm
-          stopHasTimingPlace={stopHasTimingPlace}
           className="p-8"
           onCancel={onClose}
           onSubmit={(formState) => onSubmit(formState, stopInfo)}

@@ -19,6 +19,7 @@ interface EditParams {
   journeyPatternId: UUID;
   stopLabel: string;
   sequence: number;
+  stopId: UUID;
 }
 
 interface EditChanges {
@@ -26,6 +27,8 @@ interface EditChanges {
   stopLabel: string;
   sequence: number;
   patch: TimingSettingsPatch;
+  stopId: UUID;
+  timingPlaceId: UUID | null;
 }
 
 const GQL_PATCH_SCHEDULED_STOP_POINT_TIMING_SETTINGS = gql`
@@ -34,7 +37,20 @@ const GQL_PATCH_SCHEDULED_STOP_POINT_TIMING_SETTINGS = gql`
     $journeyPatternId: uuid!
     $sequence: Int!
     $patch: journey_pattern_scheduled_stop_point_in_journey_pattern_set_input!
+    $stopId: uuid!
+    $timingPlaceId: uuid
   ) {
+    update_service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _eq: $stopId } }
+      _set: { timing_place_id: $timingPlaceId }
+    ) {
+      returning {
+        scheduled_stop_point_id
+        timing_place {
+          timing_place_id
+        }
+      }
+    }
     update_journey_pattern_scheduled_stop_point_in_journey_pattern(
       where: {
         scheduled_stop_point_label: { _eq: $stopLabel }
@@ -63,6 +79,7 @@ const useEditStopTimingSettingsHook: MutationHook<
     journeyPatternId,
     stopLabel,
     sequence,
+    stopId,
   }: EditParams): EditChanges => ({
     journeyPatternId,
     stopLabel,
@@ -72,6 +89,8 @@ const useEditStopTimingSettingsHook: MutationHook<
       is_regulated_timing_point: form.isRegulatedTimingPoint,
       is_loading_time_allowed: form.isLoadingTimeAllowed,
     },
+    stopId,
+    timingPlaceId: form.timingPlaceId,
   });
 
   const mapChangesToVariables = ({
@@ -79,11 +98,15 @@ const useEditStopTimingSettingsHook: MutationHook<
     stopLabel,
     patch,
     sequence,
+    stopId,
+    timingPlaceId,
   }: EditChanges): PatchScheduledStopPointTimingSettingsMutationVariables => ({
     journeyPatternId,
     stopLabel,
     sequence,
     patch,
+    stopId,
+    timingPlaceId,
   });
 
   const executeMutation = (

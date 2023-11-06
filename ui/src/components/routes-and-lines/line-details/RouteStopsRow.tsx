@@ -1,15 +1,18 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
+import { AiFillPlusCircle } from 'react-icons/ai';
 import { MdHistory } from 'react-icons/md';
 import { RouteStopFieldsFragment } from '../../../generated/graphql';
-import { useAlertsAndHighLights } from '../../../hooks';
+import { useAlertsAndHighLights, useAppDispatch } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
+import { openTimingSettingsModalAction } from '../../../redux';
 import {
   MAX_DATE,
   MIN_DATE,
   mapToShortDate,
   mapToShortDateTime,
 } from '../../../time';
+import { IconButton } from '../../../uiComponents';
 import { HastusCode } from './HastusCode';
 import { StopActionsDropdown } from './StopActionsDropdown';
 
@@ -20,6 +23,7 @@ const testIds = {
   validityPeriod: 'RouteStopsRow::validityPeriod',
   lastEdited: 'RouteStopsRow::lastEdited',
   hastusCode: 'RouteStopsRow::hastusCode',
+  openTimingSettingsButton: 'RouteStopRow::openTimingSettings',
 };
 
 interface Props {
@@ -38,6 +42,7 @@ export const RouteStopsRow = ({
   onRemoveFromRoute,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   // find the journey pattern instance that belongs to this route
   const scheduledStopPointInJourneyPattern =
@@ -66,6 +71,17 @@ export const RouteStopsRow = ({
 
   const stopLabel = stop.label;
 
+  const showTimingSettingsModal = () => {
+    if (journeyPatternId && scheduledStopPointSequence !== undefined) {
+      dispatch(
+        openTimingSettingsModalAction({
+          stopLabel,
+          journeyPatternId,
+          sequence: scheduledStopPointSequence,
+        }),
+      );
+    }
+  };
   // TODO: Rework table into basic elements
   return (
     <tr
@@ -111,11 +127,26 @@ export const RouteStopsRow = ({
       </td>
       <td>
         <Row className="justify-center">
-          <HastusCode
-            hastusCode={hastusCode}
-            isUsedAsTimingPoint={isUsedAsTimingPoint}
-            testId={testIds.hastusCode}
-          />
+          {hastusCode ? (
+            <HastusCode
+              hastusCode={hastusCode}
+              isUsedAsTimingPoint={isUsedAsTimingPoint}
+              testId={testIds.hastusCode}
+            />
+          ) : (
+            <IconButton
+              testId={testIds.openTimingSettingsButton}
+              icon={
+                <AiFillPlusCircle
+                  className={`ml-2 text-xl ${
+                    stopBelongsToJourneyPattern ? 'text-brand' : 'text-gray-300'
+                  }`}
+                />
+              }
+              onClick={showTimingSettingsModal}
+              disabled={!stopBelongsToJourneyPattern}
+            />
+          )}
         </Row>
       </td>
       <td>
