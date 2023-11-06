@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { FunctionComponent } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { MainPage } from '../components/main/MainPage';
 import { MapLoader, ModalMap } from '../components/map';
 import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
@@ -18,7 +19,6 @@ import {
 import { ImportTimetablesPage } from '../components/timetables/import/ImportTimetablesPage';
 import { PreviewTimetablesPage } from '../components/timetables/import/PreviewTimetablesPage';
 import { TimetableVersionsPage } from '../components/timetables/versions/TimetableVersionsPage';
-import { Main } from '../pages/Main';
 import { Path } from './routeDetails';
 
 const FallbackRoute: FunctionComponent = () => {
@@ -36,7 +36,7 @@ export const Router: FunctionComponent = () => {
     [Path.root]: {
       _routerRoute: Path.root,
       _exact: true,
-      component: Main,
+      component: MainPage,
     },
     [Path.routes]: {
       _routerRoute: Path.routes,
