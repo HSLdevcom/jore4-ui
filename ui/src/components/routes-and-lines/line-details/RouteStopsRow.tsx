@@ -56,7 +56,15 @@ export const RouteStopsRow = ({
 
   const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
   const alertStyle = getAlertStyle(getAlertLevel(stop));
-  const hastusCode = stop.timing_place?.label ?? '-';
+  const hastusCode = stop.timing_place?.label;
+
+  const journeyPatternId =
+    scheduledStopPointInJourneyPattern?.journey_pattern_id;
+
+  const scheduledStopPointSequence =
+    scheduledStopPointInJourneyPattern?.scheduled_stop_point_sequence;
+
+  const stopLabel = stop.label;
 
   // TODO: Rework table into basic elements
   return (
@@ -112,10 +120,13 @@ export const RouteStopsRow = ({
       </td>
       <td>
         <StopActionsDropdown
-          routeId={routeId}
-          stop={stop}
+          stopLabel={stopLabel}
+          stopBelongsToJourneyPattern={stopBelongsToJourneyPattern}
+          isViaPoint={isViaPoint}
           onAddToRoute={onAddToRoute}
           onRemoveFromRoute={onRemoveFromRoute}
+          journeyPatternId={journeyPatternId}
+          scheduledStopPointSequence={scheduledStopPointSequence}
         />
       </td>
     </tr>
