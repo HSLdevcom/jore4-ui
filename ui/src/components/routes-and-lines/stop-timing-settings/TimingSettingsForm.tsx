@@ -4,15 +4,19 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { ScheduledStopPointWithTimingSettingsFragment } from '../../../generated/graphql';
+import { useAppDispatch } from '../../../hooks/redux';
 import { Row } from '../../../layoutComponents';
+import { openTimingPlaceModalAction } from '../../../redux';
 import { SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
-import { InputElement } from '../../forms/common';
+import { InputElement, InputField } from '../../forms/common';
+import { ChooseTimingPlaceDropdown } from '../../forms/stop/ChooseTimingPlaceDropdown';
 
 export const schema = z.object({
   isUsedAsTimingPoint: z.boolean(),
   isRegulatedTimingPoint: z.boolean(),
   isLoadingTimeAllowed: z.boolean(),
+  timingPlaceId: z.string().uuid().nullable(),
 });
 
 export type FormState = z.infer<typeof schema>;
@@ -22,7 +26,6 @@ interface Props {
   className?: string;
   onSubmit: (state: FormState) => void;
   onCancel: () => void;
-  stopHasTimingPlace: boolean;
 }
 
 const testIds = {
@@ -30,6 +33,8 @@ const testIds = {
   isRegulatedTimingPoint: 'TimingSettingsForm::isRegulatedTimingPoint',
   isLoadingTimeAllowed: 'TimingSettingsForm::isLoadingTimeAllowed',
   saveButton: 'TimingSettingsForm::saveButton',
+  timingPlaceDropdown: 'TimingSettingsForm::timingPlaceDropdown',
+  addTimingPlaceButton: 'TimingSettingsForm::addTimingPlaceButton',
 };
 
 export const mapStopJourneyPatternToFormState = (
@@ -38,6 +43,7 @@ export const mapStopJourneyPatternToFormState = (
   isUsedAsTimingPoint: stopInfo.is_used_as_timing_point,
   isRegulatedTimingPoint: stopInfo.is_regulated_timing_point,
   isLoadingTimeAllowed: stopInfo.is_loading_time_allowed,
+  timingPlaceId: stopInfo?.scheduled_stop_points[0].timing_place_id,
 });
 
 export const TimingSettingsForm = ({
@@ -45,10 +51,10 @@ export const TimingSettingsForm = ({
   className = '',
   onSubmit,
   onCancel,
-  stopHasTimingPlace,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
+  const dispatch = useAppDispatch();
 
   const methods = useForm<FormState>({
     defaultValues,
@@ -60,7 +66,8 @@ export const TimingSettingsForm = ({
   const onSave = () => {
     submitFormByRef(formRef);
   };
-  const { isUsedAsTimingPoint, isRegulatedTimingPoint } = watch();
+  const { isUsedAsTimingPoint, isRegulatedTimingPoint, timingPlaceId } =
+    watch();
 
   useEffect(() => {
     if (!isUsedAsTimingPoint) {
@@ -74,6 +81,12 @@ export const TimingSettingsForm = ({
     }
   }, [isRegulatedTimingPoint, setValue]);
 
+  useEffect(() => {
+    if (!timingPlaceId) {
+      setValue('isUsedAsTimingPoint', false);
+    }
+  }, [setValue, timingPlaceId]);
+
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
@@ -83,9 +96,32 @@ export const TimingSettingsForm = ({
         className={className}
       >
         <Row>
+          <InputField
+            translationPrefix="stops"
+            fieldPath="timingPlaceId"
+            testId={testIds.timingPlaceDropdown}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            inputElementRenderer={(props) => (
+              <ChooseTimingPlaceDropdown
+                optionAmount={4}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...props}
+              />
+            )}
+            className="flex-1"
+          />
+          <SimpleButton
+            containerClassName="self-end ml-6"
+            onClick={() => dispatch(openTimingPlaceModalAction())}
+            testId={testIds.addTimingPlaceButton}
+          >
+            {t('stops.createTimingPlace')}
+          </SimpleButton>
+        </Row>
+        <Row>
           <label
             htmlFor="isUsedAsTimingPoint"
-            className="inline-flex font-normal"
+            className="mt-6 inline-flex font-normal"
           >
             <InputElement<FormState>
               type="checkbox"
@@ -93,7 +129,7 @@ export const TimingSettingsForm = ({
               fieldPath="isUsedAsTimingPoint"
               className="mr-3.5 h-6 w-6"
               testId={testIds.isUsedAsTimingPoint}
-              disabled={!stopHasTimingPlace}
+              disabled={!timingPlaceId}
             />
             {t('timingSettingsModal.isUsedAsTimingPoint')}
           </label>

@@ -9,6 +9,7 @@ import {
 
 interface Props extends ListboxInputProps {
   testId?: string;
+  optionAmount?: number;
 }
 
 const mapToOptionContent = (item: TimingPlaceForComboboxFragment) => (
@@ -28,6 +29,7 @@ export const ChooseTimingPlaceDropdown = ({
   value,
   onChange,
   onBlur,
+  optionAmount,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
@@ -38,7 +40,11 @@ export const ChooseTimingPlaceDropdown = ({
     value,
   );
 
-  const options = timingPlaces?.map(mapToOption) || [];
+  const timingPlacesToMap = optionAmount
+    ? timingPlaces.slice(0, optionAmount - 1)
+    : timingPlaces;
+
+  const options = timingPlacesToMap.map(mapToOption) || [];
 
   const mapToButtonContent = (
     displayedTimingPlace?: TimingPlaceForComboboxFragment,
