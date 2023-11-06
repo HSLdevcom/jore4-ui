@@ -494,6 +494,67 @@ describe('Timetable import', () => {
     },
   );
 
+  context('Multiple import files', () => {
+    beforeEach(() => {
+      cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+    });
+
+    it(
+      'Should import two timetables at the same time',
+      { tags: [Tag.Timetables, Tag.HastusImport] },
+      () => {
+        const IMPORT_FILENAME = 'hastusImport.exp';
+        const IMPORT_FILENAME_2 = 'hastusImportSundayJune2023.exp';
+
+        // Import two timetable files
+        navbar.getTimetablesLink().click();
+        timetablesMainPage.getImportButton().click();
+        importTimetablesPage.selectFilesToImport([
+          IMPORT_FILENAME,
+          IMPORT_FILENAME_2,
+        ]);
+        importTimetablesPage.getUploadButton().click();
+        cy.wait('@hastusImport')
+          .its('response.statusCode')
+          .should('equal', 200);
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+        );
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          `Tiedoston ${IMPORT_FILENAME_2} lataus onnistui!`,
+        );
+        importTimetablesPage.clickPreviewButton();
+
+        // Not a single day timetable -> can't select special day.
+        previewTimetablesPage.priorityForm
+          .getSpecialDayPriorityCheckbox()
+          .should('not.be.visible');
+        previewTimetablesPage.priorityForm.setAsStandard();
+
+        previewTimetablesPage.blockVehicleJourneysTable.clickAllTableToggles();
+
+        previewTimetablesPage.vehicleScheduleFrameBlocksView
+          .getFrameBlocksByLabel('0099')
+          .should('contain', '1.1.2023 - 30.6.2043 | 1 autokiertoa')
+          .and('contain', 'Kalustotyyppi 3 - Normaalibussi')
+          .and('contain', '99')
+          .and('contain', 'Lauantai');
+
+        previewTimetablesPage.vehicleScheduleFrameBlocksView
+          .getFrameBlocksByLabel('1199')
+          .should('contain', '1.6.2023 - 30.6.2023 | 1 autokiertoa')
+          .and('contain', 'Kalustotyyppi 3 - Normaalibussi')
+          .and('contain', '99')
+          .and('contain', 'Sunnuntai');
+
+        previewTimetablesPage.getSaveButton().click();
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          'Aikataulujen tuonti onnistui!',
+        );
+      },
+    );
+  });
+
   context('Temporary timetables', () => {
     beforeEach(() => {
       cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);

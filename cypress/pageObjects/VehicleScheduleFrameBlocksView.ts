@@ -1,4 +1,10 @@
 export class VehicleScheduleFrameBlocksView {
+  getFrameBlocksByLabel(label: string) {
+    return cy.getByTestId(
+      `VehicleScheduleFrameBlocksView::frameBlocks::${label}`,
+    );
+  }
+
   getToggleShowTableButton() {
     return cy.getByTestId('VehicleScheduleFrameBlocksView::toggleShowTable');
   }
