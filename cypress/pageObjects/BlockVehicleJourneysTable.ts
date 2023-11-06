@@ -16,4 +16,10 @@ export class BlockVehicleJourneysTable {
       `BlockVehicleJourneysTable::vehicleJourneyRow::${routeLabel}::${routeDirection}`,
     );
   }
+
+  clickAllTableToggles() {
+    this.getToggleShowTableButton().each((button) => {
+      cy.wrap(button).click();
+    });
+  }
 }
