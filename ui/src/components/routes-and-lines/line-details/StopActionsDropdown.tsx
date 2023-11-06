@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { RouteStopFieldsFragment } from '../../../generated/graphql';
 import { useAppDispatch } from '../../../hooks';
 import {
   openTimingSettingsModalAction,
@@ -18,41 +17,32 @@ const testIds = {
 };
 
 interface Props {
-  stop: RouteStopFieldsFragment;
-  routeId: UUID;
+  journeyPatternId?: UUID;
+  scheduledStopPointSequence?: number;
+  stopLabel: string;
+  stopBelongsToJourneyPattern: boolean;
+  isViaPoint?: boolean;
   onAddToRoute: (stopLabel: string) => void;
   onRemoveFromRoute: (stopLabel: string) => void;
 }
 
 export const StopActionsDropdown = ({
-  stop,
-  routeId,
+  journeyPatternId,
+  scheduledStopPointSequence,
+  stopLabel,
+  stopBelongsToJourneyPattern,
+  isViaPoint,
   onAddToRoute,
   onRemoveFromRoute,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  // find the journey pattern instance that belongs to this route
-  const scheduledStopPointInJourneyPattern =
-    stop.scheduled_stop_point_in_journey_patterns.find(
-      (item) => item.journey_pattern.on_route_id === routeId,
-    );
-
-  // does the stop belong to this route's journey pattern?
-  const stopBelongsToJourneyPattern = !!scheduledStopPointInJourneyPattern;
-
-  // is the stop via point on this route's journey pattern?
-  const isViaPoint = scheduledStopPointInJourneyPattern?.is_via_point;
-
   const showViaModal = () => {
-    const journeyPatternId =
-      scheduledStopPointInJourneyPattern?.journey_pattern_id;
-
     if (journeyPatternId) {
       dispatch(
         openViaModalAction({
-          stopLabel: stop.label,
+          stopLabel,
           journeyPatternId,
         }),
       );
@@ -60,31 +50,28 @@ export const StopActionsDropdown = ({
   };
 
   const showTimingSettingsModal = () => {
-    const journeyPatternId =
-      scheduledStopPointInJourneyPattern?.journey_pattern_id;
-
-    if (journeyPatternId) {
+    if (journeyPatternId && scheduledStopPointSequence !== undefined) {
       dispatch(
         openTimingSettingsModalAction({
-          stopLabel: stop.label,
+          stopLabel,
           journeyPatternId,
-          sequence:
-            scheduledStopPointInJourneyPattern.scheduled_stop_point_sequence,
+          sequence: scheduledStopPointSequence,
         }),
       );
     }
   };
+
   return (
     <SimpleDropdownMenu alignItems={AlignDirection.Left} testId={testIds.menu}>
       {stopBelongsToJourneyPattern ? (
         <SimpleDropdownMenuItem
-          onClick={() => onRemoveFromRoute(stop.label)}
+          onClick={() => onRemoveFromRoute(stopLabel)}
           text={t('stops.removeFromRoute')}
           testId={testIds.removeStop}
         />
       ) : (
         <SimpleDropdownMenuItem
-          onClick={() => onAddToRoute(stop.label)}
+          onClick={() => onAddToRoute(stopLabel)}
           text={t('stops.addToRoute')}
           testId={testIds.addStop}
         />
