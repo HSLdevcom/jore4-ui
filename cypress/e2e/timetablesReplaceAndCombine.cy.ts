@@ -704,6 +704,9 @@ describe('Timetable replacement and combination', () => {
         'Aikataulujen tuonti onnistui!',
       );
 
+      // No staging timetables exist anymore -> import form should be disabled.
+      importTimetablesPage.verifyImportFormButtonsDisabled();
+
       confirmTimetablesInReplaceCase();
     },
   );
@@ -743,6 +746,9 @@ describe('Timetable replacement and combination', () => {
       importTimetablesPage.toast.checkSuccessToastHasMessage(
         'Aikataulujen tuonti onnistui!',
       );
+
+      // No staging timetables exist anymore -> import form should be disabled.
+      importTimetablesPage.verifyImportFormButtonsDisabled();
 
       confirmTimetablesInCombineCase();
     },
