@@ -546,6 +546,15 @@ describe('Timetable replacement and combination', () => {
     deleteExportFile();
   });
 
+  const verifyImportFormButtonsDisabled = () => {
+    importTimetablesPage.getCancelButton().should('be.disabled');
+    importTimetablesPage.getSaveButton().should('be.disabled');
+    importTimetablesPage
+      .getPreviewButton()
+      // This "button" is not actually a <button> so doesn't (and can't) have disabled attribute.
+      .should('have.attr', 'aria-disabled', 'true');
+  };
+
   it(
     'Should import timetable data using preview and replace existing data',
     { tags: [Tag.Smoke, Tag.Timetables, Tag.HastusImport] },
@@ -704,6 +713,9 @@ describe('Timetable replacement and combination', () => {
         'Aikataulujen tuonti onnistui!',
       );
 
+      // No staging timetables exist anymore -> import form should be disabled.
+      verifyImportFormButtonsDisabled();
+
       confirmTimetablesInReplaceCase();
     },
   );
@@ -743,6 +755,9 @@ describe('Timetable replacement and combination', () => {
       importTimetablesPage.toast.checkSuccessToastHasMessage(
         'Aikataulujen tuonti onnistui!',
       );
+
+      // No staging timetables exist anymore -> import form should be disabled.
+      verifyImportFormButtonsDisabled();
 
       confirmTimetablesInCombineCase();
     },

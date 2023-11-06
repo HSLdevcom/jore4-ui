@@ -177,6 +177,8 @@ export const useTimetablesImport = () => {
         targetPriority: priority,
       }),
     );
+
+    await importedVehicleScheduleFramesResult.refetch();
   };
 
   const confirmTimetablesImportByReplacing = async (
@@ -190,6 +192,8 @@ export const useTimetablesImport = () => {
         targetPriority: priority,
       }),
     );
+
+    await importedVehicleScheduleFramesResult.refetch();
   };
 
   const cancelTimetablesImport = async (stagingFrameIdsToDelete: UUID[]) => {

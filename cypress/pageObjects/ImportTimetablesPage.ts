@@ -3,6 +3,10 @@ import { Toast } from './Toast';
 export class ImportTimetablesPage {
   toast = new Toast();
 
+  getCancelButton() {
+    return cy.getByTestId('ImportTimetablesPage::cancelButton');
+  }
+
   getSaveButton() {
     return cy.getByTestId('ImportTimetablesPage::saveButton');
   }
