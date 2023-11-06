@@ -8,7 +8,8 @@ import { AccordionButton } from '../../../uiComponents';
 import { BlockVehicleJourneysTable } from './BlockVehicleJourneysTable';
 
 const testIds = {
-  table: 'VehicleScheduleFrameBlocksView::table',
+  frameBlocks: (label: string) =>
+    `VehicleScheduleFrameBlocksView::frameBlocks::${label}`,
   toggleShowTable: 'VehicleScheduleFrameBlocksView::toggleShowTable',
   validityTimeRangeText:
     'VehicleScheduleFrameBlocksView::validityTimeRangeText',
@@ -49,7 +50,7 @@ export const VehicleScheduleFrameBlocksView = ({
   ].join(' | ');
 
   return (
-    <div>
+    <div data-testid={testIds.frameBlocks(vehicleScheduleFrame.label)}>
       <Row className="border-brand-gray w-full border text-white">
         <p className="flex w-1/6 items-center border border-light-grey bg-brand py-2 px-6 font-bold">
           {vehicleScheduleFrame.label}
