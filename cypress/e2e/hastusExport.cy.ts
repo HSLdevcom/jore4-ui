@@ -49,7 +49,7 @@ const stopLabels = ['H1234', 'H1235', 'H1236'];
 
 const lines: LineInsertInput[] = [
   {
-    ...buildLine({ label: '1234' }),
+    ...buildLine({ label: '123' }),
     line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
     type_of_line: RouteTypeOfLineEnum.StoppingBusService,
   },
@@ -104,7 +104,7 @@ const buildStopsOnInfrastrucureLinks = (
 
 const routes: RouteInsertInput[] = [
   {
-    ...buildRoute({ label: '99' }),
+    ...buildRoute({ label: '123' }),
     route_id: '829e9d55-aa25-4ab9-858b-f2a5aa81d931',
     on_line_id: lines[0].line_id,
     validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+03:00'),
@@ -219,14 +219,14 @@ const testExportWhenFirstOrLastStopIsNotATimingPoint = () => {
   const routesAndLinesPage = new RoutesAndLinesPage();
 
   // Skip searching via UI
-  cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+  cy.visit('/routes/search?label=123&priorities=10&displayedType=routes');
   routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
   routesAndLinesPage.routeLineTableRow
-    .getRouteLineTableRowCheckbox('99')
+    .getRouteLineTableRowCheckbox('123')
     .check();
   routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
   routesAndLinesPage.toast.checkDangerToastHasMessage(
-    'Seuraavia reittejä ei voida viedä: 99 (inbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
+    'Seuraavia reittejä ei voida viedä: 123 (inbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
   );
 };
 
@@ -267,10 +267,10 @@ describe('Hastus export', () => {
       () => {
         const routesAndLinesPage = new RoutesAndLinesPage();
 
-        routesAndLinesPage.searchContainer.getSearchInput().type('1234{enter}');
+        routesAndLinesPage.searchContainer.getSearchInput().type('123{enter}');
         routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
         routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('1234')
+          .getRouteLineTableRowCheckbox('123')
           .check();
         routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
         cy.wait('@hastusExport')
@@ -289,10 +289,10 @@ describe('Hastus export', () => {
         const routesAndLinesPage = new RoutesAndLinesPage();
 
         // Skip searching via UI
-        cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+        cy.visit('/routes/search?label=123&priorities=10&displayedType=routes');
         routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
         routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('99')
+          .getRouteLineTableRowCheckbox('123')
           .check();
         routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
         cy.wait('@hastusExport')
