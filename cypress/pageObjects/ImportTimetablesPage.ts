@@ -1,7 +1,10 @@
+import { ConfirmationDialog } from './ConfirmationDialog';
 import { Toast } from './Toast';
 
 export class ImportTimetablesPage {
   toast = new Toast();
+
+  confirmationDialog = new ConfirmationDialog();
 
   getCancelButton() {
     return cy.getByTestId('ImportTimetablesPage::cancelButton');

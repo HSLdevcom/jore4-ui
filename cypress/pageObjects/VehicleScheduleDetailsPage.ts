@@ -16,4 +16,8 @@ export class VehicleScheduleDetailsPage {
   getShowVersionsButton() {
     return cy.getByTestId('VehicleScheduleDetailsPage::showVersionsButton');
   }
+
+  getShowAllValidSwitch() {
+    return cy.getByTestId('VehicleScheduleDetailsPage::showAllValidSwitch');
+  }
 }
