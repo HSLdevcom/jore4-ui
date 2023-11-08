@@ -929,4 +929,53 @@ describe('Timetable import', () => {
       },
     );
   });
+
+  context('Cancel timetable import', () => {
+    beforeEach(() => {
+      cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+    });
+
+    it(
+      'Should clear the staging database table after canceling a timetable import',
+      { tags: [Tag.Timetables, Tag.HastusImport] },
+      () => {
+        timetableVersionsPage = new TimetableVersionsPage();
+
+        const IMPORT_FILENAME = 'hastusImport.exp';
+
+        // Import a timetable for the route
+        navbar.getTimetablesLink().click();
+        timetablesMainPage.getImportButton().click();
+        importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+        importTimetablesPage.getUploadButton().click();
+        cy.wait('@hastusImport')
+          .its('response.statusCode')
+          .should('equal', 200);
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+        );
+        importTimetablesPage.getCancelButton().click();
+        importTimetablesPage.confirmationDialog.getConfirmButton().click();
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          'Aikataulujen tuonti keskeytetty',
+        );
+
+        importTimetablesPage.verifyImportFormButtonsDisabled();
+
+        // Check the imported timetable on a Saturday, which is the day type of the timetable in the import file
+        cy.visit(
+          `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
+        );
+
+        vehicleScheduleDetailsPage.getShowAllValidSwitch().click();
+
+        cy.getByTestId('VehicleServiceTable::headingButton')
+          .contains('Sunnuntai')
+          .should('exist');
+        cy.get('[data-testid="VehicleServiceTable::headingButton"]')
+          .contains('Lauantai')
+          .should('not.exist');
+      },
+    );
+  });
 });

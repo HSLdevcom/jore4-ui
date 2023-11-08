@@ -49,6 +49,11 @@ export const executeRawDbQuery = ({ query, bindings }: any) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const executeRawTimetablesDbQuery = ({ query, bindings }: any) => {
+  return timetablesDb.raw(query, bindings);
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const hasuraAPI = (request: any) => {
   return hasuraApi(request);
 };
