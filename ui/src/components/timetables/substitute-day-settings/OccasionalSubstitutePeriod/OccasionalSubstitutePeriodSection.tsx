@@ -26,8 +26,8 @@ export const OccasionalSubstitutePeriodSection = (): JSX.Element => {
   const {
     occasionalSubstituteOperatingPeriods,
     refetchOccasionalSubstituteOperatingPeriods,
+    isLoadingOccasionalSubstituteOperatingPeriods,
   } = useGetSubstituteOperatingPeriods({ startDate, endDate });
-
   const { prepareAndExecute: prepareAndExecuteCreate } =
     useCreateSubstituteOperatingPeriod();
 
@@ -58,6 +58,7 @@ export const OccasionalSubstitutePeriodSection = (): JSX.Element => {
       <h2>{t('timetables.settings.occasionalSubstituteDays')}</h2>
       <OccasionalSubstitutePeriodForm
         onSubmit={onSubmit}
+        loading={isLoadingOccasionalSubstituteOperatingPeriods}
         values={mapOccasionalSubstituteOperatingPeriodsToFormState(
           occasionalSubstituteOperatingPeriods,
         )}
