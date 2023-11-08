@@ -11,7 +11,7 @@ import {
   TimetablesServiceCalendarSubstituteOperatingPeriod,
 } from '../../../../generated/graphql';
 import { useAppDispatch } from '../../../../hooks';
-import { Row } from '../../../../layoutComponents';
+import { Row, Visible } from '../../../../layoutComponents';
 import { setIsOccasionalSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
 import { mapDurationToShortTime, mapToISODate } from '../../../../time';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
@@ -35,6 +35,12 @@ const testIds = {
   saveButton: 'OccasionalSubstitutePeriodForm::saveButton',
   addRowButton: 'OccasionalSubstitutePeriodForm::addRowButton',
 };
+
+interface Props {
+  onSubmit: (state: FormState) => void;
+  values: FormState;
+  loading: boolean;
+}
 
 const emptyRowObject: PeriodType = {
   periodName: '',
@@ -116,10 +122,8 @@ export const findLatestDate = (values: FormState) => {
 export const OccasionalSubstitutePeriodForm = ({
   onSubmit,
   values,
-}: {
-  onSubmit: (state: FormState) => void;
-  values: FormState;
-}): JSX.Element => {
+  loading,
+}: Props): JSX.Element => {
   const { t } = useTranslation();
   const [isResetting, setIsResetting] = useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -136,6 +140,7 @@ export const OccasionalSubstitutePeriodForm = ({
     formState: { isDirty },
     setValue,
   } = methods;
+
   const { append, fields, remove } = useFieldArray({
     control,
     name: 'periods',
@@ -176,16 +181,18 @@ export const OccasionalSubstitutePeriodForm = ({
             />
           ))}
           <Row className="my-8 items-center space-x-4">
-            <span className="text-brand-darker">
-              {t('timetables.settings.addRow')}
-            </span>
-            <SimpleButton
-              className="h-full px-3 text-xl"
-              onClick={() => append(emptyRowObject)}
-              testId={testIds.addRowButton}
-            >
-              <AiOutlinePlus aria-label={t('timetables.settings.addRow')} />
-            </SimpleButton>
+            <Visible visible={!loading}>
+              <span className="text-brand-darker">
+                {t('timetables.settings.addRow')}
+              </span>
+              <SimpleButton
+                className="h-full px-3 text-xl"
+                onClick={() => append(emptyRowObject)}
+                testId={testIds.addRowButton}
+              >
+                <AiOutlinePlus aria-label={t('timetables.settings.addRow')} />
+              </SimpleButton>
+            </Visible>
           </Row>
           <Row className="my-8 justify-end space-x-4">
             <SimpleButton
