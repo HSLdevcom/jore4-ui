@@ -35,6 +35,7 @@ export const ImportTimetablesPage = (): JSX.Element => {
   const [fileList, setFileList] = useState<File[] | null>(null);
   const [isCancelingImport, setIsCancelingImport] = useState(false);
   const [isSavingImport, setIsSavingImport] = useState(false);
+  const [isSendingToHastus, setIsSendingToHastus] = useState(false);
 
   const handleClose = () => {
     navigate(Path.timetables);
@@ -63,8 +64,10 @@ export const ImportTimetablesPage = (): JSX.Element => {
 
   const handleUpload = async () => {
     if (fileList?.length) {
+      setIsSendingToHastus(true);
       const result = await sendToHastusImporter(fileList);
       setFileList(result.failedFiles);
+      setIsSendingToHastus(false);
     }
   };
 
@@ -85,7 +88,7 @@ export const ImportTimetablesPage = (): JSX.Element => {
         <SimpleButton
           testId={testIds.uploadButton}
           onClick={handleUpload}
-          disabled={!fileList?.length}
+          disabled={!fileList?.length || isSendingToHastus}
         >
           {t('import.uploadFiles')}
         </SimpleButton>
@@ -93,21 +96,21 @@ export const ImportTimetablesPage = (): JSX.Element => {
           <SimpleButton
             testId={testIds.cancelButton}
             onClick={handleCancel}
-            disabled={!importedTimetablesExist}
+            disabled={!importedTimetablesExist || isSendingToHastus}
           >
             {t('import.cancel')}
           </SimpleButton>
           <SimpleButton
             testId={testIds.saveButton}
             onClick={handleSave}
-            disabled={!importedTimetablesExist}
+            disabled={!importedTimetablesExist || isSendingToHastus}
           >
             {t('save')}
           </SimpleButton>
           <SimpleButton
             testId={testIds.previewButton}
             href={Path.timetablesImportPreview}
-            disabled={!importedTimetablesExist}
+            disabled={!importedTimetablesExist || isSendingToHastus}
           >
             {t('import.openPreview')}
           </SimpleButton>
