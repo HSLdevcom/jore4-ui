@@ -1,7 +1,7 @@
 import { Listbox, ValueFn } from '../../../uiComponents';
 
 const testIds = {
-  dropdown: 'DayTypeDropdown::button',
+  dropdown: 'DayTypeDropdown',
 };
 
 export interface Props {

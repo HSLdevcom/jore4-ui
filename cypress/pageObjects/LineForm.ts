@@ -30,17 +30,23 @@ export class LineForm {
   }
 
   selectTransportTarget(target: string) {
-    cy.getByTestId('LinePropertiesForm::transportTargetInput').click();
+    cy.getByTestId(
+      'LinePropertiesForm::transportTargetInput::ListboxButton',
+    ).click();
     cy.get('li').contains(target).click();
   }
 
   selectVehicleType(type: string) {
-    cy.getByTestId('LinePropertiesForm::primaryVehicleModeInput').click();
+    cy.getByTestId(
+      'LinePropertiesForm::primaryVehicleModeInput::ListboxButton',
+    ).click();
     cy.get('li').contains(type).click();
   }
 
   selectLineType(type: string) {
-    cy.getByTestId('LinePropertiesForm::typeOfLineInput').click();
+    cy.getByTestId(
+      'LinePropertiesForm::typeOfLineInput::ListboxButton',
+    ).click();
     cy.get('li').contains(type).click();
   }
 

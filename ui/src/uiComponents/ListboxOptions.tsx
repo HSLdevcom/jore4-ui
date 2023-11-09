@@ -17,17 +17,19 @@ export interface ListboxOptionRenderer {
 
 interface Props {
   options: ListboxOptionRenderer[];
+  testId: string;
 }
 
 // HUIListbox throws an error if ref is not set when using children component for options
 export const ListboxOptions = forwardRef<HTMLUListElement, Props>(
   // eslint-disable-next-line prefer-arrow-callback
   function MyComponent(
-    { options }: Props,
+    { options, testId }: Props,
     ref: ForwardedRef<HTMLUListElement>,
   ): JSX.Element {
     return (
       <HUIListbox.Options
+        data-testid={testId}
         ref={ref}
         className="absolute left-0 z-10 w-full rounded-b-md border border-grey bg-white shadow-md focus:outline-none"
       >

@@ -7,7 +7,7 @@ import { AllOptionEnum, getEnumValues } from '../../../utils';
 import { EnumDropdownProps } from './EnumDropdown';
 
 const testIds = {
-  enumDropdown: 'EnumDropdown::button',
+  enumDropdown: 'EnumDropdown',
 };
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const EnumMultiSelectDropdown = <TEnum extends Object>({
@@ -64,6 +64,7 @@ export const EnumMultiSelectDropdown = <TEnum extends Object>({
   };
 
   const options = values.map((item) => mapToOption(item));
+
   return (
     <MultiSelectListbox
       id={id}

@@ -25,16 +25,21 @@ describe('<Listbox />', () => {
       />,
     );
 
-    // dropdown is collapsed:
-    expect(screen.queryByText('button')).toBeVisible();
-    expect(screen.queryByText('label1')).toBeNull();
+    // dropdown is collapsed
+    expect(screen.queryByTestId(`${testId}::ListboxOptions`)).toBeNull();
 
-    // click dropdown to open it:
-    const openDropdownButton = screen.getByTestId(testId);
+    // click dropdown to open it
+    const openDropdownButton = screen.getByTestId(`${testId}::ListboxButton`);
     fireEvent.click(openDropdownButton);
 
-    // dropdown is open:
-    expect(screen.queryByText('button')).toBeVisible();
-    expect(screen.queryByText('label1')).toBeVisible();
+    // dropdown is open
+    const dropdownMenu = screen.getByTestId(`${testId}::ListboxOptions`);
+    expect(dropdownMenu).toHaveTextContent('label1');
+    expect(dropdownMenu).toHaveTextContent('label2');
+
+    // click dropdown to close it
+    fireEvent.click(openDropdownButton);
+
+    expect(screen.queryByTestId(`${testId}::ListboxOptions`)).toBeNull();
   });
 });
