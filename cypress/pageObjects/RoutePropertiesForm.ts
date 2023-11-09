@@ -57,7 +57,9 @@ export class RoutePropertiesForm {
   }
 
   selectDirection(direction: RouteDirectionEnum) {
-    cy.getByTestId('RoutePropertiesFormComponent::directionDropdown').click();
+    cy.getByTestId(
+      'RoutePropertiesFormComponent::directionDropdown::ListboxButton',
+    ).click();
 
     switch (direction) {
       case RouteDirectionEnum.Inbound:

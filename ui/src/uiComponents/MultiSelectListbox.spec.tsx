@@ -3,7 +3,7 @@ import { render } from '../utils/test-utils';
 import { MultiSelectListbox } from './MultiSelectListbox';
 
 describe('<MultiSelectListbox />', () => {
-  const testId = 'multiselectlistbox1';
+  const testId = 'multiselectlistbox';
   const buttonContent = `button`;
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const onChange = () => {};
@@ -25,17 +25,22 @@ describe('<MultiSelectListbox />', () => {
       />,
     );
 
-    // dropdown is collapsed:
-    expect(screen.queryByText('button')).toBeVisible();
-    expect(screen.queryByText('label1')).toBeNull();
+    // dropdown is collapsed
+    expect(screen.queryByTestId(`${testId}::ListboxOptions`)).toBeNull();
 
-    // click dropdown to open it:
-    const openDropdownButton = screen.getByTestId(testId);
+    // click dropdown to open it
+    const openDropdownButton = screen.getByTestId(`${testId}::ListboxButton`);
     fireEvent.click(openDropdownButton);
 
-    // dropdown is open:
-    expect(screen.queryByText('button')).toBeVisible();
-    expect(screen.queryByText('label1')).toBeVisible();
+    // dropdown is open
+    const dropdownMenu = screen.getByTestId(`${testId}::ListboxOptions`);
+    expect(dropdownMenu).toHaveTextContent('label1');
+    expect(dropdownMenu).toHaveTextContent('label2');
+
+    // click dropdown to close it
+    fireEvent.click(openDropdownButton);
+
+    expect(screen.queryByTestId(`${testId}::ListboxOptions`)).toBeNull();
   });
   // TODO: Add at least a test for selecting a value
 });

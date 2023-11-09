@@ -108,13 +108,16 @@ export const MultiSelectListbox = ({
             buttonClassNames={buttonClassNames}
             open={open}
             hasError={hasError}
-            testId={testId}
+            testId={`${testId}::ListboxButton`}
             buttonContent={buttonContent}
             disabled={disabled}
           />
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Transition show={open} as={Fragment} {...dropdownTransition}>
-            <ListboxOptions options={options} />
+            <ListboxOptions
+              options={options}
+              testId={`${testId}::ListboxOptions`}
+            />
           </Transition>
         </>
       )}

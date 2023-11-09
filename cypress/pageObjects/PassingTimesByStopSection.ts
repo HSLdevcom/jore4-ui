@@ -45,7 +45,7 @@ export class PassingTimesByStopSection {
   }
 
   getDayTypeDropdownButton() {
-    return this.get().findByTestId('DayTypeDropdown::button');
+    return this.get().findByTestId('DayTypeDropdown::ListboxButton');
   }
 
   getTableRow(stopLabel: string) {
