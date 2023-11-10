@@ -12,4 +12,8 @@ export class TimetablesMainpage {
   getImportButton() {
     return cy.getByTestId('TimetablesMainPage::importButton');
   }
+
+  getSettingsButton() {
+    return cy.getByTestId('TimetablesMainPage::settingsButton');
+  }
 }
