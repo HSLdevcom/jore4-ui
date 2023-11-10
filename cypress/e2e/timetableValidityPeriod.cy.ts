@@ -271,6 +271,12 @@ describe('Timetable validity period', () => {
     navbar.getTimetablesLink().click();
 
     const IMPORT_FILENAME = 'hastusImport.exp';
+
+    cy.setupMapTiles();
+    cy.mockLogin();
+    cy.visit('/timetables');
+
+    // TODO: Change timetable importing to proper test data generation when it is available
     timetablesMainPage.getImportButton().click();
     importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
     importTimetablesPage.getUploadButton().click();
