@@ -270,9 +270,10 @@ describe('Timetable import and export', () => {
     // Import a timetable for the exported route
     navbar.getTimetablesLink().click();
 
-    const IMPORT_FILENAME = 'hastusImport.exp';
+    // TODO: Change timetable importing to proper test data generation when it is available
+    const IMPORT_FILENAME = 'hastusImportSaturday.exp';
     timetablesMainPage.getImportButton().click();
-    importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+    importTimetablesPage.selectFilesToImport([IMPORT_FILENAME]);
     importTimetablesPage.getUploadButton().click();
     cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
     importTimetablesPage.clickPreviewButton();
