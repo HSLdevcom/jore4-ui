@@ -45,7 +45,7 @@ export const sendFileToHastusImporter = (file: File) => {
   return apiClient.post('import', file, {
     headers: {
       ...roleHeaderMap(userHasuraRole),
-      'Content-Type': 'text/csv',
+      'Content-Type': 'text/csv;charset=iso-8859-1',
     },
   });
 };
