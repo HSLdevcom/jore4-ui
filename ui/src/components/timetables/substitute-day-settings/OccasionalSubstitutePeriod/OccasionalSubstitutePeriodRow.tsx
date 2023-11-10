@@ -22,13 +22,15 @@ interface Props {
 }
 
 const testIds = {
+  row: 'OccasionalSubstitutePeriodRow',
   periodnameInput: 'OccasionalSubstitutePeriodRow::periodName',
   beginDate: 'OccasionalSubstitutePeriodRow::beginDate',
   beginTime: 'OccasionalSubstitutePeriodRow::beginTime',
   endDate: 'OccasionalSubstitutePeriodRow::endDate',
   endTime: 'OccasionalSubstitutePeriodRow::endTime',
-  substituteDayOfWeek: 'OccasionalSubstitutePeriodRow::substituteDayOfWeek',
-  lineTypes: 'OccasionalSubstitutePeriodRow::lineTypes',
+  substituteDayOfWeekDropdown:
+    'OccasionalSubstitutePeriodRow::substituteDayOfWeekDropdown',
+  lineTypesDropdown: 'OccasionalSubstitutePeriodRow::lineTypesDropdown',
   removeButton: 'OccasionalSubstitutePeriodRow::removeButton',
 };
 
@@ -42,7 +44,12 @@ export const OccasionalSubstitutePeriodRow = ({
   const { register, watch } = useFormContext<FormState>();
   const tobeDeleted = watch(`periods.${index}.toBeDeleted`);
   return (
-    <FormRow mdColumns={12} className="my-4" key={field.id}>
+    <FormRow
+      mdColumns={12}
+      className="my-4"
+      key={field.id}
+      testId={testIds.row}
+    >
       <FormColumn className="col-span-3">
         <InputField<FormState>
           type="text"
@@ -91,7 +98,7 @@ export const OccasionalSubstitutePeriodRow = ({
       <InputField<FormState>
         translationPrefix="timetables.settings"
         className="col-span-2"
-        testId={testIds.substituteDayOfWeek}
+        testId={testIds.substituteDayOfWeekDropdown}
         fieldPath={`periods.${index}.substituteDayOfWeek`}
         // eslint-disable-next-line react/no-unstable-nested-components
         inputElementRenderer={(props) => (
@@ -102,7 +109,7 @@ export const OccasionalSubstitutePeriodRow = ({
       <InputField<FormState>
         className="col-span-2"
         translationPrefix="timetables.settings"
-        testId={testIds.lineTypes}
+        testId={testIds.lineTypesDropdown}
         fieldPath={`periods.${index}.lineTypes`}
         // eslint-disable-next-line react/no-unstable-nested-components
         inputElementRenderer={(props) => (

@@ -270,9 +270,15 @@ describe('Timetable validity period', () => {
     // Import a timetable for the exported route
     navbar.getTimetablesLink().click();
 
-    const IMPORT_FILENAME = 'hastusImport.exp';
+    const IMPORT_FILENAME = 'hastusImportSaturday.exp';
+
+    cy.setupMapTiles();
+    cy.mockLogin();
+    cy.visit('/timetables');
+
+    // TODO: Change timetable importing to proper test data generation when it is available
     timetablesMainPage.getImportButton().click();
-    importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+    importTimetablesPage.selectFilesToImport([IMPORT_FILENAME]);
     importTimetablesPage.getUploadButton().click();
     cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
     importTimetablesPage.clickPreviewButton();
