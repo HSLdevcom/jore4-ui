@@ -81,4 +81,14 @@ export class RouteStopsTable {
   routeDirectionShouldBeInbound(routeLabel: string) {
     this.getRouteDirection(routeLabel).should('contain', '2');
   }
+
+  getOpenTimingSettingsButton() {
+    return cy.getByTestId('RouteStopsRow::openTimingSettingsButton');
+  }
+
+  openStopTimingSettings(stopLabel: string) {
+    return this.getStopRow(stopLabel).within(() => {
+      this.getOpenTimingSettingsButton().click();
+    });
+  }
 }

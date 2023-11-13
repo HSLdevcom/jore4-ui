@@ -313,7 +313,7 @@ describe('Line details page: stops on route', () => {
   );
 
   it(
-    "Should check stop's 'Use Hastus place', 'Is regulated timing point' and 'Is loading time allowed' checkboxes",
+    "Should check stop's 'Use Hastus place', 'Is regulated timing point' and 'Is loading time allowed' checkboxes and add a timing point",
     { tags: Tag.Stops },
     () => {
       routeStopsTable.toggleRouteSection(routes[0].label);
@@ -345,6 +345,7 @@ describe('Line details page: stops on route', () => {
       routeStopsTable.timingSettingsForm
         .getIsLoadingTimeAllowedCheckbox()
         .check();
+      routeStopsTable.timingSettingsForm.selectTimingPlace('1AURLA');
       routeStopsTable.timingSettingsForm.getSavebutton().click();
       toast.checkSuccessToastHasMessage('Aika-asetusten tallennus onnistui');
       // Check that timing settings are set
@@ -358,6 +359,9 @@ describe('Line details page: stops on route', () => {
       routeStopsTable.timingSettingsForm
         .getIsLoadingTimeAllowedCheckbox()
         .should('be.checked');
+      routeStopsTable.timingSettingsForm
+        .getTimingPlaceDropdown()
+        .should('contain', '1AURLA');
     },
   );
 });
