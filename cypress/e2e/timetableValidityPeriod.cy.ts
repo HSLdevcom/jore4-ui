@@ -17,16 +17,12 @@ import {
   extractInfrastructureLinkIdsFromResponse,
   mapToGetInfrastructureLinksByExternalIdsQuery,
 } from '@hsl/jore4-test-db-manager';
-import { DateTime } from 'luxon';
+import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
+import { DateTime, Duration } from 'luxon';
 import { Tag } from '../enums';
 import {
-  ImportTimetablesPage,
-  Navbar,
   PassingTimesByStopSection,
-  PreviewTimetablesPage,
-  RoutesAndLinesPage,
   RouteTimetablesSection,
-  TimetablesMainpage,
   VehicleScheduleDetailsPage,
   VehicleServiceTable,
 } from '../pageObjects';
@@ -36,7 +32,6 @@ import {
   insertToDbHelper,
   removeFromDbHelper,
 } from '../utils';
-import { deleteExportFile } from './utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
 // These form a straight line on Eerikinkatu in Helsinki.
@@ -203,13 +198,105 @@ const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
   }),
 ];
 
+const timetableDataInput = {
+  _journey_pattern_refs: {
+    route99inbound: {
+      route_label: '99',
+      route_direction: 'inbound',
+      journey_pattern_id: journeyPatterns[0].journey_pattern_id,
+      _stop_points: [
+        {
+          scheduled_stop_point_sequence: 1,
+          scheduled_stop_point_label: 'H1231',
+        },
+        {
+          scheduled_stop_point_sequence: 2,
+          scheduled_stop_point_label: 'H1232',
+        },
+        {
+          scheduled_stop_point_sequence: 3,
+          scheduled_stop_point_label: 'H1233',
+        },
+        {
+          scheduled_stop_point_sequence: 4,
+          scheduled_stop_point_label: 'H1234',
+        },
+      ],
+    },
+  },
+  _vehicle_schedule_frames: {
+    spring2023: {
+      validity_start: DateTime.fromISO('2023-01-01'),
+      validity_end: DateTime.fromISO('2023-12-31'),
+      name: 'Kevät 2023',
+      booking_label: 'Spring booking label',
+      _vehicle_services: {
+        monFri: {
+          day_type_id: defaultDayTypeIds.SATURDAY,
+          _blocks: {
+            block: {
+              _vehicle_journeys: {
+                route99Inbound1: {
+                  _journey_pattern_ref_name: 'route99inbound',
+                  _passing_times: [
+                    {
+                      _scheduled_stop_point_label: 'H1231',
+                      arrival_time: null,
+                      departure_time: Duration.fromISO('PT7H10M'),
+                    },
+                    {
+                      _scheduled_stop_point_label: 'H1232',
+                      arrival_time: Duration.fromISO('PT7H12M'),
+                      departure_time: Duration.fromISO('PT7H13M'),
+                    },
+                    {
+                      _scheduled_stop_point_label: 'H1233',
+                      arrival_time: Duration.fromISO('PT7H19M'),
+                      departure_time: Duration.fromISO('PT7H23M'),
+                    },
+                    {
+                      _scheduled_stop_point_label: 'H1234',
+                      arrival_time: Duration.fromISO('PT7H27M'),
+                      departure_time: null,
+                    },
+                  ],
+                },
+                route99Inbound2: {
+                  _journey_pattern_ref_name: 'route99inbound',
+                  _passing_times: [
+                    {
+                      _scheduled_stop_point_label: 'H1231',
+                      arrival_time: null,
+                      departure_time: Duration.fromISO('PT8H20M'),
+                    },
+                    {
+                      _scheduled_stop_point_label: 'H1232',
+                      arrival_time: Duration.fromISO('PT8H22M'),
+                      departure_time: Duration.fromISO('PT8H23M'),
+                    },
+                    {
+                      _scheduled_stop_point_label: 'H1233',
+                      arrival_time: Duration.fromISO('PT8H26M'),
+                      departure_time: Duration.fromISO('PT8H27M'),
+                    },
+                    {
+                      _scheduled_stop_point_label: 'H1234',
+                      arrival_time: Duration.fromISO('PT8H29M'),
+                      departure_time: null,
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
 describe('Timetable validity period', () => {
-  let routesAndLinesPage: RoutesAndLinesPage;
-  let timetablesMainPage: TimetablesMainpage;
-  let importTimetablesPage: ImportTimetablesPage;
-  let previewTimetablesPage: PreviewTimetablesPage;
   let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
-  let navbar: Navbar;
 
   const baseDbResources = {
     lines,
@@ -242,52 +329,16 @@ describe('Timetable validity period', () => {
     cy.task('truncateTimetablesDatabase');
     removeFromDbHelper(dbResources);
     insertToDbHelper(dbResources);
+    cy.task('insertHslTimetablesDatasetToDb', timetableDataInput);
 
-    routesAndLinesPage = new RoutesAndLinesPage();
-    timetablesMainPage = new TimetablesMainpage();
-    importTimetablesPage = new ImportTimetablesPage();
-    previewTimetablesPage = new PreviewTimetablesPage();
     vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
-    navbar = new Navbar();
 
     cy.setupMapTiles();
     cy.mockLogin();
     cy.visit('/');
-
-    // TODO: Change timetable importing to use Data Inserter instead of populating data using
-    // jore4-hastus service.
-
-    // Skip searching via UI
-    cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
-    // Export the route
-    routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-    routesAndLinesPage.routeLineTableRow
-      .getRouteLineTableRowCheckbox('99')
-      .check();
-    routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-    cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
-
-    // Import a timetable for the exported route
-    navbar.getTimetablesLink().click();
-
-    const IMPORT_FILENAME = 'hastusImport.exp';
-    timetablesMainPage.getImportButton().click();
-    importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
-    importTimetablesPage.getUploadButton().click();
-    cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
-    importTimetablesPage.clickPreviewButton();
-    previewTimetablesPage.priorityForm.setAsStandard();
-    previewTimetablesPage.blockVehicleJourneysTable
-      .getToggleShowTableButton()
-      .click();
-    previewTimetablesPage.getSaveButton().click();
-    importTimetablesPage.toast.checkSuccessToastHasMessage(
-      'Aikataulujen tuonti onnistui!',
-    );
   });
 
   afterEach(() => {
-    deleteExportFile();
     removeFromDbHelper(dbResources);
     cy.task('truncateTimetablesDatabase');
   });
