@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next';
 import { exportRoutesToHastus as exportToHastus } from '../../api/hastus';
 import { RouteTableRowFragment } from '../../generated/graphql';
+import { mapPriorityToUiName } from '../../i18n/uiNameMappings';
 import {
   downloadFile,
   extractJourneyPatternFirstStop,
   extractJourneyPatternLastStop,
+  showDangerToastWithError,
 } from '../../utils';
 import { useSearchQueryParser } from '../search';
 import { useObservationDateQueryParam } from '../urlQuery';
@@ -13,6 +16,7 @@ export const useExportRoutes = () => {
   const { search } = useSearchQueryParser();
 
   const { priorities } = search;
+  const { t } = useTranslation();
 
   // Routes can be exported to Hastus only when there is only 1 priority selected
   // TODO: this will be reworked to not be dependant on search criteria
@@ -59,22 +63,21 @@ export const useExportRoutes = () => {
   };
 
   const exportRoutesToHastus = async (routeLabels: string[]) => {
-    if (!canExport) {
-      throw new Error(
-        `Can't export routes, expected exactly 1 priority but got "${priorities}"`,
-      );
+    try {
+      const response = await exportToHastus({
+        uniqueLabels: routeLabels,
+        priority: priorities[0],
+        observationDate,
+      });
+
+      const filename = `${routeLabels[0]}_${mapPriorityToUiName(
+        priorities[0],
+      )}_${observationDate.toISODate()}.csv`;
+
+      downloadFile(response.data, filename);
+    } catch (error) {
+      showDangerToastWithError(t('export.hastusErrorTitle'), error);
     }
-
-    const response = await exportToHastus({
-      uniqueLabels: routeLabels,
-      priority: priorities[0],
-      observationDate,
-    });
-
-    downloadFile(
-      response.data,
-      `jore4-export-${observationDate.toISODate()}.csv`,
-    );
   };
 
   return {

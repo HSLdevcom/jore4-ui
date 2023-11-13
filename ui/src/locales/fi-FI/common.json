@@ -455,6 +455,7 @@
     "quitSelecting": "Sulje valinnat",
     "exportSelected": "Vie valitut Hastukseen",
     "notEligibleRoutesForExport": "Seuraavia reittejä ei voida viedä: {{ routes }}. Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.",
+    "hastusErrorTitle": "Vienti Hastukseen epäonnistui",
     "tooltip": "Vie valitut Hastukseen",
     "disabledTooltip": "Valitse hakuun vain yksi prioriteetti voidaksesi viedä reittejä Hastukseen."
   },
