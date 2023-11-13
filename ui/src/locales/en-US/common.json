@@ -455,6 +455,7 @@
     "quitSelecting": "Quit selecting",
     "exportSelected": "Export selected to Hastus",
     "notEligibleRoutesForExport": "Following routes are not eligible for export: {{ routes }}. First and last stop has to be used as Hastus-place.",
+    "notPossible": "Taking routes to Hastu is not possible",
     "tooltip": "Export selected to Hastus",
     "disabledTooltip": "Select only one priority for the search to be able to export routes to Hastus."
   },

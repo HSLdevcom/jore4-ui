@@ -18,6 +18,7 @@ import {
   DisplayedSearchResultType,
   isRouteActiveOnObservationDate,
   showDangerToast,
+  showDangerToastWithError,
 } from '../../../utils';
 
 const testIds = {
@@ -79,14 +80,18 @@ export const ExportToolbar = (): JSX.Element => {
     dispatch(resetSelectedRowsAction());
   };
 
-  const exportRoutes = () => {
+  const exportRoutes = async () => {
     const notEligibleRoutes = findNotEligibleRoutesForExport(
       exportData.toBeExportedRoutes,
     );
     if (!notEligibleRoutes.length) {
-      exportRoutesToHastus(
-        exportData.toBeExportedRoutes.map((route) => route.unique_label),
-      );
+      try {
+        await exportRoutesToHastus(
+          exportData.toBeExportedRoutes.map((route) => route.unique_label),
+        );
+      } catch (error) {
+        showDangerToastWithError(t('export.notPossible'), error);
+      }
     } else {
       showDangerToast(
         t('export.notEligibleRoutesForExport', {

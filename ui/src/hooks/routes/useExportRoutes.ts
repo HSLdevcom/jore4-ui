@@ -1,3 +1,4 @@
+import isEmpty from 'lodash/isEmpty';
 import { exportRoutesToHastus as exportToHastus } from '../../api/hastus';
 import { RouteTableRowFragment } from '../../generated/graphql';
 import {
@@ -63,6 +64,10 @@ export const useExportRoutes = () => {
       throw new Error(
         `Can't export routes, expected exactly 1 priority but got "${priorities}"`,
       );
+    }
+
+    if (isEmpty(routeLabels)) {
+      throw new Error(`Can't export routes, expected at least one route`);
     }
 
     const response = await exportToHastus({
