@@ -1,6 +1,8 @@
 /* eslint-disable no-underscore-dangle */
-import React, { FunctionComponent } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, { FC, FunctionComponent, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { getUserInfo } from '../api/user';
 import { MainPage } from '../components/main/MainPage';
 import { MapLoader, ModalMap } from '../components/map';
 import { Navbar } from '../components/navbar';
@@ -19,82 +21,134 @@ import {
 import { ImportTimetablesPage } from '../components/timetables/import/ImportTimetablesPage';
 import { PreviewTimetablesPage } from '../components/timetables/import/PreviewTimetablesPage';
 import { TimetableVersionsPage } from '../components/timetables/versions/TimetableVersionsPage';
+import { useAppSelector } from '../hooks';
+import { selectUser } from '../redux';
+import { Spinner } from '../uiComponents';
+import { showDangerToast } from '../utils';
 import { Path } from './routeDetails';
 
 const FallbackRoute: FunctionComponent = () => {
   return React.createElement('p', null, `404, page not found`);
 };
 
+export const ProtectedRoute: FC = ({ children }) => {
+  const { userInfo } = useAppSelector(selectUser);
+  const { t } = useTranslation();
+  const [isLoading, setLoading] = useState(!userInfo);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        setLoading(true);
+        await getUserInfo();
+      } catch (error) {
+        showDangerToast(t('errors.unauthorized'));
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (!userInfo) {
+      fetchUser();
+    }
+  }, [userInfo, isLoading, t]);
+
+  if (isLoading) {
+    return <Spinner className="m-16 flex justify-center" showSpinner />;
+  }
+
+  if (!userInfo) {
+    return <Navigate to="/" />;
+  }
+
+  return <>{children}</>;
+};
+
 export const Router: FunctionComponent = () => {
   interface Route {
     _routerRoute: Path;
-    component: React.ComponentType;
+    protected?: boolean;
+    element?: JSX.Element;
   }
 
   const routes: Record<Path, Route> = {
     [Path.root]: {
       _routerRoute: Path.root,
-      component: MainPage,
+      element: <MainPage />,
     },
     [Path.routes]: {
       _routerRoute: Path.routes,
-      component: RoutesAndLinesMainPage,
+      protected: true,
+      element: <RoutesAndLinesMainPage />,
     },
     [Path.timetables]: {
       _routerRoute: Path.timetables,
-      component: TimetablesMainPage,
+      protected: true,
+      element: <TimetablesMainPage />,
     },
     [Path.routesSearch]: {
       _routerRoute: Path.routesSearch,
-      component: SearchResultPage,
+      protected: true,
+      element: <SearchResultPage />,
     },
     [Path.timetablesSearch]: {
       _routerRoute: Path.timetablesSearch,
-      component: SearchResultPage,
+      protected: true,
+      element: <SearchResultPage />,
     },
     [Path.editRoute]: {
       _routerRoute: Path.editRoute,
-      component: EditRoutePage,
+      protected: true,
+      element: <EditRoutePage />,
     },
     [Path.createLine]: {
       _routerRoute: Path.createLine,
-      component: CreateNewLinePage,
+      protected: true,
+      element: <CreateNewLinePage />,
     },
     [Path.lineDetails]: {
       _routerRoute: Path.lineDetails,
-      component: LineDetailsPage,
+      protected: true,
+      element: <LineDetailsPage />,
     },
     [Path.lineDrafts]: {
       _routerRoute: Path.lineDrafts,
-      component: LineDraftsPage,
+      protected: true,
+      element: <LineDraftsPage />,
     },
     [Path.editLine]: {
       _routerRoute: Path.editLine,
-      component: EditLinePage,
+      protected: true,
+      element: <EditLinePage />,
     },
     [Path.lineTimetables]: {
       _routerRoute: Path.lineTimetables,
-      component: VehicleScheduleDetailsPage,
+      protected: true,
+      element: <VehicleScheduleDetailsPage />,
     },
     [Path.timetablesImport]: {
       _routerRoute: Path.timetablesImport,
-      component: ImportTimetablesPage,
+      protected: true,
+      element: <ImportTimetablesPage />,
     },
     [Path.timetablesImportPreview]: {
       _routerRoute: Path.timetablesImportPreview,
-      component: PreviewTimetablesPage,
+      protected: true,
+      element: <PreviewTimetablesPage />,
     },
     [Path.lineTimetableVersions]: {
       _routerRoute: Path.lineTimetableVersions,
-      component: TimetableVersionsPage,
+      protected: true,
+      element: <TimetableVersionsPage />,
     },
     [Path.substituteOperatingPeriodSettings]: {
       _routerRoute: Path.substituteOperatingPeriodSettings,
-      component: SubstituteDaySettingsPage,
+      protected: true,
+      element: <SubstituteDaySettingsPage />,
     },
     [Path.fallback]: {
       _routerRoute: Path.fallback,
-      component: FallbackRoute,
+      protected: true,
+      element: <FallbackRoute />,
     },
   };
 
@@ -106,7 +160,13 @@ export const Router: FunctionComponent = () => {
           <Route
             key={route._routerRoute}
             path={route._routerRoute}
-            Component={route.component}
+            element={
+              route.protected ? (
+                <ProtectedRoute>{route.element}</ProtectedRoute>
+              ) : (
+                route.element
+              )
+            }
           />
         ))}
       </Routes>

@@ -272,7 +272,8 @@
   "errors": {
     "saveFailed": "Something went wrong",
     "leaveMultipleHandles": "Cannot delete snap point(s)! You should leave at least two of them.",
-    "tooFarFromInfrastructureLink": "Make sure each point in route geometry is close enough to the road network. Check coverage of the road network along the route, if necessary."
+    "tooFarFromInfrastructureLink": "Make sure each point in route geometry is close enough to the road network. Check coverage of the road network along the route, if necessary.",
+    "unauthorized": "Unauthorized, please log in."
   },
   "filters": {
     "title": "Filter view",
