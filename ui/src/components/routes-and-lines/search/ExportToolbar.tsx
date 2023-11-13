@@ -79,12 +79,13 @@ export const ExportToolbar = (): JSX.Element => {
     dispatch(resetSelectedRowsAction());
   };
 
-  const exportRoutes = () => {
+  const exportRoutes = async () => {
     const notEligibleRoutes = findNotEligibleRoutesForExport(
       exportData.toBeExportedRoutes,
     );
+
     if (!notEligibleRoutes.length) {
-      exportRoutesToHastus(
+      await exportRoutesToHastus(
         exportData.toBeExportedRoutes.map((route) => route.unique_label),
       );
     } else {
