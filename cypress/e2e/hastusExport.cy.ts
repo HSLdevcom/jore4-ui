@@ -178,7 +178,7 @@ const setup = (resources: SupportedResources) => {
 const exportDate = DateTime.now().toISODate();
 const exportFilePath = `${Cypress.config(
   'downloadsFolder',
-)}/jore4-export-${exportDate}.csv`;
+)}/123_Perusversio_${exportDate}.csv`;
 
 const teardown = (resources: SupportedResources) => {
   removeFromDbHelper(resources);
