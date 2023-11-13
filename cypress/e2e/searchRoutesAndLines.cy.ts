@@ -67,7 +67,6 @@ describe(
       routesAndLinesPage = new RoutesAndLinesPage();
       deleteCreatedResources();
       insertToDbHelper(dbResources);
-      cy.visit('/routes');
     });
 
     after(() => {
@@ -77,6 +76,7 @@ describe(
     beforeEach(() => {
       cy.setupMapTiles();
       cy.mockLogin();
+      cy.visit('/routes');
       routesAndLinesPage.searchContainer.getSearchInput().clear();
     });
 
