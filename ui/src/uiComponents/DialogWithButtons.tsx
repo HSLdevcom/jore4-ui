@@ -44,17 +44,17 @@ export const DialogWithButtons: React.FC<Props> = ({
     >
       <div className="flex h-full items-center justify-center">
         <div
-          className={`w-full rounded-md bg-white p-5 shadow-md ${
+          className={`relative flex w-full flex-col rounded-md bg-white p-5 shadow-md ${
             widthClassName || 'max-w-sm'
           }`}
         >
+          <CloseIconButton
+            className="absolute top-3 right-3"
+            onClick={onCancel}
+            testId={testIds.closeButton}
+          />
           <Dialog.Title className="flex" as="h3">
             {title}
-            <CloseIconButton
-              className="ml-auto"
-              onClick={onCancel}
-              testId={testIds.closeButton}
-            />
           </Dialog.Title>
           <Dialog.Description
             className="my-5 whitespace-pre-line"
