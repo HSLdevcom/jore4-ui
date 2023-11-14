@@ -249,16 +249,16 @@ describe('Route editing', () => {
     editRoutePage.getSaveRouteButton().click();
 
     // Verify information after transitioning to the line details page
-    lineDetailsPage.routeStopsTable
+    lineDetailsPage.routeStopsTable.expandableRouteRow
       .getRouteName()
       .should('contain', routeFormTestInputs.finnishName);
-    lineDetailsPage.routeStopsTable.getRouteHeaderRow(
+    lineDetailsPage.routeStopsTable.expandableRouteRow.getRouteHeaderRow(
       routeFormTestInputs.label,
     );
     lineDetailsPage.routeStopsTable.routeDirectionShouldBeOutbound(
       routeFormTestInputs.label,
     );
-    lineDetailsPage.routeStopsTable
+    lineDetailsPage.routeStopsTable.expandableRouteRow
       .getRouteValidityPeriod(routeFormTestInputs.label)
       .should('contain', '1.1.2022 - 31.12.2030');
 
