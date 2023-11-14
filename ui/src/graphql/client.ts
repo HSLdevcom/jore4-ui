@@ -5,6 +5,7 @@ import {
   InMemoryCache,
   split,
 } from '@apollo/client';
+import { onError } from '@apollo/client/link/error';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { withScalars } from 'apollo-link-scalars';
@@ -89,6 +90,19 @@ const buildWebSocketLink = () => {
     },
   });
 };
+
+// To temporarily deal with the site giving pages without any information due to stop & start
+// dependencies while developing, we can catch the access-denied error and reload the page which
+// triggers userinfo check, and if user is not logged -> redirect to front page and inform
+// user to log in. This can and probably should be removed after we get different user accessess.
+const errorLink = onError(({ graphQLErrors }) => {
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ extensions }) => {
+      if (extensions.code === 'access-denied') {
+        window.location.reload();
+      }
+    });
+});
 
 const buildHttpLink = (isTesting: boolean) => {
   const defaultConfig = {
@@ -253,7 +267,13 @@ export const createGraphqlClient = () => {
 
   const scalarMappingLink = buildScalarMappingLink();
   const connectionLink = buildConnectionLink(!!process.browser, isTesting);
-  const link = from([scalarMappingLink, authRoleMiddleware, connectionLink]);
+
+  const link = from([
+    errorLink,
+    scalarMappingLink,
+    authRoleMiddleware,
+    connectionLink,
+  ]);
 
   const cache = buildCacheDefinition();
 
