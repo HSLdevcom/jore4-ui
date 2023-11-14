@@ -201,19 +201,21 @@ describe('Line details page: stops on route', () => {
     'Verify that stops of route are shown on its list view',
     { tags: [Tag.Stops, Tag.Routes, Tag.Smoke] },
     () => {
-      routeStopsTable.toggleRouteSection(routes[0].label);
+      routeStopsTable.expandableRouteRow.toggleRouteSection(routes[0].label);
 
       // verify that stops 0, 1 and 3 are included on route
-      routeStopsTable.getStopRow(stopLabels[0]);
-      routeStopsTable.getStopRow(stopLabels[1]);
-      routeStopsTable.getStopRow(stopLabels[3]);
+      routeStopsTable.routeStopsRow.getStopRow(stopLabels[0]);
+      routeStopsTable.routeStopsRow.getStopRow(stopLabels[1]);
+      routeStopsTable.routeStopsRow.getStopRow(stopLabels[3]);
 
       // stop 2 is not included on route and thus not shown by default
-      routeStopsTable.getStopRow(stopLabels[2]).should('not.exist');
+      routeStopsTable.routeStopsRow
+        .getStopRow(stopLabels[2])
+        .should('not.exist');
 
       // stop 2 can be shown after toggling unused stops to be visible
       routeStopsTable.toggleShowUnusedStops();
-      routeStopsTable.getStopRow(stopLabels[2]);
+      routeStopsTable.routeStopsRow.getStopRow(stopLabels[2]);
     },
   );
 
@@ -221,27 +223,29 @@ describe('Line details page: stops on route', () => {
     'User can add stops to the route and remove them from the route',
     { tags: Tag.Stops },
     () => {
-      routeStopsTable.toggleRouteSection(routes[0].label);
+      routeStopsTable.expandableRouteRow.toggleRouteSection(routes[0].label);
 
       routeStopsTable.toggleShowUnusedStops();
 
-      routeStopsTable.addStopToRoute(stopLabels[2]);
+      routeStopsTable.routeStopsRow.addStopToRoute(stopLabels[2]);
       cy.wait('@gqlUpdateRouteJourneyPattern')
         .its('response.statusCode')
         .should('equal', 200);
       // Wait until cache is updated and UI notices that this stop is
       // now included on route
-      routeStopsTable
+      routeStopsTable.routeStopsRow
         .getStopRow(stopLabels[2])
         .contains('Ei reitin käytössä')
         .should('not.exist');
 
-      routeStopsTable.removeStopFromRoute(stopLabels[1]);
+      routeStopsTable.routeStopsRow.removeStopFromRoute(stopLabels[1]);
       cy.wait('@gqlUpdateRouteJourneyPattern')
         .its('response.statusCode')
         .should('equal', 200);
 
-      routeStopsTable.getStopRow(stopLabels[1]).contains('Ei reitin käytössä');
+      routeStopsTable.routeStopsRow
+        .getStopRow(stopLabels[1])
+        .contains('Ei reitin käytössä');
     },
   );
 
@@ -249,11 +253,11 @@ describe('Line details page: stops on route', () => {
     'User cannot delete too many stops from route',
     { tags: Tag.Stops },
     () => {
-      routeStopsTable.toggleRouteSection(routes[0].label);
+      routeStopsTable.expandableRouteRow.toggleRouteSection(routes[0].label);
       // Route has to have at least two stops
-      routeStopsTable.removeStopFromRoute(stopLabels[3]);
+      routeStopsTable.routeStopsRow.removeStopFromRoute(stopLabels[3]);
       toast.checkSuccessToastHasMessage('Reitti tallennettu');
-      routeStopsTable.removeStopFromRoute(stopLabels[0]);
+      routeStopsTable.routeStopsRow.removeStopFromRoute(stopLabels[0]);
       toast.checkDangerToastHasMessage(
         'Reitillä on oltava ainakin kaksi pysäkkiä.',
       );
@@ -264,9 +268,9 @@ describe('Line details page: stops on route', () => {
     'Should add Via info to a stop and then remove it',
     { tags: Tag.Stops },
     () => {
-      routeStopsTable.toggleRouteSection(routes[0].label);
+      routeStopsTable.expandableRouteRow.toggleRouteSection(routes[0].label);
       // Open via point creation modal
-      routeStopsTable.openCreateViaPointModal(stopLabels[0]);
+      routeStopsTable.routeStopsRow.openCreateViaPointModal(stopLabels[0]);
       // Input via info to form
       routeStopsTable.viaForm.getViaFinnishNameInput().type('Via-piste');
       routeStopsTable.viaForm.getViaSwedishNameInput().type('Via punkt');
@@ -277,7 +281,7 @@ describe('Line details page: stops on route', () => {
       cy.wait('@gqlPatchScheduledStopPointViaInfo');
       toast.checkSuccessToastHasMessage('Via-tieto asetettu');
       // Verify info was saved
-      routeStopsTable.openEditViaPointModal(stopLabels[0]);
+      routeStopsTable.routeStopsRow.openEditViaPointModal(stopLabels[0]);
       routeStopsTable.viaForm
         .getViaFinnishNameInput()
         .should('have.value', 'Via-piste');
@@ -294,7 +298,9 @@ describe('Line details page: stops on route', () => {
       routeStopsTable.viaForm.getRemoveButton().click();
       cy.wait('@gqlRemoveScheduledStopPointViaInfo');
       // Verify that createViaPoint selection is available instead of editViaPoint
-      routeStopsTable.getStopDropdown(stopLabels[0]).should('be.visible');
+      routeStopsTable.routeStopsRow
+        .getStopDropdown(stopLabels[0])
+        .should('be.visible');
     },
   );
 
@@ -302,10 +308,10 @@ describe('Line details page: stops on route', () => {
     'Checking "Use Hastus place" should not be possible when the stop has no timing point',
     { tags: Tag.Stops },
     () => {
-      routeStopsTable.toggleRouteSection(routes[0].label);
+      routeStopsTable.expandableRouteRow.toggleRouteSection(routes[0].label);
       // This stop does not have a timing point
       // so it should not be possible to click 'Use Hastus place'
-      routeStopsTable.openTimingSettingsForm(stopLabels[1]);
+      routeStopsTable.routeStopsRow.openTimingSettingsForm(stopLabels[1]);
       routeStopsTable.timingSettingsForm
         .getIsUsedAsTimingPointCheckbox()
         .should('be.disabled');
@@ -316,9 +322,9 @@ describe('Line details page: stops on route', () => {
     "Should check stop's 'Use Hastus place', 'Is regulated timing point' and 'Is loading time allowed' checkboxes and add a timing point",
     { tags: Tag.Stops },
     () => {
-      routeStopsTable.toggleRouteSection(routes[0].label);
+      routeStopsTable.expandableRouteRow.toggleRouteSection(routes[0].label);
       // Open timing settings modal
-      routeStopsTable.openTimingSettingsForm(stopLabels[0]);
+      routeStopsTable.routeStopsRow.openTimingSettingsForm(stopLabels[0]);
       // Unchecking IsUsedAsTimingPointCheckbox should disable IsRegulatedTimingPointCheckbox
       routeStopsTable.timingSettingsForm
         .getIsUsedAsTimingPointCheckbox()
@@ -349,7 +355,7 @@ describe('Line details page: stops on route', () => {
       routeStopsTable.timingSettingsForm.getSavebutton().click();
       toast.checkSuccessToastHasMessage('Aika-asetusten tallennus onnistui');
       // Check that timing settings are set
-      routeStopsTable.openTimingSettingsForm(stopLabels[0]);
+      routeStopsTable.routeStopsRow.openTimingSettingsForm(stopLabels[0]);
       routeStopsTable.timingSettingsForm
         .getIsUsedAsTimingPointCheckbox()
         .should('be.checked');

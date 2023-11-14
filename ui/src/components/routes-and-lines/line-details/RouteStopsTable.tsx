@@ -6,6 +6,10 @@ import { RouteUniqueFieldsFragment } from '../../../generated/graphql';
 import { Switch, SwitchLabel } from '../../../uiComponents';
 import { RouteStopsSection } from './RouteStopsSection';
 
+const testIds = {
+  showUnusedStopsSwitch: 'RouteStopsTable::showUnusedStopsSwitch',
+};
+
 interface Props {
   className?: string;
   routes: RouteUniqueFieldsFragment[];
@@ -28,7 +32,7 @@ export const RouteStopsTable = ({ className = '', routes, testId }: Props) => {
           <Switch
             checked={showUnusedStops}
             onChange={setShowUnusedStops}
-            testId="show-unused-stops-switch"
+            testId={testIds.showUnusedStopsSwitch}
           />
         </HuiSwitch.Group>
       </div>

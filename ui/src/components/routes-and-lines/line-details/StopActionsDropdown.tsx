@@ -8,12 +8,12 @@ import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
 import { SimpleDropdownMenuItem } from './SimpleDropdownMenuItem';
 
 const testIds = {
-  menu: 'StopActionsDrowdown::menu',
-  addStop: 'StopActionsDrowdown::addStopToRouteButton',
-  removeStop: 'StopActionsDrowdown::removeStopFromRouteButton',
-  createViaPoint: 'StopActionsDrowdown::createViaPoint',
-  editViaPoint: 'StopActionsDrowdown::editViaPoint',
-  openTimingSettings: 'StopActionsDrowdown::openTimingSettings',
+  menu: 'StopActionsDropdown::menu',
+  addStop: 'StopActionsDropdown::addStopToRouteButton',
+  removeStop: 'StopActionsDropdown::removeStopFromRouteButton',
+  createViaPoint: 'StopActionsDropdown::createViaPoint',
+  editViaPoint: 'StopActionsDropdown::editViaPoint',
+  openTimingSettings: 'StopActionsDropdown::openTimingSettings',
 };
 
 interface Props {
