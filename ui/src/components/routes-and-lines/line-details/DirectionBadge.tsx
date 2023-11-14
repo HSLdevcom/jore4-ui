@@ -2,7 +2,8 @@ import { RouteDirectionEnum } from '../../../generated/graphql';
 import { mapDirectionToShortUiName } from '../../../i18n/uiNameMappings';
 
 const testIds = {
-  value: 'DirectionBadge::value',
+  directionBadge: (direction: RouteDirectionEnum) =>
+    `DirectionBadge::${direction}`,
 };
 
 type Props = {
@@ -21,7 +22,7 @@ export const DirectionBadge = ({
       title={titleName}
       className={`relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white ${className}`}
     >
-      <span data-testid={testIds.value}>
+      <span data-testid={testIds.directionBadge(direction)}>
         {mapDirectionToShortUiName(direction)}
       </span>
     </span>

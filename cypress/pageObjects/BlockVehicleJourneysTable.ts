@@ -7,10 +7,6 @@ export class BlockVehicleJourneysTable {
     return cy.getByTestId('BlockVehicleJourneysTable::table');
   }
 
-  getDirectionBadge() {
-    return cy.getByTestId('DirectionBadge::value');
-  }
-
   getVehicleJourneyRow(routeLabel: string, routeDirection: string) {
     return cy.getByTestId(
       `BlockVehicleJourneysTable::vehicleJourneyRow::${routeLabel}::${routeDirection}`,
