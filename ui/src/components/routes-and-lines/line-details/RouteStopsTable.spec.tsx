@@ -573,7 +573,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
     expect(asFragment()).toMatchSnapshot();
 
     const showUnusedStopsToggle = screen.getByTestId(
-      'show-unused-stops-switch',
+      'RouteStopsTable::showUnusedStopsSwitch',
     );
     fireEvent.click(showUnusedStopsToggle);
 
