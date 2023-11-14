@@ -50,7 +50,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
                 title="1 - Keskustasta pois"
               >
                 <span
-                  data-testid="DirectionBadge::value"
+                  data-testid="DirectionBadge::outbound"
                 >
                   1
                 </span>
@@ -270,7 +270,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 title="1 - Keskustasta pois"
               >
                 <span
-                  data-testid="DirectionBadge::value"
+                  data-testid="DirectionBadge::outbound"
                 >
                   1
                 </span>
@@ -716,7 +716,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 title="1 - Keskustasta pois"
               >
                 <span
-                  data-testid="DirectionBadge::value"
+                  data-testid="DirectionBadge::outbound"
                 >
                   1
                 </span>

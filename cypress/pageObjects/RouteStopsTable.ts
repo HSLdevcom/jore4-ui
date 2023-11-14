@@ -1,3 +1,5 @@
+import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
+import { DirectionBadge } from './DirectionBadge';
 import { ExpandableRouteRow } from './ExpandableRouteRow';
 import { RouteStopsRow } from './RouteStopsRow';
 import { TimingSettingsForm } from './TimingSettingsForm';
@@ -12,6 +14,8 @@ export class RouteStopsTable {
 
   routeStopsRow = new RouteStopsRow();
 
+  directionBadge = new DirectionBadge();
+
   getShowUnusedStopsSwitch() {
     return cy.getByTestId('RouteStopsTable::showUnusedStopsSwitch');
   }
@@ -20,18 +24,21 @@ export class RouteStopsTable {
     return this.getShowUnusedStopsSwitch().click();
   }
 
-  getRouteDirection(routeLabel: string) {
-    return this.expandableRouteRow
-      .getRouteHeaderRow(routeLabel)
-      .findByTestId('DirectionBadge::value');
-  }
-
-  // TODO: check later if RouteDirectionEnum could be used instead of the numbers 1 and 2
-  routeDirectionShouldBeOutbound(routeLabel: string) {
-    this.getRouteDirection(routeLabel).should('contain', '1');
-  }
-
-  routeDirectionShouldBeInbound(routeLabel: string) {
-    this.getRouteDirection(routeLabel).should('contain', '2');
+  assertRouteDirection(routeLabel: string, routeDirection: RouteDirectionEnum) {
+    if (routeDirection === RouteDirectionEnum.Inbound) {
+      return this.expandableRouteRow
+        .getRouteHeaderRow(routeLabel)
+        .within(() => {
+          this.directionBadge.getInboundDirectionBadge();
+        });
+    }
+    if (routeDirection === RouteDirectionEnum.Outbound) {
+      return this.expandableRouteRow
+        .getRouteHeaderRow(routeLabel)
+        .within(() => {
+          this.directionBadge.getOutboundDirectionBadge();
+        });
+    }
+    throw new Error('Could not decipher route direction!');
   }
 }
