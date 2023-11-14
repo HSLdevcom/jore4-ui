@@ -255,8 +255,9 @@ describe('Route editing', () => {
     lineDetailsPage.routeStopsTable.expandableRouteRow.getRouteHeaderRow(
       routeFormTestInputs.label,
     );
-    lineDetailsPage.routeStopsTable.routeDirectionShouldBeOutbound(
+    lineDetailsPage.routeStopsTable.assertRouteDirection(
       routeFormTestInputs.label,
+      RouteDirectionEnum.Outbound,
     );
     lineDetailsPage.routeStopsTable.expandableRouteRow
       .getRouteValidityPeriod(routeFormTestInputs.label)

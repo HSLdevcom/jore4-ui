@@ -35,7 +35,7 @@ describe(`<${RouteDeviationLink.name} />`, () => {
       />,
     );
 
-    expect(getByTestId('DirectionBadge::value').textContent).toBe('2');
+    expect(getByTestId('DirectionBadge::inbound').textContent).toBe('2');
   });
 
   test('should render direction badge title', () => {

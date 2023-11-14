@@ -23,7 +23,7 @@ const testIds = {
   validityPeriod: 'RouteStopsRow::validityPeriod',
   lastEdited: 'RouteStopsRow::lastEdited',
   hastusCode: 'RouteStopsRow::hastusCode',
-  openTimingSettingsButton: 'RouteStospRow::openTimingSettingsButton',
+  openTimingSettingsButton: 'RouteStopsRow::openTimingSettingsButton',
 };
 
 interface Props {
