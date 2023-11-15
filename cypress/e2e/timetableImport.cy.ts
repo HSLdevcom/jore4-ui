@@ -38,7 +38,6 @@ import {
   removeFromDbHelper,
   SupportedResources,
 } from '../utils';
-import { deleteExportFile } from './utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
 // These form a straight line on Eerikinkatu in Helsinki.
@@ -387,7 +386,7 @@ describe('Timetable import', () => {
   });
 
   afterEach(() => {
-    deleteExportFile();
+    cy.task('emptyDownloadsFolder');
     removeFromDbHelper(dbResources);
     cy.task('truncateTimetablesDatabase');
   });
