@@ -75,3 +75,11 @@ export const insertHslTimetablesDatasetToDb = (
   const builtDataset = insertHslDataset(input, timetablesDatabaseConfig);
   return builtDataset;
 };
+
+export const emptyDownloadsFolder = () => {
+  const downloadsFolder = 'downloads';
+  fs.readdirSync(downloadsFolder).forEach((file) => {
+    deleteFile(`${downloadsFolder}/${file}`);
+  });
+  return true;
+};
