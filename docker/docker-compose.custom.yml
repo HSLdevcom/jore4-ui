@@ -15,6 +15,10 @@ services:
     depends_on:
       jore4-testdb:
         condition: service_healthy
+    # Uncomment the lines below to direct timetables-api actions from Hasura
+    # to a locally built timetables API running on localhost instead of the dockerized version.
+    # extra_hosts:
+    #   - "jore4-timetablesapi:host-gateway"
 
   jore4-mapmatching:
     # pinning map-matching API to compatible version
