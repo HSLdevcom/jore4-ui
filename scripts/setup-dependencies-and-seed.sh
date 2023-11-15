@@ -29,6 +29,6 @@ echo "y" | ./scripts/development.sh dump:import
 
 # Seed timetables
 cd ./test-db-manager
-yarn seed2
+yarn seed
 
 echo "All done! Happy coding! :)"
