@@ -60,18 +60,6 @@ const config = [
     plugins: commonPlugins,
   },
   {
-    input: 'src/seed2.ts',
-    external: commonExternals,
-    output: [
-      {
-        file: 'dist/seed2.js',
-        format: 'cjs', // commonJS
-        sourcemap: true,
-      },
-    ],
-    plugins: commonPlugins,
-  },
-  {
     input: './ts-dist/types/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'es' }],
     plugins: [dts()],
