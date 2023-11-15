@@ -17,17 +17,38 @@ First, make sure you have the following apps installed:
 - [ ] [Azure CLI](https://learn.microsoft.com/fi-fi/cli/azure/install-azure-cli)
   - On Mac, Homebrew command: `brew update && brew install azure-cli`
 
-Once those are installed, build the `test-db-manager` project:
+Once those are installed: initialize and update submodule (timetables-data-inserter):
+
+```sh
+git submodule update --init
+```
+
+Then we need to isntall dependencies with
+
+```bash
+yarn install
+```
+
+Then we can build the `test-db-manager` and `timetables-data-inserter`, but these build commands
+should also be included in the commands that require them to be built in `package.json`, e.g. `e2e:test`.
+But if for some reason still needed:
+
+build the `test-db-manager` project:
 
 ```sh
 cd /test-db-manager
 yarn build
 ```
 
-Then, install dependencies and start the development environment:
+and timetables data inserter:
+
+```
+yarn ws:tdi timetables-data-inserter:build
+```
+
+And we can start the development environment:
 
 ```bash
-yarn install
 yarn dev # Can be run as `yarn ws:ui dev`, for a nicer development experience
 ```
 
