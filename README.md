@@ -184,7 +184,7 @@ To update used dumps (`./test-db-manager/src/dumps/infraLinks/infraLinks.sql` du
 
 ### Fixing timetables seed data
 
-- After that you will need to fix some foreign key references to keep timetables seed functional. In `./test-db-manager/src/seed2.ts` there are journey pattern ids (UUID), that you will need to replace to keep references from timetables to routes and lines timetables functional. To do this, search for the routes mentioned in the `seed2.ts` comments from `dump.sql`. Make sure validity period and direction match to the one mentioned in the `seed2.ts` file. Then take the found route's id and search for the route's journey pattern in the same file. Take the journey pattern id and replace the old journey pattern id in the `seed2.ts` file with the new one. This step can also be done without using the dump file, e.g. using an SQL client or even the UI, as long as the db is seeded with the new dump.
+- After that you will need to fix some foreign key references to keep timetables seed functional. In `./test-db-manager/src/seed.ts` there are journey pattern ids (UUID), that you will need to replace to keep references from timetables to routes and lines timetables functional. To do this, search for the routes mentioned in the `seed.ts` comments from `dump.sql`. Make sure validity period and direction match to the one mentioned in the `seed.ts` file. Then take the found route's id and search for the route's journey pattern in the same file. Take the journey pattern id and replace the old journey pattern id in the `seed.ts` file with the new one. This step can also be done without using the dump file, e.g. using an SQL client or even the UI, as long as the db is seeded with the new dump.
 
 ## Docker reference
 

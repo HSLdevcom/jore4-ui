@@ -8,10 +8,6 @@ jobs:
     name: Check seed data generators
     runs-on: ubuntu-20.04
 
-    strategy:
-      matrix:
-        seed-script: ['seed', 'seed2']
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -42,4 +38,4 @@ jobs:
 
         # Verify that the seed data generators succeed without errors, no further testing for now
       - name: Insert seed data
-        run: yarn ws:db ${{ matrix.seed-script }}
+        run: yarn ws:db seed
