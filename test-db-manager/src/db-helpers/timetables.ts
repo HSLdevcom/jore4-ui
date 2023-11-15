@@ -78,10 +78,9 @@ export const mergeTimetablesResources = (
   );
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const responseLogger = (message: string, res: any) => {
+const handleErrors = (message: string, res: any) => {
   if (res.errors) {
-    // eslint-disable-next-line no-console
-    console.log(`${message}:`, JSON.stringify(res, null, 2));
+    throw new Error(`${message}: ${JSON.stringify(res.errors, null, 2)}`);
   }
 };
 
@@ -100,7 +99,7 @@ export const clearTimetablesDb = async ({
         timetabledPassingTimes.map((item) => item.timetabled_passing_time_id),
       ),
     );
-    responseLogger('Deleting vehicle journeys', res);
+    handleErrors('Deleting vehicle journeys', res);
   }
   if (vehicleJourneys) {
     const res = await hasuraApi(
@@ -108,7 +107,7 @@ export const clearTimetablesDb = async ({
         vehicleJourneys.map((item) => item.vehicle_journey_id),
       ),
     );
-    responseLogger('Deleting vehicle journeys', res);
+    handleErrors('Deleting vehicle journeys', res);
   }
   if (vehicleServiceBlocks) {
     const res = await hasuraApi(
@@ -116,7 +115,7 @@ export const clearTimetablesDb = async ({
         vehicleServiceBlocks.map((item) => item.block_id),
       ),
     );
-    responseLogger('Deleting vehicle service blocks', res);
+    handleErrors('Deleting vehicle service blocks', res);
   }
   if (vehicleServices) {
     const res = await hasuraApi(
@@ -124,7 +123,7 @@ export const clearTimetablesDb = async ({
         vehicleServices.map((item) => item.vehicle_service_id),
       ),
     );
-    responseLogger('Deleting vehicle services', res);
+    handleErrors('Deleting vehicle services', res);
   }
   if (vehicleScheduleFrames) {
     const res = await hasuraApi(
@@ -132,7 +131,7 @@ export const clearTimetablesDb = async ({
         vehicleScheduleFrames.map((item) => item.vehicle_schedule_frame_id),
       ),
     );
-    responseLogger('Deleting vehicle schedule frames', res);
+    handleErrors('Deleting vehicle schedule frames', res);
   }
   if (stopsInJourneyPatternRefs) {
     const res = await hasuraApi(
@@ -142,7 +141,7 @@ export const clearTimetablesDb = async ({
         ),
       ),
     );
-    responseLogger('Deleting stops in journey pattern refs', res);
+    handleErrors('Deleting stops in journey pattern refs', res);
   }
 
   if (journeyPatternRefs) {
@@ -151,7 +150,7 @@ export const clearTimetablesDb = async ({
         journeyPatternRefs.map((item) => item.journey_pattern_ref_id),
       ),
     );
-    responseLogger('Deleting journey pattern refs', res);
+    handleErrors('Deleting journey pattern refs', res);
   }
 };
 
@@ -168,38 +167,38 @@ export const populateTimetablesDb = async ({
     const res = await hasuraApi(
       mapToCreateTimetablesJourneyPatternRefsMutation(journeyPatternRefs),
     );
-    responseLogger('Inserting journey pattern refs', res);
+    handleErrors('Inserting journey pattern refs', res);
   }
   if (stopsInJourneyPatternRefs) {
     const res = await hasuraApi(
       mapToCreateStopInJourneyPatternRefMutation(stopsInJourneyPatternRefs),
     );
-    responseLogger('Inserting stops in journey pattern refs', res);
+    handleErrors('Inserting stops in journey pattern refs', res);
   }
   if (vehicleScheduleFrames) {
     const res = await hasuraApi(
       mapToCreateVehicleScheduleFramesMutation(vehicleScheduleFrames),
     );
-    responseLogger('Inserting vehicle schedule frames', res);
+    handleErrors('Inserting vehicle schedule frames', res);
   }
   if (vehicleServices) {
     const res = await hasuraApi(mapToCreateVehicleServices(vehicleServices));
-    responseLogger('Inserting vehicle services', res);
+    handleErrors('Inserting vehicle services', res);
   }
   if (vehicleServiceBlocks) {
     const res = await hasuraApi(
       mapToCreateVehicleServiceBlocks(vehicleServiceBlocks),
     );
-    responseLogger('Inserting vehicle service blocks', res);
+    handleErrors('Inserting vehicle service blocks', res);
   }
   if (vehicleJourneys) {
     const res = await hasuraApi(mapToCreateVehicleJourneys(vehicleJourneys));
-    responseLogger('Inserting vehicle journeys', res);
+    handleErrors('Inserting vehicle journeys', res);
   }
   if (timetabledPassingTimes) {
     const res = await hasuraApi(
       mapToCreateTimetabledPassingTimesMutation(timetabledPassingTimes),
     );
-    responseLogger('Inserting timetabled passing times', res);
+    handleErrors('Inserting timetabled passing times', res);
   }
 };
