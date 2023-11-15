@@ -62,14 +62,16 @@ const seedDb = async () => {
     vehicle_type_id: vehicleTypes[0].vehicle_type_id,
   };
 
+  const vehicleScheduleFrameBase = (label: string) => ({
+    label,
+    priority: Priority.Standard,
+    validity_start: DateTime.now().startOf('year'),
+    validity_end: DateTime.now().endOf('year'),
+  });
+
   // basic priority, long timeframe, Monday-Sunday, route 641 back and forth
   const vsf1 = buildVehicleScheduleFrameDeep({
-    vehicleScheduleFrameBase: {
-      label: '641 basic',
-      priority: Priority.Standard,
-      validity_start: DateTime.now().startOf('year'),
-      validity_end: DateTime.now().endOf('year'),
-    },
+    vehicleScheduleFrameBase: vehicleScheduleFrameBase('641 Monday-Friday'),
     vehicleServiceByDayType: {
       [MON_FRI_DAY_TYPE]: {
         ...defaultVehicleServiceByDayTypeParams,
@@ -78,6 +80,12 @@ const seedDb = async () => {
         hastusStopLabels,
         blockBase,
       },
+    },
+  });
+
+  const vsf2 = buildVehicleScheduleFrameDeep({
+    vehicleScheduleFrameBase: vehicleScheduleFrameBase('641 Saturday'),
+    vehicleServiceByDayType: {
       [SAT_DAY_TYPE]: {
         ...defaultVehicleServiceByDayTypeParams,
         startTime: Duration.fromISO('PT4H45M'),
@@ -86,6 +94,12 @@ const seedDb = async () => {
         hastusStopLabels,
         blockBase,
       },
+    },
+  });
+
+  const vsf3 = buildVehicleScheduleFrameDeep({
+    vehicleScheduleFrameBase: vehicleScheduleFrameBase('641 Sunday'),
+    vehicleServiceByDayType: {
       [SUN_DAY_TYPE]: {
         ...defaultVehicleServiceByDayTypeParams,
         startTime: Duration.fromISO('PT8H15M'), // first bus departs late
@@ -98,7 +112,7 @@ const seedDb = async () => {
   });
 
   // temporary priority, short timeframe, Saturday only, route 641 back and forth
-  const vsf2 = buildVehicleScheduleFrameDeep({
+  const vsf4 = buildVehicleScheduleFrameDeep({
     vehicleScheduleFrameBase: {
       label: '641 temporary',
       priority: Priority.Temporary,
@@ -121,6 +135,8 @@ const seedDb = async () => {
     flattenJourneyPatternRef(jpRef2),
     flattenVehicleScheduleFrame(vsf1),
     flattenVehicleScheduleFrame(vsf2),
+    flattenVehicleScheduleFrame(vsf3),
+    flattenVehicleScheduleFrame(vsf4),
   ]);
 
   await seedTimetables(timetablesResources);
