@@ -1,8 +1,14 @@
+import { ApolloError } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { TimetableImportStrategy } from '../../components/timetables/import/TimetableImportStrategyForm';
-import { Operation } from '../../redux';
+import { Operation, openSingleErrorModalAction } from '../../redux';
 import { TimetablePriority } from '../../types/enums';
 import { showSuccessToast } from '../../utils';
+import {
+  TimetablesApiErrorType,
+  extractErrorType,
+} from '../../utils/timetablesApiErrors';
 import { useLoader } from '../ui';
 import { useTimetablesImport } from './useTimetablesImport';
 
@@ -13,6 +19,46 @@ export const useConfirmTimetablesImportUIAction = () => {
     confirmTimetablesImportByReplacing,
   } = useTimetablesImport();
   const { setIsLoading } = useLoader(Operation.ConfirmTimetablesImport);
+  const dispatch = useDispatch();
+
+  const showConfirmFailedErrorDialog = (error: unknown) => {
+    if (!(error instanceof ApolloError)) {
+      throw error;
+    }
+
+    const translateError = (type: TimetablesApiErrorType) => {
+      // Note: there are others, but only adding translations to those that can realistically occur here.
+      switch (type) {
+        case TimetablesApiErrorType.ConflictingSchedulesError:
+          return t('timetablesSubmitFailure.errors.conflictingSchedules');
+        case TimetablesApiErrorType.MultipleTargetFramesFoundError:
+          return t('timetablesSubmitFailure.errors.multipleTargetFramesFound');
+        case TimetablesApiErrorType.SequentialIntegrityError:
+          return t('timetablesSubmitFailure.errors.sequentialIntegrityError');
+        case TimetablesApiErrorType.StagingVehicleScheduleFrameNotFoundError:
+          return t(
+            'timetablesSubmitFailure.errors.stagingVehicleScheduleFrameNotFound',
+          );
+        case TimetablesApiErrorType.TargetVehicleScheduleFrameNotFoundError:
+          return t(
+            'timetablesSubmitFailure.errors.targetVehicleScheduleFrameNotFound',
+          );
+        case TimetablesApiErrorType.TransactionSystemError:
+          return t('timetablesSubmitFailure.errors.transactionSystemError');
+        default:
+          return t(`timetablesSubmitFailure.errors.unknown`);
+      }
+    };
+
+    dispatch(
+      openSingleErrorModalAction({
+        errorModalTitle: t('timetablesSubmitFailure.modalTitle'),
+        errorDetails: {
+          details: translateError(extractErrorType(error)),
+        },
+      }),
+    );
+  };
 
   const onConfirmTimetablesImport = async (
     stagingVehicleScheduleFrameIds: UUID[],
@@ -40,5 +86,5 @@ export const useConfirmTimetablesImportUIAction = () => {
     }
   };
 
-  return { onConfirmTimetablesImport };
+  return { onConfirmTimetablesImport, showConfirmFailedErrorDialog };
 };

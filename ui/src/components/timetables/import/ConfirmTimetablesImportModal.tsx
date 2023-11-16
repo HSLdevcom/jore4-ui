@@ -21,7 +21,8 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
   className = '',
 }) => {
   const { t } = useTranslation();
-  const { onConfirmTimetablesImport } = useConfirmTimetablesImportUIAction();
+  const { onConfirmTimetablesImport, showConfirmFailedErrorDialog } =
+    useConfirmTimetablesImportUIAction();
   const {
     vehicleScheduleFrames,
     importingSomeSpecialDays,
@@ -32,13 +33,17 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
   const formReadyForRender = !!vehicleScheduleFrames?.length;
 
   const onSave = async (state: FormState) => {
-    await onConfirmTimetablesImport(
-      vehicleScheduleFrames.map((vsf) => vsf.vehicle_schedule_frame_id),
-      state.priority,
-      state.timetableImportStrategy,
-    );
+    try {
+      await onConfirmTimetablesImport(
+        vehicleScheduleFrames.map((vsf) => vsf.vehicle_schedule_frame_id),
+        state.priority,
+        state.timetableImportStrategy,
+      );
 
-    onClose();
+      onClose();
+    } catch (error) {
+      showConfirmFailedErrorDialog(error);
+    }
   };
 
   return (
