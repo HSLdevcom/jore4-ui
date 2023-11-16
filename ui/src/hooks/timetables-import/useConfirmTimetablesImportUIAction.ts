@@ -1,8 +1,13 @@
+import { ApolloError } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { TimetableImportStrategy } from '../../components/timetables/import/TimetableImportStrategyForm';
 import { Operation } from '../../redux';
 import { TimetablePriority } from '../../types/enums';
-import { showSuccessToast } from '../../utils';
+import { showDangerToastWithError, showSuccessToast } from '../../utils';
+import {
+  TimetablesApiErrorType,
+  extractErrorType,
+} from '../../utils/timetablesApiErrors';
 import { useLoader } from '../ui';
 import { useTimetablesImport } from './useTimetablesImport';
 
@@ -13,6 +18,34 @@ export const useConfirmTimetablesImportUIAction = () => {
     confirmTimetablesImportByReplacing,
   } = useTimetablesImport();
   const { setIsLoading } = useLoader(Operation.ConfirmTimetablesImport);
+
+  const showConfirmFailedErrorDialog = (error: unknown) => {
+    if (!(error instanceof ApolloError)) {
+      throw error;
+    }
+
+    const translateError = (type: TimetablesApiErrorType) => {
+      // Note: there are others, but only adding translations to those that can realistically occur here.
+      switch (type) {
+        case TimetablesApiErrorType.ConflictingSchedulesError:
+          return t('import.errors.conflictingSchedules');
+        case TimetablesApiErrorType.MultipleTargetFramesFoundError:
+          return t('import.errors.multipleTargetFramesFound');
+        case TimetablesApiErrorType.SequentialIntegrityError:
+          return t('import.errors.sequentialIntegrityError');
+        case TimetablesApiErrorType.StagingVehicleScheduleFrameNotFoundError:
+          return t('import.errors.stagingVehicleScheduleFrameNotFound');
+        case TimetablesApiErrorType.TargetVehicleScheduleFrameNotFoundError:
+          return t('import.errors.targetVehicleScheduleFrameNotFound');
+        case TimetablesApiErrorType.TransactionSystemError:
+          return t('import.errors.transactionSystemError');
+        default:
+          return t(`import.errors.unknown`);
+      }
+    };
+
+    showDangerToastWithError(translateError(extractErrorType(error)), error);
+  };
 
   const onConfirmTimetablesImport = async (
     stagingVehicleScheduleFrameIds: UUID[],
@@ -40,5 +73,5 @@ export const useConfirmTimetablesImportUIAction = () => {
     }
   };
 
-  return { onConfirmTimetablesImport };
+  return { onConfirmTimetablesImport, showConfirmFailedErrorDialog };
 };
