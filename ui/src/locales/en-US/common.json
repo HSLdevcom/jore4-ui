@@ -435,6 +435,15 @@
     "saveSuccess": "Timetable validity saved"
   },
   "import": {
+    "errors": {
+      "unknown": "Saving imported timetables failed: unknown error.",
+      "conflictingSchedules": "Saving imported timetables failed: overlapping vehicle schedule frames detected.",
+      "multipleTargetFramesFound": "Imported timetables could not be combined: many possible target timetables found.",
+      "sequentialIntegrityError": "Saving imported timetables failed: journeys or blocks overlap.",
+      "stagingVehicleScheduleFrameNotFound": "Saving imported timetables failed: timetable not found.",
+      "targetVehicleScheduleFrameNotFound": "Saving imported timetables failed: target timetable not found.",
+      "transactionSystemError": "Saving imported timetables failed: database constraints prevented saving."
+    },
     "importTimetables": "Import timetables",
     "importTimetablesFromHastus": "Import timetables from Hastus",
     "importSuccess": "Timetables imported successfully!",

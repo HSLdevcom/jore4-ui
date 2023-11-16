@@ -39,7 +39,8 @@ export const PreviewTimetablesPage = (): JSX.Element => {
     inconsistentSpecialDayPrioritiesStaged,
   } = useTimetablesImport();
   const [showStagingTimetables, toggleShowStagingTimetables] = useToggle(true);
-  const { onConfirmTimetablesImport } = useConfirmTimetablesImportUIAction();
+  const { onConfirmTimetablesImport, showConfirmFailedErrorDialog } =
+    useConfirmTimetablesImportUIAction();
   const { fetchToReplaceFrames } = useToReplaceVehicleScheduleFrames();
   const { fetchVehicleFrames } =
     useVehicleScheduleFrameWithRouteLabelAndLineId();
@@ -63,11 +64,16 @@ export const PreviewTimetablesPage = (): JSX.Element => {
   };
 
   const onSubmit = async (state: FormState) => {
-    await onConfirmTimetablesImport(
-      vehicleScheduleFrames.map((vsf) => vsf.vehicle_schedule_frame_id),
-      state.priority,
-      state.timetableImportStrategy,
-    );
+    try {
+      await onConfirmTimetablesImport(
+        vehicleScheduleFrames.map((vsf) => vsf.vehicle_schedule_frame_id),
+        state.priority,
+        state.timetableImportStrategy,
+      );
+    } catch (error) {
+      showConfirmFailedErrorDialog(error);
+      return;
+    }
 
     navigate({
       pathname: routeDetails[Path.timetablesImport].getLink(),

@@ -435,6 +435,15 @@
     "saveSuccess": "Aikataulun voimassaolo tallennettu"
   },
   "import": {
+    "errors": {
+      "unknown": "Tallentaminen epäonnistui tuntemattomasta syystä.",
+      "conflictingSchedules": "Tallentaminen epäonnistui: aikataulukehyksissä on päällekkäisyyksiä.",
+      "multipleTargetFramesFound": "Tuotavia aikatauluja ei voitu yhdistää: monta mahdollista kohdeaikataulua.",
+      "sequentialIntegrityError": "Tallentaminen epäonnistui: lähdöissä tai autokierroissa on päällekkäisyyksiä.",
+      "stagingVehicleScheduleFrameNotFound": "Tallentaminen epäonnistui: aikataulua ei löytynyt.",
+      "targetVehicleScheduleFrameNotFound": "Tuotavia aikatauluja ei voitu yhdistää: kohdeaikataulua ei löytynyt.",
+      "transactionSystemError": "Tallentaminen epäonnistui: tietokantarajoite esti tallennuksen."
+    },
     "importTimetables": "Tuo aikatauluja",
     "importTimetablesFromHastus": "Tuo aikatauluja Hastuksesta",
     "importSuccess": "Aikataulujen tuonti onnistui!",
