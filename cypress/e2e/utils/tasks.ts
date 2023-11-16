@@ -63,10 +63,9 @@ export const truncateTimetablesDatabase = () => {
 
 export const deleteFile = (filePath: string) => {
   if (fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath);
-    return true;
+    return fs.unlinkSync(filePath);
   }
-  return false;
+  return new Error(`File ${filePath} does not exist`);
 };
 
 export const insertHslTimetablesDatasetToDb = (
