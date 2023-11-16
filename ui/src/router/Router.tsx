@@ -50,7 +50,7 @@ export const ProtectedRoute: FunctionComponent = ({ children }) => {
     if (!userInfo) {
       fetchUser();
     }
-  }, [userInfo, isLoading, t]);
+  }, [userInfo, t]);
 
   if (isLoading) {
     return <Spinner className="m-16 flex justify-center" showSpinner />;
