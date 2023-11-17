@@ -3,16 +3,6 @@ export class RouteStopsRow {
     return cy.getByTestId(`RouteStopsRow::${stopLabel}`);
   }
 
-  getOpenTimingSettingsButton() {
-    return cy.getByTestId('RouteStopsRow::openTimingSettingsButton');
-  }
-
-  openStopTimingSettings(stopLabel: string) {
-    return this.getStopRow(stopLabel).within(() => {
-      this.getOpenTimingSettingsButton().click();
-    });
-  }
-
   getStopDropdown(stopLabel: string) {
     return this.getStopRow(stopLabel).findByTestId('StopActionsDropdown::menu');
   }
