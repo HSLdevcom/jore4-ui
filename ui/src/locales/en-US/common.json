@@ -294,7 +294,8 @@
     "resultCount": "{{ resultCount }} results",
     "searchPlaceholder": "Enter label",
     "searchLabel": "Search",
-    "search": "Search"
+    "search": "Search",
+    "searching": "Searching..."
   },
   "tableHeaders": {
     "name": "Name",
