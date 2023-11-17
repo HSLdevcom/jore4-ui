@@ -229,6 +229,12 @@ const buildCacheDefinition = () => {
               return incoming;
             },
           },
+          timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids:
+            {
+              merge(_, incoming = []) {
+                return incoming;
+              },
+            },
         },
       },
       timetables_passing_times_timetabled_passing_time: {
