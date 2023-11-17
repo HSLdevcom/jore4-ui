@@ -8,6 +8,7 @@ import { showSuccessToast } from '../../utils';
 import {
   TimetablesApiErrorType,
   extractErrorType,
+  extractRawSqlError,
 } from '../../utils/timetablesApiErrors';
 import { useLoader } from '../ui';
 import { useTimetablesImport } from './useTimetablesImport';
@@ -55,6 +56,7 @@ export const useConfirmTimetablesImportUIAction = () => {
         errorModalTitle: t('timetablesSubmitFailure.modalTitle'),
         errorDetails: {
           details: translateError(extractErrorType(error)),
+          additionalDetails: extractRawSqlError(error) || '',
         },
       }),
     );
