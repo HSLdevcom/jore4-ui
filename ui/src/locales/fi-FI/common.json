@@ -294,7 +294,8 @@
     "resultCount": "{{ resultCount }} hakutulosta",
     "searchPlaceholder": "Anna tunnus",
     "searchLabel": "Haku",
-    "search": "Hae"
+    "search": "Hae",
+    "searching": "Haku käynnissä..."
   },
   "tableHeaders": {
     "name": "Nimi",
