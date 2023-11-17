@@ -12,6 +12,7 @@ export enum Operation {
   ConfirmTimetablesImport = 'confirmTimetablesImport',
   UploadFilesToHastusImport = 'uploadFilesToHastusImport',
   AbortImport = 'abortImport',
+  DeleteTimetable = 'deleteTimetable',
 }
 
 export const mapOperations = [
@@ -31,7 +32,7 @@ export const importOperations = [
   Operation.AbortImport,
 ];
 
-export const joreOperations = [...importOperations];
+export const joreOperations = [...importOperations, Operation.DeleteTimetable];
 
 type IState = {
   [key in Operation]: boolean;
@@ -49,6 +50,7 @@ const initialState: IState = {
   [Operation.ConfirmTimetablesImport]: false,
   [Operation.UploadFilesToHastusImport]: false,
   [Operation.AbortImport]: false,
+  [Operation.DeleteTimetable]: false,
 };
 
 const slice = createSlice({

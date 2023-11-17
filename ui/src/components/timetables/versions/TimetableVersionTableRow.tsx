@@ -1,15 +1,20 @@
 import { useTranslation } from 'react-i18next';
+import { useAppDispatch } from '../../../hooks';
 import { TimetableVersionRowData } from '../../../hooks/useGetTimetableVersions';
 import {
   mapDayOfWeekToUiName,
   mapTimetablePriorityToUiName,
 } from '../../../i18n/uiNameMappings';
 import { parseI18nField } from '../../../i18n/utils';
+import { openDeleteTimetableModalAction } from '../../../redux';
 import { mapToShortDate } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
+import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
+import { SimpleDropdownMenuItem } from '../../routes-and-lines/line-details/SimpleDropdownMenuItem';
 
 const testIds = {
   timetableVersionTableRow: 'TimetableVersionTableRow::row',
+  deleteTimetableMenuItem: 'TimetableVersionTableRow::deleteTimetableMenuItem',
 };
 
 const getStatusClassName = ({
@@ -51,6 +56,13 @@ interface Props {
 
 export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  const onClick = () => {
+    if (data.vehicleScheduleFrame.id) {
+      dispatch(openDeleteTimetableModalAction(data.vehicleScheduleFrame.id));
+    }
+  };
   const statusClassName = ` ${getStatusClassName({
     priority: data.vehicleScheduleFrame.priority,
     inEffect: data.inEffect,
@@ -65,6 +77,7 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
         dayOfWeek: mapDayOfWeekToUiName(data.substituteDay.substituteDayOfWeek),
       })
     : t('timetables.noService');
+
   const dayTypeClassName = `${getDayTypeClassName(
     data.vehicleScheduleFrame.priority,
   )} bg-opacity-25`;
@@ -89,7 +102,16 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
       <td>{parseI18nField(data.vehicleScheduleFrame.nameI18n)}</td>
       <td>!Muokkaaja</td>
       <td>!Muokattu</td>
-      <td>...</td>
+      <td>
+        <SimpleDropdownMenu alignItems={AlignDirection.Right} testId="menu">
+          <SimpleDropdownMenuItem
+            disabled={!data.vehicleScheduleFrame.id}
+            onClick={onClick}
+            testId={testIds.deleteTimetableMenuItem}
+            text={t('timetables.versions.deleteTimetable')}
+          />
+        </SimpleDropdownMenu>
+      </td>
     </tr>
   );
 };
