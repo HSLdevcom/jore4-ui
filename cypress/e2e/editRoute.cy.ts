@@ -283,11 +283,15 @@ describe('Route editing', () => {
     toast.checkSuccessToastHasMessage('Reitti poistettu');
     editRoutePage.visit(routes[0].route_id);
     editRoutePage.routePropertiesForm.getForm().should('not.exist');
+
     cy.visit('/routes');
     routesAndLinesPage.searchContainer
       .getSearchInput()
       .type(`${routes[0].label}{enter}`);
-    cy.wait('@gqlSearchLinesAndRoutes');
+
+    // Wait for the loading to complete
+    cy.getByTestId('LoadingWrapper::loadingSearchResults').should('not.exist');
+
     searchResultsPage.getRoutesResultsButton().click();
     searchResultsPage
       .getSearchResultsContainer()
