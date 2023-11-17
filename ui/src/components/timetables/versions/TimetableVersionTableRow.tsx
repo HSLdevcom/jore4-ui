@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { TimetableVersionRowData } from '../../../hooks/useGetTimetableVersions';
+import { useDeleteVehicleScheduleFrame } from '../../../hooks/vehicle-schedule-frame/useDeleteVehicleScheduleFrame';
 import {
   mapDayOfWeekToUiName,
   mapTimetablePriorityToUiName,
@@ -7,9 +8,16 @@ import {
 import { parseI18nField } from '../../../i18n/utils';
 import { mapToShortDate } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
+import {
+  AlignDirection,
+  SimpleDropdownMenu,
+  Spinner,
+} from '../../../uiComponents';
+import { SimpleDropdownMenuItem } from '../../routes-and-lines/line-details/SimpleDropdownMenuItem';
 
 const testIds = {
   timetableVersionTableRow: 'TimetableVersionTableRow::row',
+  deleteTimetableMenuItem: 'TimetableVersionTableRow::deleteTimetableMenuItem',
 };
 
 const getStatusClassName = ({
@@ -47,10 +55,19 @@ const getDayTypeClassName = (priority: TimetablePriority) => {
 
 interface Props {
   data: TimetableVersionRowData;
+  fetchTimetableVersions: () => void;
+  handleDialogOpen: (callback: () => void) => void;
 }
 
-export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
+export const TimetableVersionTableRow = ({
+  data,
+  fetchTimetableVersions,
+  handleDialogOpen,
+}: Props): JSX.Element => {
   const { t } = useTranslation();
+  const { deleteVehicleScheduleFrameMutation, loading } =
+    useDeleteVehicleScheduleFrame({ onCompleted: fetchTimetableVersions });
+
   const statusClassName = ` ${getStatusClassName({
     priority: data.vehicleScheduleFrame.priority,
     inEffect: data.inEffect,
@@ -65,9 +82,23 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
         dayOfWeek: mapDayOfWeekToUiName(data.substituteDay.substituteDayOfWeek),
       })
     : t('timetables.noService');
+
   const dayTypeClassName = `${getDayTypeClassName(
     data.vehicleScheduleFrame.priority,
   )} bg-opacity-25`;
+
+  const deleteVehicleScheduleFrame = async () => {
+    if (data.vehicleScheduleFrame.id) {
+      await deleteVehicleScheduleFrameMutation({
+        vehicle_schedule_frame_id: data.vehicleScheduleFrame.id,
+      });
+    }
+  };
+
+  const handleDeleteTimetableClick = () => {
+    // Set callback to be called when user confirms the deletion
+    handleDialogOpen(() => deleteVehicleScheduleFrame);
+  };
 
   return (
     <tr
@@ -89,7 +120,20 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
       <td>{parseI18nField(data.vehicleScheduleFrame.nameI18n)}</td>
       <td>!Muokkaaja</td>
       <td>!Muokattu</td>
-      <td>...</td>
+      <td>
+        {loading ? (
+          <Spinner showSpinner />
+        ) : (
+          <SimpleDropdownMenu alignItems={AlignDirection.Right} testId="menu">
+            <SimpleDropdownMenuItem
+              disabled={!data.vehicleScheduleFrame.id}
+              onClick={handleDeleteTimetableClick}
+              testId={testIds.deleteTimetableMenuItem}
+              text={t('timetables.versions.deleteTimetable')}
+            />
+          </SimpleDropdownMenu>
+        )}
+      </td>
     </tr>
   );
 };

@@ -197,6 +197,12 @@
     "confirmText": "Kyllä",
     "cancelText": "Palaa"
   },
+  "confirmTimetableDeleteDialog": {
+    "title": "Poistetaan aikataulu",
+    "description": "Aikataulu poistuu eikä sitä voi palauttaa",
+    "confirmText": "Poista",
+    "cancelText": "Älä poista"
+  },
   "priority": {
     "label": "Prioriteetti",
     "standard": "Perusversio",
@@ -381,7 +387,10 @@
       "warningMessage": "Tallenna tai hylkää lomakkeen muutokset",
       "observationPeriodAdjusted": "Suodatusjaksoa muutettu"
     },
-    "chooseSubstituteDay": "Valitse..."
+    "chooseSubstituteDay": "Valitse...",
+    "versions": {
+      "deleteTimetable": "Poista aikataulu"
+    }
   },
   "timetablesImportPriorityForm": {
     "importAsSpecialDay": "Tuo erityispäivänä",

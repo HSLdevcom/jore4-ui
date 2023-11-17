@@ -3,13 +3,17 @@ import { TimetableVersionRowData } from '../../../hooks/useGetTimetableVersions'
 import { TimetableVersionTableRow } from './TimetableVersionTableRow';
 
 interface Props {
-  data: TimetableVersionRowData[];
   className: string;
+  data: TimetableVersionRowData[];
+  fetchTimetableVersions: () => void;
+  handleDialogOpen: (callback: () => void) => void;
 }
 
 export const TimetableVersionTable = ({
-  data,
   className = '',
+  data,
+  fetchTimetableVersions,
+  handleDialogOpen,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
@@ -63,7 +67,12 @@ export const TimetableVersionTable = ({
       <tbody>
         {data?.length ? (
           data.map((row) => (
-            <TimetableVersionTableRow key={getRowKey(row)} data={row} />
+            <TimetableVersionTableRow
+              data={row}
+              fetchTimetableVersions={fetchTimetableVersions}
+              handleDialogOpen={handleDialogOpen}
+              key={getRowKey(row)}
+            />
           ))
         ) : (
           <tr>

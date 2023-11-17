@@ -1,5 +1,6 @@
+import noop from 'lodash/noop';
 import orderBy from 'lodash/orderBy';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   TimetableVersionRowData,
@@ -11,7 +12,7 @@ import {
 } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
 import { TimetablePriority } from '../../../types/enums';
-import { CloseIconButton } from '../../../uiComponents';
+import { CloseIconButton, ConfirmationDialog } from '../../../uiComponents';
 import { TimeRangeControl } from '../../common';
 import { FormColumn, FormRow } from '../../forms/common';
 import { TimetableVersionTable } from './TimetableVersionTable';
@@ -24,6 +25,9 @@ export const TimetableVersionsPage = (): JSX.Element => {
   const { t } = useTranslation();
   const { label } = useRequiredParams<{ label: string }>();
   const { startDate, endDate } = useTimeRangeQueryParams();
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
+    useState(false);
+  const [onDelete, setOnDelete] = useState<() => void>(() => noop);
 
   // We first need to get the journey pattern ids for all line routes by line label
   const { journeyPatternIdsGroupedByRouteLabel, loading } =
@@ -33,7 +37,7 @@ export const TimetableVersionsPage = (): JSX.Element => {
       endDate,
     });
   // Then we can fetch the timetable versions using SQL functions
-  const { versions } = useGetTimetableVersions({
+  const { versions, fetchTimetableVersions } = useGetTimetableVersions({
     // We need to use memoized value which only changes when the loading status is changed. Otherwise we
     // end up in infinite loop
     journeyPatternIdsGroupedByRouteLabel: useMemo(
@@ -70,6 +74,16 @@ export const TimetableVersionsPage = (): JSX.Element => {
     );
   };
 
+  const onConfirm = () => {
+    onDelete();
+    setIsDeleteConfirmationOpen(false);
+  };
+
+  const handleDialogOpen = (callback: () => void) => {
+    setOnDelete(callback);
+    setIsDeleteConfirmationOpen(true);
+  };
+
   return (
     <Container>
       <FormRow mdColumns={2}>
@@ -90,15 +104,29 @@ export const TimetableVersionsPage = (): JSX.Element => {
         <TimeRangeControl className="mb-8" />
         <h3>{t('timetables.operatingCalendar')}</h3>
         <TimetableVersionTable
+          handleDialogOpen={handleDialogOpen}
+          fetchTimetableVersions={fetchTimetableVersions}
           className="mb-8 w-full"
           data={sortTimetables(timetablesExcludingDrafts)}
         />
         <h3>{t('timetables.drafts')}</h3>
         <TimetableVersionTable
+          fetchTimetableVersions={fetchTimetableVersions}
+          handleDialogOpen={handleDialogOpen}
           className="mb-8 w-full"
           data={onlyDraftTimetables}
         />
       </Container>
+      <ConfirmationDialog
+        isOpen={isDeleteConfirmationOpen}
+        onCancel={() => setIsDeleteConfirmationOpen(false)}
+        onConfirm={onConfirm}
+        widthClassName="max-w-md"
+        title={t('confirmTimetableDeleteDialog.title')}
+        description={t('confirmTimetableDeleteDialog.description')}
+        confirmText={t('confirmTimetableDeleteDialog.confirmText')}
+        cancelText={t('confirmTimetableDeleteDialog.cancelText')}
+      />
     </Container>
   );
 };
