@@ -29,6 +29,7 @@ const GQL_SEARCH_LINES_AND_ROUTES = gql`
 `;
 
 export const useSearchResults = (): {
+  loading: boolean;
   lines: LineTableRowFragment[];
   /** Routes reduced to only have 1 direction per label */
   reducedRoutes: RouteTableRowFragment[];
@@ -45,6 +46,7 @@ export const useSearchResults = (): {
   const result = useSearchLinesAndRoutesQuery(
     mapToVariables(searchQueryVariables),
   );
+  const { loading } = result;
 
   const lines = result.data?.route_line || [];
   const routes = result.data?.route_route || [];
@@ -84,6 +86,7 @@ export const useSearchResults = (): {
   const resultType = parsedSearchQueryParameters.filter.displayedType;
 
   return {
+    loading,
     lines,
     reducedRoutes,
     routes,

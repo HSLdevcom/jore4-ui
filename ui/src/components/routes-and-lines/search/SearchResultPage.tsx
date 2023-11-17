@@ -5,6 +5,7 @@ import { usePagination } from '../../../hooks/usePagination';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
 import { CloseIconButton, Pagination } from '../../../uiComponents';
+import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
 import { RouteLineTableRowVariant } from '../../common/RouteLineTableRow';
 import { ResultList } from '../../common/search/ResultList';
 import { ExportToolbar } from './ExportToolbar';
@@ -16,7 +17,7 @@ export const SearchResultPage = (): JSX.Element => {
   const { resultCount } = useSearchResults();
   const { t } = useTranslation();
   const { getPaginatedData } = usePagination();
-  const { lines, reducedRoutes } = useSearchResults();
+  const { lines, reducedRoutes, loading } = useSearchResults();
   const { basePath } = useBasePath();
   const itemsPerPage = 10;
 
@@ -26,6 +27,7 @@ export const SearchResultPage = (): JSX.Element => {
   const testIds = {
     container: 'SearchResultsPage::Container',
     closeButton: 'SearchResultsPage::closeButton',
+    loadingSearchResults: 'LoadingWrapper::loadingSearchResults',
   };
 
   const determineDisplayInformation = () => {
@@ -60,23 +62,30 @@ export const SearchResultPage = (): JSX.Element => {
         />
       </Row>
       <SearchContainer />
-      <FiltersContainer />
-      <ExportToolbar />
-      <ResultList
-        lines={displayedLines}
-        routes={displayedRoutes}
-        rowVariant={displayInformation.rowVariant}
-        displayedType={queryParameters.filter.displayedType}
-      />
-      <Visible visible={!!resultCount}>
-        <div className="grid grid-cols-4">
-          <Pagination
-            className="col-span-2 col-start-2 pt-4"
-            itemsPerPage={itemsPerPage}
-            totalItemsCount={resultCount}
-          />
-        </div>
-      </Visible>
+      <LoadingWrapper
+        className="flex justify-center"
+        loadingText={t('search.searching')}
+        loading={loading}
+        testId={testIds.loadingSearchResults}
+      >
+        <FiltersContainer />
+        <ExportToolbar />
+        <ResultList
+          lines={displayedLines}
+          routes={displayedRoutes}
+          rowVariant={displayInformation.rowVariant}
+          displayedType={queryParameters.filter.displayedType}
+        />
+        <Visible visible={!!resultCount}>
+          <div className="grid grid-cols-4">
+            <Pagination
+              className="col-span-2 col-start-2 pt-4"
+              itemsPerPage={itemsPerPage}
+              totalItemsCount={resultCount}
+            />
+          </div>
+        </Visible>
+      </LoadingWrapper>
     </Container>
   );
 };
