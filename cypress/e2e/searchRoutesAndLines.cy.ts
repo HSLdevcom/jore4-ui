@@ -84,7 +84,12 @@ describe(
       routesAndLinesPage.searchContainer
         .getSearchInput()
         .type(`${lines[0].label}{enter}`);
-      cy.wait('@gqlSearchLinesAndRoutes');
+
+      // Wait for the loading to complete
+      cy.getByTestId('LoadingWrapper::loadingSearchResults').should(
+        'not.exist',
+      );
+
       searchResultsPage
         .getSearchResultsContainer()
         .should('contain', 'hakutulosta');
@@ -101,7 +106,12 @@ describe(
 
     it('Searches line with asterisk', { tags: Tag.Lines }, () => {
       routesAndLinesPage.searchContainer.getSearchInput().type('1*{enter}');
-      cy.wait('@gqlSearchLinesAndRoutes');
+
+      // Wait for the loading to complete
+      cy.getByTestId('LoadingWrapper::loadingSearchResults').should(
+        'not.exist',
+      );
+
       searchResultsPage
         .getSearchResultsContainer()
         .should('contain', 'hakutulosta');
@@ -120,7 +130,12 @@ describe(
       routesAndLinesPage.searchContainer
         .getSearchInput()
         .type(`${routes[0].label}{enter}`);
-      cy.wait('@gqlSearchLinesAndRoutes');
+
+      // Wait for the loading to complete
+      cy.getByTestId('LoadingWrapper::loadingSearchResults').should(
+        'not.exist',
+      );
+
       searchResultsPage
         .getSearchResultsContainer()
         .should('contain', 'hakutulosta');
@@ -138,7 +153,11 @@ describe(
 
     it('Searches route with asterisk', { tags: Tag.Lines }, () => {
       routesAndLinesPage.searchContainer.getSearchInput().type('1*{enter}');
-      cy.wait('@gqlSearchLinesAndRoutes');
+      // Wait for the loading to complete
+      cy.getByTestId('LoadingWrapper::loadingSearchResults').should(
+        'not.exist',
+      );
+
       searchResultsPage
         .getSearchResultsContainer()
         .should('contain', 'hakutulosta');
