@@ -12,6 +12,7 @@ import {
   InputField,
   requiredString,
 } from '../../forms/common';
+import { AffectedRouteLabels } from './AffectedRouteLabels';
 
 export const schema = z.object({
   validityStart: requiredString.regex(/[0-9]{4}-[0-9]{2}-[0-9]{2}/),
@@ -82,15 +83,10 @@ export const ChangeTimetablesValidityForm = ({
           </FormRow>
         </FormColumn>
         <Visible visible={affectedRouteLabels.length > 1}>
-          <div className="my-6 flex flex-row items-center space-x-6">
-            <i className="icon-alert text-hsl-red" />
-            <div className="space-y-1 text-sm">
-              <p className="font-bold">
-                {t('changeTimetablesValidityModal.noticeChangesInRoutes')}
-              </p>
-              <p>{affectedRouteLabels.join(', ')}</p>
-            </div>
-          </div>
+          <AffectedRouteLabels
+            affectedRouteLabels={affectedRouteLabels}
+            text={t('changeTimetablesValidityModal.noticeChangesInRoutes')}
+          />
         </Visible>
         <Row className="mt-6 justify-end space-x-4">
           <SimpleButton onClick={onCancel} inverted>
