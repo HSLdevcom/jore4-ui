@@ -10,6 +10,7 @@ interface Props {
   cancelText: string;
   className?: string;
   widthClassName?: string;
+  children?: React.ReactNode;
 }
 
 const testIds = {
@@ -26,6 +27,7 @@ export const ConfirmationDialog = ({
   cancelText,
   className = '',
   widthClassName = '',
+  children,
 }: Props): JSX.Element => {
   return (
     <DialogWithButtons
@@ -43,6 +45,8 @@ export const ConfirmationDialog = ({
       onCancel={onCancel}
       className={className}
       widthClassName={widthClassName}
-    />
+    >
+      {children}
+    </DialogWithButtons>
   );
 };

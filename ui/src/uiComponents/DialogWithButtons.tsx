@@ -34,6 +34,7 @@ export const DialogWithButtons: React.FC<Props> = ({
   onCancel,
   className = '',
   widthClassName = '',
+  children,
 }) => {
   return (
     <Dialog
@@ -62,6 +63,7 @@ export const DialogWithButtons: React.FC<Props> = ({
           >
             {description}
           </Dialog.Description>
+          {children}
           <div className="flex justify-end space-x-5">
             {buttons.map((button) => (
               <SimpleButton
