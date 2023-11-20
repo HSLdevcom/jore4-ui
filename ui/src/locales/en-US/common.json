@@ -442,14 +442,16 @@
     "specialDayMixedPrioritiesWarning1": "Imported timetables contain special days and other timetables.",
     "specialDayMixedPrioritiesWarning2": "Importing not possible. Cancel the import and import one day priority timetables separately.",
     "dragAndDrop": "Drag and drop Hastus files or",
+    "retry": "Retry",
     "cancel": "Cancel",
     "cancelledSuccessfully": "Timetables import cancelled.",
     "openPreview": "Open preview",
     "uploadFiles": "Upload files",
     "browse": "Browse",
     "filesToUpload": "Files to upload",
-    "fileUploadSuccess": "Uploading file {{ filename }} succeeded!",
-    "fileUploadFailed": "Uploading file {{ filename }} failed!",
+    "fileUploadSuccess": "Uploading file {{ filename }} succeeded.",
+    "fileUploadFailed": "Uploading file {{ filename }} failed",
+    "multipleErrors": "Multiple errors occured.",
     "incorrectFileFormat": "One or more of the files were not added. Only .exp and .csv files are accepted."
   },
   "export": {

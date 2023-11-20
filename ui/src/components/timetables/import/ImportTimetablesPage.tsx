@@ -9,7 +9,9 @@ import {
   ConfirmationDialog,
   SimpleButton,
 } from '../../../uiComponents';
-import { showDangerToastWithError, showSuccessToast } from '../../../utils';
+import { ErrorDialog } from '../../../uiComponents/ErrorDialog';
+import { ErrorDialogItem } from '../../../uiComponents/ErrorDialogItem';
+import { showSuccessToast } from '../../../utils';
 import { FormRow } from '../../forms/common';
 import { ConfirmTimetablesImportModal } from './ConfirmTimetablesImportModal';
 import { FileImportDragAndDrop } from './FileImportDragAndDrop';
@@ -20,6 +22,14 @@ const testIds = {
   saveButton: 'ImportTimetablesPage::saveButton',
   previewButton: 'ImportTimetablesPage::previewButton',
   closeButton: 'ImportTimetablesPage::closeButton',
+};
+
+export type ImportError = {
+  name: string;
+  fileName: string;
+  httpStatus?: number;
+  httpText?: string;
+  reason: string;
 };
 
 export const ImportTimetablesPage = (): JSX.Element => {
@@ -36,6 +46,7 @@ export const ImportTimetablesPage = (): JSX.Element => {
   const [isCancelingImport, setIsCancelingImport] = useState(false);
   const [isSavingImport, setIsSavingImport] = useState(false);
   const [isSendingToHastus, setIsSendingToHastus] = useState(false);
+  const [errorList, setImportErrors] = useState<ImportError[] | []>([]);
 
   const handleClose = () => {
     navigate(Path.timetables);
@@ -53,8 +64,15 @@ export const ImportTimetablesPage = (): JSX.Element => {
 
       setIsCancelingImport(false);
       showSuccessToast(t('import.cancelledSuccessfully'));
-    } catch (err) {
-      showDangerToastWithError(t('errors.saveFailed'), err);
+    } catch (error) {
+      setImportErrors([
+        {
+          name: t('import.fileUploadFailed'),
+          fileName: vehicleScheduleFrames[0].name_i18n,
+          httpText: error.message,
+          reason: t('errors.saveFailed'),
+        },
+      ]);
     }
   };
 
@@ -66,9 +84,31 @@ export const ImportTimetablesPage = (): JSX.Element => {
     if (fileList?.length) {
       setIsSendingToHastus(true);
       const result = await sendToHastusImporter(fileList);
-      setFileList(result.failedFiles);
       setIsSendingToHastus(false);
+      // Should the following section be extracted into it's 
+      // own function, for cleaner code? Imo it's at the 
+      const errors: ImportError[] = [];
+      setFileList(
+        result.failedFiles.map((failures) => {
+          const filename = failures[0].name;
+          errors.push({
+            name: t('import.fileUploadFailed', { filename }),
+            fileName: filename,
+            httpStatus: failures[1].response.status,
+            httpText: failures[1].message,
+            reason: failures[1].response.data.reason,
+          });
+          return failures[0];
+        }),
+      );
+      if (errors.length > 0) {
+        setImportErrors(errors);
+      }
     }
+  };
+
+  const hasErrors = () => {
+    return errorList.length > 0;
   };
 
   const importedTimetablesExist = vehicleJourneys.length > 0;
@@ -130,6 +170,32 @@ export const ImportTimetablesPage = (): JSX.Element => {
         isOpen={isSavingImport}
         onClose={() => setIsSavingImport(false)}
       />
+      {hasErrors() && (
+        <ErrorDialog
+          isOpen={hasErrors()}
+          retryable={false}
+          onRetry={() => {
+            return undefined;
+          }}
+          onCancel={() => setImportErrors([])}
+          title={t('import.fileUploadFailed', {
+            filename: (fileList ?? [])[0].name ?? '',
+          })}
+          widthClassName="max-w-2xl"
+        >
+          {errorList.map((error) => {
+            return (
+              <ErrorDialogItem
+                customTitle={errorList.length === 1 ? '' : error.name}
+                description={error.reason}
+                httpCode={error.httpStatus}
+                httpText={error.httpText}
+                key={error.name}
+              />
+            );
+          })}
+        </ErrorDialog>
+      )}
     </Container>
   );
 };
