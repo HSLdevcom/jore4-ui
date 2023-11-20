@@ -56,7 +56,7 @@ const getDayTypeClassName = (priority: TimetablePriority) => {
 interface Props {
   data: TimetableVersionRowData;
   fetchTimetableVersions: () => void;
-  handleDialogOpen: (callback: () => void) => void;
+  handleDialogOpen: (callback: () => void, id: string | undefined) => void;
 }
 
 export const TimetableVersionTableRow = ({
@@ -97,7 +97,10 @@ export const TimetableVersionTableRow = ({
 
   const handleDeleteTimetableClick = () => {
     // Set callback to be called when user confirms the deletion
-    handleDialogOpen(() => deleteVehicleScheduleFrame);
+    handleDialogOpen(
+      () => deleteVehicleScheduleFrame,
+      data.vehicleScheduleFrame.id,
+    );
   };
 
   return (

@@ -201,7 +201,8 @@
     "title": "Remove schedule",
     "description": "The schedule is deleted and cannot be restored",
     "confirmText": "Delete",
-    "cancelText": "Do not delete"
+    "cancelText": "Do not delete",
+    "affectedRoutes": "The schedules are also removed from the following routes"
   },
   "priority": {
     "label": "Priority",

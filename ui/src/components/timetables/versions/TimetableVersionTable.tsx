@@ -6,7 +6,7 @@ interface Props {
   className: string;
   data: TimetableVersionRowData[];
   fetchTimetableVersions: () => void;
-  handleDialogOpen: (callback: () => void) => void;
+  handleDialogOpen: (callback: () => void, id: string | undefined) => void;
 }
 
 export const TimetableVersionTable = ({

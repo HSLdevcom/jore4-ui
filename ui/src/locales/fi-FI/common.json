@@ -201,7 +201,8 @@
     "title": "Poistetaan aikataulu",
     "description": "Aikataulu poistuu eikä sitä voi palauttaa",
     "confirmText": "Poista",
-    "cancelText": "Älä poista"
+    "cancelText": "Älä poista",
+    "affectedRoutes": "Aikataulut poistuvat myös seuraavilta reiteiltä"
   },
   "priority": {
     "label": "Prioriteetti",

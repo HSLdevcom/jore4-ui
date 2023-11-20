@@ -9,12 +9,14 @@ import {
   useRequiredParams,
   useTimeRangeQueryParams,
   useTimetableVersionsReturnToQueryParam,
+  useVehicleScheduleFrameValidity,
 } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
 import { TimetablePriority } from '../../../types/enums';
 import { CloseIconButton, ConfirmationDialog } from '../../../uiComponents';
 import { TimeRangeControl } from '../../common';
 import { FormColumn, FormRow } from '../../forms/common';
+import { AffectedRouteLabels } from '../common/AffectedRouteLabels';
 import { TimetableVersionTable } from './TimetableVersionTable';
 
 const testIds = {
@@ -28,6 +30,7 @@ export const TimetableVersionsPage = (): JSX.Element => {
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
     useState(false);
   const [onDelete, setOnDelete] = useState<() => void>(() => noop);
+  const [id, setId] = useState<string | undefined>(undefined);
 
   // We first need to get the journey pattern ids for all line routes by line label
   const { journeyPatternIdsGroupedByRouteLabel, loading } =
@@ -48,6 +51,8 @@ export const TimetableVersionsPage = (): JSX.Element => {
     startDate,
     endDate,
   });
+
+  const { affectedRouteLabels } = useVehicleScheduleFrameValidity(id);
 
   const timetablesExcludingDrafts =
     versions?.filter(
@@ -79,7 +84,11 @@ export const TimetableVersionsPage = (): JSX.Element => {
     setIsDeleteConfirmationOpen(false);
   };
 
-  const handleDialogOpen = (callback: () => void) => {
+  const handleDialogOpen = (
+    callback: () => void,
+    vsfId: string | undefined,
+  ) => {
+    setId(vsfId);
     setOnDelete(callback);
     setIsDeleteConfirmationOpen(true);
   };
@@ -126,7 +135,12 @@ export const TimetableVersionsPage = (): JSX.Element => {
         description={t('confirmTimetableDeleteDialog.description')}
         confirmText={t('confirmTimetableDeleteDialog.confirmText')}
         cancelText={t('confirmTimetableDeleteDialog.cancelText')}
-      />
+      >
+        <AffectedRouteLabels
+          affectedRouteLabels={affectedRouteLabels}
+          text={t('confirmTimetableDeleteDialog.affectedRoutes')}
+        />
+      </ConfirmationDialog>
     </Container>
   );
 };
