@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { AxiosError } from 'axios';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { sendFileToHastusImporter } from '../../api/hastus';
@@ -9,11 +10,7 @@ import {
   useReplaceTimetablesMutation,
 } from '../../generated/graphql';
 import { TimetablePriority } from '../../types/enums';
-import {
-  mapToVariables,
-  showDangerToastWithError,
-  showSuccessToast,
-} from '../../utils';
+import { mapToVariables, showSuccessToast } from '../../utils';
 
 const GQL_VEHICLE_JOURNEY_WITH_ROUTE_INFO_FRAGMENT = gql`
   fragment vehicle_journey_with_route_info on timetables_vehicle_journey_vehicle_journey {
@@ -158,6 +155,11 @@ const GQL_DELETE_STAGING_TIMETABLES = gql`
   }
 `;
 
+export type HastusImportFailure = {
+  file: File;
+  error: AxiosError<{ reason: string }>;
+};
+
 export const useTimetablesImport = () => {
   const { t } = useTranslation();
   const [combineTimetables] = useCombineTimetablesMutation();
@@ -223,13 +225,13 @@ export const useTimetablesImport = () => {
    * Returns an object which has corresponding 'successfulFiles' and 'failedFiles'
    */
   const sendToHastusImporter = async (fileList: File[]) => {
-    const failedFiles: File[] = [];
+    const failedFiles: HastusImportFailure[] = [];
     const successfulFiles: File[] = [];
     // TODO: Currently sending multiple files at once fails. Only one will go through.
     // This might need changes to API as well, if we want to implement this.
     // Currently (27.3.2023), this is sufficient implementation for MVP
     await Promise.all(
-      fileList.map(async (file) => {
+      fileList.map(async (file: File) => {
         await sendFileToHastusImporter(file)
           .then(() => {
             successfulFiles.push(file);
@@ -238,11 +240,7 @@ export const useTimetablesImport = () => {
             );
           })
           .catch((error) => {
-            failedFiles.push(file);
-            showDangerToastWithError(
-              t('import.fileUploadFailed', { filename: file.name }),
-              error,
-            );
+            failedFiles.push({ file, error });
           });
       }),
     );

@@ -195,7 +195,7 @@
     "title": "Tehdyt muutokset poistetaan",
     "description": "Lomakkeessa on tallentamattomia muutoksia. Haluatko varmasti tyhjentää lomakkeen?",
     "confirmText": "Kyllä",
-    "cancelText": "Palaa"
+    "cancelText": " Palaa"
   },
   "priority": {
     "label": "Prioriteetti",
@@ -448,8 +448,9 @@
     "uploadFiles": "Lataa tiedostot",
     "browse": "Selaa",
     "filesToUpload": "Ladattavat tiedostot",
-    "fileUploadSuccess": "Tiedoston {{ filename }} lataus onnistui!",
-    "fileUploadFailed": "Tiedoston {{ filename }} lataus epäonnistui!",
+    "fileUploadSuccess": "Tiedoston {{ filename }} lataus onnistui",
+    "fileUploadFailed": "Tiedoston {{ filename }} lataus epäonnistui",
+    "multipleErrors": "Useita virheitä ilmaantui.",
     "incorrectFileFormat": "Yhtä tai useampaa tiedostoa ei lisätty. Vain .exp ja .csv -formaatti on sallittu"
   },
   "export": {

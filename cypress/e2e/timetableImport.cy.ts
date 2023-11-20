@@ -1,21 +1,21 @@
 import {
   GetInfrastructureLinksByExternalIdsResult,
+  InfraLinkAlongRouteInsertInput,
+  JourneyPatternInsertInput,
+  LineInsertInput,
+  RouteDirectionEnum,
+  RouteInsertInput,
+  RouteTypeOfLineEnum,
+  StopInJourneyPatternInsertInput,
+  StopInsertInput,
+  TimetablePriority,
   buildLine,
   buildRoute,
   buildStop,
   buildStopInJourneyPattern,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
-  InfraLinkAlongRouteInsertInput,
-  JourneyPatternInsertInput,
-  LineInsertInput,
   mapToGetInfrastructureLinksByExternalIdsQuery,
-  RouteDirectionEnum,
-  RouteInsertInput,
-  StopInJourneyPatternInsertInput,
-  RouteTypeOfLineEnum,
-  StopInsertInput,
-  TimetablePriority,
 } from '@hsl/jore4-test-db-manager';
 import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
 import { DateTime, Duration } from 'luxon';
@@ -25,18 +25,18 @@ import {
   Navbar,
   PassingTimesByStopSection,
   PreviewTimetablesPage,
-  RoutesAndLinesPage,
   RouteTimetablesSection,
-  TimetablesMainpage,
+  RoutesAndLinesPage,
   TimetableVersionsPage,
-  VehicleServiceTable,
+  TimetablesMainpage,
   VehicleScheduleDetailsPage,
+  VehicleServiceTable,
 } from '../pageObjects';
 import { UUID } from '../types';
 import {
+  SupportedResources,
   insertToDbHelper,
   removeFromDbHelper,
-  SupportedResources,
 } from '../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
@@ -433,7 +433,7 @@ describe('Timetable import', () => {
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.toast.checkSuccessToastHasMessage(
-        `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+        `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
       );
       // Files uploaded -> nothing left to upload.
       importTimetablesPage.getUploadButton().should('be.disabled');
@@ -520,10 +520,10 @@ describe('Timetable import', () => {
           .its('response.statusCode')
           .should('equal', 200);
         importTimetablesPage.toast.checkSuccessToastHasMessage(
-          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
         importTimetablesPage.toast.checkSuccessToastHasMessage(
-          `Tiedoston ${IMPORT_FILENAME_2} lataus onnistui!`,
+          `Tiedoston ${IMPORT_FILENAME_2} lataus onnistui`,
         );
         importTimetablesPage.clickPreviewButton();
 
@@ -594,7 +594,7 @@ describe('Timetable import', () => {
           .its('response.statusCode')
           .should('equal', 200);
         importTimetablesPage.toast.checkSuccessToastHasMessage(
-          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
         importTimetablesPage.clickPreviewButton();
 
@@ -687,7 +687,7 @@ describe('Timetable import', () => {
           .its('response.statusCode')
           .should('equal', 200);
         importTimetablesPage.toast.checkSuccessToastHasMessage(
-          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
         importTimetablesPage.clickPreviewButton();
 
@@ -785,7 +785,7 @@ describe('Timetable import', () => {
           .its('response.statusCode')
           .should('equal', 200);
         importTimetablesPage.toast.checkSuccessToastHasMessage(
-          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
 
         // Check that UI component states are correct in the confirmation modal
@@ -951,7 +951,7 @@ describe('Timetable import', () => {
           .its('response.statusCode')
           .should('equal', 200);
         importTimetablesPage.toast.checkSuccessToastHasMessage(
-          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
         importTimetablesPage.getCancelButton().click();
         importTimetablesPage.confirmationDialog.getConfirmButton().click();

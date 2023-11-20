@@ -448,8 +448,9 @@
     "uploadFiles": "Upload files",
     "browse": "Browse",
     "filesToUpload": "Files to upload",
-    "fileUploadSuccess": "Uploading file {{ filename }} succeeded!",
-    "fileUploadFailed": "Uploading file {{ filename }} failed!",
+    "fileUploadSuccess": "Uploading file {{ filename }} succeeded",
+    "fileUploadFailed": "Uploading file {{ filename }} failed",
+    "multipleErrors": "Multiple errors occurred.",
     "incorrectFileFormat": "One or more of the files were not added. Only .exp and .csv files are accepted."
   },
   "export": {

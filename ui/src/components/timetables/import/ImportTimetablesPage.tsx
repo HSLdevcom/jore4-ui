@@ -9,6 +9,8 @@ import {
   ConfirmationDialog,
   SimpleButton,
 } from '../../../uiComponents';
+import { ErrorDialog } from '../../../uiComponents/ErrorDialog';
+import { ErrorDialogItem } from '../../../uiComponents/ErrorDialogItem';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
 import { FormRow } from '../../forms/common';
 import { ConfirmTimetablesImportModal } from './ConfirmTimetablesImportModal';
@@ -20,6 +22,14 @@ const testIds = {
   saveButton: 'ImportTimetablesPage::saveButton',
   previewButton: 'ImportTimetablesPage::previewButton',
   closeButton: 'ImportTimetablesPage::closeButton',
+};
+
+export type ImportError = {
+  name: string;
+  fileName: string;
+  httpStatus?: number;
+  httpText?: string;
+  reason: string;
 };
 
 export const ImportTimetablesPage = (): JSX.Element => {
@@ -36,6 +46,7 @@ export const ImportTimetablesPage = (): JSX.Element => {
   const [isCancelingImport, setIsCancelingImport] = useState(false);
   const [isSavingImport, setIsSavingImport] = useState(false);
   const [isSendingToHastus, setIsSendingToHastus] = useState(false);
+  const [errorList, setImportErrors] = useState<ImportError[]>([]);
 
   const handleClose = () => {
     navigate(Path.timetables);
@@ -66,10 +77,31 @@ export const ImportTimetablesPage = (): JSX.Element => {
     if (fileList?.length) {
       setIsSendingToHastus(true);
       const result = await sendToHastusImporter(fileList);
-      setFileList(result.failedFiles);
       setIsSendingToHastus(false);
+
+      const failedFiles = result.failedFiles.map((failure) => failure.file);
+      setFileList(failedFiles);
+
+      if (result.failedFiles.length) {
+        const importErrors: ImportError[] = result.failedFiles.map(
+          (failure) => {
+            const filename = failure.file.name;
+
+            return {
+              name: t('import.fileUploadFailed', { filename }),
+              fileName: filename,
+              httpStatus: failure.error.response?.status,
+              httpText: failure.error.message,
+              reason: failure.error.response?.data?.reason || '',
+            };
+          },
+        );
+        setImportErrors(importErrors);
+      }
     }
   };
+
+  const hasErrors = errorList.length > 0;
 
   const importedTimetablesExist = vehicleJourneys.length > 0;
   return (
@@ -130,6 +162,28 @@ export const ImportTimetablesPage = (): JSX.Element => {
         isOpen={isSavingImport}
         onClose={() => setIsSavingImport(false)}
       />
+      <ErrorDialog
+        isOpen={hasErrors}
+        onCancel={() => setImportErrors([])}
+        title={
+          errorList.length > 1
+            ? t('import.multipleErrors')
+            : t('import.fileUploadFailed', {
+                filename: fileList?.length ? fileList[0].name : '',
+              })
+        }
+        widthClassName="max-w-2xl"
+      >
+        {errorList.map((error) => (
+          <ErrorDialogItem
+            customTitle={errorList.length === 1 ? '' : error.name}
+            description={error.reason}
+            httpCode={error.httpStatus}
+            httpText={error.httpText}
+            key={error.name}
+          />
+        ))}
+      </ErrorDialog>
     </Container>
   );
 };
