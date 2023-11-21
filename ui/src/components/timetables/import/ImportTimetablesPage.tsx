@@ -85,8 +85,6 @@ export const ImportTimetablesPage = (): JSX.Element => {
       setIsSendingToHastus(true);
       const result = await sendToHastusImporter(fileList);
       setIsSendingToHastus(false);
-      // Should the following section be extracted into it's 
-      // own function, for cleaner code? Imo it's at the 
       const errors: ImportError[] = [];
       setFileList(
         result.failedFiles.map((failures) => {
