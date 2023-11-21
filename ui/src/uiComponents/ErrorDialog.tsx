@@ -64,7 +64,7 @@ export const ErrorDialog: React.FC<Props> = ({
               testId={testIds.closeButton}
               onClick={onCancel}
             >
-              {t('import.close')}
+              {t('close')}
             </SimpleButton>
             {retryable && (
               <SimpleButton
@@ -73,7 +73,7 @@ export const ErrorDialog: React.FC<Props> = ({
                 inverted={false}
                 onClick={onRetry}
               >
-                {t('import.retry')}
+                {t('errorDialog.retry')}
               </SimpleButton>
             )}
           </div>
