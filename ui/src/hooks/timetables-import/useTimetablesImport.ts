@@ -157,7 +157,7 @@ const GQL_DELETE_STAGING_TIMETABLES = gql`
 
 export type HastusImportFailure = {
   file: File;
-  error: AxiosError;
+  error: AxiosError<{ reason: string }>;
 };
 
 export const useTimetablesImport = () => {
