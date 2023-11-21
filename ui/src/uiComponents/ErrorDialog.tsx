@@ -25,7 +25,6 @@ export const ErrorDialog: React.FC<Props> = ({
   widthClassName = '',
   children,
 }) => {
-  // let description = failedFiles[0].error?.response.data.reason;
   const { t } = useTranslation();
 
   return (
