@@ -53,9 +53,7 @@ export const ErrorDialog: React.FC<Props> = ({
           />
           <Dialog.Title className="flex items-center" as="h4">
             <i className="icon-alert-filled -ml-1 mr-1 text-2xl text-hsl-red" />
-            {React.Children.count(children) > 1
-              ? t('import.multipleErrors')
-              : title}
+            {title}
           </Dialog.Title>
           <section className="max-h-96 overflow-scroll">{children}</section>
           <div className="mt-2 flex justify-end space-x-3">

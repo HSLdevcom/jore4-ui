@@ -178,9 +178,13 @@ export const ImportTimetablesPage = (): JSX.Element => {
             return undefined;
           }}
           onCancel={() => setImportErrors([])}
-          title={t('import.fileUploadFailed', {
-            filename: (fileList ?? [])[0].name ?? '',
-          })}
+          title={
+            errorList.length > 1
+              ? t('import.multipleErrors')
+              : t('import.fileUploadFailed', {
+                  filename: (fileList ?? [])[0].name ?? '',
+                })
+          }
           widthClassName="max-w-2xl"
         >
           {errorList.map((error) => {
