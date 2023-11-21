@@ -87,16 +87,16 @@ export const ImportTimetablesPage = (): JSX.Element => {
       setIsSendingToHastus(false);
       const errors: ImportError[] = [];
       setFileList(
-        result.failedFiles.map((failures) => {
-          const filename = failures[0].name;
+        result.failedFiles.map((failure) => {
+          const filename = failure.file.name;
           errors.push({
             name: t('import.fileUploadFailed', { filename }),
             fileName: filename,
-            httpStatus: failures[1].response.status,
-            httpText: failures[1].message,
-            reason: failures[1].response.data.reason,
+            httpStatus: failure.error.response.status,
+            httpText: failure.error.message,
+            reason: failure.error.response.data.reason,
           });
-          return failures[0];
+          return failure.file;
         }),
       );
       if (errors.length > 0) {

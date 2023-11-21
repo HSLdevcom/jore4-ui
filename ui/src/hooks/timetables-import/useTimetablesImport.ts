@@ -155,7 +155,10 @@ const GQL_DELETE_STAGING_TIMETABLES = gql`
   }
 `;
 
-export type FailedFile = [File, AxiosError];
+export type HastusImportFailure = {
+  file: File;
+  error: AxiosError;
+};
 
 export const useTimetablesImport = () => {
   const { t } = useTranslation();
@@ -222,7 +225,7 @@ export const useTimetablesImport = () => {
    * Returns an object which has corresponding 'successfulFiles' and 'failedFiles'
    */
   const sendToHastusImporter = async (fileList: File[]) => {
-    const failedFiles: FailedFile[] = [];
+    const failedFiles: HastusImportFailure[] = [];
     const successfulFiles: File[] = [];
     // TODO: Currently sending multiple files at once fails. Only one will go through.
     // This might need changes to API as well, if we want to implement this.
@@ -237,7 +240,7 @@ export const useTimetablesImport = () => {
             );
           })
           .catch((error) => {
-            failedFiles.push([file, error]);
+            failedFiles.push({ file, error });
           });
       }),
     );
