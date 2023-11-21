@@ -11,7 +11,7 @@ import {
 } from '../../../uiComponents';
 import { ErrorDialog } from '../../../uiComponents/ErrorDialog';
 import { ErrorDialogItem } from '../../../uiComponents/ErrorDialogItem';
-import { showSuccessToast } from '../../../utils';
+import { showDangerToastWithError, showSuccessToast } from '../../../utils';
 import { FormRow } from '../../forms/common';
 import { ConfirmTimetablesImportModal } from './ConfirmTimetablesImportModal';
 import { FileImportDragAndDrop } from './FileImportDragAndDrop';
@@ -64,15 +64,8 @@ export const ImportTimetablesPage = (): JSX.Element => {
 
       setIsCancelingImport(false);
       showSuccessToast(t('import.cancelledSuccessfully'));
-    } catch (error) {
-      setImportErrors([
-        {
-          name: t('import.fileUploadFailed'),
-          fileName: vehicleScheduleFrames[0].name_i18n,
-          httpText: error.message,
-          reason: t('errors.saveFailed'),
-        },
-      ]);
+    } catch (err) {
+      showDangerToastWithError(t('errors.saveFailed'), err);
     }
   };
 
