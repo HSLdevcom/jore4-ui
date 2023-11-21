@@ -38,7 +38,7 @@ export const ErrorDialog: React.FC<Props> = ({
       as="div"
       open={isOpen}
       onClose={onCancel}
-      className={`fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50 ${className}`}
+      className={`fixed inset-0 z-10 bg-black bg-opacity-50 ${className}`}
     >
       <div className="flex h-full items-center justify-center">
         <div
@@ -55,7 +55,7 @@ export const ErrorDialog: React.FC<Props> = ({
             <i className="icon-alert-filled -ml-1 mr-1 text-2xl text-hsl-red" />
             {title}
           </Dialog.Title>
-          <section className="max-h-96 overflow-scroll">{children}</section>
+          <section className="max-h-96 overflow-y-auto">{children}</section>
           <div className="mt-2 flex justify-end space-x-3">
             <SimpleButton
               key="cancelButton"
