@@ -197,9 +197,6 @@
     "confirmText": "Kyllä",
     "cancelText": " Palaa"
   },
-  "errorDialog": {
-    "retry": "Yritä uudelleen"
-  },
   "priority": {
     "label": "Prioriteetti",
     "standard": "Perusversio",

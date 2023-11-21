@@ -167,10 +167,6 @@ export const ImportTimetablesPage = (): JSX.Element => {
       {hasErrors() && (
         <ErrorDialog
           isOpen={hasErrors()}
-          retryable={false}
-          onRetry={() => {
-            return undefined;
-          }}
           onCancel={() => setImportErrors([])}
           title={
             errorList.length > 1

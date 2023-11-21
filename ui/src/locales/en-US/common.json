@@ -197,9 +197,6 @@
     "confirmText": "Yes",
     "cancelText": "Return"
   },
-  "errorDialog": {
-    "retry": "Retry"
-  },
   "priority": {
     "label": "Priority",
     "standard": "Standard",

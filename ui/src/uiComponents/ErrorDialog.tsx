@@ -6,13 +6,10 @@ import { SimpleButton } from './SimpleButton';
 
 const testIds = {
   closeButton: 'ErrorDialog::closeButton',
-  retryButton: 'ErrorDialog::retryButton',
 };
 
 interface Props {
   isOpen: boolean;
-  retryable: boolean;
-  onRetry: () => void;
   onCancel: () => void;
   title: string;
   className?: string;
@@ -22,8 +19,6 @@ interface Props {
 
 export const ErrorDialog: React.FC<Props> = ({
   isOpen,
-  retryable,
-  onRetry,
   onCancel,
   title,
   className = '',
@@ -64,16 +59,6 @@ export const ErrorDialog: React.FC<Props> = ({
             >
               {t('close')}
             </SimpleButton>
-            {retryable && (
-              <SimpleButton
-                key="retryButton"
-                testId={testIds.retryButton}
-                inverted={false}
-                onClick={onRetry}
-              >
-                {t('errorDialog.retry')}
-              </SimpleButton>
-            )}
           </div>
         </div>
       </div>
