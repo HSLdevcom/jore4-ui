@@ -461,10 +461,9 @@ describe('Common substitute operating periods', () => {
         '2024-12-31',
       );
 
-      cy.wait([
-        '@gqlGetSubstituteOperatingPeriods',
-        '@gqlGetSubstituteOperatingPeriods',
-      ]);
+      substituteDaySettingsPage.commonSubstitutePeriodForm
+        .getLoadingIndicator()
+        .should('not.exist');
 
       substituteDaySettingsPage.commonSubstitutePeriodForm.removeCommonSubstituteDay(
         'Tapaninpäivä 2024',

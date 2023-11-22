@@ -32,4 +32,10 @@ export class CommonSubstitutePeriodForm {
     );
     this.getSaveButton().click();
   }
+
+  getLoadingIndicator() {
+    return cy.getByTestId(
+      'CommonSubstitutePeriodForm::LoadingCommonSubstitutePeriods',
+    );
+  }
 }
