@@ -12,11 +12,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
       >
         <td
           class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
-        >
-          <i
-            class="icon-_-placeholder my-auto flex text-3xl"
-          />
-        </td>
+        />
         <td
           class="w-full py-4 border-y border-y-light-grey"
         >
@@ -117,11 +113,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
       >
         <td
           class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
-        >
-          <i
-            class="icon-_-placeholder my-auto flex text-3xl"
-          />
-        </td>
+        />
         <td
           class="w-full py-4 border-y border-y-light-grey"
         >
@@ -222,11 +214,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
       >
         <td
           class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
-        >
-          <i
-            class="icon-_-placeholder my-auto flex text-3xl"
-          />
-        </td>
+        />
         <td
           class="w-full py-4 border-y border-y-light-grey"
         >
@@ -327,11 +315,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
       >
         <td
           class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
-        >
-          <i
-            class="icon-_-placeholder my-auto flex text-3xl"
-          />
-        </td>
+        />
         <td
           class="w-full py-4 border-y border-y-light-grey"
         >
@@ -444,11 +428,7 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
       >
         <td
           class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
-        >
-          <i
-            class="icon-_-placeholder my-auto flex text-3xl"
-          />
-        </td>
+        />
         <td
           class="w-full py-4 border-y border-y-light-grey"
         >
@@ -564,11 +544,7 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
       >
         <td
           class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
-        >
-          <i
-            class="icon-_-placeholder my-auto flex text-3xl"
-          />
-        </td>
+        />
         <td
           class="w-full py-4 border-y border-y-light-grey"
         >
