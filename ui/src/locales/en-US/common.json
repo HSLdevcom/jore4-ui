@@ -528,5 +528,15 @@
     "friday": "Friday",
     "saturday": "Saturday",
     "sunday": "Sunday"
+  },
+  "alert": {
+    "important": {
+      "topic": "Validity ending without continity",
+      "description": "Validity will end within 20 days and there is no incoming replacement."
+    },
+    "warning": {
+      "topic": "Temporary version will change",
+      "description": "Validity will end within 20 days."
+    }
   }
 }
